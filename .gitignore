@@ -1,0 +1,7 @@
+# Intellij #
+out/
+run/
+target/
+.idea/
+*.ini
+*.iml
