@@ -5962,22 +5962,6 @@ public class Shaders
         return isRenderingFirstPersonHand;
     }
 
-    public static void beginBeacon()
-    {
-        if (isRenderingWorld)
-        {
-            useProgram(ProgramBeaconBeam);
-        }
-    }
-
-    public static void endBeacon()
-    {
-        if (isRenderingWorld)
-        {
-            useProgram(ProgramBlock);
-        }
-    }
-
     public static ClientWorld getCurrentWorld()
     {
         return currentWorld;
@@ -5986,11 +5970,6 @@ public class Shaders
     public static BlockPos getCameraPosition()
     {
         return new BlockPos(cameraPositionX, cameraPositionY, cameraPositionZ);
-    }
-
-    public static boolean isCustomUniforms()
-    {
-        return customUniforms != null;
     }
 
     public static boolean canRenderQuads()
