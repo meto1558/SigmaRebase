@@ -7,19 +7,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 
 public class Class7905 implements Class7904 {
-   private static String[] field33860;
-   private File field33861;
+   private final File file;
 
-   public Class7905(File var1) {
-      this.field33861 = var1;
+   public Class7905(File fileIn) {
+      this.file = fileIn;
    }
 
    @Override
    public URL method26475(String var1) {
       try {
-         File var4 = new File(this.field33861, var1);
+         File var4 = new File(this.file, var1);
          if (!var4.exists()) {
             var4 = new File(var1);
          }
@@ -33,12 +33,12 @@ public class Class7905 implements Class7904 {
    @Override
    public InputStream method26476(String var1) {
       try {
-         File var4 = new File(this.field33861, var1);
-         if (!var4.exists()) {
-            var4 = new File(var1);
+         File nFile = new File(this.file, var1);
+         if (!nFile.exists()) {
+            nFile = new File(var1);
          }
 
-         return new FileInputStream(var4);
+         return Files.newInputStream(nFile.toPath());
       } catch (IOException var5) {
          return null;
       }

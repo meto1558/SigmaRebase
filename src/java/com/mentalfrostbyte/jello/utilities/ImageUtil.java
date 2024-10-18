@@ -1,4 +1,5 @@
 package com.mentalfrostbyte.jello.utilities;
+import com.mentalfrostbyte.jello.gui.GuiManager;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;

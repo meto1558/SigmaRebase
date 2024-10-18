@@ -30,7 +30,7 @@ public class KeyBinding implements Comparable<KeyBinding>
     private final String keyDescription;
     private final InputMappings.Input keyCodeDefault;
     private final String keyCategory;
-    private InputMappings.Input keyCode;
+    public InputMappings.Input keyCode;
     private boolean pressed;
     private int pressTime;
 

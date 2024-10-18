@@ -91,9 +91,7 @@ public final class Biome
     public static final Codec<Supplier<Biome>> BIOME_CODEC = RegistryKeyCodec.create(Registry.BIOME_KEY, CODEC);
     public static final Codec<List<Supplier<Biome>>> BIOMES_CODEC = RegistryKeyCodec.getValueCodecs(Registry.BIOME_KEY, CODEC);
     private final Map < Integer, List < Structure<? >>> biomeStructures = Registry.STRUCTURE_FEATURE.stream().collect(Collectors.groupingBy((structure) ->
-    {
-        return structure.func_236396_f_().ordinal();
-    }));
+            structure.func_236396_f_().ordinal()));
     private static final PerlinNoiseGenerator TEMPERATURE_NOISE = new PerlinNoiseGenerator(new SharedSeedRandom(1234L), ImmutableList.of(0));
     private static final PerlinNoiseGenerator FROZEN_TEMPERATURE_NOISE = new PerlinNoiseGenerator(new SharedSeedRandom(3456L), ImmutableList.of(-2, -1, 0));
     public static final PerlinNoiseGenerator INFO_NOISE = new PerlinNoiseGenerator(new SharedSeedRandom(2345L), ImmutableList.of(0));
@@ -105,18 +103,16 @@ public final class Biome
     private final Biome.Category category;
     private final BiomeAmbience effects;
     private final ThreadLocal<Long2FloatLinkedOpenHashMap> temperatureCache = ThreadLocal.withInitial(() ->
-    {
-        return Util.make(() -> {
-            Long2FloatLinkedOpenHashMap long2floatlinkedopenhashmap = new Long2FloatLinkedOpenHashMap(1024, 0.25F)
-            {
-                protected void rehash(int p_rehash_1_)
+            Util.make(() -> {
+                Long2FloatLinkedOpenHashMap long2floatlinkedopenhashmap = new Long2FloatLinkedOpenHashMap(1024, 0.25F)
                 {
-                }
-            };
-            long2floatlinkedopenhashmap.defaultReturnValue(Float.NaN);
-            return long2floatlinkedopenhashmap;
-        });
-    });
+                    protected void rehash(int p_rehash_1_)
+                    {
+                    }
+                };
+                long2floatlinkedopenhashmap.defaultReturnValue(Float.NaN);
+                return long2floatlinkedopenhashmap;
+            }));
 
     private Biome(Biome.Climate climate, Biome.Category category, float depth, float scale, BiomeAmbience effects, BiomeGenerationSettings biomeGenerationSettings, MobSpawnInfo mobSpawnInfo)
     {
@@ -278,17 +274,13 @@ public final class Biome
                     try
                     {
                         structureManager.func_235011_a_(SectionPos.from(pos), structure).forEach((structureStart) ->
-                        {
-                            structureStart.func_230366_a_(worldGenRegion, structureManager, chunkGenerator, rand, new MutableBoundingBox(j1, k1, j1 + 15, k1 + 15), new ChunkPos(l, i1));
-                        });
+                                structureStart.func_230366_a_(worldGenRegion, structureManager, chunkGenerator, rand, new MutableBoundingBox(j1, k1, j1 + 15, k1 + 15), new ChunkPos(l, i1)));
                     }
                     catch (Exception exception)
                     {
                         CrashReport crashreport = CrashReport.makeCrashReport(exception, "Feature placement");
                         crashreport.makeCategory("Feature").addDetail("Id", Registry.STRUCTURE_FEATURE.getKey(structure)).addDetail("Description", () ->
-                        {
-                            return structure.toString();
-                        });
+                                structure.toString());
                         throw new ReportedException(crashreport);
                     }
 
@@ -311,9 +303,7 @@ public final class Biome
                     {
                         CrashReport crashreport1 = CrashReport.makeCrashReport(exception1, "Feature placement");
                         crashreport1.makeCategory("Feature").addDetail("Id", Registry.FEATURE.getKey(configuredfeature.feature)).addDetail("Config", configuredfeature.config).addDetail("Description", () ->
-                        {
-                            return configuredfeature.feature.toString();
-                        });
+                                configuredfeature.feature.toString());
                         throw new ReportedException(crashreport1);
                     }
 
@@ -662,17 +652,11 @@ public final class Biome
     static class Climate
     {
         public static final MapCodec<Biome.Climate> CODEC = RecordCodecBuilder.mapCodec((builder) ->
-        {
-            return builder.group(Biome.RainType.CODEC.fieldOf("precipitation").forGetter((precipitation) -> {
-                return precipitation.precipitation;
-            }), Codec.FLOAT.fieldOf("temperature").forGetter((climate) -> {
-                return climate.temperature;
-            }), Biome.TemperatureModifier.CODEC.optionalFieldOf("temperature_modifier", Biome.TemperatureModifier.NONE).forGetter((climate) -> {
-                return climate.temperatureModifier;
-            }), Codec.FLOAT.fieldOf("downfall").forGetter((climate) -> {
-                return climate.downfall;
-            })).apply(builder, Biome.Climate::new);
-        });
+                builder.group(RainType.CODEC.fieldOf("precipitation").forGetter((precipitation) -> precipitation.precipitation),
+                        Codec.FLOAT.fieldOf("temperature").forGetter((climate) -> climate.temperature),
+                        TemperatureModifier.CODEC.optionalFieldOf("temperature_modifier", TemperatureModifier.NONE).forGetter((climate) -> climate.temperatureModifier),
+                        Codec.FLOAT.fieldOf("downfall").forGetter((climate) -> climate.downfall)
+                ).apply(builder, Climate::new));
         private final Biome.RainType precipitation;
         private final float temperature;
         private final Biome.TemperatureModifier temperatureModifier;

@@ -109,8 +109,7 @@ public class ClientChunkProvider extends AbstractChunkProvider
     @Nullable
     public Chunk loadChunk(int chunkX, int chunkZ, @Nullable BiomeContainer biomeContainerIn, PacketBuffer packetIn, CompoundNBT nbtTagIn, int sizeIn, boolean p_228313_7_)
     {
-        if (!this.array.inView(chunkX, chunkZ))
-        {
+        if (!array.inView(chunkX, chunkZ)) {
             LOGGER.warn("Ignoring chunk since it's not in the view range: {}, {}", chunkX, chunkZ);
             return null;
         }

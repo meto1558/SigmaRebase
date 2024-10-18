@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class Class7903 implements Class7904 {
-   private static String[] field33859;
 
    @Override
    public URL method26475(String var1) {

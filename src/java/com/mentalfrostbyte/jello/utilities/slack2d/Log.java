@@ -1,9 +1,5 @@
 package com.mentalfrostbyte.jello.utilities.slack2d;
 
-import mapped.Class2540;
-import mapped.Class6622;
-import mapped.Class6623;
-
 import java.security.AccessController;
 
 public final class Log {
