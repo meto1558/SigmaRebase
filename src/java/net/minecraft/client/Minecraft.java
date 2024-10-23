@@ -34,7 +34,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -42,6 +41,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
+
+import de.florianmichael.viamcp.ViaMCP;
+import de.florianmichael.viamcp.fixes.AttackOrder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -284,9 +286,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /** The FrameTimer's instance */
     public final FrameTimer frameTimer = new FrameTimer();
     private final boolean jvm64bit;
-    private final boolean isDemo;
-    private final boolean enableMultiplayer;
-    private final boolean enableChat;
     private final IReloadableResourceManager resourceManager;
     private final DownloadingPackFinder packFinder;
     private final ResourcePackList resourcePackRepository;
@@ -300,7 +299,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final Splashes splashes;
     private final GPUWarning warningGPU;
     private final MinecraftSessionService sessionService;
-    private final SocialInteractionsService field_244734_au;
     private final SkinManager skinManager;
     private final ModelManager modelManager;
 
@@ -376,6 +374,8 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private IProfileResult profilerResult;
     private String debugProfilerName = "root";
 
+    private final SocialInteractionsService field_244734_au;
+
     public Minecraft(GameConfiguration gameConfig)
     {
         super("Client");
@@ -395,9 +395,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.session = gameConfig.userInfo.session;
         LOGGER.info("Setting user: {}", (Object)this.session.getUsername());
         LOGGER.debug("(Session ID is {})", (Object)this.session.getSessionID());
-        this.isDemo = gameConfig.gameInfo.isDemo;
-        this.enableMultiplayer = !gameConfig.gameInfo.disableMultiplayer;
-        this.enableChat = !gameConfig.gameInfo.disableChat;
         this.jvm64bit = isJvm64bit();
         this.integratedServer = null;
         String s;
@@ -491,7 +488,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.renderTypeBuffers = new RenderTypeBuffers();
         this.gameRenderer = new GameRenderer(this, this.resourceManager, this.renderTypeBuffers);
         this.resourceManager.addReloadListener(this.gameRenderer);
-        this.field_244597_aC = new FilterManager(this, this.field_244734_au);
+        this.field_244597_aC = new FilterManager(this, field_244734_au);
         this.blockRenderDispatcher = new BlockRendererDispatcher(this.modelManager.getBlockModelShapes(), this.blockColors);
         this.resourceManager.addReloadListener(this.blockRenderDispatcher);
         this.worldRenderer = new WorldRenderer(this, this.renderTypeBuffers);
@@ -520,6 +517,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.mainWindow.setRawMouseInput(this.gameSettings.rawMouseInput);
         this.mainWindow.setLogOnGlError();
         this.updateWindowSize();
+        ViaMCP.create();
 
         if (s != null)
         {
@@ -551,11 +549,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private String getWindowTitle()
     {
         StringBuilder stringbuilder = new StringBuilder("Minecraft");
-
-        if (this.isModdedClient())
-        {
-            stringbuilder.append("*");
-        }
 
         stringbuilder.append(" ");
         stringbuilder.append(SharedConstants.getVersion().getName());
@@ -597,11 +590,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             LOGGER.error("Failed to verify authentication", (Throwable)authenticationexception);
             return new OfflineSocialInteractions();
         }
-    }
-
-    public boolean isModdedClient()
-    {
-        return !"vanilla".equals(ClientBrandRetriever.getClientModName()) || Minecraft.class.getSigners() == null;
     }
 
     private void restoreResourcePacks(Throwable throwableIn)
@@ -944,14 +932,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
     private void openChatScreen(String defaultText)
     {
-        if (!this.isIntegratedServerRunning() && !this.isChatEnabled())
-        {
-            if (this.player != null)
-            {
-                this.player.sendMessage((new TranslationTextComponent("chat.cannotSend")).mergeStyle(TextFormatting.RED), Util.DUMMY_UUID);
-            }
-        }
-        else
+        if (!this.isIntegratedServerRunning())
         {
             this.displayGuiScreen(new ChatScreen(defaultText));
         }
@@ -1564,7 +1545,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 switch (this.objectMouseOver.getType())
                 {
                     case ENTITY:
-                        this.playerController.attackEntity(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity());
+                        AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
                         break;
 
                     case BLOCK:
@@ -1586,7 +1567,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                         this.player.resetCooldown();
                 }
 
-                this.player.swingArm(Hand.MAIN_HAND);
+                AttackOrder.sendConditionalSwing(this.objectMouseOver, Hand.MAIN_HAND);
             }
         }
     }
@@ -2402,31 +2383,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     public boolean isMultiplayerEnabled()
     {
         return true;
-    }
-
-    public boolean cannotSendChatMessages(UUID playerUUID)
-    {
-        if (this.isChatEnabled())
-        {
-            return this.field_244597_aC.func_244756_c(playerUUID);
-        }
-        else
-        {
-            return (this.player == null || !playerUUID.equals(this.player.getUniqueID())) && !playerUUID.equals(Util.DUMMY_UUID);
-        }
-    }
-
-    public boolean isChatEnabled()
-    {
-        return this.enableChat && this.field_244734_au.chatAllowed();
-    }
-
-    /**
-     * Gets whether this is a demo or not.
-     */
-    public final boolean isDemo()
-    {
-        return this.isDemo;
     }
 
     @Nullable

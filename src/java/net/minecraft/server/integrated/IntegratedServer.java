@@ -53,7 +53,6 @@ public class IntegratedServer extends MinecraftServer
     {
         super(p_i232494_1_, p_i232494_3_, p_i232494_4_, p_i232494_7_, p_i232494_5_, p_i232494_2_.getProxy(), p_i232494_2_.getDataFixer(), p_i232494_6_, p_i232494_8_, p_i232494_9_, p_i232494_10_, p_i232494_11_);
         this.setServerOwner(p_i232494_2_.getSession().getUsername());
-        this.setDemo(p_i232494_2_.isDemo());
         this.setBuildLimit(256);
         this.setPlayerList(new IntegratedPlayerList(this, this.field_240767_f_, this.playerDataManager));
         this.mc = p_i232494_2_;

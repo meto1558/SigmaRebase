@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.screen;
 
+import com.mentalfrostbyte.jello.gui.impl.JelloPortalScreen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import java.util.List;
 import net.minecraft.client.gui.DialogTexts;
@@ -10,6 +11,7 @@ import net.minecraft.client.network.LanServerDetector;
 import net.minecraft.client.network.LanServerInfo;
 import net.minecraft.client.network.ServerPinger;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
@@ -152,7 +154,7 @@ public class MultiplayerScreen extends Screen
 
     private void refreshServerList()
     {
-        this.minecraft.displayGuiScreen(new MultiplayerScreen(this.parentScreen));
+        this.minecraft.displayGuiScreen(new JelloPortalScreen(this.parentScreen));
     }
 
     private void func_214285_a(boolean p_214285_1_)

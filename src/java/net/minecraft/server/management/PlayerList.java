@@ -478,14 +478,7 @@ public abstract class PlayerList
         ServerWorld serverworld = this.server.func_241755_D_();
         PlayerInteractionManager playerinteractionmanager;
 
-        if (this.server.isDemo())
-        {
-            playerinteractionmanager = new DemoPlayerInteractionManager(serverworld);
-        }
-        else
-        {
-            playerinteractionmanager = new PlayerInteractionManager(serverworld);
-        }
+        playerinteractionmanager = new PlayerInteractionManager(serverworld);
 
         return new ServerPlayerEntity(this.server, serverworld, profile, playerinteractionmanager);
     }
@@ -512,14 +505,7 @@ public abstract class PlayerList
         ServerWorld serverworld1 = serverworld != null && optional.isPresent() ? serverworld : this.server.func_241755_D_();
         PlayerInteractionManager playerinteractionmanager;
 
-        if (this.server.isDemo())
-        {
-            playerinteractionmanager = new DemoPlayerInteractionManager(serverworld1);
-        }
-        else
-        {
-            playerinteractionmanager = new PlayerInteractionManager(serverworld1);
-        }
+        playerinteractionmanager = new PlayerInteractionManager(serverworld1);
 
         ServerPlayerEntity serverplayerentity = new ServerPlayerEntity(this.server, serverworld1, p_232644_1_.getGameProfile(), playerinteractionmanager);
         serverplayerentity.connection = p_232644_1_.connection;

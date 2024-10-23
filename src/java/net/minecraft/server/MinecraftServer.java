@@ -158,7 +158,6 @@ public abstract class MinecraftServer extends RecursiveEventLoop<TickDelayedTask
 {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final File USER_CACHE_FILE = new File("usercache.json");
-    public static final WorldSettings DEMO_WORLD_SETTINGS = new WorldSettings("Demo World", GameType.SURVIVAL, false, Difficulty.NORMAL, false, new GameRules(), DatapackCodec.VANILLA_CODEC);
     protected final SaveFormat.LevelSave anvilConverterForAnvilFile;
     protected final PlayerData playerDataManager;
     private final Snooper snooper = new Snooper("server", this, Util.milliTime());
@@ -192,7 +191,6 @@ public abstract class MinecraftServer extends RecursiveEventLoop<TickDelayedTask
     private KeyPair serverKeyPair;
     @Nullable
     private String serverOwner;
-    private boolean isDemo;
 
     /** The texture pack for the server */
     private String resourcePackUrl = "";
@@ -1280,22 +1278,6 @@ public abstract class MinecraftServer extends RecursiveEventLoop<TickDelayedTask
     protected boolean func_230536_N_()
     {
         return this.field_240768_i_.getDifficulty() != Difficulty.PEACEFUL;
-    }
-
-    /**
-     * Gets whether this is a demo or not.
-     */
-    public boolean isDemo()
-    {
-        return this.isDemo;
-    }
-
-    /**
-     * Sets whether this is a demo or not.
-     */
-    public void setDemo(boolean demo)
-    {
-        this.isDemo = demo;
     }
 
     public String getResourcePackUrl()

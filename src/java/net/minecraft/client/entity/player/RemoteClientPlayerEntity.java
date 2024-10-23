@@ -112,10 +112,6 @@ public class RemoteClientPlayerEntity extends AbstractClientPlayerEntity
     public void sendMessage(ITextComponent component, UUID senderUUID)
     {
         Minecraft minecraft = Minecraft.getInstance();
-
-        if (!minecraft.cannotSendChatMessages(senderUUID))
-        {
-            minecraft.ingameGUI.getChatGUI().printChatMessage(component);
-        }
+        minecraft.ingameGUI.getChatGUI().printChatMessage(component);
     }
 }

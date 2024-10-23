@@ -274,11 +274,6 @@ public class IngameGui extends AbstractGui
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
-        if (this.mc.isDemo())
-        {
-            this.func_238455_c_(matrixStack);
-        }
-
         this.renderPotionIcons(matrixStack);
 
         if (this.mc.gameSettings.showDebugInfo)
@@ -553,11 +548,6 @@ public class IngameGui extends AbstractGui
                     int k = this.scaledWidth;
                     int l = 1;
 
-                    if (this.mc.isDemo())
-                    {
-                        l += 15;
-                    }
-
                     if (effect.isBeneficial())
                     {
                         ++i;
@@ -820,25 +810,6 @@ public class IngameGui extends AbstractGui
             }
         }
 
-        this.mc.getProfiler().endSection();
-    }
-
-    public void func_238455_c_(MatrixStack p_238455_1_)
-    {
-        this.mc.getProfiler().startSection("demo");
-        ITextComponent itextcomponent;
-
-        if (this.mc.world.getGameTime() >= 120500L)
-        {
-            itextcomponent = field_243249_e;
-        }
-        else
-        {
-            itextcomponent = new TranslationTextComponent("demo.remainingTime", StringUtils.ticksToElapsedTime((int)(120500L - this.mc.world.getGameTime())));
-        }
-
-        int i = this.getFontRenderer().getStringPropertyWidth(itextcomponent);
-        this.getFontRenderer().func_243246_a(p_238455_1_, itextcomponent, (float)(this.scaledWidth - i - 10), 5.0F, 16777215);
         this.mc.getProfiler().endSection();
     }
 
@@ -1502,12 +1473,9 @@ public class IngameGui extends AbstractGui
 
     public void func_238450_a_(ChatType p_238450_1_, ITextComponent p_238450_2_, UUID p_238450_3_)
     {
-        if (!this.mc.cannotSendChatMessages(p_238450_3_) && (!this.mc.gameSettings.field_244794_ae || !this.mc.cannotSendChatMessages(this.func_244795_b(p_238450_2_))))
+        for (IChatListener ichatlistener : this.chatListeners.get(p_238450_1_))
         {
-            for (IChatListener ichatlistener : this.chatListeners.get(p_238450_1_))
-            {
-                ichatlistener.say(p_238450_1_, p_238450_2_, p_238450_3_);
-            }
+            ichatlistener.say(p_238450_1_, p_238450_2_, p_238450_3_);
         }
     }
 

@@ -92,15 +92,6 @@ public class DimensionGeneratorSettings
         this.field_236209_i_ = p_i231915_6_;
     }
 
-    public static DimensionGeneratorSettings func_242752_a(DynamicRegistries p_242752_0_)
-    {
-        Registry<Biome> registry = p_242752_0_.getRegistry(Registry.BIOME_KEY);
-        int i = "North Carolina".hashCode();
-        Registry<DimensionType> registry1 = p_242752_0_.getRegistry(Registry.DIMENSION_TYPE_KEY);
-        Registry<DimensionSettings> registry2 = p_242752_0_.getRegistry(Registry.NOISE_SETTINGS_KEY);
-        return new DimensionGeneratorSettings((long)i, true, true, func_242749_a(registry1, DimensionType.getDefaultSimpleRegistry(registry1, registry, registry2, (long)i), func_242750_a(registry, registry2, (long)i)));
-    }
-
     public static DimensionGeneratorSettings func_242751_a(Registry<DimensionType> p_242751_0_, Registry<Biome> p_242751_1_, Registry<DimensionSettings> p_242751_2_)
     {
         long i = (new Random()).nextLong();

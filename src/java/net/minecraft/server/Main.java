@@ -61,7 +61,6 @@ public class Main
         OptionParser optionparser = new OptionParser();
         OptionSpec<Void> optionspec = optionparser.accepts("nogui");
         OptionSpec<Void> optionspec1 = optionparser.accepts("initSettings", "Initializes 'server.properties' and 'eula.txt', then quits");
-        OptionSpec<Void> optionspec2 = optionparser.accepts("demo");
         OptionSpec<Void> optionspec3 = optionparser.accepts("bonusChest");
         OptionSpec<Void> optionspec4 = optionparser.accepts("forceUpgrade");
         OptionSpec<Void> optionspec5 = optionparser.accepts("eraseCache");
@@ -149,17 +148,9 @@ public class Main
                 WorldSettings worldsettings;
                 DimensionGeneratorSettings dimensiongeneratorsettings;
 
-                if (optionset.has(optionspec2))
-                {
-                    worldsettings = MinecraftServer.DEMO_WORLD_SETTINGS;
-                    dimensiongeneratorsettings = DimensionGeneratorSettings.func_242752_a(dynamicregistries$impl);
-                }
-                else
-                {
-                    ServerProperties serverproperties = serverpropertiesprovider.getProperties();
-                    worldsettings = new WorldSettings(serverproperties.worldName, serverproperties.gamemode, serverproperties.hardcore, serverproperties.difficulty, false, new GameRules(), datapackcodec1);
-                    dimensiongeneratorsettings = optionset.has(optionspec3) ? serverproperties.field_241082_U_.func_236230_k_() : serverproperties.field_241082_U_;
-                }
+                ServerProperties serverproperties = serverpropertiesprovider.getProperties();
+                worldsettings = new WorldSettings(serverproperties.worldName, serverproperties.gamemode, serverproperties.hardcore, serverproperties.difficulty, false, new GameRules(), datapackcodec1);
+                dimensiongeneratorsettings = optionset.has(optionspec3) ? serverproperties.field_241082_U_.func_236230_k_() : serverproperties.field_241082_U_;
 
                 iserverconfiguration = new ServerWorldInfo(worldsettings, dimensiongeneratorsettings, Lifecycle.stable());
             }
@@ -179,7 +170,6 @@ public class Main
                 DedicatedServer dedicatedserver1 = new DedicatedServer(p_240762_16_, dynamicregistries$impl, saveformat$levelsave, resourcepacklist, datapackregistries, iserverconfiguration1, serverpropertiesprovider, DataFixesManager.getDataFixer(), minecraftsessionservice, gameprofilerepository, playerprofilecache, LoggingChunkStatusListener::new);
                 dedicatedserver1.setServerOwner(optionset.valueOf(optionspec8));
                 dedicatedserver1.setServerPort(optionset.valueOf(optionspec11));
-                dedicatedserver1.setDemo(optionset.has(optionspec2));
                 dedicatedserver1.setServerId(optionset.valueOf(optionspec12));
                 boolean flag1 = !optionset.has(optionspec) && !optionset.valuesOf(optionspec13).contains("nogui");
 

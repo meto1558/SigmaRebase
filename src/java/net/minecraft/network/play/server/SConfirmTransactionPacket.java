@@ -1,6 +1,9 @@
 package net.minecraft.network.play.server;
 
 import java.io.IOException;
+
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import net.minecraft.client.network.play.IClientPlayNetHandler;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
@@ -35,9 +38,13 @@ public class SConfirmTransactionPacket implements IPacket<IClientPlayNetHandler>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.windowId = buf.readUnsignedByte();
-        this.actionNumber = buf.readShort();
-        this.accepted = buf.readBoolean();
+        if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
+            this.windowId = buf.readInt();
+        } else {
+            this.windowId = buf.readUnsignedByte();
+            this.actionNumber = buf.readShort();
+            this.accepted = buf.readBoolean();
+        }
     }
 
     /**

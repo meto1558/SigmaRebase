@@ -50,19 +50,13 @@ public class GameConfiguration
 
     public static class GameInformation
     {
-        public final boolean isDemo;
         public final String version;
         public final String versionType;
-        public final boolean disableMultiplayer;
-        public final boolean disableChat;
 
-        public GameInformation(boolean isDemo, String version, String versionType, boolean disableMultiplayer, boolean disableChat)
+        public GameInformation(String version, String versionType)
         {
-            this.isDemo = isDemo;
             this.version = version;
             this.versionType = versionType;
-            this.disableMultiplayer = disableMultiplayer;
-            this.disableChat = disableChat;
         }
     }
 

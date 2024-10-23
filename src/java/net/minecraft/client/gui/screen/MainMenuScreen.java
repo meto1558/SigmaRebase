@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.screen;
 
 import com.google.common.util.concurrent.Runnables;
+import com.mentalfrostbyte.jello.gui.impl.JelloPortalScreen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -45,7 +46,6 @@ public class MainMenuScreen extends Screen
     private final boolean showTitleWronglySpelled;
     @Nullable
     private String splashText;
-    private Button buttonResetDemo;
     private static final ResourceLocation MINECRAFT_TITLE_TEXTURES = new ResourceLocation("textures/gui/title/minecraft.png");
     private static final ResourceLocation MINECRAFT_TITLE_EDITION = new ResourceLocation("textures/gui/title/edition.png");
 
@@ -120,20 +120,13 @@ public class MainMenuScreen extends Screen
         int j = this.height / 4 + 48;
         Button button = null;
 
-        if (this.minecraft.isDemo())
-        {
-            this.addDemoButtons(j, 24);
-        }
-        else
-        {
-            this.addSingleplayerMultiplayerButtons(j, 24);
+        this.addSingleplayerMultiplayerButtons(j, 24);
 
-            if (Reflector.ModListScreen_Constructor.exists())
-            {
-                button = ReflectorForge.makeButtonMods(this, j, 24);
-                this.addButton(button);
-            }
-        }
+        if (Reflector.ModListScreen_Constructor.exists())
+        {
+            button = ReflectorForge.makeButtonMods(this, j, 24);
+            this.addButton(button);
+        };
 
         this.addButton(new ImageButton(this.width / 2 - 124, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_lambda$init$0_1_) ->
         {
@@ -190,7 +183,7 @@ public class MainMenuScreen extends Screen
         };
         (this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 1, 200, 20, new TranslationTextComponent("menu.multiplayer"), (p_lambda$addSingleplayerMultiplayerButtons$6_1_) ->
         {
-            Screen screen = (Screen)(this.minecraft.gameSettings.skipMultiplayerWarning ? new MultiplayerScreen(this) : new MultiplayerWarningScreen(this));
+            Screen screen = (Screen)(this.minecraft.gameSettings.skipMultiplayerWarning ? new JelloPortalScreen(this) : new MultiplayerWarningScreen(this));
             this.minecraft.displayGuiScreen(screen);
         }, button$itooltip))).active = flag;
         (this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 2, 200, 20, new TranslationTextComponent("menu.online"), (p_lambda$addSingleplayerMultiplayerButtons$7_1_) ->
@@ -204,45 +197,6 @@ public class MainMenuScreen extends Screen
             widget.x = this.width / 2 + 2;
             widget.setWidth(98);
         }
-    }
-
-    /**
-     * Adds Demo buttons on Main Menu for players who are playing Demo.
-     */
-    private void addDemoButtons(int yIn, int rowHeightIn)
-    {
-        boolean flag = this.func_243319_k();
-        this.addButton(new Button(this.width / 2 - 100, yIn, 200, 20, new TranslationTextComponent("menu.playdemo"), (p_lambda$addDemoButtons$8_2_) ->
-        {
-            if (flag)
-            {
-                this.minecraft.loadWorld("Demo_World");
-            }
-            else {
-                DynamicRegistries.Impl dynamicregistries$impl = DynamicRegistries.func_239770_b_();
-                this.minecraft.createWorld("Demo_World", MinecraftServer.DEMO_WORLD_SETTINGS, dynamicregistries$impl, DimensionGeneratorSettings.func_242752_a(dynamicregistries$impl));
-            }
-        }));
-        this.buttonResetDemo = this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 1, 200, 20, new TranslationTextComponent("menu.resetdemo"), (p_lambda$addDemoButtons$9_1_) ->
-        {
-            SaveFormat saveformat = this.minecraft.getSaveLoader();
-
-            try (SaveFormat.LevelSave saveformat$levelsave = saveformat.getLevelSave("Demo_World"))
-            {
-                WorldSummary worldsummary = saveformat$levelsave.readWorldSummary();
-
-                if (worldsummary != null)
-                {
-                    this.minecraft.displayGuiScreen(new ConfirmScreen(this::deleteDemoWorld, new TranslationTextComponent("selectWorld.deleteQuestion"), new TranslationTextComponent("selectWorld.deleteWarning", worldsummary.getDisplayName()), new TranslationTextComponent("selectWorld.deleteButton"), DialogTexts.GUI_CANCEL));
-                }
-            }
-            catch (IOException ioexception1)
-            {
-                SystemToast.func_238535_a_(this.minecraft, "Demo_World");
-                field_238656_b_.warn("Failed to access demo world", (Throwable)ioexception1);
-            }
-        }));
-        this.buttonResetDemo.active = flag;
     }
 
     private boolean func_243319_k()
@@ -334,19 +288,7 @@ public class MainMenuScreen extends Screen
 
             String s = "Minecraft " + SharedConstants.getVersion().getName();
 
-            if (this.minecraft.isDemo())
-            {
-                s = s + " Demo";
-            }
-            else
-            {
-                s = s + ("release".equalsIgnoreCase(this.minecraft.getVersionType()) ? "" : "/" + this.minecraft.getVersionType());
-            }
-
-            if (this.minecraft.isModdedClient())
-            {
-                s = s + I18n.format("menu.modded");
-            }
+            s = s + ("release".equalsIgnoreCase(this.minecraft.getVersionType()) ? "" : "/" + this.minecraft.getVersionType());
 
             if (Reflector.BrandingControl.exists())
             {

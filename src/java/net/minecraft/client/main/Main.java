@@ -44,9 +44,6 @@ public class Main
     {
         OptionParser optionparser = new OptionParser();
         optionparser.allowsUnrecognizedOptions();
-        optionparser.accepts("demo");
-        optionparser.accepts("disableMultiplayer");
-        optionparser.accepts("disableChat");
         optionparser.accepts("fullscreen");
         optionparser.accepts("checkGlErrors");
         OptionSpec<String> optionspec = optionparser.accepts("server").withRequiredArg();
@@ -114,9 +111,6 @@ public class Main
         OptionalInt optionalint = toOptionalInt(getValue(optionset, optionspec16));
         OptionalInt optionalint1 = toOptionalInt(getValue(optionset, optionspec17));
         boolean flag = optionset.has("fullscreen");
-        boolean flag1 = optionset.has("demo");
-        boolean flag2 = optionset.has("disableMultiplayer");
-        boolean flag3 = optionset.has("disableChat");
         String s3 = getValue(optionset, optionspec13);
         Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new Serializer()).create();
         PropertyMap propertymap = JSONUtils.fromJson(gson, getValue(optionset, optionspec18), PropertyMap.class);
@@ -134,7 +128,7 @@ public class Main
         Bootstrap.checkTranslations();
         Util.func_240994_l_();
         Session session = new Session(optionspec10.value(optionset), s5, optionspec12.value(optionset), optionspec21.value(optionset));
-        GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new ScreenSize(i, j, optionalint, optionalint1, flag), new GameConfiguration.FolderInformation(file1, file3, file2, s6), new GameConfiguration.GameInformation(flag1, s3, s4, flag2, flag3), new GameConfiguration.ServerInformation(s7, integer));
+        GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new ScreenSize(i, j, optionalint, optionalint1, flag), new GameConfiguration.FolderInformation(file1, file3, file2, s6), new GameConfiguration.GameInformation(s3, s4), new GameConfiguration.ServerInformation(s7, integer));
         Thread thread = new Thread("Client Shutdown Thread")
         {
             public void run()
