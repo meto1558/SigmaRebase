@@ -3,6 +3,8 @@ package net.minecraft.client;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -503,6 +505,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.resourceManager.addReloadListener(this.potionSprites);
         this.warningGPU = new GPUWarning();
         this.resourceManager.addReloadListener(this.warningGPU);
+        Client.getInstance().start();
         this.ingameGUI = new IngameGui(this);
         this.debugRenderer = new DebugRenderer(this);
         RenderSystem.setErrorCallback(this::disableVSyncAfterGlError);
@@ -530,7 +533,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         ResourceLoadProgressGui.loadLogoTexture(this);
         List<IResourcePack> list = this.resourcePackRepository.func_232623_f_();
-        this.setLoadingGui(new ResourceLoadProgressGui(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
+        this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
         {
             Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
                 if (SharedConstants.developmentMode)
@@ -844,7 +847,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             {
                 this.resourcePackRepository.reloadPacksFromFinders();
                 List<IResourcePack> list = this.resourcePackRepository.func_232623_f_();
-                this.setLoadingGui(new ResourceLoadProgressGui(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
+                this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
                 {
                     Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
                         this.worldRenderer.loadRenderers();

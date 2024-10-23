@@ -147,7 +147,7 @@ public class ResourceLoadProgressGui extends LoadingGui
 
         if (f >= 2.0F)
         {
-            this.mc.setLoadingGui((LoadingGui)null);
+            this.mc.setLoadingGui(null);
         }
 
         if (this.fadeOutStart == -1L && this.asyncReloader.fullyDone() && (!this.reloading || f1 >= 2.0F))
