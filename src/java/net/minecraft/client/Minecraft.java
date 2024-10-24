@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.events.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
@@ -241,6 +243,7 @@ import net.minecraft.world.storage.SaveFormat;
 import net.minecraft.world.storage.ServerWorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONException;
 
 public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperInfo, IWindowEventListener
@@ -554,33 +557,21 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.mainWindow.setWindowTitle(this.getWindowTitle());
     }
 
-    private String getWindowTitle()
-    {
-        StringBuilder stringbuilder = new StringBuilder("Minecraft");
-
+    private String getWindowTitle() {
+        StringBuilder stringbuilder = new StringBuilder(Client.getInstance().clientMode == ClientMode.JELLO ? "Jello for Sigma 5.0" : "Sigma 5.0");
         stringbuilder.append(" ");
         stringbuilder.append(SharedConstants.getVersion().getName());
         ClientPlayNetHandler clientplaynethandler = this.getConnection();
-
-        if (clientplaynethandler != null && clientplaynethandler.getNetworkManager().isChannelOpen())
-        {
+        if (clientplaynethandler != null && clientplaynethandler.getNetworkManager().isChannelOpen()) {
             stringbuilder.append(" - ");
-
-            if (this.integratedServer != null && !this.integratedServer.getPublic())
-            {
+            if (this.integratedServer != null && !this.integratedServer.getPublic()) {
                 stringbuilder.append(I18n.format("title.singleplayer"));
-            }
-            else if (this.isConnectedToRealms())
-            {
+            } else if (this.isConnectedToRealms()) {
                 stringbuilder.append(I18n.format("title.multiplayer.realms"));
-            }
-            else if (this.integratedServer == null && (this.currentServerData == null || !this.currentServerData.isOnLAN()))
-            {
-                stringbuilder.append(I18n.format("title.multiplayer.other"));
-            }
-            else
-            {
+            } else if (this.integratedServer != null || this.currentServerData != null && this.currentServerData.isOnLAN()) {
                 stringbuilder.append(I18n.format("title.multiplayer.lan"));
+            } else {
+                stringbuilder.append(I18n.format("title.multiplayer.other"));
             }
         }
 
@@ -660,6 +651,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                     this.tick(flag1, longtickdetector);
                     this.profiler.startTick();
                     this.runGameLoop(!flag);
+                    Client.getInstance().endTick();
                     this.profiler.endTick();
                     this.func_238210_b_(flag1, longtickdetector);
                 }
@@ -974,6 +966,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         this.currentScreen = guiScreenIn;
         try {
+            System.out.println("setting gui");
             Client.getInstance().guiManager.method33481();
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -1264,6 +1257,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         if (this.currentScreen != null)
         {
             this.currentScreen.resize(this, this.mainWindow.getScaledWidth(), this.mainWindow.getScaledHeight());
+            try {
+                Client.getInstance().guiManager.onResize();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         Framebuffer framebuffer = this.getFramebuffer();

@@ -52,9 +52,9 @@ public class AccountSignUpScreen extends Class4247 {
       this.addToList(this.loadingBox = new UILoadingCircle(this, "loading", 530, 314, 30, 30));
       this.loadingBox.method13296(false);
       this.loadingBox.method13294(true);
-      byte var9 = 50;
-      short var10 = 320;
-      byte var11 = 106;
+      int var9 = 50;
+      int var10 = 320;
+      int var11 = 106;
       ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor, Class2218.field14488, Class2218.field14492);
       this.addToList(this.usernameInputBox = new UIInput(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
       this.usernameInputBox.setFont(ResourceRegistry.JelloLightFont20);

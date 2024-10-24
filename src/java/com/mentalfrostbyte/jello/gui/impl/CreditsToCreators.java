@@ -27,7 +27,7 @@ public class CreditsToCreators extends Screen {
       Class4339 var5;
       this.addToList(var5 = new Class4339(this, "sv", 0, 100, this.widthA, this.heightA - 100));
       int var6 = 0;
-      byte var7 = 20;
+      int var7 = 20;
       String[] var8 = var4.split("\n");
 
       for (String var12 : var8) {
@@ -57,7 +57,6 @@ public class CreditsToCreators extends Screen {
          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, this.field21076.calcPercent() * 0.95F)
       );
       RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, 40.0F, 40.0F, "Credits and third party licensing information", ClientColors.LIGHT_GREYISH_BLUE.getColor);
-      byte var4 = 40;
       super.draw(this.field21076.calcPercent());
    }
 

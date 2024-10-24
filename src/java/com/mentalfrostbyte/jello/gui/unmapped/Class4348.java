@@ -130,8 +130,6 @@ public class Class4348 extends Class4278 {
 
    public void method13576() {
       GL11.glPushMatrix();
-      byte var3 = 44;
-      byte var4 = 44;
       float var5 = EasingFunctions.easeOutBack(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       if (this.field21248.getDirection() == Direction.BACKWARDS) {
          var5 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
@@ -169,8 +167,6 @@ public class Class4348 extends Class4278 {
          this.method13272() + this.method13282() + this.heightA
       );
       GL11.glPushMatrix();
-      byte var9 = 76;
-      byte var10 = 44;
       float var11 = EasingFunctions.easeOutBack(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       if (this.field21248.getDirection() == Direction.BACKWARDS) {
          var11 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
@@ -188,8 +184,8 @@ public class Class4348 extends Class4278 {
             : this.field21244.serverIP.substring(0, 1).toUpperCase() + this.field21244.serverIP.substring(1, this.field21244.serverIP.length()),
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.9F)
       );
-      byte var12 = 94;
-      byte var13 = 46;
+      int var12 = 94;
+      int var13 = 46;
       if (this.field21243.method31735().getTime() != 9223372036854775806L) {
          if (var3 > 0L && this.field21243.method31735().getTime() != Long.MAX_VALUE) {
             RenderUtil.drawString(

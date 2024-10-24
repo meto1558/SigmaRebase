@@ -49,7 +49,7 @@ public class Class4246 extends ButtonPanel {
          float var9 = 0.0F;
       }
 
-      byte var5 = 5;
+      int var5 = 5;
       float var6 = (float)this.getWidthA();
       RenderUtil.drawRoundedRect(
          (float)(this.getXA() + var5),

@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import com.mentalfrostbyte.Client;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.io.FileNotFoundException;
@@ -36,6 +37,7 @@ import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 import org.lwjgl.util.tinyfd.TinyFileDialogs;
+import totalcross.json.JSONException;
 
 public final class MainWindow implements AutoCloseable
 {
@@ -361,6 +363,11 @@ public final class MainWindow implements AutoCloseable
     {
         this.width = windowWidthIn;
         this.height = windowHeightIn;
+        try {
+            Client.getInstance().guiManager.onResize();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void onWindowFocusUpdate(long windowPointer, boolean hasFocus)

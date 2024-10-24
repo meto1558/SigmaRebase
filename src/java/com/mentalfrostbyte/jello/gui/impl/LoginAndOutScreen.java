@@ -152,8 +152,8 @@ public class LoginAndOutScreen extends Screen {
       if (this.field21092) {
          String username = Client.getInstance().networkManager.account.username;
          String welcomeBackSign = "Welcome back";
-         byte var8 = 100;
-         byte var9 = 10;
+         int var8 = 100;
+         int var9 = 10;
          int var10 = var8 + Math.max(ResourceRegistry.JelloMediumFont40.getStringWidth(welcomeBackSign), ResourceRegistry.JelloLightFont36.getStringWidth(username)) + var9 * 10;
          int var11 = (this.widthA - var10) / 2;
          int var12 = (this.heightA - var8 * 2) / 2;

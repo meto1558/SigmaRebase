@@ -66,8 +66,6 @@ public class Class4277 extends Class4247 {
 
    @Override
    public void draw(float var1) {
-      byte var4 = 3;
-      byte var5 = 6;
       int var6 = this.getHeightA() / 4;
       int var7 = this.getWidthA() - this.field20734.getWidthA() / 2 - 3;
       int var8 = this.getXA() + this.field20734.getWidthA() / 4 + 3;

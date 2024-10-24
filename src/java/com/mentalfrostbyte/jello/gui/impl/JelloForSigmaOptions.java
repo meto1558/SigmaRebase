@@ -22,13 +22,8 @@ public class JelloForSigmaOptions extends IngameMenuScreen {
          field4622 = new Date();
          Client.getInstance().getLogger().info("Saving profiles...");
 
-         try {
-            Client.getInstance().moduleManager.getConfigurationManager().saveAndReplaceConfigs();
-            Client.getInstance().saveClientData();
-         } catch (IOException var4) {
-            var4.printStackTrace();
-            Client.getInstance().getLogger().warn("Unable to save mod profiles...");
-         }
+          //Client.getInstance().moduleManager.getConfigurationManager().saveAndReplaceConfigs();
+          Client.getInstance().saveClientData();
       }
    }
 

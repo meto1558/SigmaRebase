@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
+import com.mentalfrostbyte.Client;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -187,6 +188,7 @@ public class IngameGui extends AbstractGui
             RenderSystem.defaultBlendFunc();
         }
 
+        Client.getInstance().method19926();
         ItemStack itemstack = this.mc.player.inventory.armorItemInSlot(3);
 
         if (this.mc.gameSettings.getPointOfView().func_243192_a() && itemstack.getItem() == Blocks.CARVED_PUMPKIN.asItem())

@@ -11,10 +11,7 @@ import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ModuleManager {
 
@@ -22,6 +19,36 @@ public class ModuleManager {
     private Class6814 profile;
     private MacOSTouchBar macOSTouchBar;
     private List<Module> modules;
+
+    private void createModules() {
+        this.modules = new ArrayList<>();
+    }
+
+    private void register(Module var1) {
+        this.modules.add(var1);
+    }
+
+    private void sortBySuffixAndRegisterEvents() {
+        this.modules.sort(Comparator.comparing(Module::getSuffix));
+
+        for (Module mod : this.modules) {
+            EventBus.register(mod);
+            this.moduleMap.put(mod.getClass(), mod);
+        }
+    }
+
+    public void register(ClientMode clientMode) {
+        this.createModules();
+        if (clientMode != ClientMode.JELLO) {
+            if (clientMode == ClientMode.CLASSIC) {
+                this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
+            }
+        } else {
+
+        }
+
+        this.sortBySuffixAndRegisterEvents();
+    }
 
     public Map<Class<? extends Module>, Module> getModuleMap() {
         return moduleMap;

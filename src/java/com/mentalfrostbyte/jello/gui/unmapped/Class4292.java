@@ -79,7 +79,7 @@ public class Class4292 extends Class4278 implements Class4293 {
    @Override
    public void draw(float var1) {
       var1 *= this.field20794;
-      byte var4 = 5;
+      int var4 = 5;
       int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.2F * var1);
       int var6 = this.xA;
       int var7 = this.widthA;

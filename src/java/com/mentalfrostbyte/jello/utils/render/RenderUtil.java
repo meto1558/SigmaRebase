@@ -749,4 +749,74 @@ public class RenderUtil {
         RenderSystem.enableAlphaTest();
         RenderSystem.enableTexture();
     }
+
+    public static void method11432(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+        float var10 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var11 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var12 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var13 = (float)(var4 & 0xFF) / 255.0F;
+        float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
+        float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
+        float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
+        float var17 = (float)(var5 & 0xFF) / 255.0F;
+        float var18 = (float)(var6 >> 24 & 0xFF) / 255.0F;
+        float var19 = (float)(var6 >> 16 & 0xFF) / 255.0F;
+        float var20 = (float)(var6 >> 8 & 0xFF) / 255.0F;
+        float var21 = (float)(var6 & 0xFF) / 255.0F;
+        float var22 = (float)(var7 >> 24 & 0xFF) / 255.0F;
+        float var23 = (float)(var7 >> 16 & 0xFF) / 255.0F;
+        float var24 = (float)(var7 >> 8 & 0xFF) / 255.0F;
+        float var25 = (float)(var7 & 0xFF) / 255.0F;
+        RenderSystem.disableTexture();
+        RenderSystem.enableBlend();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.shadeModel(7425);
+        Tessellator var26 = Tessellator.getInstance();
+        BufferBuilder var27 = var26.getBuffer();
+        var27.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        var27.pos((double)var2, (double)var1, 0.0).color(var15, var16, var17, var14).endVertex();
+        var27.pos((double)var0, (double)var1, 0.0).color(var11, var12, var13, var10).endVertex();
+        var27.pos((double)var0, (double)var3, 0.0).color(var23, var24, var25, var22).endVertex();
+        var27.pos((double)var2, (double)var3, 0.0).color(var19, var20, var21, var18).endVertex();
+        var26.draw();
+        RenderSystem.shadeModel(7424);
+        RenderSystem.disableBlend();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.enableTexture();
+    }
+
+    public static void renderCategoryBox(float var0, float var1, float var2, int var3, int var4) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        Tessellator var7 = Tessellator.getInstance();
+        BufferBuilder var8 = var7.getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+        GL11.glColor4fv(ColorUtils.method17709(var3));
+        GL11.glEnable(2881);
+        GL11.glBegin(4);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
+        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
+        GL11.glEnd();
+        GL11.glLineWidth(2.0F);
+        GL11.glColor4fv(ColorUtils.method17709(var4));
+        GL11.glBegin(3);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
+        GL11.glEnd();
+        GL11.glBegin(3);
+        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
+        GL11.glEnd();
+        GL11.glBegin(3);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
+        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
+        GL11.glEnd();
+        GL11.glDisable(2881);
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
 }

@@ -35,17 +35,10 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    public MainmenuScreen2(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.method13300(false);
-      boolean var9 = false;
-      boolean var10 = false;
-      byte var11 = 2;
-      byte var12 = 2;
-      short var13 = 128;
-      short var14 = 128;
       ClientResource var15 = ResourceRegistry.JelloLightFont20;
-      ClientResource var16 = ResourceRegistry.JelloLightFont18;
       int var17 = 0;
-      byte var18 = 80;
-      byte var19 = 10;
+      int var18 = 80;
+      int var19 = 10;
       String var20 = "© Sigma Prod";
       StringBuilder var10000 = new StringBuilder().append("Jello for Sigma ");
       Client.getInstance();
@@ -210,8 +203,8 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    @Override
    public void method13028(int var1, int var2) {
       this.field21128.setEnabled(!Client.getInstance().networkManager.isPremium());
-      byte var5 = 30;
-      byte var6 = 90;
+      int var5 = 30;
+      int var6 = 90;
       this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
       this.field21133.setXA(var5 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
       super.method13028(var1, var2);
@@ -232,11 +225,6 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    }
 
    private int method13447(int var1) {
-      short var4 = 128;
-      short var5 = 128;
-      byte var6 = 5;
-      byte var7 = -6;
-      short var8 = 610;
       return this.getWidthA() / 2 - 305 + var1 * 128 + var1 * -6;
    }
 

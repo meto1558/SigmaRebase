@@ -3,17 +3,26 @@ package com.mentalfrostbyte;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import com.mentalfrostbyte.jello.events.impl.EventRender2D;
+import com.mentalfrostbyte.jello.events.impl.EventWriter;
 import com.mentalfrostbyte.jello.managers.*;
+import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import com.mentalfrostbyte.jello.utils.ClientLogger;
 import com.mentalfrostbyte.jello.utils.FileUtil;
 import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureManager;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
+import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Client {
@@ -72,8 +81,88 @@ public class Client {
         this.logger.info("Initialized.");
     }
 
+    public void shutdown() {
+        this.logger.info("Shutting down...");
+
+        try {
+            if (this.guiManager != null) {
+                this.guiManager.method33468(this.config);
+            }
+
+            if (this.moduleManager != null) {
+                this.moduleManager.method14660(this.config);
+            }
+
+            EventWriter var3 = new EventWriter(this.config);
+            EventBus.call(var3);
+
+            FileUtil.save(var3.getFile(), new File(this.file + "/config.json"));
+        } catch (IOException var4) {
+            this.logger.error("Unable to shutdown correctly. Config may be corrupt?");
+            var4.printStackTrace();
+        }
+
+        this.logger.info("Done.");
+    }
+
+    public void endTick() {
+        this.guiManager.endTick();
+    }
+
+    public void method19926() {
+        GL11.glPushMatrix();
+        double var3 = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+        GL11.glScaled(var3, var3, var3);
+        GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, GuiManager.scaleFactor);
+        GL11.glDisable(2912);
+        RenderSystem.disableDepthTest();
+        RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
+        RenderSystem.alphaFunc(519, 0.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(2896);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        EventBus.call(new EventRender2D());
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.enableCull();
+        RenderSystem.disableDepthTest();
+        RenderSystem.enableBlend();
+        RenderSystem.alphaFunc(518, 0.1F);
+        GL11.glPopMatrix();
+    }
+
     public void method19927(Texture var1) {
         textureList.add(var1);
+    }
+
+    public void method19928() {
+        if (!textureList.isEmpty()) {
+            try {
+                for (Texture var4 : textureList) {
+                    var4.release();
+                }
+
+                textureList.clear();
+            } catch (ConcurrentModificationException var7) {
+            }
+        }
+
+        if (getInstance().clientMode != ClientMode.NOADDONS) {
+            double var5 = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+            GL11.glScaled(var5, var5, 1.0);
+            GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, 1.0);
+            RenderSystem.disableDepthTest();
+            RenderSystem.pushMatrix();
+            RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
+            this.guiManager.method33464();
+            RenderSystem.popMatrix();
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableAlphaTest();
+            GL11.glAlphaFunc(518, 0.1F);
+            TextureManager var10000 = mc.getTextureManager();
+            mc.getTextureManager();
+            var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+        }
     }
 
     public DiscordRichPresence getDRPC() {
@@ -112,6 +201,13 @@ public class Client {
         } else {
             getInstance().guiManager.method33452();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma 5.0");
+        }
+
+        if (this.moduleManager == null && RandomModuleThread.field8341 != null) {
+            this.moduleManager = new ModuleManager();
+            this.moduleManager.register(this.clientMode);
+            this.moduleManager.method14659(this.config);
+            this.moduleManager.saveCurrentConfigToJSON(this.config);
         }
     }
 

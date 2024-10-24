@@ -4,6 +4,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.events.impl.EventKeyPress;
+import com.mentalfrostbyte.jello.events.impl.MouseHoverEvent;
+import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.KeyBinding;
@@ -12,6 +17,7 @@ import net.minecraft.client.util.MouseSmoother;
 import net.minecraft.client.util.NativeUtil;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.glfw.GLFWDropCallback;
+import team.sdhq.eventBus.EventBus;
 
 public class MouseHelper
 {
@@ -46,6 +52,32 @@ public class MouseHelper
      */
     private void mouseButtonCallback(long handle, int button, int action, int mods)
     {
+        if (Client.getInstance().guiManager.method33480() != null) {
+            Client.getInstance().guiManager.method33456(button, action);
+        } else {
+            if (this.minecraft.currentScreen == null) {
+                if (action != 1 && action != 2) {
+                    if (action == 0) {
+                        MouseHoverEvent var15 = new MouseHoverEvent(button);
+                        EventBus.call(var15);
+                        if (var15.cancelled) {
+                            return;
+                        }
+                    }
+                } else {
+                    if (button > 1) {
+                        //ModuleKeyPress.press(button);
+                    }
+
+                    EventKeyPress var8 = new EventKeyPress(button, action == 2, null);
+                    EventBus.call(var8);
+                    if (var8.cancelled) {
+                        return;
+                    }
+                }
+            }
+        }
+
         if (handle == this.minecraft.getMainWindow().getHandle())
         {
             boolean flag = action == 1;

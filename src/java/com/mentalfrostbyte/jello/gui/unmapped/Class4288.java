@@ -69,7 +69,7 @@ public class Class4288 extends Class4278 {
 
    @Override
    public void draw(float var1) {
-      byte var4 = 5;
+      int var4 = 5;
       var1 *= !this.field20877 ? (!this.field20908 ? 0.3F : 0.7F) : 0.75F;
       int var5 = this.xA;
       int var6 = this.widthA;

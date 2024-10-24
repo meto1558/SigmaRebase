@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.google.gson.JsonSyntaxException;
+import com.mentalfrostbyte.Client;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -731,6 +732,9 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
                 this.mc.getProfiler().endSection();
             }
 
+            RenderSystem.pushMatrix();
+            Client.getInstance().method19928();
+            RenderSystem.popMatrix();
             if (this.guiLoadingVisible != (this.mc.loadingGui != null))
             {
                 if (this.mc.loadingGui != null)
@@ -764,7 +768,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
                     throw new ReportedException(crashreport);
                 }
             }
-            else if (this.mc.currentScreen != null)
+            else if (this.mc.currentScreen != null && Client.getInstance().guiManager.method33480() == null)
             {
                 try
                 {
@@ -1136,16 +1140,6 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
 
         if (world != null)
         {
-            if (Config.getNewRelease() != null)
-            {
-                String s = "HD_U".replace("HD_U", "HD Ultra").replace("L", "Light");
-                String s1 = s + " " + Config.getNewRelease();
-                StringTextComponent stringtextcomponent = new StringTextComponent(I18n.format("of.message.newVersion", "\u00a7n" + s1 + "\u00a7r"));
-                stringtextcomponent.setStyle(Style.EMPTY.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://optifine.net/downloads")));
-                this.mc.ingameGUI.getChatGUI().printChatMessage(stringtextcomponent);
-                Config.setNewRelease((String)null);
-            }
-
             if (Config.isNotify64BitJava())
             {
                 Config.setNotify64BitJava(false);

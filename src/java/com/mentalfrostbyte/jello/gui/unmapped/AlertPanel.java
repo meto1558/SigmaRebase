@@ -204,7 +204,6 @@ public class AlertPanel extends Class4247 {
       if (this.field21282.calcPercent() != 0.0F) {
          int var4 = this.field21284 + 60;
          int var5 = this.field21285 + 60;
-         byte var6 = 30;
          float var7 = !this.isHovered() ? this.field21282.calcPercent() : Math.min(this.field21282.calcPercent() / 0.25F, 1.0F);
          float var8 = this.method13602(this.field21282.calcPercent(), 1.0F);
          var4 = (int)((float)var4 * var8);

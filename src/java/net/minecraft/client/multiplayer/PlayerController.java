@@ -51,8 +51,8 @@ import org.apache.logging.log4j.Logger;
 public class PlayerController
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Minecraft mc;
-    private final ClientPlayNetHandler connection;
+    protected final Minecraft mc;
+    protected final ClientPlayNetHandler connection;
     private BlockPos currentBlock = new BlockPos(-1, -1, -1);
     private ItemStack currentItemHittingBlock = ItemStack.EMPTY;
     private float curBlockDamageMP;

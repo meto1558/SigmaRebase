@@ -1706,16 +1706,6 @@ public class Config
         return gameSettings;
     }
 
-    public static String getNewRelease()
-    {
-        return newRelease;
-    }
-
-    public static void setNewRelease(String newRelease)
-    {
-        Config.newRelease = newRelease;
-    }
-
     public static int compareRelease(String rel1, String rel2)
     {
         String[] astring = splitRelease(rel1);

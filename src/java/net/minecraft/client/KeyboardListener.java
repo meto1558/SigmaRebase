@@ -2,14 +2,15 @@ package net.minecraft.client;
 
 import java.util.Locale;
 import javax.annotation.Nullable;
+
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.events.impl.EventKeyPress;
+import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.INestedGuiEventHandler;
 import net.minecraft.client.gui.NewChatGui;
-import net.minecraft.client.gui.screen.ControlsScreen;
-import net.minecraft.client.gui.screen.GamemodeSelectionScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.WithNarratorSettingsScreen;
+import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.client.resources.I18n;
@@ -39,6 +40,7 @@ import net.optifine.Config;
 import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.gui.GuiShaderOptions;
+import team.sdhq.eventBus.EventBus;
 
 public class KeyboardListener
 {
@@ -339,6 +341,30 @@ public class KeyboardListener
     {
         if (windowPointer == this.mc.getMainWindow().getHandle())
         {
+            if (Client.getInstance().guiManager.method33480() != null) {
+                Client.getInstance().guiManager.method33453(key, action);
+                return;
+            }
+
+            if (this.mc.currentScreen != null) {
+                if (this.mc.currentScreen instanceof ChatScreen && key == 258) { //TAB KEY
+                    EventKeyPress keyPress = new EventKeyPress(key, action == 2, null);
+                    EventBus.call(keyPress);
+                    if (keyPress.cancelled) {
+                        return;
+                    }
+                }
+            } else if (action == 1 || action == 2) {
+                //ModuleKeyPress.press(key);
+                EventKeyPress eventKeyPress = new EventKeyPress(key, action == 2, null);
+                EventBus.call(eventKeyPress);
+                if (eventKeyPress.cancelled) {
+                    return;
+                }
+            } else if (action == 0) {
+                ModuleKeyPress.method29127(key);
+            }
+
             if (this.debugCrashKeyPressTime > 0L)
             {
                 if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 67) || !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 292))
@@ -540,6 +566,10 @@ public class KeyboardListener
     {
         if (windowPointer == this.mc.getMainWindow().getHandle())
         {
+            if (Client.getInstance().guiManager.method33480() != null) {
+                Client.getInstance().guiManager.method33454(codePoint, modifiers);
+                return;
+            }
             IGuiEventListener iguieventlistener = this.mc.currentScreen;
 
             if (iguieventlistener != null && this.mc.getLoadingGui() == null)

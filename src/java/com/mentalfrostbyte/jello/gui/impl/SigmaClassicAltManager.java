@@ -61,7 +61,7 @@ public class SigmaClassicAltManager extends Screen {
          }
       }
 
-      short var9 = 790;
+      int var9 = 790;
       this.addToList(
          this.field21066 = new SigmaClassicTextBox(
             this,

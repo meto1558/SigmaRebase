@@ -25,7 +25,7 @@ public class Class4257 extends Class4247 {
    @Override
    public void draw(float var1) {
       this.field20639.method13145(true);
-      byte var4 = 10;
+      int var4 = 10;
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var4 / 2),
          (float)(this.yA + var4 / 2),

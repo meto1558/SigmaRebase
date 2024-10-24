@@ -273,7 +273,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     /**
      * called every tick when the player is on foot. Performs all the things that normally happen during movement.
      */
-    private void onUpdateWalkingPlayer()
+    protected void onUpdateWalkingPlayer()
     {
         boolean flag = this.isSprinting();
 

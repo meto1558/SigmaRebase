@@ -25,9 +25,9 @@ public class SnakeGameScreen extends Screen {
       this.field21045.start();
       this.field21047 = new Animation(200, 0);
       ColorUtils.method17739();
-      byte var3 = 48;
-      byte var4 = 27;
-      byte var5 = 14;
+      int var3 = 48;
+      int var4 = 27;
+      int var5 = 14;
       int var6 = var3 * var5;
       int var7 = var4 * var5;
       this.addToList(this.field21046 = new Class4297(this, "snake", (this.widthA - var6) / 2, (this.getHeightA() - var7) / 2 + 30, var3, 27, var5));

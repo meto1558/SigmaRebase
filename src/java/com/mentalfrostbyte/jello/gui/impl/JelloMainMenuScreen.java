@@ -187,7 +187,7 @@ public class JelloMainMenuScreen extends Screen {
          float var16 = (float)this.getWidthA() / 1920.0F;
          int var17 = (int)(600.0F * var16);
          int var18 = (int)(450.0F * var16);
-         byte var19 = 0;
+         int var19 = 0;
          RenderUtil.method11455(
             (float)this.field20967 - (float)var17 * var12,
             (float)this.field20966,
