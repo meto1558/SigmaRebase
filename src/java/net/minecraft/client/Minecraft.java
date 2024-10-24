@@ -935,10 +935,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
     private void openChatScreen(String defaultText)
     {
-        if (!this.isIntegratedServerRunning())
-        {
-            this.displayGuiScreen(new ChatScreen(defaultText));
-        }
+        this.displayGuiScreen(new ChatScreen(defaultText));
     }
 
     public void displayGuiScreen(@Nullable Screen guiScreenIn)
