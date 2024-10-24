@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.managers.account.microsoft.Account;
-import com.mentalfrostbyte.jello.managers.account.microsoft.BanListener;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.BanListener;
 import com.mentalfrostbyte.jello.utils.FileUtil;
 import com.mojang.realmsclient.RealmsMainScreen;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;

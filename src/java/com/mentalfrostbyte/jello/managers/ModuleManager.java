@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.managers;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.gui.unmapped.MacOSTouchBar;
-import com.mentalfrostbyte.jello.managers.profile.Class6814;
+import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -39,13 +39,14 @@ public class ModuleManager {
 
     public void register(ClientMode clientMode) {
         this.createModules();
-        if (clientMode != ClientMode.JELLO) {
-            if (clientMode == ClientMode.CLASSIC) {
-                this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
-            }
-        } else {
-
+        if (clientMode == ClientMode.JELLO) {
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze());
         }
+
+        if (clientMode == ClientMode.CLASSIC) {
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
+        }
+
 
         this.sortBySuffixAndRegisterEvents();
     }

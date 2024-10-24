@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -185,5 +186,46 @@ public class ColorUtils {
         int var9 = (int)((float)var6 + (float)(255 - var6) * var1);
         int var10 = (int)((float)var7 + (float)(255 - var7) * var1);
         return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
+    }
+
+    public static Color method17682(Color... var0) {
+        if (var0 != null) {
+            if (var0.length > 0) {
+                float var3 = 1.0F / (float)var0.length;
+                float var4 = 0.0F;
+                float var5 = 0.0F;
+                float var6 = 0.0F;
+                float var7 = 0.0F;
+
+                for (Color var11 : var0) {
+                    if (var11 == null) {
+                        var11 = Color.BLACK;
+                    }
+
+                    var4 += (float)var11.getRed() * var3;
+                    var5 += (float)var11.getGreen() * var3;
+                    var6 += (float)var11.getBlue() * var3;
+                    var7 += (float)var11.getAlpha() * var3;
+                }
+
+                return new Color(var4 / 255.0F, var5 / 255.0F, var6 / 255.0F, var7 / 255.0F);
+            } else {
+                return Color.WHITE;
+            }
+        } else {
+            return Color.WHITE;
+        }
+    }
+
+    public static Color method17681(Color var0, Color var1, float var2) {
+        float var5 = 1.0F - var2;
+        float var6 = (float)var0.getRed() * var2 + (float)var1.getRed() * var5;
+        float var7 = (float)var0.getGreen() * var2 + (float)var1.getGreen() * var5;
+        float var8 = (float)var0.getBlue() * var2 + (float)var1.getBlue() * var5;
+        return new Color(var6 / 255.0F, var7 / 255.0F, var8 / 255.0F);
+    }
+
+    public static void method17740(float var0) {
+        method17741(Math.round(var0 * 20.0F));
     }
 }

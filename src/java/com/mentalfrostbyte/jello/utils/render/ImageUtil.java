@@ -254,4 +254,12 @@ public class ImageUtil {
     public static BufferedImage method35038(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
         return method35036(var0, var1, var2, var3, var4, var5, var6, false);
     }
+
+    public static BufferedImage method35039(int var0, int var1, int var2, int var3, int var4, int var5, boolean var6) {
+        return method35036(var0, var1, var2, var3, var4, var5, ClientColors.DEEP_TEAL.getColor, var6);
+    }
+
+    public static BufferedImage method35037(int var0, int var1, int var2, int var3, int var4, int var5) {
+        return method35036(var0, var1, var2, var3, var4, var5, ClientColors.DEEP_TEAL.getColor, false);
+    }
 }

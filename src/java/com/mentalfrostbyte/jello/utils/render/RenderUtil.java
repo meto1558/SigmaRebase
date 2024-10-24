@@ -2,12 +2,12 @@ package com.mentalfrostbyte.jello.utils.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
-import com.mentalfrostbyte.jello.gui.unmapped.LoginScreen;
+import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import com.mentalfrostbyte.jello.utils.ResourceRegistry;
 import com.mentalfrostbyte.jello.utils.render.unmapped.Class7820;
+import com.mentalfrostbyte.jello.utils.render.unmapped.TextureImpl;
 import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
 import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
 import com.mentalfrostbyte.jello.utils.unmapped.Color;
@@ -15,13 +15,20 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Stack;
@@ -31,6 +38,8 @@ import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 public class RenderUtil {
 
     private static final Minecraft mc = Minecraft.getInstance();
+
+    public static boolean field18461 = false;
 
     private static final Stack<IntBuffer> buffer = new Stack<>();
 
@@ -818,5 +827,141 @@ public class RenderUtil {
         GL11.glDisable(2881);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
+    }
+
+    public static void recreateDepthBuffer(Framebuffer frameBuffer) {
+        EXTFramebufferObject.glDeleteRenderbuffersEXT(frameBuffer.depthBuffer);
+        int newDepthBuffer = EXTFramebufferObject.glGenRenderbuffersEXT();
+        EXTFramebufferObject.glBindRenderbufferEXT(36161, newDepthBuffer);
+        EXTFramebufferObject.glRenderbufferStorageEXT(36161, 34041, Minecraft.getInstance().getMainWindow().getFramebufferWidth(), Minecraft.getInstance().getMainWindow().getFramebufferHeight());
+        EXTFramebufferObject.glFramebufferRenderbufferEXT(36160, 36128, 36161, newDepthBuffer);
+        EXTFramebufferObject.glFramebufferRenderbufferEXT(36160, 36096, 36161, newDepthBuffer);
+    }
+
+    public static void resetDepthBuffer() {
+        // Retrieve the current framebuffer instance
+        Framebuffer currentFramebuffer = Minecraft.getInstance().getFramebuffer();
+
+        // Check if the framebuffer exists and has a valid depth buffer
+        if (currentFramebuffer != null && currentFramebuffer.depthBuffer > -1) {
+            // Recreate the depth buffer
+            recreateDepthBuffer(currentFramebuffer);
+            // Set the depth buffer to an invalid state
+            currentFramebuffer.depthBuffer = -1;
+        }
+    }
+
+    public static void method11476() {
+        GL11.glPushMatrix();
+        resetDepthBuffer();
+        GL11.glEnable(2960);
+        GL11.glColorMask(false, false, false, false);
+        GL11.glDepthMask(false);
+        GL11.glStencilFunc(512, 1, 1);
+        GL11.glStencilOp(7681, 7680, 7680);
+        GL11.glStencilMask(1);
+        GL11.glClear(1024);
+        field18461 = true;
+    }
+
+    public static void method11478() {
+        GL11.glStencilMask(-1);
+        GL11.glDisable(2960);
+        GL11.glPopMatrix();
+        field18461 = false;
+    }
+
+    public static void method11477(Class2329 var0) {
+        GL11.glColorMask(true, true, true, true);
+        GL11.glDepthMask(true);
+        GL11.glStencilMask(0);
+        GL11.glStencilFunc(var0 != Class2329.field15940 ? 517 : 514, 1, 1);
+    }
+
+    public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int var5, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {
+        if (var4 != null) {
+            RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+            var0 = (float)Math.round(var0);
+            var2 = (float)Math.round(var2);
+            var1 = (float)Math.round(var1);
+            var3 = (float)Math.round(var3);
+            float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
+            float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
+            float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
+            float var17 = (float)(var5 & 0xFF) / 255.0F;
+            RenderSystem.enableBlend();
+            RenderSystem.disableTexture();
+            RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.color4f(var15, var16, var17, var14);
+            GL11.glEnable(3042);
+            GL11.glEnable(3553);
+            GL11.glPixelStorei(3312, 0);
+            GL11.glPixelStorei(3313, 0);
+            GL11.glPixelStorei(3314, 0);
+            GL11.glPixelStorei(3315, 0);
+            GL11.glPixelStorei(3316, 0);
+            GL11.glPixelStorei(3317, 4);
+            GL11.glTexParameteri(3553, 10240, 9728);
+            int var18 = GL11.glGenTextures();
+            GL11.glTexImage2D(3553, 0, 6407, (int)var8, (int)var9, 0, 6407, 5121, var4);
+            float var19 = var8 / var8 * 1.0F;
+            float var20 = var9 / var9 * 1.0F;
+            float var21 = var6 / var8 * 1.0F;
+            float var22 = var7 / var9 * 1.0F;
+            GL11.glBegin(7);
+            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? 0.0F : var20));
+            GL11.glVertex2f(var0, var1);
+            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? var20 : 0.0F));
+            GL11.glVertex2f(var0, var1 + var3);
+            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? var20 : 0.0F));
+            GL11.glVertex2f(var0 + var2, var1 + var3);
+            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? 0.0F : var20));
+            GL11.glVertex2f(var0 + var2, var1);
+            GL11.glEnd();
+            GL11.glDisable(3553);
+            GL11.glDisable(3042);
+            RenderSystem.enableTexture();
+            RenderSystem.disableBlend();
+        }
+    }
+
+    public static void method11479(ItemStack var0, int var1, int var2, int var3, int var4) {
+        if (var0 != null) {
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            GL11.glPushMatrix();
+            GL11.glTranslatef((float)var1, (float)var2, 0.0F);
+            GL11.glScalef((float)var3 / 16.0F, (float)var4 / 16.0F, 0.0F);
+            ItemRenderer var7 = mc.getItemRenderer();
+            if (var0.getCount() == 0) {
+                var0 = new ItemStack(var0.getItem());
+            }
+
+            RenderHelper.setupGuiFlatDiffuseLighting();
+            GL11.glLightModelfv(2899, new float[]{0.4F, 0.4F, 0.4F, 1.0F});
+            RenderSystem.enableColorMaterial();
+            RenderSystem.disableLighting();
+            RenderSystem.enableBlend();
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glDepthFunc(519);
+            var7.renderItemIntoGUI(var0, 0, 0);
+            GL11.glDepthFunc(515);
+            RenderSystem.popMatrix();
+            GL11.glAlphaFunc(519, 0.0F);
+            RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
+            RenderSystem.disableDepthTest();
+            TextureImpl.method36180();
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            RenderHelper.setupGui3DDiffuseLighting();
+        }
+    }
+
+    public static java.awt.Color getColorFromScreen(int mouseX, int mouseY, java.awt.Color var2) {
+        mouseX = (int)((float)mouseX * GuiManager.scaleFactor);
+        mouseY = (int)((float)mouseY * GuiManager.scaleFactor);
+        ByteBuffer var5 = ByteBuffer.allocateDirect(3);
+        GL11.glPixelStorei(3317, 1);
+        GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, 6407, 5120, var5);
+        return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
     }
 }

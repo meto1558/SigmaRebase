@@ -32,7 +32,7 @@ public class ClientChunkProvider extends AbstractChunkProvider
     private static final Logger LOGGER = LogManager.getLogger();
     private final Chunk empty;
     private final WorldLightManager lightManager;
-    private volatile ClientChunkProvider.ChunkArray array;
+    public volatile ClientChunkProvider.ChunkArray array;
     private final ClientWorld world;
 
     public ClientChunkProvider(ClientWorld clientWorldIn, int viewDistance)
@@ -261,9 +261,9 @@ public class ClientChunkProvider extends AbstractChunkProvider
         return this.chunkExists(MathHelper.floor(entityIn.getPosX()) >> 4, MathHelper.floor(entityIn.getPosZ()) >> 4);
     }
 
-    final class ChunkArray
+    public final class ChunkArray
     {
-        private final AtomicReferenceArray<Chunk> chunks;
+        public final AtomicReferenceArray<Chunk> chunks;
         private final int viewDistance;
         private final int sideLength;
         private volatile int centerX;

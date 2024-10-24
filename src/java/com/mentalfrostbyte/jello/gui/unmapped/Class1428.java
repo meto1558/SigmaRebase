@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.AltManagerScreen;
-import com.mentalfrostbyte.jello.managers.account.microsoft.Account;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.managers.account.Account;
+import com.mentalfrostbyte.jello.managers.impl.account.Account;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import com.mentalfrostbyte.jello.utils.ColorHelper;
 import com.mentalfrostbyte.jello.utils.ResourceRegistry;

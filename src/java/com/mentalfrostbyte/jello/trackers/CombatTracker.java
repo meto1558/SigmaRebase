@@ -47,7 +47,7 @@ public class CombatTracker {
     }
 
     @EventTarget
-    private void method29513(TickEvent tickEvent) {
+    public void method29513(TickEvent tickEvent) {
         if (this.mc.player.ticksExisted % 100 == 0) {
             this.method29514();
             List<AbstractClientPlayerEntity> var4 = this.mc.world.getPlayers();

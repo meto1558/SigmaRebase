@@ -5,7 +5,9 @@ import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import com.mentalfrostbyte.jello.events.impl.EventRender2D;
 import com.mentalfrostbyte.jello.events.impl.EventWriter;
+import com.mentalfrostbyte.jello.events.impl.Render3DEvent;
 import com.mentalfrostbyte.jello.managers.*;
+import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import com.mentalfrostbyte.jello.utils.ClientLogger;
 import com.mentalfrostbyte.jello.utils.FileUtil;
@@ -50,8 +52,12 @@ public class Client {
     public CombatManager combatManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
+    public WaypointsManager waypointsManager;
+    public NotificationManager notificationManager;
+    public MusicManager musicManager;
     private Logger logger;
 
+    public static boolean dontRenderHand = false;
     private boolean field28968 = true;
 
     public void start() {
@@ -73,10 +79,16 @@ public class Client {
         this.guiManager = new GuiManager();
         this.combatManager = new CombatManager();
         this.combatManager.init();
+        this.musicManager = new MusicManager();
+        this.musicManager.init();
         this.soundManager = new SoundManager();
         this.soundManager.init();
+        this.notificationManager = new NotificationManager();
+        this.notificationManager.init();
         this.accountManager = new AccountManager();
         this.accountManager.registerEvents();
+        this.waypointsManager = new WaypointsManager();
+        this.waypointsManager.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.0");
         this.logger.info("Initialized.");
     }
@@ -129,6 +141,19 @@ public class Client {
         RenderSystem.enableBlend();
         RenderSystem.alphaFunc(518, 0.1F);
         GL11.glPopMatrix();
+    }
+
+    public void hook3DRenderEvent() {
+        if (mc != null && mc.world != null && mc.player != null && !dontRenderHand) {
+            GL11.glTranslatef(0.0F, 0.0F, 0.0F);
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            GL11.glDisable(2896);
+            EventBus.call(new Render3DEvent());
+            RenderSystem.enableDepthTest();
+            RenderSystem.depthMask(true);
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+        }
     }
 
     public void method19927(Texture var1) {

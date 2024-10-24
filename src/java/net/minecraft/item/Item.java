@@ -1,4 +1,4 @@
-package net.minecraft.item;
+    package net.minecraft.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Maps;

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.managers.account.microsoft.Account;
-import com.mentalfrostbyte.jello.managers.account.microsoft.Ban;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Ban;
 
 import java.util.Comparator;
 import java.util.Date;

@@ -40,9 +40,9 @@ public class GuiManager {
 
     static {
         field41337.put(MainMenuScreen.class, JelloMainMenuScreen.class);
-        //field41337.put(ClickGui.class, JelloClickGUI.class);
-        //field41337.put(Class1144.class, JelloKeyboardScreen.class);
-        //field41337.put(Maps.class, JelloMaps.class);
+        field41337.put(ClickGui.class, JelloClickGUI.class);
+        field41337.put(Class1144.class, JelloKeyboardScreen.class);
+        field41337.put(Maps.class, JelloMaps.class);
         field41337.put(Snake.class, SnakeGameScreen.class);
         field41337.put(Bird.class, BirdGameScreen.class);
         field41337.put(SpotLight.class, SearchBar.class);

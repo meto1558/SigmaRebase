@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.impl.ClassicAddAlt;
 import com.mentalfrostbyte.jello.gui.impl.ClassicDirectLogin;
 import com.mentalfrostbyte.jello.gui.impl.ClassicEditAlt;
 import com.mentalfrostbyte.jello.gui.impl.SigmaClassicAltManager;
-import com.mentalfrostbyte.jello.managers.account.microsoft.Account;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;

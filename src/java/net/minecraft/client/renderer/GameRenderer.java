@@ -989,7 +989,10 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
         }
 
         this.mc.getProfiler().endStartSection("hand");
-
+        RenderSystem.pushMatrix();
+        RenderSystem.multMatrix(matrixStackIn.getLast().getMatrix());
+        Client.getInstance().hook3DRenderEvent();
+        RenderSystem.popMatrix();
         if (this.renderHand && !Shaders.isShadowPass)
         {
             if (flag)

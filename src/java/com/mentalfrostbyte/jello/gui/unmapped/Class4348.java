@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.managers.account.microsoft.Ban;
+import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Ban;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import com.mentalfrostbyte.jello.utils.ResourceRegistry;
 import com.mentalfrostbyte.jello.utils.render.*;

@@ -59,7 +59,7 @@ public class TabGUI extends Module {
    }
 
    @EventTarget
-   private void method15954(EventKeyPress event) {
+   public void method15954(EventKeyPress event) {
       if (this.isEnabled()) {
          Class2071 var4 = method15960(event.getKey());
          if (var4 != null) {
@@ -174,7 +174,7 @@ public class TabGUI extends Module {
    }
 
    @EventTarget
-   private void method15956(TickEvent var1) {
+   public void method15956(TickEvent var1) {
       if (this.isEnabled()) {
          if (this.field23384 <= 0) {
             animationProgress.changeDirection(Direction.BACKWARDS);
@@ -187,7 +187,7 @@ public class TabGUI extends Module {
 
    @EventTarget
    @HighestPriority
-   private void method15957(EventRender var1) {
+   public void method15957(EventRender var1) {
       if (this.isEnabled() && mc.player != null) {
          if (! Minecraft.getInstance().gameSettings.showDebugInfo) {
             if (!Minecraft.getInstance().gameSettings.hideGUI) {

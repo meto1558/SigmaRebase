@@ -10,8 +10,8 @@ public class ChunkPos
 {
     /** Value representing an absent or invalid chunkpos */
     public static final long SENTINEL = asLong(1875016, 1875016);
-    public final int x;
-    public final int z;
+    public int x;
+    public int z;
     private int cachedHashCode = 0;
 
     public ChunkPos(int x, int z)
