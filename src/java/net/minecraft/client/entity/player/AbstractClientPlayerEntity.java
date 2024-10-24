@@ -26,7 +26,7 @@ import net.optifine.reflect.Reflector;
 
 public abstract class AbstractClientPlayerEntity extends PlayerEntity
 {
-    private NetworkPlayerInfo playerInfo;
+    public NetworkPlayerInfo playerInfo;
     public float rotateElytraX;
     public float rotateElytraY;
     public float rotateElytraZ;

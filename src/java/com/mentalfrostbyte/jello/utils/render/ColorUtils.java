@@ -1,10 +1,12 @@
 package com.mentalfrostbyte.jello.utils.render;
 
+import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ColorUtils {
@@ -37,5 +39,103 @@ public class ColorUtils {
             }
         });
         return var2;
+    }
+
+    public static int method17690(int var0, int var1, float var2) {
+        int var5 = var0 >> 24 & 0xFF;
+        int var6 = var0 >> 16 & 0xFF;
+        int var7 = var0 >> 8 & 0xFF;
+        int var8 = var0 & 0xFF;
+        int var9 = var1 >> 24 & 0xFF;
+        int var10 = var1 >> 16 & 0xFF;
+        int var11 = var1 >> 8 & 0xFF;
+        int var12 = var1 & 0xFF;
+        float var13 = 1.0F - var2;
+        float var14 = (float)var5 * var2 + (float)var9 * var13;
+        float var15 = (float)var6 * var2 + (float)var10 * var13;
+        float var16 = (float)var7 * var2 + (float)var11 * var13;
+        float var17 = (float)var8 * var2 + (float)var12 * var13;
+        return (int)var14 << 24 | ((int)var15 & 0xFF) << 16 | ((int)var16 & 0xFF) << 8 | (int)var17 & 0xFF;
+    }
+
+    public static float method17710(int var0) {
+        return (float)(var0 >> 24 & 0xFF) / 255.0F;
+    }
+
+    public static float[] method17701(float var0, float var1, float var2, float var3) {
+        float var6 = var0 / var1;
+        float var7 = var2 / var3;
+        float var8;
+        float var9;
+        if (!(var7 <= var6)) {
+            var8 = var2;
+            var9 = var1 * var2 / var0;
+        } else {
+            var8 = var0 * var3 / var1;
+            var9 = var3;
+        }
+
+        float var10 = (var2 - var8) / 2.0F;
+        float var11 = (var3 - var9) / 2.0F;
+        return new float[]{var10, var11, var8, var9};
+    }
+
+    public static String[] method17745(String var0, int var1, ClientResource var2) {
+        String[] var5 = var0.split(" ");
+        HashMap<Integer, String> var6 = new HashMap();
+        int var7 = 0;
+
+        for (String var11 : var5) {
+            String var12 = var6.get(var7) != null ? (String)var6.get(var7) : "";
+            boolean var13 = var6.get(var7) == null;
+            boolean var14 = var2.getStringWidth(var12) + var2.getStringWidth(var11) <= var1;
+            boolean var15 = var2.getStringWidth(var11) >= var1;
+            if (!var14 && !var15) {
+                var7++;
+                var12 = var6.get(var7) != null ? (String)var6.get(var7) : "";
+                var13 = var6.get(var7) == null;
+                var14 = var2.getStringWidth(var12) + var2.getStringWidth(var11) <= var1;
+                var15 = var2.getStringWidth(var11) >= var1;
+            }
+
+            if (var14) {
+                if (!var13) {
+                    var6.put(var7, var12 + " " + var11);
+                } else {
+                    var6.put(var7, var11);
+                }
+            } else if (var15) {
+                while (var15 && !var14) {
+                    int var16 = 0;
+
+                    while (true) {
+                        if (var16 <= var11.length()) {
+                            String var17 = var11.substring(0, var11.length() - var16);
+                            if (var2.getStringWidth(var17) > var1) {
+                                var16++;
+                                continue;
+                            }
+
+                            var6.put(++var7, var17);
+                            var11 = var11.substring(var11.length() - var16, var11.length());
+                        }
+
+                        var12 = var6.get(var7) != null ? (String)var6.get(var7) : "";
+                        var14 = var2.getStringWidth(var12) + var2.getStringWidth(var11) <= var1;
+                        var15 = var2.getStringWidth(var11) >= var1;
+                        var13 = var6.get(var7) == null;
+                        break;
+                    }
+                }
+
+                if (!var14) {
+                    var7++;
+                }
+
+                var6.put(var7, var11);
+            }
+        }
+
+        return var6.values().toArray(new String[var6.values().size()]);
     }
 }

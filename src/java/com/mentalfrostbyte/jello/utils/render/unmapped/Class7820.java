@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.utils.render.unmapped;
 
+import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+
 // $VF: synthetic class
 public class Class7820 {
    private static String[] field33553;

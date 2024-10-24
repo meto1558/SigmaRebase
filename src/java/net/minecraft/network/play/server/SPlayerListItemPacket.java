@@ -229,7 +229,7 @@ public class SPlayerListItemPacket implements IPacket<IClientPlayNetHandler>
         REMOVE_PLAYER;
     }
 
-    public class AddPlayerData
+    public static class AddPlayerData
     {
         private final int ping;
         private final GameType gamemode;

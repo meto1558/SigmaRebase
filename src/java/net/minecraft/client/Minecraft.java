@@ -241,6 +241,7 @@ import net.minecraft.world.storage.SaveFormat;
 import net.minecraft.world.storage.ServerWorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import totalcross.json.JSONException;
 
 public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperInfo, IWindowEventListener
 {
@@ -542,6 +543,10 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 }
             });
         }, false));
+    }
+
+    public static int getFps() {
+        return debugFPS;
     }
 
     public void setDefaultMinecraftTitle()
@@ -968,6 +973,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
 
         this.currentScreen = guiScreenIn;
+        try {
+            Client.getInstance().guiManager.method33481();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         if (guiScreenIn != null)
         {

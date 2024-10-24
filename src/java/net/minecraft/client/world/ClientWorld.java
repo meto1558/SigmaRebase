@@ -89,7 +89,7 @@ public class ClientWorld extends World
     private final ClientPlayNetHandler connection;
     private final WorldRenderer worldRenderer;
     private final ClientWorld.ClientWorldInfo field_239130_d_;
-    private final DimensionRenderInfo field_239131_x_;
+    private DimensionRenderInfo field_239131_x_;
     private final Minecraft mc = Minecraft.getInstance();
     private final List<AbstractClientPlayerEntity> players = Lists.newArrayList();
     private Scoreboard scoreboard = new Scoreboard();
@@ -101,17 +101,21 @@ public class ClientWorld extends World
         p_lambda$new$0_0_.put(BiomeColors.FOLIAGE_COLOR, new ColorCache());
         p_lambda$new$0_0_.put(BiomeColors.WATER_COLOR, new ColorCache());
     });
-    private final ClientChunkProvider field_239129_E_;
+    private ClientChunkProvider field_239129_E_;
     private boolean playerUpdate = false;
 
     public ClientWorld(ClientPlayNetHandler p_i242067_1_, ClientWorld.ClientWorldInfo p_i242067_2_, RegistryKey<World> p_i242067_3_, DimensionType p_i242067_4_, int p_i242067_5_, Supplier<IProfiler> p_i242067_6_, WorldRenderer p_i242067_7_, boolean p_i242067_8_, long p_i242067_9_)
     {
         super(p_i242067_2_, p_i242067_3_, p_i242067_4_, p_i242067_6_, true, p_i242067_8_, p_i242067_9_);
         this.connection = p_i242067_1_;
-        this.field_239129_E_ = new ClientChunkProvider(this, p_i242067_5_);
         this.field_239130_d_ = p_i242067_2_;
         this.worldRenderer = p_i242067_7_;
-        this.field_239131_x_ = DimensionRenderInfo.func_243495_a(p_i242067_4_);
+
+        if (p_i242067_1_ != null && p_i242067_4_ != null) {
+            this.field_239131_x_ = DimensionRenderInfo.func_243495_a(p_i242067_4_);
+            this.field_239129_E_ = new ClientChunkProvider(this, p_i242067_5_);
+        }
+
         this.func_239136_a_(new BlockPos(8, 64, 8), 0.0F);
         this.calculateInitialSkylight();
         this.calculateInitialWeather();

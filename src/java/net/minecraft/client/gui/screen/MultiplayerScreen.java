@@ -21,7 +21,7 @@ public class MultiplayerScreen extends Screen
 {
     private static final Logger LOGGER = LogManager.getLogger();
     private final ServerPinger oldServerPinger = new ServerPinger();
-    private final Screen parentScreen;
+    public final Screen parentScreen;
     protected ServerSelectionList serverListSelector;
     private ServerList savedServerList;
     private Button btnEditServer;

@@ -43,6 +43,8 @@ public class Client {
     public AccountManager accountManager;
     private Logger logger;
 
+    private boolean field28968 = true;
+
     public void start() {
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
@@ -113,5 +115,13 @@ public class Client {
 
     public Logger getLogger() {
         return this.logger;
+    }
+
+    public boolean method19930() {
+        return this.field28968;
+    }
+
+    public void method19931(boolean var1) {
+        this.field28968 = var1;
     }
 }

@@ -788,5 +788,13 @@ public class Util
                 Util.LOGGER.error("Couldn't open uri '{}'", uri, malformedurlexception);
             }
         }
+
+        public void openLink(String var1) {
+            try {
+                this.openURL(new URI(var1).toURL());
+            } catch (URISyntaxException | MalformedURLException | IllegalArgumentException var5) {
+                Util.LOGGER.error("Couldn't open uri '{}'", var1, var5);
+            }
+        }
     }
 }
