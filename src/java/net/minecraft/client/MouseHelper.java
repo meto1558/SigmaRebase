@@ -47,8 +47,6 @@ public class MouseHelper
 
     /**
      * Will be called when a mouse button is pressed or released.
-     *  
-     * @see GLFWMouseButtonCallbackI
      */
     private void mouseButtonCallback(long handle, int button, int action, int mods)
     {
@@ -66,7 +64,7 @@ public class MouseHelper
                     }
                 } else {
                     if (button > 1) {
-                        //ModuleKeyPress.press(button);
+                        ModuleKeyPress.press(button);
                     }
 
                     EventKeyPress var8 = new EventKeyPress(button, action == 2, null);

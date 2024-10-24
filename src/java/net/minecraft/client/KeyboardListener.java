@@ -355,7 +355,7 @@ public class KeyboardListener
                     }
                 }
             } else if (action == 1 || action == 2) {
-                //ModuleKeyPress.press(key);
+                ModuleKeyPress.press(key);
                 EventKeyPress eventKeyPress = new EventKeyPress(key, action == 2, null);
                 EventBus.call(eventKeyPress);
                 if (eventKeyPress.cancelled) {
