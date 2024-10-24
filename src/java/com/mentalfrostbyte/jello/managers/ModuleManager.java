@@ -41,6 +41,7 @@ public class ModuleManager {
         this.createModules();
         if (clientMode == ClientMode.JELLO) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
         }
 
         if (clientMode == ClientMode.CLASSIC) {
