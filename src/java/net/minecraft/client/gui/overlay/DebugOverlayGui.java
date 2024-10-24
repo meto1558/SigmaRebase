@@ -95,7 +95,7 @@ public class DebugOverlayGui extends AbstractGui
     private CompletableFuture<Chunk> futureChunk;
     private String debugOF = null;
     private List<String> debugInfoLeft = null;
-    private List<String> debugInfoRight = null;
+    public List<String> debugInfoRight = null;
     private long updateInfoLeftTimeMs = 0L;
     private long updateInfoRightTimeMs = 0L;
 

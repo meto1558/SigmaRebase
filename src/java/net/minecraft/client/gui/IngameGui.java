@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.events.impl.EventRenderGUI;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -78,6 +79,7 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.TextureAnimations;
 import net.optifine.reflect.Reflector;
+import team.sdhq.eventBus.EventBus;
 
 public class IngameGui extends AbstractGui
 {
@@ -97,7 +99,7 @@ public class IngameGui extends AbstractGui
     public float prevVignetteBrightness = 1.0F;
     private int remainingHighlightTicks;
     private ItemStack highlightingItemStack = ItemStack.EMPTY;
-    private final DebugOverlayGui overlayDebug;
+    public final DebugOverlayGui overlayDebug;
     private final SubtitleOverlayGui overlaySubtitle;
 
     /** The spectator GUI for this in-game GUI instance */
@@ -389,7 +391,14 @@ public class IngameGui extends AbstractGui
 
             if (scoreobjective1 != null)
             {
+                EventRenderGUI var31 = new EventRenderGUI(true);
+                EventBus.call(var31);
+                if (var31.cancelled) {
+                    return;
+                }
                 this.func_238447_a_(matrixStack, scoreobjective1);
+                EventRenderGUI var13 = new EventRenderGUI(false);
+                EventBus.call(var13);
             }
 
             RenderSystem.enableBlend();
