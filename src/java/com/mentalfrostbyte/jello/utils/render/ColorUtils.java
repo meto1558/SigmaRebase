@@ -1,7 +1,9 @@
 package com.mentalfrostbyte.jello.utils.render;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
@@ -137,5 +139,51 @@ public class ColorUtils {
         }
 
         return var6.values().toArray(new String[var6.values().size()]);
+    }
+
+    public static void method17739() {
+        if (mc.getRenderViewEntity() instanceof PlayerEntity && Client.getInstance().guiManager.method33470()) {
+            if (mc.gameRenderer.shaderGroup != null) {
+                mc.gameRenderer.shaderGroup.close();
+            }
+
+            mc.gameRenderer.loadShader(field24953);
+        }
+
+        method17741(20);
+    }
+
+    public static void method17741(int var0) {
+        if (mc.gameRenderer.shaderGroup != null) {
+            mc.gameRenderer.shaderGroup.listShaders.get(0).getShaderManager().getShaderUniform("Radius").set((float)var0);
+            mc.gameRenderer.shaderGroup.listShaders.get(1).getShaderManager().getShaderUniform("Radius").set((float)var0);
+        }
+    }
+
+    public static void method17742() {
+        if (mc.gameRenderer.shaderIndex == GameRenderer.SHADER_COUNT) {
+            mc.gameRenderer.shaderGroup = null;
+        } else {
+            mc.gameRenderer.loadShader(GameRenderer.SHADERS_TEXTURES[mc.gameRenderer.shaderIndex]);
+        }
+    }
+
+    public static float[] method17709(int var0) {
+        float var3 = (float)(var0 >> 24 & 0xFF) / 255.0F;
+        float var4 = (float)(var0 >> 16 & 0xFF) / 255.0F;
+        float var5 = (float)(var0 >> 8 & 0xFF) / 255.0F;
+        float var6 = (float)(var0 & 0xFF) / 255.0F;
+        return new float[]{var4, var5, var6, var3};
+    }
+
+    public static int method17692(int var0, float var1) {
+        int var4 = var0 >> 24 & 0xFF;
+        int var5 = var0 >> 16 & 0xFF;
+        int var6 = var0 >> 8 & 0xFF;
+        int var7 = var0 & 0xFF;
+        int var8 = (int)((float)var5 + (float)(255 - var5) * var1);
+        int var9 = (int)((float)var6 + (float)(255 - var6) * var1);
+        int var10 = (int)((float)var7 + (float)(255 - var7) * var1);
+        return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
 }

@@ -2,11 +2,10 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.gui.base.Bird;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.impl.JelloForSigmaOptions;
-import com.mentalfrostbyte.jello.gui.impl.JelloPortalScreen;
-import com.mentalfrostbyte.jello.gui.impl.NoAddOnnScreenMenu;
-import com.mentalfrostbyte.jello.gui.impl.SwitchScreen;
+import com.mentalfrostbyte.jello.gui.impl.*;
+import com.mentalfrostbyte.jello.gui.unmapped.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -14,27 +13,18 @@ import net.minecraft.client.gui.screen.MultiplayerScreen;
 import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GuiManager {
 
-    public static final Map<Class<? extends Screen>, String> field41338 = new HashMap<>();
-    private static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>> field41337 = new HashMap<>();
-
-    public static float scaleFactor = 1.0F;
-    public static long field41344;
-    public static long field41345;
-    public static long field41346;
-
-    private Screen screen;
+    public static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, String> field41338 = new HashMap<Class<? extends net.minecraft.client.gui.screen.Screen>, String>();
+    private static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>> field41337 = new HashMap<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>>();
 
     static {
-        //field41337.put(MainMenuScreen.class, JelloMainMenuScreen.class);
-        /*
-        field41337.put(ClickGui.class, JelloClickGUI.class);
-        field41337.put(Class1144.class, JelloKeyboardScreen.class);
-        field41337.put(Maps.class, JelloMaps.class);
+        field41337.put(MainMenuScreen.class, JelloMainMenuScreen.class);
         field41337.put(Snake.class, SnakeGameScreen.class);
         field41337.put(Bird.class, BirdGameScreen.class);
         field41337.put(SpotLight.class, SearchBar.class);
@@ -46,14 +36,25 @@ public class GuiManager {
         field41338.put(Snake.class, "Snake");
         field41338.put(Bird.class, "Bird");
         field41338.put(SpotLight.class, "Spotlight");
-
-         */
     }
 
+    public static long field41344;
+    public static long field41345;
+    public static long field41346;
+    public static float scaleFactor = 1.0F;
+    private static boolean field41351 = true;
+
+    public double field41347;
+    public int[] field41354 = new int[2];
+    public boolean field41357;
+    private final List<Integer> field41339 = new ArrayList<Integer>();
+    private final List<Integer> field41340 = new ArrayList<Integer>();
+    private final List<Integer> field41341 = new ArrayList<Integer>();
+    private final List<Integer> field41342 = new ArrayList<Integer>();
+    private final List<Integer> field41343 = new ArrayList<Integer>();
     private boolean field41349 = true;
     private boolean field41350 = true;
-    private static boolean field41351 = true;
-    public int[] field41354 = new int[2];
+    private Screen screen;
 
     public GuiManager() {
         scaleFactor = (float) (Minecraft.getInstance().getMainWindow().getFramebufferHeight() / Minecraft.getInstance().getMainWindow().getHeight());
@@ -61,11 +62,8 @@ public class GuiManager {
 
     public void method33452() {
         field41337.clear();
-        /*
         field41337.put(MainMenuScreen.class, ClassicMainScreen.class);
         field41337.put(ClickGui.class, ClassicScreenk.class);
-
-         */
     }
 
     public Class<? extends net.minecraft.client.gui.screen.Screen> method33477(String var1) {
@@ -184,5 +182,21 @@ public class GuiManager {
         var1.put("hqIngameBlur", this.field41350);
         var1.put("hidpicocoa", field41351);
         return var1;
+    }
+
+    public boolean method33470() {
+        return this.field41349;
+    }
+
+    public void method33469(boolean var1) {
+        this.field41349 = var1;
+    }
+
+    public boolean method33472() {
+        return this.field41350;
+    }
+
+    public void method33471(boolean var1) {
+        this.field41350 = var1;
     }
 }

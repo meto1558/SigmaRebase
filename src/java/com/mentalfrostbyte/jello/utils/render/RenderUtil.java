@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.utils.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
 import com.mentalfrostbyte.jello.gui.unmapped.LoginScreen;
 import com.mentalfrostbyte.jello.managers.GuiManager;
@@ -16,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.util.InputMappings;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -658,5 +660,93 @@ public class RenderUtil {
         GL11.glEnd();
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
+    }
+
+    public static String method17736(int var0) {
+        for (Class2287 var6 : Class2287.values()) {
+            if (var6.field15204 == var0) {
+                return var6.field15201;
+            }
+        }
+
+        InputMappings.Input var7 = InputMappings.getInputByCode(var0, 0);
+        String[] var8 = var7.getTranslationKey().split("\\.");
+        if (var8.length != 0) {
+            String var9 = var8[var8.length - 1];
+            if (!var9.isEmpty()) {
+                String var10 = "";
+                if (var0 <= 4) {
+                    var10 = "Mouse ";
+                }
+
+                return var10 + var9.substring(0, 1).toUpperCase() + var9.substring(1);
+            } else {
+                return "Unknown";
+            }
+        } else {
+            return "Unknown";
+        }
+    }
+
+    public static void method11429(float var0, float var1, float var2, float var3, int var4, int var5) {
+        drawRect(var0, var3 - (float)var4, var2 - (float)var4, var3, var5);
+        drawRect(var0, var1, var2 - (float)var4, var1 + (float)var4, var5);
+        drawRect(var0, var1 + (float)var4, var0 + (float)var4, var3 - (float)var4, var5);
+        drawRect(var2 - (float)var4, var1, var2, var3, var5);
+    }
+
+    public static void method11434(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        float var9 = (float)(var6 >> 24 & 0xFF) / 255.0F;
+        float var10 = (float)(var6 >> 16 & 0xFF) / 255.0F;
+        float var11 = (float)(var6 >> 8 & 0xFF) / 255.0F;
+        float var12 = (float)(var6 & 0xFF) / 255.0F;
+        Tessellator var13 = Tessellator.getInstance();
+        BufferBuilder var14 = var13.getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+        RenderSystem.color4f(var10, var11, var12, var9);
+        GL11.glBegin(6);
+        GL11.glVertex2f(var0, var1);
+        GL11.glVertex2f(var4, var5);
+        GL11.glVertex2f(var2, var3);
+        GL11.glVertex2f(var0, var1);
+        GL11.glEnd();
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+
+    public static void method11428(float var0, float var1, float var2, float var3, int var4) {
+        method11429(var0, var1, var2, var3, 1, var4);
+    }
+
+    public static void method11431(int var0, int var1, int var2, int var3, int var4, int var5) {
+        float var8 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var9 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var10 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var11 = (float)(var4 & 0xFF) / 255.0F;
+        float var12 = (float)(var5 >> 24 & 0xFF) / 255.0F;
+        float var13 = (float)(var5 >> 16 & 0xFF) / 255.0F;
+        float var14 = (float)(var5 >> 8 & 0xFF) / 255.0F;
+        float var15 = (float)(var5 & 0xFF) / 255.0F;
+        RenderSystem.disableTexture();
+        RenderSystem.enableBlend();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.shadeModel(7425);
+        Tessellator var16 = Tessellator.getInstance();
+        BufferBuilder var17 = var16.getBuffer();
+        var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        var17.pos((double)var2, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos((double)var0, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos((double)var0, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var17.pos((double)var2, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var16.draw();
+        RenderSystem.shadeModel(7424);
+        RenderSystem.disableBlend();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.enableTexture();
     }
 }

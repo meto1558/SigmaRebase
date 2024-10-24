@@ -290,4 +290,7 @@ public class Module {
         return this.isEnabled();
     }
 
+    public Map<String, Setting> getSettingMap() {
+        return this.settingMap;
+    }
 }

@@ -49,9 +49,23 @@ public class Client {
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
 
+        try {
+            if (!this.file.exists()) {
+                this.file.mkdirs();
+            }
+
+            this.config = FileUtil.readFile(new File(this.file + "/config.json"));
+        } catch (IOException var8) {
+            var8.printStackTrace();
+        }
+
+        this.networkManager = new NetworkManager();
+        this.networkManager.init();
+        this.guiManager = new GuiManager();
+        this.combatManager = new CombatManager();
+        this.combatManager.init();
         this.soundManager = new SoundManager();
         this.soundManager.init();
-        guiManager = new GuiManager();
         this.accountManager = new AccountManager();
         this.accountManager.registerEvents();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.0");
