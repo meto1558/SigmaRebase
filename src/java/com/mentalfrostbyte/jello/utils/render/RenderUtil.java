@@ -1,7 +1,14 @@
 package com.mentalfrostbyte.jello.utils.render;
 
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.utils.ClientColors;
+import com.mentalfrostbyte.jello.utils.ResourceRegistry;
+import com.mentalfrostbyte.jello.utils.render.unmapped.Class7820;
+import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.utils.unmapped.Color;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -259,4 +266,85 @@ public class RenderUtil {
         RenderSystem.disableBlend();
     }
 
+    public static void method11440(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
+        method11441(var0, var1, var2, var3, var4, var5, var6, false);
+    }
+
+    public static void method11441(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        int var10 = 0;
+        int var11 = 0;
+        switch (Class7820.field33554[var5.ordinal()]) {
+            case 1:
+                var10 = -var0.getStringWidth(var3) / 2;
+                break;
+            case 2:
+                var10 = -var0.getStringWidth(var3);
+        }
+
+        switch (Class7820.field33554[var6.ordinal()]) {
+            case 1:
+                var11 = -var0.method23941(var3) / 2;
+                break;
+            case 3:
+                var11 = -var0.method23941(var3);
+        }
+
+        float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var13 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var14 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var15 = (float)(var4 & 0xFF) / 255.0F;
+        GL11.glPushMatrix();
+        boolean var16 = false;
+        if ((double) GuiManager.scaleFactor == 2.0) {
+            if (var0 == ResourceRegistry.JelloLightFont20) {
+                var0 = ResourceRegistry.JelloLightFont40;
+            } else if (var0 == ResourceRegistry.JelloLightFont25) {
+                var0 = ResourceRegistry.JelloLightFont50;
+            } else if (var0 == ResourceRegistry.JelloLightFont12) {
+                var0 = ResourceRegistry.JelloLightFont24;
+            } else if (var0 == ResourceRegistry.JelloLightFont14) {
+                var0 = ResourceRegistry.JelloLightFont28;
+            } else if (var0 == ResourceRegistry.JelloLightFont18) {
+                var0 = ResourceRegistry.JelloLightFont36;
+            } else if (var0 == ResourceRegistry.RegularFont20) {
+                var0 = ResourceRegistry.RegularFont40;
+            } else if (var0 == ResourceRegistry.JelloMediumFont20) {
+                var0 = ResourceRegistry.JelloMediumFont40;
+            } else if (var0 == ResourceRegistry.JelloMediumFont25) {
+                var0 = ResourceRegistry.JelloMediumFont50;
+            } else {
+                var16 = true;
+            }
+
+            if (!var16) {
+                float[] var17 = method11416((int)var1, (int)var2);
+                int var18 = (int)var17[0];
+                int var19 = (int)var17[1];
+                GL11.glTranslatef(var1, var2, 0.0F);
+                GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
+                GL11.glTranslatef(-var1, -var2, 0.0F);
+                var10 = (int)((float)var10 * GuiManager.scaleFactor);
+                var11 = (int)((float)var11 * GuiManager.scaleFactor);
+            }
+        }
+
+        RenderSystem.enableBlend();
+        GL11.glBlendFunc(770, 771);
+        if (var7) {
+            var0.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), var3, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+        }
+
+        if (var3 != null) {
+            var0.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new Color(var13, var14, var15, var12));
+        }
+
+        RenderSystem.disableBlend();
+        GL11.glPopMatrix();
+    }
+
+    public static void method11415(CustomGuiScreen var0) {
+        method11421(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
+    }
 }

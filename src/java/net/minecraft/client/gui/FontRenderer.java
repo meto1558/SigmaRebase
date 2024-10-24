@@ -118,7 +118,7 @@ public class FontRenderer
         }
     }
 
-    private int renderString(String text, float x, float y, int color, Matrix4f matrix, boolean dropShadow, boolean p_228078_7_)
+    public int renderString(String text, float x, float y, int color, Matrix4f matrix, boolean dropShadow, boolean p_228078_7_)
     {
         if (text == null)
         {

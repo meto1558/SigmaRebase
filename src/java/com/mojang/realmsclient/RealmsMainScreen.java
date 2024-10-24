@@ -103,7 +103,7 @@ public class RealmsMainScreen extends RealmsScreen
     private static volatile boolean field_224031_t;
     private static volatile boolean field_224032_u;
     private static volatile boolean field_224033_v;
-    private static Screen field_224000_H;
+    public static Screen field_224000_H;
     private static boolean field_224001_I;
     private final RateLimiter field_224014_c;
     private boolean field_224015_d;

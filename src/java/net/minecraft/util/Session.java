@@ -12,9 +12,9 @@ import javax.annotation.Nullable;
 
 public class Session
 {
-    private final String username;
-    private final String playerID;
-    private final String token;
+    public String username;
+    public String playerID;
+    public String token;
     private final Session.Type sessionType;
 
     public Session(String usernameIn, String playerIDIn, String tokenIn, String sessionTypeIn)

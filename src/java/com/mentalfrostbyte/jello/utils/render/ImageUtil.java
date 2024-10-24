@@ -1,12 +1,56 @@
 package com.mentalfrostbyte.jello.utils.render;
 
+import org.apache.commons.codec.binary.Base64;
+import totalcross.json.JSONObject;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public class ImageUtil {
+
+    public static String getSkinUrlByID(String uuid) throws Exception {
+        String skinURL = "";
+        URL profileURL = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
+        BufferedReader var5 = new BufferedReader(new InputStreamReader(profileURL.openStream()));
+        String var6 = "";
+
+        String var7;
+        while ((var7 = var5.readLine()) != null) {
+            var6 = var6 + var7;
+        }
+
+        String var8 = "";
+        JSONObject var9 = new JSONObject(var6);
+
+        for (Object var12 : var9.getJSONArray("properties")) {
+            JSONObject var13 = (JSONObject)var12;
+            if (var13.has("value") && var13.has("name")) {
+                var8 = var13.getString("value");
+            }
+        }
+
+        if (Base64.isBase64(var8)) {
+            String var14 = new String(Base64.decodeBase64(var8));
+            JSONObject var15 = new JSONObject(var14);
+            if (var15.has("textures")) {
+                JSONObject var16 = var15.getJSONObject("textures");
+                if (var16.has("SKIN")) {
+                    skinURL = var16.getJSONObject("SKIN").getString("url");
+                }
+            }
+
+            System.out.println(skinURL);
+            return skinURL;
+        } else {
+            return skinURL;
+        }
+    }
 
     public static BufferedImage method35032(BufferedImage var0, int var1) {
         if (var0 != null) {
@@ -123,4 +167,25 @@ public class ImageUtil {
         return new Kernel(var4, 1, var5);
     }
 
+    public static BufferedImage method35033(BufferedImage var0, int var1) {
+        if (var0 == null) {
+            return var0;
+        } else {
+            ConvolveOp var4 = new ConvolveOp(method35035((float) var1), 1, null);
+            int var5 = var0.getWidth();
+            int var6 = var0.getHeight();
+            BufferedImage var7 = new BufferedImage(var6 + var1 * 2, var5 + var1 * 2, var0.getType());
+
+            for (int var8 = 0; var8 < var5; var8++) {
+                for (int var9 = 0; var9 < var6; var9++) {
+                    var7.setRGB(var8 + var1, var9 + var1 / 2, var0.getRGB(var8, var9));
+                }
+            }
+
+            BufferedImage var10 = var4.filter(var7, null);
+            var10 = var4.filter(method35034(var10), null);
+            var10 = method35034(var10);
+            return var10.getSubimage(var1, var1, var7.getWidth() - var1 - var1, var7.getHeight() - var1 - var1);
+        }
+    }
 }
