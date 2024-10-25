@@ -2300,7 +2300,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.updateScreenTick(workingscreen);
         this.world = worldClientIn;
         this.updateWorldRenderer(worldClientIn);
-
+        EventBus.call(new WorldLoadEvent());
         if (!this.integratedServerIsRunning)
         {
             AuthenticationService authenticationservice = new YggdrasilAuthenticationService(this.proxy);

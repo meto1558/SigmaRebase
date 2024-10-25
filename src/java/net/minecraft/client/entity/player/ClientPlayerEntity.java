@@ -5,6 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
+
+import com.mentalfrostbyte.jello.events.impl.EventEntityActionState;
+import com.mentalfrostbyte.jello.events.impl.EventMove;
+import com.mentalfrostbyte.jello.events.impl.EventPushBlock;
+import com.mentalfrostbyte.jello.events.impl.TickEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BiomeSoundHandler;
@@ -77,6 +82,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
+import team.sdhq.eventBus.EventBus;
 
 public class ClientPlayerEntity extends AbstractClientPlayerEntity
 {
@@ -209,6 +215,14 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         this.rowingBoat = false;
     }
 
+    public void pushOutOfBlocks(double x, double y, double z) {
+        EventPushBlock eventPushBlock = new EventPushBlock();
+        EventBus.call(eventPushBlock);
+        if (!eventPushBlock.cancelled) {
+            super.pushOutOfBlocks(x, y, z);
+        }
+    }
+
     /**
      * Gets the current pitch of the entity.
      */
@@ -228,10 +242,15 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     /**
      * Called to update the entity's position/logic.
      */
-    public void tick()
-    {
-        if (this.world.isBlockLoaded(new BlockPos(this.getPosX(), 0.0D, this.getPosZ())))
-        {
+    public void tick() {
+        TickEvent tickEvent = new TickEvent();
+        EventBus.call(tickEvent);
+
+        if(tickEvent.cancelled){
+            return;
+        }
+
+        if (this.world.isBlockLoaded(new BlockPos(this.getPosX(), 0.0D, this.getPosZ()))) {
             super.tick();
 
             if (this.isPassenger())
@@ -783,9 +802,9 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         return this.isCrouching() || this.isVisuallySwimming();
     }
 
-    public void updateEntityActionState()
-    {
+    public void updateEntityActionState() {
         super.updateEntityActionState();
+        EventBus.call(new EventEntityActionState());
 
         if (this.isCurrentViewEntity())
         {
@@ -1114,8 +1133,14 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         return super.removeActivePotionEffect(potioneffectin);
     }
 
-    public void move(MoverType typeIn, Vector3d pos)
-    {
+    public void move(MoverType typeIn, Vector3d pos) {
+        EventMove eventMove = new EventMove(pos);
+        EventBus.call(eventMove);
+
+        if(eventMove.cancelled){
+            return;
+        }
+
         double d0 = this.getPosX();
         double d1 = this.getPosZ();
         super.move(typeIn, pos);

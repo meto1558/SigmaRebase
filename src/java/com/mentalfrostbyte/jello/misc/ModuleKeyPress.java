@@ -44,7 +44,7 @@ public class ModuleKeyPress {
       }
    }
 
-   public static void method29127(int var0) {
+   public static void listen(int var0) {
       MouseHoverEvent var3 = new MouseHoverEvent(var0);
       EventBus.call(var3);
    }

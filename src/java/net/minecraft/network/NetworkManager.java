@@ -2,6 +2,7 @@ package net.minecraft.network;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.mentalfrostbyte.jello.events.impl.ReceivePacketEvent;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
@@ -50,6 +51,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import team.sdhq.eventBus.EventBus;
 
 public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
 {
@@ -169,12 +171,17 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
         }
     }
 
-    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, IPacket<?> p_channelRead0_2_) throws Exception
-    {
-        if (this.channel.isOpen())
-        {
-            try
-            {
+    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, IPacket<?> p_channelRead0_2_) throws Exception {
+        if (this.channel.isOpen()) {
+
+            ReceivePacketEvent receivePacketEvent = new ReceivePacketEvent(p_channelRead0_2_);
+            EventBus.call(receivePacketEvent);
+
+            if (receivePacketEvent.cancelled) {
+                return;
+            }
+
+            try {
                 processPacket(p_channelRead0_2_, this.packetListener);
             }
             catch (ThreadQuickExitException threadquickexitexception)

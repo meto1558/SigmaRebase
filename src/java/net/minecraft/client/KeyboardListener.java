@@ -362,7 +362,7 @@ public class KeyboardListener
                     return;
                 }
             } else if (action == 0) {
-                ModuleKeyPress.method29127(key);
+                ModuleKeyPress.listen(key);
             }
 
             if (this.debugCrashKeyPressTime > 0L)
