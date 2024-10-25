@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -49,6 +50,7 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
         }
 
+        this.register(new AutoSprint());
 
         this.sortBySuffixAndRegisterEvents();
     }

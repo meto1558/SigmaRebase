@@ -24,8 +24,6 @@ import net.minecraft.scoreboard.Scoreboard;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
-import java.awt.Color;
-import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.*;
 
@@ -33,7 +31,7 @@ public class ActiveMods extends Module {
     public int field23613 = 0;
     public int field23614;
     public HashMap<Module, Animation> field23615 = new HashMap<Module, Animation>();
-    public ClientResource field23616 = ResourceRegistry.JelloLightFont20;
+    public ClientResource font = ResourceRegistry.JelloLightFont20;
     private final List<Module> field23612 = new ArrayList<Module>();
 
     public ActiveMods() {
@@ -54,13 +52,13 @@ public class ActiveMods extends Module {
         String var3 = this.getStringSettingValueByName("Size");
         switch (var3) {
             case "Normal":
-                this.field23616 = ResourceRegistry.JelloLightFont20;
+                this.font = ResourceRegistry.JelloLightFont20;
                 break;
             case "Small":
-                this.field23616 = ResourceRegistry.JelloLightFont18;
+                this.font = ResourceRegistry.JelloLightFont18;
                 break;
             default:
-                this.field23616 = ResourceRegistry.JelloLightFont14;
+                this.font = ResourceRegistry.JelloLightFont14;
         }
     }
 
@@ -78,12 +76,12 @@ public class ActiveMods extends Module {
             }
         }
 
-        Collections.sort(this.field23612, new Class3602(this));
+        this.field23612.sort(new Class3602(this));
     }
 
     @EventTarget
-    public void method16354(EventRenderGUI var1) {
-        if (this.isEnabled() && mc.player != null) {
+    public void onGUI(EventRenderGUI var1) {
+        if (mc.player != null) {
             if (!var1.method13939()) {
                 GlStateManager.translatef(0.0F, (float) (-this.field23614), 0.0F);
             } else {
@@ -107,7 +105,7 @@ public class ActiveMods extends Module {
                     }
                 }
 
-                int var15 = 23 + var9 * (this.field23616.method23952() + 1);
+                int var15 = 23 + var9 * (this.font.method23952() + 1);
                 int var16 = var8.size();
                 int var12 = Minecraft.getInstance().getMainWindow().getHeight();
                 int var13 = var12 / 2 - (9 + 5) * (var16 - 3 + 2);
@@ -123,7 +121,7 @@ public class ActiveMods extends Module {
 
     @EventTarget
     public void method16355(EventRender var1) {
-        if (this.isEnabled() && mc.player != null) {
+        if (mc.player != null) {
             for (Module var5 : this.field23615.keySet()) {
                 if (this.getBooleanValueFromSettingName("Animations")) {
                     this.field23615.get(var5).changeDirection(!var5.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
@@ -134,9 +132,9 @@ public class ActiveMods extends Module {
                 int var20 = 10;
                 float var21 = 1;
                 int var6 = Minecraft.getInstance().getMainWindow().getWidth();
-                ClientResource var8 = this.field23616;
+                ClientResource var8 = this.font;
                 int var7 = var20 - 4;
-                if (this.field23616 == ResourceRegistry.JelloLightFont14) {
+                if (this.font == ResourceRegistry.JelloLightFont14) {
                     var20 -= 3;
                 }
 
@@ -194,24 +192,7 @@ public class ActiveMods extends Module {
         }
     }
 
-    public int method16356() {
-        return this.field23613;
-    }
-
-    private Color method16357(int var1, int var2, Color var3) {
-        ByteBuffer var6 = ByteBuffer.allocateDirect(3);
-        GL11.glPixelStorei(3317, 1);
-        GL11.glReadPixels(var1, Minecraft.getInstance().getMainWindow().getHeight() - var2, 1, 1, 6407, 5120, var6);
-        Color var7 = new Color(var6.get(0) * 2, var6.get(1) * 2, var6.get(2) * 2, 1);
-        if (var3 != null) {
-            var7 = ColorUtils.method17681(var7, var3, 0.08F);
-        }
-
-        return var7;
-    }
-
     public static class Class3602 implements Comparator<Module> {
-        private static String[] field19562;
         public final ActiveMods field19563;
 
         public Class3602(ActiveMods var1) {

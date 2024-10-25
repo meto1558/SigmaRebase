@@ -21,14 +21,14 @@ public class ModuleWithModuleSettings extends Module {
         super(category, type, description);
         this.moduleArray = modules;
 
-        for (Module moduleFromArray : this.moduleArray) {
+        for (Module moduleFromArray : moduleArray) {
             EventBus.register(moduleFromArray);
-            this.stringList.add(moduleFromArray.getName());
+            stringList.add(moduleFromArray.getName());
             moduleFromArray.method16003(this);
         }
 
-        this.registerSetting(this.modeSetting = new ModeSetting("Type", type + " mode", 0, this.stringList.toArray(new String[0])));
-        this.modeSetting.addObserver(var1x -> this.method16724());
+        this.registerSetting(modeSetting = new ModeSetting("Type", type + " mode", 0, stringList.toArray(new String[0])));
+        this.modeSetting.addObserver(var1x -> method16724());
         this.method16724();
     }
 
@@ -96,7 +96,7 @@ public class ModuleWithModuleSettings extends Module {
                         JSONObject var11 = var9.getJSONObject(var10);
                         String var12 = CJsonUtils.getStringOrDefault(var11, "name", null);
 
-                        for (Setting var14 : var8.settingMap.values()) {
+                        for (Setting<?> var14 : var8.settingMap.values()) {
                             if (var14.getName().equals(var12)) {
                                 try {
                                     var14.loadCurrentValueFromJSONObject(var11);
@@ -129,7 +129,7 @@ public class ModuleWithModuleSettings extends Module {
             for (Module var8 : this.moduleArray) {
                 JSONArray var9 = new JSONArray();
 
-                for (Setting var11 : var8.settingMap.values()) {
+                for (Setting<?> var11 : var8.settingMap.values()) {
                     var9.put(var11.buildUpSettingData(new JSONObject()));
                 }
 

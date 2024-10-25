@@ -5,6 +5,7 @@ import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.events.impl.EventRayTraceResult;
 import com.mentalfrostbyte.jello.events.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mojang.authlib.AuthenticationService;
@@ -1552,10 +1553,24 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
             else if (!this.player.isRowingBoat())
             {
+                EventRayTraceResult rayTraceEvent = null;
+                if (this.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
+                    rayTraceEvent = new EventRayTraceResult(((EntityRayTraceResult)this.objectMouseOver).getEntity(), true);
+                    EventBus.call(rayTraceEvent);
+
+                    if (rayTraceEvent.cancelled) {
+                        return;
+                    }
+                }
+
                 switch (this.objectMouseOver.getType())
                 {
                     case ENTITY:
                         AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        if (rayTraceEvent != null) {
+                            rayTraceEvent.unhover();
+                            EventBus.call(rayTraceEvent);
+                        }
                         break;
 
                     case BLOCK:
