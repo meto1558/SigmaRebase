@@ -4,10 +4,10 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.MusicManager;
 
 public class Class8808 implements Class8807 {
-   public final MusicManager field39642;
+   public final MusicManager musicManager;
 
    public Class8808(MusicManager var1) {
-      this.field39642 = var1;
+      this.musicManager = var1;
    }
 
    @Override

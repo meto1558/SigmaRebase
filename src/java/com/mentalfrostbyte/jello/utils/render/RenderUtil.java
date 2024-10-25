@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.utils.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
-import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.managers.GuiManager;
+import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import com.mentalfrostbyte.jello.utils.ResourceRegistry;
 import com.mentalfrostbyte.jello.utils.render.unmapped.Class7820;
