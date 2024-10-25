@@ -18,9 +18,7 @@ import com.sapher.youtubedl.YoutubeDLRequest;
 import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinReg;
-import com.tagtraum.jipes.math.DCTFactory;
 import com.tagtraum.jipes.math.FFTFactory;
-import com.tagtraum.jipes.math.Transform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import net.sourceforge.jaad.aac.Decoder;
@@ -125,7 +123,7 @@ public class MusicManager {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        if (!this.method24330()) {
+        if (!this.doesExecutableExist()) {
             this.method24331();
         }
 
@@ -376,7 +374,7 @@ public class MusicManager {
                                     var7.setDoOutput(true);
                                     var7.setRequestProperty("Connection", "Keep-Alive");
                                     InputStream var8 = var7.getInputStream();
-                                    Class1782 var9 = new Class1782(var8, new Class8808(this));
+                                    MusicStream var9 = new MusicStream(var8, new Class8808(this));
                                     MP4Container mp4Container = new MP4Container(var9);
                                     Movie movie = mp4Container.getMovie();
                                     List<Track> var12 = movie.getTracks();
@@ -651,17 +649,17 @@ public class MusicManager {
         this.field32169 = true;
     }
 
-    public boolean method24330() {
-        File var3 = new File(Client.getInstance().file + "/music/yt-dlp");
+    public boolean doesExecutableExist() {
+        File file = new File(Client.getInstance().file + "/music/yt-dlp");
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            var3 = new File(Client.getInstance().file + "/music/yt-dlp.exe");
+            file = new File(Client.getInstance().file + "/music/yt-dlp.exe");
         } else if (Util.getOSType() == Util.OS.LINUX) {
-            var3 = new File(Client.getInstance().file + "/music/yt-dlp_linux");
+            file = new File(Client.getInstance().file + "/music/yt-dlp_linux");
         } else if (Util.getOSType() == Util.OS.OSX) {
-            var3 = new File(Client.getInstance().file + "/music/yt-dlp_macos");
+            file = new File(Client.getInstance().file + "/music/yt-dlp_macos");
         }
 
-        return var3.exists();
+        return file.exists();
     }
 
     public void method24331() {
@@ -682,7 +680,7 @@ public class MusicManager {
 
                 File targetFile = new File(Client.getInstance().file + "/music/" + fileName);
 
-                String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/2024.10.07/" + fileName;
+                String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/2024.10.22/" + fileName;
                 try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
                      FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
                     byte[] dataBuffer = new byte[1024];
