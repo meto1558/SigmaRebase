@@ -401,6 +401,6 @@ public abstract class Track {
 	 * @return the next frame's timestamp
 	 */
     public double getNextTimeStamp() {
-		return frames.get(currentFrame).getTime();
+		return frames.get(Math.min(currentFrame, frames.size() - 1)).getTime();
 	}
 }
