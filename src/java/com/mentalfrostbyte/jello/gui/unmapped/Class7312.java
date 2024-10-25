@@ -110,7 +110,7 @@ public class Class7312 {
          (float)var3,
          (float)var4,
          this.field31339,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var5),
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var5),
          (float)var8,
          (float)var9,
          (float)this.field31342,

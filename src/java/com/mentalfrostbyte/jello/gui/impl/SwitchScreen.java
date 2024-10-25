@@ -111,7 +111,7 @@ public class SwitchScreen extends Screen {
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.3F)
+                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.3F)
             );
             super.draw(var1);
             RenderUtil.drawImage(
@@ -120,7 +120,7 @@ public class SwitchScreen extends Screen {
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     CustomLoadingScreen.background,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 1.0F - field21069.calcPercent())
+                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 1.0F - field21069.calcPercent())
             );
             RenderUtil.renderBackgroundBox(
                     0.0F,

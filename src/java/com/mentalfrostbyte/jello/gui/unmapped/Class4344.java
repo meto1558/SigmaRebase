@@ -19,7 +19,7 @@ public class Class4344 extends Class4339 {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-         ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor, 0.35F)
+         ColorUtils.applyAlpha(ClientColors.MID_GREY.color, 0.35F)
       );
       RenderUtil.method11429(
          (float)this.xA,
@@ -27,7 +27,7 @@ public class Class4344 extends Class4339 {
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
          2,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.14F)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.14F)
       );
       super.draw(var1);
    }

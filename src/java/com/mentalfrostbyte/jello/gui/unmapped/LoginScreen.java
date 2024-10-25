@@ -34,7 +34,7 @@ public class LoginScreen extends Class4247 {
                   43,
                   ResourceRegistry.JelloMediumFont40.getStringWidth("Login"),
                   50,
-                  new ColorHelper(ClientColors.DEEP_TEAL.getColor, ClientColors.DEEP_TEAL.getColor, ClientColors.DEEP_TEAL.getColor, -7631989),
+                  new ColorHelper(ClientColors.DEEP_TEAL.color, ClientColors.DEEP_TEAL.color, ClientColors.DEEP_TEAL.color, -7631989),
                   "Login",
                   ResourceRegistry.JelloMediumFont40
                )
@@ -68,7 +68,7 @@ public class LoginScreen extends Class4247 {
       int var9 = 50;
       int var10 = 300;
       int var11 = 106;
-      ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor, Class2218.field14488, Class2218.field14492);
+      ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.color, Class2218.field14488, Class2218.field14492);
       this.addToList(this.inputUsername = new UIInput(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
       this.addToList(this.inputPassword = new UIInput(this, "Password", 228, var11 + 53, var10, var9, var12, "", "Password"));
       this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
@@ -96,7 +96,7 @@ public class LoginScreen extends Class4247 {
          this.field21355.setEnabled(var5.method36702());
          if (var5.method36702()) {
             RenderUtil.renderBackgroundBox(
-               (float)(this.xA + 330), (float)(this.yA + 255), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.04F)
+               (float)(this.xA + 330), (float)(this.yA + 255), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.04F)
             );
          }
 

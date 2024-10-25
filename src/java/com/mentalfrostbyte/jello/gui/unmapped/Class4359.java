@@ -47,7 +47,7 @@ public class Class4359 extends Class4247 {
             (float)this.getYA(),
             (float)this.getWidthA(),
             (float)this.getHeightA(),
-            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.43F * var1)
+            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.43F * var1)
          );
       } else {
          RenderUtil.renderBackgroundBox(
@@ -55,21 +55,21 @@ public class Class4359 extends Class4247 {
             (float)this.getYA(),
             (float)this.getWidthA(),
             (float)this.getHeightA(),
-                 ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor, 0.075F)
+                 ColorUtils.applyAlpha(ClientColors.MID_GREY.color, 0.075F)
          );
          RenderUtil.renderBackgroundBox(
             (float)this.getXA() + (float)this.getWidthA() * var9,
             (float)this.getYA(),
             (float)this.getWidthA() * (1.0F - var9),
             (float)this.getHeightA(),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.43F * var1)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.43F * var1)
          );
          RenderUtil.renderBackgroundBox(
             (float)this.getXA(),
             (float)this.getYA(),
             (float)this.getWidthA() * var8,
             (float)this.getHeightA(),
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1 * var1)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * var1)
          );
          if (var8 != 0.0F) {
             RenderUtil.method11455((float)this.getXA() + (float)this.getWidthA() * var8, (float)this.getYA(), 5.0F, 5.0F, Resources.shadowRightPNG);

@@ -49,8 +49,8 @@ public class JelloInGameOptions extends Screen {
          var5 = field21112.calcPercent();
       }
 
-      int var6 = ColorUtils.method17690(-1072689136, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.1F), var5);
-      int var7 = ColorUtils.method17690(-804253680, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.1F), var5);
+      int var6 = ColorUtils.method17690(-1072689136, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.1F), var5);
+      int var7 = ColorUtils.method17690(-804253680, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.1F), var5);
       RenderUtil.method11431(0, 0, this.getWidthA(), this.getHeightA(), var6, var7);
       this.method13279(var4, var4);
       this.method13224();
@@ -76,7 +76,7 @@ public class JelloInGameOptions extends Screen {
                  (float)(this.getWidthA() * 2),
                  (float)(this.getHeightA() + 114),
                  this.field21113,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
          );
       }
 

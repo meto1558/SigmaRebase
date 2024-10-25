@@ -39,7 +39,7 @@ public class Class4330 extends CustomGuiScreen {
                var6,
                0,
                0,
-               new ColorHelper(0, 0, 0, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.8F)),
+               new ColorHelper(0, 0, 0, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.8F)),
                var10,
                ResourceRegistry.JelloLightFont20
             )

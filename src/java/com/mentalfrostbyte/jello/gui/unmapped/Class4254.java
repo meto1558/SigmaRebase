@@ -44,8 +44,8 @@ public class Class4254 extends Class4247 {
       int var5 = this.xA + 12 - (Resources.regular20.getStringWidth(this.field20891) - this.widthA) / 2;
       int var6 = this.yA + 102;
       GL11.glAlphaFunc(516, 0.1F);
-      RenderUtil.drawString(Resources.regular20, (float)var5, (float)(var6 + 1), this.field20891, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.5F));
-      RenderUtil.drawString(Resources.regular20, (float)var5, (float)var6, this.field20891, ClientColors.LIGHT_GREYISH_BLUE.getColor);
+      RenderUtil.drawString(Resources.regular20, (float)var5, (float)(var6 + 1), this.field20891, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F));
+      RenderUtil.drawString(Resources.regular20, (float)var5, (float)var6, this.field20891, ClientColors.LIGHT_GREYISH_BLUE.color);
       GL11.glAlphaFunc(519, 0.0F);
       super.method13226(var1);
    }

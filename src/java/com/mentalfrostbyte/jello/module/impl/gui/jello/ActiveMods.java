@@ -179,7 +179,7 @@ public class ActiveMods extends Module {
                             (float) var8.getStringWidth(var22) * 3.0F,
                             var8.method23952() + var21 + 40,
                             Resources.shadowPNG,
-                            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.36F * var15 * var19)
+                            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.36F * var15 * var19)
                     );
                     RenderUtil.drawString(
                             var8, (float) (var6 - var20 - var8.getStringWidth(var22)), (float) var7, var22, var15 != 1.0F ? ColorUtils.applyAlpha(-1, var15 * 0.95F) : var11

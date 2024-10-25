@@ -64,10 +64,10 @@ public class AlertPanel extends Class4247 {
                               this.field21284,
                               var15.field44773,
                               new ColorHelper(
-                                 ClientColors.DEEP_TEAL.getColor,
-                                 ClientColors.DEEP_TEAL.getColor,
-                                 ClientColors.DEEP_TEAL.getColor,
-                                 ClientColors.DEEP_TEAL.getColor
+                                 ClientColors.DEEP_TEAL.color,
+                                 ClientColors.DEEP_TEAL.color,
+                                 ClientColors.DEEP_TEAL.color,
+                                 ClientColors.DEEP_TEAL.color
                               ),
                               var15.field44772,
                               ResourceRegistry.JelloLightFont36
@@ -113,7 +113,7 @@ public class AlertPanel extends Class4247 {
                      this.field21284,
                      var15.field44773,
                      new ColorHelper(
-                        ClientColors.MID_GREY.getColor, ClientColors.MID_GREY.getColor, ClientColors.MID_GREY.getColor, ClientColors.MID_GREY.getColor
+                        ClientColors.MID_GREY.color, ClientColors.MID_GREY.color, ClientColors.MID_GREY.color, ClientColors.MID_GREY.color
                      ),
                      var15.field44772,
                      ResourceRegistry.JelloLightFont20
@@ -214,14 +214,14 @@ public class AlertPanel extends Class4247 {
             (float)(this.getWidthA() + 10),
             (float)(this.getHeightA() + 10),
             this.field21281,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var7)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var7)
          );
          RenderUtil.drawRect(
-            0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.1F * var7)
+            0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.1F * var7)
          );
          if (var4 > 0) {
             RenderUtil.method11465(
-               (this.widthA - var4) / 2, (this.heightA - var5) / 2, var4, var5, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var7)
+               (this.widthA - var4) / 2, (this.heightA - var5) / 2, var4, var5, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var7)
             );
          }
 
@@ -264,7 +264,7 @@ public class AlertPanel extends Class4247 {
             }
 
             this.field21281 = TextureUtil.method32933(
-               "blur", ImageUtil.method35036(0, 0, this.getWidthA(), this.getHeightA(), 5, 10, ClientColors.LIGHT_GREYISH_BLUE.getColor, true)
+               "blur", ImageUtil.method35036(0, 0, this.getWidthA(), this.getHeightA(), 5, 10, ClientColors.LIGHT_GREYISH_BLUE.color, true)
             );
          } catch (IOException var5) {
             Client.getInstance().getLogger().error(var5.getMessage());

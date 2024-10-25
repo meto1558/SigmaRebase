@@ -89,7 +89,7 @@ public class Class4277 extends Class4247 {
             (float)(var8 - ResourceRegistry.JelloLightFont14.getStringWidth(this.getTypedText()) - 10 - var11),
             (float)(var9 - 5),
             this.getTypedText(),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.5F * this.field20735.calcPercent() * var1)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F * this.field20735.calcPercent() * var1)
          );
       }
 

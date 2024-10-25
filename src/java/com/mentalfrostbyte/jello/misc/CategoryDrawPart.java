@@ -53,7 +53,7 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
          (float)this.getStartY(),
          (float)this.getWidth(),
          (float)this.method24725(),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, partialTicks * 0.6F)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, partialTicks * 0.6F)
       );
       this.field32403 = this.field32403 + this.method24733();
       int var4 = this.getStartX() + 4;
@@ -66,10 +66,10 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
       float var10 = 6;
 
       for (String categoryName : this.categoryList) {
-         int color = ClientColors.LIGHT_GREYISH_BLUE.getColor;
+         int color = ClientColors.LIGHT_GREYISH_BLUE.color;
          if (categoryName.startsWith("§7")) {
             categoryName = categoryName.substring("§7".length());
-            color = ClientColors.MID_GREY.getColor;
+            color = ClientColors.MID_GREY.color;
          }
 
          RenderUtil.drawString(

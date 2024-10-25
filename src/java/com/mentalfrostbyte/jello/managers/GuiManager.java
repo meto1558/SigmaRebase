@@ -238,13 +238,13 @@ public class GuiManager {
             if (Client.getInstance().clientMode != ClientMode.JELLO) {
                 float var7 = 0.5F + TabGUI.animationProgress.calcPercent() * 0.5F;
                 GL11.glAlphaFunc(516, 0.1F);
-                RenderUtil.renderBackgroundBox(4.0F, 2.0F, 106.0F, 28.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.6F * var7));
-                RenderUtil.drawString(Resources.bold22, 9.0F, 2.0F, "Sigma", ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.5F * var7));
+                RenderUtil.renderBackgroundBox(4.0F, 2.0F, 106.0F, 28.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.6F * var7));
+                RenderUtil.drawString(Resources.bold22, 9.0F, 2.0F, "Sigma", ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F * var7));
                 RenderUtil.drawString(
-                        Resources.bold22, 8.0F, 1.0F, "Sigma", ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, Math.min(1.0F, var7 * 1.2F))
+                        Resources.bold22, 8.0F, 1.0F, "Sigma", ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, Math.min(1.0F, var7 * 1.2F))
                 );
                 int var8 = Color.getHSBColor((float) (System.currentTimeMillis() % 4000L) / 4000.0F, 1.0F, 1.0F).getRGB();
-                RenderUtil.drawString(Resources.bold14, 73.0F, 2.0F, "5.0.0", ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.5F));
+                RenderUtil.drawString(Resources.bold14, 73.0F, 2.0F, "5.0.0", ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F));
                 RenderUtil.drawString(Resources.bold14, 72.0F, 1.0F, "5.0.0", ColorUtils.applyAlpha(var8, Math.min(1.0F, var7 * 1.4F)));
             } else {
                 GL11.glAlphaFunc(519, 0.0F);

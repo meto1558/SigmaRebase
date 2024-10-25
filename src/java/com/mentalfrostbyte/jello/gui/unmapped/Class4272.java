@@ -117,7 +117,7 @@ public class Class4272 extends Class4247 {
             (float)this.widthA,
             50.0F,
             Resources.shadowBottomPNG,
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, this.field20703.calcPercent() * var1 * 0.3F)
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, this.field20703.calcPercent() * var1 * 0.3F)
          );
          RenderUtil.method11415(this);
          RenderUtil.renderBackgroundBox(
@@ -129,7 +129,7 @@ public class Class4272 extends Class4247 {
                (float)(this.xA + 40),
                (float)(this.yA + 110),
                "No Default Profiles Available",
-               ClientColors.MID_GREY.getColor
+               ClientColors.MID_GREY.color
             );
          }
 

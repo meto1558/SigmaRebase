@@ -4,17 +4,15 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
 import com.mentalfrostbyte.jello.utils.render.ColorUtils;
 import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
 
 public class Class4246 extends ButtonPanel {
    private Class4277 field20600;
    private Animation field20601 = new Animation(125, 125);
 
    public Class4246(Class4277 var1, int var2) {
-      super(var1, "sliderButton", 0, 0, var2, var2, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor));
+      super(var1, "sliderButton", 0, 0, var2, var2, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color));
       this.field20601.changeDirection(Direction.BACKWARDS);
       this.method13215(true);
       this.field20886 = true;
@@ -63,7 +61,7 @@ public class Class4246 extends ButtonPanel {
          (float)(this.getXA() + this.getWidthA() / 2),
          (float)(this.getYA() + this.getWidthA() / 2),
          var6,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
       );
 
       super.method13226(var1);

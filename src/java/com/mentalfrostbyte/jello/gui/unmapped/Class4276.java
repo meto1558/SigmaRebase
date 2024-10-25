@@ -113,7 +113,7 @@ public class Class4276 extends Class4247 {
          (float)(this.yA + var5 / 2),
          (float)(this.xA - var5 / 2 + this.widthA),
          (float)(this.yA - var5 / 2 + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, var1 * 0.25F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.25F)
       );
       RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
       GL11.glPushMatrix();
@@ -134,7 +134,7 @@ public class Class4276 extends Class4247 {
          (float)(this.yA + 68),
          (float)(this.xA + this.widthA - 25),
          (float)(this.yA + 69),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.05F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.05F * var1)
       );
       super.draw(var1);
    }

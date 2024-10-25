@@ -65,7 +65,7 @@ public class RectangleFaded extends ButtonPanel {
                 (float) this.getWidthA(),
                 (float) this.getHeightA(),
                 this.field20590,
-                ClientColors.LIGHT_GREYISH_BLUE.getColor
+                ClientColors.LIGHT_GREYISH_BLUE.color
         );
         GL11.glPushMatrix();
         super.method13226(var1);

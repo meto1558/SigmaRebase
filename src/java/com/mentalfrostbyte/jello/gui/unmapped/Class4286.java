@@ -20,10 +20,10 @@ import java.net.URL;
 
 public class Class4286 extends Class4278 {
    public static ColorHelper field20771 = new ColorHelper(
-      ClientColors.DEEP_TEAL.getColor,
-      ClientColors.DEEP_TEAL.getColor,
-      ClientColors.DEEP_TEAL.getColor,
-      ClientColors.DEEP_TEAL.getColor,
+      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.color,
       Class2218.field14488,
       Class2218.field14492
    );
@@ -132,9 +132,9 @@ public class Class4286 extends Class4278 {
             var1
          );
          if (this.field20775 == null && this.field20773 == null) {
-            RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1 * (1.0F - var4)));
+            RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * (1.0F - var4)));
             if (this.field20776 != null) {
-               RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var4 * var1));
+               RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var4 * var1));
             }
          } else {
             if (this.field20775 == null) {
@@ -163,9 +163,9 @@ public class Class4286 extends Class4278 {
                this.field20776 = null;
             }
 
-            RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1 * (1.0F - var4)));
+            RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * (1.0F - var4)));
             if (this.field20776 != null) {
-               RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var4 * var1));
+               RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var4 * var1));
             }
          }
 
@@ -181,7 +181,7 @@ public class Class4286 extends Class4278 {
             (float)var9 * var10,
             (float)var9 * var10,
             Resources.playIconPNG,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var4 * var1)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var4 * var1)
          );
          ClientResource var11 = ResourceRegistry.JelloLightFont12;
          if (this.field20912 != null) {
@@ -193,14 +193,14 @@ public class Class4286 extends Class4278 {
                   (float)(this.getXA() + (this.getWidthA() - var11.getStringWidth(var12[1])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2),
                   var12[1],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1)
+                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
                );
                RenderUtil.drawString(
                   var11,
                   (float)(this.getXA() + (this.getWidthA() - var11.getStringWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 13),
                   var12[0],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1)
+                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
                );
             } else {
                RenderUtil.drawString(
@@ -208,7 +208,7 @@ public class Class4286 extends Class4278 {
                   (float)(this.getXA() + (this.getWidthA() - var11.getStringWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 6),
                   var12[0],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1)
+                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
                );
             }
 

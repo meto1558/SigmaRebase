@@ -19,7 +19,7 @@ public class Class4371 extends Class4247 {
          (float)this.xA + (float)this.widthA / 2.0F,
          (float)this.yA + (float)this.widthA / 2.0F,
          (float)this.widthA,
-         ColorUtils.applyAlpha(ColorUtils.method17690(this.field21365, ClientColors.DEEP_TEAL.getColor, 0.8F), var1)
+         ColorUtils.applyAlpha(ColorUtils.method17690(this.field21365, ClientColors.DEEP_TEAL.color, 0.8F), var1)
       );
       RenderUtil.method11438(
          (float)this.xA + (float)this.widthA / 2.0F,
@@ -32,7 +32,7 @@ public class Class4371 extends Class4247 {
             (float)this.xA + (float)this.widthA / 2.0F,
             (float)this.yA + (float)this.widthA / 2.0F,
             (float)(this.widthA - 2),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, var1 * 0.2F)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.2F)
          );
       }
 

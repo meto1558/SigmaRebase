@@ -24,7 +24,7 @@ public class ImageQ extends Class4278 {
          (float)this.heightA,
          this.field20792,
          ColorUtils.method17690(
-            ClientColors.DEEP_TEAL.getColor, ClientColors.LIGHT_GREYISH_BLUE.getColor, !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
+            ClientColors.DEEP_TEAL.color, ClientColors.LIGHT_GREYISH_BLUE.color, !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
          )
       );
       super.draw(var1);

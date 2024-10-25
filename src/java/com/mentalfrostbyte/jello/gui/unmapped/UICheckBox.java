@@ -54,7 +54,7 @@ public class UICheckBox extends Class4247 {
          (float)this.widthA,
          (float)this.heightA,
          10.0F,
-              ColorUtils.applyAlpha(ColorUtils.method17690(-14047489, ClientColors.DEEP_TEAL.getColor, !this.method13212() ? 1.0F : 0.9F), var5)
+              ColorUtils.applyAlpha(ColorUtils.method17690(-14047489, ClientColors.DEEP_TEAL.color, !this.method13212() ? 1.0F : 0.9F), var5)
       );
       GL11.glPushMatrix();
       GL11.glTranslatef((float)(this.getXA() + this.getWidthA() / 2), (float)(this.getYA() + this.getHeightA() / 2), 0.0F);
@@ -66,7 +66,7 @@ public class UICheckBox extends Class4247 {
          (float)this.widthA,
          (float)this.heightA,
          Resources.checkPNG,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var5)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var5)
       );
       GL11.glPopMatrix();
       var5 *= var5;

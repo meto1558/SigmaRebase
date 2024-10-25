@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class4366 extends Class4247 {
-   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor).method19414(Class2218.field14492);
+   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.color).method19414(Class2218.field14492);
    public List<String> field21343 = new ArrayList<String>();
    public int field21344 = 0;
    public boolean field21345;
@@ -52,7 +52,7 @@ public class Class4366 extends Class4247 {
                   -14540254,
                   this.textColor.method19405(),
                   this.textColor.method19405(),
-                  ClientColors.LIGHT_GREYISH_BLUE.getColor,
+                  ClientColors.LIGHT_GREYISH_BLUE.color,
                   Class2218.field14488,
                   Class2218.field14492
                ),
@@ -109,7 +109,7 @@ public class Class4366 extends Class4247 {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-         ClientColors.DEEP_TEAL.getColor
+         ClientColors.DEEP_TEAL.color
       );
       if (this.method13114(this.getHeightO(), this.getWidthO()) && this.getWidthO() - this.method13272() < this.getHeightA()) {
          RenderUtil.method11428(
@@ -117,17 +117,17 @@ public class Class4366 extends Class4247 {
             (float)(this.getYA() + 1),
             (float)(this.getXA() + this.getWidthA() - 1),
             (float)(this.getYA() + this.getHeightA() - 1),
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.25F)
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.25F)
          );
       }
 
       int var4 = this.getXA() + this.getWidthA() - 11;
       int var5 = this.getYA() + this.getHeightA() - 12;
       if (!this.method13673()) {
-         RenderUtil.method11434((float)var4, (float)var5, (float)(var4 + 6), (float)var5, (float)(var4 + 3), (float)(var5 + 3), ClientColors.MID_GREY.getColor);
+         RenderUtil.method11434((float)var4, (float)var5, (float)(var4 + 6), (float)var5, (float)(var4 + 3), (float)(var5 + 3), ClientColors.MID_GREY.color);
       } else {
          RenderUtil.method11434(
-            (float)var4, (float)(var5 + 3), (float)(var4 + 6), (float)(var5 + 3), (float)(var4 + 3), (float)var5, ClientColors.MID_GREY.getColor
+            (float)var4, (float)(var5 + 3), (float)(var4 + 6), (float)(var5 + 3), (float)(var4 + 3), (float)var5, ClientColors.MID_GREY.color
          );
       }
 
@@ -144,7 +144,7 @@ public class Class4366 extends Class4247 {
             (float)(this.getXA() + 7),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().method23952()) / 2),
             this.getTypedText(),
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1 * 0.5F)
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * 0.5F)
          );
          RenderUtil.endScissor();
       }

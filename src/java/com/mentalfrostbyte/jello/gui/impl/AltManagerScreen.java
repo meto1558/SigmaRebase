@@ -302,7 +302,7 @@ public class AltManagerScreen extends Screen {
          114,
          (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21015) - this.field21016,
          Minecraft.getInstance().getMainWindow().getHeight() - 119 - this.field21016,
-         ClientColors.LIGHT_GREYISH_BLUE.getColor
+         ClientColors.LIGHT_GREYISH_BLUE.color
       );
       this.emptyMethod();
       this.method13367();
@@ -330,7 +330,7 @@ public class AltManagerScreen extends Screen {
             (float)((int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014) - 15),
             114.0F,
             this.field21020,
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var3)
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var3)
          );
       }
 
@@ -346,7 +346,7 @@ public class AltManagerScreen extends Screen {
    private void drawTitle() {
       int var3 = this.xA + this.field21016;
       int var4 = this.yA + this.field21016;
-      int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.8F);
+      int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.8F);
       RenderUtil.drawString(ResourceRegistry.JelloLightFont40, (float)var3, (float)var4, "Jello", var5);
       RenderUtil.drawString(ResourceRegistry.JelloLightFont25, (float)(var3 + 87), (float)(var4 + 15), "Alt Manager", var5);
    }
@@ -441,7 +441,7 @@ public class AltManagerScreen extends Screen {
          this.field21005 = (int)((float)this.field21005 + var6 * var7);
       }
 
-      RenderUtil.drawRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.95F));
+      RenderUtil.drawRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.95F));
    }
 
    @Override

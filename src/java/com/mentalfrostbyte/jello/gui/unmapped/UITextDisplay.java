@@ -13,10 +13,10 @@ import org.lwjgl.opengl.GL11;
 public class UITextDisplay extends Class4278 {
    private static String[] field20736;
    public static ColorHelper field20778 = new ColorHelper(
-      ClientColors.DEEP_TEAL.getColor,
-      ClientColors.DEEP_TEAL.getColor,
-      ClientColors.DEEP_TEAL.getColor,
-      ClientColors.DEEP_TEAL.getColor,
+      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.color,
       Class2218.field14488,
       Class2218.field14492
    );
@@ -39,7 +39,7 @@ public class UITextDisplay extends Class4278 {
             (float)this.getXA(),
             (float)this.getYA(),
             this.getTypedText(),
-            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, var1)
+            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1)
          );
          GL11.glAlphaFunc(519, 0.0F);
       }

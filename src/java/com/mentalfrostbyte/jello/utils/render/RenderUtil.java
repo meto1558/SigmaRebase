@@ -129,7 +129,7 @@ public class RenderUtil {
     }
 
     public static void drawImage(float x, float y, float var2, float var3, Texture tex, float alphaValue) {
-        drawImage(x, y, var2, var3, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, alphaValue));
+        drawImage(x, y, var2, var3, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, alphaValue));
     }
 
     public static void method11455(float var0, float var1, float var2, float var3, Texture var4) {
@@ -379,7 +379,7 @@ public class RenderUtil {
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
         GL11.glAlphaFunc(519, 0.0F);
-        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var5);
+        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var5);
         drawImage(var0 - var4, var1 - var4, var4, var4, Resources.shadowCorner1PNG, var8);
         drawImage(var0 + var2, var1 - var4, var4, var4, Resources.shadowCorner2PNG, var8);
         drawImage(var0 - var4, var1 + var3, var4, var4, Resources.shadowCorner3PNG, var8);
@@ -538,7 +538,7 @@ public class RenderUtil {
     }
 
     public static void method11464(float var0, float var1, float var2, float var3, float var4, float var5) {
-        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var5);
+        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var5);
         method11450(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
         method11450(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
         method11450(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);

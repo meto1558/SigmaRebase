@@ -26,7 +26,7 @@ public class Class4284 extends Class4278 {
          );
          super.draw(var1 * (1.0F - var4));
          RenderUtil.drawImage(
-            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var4 * var1)
+            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var4 * var1)
          );
       }
    }

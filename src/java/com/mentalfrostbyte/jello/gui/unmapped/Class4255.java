@@ -27,7 +27,7 @@ public class Class4255 extends Class4247 {
          64.0F,
          64.0F,
          !this.method13298() ? this.field20633 : this.field20634,
-         ClientColors.LIGHT_GREYISH_BLUE.getColor
+         ClientColors.LIGHT_GREYISH_BLUE.color
       );
 
       RenderUtil.drawString(

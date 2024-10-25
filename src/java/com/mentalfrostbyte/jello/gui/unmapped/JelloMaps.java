@@ -86,7 +86,7 @@ public class JelloMaps extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, var5)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var5)
       );
       super.method13224();
       super.draw(var1);

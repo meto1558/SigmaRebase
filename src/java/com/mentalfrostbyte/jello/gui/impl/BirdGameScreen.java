@@ -44,7 +44,7 @@ public class BirdGameScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, var5)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var5)
       );
       super.method13224();
       RenderUtil.drawRoundedRect(
@@ -61,12 +61,12 @@ public class BirdGameScreen extends Screen {
          (float)(this.field21046.getWidthA() + 40),
          (float)(this.field21046.getHeightA() + 40),
          14.0F,
-         ClientColors.LIGHT_GREYISH_BLUE.getColor
+         ClientColors.LIGHT_GREYISH_BLUE.color
       );
       super.draw(var1);
       int var6 = (this.widthA - this.field21046.getWidthA()) / 2;
       int var7 = (this.heightA - this.field21046.getHeightA()) / 2;
-      RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, (float)var6, (float)(var7 - 60), "Bird", ClientColors.LIGHT_GREYISH_BLUE.getColor);
+      RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, (float)var6, (float)(var7 - 60), "Bird", ClientColors.LIGHT_GREYISH_BLUE.color);
       this.field21048 = Math.max(this.field21046.method13179(), this.field21048);
       String var8 = "Max: " + this.field21048 + "   |   Score: 0";
       RenderUtil.drawString(
@@ -74,7 +74,7 @@ public class BirdGameScreen extends Screen {
          (float)(var6 + this.field21046.getWidthA() - ResourceRegistry.JelloLightFont20.getStringWidth(var8)),
          (float)(var7 - 50),
          var8,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.8F)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.8F)
       );
    }
 

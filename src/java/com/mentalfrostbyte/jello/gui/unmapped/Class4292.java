@@ -80,7 +80,7 @@ public class Class4292 extends Class4278 implements Class4293 {
    public void draw(float var1) {
       var1 *= this.field20794;
       int var4 = 5;
-      int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.2F * var1);
+      int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.2F * var1);
       int var6 = this.xA;
       int var7 = this.widthA;
       if (Client.getInstance().clientMode != ClientMode.JELLO) {
@@ -92,7 +92,7 @@ public class Class4292 extends Class4278 implements Class4293 {
             (float)(this.yA + var4),
             (float)(var6 + var7),
             (float)(this.yA + this.heightA - var4),
-            ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor, 0.1F * var1)
+            ColorUtils.applyAlpha(ClientColors.MID_GREY.color, 0.1F * var1)
          );
       } else {
          RenderUtil.drawImage((float)var6, (float)this.yA, (float)var7, 5.0F, Resources.verticalScrollBarTopPNG, 0.45F * var1);

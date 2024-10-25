@@ -76,7 +76,7 @@ public class Class4296 extends Class4278 {
       }
 
       if (this.field20813 != null) {
-         int var7 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, 0.7F);
+         int var7 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.7F);
          RenderUtil.drawString(
             ResourceRegistry.JelloLightFont36,
             (float)(this.xA + (this.widthA - ResourceRegistry.JelloLightFont36.getStringWidth(this.field20813.getKnownName())) / 2),

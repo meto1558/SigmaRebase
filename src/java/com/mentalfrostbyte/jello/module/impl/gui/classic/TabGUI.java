@@ -198,7 +198,7 @@ public class TabGUI extends Module {
                }
 
                this.drawCategories((float)(0.5 + (double) animationProgress.calcPercent() * 0.5));
-               RenderUtil.renderBackgroundBox(12.0F, 30.0F, 90.0F, 1.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor);
+               RenderUtil.renderBackgroundBox(12.0F, 30.0F, 90.0F, 1.0F, ClientColors.LIGHT_GREYISH_BLUE.color);
             }
          }
       }
@@ -253,17 +253,17 @@ public class TabGUI extends Module {
             (float)activeCategoryPart.getStartX() + (float)activeCategoryPart.getWidth() + 14.0F * animationProgressValue,
             (float)activeCategoryPart.getStartY() + 16.0F + (float)(25 * activeCategoryPart.index),
             24.0F * animationProgressValue,
-            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, partialTicks * 0.6F),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, partialTicks * 0.6F)
+            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, partialTicks * 0.6F),
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, partialTicks * 0.6F)
          );
          int descriptionX = activeCategoryPart.getStartX() + activeCategoryPart.getWidth() + 4 + Math.round(animationProgressValue * 28.0F);
          int descriptionY = activeCategoryPart.getStartY() + 25 * activeCategoryPart.index + 4;
          int descriptionWidth = activeCategoryPart.fontRenderer.getStringWidth(description) + 8;
          float secondAnimationValue = MathHelper.calculateTransition(this.secondAnimationProgress.calcPercent(), 0.0F, 1.0F, 1.0F);
-         RenderUtil.renderBackgroundBox((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, partialTicks * 0.6F));
+         RenderUtil.renderBackgroundBox((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, partialTicks * 0.6F));
          RenderUtil.startScissor((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F);
          RenderUtil.drawString(
-            activeCategoryPart.fontRenderer, (float)(descriptionX + 4), (float)(descriptionY + 2), description, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, Math.min(1.0F, partialTicks * 1.7F))
+            activeCategoryPart.fontRenderer, (float)(descriptionX + 4), (float)(descriptionY + 2), description, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, Math.min(1.0F, partialTicks * 1.7F))
          );
          RenderUtil.endScissor();
       }

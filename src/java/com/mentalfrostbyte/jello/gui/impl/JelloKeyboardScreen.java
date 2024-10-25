@@ -147,7 +147,7 @@ public class JelloKeyboardScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor, var5)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var5)
       );
       super.method13224();
       RenderUtil.drawString(
@@ -155,7 +155,7 @@ public class JelloKeyboardScreen extends Screen {
          (float)((this.widthA - 1060) / 2),
          (float)((this.heightA - 357) / 2 - 90),
          "Keybind Manager",
-         ClientColors.LIGHT_GREYISH_BLUE.getColor
+         ClientColors.LIGHT_GREYISH_BLUE.color
       );
       super.draw(var1);
    }

@@ -1473,6 +1473,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      */
     public void shutdown()
     {
+        if (this.running) {
+            Client.getInstance().shutdown();
+        }
         this.running = false;
     }
 

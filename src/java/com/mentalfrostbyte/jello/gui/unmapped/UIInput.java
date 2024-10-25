@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.utils.ClientColors;
 import com.mentalfrostbyte.jello.utils.ColorHelper;
 import com.mentalfrostbyte.jello.utils.ResourceRegistry;
@@ -20,9 +18,9 @@ import java.util.List;
 
 public class UIInput extends Class4278 {
    public static final ColorHelper field20741 = new ColorHelper(
-      -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor, Class2218.field14488, Class2218.field14492
+      -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.color, Class2218.field14488, Class2218.field14492
    );
-   public static final ColorHelper field20742 = new ColorHelper(-1, -1, -1, ClientColors.LIGHT_GREYISH_BLUE.getColor, Class2218.field14488, Class2218.field14492);
+   public static final ColorHelper field20742 = new ColorHelper(-1, -1, -1, ClientColors.LIGHT_GREYISH_BLUE.color, Class2218.field14488, Class2218.field14492);
    private String field20743 = "";
    private float field20744;
    private final float field20745 = 2.0F;

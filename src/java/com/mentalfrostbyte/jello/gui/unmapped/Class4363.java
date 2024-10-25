@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class Class4363 extends Class4247 {
-   public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor).method19414(Class2218.field14492);
+   public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.color).method19414(Class2218.field14492);
    public List<String> values;
    public int field21327;
    public boolean field21328;
@@ -79,7 +79,7 @@ public class Class4363 extends Class4247 {
                this.getWidthA(),
                this.getHeightA(),
                new ColorHelper(
-                  ClientColors.LIGHT_GREYISH_BLUE.getColor,
+                  ClientColors.LIGHT_GREYISH_BLUE.color,
                   -1381654,
                   this.textColor.method19405(),
                   this.textColor.method19405(),
@@ -163,7 +163,7 @@ public class Class4363 extends Class4247 {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor, var1 * this.field21330.calcPercent())
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * this.field21330.calcPercent())
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),

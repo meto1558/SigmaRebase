@@ -63,7 +63,7 @@ public class Class7927 {
          this.field33959 = (HashMap<Integer, byte[]>)var1.readObject();
          this.field33958 = var1.readInt();
       } catch (ClassNotFoundException | IOException var5) {
-         System.out.println(var1 + " idk");
+
       }
    }
 

@@ -32,7 +32,7 @@ public class PNGButtonChanging extends Class4247 {
          (float)(this.widthA * 3),
          (float)this.heightA,
          Resources.repeatPNG,
-         ColorUtils.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.getColor, 0.35F)
+         ColorUtils.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.color, 0.35F)
       );
       RenderUtil.endScissor();
       super.draw(var1);

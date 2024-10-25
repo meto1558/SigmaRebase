@@ -12,11 +12,11 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class Class4299 extends Class4278 {
-   public Texture field20829;
-   public Texture field20830;
-   public Texture field20831;
-   public Texture field20832;
-   public Texture field20833;
+   public Texture backgrnd;
+   public Texture foregrnd;
+   public Texture pipe;
+   public Texture pipe2;
+   public Texture bird;
    public TreeMap<Long, Double> field20834 = new TreeMap<Long, Double>();
    public float field20835 = 0.5F;
    public float field20836 = 0.0F;
@@ -24,11 +24,11 @@ public class Class4299 extends Class4278 {
 
    public Class4299(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, int var7) {
       super(var1, var2, var3, var4, 700, 512, false);
-      this.field20829 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/bg.png");
-      this.field20830 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/fg.png");
-      this.field20831 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/pipe.png");
-      this.field20832 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/pipe2.png");
-      this.field20833 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/bird.png");
+      this.backgrnd = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/bg.png");
+      this.foregrnd = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/fg.png");
+      this.pipe = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/pipe.png");
+      this.pipe2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/pipe2.png");
+      this.bird = Resources.loadTexture("com/mentalfrostbyte/gui/resources/games/bird.png");
    }
 
    private void method13183() {
@@ -69,7 +69,7 @@ public class Class4299 extends Class4278 {
       RenderUtil.method11415(this);
 
       for (int var4 = 0; var4 < 3; var4++) {
-         RenderUtil.method11455((float)(this.xA + 288 * var4), (float)this.yA, 288.0F, 512.0F, this.field20829);
+         RenderUtil.method11455((float)(this.xA + 288 * var4), (float)this.yA, 288.0F, 512.0F, this.backgrnd);
       }
 
       float var16 = 60.0F / (float) Minecraft.getFps();
@@ -89,16 +89,16 @@ public class Class4299 extends Class4278 {
             (float)(this.yA - 320 + (int)((double)var8 * (Double)var10.getValue()) - var6 / 2),
             52.0F,
             320.0F,
-            this.field20831,
-            ClientColors.LIGHT_GREYISH_BLUE.getColor
+            this.pipe,
+            ClientColors.LIGHT_GREYISH_BLUE.color
          );
          RenderUtil.drawImage(
             (float)this.xA + var13 + var12,
             (float)(this.yA + (int)((double)var8 * (Double)var10.getValue()) + var6 / 2),
             52.0F,
             320.0F,
-            this.field20832,
-            ClientColors.LIGHT_GREYISH_BLUE.getColor
+            this.pipe2,
+            ClientColors.LIGHT_GREYISH_BLUE.color
          );
          if (var12 > -52.0F && var12 < 0.0F) {
             float var14 = (float)(var6 - 24) / (float)var8;
@@ -110,11 +110,16 @@ public class Class4299 extends Class4278 {
       float var18 = (float)(System.currentTimeMillis() % (long)3400) / 3400;
 
       for (int var19 = 0; var19 < 4; var19++) {
-         RenderUtil.method11455((float)(this.xA + 288 * var19) - 288.0F * var18, (float)(this.yA + var8), 288.0F, 112.0F, this.field20830);
+         RenderUtil.method11455((float)(this.xA + 288 * var19) - 288.0F * var18, (float)(this.yA + var8), 288.0F, 112.0F, this.foregrnd);
       }
 
-      RenderUtil.method11436(
-         (float)this.xA + (float)var7 / 12.0F, (float)this.yA + (float)var8 * (1.0F - this.field20835), 10.0F, ClientColors.PALE_YELLOW.getColor
+      RenderUtil.drawImage(
+              (float)this.xA + (float)var7 / 12.0F,
+              (float)this.yA + (float)var8 * (1.0F - this.field20835),
+              40,
+              20,
+              this.bird,
+              ClientColors.LIGHT_GREYISH_BLUE.color
       );
       RenderUtil.endScissor();
       this.field20837 = System.currentTimeMillis();
