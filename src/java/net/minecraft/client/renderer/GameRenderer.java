@@ -2,6 +2,7 @@ package net.minecraft.client.renderer;
 
 import com.google.gson.JsonSyntaxException;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.events.impl.Render2DEvent;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -78,6 +79,7 @@ import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TimedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.sdhq.eventBus.EventBus;
 
 public class GameRenderer implements IResourceManagerReloadListener, AutoCloseable
 {
@@ -645,6 +647,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
             if (renderWorldIn && this.mc.world != null && !Config.isReloadingResources())
             {
                 this.mc.getProfiler().startSection("level");
+                EventBus.call(new Render2DEvent(partialTicks, nanoTime));
                 this.renderWorld(partialTicks, nanoTime, new MatrixStack());
 
                 if (this.mc.isSingleplayer() && this.timeWorldIcon < Util.milliTime() - 1000L)

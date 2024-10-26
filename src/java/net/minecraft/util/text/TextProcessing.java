@@ -1,8 +1,11 @@
 package net.minecraft.util.text;
 
 import java.util.Optional;
+
+import com.mentalfrostbyte.jello.events.impl.TextReplaceEvent;
 import net.minecraft.util.ICharacterConsumer;
 import net.minecraft.util.Unit;
+import team.sdhq.eventBus.EventBus;
 
 public class TextProcessing
 {
@@ -113,8 +116,10 @@ public class TextProcessing
         return func_238340_a_(p_238339_0_, p_238339_1_, p_238339_2_, p_238339_2_, p_238339_3_);
     }
 
-    public static boolean func_238340_a_(String p_238340_0_, int p_238340_1_, Style p_238340_2_, Style p_238340_3_, ICharacterConsumer p_238340_4_)
-    {
+    public static boolean func_238340_a_(String p_238340_0_, int p_238340_1_, Style p_238340_2_, Style p_238340_3_, ICharacterConsumer p_238340_4_) {
+        TextReplaceEvent i1 = new TextReplaceEvent(p_238340_0_);
+        EventBus.call(i1);
+        p_238340_0_ = i1.setText();
         int i = p_238340_0_.length();
         Style style = p_238340_2_;
 

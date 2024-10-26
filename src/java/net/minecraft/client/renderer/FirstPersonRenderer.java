@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.base.MoreObjects;
+import com.mentalfrostbyte.jello.events.impl.EventHandAnimation;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.Objects;
@@ -12,10 +13,7 @@ import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShootableItem;
+import net.minecraft.item.*;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +25,7 @@ import net.optifine.Config;
 import net.optifine.CustomItems;
 import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
+import team.sdhq.eventBus.EventBus;
 
 public class FirstPersonRenderer
 {
@@ -41,6 +40,7 @@ public class FirstPersonRenderer
     private float prevEquippedProgressOffHand;
     private final EntityRendererManager renderManager;
     private final ItemRenderer itemRenderer;
+
 
     public FirstPersonRenderer(Minecraft mcIn)
     {
@@ -393,6 +393,7 @@ public class FirstPersonRenderer
             else
             {
                 boolean flag3 = handside == HandSide.RIGHT;
+                EventHandAnimation eventHandAnimation = new EventHandAnimation(true, swingProgress, equippedProgress, handside, stack, matrixStackIn);
 
                 if (player.isHandActive() && player.getItemInUseCount() > 0 && player.getActiveHand() == handIn)
                 {
@@ -476,19 +477,24 @@ public class FirstPersonRenderer
                     matrixStackIn.translate((double)((float)j * -0.4F), (double)0.8F, (double)0.3F);
                     matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float)j * 65.0F));
                     matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float)j * -85.0F));
+                } else {
+                    EventBus.call(eventHandAnimation);
+                    if (!eventHandAnimation.cancelled) {
+                        float f6 = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
+                        float f7 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2F));
+                        float f10 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
+                        int l = flag3 ? 1 : -1;
+                        matrixStackIn.translate((double)((float)l * f6), (double)f7, (double)f10);
+                        this.transformSideFirstPerson(matrixStackIn, handside, equippedProgress);
+                        this.transformFirstPerson(matrixStackIn, handside, swingProgress);
+                    }
                 }
-                else
-                {
-                    float f6 = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
-                    float f7 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2F));
-                    float f10 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
-                    int l = flag3 ? 1 : -1;
-                    matrixStackIn.translate((double)((float)l * f6), (double)f7, (double)f10);
-                    this.transformSideFirstPerson(matrixStackIn, handside, equippedProgress);
-                    this.transformFirstPerson(matrixStackIn, handside, swingProgress);
+                if (eventHandAnimation.isBlocking()) {
+                    this.renderItemSide(player, stack, flag3 ? ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND : ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, !flag3, matrixStackIn, bufferIn, combinedLightIn);
                 }
+                eventHandAnimation = new EventHandAnimation(false, swingProgress, equippedProgress, handside, stack, matrixStackIn);
+                EventBus.call(eventHandAnimation);
 
-                this.renderItemSide(player, stack, flag3 ? ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND : ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, !flag3, matrixStackIn, bufferIn, combinedLightIn);
             }
 
             matrixStackIn.pop();

@@ -3,6 +3,7 @@ package net.minecraft.network;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.mentalfrostbyte.jello.events.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.events.impl.SendPacketEvent;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
@@ -51,6 +52,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import team.sdhq.eventBus.Event;
 import team.sdhq.eventBus.EventBus;
 
 public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
@@ -212,16 +214,21 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
         this.sendPacket(packetIn, (GenericFutureListener <? extends Future <? super Void >>)null);
     }
 
-    public void sendPacket(IPacket<?> packetIn, @Nullable GenericFutureListener <? extends Future <? super Void >> p_201058_2_)
-    {
-        if (this.isChannelOpen())
-        {
-            this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, p_201058_2_);
-        }
-        else
-        {
-            this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
+    public void sendPacket(IPacket<?> packetIn, @Nullable GenericFutureListener <? extends Future <? super Void >> p_201058_2_) {
+        SendPacketEvent var5 = new SendPacketEvent(packetIn);
+        EventBus.call(var5);
+        packetIn = var5.getPacket();
+
+        if (!var5.cancelled) {
+            if (this.isChannelOpen()) {
+
+                this.flushOutboundQueue();
+                this.dispatchPacket(packetIn, p_201058_2_);
+            }
+            else
+            {
+                this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
+            }
         }
     }
 

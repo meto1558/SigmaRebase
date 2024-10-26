@@ -5,7 +5,8 @@ import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.events.impl.EventRayTraceResult;
+import com.mentalfrostbyte.jello.events.impl.ClickEvent;
+import com.mentalfrostbyte.jello.events.impl.StopUseItemEvent;
 import com.mentalfrostbyte.jello.events.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mojang.authlib.AuthenticationService;
@@ -967,6 +968,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         this.currentScreen = guiScreenIn;
         try {
+            System.out.println("setting gui");
             Client.getInstance().guiManager.method33481();
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -1474,9 +1476,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      */
     public void shutdown()
     {
-        if (this.running) {
-            Client.getInstance().shutdown();
-        }
         this.running = false;
     }
 
@@ -1538,8 +1537,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private void clickMouse()
-    {
+    private void clickMouse() {
+        ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.LEFT);
+        EventBus.call(clickEvent);
+
+        if(clickEvent.cancelled){
+            return;
+        }
+
         if (this.leftClickCounter <= 0)
         {
             if (this.objectMouseOver == null)
@@ -1553,24 +1558,10 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
             else if (!this.player.isRowingBoat())
             {
-                EventRayTraceResult rayTraceEvent = null;
-                if (this.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
-                    rayTraceEvent = new EventRayTraceResult(((EntityRayTraceResult)this.objectMouseOver).getEntity(), true);
-                    EventBus.call(rayTraceEvent);
-
-                    if (rayTraceEvent.cancelled) {
-                        return;
-                    }
-                }
-
                 switch (this.objectMouseOver.getType())
                 {
                     case ENTITY:
                         AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
-                        if (rayTraceEvent != null) {
-                            rayTraceEvent.unhover();
-                            EventBus.call(rayTraceEvent);
-                        }
                         break;
 
                     case BLOCK:
@@ -1600,8 +1591,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Called when user clicked he's mouse right button (place)
      */
-    private void rightClickMouse()
-    {
+    private void rightClickMouse() {
+        ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.RIGHT);
+        EventBus.call(clickEvent);
+
+        if(clickEvent.cancelled){
+            return;
+        }
+
         if (!this.playerController.getIsHittingBlock())
         {
             this.rightClickDelayTimer = 4;
@@ -1998,9 +1995,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         if (this.player.isHandActive())
         {
-            if (!this.gameSettings.keyBindUseItem.isKeyDown())
-            {
-                this.playerController.onStoppedUsingItem(this.player);
+            if (!this.gameSettings.keyBindUseItem.isKeyDown()) {
+                StopUseItemEvent var6 = new StopUseItemEvent();
+                EventBus.call(var6);
+                if (!var6.cancelled) {
+                    this.playerController.onStoppedUsingItem(this.player);
+                }
             }
 
             while (this.gameSettings.keyBindAttack.isPressed())
@@ -2442,8 +2442,13 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Called when user clicked he's mouse middle button (pick block)
      */
-    private void middleClickMouse()
-    {
+    private void middleClickMouse() {
+        ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.MID);
+        EventBus.call(clickEvent);
+
+        if(clickEvent.cancelled){
+            return;
+        }
         if (this.objectMouseOver != null && this.objectMouseOver.getType() != RayTraceResult.Type.MISS)
         {
             boolean flag = this.player.abilities.isCreativeMode;

@@ -1,6 +1,7 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.hash.Hashing;
+import com.mentalfrostbyte.jello.events.impl.EventFOV;
 import com.mojang.authlib.GameProfile;
 import java.io.File;
 import javax.annotation.Nullable;
@@ -23,6 +24,7 @@ import net.optifine.Config;
 import net.optifine.player.CapeUtils;
 import net.optifine.player.PlayerConfigurations;
 import net.optifine.reflect.Reflector;
+import team.sdhq.eventBus.EventBus;
 
 public abstract class AbstractClientPlayerEntity extends PlayerEntity
 {
@@ -212,8 +214,10 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
 
             f *= 1.0F - f1 * 0.15F;
         }
-
-        return Reflector.ForgeHooksClient_getOffsetFOV.exists() ? Reflector.callFloat(Reflector.ForgeHooksClient_getOffsetFOV, this, f) : MathHelper.lerp(Minecraft.getInstance().gameSettings.fovScaleEffect, 1.0F, f);
+        float fov = Reflector.ForgeHooksClient_getOffsetFOV.exists() ? Reflector.callFloat(Reflector.ForgeHooksClient_getOffsetFOV, this, f) : f;
+        EventFOV eventSomething = new EventFOV(fov);
+        EventBus.call(eventSomething);
+        return eventSomething.fovModifier;
     }
 
     public String getNameClear()

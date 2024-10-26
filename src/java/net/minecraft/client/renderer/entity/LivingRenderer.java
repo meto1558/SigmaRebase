@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
+import com.mentalfrostbyte.jello.events.impl.EventRenderNameTag;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.List;
@@ -28,6 +29,7 @@ import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.sdhq.eventBus.EventBus;
 
 public abstract class LivingRenderer<T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements IEntityRenderer<T, M>
 {
@@ -363,8 +365,15 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
     {
     }
 
-    protected boolean canRenderName(T entity)
-    {
+    protected boolean canRenderName(T entity) {
+
+
+        EventRenderNameTag var4 = new EventRenderNameTag(entity);
+        EventBus.call(var4);
+        if (var4.cancelled) {
+            return false;
+        }
+
         double d0 = this.renderManager.squareDistanceTo(entity);
         float f = entity.isDiscrete() ? 32.0F : 64.0F;
 
