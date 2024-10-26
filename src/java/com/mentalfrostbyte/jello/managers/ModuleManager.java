@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
+import com.mentalfrostbyte.jello.module.impl.player.Cape;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -51,6 +52,7 @@ public class ModuleManager {
         }
 
         this.register(new AutoSprint());
+        this.register(new Cape());
 
         this.sortBySuffixAndRegisterEvents();
     }

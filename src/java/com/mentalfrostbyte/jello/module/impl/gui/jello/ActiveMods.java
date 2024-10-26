@@ -28,11 +28,11 @@ import java.util.List;
 import java.util.*;
 
 public class ActiveMods extends Module {
-    public int field23613 = 0;
-    public int field23614;
-    public HashMap<Module, Animation> field23615 = new HashMap<Module, Animation>();
+    public int offsetY  = 0;
+    public int totalHeight;
+    public HashMap<Module, Animation> animations  = new HashMap<Module, Animation>();
     public ClientResource font = ResourceRegistry.JelloLightFont20;
-    private final List<Module> field23612 = new ArrayList<Module>();
+    private final List<Module> activeModules  = new ArrayList<Module>();
 
     public ActiveMods() {
         super(ModuleCategory.GUI, "ActiveMods", "Renders active mods");
@@ -64,26 +64,26 @@ public class ActiveMods extends Module {
 
     @Override
     public void initialize() {
-        this.field23612.clear();
+        this.activeModules.clear();
 
         for (Module var4 : Client.getInstance().moduleManager.getModuleMap().values()) {
             if (var4.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI) {
-                this.field23612.add(var4);
-                this.field23615.put(var4, new Animation(150, 150, Direction.BACKWARDS));
+                this.activeModules.add(var4);
+                this.animations.put(var4, new Animation(150, 150, Direction.BACKWARDS));
                 if (this.getBooleanValueFromSettingName("Animations")) {
-                    this.field23615.get(var4).changeDirection(!var4.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
+                    this.animations.get(var4).changeDirection(!var4.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
                 }
             }
         }
 
-        this.field23612.sort(new Class3602(this));
+        this.activeModules.sort(new Class3602(this));
     }
 
     @EventTarget
     public void onGUI(EventRenderGUI var1) {
         if (mc.player != null) {
             if (!var1.method13939()) {
-                GlStateManager.translatef(0.0F, (float) (-this.field23614), 0.0F);
+                GlStateManager.translatef(0.0F, (float) (-this.totalHeight), 0.0F);
             } else {
                 Scoreboard scoreboard = mc.world.getScoreboard();
                 ScoreObjective scoreobjective = null;
@@ -99,7 +99,7 @@ public class ActiveMods extends Module {
                 Collection var8 = scoreboard.getSortedScores(scoreobjective1);
                 int var9 = 0;
 
-                for (Module var11 : this.field23612) {
+                for (Module var11 : this.activeModules) {
                     if (var11.isEnabled()) {
                         var9++;
                     }
@@ -110,10 +110,10 @@ public class ActiveMods extends Module {
                 int var12 = Minecraft.getInstance().getMainWindow().getHeight();
                 int var13 = var12 / 2 - (9 + 5) * (var16 - 3 + 2);
                 if (var15 <= var13) {
-                    this.field23614 = 0;
+                    this.totalHeight = 0;
                 } else {
-                    this.field23614 = (var15 - var13) / 2;
-                    GlStateManager.translatef(0.0F, (float) this.field23614, 0.0F);
+                    this.totalHeight = (var15 - var13) / 2;
+                    GlStateManager.translatef(0.0F, (float) this.totalHeight, 0.0F);
                 }
             }
         }
@@ -122,9 +122,9 @@ public class ActiveMods extends Module {
     @EventTarget
     public void method16355(EventRender var1) {
         if (mc.player != null) {
-            for (Module var5 : this.field23615.keySet()) {
+            for (Module var5 : this.animations.keySet()) {
                 if (this.getBooleanValueFromSettingName("Animations")) {
-                    this.field23615.get(var5).changeDirection(!var5.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
+                    this.animations.get(var5).changeDirection(!var5.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
                 }
             }
 
@@ -145,7 +145,7 @@ public class ActiveMods extends Module {
                 int var10 = 0;
                 int var11 = ColorUtils.applyAlpha(-1, 0.95F);
 
-                for (Module var13 : this.field23612) {
+                for (Module var13 : this.activeModules) {
                     float var14 = 1.0F;
                     float var15 = 1.0F;
                     if (!this.getBooleanValueFromSettingName("Animations")) {
@@ -153,7 +153,7 @@ public class ActiveMods extends Module {
                             continue;
                         }
                     } else {
-                        Animation var16 = this.field23615.get(var13);
+                        Animation var16 = this.animations.get(var13);
                         if (var16.calcPercent() == 0.0F) {
                             continue;
                         }
@@ -187,7 +187,7 @@ public class ActiveMods extends Module {
                     var7 = (int) ((float) var7 + (float) (var8.method23952() + var21) * QuadraticEasing.easeInOutQuad(var15, 0.0F, 1.0F, 1.0F));
                 }
 
-                this.field23613 = var7;
+                this.offsetY = var7;
             }
         }
     }
