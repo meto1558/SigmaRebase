@@ -64,7 +64,7 @@ public class Class4276 extends Class4247 {
       this.addToList(
          this.field20728 = new UIInput(
             this,
-            "Cords",
+            "Coords",
             20,
             this.heightA - 44,
             this.widthA - 100,

@@ -238,7 +238,7 @@ public class ChangelogScreen extends CustomGuiScreen {
               "            \"Added Hypixel High Longjump mode\",\n" +
               "            \"Added New Classic/Jello Switch GUI\",\n" +
               "            \"Added Weird 'Ninja' AutoBlock Animation\",\n" +
-              "            \"Fixed Cords not hiding in F3/F1\",\n" +
+              "            \"Fixed Coords not hiding in F3/F1\",\n" +
               "            \"Fixed Music Player Skipping\",\n" +
               "            \"Fixed Music Player Windows Issues\",\n" +
               "            \"Fixed Hypixel Flies (Special thanks to Pepa_Pig58 and Carlos)\",\n" +

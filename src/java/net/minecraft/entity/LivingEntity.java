@@ -169,7 +169,7 @@ public abstract class LivingEntity extends Entity
      * Damage taken in the last hit. Mobs are resistant to damage less than this for a short time after taking damage.
      */
     protected float lastDamage;
-    protected boolean isJumping;
+    public boolean isJumping;
     public float moveStrafing;
     public float moveVertical;
     public float moveForward;

@@ -278,7 +278,7 @@ public class RenderUtil {
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
-
+    // draw string?
     public static void method11440(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
         method11441(var0, var1, var2, var3, var4, var5, var6, false);
     }
