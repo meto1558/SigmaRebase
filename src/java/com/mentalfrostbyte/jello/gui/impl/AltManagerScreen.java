@@ -48,21 +48,21 @@ public class AltManagerScreen extends Screen {
    public AltManagerScreen() {
       super("Alt Manager");
       this.method13300(false);
-      ArrayList var3 = new ArrayList();
-      var3.add("Alphabetical");
-      var3.add("Bans");
-      var3.add("Date Added");
-      var3.add("Last Used");
-      var3.add("Use count");
-      ArrayList<String> var4 = new ArrayList();
-      ServerList var5 = new ServerList(Minecraft.getInstance());
-      var5.loadServerList();
-      int var6 = var5.countServers();
+      ArrayList<String> sortingOptions = new ArrayList<>();
+      sortingOptions.add("Alphabetical");
+      sortingOptions.add("Bans");
+      sortingOptions.add("Date Added");
+      sortingOptions.add("Last Used");
+      sortingOptions.add("Use count");
+      ArrayList<String> servers = new ArrayList();
+      ServerList serverList = new ServerList(Minecraft.getInstance());
+      serverList.loadServerList();
+      int serverListSize = serverList.countServers();
 
-      for (int var7 = 0; var7 < var6; var7++) {
-         ServerData var8 = var5.getServerData(var7);
-         if (!var4.contains(var8.serverIP)) {
-            var4.add(var8.serverIP);
+      for (int i = 0; i < serverListSize; i++) {
+         ServerData server = serverList.getServerData(i);
+         if (!servers.contains(server.serverIP)) {
+            servers.add(server.serverIP);
          }
       }
 
@@ -124,8 +124,8 @@ public class AltManagerScreen extends Screen {
                500
             )
          );
-      Class4363 var9 = new Class4363(this, "drop", (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014) - 220, 44, 200, 32, var3, 0);
-      var9.method13643(var4, 1);
+      Class4363 var9 = new Class4363(this, "drop", (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014) - 220, 44, 200, 32, sortingOptions, 0);
+      var9.method13643(servers, 1);
       var9.method13656(2);
       this.addToList(var9);
       var9.method13036(var2 -> {
@@ -252,19 +252,18 @@ public class AltManagerScreen extends Screen {
    }
 
    private void method13362() {
-      MiniAlert var3 = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
-      MiniAlert var4 = new MiniAlert(AlertType.FIRSTLINE, "Login with your minecraft", 15);
-      MiniAlert var5 = new MiniAlert(AlertType.FIRSTLINE, "account here!", 25);
-      MiniAlert var6 = new MiniAlert(AlertType.SEKONDLINE, "Email", 50);
-      MiniAlert var7 = new MiniAlert(AlertType.SEKONDLINE, "Password", 50);
-      MiniAlert var8 = new MiniAlert(AlertType.TEXTBOX, "", 15);
-      MiniAlert var9 = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
-      this.addToList(this.field21012 = new AlertPanel(this, "Testt", true, "Add Alt", var3, var4, var5, var6, var7, var8, var9));
+      MiniAlert header = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
+      MiniAlert firstline1 = new MiniAlert(AlertType.FIRSTLINE, "Login with your minecraft", 15);
+      MiniAlert firstline2 = new MiniAlert(AlertType.FIRSTLINE, "account here!", 25);
+      MiniAlert email = new MiniAlert(AlertType.SEKONDLINE, "Email", 50);
+      MiniAlert password = new MiniAlert(AlertType.SEKONDLINE, "Password", 50);
+      MiniAlert button  = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
+      this.addToList(this.field21012 = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, email, password, button));
       this.field21012.method13036(var1 -> {
          if (!this.field21012.method13600().get("Email").contains(":")) {
-            Account var11 = new Account(this.field21012.method13600().get("Email"), this.field21012.method13600().get("Password"));
-            if (!this.accountManager.containsAccount(var11)) {
-               this.accountManager.updateAccount(var11);
+            Account account = new Account(this.field21012.method13600().get("Email"), this.field21012.method13600().get("Password"));
+            if (!this.accountManager.containsAccount(account)) {
+               this.accountManager.updateAccount(account);
             }
 
             this.method13372(false);

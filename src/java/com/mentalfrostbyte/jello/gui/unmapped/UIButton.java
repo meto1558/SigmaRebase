@@ -1,10 +1,8 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.utils.ColorHelper;
 import com.mentalfrostbyte.jello.utils.render.ColorUtils;
 import com.mentalfrostbyte.jello.utils.render.RenderUtil;
