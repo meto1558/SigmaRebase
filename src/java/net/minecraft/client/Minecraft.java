@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.events.impl.ClickEvent;
+import com.mentalfrostbyte.jello.events.impl.EventRayTraceResult;
 import com.mentalfrostbyte.jello.events.impl.StopUseItemEvent;
 import com.mentalfrostbyte.jello.events.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
@@ -968,7 +969,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         this.currentScreen = guiScreenIn;
         try {
-            System.out.println("setting gui");
             Client.getInstance().guiManager.method33481();
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -1476,6 +1476,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      */
     public void shutdown()
     {
+        if (this.running) {
+            Client.getInstance().shutdown();
+        }
         this.running = false;
     }
 
@@ -1558,10 +1561,23 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
             else if (!this.player.isRowingBoat())
             {
+                EventRayTraceResult rayTraceEvent = null;
+                if (this.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
+                    rayTraceEvent = new EventRayTraceResult(((EntityRayTraceResult)this.objectMouseOver).getEntity(), true);
+                    EventBus.call(rayTraceEvent);
+
+                    if (rayTraceEvent.cancelled) {
+                        return;
+                    }
+                }
                 switch (this.objectMouseOver.getType())
                 {
                     case ENTITY:
                         AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        if (rayTraceEvent != null) {
+                            rayTraceEvent.unhover();
+                            EventBus.call(rayTraceEvent);
+                        }
                         break;
 
                     case BLOCK:

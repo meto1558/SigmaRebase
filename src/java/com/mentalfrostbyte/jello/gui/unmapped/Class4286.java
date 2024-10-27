@@ -169,17 +169,17 @@ public class Class4286 extends Class4278 {
             }
          }
 
-         byte var9 = 50;
+         float var9 = 50;
          if (this.method13212()) {
             var9 = 40;
          }
 
          float var10 = 0.5F + var4 / 2.0F;
          RenderUtil.drawImage(
-            (float)(this.getXA() + this.getWidthA() / 2) - (float)(var9 / 2) * var10,
-            (float)(this.getYA() + this.getWidthA() / 2) - (float)(var9 / 2) * var10,
-            (float)var9 * var10,
-            (float)var9 * var10,
+            (float)(this.getXA() + this.getWidthA() / 2) - (var9 / 2) * var10,
+            (float)(this.getYA() + this.getWidthA() / 2) - (var9 / 2) * var10,
+            var9 * var10,
+            var9 * var10,
             Resources.playIconPNG,
                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var4 * var1)
          );

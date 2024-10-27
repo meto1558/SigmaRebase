@@ -45,7 +45,7 @@ public final class Class7870 {
    private static final float field33725 = (float)(1.0 / (2.0 * Math.cos(Math.PI * 3.0 / 8.0)));
    private static final float field33726 = (float)(1.0 / (2.0 * Math.cos(Math.PI / 4)));
    private static float[] field33727 = null;
-   private static float[][] field33728 = (float[][])null;
+   private static float[][] field33728 = null;
 
    public Class7870(int var1, float var2, float[] var3) {
       if (field33727 == null) {
@@ -416,353 +416,125 @@ public final class Class7870 {
       var102[496 + var103] = var18;
    }
 
-   private void method26368() {
-      float[] var3 = new float[32];
-      float[] var4 = new float[16];
-      float[] var5 = new float[16];
-
-      for (int var6 = 31; var6 >= 0; var6--) {
-         var3[var6] = 0.0F;
-      }
-
-      float[] var10 = this.field33690;
-      var4[0] = var10[0] + var10[31];
-      var4[1] = var10[1] + var10[30];
-      var4[2] = var10[2] + var10[29];
-      var4[3] = var10[3] + var10[28];
-      var4[4] = var10[4] + var10[27];
-      var4[5] = var10[5] + var10[26];
-      var4[6] = var10[6] + var10[25];
-      var4[7] = var10[7] + var10[24];
-      var4[8] = var10[8] + var10[23];
-      var4[9] = var10[9] + var10[22];
-      var4[10] = var10[10] + var10[21];
-      var4[11] = var10[11] + var10[20];
-      var4[12] = var10[12] + var10[19];
-      var4[13] = var10[13] + var10[18];
-      var4[14] = var10[14] + var10[17];
-      var4[15] = var10[15] + var10[16];
-      var5[0] = var4[0] + var4[15];
-      var5[1] = var4[1] + var4[14];
-      var5[2] = var4[2] + var4[13];
-      var5[3] = var4[3] + var4[12];
-      var5[4] = var4[4] + var4[11];
-      var5[5] = var4[5] + var4[10];
-      var5[6] = var4[6] + var4[9];
-      var5[7] = var4[7] + var4[8];
-      var5[8] = (var4[0] - var4[15]) * field33712;
-      var5[9] = (var4[1] - var4[14]) * field33713;
-      var5[10] = (var4[2] - var4[13]) * field33714;
-      var5[11] = (var4[3] - var4[12]) * field33715;
-      var5[12] = (var4[4] - var4[11]) * field33716;
-      var5[13] = (var4[5] - var4[10]) * field33717;
-      var5[14] = (var4[6] - var4[9]) * field33718;
-      var5[15] = (var4[7] - var4[8]) * field33719;
-      var4[0] = var5[0] + var5[7];
-      var4[1] = var5[1] + var5[6];
-      var4[2] = var5[2] + var5[5];
-      var4[3] = var5[3] + var5[4];
-      var4[4] = (var5[0] - var5[7]) * field33720;
-      var4[5] = (var5[1] - var5[6]) * field33721;
-      var4[6] = (var5[2] - var5[5]) * field33722;
-      var4[7] = (var5[3] - var5[4]) * field33723;
-      var4[8] = var5[8] + var5[15];
-      var4[9] = var5[9] + var5[14];
-      var4[10] = var5[10] + var5[13];
-      var4[11] = var5[11] + var5[12];
-      var4[12] = (var5[8] - var5[15]) * field33720;
-      var4[13] = (var5[9] - var5[14]) * field33721;
-      var4[14] = (var5[10] - var5[13]) * field33722;
-      var4[15] = (var5[11] - var5[12]) * field33723;
-      var5[0] = var4[0] + var4[3];
-      var5[1] = var4[1] + var4[2];
-      var5[2] = (var4[0] - var4[3]) * field33724;
-      var5[3] = (var4[1] - var4[2]) * field33725;
-      var5[4] = var4[4] + var4[7];
-      var5[5] = var4[5] + var4[6];
-      var5[6] = (var4[4] - var4[7]) * field33724;
-      var5[7] = (var4[5] - var4[6]) * field33725;
-      var5[8] = var4[8] + var4[11];
-      var5[9] = var4[9] + var4[10];
-      var5[10] = (var4[8] - var4[11]) * field33724;
-      var5[11] = (var4[9] - var4[10]) * field33725;
-      var5[12] = var4[12] + var4[15];
-      var5[13] = var4[13] + var4[14];
-      var5[14] = (var4[12] - var4[15]) * field33724;
-      var5[15] = (var4[13] - var4[14]) * field33725;
-      var4[0] = var5[0] + var5[1];
-      var4[1] = (var5[0] - var5[1]) * field33726;
-      var4[2] = var5[2] + var5[3];
-      var4[3] = (var5[2] - var5[3]) * field33726;
-      var4[4] = var5[4] + var5[5];
-      var4[5] = (var5[4] - var5[5]) * field33726;
-      var4[6] = var5[6] + var5[7];
-      var4[7] = (var5[6] - var5[7]) * field33726;
-      var4[8] = var5[8] + var5[9];
-      var4[9] = (var5[8] - var5[9]) * field33726;
-      var4[10] = var5[10] + var5[11];
-      var4[11] = (var5[10] - var5[11]) * field33726;
-      var4[12] = var5[12] + var5[13];
-      var4[13] = (var5[12] - var5[13]) * field33726;
-      var4[14] = var5[14] + var5[15];
-      var4[15] = (var5[14] - var5[15]) * field33726;
-      var3[19] = -(var3[4] = (var3[12] = var4[7]) + var4[5]) - var4[6];
-      var3[27] = -var4[6] - var4[7] - var4[4];
-      var3[6] = (var3[10] = (var3[14] = var4[15]) + var4[11]) + var4[13];
-      var3[17] = -(var3[2] = var4[15] + var4[13] + var4[9]) - var4[14];
-      float var7;
-      var3[21] = (var7 = -var4[14] - var4[15] - var4[10] - var4[11]) - var4[13];
-      var3[29] = -var4[14] - var4[15] - var4[12] - var4[8];
-      var3[25] = var7 - var4[12];
-      var3[31] = -var4[0];
-      var3[0] = var4[1];
-      var3[23] = -(var3[8] = var4[3]) - var4[2];
-      var4[0] = (var10[0] - var10[31]) * field33696;
-      var4[1] = (var10[1] - var10[30]) * field33697;
-      var4[2] = (var10[2] - var10[29]) * field33698;
-      var4[3] = (var10[3] - var10[28]) * field33699;
-      var4[4] = (var10[4] - var10[27]) * field33700;
-      var4[5] = (var10[5] - var10[26]) * field33701;
-      var4[6] = (var10[6] - var10[25]) * field33702;
-      var4[7] = (var10[7] - var10[24]) * field33703;
-      var4[8] = (var10[8] - var10[23]) * field33704;
-      var4[9] = (var10[9] - var10[22]) * field33705;
-      var4[10] = (var10[10] - var10[21]) * field33706;
-      var4[11] = (var10[11] - var10[20]) * field33707;
-      var4[12] = (var10[12] - var10[19]) * field33708;
-      var4[13] = (var10[13] - var10[18]) * field33709;
-      var4[14] = (var10[14] - var10[17]) * field33710;
-      var4[15] = (var10[15] - var10[16]) * field33711;
-      var5[0] = var4[0] + var4[15];
-      var5[1] = var4[1] + var4[14];
-      var5[2] = var4[2] + var4[13];
-      var5[3] = var4[3] + var4[12];
-      var5[4] = var4[4] + var4[11];
-      var5[5] = var4[5] + var4[10];
-      var5[6] = var4[6] + var4[9];
-      var5[7] = var4[7] + var4[8];
-      var5[8] = (var4[0] - var4[15]) * field33712;
-      var5[9] = (var4[1] - var4[14]) * field33713;
-      var5[10] = (var4[2] - var4[13]) * field33714;
-      var5[11] = (var4[3] - var4[12]) * field33715;
-      var5[12] = (var4[4] - var4[11]) * field33716;
-      var5[13] = (var4[5] - var4[10]) * field33717;
-      var5[14] = (var4[6] - var4[9]) * field33718;
-      var5[15] = (var4[7] - var4[8]) * field33719;
-      var4[0] = var5[0] + var5[7];
-      var4[1] = var5[1] + var5[6];
-      var4[2] = var5[2] + var5[5];
-      var4[3] = var5[3] + var5[4];
-      var4[4] = (var5[0] - var5[7]) * field33720;
-      var4[5] = (var5[1] - var5[6]) * field33721;
-      var4[6] = (var5[2] - var5[5]) * field33722;
-      var4[7] = (var5[3] - var5[4]) * field33723;
-      var4[8] = var5[8] + var5[15];
-      var4[9] = var5[9] + var5[14];
-      var4[10] = var5[10] + var5[13];
-      var4[11] = var5[11] + var5[12];
-      var4[12] = (var5[8] - var5[15]) * field33720;
-      var4[13] = (var5[9] - var5[14]) * field33721;
-      var4[14] = (var5[10] - var5[13]) * field33722;
-      var4[15] = (var5[11] - var5[12]) * field33723;
-      var5[0] = var4[0] + var4[3];
-      var5[1] = var4[1] + var4[2];
-      var5[2] = (var4[0] - var4[3]) * field33724;
-      var5[3] = (var4[1] - var4[2]) * field33725;
-      var5[4] = var4[4] + var4[7];
-      var5[5] = var4[5] + var4[6];
-      var5[6] = (var4[4] - var4[7]) * field33724;
-      var5[7] = (var4[5] - var4[6]) * field33725;
-      var5[8] = var4[8] + var4[11];
-      var5[9] = var4[9] + var4[10];
-      var5[10] = (var4[8] - var4[11]) * field33724;
-      var5[11] = (var4[9] - var4[10]) * field33725;
-      var5[12] = var4[12] + var4[15];
-      var5[13] = var4[13] + var4[14];
-      var5[14] = (var4[12] - var4[15]) * field33724;
-      var5[15] = (var4[13] - var4[14]) * field33725;
-      var4[0] = var5[0] + var5[1];
-      var4[1] = (var5[0] - var5[1]) * field33726;
-      var4[2] = var5[2] + var5[3];
-      var4[3] = (var5[2] - var5[3]) * field33726;
-      var4[4] = var5[4] + var5[5];
-      var4[5] = (var5[4] - var5[5]) * field33726;
-      var4[6] = var5[6] + var5[7];
-      var4[7] = (var5[6] - var5[7]) * field33726;
-      var4[8] = var5[8] + var5[9];
-      var4[9] = (var5[8] - var5[9]) * field33726;
-      var4[10] = var5[10] + var5[11];
-      var4[11] = (var5[10] - var5[11]) * field33726;
-      var4[12] = var5[12] + var5[13];
-      var4[13] = (var5[12] - var5[13]) * field33726;
-      var4[14] = var5[14] + var5[15];
-      var4[15] = (var5[14] - var5[15]) * field33726;
-      var3[5] = (var3[11] = (var3[13] = (var3[15] = var4[15]) + var4[7]) + var4[11]) + var4[5] + var4[13];
-      var3[7] = (var3[9] = var4[15] + var4[11] + var4[3]) + var4[13];
-      var3[16] = -(var3[1] = (var7 = var4[13] + var4[15] + var4[9]) + var4[1]) - var4[14];
-      var3[18] = -(var3[3] = var7 + var4[5] + var4[7]) - var4[6] - var4[14];
-      var3[22] = (var7 = -var4[10] - var4[11] - var4[14] - var4[15]) - var4[13] - var4[2] - var4[3];
-      var3[20] = var7 - var4[13] - var4[5] - var4[6] - var4[7];
-      var3[24] = var7 - var4[12] - var4[2] - var4[3];
-      float var8;
-      var3[26] = var7 - var4[12] - (var8 = var4[4] + var4[6] + var4[7]);
-      var3[30] = (var7 = -var4[8] - var4[12] - var4[14] - var4[15]) - var4[0];
-      var3[28] = var7 - var8;
-      float[] var9 = this.field33688;
-      var9[0 + this.field33689] = var3[0];
-      var9[16 + this.field33689] = var3[1];
-      var9[32 + this.field33689] = var3[2];
-      var9[48 + this.field33689] = var3[3];
-      var9[64 + this.field33689] = var3[4];
-      var9[80 + this.field33689] = var3[5];
-      var9[96 + this.field33689] = var3[6];
-      var9[112 + this.field33689] = var3[7];
-      var9[128 + this.field33689] = var3[8];
-      var9[144 + this.field33689] = var3[9];
-      var9[160 + this.field33689] = var3[10];
-      var9[176 + this.field33689] = var3[11];
-      var9[192 + this.field33689] = var3[12];
-      var9[208 + this.field33689] = var3[13];
-      var9[224 + this.field33689] = var3[14];
-      var9[240 + this.field33689] = var3[15];
-      var9[256 + this.field33689] = 0.0F;
-      var9[272 + this.field33689] = -var3[15];
-      var9[288 + this.field33689] = -var3[14];
-      var9[304 + this.field33689] = -var3[13];
-      var9[320 + this.field33689] = -var3[12];
-      var9[336 + this.field33689] = -var3[11];
-      var9[352 + this.field33689] = -var3[10];
-      var9[368 + this.field33689] = -var3[9];
-      var9[384 + this.field33689] = -var3[8];
-      var9[400 + this.field33689] = -var3[7];
-      var9[416 + this.field33689] = -var3[6];
-      var9[432 + this.field33689] = -var3[5];
-      var9[448 + this.field33689] = -var3[4];
-      var9[464 + this.field33689] = -var3[3];
-      var9[480 + this.field33689] = -var3[2];
-      var9[496 + this.field33689] = -var3[1];
-   }
-
-   private void method26369(Class6748 var1) {
+   private void method26369() {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[0 + var6] * var8[0]
-                  + var4[15 + var6] * var8[1]
-                  + var4[14 + var6] * var8[2]
-                  + var4[13 + var6] * var8[3]
-                  + var4[12 + var6] * var8[4]
-                  + var4[11 + var6] * var8[5]
-                  + var4[10 + var6] * var8[6]
-                  + var4[9 + var6] * var8[7]
-                  + var4[8 + var6] * var8[8]
-                  + var4[7 + var6] * var8[9]
-                  + var4[6 + var6] * var8[10]
-                  + var4[5 + var6] * var8[11]
-                  + var4[4 + var6] * var8[12]
-                  + var4[3 + var6] * var8[13]
-                  + var4[2 + var6] * var8[14]
-                  + var4[1 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[var6] * var8[0]
+                         + var4[15 + var6] * var8[1]
+                         + var4[14 + var6] * var8[2]
+                         + var4[13 + var6] * var8[3]
+                         + var4[12 + var6] * var8[4]
+                         + var4[11 + var6] * var8[5]
+                         + var4[10 + var6] * var8[6]
+                         + var4[9 + var6] * var8[7]
+                         + var4[8 + var6] * var8[8]
+                         + var4[7 + var6] * var8[9]
+                         + var4[6 + var6] * var8[10]
+                         + var4[5 + var6] * var8[11]
+                         + var4[4 + var6] * var8[12]
+                         + var4[3 + var6] * var8[13]
+                         + var4[2 + var6] * var8[14]
+                         + var4[1 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
    }
 
-   private void method26370(Class6748 var1) {
+   private void method26370() {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[1 + var6] * var8[0]
-                  + var4[0 + var6] * var8[1]
-                  + var4[15 + var6] * var8[2]
-                  + var4[14 + var6] * var8[3]
-                  + var4[13 + var6] * var8[4]
-                  + var4[12 + var6] * var8[5]
-                  + var4[11 + var6] * var8[6]
-                  + var4[10 + var6] * var8[7]
-                  + var4[9 + var6] * var8[8]
-                  + var4[8 + var6] * var8[9]
-                  + var4[7 + var6] * var8[10]
-                  + var4[6 + var6] * var8[11]
-                  + var4[5 + var6] * var8[12]
-                  + var4[4 + var6] * var8[13]
-                  + var4[3 + var6] * var8[14]
-                  + var4[2 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[1 + var6] * var8[0]
+                         + var4[var6] * var8[1]
+                         + var4[15 + var6] * var8[2]
+                         + var4[14 + var6] * var8[3]
+                         + var4[13 + var6] * var8[4]
+                         + var4[12 + var6] * var8[5]
+                         + var4[11 + var6] * var8[6]
+                         + var4[10 + var6] * var8[7]
+                         + var4[9 + var6] * var8[8]
+                         + var4[8 + var6] * var8[9]
+                         + var4[7 + var6] * var8[10]
+                         + var4[6 + var6] * var8[11]
+                         + var4[5 + var6] * var8[12]
+                         + var4[4 + var6] * var8[13]
+                         + var4[3 + var6] * var8[14]
+                         + var4[2 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
    }
 
-   private void method26371(Class6748 var1) {
+   private void method26371() {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[2 + var6] * var8[0]
-                  + var4[1 + var6] * var8[1]
-                  + var4[0 + var6] * var8[2]
-                  + var4[15 + var6] * var8[3]
-                  + var4[14 + var6] * var8[4]
-                  + var4[13 + var6] * var8[5]
-                  + var4[12 + var6] * var8[6]
-                  + var4[11 + var6] * var8[7]
-                  + var4[10 + var6] * var8[8]
-                  + var4[9 + var6] * var8[9]
-                  + var4[8 + var6] * var8[10]
-                  + var4[7 + var6] * var8[11]
-                  + var4[6 + var6] * var8[12]
-                  + var4[5 + var6] * var8[13]
-                  + var4[4 + var6] * var8[14]
-                  + var4[3 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[2 + var6] * var8[0]
+                         + var4[1 + var6] * var8[1]
+                         + var4[var6] * var8[2]
+                         + var4[15 + var6] * var8[3]
+                         + var4[14 + var6] * var8[4]
+                         + var4[13 + var6] * var8[5]
+                         + var4[12 + var6] * var8[6]
+                         + var4[11 + var6] * var8[7]
+                         + var4[10 + var6] * var8[8]
+                         + var4[9 + var6] * var8[9]
+                         + var4[8 + var6] * var8[10]
+                         + var4[7 + var6] * var8[11]
+                         + var4[6 + var6] * var8[12]
+                         + var4[5 + var6] * var8[13]
+                         + var4[4 + var6] * var8[14]
+                         + var4[3 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
    }
 
-   private void method26372(Class6748 var1) {
+   private void method26372() {
       float[] var4 = this.field33688;
-      boolean var5 = false;
       float[] var6 = this.field33694;
-      byte var7 = 0;
+      int var7 = 0;
 
       for (int var8 = 0; var8 < 32; var8++) {
          float[] var9 = field33728[var8];
          float var10 = (
-               var4[3 + var7] * var9[0]
-                  + var4[2 + var7] * var9[1]
-                  + var4[1 + var7] * var9[2]
-                  + var4[0 + var7] * var9[3]
-                  + var4[15 + var7] * var9[4]
-                  + var4[14 + var7] * var9[5]
-                  + var4[13 + var7] * var9[6]
-                  + var4[12 + var7] * var9[7]
-                  + var4[11 + var7] * var9[8]
-                  + var4[10 + var7] * var9[9]
-                  + var4[9 + var7] * var9[10]
-                  + var4[8 + var7] * var9[11]
-                  + var4[7 + var7] * var9[12]
-                  + var4[6 + var7] * var9[13]
-                  + var4[5 + var7] * var9[14]
-                  + var4[4 + var7] * var9[15]
-            )
-            * this.field33692;
+                 var4[3 + var7] * var9[0]
+                         + var4[2 + var7] * var9[1]
+                         + var4[1 + var7] * var9[2]
+                         + var4[var7] * var9[3]
+                         + var4[15 + var7] * var9[4]
+                         + var4[14 + var7] * var9[5]
+                         + var4[13 + var7] * var9[6]
+                         + var4[12 + var7] * var9[7]
+                         + var4[11 + var7] * var9[8]
+                         + var4[10 + var7] * var9[9]
+                         + var4[9 + var7] * var9[10]
+                         + var4[8 + var7] * var9[11]
+                         + var4[7 + var7] * var9[12]
+                         + var4[6 + var7] * var9[13]
+                         + var4[5 + var7] * var9[14]
+                         + var4[4 + var7] * var9[15]
+         )
+                 * this.field33692;
          var6[var8] = var10;
          var7 += 16;
       }
@@ -771,29 +543,29 @@ public final class Class7870 {
    private void method26373(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[4 + var6] * var8[0]
-                  + var4[3 + var6] * var8[1]
-                  + var4[2 + var6] * var8[2]
-                  + var4[1 + var6] * var8[3]
-                  + var4[0 + var6] * var8[4]
-                  + var4[15 + var6] * var8[5]
-                  + var4[14 + var6] * var8[6]
-                  + var4[13 + var6] * var8[7]
-                  + var4[12 + var6] * var8[8]
-                  + var4[11 + var6] * var8[9]
-                  + var4[10 + var6] * var8[10]
-                  + var4[9 + var6] * var8[11]
-                  + var4[8 + var6] * var8[12]
-                  + var4[7 + var6] * var8[13]
-                  + var4[6 + var6] * var8[14]
-                  + var4[5 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[4 + var6] * var8[0]
+                         + var4[3 + var6] * var8[1]
+                         + var4[2 + var6] * var8[2]
+                         + var4[1 + var6] * var8[3]
+                         + var4[0 + var6] * var8[4]
+                         + var4[15 + var6] * var8[5]
+                         + var4[14 + var6] * var8[6]
+                         + var4[13 + var6] * var8[7]
+                         + var4[12 + var6] * var8[8]
+                         + var4[11 + var6] * var8[9]
+                         + var4[10 + var6] * var8[10]
+                         + var4[9 + var6] * var8[11]
+                         + var4[8 + var6] * var8[12]
+                         + var4[7 + var6] * var8[13]
+                         + var4[6 + var6] * var8[14]
+                         + var4[5 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -802,29 +574,29 @@ public final class Class7870 {
    private void method26374(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[5 + var6] * var8[0]
-                  + var4[4 + var6] * var8[1]
-                  + var4[3 + var6] * var8[2]
-                  + var4[2 + var6] * var8[3]
-                  + var4[1 + var6] * var8[4]
-                  + var4[0 + var6] * var8[5]
-                  + var4[15 + var6] * var8[6]
-                  + var4[14 + var6] * var8[7]
-                  + var4[13 + var6] * var8[8]
-                  + var4[12 + var6] * var8[9]
-                  + var4[11 + var6] * var8[10]
-                  + var4[10 + var6] * var8[11]
-                  + var4[9 + var6] * var8[12]
-                  + var4[8 + var6] * var8[13]
-                  + var4[7 + var6] * var8[14]
-                  + var4[6 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[5 + var6] * var8[0]
+                         + var4[4 + var6] * var8[1]
+                         + var4[3 + var6] * var8[2]
+                         + var4[2 + var6] * var8[3]
+                         + var4[1 + var6] * var8[4]
+                         + var4[0 + var6] * var8[5]
+                         + var4[15 + var6] * var8[6]
+                         + var4[14 + var6] * var8[7]
+                         + var4[13 + var6] * var8[8]
+                         + var4[12 + var6] * var8[9]
+                         + var4[11 + var6] * var8[10]
+                         + var4[10 + var6] * var8[11]
+                         + var4[9 + var6] * var8[12]
+                         + var4[8 + var6] * var8[13]
+                         + var4[7 + var6] * var8[14]
+                         + var4[6 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -833,29 +605,29 @@ public final class Class7870 {
    private void method26375(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[6 + var6] * var8[0]
-                  + var4[5 + var6] * var8[1]
-                  + var4[4 + var6] * var8[2]
-                  + var4[3 + var6] * var8[3]
-                  + var4[2 + var6] * var8[4]
-                  + var4[1 + var6] * var8[5]
-                  + var4[0 + var6] * var8[6]
-                  + var4[15 + var6] * var8[7]
-                  + var4[14 + var6] * var8[8]
-                  + var4[13 + var6] * var8[9]
-                  + var4[12 + var6] * var8[10]
-                  + var4[11 + var6] * var8[11]
-                  + var4[10 + var6] * var8[12]
-                  + var4[9 + var6] * var8[13]
-                  + var4[8 + var6] * var8[14]
-                  + var4[7 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[6 + var6] * var8[0]
+                         + var4[5 + var6] * var8[1]
+                         + var4[4 + var6] * var8[2]
+                         + var4[3 + var6] * var8[3]
+                         + var4[2 + var6] * var8[4]
+                         + var4[1 + var6] * var8[5]
+                         + var4[0 + var6] * var8[6]
+                         + var4[15 + var6] * var8[7]
+                         + var4[14 + var6] * var8[8]
+                         + var4[13 + var6] * var8[9]
+                         + var4[12 + var6] * var8[10]
+                         + var4[11 + var6] * var8[11]
+                         + var4[10 + var6] * var8[12]
+                         + var4[9 + var6] * var8[13]
+                         + var4[8 + var6] * var8[14]
+                         + var4[7 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -864,29 +636,29 @@ public final class Class7870 {
    private void method26376(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[7 + var6] * var8[0]
-                  + var4[6 + var6] * var8[1]
-                  + var4[5 + var6] * var8[2]
-                  + var4[4 + var6] * var8[3]
-                  + var4[3 + var6] * var8[4]
-                  + var4[2 + var6] * var8[5]
-                  + var4[1 + var6] * var8[6]
-                  + var4[0 + var6] * var8[7]
-                  + var4[15 + var6] * var8[8]
-                  + var4[14 + var6] * var8[9]
-                  + var4[13 + var6] * var8[10]
-                  + var4[12 + var6] * var8[11]
-                  + var4[11 + var6] * var8[12]
-                  + var4[10 + var6] * var8[13]
-                  + var4[9 + var6] * var8[14]
-                  + var4[8 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[7 + var6] * var8[0]
+                         + var4[6 + var6] * var8[1]
+                         + var4[5 + var6] * var8[2]
+                         + var4[4 + var6] * var8[3]
+                         + var4[3 + var6] * var8[4]
+                         + var4[2 + var6] * var8[5]
+                         + var4[1 + var6] * var8[6]
+                         + var4[0 + var6] * var8[7]
+                         + var4[15 + var6] * var8[8]
+                         + var4[14 + var6] * var8[9]
+                         + var4[13 + var6] * var8[10]
+                         + var4[12 + var6] * var8[11]
+                         + var4[11 + var6] * var8[12]
+                         + var4[10 + var6] * var8[13]
+                         + var4[9 + var6] * var8[14]
+                         + var4[8 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -895,29 +667,29 @@ public final class Class7870 {
    private void method26377(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[8 + var6] * var8[0]
-                  + var4[7 + var6] * var8[1]
-                  + var4[6 + var6] * var8[2]
-                  + var4[5 + var6] * var8[3]
-                  + var4[4 + var6] * var8[4]
-                  + var4[3 + var6] * var8[5]
-                  + var4[2 + var6] * var8[6]
-                  + var4[1 + var6] * var8[7]
-                  + var4[0 + var6] * var8[8]
-                  + var4[15 + var6] * var8[9]
-                  + var4[14 + var6] * var8[10]
-                  + var4[13 + var6] * var8[11]
-                  + var4[12 + var6] * var8[12]
-                  + var4[11 + var6] * var8[13]
-                  + var4[10 + var6] * var8[14]
-                  + var4[9 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[8 + var6] * var8[0]
+                         + var4[7 + var6] * var8[1]
+                         + var4[6 + var6] * var8[2]
+                         + var4[5 + var6] * var8[3]
+                         + var4[4 + var6] * var8[4]
+                         + var4[3 + var6] * var8[5]
+                         + var4[2 + var6] * var8[6]
+                         + var4[1 + var6] * var8[7]
+                         + var4[0 + var6] * var8[8]
+                         + var4[15 + var6] * var8[9]
+                         + var4[14 + var6] * var8[10]
+                         + var4[13 + var6] * var8[11]
+                         + var4[12 + var6] * var8[12]
+                         + var4[11 + var6] * var8[13]
+                         + var4[10 + var6] * var8[14]
+                         + var4[9 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -926,29 +698,29 @@ public final class Class7870 {
    private void method26378(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[9 + var6] * var8[0]
-                  + var4[8 + var6] * var8[1]
-                  + var4[7 + var6] * var8[2]
-                  + var4[6 + var6] * var8[3]
-                  + var4[5 + var6] * var8[4]
-                  + var4[4 + var6] * var8[5]
-                  + var4[3 + var6] * var8[6]
-                  + var4[2 + var6] * var8[7]
-                  + var4[1 + var6] * var8[8]
-                  + var4[0 + var6] * var8[9]
-                  + var4[15 + var6] * var8[10]
-                  + var4[14 + var6] * var8[11]
-                  + var4[13 + var6] * var8[12]
-                  + var4[12 + var6] * var8[13]
-                  + var4[11 + var6] * var8[14]
-                  + var4[10 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[9 + var6] * var8[0]
+                         + var4[8 + var6] * var8[1]
+                         + var4[7 + var6] * var8[2]
+                         + var4[6 + var6] * var8[3]
+                         + var4[5 + var6] * var8[4]
+                         + var4[4 + var6] * var8[5]
+                         + var4[3 + var6] * var8[6]
+                         + var4[2 + var6] * var8[7]
+                         + var4[1 + var6] * var8[8]
+                         + var4[0 + var6] * var8[9]
+                         + var4[15 + var6] * var8[10]
+                         + var4[14 + var6] * var8[11]
+                         + var4[13 + var6] * var8[12]
+                         + var4[12 + var6] * var8[13]
+                         + var4[11 + var6] * var8[14]
+                         + var4[10 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -957,29 +729,29 @@ public final class Class7870 {
    private void method26379(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[10 + var6] * var8[0]
-                  + var4[9 + var6] * var8[1]
-                  + var4[8 + var6] * var8[2]
-                  + var4[7 + var6] * var8[3]
-                  + var4[6 + var6] * var8[4]
-                  + var4[5 + var6] * var8[5]
-                  + var4[4 + var6] * var8[6]
-                  + var4[3 + var6] * var8[7]
-                  + var4[2 + var6] * var8[8]
-                  + var4[1 + var6] * var8[9]
-                  + var4[0 + var6] * var8[10]
-                  + var4[15 + var6] * var8[11]
-                  + var4[14 + var6] * var8[12]
-                  + var4[13 + var6] * var8[13]
-                  + var4[12 + var6] * var8[14]
-                  + var4[11 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[10 + var6] * var8[0]
+                         + var4[9 + var6] * var8[1]
+                         + var4[8 + var6] * var8[2]
+                         + var4[7 + var6] * var8[3]
+                         + var4[6 + var6] * var8[4]
+                         + var4[5 + var6] * var8[5]
+                         + var4[4 + var6] * var8[6]
+                         + var4[3 + var6] * var8[7]
+                         + var4[2 + var6] * var8[8]
+                         + var4[1 + var6] * var8[9]
+                         + var4[0 + var6] * var8[10]
+                         + var4[15 + var6] * var8[11]
+                         + var4[14 + var6] * var8[12]
+                         + var4[13 + var6] * var8[13]
+                         + var4[12 + var6] * var8[14]
+                         + var4[11 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -988,29 +760,29 @@ public final class Class7870 {
    private void method26380(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[11 + var6] * var8[0]
-                  + var4[10 + var6] * var8[1]
-                  + var4[9 + var6] * var8[2]
-                  + var4[8 + var6] * var8[3]
-                  + var4[7 + var6] * var8[4]
-                  + var4[6 + var6] * var8[5]
-                  + var4[5 + var6] * var8[6]
-                  + var4[4 + var6] * var8[7]
-                  + var4[3 + var6] * var8[8]
-                  + var4[2 + var6] * var8[9]
-                  + var4[1 + var6] * var8[10]
-                  + var4[0 + var6] * var8[11]
-                  + var4[15 + var6] * var8[12]
-                  + var4[14 + var6] * var8[13]
-                  + var4[13 + var6] * var8[14]
-                  + var4[12 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[11 + var6] * var8[0]
+                         + var4[10 + var6] * var8[1]
+                         + var4[9 + var6] * var8[2]
+                         + var4[8 + var6] * var8[3]
+                         + var4[7 + var6] * var8[4]
+                         + var4[6 + var6] * var8[5]
+                         + var4[5 + var6] * var8[6]
+                         + var4[4 + var6] * var8[7]
+                         + var4[3 + var6] * var8[8]
+                         + var4[2 + var6] * var8[9]
+                         + var4[1 + var6] * var8[10]
+                         + var4[0 + var6] * var8[11]
+                         + var4[15 + var6] * var8[12]
+                         + var4[14 + var6] * var8[13]
+                         + var4[13 + var6] * var8[14]
+                         + var4[12 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -1019,29 +791,29 @@ public final class Class7870 {
    private void method26381(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[12 + var6] * var8[0]
-                  + var4[11 + var6] * var8[1]
-                  + var4[10 + var6] * var8[2]
-                  + var4[9 + var6] * var8[3]
-                  + var4[8 + var6] * var8[4]
-                  + var4[7 + var6] * var8[5]
-                  + var4[6 + var6] * var8[6]
-                  + var4[5 + var6] * var8[7]
-                  + var4[4 + var6] * var8[8]
-                  + var4[3 + var6] * var8[9]
-                  + var4[2 + var6] * var8[10]
-                  + var4[1 + var6] * var8[11]
-                  + var4[0 + var6] * var8[12]
-                  + var4[15 + var6] * var8[13]
-                  + var4[14 + var6] * var8[14]
-                  + var4[13 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[12 + var6] * var8[0]
+                         + var4[11 + var6] * var8[1]
+                         + var4[10 + var6] * var8[2]
+                         + var4[9 + var6] * var8[3]
+                         + var4[8 + var6] * var8[4]
+                         + var4[7 + var6] * var8[5]
+                         + var4[6 + var6] * var8[6]
+                         + var4[5 + var6] * var8[7]
+                         + var4[4 + var6] * var8[8]
+                         + var4[3 + var6] * var8[9]
+                         + var4[2 + var6] * var8[10]
+                         + var4[1 + var6] * var8[11]
+                         + var4[0 + var6] * var8[12]
+                         + var4[15 + var6] * var8[13]
+                         + var4[14 + var6] * var8[14]
+                         + var4[13 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -1050,29 +822,29 @@ public final class Class7870 {
    private void method26382(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[13 + var6] * var8[0]
-                  + var4[12 + var6] * var8[1]
-                  + var4[11 + var6] * var8[2]
-                  + var4[10 + var6] * var8[3]
-                  + var4[9 + var6] * var8[4]
-                  + var4[8 + var6] * var8[5]
-                  + var4[7 + var6] * var8[6]
-                  + var4[6 + var6] * var8[7]
-                  + var4[5 + var6] * var8[8]
-                  + var4[4 + var6] * var8[9]
-                  + var4[3 + var6] * var8[10]
-                  + var4[2 + var6] * var8[11]
-                  + var4[1 + var6] * var8[12]
-                  + var4[0 + var6] * var8[13]
-                  + var4[15 + var6] * var8[14]
-                  + var4[14 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[13 + var6] * var8[0]
+                         + var4[12 + var6] * var8[1]
+                         + var4[11 + var6] * var8[2]
+                         + var4[10 + var6] * var8[3]
+                         + var4[9 + var6] * var8[4]
+                         + var4[8 + var6] * var8[5]
+                         + var4[7 + var6] * var8[6]
+                         + var4[6 + var6] * var8[7]
+                         + var4[5 + var6] * var8[8]
+                         + var4[4 + var6] * var8[9]
+                         + var4[3 + var6] * var8[10]
+                         + var4[2 + var6] * var8[11]
+                         + var4[1 + var6] * var8[12]
+                         + var4[0 + var6] * var8[13]
+                         + var4[15 + var6] * var8[14]
+                         + var4[14 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -1081,29 +853,29 @@ public final class Class7870 {
    private void method26383(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[14 + var6] * var8[0]
-                  + var4[13 + var6] * var8[1]
-                  + var4[12 + var6] * var8[2]
-                  + var4[11 + var6] * var8[3]
-                  + var4[10 + var6] * var8[4]
-                  + var4[9 + var6] * var8[5]
-                  + var4[8 + var6] * var8[6]
-                  + var4[7 + var6] * var8[7]
-                  + var4[6 + var6] * var8[8]
-                  + var4[5 + var6] * var8[9]
-                  + var4[4 + var6] * var8[10]
-                  + var4[3 + var6] * var8[11]
-                  + var4[2 + var6] * var8[12]
-                  + var4[1 + var6] * var8[13]
-                  + var4[0 + var6] * var8[14]
-                  + var4[15 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[14 + var6] * var8[0]
+                         + var4[13 + var6] * var8[1]
+                         + var4[12 + var6] * var8[2]
+                         + var4[11 + var6] * var8[3]
+                         + var4[10 + var6] * var8[4]
+                         + var4[9 + var6] * var8[5]
+                         + var4[8 + var6] * var8[6]
+                         + var4[7 + var6] * var8[7]
+                         + var4[6 + var6] * var8[8]
+                         + var4[5 + var6] * var8[9]
+                         + var4[4 + var6] * var8[10]
+                         + var4[3 + var6] * var8[11]
+                         + var4[2 + var6] * var8[12]
+                         + var4[1 + var6] * var8[13]
+                         + var4[0 + var6] * var8[14]
+                         + var4[15 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -1112,29 +884,29 @@ public final class Class7870 {
    private void method26384(Class6748 var1) {
       float[] var4 = this.field33688;
       float[] var5 = this.field33694;
-      byte var6 = 0;
+      int var6 = 0;
 
       for (int var7 = 0; var7 < 32; var7++) {
          float[] var8 = field33728[var7];
          float var9 = (
-               var4[15 + var6] * var8[0]
-                  + var4[14 + var6] * var8[1]
-                  + var4[13 + var6] * var8[2]
-                  + var4[12 + var6] * var8[3]
-                  + var4[11 + var6] * var8[4]
-                  + var4[10 + var6] * var8[5]
-                  + var4[9 + var6] * var8[6]
-                  + var4[8 + var6] * var8[7]
-                  + var4[7 + var6] * var8[8]
-                  + var4[6 + var6] * var8[9]
-                  + var4[5 + var6] * var8[10]
-                  + var4[4 + var6] * var8[11]
-                  + var4[3 + var6] * var8[12]
-                  + var4[2 + var6] * var8[13]
-                  + var4[1 + var6] * var8[14]
-                  + var4[0 + var6] * var8[15]
-            )
-            * this.field33692;
+                 var4[15 + var6] * var8[0]
+                         + var4[14 + var6] * var8[1]
+                         + var4[13 + var6] * var8[2]
+                         + var4[12 + var6] * var8[3]
+                         + var4[11 + var6] * var8[4]
+                         + var4[10 + var6] * var8[5]
+                         + var4[9 + var6] * var8[6]
+                         + var4[8 + var6] * var8[7]
+                         + var4[7 + var6] * var8[8]
+                         + var4[6 + var6] * var8[9]
+                         + var4[5 + var6] * var8[10]
+                         + var4[4 + var6] * var8[11]
+                         + var4[3 + var6] * var8[12]
+                         + var4[2 + var6] * var8[13]
+                         + var4[1 + var6] * var8[14]
+                         + var4[0 + var6] * var8[15]
+         )
+                 * this.field33692;
          var5[var7] = var9;
          var6 += 16;
       }
@@ -1143,16 +915,16 @@ public final class Class7870 {
    private void method26385(Class6748 var1) {
       switch (this.field33689) {
          case 0:
-            this.method26369(var1);
+            this.method26369();
             break;
          case 1:
-            this.method26370(var1);
+            this.method26370();
             break;
          case 2:
-            this.method26371(var1);
+            this.method26371();
             break;
          case 3:
-            this.method26372(var1);
+            this.method26372();
             break;
          case 4:
             this.method26373(var1);
@@ -1241,9 +1013,7 @@ public final class Class7870 {
 
       float[] var5 = new float[var2];
 
-      for (int var6 = 0; var6 < var2; var6++) {
-         var5[var6] = var0[var1 + var6];
-      }
+      System.arraycopy(var0, var1, var5, 0, var2);
 
       return var5;
    }

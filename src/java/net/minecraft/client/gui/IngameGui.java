@@ -391,14 +391,14 @@ public class IngameGui extends AbstractGui
 
             if (scoreobjective1 != null)
             {
-                EventRenderGUI var31 = new EventRenderGUI(true);
-                EventBus.call(var31);
-                if (var31.cancelled) {
+                EventRenderGUI eventRenderGUI = new EventRenderGUI(true);
+                EventBus.call(eventRenderGUI);
+                if (eventRenderGUI.cancelled) {
                     return;
                 }
                 this.func_238447_a_(matrixStack, scoreobjective1);
-                EventRenderGUI var13 = new EventRenderGUI(false);
-                EventBus.call(var13);
+                EventRenderGUI eventRenderGUI1 = new EventRenderGUI(false);
+                EventBus.call(eventRenderGUI1);
             }
 
             RenderSystem.enableBlend();

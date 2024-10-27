@@ -238,14 +238,13 @@ public final class Class2443 implements Class2442 {
       return var4;
    }
 
-   public void method10450() throws Class2444 {
+   public void method10450() {
       int var3 = 0;
       byte[] var4 = this.field16510;
       int var5 = this.field16509;
 
       for (int var6 = 0; var6 < var5; var6 += 4) {
-         boolean var7 = false;
-         byte var8 = 0;
+         byte var8;
          byte var9 = 0;
          byte var10 = 0;
          byte var11 = 0;

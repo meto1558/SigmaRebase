@@ -67,7 +67,6 @@ public class Class4266 extends Class4247 {
    @Override
    public void draw(float var1) {
       Iterator var4 = this.field20685.iterator();
-      byte var5 = 8;
 
       try {
          if (this.field20687) {
@@ -84,18 +83,18 @@ public class Class4266 extends Class4247 {
 
          if (this.field20688 != null) {
             RenderUtil.drawRoundedRect(
-               (float)(this.xA + var5),
-               (float)(this.yA + var5),
-               (float)(this.widthA - var5 * 2),
-               (float)(this.heightA - var5 * 2),
+               (float)(this.xA + 8),
+               (float)(this.yA + 8),
+               (float)(this.widthA - 8 * 2),
+               (float)(this.heightA - 8 * 2),
                20.0F,
                var1 * 0.5F
             );
             RenderUtil.drawRoundedRect(
-               (float)(this.xA + var5),
-               (float)(this.yA + var5),
-               (float)(this.widthA - var5 * 2),
-               (float)(this.heightA - var5 * 2),
+               (float)(this.xA + 8),
+               (float)(this.yA + 8),
+               (float)(this.widthA - 8 * 2),
+               (float)(this.heightA - 8 * 2),
                14.0F,
                var1
             );

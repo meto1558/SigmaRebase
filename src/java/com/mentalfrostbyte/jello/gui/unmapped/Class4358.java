@@ -28,9 +28,8 @@ public class Class4358 extends Class4247 {
    public String field21307;
    public Class4339 field21308;
    public Class6984 field21309;
-   public Texture field21310;
    public boolean field21311 = false;
-   private final List<Class7875> field21312 = new ArrayList<Class7875>();
+   private final List<Class7875> field21312 = new ArrayList<>();
 
    public Class4358(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false);
@@ -38,11 +37,10 @@ public class Class4358 extends Class4247 {
       this.field21306 = 600;
       this.field21304 = (var5 - this.field21305) / 2;
       this.field21303 = (var6 - this.field21306) / 2;
-      byte var9 = 30;
       UIInput var10;
       this.addToList(
          var10 = new UIInput(
-            this, "search", this.field21304 + var9, this.field21303 + var9 + 50, this.field21305 - var9 * 2, 60, UIInput.field20741, "", "Search..."
+            this, "search", this.field21304 + 30, this.field21303 + 30 + 50, this.field21305 - 30 * 2, 60, UIInput.field20741, "", "Search..."
          )
       );
       var10.method13151(var2x -> {
@@ -52,7 +50,7 @@ public class Class4358 extends Class4247 {
       var10.method13242();
       this.addToList(
          this.field21308 = new Class4339(
-            this, "mods", this.field21304 + var9, this.field21303 + var9 + 120, this.field21305 - var9 * 2, this.field21306 - var9 * 2 - 120
+            this, "mods", this.field21304 + 30, this.field21303 + 30 + 120, this.field21305 - 30 * 2, this.field21306 - 30 * 2 - 120
          )
       );
       int var11 = 10;
@@ -209,11 +207,10 @@ public class Class4358 extends Class4247 {
          10.0F,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
       );
-      byte var5 = 30;
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont36,
-         (float)(var5 + this.field21304),
-         (float)(var5 + this.field21303),
+         (float)(30 + this.field21304),
+         (float)(30 + this.field21303),
          "Select mod to bind",
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.7F)
       );

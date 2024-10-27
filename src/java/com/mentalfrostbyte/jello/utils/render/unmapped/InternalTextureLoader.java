@@ -176,12 +176,10 @@ public class InternalTextureLoader {
    }
 
    public Texture method35799(ImageData var1, int var2) throws IOException {
-      short var5 = 3553;
       ByteBuffer var6 = var1.method21460();
       int var7 = method35789();
-      TextureImpl var8 = new TextureImpl("generated:" + var1, var5, var7);
-      boolean var11 = false;
-      field43633.method18370(var5, var7);
+      TextureImpl var8 = new TextureImpl("generated:" + var1, 3553, var7);
+      field43633.method18370(3553, var7);
       int var12 = var1.method21456();
       int var13 = var1.method21457();
       boolean var14 = var1.method21455() == 32;
@@ -202,9 +200,9 @@ public class InternalTextureLoader {
             var8.method36189(var17, var18, var2, var2, var6);
          }
 
-         field43633.method18404(var5, 10241, var2);
-         field43633.method18404(var5, 10240, var2);
-         field43633.method18414(var5, 0, this.field43637, method35800(var12), method35800(var13), 0, var17, 5121, var6);
+         field43633.method18404(3553, 10241, var2);
+         field43633.method18404(3553, 10240, var2);
+         field43633.method18414(3553, 0, this.field43637, method35800(var12), method35800(var13), 0, var17, 5121, var6);
          return var8;
       } else {
          throw new IOException("Attempt to allocate a texture to big for the current hardware");
@@ -242,12 +240,11 @@ public class InternalTextureLoader {
    }
 
    public int method35803(TextureImpl var1, int var2, int var3, int var4, int var5, ByteBuffer var6) {
-      short var9 = 3553;
       int var10 = method35789();
-      field43633.method18370(var9, var10);
-      field43633.method18404(var9, 10241, var4);
-      field43633.method18404(var9, 10240, var5);
-      field43633.method18414(var9, 0, this.field43637, var1.getTextureWidth(), var1.getTextureHeight(), 0, var2, 5121, var6);
+      field43633.method18370(3553, var10);
+      field43633.method18404(3553, 10241, var4);
+      field43633.method18404(3553, 10240, var5);
+      field43633.method18414(3553, 0, this.field43637, var1.getTextureWidth(), var1.getTextureHeight(), 0, var2, 5121, var6);
       return var10;
    }
 }

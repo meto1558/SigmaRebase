@@ -115,24 +115,23 @@ public class Class4375 extends Class4247 {
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
       this.method13284((int)((float)this.widthA * 0.2F * (1.0F - var4)) * (!this.field21378 ? 1 : -1));
       super.method13224();
-      byte var5 = 10;
       int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F));
       RenderUtil.drawRoundedRect(
-         (float)(this.xA + var5 / 2),
-         (float)(this.yA + var5 / 2),
-         (float)(this.widthA - var5),
-         (float)(this.heightA - var5),
+         (float)(this.xA + 10 / 2),
+         (float)(this.yA + 10 / 2),
+         (float)(this.widthA - 10),
+         (float)(this.heightA - 10),
          35.0F,
          var1
       );
       RenderUtil.drawRect(
-         (float)(this.xA + var5 / 2),
-         (float)(this.yA + var5 / 2),
-         (float)(this.xA - var5 / 2 + this.widthA),
-         (float)(this.yA - var5 / 2 + this.heightA),
+         (float)(this.xA + 10 / 2),
+         (float)(this.yA + 10 / 2),
+         (float)(this.xA - 10 / 2 + this.widthA),
+         (float)(this.yA - 10 / 2 + this.heightA),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.25F)
       );
-      RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
+      RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)10, var6);
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.xA, (float)this.yA, 0.0F);
       GL11.glRotatef(!this.field21378 ? -90.0F : 90.0F, 0.0F, 0.0F, 1.0F);

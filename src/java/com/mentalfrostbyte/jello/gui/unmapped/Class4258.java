@@ -15,10 +15,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Class4258 extends Class4247 {
-   private List<String> field20641 = new ArrayList<String>();
+   private final List<String> field20641 = new ArrayList<String>();
    private Class4339 field20642;
-   private UIInput field20643;
-   private boolean field20644;
+   private final UIInput field20643;
+   private final boolean field20644;
 
    public Class4258(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, boolean var7, String... var8) {
       super(var1, var2, var3, var4, var5, var6, false);
@@ -37,8 +37,7 @@ public class Class4258 extends Class4247 {
          }
 
          this.addToList(this.field20642 = new Class4339(this, "scrollview", 0, 40, this.widthA, this.heightA - 40));
-         byte var4 = 40;
-         ArrayList<Item> var5 = new ArrayList();
+         ArrayList<Item> var5 = new ArrayList<>();
 
          for (Item var7 : Registry.ITEM) {
             var5.add(var7);
@@ -58,7 +57,7 @@ public class Class4258 extends Class4247 {
                }
 
                Class4372 var10;
-               this.field20642.addToList(var10 = new Class4372(this, "btn" + var9, 0, 0, var4, var4, var13.getDefaultInstance()));
+               this.field20642.addToList(var10 = new Class4372(this, "btn" + var9, 0, 0, 40, 40, var13.getDefaultInstance()));
                var10.method13702(this.field20641.contains(var9), false);
                var10.method13036(var3 -> {
                   int var6 = this.field20641.size();
@@ -80,22 +79,22 @@ public class Class4258 extends Class4247 {
 
    public static List<Item> method13070(List<Item> var0, String var1) {
       var1 = var1.toLowerCase();
-      if (var1.length() != 0) {
-         ArrayList var4 = new ArrayList();
-         Iterator var5 = var0.iterator();
+      if (!var1.isEmpty()) {
+         ArrayList<Item> var4 = new ArrayList<>();
+         Iterator<Item> var5 = var0.iterator();
 
          while (var5.hasNext()) {
-            Item var6 = (Item)var5.next();
+            Item var6 = var5.next();
             if (var6.getName().getString().toLowerCase().startsWith(var1.toLowerCase())) {
                var4.add(var6);
                var5.remove();
             }
          }
 
-         Iterator var9 = var0.iterator();
+         Iterator<Item> var9 = var0.iterator();
 
          while (var9.hasNext()) {
-            Item var7 = (Item)var9.next();
+            Item var7 = var9.next();
             if (var7.getName().getString().toLowerCase().contains(var1.toLowerCase())) {
                var4.add(var7);
                var9.remove();

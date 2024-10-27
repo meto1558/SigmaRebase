@@ -74,17 +74,16 @@ public class Class4355 extends Class4247 {
          "x:" + this.field21292.getX() + " z:" + this.field21292.getZ(),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F)
       );
-      byte var4 = 27;
       int var5 = this.widthA - 43;
       float var6 = !this.method13216() ? 0.2F : 0.4F;
       RenderUtil.renderBackgroundBox(
-         (float)(this.xA + var5), (float)(this.yA + var4), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
+         (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
       );
       RenderUtil.renderBackgroundBox(
-         (float)(this.xA + var5), (float)(this.yA + var4 + 5), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
+         (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
       );
       RenderUtil.renderBackgroundBox(
-         (float)(this.xA + var5), (float)(this.yA + var4 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
+         (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
       );
       RenderUtil.method11438(
          (float)(this.xA + 35),

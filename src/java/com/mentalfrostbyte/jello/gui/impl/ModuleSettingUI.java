@@ -27,8 +27,8 @@ public class ModuleSettingUI extends Class4247 {
       this.x = (var5 - this.width) / 2;
       this.y = (var6 - this.height) / 2 + 20;
       this.module = var7;
-      byte var10 = 10;
-      byte var11 = 59;
+      int var10 = 10;
+      int var11 = 59;
       this.addToList(
          this.field20668 = new Class4343(
             this, "mods", this.x + var10, this.y + var11, this.width - var10 * 2, this.height - var11 - var10, var7
@@ -91,12 +91,11 @@ public class ModuleSettingUI extends Class4247 {
          this.module.getName(),
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
       );
-      byte var5 = 30;
       RenderUtil.startScissor((float)this.x, (float)this.y, (float)(this.width - 30), (float)this.height);
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
-         (float)(var5 + this.x),
-         (float)(var5 + this.y),
+         (float)(30 + this.x),
+         (float)(30 + this.y),
          this.module.getDescription(),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.7F)
       );

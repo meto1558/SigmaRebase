@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.managers.impl.sound;
 
 public final class Class6710 implements Class6708 {
-   private static String[] field29357;
-   public final double field29358 = 1.3333333333333333;
    public int[] field29359;
    private int field29360 = 0;
    private int[] field29361;
@@ -40,9 +38,6 @@ public final class Class6710 implements Class6708 {
    public float[] field29393 = new float[576];
    public float[] field29394 = new float[18];
    public float[] field29395 = new float[36];
-   private int field29396 = 0;
-   private static final int field29397 = 18;
-   private static final int field29398 = 32;
    private static final int[][] field29399 = new int[][]{{0, 0, 0, 0, 3, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4}, {0, 1, 2, 3, 0, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3}};
    public static final int[] field29400 = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 3, 2, 0};
    private Class6976[] field29401;
@@ -564,7 +559,6 @@ public final class Class6710 implements Class6708 {
             }
          }
 
-         this.field29396++;
          this.field29372.method20567(1);
       }
    }
@@ -737,10 +731,8 @@ public final class Class6710 implements Class6708 {
                }
             }
 
-            byte var13 = 12;
-
             for (int var15 = 0; var15 < 3; var15++) {
-               this.field29377[var1].field30210[var15][var13] = 0;
+               this.field29377[var1].field30210[var15][12] = 0;
             }
          }
       } else {
@@ -784,10 +776,10 @@ public final class Class6710 implements Class6708 {
 
    private void method20458(int var1, int var2) {
       int var5 = this.field29369.method23676();
-      byte var6 = 0;
+      int var6 = 0;
       Class8740 var7 = this.field29375.field43578[var1].field42395[var2];
       int var8 = var7.field39401;
-      byte var9;
+      int var9;
       if (var7.field39403 != 2) {
          var9 = 0;
       } else if (var7.field39404 != 0) {
@@ -1455,7 +1447,7 @@ public final class Class6710 implements Class6708 {
    private void method20465(int var1, int var2) {
       Class8740 var5 = this.field29375.field43578[var1].field42395[var2];
       if (var5.field39402 == 0 || var5.field39403 != 2 || var5.field39404 != 0) {
-         short var6;
+         int var6;
          if (var5.field39402 != 0 && var5.field39404 != 0 && var5.field39403 == 2) {
             var6 = 18;
          } else {
@@ -1719,7 +1711,7 @@ public final class Class6710 implements Class6708 {
          var2[33] = 0.0F;
          var2[34] = 0.0F;
          var2[35] = 0.0F;
-         byte var104 = 0;
+         int var104 = 0;
 
          for (int var51 = 0; var51 < 3; var51++) {
             var1[15 + var51] = var1[15 + var51] + var1[12 + var51];

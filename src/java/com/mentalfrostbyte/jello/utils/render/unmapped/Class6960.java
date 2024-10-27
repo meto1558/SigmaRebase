@@ -15,7 +15,7 @@ public class Class6960 implements LoadableImageData {
    private int field30152;
    private int field30153;
    private int field30154;
-   private short field30155;
+   private int field30155;
 
    private short method21474(short var1) {
       int var4 = var1 & 0xFFFF;
@@ -63,20 +63,14 @@ public class Class6960 implements LoadableImageData {
          var3 = true;
       }
 
-      byte var7 = 0;
-      byte var8 = 0;
-      byte var9 = 0;
-      byte var10 = 0;
+      byte var7;
+      byte var8;
+      byte var9;
+      byte var10;
       BufferedInputStream var11 = new BufferedInputStream(var1, 100000);
       DataInputStream var12 = new DataInputStream(var11);
-      short var13 = (short)var12.read();
-      short var14 = (short)var12.read();
-      short var15 = (short)var12.read();
-      short var16 = this.method21474(var12.readShort());
-      short var17 = this.method21474(var12.readShort());
-      short var18 = (short)var12.read();
-      short var19 = this.method21474(var12.readShort());
-      short var20 = this.method21474(var12.readShort());
+      long var13 = var12.read();
+      int var15 = var12.read();
       if (var15 == 2) {
          this.field30153 = this.method21474(var12.readShort());
          this.field30154 = this.method21474(var12.readShort());
@@ -93,10 +87,10 @@ public class Class6960 implements LoadableImageData {
          }
 
          if (var13 > 0) {
-            var11.skip((long)var13);
+            var11.skip(var13);
          }
 
-         byte[] var22 = null;
+         byte[] var22;
          if (this.field30155 != 32 && !var3) {
             if (this.field30155 != 24) {
                throw new RuntimeException("Only 24 and 32 bit TGAs are supported");

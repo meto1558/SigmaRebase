@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class4270 extends Class4247 {
-   private List<ButtonPanel> field20695 = new ArrayList<ButtonPanel>();
    public int field20696;
 
    public Class4270(CustomGuiScreen var1, String var2, int var3, int var4) {
@@ -88,13 +87,11 @@ public class Class4270 extends Class4247 {
 
    @Override
    public void draw(float var1) {
-      byte var4 = 20;
-      byte var5 = 14;
-      int var6 = this.xA - var4;
-      int var7 = this.yA - var4;
-      int var8 = this.widthA + var4 * 2;
-      int var9 = this.heightA + 5 + var4 * 2;
-      RenderUtil.drawRoundedRect((float)(var6 + var5 / 2), (float)(var7 + var5 / 2), (float)(var8 - var5), (float)(var9 - var5), 20.0F, var1 * 0.5F);
+      int var6 = this.xA - 20;
+      int var7 = this.yA - 20;
+      int var8 = this.widthA + 20 * 2;
+      int var9 = this.heightA + 5 + 20 * 2;
+      RenderUtil.drawRoundedRect((float)(var6 + 14 / 2), (float)(var7 + 14 / 2), (float)(var8 - 14), (float)(var9 - 14), 20.0F, var1 * 0.5F);
       RenderUtil.method11474((float)var6, (float)var7, (float)var8, (float)var9, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.color);
       super.draw(var1);
    }

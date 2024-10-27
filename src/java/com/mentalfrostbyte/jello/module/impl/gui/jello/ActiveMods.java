@@ -18,6 +18,7 @@ import com.mentalfrostbyte.jello.utils.render.Resources;
 import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
@@ -78,11 +79,11 @@ public class ActiveMods extends Module {
 
         this.activeModules.sort(new Class3602(this));
     }
- //
+
     @EventTarget
-    public void onGUI(EventRenderGUI var1) {
+    public void onGUI(EventRenderGUI event) {
         if (mc.player != null) {
-            if (!var1.method13939()) {
+            if (!event.isRendering) {
                 GlStateManager.translatef(0.0F, (float) (-this.totalHeight), 0.0F);
             } else {
                 Scoreboard scoreboard = mc.world.getScoreboard();
@@ -96,7 +97,7 @@ public class ActiveMods extends Module {
                 }
 
                 ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
-                Collection var8 = scoreboard.getSortedScores(scoreobjective1);
+                Collection<Score> var8 = scoreboard.getSortedScores(scoreobjective1);
                 int var9 = 0;
 
                 for (Module var11 : this.activeModules) {
@@ -142,7 +143,6 @@ public class ActiveMods extends Module {
                     var7 = (int) ((double) (mc.ingameGUI.overlayDebug.debugInfoRight.size() * 9) * mc.getMainWindow().getGuiScaleFactor() + 7.0);
                 }
 
-                int var10 = 0;
                 int var11 = ColorUtils.applyAlpha(-1, 0.95F);
 
                 for (Module var13 : this.activeModules) {
@@ -183,7 +183,6 @@ public class ActiveMods extends Module {
                             var8, (float) (var6 - var20 - var8.getStringWidth(var22)), (float) var7, var22, var15 != 1.0F ? ColorUtils.applyAlpha(-1, var15 * 0.95F) : var11
                     );
                     GL11.glPopMatrix();
-                    var10 -= 100;
                     var7 = (int) ((float) var7 + (float) (var8.method23952() + var21) * QuadraticEasing.easeInOutQuad(var15, 0.0F, 1.0F, 1.0F));
                 }
 

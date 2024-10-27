@@ -118,7 +118,7 @@ public class ConfigButtonOnClickGui extends Class4247 {
       this.field21299.method13512(var3);
       this.field21301.clear();
       int var4 = 0;
-      byte var5 = 70;
+      int var5 = 70;
 
       for (Configuration var7 : Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs()) {
          Class4351 var8 = new Class4351(this, "profile" + var4, 0, var5 * var4, this.field21299.getWidthA(), var5, var7, var4);
@@ -154,7 +154,7 @@ public class ConfigButtonOnClickGui extends Class4247 {
       this.method13284((int)((float)this.widthA * 0.14F * (1.0F - var4)));
       super.method13224();
       super.method13225();
-      byte var5 = 10;
+      int var5 = 10;
       int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F));
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var5 / 2),

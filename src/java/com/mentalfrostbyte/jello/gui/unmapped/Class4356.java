@@ -4,23 +4,19 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.utils.ColorHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Class4356 extends Class4247 {
-   private List<ButtonPanel> field21295 = new ArrayList<ButtonPanel>();
    public int field21296;
 
    public Class4356(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 200, 18, ColorHelper.field27961, false);
-      byte var13 = 0;
+      int offset = 0;
       boolean var7 = true;
 
       for (Class2060 var11 : Class2060.values()) {
          String var10004 = "badge" + var11.field13427;
-         var13 += 25;
+         offset += 25;
          Class4245 var12;
-         this.addToList(var12 = new Class4245(this, var10004, var13, 0, var11));
+         this.addToList(var12 = new Class4245(this, var10004, offset, 0, var11));
          if (var7) {
             var12.field20598 = true;
             this.field21296 = var11.field13428;
