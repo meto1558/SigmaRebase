@@ -4,10 +4,10 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 
 public class Class4355 extends Class4247 {
@@ -58,38 +58,38 @@ public class Class4355 extends Class4247 {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ColorUtils.method17691(ClientColors.LIGHT_GREYISH_BLUE.color, 0.03F), this.field21289.calcPercent())
+              ColorUtils.applyAlpha(ColorUtils.method17691(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
          (float)(this.xA + 68),
          (float)(this.yA + 14),
          this.field21291,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.8F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont14,
          (float)(this.xA + 68),
          (float)(this.yA + 38),
          "x:" + this.field21292.getX() + " z:" + this.field21292.getZ(),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
       );
       int var5 = this.widthA - 43;
       float var6 = !this.method13216() ? 0.2F : 0.4F;
       RenderUtil.renderBackgroundBox(
-         (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
+         (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.renderBackgroundBox(
-         (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
+         (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.renderBackgroundBox(
-         (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var6)
+         (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.method11438(
          (float)(this.xA + 35),
          (float)(this.yA + this.heightA / 2),
          20.0F,
-              ColorUtils.method17690(this.field21293, ClientColors.DEEP_TEAL.color, 0.9F)
+              ColorUtils.method17690(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
       );
       RenderUtil.method11438((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
       RenderUtil.drawRoundedRect(

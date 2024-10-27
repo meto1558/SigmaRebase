@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class Class4257 extends Class4247 {
          (float)this.widthA,
          (float)this.heightA,
          (float)var4,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.97F)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.97F)
       );
       RenderUtil.drawImage(
          (float)(this.xA + 20),
@@ -56,7 +56,7 @@ public class Class4257 extends Class4247 {
          20.0F,
          20.0F,
          Resources.searchPNG,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.3F)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
       );
       ArrayList<Module> var5 = this.method13064();
       if (!var5.isEmpty() && this.method13067(this.field20640, ((Module)var5.get(0)).getName())) {
@@ -69,7 +69,7 @@ public class Class4257 extends Class4247 {
             (float)(this.xA + 54),
             (float)(this.yA + 14),
             var7,
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.25F)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.25F)
          );
       }
 

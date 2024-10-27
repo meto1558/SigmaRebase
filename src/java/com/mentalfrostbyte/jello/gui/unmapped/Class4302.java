@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class Class4302 extends Class4278 {
    private static String[] field20844;
@@ -23,7 +23,7 @@ public class Class4302 extends Class4278 {
             187.0F,
             36.0F,
             Resources.gemPNG,
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
          );
       }
    }

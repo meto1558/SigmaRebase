@@ -1,11 +1,8 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 public class Class4270 extends Class4247 {
    public int field20696;
@@ -92,7 +89,7 @@ public class Class4270 extends Class4247 {
       int var8 = this.widthA + 20 * 2;
       int var9 = this.heightA + 5 + 20 * 2;
       RenderUtil.drawRoundedRect((float)(var6 + 14 / 2), (float)(var7 + 14 / 2), (float)(var8 - 14), (float)(var9 - 14), 20.0F, var1 * 0.5F);
-      RenderUtil.method11474((float)var6, (float)var7, (float)var8, (float)var9, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.color);
+      RenderUtil.method11474((float)var6, (float)var7, (float)var8, (float)var9, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
       super.draw(var1);
    }
 }

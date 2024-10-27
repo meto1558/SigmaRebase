@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.events.impl.EventRender;
-import com.mentalfrostbyte.jello.events.impl.EventRenderGUI;
+import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.EventRenderGUI;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
@@ -10,12 +10,12 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.Score;
@@ -177,7 +177,7 @@ public class ActiveMods extends Module {
                             (float) var8.getStringWidth(var22) * 3.0F,
                             var8.method23952() + var21 + 40,
                             Resources.shadowPNG,
-                            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.36F * var15 * var19)
+                            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.36F * var15 * var19)
                     );
                     RenderUtil.drawString(
                             var8, (float) (var6 - var20 - var8.getStringWidth(var22)), (float) var7, var22, var15 != 1.0F ? ColorUtils.applyAlpha(-1, var15 * 0.95F) : var11

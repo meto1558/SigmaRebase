@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class Class4284 extends Class4278 {
    private static String[] field20767;
@@ -26,7 +26,7 @@ public class Class4284 extends Class4278 {
          );
          super.draw(var1 * (1.0F - var4));
          RenderUtil.drawImage(
-            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var4 * var1)
+            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
          );
       }
    }

@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.TimerUtil;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
 import org.lwjgl.glfw.GLFW;
@@ -18,9 +18,9 @@ import java.util.List;
 
 public class UIInput extends Class4278 {
    public static final ColorHelper field20741 = new ColorHelper(
-      -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.color, Class2218.field14488, Class2218.field14492
+      -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), Class2218.field14488, Class2218.field14492
    );
-   public static final ColorHelper field20742 = new ColorHelper(-1, -1, -1, ClientColors.LIGHT_GREYISH_BLUE.color, Class2218.field14488, Class2218.field14492);
+   public static final ColorHelper field20742 = new ColorHelper(-1, -1, -1, ClientColors.LIGHT_GREYISH_BLUE.getColor(), Class2218.field14488, Class2218.field14492);
    private String field20743 = "";
    private float field20744;
    private final float field20745 = 2.0F;

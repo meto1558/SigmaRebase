@@ -4,13 +4,12 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Texture;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.gui.screen.Screen;
 
 import java.util.ArrayList;
@@ -57,8 +56,8 @@ public class Class4358 extends Class4247 {
 
       for (Entry var13 : GuiManager.field41338.entrySet()) {
          Class6984 var14 = new Class6984((Class<? extends Screen>)var13.getKey());
-         ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.02F), -986896)
-            .method19410(ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F))
+         ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.02F), -986896)
+            .method19410(ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F))
             .method19412(Class2218.field14492);
          ButtonPanel var16;
          this.field21308
@@ -80,7 +79,7 @@ public class Class4358 extends Class4247 {
       var11 += 50;
 
       for (Module var19 : Client.getInstance().moduleManager.getModuleMap().values()) {
-         ColorHelper var20 = new ColorHelper(16777215, -986896).method19410(ClientColors.DEEP_TEAL.color).method19412(Class2218.field14488);
+         ColorHelper var20 = new ColorHelper(16777215, -986896).method19410(ClientColors.DEEP_TEAL.getColor()).method19412(Class2218.field14488);
          ButtonPanel var21;
          this.field21308
             .addToList(
@@ -196,7 +195,7 @@ public class Class4358 extends Class4247 {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.3F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F * var1)
       );
       super.method13224();
       RenderUtil.drawRect(
@@ -205,14 +204,14 @@ public class Class4358 extends Class4247 {
          (float)this.field21305,
          (float)this.field21306,
          10.0F,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont36,
          (float)(30 + this.field21304),
          (float)(30 + this.field21303),
          "Select mod to bind",
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.7F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.7F)
       );
       super.draw(var1);
    }

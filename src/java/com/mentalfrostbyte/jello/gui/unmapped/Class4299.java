@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
 
 import java.util.Iterator;
@@ -90,7 +90,7 @@ public class Class4299 extends Class4278 {
             52.0F,
             320.0F,
             this.pipe,
-            ClientColors.LIGHT_GREYISH_BLUE.color
+            ClientColors.LIGHT_GREYISH_BLUE.getColor()
          );
          RenderUtil.drawImage(
             (float)this.xA + var13 + var12,
@@ -98,7 +98,7 @@ public class Class4299 extends Class4278 {
             52.0F,
             320.0F,
             this.pipe2,
-            ClientColors.LIGHT_GREYISH_BLUE.color
+            ClientColors.LIGHT_GREYISH_BLUE.getColor()
          );
          if (var12 > -52.0F && var12 < 0.0F) {
             float var14 = (float)(var6 - 24) / (float)var8;
@@ -119,7 +119,7 @@ public class Class4299 extends Class4278 {
               40,
               20,
               this.bird,
-              ClientColors.LIGHT_GREYISH_BLUE.color
+              ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
       RenderUtil.endScissor();
       this.field20837 = System.currentTimeMillis();

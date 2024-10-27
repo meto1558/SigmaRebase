@@ -4,9 +4,9 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4247;
 import com.mentalfrostbyte.jello.gui.unmapped.Class6649;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +28,14 @@ public class VolumeSlider extends Class4247 {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)this.yA + (float)this.heightA * this.field21372,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.2F)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
       );
       RenderUtil.drawRect(
          (float)this.xA,
          (float)(this.yA + this.heightA),
          (float)(this.xA + this.widthA),
          (float)this.yA + (float)this.heightA * this.field21372,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.2F)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
       );
       super.draw(var1);
    }

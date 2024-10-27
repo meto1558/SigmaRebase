@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
-import com.mentalfrostbyte.jello.utils.unmapped.Color;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.unmapped.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.StringTextComponent;
 

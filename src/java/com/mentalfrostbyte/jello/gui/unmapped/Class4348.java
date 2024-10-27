@@ -3,9 +3,9 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Ban;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.*;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
@@ -82,7 +82,7 @@ public class Class4348 extends Class4278 {
             (float)this.yA,
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
-            ClientColors.LIGHT_GREYISH_BLUE.color
+            ClientColors.LIGHT_GREYISH_BLUE.getColor()
          );
          GL11.glTexParameteri(3553, 10241, 9728);
          GL11.glPushMatrix();
@@ -102,7 +102,7 @@ public class Class4348 extends Class4278 {
                (float)this.widthA,
                (float)this.widthA,
                this.field21246,
-                    ColorUtils.applyAlpha(ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.DEEP_TEAL.color, 0.7F), 0.8F)
+                    ColorUtils.applyAlpha(ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 0.7F), 0.8F)
             );
          }
 
@@ -113,7 +113,7 @@ public class Class4348 extends Class4278 {
             (float)this.yA,
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.3F + 0.3F * this.field21248.calcPercent())
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + 0.3F * this.field21248.calcPercent())
          );
       }
 
@@ -141,11 +141,11 @@ public class Class4348 extends Class4278 {
       if (this.field21245 == null) {
          Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("textures/misc/unknown_server.png"));
          RenderUtil.method11457(
-            (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, ClientColors.LIGHT_GREYISH_BLUE.color, 0.0F, 0.0F, 64.0F, 64.0F
+            (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.0F, 0.0F, 64.0F, 64.0F
          );
       } else {
          RenderUtil.method11450(
-            (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, this.field21245, ClientColors.LIGHT_GREYISH_BLUE.color, true
+            (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, this.field21245, ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
          );
       }
 
@@ -182,7 +182,7 @@ public class Class4348 extends Class4278 {
          !this.field21244.serverName.equals("Minecraft Server")
             ? this.field21244.serverName
             : this.field21244.serverIP.substring(0, 1).toUpperCase() + this.field21244.serverIP.substring(1, this.field21244.serverIP.length()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.9F)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F)
       );
       int var12 = 94;
       int var13 = 46;
@@ -193,7 +193,7 @@ public class Class4348 extends Class4278 {
                (float)(this.xA + var12),
                (float)(this.yA + var13),
                "Unban: " + var8 + " days, " + var7 + "h " + var6 + "m " + var5 + "s",
-                    ColorUtils.method17690(ClientColors.DEEP_TEAL.color, ClientColors.LIGHT_GREYISH_BLUE.color, 0.2F)
+                    ColorUtils.method17690(ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
             );
          } else if (this.field21243.method31735().getTime() != Long.MAX_VALUE) {
             RenderUtil.drawString(
@@ -201,7 +201,7 @@ public class Class4348 extends Class4278 {
                (float)(this.xA + var12),
                (float)(this.yA + var13),
                "Unbanned!",
-                    ColorUtils.method17690(ClientColors.DARK_SLATE_GREY.color, ClientColors.LIGHT_GREYISH_BLUE.color, 0.3F)
+                    ColorUtils.method17690(ClientColors.DARK_SLATE_GREY.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
             );
          } else {
             RenderUtil.drawString(
@@ -209,7 +209,7 @@ public class Class4348 extends Class4278 {
                (float)(this.xA + var12),
                (float)(this.yA + var13),
                "Permanently banned!",
-                    ColorUtils.method17690(ClientColors.PALE_YELLOW.color, ClientColors.LIGHT_GREYISH_BLUE.color, 0.3F)
+                    ColorUtils.method17690(ClientColors.PALE_YELLOW.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
             );
          }
       } else {
@@ -218,7 +218,7 @@ public class Class4348 extends Class4278 {
             (float)(this.xA + var12),
             (float)(this.yA + var13),
             "Compromised ban (unbannable)!",
-                 ColorUtils.method17690(ClientColors.DARK_OLIVE.color, ClientColors.LIGHT_GREYISH_BLUE.color, 0.3F)
+                 ColorUtils.method17690(ClientColors.DARK_OLIVE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
          );
       }
 

@@ -3,14 +3,14 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.MathUtils;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
@@ -31,7 +31,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
    }
 
    public Class4236(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
-      super(var1, var2, var3, var4, var5, var6, var7, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.LIGHT_GREYISH_BLUE.color));
+      super(var1, var2, var3, var4, var5, var6, var7, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor()));
    }
 
    @Override
@@ -81,7 +81,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
          var10[2] + (var11 * 2),
          var10[3] + (var11 * 2),
          Resources.shadowPNG,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, this.field20578.calcPercent() * 0.7F * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * var1)
       );
       RenderUtil.drawImage(
          (float)var8 + var10[0],

@@ -11,11 +11,11 @@ import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.TextBoxSetting;
-import com.mentalfrostbyte.jello.utils.MathHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 import java.util.HashMap;
 

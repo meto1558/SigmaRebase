@@ -4,8 +4,8 @@ import com.mentalfrostbyte.jello.gui.impl.MusicPlayer;
 import com.mentalfrostbyte.jello.gui.unmapped.ButtonPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4286;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
 
 public class MusicPlayerInstance implements Runnable {
    public final MusicPlayerVideo thubmnail;

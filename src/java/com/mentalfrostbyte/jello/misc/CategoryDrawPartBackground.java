@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.misc;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
-import com.mentalfrostbyte.jello.utils.MathHelper;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 public class CategoryDrawPartBackground {
    public final ClientResource fontRenderer;

@@ -2,11 +2,11 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.impl.sound.CustomSoundPlayer;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.SoundEvents;
 
@@ -44,7 +44,7 @@ public class Class4300 extends Class4278 {
          (float)(this.getXA() + this.getWidthA() / 2),
          (float)(this.getYA() + this.getHeightA() / 2),
          this.field20912,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, !this.isHovered() ? 0.5F : 1.0F),
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.isHovered() ? 0.5F : 1.0F),
          Class2218.field14492,
          Class2218.field14492
       );

@@ -4,13 +4,13 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.impl.account.Class9507;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
 public class AccountSignUpScreen extends Class4247 {
    private UITextDisplay stringPanel;
@@ -34,7 +34,7 @@ public class AccountSignUpScreen extends Class4247 {
             43,
             ResourceRegistry.JelloMediumFont40.getStringWidth("New Account"),
             50,
-            new ColorHelper(ClientColors.DEEP_TEAL.color, ClientColors.DEEP_TEAL.color, ClientColors.DEEP_TEAL.color, -7631989),
+            new ColorHelper(ClientColors.DEEP_TEAL.getColor(), ClientColors.DEEP_TEAL.getColor(), ClientColors.DEEP_TEAL.getColor(), -7631989),
             "New Account",
             ResourceRegistry.JelloMediumFont40
          )
@@ -55,7 +55,7 @@ public class AccountSignUpScreen extends Class4247 {
       int var9 = 50;
       int var10 = 320;
       int var11 = 106;
-      ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.color, Class2218.field14488, Class2218.field14492);
+      ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor(), Class2218.field14488, Class2218.field14492);
       this.addToList(this.usernameInputBox = new UIInput(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
       this.usernameInputBox.setFont(ResourceRegistry.JelloLightFont20);
       this.addToList(this.emailInputBox = new UIInput(this, "Email", 228, var11 + 53, var10, var9, var12, "", "Email"));
@@ -86,7 +86,7 @@ public class AccountSignUpScreen extends Class4247 {
          this.captchaBox.setEnabled(var7.method36702());
          if (var7.method36702()) {
             RenderUtil.renderBackgroundBox(
-               (float)(this.xA + var6), (float)(this.yA + var5), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.04F)
+               (float)(this.xA + var6), (float)(this.yA + var5), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
             );
          }
 

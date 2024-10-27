@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.managers.impl.account;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.utils.render.Texture;
-import com.mentalfrostbyte.jello.utils.render.TextureUtil;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.render.TextureUtil;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

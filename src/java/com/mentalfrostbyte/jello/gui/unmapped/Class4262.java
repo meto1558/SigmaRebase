@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class Class4262 extends Class4261 {
    private static String[] field20674;

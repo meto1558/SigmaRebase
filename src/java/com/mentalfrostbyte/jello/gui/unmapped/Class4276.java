@@ -4,12 +4,12 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.vector.Vector3i;
 import org.lwjgl.opengl.GL11;
@@ -113,7 +113,7 @@ public class Class4276 extends Class4247 {
          (float)(this.yA + var5 / 2),
          (float)(this.xA - var5 / 2 + this.widthA),
          (float)(this.yA - var5 / 2 + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.25F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
       );
       RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
       GL11.glPushMatrix();
@@ -134,7 +134,7 @@ public class Class4276 extends Class4247 {
          (float)(this.yA + 68),
          (float)(this.xA + this.widthA - 25),
          (float)(this.yA + 69),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.05F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * var1)
       );
       super.draw(var1);
    }

@@ -5,14 +5,14 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
@@ -52,7 +52,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
             128,
             128,
             Resources.singleplayerPNG,
-            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.DEEP_TEAL.color)
+            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
          )
       );
       this.addToList(
@@ -64,7 +64,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
             128,
             128,
             Resources.multiplayerPNG,
-            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.DEEP_TEAL.color)
+            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
          )
       );
       this.addToList(
@@ -76,7 +76,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
             128,
             128,
                  Resources.shopPNG,
-            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.DEEP_TEAL.color)
+            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
          )
       );
       this.addToList(
@@ -88,7 +88,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
             128,
             128,
                  Resources.optionsPNG,
-            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.DEEP_TEAL.color)
+            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
          )
       );
       this.addToList(
@@ -100,12 +100,12 @@ public class MainmenuScreen2 extends CustomGuiScreen {
             128,
             128,
                  Resources.altPNG,
-            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color, ClientColors.DEEP_TEAL.color)
+            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
          )
       );
       this.addToList(
          this.field21130 = new UITextDisplay(
-            this, "Copyright", 10, this.getHeightA() - 31, var15.getStringWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color), var20, var15
+            this, "Copyright", 10, this.getHeightA() - 31, var15.getStringWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var20, var15
          )
       );
       this.addToList(
@@ -116,7 +116,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
             this.getHeightA() - 31,
             128,
             128,
-            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color),
+            new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()),
             var21,
             var15
          )
@@ -125,12 +125,12 @@ public class MainmenuScreen2 extends CustomGuiScreen {
       this.field21129.field20779 = true;
       this.addToList(
          this.changelogButton = new UIButton(
-            this, "changelog", 432, 24, 110, 50, new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
+            this, "changelog", 432, 24, 110, 50, new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
          )
       );
       this.addToList(
          this.field21133 = new UIButton(
-            this, "quit", 30, 24, 50, 50, new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
+            this, "quit", 30, 24, 50, 50, new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
          )
       );
       this.field21133.doThis((var1x, var2x) -> {
@@ -195,7 +195,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
          (float)imageWidth,
          (float)imageHeight,
               Resources.logoLargePNG,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
       );
       super.draw(var1);
    }

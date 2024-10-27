@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 public class Class4263 extends Class4247 {
    private static String[] field20677;
@@ -26,14 +26,14 @@ public class Class4263 extends Class4247 {
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)this.widthA,
-         ColorUtils.applyAlpha(ClientColors.PALE_YELLOW.color, (0.5F + this.field20678 * 0.3F + (!this.field20909 ? 0.0F : 0.2F)) * var1)
+         ColorUtils.applyAlpha(ClientColors.PALE_YELLOW.getColor(), (0.5F + this.field20678 * 0.3F + (!this.field20909 ? 0.0F : 0.2F)) * var1)
       );
       RenderUtil.renderBackgroundBox(
          (float)(this.xA + (this.widthA - 10) / 2),
          (float)(this.yA + this.heightA / 2 - 1),
          10.0F,
          2.0F,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.75F * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F * var1)
       );
       super.draw(var1);
    }

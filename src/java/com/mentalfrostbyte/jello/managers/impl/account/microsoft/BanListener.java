@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers.impl.account.microsoft;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.events.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.login.server.SDisconnectLoginPacket;
 import net.minecraft.network.login.server.SLoginSuccessPacket;

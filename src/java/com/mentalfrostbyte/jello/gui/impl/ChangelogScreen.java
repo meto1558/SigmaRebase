@@ -7,12 +7,12 @@ import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
 import com.mentalfrostbyte.jello.gui.unmapped.Class576;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.MathUtils;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import totalcross.json.JSONArray;
 import totalcross.json.JSONException;
 
@@ -70,14 +70,14 @@ public class ChangelogScreen extends CustomGuiScreen {
 
       this.drawBackground((int)(150.0f * (1.0f - fadeFactor)));
       this.method13225();
-      RenderUtil.drawString(ResourceRegistry.JelloLightFont36, 100.0F, 100.0F, "Changelog", ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, alpha));
+      RenderUtil.drawString(ResourceRegistry.JelloLightFont36, 100.0F, 100.0F, "Changelog", ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha));
       ClientResource jelloLightFont25 = ResourceRegistry.JelloLightFont25;
       String versionText = "You're currently using Sigma " + Client.VERSION;
       RenderUtil.drawString(
               jelloLightFont25,
               100.0f, 150.0f,
               versionText,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.6f * alpha)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6f * alpha)
       );
       super.draw(alpha);
    }

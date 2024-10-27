@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
 public class Class4364 extends Class4247 {

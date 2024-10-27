@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.managers.impl.account.microsoft;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.utils.render.ImageUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
-import com.mentalfrostbyte.jello.utils.render.TextureUtil;
+import com.mentalfrostbyte.jello.util.render.ImageUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.render.TextureUtil;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;

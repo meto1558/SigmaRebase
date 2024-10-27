@@ -5,11 +5,11 @@ import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class1309;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
 import com.mentalfrostbyte.jello.gui.unmapped.UITextDisplay;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -54,9 +54,9 @@ public class CreditsToCreators extends Screen {
          0.0F,
          (float)this.widthA,
          (float)this.heightA,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, this.field21076.calcPercent() * 0.95F)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), this.field21076.calcPercent() * 0.95F)
       );
-      RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, 40.0F, 40.0F, "Credits and third party licensing information", ClientColors.LIGHT_GREYISH_BLUE.color);
+      RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, 40.0F, 40.0F, "Credits and third party licensing information", ClientColors.LIGHT_GREYISH_BLUE.getColor());
       super.draw(this.field21076.calcPercent());
    }
 

@@ -7,11 +7,11 @@ import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -147,7 +147,7 @@ public class JelloKeyboardScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var5)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
       RenderUtil.drawString(
@@ -155,7 +155,7 @@ public class JelloKeyboardScreen extends Screen {
          (float)((this.widthA - 1060) / 2),
          (float)((this.heightA - 357) / 2 - 90),
          "Keybind Manager",
-         ClientColors.LIGHT_GREYISH_BLUE.color
+         ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
       super.draw(var1);
    }

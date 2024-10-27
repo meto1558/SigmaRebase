@@ -6,12 +6,12 @@ import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.MathHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import totalcross.json.JSONObject;
@@ -67,7 +67,7 @@ public class JelloClickGUI extends Screen {
       this.musicPlayer.method13215(true);
       PNGIconButton var9;
       this.addToList(var9 = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
-      var9.method13307().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.3F));
+      var9.method13307().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
       var9.method13300(false);
       this.musicPlayer.setEnabled(field20951);
       var9.doThis((var1, var2) -> this.method13222(() -> {
@@ -244,7 +244,7 @@ public class JelloClickGUI extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var5)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       Object var6 = null;
       float var7 = 1.0F;
@@ -265,7 +265,7 @@ public class JelloClickGUI extends Screen {
             (float)(this.widthA - ResourceRegistry.JelloLightFont20.getStringWidth(var12) - 80),
             (float)(this.heightA - 47),
             var12,
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F * Math.max(0.0F, Math.min(1.0F, var4)))
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * Math.max(0.0F, Math.min(1.0F, var4)))
          );
       }
 

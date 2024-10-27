@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.managers.impl.notifs;
 
-import com.mentalfrostbyte.jello.utils.TimerUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 
 import java.awt.*;
 

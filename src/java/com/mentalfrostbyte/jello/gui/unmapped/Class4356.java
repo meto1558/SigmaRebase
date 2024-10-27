@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
+import com.mentalfrostbyte.jello.util.ColorHelper;
 
 public class Class4356 extends Class4247 {
    public int field21296;

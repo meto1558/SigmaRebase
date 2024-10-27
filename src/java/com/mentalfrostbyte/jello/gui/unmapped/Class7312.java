@@ -2,11 +2,11 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.TimerUtil;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Texture;
 
 public class Class7312 {
    private Texture field31339;
@@ -110,7 +110,7 @@ public class Class7312 {
          (float)var3,
          (float)var4,
          this.field31339,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var5),
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5),
          (float)var8,
          (float)var9,
          (float)this.field31342,

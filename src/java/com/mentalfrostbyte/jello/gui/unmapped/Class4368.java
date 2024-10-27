@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class Class4368 extends Class4247 {
    public Module field21351;
@@ -31,21 +31,21 @@ public class Class4368 extends Class4247 {
          (float)(this.xA + 10),
          (float)(this.yA + 8),
          this.field21351.getSuffix(),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, !this.field21351.isEnabled() ? 0.5F : 0.9F)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), !this.field21351.isEnabled() ? 0.5F : 0.9F)
       );
       RenderUtil.drawString(
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 33),
          "Bind",
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 1.0F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
       );
       RenderUtil.drawString(
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 52),
               RenderUtil.method17736(this.field21351.parseSettingValueToIntBySettingName("Keybind")),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.7F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F)
       );
       if (this.field21351.getSettingMap().size() > 1) {
          RenderUtil.drawString(
@@ -53,7 +53,7 @@ public class Class4368 extends Class4247 {
             (float)(this.xA + 84),
             (float)(this.yA + 34),
             "Settings",
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 1.0F)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
          );
       }
 

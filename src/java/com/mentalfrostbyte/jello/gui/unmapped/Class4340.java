@@ -5,10 +5,10 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.vector.Vector3i;
 
@@ -141,7 +141,7 @@ public class Class4340 extends Class4339 {
          22.0F,
          26.0F,
          Resources.trashcanPNG,
-         ColorUtils.applyAlpha(!this.field21212 ? ClientColors.DEEP_TEAL.color : ClientColors.PALE_YELLOW.color, this.field21211.calcPercent() * 0.5F),
+         ColorUtils.applyAlpha(!this.field21212 ? ClientColors.DEEP_TEAL.getColor() : ClientColors.PALE_YELLOW.getColor(), this.field21211.calcPercent() * 0.5F),
          false
       );
    }

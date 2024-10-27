@@ -2,8 +2,8 @@ package net.minecraft.network;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.mentalfrostbyte.jello.events.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.events.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
@@ -52,7 +52,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import team.sdhq.eventBus.Event;
 import team.sdhq.eventBus.EventBus;
 
 public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>

@@ -1,7 +1,7 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.hash.Hashing;
-import com.mentalfrostbyte.jello.events.impl.EventFOV;
+import com.mentalfrostbyte.jello.event.impl.EventFOV;
 import com.mojang.authlib.GameProfile;
 import java.io.File;
 import javax.annotation.Nullable;
@@ -18,7 +18,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameType;
 import net.optifine.Config;
 import net.optifine.player.CapeUtils;

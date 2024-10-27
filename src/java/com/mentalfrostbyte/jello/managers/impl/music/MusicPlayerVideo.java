@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers.impl.music;
 
-import com.mentalfrostbyte.jello.utils.ThumbnailUtil;
+import com.mentalfrostbyte.jello.util.ThumbnailUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,12 +3,12 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 public class Class4277 extends Class4247 {
    private static String[] field20602;
@@ -89,7 +89,7 @@ public class Class4277 extends Class4247 {
             (float)(var8 - ResourceRegistry.JelloLightFont14.getStringWidth(this.getTypedText()) - 10 - var11),
             (float)(var9 - 5),
             this.getTypedText(),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.5F * this.field20735.calcPercent() * var1)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * this.field20735.calcPercent() * var1)
          );
       }
 

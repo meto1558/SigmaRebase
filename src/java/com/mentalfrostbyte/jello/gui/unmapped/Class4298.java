@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.render.TextureUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.render.TextureUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -33,10 +33,10 @@ import java.util.UUID;
 
 public class Class4298 extends Class4278 {
    public static ColorHelper field20821 = new ColorHelper(
-      ClientColors.DEEP_TEAL.color,
-      ClientColors.DEEP_TEAL.color,
-      ClientColors.DEEP_TEAL.color,
-      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.getColor(),
+      ClientColors.DEEP_TEAL.getColor(),
+      ClientColors.DEEP_TEAL.getColor(),
+      ClientColors.DEEP_TEAL.getColor(),
       Class2218.field14488,
       Class2218.field14492
    );

@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class Class4288 extends Class4278 {
    private final Class4339 field20780;
@@ -82,7 +82,7 @@ public class Class4288 extends Class4278 {
             (float)(this.yA + var4),
             (float)(var5 + var6),
             (float)(this.yA + this.getHeightA() - var4),
-            ColorUtils.applyAlpha(ClientColors.MID_GREY.color, 1.0F * var1)
+            ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 1.0F * var1)
          );
       } else {
          RenderUtil.drawImage((float)var5, (float)this.yA, (float)var6, (float)var4, Resources.verticalScrollBarTopPNG, var1);
@@ -92,7 +92,7 @@ public class Class4288 extends Class4278 {
             (float)(this.yA + var4),
             (float)(var5 + var6),
             (float)(this.yA + this.getHeightA() - var4),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.45F * var1)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * var1)
          );
       }
 

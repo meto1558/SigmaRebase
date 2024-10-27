@@ -4,10 +4,10 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.misc.Vector3m;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 import org.lwjgl.opengl.GL11;
 
@@ -65,7 +65,7 @@ public class Class4251 extends Class4247 {
          (float)this.widthA,
          (float)this.heightA,
          14.0F,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var5)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
       );
       RenderUtil.method11474(
          (float)(this.xA + this.field20616),
@@ -77,7 +77,7 @@ public class Class4251 extends Class4247 {
       );
       RenderUtil.method11476();
       RenderUtil.method11474(
-         (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.color
+         (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
       RenderUtil.method11477(Class2329.field15940);
       GL11.glPushMatrix();
@@ -94,16 +94,16 @@ public class Class4251 extends Class4247 {
          (float)(this.yA + 0),
          1.0F,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.14F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F)
       );
-      int var6 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.6F);
+      int var6 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F);
       RenderUtil.drawString(ResourceRegistry.JelloLightFont25, (float)(this.xA + 30), (float)(this.yA + 25), "Waypoints", var6);
       RenderUtil.drawString(
          ResourceRegistry.JelloMediumFont40,
          (float)this.xA,
          (float)((this.icoPanel.getHeightA() - this.heightA) / 2 - 70),
          "Jello Maps",
-         ClientColors.LIGHT_GREYISH_BLUE.color
+         ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
       String var7 = Client.getInstance().waypointsManager.method29998().replace("/", " - ");
       RenderUtil.drawString(
@@ -111,7 +111,7 @@ public class Class4251 extends Class4247 {
          (float)(this.xA + this.widthA - ResourceRegistry.JelloLightFont24.getStringWidth(var7) - 10),
          (float)((this.icoPanel.getHeightA() - this.heightA) / 2 - 62),
          var7,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)
       );
    }
 

@@ -7,9 +7,9 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class4333;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4334;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4335;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import totalcross.json.JSONObject;
 
@@ -85,7 +85,7 @@ public class ClassicScreenk extends Screen {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var4 * 0.35F)
+                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var4 * 0.35F)
         );
         super.draw(var1);
     }

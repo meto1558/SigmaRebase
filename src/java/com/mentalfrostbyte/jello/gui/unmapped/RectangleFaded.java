@@ -5,11 +5,11 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mentalfrostbyte.jello.gui.impl.SwitchScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.MathUtils;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
@@ -65,7 +65,7 @@ public class RectangleFaded extends ButtonPanel {
                 (float) this.getWidthA(),
                 (float) this.getHeightA(),
                 this.field20590,
-                ClientColors.LIGHT_GREYISH_BLUE.color
+                ClientColors.LIGHT_GREYISH_BLUE.getColor()
         );
         GL11.glPushMatrix();
         super.method13226(var1);
