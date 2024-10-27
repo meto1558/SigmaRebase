@@ -574,7 +574,7 @@ public class IngameGui extends AbstractGui
                     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                     float f = 1.0F;
 
-                    l = scaledHeight - 25   ;
+                    l = scaledHeight - 25;
                     if (effectinstance.isAmbient())
                     {
                         this.blit(matrixStack, k, l, 165, 166, 24, 24);
