@@ -78,7 +78,7 @@ public class ActiveMods extends Module {
 
         this.activeModules.sort(new Class3602(this));
     }
-
+ //
     @EventTarget
     public void onGUI(EventRenderGUI var1) {
         if (mc.player != null) {

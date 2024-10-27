@@ -22,3 +22,4 @@ public class Cape extends Module {
         return player == mc.player || isEnabled();
     }
 }
+//
