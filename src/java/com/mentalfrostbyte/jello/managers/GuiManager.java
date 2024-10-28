@@ -168,7 +168,7 @@ public class GuiManager {
             this.field41354[1] = Math.max(0, Math.min(Minecraft.getInstance().getMainWindow().getHeight(), (int) Minecraft.getInstance().mouseHelper.getMouseY()));
 
             for (Integer var4 : this.field41339) {
-                this.method33463(var4);
+                this.keyPressed(var4);
             }
 
             for (Integer var9 : this.field41340) {
@@ -184,7 +184,7 @@ public class GuiManager {
             }
 
             for (Integer var12 : this.field41343) {
-                this.method33462((char) var12.intValue());
+                this.charTyped((char) var12.intValue());
             }
 
             this.field41339.clear();
@@ -212,19 +212,19 @@ public class GuiManager {
         }
     }
 
-    public void method33462(char var1) {
+    public void charTyped(char var1) {
         if (this.screen != null) {
             this.screen.charTyped(var1);
         }
     }
 
-    public void method33463(int var1) {
+    public void keyPressed(int var1) {
         if (this.screen != null) {
             this.screen.keyPressed(var1);
         }
     }
 
-    public void method33464() {
+    public void drawWatermark() {
         if (Minecraft.getInstance().world != null) {
             GL11.glDisable(2896);
             int var3 = 0;

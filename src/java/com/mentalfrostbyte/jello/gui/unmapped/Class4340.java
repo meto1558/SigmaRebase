@@ -28,12 +28,6 @@ public class Class4340 extends Class4339 {
       this.field21211.changeDirection(Direction.BACKWARDS);
       this.field20883 = true;
       this.method13300(false);
-      this.method13511();
-   }
-
-//   @Override
-   public void method13511() {
-      boolean var3 = false;
    }
 
    public void method13519(String var1, Vector3i var2, int var3) {

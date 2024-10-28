@@ -7,7 +7,6 @@ import com.mentalfrostbyte.jello.events.impl.EventRender2D;
 import com.mentalfrostbyte.jello.events.impl.EventWriter;
 import com.mentalfrostbyte.jello.events.impl.Render3DEvent;
 import com.mentalfrostbyte.jello.managers.*;
-import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import com.mentalfrostbyte.jello.utils.ClientLogger;
 import com.mentalfrostbyte.jello.utils.FileUtil;
@@ -179,7 +178,7 @@ public class Client {
             RenderSystem.disableDepthTest();
             RenderSystem.pushMatrix();
             RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
-            this.guiManager.method33464();
+            this.guiManager.drawWatermark();
             RenderSystem.popMatrix();
             RenderSystem.enableDepthTest();
             RenderSystem.enableAlphaTest();

@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base;
 
 public class MiniAlert {
-   private static String[] field44770;
    public AlertType field44771;
    public String field44772;
    public int field44773;

@@ -35,7 +35,7 @@ public class Class4339 extends AnimatedIconPanel {
       this.method13511();
    }
 
-   private final void method13511() {
+   private void method13511() {
       this.method13241().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
       this.buttonList.setSize(new Class6665());
       this.method13241().add(this.field21205 = new Class4292(this, 11));

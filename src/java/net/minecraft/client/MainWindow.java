@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.io.FileNotFoundException;
@@ -95,7 +96,7 @@ public final class MainWindow implements AutoCloseable
         this.prevWindowWidth = this.width = size.width > 0 ? size.width : 1;
         this.prevWindowHeight = this.height = size.height > 0 ? size.height : 1;
         GLFW.glfwDefaultWindowHints();
-
+        GuiManager.method33475();
         if (Config.isAntialiasing())
         {
             GLFW.glfwWindowHint(135181, Config.getAntialiasingLevel());
