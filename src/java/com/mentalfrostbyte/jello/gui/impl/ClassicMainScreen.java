@@ -9,13 +9,13 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class4278;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4365;
 import com.mentalfrostbyte.jello.gui.unmapped.ClassicParticleEngine;
 import com.mentalfrostbyte.jello.gui.unmapped.UITextDisplay;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
@@ -54,11 +54,11 @@ public class ClassicMainScreen extends Screen {
         this.addToList(this.field21103 = new Class4337(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
         this.addToList(
                 this.field21095 = new UITextDisplay(
-                        this, "Copyright", 10, 8, var9.getStringWidth(var11), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color), var11, ResourceRegistry.JelloLightFont18
+                        this, "Copyright", 10, 8, var9.getStringWidth(var11), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var11, ResourceRegistry.JelloLightFont18
                 )
         );
-        ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F));
-        var15.method19410(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F));
+        ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
+        var15.method19410(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
         ArrayList<String> var16 = new ArrayList<>();
         var16.add("LeakedPvP");
         var16.add("Omikron");
@@ -73,15 +73,15 @@ public class ClassicMainScreen extends Screen {
                         this.getHeightA() - 31,
                         114,
                         140,
-                        new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color),
+                        new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()),
                         var12,
                         var9
                 )
         );
-        this.addToList(new UITextDisplay(this, "Hello", 10, this.getHeightA() - 55, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color), "Hello,", var9));
+        this.addToList(new UITextDisplay(this, "Hello", 10, this.getHeightA() - 55, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "Hello,", var9));
         this.addToList(
                 new UITextDisplay(
-                        this, "Latest", 10, this.getHeightA() - 31, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.color), "You are using the latest version", var9
+                        this, "Latest", 10, this.getHeightA() - 31, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "You are using the latest version", var9
                 )
         );
         this.field21104 = (float) (this.getWidthA() / 2);

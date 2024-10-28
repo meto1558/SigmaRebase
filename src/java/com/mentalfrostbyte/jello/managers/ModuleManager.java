@@ -41,18 +41,34 @@ public class ModuleManager {
 
     public void register(ClientMode clientMode) {
         this.createModules();
+
+        // GUI
         if (clientMode == ClientMode.JELLO) {
-            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze());
-            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Compass());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Coords());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
         }
 
         if (clientMode == ClientMode.CLASSIC) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
         }
+        // COMBAT
 
+        // RENDER
+
+        // WORLD
+
+        // MISC
+
+        // PLAYER
         this.register(new AutoSprint());
         this.register(new Cape());
+
+        // ITEM
+
+        // MOVEMENT
 
         this.sortBySuffixAndRegisterEvents();
     }

@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +10,12 @@ import java.util.List;
 public class Class4247 extends Class4278 {
     private final List<Class8435> field20603 = new ArrayList<Class8435>();
 
-   public Class4247(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, boolean var7) {
-      super(var1, var2, var3, var4, var5, var6, var7);
+   public Class4247(CustomGuiScreen var1, String var2, int var3, int var4, int width, int height, boolean var7) {
+      super(var1, var2, var3, var4, width, height, var7);
    }
 
-   public Class4247(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, boolean var8) {
-      super(var1, var2, var3, var4, var5, var6, var7, var8);
+   public Class4247(CustomGuiScreen var1, String var2, int var3, int var4, int width, int height, ColorHelper var7, boolean var8) {
+      super(var1, var2, var3, var4, width, height, var7, var8);
    }
 
    public Class4247(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, boolean var9) {

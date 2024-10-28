@@ -117,7 +117,7 @@ public class KeyBinding implements Comparable<KeyBinding>
 
     /**
      * Returns true on the initial key press. For continuous querying use {@link isKeyDown()}. Should be used in key
-     * events.
+     * event.
      */
     public boolean isPressed()
     {

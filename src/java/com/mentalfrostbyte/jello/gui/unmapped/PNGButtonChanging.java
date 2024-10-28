@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.impl.music.Class189;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class PNGButtonChanging extends Class4247 {
    public Class189 field20607;
@@ -32,7 +32,7 @@ public class PNGButtonChanging extends Class4247 {
          (float)(this.widthA * 3),
          (float)this.heightA,
          Resources.repeatPNG,
-         ColorUtils.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.color, 0.35F)
+         ColorUtils.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.35F)
       );
       RenderUtil.endScissor();
       super.draw(var1);

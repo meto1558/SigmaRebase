@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Texture;
 
 public class ImageQ extends Class4278 {
    private static String[] field20736;
@@ -24,7 +24,7 @@ public class ImageQ extends Class4278 {
          (float)this.heightA,
          this.field20792,
          ColorUtils.method17690(
-            ClientColors.DEEP_TEAL.color, ClientColors.LIGHT_GREYISH_BLUE.color, !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
+            ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
          )
       );
       super.draw(var1);

@@ -4,10 +4,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 import java.util.Date;
 
@@ -66,14 +66,14 @@ public class Class4253 extends Class4247 {
          (float)(this.xA + 25),
          (float)this.yA + (float)this.heightA / 2.0F - 17.5F,
          this.field20624.method21596(),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.6F * var1)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * var1)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont12,
          (float)(this.xA + 25),
          (float)this.yA + (float)this.heightA / 2.0F + 7.5F,
          this.field20624.method21597(),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.6F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * var1)
       );
       this.field20628.setYA((int)((float)this.heightA / 2.0F - 7.5F));
       super.draw(var1);

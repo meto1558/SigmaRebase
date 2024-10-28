@@ -1,11 +1,11 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import org.lwjgl.opengl.GL11;
 
 public class Class4255 extends Class4247 {
@@ -27,7 +27,7 @@ public class Class4255 extends Class4247 {
          64.0F,
          64.0F,
          !this.method13298() ? this.field20633 : this.field20634,
-         ClientColors.LIGHT_GREYISH_BLUE.color
+         ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
 
       RenderUtil.drawString(

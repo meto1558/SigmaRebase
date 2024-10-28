@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.events.impl.EventRenderGUI;
+import com.mentalfrostbyte.jello.event.impl.EventRenderGUI;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -57,7 +57,6 @@ import net.minecraft.util.ColorHelper;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -574,6 +573,7 @@ public class IngameGui extends AbstractGui
                     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                     float f = 1.0F;
 
+                    l = scaledHeight - 25;
                     if (effectinstance.isAmbient())
                     {
                         this.blit(matrixStack, k, l, 165, 166, 24, 24);

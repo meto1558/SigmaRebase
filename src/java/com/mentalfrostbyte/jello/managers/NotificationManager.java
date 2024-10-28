@@ -1,14 +1,12 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.events.impl.EventRender;
-import com.mentalfrostbyte.jello.events.impl.Render3DEvent;
-import com.mentalfrostbyte.jello.events.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;

@@ -3,12 +3,12 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -106,14 +106,14 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + 60),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, Math.min(1.0F, var1 * 0.9F * this.field21195))
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, var1 * 0.9F * this.field21195))
       );
       RenderUtil.renderBackgroundBox(
          (float)this.getXA(),
          (float)this.getYA() + 60.0F * this.field21195,
          (float)this.getWidthA(),
          (float)this.getHeightA() - 60.0F * this.field21195,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
       );
       if (!(this.field21195 > 0.8F)) {
          if (this.field21195 < 0.2F) {
@@ -129,7 +129,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
          (float)(this.getXA() + 20),
          (float)(this.getYA() + 30),
          categoryName,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.5F * this.field21195),
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.5F * this.field21195),
          Class2218.field14488,
          Class2218.field14492
       );
@@ -143,7 +143,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
             (float)this.getWidthA(),
             18.0F,
             Resources.shadowBottomPNG,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * this.field21195 * 0.5F)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * this.field21195 * 0.5F)
          );
       }
    }

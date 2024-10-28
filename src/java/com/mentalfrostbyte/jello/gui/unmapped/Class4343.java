@@ -7,10 +7,10 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -314,21 +314,21 @@ public class Class4343 extends Class4339 implements Class4342 {
          (float)(this.getXA() + 10),
          (float)(this.getYA() + this.getHeightA() + 24),
          this.field21227,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F * this.field21225.calcPercent())
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * this.field21225.calcPercent())
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont14,
          (float)(this.getXA() + 11),
          (float)(this.getYA() + this.getHeightA() + 24),
          this.field21227,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F * this.field21225.calcPercent())
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * this.field21225.calcPercent())
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont14,
          (float)(this.getXA() + 14 + ResourceRegistry.JelloLightFont14.getStringWidth(this.field21227) + 2),
          (float)(this.getYA() + this.getHeightA() + 24),
          this.field21226,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.5F * this.field21225.calcPercent())
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * this.field21225.calcPercent())
       );
    }
 

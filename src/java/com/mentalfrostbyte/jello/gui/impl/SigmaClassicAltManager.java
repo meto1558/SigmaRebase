@@ -6,13 +6,13 @@ import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
@@ -149,7 +149,7 @@ public class SigmaClassicAltManager extends Screen {
          (float)(this.getWidthA() / 2),
          20.0F,
          "Account Manager - " + this.method13400() + " alts",
-         ClientColors.LIGHT_GREYISH_BLUE.color,
+         ClientColors.LIGHT_GREYISH_BLUE.getColor(),
          Class2218.field14492,
          Class2218.field14488
       );
@@ -158,7 +158,7 @@ public class SigmaClassicAltManager extends Screen {
          (float)(this.getWidthA() / 2),
          40.0F,
          this.status,
-         ClientColors.LIGHT_GREYISH_BLUE.color,
+         ClientColors.LIGHT_GREYISH_BLUE.getColor(),
          Class2218.field14492,
          Class2218.field14488,
          false
@@ -181,7 +181,7 @@ public class SigmaClassicAltManager extends Screen {
 
    private void method13401() {
       RenderUtil.method11455(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
-      RenderUtil.renderBackgroundBox(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.23F));
+      RenderUtil.renderBackgroundBox(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.23F));
    }
 
    @Override

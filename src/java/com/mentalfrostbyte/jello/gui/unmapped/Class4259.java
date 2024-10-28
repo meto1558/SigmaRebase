@@ -2,11 +2,11 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.math.ChunkPos;
@@ -141,7 +141,7 @@ public class Class4259 extends Class4247 {
          (float)var6,
          (float)var6,
          this.field20654.field30546,
-         ClientColors.LIGHT_GREYISH_BLUE.color,
+         ClientColors.LIGHT_GREYISH_BLUE.getColor(),
          0.0F,
          0.0F,
          (float)this.field20654.field30544,
@@ -176,7 +176,7 @@ public class Class4259 extends Class4247 {
          (float)(this.xA - ResourceRegistry.JelloLightFont14.getStringWidth(var24) - 23),
          (float)(this.yA + 35),
          var24,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.4F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
       );
       this.field20656 = this.field20650;
       this.field20657 = this.field20651;

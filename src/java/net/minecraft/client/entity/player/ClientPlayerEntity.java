@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
 
-import com.mentalfrostbyte.jello.events.impl.EventEntityActionState;
-import com.mentalfrostbyte.jello.events.impl.EventMove;
-import com.mentalfrostbyte.jello.events.impl.EventPushBlock;
-import com.mentalfrostbyte.jello.events.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventEntityActionState;
+import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.EventPushBlock;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BiomeSoundHandler;

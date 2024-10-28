@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public final class EventBus {
 
     /**
-     * This just holds all events and methods registered with them
+     * This just holds all event and methods registered with them
      */
     private static final HashMap<Class<? extends Event> /* Event */, HashMap<Method /* Called method */, Object /* Class instance */>> REGISTERED_METHODS = new HashMap<>();
 

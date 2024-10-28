@@ -3,11 +3,11 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Ban;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class Class4296 extends Class4278 {
       }
 
       if (this.field20813 != null) {
-         int var7 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.7F);
+         int var7 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F);
          RenderUtil.drawString(
             ResourceRegistry.JelloLightFont36,
             (float)(this.xA + (this.widthA - ResourceRegistry.JelloLightFont36.getStringWidth(this.field20813.getKnownName())) / 2),

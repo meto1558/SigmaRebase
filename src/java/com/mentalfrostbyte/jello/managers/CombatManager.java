@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.events.impl.TickEvent;
-import com.mentalfrostbyte.jello.events.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.managers.impl.combat.Class7249;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.EventBus;

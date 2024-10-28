@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl;
 
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.render.Resources;
-import com.mentalfrostbyte.jello.utils.render.Texture;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LoadingGui;
@@ -96,12 +96,12 @@ public class CustomLoadingScreen extends LoadingGui {
         GL11.glTranslatef((float)(Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
         GL11.glScalef(var8, var8, 0.0F);
         GL11.glTranslatef((float)(-Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(-Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
-        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var0));
+        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var0));
         float var9 = Math.min(1.0F, var1 * 1.02F);
         float var11 = 80;
         if (var0 == 1.0F) {
             RenderUtil.drawRect(
-                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.3F * var0)
+                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * var0)
             );
             RenderUtil.drawRect(
                     (float)(var6 + 1),
@@ -109,7 +109,7 @@ public class CustomLoadingScreen extends LoadingGui {
                     (float)(var4 - 2),
                     18.0F,
                     9.0F,
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 1.0F * var0)
+                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F * var0)
             );
         }
 
@@ -119,7 +119,7 @@ public class CustomLoadingScreen extends LoadingGui {
                 (float)((int)((float)(var4 - 4) * var9)),
                 16.0F,
                 8.0F,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.9F * var0)
+                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * var0)
         );
         GL11.glPopMatrix();
     }

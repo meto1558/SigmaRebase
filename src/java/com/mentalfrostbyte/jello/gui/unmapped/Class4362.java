@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Class4362 extends Class4247 {
    private static String[] field20602;
-   public static final ColorHelper field21322 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.color).method19414(Class2218.field14492);
+   public static final ColorHelper field21322 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> field21323 = new ArrayList<String>();
    public int field21324 = 0;
 
@@ -40,7 +40,7 @@ public class Class4362 extends Class4247 {
                this.getWidthA(),
                this.getHeightA(),
                new ColorHelper(
-                  ClientColors.LIGHT_GREYISH_BLUE.color,
+                  ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                   -1381654,
                   this.textColor.method19405(),
                   this.textColor.method19405(),
@@ -77,7 +77,7 @@ public class Class4362 extends Class4247 {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA() + this.method13635()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),

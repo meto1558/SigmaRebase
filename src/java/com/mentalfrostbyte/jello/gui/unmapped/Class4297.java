@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.TimerUtil;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
@@ -32,14 +32,14 @@ public class Class4297 extends Class4278 {
 
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.xA, (float)this.yA, 0.0F);
-      RenderUtil.renderBackgroundBox(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ClientColors.DEEP_TEAL.color);
+      RenderUtil.renderBackgroundBox(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ClientColors.DEEP_TEAL.getColor());
       RenderUtil.method11474(
          (float)(this.field20818.method29736().field41839 * this.field20820),
          (float)(this.field20818.method29736().field41840 * this.field20820),
          (float)this.field20820,
          (float)this.field20820,
          5.0F,
-         ClientColors.PALE_ORANGE.color
+         ClientColors.PALE_ORANGE.getColor()
       );
 
       for (Class9108 var5 : this.field20818.method29737().method29655()) {
@@ -48,7 +48,7 @@ public class Class4297 extends Class4278 {
             (float)(var5.field41840 * this.field20820),
             (float)this.field20820,
             (float)this.field20820,
-            ClientColors.LIGHT_GREYISH_BLUE.color
+            ClientColors.LIGHT_GREYISH_BLUE.getColor()
          );
       }
 

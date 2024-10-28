@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
-import com.mentalfrostbyte.jello.events.impl.EventRenderNameTag;
+import com.mentalfrostbyte.jello.event.impl.EventRenderNameTag;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.List;

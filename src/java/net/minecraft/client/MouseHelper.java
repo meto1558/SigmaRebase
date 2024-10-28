@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.events.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.events.impl.MouseHoverEvent;
+import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
 import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;

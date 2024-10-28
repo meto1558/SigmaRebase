@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.events.impl.TickEvent;
-import com.mentalfrostbyte.jello.events.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.gui.unmapped.Class7101;
 import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.managers.impl.waypoints.Class2531;
 import com.mentalfrostbyte.jello.managers.impl.waypoints.Class7927;
-import com.mentalfrostbyte.jello.utils.FileUtil;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.FileUtil;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;

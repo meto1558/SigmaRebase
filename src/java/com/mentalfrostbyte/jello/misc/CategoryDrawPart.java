@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.misc;
 
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
          (float)this.getStartY(),
          (float)this.getWidth(),
          (float)this.method24725(),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, partialTicks * 0.6F)
+         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F)
       );
       this.field32403 = this.field32403 + this.method24733();
       int var4 = this.getStartX() + 4;
@@ -65,10 +65,10 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
       float var10 = 6;
 
       for (String categoryName : this.categoryList) {
-         int color = ClientColors.LIGHT_GREYISH_BLUE.color;
+         int color = ClientColors.LIGHT_GREYISH_BLUE.getColor();
          if (categoryName.startsWith("§7")) {
             categoryName = categoryName.substring("§7".length());
-            color = ClientColors.MID_GREY.color;
+            color = ClientColors.MID_GREY.getColor();
          }
 
          RenderUtil.drawString(

@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.JelloMainMenuScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 
 public class Class4306 extends CustomGuiScreen {
@@ -85,7 +85,7 @@ public class Class4306 extends CustomGuiScreen {
          (float)this.xA,
          (float)this.yA,
          (float)this.getWidthA(),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, 0.07F + (!(this.field20934 > 0.0F) ? 0.0F : this.field20934 * 0.3F))
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.07F + (!(this.field20934 > 0.0F) ? 0.0F : this.field20934 * 0.3F))
       );
       float var6 = (float)(this.field20936 - this.method13271());
       float var7 = (float)(this.field20937 - this.method13272());

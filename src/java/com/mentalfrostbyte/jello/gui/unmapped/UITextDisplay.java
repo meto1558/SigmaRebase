@@ -1,22 +1,22 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
-import com.mentalfrostbyte.jello.utils.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import org.lwjgl.opengl.GL11;
 
 public class UITextDisplay extends Class4278 {
    private static String[] field20736;
    public static ColorHelper field20778 = new ColorHelper(
-      ClientColors.DEEP_TEAL.color,
-      ClientColors.DEEP_TEAL.color,
-      ClientColors.DEEP_TEAL.color,
-      ClientColors.DEEP_TEAL.color,
+      ClientColors.DEEP_TEAL.getColor(),
+      ClientColors.DEEP_TEAL.getColor(),
+      ClientColors.DEEP_TEAL.getColor(),
+      ClientColors.DEEP_TEAL.getColor(),
       Class2218.field14488,
       Class2218.field14492
    );
@@ -39,7 +39,7 @@ public class UITextDisplay extends Class4278 {
             (float)this.getXA(),
             (float)this.getYA(),
             this.getTypedText(),
-            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1)
+            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1)
          );
          GL11.glAlphaFunc(519, 0.0F);
       }

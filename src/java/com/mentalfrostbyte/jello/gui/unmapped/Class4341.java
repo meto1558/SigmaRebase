@@ -4,11 +4,11 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class Class4341 extends Class4339 implements Class4342 {
       for (Module var5 : Client.getInstance().moduleManager.getModulesByCategory(this.field21214)) {
          int var9 = ColorUtils.applyAlpha(-3487030, 0.0F);
          ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
-            .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.color : ClientColors.LIGHT_GREYISH_BLUE.color);
+            .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
          var12.method19412(Class2218.field14488);
          ButtonPanel var13;
          this.getButton()
@@ -64,7 +64,7 @@ public class Class4341 extends Class4339 implements Class4342 {
                } else {
                   var5.toggle();
                   ColorHelper var9x = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
-                     .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.color : ClientColors.LIGHT_GREYISH_BLUE.color);
+                     .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
                   if (!var5.isEnabled()) {
                      var7.method13034(22);
                   } else {

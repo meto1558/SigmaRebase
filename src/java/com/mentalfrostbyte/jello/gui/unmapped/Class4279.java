@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 public class Class4279 extends Class4278 {
    public Class4250 field20737;
@@ -44,7 +44,7 @@ public class Class4279 extends Class4278 {
          (float)(this.xA + 5),
          (float)(this.yA + 5),
          10.0F,
-         ColorUtils.applyAlpha(!this.method13216() ? ClientColors.DARK_GREEN.color : ClientColors.DARK_BLUE_GREY.color, var1)
+         ColorUtils.applyAlpha(!this.method13216() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), var1)
       );
       super.draw(var1);
    }

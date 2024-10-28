@@ -46,7 +46,7 @@ public class TimerCallbackManager<T>
         {
             if (!(p_237478_1_.getValue() instanceof CompoundNBT))
             {
-                LOGGER.warn("Invalid format of events: {}", (Object)p_237478_1_);
+                LOGGER.warn("Invalid format of event: {}", (Object)p_237478_1_);
             }
             else {
                 this.readEntry((CompoundNBT)p_237478_1_.getValue());

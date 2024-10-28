@@ -4,13 +4,13 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ColorHelper;
-import com.mentalfrostbyte.jello.utils.MathHelper;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
-import com.mentalfrostbyte.jello.utils.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class Class4363 extends Class4247 {
-   public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.color).method19414(Class2218.field14492);
+   public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> values;
    public int field21327;
    public boolean field21328;
@@ -79,7 +79,7 @@ public class Class4363 extends Class4247 {
                this.getWidthA(),
                this.getHeightA(),
                new ColorHelper(
-                  ClientColors.LIGHT_GREYISH_BLUE.color,
+                  ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                   -1381654,
                   this.textColor.method19405(),
                   this.textColor.method19405(),
@@ -163,7 +163,7 @@ public class Class4363 extends Class4247 {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1 * this.field21330.calcPercent())
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * this.field21330.calcPercent())
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),

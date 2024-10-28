@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 public class Class4361 extends Class4247 {
    public Class4361(CustomGuiScreen var1, String var2, int var3, int var4) {

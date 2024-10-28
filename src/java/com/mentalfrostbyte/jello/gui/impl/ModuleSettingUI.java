@@ -4,10 +4,10 @@ import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4247;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4343;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.utils.ClientColors;
-import com.mentalfrostbyte.jello.utils.ResourceRegistry;
-import com.mentalfrostbyte.jello.utils.render.ColorUtils;
-import com.mentalfrostbyte.jello.utils.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 public class ModuleSettingUI extends Class4247 {
    public Animation animation1;
@@ -65,7 +65,7 @@ public class ModuleSettingUI extends Class4247 {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, 0.45F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * var1)
       );
       super.method13224();
       RenderUtil.drawRect(
@@ -74,14 +74,14 @@ public class ModuleSettingUI extends Class4247 {
          (float)this.width,
          (float)this.height,
          10.0F,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloMediumFont40,
          (float)this.x,
          (float)(this.y - 60),
          this.module.getName(),
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.color, var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
       );
       RenderUtil.startScissor((float)this.x, (float)this.y, (float)(this.width - 30), (float)this.height);
       RenderUtil.drawString(
@@ -89,7 +89,7 @@ public class ModuleSettingUI extends Class4247 {
          (float)(30 + this.x),
          (float)(30 + this.y),
          this.module.getDescription(),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.color, var1 * 0.7F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.7F)
       );
       RenderUtil.endScissor();
       super.draw(var1);
