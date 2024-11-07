@@ -9,14 +9,14 @@ import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import com.mentalfrostbyte.jello.util.ClientLogger;
-import com.mentalfrostbyte.jello.util.FileUtil;
-import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONObject;
 
@@ -37,10 +37,10 @@ public class Client {
 
     public File file = new File("sigma5");
 
-    public static List<Texture> textureList = new ArrayList<Texture>();
+    public static List<Texture> textureList = new ArrayList<>();
 
     private static Client instance;
-    public ClientMode clientMode = ClientMode.PREMIUM;
+    public ClientMode clientMode = ClientMode.NONE;
     public DiscordRichPresence discordRichPresence;
 
     private JSONObject config;
@@ -53,8 +53,13 @@ public class Client {
     public AccountManager accountManager;
     public WaypointsManager waypointsManager;
     public NotificationManager notificationManager;
+    public FriendManager friendManager;
+    public CommandManager commandManager;
     public MusicManager musicManager;
+    public Class8795 field28989;
     private Logger logger;
+
+    public PlayerStateTracker playerStateTracker;
 
     public static boolean dontRenderHand = false;
     private boolean field28968 = true;
@@ -73,11 +78,17 @@ public class Client {
             var8.printStackTrace();
         }
 
+        this.commandManager = new CommandManager();
+        this.commandManager.init();
         this.networkManager = new NetworkManager();
         this.networkManager.init();
         this.guiManager = new GuiManager();
+        this.friendManager = new FriendManager();
+        this.friendManager.init();
         this.combatManager = new CombatManager();
         this.combatManager.init();
+        this.playerStateTracker = new PlayerStateTracker();
+        this.playerStateTracker.init();
         this.musicManager = new MusicManager();
         this.musicManager.init();
         this.soundManager = new SoundManager();

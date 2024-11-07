@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.managers;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.BanListener;
-import com.mentalfrostbyte.jello.util.FileUtil;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mojang.realmsclient.RealmsMainScreen;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import net.minecraft.client.Minecraft;

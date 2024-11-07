@@ -11,10 +11,10 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -154,7 +154,7 @@ public class LoginAndOutScreen extends Screen {
          String welcomeBackSign = "Welcome back";
          int var8 = 100;
          int var9 = 10;
-         int var10 = var8 + Math.max(ResourceRegistry.JelloMediumFont40.getStringWidth(welcomeBackSign), ResourceRegistry.JelloLightFont36.getStringWidth(username)) + var9 * 10;
+         int var10 = var8 + Math.max(ResourceRegistry.JelloMediumFont40.getWidth(welcomeBackSign), ResourceRegistry.JelloLightFont36.getWidth(username)) + var9 * 10;
          int var11 = (this.widthA - var10) / 2;
          int var12 = (this.heightA - var8 * 2) / 2;
          RenderUtil.drawRect(

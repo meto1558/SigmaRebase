@@ -11,12 +11,12 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.render.Texture;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
+import org.newdawn.slick.opengl.Texture;
 import totalcross.json.JSONObject;
 
 import java.util.ArrayList;

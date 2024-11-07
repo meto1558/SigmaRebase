@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.screen;
 
 import com.mentalfrostbyte.jello.gui.impl.JelloPortalScreen;
+import com.mentalfrostbyte.jello.util.minecraft.WorldUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import java.util.List;
 import net.minecraft.client.gui.DialogTexts;

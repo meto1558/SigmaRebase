@@ -134,7 +134,7 @@ public abstract class Entity implements INameable, ICommandSource
     public float prevRotationYaw;
     public float prevRotationPitch;
     private AxisAlignedBB boundingBox = ZERO_AABB;
-    protected boolean onGround;
+    public boolean onGround;
     public boolean collidedHorizontally;
     public boolean collidedVertically;
     public boolean velocityChanged;
@@ -1630,7 +1630,7 @@ public abstract class Entity implements INameable, ICommandSource
     /**
      * interpolated look vector
      */
-    public final Vector3d getLook(float partialTicks)
+    public Vector3d getLook(float partialTicks)
     {
         return this.getVectorForRotation(this.getPitch(partialTicks), this.getYaw(partialTicks));
     }

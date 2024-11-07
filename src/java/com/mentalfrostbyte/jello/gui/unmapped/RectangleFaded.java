@@ -6,12 +6,12 @@ import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mentalfrostbyte.jello.gui.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.system.MathUtils;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 
 public class RectangleFaded extends ButtonPanel {
     private final Texture field20590;

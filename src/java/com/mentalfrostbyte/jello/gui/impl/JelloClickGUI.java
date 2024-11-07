@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.system.MathHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -262,7 +262,7 @@ public class JelloClickGUI extends Screen {
          String var12 = Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig().getName;
          RenderUtil.drawString(
             ResourceRegistry.JelloLightFont20,
-            (float)(this.widthA - ResourceRegistry.JelloLightFont20.getStringWidth(var12) - 80),
+            (float)(this.widthA - ResourceRegistry.JelloLightFont20.getWidth(var12) - 80),
             (float)(this.heightA - 47),
             var12,
             ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * Math.max(0.0F, Math.min(1.0F, var4)))

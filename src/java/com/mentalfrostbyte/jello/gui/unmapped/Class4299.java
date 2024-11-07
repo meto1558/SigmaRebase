@@ -4,8 +4,8 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
+import org.newdawn.slick.opengl.Texture;
 
 import java.util.Iterator;
 import java.util.Map.Entry;

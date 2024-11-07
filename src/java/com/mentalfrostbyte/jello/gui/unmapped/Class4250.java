@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.system.MathUtils;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.Class9778;

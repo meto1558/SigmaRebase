@@ -8,16 +8,16 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class4306;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.NetworkManager;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.system.MathHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.render.Texture;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 
 import java.util.ArrayList;
 import java.util.List;

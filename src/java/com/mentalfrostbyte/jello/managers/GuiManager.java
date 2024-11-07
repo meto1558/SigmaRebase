@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.gui.impl.*;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.FileUtil;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
@@ -97,7 +97,7 @@ public class GuiManager {
     public static Screen handleScreen(net.minecraft.client.gui.screen.Screen var0) {
         if (var0 == null) {
             return null;
-        } else if (Client.getInstance().clientMode == ClientMode.PREMIUM) {
+        } else if (Client.getInstance().clientMode == ClientMode.NONE) {
             return new SwitchScreen();
         } else if (method33457(var0)) {
             return null;

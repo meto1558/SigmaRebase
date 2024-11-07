@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.system.TimerUtil;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;

@@ -3,13 +3,13 @@ package com.mentalfrostbyte.jello.misc;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
-import com.mentalfrostbyte.jello.util.MathHelper;
+import com.mentalfrostbyte.jello.util.system.MathHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
+import org.newdawn.slick.TrueTypeFont;
 
 public class CategoryDrawPartBackground {
-   public final ClientResource fontRenderer;
+   public final TrueTypeFont fontRenderer;
    public final int field32395;
    private boolean expanded = false;
    public Animation field32398 = new Animation(300, 300);

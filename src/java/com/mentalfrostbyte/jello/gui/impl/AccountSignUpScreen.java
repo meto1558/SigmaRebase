@@ -32,7 +32,7 @@ public class AccountSignUpScreen extends Class4247 {
             "Register",
             228,
             43,
-            ResourceRegistry.JelloMediumFont40.getStringWidth("New Account"),
+            ResourceRegistry.JelloMediumFont40.getWidth("New Account"),
             50,
             new ColorHelper(ClientColors.DEEP_TEAL.getColor(), ClientColors.DEEP_TEAL.getColor(), ClientColors.DEEP_TEAL.getColor(), -7631989),
             "New Account",
@@ -41,12 +41,12 @@ public class AccountSignUpScreen extends Class4247 {
       );
       this.addToList(
          this.registerButton = new UIButton(
-            this, "RegisterButton", 468, 291, ResourceRegistry.JelloLightFont25.getStringWidth("Register"), 70, ColorHelper.field27961, "Register", ResourceRegistry.JelloLightFont25
+            this, "RegisterButton", 468, 291, ResourceRegistry.JelloLightFont25.getWidth("Register"), 70, ColorHelper.field27961, "Register", ResourceRegistry.JelloLightFont25
          )
       );
       this.addToList(
          this.loginButton = new UIButton(
-            this, "LoginButton", 98, 333, ResourceRegistry.JelloLightFont14.getStringWidth("Login"), 14, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont14
+            this, "LoginButton", 98, 333, ResourceRegistry.JelloLightFont14.getWidth("Login"), 14, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont14
          )
       );
       this.addToList(this.loadingBox = new UILoadingCircle(this, "loading", 530, 314, 30, 30));

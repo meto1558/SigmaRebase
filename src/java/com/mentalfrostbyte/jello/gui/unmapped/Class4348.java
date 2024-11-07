@@ -11,6 +11,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.codec.binary.Base64;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

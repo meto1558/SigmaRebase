@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.system.MathUtils;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
 import net.minecraft.client.Minecraft;
@@ -15,6 +15,7 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 import totalcross.json.JSONObject;
 
 import java.io.IOException;

@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class4251 extends Class4247 {
-   private List<ButtonPanel> field20612 = new ArrayList<ButtonPanel>();
-   public int field20613;
    public Class4259 field20614;
    public Class4340 field20615;
    public int field20616;
@@ -108,7 +106,7 @@ public class Class4251 extends Class4247 {
       String var7 = Client.getInstance().waypointsManager.method29998().replace("/", " - ");
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont24,
-         (float)(this.xA + this.widthA - ResourceRegistry.JelloLightFont24.getStringWidth(var7) - 10),
+         (float)(this.xA + this.widthA - ResourceRegistry.JelloLightFont24.getWidth(var7) - 10),
          (float)((this.icoPanel.getHeightA() - this.heightA) / 2 - 62),
          var7,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)

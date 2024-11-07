@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
 import com.mentalfrostbyte.jello.managers.impl.account.Class9507;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.system.MathUtils;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;

@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
 import net.minecraft.client.Minecraft;
+import org.newdawn.slick.opengl.Texture;
 
 import java.io.IOException;
 import java.util.ArrayList;

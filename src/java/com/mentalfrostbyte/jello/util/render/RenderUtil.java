@@ -4,13 +4,10 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
+import com.mentalfrostbyte.jello.misc.Box3D;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.unmapped.Class7820;
-import com.mentalfrostbyte.jello.util.render.unmapped.TextureImpl;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
-import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
-import com.mentalfrostbyte.jello.util.unmapped.Color;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -26,6 +23,9 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 
 import java.awt.*;
 import java.nio.ByteBuffer;
@@ -279,29 +279,29 @@ public class RenderUtil {
         RenderSystem.disableBlend();
     }
     // draw string?
-    public static void method11440(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
+    public static void method11440(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
         method11441(var0, var1, var2, var3, var4, var5, var6, false);
     }
 
-    public static void method11441(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
+    public static void method11441(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
-        switch (Class7820.field33554[var5.ordinal()]) {
+        switch (var5.ordinal()) {
             case 1:
-                var10 = -var0.getStringWidth(var3) / 2;
+                var10 = -var0.getWidth(var3) / 2;
                 break;
             case 2:
-                var10 = -var0.getStringWidth(var3);
+                var10 = -var0.getWidth(var3);
         }
 
-        switch (Class7820.field33554[var6.ordinal()]) {
+        switch (var6.ordinal()) {
             case 1:
-                var11 = -var0.method23941(var3) / 2;
+                var11 = -var0.getHeight(var3) / 2;
                 break;
             case 3:
-                var11 = -var0.method23941(var3);
+                var11 = -var0.getHeight(var3);
         }
 
         float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
@@ -346,11 +346,11 @@ public class RenderUtil {
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
         if (var7) {
-            var0.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), var3, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+            var0.drawString((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), var3, new org.newdawn.slick.Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
         if (var3 != null) {
-            var0.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new Color(var13, var14, var15, var12));
+            var0.drawString((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new org.newdawn.slick.Color(var13, var14, var15, var12));
         }
 
         RenderSystem.disableBlend();
@@ -373,7 +373,7 @@ public class RenderUtil {
         method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
     }
 
-    public static void drawString(ClientResource var0, float var1, float var2, String var3, int var4) {
+    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4) {
         method11441(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
     }
 
@@ -950,7 +950,7 @@ public class RenderUtil {
             GL11.glAlphaFunc(519, 0.0F);
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
             RenderSystem.disableDepthTest();
-            TextureImpl.method36180();
+            TextureImpl.unbind();
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
             RenderHelper.setupGui3DDiffuseLighting();
         }
@@ -963,5 +963,97 @@ public class RenderUtil {
         GL11.glPixelStorei(3317, 1);
         GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, 6407, 5120, var5);
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
+    }
+
+    public static void render3DColoredBox(Box3D boxIn, int color) {
+        if (boxIn != null) {
+            float var4 = (float)(color >> 24 & 0xFF) / 255.0F;
+            float var5 = (float)(color >> 16 & 0xFF) / 255.0F;
+            float var6 = (float)(color >> 8 & 0xFF) / 255.0F;
+            float var7 = (float)(color & 0xFF) / 255.0F;
+            GL11.glColor4f(var5, var6, var7, var4);
+            GL11.glEnable(3042);
+            GL11.glDisable(3553);
+            GL11.glDisable(2896);
+            GL11.glLineWidth(1.8F * GuiManager.scaleFactor);
+            GL11.glBlendFunc(770, 771);
+            GL11.glEnable(2848);
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glBegin(7);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glEnable(3553);
+            GL11.glEnable(2896);
+            GL11.glDisable(2848);
+            GL11.glDisable(3042);
+        }
     }
 }

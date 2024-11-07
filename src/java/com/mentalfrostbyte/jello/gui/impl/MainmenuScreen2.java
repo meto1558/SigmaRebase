@@ -11,12 +11,12 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.render.Texture;
-import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
 import net.minecraft.realms.RealmsBridgeScreen;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
 
 public class MainmenuScreen2 extends CustomGuiScreen {
    private final ButtonPanel singleplayerButton;
@@ -35,7 +35,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    public MainmenuScreen2(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.method13300(false);
-      ClientResource var15 = ResourceRegistry.JelloLightFont20;
+      TrueTypeFont var15 = ResourceRegistry.JelloLightFont20;
       int var17 = 0;
       int var18 = 80;
       int var19 = 10;
@@ -105,14 +105,14 @@ public class MainmenuScreen2 extends CustomGuiScreen {
       );
       this.addToList(
          this.field21130 = new UITextDisplay(
-            this, "Copyright", 10, this.getHeightA() - 31, var15.getStringWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var20, var15
+            this, "Copyright", 10, this.getHeightA() - 31, var15.getWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var20, var15
          )
       );
       this.addToList(
          this.field21129 = new UITextDisplay(
             this,
             "Version",
-            this.getWidthA() - var15.getStringWidth(var21) - 9,
+            this.getWidthA() - var15.getWidth(var21) - 9,
             this.getHeightA() - 31,
             128,
             128,
