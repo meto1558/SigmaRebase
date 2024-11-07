@@ -242,7 +242,7 @@ public class Class8795 {
                if (!WorldUtil.isAboveBounds(this.mc.player, 5.0F)) {
                   var36 = true;
                }
-               
+
                if (!var17 || !var16) {
                   if (var8.field44271.method33972().distanceTo(this.mc.player.getPositionVec()) > 10.0) {
                      this.method31738();
