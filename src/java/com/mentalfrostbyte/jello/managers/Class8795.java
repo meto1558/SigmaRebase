@@ -85,7 +85,7 @@ public class Class8795 {
    }
 
    @EventTarget
-   private void method31745(EventEntityActionState var1) {
+   public void method31745(EventEntityActionState var1) {
       if (this.method31743()) {
          if (this.field39616 == null) {
             double var4 = Math.sqrt(
@@ -254,7 +254,7 @@ public class Class8795 {
    }
 
    @EventTarget
-   private void method31747(EventUpdate var1) {
+   public void method31747(EventUpdate var1) {
       if (var1.isPre()) {
          if (this.method31743()) {
             ArrayList var4 = new ArrayList();
