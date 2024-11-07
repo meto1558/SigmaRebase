@@ -16,7 +16,7 @@ public class Cape extends Module {
     }
 
     public ResourceLocation getCape() {
-        return new ResourceLocation("minecraft", "com/mentalfrostbyte/gui/resources/jello/capes/cape.png");
+        return new ResourceLocation("minecraft", "com/mentalfrostbyte/gui/resources/jello/capes/EazyPesy.png");
     }
 
     public void onDisable() {
