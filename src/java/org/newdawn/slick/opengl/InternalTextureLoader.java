@@ -212,10 +212,6 @@ public class InternalTextureLoader {
      * @throws IOException Indicates a failure to load the image
      */
     public TextureImpl getTexture(InputStream in, String resourceName, boolean flipped, int filter, int[] transparent) throws IOException {
-    	if (deferred) {
-	    	return new DeferredTexture(in, resourceName, flipped, filter, transparent);
-	    }
-    	
     	HashMap hash = texturesLinear;
         if (filter == SGL.GL_NEAREST) {
         	hash = texturesNearest;

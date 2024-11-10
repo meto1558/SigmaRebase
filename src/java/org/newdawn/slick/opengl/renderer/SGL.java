@@ -528,7 +528,7 @@ public interface SGL {
 	 * 
 	 * @return True if the mirro clamp extension is available
 	 */
-	public boolean canTextureMirrorClamp();
+	boolean canTextureMirrorClamp();
 
 	public boolean canSecondaryColor();
 

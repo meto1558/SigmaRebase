@@ -1,5 +1,6 @@
 package org.newdawn.slick.opengl.renderer;
 
+import java.nio.Buffer;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 
@@ -76,35 +77,37 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 			return;
 		}
 		
-		if (vertIndex < TOLERANCE) {
+		if (vertIndex >= TOLERANCE) {
+			vertices.clear();
+			colors.clear();
+			textures.clear();
+
+			vertices.put(verts, 0, vertIndex * 3);
+			colors.put(cols, 0, vertIndex * 4);
+			textures.put(texs, 0, vertIndex * 2);
+
+			vertices.flip();
+			colors.flip();
+			textures.flip();
+
+			GL11.glVertexPointer(3, 0, 0, vertices);
+			GL11.glColorPointer(4, 0, 0, colors);
+			GL11.glTexCoordPointer(2, 0, 0, textures);
+			GL11.glDrawArrays(currentType, 0, vertIndex);
+
+			currentType = NONE;
+		} else {
 			GL11.glBegin(currentType);
-			for (int i=0;i<vertIndex;i++) {
-				GL11.glColor4f(cols[(i*4)+0], cols[(i*4)+1], cols[(i*4)+2], cols[(i*4)+3]);
-				GL11.glTexCoord2f(texs[(i*2)+0], texs[(i*2)+1]);
-				GL11.glVertex3f(verts[(i*3)+0], verts[(i*3)+1], verts[(i*3)+2]);
+
+			for (int i = 0; i < vertIndex; i++) {
+				GL11.glColor4f(cols[i * 4], cols[i * 4 + 1], cols[i * 4 + 2], cols[i * 4 + 3]);
+				GL11.glTexCoord2f(texs[i * 2], texs[i * 2 + 1]);
+				GL11.glVertex3f(verts[i * 3], verts[i * 3 + 1], verts[i * 3 + 2]);
 			}
+
 			GL11.glEnd();
 			currentType = NONE;
-			return;
 		}
-		vertices.clear();
-		colors.clear();
-		textures.clear();
-		
-		vertices.put(verts,0,vertIndex*3);
-		colors.put(cols,0,vertIndex*4);
-		textures.put(texs,0,vertIndex*2);
-		
-		vertices.flip(); 
-		colors.flip(); 
-		textures.flip(); 
-		
-		GL11.glVertexPointer(3,0,vertices);     
-		GL11.glColorPointer(4,0,colors);     
-		GL11.glTexCoordPointer(2,0,textures);     
-		
-		GL11.glDrawArrays(currentType, 0, vertIndex);
-		currentType = NONE;
 	}
 	
 	/**

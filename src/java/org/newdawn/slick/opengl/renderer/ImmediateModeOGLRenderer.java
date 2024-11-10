@@ -5,11 +5,7 @@ import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-
-//import org.lwjgl.opengl.EXTSecondaryColor;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL14;
-import org.lwjglx.opengl.GLContext;
+import org.lwjgl.opengl.*;
 
 /**
  * The default OpenGL renderer, uses immediate mode for everything
@@ -186,14 +182,14 @@ public class ImmediateModeOGLRenderer implements SGL {
 	 * @see org.newdawn.slick.opengl.renderer.SGL#glGetFloat(int, java.nio.FloatBuffer)
 	 */
 	public void glGetFloat(int id, FloatBuffer ret) {
-		GL11.glGetFloat(id, ret);
+		GL11.glGetFloat(id);
 	}
 
 	/**
 	 * @see org.newdawn.slick.opengl.renderer.SGL#glGetInteger(int, java.nio.IntBuffer)
 	 */
 	public void glGetInteger(int id, IntBuffer ret) {
-		GL11.glGetInteger(id, ret);
+		GL11.glGetInteger(id);
 	}
 
 	/**
@@ -367,7 +363,7 @@ public class ImmediateModeOGLRenderer implements SGL {
 	 * @see org.newdawn.slick.opengl.renderer.SGL#glLoadMatrix(java.nio.FloatBuffer)
 	 */
 	public void glLoadMatrix(FloatBuffer buffer) {
-		GL11.glLoadMatrix(buffer);
+		GL11.glLoadMatrixf(buffer);
 	}
 
 	/*
@@ -402,20 +398,14 @@ public class ImmediateModeOGLRenderer implements SGL {
 		GL11.glTexSubImage2D(glTexture2d, i, pageX, pageY, width, height, glBgra, glUnsignedByte, scratchByteBuffer);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.newdawn.slick.opengl.renderer.SGL#canTextureMirrorClamp()
-	 */
+	@Override
 	public boolean canTextureMirrorClamp() {
-		return GLContext.getCapabilities().GL_EXT_texture_mirror_clamp;
+		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.newdawn.slick.opengl.renderer.SGL#canSecondaryColor()
-	 */
+	@Override
 	public boolean canSecondaryColor() {
-		return GLContext.getCapabilities().GL_EXT_secondary_color;
+		return false;
 	}
 
 	/*
@@ -423,7 +413,6 @@ public class ImmediateModeOGLRenderer implements SGL {
 	 * @see org.newdawn.slick.opengl.renderer.SGL#glSecondaryColor3ubEXT(byte, byte, byte)
 	 */
 	public void glSecondaryColor3ubEXT(byte b, byte c, byte d) {
-		GL14.glSecondaryColor3ub(b, c, d);
-		//EXTSecondaryColor.glSecondaryColor3ubEXT(b,c,d);
+		EXTSecondaryColor.glSecondaryColor3ubEXT(b, c, d);
 	}
 }
