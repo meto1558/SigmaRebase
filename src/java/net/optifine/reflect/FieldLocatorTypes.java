@@ -30,7 +30,7 @@ public class FieldLocatorTypes implements IFieldLocator
 
         if (l < 0)
         {
-            Log.log("(Reflector) Field not found: " + errorName);
+
         }
         else
         {

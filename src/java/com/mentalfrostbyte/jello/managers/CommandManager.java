@@ -99,7 +99,7 @@ public class CommandManager {
     }
 
     @EventTarget
-    private void method30237(TickEvent var1) {
+    public void method30237(TickEvent var1) {
         for (Runnable var5 : field38299) {
             var5.run();
         }
@@ -108,7 +108,7 @@ public class CommandManager {
     }
 
     @EventTarget
-    private void onSendPacket(SendPacketEvent var1) {
+    public void onSendPacket(SendPacketEvent var1) {
         if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
             if (var1.getPacket() instanceof CChatMessagePacket) {
                 CChatMessagePacket var4 = (CChatMessagePacket) var1.getPacket();

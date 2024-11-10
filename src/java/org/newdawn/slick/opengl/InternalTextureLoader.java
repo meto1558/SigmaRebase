@@ -216,22 +216,22 @@ public class InternalTextureLoader {
         if (filter == SGL.GL_NEAREST) {
         	hash = texturesNearest;
         }
-        
+
         String resName = resourceName;
         if (transparent != null) {
-        	resName += ":"+transparent[0]+":"+transparent[1]+":"+transparent[2];
+            resName = resourceName + ":" + transparent[0] + ":" + transparent[1] + ":" + transparent[2];
         }
-        resName += ":"+flipped;
+        resName = resName + ":" + flipped;
         
         if (holdTextureData) {
-        	TextureImpl tex = (TextureImpl)  hash.get(resName);
+        	TextureImpl tex = (TextureImpl)hash.get(resName);
         	if (tex != null) {
         		return tex;
         	}
         } else {
 	    	SoftReference ref = (SoftReference) hash.get(resName);
 	    	if (ref != null) {
-		    	TextureImpl tex = (TextureImpl) ref.get();
+		    	TextureImpl tex = (TextureImpl)ref.get();
 		        if (tex != null) {
 		        	return tex;
 		        } else {
@@ -256,7 +256,7 @@ public class InternalTextureLoader {
         if (holdTextureData) {
         	hash.put(resName, tex);
         } else {
-        	hash.put(resName, new SoftReference(tex));
+        	hash.put(resName, new SoftReference<TextureImpl>(tex));
         }
         
         return tex;
@@ -306,16 +306,9 @@ public class InternalTextureLoader {
     	texture.setTextureWidth(imageData.getTexWidth());
     	texture.setTextureHeight(imageData.getTexHeight());
 
-        texWidth = texture.getTextureWidth();
-        texHeight = texture.getTextureHeight();
-
         IntBuffer temp = BufferUtils.createIntBuffer(16);
         GL.glGetInteger(SGL.GL_MAX_TEXTURE_SIZE, temp);
-        int max = temp.get(0);
-        if ((texWidth > max) || (texHeight > max)) {
-        	throw new IOException("Attempt to allocate a texture to big for the current hardware");
-        }
-        
+
         int srcPixelFormat = hasAlpha ? SGL.GL_RGBA : SGL.GL_RGB;
         int componentCount = hasAlpha ? 4 : 3;
         

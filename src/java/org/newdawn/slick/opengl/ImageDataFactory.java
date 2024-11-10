@@ -36,8 +36,7 @@ public class ImageDataFactory {
 						if ("false".equalsIgnoreCase(val)) {
 							usePngLoader = false;
 						}
-						
-						Log.info("Use Java PNG Loader = " + usePngLoader);
+
 						return null;
 		            }
 				});
