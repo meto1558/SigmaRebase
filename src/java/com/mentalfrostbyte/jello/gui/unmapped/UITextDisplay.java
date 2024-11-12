@@ -32,18 +32,6 @@ public class UITextDisplay extends Class4278 {
 
    @Override
    public void draw(float var1) {
-      if (this.field20779) {
-         GL11.glAlphaFunc(518, 0.01F);
-         RenderUtil.drawString(
-            ResourceRegistry.JelloLightFont18_1,
-            (float)this.getXA(),
-            (float)this.getYA(),
-            this.getTypedText(),
-            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1)
-         );
-         GL11.glAlphaFunc(519, 0.0F);
-      }
-
       if (this.field20912 != null) {
          RenderUtil.drawString(
             this.getFont(),
