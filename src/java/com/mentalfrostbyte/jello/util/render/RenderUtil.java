@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.util.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
+import com.mentalfrostbyte.jello.gui.unmapped.Class7820;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.misc.Box3D;
@@ -278,17 +279,21 @@ public class RenderUtil {
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
-    // draw string?
-    public static void method11440(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
-        method11441(var0, var1, var2, var3, var4, var5, var6, false);
+
+    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4) {
+        drawString(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
     }
 
-    public static void method11441(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
+    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
+        drawString(var0, var1, var2, var3, var4, var5, var6, false);
+    }
+
+    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
-        switch (var5.ordinal()) {
+        switch (Class7820.field33554[var5.ordinal()]) {
             case 1:
                 var10 = -var0.getWidth(var3) / 2;
                 break;
@@ -296,7 +301,7 @@ public class RenderUtil {
                 var10 = -var0.getWidth(var3);
         }
 
-        switch (var6.ordinal()) {
+        switch (Class7820.field33554[var6.ordinal()]) {
             case 1:
                 var11 = -var0.getHeight(var3) / 2;
                 break;
@@ -371,10 +376,6 @@ public class RenderUtil {
         method11438(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
         method11438(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, var5);
         method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
-    }
-
-    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4) {
-        method11441(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
     }
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
