@@ -477,7 +477,7 @@ public class PNGDecoder {
         }
     }
     
-    private void unfilter(byte[] curLine, byte[] prevLine) throws IOException {
+    private void unfilter(byte[] curLine, byte[] prevLine) {
         switch (curLine[0]) {
             case 0: // none
                 break;
@@ -494,7 +494,7 @@ public class PNGDecoder {
                 unfilterPaeth(curLine, prevLine);
                 break;
             default:
-                throw new IOException("invalide filter type in scanline: " + curLine[0]);
+                break;
         }
     }
     

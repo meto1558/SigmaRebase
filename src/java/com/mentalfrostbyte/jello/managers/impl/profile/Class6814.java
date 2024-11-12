@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import org.apache.commons.io.IOUtils;
 import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
@@ -151,7 +149,6 @@ public class Class6814 {
 
    public void loadConfig(Configuration var1) {
       Client.getInstance().saveClientData();
-      RandomModuleThread.field8343 = new HashMap<>();
        if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
           this.currentConfigs.serializedConfigData = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
           this.currentConfigs = var1;

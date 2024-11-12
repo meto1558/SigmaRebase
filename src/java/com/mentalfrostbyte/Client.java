@@ -7,7 +7,6 @@ import com.mentalfrostbyte.jello.event.impl.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.EventWriter;
 import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
 import com.mentalfrostbyte.jello.managers.*;
-import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import com.mentalfrostbyte.jello.util.ClientLogger;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -238,7 +237,7 @@ public class Client {
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma 5.0");
         }
 
-        if (this.moduleManager == null && RandomModuleThread.field8341 != null) {
+        if (this.moduleManager == null) {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
             this.moduleManager.method14659(this.config);

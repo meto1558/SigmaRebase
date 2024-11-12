@@ -24,10 +24,8 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    private final ButtonPanel realmsButton;
    private final ButtonPanel optionsButton;
    private final ButtonPanel altManagerButton;
-   private final Class4302 field21128;
    private final UITextDisplay field21129;
    private final UITextDisplay field21130;
-   private final Class4365 loginButton;
    private final UIButton changelogButton;
    private final UIButton field21133;
    public int field21134 = 0;
@@ -144,33 +142,12 @@ public class MainmenuScreen2 extends CustomGuiScreen {
              }
          }).start();
       });
-      this.addToList(this.loginButton = new Class4365(this, "Account", 0, var19, 0, var18, "Log in"));
-      this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
-      this.field21128.method13247((var1x, var2x) -> {
-         if (Client.getInstance().networkManager.account != null) {
-            ((JelloMainMenuScreen)this.getIcoPanel()).method13343();
-         } else {
-            this.displayScreen(new LoginAndOutScreen());
-         }
-      });
       this.changelogButton.doThis((var1x, var2x) -> ((JelloMainMenuScreen)this.getIcoPanel()).animateIn());
       this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
       this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
       this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
       this.altManagerButton.doThis((var1x, var2x) -> this.displayScreen(new AltManagerScreen()));
       this.realmsButton.doThis((var1x, var2x) -> this.method13443());
-      this.loginButton.doThis((var1x, var2x) -> {
-         if (Client.getInstance().networkManager.account != null) {
-            ((JelloMainMenuScreen)this.getIcoPanel()).logout();
-         } else {
-            this.displayScreen(new LoginAndOutScreen());
-         }
-      });
-      this.field21130.doThis((var1x, var2x) -> {
-         if (this.field21134++ > 8) {
-            Client.getInstance().guiManager.method33482(new LoginAndOutScreen());
-         }
-      });
    }
 
    public void method13443() {
@@ -202,11 +179,10 @@ public class MainmenuScreen2 extends CustomGuiScreen {
 
    @Override
    public void method13028(int var1, int var2) {
-      this.field21128.setEnabled(!Client.getInstance().networkManager.isPremium());
       int var5 = 30;
       int var6 = 90;
-      this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
-      this.field21133.setXA(var5 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
+      this.changelogButton.setXA(var6);
+      this.field21133.setXA(var5);
       super.method13028(var1, var2);
    }
 

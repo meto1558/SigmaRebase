@@ -6,7 +6,6 @@ import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4306;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.managers.NetworkManager;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.system.MathHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -32,7 +31,6 @@ public class JelloMainMenuScreen extends Screen {
    private boolean field20968 = true;
    public MainmenuScreen2 field20969;
    public ChangelogScreen field20970;
-   public RedeemKeyScreen field20971;
    public Animation field20972 = new Animation(200, 200, Direction.BACKWARDS);
    public Animation field20973 = new Animation(200, 200, Direction.BACKWARDS);
    private Animation field20974 = new Animation(325, 325);
@@ -74,7 +72,6 @@ public class JelloMainMenuScreen extends Screen {
    public static String field20980;
    public static String field20981;
    public static float field20982;
-   public AlertPanel field20983;
    public AlertPanel alertPanel;
 
    public JelloMainMenuScreen() {
@@ -101,19 +98,13 @@ public class JelloMainMenuScreen extends Screen {
 
       this.addToList(this.field20969 = new MainmenuScreen2(this, "main", 0, 0, this.widthA, this.heightA));
       this.addToList(this.field20970 = new ChangelogScreen(this, "changelog", 0, 0, this.widthA, this.heightA));
-      this.addToList(this.field20971 = new RedeemKeyScreen(this, "redeem", 0, 0, this.widthA, this.heightA));
       this.field20970.method13296(false);
       this.field20970.method13294(true);
-      this.field20971.method13296(false);
-      this.field20971.method13294(true);
    }
 
    public void method13340() {
       this.field20972.changeDirection(Direction.BACKWARDS);
       this.field20970.method13296(false);
-      this.field20971.method13296(false);
-      this.field20971.method13292(false);
-      this.field20971.method13294(true);
    }
 
    public void method13341() {
@@ -124,13 +115,6 @@ public class JelloMainMenuScreen extends Screen {
    public void animateIn() {
       this.field20972.changeDirection(Direction.FORWARDS);
       this.field20970.method13296(true);
-   }
-
-   public void method13343() {
-      this.field20972.changeDirection(Direction.FORWARDS);
-      this.field20971.method13296(true);
-      this.field20971.method13292(true);
-      this.field20971.method13294(false);
    }
 
    @Override
@@ -216,12 +200,6 @@ public class JelloMainMenuScreen extends Screen {
             (float)(this.getHeightA() + 114),
                  Resources.foregroundPNG
          );
-         Texture var26 = Resources.logoLargePNG;
-         int var28 = var26.getImageWidth();
-         int var22 = var26.getImageHeight();
-         if (GuiManager.scaleFactor > 1.0F) {
-            var26 = Resources.logoLarge2xPNG;
-         }
 
          RenderUtil.method11450(
             (float)this.field20967,
@@ -303,16 +281,12 @@ public class JelloMainMenuScreen extends Screen {
       if (this.alertPanel == null) {
          this.method13222(() -> {
             ArrayList<MiniAlert> alert = new ArrayList<>();
-            alert.add(new MiniAlert(AlertType.HEADER, "Logout", 45));
-            alert.add(new MiniAlert(AlertType.FIRSTLINE, "Are you sure?", 35));
-            alert.add(new MiniAlert(AlertType.BUTTON, "Yes", 55));
             this.method13233(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
             this.alertPanel.method13604(var1 -> new Thread(() -> {
                 this.method13222(() -> {
                    this.method13236(this.alertPanel);
                    this.alertPanel = null;
 
-                   NetworkManager.premium = false;
                    Client.getInstance().getDRPC().smallImageKey = null;
                    Client.getInstance().getDRPC().smallImageText = null;
                    DiscordRPC.INSTANCE.Discord_UpdatePresence(Client.getInstance().getDRPC());

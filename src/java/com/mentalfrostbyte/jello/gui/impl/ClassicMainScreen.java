@@ -6,7 +6,6 @@ import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4278;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4365;
 import com.mentalfrostbyte.jello.gui.unmapped.ClassicParticleEngine;
 import com.mentalfrostbyte.jello.gui.unmapped.UITextDisplay;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -29,7 +28,6 @@ public class ClassicMainScreen extends Screen {
     private final int field21096 = 0;
     private final int field21097 = 0;
     private final boolean field21098 = true;
-    private Class4365 field21099;
     private Animation field21100 = new Animation(325, 325);
     private final Animation field21101 = new Animation(800, 800);
     private final ClassicParticleEngine field21102;
