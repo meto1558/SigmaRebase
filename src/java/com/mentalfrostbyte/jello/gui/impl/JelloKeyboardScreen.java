@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -52,7 +53,7 @@ public class JelloKeyboardScreen extends Screen {
                   this.method13333();
                } else {
                   int[] var8 = this.field20957.method13105(this.field20957.field20696);
-                  String var9 = RenderUtil.method17736(this.field20957.field20696);
+                  String var9 = MultiUtilities.method17736(this.field20957.field20696);
                   this.field20956 = new Class4375(
                      this, "popover", this.field20957.getXA() + var8[0], this.field20957.getYA() + var8[1], this.field20957.field20696, var9
                   );

@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -49,7 +50,7 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * var1)
       );
       String var5 = "Click GUI is currently bound to: "
-         + RenderUtil.method17736(Client.getInstance().moduleManager.getMacOSTouchBar().method13728(ClickGui.class))
+         + MultiUtilities.method17736(Client.getInstance().moduleManager.getMacOSTouchBar().method13728(ClickGui.class))
          + " Key";
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
