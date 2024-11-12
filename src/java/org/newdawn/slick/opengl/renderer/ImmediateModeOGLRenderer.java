@@ -18,26 +18,25 @@ public class ImmediateModeOGLRenderer implements SGL {
 	/** The height of the display */
 	private int height;
 	/** The current colour */
-	private float[] current = new float[] {1,1,1,1};
+	private float[] current = new float[]{1.0F, 1.0F, 1.0F, 1.0F};
 	/** The global colour scale */
-	protected float alphaScale = 1;
+	protected float alphaScale = 1.0F;
 	
 	/**
 	 * @see org.newdawn.slick.opengl.renderer.SGL#initDisplay(int, int)
 	 */
+	@Override
 	public void initDisplay(int width, int height) {
 		this.width = width;
 		this.height = height;
-		
-		String extensions = GL11.glGetString(GL11.GL_EXTENSIONS);
-		
+
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glShadeModel(GL11.GL_SMOOTH);        
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDisable(GL11.GL_LIGHTING);                    
         
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
-        GL11.glClearDepth(1);                                       
+        GL11.glClearDepth(1.0);
         
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -49,14 +48,13 @@ public class ImmediateModeOGLRenderer implements SGL {
 	/**
 	 * @see org.newdawn.slick.opengl.renderer.SGL#enterOrtho(int, int)
 	 */
+	@Override
 	public void enterOrtho(int xsize, int ysize) {
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, width, height, 0, 1, -1);
+		GL11.glOrtho(0.0, (double)this.width, (double)this.height, 0.0, 1.0, -1.0);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		
-		GL11.glTranslatef((width-xsize)/2,
-						  (height-ysize)/2,0);
+		GL11.glTranslatef((float)((this.width - xsize) / 2), (float)((this.height - ysize) / 2), 0.0F);
 	}
 
 	/**
@@ -408,10 +406,7 @@ public class ImmediateModeOGLRenderer implements SGL {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.newdawn.slick.opengl.renderer.SGL#glSecondaryColor3ubEXT(byte, byte, byte)
-	 */
+	@Override
 	public void glSecondaryColor3ubEXT(byte b, byte c, byte d) {
 		EXTSecondaryColor.glSecondaryColor3ubEXT(b, c, d);
 	}

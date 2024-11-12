@@ -89,7 +89,8 @@ public class BufferedImageUtil {
 	public static Texture getTexture(String resourceName,
 			BufferedImage resourceimage, int target, int dstPixelFormat,
 			int minFilter, int magFilter) throws IOException {
-		ImageIOImageData data = new ImageIOImageData();int srcPixelFormat = 0;
+		ImageIOImageData data = new ImageIOImageData();
+		int srcPixelFormat = 0;
 
 		// create the texture ID for this texture
 		int textureID = InternalTextureLoader.createTextureID();

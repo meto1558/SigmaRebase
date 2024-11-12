@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mentalfrostbyte.jello.util.render.ImageUtil;
 import org.newdawn.slick.opengl.GLUtils;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.renderer.Renderer;
@@ -57,6 +58,8 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 	/** The font metrics for our Java AWT font */
 	private FontMetrics fontMetrics;
 
+	private final int field31944;
+
 	/**
 	 * This is a special internal class that holds our necessary information for
 	 * the font characters. This includes width, height, and where the character
@@ -65,6 +68,8 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 	private class IntObject {
 		/** Character's width */
 		public int width;
+
+		public int field35435;
 
 		/** Character's height */
 		public int height;
@@ -88,28 +93,31 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 	 * @param additionalChars
 	 *            Characters of font that will be used in addition of first 256 (by unicode).
 	 */
-	public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars) {
+	public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars, int var4) {
 		GLUtils.checkGLContext();
 		
 		this.font = font;
 		this.fontSize = font.getSize();
 		this.antiAlias = antiAlias;
+		this.field31944 = var4;
+		if (var4 > 0) {
+			this.textureWidth = 1024;
+			this.textureHeight = 1024;
+		}
 
 		createSet( additionalChars );
 	}
-	
-	/**
-	 * Constructor for the TrueTypeFont class Pass in the preloaded standard
-	 * Java TrueType font, and whether you want it to be cached with
-	 * AntiAliasing applied.
-	 * 
-	 * @param font
-	 *            Standard Java AWT font
-	 * @param antiAlias
-	 *            Whether or not to apply AntiAliasing to the cached font
-	 */
+
+	public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars) {
+		this(font, antiAlias, additionalChars, 0);
+	}
+
 	public TrueTypeFont(java.awt.Font font, boolean antiAlias) {
-		this( font, antiAlias, null );
+		this(font, antiAlias, null);
+	}
+
+	public TrueTypeFont(java.awt.Font font, int var2) {
+		this(font, true, null, var2);
 	}
 
 	/**
@@ -158,8 +166,24 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 		gt.drawString(String.valueOf(ch), (charx), (chary)
 				+ fontMetrics.getAscent());
 
-		return fontImage;
+		return this.field31944 <= 0 ? fontImage : ImageUtil.method35033(fontImage, this.field31944);
+	}
 
+	private int method23949(char var1) {
+		BufferedImage fontImage = new BufferedImage(1, 1, 2);
+		Graphics2D g = (Graphics2D) fontImage.getGraphics();
+		if (antiAlias == true) {
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+
+		g.setFont(this.font);
+		this.fontMetrics = g.getFontMetrics();
+		int fontWidth = this.fontMetrics.charWidth(var1);
+		if (fontWidth <= 0) {
+			fontWidth = 1;
+		}
+
+		return fontWidth;
 	}
 
 	/**
@@ -202,6 +226,11 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 
 				newIntObject.width = fontImage.getWidth();
 				newIntObject.height = fontImage.getHeight();
+				if (this.field31944 > 0) {
+					newIntObject.field35435 = method23949(ch);
+				} else {
+					newIntObject.field35435 = newIntObject.width;
+				}
 
 				if (positionX + newIntObject.width >= textureWidth) {
 					positionX = 0;
@@ -296,19 +325,25 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 	public int getWidth(String whatchars) {
 		int totalwidth = 0;
 		IntObject intObject = null;
-		int currentChar = 0;
-		for (int i = 0; i < whatchars.length(); i++) {
-			currentChar = whatchars.charAt(i);
-			if (currentChar < 256) {
-				intObject = charArray[currentChar];
-			} else {
-				intObject = (IntObject)customChars.get( new Character( (char) currentChar ) );
+		char currentChar = '\u0000';
+		if (whatchars != null) {
+			for (int i = 0; i < whatchars.length(); i++) {
+				currentChar = whatchars.charAt(i);
+				if (currentChar >= 256) {
+					intObject = (IntObject) this.customChars.get(new Character(currentChar));
+				} else {
+					intObject = this.charArray[currentChar];
+				}
+
+				if (intObject != null) {
+					totalwidth += intObject.field35435;
+				}
 			}
-			
-			if( intObject != null )
-				totalwidth += intObject.width;
+
+			return totalwidth;
+		} else {
+			return 0;
 		}
-		return totalwidth;
 	}
 
 	/**
@@ -364,28 +399,37 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 		fontTexture.bind();
 
 		IntObject intObject = null;
-		int charCurrent;
+		if (this.field31944 > 0) {
+			y -= (float) (this.field31944 / 2 - 1);
+			x -= (float) (this.field31944 - 1);
+		}
+
 
 		GL.glBegin(SGL.GL_QUADS);
-
 		int totalwidth = 0;
 		for (int i = 0; i < whatchars.length(); i++) {
-			charCurrent = whatchars.charAt(i);
+			char charCurrent = whatchars.charAt(i);
 			if (charCurrent < 256) {
 				intObject = charArray[charCurrent];
 			} else {
-				intObject = (IntObject)customChars.get( new Character( (char) charCurrent ) );
+				intObject = (IntObject)customChars.get( new Character(charCurrent) );
 			} 
 			
 			if( intObject != null ) {
-				if ((i >= startIndex) || (i <= endIndex)) {
-					drawQuad((x + totalwidth), y,
-							(x + totalwidth + intObject.width),
-							(y + intObject.height), intObject.storedX,
-							intObject.storedY, intObject.storedX + intObject.width,
-							intObject.storedY + intObject.height);
+				if (i >= startIndex || i <= endIndex) {
+					this.drawQuad(
+							x + (float) totalwidth,
+							y,
+							x + (float) totalwidth + (float) intObject.width,
+							y + (float) intObject.height,
+							(float) intObject.storedX,
+							(float) intObject.storedY,
+							(float) (intObject.storedX + intObject.width),
+							(float) (intObject.storedY + intObject.height)
+					);
 				}
-				totalwidth += intObject.width;
+
+				totalwidth += intObject.field35435;
 			}
 		}
 

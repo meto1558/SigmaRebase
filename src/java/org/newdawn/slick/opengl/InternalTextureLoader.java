@@ -294,8 +294,6 @@ public class InternalTextureLoader {
  
         int width;
         int height;
-        int texWidth;
-        int texHeight;
         
         boolean hasAlpha;
         
@@ -380,11 +378,7 @@ public class InternalTextureLoader {
     	
         // create the texture ID for this texture 
         int textureID = createTextureID(); 
-        TextureImpl texture = new TextureImpl("generated:"+dataSource, target ,textureID); 
-        
-        int minFilter = filter;
-        int magFilter = filter;
-        boolean flipped = false;
+        TextureImpl texture = new TextureImpl("generated:"+dataSource, target ,textureID);
         
         // bind this texture 
         GL.glBindTexture(target, textureID); 
@@ -421,11 +415,11 @@ public class InternalTextureLoader {
         }
 
         if (holdTextureData) {
-        	texture.setTextureData(srcPixelFormat, componentCount, minFilter, magFilter, textureBuffer);
+        	texture.setTextureData(srcPixelFormat, componentCount, filter, filter, textureBuffer);
         }
         
-        GL.glTexParameteri(target, SGL.GL_TEXTURE_MIN_FILTER, minFilter); 
-        GL.glTexParameteri(target, SGL.GL_TEXTURE_MAG_FILTER, magFilter); 
+        GL.glTexParameteri(target, SGL.GL_TEXTURE_MIN_FILTER, filter);
+        GL.glTexParameteri(target, SGL.GL_TEXTURE_MAG_FILTER, filter);
         
         // produce a texture from the byte buffer
         GL.glTexImage2D(target, 

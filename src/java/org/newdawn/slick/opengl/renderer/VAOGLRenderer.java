@@ -1,6 +1,5 @@
 package org.newdawn.slick.opengl.renderer;
 
-import java.nio.Buffer;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 
@@ -24,9 +23,9 @@ public class VAOGLRenderer extends ImmediateModeOGLRenderer {
 	/** The type of the geometry array currently being built - i.e. GL_QUADS */
 	private int currentType = NONE;
 	/** The last colour applied */
-	private float[] color = new float[] {1f,1f,1f,1f};
+	private float[] color = new float[]{1.0F, 1.0F, 1.0F, 1.0F};
 	/** The last texture applied */
-	private float[] tex = new float[] {0f,0f};
+	private float[] tex = new float[]{0.0F, 0.0F};
 	/** The index of the next vertex to be created */
 	private int vertIndex;
 	
