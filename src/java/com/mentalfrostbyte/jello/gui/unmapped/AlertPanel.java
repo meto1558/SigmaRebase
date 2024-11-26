@@ -52,7 +52,7 @@ public class AlertPanel extends Class4247 {
       for (MiniAlert var15 : var5) {
          var17++;
          if (var15.field44771 != AlertType.FIRSTLINE) {
-            if (var15.field44771 != AlertType.SEKONDLINE) {
+            if (var15.field44771 != AlertType.SECONDLINE) {
                if (var15.field44771 != AlertType.BUTTON) {
                   if (var15.field44771 == AlertType.HEADER) {
                      this.field21279
