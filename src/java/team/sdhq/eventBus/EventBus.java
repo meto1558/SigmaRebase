@@ -72,7 +72,7 @@ public final class EventBus {
             try {
                 m.invoke(map.get(m), e);
             } catch (Throwable ex) {
-                throw new RuntimeException(ex);
+
             }
         }
     }

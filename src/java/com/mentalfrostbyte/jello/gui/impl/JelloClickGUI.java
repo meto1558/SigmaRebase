@@ -205,9 +205,9 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
       if (var3 <= 1) {
-         return super.method13078(var1, var2, var3);
+         return super.mouseClicked(var1, var2, var3);
       } else {
          this.keyPressed(var3);
          return false;

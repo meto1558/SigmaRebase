@@ -65,8 +65,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
+      if (!super.mouseClicked(var1, var2, var3)) {
          if (this.method13214()) {
             this.timerUtil.start();
             this.field20878 = var1;

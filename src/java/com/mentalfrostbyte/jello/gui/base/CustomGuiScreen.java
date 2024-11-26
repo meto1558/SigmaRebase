@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.gui.base;
 
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -157,12 +156,8 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20915.clear();
         this.field20917 = true;
 
-        try {
-            for (CustomGuiScreen var10 : this.iconPanelList) {
-                var10.method13028(var1, var2);
-            }
-        } catch (ConcurrentModificationException var7) {
-            var7.printStackTrace();
+        for (CustomGuiScreen var10 : this.iconPanelList) {
+            var10.method13028(var1, var2);
         }
 
         this.field20909 = this.field20909 & this.field20908;
@@ -250,7 +245,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public boolean method13078(int var1, int var2, int var3) {
+    public boolean mouseClicked(int var1, int var2, int var3) {
         boolean var6 = false;
 
         for (int var7 = this.iconPanelList.size() - 1; var7 >= 0; var7--) {
@@ -268,7 +263,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                     }
                 }
             } else {
-                var8.method13078(var1, var2, var3);
+                var8.mouseClicked(var1, var2, var3);
                 var6 = !var9;
             }
         }

@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import team.sdhq.eventBus.Event;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -60,7 +59,7 @@ public class ModuleWithModuleSettings extends Module {
         }
 
         if (!var3) {
-            this.method15984("Type", this.moduleArray[0].name);
+            this.setCurrentValue("Type", this.moduleArray[0].name);
         }
     }
 

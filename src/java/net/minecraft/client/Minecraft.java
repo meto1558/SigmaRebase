@@ -409,7 +409,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         String s;
         int i;
 
-        if (this.isMultiplayerEnabled() && gameConfig.serverInfo.serverName != null)
+        if (gameConfig.serverInfo.serverName != null)
         {
             s = gameConfig.serverInfo.serverName;
             i = gameConfig.serverInfo.serverPort;
@@ -2419,11 +2419,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.particles.clearEffects(worldIn);
         TileEntityRendererDispatcher.instance.setWorld(worldIn);
         this.setDefaultMinecraftTitle();
-    }
-
-    public boolean isMultiplayerEnabled()
-    {
-        return true;
     }
 
     @Nullable

@@ -97,8 +97,8 @@ public class UIInput extends Class4278 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
+      if (!super.mouseClicked(var1, var2, var3)) {
          String var6 = this.field20912;
          if (this.field20754) {
             var6 = this.field20912.replaceAll(".", this.field20755);

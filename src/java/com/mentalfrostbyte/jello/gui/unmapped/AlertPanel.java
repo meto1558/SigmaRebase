@@ -239,8 +239,8 @@ public class AlertPanel extends Class4247 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
+      if (!super.mouseClicked(var1, var2, var3)) {
          int var6 = this.field21284 + 60;
          int var7 = this.field21285 + 60;
          if (var1 > (this.widthA - var6) / 2

@@ -32,7 +32,7 @@ public class Jesus extends Module {
 
    public Jesus() {
       super(ModuleCategory.MOVEMENT, "Jesus", "Where's the scientific proof?");
-      this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Dolphin"));
+      this.registerSetting(new ModeSetting("Mode", "Basic", 0, "Basic", "Dolphin"));
       this.registerSetting(new BooleanSetting("Swim up", "Automatically swim up", true));
    }
 
@@ -76,6 +76,7 @@ public class Jesus extends Module {
 
    @EventTarget
    public void method16946(EventUpdate var1) {
+      System.out.println(this.getStringSettingValueByName("Mode"));
       if (this.isEnabled() && mc.world != null && var1.isPre() && mc.getCurrentServerData() != null) {
          if (isWalkingOnLiquid() && !this.method16951(mc.player.getBoundingBox())) {
             this.field24017++;

@@ -54,9 +54,9 @@ public class Class4264 extends Class4247 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
       this.field20680 = true;
-      return super.method13078(var1, var2, var3);
+      return super.mouseClicked(var1, var2, var3);
    }
 
    @Override
