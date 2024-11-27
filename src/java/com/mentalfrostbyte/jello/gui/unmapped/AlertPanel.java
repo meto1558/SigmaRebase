@@ -52,7 +52,7 @@ public class AlertPanel extends Class4247 {
       for (MiniAlert var15 : var5) {
          var17++;
          if (var15.field44771 != AlertType.FIRSTLINE) {
-            if (var15.field44771 != AlertType.SEKONDLINE) {
+            if (var15.field44771 != AlertType.SECONDLINE) {
                if (var15.field44771 != AlertType.BUTTON) {
                   if (var15.field44771 == AlertType.HEADER) {
                      this.field21279
@@ -239,8 +239,8 @@ public class AlertPanel extends Class4247 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
+      if (!super.mouseClicked(var1, var2, var3)) {
          int var6 = this.field21284 + 60;
          int var7 = this.field21285 + 60;
          if (var1 > (this.widthA - var6) / 2

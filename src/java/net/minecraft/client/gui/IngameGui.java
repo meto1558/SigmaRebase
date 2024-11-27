@@ -85,7 +85,6 @@ public class IngameGui extends AbstractGui
     private static final ResourceLocation VIGNETTE_TEX_PATH = new ResourceLocation("textures/misc/vignette.png");
     private static final ResourceLocation WIDGETS_TEX_PATH = new ResourceLocation("textures/gui/widgets.png");
     private static final ResourceLocation PUMPKIN_BLUR_TEX_PATH = new ResourceLocation("textures/misc/pumpkinblur.png");
-    private static final ITextComponent field_243249_e = new TranslationTextComponent("demo.demoExpired");
     private final Random rand = new Random();
     private final Minecraft mc;
     private final ItemRenderer itemRenderer;

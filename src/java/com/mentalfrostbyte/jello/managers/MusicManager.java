@@ -347,7 +347,6 @@ public class MusicManager {
 
                         for (int var4 = this.field32159; var4 < this.field32145.youtubeVideos.size(); var4++) {
                             URL var5 = Class9275.method34960(this.field32145.youtubeVideos.get(var4).videoId);
-                            Client.getInstance().getLogger().dummyMethod(var5.toString());
                             this.field32157 = var4;
                             this.field32160 = this.field32145.youtubeVideos.get(var4);
                             this.field32163.clear();
@@ -366,7 +365,7 @@ public class MusicManager {
                             try {
                                 System.out.println(var5);
                                 URL var28 = this.method24323(var5);
-                                Client.getInstance().getLogger().dummyMethod(var28 == null ? "No stream" : var28.toString());
+                                Client.getInstance().getLogger().warn(var28 == null ? "No stream" : var28.toString());
                                 if (var28 != null) {
                                     URLConnection var7 = var28.openConnection();
                                     var7.setConnectTimeout(14000);
@@ -380,7 +379,7 @@ public class MusicManager {
                                     Movie movie = mp4Container.getMovie();
                                     List<Track> var12 = movie.getTracks();
                                     if (var12.isEmpty()) {
-                                        Client.getInstance().getLogger().dummyMethod("No content");
+                                        Client.getInstance().getLogger().warn("No content");
                                     }
 
                                     AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
@@ -664,7 +663,7 @@ public class MusicManager {
     }
 
     public void method24331() {
-        Client.getInstance().getLogger().dummyMethod("Updating dependencies threaded");
+        Client.getInstance().getLogger().info("Updating dependencies threaded");
         new Thread(this::download).start();
     }
 

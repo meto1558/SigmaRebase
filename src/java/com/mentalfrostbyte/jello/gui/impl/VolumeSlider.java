@@ -41,8 +41,8 @@ public class VolumeSlider extends Class4247 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(this.xA, this.yA, var3)) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
+      if (!super.mouseClicked(this.xA, this.yA, var3)) {
          this.field21373 = true;
          return false;
       } else {

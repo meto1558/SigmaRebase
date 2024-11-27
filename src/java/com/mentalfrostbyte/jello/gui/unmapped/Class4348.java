@@ -256,7 +256,7 @@ public class Class4348 extends Class4278 {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean mouseClicked(int var1, int var2, int var3) {
       return false;
    }
 }

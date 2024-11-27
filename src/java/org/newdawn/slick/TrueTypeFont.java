@@ -69,7 +69,7 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 		/** Character's width */
 		public int width;
 
-		public int field35435;
+		public int advanceWidth;
 
 		/** Character's height */
 		public int height;
@@ -227,9 +227,9 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 				newIntObject.width = fontImage.getWidth();
 				newIntObject.height = fontImage.getHeight();
 				if (this.field31944 > 0) {
-					newIntObject.field35435 = method23949(ch);
+					newIntObject.advanceWidth = method23949(ch);
 				} else {
-					newIntObject.field35435 = newIntObject.width;
+					newIntObject.advanceWidth = newIntObject.width;
 				}
 
 				if (positionX + newIntObject.width >= textureWidth) {
@@ -336,7 +336,7 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 				}
 
 				if (intObject != null) {
-					totalwidth += intObject.field35435;
+					totalwidth += intObject.advanceWidth;
 				}
 			}
 
@@ -429,7 +429,7 @@ public class TrueTypeFont implements org.newdawn.slick.Font {
 					);
 				}
 
-				totalwidth += intObject.field35435;
+				totalwidth += intObject.advanceWidth;
 			}
 		}
 

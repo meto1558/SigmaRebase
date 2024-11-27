@@ -267,7 +267,7 @@ public class GuiManager {
 
     public void method33466(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13078(var1, var2, var3);
+            this.screen.mouseClicked(var1, var2, var3);
         }
     }
 

@@ -44,12 +44,4 @@ public class ClientLogger implements Logger {
          var5.printStackTrace();
       }
    }
-
-   /**
-    * wtf
-    */
-   @Override
-   public void dummyMethod(String var1) {
-      Client.getInstance();
-   }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.EventMouse;
 import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
 import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
 import net.minecraft.client.gui.IGuiEventListener;
@@ -56,9 +57,9 @@ public class MouseHelper
             if (this.minecraft.currentScreen == null) {
                 if (action != 1 && action != 2) {
                     if (action == 0) {
-                        MouseHoverEvent var15 = new MouseHoverEvent(button);
-                        EventBus.call(var15);
-                        if (var15.cancelled) {
+                        MouseHoverEvent mouseHoverEvent = new MouseHoverEvent(button);
+                        EventBus.call(mouseHoverEvent);
+                        if (mouseHoverEvent.cancelled) {
                             return;
                         }
                     }
@@ -186,58 +187,64 @@ public class MouseHelper
 
     /**
      * Will be called when a scrolling device is used, such as a mouse wheel or scrolling area of a touchpad.
-     *  
-     * @see GLFWScrollCallbackI
      */
     private void scrollCallback(long handle, double xoffset, double yoffset)
     {
-        if (handle == Minecraft.getInstance().getMainWindow().getHandle())
-        {
-            double d0 = (this.minecraft.gameSettings.discreteMouseScroll ? Math.signum(yoffset) : yoffset) * this.minecraft.gameSettings.mouseWheelSensitivity;
-
-            if (this.minecraft.loadingGui == null)
-            {
-                if (this.minecraft.currentScreen != null)
+        if (Client.getInstance().guiManager.method33480() == null) {
+            EventMouse var9 = new EventMouse(yoffset);
+            EventBus.call(var9);
+            if (!var9.cancelled) {
+                if (handle == Minecraft.getInstance().getMainWindow().getHandle())
                 {
-                    double d1 = this.mouseX * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth();
-                    double d2 = this.mouseY * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight();
-                    this.minecraft.currentScreen.mouseScrolled(d1, d2, d0);
-                }
-                else if (this.minecraft.player != null)
-                {
-                    if (this.accumulatedScrollDelta != 0.0D && Math.signum(d0) != Math.signum(this.accumulatedScrollDelta))
+                    double d0 = (this.minecraft.gameSettings.discreteMouseScroll ? Math.signum(yoffset) : yoffset) * this.minecraft.gameSettings.mouseWheelSensitivity;
+
+                    if (this.minecraft.loadingGui == null)
                     {
-                        this.accumulatedScrollDelta = 0.0D;
-                    }
-
-                    this.accumulatedScrollDelta += d0;
-                    float f1 = (float)((int)this.accumulatedScrollDelta);
-
-                    if (f1 == 0.0F)
-                    {
-                        return;
-                    }
-
-                    this.accumulatedScrollDelta -= (double)f1;
-
-                    if (this.minecraft.player.isSpectator())
-                    {
-                        if (this.minecraft.ingameGUI.getSpectatorGui().isMenuActive())
+                        if (this.minecraft.currentScreen != null)
                         {
-                            this.minecraft.ingameGUI.getSpectatorGui().onMouseScroll((double)(-f1));
+                            double d1 = this.mouseX * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth();
+                            double d2 = this.mouseY * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight();
+                            this.minecraft.currentScreen.mouseScrolled(d1, d2, d0);
                         }
-                        else
+                        else if (this.minecraft.player != null)
                         {
-                            float f = MathHelper.clamp(this.minecraft.player.abilities.getFlySpeed() + f1 * 0.005F, 0.0F, 0.2F);
-                            this.minecraft.player.abilities.setFlySpeed(f);
+                            if (this.accumulatedScrollDelta != 0.0D && Math.signum(d0) != Math.signum(this.accumulatedScrollDelta))
+                            {
+                                this.accumulatedScrollDelta = 0.0D;
+                            }
+
+                            this.accumulatedScrollDelta += d0;
+                            float f1 = (float)((int)this.accumulatedScrollDelta);
+
+                            if (f1 == 0.0F)
+                            {
+                                return;
+                            }
+
+                            this.accumulatedScrollDelta -= (double)f1;
+
+                            if (this.minecraft.player.isSpectator())
+                            {
+                                if (this.minecraft.ingameGUI.getSpectatorGui().isMenuActive())
+                                {
+                                    this.minecraft.ingameGUI.getSpectatorGui().onMouseScroll((double)(-f1));
+                                }
+                                else
+                                {
+                                    float f = MathHelper.clamp(this.minecraft.player.abilities.getFlySpeed() + f1 * 0.005F, 0.0F, 0.2F);
+                                    this.minecraft.player.abilities.setFlySpeed(f);
+                                }
+                            }
+                            else
+                            {
+                                this.minecraft.player.inventory.changeCurrentItem((double)f1);
+                            }
                         }
-                    }
-                    else
-                    {
-                        this.minecraft.player.inventory.changeCurrentItem((double)f1);
                     }
                 }
             }
+        } else {
+            Client.getInstance().guiManager.method33455(xoffset, yoffset);
         }
     }
 
@@ -287,8 +294,7 @@ public class MouseHelper
      * <p>The callback function receives the cursor position, measured in screen coordinates but relative to the top-
      * left corner of the window client area. On platforms that provide it, the full sub-pixel cursor position is passed
      * on.</p>
-     *  
-     * @see GLFWCursorPosCallbackI
+     *
      */
     private void cursorPosCallback(long handle, double xpos, double ypos)
     {

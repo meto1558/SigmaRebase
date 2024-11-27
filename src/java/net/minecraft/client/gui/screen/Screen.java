@@ -74,9 +74,8 @@ public abstract class Screen extends FocusableGui implements IScreen, IRenderabl
 
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
-        for (int i = 0; i < this.buttons.size(); ++i)
-        {
-            this.buttons.get(i).render(matrixStack, mouseX, mouseY, partialTicks);
+        for (Widget button : this.buttons) {
+            button.render(matrixStack, mouseX, mouseY, partialTicks);
         }
     }
 

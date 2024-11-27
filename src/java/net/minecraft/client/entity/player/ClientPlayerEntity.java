@@ -656,7 +656,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     }
 
     /**
-     * Handler for {@link World#setEntityState}
+     * Handler for World#setEntityState
      */
     public void handleStatusUpdate(byte id)
     {
@@ -1156,17 +1156,18 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         return super.removeActivePotionEffect(potioneffectin);
     }
 
+    @Override
     public void move(MoverType typeIn, Vector3d pos) {
         EventMove eventMove = new EventMove(pos);
         EventBus.call(eventMove);
 
-        if(eventMove.cancelled){
+        if (eventMove.cancelled){
             return;
         }
 
         double d0 = this.getPosX();
         double d1 = this.getPosZ();
-        super.move(typeIn, pos);
+        super.move(typeIn, eventMove.getVector());
         this.updateAutoJump((float)(this.getPosX() - d0), (float)(this.getPosZ() - d1));
     }
 
