@@ -50,6 +50,7 @@ public class MultiUtilities {
         } else {
             return false;
         }
+
     }
 
     public static String method17736(int var0) {

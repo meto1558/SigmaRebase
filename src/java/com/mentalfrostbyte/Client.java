@@ -52,6 +52,10 @@ public class Client {
     public AccountManager accountManager;
     public WaypointsManager waypointsManager;
     public NotificationManager notificationManager;
+    public ModuleManager  getModuleManager() {
+        return this.moduleManager;
+    }
+
     public FriendManager friendManager;
     public CommandManager commandManager;
     public MusicManager musicManager;

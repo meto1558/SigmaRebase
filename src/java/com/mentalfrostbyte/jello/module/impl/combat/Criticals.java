@@ -15,6 +15,7 @@ public class Criticals extends ModuleWithModuleSettings {
                 new NoGroundCriticals(),
                 new HoverCriticals(),
                 new MinemenCriticals(),
+            //    new FakeCriticals(),
                 new AAC4Criticals()
         );
     }
