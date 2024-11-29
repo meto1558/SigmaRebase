@@ -72,7 +72,7 @@ public class Class4259 extends Class4247 {
    }
 
    @Override
-   public boolean mouseClicked(int var1, int var2, int var3) {
+   public boolean method13078(int var1, int var2, int var3) {
       if (this.method13298() && var3 == 1) {
          int var6 = Math.max(this.widthA, this.heightA);
          float var7 = (float)(this.widthA - var6) / 2.0F;
@@ -88,7 +88,7 @@ public class Class4259 extends Class4247 {
          return false;
       } else {
          this.method13083();
-         return super.mouseClicked(var1, var2, var3);
+         return super.method13078(var1, var2, var3);
       }
    }
 
@@ -173,7 +173,7 @@ public class Class4259 extends Class4247 {
       String var24 = var22 + "  " + var23;
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont14,
-         (float)(this.xA - ResourceRegistry.JelloLightFont14.getWidth(var24) - 23),
+         (float)(this.xA - ResourceRegistry.JelloLightFont14.getStringWidth(var24) - 23),
          (float)(this.yA + 35),
          var24,
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)

@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.TimerUtil;
+import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
-import org.newdawn.slick.TrueTypeFont;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
       this.field20876 = var9;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9, boolean var10) {
+   public AnimatedIconPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, ClientResource var9, boolean var10) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9);
       this.field20876 = var10;
    }
@@ -65,8 +65,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    }
 
    @Override
-   public boolean mouseClicked(int var1, int var2, int var3) {
-      if (!super.mouseClicked(var1, var2, var3)) {
+   public boolean method13078(int var1, int var2, int var3) {
+      if (!super.method13078(var1, var2, var3)) {
          if (this.method13214()) {
             this.timerUtil.start();
             this.field20878 = var1;

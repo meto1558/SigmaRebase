@@ -11,9 +11,9 @@ import net.minecraft.util.math.vector.Vector3d;
 public class SEntityVelocityPacket implements IPacket<IClientPlayNetHandler>
 {
     private int entityID;
-    public int motionX;
-    public int motionY;
-    public int motionZ;
+    private int motionX;
+    private int motionY;
+    private int motionZ;
 
     public SEntityVelocityPacket()
     {

@@ -5,15 +5,15 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.Texture;
 
 public class PNGIconButton extends ButtonPanel {
    public static final ColorHelper field20574 = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ColorUtils.method17691(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
    public Texture field20575;
 
-   public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, TrueTypeFont var10) {
+   public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, ClientResource var10) {
       super(var1, var2, var3, var4, var5, var6, var8, var9, var10);
       this.field20575 = var7;
    }
@@ -56,7 +56,7 @@ public class PNGIconButton extends ButtonPanel {
          )
       );
       if (this.getTypedText() != null) {
-         RenderUtil.drawString(
+         RenderUtil.method11440(
             this.getFont(),
             (float)(this.getXA() + this.getWidthA() / 2),
             (float)(this.getYA() + this.getHeightA() / 2),

@@ -19,11 +19,14 @@ import java.util.*;
 
 public class CombatTracker {
     public HashMap<UUID, Class8433> field36054 = new HashMap<>();
+    public Class8930 field36058;
     private final Minecraft mc = Minecraft.getInstance();
     private final List<UUID> field36053 = new ArrayList<>();
 
     public CombatTracker() {
         EventBus.register(this);
+        this.field36058 = new Class8930(this);
+        RandomModuleThread.field8342 = RandomModuleThread.field8342 | Client.getInstance().networkManager.field38425 != null;
     }
 
     public static Minecraft method29522(CombatTracker var0) {

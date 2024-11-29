@@ -320,7 +320,7 @@ public class PlayerController
     /**
      * Syncs the current player item with the server
      */
-    public void syncCurrentPlayItem()
+    private void syncCurrentPlayItem()
     {
         int i = this.mc.player.inventory.currentItem;
 

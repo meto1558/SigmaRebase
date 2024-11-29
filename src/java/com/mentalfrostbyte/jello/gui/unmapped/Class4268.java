@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import org.newdawn.slick.TrueTypeFont;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 public class Class4268 extends Class4247 {
    public final int field20690;
@@ -52,7 +52,7 @@ public class Class4268 extends Class4247 {
       RenderUtil.method11474(
          (float)this.xA, (float)this.yA + 3.0F * this.field20691, (float)this.widthA, (float)this.heightA, 8.0F, -986896
       );
-      TrueTypeFont var4 = ResourceRegistry.JelloLightFont20;
+      ClientResource var4 = ResourceRegistry.JelloLightFont20;
       if (this.field20912.contains("Lock")) {
          RenderUtil.method11438(
             (float)(this.xA + 14),
@@ -73,7 +73,7 @@ public class Class4268 extends Class4247 {
 
                      RenderUtil.drawString(
                         var4,
-                        (float)(this.xA + (this.widthA - var4.getWidth(this.field20912)) / 2),
+                        (float)(this.xA + (this.widthA - var4.getStringWidth(this.field20912)) / 2),
                         (float)(this.yA + 19) + 3.0F * this.field20691,
                         this.field20912,
                              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F + (!this.field20693 ? 0.0F : 0.2F))

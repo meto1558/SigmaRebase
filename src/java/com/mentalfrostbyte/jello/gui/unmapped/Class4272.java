@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
 import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.MathUtils;
+import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -26,7 +26,7 @@ public class Class4272 extends Class4247 {
       super(var1, var2, var3, var4, var5, 0, ColorHelper.field27961, false);
       UIButton blankButton;
       this.addToList(
-         blankButton = new UIButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
+         blankButton = new UIButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getStringWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
       );
       blankButton.doThis((var1x, var2x) -> {
          ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getIcoPanel();
@@ -37,9 +37,9 @@ public class Class4272 extends Class4247 {
          var10 = new UIButton(
             this,
             "dupeButton",
-            var5 - 25 - ResourceRegistry.JelloLightFont20.getWidth("Duplicate"),
+            var5 - 25 - ResourceRegistry.JelloLightFont20.getStringWidth("Duplicate"),
             0,
-            ResourceRegistry.JelloLightFont20.getWidth("Duplicate"),
+            ResourceRegistry.JelloLightFont20.getStringWidth("Duplicate"),
             30,
             ColorHelper.field27961,
             "Duplicate",

@@ -7,13 +7,19 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
+import java.awt.image.BufferedImage;
+
 public class Class4349 extends Class4278 {
-   public Account field21249;
+   public Account field21249 = null;
+   private BufferedImage field21250;
+   private Texture field21251;
    private float field21252 = 0.0F;
-   private final UILoadingCircle field21253;
+   private UILoadingCircle field21253;
    private boolean field21254 = false;
+   private float field21255 = 0.0F;
    private int field21256 = 0;
    private int field21257 = 0;
    private int field21258 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
@@ -138,7 +144,7 @@ public class Class4349 extends Class4278 {
          var3 = this.field21249.getEmail();
       }
 
-      RenderUtil.drawString(
+      RenderUtil.method11440(
          ResourceRegistry.DefaultClientFont,
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + 20),
@@ -147,7 +153,7 @@ public class Class4349 extends Class4278 {
          Class2218.field14492,
          Class2218.field14492
       );
-      RenderUtil.drawString(
+      RenderUtil.method11440(
          ResourceRegistry.DefaultClientFont,
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + 18),
@@ -157,7 +163,7 @@ public class Class4349 extends Class4278 {
          Class2218.field14492
       );
       if (!this.field21249.isEmailAValidEmailFormat()) {
-         RenderUtil.drawString(
+         RenderUtil.method11441(
             ResourceRegistry.DefaultClientFont,
             (float)(this.xA + this.widthA / 2),
             (float)(this.yA + 32),
@@ -168,7 +174,7 @@ public class Class4349 extends Class4278 {
             true
          );
       } else {
-         RenderUtil.drawString(
+         RenderUtil.method11441(
             ResourceRegistry.DefaultClientFont,
             (float)(this.xA + this.widthA / 2),
             (float)(this.yA + 29),

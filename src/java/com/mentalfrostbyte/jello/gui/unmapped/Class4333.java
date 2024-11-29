@@ -3,12 +3,12 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.util.system.MathUtils;
+import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
 
 public class Class4333 extends CustomGuiScreen {
    public Animation field21149 = new Animation(500, 200, Direction.FORWARDS);
@@ -44,11 +44,11 @@ public class Class4333 extends CustomGuiScreen {
          );
       }
 
-      TrueTypeFont var7 = !this.field20891.equals("Sigma") ? Resources.regular25 : Resources.regular28;
+      ClientResource var7 = !this.field20891.equals("Sigma") ? Resources.regular25 : Resources.regular28;
       if (!this.field20891.equals("Sigma")) {
          RenderUtil.drawString(
             var7,
-            (float)this.xA + (float)(this.getWidthA() - var7.getWidth(this.field20891)) / 2.0F,
+            (float)this.xA + (float)(this.getWidthA() - var7.getStringWidth(this.field20891)) / 2.0F,
             (float)(this.yA + 18),
             this.field20891,
             -16777216
@@ -56,7 +56,7 @@ public class Class4333 extends CustomGuiScreen {
       } else {
          RenderUtil.drawString(
             var7,
-            (float)this.xA + (float)(this.getWidthA() - var7.getWidth(this.field20891)) / 2.0F,
+            (float)this.xA + (float)(this.getWidthA() - var7.getStringWidth(this.field20891)) / 2.0F,
             (float)(this.yA + 10),
             this.field20891,
             -13619152

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
 
-import com.mentalfrostbyte.jello.event.impl.*;
-import com.mentalfrostbyte.jello.util.combat.Rots;
+import com.mentalfrostbyte.jello.event.impl.EventEntityActionState;
+import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.EventPushBlock;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BiomeSoundHandler;
@@ -80,7 +82,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import org.jetbrains.annotations.NotNull;
 import team.sdhq.eventBus.EventBus;
 
 public class ClientPlayerEntity extends AbstractClientPlayerEntity
@@ -95,19 +96,19 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
      * The last X position which was transmitted to the server, used to determine when the X position changes and needs
      * to be re-trasmitted
      */
-    public double lastReportedPosX;
+    private double lastReportedPosX;
 
     /**
      * The last Y position which was transmitted to the server, used to determine when the Y position changes and needs
      * to be re-transmitted
      */
-    public double lastReportedPosY;
+    private double lastReportedPosY;
 
     /**
      * The last Z position which was transmitted to the server, used to determine when the Z position changes and needs
      * to be re-transmitted
      */
-    public double lastReportedPosZ;
+    private double lastReportedPosZ;
 
     /**
      * The last yaw value which was transmitted to the server, used to determine when the yaw changes and needs to be
@@ -293,99 +294,75 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
      */
     protected void onUpdateWalkingPlayer()
     {
-        EventUpdate updateEvent = new EventUpdate(this.getPosX(), getBoundingBox().minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
-        EventBus.call(updateEvent);
-        if (!updateEvent.cancelled) {
-            boolean flag = this.isSprinting();
+        boolean flag = this.isSprinting();
 
-            if (flag != this.serverSprintState)
-            {
-                CEntityActionPacket.Action centityactionpacket$action = flag ? CEntityActionPacket.Action.START_SPRINTING : CEntityActionPacket.Action.STOP_SPRINTING;
-                this.connection.sendPacket(new CEntityActionPacket(this, centityactionpacket$action));
-                this.serverSprintState = flag;
-            }
-
-            boolean flag3 = this.isSneaking();
-
-            if (flag3 != this.clientSneakState)
-            {
-                CEntityActionPacket.Action centityactionpacket$action1 = flag3 ? CEntityActionPacket.Action.PRESS_SHIFT_KEY : CEntityActionPacket.Action.RELEASE_SHIFT_KEY;
-                this.connection.sendPacket(new CEntityActionPacket(this, centityactionpacket$action1));
-                this.clientSneakState = flag3;
-            }
-
-            if (this.isCurrentViewEntity())
-            {
-                double d4 = updateEvent.getX() - this.lastReportedPosX;
-                double d0 = updateEvent.getY() - this.lastReportedPosY;
-                double d1 = updateEvent.getZ() - this.lastReportedPosZ;
-                double d2 = (double)(updateEvent.getYaw() - this.lastReportedYaw);
-                double d3 = (double)(updateEvent.getPitch() - this.lastReportedPitch);
-                ++this.positionUpdateTicks;
-                boolean flag1 = d4 * d4 + d0 * d0 + d1 * d1 > 9.0E-4D || this.positionUpdateTicks >= 20;
-                boolean flag2 = d2 != 0.0D || d3 != 0.0D;
-
-                if (this.isPassenger())
-                {
-                    Vector3d vector3d = this.getMotion();
-                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0D, vector3d.z, updateEvent.getYaw(), updateEvent.getPitch(), updateEvent.onGround()));
-                    flag1 = false;
-                }
-                else if (flag1 && flag2)
-                {
-                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(updateEvent.getX(), updateEvent.getY(), updateEvent.getZ(), updateEvent.getYaw(), updateEvent.getPitch(), updateEvent.onGround()));
-                }
-                else if (flag1)
-                {
-                    this.connection.sendPacket(new CPlayerPacket.PositionPacket(updateEvent.getX(), updateEvent.getY(), updateEvent.getZ(), updateEvent.onGround()));
-                }
-                else if (flag2)
-                {
-                    this.connection.sendPacket(new CPlayerPacket.RotationPacket(updateEvent.getYaw(), updateEvent.getPitch(), updateEvent.onGround()));
-                }
-                else if (this.prevOnGround != this.onGround)
-                {
-                    this.connection.sendPacket(new CPlayerPacket(updateEvent.onGround()));
-                }
-
-                if (flag1)
-                {
-                    this.lastReportedPosX = updateEvent.getX();
-                    this.lastReportedPosY = updateEvent.getY();
-                    this.lastReportedPosZ = updateEvent.getZ();
-                    this.positionUpdateTicks = 0;
-                }
-
-                if (flag2)
-                {
-                    this.lastReportedYaw = updateEvent.getYaw();
-                    this.lastReportedPitch = updateEvent.getPitch();
-                }
-
-                this.prevOnGround = this.onGround;
-                this.autoJumpEnabled = this.mc.gameSettings.autoJump;
-            }
-
-            for (Runnable runnables : updateEvent.getRunnableList()) {
-                runnables.run();
-            }
-
-            updateEvent.postUpdate();
-            EventBus.call(updateEvent);
+        if (flag != this.serverSprintState)
+        {
+            CEntityActionPacket.Action centityactionpacket$action = flag ? CEntityActionPacket.Action.START_SPRINTING : CEntityActionPacket.Action.STOP_SPRINTING;
+            this.connection.sendPacket(new CEntityActionPacket(this, centityactionpacket$action));
+            this.serverSprintState = flag;
         }
-    }
 
-    @Override
-    public @NotNull Vector3d getLookVec() {
-        return this.getLook(1.0F);
-    }
+        boolean flag3 = this.isSneaking();
 
-    /**
-     * interpolated look vector
-     */
-    @Override
-    public @NotNull Vector3d getLook(float partialTicks) {
-        return getVectorForRotation(Rots.pitch, Rots.yaw);
+        if (flag3 != this.clientSneakState)
+        {
+            CEntityActionPacket.Action centityactionpacket$action1 = flag3 ? CEntityActionPacket.Action.PRESS_SHIFT_KEY : CEntityActionPacket.Action.RELEASE_SHIFT_KEY;
+            this.connection.sendPacket(new CEntityActionPacket(this, centityactionpacket$action1));
+            this.clientSneakState = flag3;
+        }
+
+        if (this.isCurrentViewEntity())
+        {
+            double d4 = this.getPosX() - this.lastReportedPosX;
+            double d0 = this.getPosY() - this.lastReportedPosY;
+            double d1 = this.getPosZ() - this.lastReportedPosZ;
+            double d2 = (double)(this.rotationYaw - this.lastReportedYaw);
+            double d3 = (double)(this.rotationPitch - this.lastReportedPitch);
+            ++this.positionUpdateTicks;
+            boolean flag1 = d4 * d4 + d0 * d0 + d1 * d1 > 9.0E-4D || this.positionUpdateTicks >= 20;
+            boolean flag2 = d2 != 0.0D || d3 != 0.0D;
+
+            if (this.isPassenger())
+            {
+                Vector3d vector3d = this.getMotion();
+                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0D, vector3d.z, this.rotationYaw, this.rotationPitch, this.onGround));
+                flag1 = false;
+            }
+            else if (flag1 && flag2)
+            {
+                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, this.rotationPitch, this.onGround));
+            }
+            else if (flag1)
+            {
+                this.connection.sendPacket(new CPlayerPacket.PositionPacket(this.getPosX(), this.getPosY(), this.getPosZ(), this.onGround));
+            }
+            else if (flag2)
+            {
+                this.connection.sendPacket(new CPlayerPacket.RotationPacket(this.rotationYaw, this.rotationPitch, this.onGround));
+            }
+            else if (this.prevOnGround != this.onGround)
+            {
+                this.connection.sendPacket(new CPlayerPacket(this.onGround));
+            }
+
+            if (flag1)
+            {
+                this.lastReportedPosX = this.getPosX();
+                this.lastReportedPosY = this.getPosY();
+                this.lastReportedPosZ = this.getPosZ();
+                this.positionUpdateTicks = 0;
+            }
+
+            if (flag2)
+            {
+                this.lastReportedYaw = this.rotationYaw;
+                this.lastReportedPitch = this.rotationPitch;
+            }
+
+            this.prevOnGround = this.onGround;
+            this.autoJumpEnabled = this.mc.gameSettings.autoJump;
+        }
     }
 
     public boolean drop(boolean p_225609_1_)
@@ -656,7 +633,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     }
 
     /**
-     * Handler for World#setEntityState
+     * Handler for {@link World#setEntityState}
      */
     public void handleStatusUpdate(byte id)
     {
@@ -1156,18 +1133,17 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         return super.removeActivePotionEffect(potioneffectin);
     }
 
-    @Override
     public void move(MoverType typeIn, Vector3d pos) {
         EventMove eventMove = new EventMove(pos);
         EventBus.call(eventMove);
 
-        if (eventMove.cancelled){
+        if(eventMove.cancelled){
             return;
         }
 
         double d0 = this.getPosX();
         double d1 = this.getPosZ();
-        super.move(typeIn, eventMove.getVector());
+        super.move(typeIn, pos);
         this.updateAutoJump((float)(this.getPosX() - d0), (float)(this.getPosZ() - d1));
     }
 

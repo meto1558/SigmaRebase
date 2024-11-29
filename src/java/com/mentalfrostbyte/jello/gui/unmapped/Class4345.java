@@ -11,17 +11,17 @@ import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.TextBoxSetting;
-import com.mentalfrostbyte.jello.util.system.MathHelper;
+import com.mentalfrostbyte.jello.util.MathHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import org.newdawn.slick.TrueTypeFont;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 import java.util.HashMap;
 
 public class Class4345 extends Class4339 {
    private Module field21229;
-   public TrueTypeFont field21230 = Resources.regular20;
+   public ClientResource field21230 = Resources.regular20;
    public Animation field21231 = new Animation(150, 150);
    public HashMap<Module, CustomGuiScreen> field21232 = new HashMap<Module, CustomGuiScreen>();
 

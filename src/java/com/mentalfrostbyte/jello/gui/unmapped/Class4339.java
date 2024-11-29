@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import org.newdawn.slick.TrueTypeFont;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 public class Class4339 extends AnimatedIconPanel {
    private boolean field21201;
@@ -30,12 +30,12 @@ public class Class4339 extends AnimatedIconPanel {
       this.method13511();
    }
 
-   public Class4339(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
+   public Class4339(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, ClientResource var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
       this.method13511();
    }
 
-   private void method13511() {
+   private final void method13511() {
       this.method13241().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
       this.buttonList.setSize(new Class6665());
       this.method13241().add(this.field21205 = new Class4292(this, 11));

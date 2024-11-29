@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.system.TimerUtil;
+import com.mentalfrostbyte.jello.util.TimerUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
@@ -104,8 +104,8 @@ public class Class4292 extends Class4278 implements Class4293 {
    }
 
    @Override
-   public boolean mouseClicked(int var1, int var2, int var3) {
-      if (!super.mouseClicked(var1, var2, var3)) {
+   public boolean method13078(int var1, int var2, int var3) {
+      if (!super.method13078(var1, var2, var3)) {
          this.field20908 = this.method13228(var1, var2, false);
          if (this.method13298()) {
             int var6 = var2 - this.method13272();

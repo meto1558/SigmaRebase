@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.MathUtils;
+import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,6 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
 import totalcross.json.JSONObject;
 
 import java.io.IOException;
@@ -256,8 +255,8 @@ public class AltManagerScreen extends Screen {
       MiniAlert header = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
       MiniAlert firstline1 = new MiniAlert(AlertType.FIRSTLINE, "Login with your minecraft", 15);
       MiniAlert firstline2 = new MiniAlert(AlertType.FIRSTLINE, "account here!", 25);
-      MiniAlert email = new MiniAlert(AlertType.SECONDLINE, "Email", 50);
-      MiniAlert password = new MiniAlert(AlertType.SECONDLINE, "Password", 50);
+      MiniAlert email = new MiniAlert(AlertType.SEKONDLINE, "Email", 50);
+      MiniAlert password = new MiniAlert(AlertType.SEKONDLINE, "Password", 50);
       MiniAlert button  = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
       this.addToList(this.field21012 = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, email, password, button));
       this.field21012.method13036(var1 -> {

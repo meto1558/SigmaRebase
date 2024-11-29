@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import org.newdawn.slick.TrueTypeFont;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 public class Class4370 extends Class4247 {
    private static String[] field21362;
@@ -35,7 +35,7 @@ public class Class4370 extends Class4247 {
       this.method13695();
    }
 
-   public Class4370(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
+   public Class4370(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, ClientResource var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
       this.method13695();
    }
@@ -78,9 +78,9 @@ public class Class4370 extends Class4247 {
    }
 
    @Override
-   public boolean mouseClicked(int var1, int var2, int var3) {
+   public boolean method13078(int var1, int var2, int var3) {
       this.field21364 = true;
-      return super.mouseClicked(var1, var2, var3);
+      return super.method13078(var1, var2, var3);
    }
 
    @Override

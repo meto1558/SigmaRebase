@@ -51,6 +51,7 @@ public class ReflectorMethod implements IResolvable
 
                         if (amethod.length <= 0)
                         {
+                            Log.log("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
                             return null;
                         }
 
@@ -58,7 +59,9 @@ public class ReflectorMethod implements IResolvable
                         {
                             Log.warn("(Reflector) More than one method found: " + oclass.getName() + "." + this.targetMethodName);
 
-                            for (Method method : amethod) {
+                            for (int i = 0; i < amethod.length; ++i)
+                            {
+                                Method method = amethod[i];
                                 Log.warn("(Reflector)  - " + method);
                             }
 
@@ -74,6 +77,7 @@ public class ReflectorMethod implements IResolvable
 
                     if (this.targetMethod == null)
                     {
+                        Log.log("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
                         return null;
                     }
                     else

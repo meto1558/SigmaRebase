@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
@@ -45,7 +44,7 @@ public class Class4368 extends Class4247 {
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 52),
-              MultiUtilities.method17736(this.field21351.parseSettingValueToIntBySettingName("Keybind")),
+              RenderUtil.method17736(this.field21351.parseSettingValueToIntBySettingName("Keybind")),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F)
       );
       if (this.field21351.getSettingMap().size() > 1) {

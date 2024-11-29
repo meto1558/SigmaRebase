@@ -1,5 +1,7 @@
 package net.optifine.reflect;
 
+import net.optifine.Log;
+
 public class ReflectorClass implements IResolvable
 {
     private String targetClassName = null;
@@ -33,8 +35,9 @@ public class ReflectorClass implements IResolvable
             {
                 this.targetClass = Class.forName(this.targetClassName);
             }
-            catch (ClassNotFoundException ignored)
+            catch (ClassNotFoundException classnotfoundexception)
             {
+                Log.log("(Reflector) Class not present: " + this.targetClassName);
             }
             catch (Throwable throwable)
             {

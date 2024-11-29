@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
 import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.MathUtils;
+import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -34,7 +34,7 @@ public class ConfigButtonOnClickGui extends Class4247 {
       UIButton var7;
       this.addToList(
          var7 = new UIButton(
-            this, "addButton", this.widthA - 55, 0, ResourceRegistry.JelloLightFont25.getWidth("Add"), 69, ColorHelper.field27961, "+", ResourceRegistry.JelloLightFont25
+            this, "addButton", this.widthA - 55, 0, ResourceRegistry.JelloLightFont25.getStringWidth("Add"), 69, ColorHelper.field27961, "+", ResourceRegistry.JelloLightFont25
          )
       );
       var7.doThis((var1x, var2x) -> this.field21300.method13119(true));

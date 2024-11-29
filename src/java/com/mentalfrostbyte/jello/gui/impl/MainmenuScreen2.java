@@ -11,12 +11,12 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
 import net.minecraft.realms.RealmsBridgeScreen;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.Texture;
 
 public class MainmenuScreen2 extends CustomGuiScreen {
    private final ButtonPanel singleplayerButton;
@@ -24,8 +24,10 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    private final ButtonPanel realmsButton;
    private final ButtonPanel optionsButton;
    private final ButtonPanel altManagerButton;
+   private final Class4302 field21128;
    private final UITextDisplay field21129;
    private final UITextDisplay field21130;
+   private final Class4365 loginButton;
    private final UIButton changelogButton;
    private final UIButton field21133;
    public int field21134 = 0;
@@ -33,7 +35,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
    public MainmenuScreen2(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.method13300(false);
-      TrueTypeFont var15 = ResourceRegistry.JelloLightFont20;
+      ClientResource var15 = ResourceRegistry.JelloLightFont20;
       int var17 = 0;
       int var18 = 80;
       int var19 = 10;
@@ -103,14 +105,14 @@ public class MainmenuScreen2 extends CustomGuiScreen {
       );
       this.addToList(
          this.field21130 = new UITextDisplay(
-            this, "Copyright", 10, this.getHeightA() - 31, var15.getWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var20, var15
+            this, "Copyright", 10, this.getHeightA() - 31, var15.getStringWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var20, var15
          )
       );
       this.addToList(
          this.field21129 = new UITextDisplay(
             this,
             "Version",
-            this.getWidthA() - var15.getWidth(var21) - 9,
+            this.getWidthA() - var15.getStringWidth(var21) - 9,
             this.getHeightA() - 31,
             128,
             128,
@@ -142,12 +144,33 @@ public class MainmenuScreen2 extends CustomGuiScreen {
              }
          }).start();
       });
+      this.addToList(this.loginButton = new Class4365(this, "Account", 0, var19, 0, var18, "Log in"));
+      this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
+      this.field21128.method13247((var1x, var2x) -> {
+         if (Client.getInstance().networkManager.account != null) {
+            ((JelloMainMenuScreen)this.getIcoPanel()).method13343();
+         } else {
+            this.displayScreen(new LoginAndOutScreen());
+         }
+      });
       this.changelogButton.doThis((var1x, var2x) -> ((JelloMainMenuScreen)this.getIcoPanel()).animateIn());
       this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
       this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
       this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
       this.altManagerButton.doThis((var1x, var2x) -> this.displayScreen(new AltManagerScreen()));
       this.realmsButton.doThis((var1x, var2x) -> this.method13443());
+      this.loginButton.doThis((var1x, var2x) -> {
+         if (Client.getInstance().networkManager.account != null) {
+            ((JelloMainMenuScreen)this.getIcoPanel()).logout();
+         } else {
+            this.displayScreen(new LoginAndOutScreen());
+         }
+      });
+      this.field21130.doThis((var1x, var2x) -> {
+         if (this.field21134++ > 8) {
+            Client.getInstance().guiManager.method33482(new LoginAndOutScreen());
+         }
+      });
    }
 
    public void method13443() {
@@ -179,10 +202,11 @@ public class MainmenuScreen2 extends CustomGuiScreen {
 
    @Override
    public void method13028(int var1, int var2) {
+      this.field21128.setEnabled(!Client.getInstance().networkManager.isPremium());
       int var5 = 30;
       int var6 = 90;
-      this.changelogButton.setXA(var6);
-      this.field21133.setXA(var5);
+      this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
+      this.field21133.setXA(var5 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
       super.method13028(var1, var2);
    }
 

@@ -12,8 +12,6 @@ import com.mentalfrostbyte.jello.util.*;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.system.MathHelper;
-import com.mentalfrostbyte.jello.util.system.MathUtils;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
 import java.io.File;
@@ -133,6 +131,12 @@ public class Class4351 extends Class4278 {
                Client.getInstance().soundManager.play("switch");
                ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getIcoPanel().getIcoPanel().getIcoPanel();
                var5x.method13222(() -> var5x.method13615());
+
+               for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
+                  if (!Client.getInstance().networkManager.isPremium()) {
+                     module.setEnabledBasic(false);
+                  }
+               }
             }
          } else {
             this.field21265.changeDirection(Direction.FORWARDS);

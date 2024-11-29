@@ -6,7 +6,6 @@ public class Timer
     public float elapsedPartialTicks;
     private long lastSyncSysClock;
     private final float tickLength;
-    public float timerSpeed = 1.0F;
 
     public Timer(float ticks, long lastSyncSysClock)
     {
@@ -16,7 +15,7 @@ public class Timer
 
     public int getPartialTicks(long gameTime)
     {
-        this.elapsedPartialTicks = (float)(gameTime - this.lastSyncSysClock) / this.tickLength * this.timerSpeed;
+        this.elapsedPartialTicks = (float)(gameTime - this.lastSyncSysClock) / this.tickLength;
         this.lastSyncSysClock = gameTime;
         this.renderPartialTicks += this.elapsedPartialTicks;
         int i = (int)this.renderPartialTicks;

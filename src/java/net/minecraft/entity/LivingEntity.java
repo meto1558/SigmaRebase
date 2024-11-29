@@ -141,7 +141,7 @@ public abstract class LivingEntity extends Entity
     public int deathTime;
     public float prevSwingProgress;
     public float swingProgress;
-    public int ticksSinceLastSwing;
+    protected int ticksSinceLastSwing;
     public float prevLimbSwingAmount;
     public float limbSwingAmount;
     public float limbSwing;
@@ -190,7 +190,7 @@ public abstract class LivingEntity extends Entity
     /** Holds the value of ticksExisted when setLastAttacker was last called. */
     private int lastAttackedEntityTime;
     private float landMovementFactor;
-    public int jumpTicks;
+    private int jumpTicks;
     private float absorptionAmount;
     protected ItemStack activeItemStack = ItemStack.EMPTY;
     protected int activeItemStackUseCount;

@@ -142,7 +142,7 @@ public class Class4366 extends Class4247 {
          RenderUtil.drawString(
             this.getFont(),
             (float)(this.getXA() + 7),
-            (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2),
+            (float)(this.getYA() + (this.getHeightA() - this.getFont().method23952()) / 2),
             this.getTypedText(),
             ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * 0.5F)
          );

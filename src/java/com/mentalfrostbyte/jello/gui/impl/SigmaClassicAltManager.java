@@ -11,12 +11,12 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import org.newdawn.slick.opengl.Texture;
 import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
@@ -144,7 +144,7 @@ public class SigmaClassicAltManager extends Screen {
       this.method13401();
       super.draw(var1);
       RenderUtil.drawString(ResourceRegistry.DefaultClientFont, 20.0F, 20.0F, Minecraft.getInstance().getSession().getUsername(), -2236963);
-      RenderUtil.drawString(
+      RenderUtil.method11440(
          ResourceRegistry.DefaultClientFont,
          (float)(this.getWidthA() / 2),
          20.0F,
@@ -153,7 +153,7 @@ public class SigmaClassicAltManager extends Screen {
          Class2218.field14492,
          Class2218.field14488
       );
-      RenderUtil.drawString(
+      RenderUtil.method11441(
          ResourceRegistry.DefaultClientFont,
          (float)(this.getWidthA() / 2),
          40.0F,

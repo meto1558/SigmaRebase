@@ -7,16 +7,8 @@ import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
-import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
-import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
-import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
-import com.mentalfrostbyte.jello.module.impl.combat.Teams;
-import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
-import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
-import com.mentalfrostbyte.jello.module.impl.movement.Speed;
-import com.mentalfrostbyte.jello.module.impl.movement.Step;
-import com.mentalfrostbyte.jello.module.impl.player.*;
-import com.mentalfrostbyte.jello.module.impl.world.Disabler;
+import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
+import com.mentalfrostbyte.jello.module.impl.player.Cape;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -63,35 +55,20 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
         }
         // COMBAT
-        this.register(new AntiKnockback());
-        this.register(new Teams());
-        this.register(new KillAura());
-        this.register(new Criticals());
 
         // RENDER
 
         // WORLD
-        this.register(new Disabler());
-
 
         // MISC
 
         // PLAYER
         this.register(new AutoSprint());
-        this.register(new Blink());
         this.register(new Cape());
 
-
-
-
-
         // ITEM
-        this.register(new AutoMLG());
 
         // MOVEMENT
-        this.register(new Step());
-        this.register(new Speed());
-        this.register(new Jesus());
 
         this.sortBySuffixAndRegisterEvents();
     }

@@ -124,7 +124,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
       }
 
       String categoryName = this.getCategory().getName();
-      RenderUtil.drawString(
+      RenderUtil.method11440(
          ResourceRegistry.JelloLightFont25,
          (float)(this.getXA() + 20),
          (float)(this.getYA() + 30),

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.base;
 
 public enum AlertType {
    FIRSTLINE,
-   SECONDLINE,
+   SEKONDLINE,
    BUTTON,
    HEADER,
    TEXTBOX;

@@ -104,16 +104,9 @@ public class Vector3d implements IPosition
         return this.add(-x, -y, -z);
     }
 
-
     public Vector3d add(Vector3d vec)
     {
         return this.add(vec.x, vec.y, vec.z);
-    }
-
-    public double square(Vector3d vec) {
-        return Math.pow(vec.x - this.x, 2.0)
-                + Math.pow(vec.y - this.y, 2.0)
-                + Math.pow(vec.z - this.z, 2.0);
     }
 
     /**
@@ -288,10 +281,6 @@ public class Vector3d implements IPosition
         float f2 = -MathHelper.cos(-pitch * ((float)Math.PI / 180F));
         float f3 = MathHelper.sin(-pitch * ((float)Math.PI / 180F));
         return new Vector3d((double)(f1 * f2), (double)f3, (double)(f * f2));
-    }
-
-    public Vector3d floor() {
-        return new Vector3d(Math.floor(this.x), Math.floor(this.y), Math.floor(this.z));
     }
 
     public Vector3d align(EnumSet<Direction.Axis> axes)

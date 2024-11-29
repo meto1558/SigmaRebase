@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4297;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.system.TimerUtil;
+import com.mentalfrostbyte.jello.util.TimerUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -71,7 +71,7 @@ public class SnakeGameScreen extends Screen {
       String var8 = "Max: " + this.field21048 + "   |   Score: " + this.field21046.method13179();
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
-         (float)(var6 + this.field21046.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var8)),
+         (float)(var6 + this.field21046.getWidthA() - ResourceRegistry.JelloLightFont20.getStringWidth(var8)),
          (float)(var7 - 50),
          var8,
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)

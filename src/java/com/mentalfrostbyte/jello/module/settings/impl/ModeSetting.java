@@ -11,8 +11,7 @@ import java.util.List;
 public class ModeSetting extends Setting<String> {
 
    public ModeSetting(String name, String defaultValue, int index, String... modes) {
-      super(name, defaultValue, SettingType.MODE,
-              (index >= 0 && index < modes.length) ? modes[index] : defaultValue);
+      super(name, defaultValue, SettingType.MODE, modes[index]);
       this.modes = Arrays.asList(modes);
    }
 

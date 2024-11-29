@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import org.newdawn.slick.opengl.Texture;
+import com.mentalfrostbyte.jello.util.render.Texture;
 
 public class ImageQ extends Class4278 {
    private static String[] field20736;

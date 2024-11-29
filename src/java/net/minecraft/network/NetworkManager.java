@@ -82,7 +82,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
     private SocketAddress socketAddress;
 
     /** The INetHandler instance responsible for processing received packets */
-    public INetHandler packetListener;
+    private INetHandler packetListener;
 
     /** A String indicating why the network has shutdown. */
     private ITextComponent terminationReason;
@@ -193,7 +193,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
         }
     }
 
-    public static <T extends INetHandler> void processPacket(IPacket<T> p_197664_0_, INetHandler p_197664_1_)
+    private static <T extends INetHandler> void processPacket(IPacket<T> p_197664_0_, INetHandler p_197664_1_)
     {
         p_197664_0_.processPacket((T)p_197664_1_);
     }
@@ -228,15 +228,6 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
             {
                 this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
             }
-        }
-    }
-
-    public void sendNoEventPacket(IPacket<?> packet) {
-        if (!this.isChannelOpen()) {
-            this.outboundPacketsQueue.add(new QueuedPacket(packet, null));
-        } else {
-            this.flushOutboundQueue();
-            this.dispatchPacket(packet, null);
         }
     }
 

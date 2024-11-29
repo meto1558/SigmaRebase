@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
 
 public class UITextDisplay extends Class4278 {
    private static String[] field20736;
@@ -26,12 +26,24 @@ public class UITextDisplay extends Class4278 {
       super(var1, var2, var3, var4, var5, var6, var7, var8, false);
    }
 
-   public UITextDisplay(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
+   public UITextDisplay(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, ClientResource var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
    }
 
    @Override
    public void draw(float var1) {
+      if (this.field20779) {
+         GL11.glAlphaFunc(518, 0.01F);
+         RenderUtil.drawString(
+            ResourceRegistry.JelloLightFont18_1,
+            (float)this.getXA(),
+            (float)this.getYA(),
+            this.getTypedText(),
+            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1)
+         );
+         GL11.glAlphaFunc(519, 0.0F);
+      }
+
       if (this.field20912 != null) {
          RenderUtil.drawString(
             this.getFont(),

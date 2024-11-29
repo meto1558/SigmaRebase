@@ -9,12 +9,14 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import org.newdawn.slick.opengl.Texture;
+import com.mentalfrostbyte.jello.util.render.Texture;
 
 import java.awt.image.BufferedImage;
 
 public class Class4294 extends Class4278 {
-   public Account selectedAccount;
+   public Account selectedAccount = null;
+   private BufferedImage field20799;
+   private Texture field20800;
    private UILoadingCircle field20801;
    private boolean field20802 = false;
    private Animation field20803 = new Animation(114, 114, Direction.BACKWARDS);

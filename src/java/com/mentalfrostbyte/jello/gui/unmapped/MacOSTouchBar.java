@@ -5,7 +5,7 @@ import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.TickEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.system.FileUtil;
+import com.mentalfrostbyte.jello.util.FileUtil;
 import com.thizzer.jtouchbar.JTouchBar;
 import com.thizzer.jtouchbar.common.Color;
 import com.thizzer.jtouchbar.item.TouchBarItem;
@@ -25,15 +25,19 @@ import java.util.*;
 
 public class MacOSTouchBar {
    public JTouchBar touchBar;
-   private LinkedHashSet<Class7957> field21387 = new LinkedHashSet<>();
+   private LinkedHashSet<Class7957> field21387 = new LinkedHashSet<Class7957>();
    public boolean field21388 = false;
-   public HashMap<Module, TouchBarButton> field21389 = new HashMap<>();
+   public HashMap<Module, TouchBarButton> field21389 = new HashMap<Module, TouchBarButton>();
 
    public MacOSTouchBar() {
       EventBus.register(this);
       if (FileUtil.field25727) {
-         this.field21387.add(new Class7957(344, ClickGui.class));
+         //this.field21387.add(new Class7957(344, ClickGui.class));
       }
+   }
+
+   public Set<Class7957> method13724() {
+      return this.field21387;
    }
 
    public void method13725(int var1, Module var2) {
@@ -78,6 +82,20 @@ public class MacOSTouchBar {
       }
 
       return -1;
+   }
+
+   public Class7957 method13730(int var1) {
+      if (var1 == -1) {
+         return null;
+      } else {
+         for (Class7957 var5 : this.field21387) {
+            if (var5.method27053() == var1) {
+               return var5;
+            }
+         }
+
+         return null;
+      }
    }
 
    public JSONObject method13731(JSONObject var1) throws JSONException {

@@ -243,6 +243,7 @@ public class ServerPinger
 
                             if ("\u00a71".equals(astring[0]))
                             {
+                                int i = MathHelper.getInt(astring[1], 0);
                                 String s1 = astring[2];
                                 String s2 = astring[3];
                                 int j = MathHelper.getInt(astring[4], -1);

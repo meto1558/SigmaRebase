@@ -48,7 +48,7 @@ public class Class4375 extends Class4247 {
             "addButton",
             this.widthA - 70,
             this.heightA - 70,
-            ResourceRegistry.JelloLightFont25.getWidth("Add"),
+            ResourceRegistry.JelloLightFont25.getStringWidth("Add"),
             70,
             ColorHelper.field27961,
             "Add",

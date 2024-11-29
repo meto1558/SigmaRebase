@@ -5,8 +5,8 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.render.Texture;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
 
 public class Class4255 extends Class4247 {
    public Texture field20633;
@@ -32,7 +32,7 @@ public class Class4255 extends Class4247 {
 
       RenderUtil.drawString(
               Resources.regular25,
-         (float)(this.xA + (this.getWidthA() - Resources.regular25.getWidth(this.field20912)) / 2),
+         (float)(this.xA + (this.getWidthA() - Resources.regular25.getStringWidth(this.field20912)) / 2),
          (float)(this.yA + this.getHeightA() - 50),
          this.field20912,
          !this.method13298() ? -14869219 : -319475

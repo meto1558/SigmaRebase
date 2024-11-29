@@ -118,6 +118,7 @@ public class MainMenuScreen extends Screen
 
         this.widthCopyright = this.font.getStringWidth("Copyright Mojang AB. Do not distribute!");
         this.widthCopyrightRest = this.width - this.widthCopyright - 2;
+        int i = 24;
         int j = this.height / 4 + 48;
         Button button = null;
 
@@ -129,21 +130,27 @@ public class MainMenuScreen extends Screen
             this.addButton(button);
         };
 
+        boolean flag = Client.getInstance().clientMode == ClientMode.NOADDONS;
+
         this.addButton(new ImageButton(this.width / 2 - 124, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_lambda$init$0_1_) ->
         {
-            this.minecraft.displayGuiScreen(new LanguageScreen(this, this.minecraft.gameSettings, this.minecraft.getLanguageManager()));
+            if (flag)
+                this.minecraft.displayGuiScreen(new LanguageScreen(this, this.minecraft.gameSettings, this.minecraft.getLanguageManager()));
         }, new TranslationTextComponent("narrator.button.language")));
         this.addButton(new Button(this.width / 2 - 100, j + 72 + 12, 98, 20, new TranslationTextComponent("menu.options"), (p_lambda$init$1_1_) ->
         {
-            this.minecraft.displayGuiScreen(new OptionsScreen(this, this.minecraft.gameSettings));
+            if (flag)
+                this.minecraft.displayGuiScreen(new OptionsScreen(this, this.minecraft.gameSettings));
         }));
         this.addButton(new Button(this.width / 2 + 2, j + 72 + 12, 98, 20, new TranslationTextComponent("menu.quit"), (p_lambda$init$2_1_) ->
         {
-            this.minecraft.shutdown();
+            if (flag)
+                this.minecraft.shutdown();
         }));
         this.addButton(new ImageButton(this.width / 2 + 104, j + 72 + 12, 20, 20, 0, 0, 20, ACCESSIBILITY_TEXTURES, 32, 64, (p_lambda$init$3_1_) ->
         {
-            this.minecraft.displayGuiScreen(new AccessibilityScreen(this, this.minecraft.gameSettings));
+            if (flag)
+                this.minecraft.displayGuiScreen(new AccessibilityScreen(this, this.minecraft.gameSettings));
         }, new TranslationTextComponent("narrator.button.accessibility")));
         this.minecraft.setConnectedToRealms(false);
 
@@ -170,11 +177,13 @@ public class MainMenuScreen extends Screen
      */
     private void addSingleplayerMultiplayerButtons(int yIn, int rowHeightIn)
     {
+        boolean flag2 = Client.getInstance().clientMode == ClientMode.NOADDONS;
         this.addButton(new Button(this.width / 2 - 100, yIn, 200, 20, new TranslationTextComponent("menu.singleplayer"), (p_lambda$addSingleplayerMultiplayerButtons$4_1_) ->
         {
-            this.minecraft.displayGuiScreen(new WorldSelectionScreen(this));
+            if (flag2)
+                this.minecraft.displayGuiScreen(new WorldSelectionScreen(this));
         }));
-        boolean flag = true;
+        boolean flag = this.minecraft.isMultiplayerEnabled();
         Button.ITooltip button$itooltip = flag ? Button.field_238486_s_ : (p_lambda$addSingleplayerMultiplayerButtons$5_1_, p_lambda$addSingleplayerMultiplayerButtons$5_2_, p_lambda$addSingleplayerMultiplayerButtons$5_3_, p_lambda$addSingleplayerMultiplayerButtons$5_4_) ->
         {
             if (!p_lambda$addSingleplayerMultiplayerButtons$5_1_.active)
@@ -184,12 +193,14 @@ public class MainMenuScreen extends Screen
         };
         (this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 1, 200, 20, new TranslationTextComponent("menu.multiplayer"), (p_lambda$addSingleplayerMultiplayerButtons$6_1_) ->
         {
-            Screen screen = (Screen)(this.minecraft.gameSettings.skipMultiplayerWarning ? new MultiplayerScreen(this) : new MultiplayerWarningScreen(this));
-            this.minecraft.displayGuiScreen(screen);
+            Screen screen = (Screen)(this.minecraft.gameSettings.skipMultiplayerWarning ? new JelloPortalScreen(this) : new MultiplayerWarningScreen(this));
+            if (flag2)
+                this.minecraft.displayGuiScreen(screen);
         }, button$itooltip))).active = flag;
         (this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 2, 200, 20, new TranslationTextComponent("menu.online"), (p_lambda$addSingleplayerMultiplayerButtons$7_1_) ->
         {
-            this.switchToRealms();
+            if (flag2)
+                this.switchToRealms();
         }, button$itooltip))).active = flag;
 
         if (Reflector.ModListScreen_Constructor.exists() && this.buttons.size() > 0)
@@ -197,6 +208,20 @@ public class MainMenuScreen extends Screen
             Widget widget = this.buttons.get(this.buttons.size() - 1);
             widget.x = this.width / 2 + 2;
             widget.setWidth(98);
+        }
+    }
+
+    private boolean func_243319_k()
+    {
+        try (SaveFormat.LevelSave saveformat$levelsave = this.minecraft.getSaveLoader().getLevelSave("Demo_World"))
+        {
+            return saveformat$levelsave.readWorldSummary() != null;
+        }
+        catch (IOException ioexception1)
+        {
+            SystemToast.func_238535_a_(this.minecraft, "Demo_World");
+            field_238656_b_.warn("Failed to read demo world data", (Throwable)ioexception1);
+            return false;
         }
     }
 
@@ -355,5 +380,23 @@ public class MainMenuScreen extends Screen
         {
             this.realmsNotification.onClose();
         }
+    }
+
+    private void deleteDemoWorld(boolean p_213087_1_)
+    {
+        if (p_213087_1_)
+        {
+            try (SaveFormat.LevelSave saveformat$levelsave = this.minecraft.getSaveLoader().getLevelSave("Demo_World"))
+            {
+                saveformat$levelsave.deleteSave();
+            }
+            catch (IOException ioexception1)
+            {
+                SystemToast.func_238538_b_(this.minecraft, "Demo_World");
+                field_238656_b_.warn("Failed to delete demo world", (Throwable)ioexception1);
+            }
+        }
+
+        this.minecraft.displayGuiScreen(this);
     }
 }

@@ -267,7 +267,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final DataFixer dataFixer;
     private final VirtualScreen virtualScreen;
     private final MainWindow mainWindow;
-    public final Timer timer = new Timer(20.0F, 0L);
+    private final Timer timer = new Timer(20.0F, 0L);
     private final Snooper snooper = new Snooper("client", this, Util.milliTime());
     private final RenderTypeBuffers renderTypeBuffers;
     public final WorldRenderer worldRenderer;
@@ -409,7 +409,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         String s;
         int i;
 
-        if (gameConfig.serverInfo.serverName != null)
+        if (this.isMultiplayerEnabled() && gameConfig.serverInfo.serverName != null)
         {
             s = gameConfig.serverInfo.serverName;
             i = gameConfig.serverInfo.serverPort;
@@ -2419,6 +2419,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.particles.clearEffects(worldIn);
         TileEntityRendererDispatcher.instance.setWorld(worldIn);
         this.setDefaultMinecraftTitle();
+    }
+
+    public boolean isMultiplayerEnabled()
+    {
+        return true;
     }
 
     @Nullable

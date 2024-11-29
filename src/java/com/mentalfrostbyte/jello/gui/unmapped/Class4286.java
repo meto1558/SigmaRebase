@@ -10,8 +10,7 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.Texture;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -184,21 +183,21 @@ public class Class4286 extends Class4278 {
             Resources.playIconPNG,
                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
          );
-         TrueTypeFont var11 = ResourceRegistry.JelloLightFont12;
+         ClientResource var11 = ResourceRegistry.JelloLightFont12;
          if (this.field20912 != null) {
             RenderUtil.method11415(this);
             String[] var12 = this.getTypedText().replaceAll("\\(.*\\)", "").replaceAll("\\[.*\\]", "").split(" - ");
             if (var12.length > 1) {
                RenderUtil.drawString(
                   var11,
-                  (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[1])) / 2),
+                  (float)(this.getXA() + (this.getWidthA() - var11.getStringWidth(var12[1])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2),
                   var12[1],
                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
                );
                RenderUtil.drawString(
                   var11,
-                  (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
+                  (float)(this.getXA() + (this.getWidthA() - var11.getStringWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 13),
                   var12[0],
                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
@@ -206,7 +205,7 @@ public class Class4286 extends Class4278 {
             } else {
                RenderUtil.drawString(
                   var11,
-                  (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
+                  (float)(this.getXA() + (this.getWidthA() - var11.getStringWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 6),
                   var12[0],
                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)

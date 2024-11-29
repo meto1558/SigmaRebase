@@ -1,34 +1,33 @@
 package com.mentalfrostbyte.jello.util.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class7820;
+import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
-import com.mentalfrostbyte.jello.misc.Box3D;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.unmapped.Class7820;
+import com.mentalfrostbyte.jello.util.render.unmapped.TextureImpl;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureManager;
-import org.newdawn.slick.TrueTypeFont;
+import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
+import com.mentalfrostbyte.jello.util.unmapped.Color;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -37,45 +36,28 @@ import java.util.Stack;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 
 public class RenderUtil {
-    private static String[] field18458;
-    private static final boolean field18459 = false;
+
     private static final Minecraft mc = Minecraft.getInstance();
+
     public static boolean field18461 = false;
-    private static Stack<IntBuffer> buffer = new Stack<IntBuffer>();
-    private static float field18463 = 1.0F;
-    private static float field18464 = 1.0F;
-    private static float field18465 = 1.0F;
 
-    public static void method11411(int var0, int var1) {
+    private static final Stack<IntBuffer> buffer = new Stack<>();
 
+    public static void endScissor() {
+        if (buffer.isEmpty()) {
+            GL11.glDisable(GL_SCISSOR_TEST);
+        } else {
+            IntBuffer var2 = buffer.pop();
+            GL11.glScissor(var2.get(0), var2.get(1), var2.get(2), var2.get(3));
+        }
     }
 
-    public static float method11412(float var0, int var1) {
-        BigDecimal var4 = new BigDecimal(Float.toString(var0));
-        var4 = var4.setScale(var1, 4);
-        return var4.floatValue();
+    public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
+        method11421(var0, var1, var2, var3, false);
     }
 
-    public static Rectangle method11413(Rectangle var0, float var1, float var2) {
-        float var5 = (float)var0.x;
-        float var6 = (float)var0.y;
-        float var7 = (float)var0.width;
-        float var8 = (float)var0.height;
-        int var9 = Math.round(var7 * var1);
-        int var10 = Math.round(var8 * var2);
-        float var11 = var7 - (float)var9;
-        float var12 = var8 - (float)var10;
-        int var13 = Math.round(var5 + var11 / 4.0F);
-        int var14 = Math.round(var6 + var12 / 6.0F);
-        return new Rectangle(var13, var14, var9, var10);
-    }
-
-    public static Rectangle method11414(CustomGuiScreen var0) {
-        return new Rectangle(var0.getXA(), var0.getYA(), var0.getWidthA(), var0.getHeightA());
-    }
-
-    public static void method11415(CustomGuiScreen var0) {
-        method11421(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
+    public static float method11417() {
+        return (float) mc.getMainWindow().getGuiScaleFactor();
     }
 
     public static float[] method11416(int var0, int var1) {
@@ -87,22 +69,6 @@ public class RenderUtil {
         var5 /= var7;
         var6 /= var7;
         return new float[]{(float)Math.round(var5 * method11417()), (float)Math.round(var6 * method11417())};
-    }
-
-    public static float method11417() {
-        return (float) mc.getMainWindow().getGuiScaleFactor();
-    }
-
-    public static void method11418(float var0, float var1, float var2, float var3) {
-        method11421((int)var0, (int)var1, (int)var2, (int)var3, true);
-    }
-
-    public static void startScissor(float var0, float var1, float var2, float var3) {
-        method11421((int)var0, (int)var1, (int)var0 + (int)var2, (int)var1 + (int)var3, true);
-    }
-
-    public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
-        method11421(var0, var1, var2, var3, false);
     }
 
     public static void method11421(int var0, int var1, int var2, int var3, boolean var4) {
@@ -125,7 +91,7 @@ public class RenderUtil {
             GL11.glGetIntegerv(3088, var17);
             buffer.push(var17);
             int var18 = var17.get(0);
-            int var9 = Minecraft.getInstance().getMainWindow().getFramebufferHeight() - var17.get(1) - var17.get(3);
+            int var9 = mc.getMainWindow().getFramebufferHeight() - var17.get(1) - var17.get(3);
             int var10 = var18 + var17.get(2);
             int var11 = var9 + var17.get(3);
             if (var0 < var18) {
@@ -153,7 +119,7 @@ public class RenderUtil {
             }
         }
 
-        int var19 = Minecraft.getInstance().getMainWindow().getFramebufferHeight() - var3;
+        int var19 = mc.getMainWindow().getFramebufferHeight() - var3;
         int var20 = var2 - var0;
         int var21 = var3 - var1;
         GL11.glEnable(3089);
@@ -162,485 +128,12 @@ public class RenderUtil {
         }
     }
 
-    public static void endScissor() {
-        if (buffer.isEmpty()) {
-            GL11.glDisable(GL_SCISSOR_TEST);
-        } else {
-            IntBuffer var2 = buffer.pop();
-            GL11.glScissor(var2.get(0), var2.get(1), var2.get(2), var2.get(3));
-        }
+    public static void drawImage(float x, float y, float var2, float var3, Texture tex, float alphaValue) {
+        drawImage(x, y, var2, var3, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
     }
 
-    public static void method11423(float var0, float var1, float var2) {
-        field18463 = var0;
-        field18464 = var1;
-        field18465 = var2;
-        GL11.glScalef(var0, var1, var2);
-    }
-
-    public static void renderBackgroundBox(float var0, float var1, float var2, float var3, int var4) {
-        drawRect(var0, var1, var0 + var2, var1 + var3, var4);
-    }
-
-    public static void method11425(double var0, double var2, double var4, double var6, int var8) {
-        drawRect((float)var0, (float)var2, (float)var4, (float)var6, var8);
-    }
-
-    public static void drawRect(float var0, float var1, float var2, float var3, int var4) {
-        if (var0 < var2) {
-            int var7 = (int)var0;
-            var0 = var2;
-            var2 = (float)var7;
-        }
-
-        if (var1 < var3) {
-            int var13 = (int)var1;
-            var1 = var3;
-            var3 = (float)var13;
-        }
-
-        float var14 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var8 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 & 0xFF) / 255.0F;
-        Tessellator var11 = Tessellator.getInstance();
-        BufferBuilder var12 = var11.getBuffer();
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        RenderSystem.color4f(var8, var9, var10, var14);
-        var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos((double)var0, (double)var3, 0.0).endVertex();
-        var12.pos((double)var2, (double)var3, 0.0).endVertex();
-        var12.pos((double)var2, (double)var1, 0.0).endVertex();
-        var12.pos((double)var0, (double)var1, 0.0).endVertex();
-        var11.draw();
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11427(float var0, float var1, float var2, float var3, Framebuffer var4) {
-        if (var0 < var2) {
-            int var7 = (int)var0;
-            var0 = var2;
-            var2 = (float)var7;
-        }
-
-        if (var1 < var3) {
-            int var8 = (int)var1;
-            var1 = var3;
-            var3 = (float)var8;
-        }
-
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        var4.bindFramebuffer(true);
-        var4.framebufferRender((int)var0 - (int)var2, (int)var1 - (int)var3);
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11428(float var0, float var1, float var2, float var3, int var4) {
-        method11429(var0, var1, var2, var3, 1, var4);
-    }
-
-    public static void method11429(float var0, float var1, float var2, float var3, int var4, int var5) {
-        drawRect(var0, var3 - (float)var4, var2 - (float)var4, var3, var5);
-        drawRect(var0, var1, var2 - (float)var4, var1 + (float)var4, var5);
-        drawRect(var0, var1 + (float)var4, var0 + (float)var4, var3 - (float)var4, var5);
-        drawRect(var2 - (float)var4, var1, var2, var3, var5);
-    }
-
-    public static void method11430(double var0, double var2, double var4, double var6, double var8, int var10, int var11) {
-        method11425(var0 + var8, var2 + var8, var4 - var8, var6 - var8, var10);
-        method11425(var0 + var8, var2, var4 - var8, var2 + var8, var11);
-        method11425(var0, var2, var0 + var8, var6, var11);
-        method11425(var4 - var8, var2, var4, var6, var11);
-        method11425(var0 + var8, var6 - var8, var4 - var8, var6, var11);
-    }
-
-    public static void method11431(int var0, int var1, int var2, int var3, int var4, int var5) {
-        float var8 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var11 = (float)(var4 & 0xFF) / 255.0F;
-        float var12 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-        float var13 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-        float var14 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-        float var15 = (float)(var5 & 0xFF) / 255.0F;
-        RenderSystem.disableTexture();
-        RenderSystem.enableBlend();
-        RenderSystem.disableAlphaTest();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        RenderSystem.shadeModel(7425);
-        Tessellator var16 = Tessellator.getInstance();
-        BufferBuilder var17 = var16.getBuffer();
-        var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var17.pos((double)var2, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos((double)var0, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos((double)var0, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
-        var17.pos((double)var2, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
-        var16.draw();
-        RenderSystem.shadeModel(7424);
-        RenderSystem.disableBlend();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.enableTexture();
-    }
-
-    public static void method11432(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-        float var10 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var11 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var12 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 & 0xFF) / 255.0F;
-        float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-        float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-        float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-        float var17 = (float)(var5 & 0xFF) / 255.0F;
-        float var18 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var19 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var20 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var21 = (float)(var6 & 0xFF) / 255.0F;
-        float var22 = (float)(var7 >> 24 & 0xFF) / 255.0F;
-        float var23 = (float)(var7 >> 16 & 0xFF) / 255.0F;
-        float var24 = (float)(var7 >> 8 & 0xFF) / 255.0F;
-        float var25 = (float)(var7 & 0xFF) / 255.0F;
-        RenderSystem.disableTexture();
-        RenderSystem.enableBlend();
-        RenderSystem.disableAlphaTest();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        RenderSystem.shadeModel(7425);
-        Tessellator var26 = Tessellator.getInstance();
-        BufferBuilder var27 = var26.getBuffer();
-        var27.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var27.pos((double)var2, (double)var1, 0.0).color(var15, var16, var17, var14).endVertex();
-        var27.pos((double)var0, (double)var1, 0.0).color(var11, var12, var13, var10).endVertex();
-        var27.pos((double)var0, (double)var3, 0.0).color(var23, var24, var25, var22).endVertex();
-        var27.pos((double)var2, (double)var3, 0.0).color(var19, var20, var21, var18).endVertex();
-        var26.draw();
-        RenderSystem.shadeModel(7424);
-        RenderSystem.disableBlend();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.enableTexture();
-    }
-
-    public static void method11433(float var0, float var1, float var2, float var3, int var4, float var5) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        GL11.glLineWidth(var5);
-        float var8 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var11 = (float)(var4 & 0xFF) / 255.0F;
-        Tessellator var12 = Tessellator.getInstance();
-        BufferBuilder var13 = var12.getBuffer();
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var9, var10, var11, var8);
-        GL11.glEnable(2848);
-        var13.begin(1, DefaultVertexFormats.POSITION_COLOR);
-        var13.pos((double)var0, (double)var1, 0.0);
-        var13.pos((double)var2, (double)var3, 0.0);
-        var12.draw();
-        GL11.glDisable(2848);
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11434(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var9 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var10 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var11 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var12 = (float)(var6 & 0xFF) / 255.0F;
-        Tessellator var13 = Tessellator.getInstance();
-        BufferBuilder var14 = var13.getBuffer();
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var10, var11, var12, var9);
-        GL11.glBegin(6);
-        GL11.glVertex2f(var0, var1);
-        GL11.glVertex2f(var4, var5);
-        GL11.glVertex2f(var2, var3);
-        GL11.glVertex2f(var0, var1);
-        GL11.glEnd();
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void renderCategoryBox(float var0, float var1, float var2, int var3, int var4) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        Tessellator var7 = Tessellator.getInstance();
-        BufferBuilder var8 = var7.getBuffer();
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        GL11.glColor4fv(ColorUtils.method17709(var3));
-        GL11.glEnable(2881);
-        GL11.glBegin(4);
-        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
-        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
-        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
-        GL11.glEnd();
-        GL11.glLineWidth(2.0F);
-        GL11.glColor4fv(ColorUtils.method17709(var4));
-        GL11.glBegin(3);
-        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
-        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
-        GL11.glEnd();
-        GL11.glBegin(3);
-        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
-        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
-        GL11.glEnd();
-        GL11.glBegin(3);
-        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
-        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
-        GL11.glEnd();
-        GL11.glDisable(2881);
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11436(float var0, float var1, float var2, int var3) {
-        method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
-    }
-
-    public static void method11437(float var0, float var1, float var2, float var3, int var4) {
-        method11446(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3 - 1.0F, var4);
-    }
-
-    public static void method11438(float var0, float var1, float var2, int var3) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 0.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var6 = (float)(var3 >> 24 & 0xFF) / 255.0F;
-        float var7 = (float)(var3 >> 16 & 0xFF) / 255.0F;
-        float var8 = (float)(var3 >> 8 & 0xFF) / 255.0F;
-        float var9 = (float)(var3 & 0xFF) / 255.0F;
-        Tessellator var10 = Tessellator.getInstance();
-        BufferBuilder var11 = var10.getBuffer();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var7, var8, var9, var6);
-        GL11.glEnable(2832);
-        GL11.glEnable(3042);
-        GL11.glPointSize(var2 * GuiManager.scaleFactor);
-        GL11.glBegin(0);
-        GL11.glVertex2f(var0, var1);
-        GL11.glEnd();
-        GL11.glDisable(2832);
-        GL11.glDisable(3042);
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4) {
-        drawString(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
-    }
-
-    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
-        drawString(var0, var1, var2, var3, var4, var5, var6, false);
-    }
-
-    public static void drawString(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        int var10 = 0;
-        int var11 = 0;
-        switch (Class7820.field33554[var5.ordinal()]) {
-            case 1:
-                var10 = -var0.getWidth(var3) / 2;
-                break;
-            case 2:
-                var10 = -var0.getWidth(var3);
-        }
-
-        switch (Class7820.field33554[var6.ordinal()]) {
-            case 1:
-                var11 = -var0.getHeight(var3) / 2;
-                break;
-            case 3:
-                var11 = -var0.getHeight(var3);
-        }
-
-        float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var14 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var15 = (float)(var4 & 0xFF) / 255.0F;
-        GL11.glPushMatrix();
-        boolean var16 = false;
-        if ((double) GuiManager.scaleFactor == 2.0) {
-            if (var0 == ResourceRegistry.JelloLightFont20) {
-                var0 = ResourceRegistry.JelloLightFont40;
-            } else if (var0 == ResourceRegistry.JelloLightFont25) {
-                var0 = ResourceRegistry.JelloLightFont50;
-            } else if (var0 == ResourceRegistry.JelloLightFont12) {
-                var0 = ResourceRegistry.JelloLightFont24;
-            } else if (var0 == ResourceRegistry.JelloLightFont14) {
-                var0 = ResourceRegistry.JelloLightFont28;
-            } else if (var0 == ResourceRegistry.JelloLightFont18) {
-                var0 = ResourceRegistry.JelloLightFont36;
-            } else if (var0 == ResourceRegistry.RegularFont20) {
-                var0 = ResourceRegistry.RegularFont40;
-            } else if (var0 == ResourceRegistry.JelloMediumFont20) {
-                var0 = ResourceRegistry.JelloMediumFont40;
-            } else if (var0 == ResourceRegistry.JelloMediumFont25) {
-                var0 = ResourceRegistry.JelloMediumFont50;
-            } else {
-                var16 = true;
-            }
-
-            if (!var16) {
-                float[] var17 = method11416((int)var1, (int)var2);
-                int var18 = (int)var17[0];
-                int var19 = (int)var17[1];
-                GL11.glTranslatef(var1, var2, 0.0F);
-                GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
-                GL11.glTranslatef(-var1, -var2, 0.0F);
-                var10 = (int)((float)var10 * GuiManager.scaleFactor);
-                var11 = (int)((float)var11 * GuiManager.scaleFactor);
-            }
-        }
-
-        RenderSystem.enableBlend();
-        GL11.glBlendFunc(770, 771);
-        if (var7) {
-            var0.drawString((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), var3, new org.newdawn.slick.Color(0.0F, 0.0F, 0.0F, 0.35F));
-        }
-
-        if (var3 != null) {
-            var0.drawString((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new org.newdawn.slick.Color(var13, var14, var15, var12));
-        }
-
-        RenderSystem.disableBlend();
-        GL11.glPopMatrix();
-    }
-
-    public static void method11442(TrueTypeFont var0, float var1, float var2, String var3, int var4) {
-        method11444(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
-    }
-
-    public static void method11443(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
-        method11444(var0, var1, var2, var3, var4, var5, var6, false);
-    }
-
-    public static void method11444(TrueTypeFont var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        int var10 = 0;
-        int var11 = 0;
-        switch (Class7820.field33554[var5.ordinal()]) {
-            case 1:
-                var10 = -var0.getWidth(var3) / 2;
-                break;
-            case 2:
-                var10 = -var0.getWidth(var3);
-        }
-
-        switch (Class7820.field33554[var6.ordinal()]) {
-            case 1:
-                var11 = -var0.getHeight(var3) / 2;
-                break;
-            case 3:
-                var11 = -var0.getHeight(var3);
-        }
-
-        float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var14 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var15 = (float)(var4 & 0xFF) / 255.0F;
-        RenderSystem.enableBlend();
-        GL11.glBlendFunc(770, 771);
-        TextureImpl.bindNone();
-        var0.drawString((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new org.newdawn.slick.Color(var13, var14, var15, var12));
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11445(float var0, float var1, float var2, float var3, float var4, int var5) {
-        method11446(var0, var1, var2, var3, var4, var4, var5);
-    }
-
-    public static void method11446(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var9 = 0.0F;
-        if (var2 > var3) {
-            var9 = var3;
-            var3 = var2;
-            var2 = var9;
-        }
-
-        float var10 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var11 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var12 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var13 = (float)(var6 & 0xFF) / 255.0F;
-        Tessellator var14 = Tessellator.getInstance();
-        BufferBuilder var15 = var14.getBuffer();
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var11, var12, var13, var10);
-        if (var10 > 0.5F) {
-            GL11.glEnable(2848);
-            GL11.glLineWidth(2.0F);
-            GL11.glBegin(3);
-
-            for (float var16 = var3; var16 >= var2; var16 -= 4.0F) {
-                float var17 = (float)Math.cos((double)var16 * Math.PI / 180.0) * var4 * 1.001F;
-                float var18 = (float)Math.sin((double)var16 * Math.PI / 180.0) * var5 * 1.001F;
-                GL11.glVertex2f(var0 + var17, var1 + var18);
-            }
-
-            GL11.glEnd();
-            GL11.glDisable(2848);
-        }
-
-        GL11.glBegin(6);
-
-        for (float var20 = var3; var20 >= var2; var20 -= 4.0F) {
-            float var21 = (float)Math.cos((double)var20 * Math.PI / 180.0) * var4;
-            float var22 = (float)Math.sin((double)var20 * Math.PI / 180.0) * var5;
-            GL11.glVertex2f(var0 + var21, var1 + var22);
-        }
-
-        GL11.glEnd();
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11447(float var0, float var1, float[] var2, float[] var3, int var4) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var7 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var8 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 & 0xFF) / 255.0F;
-        Tessellator var11 = Tessellator.getInstance();
-        BufferBuilder var12 = var11.getBuffer();
-        RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var8, var9, var10, var7);
-        GL11.glBegin(6);
-
-        for (int var13 = var2.length - 1; var13 >= 0; var13--) {
-            GL11.glVertex2f(var0 + var2[var13], var1 + var3[var13]);
-        }
-
-        GL11.glEnd();
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
-    }
-
-    public static void method11448(float var0, float var1, float var2, float var3, Texture var4, int var5) {
-        if (var4 == null) {
-            return;
-        }
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), true);
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), false);
+    public static void method11455(float var0, float var1, float var2, float var3, Texture var4) {
+        drawImage(var0, var1, var2, var3, var4, -1);
     }
 
     public static void drawImage(float var0, float var1, float var2, float var3, Texture var4, int var5) {
@@ -703,295 +196,185 @@ public class RenderUtil {
         }
     }
 
-    public static void method11453(
-            float var0, float var1, float var2, float var3, ByteBuffer var4, int var5, float var6, float var7, float var8, float var9, boolean var10, boolean var11
-    ) {
-        if (var4 != null) {
-            RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-            var0 = (float)Math.round(var0);
-            var2 = (float)Math.round(var2);
-            var1 = (float)Math.round(var1);
-            var3 = (float)Math.round(var3);
-            float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-            float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-            float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-            float var17 = (float)(var5 & 0xFF) / 255.0F;
-            RenderSystem.enableBlend();
-            RenderSystem.disableTexture();
-            RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-            RenderSystem.color4f(var15, var16, var17, var14);
-            GL11.glEnable(3042);
-            GL11.glEnable(3553);
-            GL11.glPixelStorei(3312, 0);
-            GL11.glPixelStorei(3313, 0);
-            GL11.glPixelStorei(3314, 0);
-            GL11.glPixelStorei(3315, 0);
-            GL11.glPixelStorei(3316, 0);
-            GL11.glPixelStorei(3317, 4);
-            GL11.glTexParameteri(3553, 10240, 9728);
-            int var18 = GL11.glGenTextures();
-            GL11.glTexImage2D(3553, 0, 6407, (int)var8, (int)var9, 0, 6407, 5121, var4);
-            float var19 = var8 / var8 * 1.0F;
-            float var20 = var9 / var9 * 1.0F;
-            float var21 = var6 / var8 * 1.0F;
-            float var22 = var7 / var9 * 1.0F;
-            GL11.glBegin(7);
-            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? 0.0F : var20));
-            GL11.glVertex2f(var0, var1);
-            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? var20 : 0.0F));
-            GL11.glVertex2f(var0, var1 + var3);
-            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? var20 : 0.0F));
-            GL11.glVertex2f(var0 + var2, var1 + var3);
-            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? 0.0F : var20));
-            GL11.glVertex2f(var0 + var2, var1);
-            GL11.glEnd();
-            GL11.glDisable(3553);
-            GL11.glDisable(3042);
-            RenderSystem.enableTexture();
-            RenderSystem.disableBlend();
-        }
+    public static void renderBackgroundBox(float var0, float var1, float var2, float var3, int var4) {
+        drawRect(var0, var1, var0 + var2, var1 + var3, var4);
     }
 
-    public static void drawImage(float x, float y, float var2, float var3, Texture tex, float alphaValue) {
-        drawImage(x, y, var2, var3, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
+    public static void drawRect(float var0, float var1, float var2, float var3, float var4, int var5) {
+        drawRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
+        drawRect(var0 + var4, var1, var0 + var2 - var4, var1 + var4, var5);
+        drawRect(var0 + var4, var1 + var3 - var4, var0 + var2 - var4, var1 + var3, var5);
+        method11418(var0, var1, var0 + var4, var1 + var4);
+        method11438(var0 + var4, var1 + var4, var4 * 2.0F, var5);
+        endScissor();
+        method11418(var0 + var2 - var4, var1, var0 + var2, var1 + var4);
+        method11438(var0 - var4 + var2, var1 + var4, var4 * 2.0F, var5);
+        endScissor();
+        method11418(var0, var1 + var3 - var4, var0 + var4, var1 + var3);
+        method11438(var0 + var4, var1 - var4 + var3, var4 * 2.0F, var5);
+        endScissor();
+        method11418(var0 + var2 - var4, var1 + var3 - var4, var0 + var2, var1 + var3);
+        method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F, var5);
+        endScissor();
     }
 
-    public static void method11455(float var0, float var1, float var2, float var3, Texture var4) {
-        drawImage(var0, var1, var2, var3, var4, -1);
+    public static void method11418(float var0, float var1, float var2, float var3) {
+        method11421((int)var0, (int)var1, (int)var2, (int)var3, true);
     }
 
-    public static void method11456(float var0, float var1, float var2, float var3, Texture var4, float var5, float var6, float var7, float var8) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(var0 + var2 / 2.0F, var1 + var3 / 2.0F, 0.0F);
-        GL11.glRotatef(var5, var6, var7, var8);
-        GL11.glTranslatef(-var0 - var2 / 2.0F, -var1 - var3 / 2.0F, 0.0F);
-        method11455(var0, var1, var2, var3, var4);
-        GL11.glPopMatrix();
-    }
-
-    public static void method11457(float var0, float var1, float var2, float var3, int var4, float var5, float var6, float var7, float var8) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+    public static void method11438(float var0, float var1, float var2, int var3) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 0.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        var0 = (float)Math.round(var0);
-        var2 = (float)Math.round(var2);
-        var1 = (float)Math.round(var1);
-        var3 = (float)Math.round(var3);
-        float var11 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var12 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var14 = (float)(var4 & 0xFF) / 255.0F;
-        RenderSystem.enableBlend();
+        float var6 = (float)(var3 >> 24 & 0xFF) / 255.0F;
+        float var7 = (float)(var3 >> 16 & 0xFF) / 255.0F;
+        float var8 = (float)(var3 >> 8 & 0xFF) / 255.0F;
+        float var9 = (float)(var3 & 0xFF) / 255.0F;
+        Tessellator var10 = Tessellator.getInstance();
+        BufferBuilder var11 = var10.getBuffer();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var12, var13, var14, var11);
+        RenderSystem.color4f(var7, var8, var9, var6);
+        GL11.glEnable(2832);
         GL11.glEnable(3042);
-        GL11.glEnable(3553);
-        GL11.glPixelStorei(3312, 0);
-        GL11.glPixelStorei(3313, 0);
-        GL11.glPixelStorei(3314, 0);
-        GL11.glPixelStorei(3315, 0);
-        GL11.glPixelStorei(3316, 0);
-        GL11.glPixelStorei(3317, 4);
-        int var15 = GL11.glGenTextures();
-        float var16 = var7 / var7 * 1.0F;
-        float var17 = var8 / var8 * 1.0F;
-        float var18 = var5 / var7 * 1.0F;
-        float var19 = var6 / var8 * 1.0F;
-        GL11.glBegin(7);
-        GL11.glTexCoord2f(var18, var19);
+        GL11.glPointSize(var2 * GuiManager.scaleFactor);
+        GL11.glBegin(0);
         GL11.glVertex2f(var0, var1);
-        GL11.glTexCoord2f(var18, var19 + var17);
-        GL11.glVertex2f(var0, var1 + var3);
-        GL11.glTexCoord2f(var18 + var16, var19 + var17);
-        GL11.glVertex2f(var0 + var2, var1 + var3);
-        GL11.glTexCoord2f(var18 + var16, var19);
-        GL11.glVertex2f(var0 + var2, var1);
         GL11.glEnd();
-        GL11.glDisable(3553);
+        GL11.glDisable(2832);
         GL11.glDisable(3042);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
-    public static void method11458(float var0, float var1, float var2, int var3) {
-        float var6 = (float)System.nanoTime() / 5000000.0F % 360.0F;
-
-        for (int var7 = 0; var7 < 360; var7 = (int)((float)var7 + 51.42857F)) {
-            float var8 = (float)Math.cos((double)((float)var7 + var6) * Math.PI / 180.0) * var2;
-            float var9 = (float)Math.sin((double)((float)var7 + var6) * Math.PI / 180.0) * var2;
-            method11436(var0 + var8, var1 + var9, var2 / 4.0F, var3);
+    public static void drawRect(float var0, float var1, float var2, float var3, int var4) {
+        if (var0 < var2) {
+            int var7 = (int)var0;
+            var0 = var2;
+            var2 = (float)var7;
         }
+
+        if (var1 < var3) {
+            int var13 = (int)var1;
+            var1 = var3;
+            var3 = (float)var13;
+        }
+
+        float var14 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var8 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var9 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var10 = (float)(var4 & 0xFF) / 255.0F;
+        Tessellator var11 = Tessellator.getInstance();
+        BufferBuilder var12 = var11.getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.color4f(var8, var9, var10, var14);
+        var12.begin(7, DefaultVertexFormats.POSITION);
+        var12.pos((double)var0, (double)var3, 0.0).endVertex();
+        var12.pos((double)var2, (double)var3, 0.0).endVertex();
+        var12.pos((double)var2, (double)var1, 0.0).endVertex();
+        var12.pos((double)var0, (double)var1, 0.0).endVertex();
+        var11.draw();
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+    // draw string?
+    public static void method11440(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
+        method11441(var0, var1, var2, var3, var4, var5, var6, false);
     }
 
-    public static void render3DColoredBox(Box3D boxIn, int color) {
-        if (boxIn != null) {
-            float var4 = (float)(color >> 24 & 0xFF) / 255.0F;
-            float var5 = (float)(color >> 16 & 0xFF) / 255.0F;
-            float var6 = (float)(color >> 8 & 0xFF) / 255.0F;
-            float var7 = (float)(color & 0xFF) / 255.0F;
-            GL11.glColor4f(var5, var6, var7, var4);
-            GL11.glEnable(3042);
-            GL11.glDisable(3553);
-            GL11.glDisable(2896);
-            GL11.glLineWidth(1.8F * GuiManager.scaleFactor);
-            GL11.glBlendFunc(770, 771);
-            GL11.glEnable(2848);
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glBegin(7);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glEnable(3553);
-            GL11.glEnable(2896);
-            GL11.glDisable(2848);
-            GL11.glDisable(3042);
+    public static void method11441(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        int var10 = 0;
+        int var11 = 0;
+        switch (Class7820.field33554[var5.ordinal()]) {
+            case 1:
+                var10 = -var0.getStringWidth(var3) / 2;
+                break;
+            case 2:
+                var10 = -var0.getStringWidth(var3);
         }
+
+        switch (Class7820.field33554[var6.ordinal()]) {
+            case 1:
+                var11 = -var0.method23941(var3) / 2;
+                break;
+            case 3:
+                var11 = -var0.method23941(var3);
+        }
+
+        float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var13 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var14 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var15 = (float)(var4 & 0xFF) / 255.0F;
+        GL11.glPushMatrix();
+        boolean var16 = false;
+        if ((double) GuiManager.scaleFactor == 2.0) {
+            if (var0 == ResourceRegistry.JelloLightFont20) {
+                var0 = ResourceRegistry.JelloLightFont40;
+            } else if (var0 == ResourceRegistry.JelloLightFont25) {
+                var0 = ResourceRegistry.JelloLightFont50;
+            } else if (var0 == ResourceRegistry.JelloLightFont12) {
+                var0 = ResourceRegistry.JelloLightFont24;
+            } else if (var0 == ResourceRegistry.JelloLightFont14) {
+                var0 = ResourceRegistry.JelloLightFont28;
+            } else if (var0 == ResourceRegistry.JelloLightFont18) {
+                var0 = ResourceRegistry.JelloLightFont36;
+            } else if (var0 == ResourceRegistry.RegularFont20) {
+                var0 = ResourceRegistry.RegularFont40;
+            } else if (var0 == ResourceRegistry.JelloMediumFont20) {
+                var0 = ResourceRegistry.JelloMediumFont40;
+            } else if (var0 == ResourceRegistry.JelloMediumFont25) {
+                var0 = ResourceRegistry.JelloMediumFont50;
+            } else {
+                var16 = true;
+            }
+
+            if (!var16) {
+                float[] var17 = method11416((int)var1, (int)var2);
+                int var18 = (int)var17[0];
+                int var19 = (int)var17[1];
+                GL11.glTranslatef(var1, var2, 0.0F);
+                GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
+                GL11.glTranslatef(-var1, -var2, 0.0F);
+                var10 = (int)((float)var10 * GuiManager.scaleFactor);
+                var11 = (int)((float)var11 * GuiManager.scaleFactor);
+            }
+        }
+
+        RenderSystem.enableBlend();
+        GL11.glBlendFunc(770, 771);
+        if (var7) {
+            var0.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), var3, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+        }
+
+        if (var3 != null) {
+            var0.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new Color(var13, var14, var15, var12));
+        }
+
+        RenderSystem.disableBlend();
+        GL11.glPopMatrix();
     }
 
-    public static void method11460(Box3D var0, int var1, float var2) {
-        if (var0 != null) {
-            float var5 = (float)(var1 >> 24 & 0xFF) / 255.0F;
-            float var6 = (float)(var1 >> 16 & 0xFF) / 255.0F;
-            float var7 = (float)(var1 >> 8 & 0xFF) / 255.0F;
-            float var8 = (float)(var1 & 0xFF) / 255.0F;
-            GL11.glColor4f(var6, var7, var8, var5);
-            GL11.glPointSize(var2);
-            GL11.glEnable(3042);
-            GL11.glDisable(3553);
-            GL11.glDisable(2896);
-            GL11.glLineWidth(1.8F * GuiManager.scaleFactor);
-            GL11.glBlendFunc(770, 771);
-            GL11.glEnable(2848);
-            GL11.glBegin(0);
-            GL11.glVertex3d(var0.minX, var0.minY, var0.minZ);
-            GL11.glVertex3d(var0.minX, var0.maxY, var0.minZ);
-            GL11.glVertex3d(var0.maxX, var0.minY, var0.minZ);
-            GL11.glVertex3d(var0.maxX, var0.maxY, var0.minZ);
-            GL11.glVertex3d(var0.minX, var0.minY, var0.maxZ);
-            GL11.glVertex3d(var0.maxX, var0.minY, var0.maxZ);
-            GL11.glVertex3d(var0.maxX, var0.maxY, var0.maxZ);
-            GL11.glVertex3d(var0.minX, var0.maxY, var0.maxZ);
-            GL11.glEnd();
-            GL11.glEnable(3553);
-            GL11.glEnable(2896);
-            GL11.glDisable(2848);
-            GL11.glDisable(3042);
-        }
+    public static void method11415(CustomGuiScreen var0) {
+        method11421(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
     }
 
-    public static void renderWireframeBox(Box3D boxIn, int color) {
-        renderWireframeBox(boxIn, 2.8F, color);
+    public static void method11474(float var0, float var1, float var2, float var3, float var4, int var5) {
+        drawRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
+        drawRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, var5);
+        FloatBuffer var8 = BufferUtils.createFloatBuffer(16);
+        GL11.glGetFloatv(2982, var8);
+        float var9 = 1.0F;
+        method11438(var0 + var4, var1 + var4, var4 * 2.0F * var9, var5);
+        method11438(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
+        method11438(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, var5);
+        method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
     }
 
-    public static void renderWireframeBox(Box3D boxIn, float width, int color) {
-        if (boxIn != null) {
-            float var5 = (float)(color >> 24 & 0xFF) / 255.0F;
-            float var6 = (float)(color >> 16 & 0xFF) / 255.0F;
-            float var7 = (float)(color >> 8 & 0xFF) / 255.0F;
-            float var8 = (float)(color & 0xFF) / 255.0F;
-            GL11.glColor4f(var6, var7, var8, var5);
-            GL11.glDisable(3553);
-            GL11.glDisable(2896);
-            GL11.glLineWidth(width);
-            GL11.glEnable(2848);
-            GL11.glEnable(3042);
-            GL11.glBegin(3);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glEnd();
-            GL11.glBegin(3);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glEnd();
-            GL11.glBegin(1);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
-            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
-            GL11.glEnd();
-            GL11.glEnable(3553);
-            GL11.glEnable(2896);
-            GL11.glDisable(2848);
-            GL11.glDisable(3042);
-        }
+    public static void drawString(ClientResource var0, float var1, float var2, String var3, int var4) {
+        method11441(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
     }
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
@@ -1007,12 +390,8 @@ public class RenderUtil {
         method11450(var0, var1 + var3, var2, var4, Resources.shadowBottomPNG, var8, false);
     }
 
-    public static void method11464(float var0, float var1, float var2, float var3, float var4, float var5) {
-        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
-        method11450(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
-        method11450(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
-        method11450(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);
-        method11450(var0, var1 + var3 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
+    public static void startScissor(float var0, float var1, float var2, float var3) {
+        method11421((int)var0, (int)var1, (int)var0 + (int)var2, (int)var1 + (int)var3, true);
     }
 
     public static void method11465(int var0, int var1, int var2, int var3, int var4) {
@@ -1088,6 +467,84 @@ public class RenderUtil {
         endScissor();
     }
 
+    public static void method11448(float var0, float var1, float var2, float var3, Texture var4, int var5) {
+        if (var4 == null) {
+            return;
+        }
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), true);
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), false);
+    }
+
+    public static Rectangle method11413(Rectangle var0, float var1, float var2) {
+        float var5 = (float)var0.x;
+        float var6 = (float)var0.y;
+        float var7 = (float)var0.width;
+        float var8 = (float)var0.height;
+        int var9 = Math.round(var7 * var1);
+        int var10 = Math.round(var8 * var2);
+        float var11 = var7 - (float)var9;
+        float var12 = var8 - (float)var10;
+        int var13 = Math.round(var5 + var11 / 4.0F);
+        int var14 = Math.round(var6 + var12 / 6.0F);
+        return new Rectangle(var13, var14, var9, var10);
+    }
+
+    public static Rectangle method11414(CustomGuiScreen var0) {
+        return new Rectangle(var0.getXA(), var0.getYA(), var0.getWidthA(), var0.getHeightA());
+    }
+
+    public static void method11457(float var0, float var1, float var2, float var3, int var4, float var5, float var6, float var7, float var8) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        var0 = (float)Math.round(var0);
+        var2 = (float)Math.round(var2);
+        var1 = (float)Math.round(var1);
+        var3 = (float)Math.round(var3);
+        float var11 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var12 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var13 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var14 = (float)(var4 & 0xFF) / 255.0F;
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+        RenderSystem.color4f(var12, var13, var14, var11);
+        GL11.glEnable(3042);
+        GL11.glEnable(3553);
+        GL11.glPixelStorei(3312, 0);
+        GL11.glPixelStorei(3313, 0);
+        GL11.glPixelStorei(3314, 0);
+        GL11.glPixelStorei(3315, 0);
+        GL11.glPixelStorei(3316, 0);
+        GL11.glPixelStorei(3317, 4);
+        int var15 = GL11.glGenTextures();
+        float var16 = var7 / var7 * 1.0F;
+        float var17 = var8 / var8 * 1.0F;
+        float var18 = var5 / var7 * 1.0F;
+        float var19 = var6 / var8 * 1.0F;
+        GL11.glBegin(7);
+        GL11.glTexCoord2f(var18, var19);
+        GL11.glVertex2f(var0, var1);
+        GL11.glTexCoord2f(var18, var19 + var17);
+        GL11.glVertex2f(var0, var1 + var3);
+        GL11.glTexCoord2f(var18 + var16, var19 + var17);
+        GL11.glVertex2f(var0 + var2, var1 + var3);
+        GL11.glTexCoord2f(var18 + var16, var19);
+        GL11.glVertex2f(var0 + var2, var1);
+        GL11.glEnd();
+        GL11.glDisable(3553);
+        GL11.glDisable(3042);
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+
+    public static void method11464(float var0, float var1, float var2, float var3, float var4, float var5) {
+        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
+        method11450(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
+        method11450(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
+        method11450(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);
+        method11450(var0, var1 + var3 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
+    }
+
     public static void method11467(int var0, int var1, int var2, int var3, int var4) {
         int var7 = 36;
         int var8 = 10;
@@ -1157,17 +614,219 @@ public class RenderUtil {
         endScissor();
     }
 
-    public static void resetDepthBuffer() {
-        // Retrieve the current framebuffer instance
-        Framebuffer currentFramebuffer = Minecraft.getInstance().getFramebuffer();
+    public static void method11436(float var0, float var1, float var2, int var3) {
+        method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
+    }
 
-        // Check if the framebuffer exists and has a valid depth buffer
-        if (currentFramebuffer != null && currentFramebuffer.depthBuffer > -1) {
-            // Recreate the depth buffer
-            recreateDepthBuffer(currentFramebuffer);
-            // Set the depth buffer to an invalid state
-            currentFramebuffer.depthBuffer = -1;
+    public static void method11445(float var0, float var1, float var2, float var3, float var4, int var5) {
+        method11446(var0, var1, var2, var3, var4, var4, var5);
+    }
+
+
+    public static void method11446(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        float var9 = 0.0F;
+        if (var2 > var3) {
+            var9 = var3;
+            var3 = var2;
+            var2 = var9;
         }
+
+        float var10 = (float)(var6 >> 24 & 0xFF) / 255.0F;
+        float var11 = (float)(var6 >> 16 & 0xFF) / 255.0F;
+        float var12 = (float)(var6 >> 8 & 0xFF) / 255.0F;
+        float var13 = (float)(var6 & 0xFF) / 255.0F;
+        Tessellator var14 = Tessellator.getInstance();
+        BufferBuilder var15 = var14.getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+        RenderSystem.color4f(var11, var12, var13, var10);
+        if (var10 > 0.5F) {
+            GL11.glEnable(2848);
+            GL11.glLineWidth(2.0F);
+            GL11.glBegin(3);
+
+            for (float var16 = var3; var16 >= var2; var16 -= 4.0F) {
+                float var17 = (float)Math.cos((double)var16 * Math.PI / 180.0) * var4 * 1.001F;
+                float var18 = (float)Math.sin((double)var16 * Math.PI / 180.0) * var5 * 1.001F;
+                GL11.glVertex2f(var0 + var17, var1 + var18);
+            }
+
+            GL11.glEnd();
+            GL11.glDisable(2848);
+        }
+
+        GL11.glBegin(6);
+
+        for (float var20 = var3; var20 >= var2; var20 -= 4.0F) {
+            float var21 = (float)Math.cos((double)var20 * Math.PI / 180.0) * var4;
+            float var22 = (float)Math.sin((double)var20 * Math.PI / 180.0) * var5;
+            GL11.glVertex2f(var0 + var21, var1 + var22);
+        }
+
+        GL11.glEnd();
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+
+    public static String method17736(int var0) {
+        for (Class2287 var6 : Class2287.values()) {
+            if (var6.field15204 == var0) {
+                return var6.field15201;
+            }
+        }
+
+        InputMappings.Input var7 = InputMappings.getInputByCode(var0, 0);
+        String[] var8 = var7.getTranslationKey().split("\\.");
+        if (var8.length != 0) {
+            String var9 = var8[var8.length - 1];
+            if (!var9.isEmpty()) {
+                String var10 = "";
+                if (var0 <= 4) {
+                    var10 = "Mouse ";
+                }
+
+                return var10 + var9.substring(0, 1).toUpperCase() + var9.substring(1);
+            } else {
+                return "Unknown";
+            }
+        } else {
+            return "Unknown";
+        }
+    }
+
+    public static void method11429(float var0, float var1, float var2, float var3, int var4, int var5) {
+        drawRect(var0, var3 - (float)var4, var2 - (float)var4, var3, var5);
+        drawRect(var0, var1, var2 - (float)var4, var1 + (float)var4, var5);
+        drawRect(var0, var1 + (float)var4, var0 + (float)var4, var3 - (float)var4, var5);
+        drawRect(var2 - (float)var4, var1, var2, var3, var5);
+    }
+
+    public static void method11434(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        float var9 = (float)(var6 >> 24 & 0xFF) / 255.0F;
+        float var10 = (float)(var6 >> 16 & 0xFF) / 255.0F;
+        float var11 = (float)(var6 >> 8 & 0xFF) / 255.0F;
+        float var12 = (float)(var6 & 0xFF) / 255.0F;
+        Tessellator var13 = Tessellator.getInstance();
+        BufferBuilder var14 = var13.getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+        RenderSystem.color4f(var10, var11, var12, var9);
+        GL11.glBegin(6);
+        GL11.glVertex2f(var0, var1);
+        GL11.glVertex2f(var4, var5);
+        GL11.glVertex2f(var2, var3);
+        GL11.glVertex2f(var0, var1);
+        GL11.glEnd();
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+
+    public static void method11428(float var0, float var1, float var2, float var3, int var4) {
+        method11429(var0, var1, var2, var3, 1, var4);
+    }
+
+    public static void method11431(int var0, int var1, int var2, int var3, int var4, int var5) {
+        float var8 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var9 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var10 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var11 = (float)(var4 & 0xFF) / 255.0F;
+        float var12 = (float)(var5 >> 24 & 0xFF) / 255.0F;
+        float var13 = (float)(var5 >> 16 & 0xFF) / 255.0F;
+        float var14 = (float)(var5 >> 8 & 0xFF) / 255.0F;
+        float var15 = (float)(var5 & 0xFF) / 255.0F;
+        RenderSystem.disableTexture();
+        RenderSystem.enableBlend();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.shadeModel(7425);
+        Tessellator var16 = Tessellator.getInstance();
+        BufferBuilder var17 = var16.getBuffer();
+        var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        var17.pos((double)var2, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos((double)var0, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos((double)var0, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var17.pos((double)var2, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var16.draw();
+        RenderSystem.shadeModel(7424);
+        RenderSystem.disableBlend();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.enableTexture();
+    }
+
+    public static void method11432(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+        float var10 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var11 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var12 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var13 = (float)(var4 & 0xFF) / 255.0F;
+        float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
+        float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
+        float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
+        float var17 = (float)(var5 & 0xFF) / 255.0F;
+        float var18 = (float)(var6 >> 24 & 0xFF) / 255.0F;
+        float var19 = (float)(var6 >> 16 & 0xFF) / 255.0F;
+        float var20 = (float)(var6 >> 8 & 0xFF) / 255.0F;
+        float var21 = (float)(var6 & 0xFF) / 255.0F;
+        float var22 = (float)(var7 >> 24 & 0xFF) / 255.0F;
+        float var23 = (float)(var7 >> 16 & 0xFF) / 255.0F;
+        float var24 = (float)(var7 >> 8 & 0xFF) / 255.0F;
+        float var25 = (float)(var7 & 0xFF) / 255.0F;
+        RenderSystem.disableTexture();
+        RenderSystem.enableBlend();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.shadeModel(7425);
+        Tessellator var26 = Tessellator.getInstance();
+        BufferBuilder var27 = var26.getBuffer();
+        var27.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        var27.pos((double)var2, (double)var1, 0.0).color(var15, var16, var17, var14).endVertex();
+        var27.pos((double)var0, (double)var1, 0.0).color(var11, var12, var13, var10).endVertex();
+        var27.pos((double)var0, (double)var3, 0.0).color(var23, var24, var25, var22).endVertex();
+        var27.pos((double)var2, (double)var3, 0.0).color(var19, var20, var21, var18).endVertex();
+        var26.draw();
+        RenderSystem.shadeModel(7424);
+        RenderSystem.disableBlend();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.enableTexture();
+    }
+
+    public static void renderCategoryBox(float var0, float var1, float var2, int var3, int var4) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        Tessellator var7 = Tessellator.getInstance();
+        BufferBuilder var8 = var7.getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+        GL11.glColor4fv(ColorUtils.method17709(var3));
+        GL11.glEnable(2881);
+        GL11.glBegin(4);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
+        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
+        GL11.glEnd();
+        GL11.glLineWidth(2.0F);
+        GL11.glColor4fv(ColorUtils.method17709(var4));
+        GL11.glBegin(3);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
+        GL11.glEnd();
+        GL11.glBegin(3);
+        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 - var2 / 2.0F);
+        GL11.glEnd();
+        GL11.glBegin(3);
+        GL11.glVertex2f(var0 + var2 / 2.0F, var1 + var2 / 2.0F);
+        GL11.glVertex2f(var0 - var2 / 2.0F, var1);
+        GL11.glEnd();
+        GL11.glDisable(2881);
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
     }
 
     public static void recreateDepthBuffer(Framebuffer frameBuffer) {
@@ -1179,49 +838,17 @@ public class RenderUtil {
         EXTFramebufferObject.glFramebufferRenderbufferEXT(36160, 36096, 36161, newDepthBuffer);
     }
 
-    public static void method11471(float var0, float var1, float var2, float var3, float var4) {
-        method11476();
-        method11472(var0, var1, var2, var3, var4, -1);
-        method11477(Class2329.field15940);
-    }
+    public static void resetDepthBuffer() {
+        // Retrieve the current framebuffer instance
+        Framebuffer currentFramebuffer = Minecraft.getInstance().getFramebuffer();
 
-    public static void method11472(float var0, float var1, float var2, float var3, float var4, int var5) {
-        method11436(var0 + var4, var1 + var4, var4, var5);
-        method11436(var0 - var4 + var2, var1 + var4, var4, var5);
-        method11436(var0 + var4, var1 - var4 + var3, var4, var5);
-        method11436(var0 - var4 + var2, var1 - var4 + var3, var4, var5);
-        drawRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
-        drawRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, var5);
-    }
-
-    public static void method11474(float var0, float var1, float var2, float var3, float var4, int var5) {
-        drawRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
-        drawRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, var5);
-        FloatBuffer var8 = BufferUtils.createFloatBuffer(16);
-        GL11.glGetFloatv(2982, var8);
-        float var9 = 1.0F;
-        method11438(var0 + var4, var1 + var4, var4 * 2.0F * var9, var5);
-        method11438(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
-        method11438(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, var5);
-        method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
-    }
-
-    public static void drawRect(float var0, float var1, float var2, float var3, float var4, int var5) {
-        drawRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
-        drawRect(var0 + var4, var1, var0 + var2 - var4, var1 + var4, var5);
-        drawRect(var0 + var4, var1 + var3 - var4, var0 + var2 - var4, var1 + var3, var5);
-        method11418(var0, var1, var0 + var4, var1 + var4);
-        method11438(var0 + var4, var1 + var4, var4 * 2.0F, var5);
-        endScissor();
-        method11418(var0 + var2 - var4, var1, var0 + var2, var1 + var4);
-        method11438(var0 - var4 + var2, var1 + var4, var4 * 2.0F, var5);
-        endScissor();
-        method11418(var0, var1 + var3 - var4, var0 + var4, var1 + var3);
-        method11438(var0 + var4, var1 - var4 + var3, var4 * 2.0F, var5);
-        endScissor();
-        method11418(var0 + var2 - var4, var1 + var3 - var4, var0 + var2, var1 + var3);
-        method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F, var5);
-        endScissor();
+        // Check if the framebuffer exists and has a valid depth buffer
+        if (currentFramebuffer != null && currentFramebuffer.depthBuffer > -1) {
+            // Recreate the depth buffer
+            recreateDepthBuffer(currentFramebuffer);
+            // Set the depth buffer to an invalid state
+            currentFramebuffer.depthBuffer = -1;
+        }
     }
 
     public static void method11476() {
@@ -1237,6 +864,13 @@ public class RenderUtil {
         field18461 = true;
     }
 
+    public static void method11478() {
+        GL11.glStencilMask(-1);
+        GL11.glDisable(2960);
+        GL11.glPopMatrix();
+        field18461 = false;
+    }
+
     public static void method11477(Class2329 var0) {
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(true);
@@ -1244,11 +878,52 @@ public class RenderUtil {
         GL11.glStencilFunc(var0 != Class2329.field15940 ? 517 : 514, 1, 1);
     }
 
-    public static void method11478() {
-        GL11.glStencilMask(-1);
-        GL11.glDisable(2960);
-        GL11.glPopMatrix();
-        field18461 = false;
+    public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int var5, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {
+        if (var4 != null) {
+            RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+            var0 = (float)Math.round(var0);
+            var2 = (float)Math.round(var2);
+            var1 = (float)Math.round(var1);
+            var3 = (float)Math.round(var3);
+            float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
+            float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
+            float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
+            float var17 = (float)(var5 & 0xFF) / 255.0F;
+            RenderSystem.enableBlend();
+            RenderSystem.disableTexture();
+            RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.color4f(var15, var16, var17, var14);
+            GL11.glEnable(3042);
+            GL11.glEnable(3553);
+            GL11.glPixelStorei(3312, 0);
+            GL11.glPixelStorei(3313, 0);
+            GL11.glPixelStorei(3314, 0);
+            GL11.glPixelStorei(3315, 0);
+            GL11.glPixelStorei(3316, 0);
+            GL11.glPixelStorei(3317, 4);
+            GL11.glTexParameteri(3553, 10240, 9728);
+            int var18 = GL11.glGenTextures();
+            GL11.glTexImage2D(3553, 0, 6407, (int)var8, (int)var9, 0, 6407, 5121, var4);
+            float var19 = var8 / var8 * 1.0F;
+            float var20 = var9 / var9 * 1.0F;
+            float var21 = var6 / var8 * 1.0F;
+            float var22 = var7 / var9 * 1.0F;
+            GL11.glBegin(7);
+            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? 0.0F : var20));
+            GL11.glVertex2f(var0, var1);
+            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? var20 : 0.0F));
+            GL11.glVertex2f(var0, var1 + var3);
+            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? var20 : 0.0F));
+            GL11.glVertex2f(var0 + var2, var1 + var3);
+            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? 0.0F : var20));
+            GL11.glVertex2f(var0 + var2, var1);
+            GL11.glEnd();
+            GL11.glDisable(3553);
+            GL11.glDisable(3042);
+            RenderSystem.enableTexture();
+            RenderSystem.disableBlend();
+        }
     }
 
     public static void method11479(ItemStack var0, int var1, int var2, int var3, int var4) {
@@ -1275,25 +950,10 @@ public class RenderUtil {
             GL11.glAlphaFunc(519, 0.0F);
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
             RenderSystem.disableDepthTest();
-            TextureImpl.unbind();
+            TextureImpl.method36180();
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
             RenderHelper.setupGui3DDiffuseLighting();
         }
-    }
-
-    public static void method11480(ItemStack var0, int var1, int var2, float var3) {
-        GL11.glPushMatrix();
-        RenderSystem.matrixMode(5888);
-        RenderSystem.loadIdentity();
-        mc.getItemRenderer().zLevel -= 1101.0F;
-        RenderSystem.scaled(1.0 / mc.getMainWindow().getGuiScaleFactor(), 1.0 / mc.getMainWindow().getGuiScaleFactor(), 1.0);
-        RenderSystem.translatef((float)var1, (float)var2, 0.0F);
-        RenderSystem.scalef(var3 / 16.0F, var3 / 16.0F, 1.0F);
-        mc.getItemRenderer().renderItemIntoGUI(var0, 0, 0);
-        mc.getItemRenderer().zLevel += 1101.0F;
-        TextureImpl.unbind();
-        mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
-        GL11.glPopMatrix();
     }
 
     public static java.awt.Color getColorFromScreen(int mouseX, int mouseY, java.awt.Color var2) {
@@ -1303,29 +963,5 @@ public class RenderUtil {
         GL11.glPixelStorei(3317, 1);
         GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, 6407, 5120, var5);
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
-    }
-
-    public static double[] worldToScreen(double x, double y, double z) {
-        FloatBuffer screenCoords = BufferUtils.createFloatBuffer(3);
-        IntBuffer viewport = BufferUtils.createIntBuffer(16);
-        FloatBuffer modelViewMatrix = BufferUtils.createFloatBuffer(16);
-        FloatBuffer projectionMatrix = BufferUtils.createFloatBuffer(16);
-
-        // Get the current OpenGL matrices and viewport
-        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, modelViewMatrix);
-        GL11.glGetFloatv(GL11.GL_PROJECTION_MATRIX, projectionMatrix);
-        GL11.glGetIntegerv(GL11.GL_VIEWPORT, viewport);
-
-        // Project the world coordinates to screen coordinates
-        boolean isSuccessful = MultiUtilities.projectToScreen((float) x, (float) y, (float) z, modelViewMatrix, projectionMatrix, viewport, screenCoords);
-
-        // Return the screen coordinates if successful, otherwise return null
-        return !isSuccessful
-                ? null
-                : new double[] {
-                (double) (screenCoords.get(0) / GuiManager.scaleFactor),
-                (double) (((float) mc.getFramebuffer().framebufferHeight - screenCoords.get(1)) / GuiManager.scaleFactor),
-                (double) screenCoords.get(2)
-        };
     }
 }

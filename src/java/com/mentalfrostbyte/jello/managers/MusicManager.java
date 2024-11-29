@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.impl.music.*;
 import com.mentalfrostbyte.jello.gui.unmapped.Class9275;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.minecraft.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
 import com.sapher.youtubedl.YoutubeDL;
@@ -29,7 +29,6 @@ import net.sourceforge.jaad.mp4.api.Frame;
 import net.sourceforge.jaad.mp4.api.Movie;
 import net.sourceforge.jaad.mp4.api.Track;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONException;
@@ -347,6 +346,7 @@ public class MusicManager {
 
                         for (int var4 = this.field32159; var4 < this.field32145.youtubeVideos.size(); var4++) {
                             URL var5 = Class9275.method34960(this.field32145.youtubeVideos.get(var4).videoId);
+                            Client.getInstance().getLogger().dummyMethod(var5.toString());
                             this.field32157 = var4;
                             this.field32160 = this.field32145.youtubeVideos.get(var4);
                             this.field32163.clear();
@@ -365,7 +365,7 @@ public class MusicManager {
                             try {
                                 System.out.println(var5);
                                 URL var28 = this.method24323(var5);
-                                Client.getInstance().getLogger().warn(var28 == null ? "No stream" : var28.toString());
+                                Client.getInstance().getLogger().dummyMethod(var28 == null ? "No stream" : var28.toString());
                                 if (var28 != null) {
                                     URLConnection var7 = var28.openConnection();
                                     var7.setConnectTimeout(14000);
@@ -379,7 +379,7 @@ public class MusicManager {
                                     Movie movie = mp4Container.getMovie();
                                     List<Track> var12 = movie.getTracks();
                                     if (var12.isEmpty()) {
-                                        Client.getInstance().getLogger().warn("No content");
+                                        Client.getInstance().getLogger().dummyMethod("No content");
                                     }
 
                                     AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
@@ -663,7 +663,7 @@ public class MusicManager {
     }
 
     public void method24331() {
-        Client.getInstance().getLogger().info("Updating dependencies threaded");
+        Client.getInstance().getLogger().dummyMethod("Updating dependencies threaded");
         new Thread(this::download).start();
     }
 
@@ -680,7 +680,7 @@ public class MusicManager {
 
                 File targetFile = new File(Client.getInstance().file + "/music/" + fileName);
 
-                String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/2024.11.04" + fileName;
+                String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/2024.10.22/" + fileName;
                 try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
                      FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
                     byte[] dataBuffer = new byte[1024];

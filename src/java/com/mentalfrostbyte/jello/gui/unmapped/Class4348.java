@@ -11,7 +11,6 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.codec.binary.Base64;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.Texture;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -256,7 +255,7 @@ public class Class4348 extends Class4278 {
    }
 
    @Override
-   public boolean mouseClicked(int var1, int var2, int var3) {
+   public boolean method13078(int var1, int var2, int var3) {
       return false;
    }
 }
