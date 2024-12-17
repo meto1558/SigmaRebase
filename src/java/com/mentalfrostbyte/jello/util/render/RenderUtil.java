@@ -282,50 +282,50 @@ public class RenderUtil {
         drawString(res, var1, var2, string, var4, var5, var6, false);
     }
 
-    public static void drawString(ClientResource res, float var1, float var2, String string, int var4, Class2218 var5, Class2218 var6, boolean var7) {
+    public static void drawString(ClientResource font, float var1, float var2, String string, int color, Class2218 var5, Class2218 var6, boolean var7) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
         switch (Class7820.field33554[var5.ordinal()]) {
             case 1:
-                var10 = -res.getStringWidth(string) / 2;
+                var10 = -font.getStringWidth(string) / 2;
                 break;
             case 2:
-                var10 = -res.getStringWidth(string);
+                var10 = -font.getStringWidth(string);
         }
 
         switch (Class7820.field33554[var6.ordinal()]) {
             case 1:
-                var11 = -res.method23941(string) / 2;
+                var11 = -font.method23941(string) / 2;
                 break;
             case 3:
-                var11 = -res.method23941(string);
+                var11 = -font.method23941(string);
         }
 
-        float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var14 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var15 = (float)(var4 & 0xFF) / 255.0F;
+        float var12 = (float)(color >> 24 & 0xFF) / 255.0F;
+        float var13 = (float)(color >> 16 & 0xFF) / 255.0F;
+        float var14 = (float)(color >> 8 & 0xFF) / 255.0F;
+        float var15 = (float)(color & 0xFF) / 255.0F;
         GL11.glPushMatrix();
         boolean var16 = false;
         if ((double) GuiManager.scaleFactor == 2.0) {
-            if (res == ResourceRegistry.JelloLightFont20) {
-                res = ResourceRegistry.JelloLightFont40;
-            } else if (res == ResourceRegistry.JelloLightFont25) {
-                res = ResourceRegistry.JelloLightFont50;
-            } else if (res == ResourceRegistry.JelloLightFont12) {
-                res = ResourceRegistry.JelloLightFont24;
-            } else if (res == ResourceRegistry.JelloLightFont14) {
-                res = ResourceRegistry.JelloLightFont28;
-            } else if (res == ResourceRegistry.JelloLightFont18) {
-                res = ResourceRegistry.JelloLightFont36;
-            } else if (res == ResourceRegistry.RegularFont20) {
-                res = ResourceRegistry.RegularFont40;
-            } else if (res == ResourceRegistry.JelloMediumFont20) {
-                res = ResourceRegistry.JelloMediumFont40;
-            } else if (res == ResourceRegistry.JelloMediumFont25) {
-                res = ResourceRegistry.JelloMediumFont50;
+            if (font == ResourceRegistry.JelloLightFont20) {
+                font = ResourceRegistry.JelloLightFont40;
+            } else if (font == ResourceRegistry.JelloLightFont25) {
+                font = ResourceRegistry.JelloLightFont50;
+            } else if (font == ResourceRegistry.JelloLightFont12) {
+                font = ResourceRegistry.JelloLightFont24;
+            } else if (font == ResourceRegistry.JelloLightFont14) {
+                font = ResourceRegistry.JelloLightFont28;
+            } else if (font == ResourceRegistry.JelloLightFont18) {
+                font = ResourceRegistry.JelloLightFont36;
+            } else if (font == ResourceRegistry.RegularFont20) {
+                font = ResourceRegistry.RegularFont40;
+            } else if (font == ResourceRegistry.JelloMediumFont20) {
+                font = ResourceRegistry.JelloMediumFont40;
+            } else if (font == ResourceRegistry.JelloMediumFont25) {
+                font = ResourceRegistry.JelloMediumFont50;
             } else {
                 var16 = true;
             }
@@ -345,11 +345,11 @@ public class RenderUtil {
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
         if (var7) {
-            res.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), string, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+            font.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), string, new Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
         if (string != null) {
-            res.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), string, new Color(var13, var14, var15, var12));
+            font.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), string, new Color(var13, var14, var15, var12));
         }
 
         RenderSystem.disableBlend();
@@ -372,8 +372,8 @@ public class RenderUtil {
         method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
     }
 
-    public static void drawString(ClientResource var0, float var1, float var2, String var3, int var4) {
-        drawString(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
+    public static void drawString(ClientResource font, float var1, float var2, String string, int color) {
+        drawString(font, var1, var2, string, color, Class2218.field14488, Class2218.field14489, false);
     }
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
