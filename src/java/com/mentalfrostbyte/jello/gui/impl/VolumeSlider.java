@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4247;
+import com.mentalfrostbyte.jello.gui.unmapped.PanelBase;
 import com.mentalfrostbyte.jello.gui.unmapped.Class6649;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VolumeSlider extends Class4247 {
+public class VolumeSlider extends PanelBase {
    private static String[] field21371;
    private float field21372 = 1.0F;
    private boolean field21373 = false;

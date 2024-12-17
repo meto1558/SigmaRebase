@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
-public class Class4370 extends Class4247 {
+public class Class4370 extends PanelBase {
    private static String[] field21362;
    private float field21363;
    public boolean field21364 = false;

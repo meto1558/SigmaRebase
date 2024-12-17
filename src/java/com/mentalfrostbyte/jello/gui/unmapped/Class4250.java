@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class4250 extends Class4247 {
+public class Class4250 extends PanelBase {
    private Class4279 field20608;
    private Class4279 field20609;
    public int field20610 = 30;

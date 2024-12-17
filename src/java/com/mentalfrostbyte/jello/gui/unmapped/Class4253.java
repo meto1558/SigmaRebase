@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 import java.util.Date;
 
-public class Class4253 extends Class4247 {
+public class Class4253 extends PanelBase {
    public float field20623;
    public Class6984 field20624;
    public Date field20625;

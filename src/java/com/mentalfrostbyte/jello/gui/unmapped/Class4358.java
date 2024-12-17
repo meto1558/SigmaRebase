@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class Class4358 extends Class4247 {
+public class Class4358 extends PanelBase {
    public Animation field21302;
    public int field21303;
    public int field21304;

@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 
-public class Class4257 extends Class4247 {
+public class Class4257 extends PanelBase {
    public UIInput field20639;
    public String field20640;
 

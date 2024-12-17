@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
-public class Class4272 extends Class4247 {
+public class Class4272 extends PanelBase {
    public Animation field20703 = new Animation(300, 200, Direction.BACKWARDS);
    private final int field20704;
    private Class4339 field20705;

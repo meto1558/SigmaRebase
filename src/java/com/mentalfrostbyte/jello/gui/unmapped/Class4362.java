@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class4362 extends Class4247 {
+public class Class4362 extends PanelBase {
    private static String[] field20602;
    public static final ColorHelper field21322 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> field21323 = new ArrayList<String>();

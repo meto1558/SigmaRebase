@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
-public class AccountSignUpScreen extends Class4247 {
+public class AccountSignUpScreen extends PanelBase {
    private UITextDisplay stringPanel;
    private UIInput usernameInputBox;
    private UIInput emailInputBox;

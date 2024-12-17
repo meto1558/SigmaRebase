@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AlertPanel extends Class4247 {
+public class AlertPanel extends PanelBase {
    public CustomGuiScreen field21279;
    public String field21280;
    public Texture field21281;

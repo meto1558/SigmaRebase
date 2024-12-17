@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.util.Util;
 
-public class LoginScreen extends Class4247 {
+public class LoginScreen extends PanelBase {
     private UIInput inputUsername;
    private UIInput inputPassword;
    private UIInput field21355;

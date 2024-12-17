@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl;
 
 import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4247;
+import com.mentalfrostbyte.jello.gui.unmapped.PanelBase;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4343;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class ModuleSettingUI extends Class4247 {
+public class ModuleSettingUI extends PanelBase {
    public Animation animation1;
    public Animation animation;
    public int y;

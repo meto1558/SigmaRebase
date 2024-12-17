@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
-public class Class4261 extends Class4247 {
+public class Class4261 extends PanelBase {
    private static String[] field20672;
    public Class7312 field20673;
 

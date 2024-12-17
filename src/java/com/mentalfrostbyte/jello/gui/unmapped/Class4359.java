@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
-public class Class4359 extends Class4247 {
+public class Class4359 extends PanelBase {
    private static String[] field21313;
    private MusicManager field21314 = Client.getInstance().musicManager;
    public float field21315 = -1.0F;

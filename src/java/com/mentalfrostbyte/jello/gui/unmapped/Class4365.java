@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mentalfrostbyte.jello.util.render.Texture;
 import net.minecraft.client.Minecraft;
 
-public class Class4365 extends Class4247 {
+public class Class4365 extends PanelBase {
    public float field21334 = 0.0F;
    public int field21337;
    public int field21338;

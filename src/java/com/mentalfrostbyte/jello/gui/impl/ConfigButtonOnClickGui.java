@@ -19,7 +19,7 @@ import totalcross.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigButtonOnClickGui extends Class4247 {
+public class ConfigButtonOnClickGui extends PanelBase {
    private List<ButtonPanel> field21297 = new ArrayList<ButtonPanel>();
    public final Animation field21298;
    public Class4339 field21299;

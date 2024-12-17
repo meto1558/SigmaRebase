@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Class4266 extends Class4247 {
+public class Class4266 extends PanelBase {
    public int field20684;
    public List<Class7086> field20685 = new ArrayList<Class7086>();
    public int field20686 = 0;
