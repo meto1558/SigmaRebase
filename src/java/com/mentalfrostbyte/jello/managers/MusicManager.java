@@ -719,12 +719,17 @@ public class MusicManager {
         if (Util.getOSType() == Util.OS.WINDOWS) {
             return true;
         } else {
-            File var3 = new File("/usr/local/bin/python");
+            String path = "/usr/bin/python";
+            File var3 = new File(path);
+            if (!var3.exists()) {
+                path = "/usr/local/bin/python";
+                var3 = new File(path);
+            }
             if (var3.exists()) {
                 Process var4;
 
                 try {
-                    var4 = new ProcessBuilder("/usr/local/bin/python", "-V").start();
+                    var4 = new ProcessBuilder(path, "-V").start();
                     InputStream var5 = var4.getErrorStream();
                     InputStreamReader var6 = new InputStreamReader(var5);
                     BufferedReader bufferedReader = new BufferedReader(var6);
@@ -732,7 +737,7 @@ public class MusicManager {
                     String version;
                     try {
                         while ((version = bufferedReader.readLine()) != null) {
-                            if (version.contains("3.12.5")) {
+                            if (version.contains("3.12")) { // I will NOT downgrade python for this
                                 return true;
                             }
                         }
