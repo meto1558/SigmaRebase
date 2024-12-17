@@ -9,13 +9,10 @@ import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.NetworkUtil;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
@@ -73,7 +70,7 @@ public class Coords extends Module {
                     GL11.glTranslatef(var6, (float) (var7 + 10), 0.0F);
                     GL11.glScalef(var10, var10, 1.0F);
                     GL11.glTranslatef(-var6, (float) (-var7 - 10), 0.0F);
-                    RenderUtil.method11440(
+                    RenderUtil.drawString(
                             ResourceRegistry.JelloLightFont18_1,
                             var6,
                             (float) var7,
@@ -82,7 +79,7 @@ public class Coords extends Module {
                             Class2218.field14492,
                             Class2218.field14488
                     );
-                    RenderUtil.method11440(
+                    RenderUtil.drawString(
                             ResourceRegistry.JelloLightFont18,
                             var6,
                             (float) var7,

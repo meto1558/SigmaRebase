@@ -56,7 +56,7 @@ public class PNGIconButton extends ButtonPanel {
          )
       );
       if (this.getTypedText() != null) {
-         RenderUtil.method11440(
+         RenderUtil.drawString(
             this.getFont(),
             (float)(this.getXA() + this.getWidthA() / 2),
             (float)(this.getYA() + this.getHeightA() / 2),

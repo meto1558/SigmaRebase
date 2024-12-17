@@ -278,30 +278,29 @@ public class RenderUtil {
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
-    // draw string?
-    public static void method11440(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6) {
-        method11441(var0, var1, var2, var3, var4, var5, var6, false);
+    public static void drawString(ClientResource res, float var1, float var2, String string, int var4, Class2218 var5, Class2218 var6) {
+        drawString(res, var1, var2, string, var4, var5, var6, false);
     }
 
-    public static void method11441(ClientResource var0, float var1, float var2, String var3, int var4, Class2218 var5, Class2218 var6, boolean var7) {
+    public static void drawString(ClientResource res, float var1, float var2, String string, int var4, Class2218 var5, Class2218 var6, boolean var7) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
         switch (Class7820.field33554[var5.ordinal()]) {
             case 1:
-                var10 = -var0.getStringWidth(var3) / 2;
+                var10 = -res.getStringWidth(string) / 2;
                 break;
             case 2:
-                var10 = -var0.getStringWidth(var3);
+                var10 = -res.getStringWidth(string);
         }
 
         switch (Class7820.field33554[var6.ordinal()]) {
             case 1:
-                var11 = -var0.method23941(var3) / 2;
+                var11 = -res.method23941(string) / 2;
                 break;
             case 3:
-                var11 = -var0.method23941(var3);
+                var11 = -res.method23941(string);
         }
 
         float var12 = (float)(var4 >> 24 & 0xFF) / 255.0F;
@@ -311,22 +310,22 @@ public class RenderUtil {
         GL11.glPushMatrix();
         boolean var16 = false;
         if ((double) GuiManager.scaleFactor == 2.0) {
-            if (var0 == ResourceRegistry.JelloLightFont20) {
-                var0 = ResourceRegistry.JelloLightFont40;
-            } else if (var0 == ResourceRegistry.JelloLightFont25) {
-                var0 = ResourceRegistry.JelloLightFont50;
-            } else if (var0 == ResourceRegistry.JelloLightFont12) {
-                var0 = ResourceRegistry.JelloLightFont24;
-            } else if (var0 == ResourceRegistry.JelloLightFont14) {
-                var0 = ResourceRegistry.JelloLightFont28;
-            } else if (var0 == ResourceRegistry.JelloLightFont18) {
-                var0 = ResourceRegistry.JelloLightFont36;
-            } else if (var0 == ResourceRegistry.RegularFont20) {
-                var0 = ResourceRegistry.RegularFont40;
-            } else if (var0 == ResourceRegistry.JelloMediumFont20) {
-                var0 = ResourceRegistry.JelloMediumFont40;
-            } else if (var0 == ResourceRegistry.JelloMediumFont25) {
-                var0 = ResourceRegistry.JelloMediumFont50;
+            if (res == ResourceRegistry.JelloLightFont20) {
+                res = ResourceRegistry.JelloLightFont40;
+            } else if (res == ResourceRegistry.JelloLightFont25) {
+                res = ResourceRegistry.JelloLightFont50;
+            } else if (res == ResourceRegistry.JelloLightFont12) {
+                res = ResourceRegistry.JelloLightFont24;
+            } else if (res == ResourceRegistry.JelloLightFont14) {
+                res = ResourceRegistry.JelloLightFont28;
+            } else if (res == ResourceRegistry.JelloLightFont18) {
+                res = ResourceRegistry.JelloLightFont36;
+            } else if (res == ResourceRegistry.RegularFont20) {
+                res = ResourceRegistry.RegularFont40;
+            } else if (res == ResourceRegistry.JelloMediumFont20) {
+                res = ResourceRegistry.JelloMediumFont40;
+            } else if (res == ResourceRegistry.JelloMediumFont25) {
+                res = ResourceRegistry.JelloMediumFont50;
             } else {
                 var16 = true;
             }
@@ -346,11 +345,11 @@ public class RenderUtil {
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
         if (var7) {
-            var0.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), var3, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+            res.method23937((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), string, new Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
-        if (var3 != null) {
-            var0.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), var3, new Color(var13, var14, var15, var12));
+        if (string != null) {
+            res.method23937((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), string, new Color(var13, var14, var15, var12));
         }
 
         RenderSystem.disableBlend();
@@ -374,7 +373,7 @@ public class RenderUtil {
     }
 
     public static void drawString(ClientResource var0, float var1, float var2, String var3, int var4) {
-        method11441(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
+        drawString(var0, var1, var2, var3, var4, Class2218.field14488, Class2218.field14489, false);
     }
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
