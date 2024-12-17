@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class1309;
+import com.mentalfrostbyte.jello.gui.unmapped.InGameOptionsScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
 import com.mentalfrostbyte.jello.gui.unmapped.UITextDisplay;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -64,7 +64,7 @@ public class CreditsToCreators extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       if (var1 == 256) {
-         Minecraft.getInstance().displayGuiScreen(new Class1309());
+         Minecraft.getInstance().displayGuiScreen(new InGameOptionsScreen());
       }
    }
 }

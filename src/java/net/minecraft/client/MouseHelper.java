@@ -50,7 +50,7 @@ public class MouseHelper
      */
     private void mouseButtonCallback(long handle, int button, int action, int mods)
     {
-        if (Client.getInstance().guiManager.method33480() != null) {
+        if (Client.getInstance().guiManager.getCurrentScreen() != null) {
             Client.getInstance().guiManager.method33456(button, action);
         } else {
             if (this.minecraft.currentScreen == null) {
@@ -187,7 +187,7 @@ public class MouseHelper
     /**
      * Will be called when a scrolling device is used, such as a mouse wheel or scrolling area of a touchpad.
      *  
-     * @see GLFWScrollCallbackI
+     * @see org.lwjgl.glfw.GLFWScrollCallbackI
      */
     private void scrollCallback(long handle, double xoffset, double yoffset)
     {
@@ -288,7 +288,7 @@ public class MouseHelper
      * left corner of the window client area. On platforms that provide it, the full sub-pixel cursor position is passed
      * on.</p>
      *  
-     * @see GLFWCursorPosCallbackI
+     * @see org.lwjgl.glfw.GLFWCursorPosCallbackI
      */
     private void cursorPosCallback(long handle, double xpos, double ypos)
     {

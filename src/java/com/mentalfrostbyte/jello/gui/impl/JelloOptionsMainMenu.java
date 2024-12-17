@@ -22,17 +22,17 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
       this.addToList(var11 = new UIButton(this, "openGui", var5 / 2, var6 - 80, 300, 38, var9, "Open Jello's Click GUI", ResourceRegistry.JelloLightFont24));
       UIButton var12;
       this.addToList(var12 = new UIButton(this, "credits", var5 / 2 - 100, var6 - 280, 200, 38, var9, "Credits", ResourceRegistry.JelloLightFont18));
-      var10.doThis((var0, var1x) -> JelloInGameOptions.method13438(new Class1144(new StringTextComponent("Keybind Manager"))));
+      var10.doThis((var0, var1x) -> JelloInGameOptions.method13438(new KeyboardScreen(new StringTextComponent("Keybind Manager"))));
       var11.doThis((var0, var1x) -> JelloInGameOptions.method13438(new ClickGui(new StringTextComponent("Click GUI"))));
-      var12.doThis((var0, var1x) -> JelloInGameOptions.method13438(new Class1133(new StringTextComponent("GuiCredits"))));
+      var12.doThis((var0, var1x) -> JelloInGameOptions.method13438(new CreditToCreatorsScreen(new StringTextComponent("GuiCredits"))));
       UICheckBox var13;
       this.addToList(var13 = new UICheckBox(this, "guiBlurCheckBox", var5 / 2 - 70, var6 - 220, 25, 25));
-      var13.method13705(Client.getInstance().guiManager.method33470(), false);
-      var13.method13036(var1x -> Client.getInstance().guiManager.method33469(var13.method13703()));
+      var13.method13705(Client.getInstance().guiManager.getGuiBlur(), false);
+      var13.method13036(var1x -> Client.getInstance().guiManager.setGuiBlur(var13.method13703()));
       UICheckBox var14;
       this.addToList(var14 = new UICheckBox(this, "guiBlurIngameCheckBox", var5 / 2 + 130, var6 - 220, 25, 25));
-      var14.method13705(Client.getInstance().guiManager.method33472(), false);
-      var14.method13036(var1x -> Client.getInstance().guiManager.method33471(var14.method13703()));
+      var14.method13705(Client.getInstance().guiManager.getHqIngameBlur(), false);
+      var14.method13036(var1x -> Client.getInstance().guiManager.setHqIngameBlur(var14.method13703()));
    }
 
    @Override

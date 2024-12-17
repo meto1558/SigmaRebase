@@ -30,30 +30,30 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class GuiManager {
-    public static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, String> field41338 = new HashMap<Class<? extends net.minecraft.client.gui.screen.Screen>, String>();
-    private static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>> field41337 = new HashMap<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>>();
-    public static long field41344;
-    public static long field41345;
-    public static long field41346;
+    public static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, String> screenToScreenName = new HashMap<Class<? extends net.minecraft.client.gui.screen.Screen>, String>();
+    private static final Map<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>> replacementScreens = new HashMap<Class<? extends net.minecraft.client.gui.screen.Screen>, Class<? extends Screen>>();
+    public static long arrowCursor;
+    public static long pointingHandCursor;
+    public static long iBeamCursor;
     public static float scaleFactor = 1.0F;
-    private static boolean field41351 = true;
+    private static boolean hidpiCocoa = true;
 
     static {
-        field41337.put(MainMenuScreen.class, JelloMainMenuScreen.class);
-        field41337.put(ClickGui.class, JelloClickGUI.class);
-        field41337.put(Class1144.class, JelloKeyboardScreen.class);
-        field41337.put(Maps.class, JelloMaps.class);
-        field41337.put(Snake.class, SnakeGameScreen.class);
-        field41337.put(Bird.class, BirdGameScreen.class);
-        field41337.put(SpotLight.class, SearchBar.class);
-        field41337.put(Class1309.class, JelloInGameOptions.class);
-        field41337.put(Class1133.class, CreditsToCreators.class);
-        field41338.put(ClickGui.class, "Click GUI");
-        field41338.put(Class1144.class, "Keybind Manager");
-        field41338.put(Maps.class, "Jello Maps");
-        field41338.put(Snake.class, "Snake");
-        field41338.put(Bird.class, "Bird");
-        field41338.put(SpotLight.class, "Spotlight");
+        replacementScreens.put(MainMenuScreen.class, JelloMainMenuScreen.class);
+        replacementScreens.put(ClickGui.class, JelloClickGUI.class);
+        replacementScreens.put(KeyboardScreen.class, JelloKeyboardScreen.class);
+        replacementScreens.put(Maps.class, JelloMaps.class);
+        replacementScreens.put(Snake.class, SnakeGameScreen.class);
+        replacementScreens.put(Bird.class, BirdGameScreen.class);
+        replacementScreens.put(SpotLight.class, SearchBar.class);
+        replacementScreens.put(InGameOptionsScreen.class, JelloInGameOptions.class);
+        replacementScreens.put(CreditToCreatorsScreen.class, CreditsToCreators.class);
+        screenToScreenName.put(ClickGui.class, "Click GUI");
+        screenToScreenName.put(KeyboardScreen.class, "Keybind Manager");
+        screenToScreenName.put(Maps.class, "Jello Maps");
+        screenToScreenName.put(Snake.class, "Snake");
+        screenToScreenName.put(Bird.class, "Bird");
+        screenToScreenName.put(SpotLight.class, "Spotlight");
     }
 
     public double field41347;
@@ -64,28 +64,30 @@ public class GuiManager {
     private final List<Integer> field41341 = new ArrayList<Integer>();
     private final List<Integer> field41342 = new ArrayList<Integer>();
     private final List<Integer> field41343 = new ArrayList<Integer>();
-    private boolean field41349 = true;
-    private boolean field41350 = true;
+    private boolean guiBlur = true;
+    private boolean hqIngameBlur = true;
     private Screen screen;
 
     public GuiManager() {
-        field41344 = GLFW.glfwCreateStandardCursor(221185);
-        field41345 = GLFW.glfwCreateStandardCursor(221188);
-        field41346 = GLFW.glfwCreateStandardCursor(221186);
-        GLFW.glfwSetCursor(Minecraft.getInstance().getMainWindow().getHandle(), field41344);
+        // https://www.glfw.org/docs/3.4/group__shapes.html
+        // convert the shape parameters to hex and prepend a few `0`s because the site adds those.
+        arrowCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
+        pointingHandCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_POINTING_HAND_CURSOR);
+        iBeamCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR);
+        GLFW.glfwSetCursor(Minecraft.getInstance().getMainWindow().getHandle(), arrowCursor);
         scaleFactor = (float) (Minecraft.getInstance().getMainWindow().getFramebufferHeight() / Minecraft.getInstance().getMainWindow().getHeight());
     }
 
-    public static boolean method33457(net.minecraft.client.gui.screen.Screen var0) {
-        if (var0 instanceof MultiplayerScreen && !(var0 instanceof JelloPortalScreen)) {
+    public static boolean method33457(net.minecraft.client.gui.screen.Screen screen) {
+        if (screen instanceof MultiplayerScreen && !(screen instanceof JelloPortalScreen)) {
             Minecraft.getInstance().currentScreen = null;
-            Minecraft.getInstance().displayGuiScreen(new JelloPortalScreen(((MultiplayerScreen) var0).parentScreen));
+            Minecraft.getInstance().displayGuiScreen(new JelloPortalScreen(((MultiplayerScreen) screen).parentScreen));
             return true;
-        } else if (var0 instanceof IngameMenuScreen && !(var0 instanceof JelloForSigmaOptions)) {
+        } else if (screen instanceof IngameMenuScreen && !(screen instanceof JelloForSigmaOptions)) {
             Minecraft.getInstance().currentScreen = null;
             Minecraft.getInstance().displayGuiScreen(new JelloForSigmaOptions());
             return true;
-        } else if (Client.getInstance().clientMode == ClientMode.NOADDONS && var0 instanceof MainMenuScreen && !(var0 instanceof NoAddOnnScreenMenu)) {
+        } else if (Client.getInstance().clientMode == ClientMode.NOADDONS && screen instanceof MainMenuScreen && !(screen instanceof NoAddOnnScreenMenu)) {
             Minecraft.getInstance().currentScreen = null;
             Minecraft.getInstance().displayGuiScreen(new NoAddOnnScreenMenu());
             return true;
@@ -94,18 +96,18 @@ public class GuiManager {
         }
     }
 
-    public static Screen handleScreen(net.minecraft.client.gui.screen.Screen var0) {
-        if (var0 == null) {
+    public static Screen handleScreen(net.minecraft.client.gui.screen.Screen screen) {
+        if (screen == null) {
             return null;
         } else if (Client.getInstance().clientMode == ClientMode.PREMIUM) {
             return new SwitchScreen();
-        } else if (method33457(var0)) {
+        } else if (method33457(screen)) {
             return null;
-        } else if (!field41337.containsKey(var0.getClass())) {
+        } else if (!replacementScreens.containsKey(screen.getClass())) {
             return null;
         } else {
             try {
-                return field41337.get(var0.getClass()).newInstance();
+                return replacementScreens.get(screen.getClass()).newInstance();
             } catch (InstantiationException | IllegalAccessException var4) {
                 var4.printStackTrace();
             }
@@ -120,10 +122,10 @@ public class GuiManager {
             try {
                 JSONObject var2 = FileUtil.readFile(new File(Client.getInstance().file + "/config.json"));
                 if (var2.has("hidpicocoa")) {
-                    field41351 = var2.getBoolean("hidpicocoa");
+                    hidpiCocoa = var2.getBoolean("hidpicocoa");
                 }
 
-                GLFW.glfwWindowHint(143361, field41351 ? 1 : 0);
+                GLFW.glfwWindowHint(143361, hidpiCocoa ? 1 : 0);
             } catch (IOException var3) {
                 var3.printStackTrace();
             }
@@ -131,9 +133,9 @@ public class GuiManager {
     }
 
     public void method33452() {
-        field41337.clear();
-        field41337.put(MainMenuScreen.class, ClassicMainScreen.class);
-        field41337.put(ClickGui.class, ClassicScreenk.class);
+        replacementScreens.clear();
+        replacementScreens.put(MainMenuScreen.class, ClassicMainScreen.class);
+        replacementScreens.put(ClickGui.class, ClassicScreenk.class);
     }
 
     public void method33453(int var1, int var2) {
@@ -277,45 +279,45 @@ public class GuiManager {
         }
     }
 
-    public JSONObject method33468(JSONObject var1) {
+    public JSONObject getUIConfig(JSONObject uiConfig) {
         if (this.screen != null) {
             JSONObject var4 = this.screen.method13160(new JSONObject());
             if (var4.length() != 0) {
-                var1.put(this.screen.method13257(), var4);
+                uiConfig.put(this.screen.method13257(), var4);
             }
         }
 
-        var1.put("guiBlur", this.field41349);
-        var1.put("hqIngameBlur", this.field41350);
-        var1.put("hidpicocoa", field41351);
-        return var1;
+        uiConfig.put("guiBlur", this.guiBlur);
+        uiConfig.put("hqIngameBlur", this.hqIngameBlur);
+        uiConfig.put("hidpicocoa", hidpiCocoa);
+        return uiConfig;
     }
 
-    public void method33469(boolean var1) {
-        this.field41349 = var1;
+    public void setGuiBlur(boolean to) {
+        this.guiBlur = to;
     }
 
-    public boolean method33470() {
-        return this.field41349;
+    public boolean getGuiBlur() {
+        return this.guiBlur;
     }
 
-    public void method33471(boolean var1) {
-        this.field41350 = var1;
+    public void setHqIngameBlur(boolean to) {
+        this.hqIngameBlur = to;
     }
 
-    public boolean method33472() {
-        return this.field41350;
+    public boolean getHqIngameBlur() {
+        return this.hqIngameBlur;
     }
 
-    public void method33473(boolean var1) {
-        field41351 = var1;
+    public void setHidpiCocoa(boolean var1) {
+        hidpiCocoa = var1;
     }
 
-    public boolean method33474() {
-        return field41351;
+    public boolean getHidpiCocoa() {
+        return hidpiCocoa;
     }
 
-    public void method33476(JSONObject var1) {
+    public void loadUIConfig(JSONObject uiConfig) {
         if (this.screen != null) {
             JSONObject var4 = null;
 
@@ -328,17 +330,17 @@ public class GuiManager {
             }
         }
 
-        if (var1.has("guiBlur")) {
-            this.field41349 = var1.getBoolean("guiBlur");
+        if (uiConfig.has("guiBlur")) {
+            this.guiBlur = uiConfig.getBoolean("guiBlur");
         }
 
-        if (var1.has("hqIngameBlur")) {
-            this.field41350 = var1.getBoolean("hqIngameBlur");
+        if (uiConfig.has("hqIngameBlur")) {
+            this.hqIngameBlur = uiConfig.getBoolean("hqIngameBlur");
         }
     }
 
     public Class<? extends net.minecraft.client.gui.screen.Screen> method33477(String var1) {
-        for (Entry var5 : field41338.entrySet()) {
+        for (Entry var5 : screenToScreenName.entrySet()) {
             if (var1.equals(var5.getValue())) {
                 return (Class<? extends net.minecraft.client.gui.screen.Screen>) var5.getKey();
             }
@@ -347,12 +349,12 @@ public class GuiManager {
         return null;
     }
 
-    public String method33478(Class<? extends net.minecraft.client.gui.screen.Screen> var1) {
-        if (var1 == null) {
+    public String method33478(Class<? extends net.minecraft.client.gui.screen.Screen> screen) {
+        if (screen == null) {
             return "";
         } else {
-            for (Entry var5 : field41338.entrySet()) {
-                if (var1 == var5.getKey()) {
+            for (Entry var5 : screenToScreenName.entrySet()) {
+                if (screen == var5.getKey()) {
                     return (String) var5.getValue();
                 }
             }
@@ -363,7 +365,7 @@ public class GuiManager {
 
     public void onResize() throws JSONException {
         if (this.screen != null) {
-            this.method33468(Client.getInstance().getConfig());
+            this.getUIConfig(Client.getInstance().getConfig());
 
             try {
                 this.screen = this.screen.getClass().newInstance();
@@ -371,7 +373,7 @@ public class GuiManager {
                 var4.printStackTrace();
             }
 
-            this.method33476(Client.getInstance().getConfig());
+            this.loadUIConfig(Client.getInstance().getConfig());
         }
 
         if (Minecraft.getInstance().getMainWindow().getWidth() != 0 && Minecraft.getInstance().getMainWindow().getHeight() != 0) {
@@ -382,7 +384,7 @@ public class GuiManager {
         }
     }
 
-    public Screen method33480()  {
+    public Screen getCurrentScreen()  {
         return this.screen;
     }
 
@@ -390,13 +392,13 @@ public class GuiManager {
         this.method33482(handleScreen(Minecraft.getInstance().currentScreen));
     }
 
-    public void method33482(Screen var1) {
+    public void method33482(Screen screen) {
         if (this.screen != null) {
-            this.method33468(Client.getInstance().getConfig());
+            this.getUIConfig(Client.getInstance().getConfig());
         }
 
-        this.screen = var1;
-        this.method33476(Client.getInstance().getConfig());
+        this.screen = screen;
+        this.loadUIConfig(Client.getInstance().getConfig());
         if (this.screen != null) {
             this.screen.method13028(this.field41354[0], this.field41354[1]);
         }
@@ -406,7 +408,7 @@ public class GuiManager {
         }
     }
 
-    public boolean method33484(net.minecraft.client.gui.screen.Screen var1) {
-        return field41337.containsKey(var1.getClass());
+    public boolean method33484(net.minecraft.client.gui.screen.Screen screen) {
+        return replacementScreens.containsKey(screen.getClass());
     }
 }

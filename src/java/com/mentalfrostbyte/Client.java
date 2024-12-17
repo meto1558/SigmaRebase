@@ -97,7 +97,7 @@ public class Client {
 
         try {
             if (this.guiManager != null) {
-                this.guiManager.method33468(this.config);
+                this.guiManager.getUIConfig(this.config);
             }
 
             if (this.moduleManager != null) {

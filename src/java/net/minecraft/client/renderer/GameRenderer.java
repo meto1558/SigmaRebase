@@ -769,7 +769,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
                     throw new ReportedException(crashreport);
                 }
             }
-            else if (this.mc.currentScreen != null && Client.getInstance().guiManager.method33480() == null)
+            else if (this.mc.currentScreen != null && Client.getInstance().guiManager.getCurrentScreen() == null)
             {
                 try
                 {

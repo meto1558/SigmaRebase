@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
-public class Class1144 extends Screen {
+public class KeyboardScreen extends Screen {
    private static String[] field6211;
 
-   public Class1144(ITextComponent var1) {
+   public KeyboardScreen(ITextComponent var1) {
       super(var1);
    }
 

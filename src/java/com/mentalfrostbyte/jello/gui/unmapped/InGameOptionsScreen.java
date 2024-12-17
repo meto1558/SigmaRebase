@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.StringTextComponent;
 
-public class Class1309 extends Screen {
-   public Class1309() {
+public class InGameOptionsScreen extends Screen {
+   public InGameOptionsScreen() {
       super(new StringTextComponent("Jello Options"));
    }
 

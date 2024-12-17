@@ -107,7 +107,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
       float var13 = 0.8F + var5 * 0.2F;
       if (var5 > 0.0F) {
          GL11.glPushMatrix();
-         String var14 = this.getTypedText() != null ? this.getTypedText() : this.field20891;
+         String var14 = this.getTypedText() != null ? this.getTypedText() : this.name;
          GL11.glTranslatef(
             (float)(this.getXA() + this.getWidthA() / 2 - font.getStringWidth(var14) / 2), (float)(this.getYA() + this.getHeightA() - 40), 0.0F
          );

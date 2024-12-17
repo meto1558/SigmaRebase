@@ -75,7 +75,7 @@ public class JelloKeyboardScreen extends Screen {
          var2.add(new Class6984(var4));
       }
 
-      for (Entry var6 : GuiManager.field41338.entrySet()) {
+      for (Entry var6 : GuiManager.screenToScreenName.entrySet()) {
          var2.add(new Class6984((Class<? extends net.minecraft.client.gui.screen.Screen>)var6.getKey()));
       }
 

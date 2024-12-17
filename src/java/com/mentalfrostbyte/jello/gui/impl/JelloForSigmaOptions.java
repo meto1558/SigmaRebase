@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.gui.unmapped.Class1309;
+import com.mentalfrostbyte.jello.gui.unmapped.InGameOptionsScreen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.gui.widget.Widget;
@@ -42,7 +42,7 @@ public class JelloForSigmaOptions extends IngameMenuScreen {
                204,
                20,
                new StringTextComponent("Jello for Sigma Options"),
-               var1 -> this.minecraft.displayGuiScreen(new Class1309())
+               var1 -> this.minecraft.displayGuiScreen(new InGameOptionsScreen())
             )
          );
       }

@@ -10,9 +10,9 @@ public class ImageQ extends Class4278 {
    private static String[] field20736;
    private Texture field20792;
 
-   public ImageQ(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
-      super(var1, var2, var3, var4, var5, var6, false);
-      this.field20792 = var7;
+   public ImageQ(CustomGuiScreen screen, String text, int var3, int var4, int var5, int var6, Texture image) {
+      super(screen, text, var3, var4, var5, var6, false);
+      this.field20792 = image;
    }
 
    @Override

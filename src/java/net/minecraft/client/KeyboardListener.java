@@ -341,7 +341,7 @@ public class KeyboardListener
     {
         if (windowPointer == this.mc.getMainWindow().getHandle())
         {
-            if (Client.getInstance().guiManager.method33480() != null) {
+            if (Client.getInstance().guiManager.getCurrentScreen() != null) {
                 Client.getInstance().guiManager.method33453(key, action);
                 return;
             }
@@ -566,7 +566,7 @@ public class KeyboardListener
     {
         if (windowPointer == this.mc.getMainWindow().getHandle())
         {
-            if (Client.getInstance().guiManager.method33480() != null) {
+            if (Client.getInstance().guiManager.getCurrentScreen() != null) {
                 Client.getInstance().guiManager.method33454(codePoint, modifiers);
                 return;
             }

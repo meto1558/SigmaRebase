@@ -44,21 +44,21 @@ public class Class4333 extends CustomGuiScreen {
          );
       }
 
-      ClientResource var7 = !this.field20891.equals("Sigma") ? Resources.regular25 : Resources.regular28;
-      if (!this.field20891.equals("Sigma")) {
+      ClientResource var7 = !this.name.equals("Sigma") ? Resources.regular25 : Resources.regular28;
+      if (!this.name.equals("Sigma")) {
          RenderUtil.drawString(
             var7,
-            (float)this.xA + (float)(this.getWidthA() - var7.getStringWidth(this.field20891)) / 2.0F,
+            (float)this.xA + (float)(this.getWidthA() - var7.getStringWidth(this.name)) / 2.0F,
             (float)(this.yA + 18),
-            this.field20891,
+            this.name,
             -16777216
          );
       } else {
          RenderUtil.drawString(
             var7,
-            (float)this.xA + (float)(this.getWidthA() - var7.getStringWidth(this.field20891)) / 2.0F,
+            (float)this.xA + (float)(this.getWidthA() - var7.getStringWidth(this.name)) / 2.0F,
             (float)(this.yA + 10),
-            this.field20891,
+            this.name,
             -13619152
          );
       }
