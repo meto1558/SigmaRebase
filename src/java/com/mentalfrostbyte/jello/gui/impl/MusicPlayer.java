@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MusicPlayer extends Class4278 {
+public class MusicPlayer extends AnimatedIconPanelWrap {
    private int field20845 = 250;
    private int field20846 = 40;
    private int field20847 = 64;

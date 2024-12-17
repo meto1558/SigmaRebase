@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import org.lwjgl.opengl.GL11;
 
-public class UITextDisplay extends Class4278 {
+public class UITextDisplay extends AnimatedIconPanelWrap {
    private static String[] field20736;
    public static ColorHelper field20778 = new ColorHelper(
       ClientColors.DEEP_TEAL.getColor(),

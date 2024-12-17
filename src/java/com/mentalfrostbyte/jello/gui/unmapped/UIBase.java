@@ -9,7 +9,7 @@ import java.util.List;
 
 // TODO: thought of this being PanelBase because AlertPanel uses it,
 //       but then I checked the usages and I saw UIButton and etc.
-public class UIBase extends Class4278 {
+public class UIBase extends AnimatedIconPanelWrap {
     private final List<Class8435> field20603 = new ArrayList<Class8435>();
 
    public UIBase(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, boolean var7) {

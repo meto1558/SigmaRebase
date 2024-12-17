@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2422;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4278;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.Class8854;
 import com.mentalfrostbyte.jello.gui.unmapped.Class9715;
 import net.minecraft.client.Minecraft;
@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrainFreezeGui extends Class4278 {
+public class BrainFreezeGui extends AnimatedIconPanelWrap {
    private static String[] field20736;
    private List<Class8854> field20738 = new ArrayList<Class8854>();
    private Class9715 field20739 = new Class9715();

@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class Class4351 extends Class4278 {
+public class Class4351 extends AnimatedIconPanelWrap {
    public CustomGuiScreen buttonList;
    public Animation field21264;
    public Animation field21265;

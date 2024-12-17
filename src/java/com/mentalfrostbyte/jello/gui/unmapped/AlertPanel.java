@@ -168,7 +168,7 @@ public class AlertPanel extends UIBase {
       HashMap var3 = new HashMap();
 
       for (CustomGuiScreen var5 : this.field21279.method13241()) {
-         Class4278 var6 = (Class4278)var5;
+         AnimatedIconPanelWrap var6 = (AnimatedIconPanelWrap)var5;
          if (var6 instanceof UIInput) {
             UIInput var7 = (UIInput)var6;
             var3.put(var7.method13153(), var7.getTypedText());

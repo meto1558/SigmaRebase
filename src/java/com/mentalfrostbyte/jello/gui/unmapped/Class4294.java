@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.render.Texture;
 
 import java.awt.image.BufferedImage;
 
-public class Class4294 extends Class4278 {
+public class Class4294 extends AnimatedIconPanelWrap {
    public Account selectedAccount = null;
    private BufferedImage field20799;
    private Texture field20800;

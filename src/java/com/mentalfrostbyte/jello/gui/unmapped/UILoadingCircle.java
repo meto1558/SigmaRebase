@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import org.lwjgl.opengl.GL11;
 
-public class UILoadingCircle extends Class4278 {
+public class UILoadingCircle extends AnimatedIconPanelWrap {
    private static String[] field20736;
    public TimerUtil field20769 = new TimerUtil();
    public float field20770 = 0.0F;

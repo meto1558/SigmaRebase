@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4278;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4286;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
 import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
@@ -14,7 +14,7 @@ import com.mentalfrostbyte.jello.util.ThumbnailUtil;
 
 import java.util.ArrayList;
 
-public class SearchBoxButton extends Class4278 {
+public class SearchBoxButton extends AnimatedIconPanelWrap {
     public Class4339 field20840;
     public UIInput searchBox;
     private ArrayList<YoutubeVideoData> field20842;

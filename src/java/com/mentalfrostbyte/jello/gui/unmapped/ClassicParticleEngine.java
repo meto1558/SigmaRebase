@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ClassicParticleEngine extends Class4278 {
+public class ClassicParticleEngine extends AnimatedIconPanelWrap {
    private static String[] field21273;
    private List<Class9625> field21274 = new ArrayList<Class9625>();
    private Class9715 field21275 = new Class9715();

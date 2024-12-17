@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4279 extends Class4278 {
+public class Class4279 extends AnimatedIconPanelWrap {
    public Class4250 field20737;
 
    public Class4279(Class4250 var1, int var2, String var3) {

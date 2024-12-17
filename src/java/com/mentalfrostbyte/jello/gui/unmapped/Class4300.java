@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.SoundEvents;
 
-public class Class4300 extends Class4278 {
+public class Class4300 extends AnimatedIconPanelWrap {
    private static String[] field20838;
    public int field20839;
 

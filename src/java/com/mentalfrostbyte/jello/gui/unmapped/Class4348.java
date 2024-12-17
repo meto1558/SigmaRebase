@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
 
-public class Class4348 extends Class4278 {
+public class Class4348 extends AnimatedIconPanelWrap {
    public Ban field21243 = null;
    public ServerData field21244 = null;
    public Texture field21245 = null;

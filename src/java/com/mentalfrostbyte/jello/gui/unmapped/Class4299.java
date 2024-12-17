@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class Class4299 extends Class4278 {
+public class Class4299 extends AnimatedIconPanelWrap {
    public Texture backgrnd;
    public Texture foregrnd;
    public Texture pipe;

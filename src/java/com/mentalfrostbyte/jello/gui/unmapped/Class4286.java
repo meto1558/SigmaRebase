@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Class4286 extends Class4278 {
+public class Class4286 extends AnimatedIconPanelWrap {
    public static ColorHelper field20771 = new ColorHelper(
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),

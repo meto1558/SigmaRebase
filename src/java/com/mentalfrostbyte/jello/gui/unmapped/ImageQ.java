@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Texture;
 
-public class ImageQ extends Class4278 {
+public class ImageQ extends AnimatedIconPanelWrap {
    private static String[] field20736;
    private Texture field20792;
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Class4296 extends Class4278 {
+public class Class4296 extends AnimatedIconPanelWrap {
    private static String[] field20812;
    private Account field20813 = null;
    private List<Class4348> field20814 = new ArrayList<Class4348>();

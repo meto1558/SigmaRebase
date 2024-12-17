@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import totalcross.json.CJsonUtils;
 import totalcross.json.JSONObject;
 
-public class Class4292 extends Class4278 implements Class4293 {
+public class Class4292 extends AnimatedIconPanelWrap implements Class4293 {
    public int field20793;
    public float field20794;
    public boolean field20795;

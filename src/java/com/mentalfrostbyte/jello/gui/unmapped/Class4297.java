@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
-public class Class4297 extends Class4278 {
+public class Class4297 extends AnimatedIconPanelWrap {
    private static String[] field20816;
    public Minecraft field20817 = Minecraft.getInstance();
    public Class8455 field20818;

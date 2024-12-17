@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4278;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4365;
 import com.mentalfrostbyte.jello.gui.unmapped.ClassicParticleEngine;
 import com.mentalfrostbyte.jello.gui.unmapped.UITextDisplay;
@@ -24,8 +24,8 @@ import java.util.Collections;
 
 public class ClassicMainScreen extends Screen {
     private static final long field21106 = System.nanoTime();
-    public final Class4278 field21094;
-    public final Class4278 field21095;
+    public final AnimatedIconPanelWrap field21094;
+    public final AnimatedIconPanelWrap field21095;
     private final int field21096 = 0;
     private final int field21097 = 0;
     private final boolean field21098 = true;

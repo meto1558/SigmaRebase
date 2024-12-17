@@ -31,7 +31,7 @@ import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 import java.util.UUID;
 
-public class Class4298 extends Class4278 {
+public class Class4298 extends AnimatedIconPanelWrap {
    public static ColorHelper field20821 = new ColorHelper(
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),

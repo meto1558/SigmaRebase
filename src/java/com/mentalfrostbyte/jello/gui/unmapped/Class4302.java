@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
-public class Class4302 extends Class4278 {
+public class Class4302 extends AnimatedIconPanelWrap {
    private static String[] field20844;
 
    public Class4302(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
