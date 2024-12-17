@@ -19,6 +19,8 @@ import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinReg;
 import com.tagtraum.jipes.math.FFTFactory;
+import com.viaversion.viaversion.libs.gson.JsonObject;
+import com.viaversion.viaversion.libs.gson.JsonParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import net.sourceforge.jaad.aac.Decoder;
@@ -41,6 +43,7 @@ import javax.sound.sampled.*;
 import javax.sound.sampled.FloatControl.Type;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -583,33 +586,46 @@ public class MusicManager {
         return this.field32170;
     }
 
-    public URL method24323(URL var1) {
-        String var4 = var1.toString();
-        String var5 = System.getProperty("user.home");
-        YoutubeDLRequest request = new YoutubeDLRequest(var4, var5);
-        request.setOption("get-url");
-        request.setOption("no-check-certificate");
-        request.setOption("rm-cache-dir");
-        request.setOption("retries", "10");
-        request.setOption("format", "18");
+    private boolean isRunning = false;
 
+    public synchronized URL method24323(URL var1) { // Synchronized to prevent concurrency issues
+        if (isRunning) {
+            System.out.println("Another process is already running. Skipping execution.");
+            return null;
+        }
+
+        isRunning = true; // Mark as running
         try {
-            YoutubeDL.setExecutablePath(this.method24333());
-            YoutubeDLResponse var7 = YoutubeDL.execute(request);
-            String var8 = var7.getOut();
-            return new URL(var8);
-        } catch (YoutubeDLException var9) {
-            if (var9.getMessage() != null
-                    && var9.getMessage().contains("ERROR: This video contains content from")
-                    && var9.getMessage().contains("who has blocked it in your country on copyright grounds")) {
-                Client.getInstance().notificationManager.send(new Notification("Now Playing", "Not available in your region."));
-            } else {
-                var9.printStackTrace();
-                this.download();
+            String var4 = var1.toString();
+            String var5 = System.getProperty("user.home");
+            YoutubeDLRequest request = new YoutubeDLRequest(var4, var5);
+            request.setOption("get-url");
+            request.setOption("no-check-certificate");
+            request.setOption("rm-cache-dir");
+            request.setOption("retries", "10");
+            request.setOption("format", "18");
+
+            try {
+                YoutubeDL.setExecutablePath(this.method24333());
+                YoutubeDLResponse var7 = YoutubeDL.execute(request);
+                String var8 = var7.getOut();
+                return new URL(var8);
+            } catch (YoutubeDLException var9) {
+                if (var9.getMessage() != null
+                        && var9.getMessage().contains("ERROR: This video contains content from")
+                        && var9.getMessage().contains("who has blocked it in your country on copyright grounds")) {
+                    Client.getInstance().notificationManager.send(
+                            new Notification("Now Playing", "Not available in your region."));
+                } else {
+                    var9.printStackTrace();
+                    this.download(); // Ensure download is safe to retry here
+                }
+            } catch (MalformedURLException var10) {
+                MinecraftUtil.addChatMessage("URL E " + var10);
+                var10.printStackTrace();
             }
-        } catch (MalformedURLException var10) {
-            MinecraftUtil.addChatMessage("URL E " + var10);
-            var10.printStackTrace();
+        } finally {
+            isRunning = false; // Reset the flag in case of completion or exception
         }
 
         return null;
@@ -677,21 +693,42 @@ public class MusicManager {
 
                 String fileName =
                         Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-                        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                                                       : "yt-dlp_macos";
+                                : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
+                                : "yt-dlp_macos";
 
                 File targetFile = new File(Client.getInstance().file + "/music/" + fileName);
 
-                String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/2024.10.22/" + fileName;
-                try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
-                     FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
-                    byte[] dataBuffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                        fileOutputStream.write(dataBuffer, 0, bytesRead);
+                try {
+                    // Fetch the latest release from GitHub API
+                    String apiUrl = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";
+                    HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setRequestProperty("Accept", "application/json");
+
+                    if (connection.getResponseCode() == 200) {
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                            JsonObject jsonResponse = JsonParser.parseReader(reader).getAsJsonObject();
+                            String latestTag = jsonResponse.get("tag_name").getAsString(); // Get latest release tag
+
+                            // Construct download URL dynamically
+                            String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/" + latestTag + "/" + fileName;
+
+                            // Download the file
+                            try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
+                                 FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
+                                byte[] dataBuffer = new byte[1024];
+                                int bytesRead;
+                                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                                    fileOutputStream.write(dataBuffer, 0, bytesRead);
+                                }
+                                finished = true;
+                                System.out.println("Finished downloading yt-dlp");
+                            }
+                        }
+                    } else {
+                        System.out.println("Failed to fetch the latest release info: HTTP " + connection.getResponseCode());
+                        finished = false;
                     }
-                    finished = true;
-                    System.out.println("Finished downloading yt-dlp");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                     finished = false;
@@ -702,6 +739,7 @@ public class MusicManager {
             }
         }
     }
+
 
     public String method24333() {
         String fileName =
