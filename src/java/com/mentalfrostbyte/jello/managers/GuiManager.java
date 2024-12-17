@@ -99,7 +99,7 @@ public class GuiManager {
     public static Screen handleScreen(net.minecraft.client.gui.screen.Screen screen) {
         if (screen == null) {
             return null;
-        } else if (Client.getInstance().clientMode == ClientMode.PREMIUM) {
+        } else if (Client.getInstance().clientMode == ClientMode.INDETERMINATE) {
             return new SwitchScreen();
         } else if (method33457(screen)) {
             return null;
@@ -283,7 +283,7 @@ public class GuiManager {
         if (this.screen != null) {
             JSONObject var4 = this.screen.method13160(new JSONObject());
             if (var4.length() != 0) {
-                uiConfig.put(this.screen.method13257(), var4);
+                uiConfig.put(this.screen.getName(), var4);
             }
         }
 
@@ -322,7 +322,7 @@ public class GuiManager {
             JSONObject var4 = null;
 
             try {
-                var4 = Client.getInstance().getConfig().getJSONObject(this.screen.method13257());
+                var4 = Client.getInstance().getConfig().getJSONObject(this.screen.getName());
             } catch (Exception var9) {
                 var4 = new JSONObject();
             } finally {

@@ -29,6 +29,8 @@ import net.sourceforge.jaad.mp4.api.Frame;
 import net.sourceforge.jaad.mp4.api.Movie;
 import net.sourceforge.jaad.mp4.api.Track;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.util.BufferedImageUtil;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONException;
@@ -309,8 +311,8 @@ public class MusicManager {
                     this.field32151.release();
                 }
 
-                this.field32153 = TextureUtil.method32933("picture", this.field32152);
-                this.field32151 = TextureUtil.method32933("picture", this.field32149);
+                this.field32153 = BufferedImageUtil.getTexture("picture", this.field32152);
+                this.field32151 = BufferedImageUtil.getTexture("picture", this.field32149);
                 Client.getInstance().notificationManager.send(new Notification("Now Playing", this.field32150, 7000, this.field32151));
                 this.field32154 = false;
             }
