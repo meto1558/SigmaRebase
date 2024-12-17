@@ -13,10 +13,14 @@ import com.mentalfrostbyte.jello.util.FileUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.MultiplayerScreen;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
@@ -249,8 +253,19 @@ public class GuiManager {
                 RenderUtil.drawString(Resources.bold14, 73.0F, 2.0F, "5.0.0", ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
                 RenderUtil.drawString(Resources.bold14, 72.0F, 1.0F, "5.0.0", ColorUtils.applyAlpha(var8, Math.min(1.0F, var7 * 1.4F)));
             } else {
-                GL11.glAlphaFunc(519, 0.0F);
-                RenderUtil.method11455((float) var3, var4, 170.0F, 104.0F, !(scaleFactor > 1.0F) ? Resources.jelloWatermarkPNG : Resources.jelloWatermark2xPNG);
+                if (!(scaleFactor > 1.0F)) {
+                    Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("com/mentalfrostbyte/gui/resources/sigma/jello_watermark.png"));
+                } else {
+                    Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("com/mentalfrostbyte/gui/resources/sigma/jello_watermark@2x.png"));
+                }
+
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
+                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                AbstractGui.blit(new MatrixStack(), var3, var4, 0, 0, (int) 170.0F, (int) 104.0F, (int) 170.0F, (int) 104.0F);
+
+                // Reset states
+                RenderSystem.disableBlend();
             }
 
             EventBus.call(new EventRender());
