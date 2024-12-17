@@ -1,0 +1,46 @@
+# ChatGPT :alert: https://chatgpt.com/share/6760f375-7498-8005-a1b9-2e571d801af9
+name: Build JAR and Upload Artifact
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17' # Change to your project's Java version
+
+      - name: Compile Java source files
+        run: |
+          mkdir -p build/classes
+          javac -d build/classes -classpath "libraries/*" $(find src -name "*.java") # Adjust 'src' to your source directory
+
+      - name: Create Manifest File
+        run: |
+          echo "Main-Class: Start" > build/manifest.txt # Replace 'your.main.ClassName' with your main class name
+          echo "" >> build/manifest.txt # Ensure a newline at the end of the file
+
+      - name: Package JAR
+        run: |
+          mkdir -p build/libs
+          jar cfm build/libs/app.jar build/manifest.txt -C build/classes . # Add compiled classes
+          for lib in libraries/*.jar; do
+            jar uf build/libs/app.jar -C $(dirname "$lib") $(basename "$lib") # Add library contents
+          done
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-fat-jar
+          path: build/libs/app.jar
