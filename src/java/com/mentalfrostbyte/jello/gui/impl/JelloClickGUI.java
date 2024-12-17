@@ -84,7 +84,7 @@ public class JelloClickGUI extends Screen {
       ColorUtils.method17740(field20942.calcPercent());
    }
 
-   public boolean method13314() {
+   public boolean hasJelloMusicRequirements() {
       if (Client.getInstance().musicManager.hasPython() && Client.getInstance().musicManager.hasVCRedist()) {
          return false;
       } else if (this.field20950 == null) {

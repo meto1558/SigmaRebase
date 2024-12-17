@@ -185,7 +185,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
    }
 
    private void method13190(MusicPlayerVideo var1, YoutubeVideoData var2) {
-      if (!((JelloClickGUI)this.getIcoPanel()).method13314()) {
+      if (!((JelloClickGUI)this.getIcoPanel()).hasJelloMusicRequirements()) {
          this.field20854.method24317(var1, var2);
          field20857 = var1;
       }

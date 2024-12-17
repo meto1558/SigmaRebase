@@ -6,9 +6,9 @@ public class MiniAlert {
    public String field44772;
    public int field44773;
 
-   public MiniAlert(AlertType var1, String var2, int var3) {
-      this.field44771 = var1;
-      this.field44772 = var2;
+   public MiniAlert(AlertType alertType, String title, int var3) {
+      this.field44771 = alertType;
+      this.field44772 = title;
       this.field44773 = var3;
    }
 }
