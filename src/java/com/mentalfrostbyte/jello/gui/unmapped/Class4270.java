@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4270 extends PanelBase {
+public class Class4270 extends UIBase {
    public int field20696;
 
    public Class4270(CustomGuiScreen var1, String var2, int var3, int var4) {

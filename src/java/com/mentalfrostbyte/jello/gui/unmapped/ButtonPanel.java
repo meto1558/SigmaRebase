@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
-public class ButtonPanel extends PanelBase {
+public class ButtonPanel extends UIBase {
    private static String[] field20583;
    public float field20584;
    private int field20585 = 0;

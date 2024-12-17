@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
-public class UIButton extends PanelBase {
+public class UIButton extends UIBase {
    private static String[] field20602;
    public Animation field20711 = new Animation(190, 190);
 

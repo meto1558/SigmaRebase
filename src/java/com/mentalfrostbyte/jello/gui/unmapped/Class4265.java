@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4265 extends PanelBase {
+public class Class4265 extends UIBase {
    private static String[] field20681;
    private boolean field20682 = true;
    private Animation field20683 = new Animation(100, 100);

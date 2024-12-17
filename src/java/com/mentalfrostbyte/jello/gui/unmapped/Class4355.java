@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 
-public class Class4355 extends PanelBase {
+public class Class4355 extends UIBase {
    public int field21288;
    public final Animation field21289;
    public final Animation field21290;

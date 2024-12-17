@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mentalfrostbyte.jello.util.render.Texture;
 import org.lwjgl.opengl.GL11;
 
-public class Class4255 extends PanelBase {
+public class Class4255 extends UIBase {
    public Texture field20633;
    public Texture field20634;
 

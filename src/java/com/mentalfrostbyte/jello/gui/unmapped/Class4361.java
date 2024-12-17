@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4361 extends PanelBase {
+public class Class4361 extends UIBase {
    public Class4361(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 30, 30, false);
    }

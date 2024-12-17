@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AlertPanel extends PanelBase {
+public class AlertPanel extends UIBase {
    public CustomGuiScreen field21279;
-   public String field21280;
+   public String alertName;
    public Texture field21281;
    private Animation field21282 = new Animation(285, 100);
    public boolean field21283;
@@ -25,10 +25,10 @@ public class AlertPanel extends PanelBase {
    private Map<String, String> field21286;
    private final List<Class9448> field21287 = new ArrayList<>();
 
-   public AlertPanel(CustomGuiScreen var1, String var2, boolean var3, String var4, MiniAlert... var5) {
-      super(var1, var2, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
+   public AlertPanel(CustomGuiScreen screen, String iconName, boolean var3, String name, MiniAlert... var5) {
+      super(screen, iconName, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
       this.field21283 = var3;
-      this.field21280 = var4;
+      this.alertName = name;
       this.method13296(false);
       this.method13292(false);
       this.method13243();

@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 
-public class Class4277 extends PanelBase {
+public class Class4277 extends UIBase {
    private static String[] field20602;
    private float field20732;
    private float field20733;

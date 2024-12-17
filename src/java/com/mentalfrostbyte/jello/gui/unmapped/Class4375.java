@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Class4375 extends PanelBase {
+public class Class4375 extends UIBase {
    private final int field21376;
    private final Animation field21377;
    private boolean field21378 = false;

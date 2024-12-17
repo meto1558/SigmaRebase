@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 
-public class Class4356 extends PanelBase {
+public class Class4356 extends UIBase {
    public int field21296;
 
    public Class4356(CustomGuiScreen var1, String var2, int var3, int var4) {

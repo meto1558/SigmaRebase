@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4263 extends PanelBase {
+public class Class4263 extends UIBase {
    private static String[] field20677;
    public float field20678;
 

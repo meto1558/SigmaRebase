@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
-public class Class4364 extends PanelBase {
+public class Class4364 extends UIBase {
    private static String[] field21332;
    public Animation field21333 = new Animation(1200, 1200, Direction.BACKWARDS);
 

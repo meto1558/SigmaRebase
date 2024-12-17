@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Class4276 extends PanelBase {
+public class Class4276 extends UIBase {
    private List<ButtonPanel> field20723 = new ArrayList<ButtonPanel>();
    private final Date field20724;
    private boolean field20725 = false;

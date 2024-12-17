@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 import java.awt.Color;
 
-public class Class4264 extends PanelBase {
+public class Class4264 extends UIBase {
    private static String[] field20602;
    private float field20679;
    public boolean field20680 = false;

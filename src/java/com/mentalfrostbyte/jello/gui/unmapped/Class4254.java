@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mentalfrostbyte.jello.util.render.Texture;
 import org.lwjgl.opengl.GL11;
 
-public class Class4254 extends PanelBase {
+public class Class4254 extends UIBase {
    private static String[] field20629;
    public Animation field20630 = new Animation(300, 300, Direction.BACKWARDS);
    public Texture field20631;

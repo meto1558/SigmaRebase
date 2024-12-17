@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import org.lwjgl.opengl.GL11;
 
-public class UICheckBox extends PanelBase {
+public class UICheckBox extends UIBase {
    private static String[] field21368;
    public boolean field21369;
    public Animation field21370 = new Animation(70, 90);

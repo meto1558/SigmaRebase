@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
-public class PNGButtonChanging extends PanelBase {
+public class PNGButtonChanging extends UIBase {
    public Class189 field20607;
 
    public PNGButtonChanging(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Class189 var7) {

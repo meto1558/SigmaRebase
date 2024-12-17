@@ -7,22 +7,24 @@ import com.mentalfrostbyte.jello.util.unmapped.ClientResource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PanelBase extends Class4278 {
+// TODO: thought of this being PanelBase because AlertPanel uses it,
+//       but then I checked the usages and I saw UIButton and etc.
+public class UIBase extends Class4278 {
     private final List<Class8435> field20603 = new ArrayList<Class8435>();
 
-   public PanelBase(CustomGuiScreen var1, String var2, int var3, int var4, int width, int height, boolean var7) {
-      super(var1, var2, var3, var4, width, height, var7);
+   public UIBase(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, boolean var7) {
+      super(screen, iconName, var3, var4, width, height, var7);
    }
 
-   public PanelBase(CustomGuiScreen var1, String var2, int var3, int var4, int width, int height, ColorHelper var7, boolean var8) {
+   public UIBase(CustomGuiScreen var1, String var2, int var3, int var4, int width, int height, ColorHelper var7, boolean var8) {
       super(var1, var2, var3, var4, width, height, var7, var8);
    }
 
-   public PanelBase(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, boolean var9) {
+   public UIBase(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, boolean var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9);
    }
 
-   public PanelBase(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, ClientResource var9, boolean var10) {
+   public UIBase(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, ClientResource var9, boolean var10) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10);
    }
 

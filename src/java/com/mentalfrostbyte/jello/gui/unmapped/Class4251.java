@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class4251 extends PanelBase {
+public class Class4251 extends UIBase {
    private List<ButtonPanel> field20612 = new ArrayList<ButtonPanel>();
    public int field20613;
    public Class4259 field20614;

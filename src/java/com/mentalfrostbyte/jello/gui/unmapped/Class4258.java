@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class Class4258 extends PanelBase {
+public class Class4258 extends UIBase {
    private final List<String> field20641 = new ArrayList<String>();
    private Class4339 field20642;
    private final UIInput field20643;

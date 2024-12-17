@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class4259 extends PanelBase {
+public class Class4259 extends UIBase {
     public Class4266 field20647;
    public ChunkPos chunkPos;
    public int field20649 = 8;

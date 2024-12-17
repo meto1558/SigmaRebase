@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
-public class Class4248 extends PanelBase {
+public class Class4248 extends UIBase {
     public final Setting setting;
 
    public Class4248(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Setting var7) {
