@@ -197,7 +197,7 @@ public class ModuleManager {
 
         try {
             this.profile.saveAndReplaceConfigs();
-            this.macOSTouchBar.method13731(var1);
+            this.macOSTouchBar.getKeybindsJSONObject(var1);
         } catch (IOException var5) {
             var5.printStackTrace();
             Client.getInstance().getLogger().warn("Unable to save mod profiles...");

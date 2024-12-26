@@ -25,31 +25,31 @@ import java.util.*;
 
 public class MacOSTouchBar {
    public JTouchBar touchBar;
-   private LinkedHashSet<Class7957> field21387 = new LinkedHashSet<Class7957>();
+   private LinkedHashSet<TargetThing> field21387 = new LinkedHashSet<TargetThing>();
    public boolean field21388 = false;
    public HashMap<Module, TouchBarButton> field21389 = new HashMap<Module, TouchBarButton>();
 
    public MacOSTouchBar() {
       EventBus.register(this);
       if (FileUtil.field25727) {
-         //this.field21387.add(new Class7957(344, ClickGui.class));
+         //this.field21387.add(new TargetThing(344, ClickGui.class));
       }
    }
 
-   public Set<Class7957> method13724() {
+   public Set<TargetThing> method13724() {
       return this.field21387;
    }
 
    public void method13725(int var1, Module var2) {
       this.method13727(var2);
-      Class7957 var5 = new Class7957(var1, var2);
+      TargetThing var5 = new TargetThing(var1, var2);
       this.field21387.add(var5);
       this.displayKeybindsInfo();
    }
 
    public void method13726(int var1, Class<? extends Screen> var2) {
       this.method13727(var2);
-      Class7957 var5 = new Class7957(var1, var2);
+      TargetThing var5 = new TargetThing(var1, var2);
       this.field21387.add(var5);
       this.displayKeybindsInfo();
    }
@@ -58,15 +58,15 @@ public class MacOSTouchBar {
       Iterator var4 = this.field21387.iterator();
 
       while (var4.hasNext()) {
-         if (((Class7957)var4.next()).method27056().equals(var1)) {
+         if (((TargetThing)var4.next()).getTarget().equals(var1)) {
             var4.remove();
          }
       }
    }
 
    public int getKeybindFor(Class<? extends Screen> screen) {
-      for (Class7957 var5 : this.field21387) {
-         if (var5.method27055() == Class2067.field13470 && var5.method27057() == screen) {
+      for (TargetThing var5 : this.field21387) {
+         if (var5.getKeybindTypes() == KeybindTypes.SCREEN && var5.getScreenTarget() == screen) {
             return var5.getKeybind();
          }
       }
@@ -75,8 +75,8 @@ public class MacOSTouchBar {
    }
 
    public int method13729(Module var1) {
-      for (Class7957 var5 : this.field21387) {
-         if (var5.method27055() == Class2067.field13469 && var5.method27058() == var1) {
+      for (TargetThing var5 : this.field21387) {
+         if (var5.getKeybindTypes() == KeybindTypes.MODULE && var5.getModuleTarget() == var1) {
             return var5.getKeybind();
          }
       }
@@ -84,11 +84,11 @@ public class MacOSTouchBar {
       return -1;
    }
 
-   public Class7957 method13730(int var1) {
+   public TargetThing method13730(int var1) {
       if (var1 == -1) {
          return null;
       } else {
-         for (Class7957 var5 : this.field21387) {
+         for (TargetThing var5 : this.field21387) {
             if (var5.getKeybind() == var1) {
                return var5;
             }
@@ -98,17 +98,17 @@ public class MacOSTouchBar {
       }
    }
 
-   public JSONObject method13731(JSONObject var1) throws JSONException {
-      JSONArray var4 = new JSONArray();
+   public JSONObject getKeybindsJSONObject(JSONObject obj) throws JSONException {
+      JSONArray keybinds = new JSONArray();
 
-      for (Class7957 var6 : this.field21387) {
+      for (TargetThing var6 : this.field21387) {
          if (var6.getKeybind() != -1 && var6.getKeybind() != 0) {
-            var4.put(var6.method27051());
+            keybinds.put(var6.getKeybindData());
          }
       }
 
-      var1.put("keybinds", var4);
-      return var1;
+      obj.put("keybinds", keybinds);
+      return obj;
    }
 
    public void method13732(JSONObject var1) throws JSONException {
@@ -117,18 +117,18 @@ public class MacOSTouchBar {
 
          for (int var5 = 0; var5 < var4.length(); var5++) {
             JSONObject var6 = var4.getJSONObject(var5);
-            Class7957 var7 = new Class7957(var6);
-            if (var7.method27052()) {
+            TargetThing var7 = new TargetThing(var6);
+            if (var7.hasTarget()) {
                this.field21387.add(var7);
             }
          }
       }
    }
 
-   public List<Class7957> method13733(int var1) {
+   public List<TargetThing> method13733(int var1) {
       ArrayList var4 = new ArrayList();
       if (var1 != -1) {
-         for (Class7957 var6 : this.field21387) {
+         for (TargetThing var6 : this.field21387) {
             if (var6.getKeybind() == var1) {
                var4.add(var6);
             }
@@ -218,15 +218,15 @@ public class MacOSTouchBar {
       this.touchBar.getItems().clear();
       this.field21389.clear();
 
-      for (Class7957 var4 : this.field21387) {
-         if (var4.method27055() == Class2067.field13469 && var4.getKeybind() > 0) {
+      for (TargetThing var4 : this.field21387) {
+         if (var4.getKeybindTypes() == KeybindTypes.MODULE && var4.getKeybind() > 0) {
             TouchBarButton var5 = new TouchBarButton();
-            var5.setTitle(var4.method27058().getName());
-            var5.setBezelColor(this.method13740(var4.method27058()));
+            var5.setTitle(var4.getModuleTarget().getName());
+            var5.setBezelColor(this.method13740(var4.getModuleTarget()));
             var5.setType(TouchBarButton$ButtonType.TOGGLE);
             var5.setAction(new Class2544(this, var4));
-            this.field21389.put(var4.method27058(), var5);
-            this.touchBar.addItem(new TouchBarItem(var4.method27058().getName(), var5, true));
+            this.field21389.put(var4.getModuleTarget(), var5);
+            this.touchBar.addItem(new TouchBarItem(var4.getModuleTarget().getName(), var5, true));
          }
       }
    }
