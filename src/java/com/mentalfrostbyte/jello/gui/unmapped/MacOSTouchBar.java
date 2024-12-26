@@ -64,10 +64,10 @@ public class MacOSTouchBar {
       }
    }
 
-   public int method13728(Class<? extends Screen> var1) {
+   public int getKeybindFor(Class<? extends Screen> screen) {
       for (Class7957 var5 : this.field21387) {
-         if (var5.method27055() == Class2067.field13470 && var5.method27057() == var1) {
-            return var5.method27053();
+         if (var5.method27055() == Class2067.field13470 && var5.method27057() == screen) {
+            return var5.getKeybind();
          }
       }
 
@@ -77,7 +77,7 @@ public class MacOSTouchBar {
    public int method13729(Module var1) {
       for (Class7957 var5 : this.field21387) {
          if (var5.method27055() == Class2067.field13469 && var5.method27058() == var1) {
-            return var5.method27053();
+            return var5.getKeybind();
          }
       }
 
@@ -89,7 +89,7 @@ public class MacOSTouchBar {
          return null;
       } else {
          for (Class7957 var5 : this.field21387) {
-            if (var5.method27053() == var1) {
+            if (var5.getKeybind() == var1) {
                return var5;
             }
          }
@@ -102,7 +102,7 @@ public class MacOSTouchBar {
       JSONArray var4 = new JSONArray();
 
       for (Class7957 var6 : this.field21387) {
-         if (var6.method27053() != -1 && var6.method27053() != 0) {
+         if (var6.getKeybind() != -1 && var6.getKeybind() != 0) {
             var4.put(var6.method27051());
          }
       }
@@ -129,7 +129,7 @@ public class MacOSTouchBar {
       ArrayList var4 = new ArrayList();
       if (var1 != -1) {
          for (Class7957 var6 : this.field21387) {
-            if (var6.method27053() == var1) {
+            if (var6.getKeybind() == var1) {
                var4.add(var6);
             }
          }
@@ -219,7 +219,7 @@ public class MacOSTouchBar {
       this.field21389.clear();
 
       for (Class7957 var4 : this.field21387) {
-         if (var4.method27055() == Class2067.field13469 && var4.method27053() > 0) {
+         if (var4.method27055() == Class2067.field13469 && var4.getKeybind() > 0) {
             TouchBarButton var5 = new TouchBarButton();
             var5.setTitle(var4.method27058().getName());
             var5.setBezelColor(this.method13740(var4.method27058()));

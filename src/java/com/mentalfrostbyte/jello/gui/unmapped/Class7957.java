@@ -73,7 +73,7 @@ public class Class7957 {
       return this.field34205 != null;
    }
 
-   public int method27053() {
+   public int getKeybind() {
       return this.field34204;
    }
 
