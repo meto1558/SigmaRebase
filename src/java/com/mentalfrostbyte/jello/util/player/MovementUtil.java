@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.util.player;
 
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -11,7 +10,7 @@ import net.minecraft.util.MovementInput;
 public class MovementUtil {
     protected static Minecraft mc = Minecraft.getInstance();
 
-    public static int method37078() {
+    public static int getSpeedBoost() {
         return ! mc.player.isPotionActive(Effects.SPEED) ? 0 : mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1;
     }
 
