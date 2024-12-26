@@ -8,8 +8,8 @@ public class JumpEvent extends CancellableEvent {
     public Vector3d vector;
     public boolean modified;
 
-    public JumpEvent(Vector3d var1) {
-        this.vector = var1;
+    public JumpEvent(Vector3d vector) {
+        this.vector = vector;
     }
 
     public boolean isModified() {
@@ -43,8 +43,8 @@ public class JumpEvent extends CancellableEvent {
         this.modified = true;
     }
 
-    public void setVector(Vector3d var1) {
-        this.vector = var1;
+    public void setVector(Vector3d vector) {
+        this.vector = vector;
         this.modified = true;
     }
 }
