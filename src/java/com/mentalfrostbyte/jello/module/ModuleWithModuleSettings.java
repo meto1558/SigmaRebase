@@ -23,7 +23,7 @@ public class ModuleWithModuleSettings extends Module {
         for (Module moduleFromArray : moduleArray) {
             EventBus.register(moduleFromArray);
             stringList.add(moduleFromArray.getName());
-            moduleFromArray.method16003(this);
+            moduleFromArray.setSomeMod(this);
         }
 
         this.registerSetting(modeSetting = new ModeSetting("Type", type + " mode", 0, stringList.toArray(new String[0])));

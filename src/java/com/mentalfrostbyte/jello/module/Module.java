@@ -22,8 +22,8 @@ public class Module {
     public ModuleCategory category;
     public boolean enabled;
     public boolean allowed;
-    private boolean field23392 = true;
-    private Module field23394 = null;
+    private boolean availableOnClassic = true;
+    private Module someMod = null;
 
     private static final List<Class<? extends Module>> moduleList = new ArrayList<>();
     public Map<String, Setting> settingMap = new LinkedHashMap<>();
@@ -188,7 +188,7 @@ public class Module {
 
     public boolean isEnabled() {
         if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
-            return (Client.getInstance().clientMode != ClientMode.CLASSIC || this.method16006()) && this.enabled;
+            return (Client.getInstance().clientMode != ClientMode.CLASSIC || this.isAvailableOnClassic()) && this.enabled;
         } else {
             return false;
         }
@@ -266,20 +266,20 @@ public class Module {
         this.allowed = var1;
     }
 
-    public void method16003(Module var1) {
-        this.field23394 = var1;
+    public void setSomeMod(Module mod) {
+        this.someMod = mod;
     }
 
     public Module access() {
-        return this.field23394 != null ? this.field23394 : this;
+        return this.someMod != null ? this.someMod : this;
     }
 
-    public void method16005(boolean var1) {
-        this.field23392 = var1;
+    public void setAvailableOnClassic(boolean var1) {
+        this.availableOnClassic = var1;
     }
 
-    public boolean method16006() {
-        return this.field23392;
+    public boolean isAvailableOnClassic() {
+        return this.availableOnClassic;
     }
 
     public void initialize() {
