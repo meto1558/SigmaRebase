@@ -19,89 +19,88 @@ public class MovementUtil {
     }
 
     public static double getSpeed() {
-        double var2 = 0.2873;
-        float var4 = 1.0F;
+        double speed = 0.2873;
+        float multiplier = 1.0F;
         ModifiableAttributeInstance var5 = mc.player.getAttribute(Attributes.MOVEMENT_SPEED);
-        var4 = (float)((double)var4 * ((var5.getValue() / (double) mc.player.abilities.getWalkSpeed() + 1.0) / 2.0));
+        multiplier = (float)((double)multiplier * ((var5.getValue() / (double) mc.player.abilities.getWalkSpeed() + 1.0) / 2.0));
         if (mc.player.isSprinting()) {
-            var4 = (float)((double)var4 - 0.15);
+            multiplier = (float)((double)multiplier - 0.15);
         }
 
         if (mc.player.isPotionActive(Effects.SPEED) && mc.player.isSprinting()) {
-            var4 = (float)((double)var4 - 0.03000002 * (double)(mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1));
+            multiplier = (float)((double)multiplier - 0.03000002 * (double)(mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1));
         }
 
         if (mc.player.isSneaking()) {
-            var2 *= 0.25;
+            speed *= 0.25;
         }
 
         if (isInWater()) {
-            var2 *= 0.3;
+            speed *= 0.3;
         }
 
-        return var2 * (double)var4;
+        return speed * (double)multiplier;
     }
 
-
-    public static float[] method37084(float var0, float var1) {
-        float var4 = mc.player.rotationYaw + 90.0F;
-//        if (Client.getInstance().method19950().method31744() != -999.0F) {
-//            var4 = Client.getInstance().method19950().method31744() + 90.0F;
+    /**
+     * Calculates movement angles and directions based on input forward and strafe values.
+     * This method adjusts the player's yaw and movement direction for smooth motion.
+     *
+     * @param forward The forward movement input (-1.0 to 1.0, where negative is backwards)
+     * @param strafe The strafe movement input (-1.0 to 1.0, where negative is left)
+     * @return A float array containing:
+     *         [0] - Adjusted yaw angle
+     *         [1] - Normalized forward movement (-1.0, 0.0, or 1.0)
+     *         [2] - Adjusted strafe movement
+     */
+    public static float[] getAdjustedStrafe(float forward, float strafe) {
+        float yaw = mc.player.rotationYaw + 90.0F;
+//        if (Client.getInstance().getOrientation().getAdjustedYaw() != -999.0F) {
+//            yaw = Client.getInstance().getOrientation().getAdjustedYaw() + 90.0F;
 //        }
 
-        if (var0 != 0.0F) {
-            if (!(var1 >= 1.0F)) {
-                if (var1 <= -1.0F) {
-                    var4 += (float)(!(var0 > 0.0F) ? -45 : 45);
-                    var1 = 0.0F;
-                }
-            } else {
-                var4 += (float)(!(var0 > 0.0F) ? 45 : -45);
-                var1 = 0.0F;
+        if (forward != 0.0F) {
+            if (strafe < 1.0F && strafe > -1.0F) {
+                yaw += (forward > 0.0F ? (strafe > 0.0F ? -45 : 45) : (strafe > 0.0F ? 45 : -45));
+                strafe = 0.0F;
             }
 
-            if (!(var0 > 0.0F)) {
-                if (var0 < 0.0F) {
-                    var0 = -1.0F;
-                }
-            } else {
-                var0 = 1.0F;
-            }
+            forward = forward > 0.0F ? 1.0F : -1.0F;
         }
 
-        if (/*Client.getInstance().method19950().method31742()
-                && !Client.getInstance().method19950().method31741()
+        if (/*Client.getInstance().getOrientation().isMoving()
+                && !Client.getInstance().getOrientation().isStopped()
                 &&*/ (mc.player.moveForward != 0.0F || mc.player.moveStrafing != 0.0F)) {
-            var0 = 1.0F;
+            forward = 1.0F;
         }
 
-        return new float[]{var4, var0, var1};
+        return new float[]{yaw, forward, strafe};
     }
 
 
     public static float[] lenientStrafe() {
         MovementInput input = mc.player.movementInput;
-        float var3 = input.moveForward;
-        float var4 = input.moveStrafe;
-        return method37084(var3, var4);
+        float moveForward = input.moveForward;
+        float moveStrafe = input.moveStrafe;
+        return getAdjustedStrafe(moveForward, moveStrafe);
     }
 
     public static void strafe(double speed) {
-        float[] var4 = lenientStrafe();
-        float var5 = var4[1];
-        float var6 = var4[2];
-        float var7 = var4[0];
-        if (var5 == 0.0F && var6 == 0.0F) {
+        float[] adjusted = lenientStrafe();
+        float forward = adjusted[1];
+        float side = adjusted[2];
+        float yaw = adjusted[0];
+        if (forward == 0.0F && side == 0.0F) {
             setPlayerXMotion(0.0);
             setPlayerZMotion(0.0);
         }
 
-        double var8 = Math.cos(Math.toRadians(var7));
-        double var10 = Math.sin(Math.toRadians(var7));
-        double var12 = ((double)var5 * var8 + (double)var6 * var10) * speed;
-        double var14 = ((double)var5 * var10 - (double)var6 * var8) * speed;
-        setPlayerXMotion(var12);
-        setPlayerZMotion(var14);
+        double cos = Math.cos(Math.toRadians(yaw));
+        double sin = Math.sin(Math.toRadians(yaw));
+        double x = (forward * cos + side * sin) * speed;
+        double z = (forward * sin - side * cos) * speed;
+        setPlayerXMotion(x);
+        setPlayerZMotion(z);
     }
 
     public static double setPlayerXMotion(double x) {
@@ -120,21 +119,21 @@ public class MovementUtil {
     }
 
     public static void setSpeed(EventMove moveEvent, double motionSpeed) {
-        float[] var5 = lenientStrafe();
-        float var6 = var5[1];
-        float var7 = var5[2];
-        float var8 = var5[0];
-        if (var6 == 0.0F && var7 == 0.0F) {
+        float[] strafe = lenientStrafe();
+        float forward = strafe[1];
+        float side = strafe[2];
+        float yaw = strafe[0];
+        if (forward == 0.0F && side == 0.0F) {
             moveEvent.setX(0.0);
             moveEvent.setZ(0.0);
         }
 
-        double var9 = Math.cos(Math.toRadians((double)var8));
-        double var11 = Math.sin(Math.toRadians((double)var8));
-        double var13 = ((double)var6 * var9 + (double)var7 * var11) * motionSpeed;
-        double var15 = ((double)var6 * var11 - (double)var7 * var9) * motionSpeed;
-        moveEvent.setX(var13);
-        moveEvent.setZ(var15);
+        double cos = Math.cos(Math.toRadians(yaw));
+        double sin = Math.sin(Math.toRadians(yaw));
+        double x = (forward * cos + side * sin) * motionSpeed;
+        double z = (forward * sin - side * cos) * motionSpeed;
+        moveEvent.setX(x);
+        moveEvent.setZ(z);
         setPlayerXMotion(moveEvent.getX());
         setPlayerZMotion(moveEvent.getZ());
     }
