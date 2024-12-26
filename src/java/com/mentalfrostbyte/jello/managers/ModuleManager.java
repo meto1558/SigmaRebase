@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import com.mentalfrostbyte.jello.module.impl.player.Cape;
 import team.sdhq.eventBus.EventBus;
@@ -69,6 +70,7 @@ public class ModuleManager {
         // ITEM
 
         // MOVEMENT
+        this.register(new Speed());
 
         this.sortBySuffixAndRegisterEvents();
     }
