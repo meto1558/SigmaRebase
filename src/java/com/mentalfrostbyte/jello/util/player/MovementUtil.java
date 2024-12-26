@@ -14,6 +14,10 @@ public class MovementUtil {
         return ! mc.player.isPotionActive(Effects.SPEED) ? 0 : mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1;
     }
 
+    public static int getJumpBoost() {
+        return ! mc.player.isPotionActive(Effects.JUMP_BOOST) ? 0 : mc.player.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1;
+    }
+
     public static double getSpeed() {
         double var2 = 0.2873;
         float var4 = 1.0F;

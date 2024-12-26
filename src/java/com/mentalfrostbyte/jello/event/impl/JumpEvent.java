@@ -12,7 +12,7 @@ public class JumpEvent extends CancellableEvent {
         this.vector = var1;
     }
 
-    public boolean method14000() {
+    public boolean isModified() {
         return this.modified;
     }
 
@@ -20,8 +20,8 @@ public class JumpEvent extends CancellableEvent {
         return this.vector;
     }
 
-    public void method14002(double var1) {
-        this.vector.y = var1;
+    public void setY(double y) {
+        this.vector.y = y;
     }
 
     public void method14003(double var1) {
