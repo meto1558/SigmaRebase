@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
-import com.mentalfrostbyte.jello.gui.unmapped.TargetThing;
+import com.mentalfrostbyte.jello.gui.unmapped.Bound;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -19,7 +19,7 @@ public class ModuleKeyPress {
    public static void press(int key) {
       if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
          if (key != -1) {
-            for (TargetThing var5 : Client.getInstance().moduleManager.getMacOSTouchBar().method13733(key)) {
+            for (Bound var5 : Client.getInstance().moduleManager.getMacOSTouchBar().method13733(key)) {
                if (var5 != null && var5.hasTarget()) {
                   switch (Class8614.field38740[var5.getKeybindTypes().ordinal()]) {
                      case 1:

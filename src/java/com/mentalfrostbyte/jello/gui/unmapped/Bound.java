@@ -6,42 +6,42 @@ import net.minecraft.client.gui.screen.Screen;
 import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
-public class TargetThing {
+public class Bound {
    private int key = -1;
    private Object target;
 
-   public TargetThing(JSONObject var1) {
-      this.method27050(var1);
+   public Bound(JSONObject var1) {
+      this.loadFromJSON(var1);
    }
 
-   public TargetThing(int var1, Module var2) {
-      this.key = var1;
-      this.target = var2;
+   public Bound(int key, Module target) {
+      this.key = key;
+      this.target = target;
    }
 
-   public TargetThing(int var1, Class<? extends Screen> var2) {
-      this.key = var1;
-      this.target = var2;
+   public Bound(int key, Class<? extends Screen> target) {
+      this.key = key;
+      this.target = target;
    }
 
-   public void method27050(JSONObject var1) {
-      if (var1.has("target")) {
+   public void loadFromJSON(JSONObject from) {
+      if (from.has("target")) {
          try {
-            if (var1.has("key")) {
-               this.key = var1.getInt("key");
+            if (from.has("key")) {
+               this.key = from.getInt("key");
             }
 
-            if (var1.has("type")) {
-               String var4 = var1.getString("type");
+            if (from.has("type")) {
+               String var4 = from.getString("type");
                switch (var4) {
                   case "mod":
                      for (Module var7 : Client.getInstance().moduleManager.getModuleMap().values()) {
-                        if (var1.getString("target").equals(var7.getName())) {
+                        if (from.getString("target").equals(var7.getName())) {
                            this.target = var7;
                         }
                      }
                   case "screen":
-                     Class var8 = Client.getInstance().guiManager.method33477(var1.getString("target"));
+                     Class var8 = Client.getInstance().guiManager.method33477(from.getString("target"));
                      if (var8 != null) {
                         this.target = var8;
                      }
@@ -100,8 +100,8 @@ public class TargetThing {
    @Override
    public boolean equals(Object to) {
       if (to != this) {
-         if (to instanceof TargetThing) {
-            TargetThing other = (TargetThing)to;
+         if (to instanceof Bound) {
+            Bound other = (Bound)to;
             return this.getTarget().equals(other.getTarget());
          } else {
             return false;

@@ -25,31 +25,31 @@ import java.util.*;
 
 public class MacOSTouchBar {
    public JTouchBar touchBar;
-   private LinkedHashSet<TargetThing> field21387 = new LinkedHashSet<TargetThing>();
+   private LinkedHashSet<Bound> field21387 = new LinkedHashSet<Bound>();
    public boolean field21388 = false;
    public HashMap<Module, TouchBarButton> field21389 = new HashMap<Module, TouchBarButton>();
 
    public MacOSTouchBar() {
       EventBus.register(this);
       if (FileUtil.field25727) {
-         //this.field21387.add(new TargetThing(344, ClickGui.class));
+         //this.field21387.add(new Bound(344, ClickGui.class));
       }
    }
 
-   public Set<TargetThing> method13724() {
+   public Set<Bound> method13724() {
       return this.field21387;
    }
 
    public void method13725(int var1, Module var2) {
       this.method13727(var2);
-      TargetThing var5 = new TargetThing(var1, var2);
+      Bound var5 = new Bound(var1, var2);
       this.field21387.add(var5);
       this.displayKeybindsInfo();
    }
 
    public void method13726(int var1, Class<? extends Screen> var2) {
       this.method13727(var2);
-      TargetThing var5 = new TargetThing(var1, var2);
+      Bound var5 = new Bound(var1, var2);
       this.field21387.add(var5);
       this.displayKeybindsInfo();
    }
@@ -58,14 +58,14 @@ public class MacOSTouchBar {
       Iterator var4 = this.field21387.iterator();
 
       while (var4.hasNext()) {
-         if (((TargetThing)var4.next()).getTarget().equals(var1)) {
+         if (((Bound)var4.next()).getTarget().equals(var1)) {
             var4.remove();
          }
       }
    }
 
    public int getKeybindFor(Class<? extends Screen> screen) {
-      for (TargetThing var5 : this.field21387) {
+      for (Bound var5 : this.field21387) {
          if (var5.getKeybindTypes() == KeybindTypes.SCREEN && var5.getScreenTarget() == screen) {
             return var5.getKeybind();
          }
@@ -75,7 +75,7 @@ public class MacOSTouchBar {
    }
 
    public int method13729(Module var1) {
-      for (TargetThing var5 : this.field21387) {
+      for (Bound var5 : this.field21387) {
          if (var5.getKeybindTypes() == KeybindTypes.MODULE && var5.getModuleTarget() == var1) {
             return var5.getKeybind();
          }
@@ -84,11 +84,11 @@ public class MacOSTouchBar {
       return -1;
    }
 
-   public TargetThing method13730(int var1) {
+   public Bound method13730(int var1) {
       if (var1 == -1) {
          return null;
       } else {
-         for (TargetThing var5 : this.field21387) {
+         for (Bound var5 : this.field21387) {
             if (var5.getKeybind() == var1) {
                return var5;
             }
@@ -101,7 +101,7 @@ public class MacOSTouchBar {
    public JSONObject getKeybindsJSONObject(JSONObject obj) throws JSONException {
       JSONArray keybinds = new JSONArray();
 
-      for (TargetThing var6 : this.field21387) {
+      for (Bound var6 : this.field21387) {
          if (var6.getKeybind() != -1 && var6.getKeybind() != 0) {
             keybinds.put(var6.getKeybindData());
          }
@@ -117,7 +117,7 @@ public class MacOSTouchBar {
 
          for (int var5 = 0; var5 < var4.length(); var5++) {
             JSONObject var6 = var4.getJSONObject(var5);
-            TargetThing var7 = new TargetThing(var6);
+            Bound var7 = new Bound(var6);
             if (var7.hasTarget()) {
                this.field21387.add(var7);
             }
@@ -125,10 +125,10 @@ public class MacOSTouchBar {
       }
    }
 
-   public List<TargetThing> method13733(int var1) {
+   public List<Bound> method13733(int var1) {
       ArrayList var4 = new ArrayList();
       if (var1 != -1) {
-         for (TargetThing var6 : this.field21387) {
+         for (Bound var6 : this.field21387) {
             if (var6.getKeybind() == var1) {
                var4.add(var6);
             }
@@ -218,7 +218,7 @@ public class MacOSTouchBar {
       this.touchBar.getItems().clear();
       this.field21389.clear();
 
-      for (TargetThing var4 : this.field21387) {
+      for (Bound var4 : this.field21387) {
          if (var4.getKeybindTypes() == KeybindTypes.MODULE && var4.getKeybind() > 0) {
             TouchBarButton var5 = new TouchBarButton();
             var5.setTitle(var4.getModuleTarget().getName());
