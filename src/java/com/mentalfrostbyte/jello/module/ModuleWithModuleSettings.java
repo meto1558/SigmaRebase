@@ -85,8 +85,8 @@ public class ModuleWithModuleSettings extends Module {
     }
 
     @Override
-    public JSONObject initialize(JSONObject var1) throws JSONException {
-        JSONObject var4 = CJsonUtils.getJSONObjectOrNull(var1, "sub-options");
+    public JSONObject initialize(JSONObject config) throws JSONException {
+        JSONObject var4 = CJsonUtils.getJSONObjectOrNull(config, "sub-options");
         if (var4 != null) {
             for (Module var8 : this.moduleArray) {
                 JSONArray var9 = CJsonUtils.getJSONArrayOrNull(var4, var8.getName());
@@ -112,7 +112,7 @@ public class ModuleWithModuleSettings extends Module {
             }
         }
 
-        JSONObject var18 = super.initialize(var1);
+        JSONObject var18 = super.initialize(config);
         if (this.enabled) {
             this.calledOnEnable();
         }

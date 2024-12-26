@@ -4,7 +4,6 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.managers.impl.sound.CustomSoundPlayer;
 import com.mentalfrostbyte.jello.module.settings.Setting;
-import com.mentalfrostbyte.jello.module.settings.impl.SpeedRampSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.SoundEvents;
 import team.sdhq.eventBus.EventBus;
@@ -97,24 +96,24 @@ public class Module {
         }
     }
 
-    public JSONObject initialize(JSONObject var1) throws JSONException {
-        JSONArray var4 = CJsonUtils.getJSONArrayOrNull(var1, "options");
+    public JSONObject initialize(JSONObject config) throws JSONException {
+        JSONArray options = CJsonUtils.getJSONArrayOrNull(config, "options");
 
-        this.enabled = var1.getBoolean("enabled");
+        this.enabled = config.getBoolean("enabled");
 
-        this.allowed = var1.getBoolean("allowed");
+        this.allowed = config.getBoolean("allowed");
 
-        if (var4 != null) {
-            for (int var5 = 0; var5 < var4.length(); var5++) {
-                JSONObject  var6 = var4.getJSONObject(var5);
-                String   var7 = CJsonUtils.getStringOrDefault(var6, "name", null);
+        if (options != null) {
+            for (int i = 0; i < options.length(); i++) {
+                JSONObject settingCfg = options.getJSONObject(i);
+                String optName = CJsonUtils.getStringOrDefault(settingCfg, "name", null);
 
-                for (Setting<?> var9 : this.settingMap.values()) {
-                    if (var9.getName().equals(var7)) {
+                for (Setting<?> setting : this.settingMap.values()) {
+                    if (setting.getName().equals(optName)) {
                         try {
-                            var9.loadCurrentValueFromJSONObject(var6);
-                        } catch (JSONException2 var11) {
-                            System.err.println("Could not initialize settings of " + this.getName() + "." + var9.getName() + " from config.");
+                            setting.loadCurrentValueFromJSONObject(settingCfg);
+                        } catch (JSONException2 jsonException2) {
+                            System.err.println("Could not initialize settings of " + this.getName() + "." + setting.getName() + " from config.");
                         }
                         break;
                     }
@@ -126,7 +125,7 @@ public class Module {
             this.onEnable();
         }
 
-        return var1;
+        return config;
     }
 
     public JSONObject buildUpModuleData(JSONObject obj) {
@@ -179,7 +178,7 @@ public class Module {
         }
     }
 
-    public int method15994() {
+    public int getRandomAssOffset() {
         return this.randomAssOffset;
     }
 
@@ -206,7 +205,7 @@ public class Module {
             }
         }
 
-        Client.getInstance().moduleManager.getMacOSTouchBar().method13737(this);
+        Client.getInstance().moduleManager.getMacOSTouchBar().onModuleToggled(this);
     }
 
     public void setEnabledBasic(boolean enabled) {
@@ -252,7 +251,7 @@ public class Module {
             }
         }
 
-        Client.getInstance().moduleManager.getMacOSTouchBar().method13737(this);
+        Client.getInstance().moduleManager.getMacOSTouchBar().onModuleToggled(this);
     }
 
     public void toggle() {
