@@ -7,17 +7,37 @@ import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.MovementInput;
 
+/**
+ * Utility class for handling player movement-related operations.
+ * This class provides methods for calculating and manipulating player movement,
+ * including speed adjustments, strafing, and motion control.
+ */
 public class MovementUtil {
     protected static Minecraft mc = Minecraft.getInstance();
 
+    /**
+     * Gets the current speed boost level of the player.
+     *
+     * @return The amplifier of the speed effect plus one, or 0 if the player doesn't have a speed effect.
+     */
     public static int getSpeedBoost() {
-        return ! mc.player.isPotionActive(Effects.SPEED) ? 0 : mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1;
+        return !mc.player.isPotionActive(Effects.SPEED) ? 0 : mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1;
     }
 
+    /**
+     * Gets the current jump boost level of the player.
+     *
+     * @return The amplifier of the jump boost effect plus one, or 0 if the player doesn't have a jump boost effect.
+     */
     public static int getJumpBoost() {
-        return ! mc.player.isPotionActive(Effects.JUMP_BOOST) ? 0 : mc.player.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1;
+        return !mc.player.isPotionActive(Effects.JUMP_BOOST) ? 0 : mc.player.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1;
     }
 
+    /**
+     * Calculates the player's current movement speed, taking into account various factors such as sprinting, potion effects, sneaking, and being in water.
+     *
+     * @return The calculated movement speed as a double value.
+     */
     public static double getSpeed() {
         double speed = 0.2873;
         float multiplier = 1.0F;
@@ -77,7 +97,11 @@ public class MovementUtil {
         return new float[]{yaw, forward, strafe};
     }
 
-
+    /**
+     * Calculates adjusted strafe values based on the player's current movement input.
+     *
+     * @return A float array containing adjusted yaw, forward, and strafe values.
+     */
     public static float[] lenientStrafe() {
         MovementInput input = mc.player.movementInput;
         float moveForward = input.moveForward;
@@ -85,6 +109,11 @@ public class MovementUtil {
         return getAdjustedStrafe(moveForward, moveStrafe);
     }
 
+    /**
+     * Applies strafing movement to the player based on the given speed.
+     *
+     * @param speed The speed at which to strafe.
+     */
     public static void strafe(double speed) {
         float[] adjusted = lenientStrafe();
         float forward = adjusted[1];
@@ -103,21 +132,45 @@ public class MovementUtil {
         setPlayerZMotion(z);
     }
 
+    /**
+     * Sets the player's X motion component.
+     *
+     * @param x The new X motion value.
+     * @return The set X motion value.
+     */
     public static double setPlayerXMotion(double x) {
         mc.player.setMotion(x, mc.player.getMotion().y, mc.player.getMotion().z);
         return x;
     }
 
+    /**
+     * Sets the player's Y motion component.
+     *
+     * @param y The new Y motion value.
+     * @return The set Y motion value.
+     */
     public static double setPlayerYMotion(double y) {
         mc.player.setMotion(mc.player.getMotion().x, y, mc.player.getMotion().z);
         return y;
     }
 
+    /**
+     * Sets the player's Z motion component.
+     *
+     * @param z The new Z motion value.
+     * @return The set Z motion value.
+     */
     public static double setPlayerZMotion(double z) {
         mc.player.setMotion(mc.player.getMotion().x, mc.player.getMotion().y, z);
         return z;
     }
 
+    /**
+     * Sets the player's movement speed for a given event.
+     *
+     * @param moveEvent The movement event to modify.
+     * @param motionSpeed The desired motion speed.
+     */
     public static void setSpeed(EventMove moveEvent, double motionSpeed) {
         float[] strafe = lenientStrafe();
         float forward = strafe[1];
@@ -138,10 +191,20 @@ public class MovementUtil {
         setPlayerZMotion(moveEvent.getZ());
     }
 
+    /**
+     * Checks if the player is currently in water.
+     *
+     * @return true if the player is in water, false otherwise.
+     */
     public static boolean isInWater() {
         return mc.player.isInWater();
     }
 
+    /**
+     * Checks if the player is currently moving based on keyboard input.
+     *
+     * @return true if any movement key is pressed, false otherwise.
+     */
     public static boolean isMoving() {
         boolean forward = mc.gameSettings.keyBindForward.isKeyDown();
         boolean left = mc.gameSettings.keyBindLeft.isKeyDown();
