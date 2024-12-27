@@ -55,13 +55,7 @@ public class MacOSTouchBar {
    }
 
    public void method13727(Object var1) {
-      Iterator var4 = this.field21387.iterator();
-
-      while (var4.hasNext()) {
-         if (((Bound)var4.next()).getTarget().equals(var1)) {
-            var4.remove();
-         }
-      }
+       this.field21387.removeIf(o -> o.getTarget().equals(var1));
    }
 
    public int getKeybindFor(Class<? extends Screen> screen) {
