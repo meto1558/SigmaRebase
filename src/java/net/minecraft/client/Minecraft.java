@@ -27,6 +27,7 @@ import com.mojang.datafixers.util.Function4;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.Lifecycle;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -249,8 +250,7 @@ import org.apache.logging.log4j.Logger;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONException;
 
-public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperInfo, IWindowEventListener
-{
+public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperInfo, IWindowEventListener {
     private static Minecraft instance;
     private static final Logger LOGGER = LogManager.getLogger();
     public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OS.OSX;
@@ -261,7 +261,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private static final ITextComponent field_244596_I = new TranslationTextComponent("multiplayer.socialInteractions.not_available");
     private final File fileResourcepacks;
 
-    /** The player's GameProfile properties */
+    /**
+     * The player's GameProfile properties
+     */
     private final PropertyMap profileProperties;
     private final TextureManager textureManager;
     private final DataFixer dataFixer;
@@ -292,7 +294,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final Proxy proxy;
     private final SaveFormat saveFormat;
 
-    /** The FrameTimer's instance */
+    /**
+     * The FrameTimer's instance
+     */
     public final FrameTimer frameTimer = new FrameTimer();
     private final boolean jvm64bit;
     private final IReloadableResourceManager resourceManager;
@@ -346,7 +350,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private boolean isGamePaused;
     private float renderPartialTicksPaused;
 
-    /** Time in nanoseconds of when the class is loaded */
+    /**
+     * Time in nanoseconds of when the class is loaded
+     */
     private long startNanoTime = Util.nanoTime();
     private long debugUpdateTime;
     private int fpsCounter;
@@ -356,7 +362,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     @Nullable
     public LoadingGui loadingGui;
 
-    /** True if the player is connected to a realms server */
+    /**
+     * True if the player is connected to a realms server
+     */
     private boolean connectedToRealms;
     private Thread thread;
     private volatile boolean running = true;
@@ -385,8 +393,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
     private final SocialInteractionsService field_244734_au;
 
-    public Minecraft(GameConfiguration gameConfig)
-    {
+    public Minecraft(GameConfiguration gameConfig) {
         super("Client");
         instance = this;
         this.gameDir = gameConfig.folderInfo.gameDir;
@@ -402,20 +409,17 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.sessionService = yggdrasilauthenticationservice.createMinecraftSessionService();
         this.field_244734_au = this.func_244735_a(yggdrasilauthenticationservice, gameConfig);
         this.session = gameConfig.userInfo.session;
-        LOGGER.info("Setting user: {}", (Object)this.session.getUsername());
-        LOGGER.debug("(Session ID is {})", (Object)this.session.getSessionID());
+        LOGGER.info("Setting user: {}", (Object) this.session.getUsername());
+        LOGGER.debug("(Session ID is {})", (Object) this.session.getSessionID());
         this.jvm64bit = isJvm64bit();
         this.integratedServer = null;
         String s;
         int i;
 
-        if (this.isMultiplayerEnabled() && gameConfig.serverInfo.serverName != null)
-        {
+        if (this.isMultiplayerEnabled() && gameConfig.serverInfo.serverName != null) {
             s = gameConfig.serverInfo.serverName;
             i = gameConfig.serverInfo.serverPort;
-        }
-        else
-        {
+        } else {
             s = null;
             i = 0;
         }
@@ -427,15 +431,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.thread = Thread.currentThread();
         this.gameSettings = new GameSettings(this, this.gameDir);
         this.creativeSettings = new CreativeSettings(this.gameDir, this.dataFixer);
-        LOGGER.info("Backend library: {}", (Object)RenderSystem.getBackendDescription());
+        LOGGER.info("Backend library: {}", (Object) RenderSystem.getBackendDescription());
         ScreenSize screensize;
 
-        if (this.gameSettings.overrideHeight > 0 && this.gameSettings.overrideWidth > 0)
-        {
+        if (this.gameSettings.overrideHeight > 0 && this.gameSettings.overrideWidth > 0) {
             screensize = new ScreenSize(this.gameSettings.overrideWidth, this.gameSettings.overrideHeight, gameConfig.displayInfo.fullscreenWidth, gameConfig.displayInfo.fullscreenHeight, gameConfig.displayInfo.fullscreen);
-        }
-        else
-        {
+        } else {
             screensize = gameConfig.displayInfo;
         }
 
@@ -444,15 +445,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.mainWindow = this.virtualScreen.create(screensize, this.gameSettings.fullscreenResolution, this.getWindowTitle());
         this.setGameFocused(true);
 
-        try
-        {
+        try {
             InputStream inputstream = this.getPackFinder().getVanillaPack().getResourceStream(ResourcePackType.CLIENT_RESOURCES, new ResourceLocation("icons/icon_16x16.png"));
             InputStream inputstream1 = this.getPackFinder().getVanillaPack().getResourceStream(ResourcePackType.CLIENT_RESOURCES, new ResourceLocation("icons/icon_32x32.png"));
             this.mainWindow.setWindowIcon(inputstream, inputstream1);
-        }
-        catch (IOException ioexception)
-        {
-            LOGGER.error("Couldn't set icon", (Throwable)ioexception);
+        } catch (IOException ioexception) {
+            LOGGER.error("Couldn't set icon", (Throwable) ioexception);
         }
 
         this.mainWindow.setFramerateLimit(this.gameSettings.framerateLimit);
@@ -517,8 +515,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.debugRenderer = new DebugRenderer(this);
         RenderSystem.setErrorCallback(this::disableVSyncAfterGlError);
 
-        if (this.gameSettings.fullscreen && !this.mainWindow.isFullscreen())
-        {
+        if (this.gameSettings.fullscreen && !this.mainWindow.isFullscreen()) {
             this.mainWindow.toggleFullscreen();
             this.gameSettings.fullscreen = this.mainWindow.isFullscreen();
         }
@@ -529,12 +526,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.updateWindowSize();
         ViaMCP.create();
 
-        if (s != null)
-        {
+        if (s != null) {
             this.displayGuiScreen(new ConnectingScreen(new MainMenuScreen(), this, s, i));
-        }
-        else
-        {
+        } else {
             this.displayGuiScreen(new MainMenuScreen(true));
         }
 
@@ -543,8 +537,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
         {
             Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
-                if (SharedConstants.developmentMode)
-                {
+                if (SharedConstants.developmentMode) {
                     this.checkMissingData();
                 }
             });
@@ -555,8 +548,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         return debugFPS;
     }
 
-    public void setDefaultMinecraftTitle()
-    {
+    public void setDefaultMinecraftTitle() {
         this.mainWindow.setWindowTitle(this.getWindowTitle());
     }
 
@@ -581,44 +573,32 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         return stringbuilder.toString();
     }
 
-    private SocialInteractionsService func_244735_a(YggdrasilAuthenticationService p_244735_1_, GameConfiguration p_244735_2_)
-    {
-        try
-        {
+    private SocialInteractionsService func_244735_a(YggdrasilAuthenticationService p_244735_1_, GameConfiguration p_244735_2_) {
+        try {
             return p_244735_1_.createSocialInteractionsService(p_244735_2_.userInfo.session.getToken());
-        }
-        catch (AuthenticationException authenticationexception)
-        {
-            LOGGER.error("Failed to verify authentication", (Throwable)authenticationexception);
+        } catch (AuthenticationException authenticationexception) {
+            LOGGER.error("Failed to verify authentication", (Throwable) authenticationexception);
             return new OfflineSocialInteractions();
         }
     }
 
-    private void restoreResourcePacks(Throwable throwableIn)
-    {
-        if (this.resourcePackRepository.func_232621_d_().size() > 1)
-        {
+    private void restoreResourcePacks(Throwable throwableIn) {
+        if (this.resourcePackRepository.func_232621_d_().size() > 1) {
             ITextComponent itextcomponent;
 
-            if (throwableIn instanceof SimpleReloadableResourceManager.FailedPackException)
-            {
-                itextcomponent = new StringTextComponent(((SimpleReloadableResourceManager.FailedPackException)throwableIn).getPack().getName());
-            }
-            else
-            {
+            if (throwableIn instanceof SimpleReloadableResourceManager.FailedPackException) {
+                itextcomponent = new StringTextComponent(((SimpleReloadableResourceManager.FailedPackException) throwableIn).getPack().getName());
+            } else {
                 itextcomponent = null;
             }
 
             this.throwResourcePackLoadError(throwableIn, itextcomponent);
-        }
-        else
-        {
+        } else {
             Util.toRuntimeException(throwableIn);
         }
     }
 
-    public void throwResourcePackLoadError(Throwable throwable, @Nullable ITextComponent errorMessage)
-    {
+    public void throwResourcePackLoadError(Throwable throwable, @Nullable ITextComponent errorMessage) {
         LOGGER.info("Caught error loading resourcepacks, removing all selected resourcepacks", throwable);
         this.resourcePackRepository.setEnabledPacks(Collections.emptyList());
         this.gameSettings.resourcePacks.clear();
@@ -631,24 +611,19 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         });
     }
 
-    public void run()
-    {
+    public void run() {
         this.thread = Thread.currentThread();
 
-        try
-        {
+        try {
             boolean flag = false;
 
-            while (this.running)
-            {
-                if (this.crashReporter != null)
-                {
+            while (this.running) {
+                if (this.crashReporter != null) {
                     displayCrashReport(this.crashReporter);
                     return;
                 }
 
-                try
-                {
+                try {
                     LongTickDetector longtickdetector = LongTickDetector.func_233524_a_("Renderer");
                     boolean flag1 = this.isDebugMode();
                     this.tick(flag1, longtickdetector);
@@ -657,31 +632,24 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                     Client.getInstance().endTick();
                     this.profiler.endTick();
                     this.func_238210_b_(flag1, longtickdetector);
-                }
-                catch (OutOfMemoryError outofmemoryerror)
-                {
-                    if (flag)
-                    {
+                } catch (OutOfMemoryError outofmemoryerror) {
+                    if (flag) {
                         throw outofmemoryerror;
                     }
 
                     this.freeMemory();
                     this.displayGuiScreen(new MemoryErrorScreen());
                     System.gc();
-                    LOGGER.fatal("Out of memory", (Throwable)outofmemoryerror);
+                    LOGGER.fatal("Out of memory", (Throwable) outofmemoryerror);
                     flag = true;
                 }
             }
-        }
-        catch (ReportedException reportedexception)
-        {
+        } catch (ReportedException reportedexception) {
             this.addGraphicsAndWorldToCrashReport(reportedexception.getCrashReport());
             this.freeMemory();
-            LOGGER.fatal("Reported exception thrown!", (Throwable)reportedexception);
+            LOGGER.fatal("Reported exception thrown!", (Throwable) reportedexception);
             displayCrashReport(reportedexception.getCrashReport());
-        }
-        catch (Throwable throwable)
-        {
+        } catch (Throwable throwable) {
             CrashReport crashreport = this.addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable));
             LOGGER.fatal("Unreported exception thrown!", throwable);
             this.freeMemory();
@@ -689,19 +657,17 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    void forceUnicodeFont(boolean forced)
-    {
+    void forceUnicodeFont(boolean forced) {
         this.fontResourceMananger.func_238551_a_(forced ? ImmutableMap.of(DEFAULT_FONT_RENDERER_NAME, UNIFORM_FONT_RENDERER_NAME) : ImmutableMap.of());
     }
 
     /**
      * Fills {@link #searchTreeManager} with the current item and recipe registry contents.
      */
-    private void populateSearchTreeManager()
-    {
+    private void populateSearchTreeManager() {
         SearchTree<ItemStack> searchtree = new SearchTree<>((stack) ->
         {
-            return stack.getTooltip((PlayerEntity)null, ITooltipFlag.TooltipFlags.NORMAL).stream().map((textComponent) -> {
+            return stack.getTooltip((PlayerEntity) null, ITooltipFlag.TooltipFlags.NORMAL).stream().map((textComponent) -> {
                 return TextFormatting.getTextWithoutFormattingCodes(textComponent.getString()).trim();
             }).filter((name) -> {
                 return !name.isEmpty();
@@ -716,8 +682,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         });
         NonNullList<ItemStack> nonnulllist = NonNullList.create();
 
-        for (Item item : Registry.ITEM)
-        {
+        for (Item item : Registry.ITEM) {
             item.fillItemGroup(ItemGroup.SEARCH, nonnulllist);
         }
 
@@ -729,7 +694,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         SearchTree<RecipeList> searchtree1 = new SearchTree<>((recipeList) ->
         {
             return recipeList.getRecipes().stream().flatMap((recipe) -> {
-                return recipe.getRecipeOutput().getTooltip((PlayerEntity)null, ITooltipFlag.TooltipFlags.NORMAL).stream();
+                return recipe.getRecipeOutput().getTooltip((PlayerEntity) null, ITooltipFlag.TooltipFlags.NORMAL).stream();
             }).map((textComponent) -> {
                 return TextFormatting.getTextWithoutFormattingCodes(textComponent.getString()).trim();
             }).filter((name) -> {
@@ -746,22 +711,18 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.searchTreeManager.add(SearchTreeManager.RECIPES, searchtree1);
     }
 
-    private void disableVSyncAfterGlError(int error, long description)
-    {
+    private void disableVSyncAfterGlError(int error, long description) {
         this.gameSettings.vsync = false;
         this.gameSettings.saveOptions();
     }
 
-    private static boolean isJvm64bit()
-    {
-        String[] astring = new String[] {"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
+    private static boolean isJvm64bit() {
+        String[] astring = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
 
-        for (String s : astring)
-        {
+        for (String s : astring) {
             String s1 = System.getProperty(s);
 
-            if (s1 != null && s1.contains("64"))
-            {
+            if (s1 != null && s1.contains("64")) {
                 return true;
             }
         }
@@ -769,8 +730,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         return false;
     }
 
-    public Framebuffer getFramebuffer()
-    {
+    public Framebuffer getFramebuffer() {
         return this.framebuffer;
     }
 
@@ -778,8 +738,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * Gets the version that Minecraft was launched under (the name of a version JSON). Specified via the
      * <code>--version</code> flag.
      */
-    public String getVersion()
-    {
+    public String getVersion() {
         return this.launchedVersion;
     }
 
@@ -787,71 +746,55 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * Gets the type of version that Minecraft was launched under (as specified in the version JSON). Specified via the
      * <code>--versionType</code> flag.
      */
-    public String getVersionType()
-    {
+    public String getVersionType() {
         return this.versionType;
     }
 
-    public void crashed(CrashReport crash)
-    {
+    public void crashed(CrashReport crash) {
         this.crashReporter = crash;
     }
 
     /**
      * Wrapper around displayCrashReportInternal
      */
-    public static void displayCrashReport(CrashReport report)
-    {
+    public static void displayCrashReport(CrashReport report) {
         File file1 = new File(getInstance().gameDir, "crash-reports");
         File file2 = new File(file1, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
         Bootstrap.printToSYSOUT(report.getCompleteReport());
 
-        if (report.getFile() != null)
-        {
+        if (report.getFile() != null) {
             Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + report.getFile());
             System.exit(-1);
-        }
-        else if (report.saveToFile(file2))
-        {
+        } else if (report.saveToFile(file2)) {
             Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + file2.getAbsolutePath());
             System.exit(-1);
-        }
-        else
-        {
+        } else {
             Bootstrap.printToSYSOUT("#@?@# Game crashed! Crash report could not be saved. #@?@#");
             System.exit(-2);
         }
     }
 
-    public boolean getForceUnicodeFont()
-    {
+    public boolean getForceUnicodeFont() {
         return this.gameSettings.forceUnicodeFont;
     }
 
-    public CompletableFuture<Void> reloadResources()
-    {
-        if (this.futureRefreshResources != null)
-        {
+    public CompletableFuture<Void> reloadResources() {
+        if (this.futureRefreshResources != null) {
             return this.futureRefreshResources;
-        }
-        else
-        {
+        } else {
             CompletableFuture<Void> completablefuture = new CompletableFuture<>();
 
-            if (this.loadingGui instanceof ResourceLoadProgressGui)
-            {
+            if (this.loadingGui instanceof ResourceLoadProgressGui) {
                 this.futureRefreshResources = completablefuture;
                 return completablefuture;
-            }
-            else
-            {
+            } else {
                 this.resourcePackRepository.reloadPacksFromFinders();
                 List<IResourcePack> list = this.resourcePackRepository.func_232623_f_();
                 this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
                 {
                     Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
                         this.worldRenderer.loadRenderers();
-                        completablefuture.complete((Void)null);
+                        completablefuture.complete((Void) null);
                     });
                 }, true));
                 return completablefuture;
@@ -859,23 +802,18 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private void checkMissingData()
-    {
+    private void checkMissingData() {
         boolean flag = false;
         BlockModelShapes blockmodelshapes = this.getBlockRendererDispatcher().getBlockModelShapes();
         IBakedModel ibakedmodel = blockmodelshapes.getModelManager().getMissingModel();
 
-        for (Block block : Registry.BLOCK)
-        {
-            for (BlockState blockstate : block.getStateContainer().getValidStates())
-            {
-                if (blockstate.getRenderType() == BlockRenderType.MODEL)
-                {
+        for (Block block : Registry.BLOCK) {
+            for (BlockState blockstate : block.getStateContainer().getValidStates()) {
+                if (blockstate.getRenderType() == BlockRenderType.MODEL) {
                     IBakedModel ibakedmodel1 = blockmodelshapes.getModel(blockstate);
 
-                    if (ibakedmodel1 == ibakedmodel)
-                    {
-                        LOGGER.debug("Missing model for: {}", (Object)blockstate);
+                    if (ibakedmodel1 == ibakedmodel) {
+                        LOGGER.debug("Missing model for: {}", (Object) blockstate);
                         flag = true;
                     }
                 }
@@ -884,15 +822,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         TextureAtlasSprite textureatlassprite1 = ibakedmodel.getParticleTexture();
 
-        for (Block block1 : Registry.BLOCK)
-        {
-            for (BlockState blockstate1 : block1.getStateContainer().getValidStates())
-            {
+        for (Block block1 : Registry.BLOCK) {
+            for (BlockState blockstate1 : block1.getStateContainer().getValidStates()) {
                 TextureAtlasSprite textureatlassprite = blockmodelshapes.getTexture(blockstate1);
 
-                if (!blockstate1.isAir() && textureatlassprite == textureatlassprite1)
-                {
-                    LOGGER.debug("Missing particle icon for: {}", (Object)blockstate1);
+                if (!blockstate1.isAir() && textureatlassprite == textureatlassprite1) {
+                    LOGGER.debug("Missing particle icon for: {}", (Object) blockstate1);
                     flag = true;
                 }
             }
@@ -900,18 +835,15 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         NonNullList<ItemStack> nonnulllist = NonNullList.create();
 
-        for (Item item : Registry.ITEM)
-        {
+        for (Item item : Registry.ITEM) {
             nonnulllist.clear();
             item.fillItemGroup(ItemGroup.SEARCH, nonnulllist);
 
-            for (ItemStack itemstack : nonnulllist)
-            {
+            for (ItemStack itemstack : nonnulllist) {
                 String s = itemstack.getTranslationKey();
                 String s1 = (new TranslationTextComponent(s)).getString();
 
-                if (s1.toLowerCase(Locale.ROOT).equals(item.getTranslationKey()))
-                {
+                if (s1.toLowerCase(Locale.ROOT).equals(item.getTranslationKey())) {
                     LOGGER.debug("Missing translation for: {} {} {}", itemstack, s, itemstack.getItem());
                 }
             }
@@ -919,8 +851,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         flag = flag | ScreenManager.isMissingScreen();
 
-        if (flag)
-        {
+        if (flag) {
             throw new IllegalStateException("Your game data is foobar, fix the errors above!");
         }
     }
@@ -928,41 +859,30 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Returns the save loader that is currently being used
      */
-    public SaveFormat getSaveLoader()
-    {
+    public SaveFormat getSaveLoader() {
         return this.saveFormat;
     }
 
-    private void openChatScreen(String defaultText)
-    {
+    private void openChatScreen(String defaultText) {
         this.displayGuiScreen(new ChatScreen(defaultText));
     }
 
-    public void displayGuiScreen(@Nullable Screen guiScreenIn)
-    {
-        if (this.currentScreen != null)
-        {
+    public void displayGuiScreen(@Nullable Screen guiScreenIn) {
+        if (this.currentScreen != null) {
             this.currentScreen.onClose();
         }
 
-        if (guiScreenIn == null && this.world == null)
-        {
+        if (guiScreenIn == null && this.world == null) {
             guiScreenIn = new MainMenuScreen();
-        }
-        else if (guiScreenIn == null && this.player.getShouldBeDead())
-        {
-            if (this.player.isShowDeathScreen())
-            {
-                guiScreenIn = new DeathScreen((ITextComponent)null, this.world.getWorldInfo().isHardcore());
-            }
-            else
-            {
+        } else if (guiScreenIn == null && this.player.getShouldBeDead()) {
+            if (this.player.isShowDeathScreen()) {
+                guiScreenIn = new DeathScreen((ITextComponent) null, this.world.getWorldInfo().isHardcore());
+            } else {
                 this.player.respawnPlayer();
             }
         }
 
-        if (guiScreenIn instanceof MainMenuScreen || guiScreenIn instanceof MultiplayerScreen)
-        {
+        if (guiScreenIn instanceof MainMenuScreen || guiScreenIn instanceof MultiplayerScreen) {
             this.gameSettings.showDebugInfo = false;
             this.ingameGUI.getChatGUI().clearChatMessages(true);
         }
@@ -974,16 +894,13 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             throw new RuntimeException(e);
         }
 
-        if (guiScreenIn != null)
-        {
+        if (guiScreenIn != null) {
             this.mouseHelper.ungrabMouse();
             KeyBinding.unPressAllKeys();
             guiScreenIn.init(this, this.mainWindow.getScaledWidth(), this.mainWindow.getScaledHeight());
             this.skipRenderWorld = false;
             NarratorChatListener.INSTANCE.say(guiScreenIn.getNarrationMessage());
-        }
-        else
-        {
+        } else {
             this.soundHandler.resume();
             this.mouseHelper.grabMouse();
         }
@@ -991,8 +908,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.setDefaultMinecraftTitle();
     }
 
-    public void setLoadingGui(@Nullable LoadingGui loadingGuiIn)
-    {
+    public void setLoadingGui(@Nullable LoadingGui loadingGuiIn) {
         this.loadingGui = loadingGuiIn;
     }
 
@@ -1000,55 +916,40 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * Shuts down the minecraft applet by stopping the resource downloads, and clearing up GL stuff; called when the
      * application (or web page) is exited.
      */
-    public void shutdownMinecraftApplet()
-    {
-        try
-        {
+    public void shutdownMinecraftApplet() {
+        try {
             LOGGER.info("Stopping!");
 
-            try
-            {
+            try {
                 NarratorChatListener.INSTANCE.close();
-            }
-            catch (Throwable throwable1)
-            {
+            } catch (Throwable throwable1) {
             }
 
-            try
-            {
-                if (this.world != null)
-                {
+            try {
+                if (this.world != null) {
                     this.world.sendQuittingDisconnectingPacket();
                 }
 
                 this.unloadWorld();
-            }
-            catch (Throwable throwable)
-            {
+            } catch (Throwable throwable) {
             }
 
-            if (this.currentScreen != null)
-            {
+            if (this.currentScreen != null) {
                 this.currentScreen.onClose();
             }
 
             this.close();
-        }
-        finally
-        {
+        } finally {
             Util.nanoTimeSupplier = System::nanoTime;
 
-            if (this.crashReporter == null)
-            {
+            if (this.crashReporter == null) {
                 System.exit(0);
             }
         }
     }
 
-    public void close()
-    {
-        try
-        {
+    public void close() {
+        try {
             this.modelManager.close();
             this.fontResourceMananger.close();
             this.gameRenderer.close();
@@ -1061,56 +962,46 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.textureManager.close();
             this.resourceManager.close();
             Util.shutdown();
-        }
-        catch (Throwable throwable)
-        {
+        } catch (Throwable throwable) {
             LOGGER.error("Shutdown failure!", throwable);
             throw throwable;
-        }
-        finally
-        {
+        } finally {
             this.virtualScreen.close();
             this.mainWindow.close();
         }
     }
 
-    private void runGameLoop(boolean renderWorldIn)
-    {
+    private void runGameLoop(boolean renderWorldIn) {
         this.mainWindow.setRenderPhase("Pre render");
         long i = Util.nanoTime();
 
-        if (this.mainWindow.shouldClose())
-        {
+        if (this.mainWindow.shouldClose()) {
             this.shutdown();
         }
 
-        if (this.futureRefreshResources != null && !(this.loadingGui instanceof ResourceLoadProgressGui))
-        {
+        if (this.futureRefreshResources != null && !(this.loadingGui instanceof ResourceLoadProgressGui)) {
             CompletableFuture<Void> completablefuture = this.futureRefreshResources;
             this.futureRefreshResources = null;
             this.reloadResources().thenRun(() ->
             {
-                completablefuture.complete((Void)null);
+                completablefuture.complete((Void) null);
             });
         }
 
         Runnable runnable;
 
-        while ((runnable = this.queueChunkTracking.poll()) != null)
-        {
+        while ((runnable = this.queueChunkTracking.poll()) != null) {
             runnable.run();
         }
 
-        if (renderWorldIn)
-        {
+        if (renderWorldIn) {
             int j = this.timer.getPartialTicks(Util.milliTime());
             this.profiler.startSection("scheduledExecutables");
             this.drainTasks();
             this.profiler.endSection();
             this.profiler.startSection("tick");
 
-            for (int k = 0; k < Math.min(10, j); ++k)
-            {
+            for (int k = 0; k < Math.min(10, j); ++k) {
                 this.profiler.func_230035_c_("clientTick");
                 this.runTick();
             }
@@ -1133,8 +1024,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         RenderSystem.enableCull();
         this.profiler.endSection();
 
-        if (!this.skipRenderWorld)
-        {
+        if (!this.skipRenderWorld) {
             this.profiler.endStartSection("gameRenderer");
             this.gameRenderer.updateCameraAndRender(this.isGamePaused ? this.renderPartialTicksPaused : this.timer.renderPartialTicks, i, renderWorldIn);
             this.profiler.endStartSection("toasts");
@@ -1142,8 +1032,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.profiler.endSection();
         }
 
-        if (this.profilerResult != null)
-        {
+        if (this.profilerResult != null) {
             this.profiler.startSection("fpsPie");
             this.func_238183_a_(new MatrixStack(), this.profilerResult);
             this.profiler.endSection();
@@ -1159,8 +1048,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.mainWindow.flipFrame();
         int i1 = this.getFramerateLimit();
 
-        if ((double)i1 < AbstractOption.FRAMERATE_LIMIT.getMaxValue())
-        {
+        if ((double) i1 < AbstractOption.FRAMERATE_LIMIT.getMaxValue()) {
             RenderSystem.limitDisplayFPS(i1);
         }
 
@@ -1171,14 +1059,10 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         ++this.fpsCounter;
         boolean flag = this.isSingleplayer() && (this.currentScreen != null && this.currentScreen.isPauseScreen() || this.loadingGui != null && this.loadingGui.isPauseScreen()) && !this.integratedServer.getPublic();
 
-        if (this.isGamePaused != flag)
-        {
-            if (this.isGamePaused)
-            {
+        if (this.isGamePaused != flag) {
+            if (this.isGamePaused) {
                 this.renderPartialTicksPaused = this.timer.renderPartialTicks;
-            }
-            else
-            {
+            } else {
                 this.timer.renderPartialTicks = this.renderPartialTicksPaused;
             }
 
@@ -1190,16 +1074,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.startNanoTime = l;
         this.profiler.startSection("fpsUpdate");
 
-        while (Util.milliTime() >= this.debugUpdateTime + 1000L)
-        {
+        while (Util.milliTime() >= this.debugUpdateTime + 1000L) {
             debugFPS = this.fpsCounter;
-            this.debug = String.format("%d fps T: %s%s%s%s B: %d", debugFPS, (double)this.gameSettings.framerateLimit == AbstractOption.FRAMERATE_LIMIT.getMaxValue() ? "inf" : this.gameSettings.framerateLimit, this.gameSettings.vsync ? " vsync" : "", this.gameSettings.graphicFanciness.toString(), this.gameSettings.cloudOption == CloudOption.OFF ? "" : (this.gameSettings.cloudOption == CloudOption.FAST ? " fast-clouds" : " fancy-clouds"), this.gameSettings.biomeBlendRadius);
+            this.debug = String.format("%d fps T: %s%s%s%s B: %d", debugFPS, (double) this.gameSettings.framerateLimit == AbstractOption.FRAMERATE_LIMIT.getMaxValue() ? "inf" : this.gameSettings.framerateLimit, this.gameSettings.vsync ? " vsync" : "", this.gameSettings.graphicFanciness.toString(), this.gameSettings.cloudOption == CloudOption.OFF ? "" : (this.gameSettings.cloudOption == CloudOption.FAST ? " fast-clouds" : " fancy-clouds"), this.gameSettings.biomeBlendRadius);
             this.debugUpdateTime += 1000L;
             this.fpsCounter = 0;
             this.snooper.addMemoryStatsToSnooper();
 
-            if (!this.snooper.isSnooperRunning())
-            {
+            if (!this.snooper.isSnooperRunning()) {
                 this.snooper.start();
             }
         }
@@ -1207,57 +1089,44 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profiler.endSection();
     }
 
-    private boolean isDebugMode()
-    {
+    private boolean isDebugMode() {
         return this.gameSettings.showDebugInfo && this.gameSettings.showDebugProfilerChart && !this.gameSettings.hideGUI;
     }
 
-    private void tick(boolean isDebug, @Nullable LongTickDetector detector)
-    {
-        if (isDebug)
-        {
-            if (!this.gameTimeTracker.func_233505_a_())
-            {
+    private void tick(boolean isDebug, @Nullable LongTickDetector detector) {
+        if (isDebug) {
+            if (!this.gameTimeTracker.func_233505_a_()) {
                 this.gameTime = 0;
                 this.gameTimeTracker.func_233507_c_();
             }
 
             ++this.gameTime;
-        }
-        else
-        {
+        } else {
             this.gameTimeTracker.func_233506_b_();
         }
 
         this.profiler = LongTickDetector.func_233523_a_(this.gameTimeTracker.func_233508_d_(), detector);
     }
 
-    private void func_238210_b_(boolean isDebug, @Nullable LongTickDetector detector)
-    {
-        if (detector != null)
-        {
+    private void func_238210_b_(boolean isDebug, @Nullable LongTickDetector detector) {
+        if (detector != null) {
             detector.func_233525_b_();
         }
 
-        if (isDebug)
-        {
+        if (isDebug) {
             this.profilerResult = this.gameTimeTracker.func_233509_e_();
-        }
-        else
-        {
+        } else {
             this.profilerResult = null;
         }
 
         this.profiler = this.gameTimeTracker.func_233508_d_();
     }
 
-    public void updateWindowSize()
-    {
+    public void updateWindowSize() {
         int i = this.mainWindow.calcGuiScale(this.gameSettings.guiScale, this.getForceUnicodeFont());
-        this.mainWindow.setGuiScale((double)i);
+        this.mainWindow.setGuiScale((double) i);
 
-        if (this.currentScreen != null)
-        {
+        if (this.currentScreen != null) {
             this.currentScreen.resize(this, this.mainWindow.getScaledWidth(), this.mainWindow.getScaledHeight());
             try {
                 Client.getInstance().guiManager.onResize();
@@ -1272,43 +1141,33 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.mouseHelper.setIgnoreFirstMove();
     }
 
-    public void ignoreFirstMove()
-    {
+    public void ignoreFirstMove() {
         this.mouseHelper.ignoreFirstMove();
     }
 
-    private int getFramerateLimit()
-    {
+    private int getFramerateLimit() {
         return this.world != null || this.currentScreen == null && this.loadingGui == null ? this.mainWindow.getLimitFramerate() : 60;
     }
 
     /**
      * Attempts to free as much memory as possible, including leaving the world and running the garbage collector.
      */
-    public void freeMemory()
-    {
-        try
-        {
+    public void freeMemory() {
+        try {
             memoryReserve = new byte[0];
             this.worldRenderer.deleteAllDisplayLists();
-        }
-        catch (Throwable throwable1)
-        {
+        } catch (Throwable throwable1) {
         }
 
-        try
-        {
+        try {
             System.gc();
 
-            if (this.integratedServerIsRunning && this.integratedServer != null)
-            {
+            if (this.integratedServerIsRunning && this.integratedServer != null) {
                 this.integratedServer.initiateShutdown(true);
             }
 
             this.unloadWorld(new DirtMessageScreen(new TranslationTextComponent("menu.savingLevel")));
-        }
-        catch (Throwable throwable)
-        {
+        } catch (Throwable throwable) {
         }
 
         System.gc();
@@ -1317,36 +1176,26 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Update debugProfilerName in response to number keys in debug screen
      */
-    void updateDebugProfilerName(int keyCount)
-    {
-        if (this.profilerResult != null)
-        {
+    void updateDebugProfilerName(int keyCount) {
+        if (this.profilerResult != null) {
             List<DataPoint> list = this.profilerResult.getDataPoints(this.debugProfilerName);
 
-            if (!list.isEmpty())
-            {
+            if (!list.isEmpty()) {
                 DataPoint datapoint = list.remove(0);
 
-                if (keyCount == 0)
-                {
-                    if (!datapoint.name.isEmpty())
-                    {
+                if (keyCount == 0) {
+                    if (!datapoint.name.isEmpty()) {
                         int i = this.debugProfilerName.lastIndexOf(30);
 
-                        if (i >= 0)
-                        {
+                        if (i >= 0) {
                             this.debugProfilerName = this.debugProfilerName.substring(0, i);
                         }
                     }
-                }
-                else
-                {
+                } else {
                     --keyCount;
 
-                    if (keyCount < list.size() && !"unspecified".equals((list.get(keyCount)).name))
-                    {
-                        if (!this.debugProfilerName.isEmpty())
-                        {
+                    if (keyCount < list.size() && !"unspecified".equals((list.get(keyCount)).name)) {
+                        if (!this.debugProfilerName.isEmpty()) {
                             this.debugProfilerName = this.debugProfilerName + '\u001e';
                         }
 
@@ -1357,14 +1206,13 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private void func_238183_a_(MatrixStack matrixStack, IProfileResult profilerResult)
-    {
+    private void func_238183_a_(MatrixStack matrixStack, IProfileResult profilerResult) {
         List<DataPoint> list = profilerResult.getDataPoints(this.debugProfilerName);
         DataPoint datapoint = list.remove(0);
         RenderSystem.clear(256, IS_RUNNING_ON_MAC);
         RenderSystem.matrixMode(5889);
         RenderSystem.loadIdentity();
-        RenderSystem.ortho(0.0D, (double)this.mainWindow.getFramebufferWidth(), (double)this.mainWindow.getFramebufferHeight(), 0.0D, 1000.0D, 3000.0D);
+        RenderSystem.ortho(0.0D, (double) this.mainWindow.getFramebufferWidth(), (double) this.mainWindow.getFramebufferHeight(), 0.0D, 1000.0D, 3000.0D);
         RenderSystem.matrixMode(5888);
         RenderSystem.loadIdentity();
         RenderSystem.translatef(0.0F, 0.0F, -2000.0F);
@@ -1377,45 +1225,41 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         int k = this.mainWindow.getFramebufferHeight() - 320;
         RenderSystem.enableBlend();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos((double)((float)j - 176.0F), (double)((float)k - 96.0F - 16.0F), 0.0D).color(200, 0, 0, 0).endVertex();
-        bufferbuilder.pos((double)((float)j - 176.0F), (double)(k + 320), 0.0D).color(200, 0, 0, 0).endVertex();
-        bufferbuilder.pos((double)((float)j + 176.0F), (double)(k + 320), 0.0D).color(200, 0, 0, 0).endVertex();
-        bufferbuilder.pos((double)((float)j + 176.0F), (double)((float)k - 96.0F - 16.0F), 0.0D).color(200, 0, 0, 0).endVertex();
+        bufferbuilder.pos((double) ((float) j - 176.0F), (double) ((float) k - 96.0F - 16.0F), 0.0D).color(200, 0, 0, 0).endVertex();
+        bufferbuilder.pos((double) ((float) j - 176.0F), (double) (k + 320), 0.0D).color(200, 0, 0, 0).endVertex();
+        bufferbuilder.pos((double) ((float) j + 176.0F), (double) (k + 320), 0.0D).color(200, 0, 0, 0).endVertex();
+        bufferbuilder.pos((double) ((float) j + 176.0F), (double) ((float) k - 96.0F - 16.0F), 0.0D).color(200, 0, 0, 0).endVertex();
         tessellator.draw();
         RenderSystem.disableBlend();
         double d0 = 0.0D;
 
-        for (DataPoint datapoint1 : list)
-        {
+        for (DataPoint datapoint1 : list) {
             int l = MathHelper.floor(datapoint1.relTime / 4.0D) + 1;
             bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
             int i1 = datapoint1.getTextColor();
             int j1 = i1 >> 16 & 255;
             int k1 = i1 >> 8 & 255;
             int l1 = i1 & 255;
-            bufferbuilder.pos((double)j, (double)k, 0.0D).color(j1, k1, l1, 255).endVertex();
+            bufferbuilder.pos((double) j, (double) k, 0.0D).color(j1, k1, l1, 255).endVertex();
 
-            for (int i2 = l; i2 >= 0; --i2)
-            {
-                float f = (float)((d0 + datapoint1.relTime * (double)i2 / (double)l) * (double)((float)Math.PI * 2F) / 100.0D);
+            for (int i2 = l; i2 >= 0; --i2) {
+                float f = (float) ((d0 + datapoint1.relTime * (double) i2 / (double) l) * (double) ((float) Math.PI * 2F) / 100.0D);
                 float f1 = MathHelper.sin(f) * 160.0F;
                 float f2 = MathHelper.cos(f) * 160.0F * 0.5F;
-                bufferbuilder.pos((double)((float)j + f1), (double)((float)k - f2), 0.0D).color(j1, k1, l1, 255).endVertex();
+                bufferbuilder.pos((double) ((float) j + f1), (double) ((float) k - f2), 0.0D).color(j1, k1, l1, 255).endVertex();
             }
 
             tessellator.draw();
             bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
 
-            for (int l2 = l; l2 >= 0; --l2)
-            {
-                float f3 = (float)((d0 + datapoint1.relTime * (double)l2 / (double)l) * (double)((float)Math.PI * 2F) / 100.0D);
+            for (int l2 = l; l2 >= 0; --l2) {
+                float f3 = (float) ((d0 + datapoint1.relTime * (double) l2 / (double) l) * (double) ((float) Math.PI * 2F) / 100.0D);
                 float f4 = MathHelper.sin(f3) * 160.0F;
                 float f5 = MathHelper.cos(f3) * 160.0F * 0.5F;
 
-                if (!(f5 > 0.0F))
-                {
-                    bufferbuilder.pos((double)((float)j + f4), (double)((float)k - f5), 0.0D).color(j1 >> 1, k1 >> 1, l1 >> 1, 255).endVertex();
-                    bufferbuilder.pos((double)((float)j + f4), (double)((float)k - f5 + 10.0F), 0.0D).color(j1 >> 1, k1 >> 1, l1 >> 1, 255).endVertex();
+                if (!(f5 > 0.0F)) {
+                    bufferbuilder.pos((double) ((float) j + f4), (double) ((float) k - f5), 0.0D).color(j1 >> 1, k1 >> 1, l1 >> 1, 255).endVertex();
+                    bufferbuilder.pos((double) ((float) j + f4), (double) ((float) k - f5 + 10.0F), 0.0D).color(j1 >> 1, k1 >> 1, l1 >> 1, 255).endVertex();
                 }
             }
 
@@ -1429,112 +1273,89 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         String s = IProfileResult.decodePath(datapoint.name);
         String s1 = "";
 
-        if (!"unspecified".equals(s))
-        {
+        if (!"unspecified".equals(s)) {
             s1 = s1 + "[0] ";
         }
 
-        if (s.isEmpty())
-        {
+        if (s.isEmpty()) {
             s1 = s1 + "ROOT ";
-        }
-        else
-        {
+        } else {
             s1 = s1 + s + ' ';
         }
 
         int k2 = 16777215;
-        this.fontRenderer.drawStringWithShadow(matrixStack, s1, (float)(j - 160), (float)(k - 80 - 16), 16777215);
+        this.fontRenderer.drawStringWithShadow(matrixStack, s1, (float) (j - 160), (float) (k - 80 - 16), 16777215);
         s1 = decimalformat.format(datapoint.rootRelTime) + "%";
-        this.fontRenderer.drawStringWithShadow(matrixStack, s1, (float)(j + 160 - this.fontRenderer.getStringWidth(s1)), (float)(k - 80 - 16), 16777215);
+        this.fontRenderer.drawStringWithShadow(matrixStack, s1, (float) (j + 160 - this.fontRenderer.getStringWidth(s1)), (float) (k - 80 - 16), 16777215);
 
-        for (int j2 = 0; j2 < list.size(); ++j2)
-        {
+        for (int j2 = 0; j2 < list.size(); ++j2) {
             DataPoint datapoint2 = list.get(j2);
             StringBuilder stringbuilder = new StringBuilder();
 
-            if ("unspecified".equals(datapoint2.name))
-            {
+            if ("unspecified".equals(datapoint2.name)) {
                 stringbuilder.append("[?] ");
-            }
-            else
-            {
+            } else {
                 stringbuilder.append("[").append(j2 + 1).append("] ");
             }
 
             String s2 = stringbuilder.append(datapoint2.name).toString();
-            this.fontRenderer.drawStringWithShadow(matrixStack, s2, (float)(j - 160), (float)(k + 80 + j2 * 8 + 20), datapoint2.getTextColor());
+            this.fontRenderer.drawStringWithShadow(matrixStack, s2, (float) (j - 160), (float) (k + 80 + j2 * 8 + 20), datapoint2.getTextColor());
             s2 = decimalformat.format(datapoint2.relTime) + "%";
-            this.fontRenderer.drawStringWithShadow(matrixStack, s2, (float)(j + 160 - 50 - this.fontRenderer.getStringWidth(s2)), (float)(k + 80 + j2 * 8 + 20), datapoint2.getTextColor());
+            this.fontRenderer.drawStringWithShadow(matrixStack, s2, (float) (j + 160 - 50 - this.fontRenderer.getStringWidth(s2)), (float) (k + 80 + j2 * 8 + 20), datapoint2.getTextColor());
             s2 = decimalformat.format(datapoint2.rootRelTime) + "%";
-            this.fontRenderer.drawStringWithShadow(matrixStack, s2, (float)(j + 160 - this.fontRenderer.getStringWidth(s2)), (float)(k + 80 + j2 * 8 + 20), datapoint2.getTextColor());
+            this.fontRenderer.drawStringWithShadow(matrixStack, s2, (float) (j + 160 - this.fontRenderer.getStringWidth(s2)), (float) (k + 80 + j2 * 8 + 20), datapoint2.getTextColor());
         }
     }
 
     /**
      * Called when the window is closing. Sets 'running' to false which allows the game loop to exit cleanly.
      */
-    public void shutdown()
-    {
+    public void shutdown() {
         if (this.running) {
             Client.getInstance().shutdown();
         }
         this.running = false;
     }
 
-    public boolean isRunning()
-    {
+    public boolean isRunning() {
         return this.running;
     }
 
     /**
      * Displays the ingame menu
      */
-    public void displayInGameMenu(boolean pauseOnly)
-    {
-        if (this.currentScreen == null)
-        {
+    public void displayInGameMenu(boolean pauseOnly) {
+        if (this.currentScreen == null) {
             boolean flag = this.isSingleplayer() && !this.integratedServer.getPublic();
 
-            if (flag)
-            {
+            if (flag) {
                 this.displayGuiScreen(new IngameMenuScreen(!pauseOnly));
                 this.soundHandler.pause();
-            }
-            else
-            {
+            } else {
                 this.displayGuiScreen(new IngameMenuScreen(true));
             }
         }
     }
 
-    private void sendClickBlockToController(boolean leftClick)
-    {
-        if (!leftClick)
-        {
+    private void sendClickBlockToController(boolean leftClick) {
+        if (!leftClick) {
             this.leftClickCounter = 0;
         }
 
-        if (this.leftClickCounter <= 0 && !this.player.isHandActive())
-        {
-            if (leftClick && this.objectMouseOver != null && this.objectMouseOver.getType() == RayTraceResult.Type.BLOCK)
-            {
-                BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)this.objectMouseOver;
+        if (this.leftClickCounter <= 0 && !this.player.isHandActive()) {
+            if (leftClick && this.objectMouseOver != null && this.objectMouseOver.getType() == RayTraceResult.Type.BLOCK) {
+                BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) this.objectMouseOver;
                 BlockPos blockpos = blockraytraceresult.getPos();
 
-                if (!this.world.getBlockState(blockpos).isAir())
-                {
+                if (!this.world.getBlockState(blockpos).isAir()) {
                     Direction direction = blockraytraceresult.getFace();
 
-                    if (this.playerController.onPlayerDamageBlock(blockpos, direction))
-                    {
+                    if (this.playerController.onPlayerDamageBlock(blockpos, direction)) {
                         this.particles.addBlockHitEffects(blockpos, direction);
                         this.player.swingArm(Hand.MAIN_HAND);
                     }
                 }
-            }
-            else
-            {
+            } else {
                 this.playerController.resetBlockRemoving();
             }
         }
@@ -1544,36 +1365,30 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.LEFT);
         EventBus.call(clickEvent);
 
-        if(clickEvent.cancelled){
+        if (clickEvent.cancelled) {
             return;
         }
 
-        if (this.leftClickCounter <= 0)
-        {
-            if (this.objectMouseOver == null)
-            {
+        if (this.leftClickCounter <= 0) {
+            if (this.objectMouseOver == null) {
                 LOGGER.error("Null returned as 'hitResult', this shouldn't happen!");
 
-                if (this.playerController.isNotCreative())
-                {
+                if (this.playerController.isNotCreative()) {
                     this.leftClickCounter = 10;
                 }
-            }
-            else if (!this.player.isRowingBoat())
-            {
+            } else if (!this.player.isRowingBoat()) {
                 EventRayTraceResult rayTraceEvent = null;
                 if (this.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
-                    rayTraceEvent = new EventRayTraceResult(((EntityRayTraceResult)this.objectMouseOver).getEntity(), true);
+                    rayTraceEvent = new EventRayTraceResult(((EntityRayTraceResult) this.objectMouseOver).getEntity(), true);
                     EventBus.call(rayTraceEvent);
 
                     if (rayTraceEvent.cancelled) {
                         return;
                     }
                 }
-                switch (this.objectMouseOver.getType())
-                {
+                switch (this.objectMouseOver.getType()) {
                     case ENTITY:
-                        AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
                         if (rayTraceEvent != null) {
                             rayTraceEvent.unhover();
                             EventBus.call(rayTraceEvent);
@@ -1581,18 +1396,16 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                         break;
 
                     case BLOCK:
-                        BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)this.objectMouseOver;
+                        BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) this.objectMouseOver;
                         BlockPos blockpos = blockraytraceresult.getPos();
 
-                        if (!this.world.getBlockState(blockpos).isAir())
-                        {
+                        if (!this.world.getBlockState(blockpos).isAir()) {
                             this.playerController.clickBlock(blockpos, blockraytraceresult.getFace());
                             break;
                         }
 
                     case MISS:
-                        if (this.playerController.isNotCreative())
-                        {
+                        if (this.playerController.isNotCreative()) {
                             this.leftClickCounter = 10;
                         }
 
@@ -1611,43 +1424,34 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.RIGHT);
         EventBus.call(clickEvent);
 
-        if(clickEvent.cancelled){
+        if (clickEvent.cancelled) {
             return;
         }
 
-        if (!this.playerController.getIsHittingBlock())
-        {
+        if (!this.playerController.getIsHittingBlock()) {
             this.rightClickDelayTimer = 4;
 
-            if (!this.player.isRowingBoat())
-            {
-                if (this.objectMouseOver == null)
-                {
+            if (!this.player.isRowingBoat()) {
+                if (this.objectMouseOver == null) {
                     LOGGER.warn("Null returned as 'hitResult', this shouldn't happen!");
                 }
 
-                for (Hand hand : Hand.values())
-                {
+                for (Hand hand : Hand.values()) {
                     ItemStack itemstack = this.player.getHeldItem(hand);
 
-                    if (this.objectMouseOver != null)
-                    {
-                        switch (this.objectMouseOver.getType())
-                        {
+                    if (this.objectMouseOver != null) {
+                        switch (this.objectMouseOver.getType()) {
                             case ENTITY:
-                                EntityRayTraceResult entityraytraceresult = (EntityRayTraceResult)this.objectMouseOver;
+                                EntityRayTraceResult entityraytraceresult = (EntityRayTraceResult) this.objectMouseOver;
                                 Entity entity = entityraytraceresult.getEntity();
                                 ActionResultType actionresulttype = this.playerController.interactWithEntity(this.player, entity, entityraytraceresult, hand);
 
-                                if (!actionresulttype.isSuccessOrConsume())
-                                {
+                                if (!actionresulttype.isSuccessOrConsume()) {
                                     actionresulttype = this.playerController.interactWithEntity(this.player, entity, hand);
                                 }
 
-                                if (actionresulttype.isSuccessOrConsume())
-                                {
-                                    if (actionresulttype.isSuccess())
-                                    {
+                                if (actionresulttype.isSuccessOrConsume()) {
+                                    if (actionresulttype.isSuccess()) {
                                         this.player.swingArm(hand);
                                     }
 
@@ -1657,18 +1461,15 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                                 break;
 
                             case BLOCK:
-                                BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)this.objectMouseOver;
+                                BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) this.objectMouseOver;
                                 int i = itemstack.getCount();
                                 ActionResultType actionresulttype1 = this.playerController.func_217292_a(this.player, this.world, hand, blockraytraceresult);
 
-                                if (actionresulttype1.isSuccessOrConsume())
-                                {
-                                    if (actionresulttype1.isSuccess())
-                                    {
+                                if (actionresulttype1.isSuccessOrConsume()) {
+                                    if (actionresulttype1.isSuccess()) {
                                         this.player.swingArm(hand);
 
-                                        if (!itemstack.isEmpty() && (itemstack.getCount() != i || this.playerController.isInCreativeMode()))
-                                        {
+                                        if (!itemstack.isEmpty() && (itemstack.getCount() != i || this.playerController.isInCreativeMode())) {
                                             this.gameRenderer.itemRenderer.resetEquippedProgress(hand);
                                         }
                                     }
@@ -1676,21 +1477,17 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                                     return;
                                 }
 
-                                if (actionresulttype1 == ActionResultType.FAIL)
-                                {
+                                if (actionresulttype1 == ActionResultType.FAIL) {
                                     return;
                                 }
                         }
                     }
 
-                    if (!itemstack.isEmpty())
-                    {
+                    if (!itemstack.isEmpty()) {
                         ActionResultType actionresulttype2 = this.playerController.processRightClick(this.player, this.world, hand);
 
-                        if (actionresulttype2.isSuccessOrConsume())
-                        {
-                            if (actionresulttype2.isSuccess())
-                            {
+                        if (actionresulttype2.isSuccessOrConsume()) {
+                            if (actionresulttype2.isSuccess()) {
                                 this.player.swingArm(hand);
                             }
 
@@ -1706,25 +1503,21 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Return the musicTicker's instance
      */
-    public MusicTicker getMusicTicker()
-    {
+    public MusicTicker getMusicTicker() {
         return this.musicTicker;
     }
 
     /**
      * Runs the current tick.
      */
-    public void runTick()
-    {
-        if (this.rightClickDelayTimer > 0)
-        {
+    public void runTick() {
+        if (this.rightClickDelayTimer > 0) {
             --this.rightClickDelayTimer;
         }
 
         this.profiler.startSection("gui");
 
-        if (!this.isGamePaused)
-        {
+        if (!this.isGamePaused) {
             this.ingameGUI.tick();
         }
 
@@ -1733,109 +1526,85 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.tutorial.onMouseHover(this.world, this.objectMouseOver);
         this.profiler.startSection("gameMode");
 
-        if (!this.isGamePaused && this.world != null)
-        {
+        if (!this.isGamePaused && this.world != null) {
             this.playerController.tick();
         }
 
         this.profiler.endStartSection("textures");
 
-        if (this.world != null)
-        {
+        if (this.world != null) {
             this.textureManager.tick();
         }
 
-        if (this.currentScreen == null && this.player != null)
-        {
-            if (this.player.getShouldBeDead() && !(this.currentScreen instanceof DeathScreen))
-            {
-                this.displayGuiScreen((Screen)null);
-            }
-            else if (this.player.isSleeping() && this.world != null)
-            {
+        if (this.currentScreen == null && this.player != null) {
+            if (this.player.getShouldBeDead() && !(this.currentScreen instanceof DeathScreen)) {
+                this.displayGuiScreen((Screen) null);
+            } else if (this.player.isSleeping() && this.world != null) {
                 this.displayGuiScreen(new SleepInMultiplayerScreen());
             }
-        }
-        else if (this.currentScreen != null && this.currentScreen instanceof SleepInMultiplayerScreen && !this.player.isSleeping())
-        {
-            this.displayGuiScreen((Screen)null);
+        } else if (this.currentScreen != null && this.currentScreen instanceof SleepInMultiplayerScreen && !this.player.isSleeping()) {
+            this.displayGuiScreen((Screen) null);
         }
 
-        if (this.currentScreen != null)
-        {
+        if (this.currentScreen != null) {
             this.leftClickCounter = 10000;
         }
 
-        if (this.currentScreen != null)
-        {
+        if (this.currentScreen != null) {
             Screen.wrapScreenError(() ->
             {
                 this.currentScreen.tick();
             }, "Ticking screen", this.currentScreen.getClass().getCanonicalName());
         }
 
-        if (!this.gameSettings.showDebugInfo)
-        {
+        if (!this.gameSettings.showDebugInfo) {
             this.ingameGUI.reset();
         }
 
-        if (this.loadingGui == null && (this.currentScreen == null || this.currentScreen.passEvents))
-        {
+        if (this.loadingGui == null && (this.currentScreen == null || this.currentScreen.passEvents)) {
             this.profiler.endStartSection("Keybindings");
             this.processKeyBinds();
 
-            if (this.leftClickCounter > 0)
-            {
+            if (this.leftClickCounter > 0) {
                 --this.leftClickCounter;
             }
         }
 
-        if (this.world != null)
-        {
+        if (this.world != null) {
             this.profiler.endStartSection("gameRenderer");
 
-            if (!this.isGamePaused)
-            {
+            if (!this.isGamePaused) {
                 this.gameRenderer.tick();
             }
 
             this.profiler.endStartSection("levelRenderer");
 
-            if (!this.isGamePaused)
-            {
+            if (!this.isGamePaused) {
                 this.worldRenderer.tick();
             }
 
             this.profiler.endStartSection("level");
 
-            if (!this.isGamePaused)
-            {
-                if (this.world.getTimeLightningFlash() > 0)
-                {
+            if (!this.isGamePaused) {
+                if (this.world.getTimeLightningFlash() > 0) {
                     this.world.setTimeLightningFlash(this.world.getTimeLightningFlash() - 1);
                 }
 
                 this.world.tickEntities();
             }
-        }
-        else if (this.gameRenderer.getShaderGroup() != null)
-        {
+        } else if (this.gameRenderer.getShaderGroup() != null) {
             this.gameRenderer.stopUseShader();
         }
 
-        if (!this.isGamePaused)
-        {
+        if (!this.isGamePaused) {
             this.musicTicker.tick();
         }
 
         this.soundHandler.tick(this.isGamePaused);
 
-        if (this.world != null)
-        {
-            if (!this.isGamePaused)
-            {
-                if (!this.gameSettings.field_244601_E && this.func_244600_aM())
-                {
+        if (this.world != null) {
+            if (!this.isGamePaused) {
+                if (!this.gameSettings.field_244601_E && this.func_244600_aM()) {
                     ITextComponent itextcomponent = new TranslationTextComponent("tutorial.socialInteractions.title");
                     ITextComponent itextcomponent1 = new TranslationTextComponent("tutorial.socialInteractions.description", Tutorial.createKeybindComponent("socialInteractions"));
                     this.field_244598_aV = new TutorialToast(TutorialToast.Icons.SOCIAL_INTERACTIONS, itextcomponent, itextcomponent1, true);
@@ -1846,24 +1615,18 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
                 this.tutorial.tick();
 
-                try
-                {
+                try {
                     this.world.tick(() ->
                     {
                         return true;
                     });
-                }
-                catch (Throwable throwable)
-                {
+                } catch (Throwable throwable) {
                     CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception in world tick");
 
-                    if (this.world == null)
-                    {
+                    if (this.world == null) {
                         CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected level");
                         crashreportcategory.addDetail("Problem", "Level is null!");
-                    }
-                    else
-                    {
+                    } else {
                         this.world.fillCrashReport(crashreport);
                     }
 
@@ -1873,20 +1636,16 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
             this.profiler.endStartSection("animateTick");
 
-            if (!this.isGamePaused && this.world != null)
-            {
+            if (!this.isGamePaused && this.world != null) {
                 this.world.animateTick(MathHelper.floor(this.player.getPosX()), MathHelper.floor(this.player.getPosY()), MathHelper.floor(this.player.getPosZ()));
             }
 
             this.profiler.endStartSection("particles");
 
-            if (!this.isGamePaused)
-            {
+            if (!this.isGamePaused) {
                 this.particles.tick();
             }
-        }
-        else if (this.networkManager != null)
-        {
+        } else if (this.networkManager != null) {
             this.profiler.endStartSection("pendingConnection");
             this.networkManager.tick();
         }
@@ -1896,62 +1655,45 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profiler.endSection();
     }
 
-    private boolean func_244600_aM()
-    {
+    private boolean func_244600_aM() {
         return !this.integratedServerIsRunning || this.integratedServer != null && this.integratedServer.getPublic();
     }
 
-    private void processKeyBinds()
-    {
-        for (; this.gameSettings.keyBindTogglePerspective.isPressed(); this.worldRenderer.setDisplayListEntitiesDirty())
-        {
+    private void processKeyBinds() {
+        for (; this.gameSettings.keyBindTogglePerspective.isPressed(); this.worldRenderer.setDisplayListEntitiesDirty()) {
             PointOfView pointofview = this.gameSettings.getPointOfView();
             this.gameSettings.setPointOfView(this.gameSettings.getPointOfView().func_243194_c());
 
-            if (pointofview.func_243192_a() != this.gameSettings.getPointOfView().func_243192_a())
-            {
+            if (pointofview.func_243192_a() != this.gameSettings.getPointOfView().func_243192_a()) {
                 this.gameRenderer.loadEntityShader(this.gameSettings.getPointOfView().func_243192_a() ? this.getRenderViewEntity() : null);
             }
         }
 
-        while (this.gameSettings.keyBindSmoothCamera.isPressed())
-        {
+        while (this.gameSettings.keyBindSmoothCamera.isPressed()) {
             this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
         }
 
-        for (int i = 0; i < 9; ++i)
-        {
+        for (int i = 0; i < 9; ++i) {
             boolean flag = this.gameSettings.keyBindSaveToolbar.isKeyDown();
             boolean flag1 = this.gameSettings.keyBindLoadToolbar.isKeyDown();
 
-            if (this.gameSettings.keyBindsHotbar[i].isPressed())
-            {
-                if (this.player.isSpectator())
-                {
+            if (this.gameSettings.keyBindsHotbar[i].isPressed()) {
+                if (this.player.isSpectator()) {
                     this.ingameGUI.getSpectatorGui().onHotbarSelected(i);
-                }
-                else if (!this.player.isCreative() || this.currentScreen != null || !flag1 && !flag)
-                {
+                } else if (!this.player.isCreative() || this.currentScreen != null || !flag1 && !flag) {
                     this.player.inventory.currentItem = i;
-                }
-                else
-                {
+                } else {
                     CreativeScreen.handleHotbarSnapshots(this, i, flag1, flag);
                 }
             }
         }
 
-        while (this.gameSettings.field_244602_au.isPressed())
-        {
-            if (!this.func_244600_aM())
-            {
+        while (this.gameSettings.field_244602_au.isPressed()) {
+            if (!this.func_244600_aM()) {
                 this.player.sendStatusMessage(field_244596_I, true);
                 NarratorChatListener.INSTANCE.say(field_244596_I.getString());
-            }
-            else
-            {
-                if (this.field_244598_aV != null)
-                {
+            } else {
+                if (this.field_244598_aV != null) {
                     this.tutorial.func_244697_a(this.field_244598_aV);
                     this.field_244598_aV = null;
                 }
@@ -1960,57 +1702,44 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
         }
 
-        while (this.gameSettings.keyBindInventory.isPressed())
-        {
-            if (this.playerController.isRidingHorse())
-            {
+        while (this.gameSettings.keyBindInventory.isPressed()) {
+            if (this.playerController.isRidingHorse()) {
                 this.player.sendHorseInventory();
-            }
-            else
-            {
+            } else {
                 this.tutorial.openInventory();
                 this.displayGuiScreen(new InventoryScreen(this.player));
             }
         }
 
-        while (this.gameSettings.keyBindAdvancements.isPressed())
-        {
+        while (this.gameSettings.keyBindAdvancements.isPressed()) {
             this.displayGuiScreen(new AdvancementsScreen(this.player.connection.getAdvancementManager()));
         }
 
-        while (this.gameSettings.keyBindSwapHands.isPressed())
-        {
-            if (!this.player.isSpectator())
-            {
+        while (this.gameSettings.keyBindSwapHands.isPressed()) {
+            if (!this.player.isSpectator()) {
                 this.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ZERO, Direction.DOWN));
             }
         }
 
-        while (this.gameSettings.keyBindDrop.isPressed())
-        {
-            if (!this.player.isSpectator() && this.player.drop(Screen.hasControlDown()))
-            {
+        while (this.gameSettings.keyBindDrop.isPressed()) {
+            if (!this.player.isSpectator() && this.player.drop(Screen.hasControlDown())) {
                 this.player.swingArm(Hand.MAIN_HAND);
             }
         }
 
         boolean flag2 = this.gameSettings.chatVisibility != ChatVisibility.HIDDEN;
 
-        if (flag2)
-        {
-            while (this.gameSettings.keyBindChat.isPressed())
-            {
+        if (flag2) {
+            while (this.gameSettings.keyBindChat.isPressed()) {
                 this.openChatScreen("");
             }
 
-            if (this.currentScreen == null && this.loadingGui == null && this.gameSettings.keyBindCommand.isPressed())
-            {
+            if (this.currentScreen == null && this.loadingGui == null && this.gameSettings.keyBindCommand.isPressed()) {
                 this.openChatScreen("/");
             }
         }
 
-        if (this.player.isHandActive())
-        {
+        if (this.player.isHandActive()) {
             if (!this.gameSettings.keyBindUseItem.isKeyDown()) {
                 StopUseItemEvent var6 = new StopUseItemEvent();
                 EventBus.call(var6);
@@ -2019,81 +1748,62 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 }
             }
 
-            while (this.gameSettings.keyBindAttack.isPressed())
-            {
+            while (this.gameSettings.keyBindAttack.isPressed()) {
             }
 
-            while (this.gameSettings.keyBindUseItem.isPressed())
-            {
+            while (this.gameSettings.keyBindUseItem.isPressed()) {
             }
 
-            while (this.gameSettings.keyBindPickBlock.isPressed())
-            {
+            while (this.gameSettings.keyBindPickBlock.isPressed()) {
             }
-        }
-        else
-        {
-            while (this.gameSettings.keyBindAttack.isPressed())
-            {
+        } else {
+            while (this.gameSettings.keyBindAttack.isPressed()) {
                 this.clickMouse();
             }
 
-            while (this.gameSettings.keyBindUseItem.isPressed())
-            {
+            while (this.gameSettings.keyBindUseItem.isPressed()) {
                 this.rightClickMouse();
             }
 
-            while (this.gameSettings.keyBindPickBlock.isPressed())
-            {
+            while (this.gameSettings.keyBindPickBlock.isPressed()) {
                 this.middleClickMouse();
             }
         }
 
-        if (this.gameSettings.keyBindUseItem.isKeyDown() && this.rightClickDelayTimer == 0 && !this.player.isHandActive())
-        {
+        if (this.gameSettings.keyBindUseItem.isKeyDown() && this.rightClickDelayTimer == 0 && !this.player.isHandActive()) {
             this.rightClickMouse();
         }
 
         this.sendClickBlockToController(this.currentScreen == null && this.gameSettings.keyBindAttack.isKeyDown() && this.mouseHelper.isMouseGrabbed());
     }
 
-    public static DatapackCodec loadDataPackCodec(SaveFormat.LevelSave worldStorage)
-    {
+    public static DatapackCodec loadDataPackCodec(SaveFormat.LevelSave worldStorage) {
         MinecraftServer.func_240777_a_(worldStorage);
         DatapackCodec datapackcodec = worldStorage.readDatapackCodec();
 
-        if (datapackcodec == null)
-        {
+        if (datapackcodec == null) {
             throw new IllegalStateException("Failed to load data pack config");
-        }
-        else
-        {
+        } else {
             return datapackcodec;
         }
     }
 
-    public static IServerConfiguration loadWorld(SaveFormat.LevelSave worldStorage, DynamicRegistries.Impl dynamicRegistries, IResourceManager resourceManager, DatapackCodec datapackCodec)
-    {
+    public static IServerConfiguration loadWorld(SaveFormat.LevelSave worldStorage, DynamicRegistries.Impl dynamicRegistries, IResourceManager resourceManager, DatapackCodec datapackCodec) {
         WorldSettingsImport<INBT> worldsettingsimport = WorldSettingsImport.create(NBTDynamicOps.INSTANCE, resourceManager, dynamicRegistries);
         IServerConfiguration iserverconfiguration = worldStorage.readServerConfiguration(worldsettingsimport, datapackCodec);
 
-        if (iserverconfiguration == null)
-        {
+        if (iserverconfiguration == null) {
             throw new IllegalStateException("Failed to load world");
-        }
-        else
-        {
+        } else {
             return iserverconfiguration;
         }
     }
 
-    public void loadWorld(String worldName)
-    {
+    public void loadWorld(String worldName) {
         this.loadWorld(worldName, DynamicRegistries.func_239770_b_(), Minecraft::loadDataPackCodec, Minecraft::loadWorld, false, Minecraft.WorldSelectionType.BACKUP);
     }
 
-    public void createWorld(String worldName, WorldSettings worldSettings, DynamicRegistries.Impl dynamicRegistriesIn, DimensionGeneratorSettings dimensionGeneratorSettings)
-    {
+    public void createWorld(String worldName, WorldSettings worldSettings, DynamicRegistries.Impl dynamicRegistriesIn, DimensionGeneratorSettings dimensionGeneratorSettings) {
         this.loadWorld(worldName, dynamicRegistriesIn, (worldStorage) ->
         {
             return worldSettings.getDatapackCodec();
@@ -2109,42 +1819,32 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }, false, Minecraft.WorldSelectionType.CREATE);
     }
 
-    private void loadWorld(String worldName, DynamicRegistries.Impl dynamicRegistries, Function<SaveFormat.LevelSave, DatapackCodec> levelSaveToDatapackFunction, Function4<SaveFormat.LevelSave, DynamicRegistries.Impl, IResourceManager, DatapackCodec, IServerConfiguration> quadFunction, boolean vanillaOnly, Minecraft.WorldSelectionType selectionType)
-    {
+    private void loadWorld(String worldName, DynamicRegistries.Impl dynamicRegistries, Function<SaveFormat.LevelSave, DatapackCodec> levelSaveToDatapackFunction, Function4<SaveFormat.LevelSave, DynamicRegistries.Impl, IResourceManager, DatapackCodec, IServerConfiguration> quadFunction, boolean vanillaOnly, Minecraft.WorldSelectionType selectionType) {
         SaveFormat.LevelSave saveformat$levelsave;
 
-        try
-        {
+        try {
             saveformat$levelsave = this.saveFormat.getLevelSave(worldName);
-        }
-        catch (IOException ioexception2)
-        {
+        } catch (IOException ioexception2) {
             LOGGER.warn("Failed to read level {} data", worldName, ioexception2);
             SystemToast.func_238535_a_(this, worldName);
-            this.displayGuiScreen((Screen)null);
+            this.displayGuiScreen((Screen) null);
             return;
         }
 
         Minecraft.PackManager minecraft$packmanager;
 
-        try
-        {
+        try {
             minecraft$packmanager = this.reloadDatapacks(dynamicRegistries, levelSaveToDatapackFunction, quadFunction, vanillaOnly, saveformat$levelsave);
-        }
-        catch (Exception exception)
-        {
-            LOGGER.warn("Failed to load datapacks, can't proceed with server load", (Throwable)exception);
+        } catch (Exception exception) {
+            LOGGER.warn("Failed to load datapacks, can't proceed with server load", (Throwable) exception);
             this.displayGuiScreen(new DatapackFailureScreen(() ->
             {
                 this.loadWorld(worldName, dynamicRegistries, levelSaveToDatapackFunction, quadFunction, true, selectionType);
             }));
 
-            try
-            {
+            try {
                 saveformat$levelsave.close();
-            }
-            catch (IOException ioexception)
-            {
+            } catch (IOException ioexception) {
                 LOGGER.warn("Failed to unlock access to level {}", worldName, ioexception);
             }
 
@@ -2155,13 +1855,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         boolean flag = iserverconfiguration.getDimensionGeneratorSettings().func_236229_j_();
         boolean flag1 = iserverconfiguration.getLifecycle() != Lifecycle.stable();
 
-        if (selectionType == Minecraft.WorldSelectionType.NONE || !flag && !flag1)
-        {
+        if (selectionType == Minecraft.WorldSelectionType.NONE || !flag && !flag1) {
             this.unloadWorld();
-            this.refChunkStatusListener.set((TrackingChunkStatusListener)null);
+            this.refChunkStatusListener.set((TrackingChunkStatusListener) null);
 
-            try
-            {
+            try {
                 saveformat$levelsave.saveLevel(dynamicRegistries, iserverconfiguration);
                 minecraft$packmanager.getDataPackRegistries().updateTags();
                 YggdrasilAuthenticationService yggdrasilauthenticationservice = new YggdrasilAuthenticationService(this.proxy);
@@ -2181,9 +1879,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                     });
                 });
                 this.integratedServerIsRunning = true;
-            }
-            catch (Throwable throwable)
-            {
+            } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Starting integrated server");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Starting integrated server");
                 crashreportcategory.addDetail("Level ID", worldName);
@@ -2191,8 +1887,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 throw new ReportedException(crashreport);
             }
 
-            while (this.refChunkStatusListener.get() == null)
-            {
+            while (this.refChunkStatusListener.get() == null) {
                 Thread.yield();
             }
 
@@ -2200,21 +1895,16 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.displayGuiScreen(worldloadprogressscreen);
             this.profiler.startSection("waitForServer");
 
-            while (!this.integratedServer.serverIsInRunLoop())
-            {
+            while (!this.integratedServer.serverIsInRunLoop()) {
                 worldloadprogressscreen.tick();
                 this.runGameLoop(false);
 
-                try
-                {
+                try {
                     Thread.sleep(16L);
-                }
-                catch (InterruptedException interruptedexception)
-                {
+                } catch (InterruptedException interruptedexception) {
                 }
 
-                if (this.crashReporter != null)
-                {
+                if (this.crashReporter != null) {
                     displayCrashReport(this.crashReporter);
                     return;
                 }
@@ -2223,77 +1913,59 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.profiler.endSection();
             SocketAddress socketaddress = this.integratedServer.getNetworkSystem().addLocalEndpoint();
             NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
-            networkmanager.setNetHandler(new ClientLoginNetHandler(networkmanager, this, (Screen)null, (statusMessage) ->
+            networkmanager.setNetHandler(new ClientLoginNetHandler(networkmanager, this, (Screen) null, (statusMessage) ->
             {
             }));
             networkmanager.sendPacket(new CHandshakePacket(socketaddress.toString(), 0, ProtocolType.LOGIN));
             networkmanager.sendPacket(new CLoginStartPacket(this.getSession().getProfile()));
             this.networkManager = networkmanager;
-        }
-        else
-        {
+        } else {
             this.deleteWorld(selectionType, worldName, flag, () ->
             {
                 this.loadWorld(worldName, dynamicRegistries, levelSaveToDatapackFunction, quadFunction, vanillaOnly, Minecraft.WorldSelectionType.NONE);
             });
             minecraft$packmanager.close();
 
-            try
-            {
+            try {
                 saveformat$levelsave.close();
-            }
-            catch (IOException ioexception1)
-            {
+            } catch (IOException ioexception1) {
                 LOGGER.warn("Failed to unlock access to level {}", worldName, ioexception1);
             }
         }
     }
 
-    private void deleteWorld(Minecraft.WorldSelectionType selectionType, String worldName, boolean customized, Runnable runnable)
-    {
-        if (selectionType == Minecraft.WorldSelectionType.BACKUP)
-        {
+    private void deleteWorld(Minecraft.WorldSelectionType selectionType, String worldName, boolean customized, Runnable runnable) {
+        if (selectionType == Minecraft.WorldSelectionType.BACKUP) {
             ITextComponent itextcomponent;
             ITextComponent itextcomponent1;
 
-            if (customized)
-            {
+            if (customized) {
                 itextcomponent = new TranslationTextComponent("selectWorld.backupQuestion.customized");
                 itextcomponent1 = new TranslationTextComponent("selectWorld.backupWarning.customized");
-            }
-            else
-            {
+            } else {
                 itextcomponent = new TranslationTextComponent("selectWorld.backupQuestion.experimental");
                 itextcomponent1 = new TranslationTextComponent("selectWorld.backupWarning.experimental");
             }
 
-            this.displayGuiScreen(new ConfirmBackupScreen((Screen)null, (editMode, checkedBox) ->
+            this.displayGuiScreen(new ConfirmBackupScreen((Screen) null, (editMode, checkedBox) ->
             {
-                if (editMode)
-                {
+                if (editMode) {
                     EditWorldScreen.func_241651_a_(this.saveFormat, worldName);
                 }
 
                 runnable.run();
             }, itextcomponent, itextcomponent1, false));
-        }
-        else
-        {
+        } else {
             this.displayGuiScreen(new ConfirmScreen((confirm) ->
             {
-                if (confirm)
-                {
+                if (confirm) {
                     runnable.run();
-                }
-                else {
-                    this.displayGuiScreen((Screen)null);
+                } else {
+                    this.displayGuiScreen((Screen) null);
 
-                    try (SaveFormat.LevelSave saveformat$levelsave = this.saveFormat.getLevelSave(worldName))
-                    {
+                    try (SaveFormat.LevelSave saveformat$levelsave = this.saveFormat.getLevelSave(worldName)) {
                         saveformat$levelsave.deleteSave();
-                    }
-                    catch (IOException ioexception)
-                    {
+                    } catch (IOException ioexception) {
                         SystemToast.func_238538_b_(this, worldName);
                         LOGGER.error("Failed to delete world {}", worldName, ioexception);
                     }
@@ -2302,22 +1974,18 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    public Minecraft.PackManager reloadDatapacks(DynamicRegistries.Impl dynamicRegistries, Function<SaveFormat.LevelSave, DatapackCodec> worldStorageToDatapackFunction, Function4<SaveFormat.LevelSave, DynamicRegistries.Impl, IResourceManager, DatapackCodec, IServerConfiguration> quadFunction, boolean vanillaOnly, SaveFormat.LevelSave worldStorage) throws InterruptedException, ExecutionException
-    {
+    public Minecraft.PackManager reloadDatapacks(DynamicRegistries.Impl dynamicRegistries, Function<SaveFormat.LevelSave, DatapackCodec> worldStorageToDatapackFunction, Function4<SaveFormat.LevelSave, DynamicRegistries.Impl, IResourceManager, DatapackCodec, IServerConfiguration> quadFunction, boolean vanillaOnly, SaveFormat.LevelSave worldStorage) throws InterruptedException, ExecutionException {
         DatapackCodec datapackcodec = worldStorageToDatapackFunction.apply(worldStorage);
         ResourcePackList resourcepacklist = new ResourcePackList(new ServerPackFinder(), new FolderPackFinder(worldStorage.resolveFilePath(FolderName.DATAPACKS).toFile(), IPackNameDecorator.WORLD));
 
-        try
-        {
+        try {
             DatapackCodec datapackcodec1 = MinecraftServer.func_240772_a_(resourcepacklist, datapackcodec, vanillaOnly);
             CompletableFuture<DataPackRegistries> completablefuture = DataPackRegistries.func_240961_a_(resourcepacklist.func_232623_f_(), Commands.EnvironmentType.INTEGRATED, 2, Util.getServerExecutor(), this);
             this.driveUntil(completablefuture::isDone);
             DataPackRegistries datapackregistries = completablefuture.get();
             IServerConfiguration iserverconfiguration = quadFunction.apply(worldStorage, dynamicRegistries, datapackregistries.getResourceManager(), datapackcodec1);
             return new Minecraft.PackManager(resourcepacklist, datapackregistries, iserverconfiguration);
-        }
-        catch (ExecutionException | InterruptedException interruptedexception)
-        {
+        } catch (ExecutionException | InterruptedException interruptedexception) {
             resourcepacklist.close();
             throw interruptedexception;
         }
@@ -2326,16 +1994,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * unloads the current world first
      */
-    public void loadWorld(ClientWorld worldClientIn)
-    {
+    public void loadWorld(ClientWorld worldClientIn) {
         WorkingScreen workingscreen = new WorkingScreen();
         workingscreen.displaySavingString(new TranslationTextComponent("connect.joining"));
         this.updateScreenTick(workingscreen);
         this.world = worldClientIn;
         this.updateWorldRenderer(worldClientIn);
         EventBus.call(new WorldLoadEvent());
-        if (!this.integratedServerIsRunning)
-        {
+        if (!this.integratedServerIsRunning) {
             AuthenticationService authenticationservice = new YggdrasilAuthenticationService(this.proxy);
             MinecraftSessionService minecraftsessionservice = authenticationservice.createMinecraftSessionService();
             GameProfileRepository gameprofilerepository = authenticationservice.createProfileRepository();
@@ -2346,17 +2012,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    public void unloadWorld()
-    {
+    public void unloadWorld() {
         this.unloadWorld(new WorkingScreen());
     }
 
-    public void unloadWorld(Screen screenIn)
-    {
+    public void unloadWorld(Screen screenIn) {
         ClientPlayNetHandler clientplaynethandler = this.getConnection();
 
-        if (clientplaynethandler != null)
-        {
+        if (clientplaynethandler != null) {
             this.dropTasks();
             clientplaynethandler.cleanup();
         }
@@ -2368,14 +2031,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         NarratorChatListener.INSTANCE.clear();
         this.updateScreenTick(screenIn);
 
-        if (this.world != null)
-        {
-            if (integratedserver != null)
-            {
+        if (this.world != null) {
+            if (integratedserver != null) {
                 this.profiler.startSection("waitForServer");
 
-                while (!integratedserver.isThreadAlive())
-                {
+                while (!integratedserver.isThreadAlive()) {
                     this.runGameLoop(false);
                 }
 
@@ -2390,12 +2050,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
 
         this.world = null;
-        this.updateWorldRenderer((ClientWorld)null);
+        this.updateWorldRenderer((ClientWorld) null);
         this.player = null;
     }
 
-    private void updateScreenTick(Screen screenIn)
-    {
+    private void updateScreenTick(Screen screenIn) {
         this.profiler.startSection("forcedTick");
         this.soundHandler.stop();
         this.renderViewEntity = null;
@@ -2405,53 +2064,45 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profiler.endSection();
     }
 
-    public void forcedScreenTick(Screen screen)
-    {
+    public void forcedScreenTick(Screen screen) {
         this.profiler.startSection("forcedTick");
         this.displayGuiScreen(screen);
         this.runGameLoop(false);
         this.profiler.endSection();
     }
 
-    private void updateWorldRenderer(@Nullable ClientWorld worldIn)
-    {
+    private void updateWorldRenderer(@Nullable ClientWorld worldIn) {
         this.worldRenderer.setWorldAndLoadRenderers(worldIn);
         this.particles.clearEffects(worldIn);
         TileEntityRendererDispatcher.instance.setWorld(worldIn);
         this.setDefaultMinecraftTitle();
     }
 
-    public boolean isMultiplayerEnabled()
-    {
+    public boolean isMultiplayerEnabled() {
         return true;
     }
 
     @Nullable
-    public ClientPlayNetHandler getConnection()
-    {
+    public ClientPlayNetHandler getConnection() {
         return this.player == null ? null : this.player.connection;
     }
 
-    public static boolean isGuiEnabled()
-    {
+    public static boolean isGuiEnabled() {
         return !instance.gameSettings.hideGUI;
     }
 
-    public static boolean isFancyGraphicsEnabled()
-    {
+    public static boolean isFancyGraphicsEnabled() {
         return instance.gameSettings.graphicFanciness.func_238162_a_() >= GraphicsFanciness.FANCY.func_238162_a_();
     }
 
-    public static boolean isFabulousGraphicsEnabled()
-    {
+    public static boolean isFabulousGraphicsEnabled() {
         return instance.gameSettings.graphicFanciness.func_238162_a_() >= GraphicsFanciness.FABULOUS.func_238162_a_();
     }
 
     /**
      * Returns if ambient occlusion is enabled
      */
-    public static boolean isAmbientOcclusionEnabled()
-    {
+    public static boolean isAmbientOcclusionEnabled() {
         return instance.gameSettings.ambientOcclusionStatus != AmbientOcclusionStatus.OFF;
     }
 
@@ -2462,77 +2113,58 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.MID);
         EventBus.call(clickEvent);
 
-        if(clickEvent.cancelled){
+        if (clickEvent.cancelled) {
             return;
         }
-        if (this.objectMouseOver != null && this.objectMouseOver.getType() != RayTraceResult.Type.MISS)
-        {
+        if (this.objectMouseOver != null && this.objectMouseOver.getType() != RayTraceResult.Type.MISS) {
             boolean flag = this.player.abilities.isCreativeMode;
             TileEntity tileentity = null;
             RayTraceResult.Type raytraceresult$type = this.objectMouseOver.getType();
             ItemStack itemstack;
 
-            if (raytraceresult$type == RayTraceResult.Type.BLOCK)
-            {
-                BlockPos blockpos = ((BlockRayTraceResult)this.objectMouseOver).getPos();
+            if (raytraceresult$type == RayTraceResult.Type.BLOCK) {
+                BlockPos blockpos = ((BlockRayTraceResult) this.objectMouseOver).getPos();
                 BlockState blockstate = this.world.getBlockState(blockpos);
                 Block block = blockstate.getBlock();
 
-                if (blockstate.isAir())
-                {
+                if (blockstate.isAir()) {
                     return;
                 }
 
                 itemstack = block.getItem(this.world, blockpos, blockstate);
 
-                if (itemstack.isEmpty())
-                {
+                if (itemstack.isEmpty()) {
                     return;
                 }
 
-                if (flag && Screen.hasControlDown() && block.isTileEntityProvider())
-                {
+                if (flag && Screen.hasControlDown() && block.isTileEntityProvider()) {
                     tileentity = this.world.getTileEntity(blockpos);
                 }
-            }
-            else
-            {
-                if (raytraceresult$type != RayTraceResult.Type.ENTITY || !flag)
-                {
+            } else {
+                if (raytraceresult$type != RayTraceResult.Type.ENTITY || !flag) {
                     return;
                 }
 
-                Entity entity = ((EntityRayTraceResult)this.objectMouseOver).getEntity();
+                Entity entity = ((EntityRayTraceResult) this.objectMouseOver).getEntity();
 
-                if (entity instanceof PaintingEntity)
-                {
+                if (entity instanceof PaintingEntity) {
                     itemstack = new ItemStack(Items.PAINTING);
-                }
-                else if (entity instanceof LeashKnotEntity)
-                {
+                } else if (entity instanceof LeashKnotEntity) {
                     itemstack = new ItemStack(Items.LEAD);
-                }
-                else if (entity instanceof ItemFrameEntity)
-                {
-                    ItemFrameEntity itemframeentity = (ItemFrameEntity)entity;
+                } else if (entity instanceof ItemFrameEntity) {
+                    ItemFrameEntity itemframeentity = (ItemFrameEntity) entity;
                     ItemStack itemstack1 = itemframeentity.getDisplayedItem();
 
-                    if (itemstack1.isEmpty())
-                    {
+                    if (itemstack1.isEmpty()) {
                         itemstack = new ItemStack(Items.ITEM_FRAME);
-                    }
-                    else
-                    {
+                    } else {
                         itemstack = itemstack1.copy();
                     }
-                }
-                else if (entity instanceof AbstractMinecartEntity)
-                {
-                    AbstractMinecartEntity abstractminecartentity = (AbstractMinecartEntity)entity;
+                } else if (entity instanceof AbstractMinecartEntity) {
+                    AbstractMinecartEntity abstractminecartentity = (AbstractMinecartEntity) entity;
                     Item item;
 
-                    switch (abstractminecartentity.getMinecartType())
-                    {
+                    switch (abstractminecartentity.getMinecartType()) {
                         case FURNACE:
                             item = Items.FURNACE_MINECART;
                             break;
@@ -2558,25 +2190,16 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                     }
 
                     itemstack = new ItemStack(item);
-                }
-                else if (entity instanceof BoatEntity)
-                {
-                    itemstack = new ItemStack(((BoatEntity)entity).getItemBoat());
-                }
-                else if (entity instanceof ArmorStandEntity)
-                {
+                } else if (entity instanceof BoatEntity) {
+                    itemstack = new ItemStack(((BoatEntity) entity).getItemBoat());
+                } else if (entity instanceof ArmorStandEntity) {
                     itemstack = new ItemStack(Items.ARMOR_STAND);
-                }
-                else if (entity instanceof EnderCrystalEntity)
-                {
+                } else if (entity instanceof EnderCrystalEntity) {
                     itemstack = new ItemStack(Items.END_CRYSTAL);
-                }
-                else
-                {
+                } else {
                     SpawnEggItem spawneggitem = SpawnEggItem.getEgg(entity.getType());
 
-                    if (spawneggitem == null)
-                    {
+                    if (spawneggitem == null) {
                         return;
                     }
 
@@ -2584,45 +2207,32 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 }
             }
 
-            if (itemstack.isEmpty())
-            {
+            if (itemstack.isEmpty()) {
                 String s = "";
 
-                if (raytraceresult$type == RayTraceResult.Type.BLOCK)
-                {
-                    s = Registry.BLOCK.getKey(this.world.getBlockState(((BlockRayTraceResult)this.objectMouseOver).getPos()).getBlock()).toString();
-                }
-                else if (raytraceresult$type == RayTraceResult.Type.ENTITY)
-                {
-                    s = Registry.ENTITY_TYPE.getKey(((EntityRayTraceResult)this.objectMouseOver).getEntity().getType()).toString();
+                if (raytraceresult$type == RayTraceResult.Type.BLOCK) {
+                    s = Registry.BLOCK.getKey(this.world.getBlockState(((BlockRayTraceResult) this.objectMouseOver).getPos()).getBlock()).toString();
+                } else if (raytraceresult$type == RayTraceResult.Type.ENTITY) {
+                    s = Registry.ENTITY_TYPE.getKey(((EntityRayTraceResult) this.objectMouseOver).getEntity().getType()).toString();
                 }
 
                 LOGGER.warn("Picking on: [{}] {} gave null item", raytraceresult$type, s);
-            }
-            else
-            {
+            } else {
                 PlayerInventory playerinventory = this.player.inventory;
 
-                if (tileentity != null)
-                {
+                if (tileentity != null) {
                     this.storeTEInStack(itemstack, tileentity);
                 }
 
                 int i = playerinventory.getSlotFor(itemstack);
 
-                if (flag)
-                {
+                if (flag) {
                     playerinventory.setPickedItemStack(itemstack);
                     this.playerController.sendSlotPacket(this.player.getHeldItem(Hand.MAIN_HAND), 36 + playerinventory.currentItem);
-                }
-                else if (i != -1)
-                {
-                    if (PlayerInventory.isHotbar(i))
-                    {
+                } else if (i != -1) {
+                    if (PlayerInventory.isHotbar(i)) {
                         playerinventory.currentItem = i;
-                    }
-                    else
-                    {
+                    } else {
                         this.playerController.pickItem(i);
                     }
                 }
@@ -2630,18 +2240,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private ItemStack storeTEInStack(ItemStack stack, TileEntity te)
-    {
+    private ItemStack storeTEInStack(ItemStack stack, TileEntity te) {
         CompoundNBT compoundnbt = te.write(new CompoundNBT());
 
-        if (stack.getItem() instanceof SkullItem && compoundnbt.contains("SkullOwner"))
-        {
+        if (stack.getItem() instanceof SkullItem && compoundnbt.contains("SkullOwner")) {
             CompoundNBT compoundnbt2 = compoundnbt.getCompound("SkullOwner");
             stack.getOrCreateTag().put("SkullOwner", compoundnbt2);
             return stack;
-        }
-        else
-        {
+        } else {
             stack.setTagInfo("BlockEntityTag", compoundnbt);
             CompoundNBT compoundnbt1 = new CompoundNBT();
             ListNBT listnbt = new ListNBT();
@@ -2655,20 +2261,17 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * adds core server Info (GL version , Texture pack, isModded, type), and the worldInfo to the crash report
      */
-    public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash)
-    {
+    public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
         fillCrashReport(this.languageManager, this.launchedVersion, this.gameSettings, theCrash);
 
-        if (this.world != null)
-        {
+        if (this.world != null) {
             this.world.fillCrashReport(theCrash);
         }
 
         return theCrash;
     }
 
-    public static void fillCrashReport(@Nullable LanguageManager languageManagerIn, String versionIn, @Nullable GameSettings settingsIn, CrashReport crashReportIn)
-    {
+    public static void fillCrashReport(@Nullable LanguageManager languageManagerIn, String versionIn, @Nullable GameSettings settingsIn, CrashReport crashReportIn) {
         CrashReportCategory crashreportcategory = crashReportIn.getCategory();
         crashreportcategory.addDetail("Launched Version", () ->
         {
@@ -2685,24 +2288,19 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         {
             String s1 = ClientBrandRetriever.getClientModName();
 
-            if (!"vanilla".equals(s1))
-            {
+            if (!"vanilla".equals(s1)) {
                 return "Definitely; Client brand changed to '" + s1 + "'";
-            }
-            else {
+            } else {
                 return Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.";
             }
         });
         crashreportcategory.addDetail("Type", "Client (map_client.txt)");
 
-        if (settingsIn != null)
-        {
-            if (instance != null)
-            {
+        if (settingsIn != null) {
+            if (instance != null) {
                 String s = instance.getGPUWarning().func_243499_m();
 
-                if (s != null)
-                {
+                if (s != null) {
                     crashreportcategory.addDetail("GPU Warnings", s);
                 }
             }
@@ -2712,17 +2310,14 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             {
                 StringBuilder stringbuilder = new StringBuilder();
 
-                for (String s1 : settingsIn.resourcePacks)
-                {
-                    if (stringbuilder.length() > 0)
-                    {
+                for (String s1 : settingsIn.resourcePacks) {
+                    if (stringbuilder.length() > 0) {
                         stringbuilder.append(", ");
                     }
 
                     stringbuilder.append(s1);
 
-                    if (settingsIn.incompatibleResourcePacks.contains(s1))
-                    {
+                    if (settingsIn.incompatibleResourcePacks.contains(s1)) {
                         stringbuilder.append(" (incompatible)");
                     }
                 }
@@ -2731,8 +2326,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             });
         }
 
-        if (languageManagerIn != null)
-        {
+        if (languageManagerIn != null) {
             crashreportcategory.addDetail("Current Language", () ->
             {
                 return languageManagerIn.getCurrentLanguage().toString();
@@ -2745,21 +2339,18 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Return the singleton Minecraft instance for the game
      */
-    public static Minecraft getInstance()
-    {
+    public static Minecraft getInstance() {
         return instance;
     }
 
-    public CompletableFuture<Void> scheduleResourcesRefresh()
-    {
+    public CompletableFuture<Void> scheduleResourcesRefresh() {
         return this.supplyAsync(this::reloadResources).thenCompose((voidIn) ->
         {
             return voidIn;
         });
     }
 
-    public void fillSnooper(Snooper snooper)
-    {
+    public void fillSnooper(Snooper snooper) {
         snooper.addClientStat("fps", debugFPS);
         snooper.addClientStat("vsync_enabled", this.gameSettings.vsync);
         snooper.addClientStat("display_frequency", this.mainWindow.getRefreshRate());
@@ -2773,18 +2364,15 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         snooper.addClientStat("touch", this.gameSettings.touchscreen ? "touch" : "mouse");
         int i = 0;
 
-        for (ResourcePackInfo resourcepackinfo : this.resourcePackRepository.getEnabledPacks())
-        {
-            if (!resourcepackinfo.isAlwaysEnabled() && !resourcepackinfo.isOrderLocked())
-            {
+        for (ResourcePackInfo resourcepackinfo : this.resourcePackRepository.getEnabledPacks()) {
+            if (!resourcepackinfo.isAlwaysEnabled() && !resourcepackinfo.isOrderLocked()) {
                 snooper.addClientStat("resource_pack[" + i++ + "]", resourcepackinfo.getName());
             }
         }
 
         snooper.addClientStat("resource_packs", i);
 
-        if (this.integratedServer != null)
-        {
+        if (this.integratedServer != null) {
             snooper.addClientStat("snooper_partner", this.integratedServer.getSnooper().getUniqueID());
         }
     }
@@ -2792,18 +2380,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Return the current action's name
      */
-    private String getCurrentAction()
-    {
-        if (this.integratedServer != null)
-        {
+    private String getCurrentAction() {
+        if (this.integratedServer != null) {
             return this.integratedServer.getPublic() ? "hosting_lan" : "singleplayer";
-        }
-        else if (this.currentServerData != null)
-        {
+        } else if (this.currentServerData != null) {
             return this.currentServerData.isOnLAN() ? "playing_lan" : "multiplayer";
-        }
-        else
-        {
+        } else {
             return "out_of_game";
         }
     }
@@ -2811,27 +2393,23 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Set the current ServerData instance.
      */
-    public void setServerData(@Nullable ServerData serverDataIn)
-    {
+    public void setServerData(@Nullable ServerData serverDataIn) {
         this.currentServerData = serverDataIn;
     }
 
     @Nullable
-    public ServerData getCurrentServerData()
-    {
+    public ServerData getCurrentServerData() {
         return this.currentServerData;
     }
 
-    public boolean isIntegratedServerRunning()
-    {
+    public boolean isIntegratedServerRunning() {
         return this.integratedServerIsRunning;
     }
 
     /**
      * Returns true if there is only one player playing, and the current server is the integrated one.
      */
-    public boolean isSingleplayer()
-    {
+    public boolean isSingleplayer() {
         return this.integratedServerIsRunning && this.integratedServer != null;
     }
 
@@ -2840,31 +2418,26 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     /**
      * Returns the currently running integrated server
      */
-    public IntegratedServer getIntegratedServer()
-    {
+    public IntegratedServer getIntegratedServer() {
         return this.integratedServer;
     }
 
     /**
      * Returns the PlayerUsageSnooper instance.
      */
-    public Snooper getSnooper()
-    {
+    public Snooper getSnooper() {
         return this.snooper;
     }
 
-    public Session getSession()
-    {
+    public Session getSession() {
         return this.session;
     }
 
     /**
      * Return the player's GameProfile properties
      */
-    public PropertyMap getProfileProperties()
-    {
-        if (this.profileProperties.isEmpty())
-        {
+    public PropertyMap getProfileProperties() {
+        if (this.profileProperties.isEmpty()) {
             GameProfile gameprofile = this.getSessionService().fillProfileProperties(this.session.getProfile(), false);
             this.profileProperties.putAll(gameprofile.getProperties());
         }
@@ -2872,380 +2445,306 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         return this.profileProperties;
     }
 
-    public Proxy getProxy()
-    {
+    public Proxy getProxy() {
         return this.proxy;
     }
 
-    public TextureManager getTextureManager()
-    {
+    public TextureManager getTextureManager() {
         return this.textureManager;
     }
 
-    public IResourceManager getResourceManager()
-    {
+    public IResourceManager getResourceManager() {
         return this.resourceManager;
     }
 
-    public ResourcePackList getResourcePackList()
-    {
+    public ResourcePackList getResourcePackList() {
         return this.resourcePackRepository;
     }
 
-    public DownloadingPackFinder getPackFinder()
-    {
+    public DownloadingPackFinder getPackFinder() {
         return this.packFinder;
     }
 
-    public File getFileResourcePacks()
-    {
+    public File getFileResourcePacks() {
         return this.fileResourcepacks;
     }
 
-    public LanguageManager getLanguageManager()
-    {
+    public LanguageManager getLanguageManager() {
         return this.languageManager;
     }
 
-    public Function<ResourceLocation, TextureAtlasSprite> getAtlasSpriteGetter(ResourceLocation locationIn)
-    {
+    public Function<ResourceLocation, TextureAtlasSprite> getAtlasSpriteGetter(ResourceLocation locationIn) {
         return this.modelManager.getAtlasTexture(locationIn)::getSprite;
     }
 
-    public boolean isJava64bit()
-    {
+    public boolean isJava64bit() {
         return this.jvm64bit;
     }
 
-    public boolean isGamePaused()
-    {
+    public boolean isGamePaused() {
         return this.isGamePaused;
     }
 
-    public GPUWarning getGPUWarning()
-    {
+    public GPUWarning getGPUWarning() {
         return this.warningGPU;
     }
 
-    public SoundHandler getSoundHandler()
-    {
+    public SoundHandler getSoundHandler() {
         return this.soundHandler;
     }
 
-    public BackgroundMusicSelector getBackgroundMusicSelector()
-    {
-        if (this.currentScreen instanceof WinGameScreen)
-        {
+    public BackgroundMusicSelector getBackgroundMusicSelector() {
+        if (this.currentScreen instanceof WinGameScreen) {
             return BackgroundMusicTracks.CREDITS_MUSIC;
-        }
-        else if (this.player != null)
-        {
-            if (this.player.world.getDimensionKey() == World.THE_END)
-            {
+        } else if (this.player != null) {
+            if (this.player.world.getDimensionKey() == World.THE_END) {
                 return this.ingameGUI.getBossOverlay().shouldPlayEndBossMusic() ? BackgroundMusicTracks.DRAGON_FIGHT_MUSIC : BackgroundMusicTracks.END_MUSIC;
-            }
-            else
-            {
+            } else {
                 Biome.Category biome$category = this.player.world.getBiome(this.player.getPosition()).getCategory();
 
-                if (!this.musicTicker.isBackgroundMusicPlaying(BackgroundMusicTracks.UNDER_WATER_MUSIC) && (!this.player.canSwim() || biome$category != Biome.Category.OCEAN && biome$category != Biome.Category.RIVER))
-                {
+                if (!this.musicTicker.isBackgroundMusicPlaying(BackgroundMusicTracks.UNDER_WATER_MUSIC) && (!this.player.canSwim() || biome$category != Biome.Category.OCEAN && biome$category != Biome.Category.RIVER)) {
                     return this.player.world.getDimensionKey() != World.THE_NETHER && this.player.abilities.isCreativeMode && this.player.abilities.allowFlying ? BackgroundMusicTracks.CREATIVE_MODE_MUSIC : this.world.getBiomeManager().getBiomeAtPosition(this.player.getPosition()).getBackgroundMusic().orElse(BackgroundMusicTracks.WORLD_MUSIC);
-                }
-                else
-                {
+                } else {
                     return BackgroundMusicTracks.UNDER_WATER_MUSIC;
                 }
             }
-        }
-        else
-        {
+        } else {
             return BackgroundMusicTracks.MAIN_MENU_MUSIC;
         }
     }
 
-    public MinecraftSessionService getSessionService()
-    {
+    public MinecraftSessionService getSessionService() {
         return this.sessionService;
     }
 
-    public SkinManager getSkinManager()
-    {
+    public SkinManager getSkinManager() {
         return this.skinManager;
     }
 
     @Nullable
-    public Entity getRenderViewEntity()
-    {
+    public Entity getRenderViewEntity() {
         return this.renderViewEntity;
     }
 
-    public void setRenderViewEntity(Entity viewingEntity)
-    {
+    public void setRenderViewEntity(Entity viewingEntity) {
         this.renderViewEntity = viewingEntity;
         this.gameRenderer.loadEntityShader(viewingEntity);
     }
 
-    public boolean isEntityGlowing(Entity entity)
-    {
+    public boolean isEntityGlowing(Entity entity) {
         return entity.isGlowing() || this.player != null && this.player.isSpectator() && this.gameSettings.keyBindSpectatorOutlines.isKeyDown() && entity.getType() == EntityType.PLAYER;
     }
 
-    protected Thread getExecutionThread()
-    {
+    protected Thread getExecutionThread() {
         return this.thread;
     }
 
-    protected Runnable wrapTask(Runnable runnable)
-    {
+    protected Runnable wrapTask(Runnable runnable) {
         return runnable;
     }
 
-    protected boolean canRun(Runnable runnable)
-    {
+    protected boolean canRun(Runnable runnable) {
         return true;
     }
 
-    public BlockRendererDispatcher getBlockRendererDispatcher()
-    {
+    public BlockRendererDispatcher getBlockRendererDispatcher() {
         return this.blockRenderDispatcher;
     }
 
-    public EntityRendererManager getRenderManager()
-    {
+    public EntityRendererManager getRenderManager() {
         return this.renderManager;
     }
 
-    public ItemRenderer getItemRenderer()
-    {
+    public ItemRenderer getItemRenderer() {
         return this.itemRenderer;
     }
 
-    public FirstPersonRenderer getFirstPersonRenderer()
-    {
+    public FirstPersonRenderer getFirstPersonRenderer() {
         return this.firstPersonRenderer;
     }
 
-    public <T> IMutableSearchTree<T> getSearchTree(SearchTreeManager.Key<T> key)
-    {
+    public <T> IMutableSearchTree<T> getSearchTree(SearchTreeManager.Key<T> key) {
         return this.searchTreeManager.get(key);
     }
 
     /**
      * Return the FrameTimer's instance
      */
-    public FrameTimer getFrameTimer()
-    {
+    public FrameTimer getFrameTimer() {
         return this.frameTimer;
     }
 
     /**
      * Return true if the player is connected to a realms server
      */
-    public boolean isConnectedToRealms()
-    {
+    public boolean isConnectedToRealms() {
         return this.connectedToRealms;
     }
 
     /**
      * Set if the player is connected to a realms server
      */
-    public void setConnectedToRealms(boolean isConnected)
-    {
+    public void setConnectedToRealms(boolean isConnected) {
         this.connectedToRealms = isConnected;
     }
 
-    public DataFixer getDataFixer()
-    {
+    public DataFixer getDataFixer() {
         return this.dataFixer;
     }
 
-    public float getRenderPartialTicks()
-    {
+    public float getRenderPartialTicks() {
         return this.timer.renderPartialTicks;
     }
 
-    public float getTickLength()
-    {
+    public float getTickLength() {
         return this.timer.elapsedPartialTicks;
     }
 
-    public BlockColors getBlockColors()
-    {
+    public BlockColors getBlockColors() {
         return this.blockColors;
     }
 
     /**
      * Whether to use reduced debug info
      */
-    public boolean isReducedDebug()
-    {
+    public boolean isReducedDebug() {
         return this.player != null && this.player.hasReducedDebug() || this.gameSettings.reducedDebugInfo;
     }
 
-    public ToastGui getToastGui()
-    {
+    public ToastGui getToastGui() {
         return this.toastGui;
     }
 
-    public Tutorial getTutorial()
-    {
+    public Tutorial getTutorial() {
         return this.tutorial;
     }
 
-    public boolean isGameFocused()
-    {
+    public boolean isGameFocused() {
         return this.isWindowFocused;
     }
 
-    public CreativeSettings getCreativeSettings()
-    {
+    public CreativeSettings getCreativeSettings() {
         return this.creativeSettings;
     }
 
-    public ModelManager getModelManager()
-    {
+    public ModelManager getModelManager() {
         return this.modelManager;
     }
 
     /**
      * Gets the sprite uploader used for paintings.
      */
-    public PaintingSpriteUploader getPaintingSpriteUploader()
-    {
+    public PaintingSpriteUploader getPaintingSpriteUploader() {
         return this.paintingSprites;
     }
 
     /**
      * Gets the sprite uploader used for potions.
      */
-    public PotionSpriteUploader getPotionSpriteUploader()
-    {
+    public PotionSpriteUploader getPotionSpriteUploader() {
         return this.potionSprites;
     }
 
-    public void setGameFocused(boolean focused)
-    {
+    public void setGameFocused(boolean focused) {
         this.isWindowFocused = focused;
     }
 
-    public IProfiler getProfiler()
-    {
+    public IProfiler getProfiler() {
         return this.profiler;
     }
 
-    public MinecraftGame getMinecraftGame()
-    {
+    public MinecraftGame getMinecraftGame() {
         return this.game;
     }
 
-    public Splashes getSplashes()
-    {
+    public Splashes getSplashes() {
         return this.splashes;
     }
 
     @Nullable
-    public LoadingGui getLoadingGui()
-    {
+    public LoadingGui getLoadingGui() {
         return this.loadingGui;
     }
 
-    public FilterManager func_244599_aA()
-    {
+    public FilterManager func_244599_aA() {
         return this.field_244597_aC;
     }
 
-    public boolean isRenderOnThread()
-    {
+    public boolean isRenderOnThread() {
         return false;
     }
 
-    public MainWindow getMainWindow()
-    {
+    public MainWindow getMainWindow() {
         return this.mainWindow;
     }
 
-    public RenderTypeBuffers getRenderTypeBuffers()
-    {
+    public RenderTypeBuffers getRenderTypeBuffers() {
         return this.renderTypeBuffers;
     }
 
-    private static ResourcePackInfo makePackInfo(String name, boolean isAlwaysEnabled, Supplier<IResourcePack> resourceSupplier, IResourcePack resourcePack, PackMetadataSection resourcePackMeta, ResourcePackInfo.Priority priority, IPackNameDecorator decorator)
-    {
+    private static ResourcePackInfo makePackInfo(String name, boolean isAlwaysEnabled, Supplier<IResourcePack> resourceSupplier, IResourcePack resourcePack, PackMetadataSection resourcePackMeta, ResourcePackInfo.Priority priority, IPackNameDecorator decorator) {
         int i = resourcePackMeta.getPackFormat();
         Supplier<IResourcePack> supplier = resourceSupplier;
 
-        if (i <= 3)
-        {
+        if (i <= 3) {
             supplier = wrapV3(resourceSupplier);
         }
 
-        if (i <= 4)
-        {
+        if (i <= 4) {
             supplier = wrapV4(supplier);
         }
 
         return new ResourcePackInfo(name, isAlwaysEnabled, supplier, resourcePack, resourcePackMeta, priority, decorator);
     }
 
-    private static Supplier<IResourcePack> wrapV3(Supplier<IResourcePack> resourcePackSupplier)
-    {
+    private static Supplier<IResourcePack> wrapV3(Supplier<IResourcePack> resourcePackSupplier) {
         return () ->
         {
             return new LegacyResourcePackWrapper(resourcePackSupplier.get(), LegacyResourcePackWrapper.NEW_TO_LEGACY_MAP);
         };
     }
 
-    private static Supplier<IResourcePack> wrapV4(Supplier<IResourcePack> resourcePackSupplier)
-    {
+    private static Supplier<IResourcePack> wrapV4(Supplier<IResourcePack> resourcePackSupplier) {
         return () ->
         {
             return new LegacyResourcePackWrapperV4(resourcePackSupplier.get());
         };
     }
 
-    public void setMipmapLevels(int mipMapLevel)
-    {
+    public void setMipmapLevels(int mipMapLevel) {
         this.modelManager.setMaxMipmapLevel(mipMapLevel);
     }
 
-    public static final class PackManager implements AutoCloseable
-    {
+    public static final class PackManager implements AutoCloseable {
         private final ResourcePackList resourcePackList;
         private final DataPackRegistries datapackRegistries;
         private final IServerConfiguration serverConfiguration;
 
-        private PackManager(ResourcePackList resourcePackList, DataPackRegistries datapackRegistries, IServerConfiguration serverConfiguration)
-        {
+        private PackManager(ResourcePackList resourcePackList, DataPackRegistries datapackRegistries, IServerConfiguration serverConfiguration) {
             this.resourcePackList = resourcePackList;
             this.datapackRegistries = datapackRegistries;
             this.serverConfiguration = serverConfiguration;
         }
 
-        public ResourcePackList getResourcePacks()
-        {
+        public ResourcePackList getResourcePacks() {
             return this.resourcePackList;
         }
 
-        public DataPackRegistries getDataPackRegistries()
-        {
+        public DataPackRegistries getDataPackRegistries() {
             return this.datapackRegistries;
         }
 
-        public IServerConfiguration getServerConfiguration()
-        {
+        public IServerConfiguration getServerConfiguration() {
             return this.serverConfiguration;
         }
 
-        public void close()
-        {
+        public void close() {
             this.resourcePackList.close();
             this.datapackRegistries.close();
         }
     }
 
-    static enum WorldSelectionType
-    {
+    static enum WorldSelectionType {
         NONE,
         CREATE,
         BACKUP;

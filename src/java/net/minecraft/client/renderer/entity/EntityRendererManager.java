@@ -4,9 +4,11 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import java.util.Collections;
 import java.util.Map;
 import javax.annotation.Nullable;
+
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.GameSettings;
@@ -54,10 +56,9 @@ import net.optifine.player.PlayerItemsLayer;
 import net.optifine.render.RenderTypes;
 import net.optifine.shaders.Shaders;
 
-public class EntityRendererManager
-{
+public class EntityRendererManager {
     private static final RenderType SHADOW_RENDER_TYPE = RenderType.getEntityShadow(new ResourceLocation("textures/misc/shadow.png"));
-    private final Map < EntityType, EntityRenderer> renderers = Maps.newHashMap();
+    private final Map<EntityType, EntityRenderer> renderers = Maps.newHashMap();
     private final Map<String, PlayerRenderer> skinMap = Maps.newHashMap();
     private final PlayerRenderer playerRenderer;
     private final FontRenderer textRenderer;
@@ -71,25 +72,21 @@ public class EntityRendererManager
     private boolean debugBoundingBox;
     public EntityRenderer renderRender = null;
 
-    public <E extends Entity> int getPackedLight(E entityIn, float partialTicks)
-    {
+    public <E extends Entity> int getPackedLight(E entityIn, float partialTicks) {
         int i = this.getRenderer(entityIn).getPackedLight(entityIn, partialTicks);
 
-        if (Config.isDynamicLights())
-        {
+        if (Config.isDynamicLights()) {
             i = DynamicLights.getCombinedLight(entityIn, i);
         }
 
         return i;
     }
 
-    private <T extends Entity> void register(EntityType<T> entityTypeIn, EntityRenderer <? super T > entityRendererIn)
-    {
+    private <T extends Entity> void register(EntityType<T> entityTypeIn, EntityRenderer<? super T> entityRendererIn) {
         this.renderers.put(entityTypeIn, entityRendererIn);
     }
 
-    private void registerRenderers(net.minecraft.client.renderer.ItemRenderer itemRendererIn, IReloadableResourceManager resourceManagerIn)
-    {
+    private void registerRenderers(net.minecraft.client.renderer.ItemRenderer itemRendererIn, IReloadableResourceManager resourceManagerIn) {
         this.register(EntityType.AREA_EFFECT_CLOUD, new AreaEffectCloudRenderer(this));
         this.register(EntityType.ARMOR_STAND, new ArmorStandRenderer(this));
         this.register(EntityType.ARROW, new TippedArrowRenderer(this));
@@ -199,8 +196,7 @@ public class EntityRendererManager
         this.register(EntityType.STRIDER, new StriderRenderer(this));
     }
 
-    public EntityRendererManager(TextureManager textureManagerIn, net.minecraft.client.renderer.ItemRenderer itemRendererIn, IReloadableResourceManager resourceManagerIn, FontRenderer fontRendererIn, GameSettings gameSettingsIn)
-    {
+    public EntityRendererManager(TextureManager textureManagerIn, net.minecraft.client.renderer.ItemRenderer itemRendererIn, IReloadableResourceManager resourceManagerIn, FontRenderer fontRendererIn, GameSettings gameSettingsIn) {
         this.textureManager = textureManagerIn;
         this.textRenderer = fontRendererIn;
         this.options = gameSettingsIn;
@@ -211,73 +207,57 @@ public class EntityRendererManager
         PlayerItemsLayer.register(this.skinMap);
     }
 
-    public void validateRendererExistence()
-    {
-        for (EntityType<?> entitytype : Registry.ENTITY_TYPE)
-        {
-            if (entitytype != EntityType.PLAYER && !this.renderers.containsKey(entitytype))
-            {
+    public void validateRendererExistence() {
+        for (EntityType<?> entitytype : Registry.ENTITY_TYPE) {
+            if (entitytype != EntityType.PLAYER && !this.renderers.containsKey(entitytype)) {
                 throw new IllegalStateException("No renderer registered for " + Registry.ENTITY_TYPE.getKey(entitytype));
             }
         }
     }
 
-    public <T extends Entity> EntityRenderer <? super T > getRenderer(T entityIn)
-    {
-        if (entityIn instanceof AbstractClientPlayerEntity)
-        {
-            String s = ((AbstractClientPlayerEntity)entityIn).getSkinType();
+    public <T extends Entity> EntityRenderer<? super T> getRenderer(T entityIn) {
+        if (entityIn instanceof AbstractClientPlayerEntity) {
+            String s = ((AbstractClientPlayerEntity) entityIn).getSkinType();
             PlayerRenderer playerrenderer = this.skinMap.get(s);
-            return (EntityRenderer <? super T >)(playerrenderer != null ? playerrenderer : this.playerRenderer);
-        }
-        else
-        {
-            return (EntityRenderer <? super T >) this.renderers.get(entityIn.getType());
+            return (EntityRenderer<? super T>) (playerrenderer != null ? playerrenderer : this.playerRenderer);
+        } else {
+            return (EntityRenderer<? super T>) this.renderers.get(entityIn.getType());
         }
     }
 
-    public void cacheActiveRenderInfo(World worldIn, ActiveRenderInfo activeRenderInfoIn, Entity entityIn)
-    {
+    public void cacheActiveRenderInfo(World worldIn, ActiveRenderInfo activeRenderInfoIn, Entity entityIn) {
         this.world = worldIn;
         this.info = activeRenderInfoIn;
         this.cameraOrientation = activeRenderInfoIn.getRotation();
         this.pointedEntity = entityIn;
     }
 
-    public void setCameraOrientation(Quaternion quaternionIn)
-    {
+    public void setCameraOrientation(Quaternion quaternionIn) {
         this.cameraOrientation = quaternionIn;
     }
 
-    public void setRenderShadow(boolean renderShadowIn)
-    {
+    public void setRenderShadow(boolean renderShadowIn) {
         this.renderShadow = renderShadowIn;
     }
 
-    public void setDebugBoundingBox(boolean debugBoundingBoxIn)
-    {
+    public void setDebugBoundingBox(boolean debugBoundingBoxIn) {
         this.debugBoundingBox = debugBoundingBoxIn;
     }
 
-    public boolean isDebugBoundingBox()
-    {
+    public boolean isDebugBoundingBox() {
         return this.debugBoundingBox;
     }
 
-    public <E extends Entity> boolean shouldRender(E entityIn, ClippingHelper frustumIn, double camX, double camY, double camZ)
-    {
-        EntityRenderer <? super E > entityrenderer = this.getRenderer(entityIn);
+    public <E extends Entity> boolean shouldRender(E entityIn, ClippingHelper frustumIn, double camX, double camY, double camZ) {
+        EntityRenderer<? super E> entityrenderer = this.getRenderer(entityIn);
         return entityrenderer.shouldRender(entityIn, frustumIn, camX, camY, camZ);
     }
 
-    public <E extends Entity> void renderEntityStatic(E entityIn, double xIn, double yIn, double zIn, float rotationYawIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
-    {
-        if (this.info != null)
-        {
-            EntityRenderer <? super E > entityrenderer = this.getRenderer(entityIn);
+    public <E extends Entity> void renderEntityStatic(E entityIn, double xIn, double yIn, double zIn, float rotationYawIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        if (this.info != null) {
+            EntityRenderer<? super E> entityrenderer = this.getRenderer(entityIn);
 
-            try
-            {
+            try {
                 Vector3d vector3d = entityrenderer.getRenderOffset(entityIn, partialTicks);
                 double d2 = xIn + vector3d.getX();
                 double d3 = yIn + vector3d.getY();
@@ -285,22 +265,18 @@ public class EntityRendererManager
                 matrixStackIn.push();
                 matrixStackIn.translate(d2, d3, d0);
 
-                if (CustomEntityModels.isActive())
-                {
+                if (CustomEntityModels.isActive()) {
                     this.renderRender = entityrenderer;
                 }
 
-                if (EmissiveTextures.isActive())
-                {
+                if (EmissiveTextures.isActive()) {
                     EmissiveTextures.beginRender();
                 }
 
                 entityrenderer.render(entityIn, rotationYawIn, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
-                if (EmissiveTextures.isActive())
-                {
-                    if (EmissiveTextures.hasEmissive())
-                    {
+                if (EmissiveTextures.isActive()) {
+                    if (EmissiveTextures.hasEmissive()) {
                         EmissiveTextures.beginRenderEmissive();
                         entityrenderer.render(entityIn, rotationYawIn, partialTicks, matrixStackIn, bufferIn, LightTexture.MAX_BRIGHTNESS);
                         EmissiveTextures.endRenderEmissive();
@@ -309,33 +285,27 @@ public class EntityRendererManager
                     EmissiveTextures.endRender();
                 }
 
-                if (entityIn.canRenderOnFire())
-                {
+                if (entityIn.canRenderOnFire()) {
                     this.renderFire(matrixStackIn, bufferIn, entityIn);
                 }
 
                 matrixStackIn.translate(-vector3d.getX(), -vector3d.getY(), -vector3d.getZ());
 
-                if (this.options.entityShadows && this.renderShadow && entityrenderer.shadowSize > 0.0F && !entityIn.isInvisible())
-                {
+                if (this.options.entityShadows && this.renderShadow && entityrenderer.shadowSize > 0.0F && !entityIn.isInvisible()) {
                     double d1 = this.getDistanceToCamera(entityIn.getPosX(), entityIn.getPosY(), entityIn.getPosZ());
-                    float f = (float)((1.0D - d1 / 256.0D) * (double)entityrenderer.shadowOpaque);
+                    float f = (float) ((1.0D - d1 / 256.0D) * (double) entityrenderer.shadowOpaque);
 
-                    if (f > 0.0F)
-                    {
+                    if (f > 0.0F) {
                         renderShadow(matrixStackIn, bufferIn, entityIn, f, partialTicks, this.world, entityrenderer.shadowSize);
                     }
                 }
 
-                if (this.debugBoundingBox && !entityIn.isInvisible() && !Minecraft.getInstance().isReducedDebug())
-                {
+                if (this.debugBoundingBox && !entityIn.isInvisible() && !Minecraft.getInstance().isReducedDebug()) {
                     this.renderDebugBoundingBox(matrixStackIn, bufferIn.getBuffer(RenderType.getLines()), entityIn, partialTicks);
                 }
 
                 matrixStackIn.pop();
-            }
-            catch (Throwable throwable1)
-            {
+            } catch (Throwable throwable1) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Rendering entity in world");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being rendered");
                 entityIn.fillCrashReport(crashreportcategory);
@@ -349,52 +319,45 @@ public class EntityRendererManager
         }
     }
 
-    private void renderDebugBoundingBox(MatrixStack matrixStackIn, IVertexBuilder bufferIn, Entity entityIn, float partialTicks)
-    {
-        if (!Shaders.isShadowPass)
-        {
+    private void renderDebugBoundingBox(MatrixStack matrixStackIn, IVertexBuilder bufferIn, Entity entityIn, float partialTicks) {
+        if (!Shaders.isShadowPass) {
             float f = entityIn.getWidth() / 2.0F;
             this.renderBoundingBox(matrixStackIn, bufferIn, entityIn, 1.0F, 1.0F, 1.0F);
 
-            if (entityIn instanceof EnderDragonEntity)
-            {
-                double d0 = -MathHelper.lerp((double)partialTicks, entityIn.lastTickPosX, entityIn.getPosX());
-                double d1 = -MathHelper.lerp((double)partialTicks, entityIn.lastTickPosY, entityIn.getPosY());
-                double d2 = -MathHelper.lerp((double)partialTicks, entityIn.lastTickPosZ, entityIn.getPosZ());
+            if (entityIn instanceof EnderDragonEntity) {
+                double d0 = -MathHelper.lerp((double) partialTicks, entityIn.lastTickPosX, entityIn.getPosX());
+                double d1 = -MathHelper.lerp((double) partialTicks, entityIn.lastTickPosY, entityIn.getPosY());
+                double d2 = -MathHelper.lerp((double) partialTicks, entityIn.lastTickPosZ, entityIn.getPosZ());
 
-                for (EnderDragonPartEntity enderdragonpartentity : ((EnderDragonEntity)entityIn).getDragonParts())
-                {
+                for (EnderDragonPartEntity enderdragonpartentity : ((EnderDragonEntity) entityIn).getDragonParts()) {
                     matrixStackIn.push();
-                    double d3 = d0 + MathHelper.lerp((double)partialTicks, enderdragonpartentity.lastTickPosX, enderdragonpartentity.getPosX());
-                    double d4 = d1 + MathHelper.lerp((double)partialTicks, enderdragonpartentity.lastTickPosY, enderdragonpartentity.getPosY());
-                    double d5 = d2 + MathHelper.lerp((double)partialTicks, enderdragonpartentity.lastTickPosZ, enderdragonpartentity.getPosZ());
+                    double d3 = d0 + MathHelper.lerp((double) partialTicks, enderdragonpartentity.lastTickPosX, enderdragonpartentity.getPosX());
+                    double d4 = d1 + MathHelper.lerp((double) partialTicks, enderdragonpartentity.lastTickPosY, enderdragonpartentity.getPosY());
+                    double d5 = d2 + MathHelper.lerp((double) partialTicks, enderdragonpartentity.lastTickPosZ, enderdragonpartentity.getPosZ());
                     matrixStackIn.translate(d3, d4, d5);
                     this.renderBoundingBox(matrixStackIn, bufferIn, enderdragonpartentity, 0.25F, 1.0F, 0.0F);
                     matrixStackIn.pop();
                 }
             }
 
-            if (entityIn instanceof LivingEntity)
-            {
+            if (entityIn instanceof LivingEntity) {
                 float f1 = 0.01F;
-                WorldRenderer.drawBoundingBox(matrixStackIn, bufferIn, (double)(-f), (double)(entityIn.getEyeHeight() - 0.01F), (double)(-f), (double)f, (double)(entityIn.getEyeHeight() + 0.01F), (double)f, 1.0F, 0.0F, 0.0F, 1.0F);
+                WorldRenderer.drawBoundingBox(matrixStackIn, bufferIn, (double) (-f), (double) (entityIn.getEyeHeight() - 0.01F), (double) (-f), (double) f, (double) (entityIn.getEyeHeight() + 0.01F), (double) f, 1.0F, 0.0F, 0.0F, 1.0F);
             }
 
             Vector3d vector3d = entityIn.getLook(partialTicks);
             Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
             bufferIn.pos(matrix4f, 0.0F, entityIn.getEyeHeight(), 0.0F).color(0, 0, 255, 255).endVertex();
-            bufferIn.pos(matrix4f, (float)(vector3d.x * 2.0D), (float)((double)entityIn.getEyeHeight() + vector3d.y * 2.0D), (float)(vector3d.z * 2.0D)).color(0, 0, 255, 255).endVertex();
+            bufferIn.pos(matrix4f, (float) (vector3d.x * 2.0D), (float) ((double) entityIn.getEyeHeight() + vector3d.y * 2.0D), (float) (vector3d.z * 2.0D)).color(0, 0, 255, 255).endVertex();
         }
     }
 
-    private void renderBoundingBox(MatrixStack matrixStackIn, IVertexBuilder bufferIn, Entity entityIn, float red, float green, float blue)
-    {
+    private void renderBoundingBox(MatrixStack matrixStackIn, IVertexBuilder bufferIn, Entity entityIn, float red, float green, float blue) {
         AxisAlignedBB axisalignedbb = entityIn.getBoundingBox().offset(-entityIn.getPosX(), -entityIn.getPosY(), -entityIn.getPosZ());
         WorldRenderer.drawBoundingBox(matrixStackIn, bufferIn, axisalignedbb, red, green, blue, 1.0F);
     }
 
-    private void renderFire(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, Entity entityIn)
-    {
+    private void renderFire(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, Entity entityIn) {
         TextureAtlasSprite textureatlassprite = ModelBakery.LOCATION_FIRE_0.getSprite();
         TextureAtlasSprite textureatlassprite1 = ModelBakery.LOCATION_FIRE_1.getSprite();
         matrixStackIn.push();
@@ -405,19 +368,17 @@ public class EntityRendererManager
         float f3 = entityIn.getHeight() / f;
         float f4 = 0.0F;
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(-this.info.getYaw()));
-        matrixStackIn.translate(0.0D, 0.0D, (double)(-0.3F + (float)((int)f3) * 0.02F));
+        matrixStackIn.translate(0.0D, 0.0D, (double) (-0.3F + (float) ((int) f3) * 0.02F));
         float f5 = 0.0F;
         int i = 0;
         IVertexBuilder ivertexbuilder = bufferIn.getBuffer(Atlases.getCutoutBlockType());
         boolean flag = Config.isMultiTexture();
 
-        if (flag)
-        {
+        if (flag) {
             ivertexbuilder.setBlockLayer(RenderTypes.SOLID);
         }
 
-        for (MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast(); f3 > 0.0F; ++i)
-        {
+        for (MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast(); f3 > 0.0F; ++i) {
             TextureAtlasSprite textureatlassprite2 = i % 2 == 0 ? textureatlassprite : textureatlassprite1;
             ivertexbuilder.setSprite(textureatlassprite2);
             float f6 = textureatlassprite2.getMinU();
@@ -425,8 +386,7 @@ public class EntityRendererManager
             float f8 = textureatlassprite2.getMaxU();
             float f9 = textureatlassprite2.getMaxV();
 
-            if (i / 2 % 2 == 0)
-            {
+            if (i / 2 % 2 == 0) {
                 float f10 = f8;
                 f8 = f6;
                 f6 = f10;
@@ -442,86 +402,74 @@ public class EntityRendererManager
             f5 += 0.03F;
         }
 
-        if (flag)
-        {
-            ivertexbuilder.setBlockLayer((RenderType)null);
+        if (flag) {
+            ivertexbuilder.setBlockLayer((RenderType) null);
             GlStateManager.bindCurrentTexture();
         }
 
         matrixStackIn.pop();
     }
 
-    private static void fireVertex(MatrixStack.Entry matrixEntryIn, IVertexBuilder bufferIn, float x, float y, float z, float texU, float texV)
-    {
+    private static void fireVertex(MatrixStack.Entry matrixEntryIn, IVertexBuilder bufferIn, float x, float y, float z, float texU, float texV) {
         bufferIn.pos(matrixEntryIn.getMatrix(), x, y, z).color(255, 255, 255, 255).tex(texU, texV).overlay(0, 10).lightmap(240).normal(matrixEntryIn.getNormal(), 0.0F, 1.0F, 0.0F).endVertex();
     }
 
-    private static void renderShadow(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, Entity entityIn, float weightIn, float partialTicks, IWorldReader worldIn, float sizeIn)
-    {
-        if (!Config.isShaders() || !Shaders.shouldSkipDefaultShadow)
-        {
+    private static void renderShadow(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, Entity entityIn, float weightIn, float partialTicks, IWorldReader worldIn, float sizeIn) {
+        if (!Config.isShaders() || !Shaders.shouldSkipDefaultShadow) {
             float f = sizeIn;
 
-            if (entityIn instanceof MobEntity)
-            {
-                MobEntity mobentity = (MobEntity)entityIn;
+            if (entityIn instanceof MobEntity) {
+                MobEntity mobentity = (MobEntity) entityIn;
 
-                if (mobentity.isChild())
-                {
+                if (mobentity.isChild()) {
                     f = sizeIn * 0.5F;
                 }
             }
 
-            double d2 = MathHelper.lerp((double)partialTicks, entityIn.lastTickPosX, entityIn.getPosX());
-            double d0 = MathHelper.lerp((double)partialTicks, entityIn.lastTickPosY, entityIn.getPosY());
-            double d1 = MathHelper.lerp((double)partialTicks, entityIn.lastTickPosZ, entityIn.getPosZ());
-            int i = MathHelper.floor(d2 - (double)f);
-            int j = MathHelper.floor(d2 + (double)f);
-            int k = MathHelper.floor(d0 - (double)f);
+            double d2 = MathHelper.lerp((double) partialTicks, entityIn.lastTickPosX, entityIn.getPosX());
+            double d0 = MathHelper.lerp((double) partialTicks, entityIn.lastTickPosY, entityIn.getPosY());
+            double d1 = MathHelper.lerp((double) partialTicks, entityIn.lastTickPosZ, entityIn.getPosZ());
+            int i = MathHelper.floor(d2 - (double) f);
+            int j = MathHelper.floor(d2 + (double) f);
+            int k = MathHelper.floor(d0 - (double) f);
             int l = MathHelper.floor(d0);
-            int i1 = MathHelper.floor(d1 - (double)f);
-            int j1 = MathHelper.floor(d1 + (double)f);
+            int i1 = MathHelper.floor(d1 - (double) f);
+            int j1 = MathHelper.floor(d1 + (double) f);
             MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast();
             IVertexBuilder ivertexbuilder = bufferIn.getBuffer(SHADOW_RENDER_TYPE);
 
-            for (BlockPos blockpos : BlockPos.getAllInBoxMutable(new BlockPos(i, k, i1), new BlockPos(j, l, j1)))
-            {
+            for (BlockPos blockpos : BlockPos.getAllInBoxMutable(new BlockPos(i, k, i1), new BlockPos(j, l, j1))) {
                 renderBlockShadow(matrixstack$entry, ivertexbuilder, worldIn, blockpos, d2, d0, d1, f, weightIn);
             }
         }
     }
 
-    private static void renderBlockShadow(MatrixStack.Entry matrixEntryIn, IVertexBuilder bufferIn, IWorldReader worldIn, BlockPos blockPosIn, double xIn, double yIn, double zIn, float sizeIn, float weightIn)
-    {
+    private static void renderBlockShadow(MatrixStack.Entry matrixEntryIn, IVertexBuilder bufferIn, IWorldReader worldIn, BlockPos blockPosIn, double xIn, double yIn, double zIn, float sizeIn, float weightIn) {
         BlockPos blockpos = blockPosIn.down();
         BlockState blockstate = worldIn.getBlockState(blockpos);
 
-        if (blockstate.getRenderType() != BlockRenderType.INVISIBLE && worldIn.getLight(blockPosIn) > 3 && blockstate.hasOpaqueCollisionShape(worldIn, blockpos))
-        {
+        if (blockstate.getRenderType() != BlockRenderType.INVISIBLE && worldIn.getLight(blockPosIn) > 3 && blockstate.hasOpaqueCollisionShape(worldIn, blockpos)) {
             VoxelShape voxelshape = blockstate.getShape(worldIn, blockPosIn.down());
 
-            if (!voxelshape.isEmpty())
-            {
-                float f = (float)(((double)weightIn - (yIn - (double)blockPosIn.getY()) / 2.0D) * 0.5D * (double)worldIn.getBrightness(blockPosIn));
+            if (!voxelshape.isEmpty()) {
+                float f = (float) (((double) weightIn - (yIn - (double) blockPosIn.getY()) / 2.0D) * 0.5D * (double) worldIn.getBrightness(blockPosIn));
 
-                if (f >= 0.0F)
-                {
-                    if (f > 1.0F)
-                    {
+                if (f >= 0.0F) {
+                    if (f > 1.0F) {
                         f = 1.0F;
                     }
 
                     AxisAlignedBB axisalignedbb = voxelshape.getBoundingBox();
-                    double d0 = (double)blockPosIn.getX() + axisalignedbb.minX;
-                    double d1 = (double)blockPosIn.getX() + axisalignedbb.maxX;
-                    double d2 = (double)blockPosIn.getY() + axisalignedbb.minY;
-                    double d3 = (double)blockPosIn.getZ() + axisalignedbb.minZ;
-                    double d4 = (double)blockPosIn.getZ() + axisalignedbb.maxZ;
-                    float f1 = (float)(d0 - xIn);
-                    float f2 = (float)(d1 - xIn);
-                    float f3 = (float)(d2 - yIn);
-                    float f4 = (float)(d3 - zIn);
-                    float f5 = (float)(d4 - zIn);
+                    double d0 = (double) blockPosIn.getX() + axisalignedbb.minX;
+                    double d1 = (double) blockPosIn.getX() + axisalignedbb.maxX;
+                    double d2 = (double) blockPosIn.getY() + axisalignedbb.minY;
+                    double d3 = (double) blockPosIn.getZ() + axisalignedbb.minZ;
+                    double d4 = (double) blockPosIn.getZ() + axisalignedbb.maxZ;
+                    float f1 = (float) (d0 - xIn);
+                    float f2 = (float) (d1 - xIn);
+                    float f3 = (float) (d2 - yIn);
+                    float f4 = (float) (d3 - zIn);
+                    float f5 = (float) (d4 - zIn);
                     float f6 = -f1 / 2.0F / sizeIn + 0.5F;
                     float f7 = -f2 / 2.0F / sizeIn + 0.5F;
                     float f8 = -f4 / 2.0F / sizeIn + 0.5F;
@@ -535,54 +483,45 @@ public class EntityRendererManager
         }
     }
 
-    private static void shadowVertex(MatrixStack.Entry matrixEntryIn, IVertexBuilder bufferIn, float alphaIn, float xIn, float yIn, float zIn, float texU, float texV)
-    {
+    private static void shadowVertex(MatrixStack.Entry matrixEntryIn, IVertexBuilder bufferIn, float alphaIn, float xIn, float yIn, float zIn, float texU, float texV) {
         bufferIn.pos(matrixEntryIn.getMatrix(), xIn, yIn, zIn).color(1.0F, 1.0F, 1.0F, alphaIn).tex(texU, texV).overlay(OverlayTexture.NO_OVERLAY).lightmap(15728880).normal(matrixEntryIn.getNormal(), 0.0F, 1.0F, 0.0F).endVertex();
     }
 
     /**
      * World sets this RenderManager's worldObj to the world provided
      */
-    public void setWorld(@Nullable World worldIn)
-    {
+    public void setWorld(@Nullable World worldIn) {
         this.world = worldIn;
 
-        if (worldIn == null)
-        {
+        if (worldIn == null) {
             this.info = null;
         }
     }
 
-    public double squareDistanceTo(Entity entityIn)
-    {
+    public double squareDistanceTo(Entity entityIn) {
         return this.info.getProjectedView().squareDistanceTo(entityIn.getPositionVec());
     }
 
-    public double getDistanceToCamera(double x, double y, double z)
-    {
+    public double getDistanceToCamera(double x, double y, double z) {
         return this.info.getProjectedView().squareDistanceTo(x, y, z);
     }
 
-    public Quaternion getCameraOrientation()
-    {
+    public Quaternion getCameraOrientation() {
         return this.cameraOrientation;
     }
 
     /**
      * Returns the font renderer
      */
-    public FontRenderer getFontRenderer()
-    {
+    public FontRenderer getFontRenderer() {
         return this.textRenderer;
     }
 
-    public Map<EntityType, EntityRenderer> getEntityRenderMap()
-    {
+    public Map<EntityType, EntityRenderer> getEntityRenderMap() {
         return this.renderers;
     }
 
-    public Map<String, PlayerRenderer> getSkinMap()
-    {
+    public Map<String, PlayerRenderer> getSkinMap() {
         return Collections.unmodifiableMap(this.skinMap);
     }
 }
