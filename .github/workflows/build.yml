@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17' # Change to your project's Java version
+          java-version: '8' # Change to your project's Java version
 
       - name: Compile Java source files
         run: |
