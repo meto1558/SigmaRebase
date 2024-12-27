@@ -119,7 +119,7 @@ public class LoginScreen extends UIBase {
             var3.method36706(this.field21355.getTypedText());
          }
 
-         String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText(), var3);
+         String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText());
          if (var4 != null) {
             LoginAndOutScreen var5 = (LoginAndOutScreen)this.getScreen();
             var5.method13424("Error", var4);

@@ -126,7 +126,7 @@ public class JelloMainMenuScreen extends Screen {
       this.field20970.method13296(true);
    }
 
-   public void method13343() {
+   public void animateNext() {
       this.field20972.changeDirection(Direction.FORWARDS);
       this.field20971.method13296(true);
       this.field20971.method13292(true);
