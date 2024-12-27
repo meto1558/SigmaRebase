@@ -11,14 +11,14 @@ import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class4366 extends UIBase {
+public class DropdownSettingDraw extends UIBase {
    public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> field21343 = new ArrayList<String>();
    public int field21344 = 0;
    public boolean field21345;
    public boolean field21346;
 
-   public Class4366(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, List<String> var7, int var8) {
+   public DropdownSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, List<String> var7, int var8) {
       super(var1, var2, var3, var4, var5, var6, field21342, false);
       this.field21343 = var7;
       this.field21344 = var8;

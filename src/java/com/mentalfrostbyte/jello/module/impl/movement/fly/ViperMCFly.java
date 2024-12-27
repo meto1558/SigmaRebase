@@ -21,7 +21,7 @@ public class ViperMCFly extends Module {
 
     public ViperMCFly() {
         super(ModuleCategory.MOVEMENT, "ViperMC", "A fly for ViperMC");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.2F, 6.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.2F, 6.0F, 0.1F));
     }
 
     @Override

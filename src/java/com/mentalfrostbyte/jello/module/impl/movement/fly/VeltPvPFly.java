@@ -21,7 +21,7 @@ public class VeltPvPFly extends Module {
 
     public VeltPvPFly() {
         super(ModuleCategory.MOVEMENT, "VeltPvP", "A fly for VeltPvP");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.2F, 5.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.2F, 5.0F, 0.1F));
     }
 
     @Override

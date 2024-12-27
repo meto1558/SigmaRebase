@@ -53,7 +53,7 @@ public class Class4337 extends CustomGuiScreen {
    }
 
    public void method13494(Screen var1) {
-      Client.getInstance().guiManager.method33482(var1);
+      Client.getInstance().guiManager.handleScreen(var1);
       this.method13495();
    }
 

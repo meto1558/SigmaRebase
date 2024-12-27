@@ -4,12 +4,12 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
-public class Class4262 extends Class4261 {
+public class CheckBoxSettingDraw extends Class4261 {
    private static String[] field20674;
    private boolean field20675;
    private boolean field20676;
 
-   public Class4262(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
+   public CheckBoxSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false, new Class7312(Resources.checkbox, 20, 40, 18, Class2188.field14309, 200, 1));
       this.method13088();
    }

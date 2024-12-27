@@ -25,7 +25,7 @@ public class VanillaFly extends Module {
 
     public VanillaFly() {
         super(ModuleCategory.MOVEMENT, "Vanilla", "Regular vanilla fly");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.28F, 10.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.28F, 10.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Kick bypass", "Bypass vanilla kick for flying", true));
     }
 
@@ -76,13 +76,13 @@ public class VanillaFly extends Module {
         if (this.isEnabled()) {
             if (!mc.player.isOnGround() && this.getBooleanValueFromSettingName("Kick bypass")) {
                 if (this.ticksInAir > 0 && this.ticksInAir % 30 == 0
-                        /*&& !MultiUtilities.isAboveBounds(mc.player, 0.01F)*/) {
+                    /*&& !MultiUtilities.isAboveBounds(mc.player, 0.01F)*/) {
                     /*
                      * if (JelloPortal.getCurrentVersionApplied() !=
                      * ViaVerList._1_8_x.getVersionNumber()) {
                      * event.setY(event.getY() - 0.04);
                      * } else {
-                     * 
+                     *
                      */
                     double collisionHeight = this.getGroundCollisionHeight();
                     if (collisionHeight < 0.0) {

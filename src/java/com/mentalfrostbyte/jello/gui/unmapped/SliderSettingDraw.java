@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Class4370 extends UIBase {
+public class SliderSettingDraw extends UIBase {
    private static String[] field21362;
    private float field21363;
    public boolean field21364 = false;
@@ -20,22 +20,22 @@ public class Class4370 extends UIBase {
       return (float)Math.round((double)var8 * Math.pow(10.0, (double)var4)) / (float)Math.pow(10.0, (double)var4);
    }
 
-   public Class4370(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
+   public SliderSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.method13695();
    }
 
-   public Class4370(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7) {
+   public SliderSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7) {
       super(var1, var2, var3, var4, var5, var6, var7, false);
       this.method13695();
    }
 
-   public Class4370(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8) {
+   public SliderSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, false);
       this.method13695();
    }
 
-   public Class4370(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
+   public SliderSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
       this.method13695();
    }

@@ -158,7 +158,7 @@ public class Class4343 extends Class4339 implements Class4342 {
             break;
          case 7:
             UITextDisplay var32 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 27, UITextDisplay.field20778, setting.getName());
-            Class4377 var40 = new Class4377(
+            IdkSettingDraw var40 = new IdkSettingDraw(
                panel, setting.getName() + "btn", panel.getWidthA() - var5, var4 + 6, 123, 27, ((TextBoxSetting)setting).getOptions(), (Integer)setting.getCurrentValue()
             );
             this.field21223.put(var32, setting);
@@ -167,7 +167,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var40.method13722((Integer)var1x.getCurrentValue(), false);
                }
             });
-            var40.method13036(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
+            var40.method13036(var1x -> setting.setCurrentValue(((IdkSettingDraw)var1x).method13720()));
             var40.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 123 - var5));
             panel.addToList(var32);
             panel.addToList(var40);

@@ -33,7 +33,7 @@ public class MineplexFly extends Module {
 
     public MineplexFly() {
         super(ModuleCategory.MOVEMENT, "Mineplex", "Mineplex fly/longjump");
-        this.registerSetting(new NumberSetting<Float>("Boost", "Boost value", 4.0F, Float.class, 1.0F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Boost", "Boost value", 4.0F, 1.0F, 8.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Fake", "Simulate a real fly", false));
     }
 

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
-import com.mentalfrostbyte.jello.gui.unmapped.SigmaClassicTextBox;
+import com.mentalfrostbyte.jello.gui.unmapped.TextBoxSettingDraw;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -16,8 +16,8 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
 public class ClassicAddAlt extends Screen {
-   public SigmaClassicTextBox field21116;
-   public SigmaClassicTextBox field21117;
+   public TextBoxSettingDraw field21116;
+   public TextBoxSettingDraw field21117;
    public Class4300 field21118;
    public Class4300 field21119;
    public Class4300 field21120;
@@ -31,10 +31,10 @@ public class ClassicAddAlt extends Screen {
       int var4 = 114;
       int var5 = (this.getWidthA() - var3) / 2;
       this.addToList(
-         this.field21116 = new SigmaClassicTextBox(this, "username", var5, var4, var3, 45, SigmaClassicTextBox.field20741, "", "Username / E-Mail", ResourceRegistry.DefaultClientFont)
+         this.field21116 = new TextBoxSettingDraw(this, "username", var5, var4, var3, 45, TextBoxSettingDraw.field20741, "", "Username / E-Mail", ResourceRegistry.DefaultClientFont)
       );
       var4 += 80;
-      this.addToList(this.field21117 = new SigmaClassicTextBox(this, "password", var5, var4, var3, 45, SigmaClassicTextBox.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
+      this.addToList(this.field21117 = new TextBoxSettingDraw(this, "password", var5, var4, var3, 45, TextBoxSettingDraw.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
       var4 += 190;
       this.addToList(this.field21118 = new Class4300(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
       var4 += 50;
@@ -55,7 +55,7 @@ public class ClassicAddAlt extends Screen {
             }
          }).start();
       });
-      this.field21119.doThis((var0, var1) -> Client.getInstance().guiManager.method33482(new SigmaClassicAltManager()));
+      this.field21119.doThis((var0, var1) -> Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager()));
       this.field21120.doThis((var1, var2) -> {
          String var5x = "";
 
@@ -99,7 +99,7 @@ public class ClassicAddAlt extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       if (var1 == 256) {
-         Client.getInstance().guiManager.method33482(new SigmaClassicAltManager());
+         Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager());
       }
    }
 }
