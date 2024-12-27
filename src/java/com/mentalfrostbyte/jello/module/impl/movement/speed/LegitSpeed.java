@@ -23,7 +23,7 @@ public class LegitSpeed extends Module {
     }
 
     @EventTarget
-    public void method16943(EventMove var1) {
+    public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround()
                     && mc.player.collidedVertically
@@ -72,7 +72,7 @@ public class LegitSpeed extends Module {
     }
 
     @EventTarget
-    private void method16944(ReceivePacketEvent var1) {
+    public void onReceivePacket(ReceivePacketEvent var1) {
         if (this.isEnabled()) {
             if (mc.player != null && var1.getPacket() instanceof SEntityVelocityPacket) {
                 SEntityVelocityPacket var4 = (SEntityVelocityPacket) var1.getPacket();
