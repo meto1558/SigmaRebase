@@ -53,7 +53,7 @@ public class Class4270 extends UIBase {
          }
       }
 
-      this.field20696 = var1;
+      this.field20696 = keycode;
       this.method13037();
       super.keyPressed(keycode);
    }
