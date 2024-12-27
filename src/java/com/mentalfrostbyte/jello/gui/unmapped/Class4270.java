@@ -10,18 +10,18 @@ public class Class4270 extends UIBase {
    public Class4270(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 1060, 357, false);
 
-      for (Keys var10 : Keys.values()) {
+      for (Keys key : Keys.values()) {
          Class4268 var11;
          this.addToList(
             var11 = new Class4268(
                this,
-               "KEY_" + var10.row + this.method13241().size(),
-               var10.method9027(),
-               var10.method9026(),
-               var10.method9028(),
-               var10.method9029(),
-               var10.name,
-               var10.row
+               "KEY_" + key.keyCode + this.method13241().size(),
+               key.method9027(),
+               key.method9026(),
+               key.method9028(),
+               key.method9029(),
+               key.name,
+               key.row
             )
          );
          var11.doThis((var2x, var3x) -> {
@@ -45,17 +45,17 @@ public class Class4270 extends UIBase {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      for (Keys var7 : Keys.values()) {
-         if (var7.row == var1) {
-            super.keyPressed(var1);
+   public void keyPressed(int keycode) {
+      for (Keys key : Keys.values()) {
+         if (key.keyCode == keycode) {
+            super.keyPressed(keycode);
             return;
          }
       }
 
-      this.field20696 = var1;
+      this.field20696 = keycode;
       this.method13037();
-      super.keyPressed(var1);
+      super.keyPressed(keycode);
    }
 
    public void method13104() {
@@ -67,10 +67,10 @@ public class Class4270 extends UIBase {
       }
    }
 
-   public int[] method13105(int var1) {
-      for (Keys var7 : Keys.values()) {
-         if (var7.row == var1) {
-            return new int[]{var7.method9027() + var7.method9028() / 2, var7.method9026() + var7.method9029()};
+   public int[] method13105(int keycode) {
+      for (Keys key : Keys.values()) {
+         if (key.keyCode == keycode) {
+            return new int[]{key.method9027() + key.method9028() / 2, key.method9026() + key.method9029()};
          }
       }
 
