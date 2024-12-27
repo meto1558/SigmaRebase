@@ -4,7 +4,6 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
 public class ColorHelper {
-   private static String[] field27960;
    public static final ColorHelper field27961 = new ColorHelper(-12871171);
    public int field27962;
    public int field27963;
@@ -13,8 +12,8 @@ public class ColorHelper {
    public Class2218 field27966;
    public Class2218 field27967;
 
-   public ColorHelper(int var1) {
-      this(var1, ColorUtils.method17691(var1, 0.05F));
+   public ColorHelper(int color) {
+      this(color, ColorUtils.method17691(color, 0.05F));
    }
 
    public ColorHelper(int var1, int var2) {
