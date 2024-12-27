@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import com.mentalfrostbyte.jello.module.impl.player.Cape;
+import com.mentalfrostbyte.jello.module.impl.player.NoFall;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -67,6 +68,7 @@ public class ModuleManager {
         // PLAYER
         this.register(new AutoSprint());
         this.register(new Cape());
+        this.register(new NoFall());
 
         // ITEM
 
