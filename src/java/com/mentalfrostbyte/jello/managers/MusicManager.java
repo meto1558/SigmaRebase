@@ -30,6 +30,8 @@ import net.sourceforge.jaad.mp4.api.AudioTrack;
 import net.sourceforge.jaad.mp4.api.Frame;
 import net.sourceforge.jaad.mp4.api.Movie;
 import net.sourceforge.jaad.mp4.api.Track;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -51,12 +53,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MusicManager {
-    private static final float field32167 = 32768.0F;
     private static final Minecraft mc = Minecraft.getInstance();
     public BufferedImage field32149;
     public String field32150 = "";
-    public List<double[]> field32163 = new ArrayList<double[]>();
-    public ArrayList<Double> field32165 = new ArrayList<Double>();
+    public List<double[]> field32163 = new ArrayList<>();
+    public ArrayList<Double> field32165 = new ArrayList<>();
     public SourceDataLine field32166;
     private boolean field32144 = false;
     private MusicPlayerVideo field32145;
@@ -756,39 +757,56 @@ public class MusicManager {
     }
 
     public boolean hasPython() {
+        String[] commands;
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            return true;
+            commands = new String[]{"cmd", "/c", "python --version || py --version || python3 --version"};
         } else {
-            String path = "/usr/bin/python";
-            File var3 = new File(path);
-            if (!var3.exists()) {
-                path = "/usr/local/bin/python";
-                var3 = new File(path);
-            }
-            if (var3.exists()) {
-                Process var4;
-
-                try {
-                    var4 = new ProcessBuilder(path, "-V").start();
-                    InputStream var5 = var4.getErrorStream();
-                    InputStreamReader var6 = new InputStreamReader(var5);
-                    BufferedReader bufferedReader = new BufferedReader(var6);
-
-                    String version;
-                    try {
-                        while ((version = bufferedReader.readLine()) != null) {
-                            if (version.contains("3.12")) { // I will NOT downgrade python for this
-                                return true;
-                            }
-                        }
-                    } catch (IOException ignored) {
-                    }
-                } catch (IOException ignored) {
-                }
-            }
-
-            return false;
+            commands = new String[]{"bash", "-c", "python3 --version || python --version"};
         }
+
+        for (String command : commands) {
+            try {
+                Process process = new ProcessBuilder(getCommandArray(command)).redirectErrorStream(true).start();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String output = reader.readLine();
+                while (output != null) {
+                    if (output.contains("is not recognized as an internal or external command")) {
+                        break; // Move to the next command
+                    }
+                    if (output.toLowerCase().contains("python")) {
+                        String version = output.replaceAll("[^0-9.]", "");
+                        if (isVersionAtLeast(version, "3.12")) {
+                            return true;
+                        }
+                    }
+                    output = reader.readLine();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private String[] getCommandArray(String command) {
+        if (Util.getOSType() == Util.OS.WINDOWS) {
+            return new String[]{"cmd", "/c", command};
+        } else {
+            return new String[]{"bash", "-c", command};
+        }
+    }
+
+    private boolean isVersionAtLeast(String actual, String required) {
+        String[] actualParts = actual.split("\\.");
+        String[] requiredParts = required.split("\\.");
+        int length = Math.max(actualParts.length, requiredParts.length);
+        for (int i = 0; i < length; i++) {
+            int actualPart = i < actualParts.length ? Integer.parseInt(actualParts[i]) : 0;
+            int requiredPart = i < requiredParts.length ? Integer.parseInt(requiredParts[i]) : 0;
+            if (actualPart > requiredPart) return true;
+            if (actualPart < requiredPart) return false;
+        }
+        return true;
     }
 
     public boolean hasVCRedist() {
