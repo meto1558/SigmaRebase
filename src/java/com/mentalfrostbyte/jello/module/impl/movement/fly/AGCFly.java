@@ -39,7 +39,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    private void method16780(EventKeyPress var1) {
+    public void onKeyPress(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -49,7 +49,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    private void method16781(MouseHoverEvent var1) {
+    public void onHover(MouseHoverEvent var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -68,7 +68,7 @@ public class AGCFly extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16782(EventMove var1) {
+    public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             if (this.field23902 <= (this.field23903 != 3 ? this.field23903 : 1) - 2) {
                 if (this.field23902 == -1) {
@@ -87,7 +87,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    public void method16783(EventUpdate var1) {
+    public void onUpdate(EventUpdate var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23902++;
             if (this.field23902 != (this.field23903 != 3 ? this.field23903 : 1)) {
@@ -114,7 +114,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    public void method16784(ReceivePacketEvent var1) {
+    public void onReceivePacket(ReceivePacketEvent var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {
