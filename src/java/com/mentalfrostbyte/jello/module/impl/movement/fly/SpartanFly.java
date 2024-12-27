@@ -41,7 +41,7 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    private void method16268(EventKeyPress var1) {
+    public void onKeyPress(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -51,7 +51,7 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    private void method16269(MouseHoverEvent var1) {
+    public void onMouseHover(MouseHoverEvent var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -61,7 +61,7 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    public void method16270(EventUpdate var1) {
+    public void onUpdate(EventUpdate var1) {
         if (this.isEnabled() && var1.isPre() && this.getBooleanValueFromSettingName("Ground Spoof")) {
             if (this.field23570) {
                 this.field23570 = !this.field23570;
@@ -71,7 +71,7 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    public void method16271(EventMove var1) {
+    public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             boolean var4 = mc.player.isOnGround() /*|| MultiUtilities.isAboveBounds(mc.player, 0.001F)*/;
             if (!var4) {
