@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.managers;
 
 import club.minnced.discord.rpc.DiscordRPC;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.managers.impl.account.Account;
 import com.mentalfrostbyte.jello.managers.impl.account.Class9507;
 import com.mentalfrostbyte.jello.trackers.CombatTracker;
 import team.sdhq.eventBus.EventBus;
@@ -10,7 +9,7 @@ import team.sdhq.eventBus.EventBus;
 public class NetworkManager {
     public static boolean premium = false;
     public Class9507 field38418;
-    public Account account;
+    public String username;
     public String field38425;
     public CombatTracker field38429;
 
@@ -23,9 +22,9 @@ public class NetworkManager {
         this.field38429 = new CombatTracker();
     }
 
-    public String newAccount(String var1, String var2, Class9507 var3) {
+    public String newAccount(String var1) {
         NetworkManager.premium = false;
-        this.account = getNewAccount(var1);
+        this.username = var1;
         return null;
     }
 
@@ -49,10 +48,6 @@ public class NetworkManager {
             this.field38418 = new Class9507("001"/*, false*/);
             return this.field38418;
         }
-    }
-
-    public Account getNewAccount(String username) {
-        return new Account(username, "1", "2");
     }
 
     public boolean isPremium() {

@@ -121,7 +121,7 @@ public class MusicManager {
         return var5;
     }
 
-    public void init(){
+    public void init() {
         EventBus.register(this);
         try {
             this.method24295();
@@ -743,9 +743,9 @@ public class MusicManager {
 
     public String method24333() {
         String fileName =
-        Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                                       : "yt-dlp_macos";
+                Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
+                        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
+                        : "yt-dlp_macos";
         String var3 = Client.getInstance().file.getAbsolutePath() + "/music/" + fileName;
         if (Util.getOSType() != Util.OS.WINDOWS) {
             File var4 = new File(var3);

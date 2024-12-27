@@ -399,7 +399,7 @@ public class GuiManager {
         }
     }
 
-    public Screen getCurrentScreen()  {
+    public Screen getCurrentScreen() {
         return this.screen;
     }
 

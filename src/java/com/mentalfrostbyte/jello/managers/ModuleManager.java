@@ -165,7 +165,8 @@ public class ModuleManager {
 
         try {
             var4 = var1.getString("profile");
-        } catch (JSONException ignored) {}
+        } catch (JSONException ignored) {
+        }
 
         if (Client.getInstance().clientMode == ClientMode.CLASSIC) {
             var4 = "Classic";

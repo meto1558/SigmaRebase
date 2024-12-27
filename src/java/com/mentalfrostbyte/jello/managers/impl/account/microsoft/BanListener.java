@@ -8,7 +8,6 @@ import net.minecraft.network.login.server.SLoginSuccessPacket;
 import net.minecraft.network.play.server.SDisconnectPacket;
 import net.minecraft.network.play.server.SChatPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
-import totalcross.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,26 +17,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BanListener {
-    public Minecraft field38719 = Minecraft.getInstance();
+    public Minecraft mc = Minecraft.getInstance();
 
     @EventTarget
-    public void method30840(ReceivePacketEvent var1) throws JSONException {
-        if (this.field38719.getCurrentServerData() != null) {
-            if (var1.getPacket() instanceof SChatPacket) {
-                SChatPacket var4 = (SChatPacket) var1.getPacket();
-                ArrayList var5 = new ArrayList<String>(
+    public void onPacketReceive(ReceivePacketEvent event) {
+        if (this.mc.getCurrentServerData() != null) {
+            if (event.getPacket() instanceof SChatPacket) {
+                SChatPacket packet = (SChatPacket) event.getPacket();
+                ArrayList<String> var5 = new ArrayList<>(
                         Arrays.asList(
                                 "You are permanently banned from MinemenClub. ",
                                 "Your connection to the server leu-practice has been prevented due to you being associated to a blacklisted player.",
                                 "You are blacklisted from MinemenClub. "
                         )
                 );
-                if (!var4.getChatComponent().getSiblings().isEmpty()
-                        && var5.contains(var4.getChatComponent().getString())
-                        && var4.getChatComponent().getSiblings().get(0).getStyle().getColor().toString().equalsIgnoreCase("red")) {
+                if (!packet.getChatComponent().getSiblings().isEmpty()
+                        && var5.contains(packet.getChatComponent().getString())
+                        && packet.getChatComponent().getSiblings().get(0).getStyle().getColor().toString().equalsIgnoreCase("red")) {
                     Account var6 = Client.getInstance().accountManager.containsAccount();
                     if (var6 != null) {
-                        Ban var7 = new Ban(this.field38719.getCurrentServerData().serverIP, new Date(Long.MAX_VALUE));
+                        Ban var7 = new Ban(this.mc.getCurrentServerData().serverIP, new Date(Long.MAX_VALUE));
                         var6.registerBan(var7);
                         Client.getInstance().accountManager.updateAccount(var6);
                         Client.getInstance().accountManager.saveAlts();
@@ -45,141 +44,139 @@ public class BanListener {
                 }
             }
 
-            if (!(var1.getPacket() instanceof SDisconnectLoginPacket)) {
-                if (!(var1.getPacket() instanceof SDisconnectPacket)) {
-                    if (var1.getPacket() instanceof SLoginSuccessPacket) {
-                        long var11 = System.currentTimeMillis();
-                        if (this.field38719.getCurrentServerData() == null) {
+            if (!(event.getPacket() instanceof SDisconnectLoginPacket)) {
+                if (!(event.getPacket() instanceof SDisconnectPacket)) {
+                    if (event.getPacket() instanceof SLoginSuccessPacket) {
+                        long currentTimeMillis = System.currentTimeMillis();
+                        if (this.mc.getCurrentServerData() == null) {
                             return;
                         }
 
-                        Ban var15 = new Ban(this.field38719.getCurrentServerData().serverIP, new Date(var11));
-                        Account var16 = Client.getInstance().accountManager.containsAccount();
-                        if (var16 != null) {
-                            var16.registerBan(var15);
-                            Client.getInstance().accountManager.updateAccount(var16);
+                        Ban ban = new Ban(this.mc.getCurrentServerData().serverIP, new Date(currentTimeMillis));
+                        Account account = Client.getInstance().accountManager.containsAccount();
+                        if (account != null) {
+                            account.registerBan(ban);
+                            Client.getInstance().accountManager.updateAccount(account);
                             Client.getInstance().accountManager.saveAlts();
                         }
                     }
                 } else {
-                    SDisconnectPacket var13 = (SDisconnectPacket) var1.getPacket();
-                    long var8 = this.method30841(var13.getReason().getString());
-                    if (var8 == 0L) {
+                    SDisconnectPacket packet = (SDisconnectPacket) event.getPacket();
+                    long banDur = this.calculateBanDuration(packet.getReason().getString());
+                    if (banDur == 0L) {
                         return;
                     }
 
-                    Ban var17 = new Ban(this.field38719.getCurrentServerData().serverIP, new Date(var8));
-                    Account var10 = Client.getInstance().accountManager.containsAccount();
-                    if (var10 != null) {
-                        var10.registerBan(var17);
-                        Client.getInstance().accountManager.updateAccount(var10);
+                    Ban ban = new Ban(this.mc.getCurrentServerData().serverIP, new Date(banDur));
+                    Account account = Client.getInstance().accountManager.containsAccount();
+                    if (account != null) {
+                        account.registerBan(ban);
+                        Client.getInstance().accountManager.updateAccount(account);
                         Client.getInstance().accountManager.saveAlts();
                     }
                 }
             } else {
-                SDisconnectLoginPacket var14 = (SDisconnectLoginPacket) var1.getPacket();
-                long var19 = this.method30841(var14.getReason().getString());
-                if (var19 == 0L) {
+                SDisconnectLoginPacket packet = (SDisconnectLoginPacket) event.getPacket();
+                long banDur = this.calculateBanDuration(packet.getReason().getString());
+                if (banDur == 0L) {
                     return;
                 }
 
-                Ban var18 = new Ban(this.field38719.getCurrentServerData().serverIP, new Date(var19));
-                Account var20 = Client.getInstance().accountManager.containsAccount();
-                if (var20 != null) {
-                    var20.registerBan(var18);
-                    Client.getInstance().accountManager.updateAccount(var20);
+                Ban ban = new Ban(this.mc.getCurrentServerData().serverIP, new Date(banDur));
+                Account account = Client.getInstance().accountManager.containsAccount();
+                if (account != null) {
+                    account.registerBan(ban);
+                    Client.getInstance().accountManager.updateAccount(account);
                     Client.getInstance().accountManager.saveAlts();
                 }
             }
         }
     }
 
-    private long method30841(String var1) {
-        var1 = var1.toLowerCase();
-        if (var1.contains("security") && var1.contains("alert")) {
-            return 9223372036854775806L;
-        } else if (!var1.contains("permanent")) {
-            if (!var1.contains("your account has been suspended from")) {
-                if (!var1.contains("tu cuenta ha sido suspendida. al reconectarte, tendr")) {
-                    if (!var1.contains("compromised")) {
-                        if (!var1.contains("gebannt")) {
-                            long var4 = TimeUnit.DAYS.toMillis(this.method30842(var1));
-                            long var6 = TimeUnit.HOURS.toMillis(this.method30843(var1));
-                            long var8 = TimeUnit.MINUTES.toMillis(this.method30844(var1));
-                            long var10 = TimeUnit.SECONDS.toMillis(this.method30845(var1));
-                            if (var1.contains("§6 sentinel caught you cheating! (anticheat)") && var4 == 0L && var6 == 0L && var8 == 0L && var10 != 0L) {
-                            }
+    private long calculateBanDuration(String message) {
+        message = message.toLowerCase();
 
-                            return var1.contains("vous avez été banni") && var4 == 0L && var6 == 0L && var8 == 0L && var10 == 0L
-                                    ? Long.MAX_VALUE
-                                    : System.currentTimeMillis() + var4 + var6 + var8 + var10;
-                        } else {
-                            return Long.MAX_VALUE;
-                        }
-                    } else {
-                        return 9223372036854775806L;
-                    }
-                } else {
-                    return Long.MAX_VALUE;
-                }
-            } else {
-                return Long.MAX_VALUE;
-            }
-        } else {
+        // Special cases with predefined return values
+        if (message.contains("security") && message.contains("alert")) {
+            return 9223372036854775806L;
+        }
+
+        if (message.contains("permanent") ||
+                message.contains("your account has been suspended from") ||
+                message.contains("tu cuenta ha sido suspendida. al reconectarte, tendr") ||
+                message.contains("gebannt")) {
             return Long.MAX_VALUE;
         }
+
+        if (message.contains("compromised")) {
+            return 9223372036854775806L;
+        }
+
+        // Calculate duration in milliseconds
+        long days = TimeUnit.DAYS.toMillis(this.extractDays(message));
+        long hours = TimeUnit.HOURS.toMillis(this.extractHours(message));
+        long minutes = TimeUnit.MINUTES.toMillis(this.extractMinutes(message));
+        long seconds = TimeUnit.SECONDS.toMillis(this.extractSeconds(message));
+
+        // Special case for a specific French message
+        if (message.contains("vous avez été banni") && days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+            return Long.MAX_VALUE;
+        }
+
+        // Return the calculated ban expiration time
+        return System.currentTimeMillis() + days + hours + minutes + seconds;
     }
 
-    private int method30842(String var1) {
-        String[] var4 = new String[]{"day", "jour", "tage", "día", "dia"};
+    private int extractDays(String var1) {
+        String[] dayKeywords = new String[]{"day", "jour", "tage", "día", "dia"};
 
-        for (String var8 : var4) {
-            Pattern var9 = Pattern.compile("([0-9]+)(?:d| " + var8 + "s|" + var8 + "s| " + var8 + "|" + var8 + ")[ |\\n]");
-            Matcher var10 = var9.matcher(var1);
-            if (var10.find()) {
-                return Integer.parseInt(var10.group(1));
+        for (String keyword : dayKeywords) {
+            Pattern pattern = Pattern.compile("([0-9]+)(?:d| " + keyword + "s|" + keyword + "s| " + keyword + "|" + keyword + ")[ |\\n]");
+            Matcher matcher = pattern.matcher(var1);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group(1));
             }
         }
 
         return 0;
     }
 
-    private int method30843(String var1) {
-        String[] var4 = new String[]{"hour", "heure", "uhr", "hora"};
+    private int extractHours(String input) {
+        String[] hourKeywords = new String[]{"hour", "heure", "uhr", "hora"};
 
-        for (String var8 : var4) {
-            Pattern var9 = Pattern.compile("([0-9]+)(?:h| " + var8 + "s|" + var8 + "s| " + var8 + "|" + var8 + ")[ |\\n]");
-            Matcher var10 = var9.matcher(var1);
-            if (var10.find()) {
-                return Integer.parseInt(var10.group(1));
+        for (String keyword : hourKeywords) {
+            Pattern pattern = Pattern.compile("([0-9]+)(?:h| " + keyword + "s|" + keyword + "s| " + keyword + "|" + keyword + ")[ |\\n]");
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group(1));
             }
         }
 
         return 0;
     }
 
-    private int method30844(String var1) {
-        String[] var4 = new String[]{"minute", "min", "minuto", "mínuto"};
+    private int extractMinutes(String input) {
+        String[] minuteKeywords = new String[]{"minute", "min", "minuto", "mínuto"};
 
-        for (String var8 : var4) {
-            Pattern var9 = Pattern.compile("([0-9]+)(?:m| " + var8 + "s|" + var8 + "s| " + var8 + "|" + var8 + ")[ |\\n]");
-            Matcher var10 = var9.matcher(var1);
-            if (var10.find()) {
-                return Integer.parseInt(var10.group(1));
+        for (String keyword : minuteKeywords) {
+            Pattern pattern = Pattern.compile("([0-9]+)(?:m| " + keyword + "s|" + keyword + "s| " + keyword + "|" + keyword + ")[ |\\n]");
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group(1));
             }
         }
 
         return 0;
     }
 
-    private int method30845(String var1) {
-        String[] var4 = new String[]{"second", "sec", "seconde", "sekunde", "segundo"};
+    private int extractSeconds(String input) {
+        String[] secondKeywords = new String[]{"second", "sec", "seconde", "sekunde", "segundo"};
 
-        for (String var8 : var4) {
-            Pattern var9 = Pattern.compile("([0-9]+)(?:s| " + var8 + "s|" + var8 + "s| " + var8 + "|" + var8 + ")[ |\\n]");
-            Matcher var10 = var9.matcher(var1);
-            if (var10.find()) {
-                return Integer.parseInt(var10.group(1));
+        for (String keyword : secondKeywords) {
+            Pattern pattern = Pattern.compile("([0-9]+)(?:s| " + keyword + "s|" + keyword + "s| " + keyword + "|" + keyword + ")[ |\\n]");
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group(1));
             }
         }
 
