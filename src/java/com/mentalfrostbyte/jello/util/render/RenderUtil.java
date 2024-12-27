@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class2287;
+import com.mentalfrostbyte.jello.gui.unmapped.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -64,27 +64,27 @@ public class RenderUtil {
     public static float[] method11416(int var0, int var1) {
         FloatBuffer var4 = BufferUtils.createFloatBuffer(16);
         GL11.glGetFloatv(2982, var4);
-        float var5 = var4.get(0) * (float)var0 + var4.get(4) * (float)var1 + var4.get(8) * 0.0F + var4.get(12);
-        float var6 = var4.get(1) * (float)var0 + var4.get(5) * (float)var1 + var4.get(9) * 0.0F + var4.get(13);
-        float var7 = var4.get(3) * (float)var0 + var4.get(7) * (float)var1 + var4.get(11) * 0.0F + var4.get(15);
+        float var5 = var4.get(0) * (float) var0 + var4.get(4) * (float) var1 + var4.get(8) * 0.0F + var4.get(12);
+        float var6 = var4.get(1) * (float) var0 + var4.get(5) * (float) var1 + var4.get(9) * 0.0F + var4.get(13);
+        float var7 = var4.get(3) * (float) var0 + var4.get(7) * (float) var1 + var4.get(11) * 0.0F + var4.get(15);
         var5 /= var7;
         var6 /= var7;
-        return new float[]{(float)Math.round(var5 * method11417()), (float)Math.round(var6 * method11417())};
+        return new float[]{(float) Math.round(var5 * method11417()), (float) Math.round(var6 * method11417())};
     }
 
     public static void method11421(int var0, int var1, int var2, int var3, boolean var4) {
         if (!var4) {
-            var0 = (int)((float)var0 * GuiManager.scaleFactor);
-            var1 = (int)((float)var1 * GuiManager.scaleFactor);
-            var2 = (int)((float)var2 * GuiManager.scaleFactor);
-            var3 = (int)((float)var3 * GuiManager.scaleFactor);
+            var0 = (int) ((float) var0 * GuiManager.scaleFactor);
+            var1 = (int) ((float) var1 * GuiManager.scaleFactor);
+            var2 = (int) ((float) var2 * GuiManager.scaleFactor);
+            var3 = (int) ((float) var3 * GuiManager.scaleFactor);
         } else {
             float[] var7 = method11416(var0, var1);
-            var0 = (int)var7[0];
-            var1 = (int)var7[1];
+            var0 = (int) var7[0];
+            var1 = (int) var7[1];
             float[] var8 = method11416(var2, var3);
-            var2 = (int)var8[0];
-            var3 = (int)var8[1];
+            var2 = (int) var8[0];
+            var3 = (int) var8[1];
         }
 
         if (GL11.glIsEnabled(3089)) {
@@ -138,11 +138,11 @@ public class RenderUtil {
     }
 
     public static void drawImage(float var0, float var1, float var2, float var3, Texture var4, int var5) {
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), true);
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(), (float) var4.getImageHeight(), true);
     }
 
     public static void method11450(float var0, float var1, float var2, float var3, Texture var4, int var5, boolean var6) {
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), var6);
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(), (float) var4.getImageHeight(), var6);
     }
 
     public static void method11451(float var0, float var1, float var2, float var3, Texture var4, int var5, float var6, float var7, float var8, float var9) {
@@ -153,14 +153,14 @@ public class RenderUtil {
         if (var4 != null) {
             RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
             GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-            var0 = (float)Math.round(var0);
-            var2 = (float)Math.round(var2);
-            var1 = (float)Math.round(var1);
-            var3 = (float)Math.round(var3);
-            float var13 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-            float var14 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-            float var15 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-            float var16 = (float)(var5 & 0xFF) / 255.0F;
+            var0 = (float) Math.round(var0);
+            var2 = (float) Math.round(var2);
+            var1 = (float) Math.round(var1);
+            var3 = (float) Math.round(var3);
+            float var13 = (float) (var5 >> 24 & 0xFF) / 255.0F;
+            float var14 = (float) (var5 >> 16 & 0xFF) / 255.0F;
+            float var15 = (float) (var5 >> 8 & 0xFF) / 255.0F;
+            float var16 = (float) (var5 & 0xFF) / 255.0F;
             RenderSystem.enableBlend();
             RenderSystem.disableTexture();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -168,12 +168,12 @@ public class RenderUtil {
             GL11.glEnable(3042);
             GL11.glEnable(3553);
             var4.bind();
-            float var17 = var2 / (float)var4.getTextureWidth() / (var2 / (float)var4.getImageWidth());
-            float var18 = var3 / (float)var4.getTextureHeight() / (var3 / (float)var4.getImageHeight());
-            float var19 = var8 / (float)var4.getImageWidth() * var17;
-            float var20 = var9 / (float)var4.getImageHeight() * var18;
-            float var21 = var6 / (float)var4.getImageWidth() * var17;
-            float var22 = var7 / (float)var4.getImageHeight() * var18;
+            float var17 = var2 / (float) var4.getTextureWidth() / (var2 / (float) var4.getImageWidth());
+            float var18 = var3 / (float) var4.getTextureHeight() / (var3 / (float) var4.getImageHeight());
+            float var19 = var8 / (float) var4.getImageWidth() * var17;
+            float var20 = var9 / (float) var4.getImageHeight() * var18;
+            float var21 = var6 / (float) var4.getImageWidth() * var17;
+            float var22 = var7 / (float) var4.getImageHeight() * var18;
             if (!var10) {
                 GL11.glTexParameteri(3553, 10240, 9729);
             } else {
@@ -220,16 +220,16 @@ public class RenderUtil {
     }
 
     public static void method11418(float var0, float var1, float var2, float var3) {
-        method11421((int)var0, (int)var1, (int)var2, (int)var3, true);
+        method11421((int) var0, (int) var1, (int) var2, (int) var3, true);
     }
 
     public static void method11438(float var0, float var1, float var2, int var3) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 0.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var6 = (float)(var3 >> 24 & 0xFF) / 255.0F;
-        float var7 = (float)(var3 >> 16 & 0xFF) / 255.0F;
-        float var8 = (float)(var3 >> 8 & 0xFF) / 255.0F;
-        float var9 = (float)(var3 & 0xFF) / 255.0F;
+        float var6 = (float) (var3 >> 24 & 0xFF) / 255.0F;
+        float var7 = (float) (var3 >> 16 & 0xFF) / 255.0F;
+        float var8 = (float) (var3 >> 8 & 0xFF) / 255.0F;
+        float var9 = (float) (var3 & 0xFF) / 255.0F;
         Tessellator var10 = Tessellator.getInstance();
         BufferBuilder var11 = var10.getBuffer();
         RenderSystem.disableTexture();
@@ -249,21 +249,21 @@ public class RenderUtil {
 
     public static void drawRect(float var0, float var1, float var2, float var3, int var4) {
         if (var0 < var2) {
-            int var7 = (int)var0;
+            int var7 = (int) var0;
             var0 = var2;
-            var2 = (float)var7;
+            var2 = (float) var7;
         }
 
         if (var1 < var3) {
-            int var13 = (int)var1;
+            int var13 = (int) var1;
             var1 = var3;
-            var3 = (float)var13;
+            var3 = (float) var13;
         }
 
-        float var14 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var8 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 & 0xFF) / 255.0F;
+        float var14 = (float) (var4 >> 24 & 0xFF) / 255.0F;
+        float var8 = (float) (var4 >> 16 & 0xFF) / 255.0F;
+        float var9 = (float) (var4 >> 8 & 0xFF) / 255.0F;
+        float var10 = (float) (var4 & 0xFF) / 255.0F;
         Tessellator var11 = Tessellator.getInstance();
         BufferBuilder var12 = var11.getBuffer();
         RenderSystem.enableBlend();
@@ -271,14 +271,15 @@ public class RenderUtil {
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         RenderSystem.color4f(var8, var9, var10, var14);
         var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos((double)var0, (double)var3, 0.0).endVertex();
-        var12.pos((double)var2, (double)var3, 0.0).endVertex();
-        var12.pos((double)var2, (double)var1, 0.0).endVertex();
-        var12.pos((double)var0, (double)var1, 0.0).endVertex();
+        var12.pos((double) var0, (double) var3, 0.0).endVertex();
+        var12.pos((double) var2, (double) var3, 0.0).endVertex();
+        var12.pos((double) var2, (double) var1, 0.0).endVertex();
+        var12.pos((double) var0, (double) var1, 0.0).endVertex();
         var11.draw();
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
+
     public static void drawString(TrueTypeFont res, float var1, float var2, String string, int var4, Class2218 var5, Class2218 var6) {
         drawString(res, var1, var2, string, var4, var5, var6, false);
     }
@@ -304,12 +305,12 @@ public class RenderUtil {
                 var11 = -font.getHeight(string);
         }
 
-        float var12 = (float)(color >> 24 & 0xFF) / 255.0F;
-        float var13 = (float)(color >> 16 & 0xFF) / 255.0F;
-        float var14 = (float)(color >> 8 & 0xFF) / 255.0F;
-        float var15 = (float)(color & 0xFF) / 255.0F;
+        float red = (float) (color >> 24 & 0xFF) / 255.0F;
+        float green = (float) (color >> 16 & 0xFF) / 255.0F;
+        float blue = (float) (color >> 8 & 0xFF) / 255.0F;
+        float alpha = (float) (color & 0xFF) / 255.0F;
         GL11.glPushMatrix();
-        boolean var16 = false;
+        boolean shouldScale = false;
         if ((double) GuiManager.scaleFactor == 2.0) {
             if (font == ResourceRegistry.JelloLightFont20) {
                 font = ResourceRegistry.JelloLightFont40;
@@ -328,29 +329,26 @@ public class RenderUtil {
             } else if (font == ResourceRegistry.JelloMediumFont25) {
                 font = ResourceRegistry.JelloMediumFont50;
             } else {
-                var16 = true;
+                shouldScale = true;
             }
 
-            if (!var16) {
-                float[] var17 = method11416((int)var1, (int)var2);
-                int var18 = (int)var17[0];
-                int var19 = (int)var17[1];
+            if (!shouldScale) {
                 GL11.glTranslatef(var1, var2, 0.0F);
                 GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
                 GL11.glTranslatef(-var1, -var2, 0.0F);
-                var10 = (int)((float)var10 * GuiManager.scaleFactor);
-                var11 = (int)((float)var11 * GuiManager.scaleFactor);
+                var10 = (int) ((float) var10 * GuiManager.scaleFactor);
+                var11 = (int) ((float) var11 * GuiManager.scaleFactor);
             }
         }
 
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
         if (var7) {
-            font.drawString((float)Math.round(var1 + (float)var10), (float)(Math.round(var2 + (float)var11) + 2), string, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+            font.drawString((float) Math.round(var1 + (float) var10), (float) (Math.round(var2 + (float) var11) + 2), string, new Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
         if (string != null) {
-            font.drawString((float)Math.round(var1 + (float)var10), (float)Math.round(var2 + (float)var11), string, new Color(var13, var14, var15, var12));
+            font.drawString((float) Math.round(var1 + (float) var10), (float) Math.round(var2 + (float) var11), string, new Color(green, blue, alpha, red));
         }
 
         RenderSystem.disableBlend();
@@ -391,7 +389,7 @@ public class RenderUtil {
     }
 
     public static void startScissor(float var0, float var1, float var2, float var3) {
-        method11421((int)var0, (int)var1, (int)var0 + (int)var2, (int)var1 + (int)var3, true);
+        method11421((int) var0, (int) var1, (int) var0 + (int) var2, (int) var1 + (int) var3, true);
     }
 
     public static void method11465(int var0, int var1, int var2, int var3, int var4) {
@@ -402,30 +400,30 @@ public class RenderUtil {
         int var9 = 36;
         int var10 = 10;
         int var11 = var9 - var10;
-        drawRect((float)(var0 + var10), (float)(var1 + var10), (float)(var0 + var2 - var10), (float)(var1 + var3 - var10), var4);
-        drawImage((float)(var0 - var11), (float)(var1 - var11), (float)var9, (float)var9, Resources.floatingCornerPNG, var4);
+        drawRect((float) (var0 + var10), (float) (var1 + var10), (float) (var0 + var2 - var10), (float) (var1 + var3 - var10), var4);
+        drawImage((float) (var0 - var11), (float) (var1 - var11), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)(var0 + var2 - var9 / 2), (float)(var1 + var9 / 2), 0.0F);
+        GL11.glTranslatef((float) (var0 + var2 - var9 / 2), (float) (var1 + var9 / 2), 0.0F);
         GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float)(-var0 - var2 - var9 / 2), (float)(-var1 - var9 / 2), 0.0F);
-        drawImage((float)(var0 + var2 - var11), (float)(var1 - var11), (float)var9, (float)var9, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-var0 - var2 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
+        drawImage((float) (var0 + var2 - var11), (float) (var1 - var11), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)(var0 + var2 - var9 / 2), (float)(var1 + var3 + var9 / 2), 0.0F);
+        GL11.glTranslatef((float) (var0 + var2 - var9 / 2), (float) (var1 + var3 + var9 / 2), 0.0F);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float)(-var0 - var2 - var9 / 2), (float)(-var1 - var3 - var9 / 2), 0.0F);
-        drawImage((float)(var0 + var2 - var11), (float)(var1 + var10 + var3), (float)var9, (float)var9, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-var0 - var2 - var9 / 2), (float) (-var1 - var3 - var9 / 2), 0.0F);
+        drawImage((float) (var0 + var2 - var11), (float) (var1 + var10 + var3), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)(var0 - var9 / 2), (float)(var1 + var3 + var9 / 2), 0.0F);
+        GL11.glTranslatef((float) (var0 - var9 / 2), (float) (var1 + var3 + var9 / 2), 0.0F);
         GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float)(-var0 - var9 / 2), (float)(-var1 - var3 - var9 / 2), 0.0F);
-        drawImage((float)(var0 + var10), (float)(var1 + var10 + var3), (float)var9, (float)var9, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var3 - var9 / 2), 0.0F);
+        drawImage((float) (var0 + var10), (float) (var1 + var10 + var3), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
         drawPortalBackground(var5 - var9, var6 + var10, var5 - var11 + var9, var6 - var10 + var3);
 
         for (int var12 = 0; var12 < var3; var12 += var9) {
-            drawImage((float)(var0 - var11), (float)(var1 + var10 + var12), (float)var9, (float)var9, Resources.floatingBorderPNG, var4);
+            drawImage((float) (var0 - var11), (float) (var1 + var10 + var12), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
         }
 
         endScissor();
@@ -433,10 +431,10 @@ public class RenderUtil {
 
         for (int var13 = 0; var13 < var2; var13 += var9) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(var0 + var9 / 2), (float)(var1 + var9 / 2), 0.0F);
+            GL11.glTranslatef((float) (var0 + var9 / 2), (float) (var1 + var9 / 2), 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float)(-var0 - var9 / 2), (float)(-var1 - var9 / 2), 0.0F);
-            drawImage((float)(var0 - var11), (float)(var1 - var10 - var13), (float)var9, (float)var9, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
+            drawImage((float) (var0 - var11), (float) (var1 - var10 - var13), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
             GL11.glPopMatrix();
         }
 
@@ -445,10 +443,10 @@ public class RenderUtil {
 
         for (int var14 = 0; var14 < var3; var14 += var9) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(var0 + var9 / 2), (float)(var1 + var9 / 2), 0.0F);
+            GL11.glTranslatef((float) (var0 + var9 / 2), (float) (var1 + var9 / 2), 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float)(-var0 - var9 / 2), (float)(-var1 - var9 / 2), 0.0F);
-            drawImage((float)(var0 - var2 + var10), (float)(var1 - var10 - var14), (float)var9, (float)var9, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
+            drawImage((float) (var0 - var2 + var10), (float) (var1 - var10 - var14), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
             GL11.glPopMatrix();
         }
 
@@ -457,10 +455,10 @@ public class RenderUtil {
 
         for (int var15 = 0; var15 < var2; var15 += var9) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(var0 + var9 / 2), (float)(var1 + var9 / 2), 0.0F);
+            GL11.glTranslatef((float) (var0 + var9 / 2), (float) (var1 + var9 / 2), 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float)(-var0 - var9 / 2), (float)(-var1 - var9 / 2), 0.0F);
-            drawImage((float)(var0 - var3 + var10), (float)(var1 + var10 + var15), (float)var9, (float)var9, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
+            drawImage((float) (var0 - var3 + var10), (float) (var1 + var10 + var15), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
             GL11.glPopMatrix();
         }
 
@@ -471,19 +469,19 @@ public class RenderUtil {
         if (var4 == null) {
             return;
         }
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), true);
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), false);
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(), (float) var4.getImageHeight(), true);
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(), (float) var4.getImageHeight(), false);
     }
 
     public static Rectangle method11413(Rectangle var0, float var1, float var2) {
-        float var5 = (float)var0.x;
-        float var6 = (float)var0.y;
-        float var7 = (float)var0.width;
-        float var8 = (float)var0.height;
+        float var5 = (float) var0.x;
+        float var6 = (float) var0.y;
+        float var7 = (float) var0.width;
+        float var8 = (float) var0.height;
         int var9 = Math.round(var7 * var1);
         int var10 = Math.round(var8 * var2);
-        float var11 = var7 - (float)var9;
-        float var12 = var8 - (float)var10;
+        float var11 = var7 - (float) var9;
+        float var12 = var8 - (float) var10;
         int var13 = Math.round(var5 + var11 / 4.0F);
         int var14 = Math.round(var6 + var12 / 6.0F);
         return new Rectangle(var13, var14, var9, var10);
@@ -496,14 +494,14 @@ public class RenderUtil {
     public static void method11457(float var0, float var1, float var2, float var3, int var4, float var5, float var6, float var7, float var8) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        var0 = (float)Math.round(var0);
-        var2 = (float)Math.round(var2);
-        var1 = (float)Math.round(var1);
-        var3 = (float)Math.round(var3);
-        float var11 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var12 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var14 = (float)(var4 & 0xFF) / 255.0F;
+        var0 = (float) Math.round(var0);
+        var2 = (float) Math.round(var2);
+        var1 = (float) Math.round(var1);
+        var3 = (float) Math.round(var3);
+        float var11 = (float) (var4 >> 24 & 0xFF) / 255.0F;
+        float var12 = (float) (var4 >> 16 & 0xFF) / 255.0F;
+        float var13 = (float) (var4 >> 8 & 0xFF) / 255.0F;
+        float var14 = (float) (var4 & 0xFF) / 255.0F;
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -549,30 +547,30 @@ public class RenderUtil {
         int var7 = 36;
         int var8 = 10;
         int var9 = var7 - var8;
-        drawRect((float)(var0 + var8), (float)(var1 + var8), (float)(var0 + var2 - var8), (float)(var1 + var3 - var8), var4);
-        drawImage((float)(var0 - var9), (float)(var1 - var9), (float)var7, (float)var7, Resources.floatingCornerPNG, var4);
+        drawRect((float) (var0 + var8), (float) (var1 + var8), (float) (var0 + var2 - var8), (float) (var1 + var3 - var8), var4);
+        drawImage((float) (var0 - var9), (float) (var1 - var9), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)(var0 + var2 - var7 / 2), (float)(var1 + var7 / 2), 0.0F);
+        GL11.glTranslatef((float) (var0 + var2 - var7 / 2), (float) (var1 + var7 / 2), 0.0F);
         GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float)(-var0 - var2 - var7 / 2), (float)(-var1 - var7 / 2), 0.0F);
-        drawImage((float)(var0 + var2 - var9), (float)(var1 - var9), (float)var7, (float)var7, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-var0 - var2 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
+        drawImage((float) (var0 + var2 - var9), (float) (var1 - var9), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)(var0 + var2 - var7 / 2), (float)(var1 + var3 + var7 / 2), 0.0F);
+        GL11.glTranslatef((float) (var0 + var2 - var7 / 2), (float) (var1 + var3 + var7 / 2), 0.0F);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float)(-var0 - var2 - var7 / 2), (float)(-var1 - var3 - var7 / 2), 0.0F);
-        drawImage((float)(var0 + var2 - var9), (float)(var1 + var8 + var3), (float)var7, (float)var7, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-var0 - var2 - var7 / 2), (float) (-var1 - var3 - var7 / 2), 0.0F);
+        drawImage((float) (var0 + var2 - var9), (float) (var1 + var8 + var3), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)(var0 - var7 / 2), (float)(var1 + var3 + var7 / 2), 0.0F);
+        GL11.glTranslatef((float) (var0 - var7 / 2), (float) (var1 + var3 + var7 / 2), 0.0F);
         GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float)(-var0 - var7 / 2), (float)(-var1 - var3 - var7 / 2), 0.0F);
-        drawImage((float)(var0 + var8), (float)(var1 + var8 + var3), (float)var7, (float)var7, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var3 - var7 / 2), 0.0F);
+        drawImage((float) (var0 + var8), (float) (var1 + var8 + var3), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
         method11421(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
 
         for (int var10 = 0; var10 < var3; var10 += var7) {
-            drawImage((float)(var0 - var9), (float)(var1 + var8 + var10) - 0.4F, (float)var7, (float)var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            drawImage((float) (var0 - var9), (float) (var1 + var8 + var10) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
         }
 
         endScissor();
@@ -580,10 +578,10 @@ public class RenderUtil {
 
         for (int var11 = 0; var11 < var2; var11 += var7) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(var0 + var7 / 2), (float)(var1 + var7 / 2), 0.0F);
+            GL11.glTranslatef((float) (var0 + var7 / 2), (float) (var1 + var7 / 2), 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float)(-var0 - var7 / 2), (float)(-var1 - var7 / 2), 0.0F);
-            drawImage((float)(var0 - var9), (float)(var1 - var8 - var11) - 0.4F, (float)var7, (float)var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
+            drawImage((float) (var0 - var9), (float) (var1 - var8 - var11) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
             GL11.glPopMatrix();
         }
 
@@ -592,10 +590,10 @@ public class RenderUtil {
 
         for (int var12 = 0; var12 < var3; var12 += var7) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(var0 + var7 / 2), (float)(var1 + var7 / 2), 0.0F);
+            GL11.glTranslatef((float) (var0 + var7 / 2), (float) (var1 + var7 / 2), 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float)(-var0 - var7 / 2), (float)(-var1 - var7 / 2), 0.0F);
-            drawImage((float)(var0 - var2 + var8), (float)(var1 - var8 - var12) - 0.4F, (float)var7, (float)var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
+            drawImage((float) (var0 - var2 + var8), (float) (var1 - var8 - var12) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
             GL11.glPopMatrix();
         }
 
@@ -604,10 +602,10 @@ public class RenderUtil {
 
         for (int var13 = 0; var13 < var2; var13 += var7) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(var0 + var7 / 2), (float)(var1 + var7 / 2), 0.0F);
+            GL11.glTranslatef((float) (var0 + var7 / 2), (float) (var1 + var7 / 2), 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float)(-var0 - var7 / 2), (float)(-var1 - var7 / 2), 0.0F);
-            drawImage((float)(var0 - var3 + var8), (float)(var1 + var8 + var13) - 0.4F, (float)var7, (float)var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
+            drawImage((float) (var0 - var3 + var8), (float) (var1 + var8 + var13) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
             GL11.glPopMatrix();
         }
 
@@ -633,10 +631,10 @@ public class RenderUtil {
             var2 = var9;
         }
 
-        float var10 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var11 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var12 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var13 = (float)(var6 & 0xFF) / 255.0F;
+        float var10 = (float) (var6 >> 24 & 0xFF) / 255.0F;
+        float var11 = (float) (var6 >> 16 & 0xFF) / 255.0F;
+        float var12 = (float) (var6 >> 8 & 0xFF) / 255.0F;
+        float var13 = (float) (var6 & 0xFF) / 255.0F;
         Tessellator var14 = Tessellator.getInstance();
         BufferBuilder var15 = var14.getBuffer();
         RenderSystem.enableBlend();
@@ -649,8 +647,8 @@ public class RenderUtil {
             GL11.glBegin(3);
 
             for (float var16 = var3; var16 >= var2; var16 -= 4.0F) {
-                float var17 = (float)Math.cos((double)var16 * Math.PI / 180.0) * var4 * 1.001F;
-                float var18 = (float)Math.sin((double)var16 * Math.PI / 180.0) * var5 * 1.001F;
+                float var17 = (float) Math.cos((double) var16 * Math.PI / 180.0) * var4 * 1.001F;
+                float var18 = (float) Math.sin((double) var16 * Math.PI / 180.0) * var5 * 1.001F;
                 GL11.glVertex2f(var0 + var17, var1 + var18);
             }
 
@@ -661,8 +659,8 @@ public class RenderUtil {
         GL11.glBegin(6);
 
         for (float var20 = var3; var20 >= var2; var20 -= 4.0F) {
-            float var21 = (float)Math.cos((double)var20 * Math.PI / 180.0) * var4;
-            float var22 = (float)Math.sin((double)var20 * Math.PI / 180.0) * var5;
+            float var21 = (float) Math.cos((double) var20 * Math.PI / 180.0) * var4;
+            float var22 = (float) Math.sin((double) var20 * Math.PI / 180.0) * var5;
             GL11.glVertex2f(var0 + var21, var1 + var22);
         }
 
@@ -671,20 +669,20 @@ public class RenderUtil {
         RenderSystem.disableBlend();
     }
 
-    public static String getKeyName(int var0) {
-        for (Class2287 var6 : Class2287.values()) {
-            if (var6.field15204 == var0) {
-                return var6.field15201;
+    public static String getKeyName(int keyCode) {
+        for (Keys key : Keys.values()) {
+            if (key.keyCode == keyCode) {
+                return key.name;
             }
         }
 
-        InputMappings.Input var7 = InputMappings.getInputByCode(var0, 0);
-        String[] var8 = var7.getTranslationKey().split("\\.");
-        if (var8.length != 0) {
-            String var9 = var8[var8.length - 1];
+        InputMappings.Input byCode = InputMappings.getInputByCode(keyCode, 0);
+        String[] split = byCode.getTranslationKey().split("\\.");
+        if (split.length != 0) {
+            String var9 = split[split.length - 1];
             if (!var9.isEmpty()) {
                 String var10 = "";
-                if (var0 <= 4) {
+                if (keyCode <= 4) {
                     var10 = "Mouse ";
                 }
 
@@ -698,19 +696,19 @@ public class RenderUtil {
     }
 
     public static void method11429(float var0, float var1, float var2, float var3, int var4, int var5) {
-        drawRect(var0, var3 - (float)var4, var2 - (float)var4, var3, var5);
-        drawRect(var0, var1, var2 - (float)var4, var1 + (float)var4, var5);
-        drawRect(var0, var1 + (float)var4, var0 + (float)var4, var3 - (float)var4, var5);
-        drawRect(var2 - (float)var4, var1, var2, var3, var5);
+        drawRect(var0, var3 - (float) var4, var2 - (float) var4, var3, var5);
+        drawRect(var0, var1, var2 - (float) var4, var1 + (float) var4, var5);
+        drawRect(var0, var1 + (float) var4, var0 + (float) var4, var3 - (float) var4, var5);
+        drawRect(var2 - (float) var4, var1, var2, var3, var5);
     }
 
     public static void method11434(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var9 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var10 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var11 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var12 = (float)(var6 & 0xFF) / 255.0F;
+        float var9 = (float) (var6 >> 24 & 0xFF) / 255.0F;
+        float var10 = (float) (var6 >> 16 & 0xFF) / 255.0F;
+        float var11 = (float) (var6 >> 8 & 0xFF) / 255.0F;
+        float var12 = (float) (var6 & 0xFF) / 255.0F;
         Tessellator var13 = Tessellator.getInstance();
         BufferBuilder var14 = var13.getBuffer();
         RenderSystem.enableBlend();
@@ -732,14 +730,14 @@ public class RenderUtil {
     }
 
     public static void method11431(int var0, int var1, int var2, int var3, int var4, int var5) {
-        float var8 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var11 = (float)(var4 & 0xFF) / 255.0F;
-        float var12 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-        float var13 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-        float var14 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-        float var15 = (float)(var5 & 0xFF) / 255.0F;
+        float var8 = (float) (var4 >> 24 & 0xFF) / 255.0F;
+        float var9 = (float) (var4 >> 16 & 0xFF) / 255.0F;
+        float var10 = (float) (var4 >> 8 & 0xFF) / 255.0F;
+        float var11 = (float) (var4 & 0xFF) / 255.0F;
+        float var12 = (float) (var5 >> 24 & 0xFF) / 255.0F;
+        float var13 = (float) (var5 >> 16 & 0xFF) / 255.0F;
+        float var14 = (float) (var5 >> 8 & 0xFF) / 255.0F;
+        float var15 = (float) (var5 & 0xFF) / 255.0F;
         RenderSystem.disableTexture();
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();
@@ -748,10 +746,10 @@ public class RenderUtil {
         Tessellator var16 = Tessellator.getInstance();
         BufferBuilder var17 = var16.getBuffer();
         var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var17.pos((double)var2, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos((double)var0, (double)var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos((double)var0, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
-        var17.pos((double)var2, (double)var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var17.pos((double) var2, (double) var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos((double) var0, (double) var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos((double) var0, (double) var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var17.pos((double) var2, (double) var3, 0.0).color(var13, var14, var15, var12).endVertex();
         var16.draw();
         RenderSystem.shadeModel(7424);
         RenderSystem.disableBlend();
@@ -760,22 +758,22 @@ public class RenderUtil {
     }
 
     public static void method11432(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-        float var10 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var11 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var12 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var13 = (float)(var4 & 0xFF) / 255.0F;
-        float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-        float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-        float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-        float var17 = (float)(var5 & 0xFF) / 255.0F;
-        float var18 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var19 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var20 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var21 = (float)(var6 & 0xFF) / 255.0F;
-        float var22 = (float)(var7 >> 24 & 0xFF) / 255.0F;
-        float var23 = (float)(var7 >> 16 & 0xFF) / 255.0F;
-        float var24 = (float)(var7 >> 8 & 0xFF) / 255.0F;
-        float var25 = (float)(var7 & 0xFF) / 255.0F;
+        float var10 = (float) (var4 >> 24 & 0xFF) / 255.0F;
+        float var11 = (float) (var4 >> 16 & 0xFF) / 255.0F;
+        float var12 = (float) (var4 >> 8 & 0xFF) / 255.0F;
+        float var13 = (float) (var4 & 0xFF) / 255.0F;
+        float var14 = (float) (var5 >> 24 & 0xFF) / 255.0F;
+        float var15 = (float) (var5 >> 16 & 0xFF) / 255.0F;
+        float var16 = (float) (var5 >> 8 & 0xFF) / 255.0F;
+        float var17 = (float) (var5 & 0xFF) / 255.0F;
+        float var18 = (float) (var6 >> 24 & 0xFF) / 255.0F;
+        float var19 = (float) (var6 >> 16 & 0xFF) / 255.0F;
+        float var20 = (float) (var6 >> 8 & 0xFF) / 255.0F;
+        float var21 = (float) (var6 & 0xFF) / 255.0F;
+        float var22 = (float) (var7 >> 24 & 0xFF) / 255.0F;
+        float var23 = (float) (var7 >> 16 & 0xFF) / 255.0F;
+        float var24 = (float) (var7 >> 8 & 0xFF) / 255.0F;
+        float var25 = (float) (var7 & 0xFF) / 255.0F;
         RenderSystem.disableTexture();
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();
@@ -784,10 +782,10 @@ public class RenderUtil {
         Tessellator var26 = Tessellator.getInstance();
         BufferBuilder var27 = var26.getBuffer();
         var27.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var27.pos((double)var2, (double)var1, 0.0).color(var15, var16, var17, var14).endVertex();
-        var27.pos((double)var0, (double)var1, 0.0).color(var11, var12, var13, var10).endVertex();
-        var27.pos((double)var0, (double)var3, 0.0).color(var23, var24, var25, var22).endVertex();
-        var27.pos((double)var2, (double)var3, 0.0).color(var19, var20, var21, var18).endVertex();
+        var27.pos((double) var2, (double) var1, 0.0).color(var15, var16, var17, var14).endVertex();
+        var27.pos((double) var0, (double) var1, 0.0).color(var11, var12, var13, var10).endVertex();
+        var27.pos((double) var0, (double) var3, 0.0).color(var23, var24, var25, var22).endVertex();
+        var27.pos((double) var2, (double) var3, 0.0).color(var19, var20, var21, var18).endVertex();
         var26.draw();
         RenderSystem.shadeModel(7424);
         RenderSystem.disableBlend();
@@ -882,14 +880,14 @@ public class RenderUtil {
         if (var4 != null) {
             RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
             GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-            var0 = (float)Math.round(var0);
-            var2 = (float)Math.round(var2);
-            var1 = (float)Math.round(var1);
-            var3 = (float)Math.round(var3);
-            float var14 = (float)(var5 >> 24 & 0xFF) / 255.0F;
-            float var15 = (float)(var5 >> 16 & 0xFF) / 255.0F;
-            float var16 = (float)(var5 >> 8 & 0xFF) / 255.0F;
-            float var17 = (float)(var5 & 0xFF) / 255.0F;
+            var0 = (float) Math.round(var0);
+            var2 = (float) Math.round(var2);
+            var1 = (float) Math.round(var1);
+            var3 = (float) Math.round(var3);
+            float var14 = (float) (var5 >> 24 & 0xFF) / 255.0F;
+            float var15 = (float) (var5 >> 16 & 0xFF) / 255.0F;
+            float var16 = (float) (var5 >> 8 & 0xFF) / 255.0F;
+            float var17 = (float) (var5 & 0xFF) / 255.0F;
             RenderSystem.enableBlend();
             RenderSystem.disableTexture();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -904,7 +902,7 @@ public class RenderUtil {
             GL11.glPixelStorei(3317, 4);
             GL11.glTexParameteri(3553, 10240, 9728);
             int var18 = GL11.glGenTextures();
-            GL11.glTexImage2D(3553, 0, 6407, (int)var8, (int)var9, 0, 6407, 5121, var4);
+            GL11.glTexImage2D(3553, 0, 6407, (int) var8, (int) var9, 0, 6407, 5121, var4);
             float var19 = var8 / var8 * 1.0F;
             float var20 = var9 / var9 * 1.0F;
             float var21 = var6 / var8 * 1.0F;
@@ -930,8 +928,8 @@ public class RenderUtil {
         if (var0 != null) {
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)var1, (float)var2, 0.0F);
-            GL11.glScalef((float)var3 / 16.0F, (float)var4 / 16.0F, 0.0F);
+            GL11.glTranslatef((float) var1, (float) var2, 0.0F);
+            GL11.glScalef((float) var3 / 16.0F, (float) var4 / 16.0F, 0.0F);
             ItemRenderer var7 = mc.getItemRenderer();
             if (var0.getCount() == 0) {
                 var0 = new ItemStack(var0.getItem());
@@ -957,8 +955,8 @@ public class RenderUtil {
     }
 
     public static java.awt.Color getColorFromScreen(int mouseX, int mouseY, java.awt.Color var2) {
-        mouseX = (int)((float)mouseX * GuiManager.scaleFactor);
-        mouseY = (int)((float)mouseY * GuiManager.scaleFactor);
+        mouseX = (int) ((float) mouseX * GuiManager.scaleFactor);
+        mouseY = (int) ((float) mouseY * GuiManager.scaleFactor);
         ByteBuffer var5 = ByteBuffer.allocateDirect(3);
         GL11.glPixelStorei(3317, 1);
         GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, 6407, 5120, var5);

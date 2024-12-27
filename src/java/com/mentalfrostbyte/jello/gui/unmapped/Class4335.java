@@ -31,7 +31,7 @@ public class Class4335 extends Class4333 {
          if (this.field21181 == null) {
             ((ClassicScreenk)this.getScreen()).method13417();
          } else {
-            this.field21181.method13556();
+            this.field21181.animateBack();
          }
       });
       this.method13300(false);
@@ -75,7 +75,7 @@ public class Class4335 extends Class4333 {
    @Override
    public void method13028(int var1, int var2) {
       super.method13028(var1, var2);
-      if (this.field21181 != null && this.field21181.method13557()) {
+      if (this.field21181 != null && this.field21181.isFinished()) {
          this.method13222(() -> {
             this.method13236(this.field21181);
             this.field21181 = null;
