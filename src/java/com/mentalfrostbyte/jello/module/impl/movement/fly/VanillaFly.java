@@ -52,7 +52,7 @@ public class VanillaFly extends Module {
     }
 
     @EventTarget
-    private void onKeyPress(EventKeyPress event) {
+    public void onKeyPress(EventKeyPress event) {
         if (this.isEnabled()) {
             if (event.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 event.cancelled = true;
@@ -62,7 +62,7 @@ public class VanillaFly extends Module {
     }
 
     @EventTarget
-    private void onMouseHover(MouseHoverEvent event) {
+    public void onMouseHover(MouseHoverEvent event) {
         if (this.isEnabled()) {
             if (event.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 event.cancelled = true;
