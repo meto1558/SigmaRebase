@@ -22,8 +22,8 @@ public class DefaultClientFont extends TrueTypeFont {
    }
 
    @Override
-   public int getWidth(String var1) {
-      return this.field31946.fontRenderer.getStringWidth(var1) * this.field31945;
+   public int getWidth(String whatchars) {
+      return this.field31946.fontRenderer.getStringWidth(whatchars) * this.field31945;
    }
 
    @Override
@@ -32,7 +32,7 @@ public class DefaultClientFont extends TrueTypeFont {
    }
 
    @Override
-   public int getHeight(String var1) {
+   public int getHeight(String HeightString) {
       return 9 * this.field31945;
    }
 
@@ -42,22 +42,22 @@ public class DefaultClientFont extends TrueTypeFont {
    }
 
    @Override
-   public void drawString(float var1, float var2, String var3, Color var4) {
-      this.drawString(var1, var2, var3, var4, 0, var3.length() - 1);
+   public void drawString(float x, float y, String whatchars, Color color) {
+      this.drawString(x, y, whatchars, color, 0, whatchars.length() - 1);
    }
 
    @Override
-   public void drawString(float var1, float var2, String var3, Color var4, int var5, int var6) {
+   public void drawString(float x, float y, String whatchars, Color color, int startIndex, int endIndex) {
       GL11.glPushMatrix();
       GL11.glScalef((float)this.field31945, (float)this.field31945, 0.0F);
-      GL11.glTranslatef(-var1 / (float)this.field31945, -var2 / (float)this.field31945 + 1.0F, 0.0F);
+      GL11.glTranslatef(-x / (float)this.field31945, -y / (float)this.field31945 + 1.0F, 0.0F);
       this.field31946
          .fontRenderer
          .renderString(
-            var3,
-            var1,
-            var2,
-            new java.awt.Color(var4.r, var4.g, var4.b, var4.a).getRGB(),
+                 whatchars,
+                 x,
+                 y,
+            new java.awt.Color(color.r, color.g, color.b, color.a).getRGB(),
             new MatrixStack().getLast().getMatrix(),
             false,
             false
