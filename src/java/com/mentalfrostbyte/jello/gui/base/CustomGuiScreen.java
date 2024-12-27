@@ -519,30 +519,30 @@ public class CustomGuiScreen implements IGuiEventListener {
                 this.heightA = CJsonUtils.getIntOrDefault(var1, "height", this.heightA);
             }
 
-            JSONArray var4 = CJsonUtils.getJSONArrayOrNull(var1, "children");
+            JSONArray children = CJsonUtils.getJSONArrayOrNull(var1, "children");
             Iterator<String> var5 = var1.keySet().iterator();
-            if (var4 != null) {
+            if (children != null) {
                 List<CustomGuiScreen> var6 = new ArrayList<>(this.iconPanelList);
 
-                for (int var7 = 0; var7 < var4.length(); var7++) {
+                for (int var7 = 0; var7 < children.length(); var7++) {
                     JSONObject var8 = null;
                     try {
-                        var8 = var4.getJSONObject(var7);
+                        var8 = children.getJSONObject(var7);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    String var9 = CJsonUtils.getStringOrDefault(var8, "id", null);
-                    int var10 = CJsonUtils.getIntOrDefault(var8, "index", -1);
+                    String id = CJsonUtils.getStringOrDefault(var8, "id", null);
+                    int index = CJsonUtils.getIntOrDefault(var8, "index", -1);
 
                     for (CustomGuiScreen var12 : var6) {
-                        if (var12.getName().equals(var9)) {
+                        if (var12.getName().equals(id)) {
                             var12.method13161(var8);
-                            if (var10 >= 0) {
+                            if (index >= 0) {
                                 this.iconPanelList.remove(var12);
-                                if (var10 > this.iconPanelList.size()) {
+                                if (index > this.iconPanelList.size()) {
                                     this.iconPanelList.add(var12);
                                 } else {
-                                    this.iconPanelList.add(var10, var12);
+                                    this.iconPanelList.add(index, var12);
                                 }
                             }
                         }
