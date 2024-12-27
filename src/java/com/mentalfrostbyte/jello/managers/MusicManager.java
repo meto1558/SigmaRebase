@@ -759,9 +759,9 @@ public class MusicManager {
     public boolean hasPython() {
         String[] commands;
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            commands = new String[]{"cmd", "/c", "python --version || py --version || python3 --version"};
+            commands = new String[]{"python --version || py --version || python3 --version"};
         } else {
-            commands = new String[]{"bash", "-c", "python3 --version || python --version"};
+            commands = new String[]{"python3 --version || python --version"};
         }
 
         for (String command : commands) {
@@ -770,7 +770,11 @@ public class MusicManager {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String output = reader.readLine();
                 while (output != null) {
-                    if (output.contains("is not recognized as an internal or external command")) {
+                    if (
+                            // Windows / command prompt
+                            output.contains("is not recognized as an internal or external command")
+                                    // bash
+                                    || output.contains("command not found")) {
                         break; // Move to the next command
                     }
                     if (output.toLowerCase().contains("python")) {
