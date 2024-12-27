@@ -147,7 +147,6 @@ public class NoFall extends Module {
                         }
                         break;
                     case "Vanilla":
-                        System.out.println(mc.player.getMotion().y);
                         if (mc.player.getMotion().y < -0.1) {
                             packet.setGround(true);
                         }
@@ -168,7 +167,6 @@ public class NoFall extends Module {
                             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var12, var14 + 3.01, var16, false));
                             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var12, var14, var16, false));
                             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var12, var14, var16, true));
-                            System.out.println("sent");
                             this.field23510 = false;
                         }
                         break;
