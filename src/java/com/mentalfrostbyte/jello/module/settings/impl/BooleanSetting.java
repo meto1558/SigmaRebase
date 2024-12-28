@@ -9,14 +9,13 @@ public class BooleanSetting extends Setting<Boolean> {
    public BooleanSetting(String name, String description, boolean value) {
       super(name, description, SettingType.BOOLEAN, value);
    }
-
-
+   
    public void updateCurrentValue(Boolean value, boolean notify) {
       super.updateCurrentValue(value, notify);
    }
 
    public Boolean getCurrentValue() {
-      return this.defaultValue;
+      return this.currentValue;
    }
 
    @Override
