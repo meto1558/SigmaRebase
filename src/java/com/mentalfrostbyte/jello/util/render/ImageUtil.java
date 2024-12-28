@@ -173,25 +173,25 @@ public class ImageUtil {
         return new Kernel(var4, 1, var5);
     }
 
-    public static BufferedImage method35033(BufferedImage var0, int var1) {
-        if (var0 == null) {
-            return var0;
+    public static BufferedImage method35033(BufferedImage img, int size) {
+        if (img == null) {
+            return img;
         } else {
-            ConvolveOp var4 = new ConvolveOp(method35035((float) var1), 1, null);
-            int var5 = var0.getWidth();
-            int var6 = var0.getHeight();
-            BufferedImage var7 = new BufferedImage(var6 + var1 * 2, var5 + var1 * 2, var0.getType());
+            ConvolveOp var4 = new ConvolveOp(method35035((float) size), 1, null);
+            int var5 = img.getWidth();
+            int var6 = img.getHeight();
+            BufferedImage var7 = new BufferedImage(var6 + size * 2, var5 + size * 2, img.getType());
 
             for (int var8 = 0; var8 < var5; var8++) {
                 for (int var9 = 0; var9 < var6; var9++) {
-                    var7.setRGB(var8 + var1, var9 + var1 / 2, var0.getRGB(var8, var9));
+                    var7.setRGB(var8 + size, var9 + size / 2, img.getRGB(var8, var9));
                 }
             }
 
             BufferedImage var10 = var4.filter(var7, null);
             var10 = var4.filter(method35034(var10), null);
             var10 = method35034(var10);
-            return var10.getSubimage(var1, var1, var7.getWidth() - var1 - var1, var7.getHeight() - var1 - var1);
+            return var10.getSubimage(size, size, var7.getWidth() - size - size, var7.getHeight() - size - size);
         }
     }
 
