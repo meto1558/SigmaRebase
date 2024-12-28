@@ -10,6 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
+import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import com.mentalfrostbyte.jello.module.impl.player.Cape;
 import com.mentalfrostbyte.jello.module.impl.player.NoFall;
