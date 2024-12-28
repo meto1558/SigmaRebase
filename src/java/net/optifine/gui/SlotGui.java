@@ -170,7 +170,7 @@ public abstract class SlotGui extends FocusableGui implements IRenderable
         this.yDrag = -2;
     }
 
-    public void render(MatrixStack matrixStackIn, int p_render_1_, int p_render_2_, float p_render_3_)
+    public void render(MatrixStack matrices, int p_render_1_, int p_render_2_, float delta)
     {
         if (this.visible)
         {
@@ -197,7 +197,7 @@ public abstract class SlotGui extends FocusableGui implements IRenderable
                 this.renderHeader(k, l, tessellator);
             }
 
-            this.renderList(matrixStackIn, k, l, p_render_1_, p_render_2_, p_render_3_);
+            this.renderList(matrices, k, l, p_render_1_, p_render_2_, delta);
             RenderSystem.disableDepthTest();
             this.renderHoleBackground(0, this.y0, 255, 255);
             this.renderHoleBackground(this.y1, this.height, 255, 255);

@@ -67,12 +67,12 @@ public class HorseInventoryScreen extends ContainerScreen<HorseInventoryContaine
         InventoryScreen.drawEntityOnScreen(i + 51, j + 60, 17, (float)(i + 51) - this.mousePosx, (float)(j + 75 - 50) - this.mousePosY, this.horseEntity);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         this.mousePosx = (float)mouseX;
         this.mousePosY = (float)mouseY;
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
     }
 }

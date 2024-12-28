@@ -156,29 +156,29 @@ public class RealmsDownloadLatestWorldScreen extends RealmsScreen
         this.minecraft.displayGuiScreen(this.field_224176_b);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.field_224178_d, this.width / 2, 20, 16777215);
-        drawCenteredString(matrixStack, this.font, this.field_224184_j, this.width / 2, 50, 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.field_224178_d, this.width / 2, 20, 16777215);
+        drawCenteredString(matrices, this.font, this.field_224184_j, this.width / 2, 50, 16777215);
 
         if (this.field_224187_m)
         {
-            this.func_237835_b_(matrixStack);
+            this.func_237835_b_(matrices);
         }
 
         if (this.field_224182_h.field_225139_a != 0L && !this.field_224186_l)
         {
-            this.func_237836_c_(matrixStack);
-            this.func_237838_d_(matrixStack);
+            this.func_237836_c_(matrices);
+            this.func_237838_d_(matrices);
         }
 
         if (this.field_224183_i != null)
         {
-            drawCenteredString(matrixStack, this.font, this.field_224183_i, this.width / 2, 110, 16711680);
+            drawCenteredString(matrices, this.font, this.field_224183_i, this.width / 2, 110, 16711680);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private void func_237835_b_(MatrixStack p_237835_1_)

@@ -13,15 +13,15 @@ public class GuiButtonDownloadShaders extends GuiButtonOF
         super(buttonID, xPos, yPos, 22, 20, "");
     }
 
-    public void render(MatrixStack matrixStackIn, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.visible)
         {
-            super.render(matrixStackIn, mouseX, mouseY, partialTicks);
+            super.render(matrices, mouseX, mouseY, delta);
             ResourceLocation resourcelocation = new ResourceLocation("optifine/textures/icons.png");
             Config.getTextureManager().bindTexture(resourcelocation);
             GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.blit(matrixStackIn, this.x + 3, this.y + 2, 0, 0, 16, 16);
+            this.blit(matrices, this.x + 3, this.y + 2, 0, 0, 16, 16);
         }
     }
 }

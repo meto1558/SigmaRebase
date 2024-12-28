@@ -43,19 +43,19 @@ public class GuiMessage extends GuiScreenOF
         Config.getMinecraft().displayGuiScreen(this.parentScreen);
     }
 
-    public void render(MatrixStack matrixStackIn, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStackIn);
-        drawCenteredString(matrixStackIn, this.fontRenderer, this.messageLine1, this.width / 2, 70, 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.fontRenderer, this.messageLine1, this.width / 2, 70, 16777215);
         int i = 90;
 
         for (IReorderingProcessor ireorderingprocessor : this.listLines2)
         {
-            drawCenteredString(matrixStackIn, this.fontRenderer, ireorderingprocessor, this.width / 2, i, 16777215);
+            drawCenteredString(matrices, this.fontRenderer, ireorderingprocessor, this.width / 2, i, 16777215);
             i += 9;
         }
 
-        super.render(matrixStackIn, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public void setButtonDelay(int ticksUntilEnable)

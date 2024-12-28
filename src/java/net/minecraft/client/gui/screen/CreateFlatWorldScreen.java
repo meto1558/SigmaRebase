@@ -118,15 +118,15 @@ public class CreateFlatWorldScreen extends Screen
         this.minecraft.displayGuiScreen(this.createWorldGui);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.createFlatWorldListSlotGui.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 8, 16777215);
+        this.renderBackground(matrices);
+        this.createFlatWorldListSlotGui.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 8, 16777215);
         int i = this.width / 2 - 92 - 16;
-        drawString(matrixStack, this.font, this.materialText, i, 32, 16777215);
-        drawString(matrixStack, this.font, this.heightText, i + 2 + 213 - this.font.getStringPropertyWidth(this.heightText), 32, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawString(matrices, this.font, this.materialText, i, 32, 16777215);
+        drawString(matrices, this.font, this.heightText, i + 2 + 213 - this.font.getStringPropertyWidth(this.heightText), 32, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     class DetailsList extends ExtendedList<CreateFlatWorldScreen.DetailsList.LayerEntry>

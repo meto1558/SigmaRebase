@@ -120,14 +120,14 @@ public class GuiScreenCapeOF extends GuiScreenOF
         this.setLinkUrl((String)null);
     }
 
-    public void render(MatrixStack matrixStackIn, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStackIn);
-        drawCenteredString(matrixStackIn, this.fontRenderer, this.title, this.width / 2, 20, 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.fontRenderer, this.title, this.width / 2, 20, 16777215);
 
         if (this.message != null)
         {
-            drawCenteredString(matrixStackIn, this.fontRenderer, this.message, this.width / 2, this.height / 6 + 60, 16777215);
+            drawCenteredString(matrices, this.fontRenderer, this.message, this.width / 2, this.height / 6 + 60, 16777215);
 
             if (System.currentTimeMillis() > this.messageHideTimeMs)
             {
@@ -136,7 +136,7 @@ public class GuiScreenCapeOF extends GuiScreenOF
             }
         }
 
-        super.render(matrixStackIn, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public void setLinkUrl(String linkUrl)

@@ -208,12 +208,12 @@ public class EnchantmentScreen extends ContainerScreen<EnchantmentContainer>
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        partialTicks = this.minecraft.getRenderPartialTicks();
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        delta = this.minecraft.getRenderPartialTicks();
+        this.renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
         boolean flag = this.minecraft.player.abilities.isCreativeMode;
         int i = this.container.getLapisAmount();
 
@@ -266,7 +266,7 @@ public class EnchantmentScreen extends ContainerScreen<EnchantmentContainer>
                     }
                 }
 
-                this.func_243308_b(matrixStack, list, mouseX, mouseY);
+                this.func_243308_b(matrices, list, mouseX, mouseY);
                 break;
             }
         }

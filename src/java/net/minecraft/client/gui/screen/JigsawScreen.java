@@ -210,23 +210,23 @@ public class JigsawScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawString(matrixStack, this.font, field_243347_b, this.width / 2 - 153, 10, 10526880);
-        this.field_238820_p_.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawString(matrixStack, this.font, field_243348_c, this.width / 2 - 153, 45, 10526880);
-        this.field_238818_b_.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawString(matrixStack, this.font, field_243349_p, this.width / 2 - 153, 80, 10526880);
-        this.field_238819_c_.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawString(matrixStack, this.font, field_243350_q, this.width / 2 - 153, 115, 10526880);
-        this.finalStateField.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawString(matrices, this.font, field_243347_b, this.width / 2 - 153, 10, 10526880);
+        this.field_238820_p_.render(matrices, mouseX, mouseY, delta);
+        drawString(matrices, this.font, field_243348_c, this.width / 2 - 153, 45, 10526880);
+        this.field_238818_b_.render(matrices, mouseX, mouseY, delta);
+        drawString(matrices, this.font, field_243349_p, this.width / 2 - 153, 80, 10526880);
+        this.field_238819_c_.render(matrices, mouseX, mouseY, delta);
+        drawString(matrices, this.font, field_243350_q, this.width / 2 - 153, 115, 10526880);
+        this.finalStateField.render(matrices, mouseX, mouseY, delta);
 
         if (JigsawBlock.getConnectingDirection(this.field_214259_a.getBlockState()).getAxis().isVertical())
         {
-            drawString(matrixStack, this.font, field_243346_a, this.width / 2 - 153, 156, 16777215);
+            drawString(matrices, this.font, field_243346_a, this.width / 2 - 153, 156, 16777215);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

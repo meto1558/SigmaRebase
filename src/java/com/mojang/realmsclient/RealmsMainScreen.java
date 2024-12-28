@@ -855,27 +855,27 @@ public class RealmsMainScreen extends RealmsScreen
         return true;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.field_237539_ap_ = RealmsMainScreen.ServerState.NONE;
         this.field_224027_p = null;
-        this.renderBackground(matrixStack);
-        this.field_224020_i.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.func_237579_a_(matrixStack, this.width / 2 - 50, 7);
+        this.renderBackground(matrices);
+        this.field_224020_i.render(matrices, mouseX, mouseY, delta);
+        this.func_237579_a_(matrices, this.width / 2 - 50, 7);
 
         if (RealmsClient.field_224944_a == RealmsClient.Environment.STAGE)
         {
-            this.func_237613_c_(matrixStack);
+            this.func_237613_c_(matrices);
         }
 
         if (RealmsClient.field_224944_a == RealmsClient.Environment.LOCAL)
         {
-            this.func_237604_b_(matrixStack);
+            this.func_237604_b_(matrices);
         }
 
         if (this.func_223990_b())
         {
-            this.func_237605_b_(matrixStack, mouseX, mouseY);
+            this.func_237605_b_(matrices, mouseX, mouseY);
         }
         else
         {
@@ -895,11 +895,11 @@ public class RealmsMainScreen extends RealmsScreen
             this.field_223994_B = false;
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_224027_p != null)
         {
-            this.func_237583_a_(matrixStack, this.field_224027_p, mouseX, mouseY);
+            this.func_237583_a_(matrices, this.field_224027_p, mouseX, mouseY);
         }
 
         if (this.field_224037_z && !this.field_223993_A && this.func_223990_b())
@@ -915,7 +915,7 @@ public class RealmsMainScreen extends RealmsScreen
                 j = 8;
             }
 
-            AbstractGui.blit(matrixStack, this.field_224009_Q.x + this.field_224009_Q.getWidth() - 8 - 4, this.field_224009_Q.y + this.field_224009_Q.getHeightRealms() / 2 - 4, 0.0F, (float)j, 8, 8, 8, 16);
+            AbstractGui.blit(matrices, this.field_224009_Q.x + this.field_224009_Q.getWidth() - 8 - 4, this.field_224009_Q.y + this.field_224009_Q.getHeightRealms() / 2 - 4, 0.0F, (float)j, 8, 8, 8, 16);
         }
     }
 

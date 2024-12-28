@@ -196,14 +196,14 @@ public class ReadBookScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(BOOK_TEXTURES);
         int i = (this.width - 192) / 2;
         int j = 2;
-        this.blit(matrixStack, i, 2, 0, 0, 192, 192);
+        this.blit(matrices, i, 2, 0, 0, 192, 192);
 
         if (this.cachedPage != this.currPage)
         {
@@ -214,23 +214,23 @@ public class ReadBookScreen extends Screen
 
         this.cachedPage = this.currPage;
         int i1 = this.font.getStringPropertyWidth(this.field_243344_s);
-        this.font.func_243248_b(matrixStack, this.field_243344_s, (float)(i - i1 + 192 - 44), 18.0F, 0);
+        this.font.func_243248_b(matrices, this.field_243344_s, (float)(i - i1 + 192 - 44), 18.0F, 0);
         int k = Math.min(128 / 9, this.cachedPageLines.size());
 
         for (int l = 0; l < k; ++l)
         {
             IReorderingProcessor ireorderingprocessor = this.cachedPageLines.get(l);
-            this.font.func_238422_b_(matrixStack, ireorderingprocessor, (float)(i + 36), (float)(32 + l * 9), 0);
+            this.font.func_238422_b_(matrices, ireorderingprocessor, (float)(i + 36), (float)(32 + l * 9), 0);
         }
 
         Style style = this.func_238805_a_((double)mouseX, (double)mouseY);
 
         if (style != null)
         {
-            this.renderComponentHoverEffect(matrixStack, style, mouseX, mouseY);
+            this.renderComponentHoverEffect(matrices, style, mouseX, mouseY);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button)

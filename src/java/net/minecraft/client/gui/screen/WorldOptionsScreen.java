@@ -264,18 +264,18 @@ public class WorldOptionsScreen implements IScreen, IRenderable
         this.field_239033_g_.tick();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.field_239034_h_.visible)
         {
-            this.field_239031_e_.func_243246_a(matrixStack, field_243442_e, (float)(this.field_239032_f_ / 2 - 150), 122.0F, -6250336);
+            this.field_239031_e_.func_243246_a(matrices, field_243442_e, (float)(this.field_239032_f_ / 2 - 150), 122.0F, -6250336);
         }
 
-        this.field_239033_g_.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.field_239033_g_.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_239040_n_.equals(Optional.of(BiomeGeneratorTypeScreens.field_239067_b_)))
         {
-            this.field_243443_f.func_241865_b(matrixStack, this.field_239035_i_.x + 2, this.field_239035_i_.y + 22, 9, 10526880);
+            this.field_243443_f.func_241865_b(matrices, this.field_239035_i_.x + 2, this.field_239035_i_.y + 22, 9, 10526880);
         }
     }
 

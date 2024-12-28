@@ -111,17 +111,17 @@ public class RealmsInviteScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.font.func_243248_b(matrixStack, field_243118_b, (float)(this.width / 2 - 100), (float)func_239562_k_(1), 10526880);
+        this.renderBackground(matrices);
+        this.font.func_243248_b(matrices, field_243118_b, (float)(this.width / 2 - 100), (float)func_239562_k_(1), 10526880);
 
         if (this.field_224222_j != null)
         {
-            drawCenteredString(matrixStack, this.font, this.field_224222_j, this.width / 2, func_239562_k_(5), 16711680);
+            drawCenteredString(matrices, this.font, this.field_224222_j, this.width / 2, func_239562_k_(5), 16711680);
         }
 
-        this.field_224214_b.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.field_224214_b.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

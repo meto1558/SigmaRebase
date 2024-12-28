@@ -54,11 +54,11 @@ public class MultiplayerWarningScreen extends Screen
         return field_238858_q_.getString();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.renderDirtBackground(0);
-        drawString(matrixStack, this.font, field_230157_b_, 25, 30, 16777215);
-        this.field_243364_s.func_241865_b(matrixStack, 25, 70, 9 * 2, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawString(matrices, this.font, field_230157_b_, 25, 30, 16777215);
+        this.field_243364_s.func_241865_b(matrices, 25, 70, 9 * 2, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

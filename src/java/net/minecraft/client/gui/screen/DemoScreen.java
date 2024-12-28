@@ -48,14 +48,14 @@ public class DemoScreen extends Screen
         this.blit(matrixStack, i, j, 0, 0, 248, 166);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         int i = (this.width - 248) / 2 + 10;
         int j = (this.height - 166) / 2 + 8;
-        this.font.func_243248_b(matrixStack, this.title, (float)i, (float)j, 2039583);
-        j = this.field_243286_b.func_241866_c(matrixStack, i, j + 12, 12, 5197647);
-        this.field_243287_c.func_241866_c(matrixStack, i, j + 20, 9, 2039583);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.font.func_243248_b(matrices, this.title, (float)i, (float)j, 2039583);
+        j = this.field_243286_b.func_241866_c(matrices, i, j + 12, 12, 5197647);
+        this.field_243287_c.func_241866_c(matrices, i, j + 20, 9, 2039583);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

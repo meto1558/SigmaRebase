@@ -53,12 +53,12 @@ public class GPUWarningScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.renderDirtBackground(0);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, this.field_241588_p_ - 9 * 2, -1);
-        this.warningRenderer.func_241863_a(matrixStack, this.width / 2, this.field_241588_p_);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, this.field_241588_p_ - 9 * 2, -1);
+        this.warningRenderer.func_241863_a(matrices, this.width / 2, this.field_241588_p_);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean shouldCloseOnEsc()

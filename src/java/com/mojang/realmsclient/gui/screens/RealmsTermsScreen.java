@@ -110,18 +110,18 @@ public class RealmsTermsScreen extends RealmsScreen
         return super.getNarrationMessage() + ". " + field_243185_c.getString() + " " + field_243186_p.getString();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, field_243184_b, this.width / 2, 17, 16777215);
-        this.font.func_243248_b(matrixStack, field_243185_c, (float)(this.width / 2 - 120), (float)func_239562_k_(5), 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, field_243184_b, this.width / 2, 17, 16777215);
+        this.font.func_243248_b(matrices, field_243185_c, (float)(this.width / 2 - 120), (float)func_239562_k_(5), 16777215);
         int i = this.font.getStringPropertyWidth(field_243185_c);
         int j = this.width / 2 - 121 + i;
         int k = func_239562_k_(5);
         int l = j + this.font.getStringPropertyWidth(field_243186_p) + 1;
         int i1 = k + 1 + 9;
         this.field_224727_f = j <= mouseX && mouseX <= l && k <= mouseY && mouseY <= i1;
-        this.font.func_243248_b(matrixStack, field_243186_p, (float)(this.width / 2 - 120 + i), (float)func_239562_k_(5), this.field_224727_f ? 7107012 : 3368635);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.font.func_243248_b(matrices, field_243186_p, (float)(this.width / 2 - 120 + i), (float)func_239562_k_(5), this.field_224727_f ? 7107012 : 3368635);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

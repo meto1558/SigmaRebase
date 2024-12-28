@@ -74,10 +74,10 @@ public class GuiAnimationSettingsOF extends GuiScreenOF
         super.onClose();
     }
 
-    public void render(MatrixStack matrixStackIn, int x, int y, float partialTicks)
+    public void render(MatrixStack matrices, int x, int y, float delta)
     {
-        this.renderBackground(matrixStackIn);
-        drawCenteredString(matrixStackIn, this.minecraft.fontRenderer, this.title, this.width / 2, 15, 16777215);
-        super.render(matrixStackIn, x, y, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.minecraft.fontRenderer, this.title, this.width / 2, 15, 16777215);
+        super.render(matrices, x, y, delta);
     }
 }

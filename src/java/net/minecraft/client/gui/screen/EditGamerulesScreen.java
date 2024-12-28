@@ -72,16 +72,16 @@ public class EditGamerulesScreen extends Screen
         this.field_238965_a_.accept(Optional.empty());
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.field_238969_q_ = null;
-        this.field_238966_b_.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 20, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.field_238966_b_.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 20, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_238969_q_ != null)
         {
-            this.renderTooltip(matrixStack, this.field_238969_q_, mouseX, mouseY);
+            this.renderTooltip(matrices, this.field_238969_q_, mouseX, mouseY);
         }
     }
 
@@ -211,9 +211,9 @@ public class EditGamerulesScreen extends Screen
             });
         }
 
-        public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+        public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
         {
-            super.render(matrixStack, mouseX, mouseY, partialTicks);
+            super.render(matrices, mouseX, mouseY, delta);
 
             if (this.isMouseOver((double)mouseX, (double)mouseY))
             {

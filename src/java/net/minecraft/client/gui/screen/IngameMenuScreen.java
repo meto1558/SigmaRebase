@@ -115,18 +115,18 @@ public class IngameMenuScreen extends Screen
         super.tick();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.isFullMenu)
         {
-            this.renderBackground(matrixStack);
-            drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 40, 16777215);
+            this.renderBackground(matrices);
+            drawCenteredString(matrices, this.font, this.title, this.width / 2, 40, 16777215);
         }
         else
         {
-            drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 10, 16777215);
+            drawCenteredString(matrices, this.font, this.title, this.width / 2, 10, 16777215);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

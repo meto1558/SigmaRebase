@@ -104,14 +104,14 @@ public class RealmsNotificationsScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (field_224269_e)
         {
-            this.func_237857_a_(matrixStack, mouseX, mouseY);
+            this.func_237857_a_(matrices, mouseX, mouseY);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private void func_237857_a_(MatrixStack p_237857_1_, int p_237857_2_, int p_237857_3_)

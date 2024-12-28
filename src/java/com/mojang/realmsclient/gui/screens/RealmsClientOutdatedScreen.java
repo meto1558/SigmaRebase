@@ -31,9 +31,9 @@ public class RealmsClientOutdatedScreen extends RealmsScreen
         }));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         ITextComponent itextcomponent;
         ITextComponent[] aitextcomponent;
 
@@ -48,14 +48,14 @@ public class RealmsClientOutdatedScreen extends RealmsScreen
             aitextcomponent = field_243105_b;
         }
 
-        drawCenteredString(matrixStack, this.font, itextcomponent, this.width / 2, func_239562_k_(3), 16711680);
+        drawCenteredString(matrices, this.font, itextcomponent, this.width / 2, func_239562_k_(3), 16711680);
 
         for (int i = 0; i < aitextcomponent.length; ++i)
         {
-            drawCenteredString(matrixStack, this.font, aitextcomponent[i], this.width / 2, func_239562_k_(5) + i * 12, 16777215);
+            drawCenteredString(matrices, this.font, aitextcomponent[i], this.width / 2, func_239562_k_(5) + i * 12, 16777215);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)

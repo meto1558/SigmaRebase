@@ -246,12 +246,12 @@ public class EditWorldScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 15, 16777215);
-        drawString(matrixStack, this.font, field_243441_c, this.width / 2 - 100, 24, 10526880);
-        this.nameEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 15, 16777215);
+        drawString(matrices, this.font, field_243441_c, this.width / 2 - 100, 24, 10526880);
+        this.nameEdit.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

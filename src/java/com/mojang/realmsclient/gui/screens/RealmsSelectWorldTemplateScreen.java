@@ -310,20 +310,20 @@ public class RealmsSelectWorldTemplateScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.field_224523_i = null;
         this.field_224524_j = null;
         this.field_224530_p = false;
-        this.renderBackground(matrixStack);
-        this.field_224517_c.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        this.field_224517_c.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_224531_q != null)
         {
-            this.func_237992_a_(matrixStack, mouseX, mouseY, this.field_224531_q);
+            this.func_237992_a_(matrices, mouseX, mouseY, this.field_224531_q);
         }
 
-        drawCenteredString(matrixStack, this.font, this.field_224519_e, this.width / 2, 13, 16777215);
+        drawCenteredString(matrices, this.font, this.field_224519_e, this.width / 2, 13, 16777215);
 
         if (this.field_224529_o)
         {
@@ -359,12 +359,12 @@ public class RealmsSelectWorldTemplateScreen extends RealmsScreen
                     }
                 }
 
-                drawCenteredString(matrixStack, this.font, itextcomponent, this.width / 2, func_239562_k_(-1 + i1), j1);
+                drawCenteredString(matrices, this.font, itextcomponent, this.width / 2, func_239562_k_(-1 + i1), j1);
             }
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.func_237993_a_(matrixStack, this.field_224523_i, mouseX, mouseY);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.func_237993_a_(matrices, this.field_224523_i, mouseX, mouseY);
     }
 
     private void func_237992_a_(MatrixStack p_237992_1_, int p_237992_2_, int p_237992_3_, List<TextRenderingUtils.Line> p_237992_4_)

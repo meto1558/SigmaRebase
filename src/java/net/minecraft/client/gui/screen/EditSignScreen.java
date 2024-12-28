@@ -133,47 +133,47 @@ public class EditSignScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         RenderHelper.setupGuiFlatDiffuseLighting();
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 40, 16777215);
-        matrixStack.push();
-        matrixStack.translate((double)(this.width / 2), 0.0D, 50.0D);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 40, 16777215);
+        matrices.push();
+        matrices.translate((double)(this.width / 2), 0.0D, 50.0D);
         float f = 93.75F;
-        matrixStack.scale(93.75F, -93.75F, 93.75F);
-        matrixStack.translate(0.0D, -1.3125D, 0.0D);
+        matrices.scale(93.75F, -93.75F, 93.75F);
+        matrices.translate(0.0D, -1.3125D, 0.0D);
         BlockState blockstate = this.tileSign.getBlockState();
         boolean flag = blockstate.getBlock() instanceof StandingSignBlock;
 
         if (!flag)
         {
-            matrixStack.translate(0.0D, -0.3125D, 0.0D);
+            matrices.translate(0.0D, -0.3125D, 0.0D);
         }
 
         boolean flag1 = this.updateCounter / 6 % 2 == 0;
         float f1 = 0.6666667F;
-        matrixStack.push();
-        matrixStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
+        matrices.push();
+        matrices.scale(0.6666667F, -0.6666667F, -0.6666667F);
         IRenderTypeBuffer.Impl irendertypebuffer$impl = this.minecraft.getRenderTypeBuffers().getBufferSource();
         RenderMaterial rendermaterial = SignTileEntityRenderer.getMaterial(blockstate.getBlock());
         IVertexBuilder ivertexbuilder = rendermaterial.getBuffer(irendertypebuffer$impl, this.signModel::getRenderType);
-        this.signModel.signBoard.render(matrixStack, ivertexbuilder, 15728880, OverlayTexture.NO_OVERLAY);
+        this.signModel.signBoard.render(matrices, ivertexbuilder, 15728880, OverlayTexture.NO_OVERLAY);
 
         if (flag)
         {
-            this.signModel.signStick.render(matrixStack, ivertexbuilder, 15728880, OverlayTexture.NO_OVERLAY);
+            this.signModel.signStick.render(matrices, ivertexbuilder, 15728880, OverlayTexture.NO_OVERLAY);
         }
 
-        matrixStack.pop();
+        matrices.pop();
         float f2 = 0.010416667F;
-        matrixStack.translate(0.0D, (double)0.33333334F, (double)0.046666667F);
-        matrixStack.scale(0.010416667F, -0.010416667F, 0.010416667F);
+        matrices.translate(0.0D, (double)0.33333334F, (double)0.046666667F);
+        matrices.scale(0.010416667F, -0.010416667F, 0.010416667F);
         int i = this.tileSign.getTextColor().getTextColor();
         int j = this.textInputUtil.getEndIndex();
         int k = this.textInputUtil.getStartIndex();
         int l = this.editLine * 10 - this.field_238846_r_.length * 5;
-        Matrix4f matrix4f = matrixStack.getLast().getMatrix();
+        Matrix4f matrix4f = matrices.getLast().getMatrix();
 
         for (int i1 = 0; i1 < this.field_238846_r_.length; ++i1)
         {
@@ -215,7 +215,7 @@ public class EditSignScreen extends Screen
 
                 if (flag1 && j < s1.length())
                 {
-                    fill(matrixStack, k3, l - 1, k3 + 1, l + 9, -16777216 | i);
+                    fill(matrices, k3, l - 1, k3 + 1, l + 9, -16777216 | i);
                 }
 
                 if (k != j)
@@ -244,8 +244,8 @@ public class EditSignScreen extends Screen
             }
         }
 
-        matrixStack.pop();
+        matrices.pop();
         RenderHelper.setupGui3DDiffuseLighting();
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

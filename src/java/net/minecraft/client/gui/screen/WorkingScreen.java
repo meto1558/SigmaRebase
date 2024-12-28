@@ -60,7 +60,7 @@ public class WorkingScreen extends Screen implements IProgressUpdate
         this.doneWorking = true;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.doneWorking)
         {
@@ -77,23 +77,23 @@ public class WorkingScreen extends Screen implements IProgressUpdate
             }
             else
             {
-                this.renderBackground(matrixStack);
+                this.renderBackground(matrices);
             }
 
             if (this.progress > 0)
             {
                 if (this.field_238648_a_ != null)
                 {
-                    drawCenteredString(matrixStack, this.font, this.field_238648_a_, this.width / 2, 70, 16777215);
+                    drawCenteredString(matrices, this.font, this.field_238648_a_, this.width / 2, 70, 16777215);
                 }
 
                 if (this.stage != null && this.progress != 0)
                 {
-                    drawCenteredString(matrixStack, this.font, (new StringTextComponent("")).append(this.stage).appendString(" " + this.progress + "%"), this.width / 2, 90, 16777215);
+                    drawCenteredString(matrices, this.font, (new StringTextComponent("")).append(this.stage).appendString(" " + this.progress + "%"), this.width / 2, 90, 16777215);
                 }
             }
 
-            super.render(matrixStack, mouseX, mouseY, partialTicks);
+            super.render(matrices, mouseX, mouseY, delta);
         }
     }
 }

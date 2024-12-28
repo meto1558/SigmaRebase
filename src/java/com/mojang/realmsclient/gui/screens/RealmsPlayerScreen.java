@@ -225,15 +225,15 @@ public class RealmsPlayerScreen extends RealmsScreen
         this.field_224303_d.field_230589_h_.remove(p_224292_1_);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.field_224301_b = null;
         this.field_243137_J = RealmsPlayerScreen.GuestAction.NONE;
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
 
         if (this.field_224304_e != null)
         {
-            this.field_224304_e.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.field_224304_e.render(matrices, mouseX, mouseY, delta);
         }
 
         int i = func_239562_k_(12) + 20;
@@ -248,22 +248,22 @@ public class RealmsPlayerScreen extends RealmsScreen
         bufferbuilder.pos((double)this.width, (double)i, 0.0D).tex((float)this.width / 32.0F, 0.0F).color(64, 64, 64, 255).endVertex();
         bufferbuilder.pos(0.0D, (double)i, 0.0D).tex(0.0F, 0.0F).color(64, 64, 64, 255).endVertex();
         tessellator.draw();
-        this.field_224314_o.func_239560_a_(this, matrixStack);
+        this.field_224314_o.func_239560_a_(this, matrices);
 
         if (this.field_224303_d != null && this.field_224303_d.field_230589_h_ != null)
         {
-            this.font.func_243248_b(matrixStack, (new StringTextComponent("")).append(field_243141_u).appendString(" (").appendString(Integer.toString(this.field_224303_d.field_230589_h_.size())).appendString(")"), (float)this.field_224305_f, (float)func_239562_k_(0), 10526880);
+            this.font.func_243248_b(matrices, (new StringTextComponent("")).append(field_243141_u).appendString(" (").appendString(Integer.toString(this.field_224303_d.field_230589_h_.size())).appendString(")"), (float)this.field_224305_f, (float)func_239562_k_(0), 10526880);
         }
         else
         {
-            this.font.func_243248_b(matrixStack, field_243141_u, (float)this.field_224305_f, (float)func_239562_k_(0), 10526880);
+            this.font.func_243248_b(matrices, field_243141_u, (float)this.field_224305_f, (float)func_239562_k_(0), 10526880);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_224303_d != null)
         {
-            this.func_237903_a_(matrixStack, this.field_224301_b, mouseX, mouseY);
+            this.func_237903_a_(matrices, this.field_224301_b, mouseX, mouseY);
         }
     }
 

@@ -231,7 +231,7 @@ public class MainMenuScreen extends Screen
         realmsbridgescreen.func_231394_a_(this);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.firstRenderTime == 0L && this.showFadeInAnimation)
         {
@@ -240,8 +240,8 @@ public class MainMenuScreen extends Screen
 
         float f = this.showFadeInAnimation ? (float)(Util.milliTime() - this.firstRenderTime) / 1000.0F : 1.0F;
         GlStateManager.disableDepthTest();
-        fill(matrixStack, 0, 0, this.width, this.height, -1);
-        this.panorama.render(partialTicks, MathHelper.clamp(f, 0.0F, 1.0F));
+        fill(matrices, 0, 0, this.width, this.height, -1);
+        this.panorama.render(delta, MathHelper.clamp(f, 0.0F, 1.0F));
         int i = 274;
         int j = this.width / 2 - 137;
         int k = 30;
@@ -249,7 +249,7 @@ public class MainMenuScreen extends Screen
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.showFadeInAnimation ? (float)MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
-        blit(matrixStack, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
+        blit(matrices, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
         float f1 = this.showFadeInAnimation ? MathHelper.clamp(f - 1.0F, 0.0F, 1.0F) : 1.0F;
         int l = MathHelper.ceil(f1 * 255.0F) << 24;
 
@@ -262,28 +262,28 @@ public class MainMenuScreen extends Screen
             {
                 this.blitBlackOutline(j, 30, (p_lambda$render$10_2_, p_lambda$render$10_3_) ->
                 {
-                    this.blit(matrixStack, p_lambda$render$10_2_ + 0, p_lambda$render$10_3_, 0, 0, 99, 44);
-                    this.blit(matrixStack, p_lambda$render$10_2_ + 99, p_lambda$render$10_3_, 129, 0, 27, 44);
-                    this.blit(matrixStack, p_lambda$render$10_2_ + 99 + 26, p_lambda$render$10_3_, 126, 0, 3, 44);
-                    this.blit(matrixStack, p_lambda$render$10_2_ + 99 + 26 + 3, p_lambda$render$10_3_, 99, 0, 26, 44);
-                    this.blit(matrixStack, p_lambda$render$10_2_ + 155, p_lambda$render$10_3_, 0, 45, 155, 44);
+                    this.blit(matrices, p_lambda$render$10_2_ + 0, p_lambda$render$10_3_, 0, 0, 99, 44);
+                    this.blit(matrices, p_lambda$render$10_2_ + 99, p_lambda$render$10_3_, 129, 0, 27, 44);
+                    this.blit(matrices, p_lambda$render$10_2_ + 99 + 26, p_lambda$render$10_3_, 126, 0, 3, 44);
+                    this.blit(matrices, p_lambda$render$10_2_ + 99 + 26 + 3, p_lambda$render$10_3_, 99, 0, 26, 44);
+                    this.blit(matrices, p_lambda$render$10_2_ + 155, p_lambda$render$10_3_, 0, 45, 155, 44);
                 });
             }
             else
             {
                 this.blitBlackOutline(j, 30, (p_lambda$render$11_2_, p_lambda$render$11_3_) ->
                 {
-                    this.blit(matrixStack, p_lambda$render$11_2_ + 0, p_lambda$render$11_3_, 0, 0, 155, 44);
-                    this.blit(matrixStack, p_lambda$render$11_2_ + 155, p_lambda$render$11_3_, 0, 45, 155, 44);
+                    this.blit(matrices, p_lambda$render$11_2_ + 0, p_lambda$render$11_3_, 0, 0, 155, 44);
+                    this.blit(matrices, p_lambda$render$11_2_ + 155, p_lambda$render$11_3_, 0, 45, 155, 44);
                 });
             }
 
             this.minecraft.getTextureManager().bindTexture(MINECRAFT_TITLE_EDITION);
-            blit(matrixStack, j + 88, 67, 0.0F, 0.0F, 98, 14, 128, 16);
+            blit(matrices, j + 88, 67, 0.0F, 0.0F, 98, 14, 128, 16);
 
             if (Reflector.ForgeHooksClient_renderMainMenu.exists())
             {
-                Reflector.callVoid(Reflector.ForgeHooksClient_renderMainMenu, this, matrixStack, this.font, this.width, this.height);
+                Reflector.callVoid(Reflector.ForgeHooksClient_renderMainMenu, this, matrices, this.font, this.width, this.height);
             }
 
             if (this.splashText != null)
@@ -294,7 +294,7 @@ public class MainMenuScreen extends Screen
                 float f2 = 1.8F - MathHelper.abs(MathHelper.sin((float)(Util.milliTime() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
                 f2 = f2 * 100.0F / (float)(this.font.getStringWidth(this.splashText) + 32);
                 RenderSystem.scalef(f2, f2, f2);
-                drawCenteredString(matrixStack, this.font, this.splashText, 0, -8, 16776960 | l);
+                drawCenteredString(matrices, this.font, this.splashText, 0, -8, 16776960 | l);
                 RenderSystem.popMatrix();
             }
 
@@ -308,7 +308,7 @@ public class MainMenuScreen extends Screen
                 {
                     BiConsumer<Integer, String> biconsumer = (p_lambda$render$12_3_, p_lambda$render$12_4_) ->
                     {
-                        drawString(matrixStack, this.font, p_lambda$render$12_4_, 2, this.height - (10 + p_lambda$render$12_3_ * (9 + 1)), 16777215 | l);
+                        drawString(matrices, this.font, p_lambda$render$12_4_, 2, this.height - (10 + p_lambda$render$12_3_ * (9 + 1)), 16777215 | l);
                     };
                     Reflector.call(Reflector.BrandingControl_forEachLine, true, true, biconsumer);
                 }
@@ -317,21 +317,21 @@ public class MainMenuScreen extends Screen
                 {
                     BiConsumer<Integer, String> biconsumer1 = (p_lambda$render$13_3_, p_lambda$render$13_4_) ->
                     {
-                        drawString(matrixStack, this.font, p_lambda$render$13_4_, this.width - this.font.getStringWidth(p_lambda$render$13_4_), this.height - (10 + (p_lambda$render$13_3_ + 1) * (9 + 1)), 16777215 | l);
+                        drawString(matrices, this.font, p_lambda$render$13_4_, this.width - this.font.getStringWidth(p_lambda$render$13_4_), this.height - (10 + (p_lambda$render$13_3_ + 1) * (9 + 1)), 16777215 | l);
                     };
                     Reflector.call(Reflector.BrandingControl_forEachAboveCopyrightLine, biconsumer1);
                 }
             }
             else
             {
-                drawString(matrixStack, this.font, s, 2, this.height - 10, 16777215 | l);
+                drawString(matrices, this.font, s, 2, this.height - 10, 16777215 | l);
             }
 
-            drawString(matrixStack, this.font, "Copyright Mojang AB. Do not distribute!", this.widthCopyrightRest, this.height - 10, 16777215 | l);
+            drawString(matrices, this.font, "Copyright Mojang AB. Do not distribute!", this.widthCopyrightRest, this.height - 10, 16777215 | l);
 
             if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height)
             {
-                fill(matrixStack, this.widthCopyrightRest, this.height - 1, this.widthCopyrightRest + this.widthCopyright, this.height, 16777215 | l);
+                fill(matrices, this.widthCopyrightRest, this.height - 1, this.widthCopyrightRest + this.widthCopyright, this.height, 16777215 | l);
             }
 
             for (Widget widget : this.buttons)
@@ -339,17 +339,17 @@ public class MainMenuScreen extends Screen
                 widget.setAlpha(f1);
             }
 
-            super.render(matrixStack, mouseX, mouseY, partialTicks);
+            super.render(matrices, mouseX, mouseY, delta);
 
             if (this.areRealmsNotificationsEnabled() && f1 >= 1.0F)
             {
-                this.realmsNotification.render(matrixStack, mouseX, mouseY, partialTicks);
+                this.realmsNotification.render(matrices, mouseX, mouseY, delta);
             }
         }
 
         if (this.modUpdateNotification != null)
         {
-            this.modUpdateNotification.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.modUpdateNotification.render(matrices, mouseX, mouseY, delta);
         }
     }
 

@@ -83,11 +83,11 @@ public class ShareToLanScreen extends Screen
         this.allowCheatsButton.setMessage(DialogTexts.getComposedOptionMessage(field_243310_a, this.allowCheats));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 50, 16777215);
-        drawCenteredString(matrixStack, this.font, field_243312_c, this.width / 2, 82, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 50, 16777215);
+        drawCenteredString(matrices, this.font, field_243312_c, this.width / 2, 82, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

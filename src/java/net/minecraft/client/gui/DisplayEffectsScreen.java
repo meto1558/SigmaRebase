@@ -45,13 +45,13 @@ public abstract class DisplayEffectsScreen<T extends Container> extends Containe
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.hasActivePotionEffects)
         {
-            this.func_238811_b_(matrixStack);
+            this.func_238811_b_(matrices);
         }
     }
 

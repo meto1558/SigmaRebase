@@ -275,7 +275,7 @@ public class RecipeBookGui extends AbstractGui implements IRenderable, IGuiEvent
         this.updateCollections(false);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.isVisible())
         {
@@ -285,24 +285,24 @@ public class RecipeBookGui extends AbstractGui implements IRenderable, IGuiEvent
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             int i = (this.width - 147) / 2 - this.xOffset;
             int j = (this.height - 166) / 2;
-            this.blit(matrixStack, i, j, 1, 1, 147, 166);
+            this.blit(matrices, i, j, 1, 1, 147, 166);
 
             if (!this.searchBar.isFocused() && this.searchBar.getText().isEmpty())
             {
-                drawString(matrixStack, this.mc.fontRenderer, field_241620_l_, i + 25, j + 14, -1);
+                drawString(matrices, this.mc.fontRenderer, field_241620_l_, i + 25, j + 14, -1);
             }
             else
             {
-                this.searchBar.render(matrixStack, mouseX, mouseY, partialTicks);
+                this.searchBar.render(matrices, mouseX, mouseY, delta);
             }
 
             for (RecipeTabToggleWidget recipetabtogglewidget : this.recipeTabs)
             {
-                recipetabtogglewidget.render(matrixStack, mouseX, mouseY, partialTicks);
+                recipetabtogglewidget.render(matrices, mouseX, mouseY, delta);
             }
 
-            this.toggleRecipesBtn.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.recipeBookPage.func_238927_a_(matrixStack, i, j, mouseX, mouseY, partialTicks);
+            this.toggleRecipesBtn.render(matrices, mouseX, mouseY, delta);
+            this.recipeBookPage.func_238927_a_(matrices, i, j, mouseX, mouseY, delta);
             RenderSystem.popMatrix();
         }
     }

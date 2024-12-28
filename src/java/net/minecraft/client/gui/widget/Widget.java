@@ -65,7 +65,7 @@ public abstract class Widget extends AbstractGui implements IRenderable, IGuiEve
         return i;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.visible)
         {
@@ -92,7 +92,7 @@ public abstract class Widget extends AbstractGui implements IRenderable, IGuiEve
 
             if (this.visible)
             {
-                this.renderButton(matrixStack, mouseX, mouseY, partialTicks);
+                this.renderButton(matrices, mouseX, mouseY, delta);
             }
 
             this.narrate();

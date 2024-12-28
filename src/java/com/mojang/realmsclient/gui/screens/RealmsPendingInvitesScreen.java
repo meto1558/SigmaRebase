@@ -177,24 +177,24 @@ public class RealmsPendingInvitesScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.field_224335_c = null;
-        this.renderBackground(matrixStack);
-        this.field_224337_e.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.field_224338_f.func_239560_a_(this, matrixStack);
+        this.renderBackground(matrices);
+        this.field_224337_e.render(matrices, mouseX, mouseY, delta);
+        this.field_224338_f.func_239560_a_(this, matrices);
 
         if (this.field_224335_c != null)
         {
-            this.func_237866_a_(matrixStack, this.field_224335_c, mouseX, mouseY);
+            this.func_237866_a_(matrices, this.field_224335_c, mouseX, mouseY);
         }
 
         if (this.field_224337_e.getItemCount() == 0 && this.field_224336_d)
         {
-            drawCenteredString(matrixStack, this.font, field_243124_p, this.width / 2, this.height / 2 - 20, 16777215);
+            drawCenteredString(matrices, this.font, field_243124_p, this.width / 2, this.height / 2 - 20, 16777215);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     protected void func_237866_a_(MatrixStack p_237866_1_, @Nullable ITextComponent p_237866_2_, int p_237866_3_, int p_237866_4_)

@@ -163,22 +163,22 @@ public abstract class AbstractCommandBlockScreen extends Screen
         return this.suggestionHelper.onClick(mouseX, mouseY, button) ? true : super.mouseClicked(mouseX, mouseY, button);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, field_243330_s, this.width / 2, 20, 16777215);
-        drawString(matrixStack, this.font, field_243331_t, this.width / 2 - 150, 40, 10526880);
-        this.commandTextField.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, field_243330_s, this.width / 2, 20, 16777215);
+        drawString(matrices, this.font, field_243331_t, this.width / 2 - 150, 40, 10526880);
+        this.commandTextField.render(matrices, mouseX, mouseY, delta);
         int i = 75;
 
         if (!this.resultTextField.getText().isEmpty())
         {
             i = i + (5 * 9 + 1 + this.func_195236_i() - 135);
-            drawString(matrixStack, this.font, field_243332_u, this.width / 2 - 150, i + 4, 10526880);
-            this.resultTextField.render(matrixStack, mouseX, mouseY, partialTicks);
+            drawString(matrices, this.font, field_243332_u, this.width / 2 - 150, i + 4, 10526880);
+            this.resultTextField.render(matrices, mouseX, mouseY, delta);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.suggestionHelper.drawSuggestionList(matrixStack, mouseX, mouseY);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.suggestionHelper.drawSuggestionList(matrices, mouseX, mouseY);
     }
 }

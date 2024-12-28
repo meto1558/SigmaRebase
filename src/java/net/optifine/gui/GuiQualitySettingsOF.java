@@ -65,11 +65,11 @@ public class GuiQualitySettingsOF extends GuiScreenOF
         super.onClose();
     }
 
-    public void render(MatrixStack matrixStackIn, int x, int y, float partialTicks)
+    public void render(MatrixStack matrices, int x, int y, float delta)
     {
-        this.renderBackground(matrixStackIn);
-        drawCenteredString(matrixStackIn, this.fontRenderer, this.title, this.width / 2, 15, 16777215);
-        super.render(matrixStackIn, x, y, partialTicks);
-        this.tooltipManager.drawTooltips(matrixStackIn, x, y, this.buttonList);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.fontRenderer, this.title, this.width / 2, 15, 16777215);
+        super.render(matrices, x, y, delta);
+        this.tooltipManager.drawTooltips(matrices, x, y, this.buttonList);
     }
 }

@@ -53,16 +53,16 @@ public class JelloPortalScreen extends MultiplayerScreen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        super.render(matrices, mouseX, mouseY, delta);
         RenderUtil.drawPortalBackground(
                 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), (int)(30.0 * Minecraft.getInstance().getMainWindow().getGuiScaleFactor() / (double) GuiManager.scaleFactor)
         );
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         RenderUtil.endScissor();
-        this.versionSelectorWidget.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawString(matrixStack, this.font, this.getTitle().getString(), this.width / 2 - 146, 13, 16777215);
-        minecraft.fontRenderer.drawStringWithShadow(matrixStack, "Jello Portal:", (float) this.width / 2 - 30, 13, -1);
+        this.versionSelectorWidget.render(matrices, mouseX, mouseY, delta);
+        drawString(matrices, this.font, this.getTitle().getString(), this.width / 2 - 146, 13, 16777215);
+        minecraft.fontRenderer.drawStringWithShadow(matrices, "Jello Portal:", (float) this.width / 2 - 30, 13, -1);
     }
 
     private int getCurrentVersionIndex() {

@@ -486,53 +486,53 @@ public class EditStructureScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         StructureMode structuremode = this.tileStructure.getMode();
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 10, 16777215);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 10, 16777215);
 
         if (structuremode != StructureMode.DATA)
         {
-            drawString(matrixStack, this.font, field_243355_a, this.width / 2 - 153, 30, 10526880);
-            this.nameEdit.render(matrixStack, mouseX, mouseY, partialTicks);
+            drawString(matrices, this.font, field_243355_a, this.width / 2 - 153, 30, 10526880);
+            this.nameEdit.render(matrices, mouseX, mouseY, delta);
         }
 
         if (structuremode == StructureMode.LOAD || structuremode == StructureMode.SAVE)
         {
-            drawString(matrixStack, this.font, field_243356_b, this.width / 2 - 153, 70, 10526880);
-            this.posXEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.posYEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.posZEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            drawString(matrixStack, this.font, field_243360_r, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243360_r), 150, 10526880);
+            drawString(matrices, this.font, field_243356_b, this.width / 2 - 153, 70, 10526880);
+            this.posXEdit.render(matrices, mouseX, mouseY, delta);
+            this.posYEdit.render(matrices, mouseX, mouseY, delta);
+            this.posZEdit.render(matrices, mouseX, mouseY, delta);
+            drawString(matrices, this.font, field_243360_r, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243360_r), 150, 10526880);
         }
 
         if (structuremode == StructureMode.SAVE)
         {
-            drawString(matrixStack, this.font, field_243357_c, this.width / 2 - 153, 110, 10526880);
-            this.sizeXEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.sizeYEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.sizeZEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            drawString(matrixStack, this.font, field_243361_s, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243361_s), 110, 10526880);
-            drawString(matrixStack, this.font, field_243362_t, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243362_t), 70, 10526880);
+            drawString(matrices, this.font, field_243357_c, this.width / 2 - 153, 110, 10526880);
+            this.sizeXEdit.render(matrices, mouseX, mouseY, delta);
+            this.sizeYEdit.render(matrices, mouseX, mouseY, delta);
+            this.sizeZEdit.render(matrices, mouseX, mouseY, delta);
+            drawString(matrices, this.font, field_243361_s, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243361_s), 110, 10526880);
+            drawString(matrices, this.font, field_243362_t, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243362_t), 70, 10526880);
         }
 
         if (structuremode == StructureMode.LOAD)
         {
-            drawString(matrixStack, this.font, field_243358_p, this.width / 2 - 153, 110, 10526880);
-            this.integrityEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.seedEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-            drawString(matrixStack, this.font, field_243363_u, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243363_u), 70, 10526880);
+            drawString(matrices, this.font, field_243358_p, this.width / 2 - 153, 110, 10526880);
+            this.integrityEdit.render(matrices, mouseX, mouseY, delta);
+            this.seedEdit.render(matrices, mouseX, mouseY, delta);
+            drawString(matrices, this.font, field_243363_u, this.width / 2 + 154 - this.font.getStringPropertyWidth(field_243363_u), 70, 10526880);
         }
 
         if (structuremode == StructureMode.DATA)
         {
-            drawString(matrixStack, this.font, field_243359_q, this.width / 2 - 153, 110, 10526880);
-            this.dataEdit.render(matrixStack, mouseX, mouseY, partialTicks);
+            drawString(matrices, this.font, field_243359_q, this.width / 2 - 153, 110, 10526880);
+            this.dataEdit.render(matrices, mouseX, mouseY, delta);
         }
 
-        drawString(matrixStack, this.font, structuremode.func_242703_b(), this.width / 2 - 153, 174, 10526880);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawString(matrices, this.font, structuremode.func_242703_b(), this.width / 2 - 153, 174, 10526880);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean isPauseScreen()

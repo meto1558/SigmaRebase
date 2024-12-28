@@ -87,11 +87,11 @@ public class ControlsScreen extends SettingsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.keyBindingList.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 8, 16777215);
+        this.renderBackground(matrices);
+        this.keyBindingList.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 8, 16777215);
         boolean flag = false;
 
         for (KeyBinding keybinding : this.gameSettings.keyBindings)
@@ -104,6 +104,6 @@ public class ControlsScreen extends SettingsScreen
         }
 
         this.buttonReset.active = flag;
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

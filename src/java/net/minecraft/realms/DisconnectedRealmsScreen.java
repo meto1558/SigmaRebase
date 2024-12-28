@@ -42,11 +42,11 @@ public class DisconnectedRealmsScreen extends RealmsScreen
         Minecraft.getInstance().displayGuiScreen(this.field_230716_p_);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.field_230713_a_, this.width / 2, this.height / 2 - this.field_230717_q_ / 2 - 9 * 2, 11184810);
-        this.field_243509_c.func_241863_a(matrixStack, this.width / 2, this.height / 2 - this.field_230717_q_ / 2);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.field_230713_a_, this.width / 2, this.height / 2 - this.field_230717_q_ / 2 - 9 * 2, 11184810);
+        this.field_243509_c.func_241863_a(matrices, this.width / 2, this.height / 2 - this.field_230717_q_ / 2);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

@@ -92,28 +92,28 @@ public class DeathScreen extends Screen
         this.minecraft.displayGuiScreen(new MainMenuScreen());
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.fillGradient(matrixStack, 0, 0, this.width, this.height, 1615855616, -1602211792);
+        this.fillGradient(matrices, 0, 0, this.width, this.height, 1615855616, -1602211792);
         RenderSystem.pushMatrix();
         RenderSystem.scalef(2.0F, 2.0F, 2.0F);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2 / 2, 30, 16777215);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2 / 2, 30, 16777215);
         RenderSystem.popMatrix();
 
         if (this.causeOfDeath != null)
         {
-            drawCenteredString(matrixStack, this.font, this.causeOfDeath, this.width / 2, 85, 16777215);
+            drawCenteredString(matrices, this.font, this.causeOfDeath, this.width / 2, 85, 16777215);
         }
 
-        drawCenteredString(matrixStack, this.font, this.field_243285_p, this.width / 2, 100, 16777215);
+        drawCenteredString(matrices, this.font, this.field_243285_p, this.width / 2, 100, 16777215);
 
         if (this.causeOfDeath != null && mouseY > 85 && mouseY < 85 + 9)
         {
             Style style = this.func_238623_a_(mouseX);
-            this.renderComponentHoverEffect(matrixStack, style, mouseX, mouseY);
+            this.renderComponentHoverEffect(matrices, style, mouseX, mouseY);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Nullable

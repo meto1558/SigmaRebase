@@ -60,12 +60,12 @@ public class RealmsBackupInfoScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, "Changes from last backup", this.width / 2, 10, 16777215);
-        this.field_224051_g.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, "Changes from last backup", this.width / 2, 10, 16777215);
+        this.field_224051_g.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private ITextComponent func_237733_a_(String p_237733_1_, String p_237733_2_)

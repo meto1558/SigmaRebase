@@ -172,12 +172,12 @@ public class RealmsResetWorldScreen extends NotifableRealmsScreen
         return this.width / 2 - 130 + (p_224434_1_ - 1) * 100;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.field_224460_f.func_239560_a_(this, matrixStack);
-        this.field_224461_g.func_239560_a_(this, matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        this.field_224460_f.func_239560_a_(this, matrices);
+        this.field_224461_g.func_239560_a_(this, matrices);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private void func_237948_a_(MatrixStack p_237948_1_, int p_237948_2_, int p_237948_3_, ITextComponent p_237948_4_, ResourceLocation p_237948_5_, boolean p_237948_6_, boolean p_237948_7_)

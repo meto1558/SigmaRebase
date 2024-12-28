@@ -83,25 +83,25 @@ public class InventoryScreen extends DisplayEffectsScreen<PlayerContainer> imple
         this.font.func_243248_b(matrixStack, this.title, (float)this.titleX, (float)this.titleY, 4210752);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         this.hasActivePotionEffects = !this.recipeBookGui.isVisible();
 
         if (this.recipeBookGui.isVisible() && this.widthTooNarrow)
         {
-            this.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, mouseX, mouseY);
-            this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.drawGuiContainerBackgroundLayer(matrices, delta, mouseX, mouseY);
+            this.recipeBookGui.render(matrices, mouseX, mouseY, delta);
         }
         else
         {
-            this.recipeBookGui.render(matrixStack, mouseX, mouseY, partialTicks);
-            super.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.recipeBookGui.func_230477_a_(matrixStack, this.guiLeft, this.guiTop, false, partialTicks);
+            this.recipeBookGui.render(matrices, mouseX, mouseY, delta);
+            super.render(matrices, mouseX, mouseY, delta);
+            this.recipeBookGui.func_230477_a_(matrices, this.guiLeft, this.guiTop, false, delta);
         }
 
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
-        this.recipeBookGui.func_238924_c_(matrixStack, this.guiLeft, this.guiTop, mouseX, mouseY);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
+        this.recipeBookGui.func_238924_c_(matrices, this.guiLeft, this.guiTop, mouseX, mouseY);
         this.oldMouseX = (float)mouseX;
         this.oldMouseY = (float)mouseY;
     }
