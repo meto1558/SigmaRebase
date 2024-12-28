@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
-import com.mentalfrostbyte.jello.gui.unmapped.TextBoxSettingDraw;
+import com.mentalfrostbyte.jello.gui.unmapped.SigmaClassicTextBox;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -14,8 +14,8 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
 public class ClassicEditAlt extends Screen {
-   public TextBoxSettingDraw field21027;
-   public TextBoxSettingDraw field21028;
+   public SigmaClassicTextBox field21027;
+   public SigmaClassicTextBox field21028;
    public Class4300 field21029;
    public Class4300 field21030;
    public AccountManager field21031 = Client.getInstance().accountManager;
@@ -28,9 +28,9 @@ public class ClassicEditAlt extends Screen {
       int var4 = 400;
       int var5 = 114;
       int var6 = (this.getWidthA() - var4) / 2;
-      this.addToList(this.field21027 = new TextBoxSettingDraw(this, "username", var6, var5, var4, 45, TextBoxSettingDraw.field20741, "", "New name", ResourceRegistry.DefaultClientFont));
+      this.addToList(this.field21027 = new SigmaClassicTextBox(this, "username", var6, var5, var4, 45, SigmaClassicTextBox.field20741, "", "New name", ResourceRegistry.DefaultClientFont));
       var5 += 80;
-      this.addToList(this.field21028 = new TextBoxSettingDraw(this, "password", var6, var5, var4, 45, TextBoxSettingDraw.field20741, "", "New password", ResourceRegistry.DefaultClientFont));
+      this.addToList(this.field21028 = new SigmaClassicTextBox(this, "password", var6, var5, var4, 45, SigmaClassicTextBox.field20741, "", "New password", ResourceRegistry.DefaultClientFont));
       var5 += 190;
       this.addToList(this.field21029 = new Class4300(this, "edit", var6, var5, var4, 40, "Edit", ClientColors.MID_GREY.getColor()));
       var5 += 50;
@@ -49,7 +49,7 @@ public class ClassicEditAlt extends Screen {
          var1.setPassword(this.field21028.getTypedText());
          this.field21032 = "Edited!";
       });
-      this.field21030.doThis((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager()));
+      this.field21030.doThis((var0, var1x) -> Client.getInstance().guiManager.method33482(new SigmaClassicAltManager()));
    }
 
    @Override
@@ -77,7 +77,7 @@ public class ClassicEditAlt extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       if (var1 == 256) {
-         Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager());
+         Client.getInstance().guiManager.method33482(new SigmaClassicAltManager());
       }
    }
 }

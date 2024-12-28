@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
-import com.mentalfrostbyte.jello.gui.unmapped.TextBoxSettingDraw;
+import com.mentalfrostbyte.jello.gui.unmapped.SigmaClassicTextBox;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -16,8 +16,8 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
 public class ClassicDirectLogin extends Screen {
-   public TextBoxSettingDraw field20985;
-   public TextBoxSettingDraw field20986;
+   public SigmaClassicTextBox field20985;
+   public SigmaClassicTextBox field20986;
    public Class4300 field20987;
    public Class4300 field20988;
    public Class4300 field20989;
@@ -31,10 +31,10 @@ public class ClassicDirectLogin extends Screen {
       int var4 = 114;
       int var5 = (this.getWidthA() - var3) / 2;
       this.addToList(
-         this.field20985 = new TextBoxSettingDraw(this, "username", var5, var4, var3, 45, TextBoxSettingDraw.field20741, "", "Username / E-Mail", ResourceRegistry.DefaultClientFont)
+         this.field20985 = new SigmaClassicTextBox(this, "username", var5, var4, var3, 45, SigmaClassicTextBox.field20741, "", "Username / E-Mail", ResourceRegistry.DefaultClientFont)
       );
       var4 += 80;
-      this.addToList(this.field20986 = new TextBoxSettingDraw(this, "password", var5, var4, var3, 45, TextBoxSettingDraw.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
+      this.addToList(this.field20986 = new SigmaClassicTextBox(this, "password", var5, var4, var3, 45, SigmaClassicTextBox.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
       var4 += 190;
       this.addToList(this.field20987 = new Class4300(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
       var4 += 50;
@@ -54,7 +54,7 @@ public class ClassicDirectLogin extends Screen {
             }
          }).start();
       });
-      this.field20988.doThis((var0, var1) -> Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager()));
+      this.field20988.doThis((var0, var1) -> Client.getInstance().guiManager.method33482(new SigmaClassicAltManager()));
       this.field20989.doThis((var1, var2) -> {
          String var5x = "";
 
@@ -97,7 +97,7 @@ public class ClassicDirectLogin extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       if (var1 == 256) {
-         Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager());
+         Client.getInstance().guiManager.method33482(new SigmaClassicAltManager());
       }
    }
 }

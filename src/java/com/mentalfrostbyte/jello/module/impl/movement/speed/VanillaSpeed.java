@@ -10,7 +10,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class VanillaSpeed extends Module {
     public VanillaSpeed() {
         super(ModuleCategory.MOVEMENT, "Vanilla", "Vanilla speed");
-        this.registerSetting(new NumberSetting("Speed", "Speed value", 4.0F, 1.0F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting("Speed", "Speed value", 4.0F, Float.class, 1.0F, 10.0F, 0.1F));
     }
 
     @EventTarget

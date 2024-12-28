@@ -889,7 +889,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         this.currentScreen = guiScreenIn;
         try {
-            Client.getInstance().guiManager.handle();
+            Client.getInstance().guiManager.method33481();
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

@@ -39,7 +39,7 @@ public class SigmaClassicAltManager extends Screen {
    private float field21063;
    private Class2209 field21064 = Class2209.field14448;
    private boolean field21065 = false;
-   private TextBoxSettingDraw field21066;
+   private SigmaClassicTextBox field21066;
    private ClassicAltManager field21067;
    private String status = "§7Idle...";
 
@@ -63,7 +63,7 @@ public class SigmaClassicAltManager extends Screen {
 
       int var9 = 790;
       this.addToList(
-         this.field21066 = new TextBoxSettingDraw(
+         this.field21066 = new SigmaClassicTextBox(
             this,
             "textbox",
             (Minecraft.getInstance().getMainWindow().getWidth() - var9) / 2 - 140,

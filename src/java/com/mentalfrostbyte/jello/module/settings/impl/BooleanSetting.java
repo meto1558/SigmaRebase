@@ -10,12 +10,13 @@ public class BooleanSetting extends Setting<Boolean> {
       super(name, description, SettingType.BOOLEAN, value);
    }
 
+
    public void updateCurrentValue(Boolean value, boolean notify) {
       super.updateCurrentValue(value, notify);
    }
 
    public Boolean getCurrentValue() {
-      return this.currentValue;
+      return this.defaultValue;
    }
 
    @Override

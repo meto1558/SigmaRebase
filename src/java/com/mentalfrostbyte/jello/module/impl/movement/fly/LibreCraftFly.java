@@ -16,7 +16,7 @@ public class LibreCraftFly extends Module {
 
     public LibreCraftFly() {
         super(ModuleCategory.MOVEMENT, "LibreCraft", "A fly for LibreCraft");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.3F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.3F, 10.0F, 0.1F));
     }
 
     @Override

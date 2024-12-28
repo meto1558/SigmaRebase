@@ -26,8 +26,19 @@ public class ResourceRegistry {
     public static final TrueTypeFont JelloMediumFont40 = getFont("com/mentalfrostbyte/gui/resources/font/helvetica-neue medium.ttf", 0, 40.0F);
     public static final TrueTypeFont JelloMediumFont50 = getFont("com/mentalfrostbyte/gui/resources/font/helvetica-neue medium.ttf", 0, 50.0F);
     public static final DefaultClientFont DefaultClientFont = new DefaultClientFont(2);
-    public static final TrueTypeFont JelloLightFont18_1 = getFont("com/mentalfrostbyte/gui/resources/font/helvetica-neue-light.ttf", 0, 18.0F);
-    public static final TrueTypeFont JelloMediumFont20_1 = getFont("com/mentalfrostbyte/gui/resources/font/helvetica-neue medium.ttf", 0, 20.0F);
+    public static final TrueTypeFont JelloLightFont18_1 = getFont2("com/mentalfrostbyte/gui/resources/font/helvetica-neue-light.ttf", 0, 18.0F);
+    public static final TrueTypeFont JelloMediumFont20_1 = getFont2("com/mentalfrostbyte/gui/resources/font/helvetica-neue medium.ttf", 0, 20.0F);
+
+    public static TrueTypeFont getFont2(String fontPath, int style, float size) {
+        try {
+            InputStream fontFile = Resources.readInputStream(fontPath);
+            Font font = Font.createFont(0, fontFile);
+            font = font.deriveFont(style, size);
+            return new TrueTypeFont(font, (int) size);
+        } catch (Exception ex) {
+            return new TrueTypeFont(new Font("Arial", Font.PLAIN, (int) size), true);
+        }
+    }
 
     public static TrueTypeFont getFont(String fontPath, int style, float size) {
         try {

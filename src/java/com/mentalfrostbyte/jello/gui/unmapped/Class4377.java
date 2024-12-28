@@ -6,32 +6,32 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
 
-public class IdkSettingDraw extends PNGIconButton {
+public class Class4377 extends PNGIconButton {
    private String[] field21384;
    private int field21385;
 
-   public IdkSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10, TrueTypeFont var11) {
+   public Class4377(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10, TrueTypeFont var11) {
       super(var1, var2, var3, var4, var5, var6, Resources.skinPNG, var9, var10, var11);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
    }
 
-   public IdkSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10) {
+   public Class4377(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10) {
       super(var1, var2, var3, var4, var5, var6, Resources.skinPNG, var9, var10);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
    }
 
-   public IdkSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9) {
+   public Class4377(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9) {
       super(var1, var2, var3, var4, var5, var6, Resources.skinPNG, var9);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
    }
 
-   public IdkSettingDraw(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8) {
+   public Class4377(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8) {
       super(var1, var2, var3, var4, var5, var6, Resources.skinPNG);
       this.field21384 = var7;
       this.field21385 = var8;

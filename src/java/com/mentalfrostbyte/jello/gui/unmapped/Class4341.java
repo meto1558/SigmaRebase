@@ -15,15 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class4341 extends Class4339 implements Class4342 {
-   public final ModuleCategory category;
+   public final ModuleCategory field21214;
    private List<ButtonPanel> field21215 = new ArrayList<ButtonPanel>();
    private boolean field21216;
    private boolean field21217;
    private float field21218 = 1.0F;
 
-   public Class4341(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ModuleCategory category) {
+   public Class4341(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ModuleCategory var7) {
       super(var1, var2, var3, var4, var5, var6);
-      this.category = category;
+      this.field21214 = var7;
       this.field21217 = true;
       ((JelloClickGUIPanels)var1).field21195 = 1.0F;
       this.field21217 = true;
@@ -32,21 +32,21 @@ public class Class4341 extends Class4339 implements Class4342 {
    }
 
    public void method13511() {
-      int offset = 0;
+      int var3 = 0;
 
-      for (Module module : Client.getInstance().moduleManager.getModulesByCategory(this.category)) {
-         int clr = ColorUtils.applyAlpha(-3487030, 0.0F);
-         ColorHelper backgroundColor = new ColorHelper(!module.isEnabled() ? 1895167477 : -14047489, !module.isEnabled() ? clr : -14042881)
-            .method19410(!module.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
-         backgroundColor.method19412(Class2218.field14488);
+      for (Module var5 : Client.getInstance().moduleManager.getModulesByCategory(this.field21214)) {
+         int var9 = ColorUtils.applyAlpha(-3487030, 0.0F);
+         ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
+            .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
+         var12.method19412(Class2218.field14488);
          ButtonPanel var13;
          this.getButton()
             .addToList(
                var13 = new ButtonPanel(
-                  this.getButton(), module.getName() + "Button", 0, offset * 30, this.getWidthA(), 30, backgroundColor, module.getName(), ResourceRegistry.JelloLightFont20
+                  this.getButton(), var5.getName() + "Button", 0, var3 * 30, this.getWidthA(), 30, var12, var5.getName(), ResourceRegistry.JelloLightFont20
                )
             );
-         if (!module.isEnabled()) {
+         if (!var5.isEnabled()) {
             var13.method13034(22);
          } else {
             var13.method13034(30);
@@ -59,13 +59,13 @@ public class Class4341 extends Class4339 implements Class4342 {
                if (var4 != 0) {
                   if (var4 == 1) {
                      JelloClickGUIPanels var8 = (JelloClickGUIPanels)this.getScreen();
-                     var8.method13508(module);
+                     var8.method13508(var5);
                   }
                } else {
-                  module.toggle();
-                  ColorHelper var9x = new ColorHelper(!module.isEnabled() ? 1895167477 : -14047489, !module.isEnabled() ? clr : -14042881)
-                     .method19410(!module.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
-                  if (!module.isEnabled()) {
+                  var5.toggle();
+                  ColorHelper var9x = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
+                     .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                  if (!var5.isEnabled()) {
                      var7.method13034(22);
                   } else {
                      var7.method13034(30);
@@ -77,7 +77,7 @@ public class Class4341 extends Class4339 implements Class4342 {
             }
          );
          var13.setSize(new Class6666());
-         offset++;
+         var3++;
       }
 
       this.getButton().method13246(new Class7262(1));
