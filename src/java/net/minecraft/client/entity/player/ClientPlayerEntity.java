@@ -1,6 +1,8 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.collect.Lists;
+
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -1166,9 +1168,9 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
 
     public void move(MoverType typeIn, Vector3d pos) {
         EventMove eventMove = new EventMove(pos);
-        EventBus.call(eventMove);
+        try { EventBus.call(eventMove); } catch (ConcurrentModificationException ignored) {}
 
-        if(eventMove.cancelled){
+        if(eventMove.cancelled) {
             return;
         }
 
