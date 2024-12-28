@@ -10,18 +10,18 @@ public class Class4270 extends UIBase {
    public Class4270(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 1060, 357, false);
 
-      for (Class2287 key : Class2287.values()) {
+      for (Keys key : Keys.values()) {
          Class4268 var11;
          this.addToList(
             var11 = new Class4268(
                this,
-               "KEY_" + key.field15204 + this.method13241().size(),
-               key.method9027(),
+               "KEY_" + key.row + this.method13241().size(),
+               key.getX(),
                key.method9026(),
-               key.method9028(),
+               key.getY(),
                key.method9029(),
-               key.field15201,
-               key.field15204
+               key.name,
+               key.row
             )
          );
          var11.doThis((var2x, var3x) -> {
@@ -46,8 +46,8 @@ public class Class4270 extends UIBase {
 
    @Override
    public void keyPressed(int keycode) {
-      for (Class2287 var7 : Class2287.values()) {
-         if (var7.field15204 == keycode) {
+      for (Keys var7 : Keys.values()) {
+         if (var7.row == keycode) {
             super.keyPressed(keycode);
             return;
          }
@@ -68,9 +68,9 @@ public class Class4270 extends UIBase {
    }
 
    public int[] method13105(int keycode) {
-      for (Class2287 var7 : Class2287.values()) {
-         if (var7.field15204 == keycode) {
-            return new int[]{var7.method9027() + var7.method9028() / 2, var7.method9026() + var7.method9029()};
+      for (Keys var7 : Keys.values()) {
+         if (var7.row == keycode) {
+            return new int[]{var7.getX() + var7.getY() / 2, var7.method9026() + var7.method9029()};
          }
       }
 
