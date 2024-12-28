@@ -13,20 +13,53 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A TrueType font implementation for Slick
+ *
+ * @author James Chambers (Jimmy)
+ * @author Jeremy Adams (elias4444)
+ * @author Kevin Glass (kevglass)
+ * @author Peter Korzuszek (genail)
+ */
 public class TrueTypeFont implements Font {
+    /** The renderer to use for all GL operations */
     private static final SGL GL = Renderer.get();
     private final int size;
     public Texture fontTexture;
+    /** Array that holds necessary information about the font characters */
     private final IntObject[] charArray = new IntObject[256];
+    /** Map of user defined font characters (Character <-> IntObject) */
     private final Map customChars = new HashMap();
+    /** Boolean flag on whether AntiAliasing is enabled or not */
     private final boolean antiAlias;
+    /** Font's size */
     private int fontSize = 0;
+    /** Font's height */
     private int fontHeight = 0;
+    /** Default font texture width */
     private int textureWidth = 512;
+
+    /** Default font texture height */
     private int textureHeight = 512;
+    /** A reference to Java's AWT Font that we create our font texture from */
     private final java.awt.Font font;
+
+    /** The font metrics for our Java AWT font */
     private FontMetrics fontMetrics;
 
+    /**
+     * Constructor for the TrueTypeFont class Pass in the preloaded standard
+     * Java TrueType font, and whether you want it to be cached with
+     * AntiAliasing applied.
+     *
+     * @param font
+     *            Standard Java AWT font
+     * @param antiAlias
+     *            Whether to apply AntiAliasing to the cached font
+     * @param additionalChars
+     *            Characters of font that will be used in addition of first 256 (by Unicode).
+     * @param size The size of the font
+     */
     public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars, int size) {
         GLUtils.checkGLContext();
         this.font = font;
@@ -41,6 +74,16 @@ public class TrueTypeFont implements Font {
         this.createSet(additionalChars);
     }
 
+    /**
+     * Constructor for the TrueTypeFont class Pass in the preloaded standard
+     * Java TrueType font, and whether you want it to be cached with
+     * AntiAliasing applied.
+     *
+     * @param font
+     *            Standard Java AWT font
+     * @param antiAlias
+     *            Whether to apply AntiAliasing to the cached font
+     */
     public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars) {
         this(font, antiAlias, additionalChars, 0);
     }
@@ -53,6 +96,14 @@ public class TrueTypeFont implements Font {
         this(font, true, null, size);
     }
 
+    /**
+     * Create a standard Java2D BufferedImage of the given character
+     *
+     * @param of
+     *            The character to create a BufferedImage for
+     *
+     * @return A BufferedImage containing the character
+     */
     private BufferedImage getFontImage(char of) {
         BufferedImage bufferedImage = new BufferedImage(1, 1, 2);
         Graphics2D g2d = (Graphics2D) bufferedImage.getGraphics();
@@ -101,10 +152,20 @@ public class TrueTypeFont implements Font {
         return charWidth;
     }
 
+    /**
+     * Create and store the font
+     *
+     * @param customCharsArray Characters that should be also added to the cache.
+     */
     private void createSet(char[] customCharsArray) {
+        // If there are custom chars then I expand the font texture twice
         if (customCharsArray != null && customCharsArray.length > 0) {
             this.textureWidth *= 2;
         }
+
+        // In any case this should be done in other way. Texture with size 512x512
+        // can maintain only 256 characters with resolution of 32x32. The texture
+        // size should be calculated dynamically by looking at character sizes.
 
         try {
             BufferedImage bufferedImage = this.getFontImage('\u0000');
@@ -113,8 +174,8 @@ public class TrueTypeFont implements Font {
                 this.textureHeight *= 2;
             }
 
-            BufferedImage bufferedImage2 = new BufferedImage(this.textureWidth, this.textureHeight, 2);
-            Graphics2D g2d = (Graphics2D) bufferedImage2.getGraphics();
+            BufferedImage imgTemp = new BufferedImage(this.textureWidth, this.textureHeight, 2);
+            Graphics2D g2d = (Graphics2D) imgTemp.getGraphics();
             g2d.setColor(new java.awt.Color(255, 255, 255, 1));
             g2d.fillRect(0, 0, this.textureWidth, this.textureHeight);
             int rowHeight = 0;
@@ -122,44 +183,46 @@ public class TrueTypeFont implements Font {
             int positionY = 0;
             int customCharsLength = customCharsArray != null ? customCharsArray.length : 0;
 
-            for (int var11 = 0; var11 < 256 + customCharsLength; var11++) {
-                char var12 = var11 < 256 ? (char) var11 : customCharsArray[var11 - 256];
-                BufferedImage var13 = this.getFontImage(var12);
-                IntObject var14 = new IntObject();
-                var14.width = var13.getWidth();
-                var14.height = var13.getHeight();
+            for (int i = 0; i < 256 + customCharsLength; i++) {
+                // get 0-255 characters and then custom characters
+                char ch = i < 256 ? (char) i : customCharsArray[i - 256];
+                BufferedImage var13 = this.getFontImage(ch);
+                IntObject newIntObject = new IntObject();
+                newIntObject.width = var13.getWidth();
+                newIntObject.height = var13.getHeight();
                 if (this.size > 0) {
-                    var14.actualWidth = this.method23949(var12);
+                    newIntObject.actualWidth = this.method23949(ch);
                 } else {
-                    var14.actualWidth = var14.width;
+                    newIntObject.actualWidth = newIntObject.width;
                 }
 
-                if (positionX + var14.width >= this.textureWidth) {
+                if (positionX + newIntObject.width >= this.textureWidth) {
                     positionX = 0;
                     positionY += rowHeight;
                     rowHeight = 0;
                 }
 
-                var14.storedX = positionX;
-                var14.storedY = positionY;
-                if (var14.height > this.fontHeight) {
-                    this.fontHeight = var14.height;
+                newIntObject.storedX = positionX;
+                newIntObject.storedY = positionY;
+                if (newIntObject.height > this.fontHeight) {
+                    this.fontHeight = newIntObject.height;
                 }
 
-                if (var14.height > rowHeight) {
-                    rowHeight = var14.height + 1;
+                if (newIntObject.height > rowHeight) {
+                    rowHeight = newIntObject.height + 1;
                 }
 
+                // Draw it here
                 g2d.drawImage(var13, positionX, positionY, null);
-                positionX += var14.width + 1;
-                if (var11 < 256) {
-                    this.charArray[var11] = var14;
-                } else {
-                    this.customChars.put(new Character(var12), var14);
+                positionX += newIntObject.width + 1;
+                if (i < 256) { // standard characters
+                    this.charArray[i] = newIntObject;
+                } else { // custom characters
+                    this.customChars.put(ch, newIntObject);
                 }
             }
 
-            this.fontTexture = BufferedImageUtil.getTexture(this.font.toString(), bufferedImage2);
+            this.fontTexture = BufferedImageUtil.getTexture(this.font.toString(), imgTemp);
         } catch (IOException var15) {
             System.err.println("Failed to create font.");
             var15.printStackTrace();
@@ -322,16 +385,35 @@ public class TrueTypeFont implements Font {
         GL.glEnd();
     }
 
+    /**
+     * Draw a string
+     *
+     * @param x
+     *            The x position to draw the string
+     * @param y
+     *            The y position to draw the string
+     * @param string
+     *            The string to draw
+     */
     @Override
     public void drawString(float x, float y, String string) {
         this.drawString(x, y, string, Color.white);
     }
 
+    /**
+     * This is a special internal class that holds our necessary information for
+     * the font characters. This includes width, height, and where the character
+     * is stored on the font texture.
+     */
     public static class IntObject {
+        /** Character's width */
        public int width;
        public int actualWidth;
+        /** Character's height */
        public int height;
+        /** Character's stored x position */
        public int storedX;
+        /** Character's stored y position */
        public int storedY;
     }
 }
