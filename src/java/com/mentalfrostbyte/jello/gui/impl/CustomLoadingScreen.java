@@ -17,24 +17,24 @@ import java.util.function.Consumer;
 
 public class CustomLoadingScreen extends LoadingGui {
 
-    private Minecraft mc;
-    private final IAsyncReloader reloader;
-    private final Consumer<Optional<Throwable>> throwable;
-    private final boolean b;
+    private final Minecraft client;
+    private final IAsyncReloader reloadMonitor;
+    private final Consumer<Optional<Throwable>> exceptionHandler;
+    private final boolean reloading;
 
     public static Texture sigmaLogo;
     public static Texture back;
     public static Texture background;
 
-    private float field6771;
-    private long field6772 = -1L;
-    private long field6773 = -1L;
+    private float progress;
+    private long applyCompleteTime = -1L;
+    private long prepareCompleteTime = -1L;
 
-    public CustomLoadingScreen(Minecraft mc, IAsyncReloader r, Consumer<Optional<Throwable>> t, boolean b) {
-        this.mc = mc;
-        this.reloader = r;
-        this.throwable = t;
-        this.b = b;
+    public CustomLoadingScreen(Minecraft client, IAsyncReloader monitor, Consumer<Optional<Throwable>> exceptionHandler, boolean reloading) {
+        this.client = client;
+        this.reloadMonitor = monitor;
+        this.exceptionHandler = exceptionHandler;
+        this.reloading = reloading;
 
         sigmaLogo = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/logo.png");
         back = Resources.loadTexture("com/mentalfrostbyte/gui/resources/loading/back.png");
@@ -42,42 +42,42 @@ public class CustomLoadingScreen extends LoadingGui {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         long var9 = Util.milliTime();
-        if (this.b && (this.reloader.asyncPartDone() || this.mc.currentScreen != null) && this.field6773 == -1L) {
-            this.field6773 = var9;
+        if (this.reloading && (this.reloadMonitor.asyncPartDone() || this.client.currentScreen != null) && this.prepareCompleteTime == -1L) {
+            this.prepareCompleteTime = var9;
         }
 
-        float var11 = this.field6772 > -1L ? (float)(var9 - this.field6772) / 200.0F : -1.0F;
-        float var12 = this.field6773 > -1L ? (float)(var9 - this.field6773) / 100.0F : -1.0F;
+        float var11 = this.applyCompleteTime > -1L ? (float)(var9 - this.applyCompleteTime) / 200.0F : -1.0F;
+        float var12 = this.prepareCompleteTime > -1L ? (float)(var9 - this.prepareCompleteTime) / 100.0F : -1.0F;
         float var13 = 1.0F;
-        float var16 = this.reloader.estimateExecutionSpeed();
-        this.field6771 = this.field6771 * 0.95F + var16 * 0.050000012F;
+        float var16 = this.reloadMonitor.estimateExecutionSpeed();
+        this.progress = this.progress * 0.95F + var16 * 0.050000012F;
         GL11.glPushMatrix();
         float var17 = 1111.0F;
-        if (this.mc.getMainWindow().getWidth() != 0) {
-            var17 = (float)(this.mc.getMainWindow().getFramebufferWidth() / this.mc.getMainWindow().getWidth());
+        if (this.client.getMainWindow().getWidth() != 0) {
+            var17 = (float)(this.client.getMainWindow().getFramebufferWidth() / this.client.getMainWindow().getWidth());
         }
 
-        float var18 = (float)this.mc.getMainWindow().calcGuiScale(this.mc.gameSettings.guiScale, this.mc.getForceUnicodeFont()) * var17;
+        float var18 = (float)this.client.getMainWindow().calcGuiScale(this.client.gameSettings.guiScale, this.client.getForceUnicodeFont()) * var17;
         GL11.glScalef(1.0F / var18, 1.0F / var18, 0.0F);
-        xd(var13, this.field6771);
+        xd(var13, this.progress);
         GL11.glPopMatrix();
         if (var11 >= 2.0F) {
-            this.mc.setLoadingGui(null);
+            this.client.setLoadingGui(null);
         }
 
-        if (this.field6772 == -1L && this.reloader.fullyDone() && (!this.b || var12 >= 2.0F)) {
+        if (this.applyCompleteTime == -1L && this.reloadMonitor.fullyDone() && (!this.reloading || var12 >= 2.0F)) {
             try {
-                this.reloader.join();
-                this.throwable.accept(Optional.empty());
+                this.reloadMonitor.join();
+                this.exceptionHandler.accept(Optional.empty());
             } catch (Throwable var20) {
-                this.throwable.accept(Optional.of(var20));
+                this.exceptionHandler.accept(Optional.of(var20));
             }
 
-            this.field6772 = Util.milliTime();
-            if (this.mc.currentScreen != null) {
-                this.mc.currentScreen.init(this.mc, this.mc.getMainWindow().getScaledWidth(), this.mc.getMainWindow().getScaledHeight());
+            this.applyCompleteTime = Util.milliTime();
+            if (this.client.currentScreen != null) {
+                this.client.currentScreen.init(this.client, this.client.getMainWindow().getScaledWidth(), this.client.getMainWindow().getScaledHeight());
             }
         }
     }
@@ -122,10 +122,5 @@ public class CustomLoadingScreen extends LoadingGui {
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * var0)
         );
         GL11.glPopMatrix();
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return true;
     }
 }
