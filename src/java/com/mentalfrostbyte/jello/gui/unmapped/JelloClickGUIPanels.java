@@ -101,14 +101,14 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
          (float)this.field21199 + (1.0F - this.field21195) * (float)var4,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + 60),
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, var1 * 0.9F * this.field21195))
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.getXA(),
          (float)this.getYA() + 60.0F * this.field21195,
          (float)this.getWidthA(),

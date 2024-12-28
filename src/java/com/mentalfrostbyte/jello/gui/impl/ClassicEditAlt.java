@@ -55,8 +55,8 @@ public class ClassicEditAlt extends Screen {
    @Override
    public void draw(float var1) {
       RenderUtil.method11455(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
-      RenderUtil.drawRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.PALE_RED.getColor(), 0.1F));
-      RenderUtil.drawRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.95F));
+      RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.PALE_RED.getColor(), 0.1F));
+      RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.95F));
       RenderUtil.drawString(
          ResourceRegistry.DefaultClientFont, (float)(this.getWidthA() / 2), 20.0F, "Edit Alt", ClientColors.LIGHT_GREYISH_BLUE.getColor(), Class2218.field14492, Class2218.field14488
       );

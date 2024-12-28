@@ -79,7 +79,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
          }
 
          RenderUtil.method11415(this);
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),
@@ -110,7 +110,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
 
          GL11.glPopMatrix();
          RenderUtil.endScissor();
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),

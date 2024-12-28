@@ -30,11 +30,11 @@ public class Class4333 extends CustomGuiScreen {
          (float)(this.method13272() + this.getHeightA()) - var6
       );
       if (var4 != 0.0F) {
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, ColorUtils.applyAlpha(-2500135, 0.9F)
          );
       } else {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.widthA - 1),

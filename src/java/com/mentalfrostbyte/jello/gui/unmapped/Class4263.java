@@ -28,7 +28,7 @@ public class Class4263 extends UIBase {
          (float)this.widthA,
          ColorUtils.applyAlpha(ClientColors.PALE_YELLOW.getColor(), (0.5F + this.field20678 * 0.3F + (!this.field20909 ? 0.0F : 0.2F)) * var1)
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + (this.widthA - 10) / 2),
          (float)(this.yA + this.heightA / 2 - 1),
          10.0F,

@@ -239,7 +239,7 @@ public class JelloClickGUI extends Screen {
          ? this.method13317(field20942.calcPercent(), 0.8F) * 0.5F + 0.5F
          : (!field20944 ? 1.0F : this.method13317(field20942.calcPercent(), 1.0F));
       float var5 = 0.2F * var1 * var4;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),

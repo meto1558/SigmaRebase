@@ -53,7 +53,7 @@ public class Class4355 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -76,13 +76,13 @@ public class Class4355 extends UIBase {
       );
       int var5 = this.widthA - 43;
       float var6 = !this.method13216() ? 0.2F : 0.4F;
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.method11438(

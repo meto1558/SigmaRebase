@@ -106,7 +106,7 @@ public class SwitchScreen extends Screen {
             float var7 = MathUtils.lerp(field21069.calcPercent(), 0.16, 0.71, 0.0, 0.99);
             int var8 = (Minecraft.getInstance().getMainWindow().getWidth() - 455) / 2;
             int var9 = (int) ((float) ((Minecraft.getInstance().getMainWindow().getHeight() - 78) / 2 - 14) - 116.0F * var7);
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                     0.0F,
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
@@ -122,7 +122,7 @@ public class SwitchScreen extends Screen {
                     CustomLoadingScreen.background,
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - field21069.calcPercent())
             );
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                     0.0F,
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),

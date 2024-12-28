@@ -53,7 +53,7 @@ public class UIButton extends UIBase {
             this.textColor.method19411(),
             this.textColor.method19413()
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)var5 - (float)(var7 / 2) * var9,
                  var6 + var8,
             (float)var5 + (float)(var7 / 2) * var9,

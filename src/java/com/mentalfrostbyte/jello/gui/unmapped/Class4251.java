@@ -59,7 +59,7 @@ public class Class4251 extends UIBase {
          var5 = 0.95F;
       }
 
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -89,7 +89,7 @@ public class Class4251 extends UIBase {
       this.field20614.draw(var1);
       GL11.glPopMatrix();
       RenderUtil.method11478();
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + this.field20616),
          (float)(this.yA + 0),
          1.0F,

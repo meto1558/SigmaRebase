@@ -791,12 +791,10 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 this.resourcePackRepository.reloadPacksFromFinders();
                 List<IResourcePack> list = this.resourcePackRepository.func_232623_f_();
                 this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
-                {
-                    Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
-                        this.worldRenderer.loadRenderers();
-                        completablefuture.complete((Void) null);
-                    });
-                }, true));
+                        Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
+                            this.worldRenderer.loadRenderers();
+                            completablefuture.complete(null);
+                        }), true));
                 return completablefuture;
             }
         }

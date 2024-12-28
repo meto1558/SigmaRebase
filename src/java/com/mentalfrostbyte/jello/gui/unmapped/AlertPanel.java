@@ -218,7 +218,7 @@ public class AlertPanel extends UIBase {
             this.field21281,
                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var7)
          );
          if (var4 > 0) {

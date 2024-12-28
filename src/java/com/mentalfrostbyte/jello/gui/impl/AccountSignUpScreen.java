@@ -85,7 +85,7 @@ public class AccountSignUpScreen extends UIBase {
       if (var7 != null) {
          this.captchaBox.setEnabled(var7.method36702());
          if (var7.method36702()) {
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                (float)(this.xA + var6), (float)(this.yA + var5), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
             );
          }

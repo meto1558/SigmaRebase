@@ -135,7 +135,7 @@ public class Class4266 extends UIBase {
             }
 
             RenderUtil.method11478();
-            RenderUtil.drawRect(
+            RenderUtil.drawRoundedRect(
                (float)this.xA,
                (float)this.yA,
                (float)this.widthA,
@@ -151,7 +151,7 @@ public class Class4266 extends UIBase {
                "+",
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
             );
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                (float)(this.xA + 16), (float)(this.yA + 65), 8.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
             );
          }

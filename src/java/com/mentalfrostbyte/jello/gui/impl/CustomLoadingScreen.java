@@ -86,7 +86,7 @@ public class CustomLoadingScreen extends LoadingGui {
         GL11.glEnable(3008);
         GL11.glEnable(3042);
         RenderUtil.drawImage(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), background, var0);
-        RenderUtil.renderBackgroundBox(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), ColorUtils.applyAlpha(0, 0.75F));
+        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), ColorUtils.applyAlpha(0, 0.75F));
         int var4 = 455;
         int var5 = 78;
         int var6 = (Minecraft.getInstance().getMainWindow().getWidth() - var4) / 2;
@@ -100,10 +100,10 @@ public class CustomLoadingScreen extends LoadingGui {
         float var9 = Math.min(1.0F, var1 * 1.02F);
         float var11 = 80;
         if (var0 == 1.0F) {
-            RenderUtil.drawRect(
+            RenderUtil.drawRoundedRect(
                     (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * var0)
             );
-            RenderUtil.drawRect(
+            RenderUtil.drawRoundedRect(
                     (float)(var6 + 1),
                     (float)(var7 + var5 + var11 + 1),
                     (float)(var4 - 2),
@@ -113,7 +113,7 @@ public class CustomLoadingScreen extends LoadingGui {
             );
         }
 
-        RenderUtil.drawRect(
+        RenderUtil.drawRoundedRect(
                 (float)(var6 + 2),
                 (float)(var7 + var5 + var11 + 2),
                 (float)((int)((float)(var4 - 4) * var9)),

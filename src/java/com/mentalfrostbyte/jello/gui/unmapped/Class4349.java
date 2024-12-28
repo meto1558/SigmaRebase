@@ -53,7 +53,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
       this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
       this.field21258 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
       if (this.field21254 || this.method13212() || this.method13298()) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),

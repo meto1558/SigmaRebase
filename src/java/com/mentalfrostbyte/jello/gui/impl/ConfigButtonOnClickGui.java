@@ -164,14 +164,14 @@ public class ConfigButtonOnClickGui extends UIBase {
          35.0F,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + var5 / 2),
          (float)(this.yA + var5 / 2),
          (float)(this.xA - var5 / 2 + this.widthA),
          (float)(this.yA - var5 / 2 + this.heightA),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
       );
-      RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
+      RenderUtil.drawRoundedRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
       float var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
       if (this.field21300.field20703.getDirection() == Direction.BACKWARDS) {
          var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16)) * 0.1F;
@@ -185,7 +185,7 @@ public class ConfigButtonOnClickGui extends UIBase {
          "Profiles",
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * var1)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + 25),
          (float)(this.yA + 69),
          (float)(this.xA + this.widthA - 25),

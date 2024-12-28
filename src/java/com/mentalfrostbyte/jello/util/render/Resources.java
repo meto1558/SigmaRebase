@@ -108,7 +108,6 @@ public class Resources {
     public static TrueTypeFont bold14 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Bold.ttf", 0, 14.0F);
     public static TrueTypeFont medium17 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Medium.ttf", 0, 17.0F);
 
-
     public static Texture loadTexture(String filePath) {
         try {
             String extension = filePath.substring(filePath.lastIndexOf(".") + 1).toUpperCase();

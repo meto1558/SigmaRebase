@@ -30,8 +30,6 @@ import net.sourceforge.jaad.mp4.api.AudioTrack;
 import net.sourceforge.jaad.mp4.api.Frame;
 import net.sourceforge.jaad.mp4.api.Movie;
 import net.sourceforge.jaad.mp4.api.Track;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -208,7 +206,7 @@ public class MusicManager {
                         float var6 = 1.0F - (float) (var5 + 1) / var3;
                         float var7 = (float) mc.getMainWindow().getHeight() / 1080.0F;
                         float var8 = ((float) (Math.sqrt(this.field32165.get(var5)) / 12.0) - 5.0F) * var7;
-                        RenderUtil.renderBackgroundBox(
+                        RenderUtil.drawRoundedRect2(
                                 (float) var5 * var4,
                                 (float) mc.getMainWindow().getHeight() - var8,
                                 var4,
@@ -222,7 +220,7 @@ public class MusicManager {
                     for (int var13 = 0; (float) var13 < var3; var13++) {
                         float var14 = (float) mc.getMainWindow().getHeight() / 1080.0F;
                         float var15 = ((float) (Math.sqrt(this.field32165.get(var13)) / 12.0) - 5.0F) * var14;
-                        RenderUtil.renderBackgroundBox((float) var13 * var4, (float) mc.getMainWindow().getHeight() - var15, var4, var15, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                        RenderUtil.drawRoundedRect2((float) var13 * var4, (float) mc.getMainWindow().getHeight() - var15, var4, var15, ClientColors.LIGHT_GREYISH_BLUE.getColor());
                     }
 
                     RenderUtil.method11477(Class2329.field15940);

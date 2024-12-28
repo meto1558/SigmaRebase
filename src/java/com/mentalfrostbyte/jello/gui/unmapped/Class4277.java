@@ -71,10 +71,10 @@ public class Class4277 extends UIBase {
       int var8 = this.getXA() + this.field20734.getWidthA() / 4 + 3;
       int var9 = this.getYA() + this.getHeightA() / 2 - var6 / 2;
       int var10 = this.field20734.getXA() + this.field20734.getWidthA() / 2 - 6;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)var8, (float)var9, (float)var10, (float)var6, (float)(var6 / 2), ColorUtils.applyAlpha(this.textColor.method19405(), var1 * var1 * var1)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(var8 + var10),
          (float)var9,
          (float)(var7 - var10),

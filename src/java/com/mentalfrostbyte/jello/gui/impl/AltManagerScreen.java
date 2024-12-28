@@ -14,11 +14,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import totalcross.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -414,7 +412,7 @@ public class AltManagerScreen extends Screen {
          this.field21005 = (int)((float)this.field21005 + var6 * var7);
       }
 
-      RenderUtil.drawRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
+      RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
    }
 
    @Override

@@ -39,7 +39,7 @@ public class UICheckBox extends UIBase {
    @Override
    public void draw(float var1) {
       float var4 = !this.method13212() ? 0.43F : 0.6F;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -48,7 +48,7 @@ public class UICheckBox extends UIBase {
          ColorUtils.applyAlpha(-4144960, var4 * this.field21370.calcPercent() * var1)
       );
       float var5 = (1.0F - this.field21370.calcPercent()) * var1;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,

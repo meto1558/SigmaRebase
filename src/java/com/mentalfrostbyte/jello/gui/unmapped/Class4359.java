@@ -42,7 +42,7 @@ public class Class4359 extends UIBase {
       }
 
       if (var4 == 0 && !this.field21314.method24319()) {
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.getXA(),
             (float)this.getYA(),
             (float)this.getWidthA(),
@@ -50,21 +50,21 @@ public class Class4359 extends UIBase {
             ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
          );
       } else {
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.getXA(),
             (float)this.getYA(),
             (float)this.getWidthA(),
             (float)this.getHeightA(),
                  ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.075F)
          );
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.getXA() + (float)this.getWidthA() * var9,
             (float)this.getYA(),
             (float)this.getWidthA() * (1.0F - var9),
             (float)this.getHeightA(),
                  ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
          );
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.getXA(),
             (float)this.getYA(),
             (float)this.getWidthA() * var8,

@@ -48,7 +48,7 @@ public class ButtonPanel extends UIBase {
       int var8 = var5 >> 8 & 0xFF;
       int var9 = var5 & 0xFF;
       if (this.field20586 <= 0) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.getXA(),
             (float)this.getYA(),
             (float)(this.getXA() + this.getWidthA()),

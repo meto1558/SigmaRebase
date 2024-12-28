@@ -120,7 +120,7 @@ public class Class4272 extends UIBase {
             ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * var1 * 0.3F)
          );
          RenderUtil.method11415(this);
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, ColorUtils.applyAlpha(-723724, var1)
          );
          if (field20706 != null && Class8233.field35347 != null && Class8233.field35347.isEmpty()) {

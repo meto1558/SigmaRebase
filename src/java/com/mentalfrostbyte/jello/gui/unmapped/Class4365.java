@@ -44,7 +44,7 @@ public class Class4365 extends UIBase {
       RenderUtil.drawRoundedRect(
          (float)this.xA, (float)this.yA, (float)this.getWidthA(), (float)this.getHeightA(), 20.0F, this.field21334 * 0.2F * var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.getWidthA()),

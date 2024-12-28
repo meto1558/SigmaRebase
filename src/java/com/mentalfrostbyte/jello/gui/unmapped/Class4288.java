@@ -77,7 +77,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
          var4 = 0;
          var6 -= 7;
          var5 += 7;
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)var5,
             (float)(this.yA + var4),
             (float)(var5 + var6),
@@ -87,7 +87,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
       } else {
          RenderUtil.drawImage((float)var5, (float)this.yA, (float)var6, (float)var4, Resources.verticalScrollBarTopPNG, var1);
          RenderUtil.drawImage((float)var5, (float)(this.yA + this.heightA - var4), (float)var6, (float)var4, Resources.verticalScrollBarBottomPNG, var1);
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)var5,
             (float)(this.yA + var4),
             (float)(var5 + var6),

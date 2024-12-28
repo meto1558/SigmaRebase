@@ -344,7 +344,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       int var8 = this.widthA - 4;
       float var9 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20749));
       if (this.method13297()) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             var9 + (float)(var6.isEmpty() ? 0 : -1),
             (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2 + 2),
             var9 + (float)(var6.isEmpty() ? 1 : 0),
@@ -367,7 +367,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       this.field20751 = Math.min(Math.max(0, this.field20751), var6.length());
       float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20750));
       float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20751));
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          var14,
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
          var11,
@@ -387,7 +387,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       );
       RenderUtil.endScissor();
       if (this.field20758) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)(this.yA + this.heightA - 2),
             (float)(this.xA + this.widthA),

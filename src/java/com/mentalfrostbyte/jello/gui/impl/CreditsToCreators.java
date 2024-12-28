@@ -49,7 +49,7 @@ public class CreditsToCreators extends Screen {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          0.0F,
          0.0F,
          (float)this.widthA,

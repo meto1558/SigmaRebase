@@ -188,7 +188,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
       this.buttonList.method13284((int)((float)this.field21270 * (1.0F - var5)));
       RenderUtil.method11415(this);
       float var6 = this.method13212() && this.field21265.getDirection().equals(Direction.BACKWARDS) ? 0.03F : 0.0F;
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,

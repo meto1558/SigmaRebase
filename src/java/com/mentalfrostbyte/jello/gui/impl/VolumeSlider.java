@@ -23,14 +23,14 @@ public class VolumeSlider extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)this.yA + (float)this.heightA * this.field21372,
          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)(this.yA + this.heightA),
          (float)(this.xA + this.widthA),

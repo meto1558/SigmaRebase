@@ -198,7 +198,7 @@ public class TabGUI extends Module {
                }
 
                this.drawCategories((float)(0.5 + (double) animationProgress.calcPercent() * 0.5));
-               RenderUtil.renderBackgroundBox(12.0F, 30.0F, 90.0F, 1.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+               RenderUtil.drawRoundedRect2(12.0F, 30.0F, 90.0F, 1.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
             }
          }
       }
@@ -261,7 +261,7 @@ public class TabGUI extends Module {
             int descriptionY = activeCategoryPart.getStartY() + 25 * activeCategoryPart.index + 4;
             int descriptionWidth = activeCategoryPart.fontRenderer.getWidth(description) + 8;
             float secondAnimationValue = MathHelper.calculateTransition(this.secondAnimationProgress.calcPercent(), 0.0F, 1.0F, 1.0F);
-            RenderUtil.renderBackgroundBox((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F));
+            RenderUtil.drawRoundedRect2((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F));
             RenderUtil.startScissor((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F);
             RenderUtil.drawString(
                     activeCategoryPart.fontRenderer, (float)(descriptionX + 4), (float)(descriptionY + 2), description, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 1.7F))

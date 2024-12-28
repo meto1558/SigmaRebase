@@ -65,7 +65,7 @@ public class Class4250 extends UIBase {
       float var8 = var4[1];
       float var9 = var4[2];
       float var10 = var4[3];
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + var5),
          (float)(this.yA + var5),
          (float)(this.widthA - var5 * 2),

@@ -68,7 +68,7 @@ public class ModuleSettingUI extends UIBase {
       }
 
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -76,7 +76,7 @@ public class ModuleSettingUI extends UIBase {
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * var1)
       );
       super.method13224();
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.x,
          (float)this.y,
          (float)this.width,

@@ -198,7 +198,7 @@ public class Class4345 extends Class4339 {
       }
 
       RenderUtil.startScissor((float)this.xA, (float)(70 + this.getHeightA() - var4), (float)this.getWidthA(), (float)var4);
-      RenderUtil.renderBackgroundBox((float)this.xA, (float)(70 + this.getHeightA() - var4), (float)this.getWidthA(), (float)var4, -2631721);
+      RenderUtil.drawRoundedRect2((float)this.xA, (float)(70 + this.getHeightA() - var4), (float)this.getWidthA(), (float)var4, -2631721);
       super.draw(var1);
       RenderUtil.endScissor();
    }

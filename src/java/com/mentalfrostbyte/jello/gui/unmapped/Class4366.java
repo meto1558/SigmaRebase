@@ -97,7 +97,7 @@ public class Class4366 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),

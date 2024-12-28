@@ -39,7 +39,7 @@ public class BirdGameScreen extends Screen {
       float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
       float var5 = 0.25F * var1;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),
@@ -55,7 +55,7 @@ public class BirdGameScreen extends Screen {
          40.0F,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.field21046.getXA() - 20),
          (float)(this.field21046.getYA() - 20),
          (float)(this.field21046.getWidthA() + 40),

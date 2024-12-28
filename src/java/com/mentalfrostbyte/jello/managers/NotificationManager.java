@@ -71,11 +71,11 @@ public class NotificationManager {
                 int var11 = new Color(0.0F, 0.0F, 0.0F, Math.min(var6 * 0.075F, 1.0F)).getRGB();
                 int var12 = new Color(1.0F, 1.0F, 1.0F, var9).getRGB();
                 RenderUtil.drawRoundedRect((float) var7, (float) var8, (float) this.field39923, (float) this.field39924, 10.0F, var9);
-                RenderUtil.drawRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + this.field39924), var10);
-                RenderUtil.drawRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + 1), var11);
-                RenderUtil.drawRect((float) var7, (float) (var8 + this.field39924 - 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924), var11);
-                RenderUtil.drawRect((float) var7, (float) (var8 + 1), (float) (var7 + 1), (float) (var8 + this.field39924 - 1), var11);
-                RenderUtil.drawRect(
+                RenderUtil.drawRoundedRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + this.field39924), var10);
+                RenderUtil.drawRoundedRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + 1), var11);
+                RenderUtil.drawRoundedRect((float) var7, (float) (var8 + this.field39924 - 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924), var11);
+                RenderUtil.drawRoundedRect((float) var7, (float) (var8 + 1), (float) (var7 + 1), (float) (var8 + this.field39924 - 1), var11);
+                RenderUtil.drawRoundedRect(
                         (float) (var7 + this.field39923 - 1), (float) (var8 + 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924 - 1), var11
                 );
                 RenderUtil.drawPortalBackground(var7, var8, var7 + this.field39923 - this.field39927, var8 + this.field39924);

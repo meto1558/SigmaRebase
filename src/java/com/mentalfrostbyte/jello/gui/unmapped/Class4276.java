@@ -108,14 +108,14 @@ public class Class4276 extends UIBase {
          35.0F,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + var5 / 2),
          (float)(this.yA + var5 / 2),
          (float)(this.xA - var5 / 2 + this.widthA),
          (float)(this.yA - var5 / 2 + this.heightA),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
       );
-      RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
+      RenderUtil.drawRoundedRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.xA, (float)this.yA, 0.0F);
       GL11.glRotatef(!this.field20725 ? -90.0F : 90.0F, 0.0F, 0.0F, 1.0F);
@@ -129,7 +129,7 @@ public class Class4276 extends UIBase {
          var6
       );
       GL11.glPopMatrix();
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + 25),
          (float)(this.yA + 68),
          (float)(this.xA + this.widthA - 25),

@@ -95,7 +95,7 @@ public class LoginScreen extends UIBase {
       if (var5 != null) {
          this.field21355.setEnabled(var5.method36702());
          if (var5.method36702()) {
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                (float)(this.xA + 330), (float)(this.yA + 255), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
             );
          }

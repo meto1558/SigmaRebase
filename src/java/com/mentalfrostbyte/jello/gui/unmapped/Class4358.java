@@ -190,7 +190,7 @@ public class Class4358 extends UIBase {
          this.method13624(this.field21309);
       }
 
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -198,7 +198,7 @@ public class Class4358 extends UIBase {
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F * var1)
       );
       super.method13224();
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.field21304,
          (float)this.field21303,
          (float)this.field21305,

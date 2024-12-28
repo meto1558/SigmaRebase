@@ -48,7 +48,7 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
 
    @Override
    public void method24718(float partialTicks) {
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.getStartX(),
          (float)this.getStartY(),
          (float)this.getWidth(),

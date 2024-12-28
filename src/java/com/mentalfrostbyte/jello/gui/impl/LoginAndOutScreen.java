@@ -157,7 +157,7 @@ public class LoginAndOutScreen extends Screen {
             int var10 = var8 + Math.max(ResourceRegistry.JelloMediumFont40.getWidth(welcomeBackSign), ResourceRegistry.JelloLightFont36.getWidth(username)) + var9 * 10;
             int var11 = (this.widthA - var10) / 2;
             int var12 = (this.heightA - var8 * 2) / 2;
-            RenderUtil.drawRect(
+            RenderUtil.drawRoundedRect(
                     0.0F,
                     0.0F,
                     (float) this.widthA,

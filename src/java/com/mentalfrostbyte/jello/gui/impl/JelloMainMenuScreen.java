@@ -232,7 +232,7 @@ public class JelloMainMenuScreen extends Screen {
             ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4),
             false
          );
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var4 * 0.3F)
          );
 

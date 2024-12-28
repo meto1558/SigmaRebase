@@ -42,7 +42,7 @@ public class Class4257 extends UIBase {
          30.0F,
          var1 * 0.4F
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,

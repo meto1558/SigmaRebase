@@ -288,14 +288,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
          this.pause.setEnabled(false);
       }
 
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.getXA() + this.field20845),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA() - this.field20848),
               ColorUtils.applyAlpha(-14277082, var1 * 0.8F)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.field20845),
@@ -358,14 +358,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             var5,
                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.getXA(),
             (float)(this.getYA() + this.getHeightA() - this.field20848),
             (float)(this.getXA() + this.getWidthA()),
             (float)(this.getYA() + this.getHeightA() - 5),
                  ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.getXA(),
             (float)(this.getYA() + this.getHeightA() - 5),
             (float)(this.getXA() + this.field20845),
@@ -392,14 +392,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             Resources.bgPNG,
                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.getXA(),
             (float)(this.getYA() + this.getHeightA() - this.field20848),
             (float)(this.getXA() + this.getWidthA()),
             (float)(this.getYA() + this.getHeightA() - 5),
                  ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.getXA(),
             (float)(this.getYA() + this.getHeightA() - 5),
             (float)(this.getXA() + this.field20845),
@@ -504,7 +504,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
          );
       }
 
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.field20845,
          0.0F,
          (float)this.getWidthA(),
