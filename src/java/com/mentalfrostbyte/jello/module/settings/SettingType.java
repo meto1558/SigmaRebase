@@ -5,7 +5,7 @@ public enum SettingType {
     NUMBER,
     INPUT,
     MODE,
-    UNUSUED,
+    UNUSED,
     SUBOPTION,
     TEXTBOX,
     BOOLEAN2,

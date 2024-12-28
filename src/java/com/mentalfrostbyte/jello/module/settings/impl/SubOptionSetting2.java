@@ -62,7 +62,7 @@ public abstract class SubOptionSetting2 extends Setting<Boolean> {
 
    public static class CustomSubOptionSetting extends SubOptionSetting2 {
       public CustomSubOptionSetting(String name, String description, boolean defaultValue, List<Setting> subSettings) {
-         super(name, description, SettingType.UNUSUED, defaultValue, subSettings);
+         super(name, description, SettingType.UNUSED, defaultValue, subSettings);
       }
    }
 }

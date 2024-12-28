@@ -29,7 +29,7 @@ public class Class8666 {
       }
 
       try {
-         field39049[SettingType.UNUSUED.ordinal()] = 5;
+         field39049[SettingType.UNUSED.ordinal()] = 5;
       } catch (NoSuchFieldError var8) {
       }
 
