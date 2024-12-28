@@ -77,6 +77,7 @@ public class ModuleManager {
         // MOVEMENT
         this.register(new Speed());
         this.register(new Fly());
+        this.register(new Step());
 
         this.sortBySuffixAndRegisterEvents();
     }
