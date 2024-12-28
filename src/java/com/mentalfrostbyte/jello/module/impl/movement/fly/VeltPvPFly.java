@@ -47,7 +47,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    private void method16045(EventKeyPress var1) {
+    public void method16045(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -57,7 +57,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    private void method16046(MouseHoverEvent var1) {
+    public void method16046(MouseHoverEvent var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
