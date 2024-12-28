@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import com.mentalfrostbyte.jello.gui.base.NamedColors;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
@@ -11,11 +12,11 @@ import org.lwjgl.opengl.GL11;
 
 public class Class4245 extends ButtonPanel {
    private static String[] field20596;
-   public final Class2060 field20597;
+   public final NamedColors field20597;
    public boolean field20598;
    public Animation field20599;
 
-   public Class4245(CustomGuiScreen var1, String var2, int var3, int var4, Class2060 var5) {
+   public Class4245(CustomGuiScreen var1, String var2, int var3, int var4, NamedColors var5) {
       super(var1, var2, var3, var4, 18, 18);
       this.field20597 = var5;
       this.field20599 = new Animation(250, 250);
@@ -51,7 +52,7 @@ public class Class4245 extends ButtonPanel {
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)(18 - var4),
-              ColorUtils.applyAlpha(this.field20597.field13428, var1)
+              ColorUtils.applyAlpha(this.field20597.color, var1)
       );
       GL11.glPushMatrix();
       super.method13226(var1);

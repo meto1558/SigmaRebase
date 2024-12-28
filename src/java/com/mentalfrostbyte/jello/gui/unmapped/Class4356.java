@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import com.mentalfrostbyte.jello.gui.base.NamedColors;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -12,14 +13,14 @@ public class Class4356 extends UIBase {
       int offset = 0;
       boolean var7 = true;
 
-      for (Class2060 var11 : Class2060.values()) {
-         String var10004 = "badge" + var11.field13427;
+      for (NamedColors var11 : NamedColors.values()) {
+         String var10004 = "badge" + var11.name;
          offset += 25;
          Class4245 var12;
          this.addToList(var12 = new Class4245(this, var10004, offset, 0, var11));
          if (var7) {
             var12.field20598 = true;
-            this.field21296 = var11.field13428;
+            this.field21296 = var11.color;
          }
 
          var12.doThis((var1x, var2x) -> {
@@ -32,7 +33,7 @@ public class Class4356 extends UIBase {
 
             ((Class4245)var1x).field20598 = true;
             ((Class4245)var1x).field20599.changeDirection(Direction.FORWARDS);
-            this.field21296 = ((Class4245)var1x).field20597.field13428;
+            this.field21296 = ((Class4245)var1x).field20597.color;
          });
          var7 = false;
       }
