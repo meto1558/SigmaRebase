@@ -107,7 +107,9 @@ public class MovementUtil {
 
         return new float[]{yaw, forward, strafe};
     }
-
+    public static boolean isMovingHorizontally() {
+        return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
+    }
     /**
      * Calculates adjusted strafe values based on the player's current movement input.
      *

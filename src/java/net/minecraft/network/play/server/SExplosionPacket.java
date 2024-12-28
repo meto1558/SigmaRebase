@@ -17,9 +17,9 @@ public class SExplosionPacket implements IPacket<IClientPlayNetHandler>
     private double posZ;
     private float strength;
     private List<BlockPos> affectedBlockPositions;
-    private float motionX;
-    private float motionY;
-    private float motionZ;
+    public float motionX;
+    public float motionY;
+    public float motionZ;
 
     public SExplosionPacket()
     {
