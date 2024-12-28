@@ -33,7 +33,7 @@ public class ClassicMainScreen extends Screen {
     private Animation field21100 = new Animation(325, 325);
     private final Animation field21101 = new Animation(800, 800);
     private final ClassicParticleEngine field21102;
-    private final Class4337 field21103;
+    private final ClassicTitleScreen field21103;
     private float field21104;
     private float field21105;
 
@@ -51,7 +51,7 @@ public class ClassicMainScreen extends Screen {
         this.addToList(this.field21102 = new ClassicParticleEngine(this, "particles"));
         int var13 = 480;
         int var14 = 480;
-        this.addToList(this.field21103 = new Class4337(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
+        this.addToList(this.field21103 = new ClassicTitleScreen(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
         this.addToList(
                 this.field21095 = new UITextDisplay(
                         this, "Copyright", 10, 8, var9.getWidth(var11), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var11, ResourceRegistry.JelloLightFont18

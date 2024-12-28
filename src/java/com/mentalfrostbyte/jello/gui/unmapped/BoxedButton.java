@@ -11,12 +11,12 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.opengl.GL11;
 
-public class Class4254 extends UIBase {
+public class BoxedButton extends UIBase {
    private static String[] field20629;
    public Animation field20630 = new Animation(300, 300, Direction.BACKWARDS);
    public Texture field20631;
 
-   public Class4254(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
+   public BoxedButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field20631 = var7;
    }
