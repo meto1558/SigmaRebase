@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 
 public class Class7312 {
-   private Texture field31339;
+   private Texture texture;
    private int field31340;
    private int field31341;
    private int field31342;
@@ -25,8 +25,8 @@ public class Class7312 {
    private int field31352 = 1;
    private Animation field31353;
 
-   public Class7312(Texture var1, int var2, int var3, int var4, Class2188 var5, int var6, int var7) {
-      this.field31339 = var1;
+   public Class7312(Texture texture, int var2, int var3, int var4, Class2188 var5, int var6, int var7) {
+      this.texture = texture;
       this.field31341 = var2;
       this.field31342 = var3;
       this.field31343 = var4;
@@ -34,7 +34,7 @@ public class Class7312 {
       this.field31344 = var6;
       this.field31352 = var7;
       this.field31353 = new Animation(var6, var6, Direction.BACKWARDS);
-      this.field31345 = (int)((float)var1.getTextureWidth() / (float)var3);
+      this.field31345 = (int)((float)texture.getTextureWidth() / (float)var3);
       this.field31348 = Class2311.field15840;
    }
 
@@ -109,7 +109,7 @@ public class Class7312 {
          (float)var2,
          (float)var3,
          (float)var4,
-         this.field31339,
+         this.texture,
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5),
          (float)var8,
          (float)var9,
@@ -119,7 +119,7 @@ public class Class7312 {
    }
 
    public Texture method23110() {
-      return this.field31339;
+      return this.texture;
    }
 
    public int method23111() {
