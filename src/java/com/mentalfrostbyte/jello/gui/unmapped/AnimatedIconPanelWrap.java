@@ -14,15 +14,15 @@ public class AnimatedIconPanelWrap extends AnimatedIconPanel {
       super(screen, name, var3, var4, var5, var6, var7);
    }
 
-   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper var7, boolean var8) {
-      super(screen, name, var3, var4, var5, var6, var7, var8);
+   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, boolean var8) {
+      super(screen, name, var3, var4, var5, var6, colorHelper, var8);
    }
 
-   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, boolean var9) {
-      super(screen, name, var3, var4, var5, var6, var7, var8, var9);
+   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, boolean var9) {
+      super(screen, name, var3, var4, var5, var6, colorHelper, var8, var9);
    }
 
-   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9, boolean var10) {
-      super(screen, name, var3, var4, var5, var6, var7, var8, var9, var10);
+   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
+      super(screen, name, var3, var4, var5, var6, colorHelper, var8, font, var10);
    }
 }

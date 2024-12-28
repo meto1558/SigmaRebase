@@ -33,7 +33,7 @@ public class Class4345 extends Class4339 {
    }
 
    private int method13555(CustomGuiScreen screen, Setting setting, int x, int y, int value) {
-      UITextDisplay var8 = new UITextDisplay(screen, setting.getName() + "lbl", x, y, 0, 0, UITextDisplay.field20778, setting.getName(), this.settingsNameFont);
+      UITextDisplay var8 = new UITextDisplay(screen, setting.getName() + "lbl", x, y, 0, 0, UITextDisplay.defaultColorHelper, setting.getName(), this.settingsNameFont);
       Class4248 var9 = new Class4248(screen, setting.getName() + "desc", x + 195, y + 4, 330, 18, setting);
       screen.addToList(var8);
       screen.addToList(var9);
@@ -143,7 +143,7 @@ public class Class4345 extends Class4339 {
 
    private void method13511() {
       UITextDisplay var3 = new UITextDisplay(
-         this, "settingsname", 12, 2, this.widthA, 20, UITextDisplay.field20778, this.module.getSuffix() + " Settings", this.settingsNameFont
+         this, "settingsname", 12, 2, this.widthA, 20, UITextDisplay.defaultColorHelper, this.module.getSuffix() + " Settings", this.settingsNameFont
       );
       this.addToList(var3);
       int var6 = 35;
@@ -174,7 +174,7 @@ public class Class4345 extends Class4339 {
          var16.calledOnEnable();
       }
 
-      this.addToList(new UITextDisplay(this, "lbl", 5, 200, 0, 33, UITextDisplay.field20778, this.typedText));
+      this.addToList(new UITextDisplay(this, "lbl", 5, 200, 0, 33, UITextDisplay.defaultColorHelper, this.typedText));
    }
 
    public void method13556() {

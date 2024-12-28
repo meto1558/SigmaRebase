@@ -14,8 +14,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    public boolean field20877;
    public int field20878;
    public int field20879;
-   public int field20880;
-   public int field20881;
+   public int sizeWidthThingy;
+   public int sizeHeightThingy;
    public boolean field20882 = true;
    public boolean field20883 = false;
    public boolean field20884 = true;
@@ -31,18 +31,18 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
       this.field20876 = var7;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper var7, boolean var8) {
-      super(screen, name, var3, var4, var5, var6, var7);
+   public AnimatedIconPanel(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, boolean var8) {
+      super(screen, name, var3, var4, var5, var6, colorHelper);
       this.field20876 = var8;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, boolean var9) {
-      super(screen, name, var3, var4, var5, var6, var7, var8);
+   public AnimatedIconPanel(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, boolean var9) {
+      super(screen, name, var3, var4, var5, var6, colorHelper, var8);
       this.field20876 = var9;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9, boolean var10) {
-      super(screen, name, var3, var4, var5, var6, var7, var8, var9);
+   public AnimatedIconPanel(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
+      super(screen, name, var3, var4, var5, var6, colorHelper, var8, font);
       this.field20876 = var10;
    }
 
@@ -56,8 +56,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
       super.method13028(var1, var2);
       if (this.method13214()) {
          if (!this.field20909 && !this.field20877) {
-            this.field20880 = this.getWidthA() / 2;
-            this.field20881 = this.getHeightA() / 2;
+            this.sizeWidthThingy = this.getWidthA() / 2;
+            this.sizeHeightThingy = this.getHeightA() / 2;
          }
 
          this.method13213(var1, var2);
@@ -71,8 +71,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
             this.timerUtil.start();
             this.field20878 = var1;
             this.field20879 = var2;
-            this.field20880 = this.field20878 - this.method13271();
-            this.field20881 = this.field20879 - this.method13272();
+            this.sizeWidthThingy = this.field20878 - this.method13271();
+            this.sizeHeightThingy = this.field20879 - this.method13272();
          }
 
          return false;
@@ -105,8 +105,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
             this.method13217(true);
          }
       } else if (this.method13216()) {
-         this.setXA(var1 - this.field20880 - (this.screen == null ? 0 : this.screen.method13271()));
-         this.setYA(var2 - this.field20881 - (this.screen == null ? 0 : this.screen.method13272()));
+         this.setXA(var1 - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271()));
+         this.setYA(var2 - this.sizeHeightThingy - (this.screen == null ? 0 : this.screen.method13272()));
          if (this.field20882) {
             if (this.screen == null) {
                if (this.getXA() < 0) {

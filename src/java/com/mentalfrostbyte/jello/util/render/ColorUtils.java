@@ -61,8 +61,8 @@ public class ColorUtils {
         return (int)var14 << 24 | ((int)var15 & 0xFF) << 16 | ((int)var16 & 0xFF) << 8 | (int)var17 & 0xFF;
     }
 
-    public static float method17710(int var0) {
-        return (float)(var0 >> 24 & 0xFF) / 255.0F;
+    public static float getAlpha(int color) {
+        return (float)(color >> 24 & 0xFF) / 255.0F;
     }
 
     public static float[] method17701(float var0, float var1, float var2, float var3) {

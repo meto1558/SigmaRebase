@@ -260,7 +260,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                this.method13217(false);
             }
          } else {
-            int var12 = var1 - this.field20880 - (this.screen == null ? 0 : this.screen.method13271());
+            int var12 = var1 - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271());
             int var14 = 200;
             if (var12 + this.getWidthA() > this.screen.getWidthA() + var14 && var1 - this.field20878 > 70) {
                int var15 = var12 - this.getXA() - var14;
