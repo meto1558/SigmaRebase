@@ -34,30 +34,30 @@ public class Class4337 extends CustomGuiScreen {
       );
       this.addToList(this.field21192 = new Class4254(this, "Agora", this.method13497(var9++), this.method13496() + 140 + 10, 114, 140, Resources.agora));
       this.addToList(this.field21187 = new Class4254(this, "Exit", this.method13497(var9++), this.method13496() + 140 + 10, 114, 140, Resources.exit));
-      this.field21186.doThis((var1x, var2x) -> this.method13493(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
-      this.field21191.doThis((var1x, var2x) -> this.method13493(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
-      this.field21189.doThis((var1x, var2x) -> this.method13493(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
+      this.field21186.doThis((var1x, var2x) -> this.displayMcScreen(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
+      this.field21191.doThis((var1x, var2x) -> this.displayMcScreen(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
+      this.field21189.doThis((var1x, var2x) -> this.displayMcScreen(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
       this.field21190.doThis((var1x, var2x) -> this.method13494(new SigmaClassicAltManager()));
       this.field21188
          .doThis(
-            (var1x, var2x) -> this.method13493(
+            (var1x, var2x) -> this.displayMcScreen(
                   new LanguageScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings, Minecraft.getInstance().getLanguageManager())
                )
          );
       this.field21187.doThis((var0, var1x) -> Minecraft.getInstance().shutdown());
    }
 
-   public void method13493(net.minecraft.client.gui.screen.Screen var1) {
-      Minecraft.getInstance().displayGuiScreen(var1);
-      this.method13495();
+   public void displayMcScreen(net.minecraft.client.gui.screen.Screen screen) {
+      Minecraft.getInstance().displayGuiScreen(screen);
+      this.playClick();
    }
 
-   public void method13494(Screen var1) {
-      Client.getInstance().guiManager.method33482(var1);
-      this.method13495();
+   public void method13494(Screen screen) {
+      Client.getInstance().guiManager.handleScreen(screen);
+      this.playClick();
    }
 
-   public void method13495() {
+   public void playClick() {
       Minecraft.getInstance().getSoundHandler().play(CustomSoundPlayer.playSoundWithCustomPitch(SoundEvents.UI_BUTTON_CLICK, 1.0F));
    }
 

@@ -404,10 +404,10 @@ public class GuiManager {
     }
 
     public void method33481() throws JSONException {
-        this.method33482(handleScreen(Minecraft.getInstance().currentScreen));
+        this.handleScreen(handleScreen(Minecraft.getInstance().currentScreen));
     }
 
-    public void method33482(Screen screen) {
+    public void handleScreen(Screen screen) {
         if (this.screen != null) {
             this.getUIConfig(Client.getInstance().getConfig());
         }
