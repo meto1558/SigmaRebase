@@ -14,7 +14,7 @@ public class VanillaStep extends Module {
     }
 
     @EventTarget
-    private void method16337(SafeWalkEvent var1) {
+    public void onSafeWalk(SafeWalkEvent var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!var1.isOnEdge()) {
                 mc.player.stepHeight = this.getNumberValueBySettingName("Maximum heigh");
