@@ -12,7 +12,9 @@ import java.net.URL;
  * @author kevin
  */
 public class FileSystemLocation implements ResourceLocation {
-    /** The root of the file system to search */
+    /**
+     * The root of the file system to search
+     */
     private File root;
 
     /**

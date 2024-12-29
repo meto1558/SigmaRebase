@@ -22,29 +22,49 @@ import java.util.Map;
  * @author Peter Korzuszek (genail)
  */
 public class TrueTypeFont implements Font {
-    /** The renderer to use for all GL operations */
+    /**
+     * The renderer to use for all GL operations
+     */
     private static final SGL GL = Renderer.get();
     private final int size;
     public Texture fontTexture;
-    /** Array that holds necessary information about the font characters */
+    /**
+     * Array that holds necessary information about the font characters
+     */
     private final IntObject[] charArray = new IntObject[256];
-    /** Map of user defined font characters (Character <-> IntObject) */
+    /**
+     * Map of user defined font characters (Character <-> IntObject)
+     */
     private final Map customChars = new HashMap();
-    /** Boolean flag on whether AntiAliasing is enabled or not */
+    /**
+     * Boolean flag on whether AntiAliasing is enabled or not
+     */
     private final boolean antiAlias;
-    /** Font's size */
+    /**
+     * Font's size
+     */
     private int fontSize = 0;
-    /** Font's height */
+    /**
+     * Font's height
+     */
     private int fontHeight = 0;
-    /** Default font texture width */
+    /**
+     * Default font texture width
+     */
     private int textureWidth = 512;
 
-    /** Default font texture height */
+    /**
+     * Default font texture height
+     */
     private int textureHeight = 512;
-    /** A reference to Java's AWT Font that we create our font texture from */
+    /**
+     * A reference to Java's AWT Font that we create our font texture from
+     */
     private final java.awt.Font font;
 
-    /** The font metrics for our Java AWT font */
+    /**
+     * The font metrics for our Java AWT font
+     */
     private FontMetrics fontMetrics;
 
     /**
@@ -52,13 +72,10 @@ public class TrueTypeFont implements Font {
      * Java TrueType font, and whether you want it to be cached with
      * AntiAliasing applied.
      *
-     * @param font
-     *            Standard Java AWT font
-     * @param antiAlias
-     *            Whether to apply AntiAliasing to the cached font
-     * @param additionalChars
-     *            Characters of font that will be used in addition of first 256 (by Unicode).
-     * @param size The size of the font
+     * @param font            Standard Java AWT font
+     * @param antiAlias       Whether to apply AntiAliasing to the cached font
+     * @param additionalChars Characters of font that will be used in addition of first 256 (by Unicode).
+     * @param size            The size of the font
      */
     public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars, int size) {
         GLUtils.checkGLContext();
@@ -79,10 +96,8 @@ public class TrueTypeFont implements Font {
      * Java TrueType font, and whether you want it to be cached with
      * AntiAliasing applied.
      *
-     * @param font
-     *            Standard Java AWT font
-     * @param antiAlias
-     *            Whether to apply AntiAliasing to the cached font
+     * @param font      Standard Java AWT font
+     * @param antiAlias Whether to apply AntiAliasing to the cached font
      */
     public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars) {
         this(font, antiAlias, additionalChars, 0);
@@ -99,9 +114,7 @@ public class TrueTypeFont implements Font {
     /**
      * Create a standard Java2D BufferedImage of the given character
      *
-     * @param of
-     *            The character to create a BufferedImage for
-     *
+     * @param of The character to create a BufferedImage for
      * @return A BufferedImage containing the character
      */
     private BufferedImage getFontImage(char of) {
@@ -132,7 +145,7 @@ public class TrueTypeFont implements Font {
         g2d2.setFont(this.font);
         g2d2.setColor(java.awt.Color.WHITE);
         g2d2.drawString(String.valueOf(of), this.size, this.size + this.fontMetrics.getAscent());
-        return this.size <= 0 ? bufferedImage2 : ImageUtil.method35033(bufferedImage2, this.size);
+        return this.size <= 0 ? bufferedImage2 : ImageUtil.applyGaussianBlur(bufferedImage2, this.size);
     }
 
     private int method23949(char var1) {
@@ -232,22 +245,14 @@ public class TrueTypeFont implements Font {
     /**
      * Draw a textured quad
      *
-     * @param drawX
-     *            The left x position to draw to
-     * @param drawY
-     *            The top y position to draw to
-     * @param drawX2
-     *            The right x position to draw to
-     * @param drawY2
-     *            The bottom y position to draw to
-     * @param srcX
-     *            The left source x position to draw from
-     * @param srcY
-     *            The top source y position to draw from
-     * @param srcX2
-     *            The right source x position to draw from
-     * @param srcY2
-     *            The bottom source y position to draw from
+     * @param drawX  The left x position to draw to
+     * @param drawY  The top y position to draw to
+     * @param drawX2 The right x position to draw to
+     * @param drawY2 The bottom y position to draw to
+     * @param srcX   The left source x position to draw from
+     * @param srcY   The top source y position to draw from
+     * @param srcX2  The right source x position to draw from
+     * @param srcY2  The bottom source y position to draw from
      */
     private void drawQuad(float drawX, float drawY, float drawX2, float drawY2,
                           float srcX, float srcY, float srcX2, float srcY2) {
@@ -273,9 +278,7 @@ public class TrueTypeFont implements Font {
     /**
      * Get the width of a given String
      *
-     * @param whatchars
-     *            The characters to get the width of
-     *
+     * @param whatchars The characters to get the width of
      * @return The width of the characters
      */
     public int getWidth(String whatchars) {
@@ -287,10 +290,10 @@ public class TrueTypeFont implements Font {
             if (currentChar < 256) {
                 intObject = charArray[currentChar];
             } else {
-                intObject = (IntObject)customChars.get( new Character( (char) currentChar ) );
+                intObject = (IntObject) customChars.get(new Character((char) currentChar));
             }
 
-            if( intObject != null )
+            if (intObject != null)
                 totalwidth += intObject.width;
         }
         return totalwidth;
@@ -326,18 +329,14 @@ public class TrueTypeFont implements Font {
     /**
      * Draw a string
      *
-     * @param x
-     *            The x position to draw the string
-     * @param y
-     *            The y position to draw the string
-     * @param whatchars
-     *            The string to draw
-     * @param color
-     *            The color to draw the text
+     * @param x         The x position to draw the string
+     * @param y         The y position to draw the string
+     * @param whatchars The string to draw
+     * @param color     The color to draw the text
      */
     public void drawString(float x, float y, String whatchars,
                            org.newdawn.slick.Color color) {
-        drawString(x,y,whatchars,color,0,whatchars.length()-1);
+        drawString(x, y, whatchars, color, 0, whatchars.length() - 1);
     }
 
     /**
@@ -388,12 +387,9 @@ public class TrueTypeFont implements Font {
     /**
      * Draw a string
      *
-     * @param x
-     *            The x position to draw the string
-     * @param y
-     *            The y position to draw the string
-     * @param string
-     *            The string to draw
+     * @param x      The x position to draw the string
+     * @param y      The y position to draw the string
+     * @param string The string to draw
      */
     @Override
     public void drawString(float x, float y, String string) {
@@ -406,14 +402,22 @@ public class TrueTypeFont implements Font {
      * is stored on the font texture.
      */
     public static class IntObject {
-        /** Character's width */
-       public int width;
-       public int actualWidth;
-        /** Character's height */
-       public int height;
-        /** Character's stored x position */
-       public int storedX;
-        /** Character's stored y position */
-       public int storedY;
+        /**
+         * Character's width
+         */
+        public int width;
+        public int actualWidth;
+        /**
+         * Character's height
+         */
+        public int height;
+        /**
+         * Character's stored x position
+         */
+        public int storedX;
+        /**
+         * Character's stored y position
+         */
+        public int storedY;
     }
 }

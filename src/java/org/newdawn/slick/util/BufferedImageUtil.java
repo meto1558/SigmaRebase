@@ -26,13 +26,10 @@ public class BufferedImageUtil {
     /**
      * Load a texture
      *
-     * @param resourceName
-     *            The location of the resource to load
-     * @param resourceImage
-     *            The BufferedImage we are converting
+     * @param resourceName  The location of the resource to load
+     * @param resourceImage The BufferedImage we are converting
      * @return The loaded texture
-     * @throws IOException
-     *             Indicates a failure to access the resource
+     * @throws IOException Indicates a failure to access the resource
      */
     public static Texture getTexture(String resourceName,
                                      BufferedImage resourceImage) throws IOException {
@@ -48,13 +45,10 @@ public class BufferedImageUtil {
     /**
      * Load a texture
      *
-     * @param resourceName
-     *            The location of the resource to load
-     * @param resourceImage
-     *            The BufferedImage we are converting
+     * @param resourceName  The location of the resource to load
+     * @param resourceImage The BufferedImage we are converting
      * @return The loaded texture
-     * @throws IOException
-     *             Indicates a failure to access the resource
+     * @throws IOException Indicates a failure to access the resource
      */
     public static Texture getTexture(String resourceName,
                                      BufferedImage resourceImage, int filter) throws IOException {
@@ -70,26 +64,20 @@ public class BufferedImageUtil {
     /**
      * Load a texture into OpenGL from a BufferedImage
      *
-     * @param resourceName
-     *            The location of the resource to load
-     * @param resourceimage
-     *            The BufferedImage we are converting
-     * @param target
-     *            The GL target to load the texture against
-     * @param dstPixelFormat
-     *            The pixel format of the screen
-     * @param minFilter
-     *            The minimising filter
-     * @param magFilter
-     *            The magnification filter
+     * @param resourceName   The location of the resource to load
+     * @param resourceimage  The BufferedImage we are converting
+     * @param target         The GL target to load the texture against
+     * @param dstPixelFormat The pixel format of the screen
+     * @param minFilter      The minimising filter
+     * @param magFilter      The magnification filter
      * @return The loaded texture
-     * @throws IOException
-     *             Indicates a failure to access the resource
+     * @throws IOException Indicates a failure to access the resource
      */
     public static Texture getTexture(String resourceName,
                                      BufferedImage resourceimage, int target, int dstPixelFormat,
                                      int minFilter, int magFilter) throws IOException {
-        ImageIOImageData data = new ImageIOImageData();int srcPixelFormat = 0;
+        ImageIOImageData data = new ImageIOImageData();
+        int srcPixelFormat = 0;
 
         // create the texture ID for this texture
         int textureID = InternalTextureLoader.createTextureID();
@@ -146,17 +134,17 @@ public class BufferedImageUtil {
     /**
      * Implement of transform copy area for 1.4
      *
-     * @param image The image to copy
-     * @param x The x position to copy to
-     * @param y The y position to copy to
-     * @param width The width of the image
+     * @param image  The image to copy
+     * @param x      The x position to copy to
+     * @param y      The y position to copy to
+     * @param width  The width of the image
      * @param height The height of the image
-     * @param dx The transform on the x axis
-     * @param dy The transform on the y axis
+     * @param dx     The transform on the x axis
+     * @param dy     The transform on the y axis
      */
     private static void copyArea(BufferedImage image, int x, int y, int width, int height, int dx, int dy) {
         Graphics2D g = (Graphics2D) image.getGraphics();
 
-        g.drawImage(image.getSubimage(x, y, width, height),x+dx,y+dy,null);
+        g.drawImage(image.getSubimage(x, y, width, height), x + dx, y + dy, null);
     }
 }
