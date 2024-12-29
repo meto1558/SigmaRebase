@@ -168,9 +168,9 @@ public class SigmaClassicAltManager extends Screen {
    private int method13400() {
       int var3 = 0;
 
-      for (CustomGuiScreen var5 : this.field21055.method13241()) {
+      for (CustomGuiScreen var5 : this.field21055.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                var3++;
             }
          }
@@ -180,7 +180,7 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    private void method13401() {
-      RenderUtil.method11455(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
+      RenderUtil.drawImage(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
       RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.23F));
    }
 
@@ -200,9 +200,9 @@ public class SigmaClassicAltManager extends Screen {
 
    @Override
    public void method13161(JSONObject var1) {
-      for (CustomGuiScreen var5 : this.field21055.method13241()) {
+      for (CustomGuiScreen var5 : this.field21055.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                this.field21055.method13234(var7);
             }
          }
@@ -250,9 +250,9 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    public Class4349 method13406() {
-      for (CustomGuiScreen var4 : this.field21055.method13241()) {
+      for (CustomGuiScreen var4 : this.field21055.getRenderObjects()) {
          if (!(var4 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var6 : var4.method13241()) {
+            for (CustomGuiScreen var6 : var4.getRenderObjects()) {
                if (var6 instanceof Class4349) {
                   Class4349 var7 = (Class4349)var6;
                   if (var7.method13582()) {

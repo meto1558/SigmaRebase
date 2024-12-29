@@ -40,7 +40,7 @@ public class Class4340 extends Class4339 {
       String var6 = "waypoint x" + var2.getX() + " z" + var2.getZ();
       if (this.buttonList.method13221(var6) == null) {
          Class4355 var7 = new Class4355(
-            this, var6, this.xA, this.method13241().get(0).method13241().size() * this.field21210, this.widthA, this.field21210, var1, var2, var3
+            this, var6, this.xA, this.getRenderObjects().get(0).getRenderObjects().size() * this.field21210, this.widthA, this.field21210, var1, var2, var3
          );
          var7.field21288 = var7.getYA();
          this.field21209.add(var7);

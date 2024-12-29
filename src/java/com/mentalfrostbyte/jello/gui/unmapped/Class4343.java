@@ -265,7 +265,7 @@ public class Class4343 extends Class4339 implements Class4342 {
 
             var4 = Math.max(var4 + var11, var4);
 
-            for (CustomGuiScreen var20 : var12.method13241()) {
+            for (CustomGuiScreen var20 : var12.getRenderObjects()) {
                if (var20 instanceof Class4363) {
                   Class4363 var15 = (Class4363)var20;
                   int var16 = var15.method13649() + var15.getYA() + var15.getHeightA() + 14;

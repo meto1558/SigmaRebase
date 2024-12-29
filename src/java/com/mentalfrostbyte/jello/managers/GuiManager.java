@@ -43,7 +43,7 @@ public class GuiManager {
     private static boolean hidpiCocoa = true;
 
     static {
-        replacementScreens.put(MainMenuScreen.class, JelloMainMenuScreen.class);
+        replacementScreens.put(MainMenuScreen.class, JelloMainMenuManager.class);
         replacementScreens.put(ClickGui.class, JelloClickGUI.class);
         replacementScreens.put(KeyboardScreen.class, JelloKeyboardScreen.class);
         replacementScreens.put(Maps.class, JelloMaps.class);

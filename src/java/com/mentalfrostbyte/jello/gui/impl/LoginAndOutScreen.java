@@ -131,7 +131,7 @@ public class LoginAndOutScreen extends Screen {
         this.field21089.method13277(var4);
         this.field21089.method13278(var4);
         Rectangle var5 = RenderUtil.method11413(RenderUtil.method11414(this.field21088), this.field21088.method13273(), this.field21088.method13275());
-        if (this.field21089.method13287()) {
+        if (this.field21089.isVisible()) {
             var5 = RenderUtil.method11413(RenderUtil.method11414(this.field21089), this.field21089.method13273(), this.field21089.method13275());
         }
 

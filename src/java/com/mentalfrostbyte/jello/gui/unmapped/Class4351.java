@@ -146,7 +146,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
 
    @Override
    public void method13028(int var1, int var2) {
-      if (!this.profileName.method13297() && this.profileName.method13287()) {
+      if (!this.profileName.method13297() && this.profileName.isVisible()) {
          this.profileName.setEnabled(false);
          this.profileName.method13145(false);
          this.currentConfig.getName = this.profileName.getTypedText();

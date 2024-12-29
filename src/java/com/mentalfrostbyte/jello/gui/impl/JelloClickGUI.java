@@ -269,7 +269,7 @@ public class JelloClickGUI extends Screen {
          );
       }
 
-      for (CustomGuiScreen var9 : this.method13241()) {
+      for (CustomGuiScreen var9 : this.getRenderObjects()) {
          float var10 = (float)(var9.getYA() + var9.getHeightA() / 2 - mc.getMainWindow().getHeight() / 2) * (1.0F - var4) * 0.5F;
          float var11 = (float)(var9.getXA() + var9.getWidthA() / 2 - mc.getMainWindow().getWidth() / 2) * (1.0F - var4) * 0.5F;
          var9.method13286((int)var11, (int)var10);

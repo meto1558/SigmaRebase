@@ -30,7 +30,7 @@ public class MusicPlayerInstance implements Runnable {
                                     MusicPlayer.method13206(this.musicPlayer2),
                                     this.thubmnail.id,
                                     0,
-                                    MusicPlayer.method13206(this.musicPlayer2).getButton().method13241().size() * MusicPlayer.method13207(this.musicPlayer2),
+                                    MusicPlayer.method13206(this.musicPlayer2).getButton().getRenderObjects().size() * MusicPlayer.method13207(this.musicPlayer2),
                                     MusicPlayer.method13208(this.musicPlayer2),
                                     MusicPlayer.method13207(this.musicPlayer2),
                                     this.colorHelper,

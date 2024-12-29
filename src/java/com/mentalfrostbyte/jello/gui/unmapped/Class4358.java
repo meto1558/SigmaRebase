@@ -116,9 +116,9 @@ public class Class4358 extends UIBase {
       Map<String, ButtonPanel> var7 = new TreeMap();
       List<ButtonPanel> var8 = new ArrayList();
 
-      for (CustomGuiScreen var10 : this.field21308.method13241()) {
+      for (CustomGuiScreen var10 : this.field21308.getRenderObjects()) {
          if (!(var10 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var12 : var10.method13241()) {
+            for (CustomGuiScreen var12 : var10.getRenderObjects()) {
                if (var12 instanceof ButtonPanel) {
                   ButtonPanel var13 = (ButtonPanel)var12;
                   boolean var14 = var13.getHeightA() != 40;

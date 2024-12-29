@@ -215,9 +215,9 @@ public class AltManagerScreen extends Screen {
             this.field21017.method13181(var5.selectedAccount);
             this.field21018.method13178(var5.selectedAccount);
 
-            for (CustomGuiScreen var7 : this.field21010.method13241()) {
+            for (CustomGuiScreen var7 : this.field21010.getRenderObjects()) {
                if (!(var7 instanceof VerticalScrollBar)) {
-                  for (CustomGuiScreen var9 : var7.method13241()) {
+                  for (CustomGuiScreen var9 : var7.getRenderObjects()) {
                      ((Class4294)var9).method13166(false);
                   }
                }
@@ -325,9 +325,9 @@ public class AltManagerScreen extends Screen {
    private void method13367() {
       float var3 = 1.0F;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                if (var7 instanceof Class4294) {
                   Class4294 var8 = (Class4294)var7;
                   if (var7.getYA() <= Minecraft.getInstance().getMainWindow().getHeight() && this.field21010.method13513() == 0) {
@@ -351,9 +351,9 @@ public class AltManagerScreen extends Screen {
    private void method13368() {
       boolean var3 = false;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                Class4294 var8 = (Class4294)var7;
                var8.method13172(false);
             }
@@ -364,9 +364,9 @@ public class AltManagerScreen extends Screen {
    private boolean method13369() {
       boolean var3 = false;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                if (var7.method13280() != 0 && var7.getXA() > this.widthA) {
                   return false;
                }
@@ -380,9 +380,9 @@ public class AltManagerScreen extends Screen {
    private int method13370() {
       int var3 = 0;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                var3++;
             }
          }
@@ -402,7 +402,7 @@ public class AltManagerScreen extends Screen {
 
       float var5 = var4 - this.field21006;
       float var6 = (float)(var3 - this.field21005);
-      RenderUtil.method11455((float)this.field21005, this.field21006, (float)(this.getWidthA() * 2), (float)(this.getHeightA() + 114), Resources.panoramaPNG);
+      RenderUtil.drawImage((float)this.field21005, this.field21006, (float)(this.getWidthA() * 2), (float)(this.getHeightA() + 114), Resources.panoramaPNG);
       float var7 = 0.5F;
       if (var4 != this.field21006) {
          this.field21006 += var5 * var7;
@@ -431,9 +431,9 @@ public class AltManagerScreen extends Screen {
 
    @Override
    public void method13161(JSONObject var1) {
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getRenderObjects()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
                this.field21010.method13234(var7);
             }
          }

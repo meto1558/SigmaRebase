@@ -96,7 +96,7 @@ public class SwitchScreen extends Screen {
             int var4 = 40;
             float var5 = -field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
             float var6 = -field21071 / (float) Minecraft.getInstance().getMainWindow().getHeight();
-            RenderUtil.method11455(
+            RenderUtil.drawImage(
                     (float) var4 * var5,
                     (float) var4 * var6,
                     (float) (Minecraft.getInstance().getMainWindow().getWidth() + var4),
@@ -129,7 +129,7 @@ public class SwitchScreen extends Screen {
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     ColorUtils.applyAlpha(0, 0.75F * (1.0F - field21069.calcPercent()))
             );
-            RenderUtil.method11455((float) var8, (float) var9, 455.0F, 78.0F, CustomLoadingScreen.sigmaLogo);
+            RenderUtil.drawImage((float) var8, (float) var9, 455.0F, 78.0F, CustomLoadingScreen.sigmaLogo);
         }
     }
 

@@ -10,7 +10,7 @@ public class Class4361 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.method11455((float)this.xA, (float)this.yA, 30.0F, 30.0F, !this.method13298() ? Class4334.field21177 : Class4334.field21178);
+      RenderUtil.drawImage((float)this.xA, (float)this.yA, 30.0F, 30.0F, !this.method13298() ? Class4334.field21177 : Class4334.field21178);
       super.draw(var1);
    }
 }

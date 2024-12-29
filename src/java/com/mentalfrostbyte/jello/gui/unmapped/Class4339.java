@@ -36,9 +36,9 @@ public class Class4339 extends AnimatedIconPanel {
    }
 
    private final void method13511() {
-      this.method13241().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
+      this.getRenderObjects().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
       this.buttonList.setSize(new Class6665());
-      this.method13241().add(this.field21205 = new VerticalScrollBar(this, 11));
+      this.getRenderObjects().add(this.field21205 = new VerticalScrollBar(this, 11));
       this.field21205.method13292(true);
    }
 
@@ -56,11 +56,11 @@ public class Class4339 extends AnimatedIconPanel {
 
    @Override
    public void method13028(int var1, int var2) {
-      if (!this.field21203 || this.method13287()) {
+      if (!this.field21203 || this.isVisible()) {
          super.method13028(var1, var2);
          this.buttonList.setYA(-1 * this.field21205.method13162());
 
-         for (CustomGuiScreen var6 : this.getButton().method13241()) {
+         for (CustomGuiScreen var6 : this.getButton().getRenderObjects()) {
             for (Class6664 var8 : var6.method13260()) {
                var8.method20320(var6, this);
             }
@@ -79,7 +79,7 @@ public class Class4339 extends AnimatedIconPanel {
    @Override
    public void draw(float var1) {
       this.method13224();
-      if (!this.field21203 || this.method13287()) {
+      if (!this.field21203 || this.isVisible()) {
          if (this.field21206) {
             RenderUtil.method11415(this);
          }

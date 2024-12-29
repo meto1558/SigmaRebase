@@ -133,7 +133,7 @@ public class RenderUtil {
         drawImage(x, y, var2, var3, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
     }
 
-    public static void method11455(float var0, float var1, float var2, float var3, Texture var4) {
+    public static void drawImage(float var0, float var1, float var2, float var3, Texture var4) {
         drawImage(var0, var1, var2, var3, var4, -1);
     }
 

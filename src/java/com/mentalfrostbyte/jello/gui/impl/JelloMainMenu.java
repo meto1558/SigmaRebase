@@ -18,7 +18,7 @@ import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
 import net.minecraft.realms.RealmsBridgeScreen;
 
-public class MainmenuScreen2 extends CustomGuiScreen {
+public class JelloMainMenu extends CustomGuiScreen {
     private final ButtonPanel singleplayerButton;
     private final ButtonPanel multiplayerButton;
     private final ButtonPanel realmsButton;
@@ -32,7 +32,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
     private final UIButton field21133;
     public int field21134 = 0;
 
-    public MainmenuScreen2(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
+    public JelloMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
         super(var1, var2, var3, var4, var5, var6);
         this.method13300(false);
         TrueTypeFont var15 = ResourceRegistry.JelloLightFont20;
@@ -134,7 +134,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
                 )
         );
         this.field21133.doThis((var1x, var2x) -> {
-            ((JelloMainMenuScreen) this.getScreen()).method13341();
+            ((JelloMainMenuManager) this.getScreen()).method13341();
             new Thread(() -> {
                 try {
                     Thread.sleep(2000L);
@@ -148,12 +148,12 @@ public class MainmenuScreen2 extends CustomGuiScreen {
         this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
         this.field21128.method13247((var1x, var2x) -> {
             if (Client.getInstance().networkManager.username != null) {
-                ((JelloMainMenuScreen) this.getScreen()).animateNext();
+                ((JelloMainMenuManager) this.getScreen()).animateNext();
             } else {
                 this.displayScreen(new LoginAndOutScreen());
             }
         });
-        this.changelogButton.doThis((var1x, var2x) -> ((JelloMainMenuScreen) this.getScreen()).animateIn());
+        this.changelogButton.doThis((var1x, var2x) -> ((JelloMainMenuManager) this.getScreen()).animateIn());
         this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
         this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
         this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
@@ -161,7 +161,7 @@ public class MainmenuScreen2 extends CustomGuiScreen {
         this.realmsButton.doThis((var1x, var2x) -> this.method13443());
         this.loginButton.doThis((var1x, var2x) -> {
             if (Client.getInstance().networkManager.username != null) {
-                ((JelloMainMenuScreen) this.getScreen()).logout();
+                ((JelloMainMenuManager) this.getScreen()).logout();
             } else {
                 this.displayScreen(new LoginAndOutScreen());
             }

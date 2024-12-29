@@ -83,7 +83,7 @@ public class ClassicTitleScreen extends CustomGuiScreen {
    @Override
    public void draw(float var1) {
       this.method13225();
-      RenderUtil.method11455((float)(this.xA + (this.getWidthA() - 300) / 2), (float)(this.yA + 30), 300.0F, 97.0F, Resources.big);
+      RenderUtil.drawImage((float)(this.xA + (this.getWidthA() - 300) / 2), (float)(this.yA + 30), 300.0F, 97.0F, Resources.big);
       super.draw(var1);
    }
 }

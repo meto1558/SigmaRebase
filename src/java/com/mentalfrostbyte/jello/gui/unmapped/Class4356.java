@@ -24,7 +24,7 @@ public class Class4356 extends UIBase {
          }
 
          var12.doThis((var1x, var2x) -> {
-            for (CustomGuiScreen var6 : var1x.getScreen().method13241()) {
+            for (CustomGuiScreen var6 : var1x.getScreen().getRenderObjects()) {
                if (var6 instanceof Class4245) {
                   ((Class4245)var6).field20598 = false;
                   ((Class4245)var6).field20599.changeDirection(Direction.BACKWARDS);

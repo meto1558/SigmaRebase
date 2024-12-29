@@ -42,7 +42,7 @@ public class JelloKeyboardScreen extends Screen {
             var2 -> {
                boolean var5 = false;
 
-               for (CustomGuiScreen var7 : this.method13241()) {
+               for (CustomGuiScreen var7 : this.getRenderObjects()) {
                   if (var7 instanceof Class4375) {
                      var5 = true;
                   }

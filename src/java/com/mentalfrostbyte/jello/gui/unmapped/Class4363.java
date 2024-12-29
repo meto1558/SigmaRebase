@@ -56,7 +56,7 @@ public class Class4363 extends UIBase {
    }
 
    private void method13646() {
-      this.method13241().clear();
+      this.getRenderObjects().clear();
       this.font = ResourceRegistry.JelloLightFont18;
       ButtonPanel dropdownButton;
       this.addToList(dropdownButton = new ButtonPanel(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));
@@ -109,7 +109,7 @@ public class Class4363 extends UIBase {
       int var3 = this.method13648();
 
       for (Entry var5 : this.field21331.entrySet()) {
-         if (((Class4362)var5.getValue()).method13287()) {
+         if (((Class4362)var5.getValue()).isVisible()) {
             var3 = Math.max(
                var3,
                (((Class4362)var5.getValue()).field21323.size() - 1) * ((Class4362)var5.getValue()).getHeightA() + ((Class4362)var5.getValue()).getYA()
@@ -267,7 +267,7 @@ public class Class4363 extends UIBase {
    @Override
    public boolean method13114(int var1, int var2) {
       for (Entry var6 : this.field21331.entrySet()) {
-         if (((Class4362)var6.getValue()).method13287() && ((Class4362)var6.getValue()).method13114(var1, var2)) {
+         if (((Class4362)var6.getValue()).isVisible() && ((Class4362)var6.getValue()).method13114(var1, var2)) {
             return true;
          }
       }

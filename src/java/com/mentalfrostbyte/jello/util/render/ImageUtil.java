@@ -62,10 +62,10 @@ public class ImageUtil {
         if (var0 != null) {
             if (var0.getWidth() > var1 + var1) {
                 if (var0.getHeight() > var1 + var1) {
-                    ConvolveOp var4 = new ConvolveOp(method35035((float) var1));
+                    ConvolveOp var4 = new ConvolveOp(createGaussianKernel((float) var1));
                     BufferedImage var5 = var4.filter(var0, null);
-                    var5 = var4.filter(method35034(var5), null);
-                    var5 = method35034(var5);
+                    var5 = var4.filter(applyEdgeWrap(var5), null);
+                    var5 = applyEdgeWrap(var5);
                     return var5.getSubimage(var1, var1, var0.getWidth() - var1 - var1, var0.getHeight() - var1 - var1);
                 } else {
                     return var0;
@@ -128,70 +128,70 @@ public class ImageUtil {
         return var0;
     }
 
-    public static BufferedImage method35034(BufferedImage var0) {
-        int var3 = var0.getWidth();
-        int var4 = var0.getHeight();
-        BufferedImage var5 = new BufferedImage(var4, var3, var0.getType());
+    public static BufferedImage applyEdgeWrap(BufferedImage inputImage) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage wrappedImage = new BufferedImage(height, width, inputImage.getType());
 
-        for (int var6 = 0; var6 < var3; var6++) {
-            for (int var7 = 0; var7 < var4; var7++) {
-                var5.setRGB(var4 - 1 - var7, var3 - 1 - var6, var0.getRGB(var6, var7));
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                wrappedImage.setRGB(height - 1 - y, width - 1 - x, inputImage.getRGB(x, y));
             }
         }
 
-        return var5;
+        return wrappedImage;
     }
 
-    public static Kernel method35035(float var0) {
-        int var3 = (int) Math.ceil(var0);
-        int var4 = var3 * 2 + 1;
-        float[] var5 = new float[var4];
-        float var6 = var0 / 3.0F;
-        float var7 = 2.0F * var6 * var6;
-        float var8 = (float) ((Math.PI * 2) * (double) var6);
-        float var9 = (float) Math.sqrt(var8);
-        float var10 = var0 * var0;
-        float var11 = 0.0F;
-        int var12 = 0;
+    public static Kernel createGaussianKernel(float radius) {
+        int kernelRadius = (int) Math.ceil(radius);
+        int kernelSize = kernelRadius * 2 + 1;
+        float[] kernelData = new float[kernelSize];
+        float standardDeviation = radius / 3.0F;
+        float twoSigmaSquared = 2.0F * standardDeviation * standardDeviation;
+        float normalizationFactor = (float) ((Math.PI * 2) * (double) standardDeviation);
+        normalizationFactor = (float) Math.sqrt(normalizationFactor);
+        float maxDistanceSquared = radius * radius;
+        float sum = 0.0F;
+        int index = 0;
 
-        for (int var13 = -var3; var13 <= var3; var13++) {
-            float var14 = (float) (var13 * var13);
-            if (!(var14 > var10)) {
-                var5[var12] = (float) Math.exp(-var14 / var7) / var9;
+        for (int offset = -kernelRadius; offset <= kernelRadius; offset++) {
+            float distanceSquared = (float) (offset * offset);
+            if (!(distanceSquared > maxDistanceSquared)) {
+                kernelData[index] = (float) Math.exp(-distanceSquared / twoSigmaSquared) / normalizationFactor;
             } else {
-                var5[var12] = 0.0F;
+                kernelData[index] = 0.0F;
             }
 
-            var11 += var5[var12];
-            var12++;
+            sum += kernelData[index];
+            index++;
         }
 
-        for (int var15 = 0; var15 < var4; var15++) {
-            var5[var15] /= var11;
+        for (int i = 0; i < kernelSize; i++) {
+            kernelData[i] /= sum;
         }
 
-        return new Kernel(var4, 1, var5);
+        return new Kernel(kernelSize, 1, kernelData);
     }
 
-    public static BufferedImage method35033(BufferedImage img, int size) {
-        if (img == null) {
-            return img;
+    public static BufferedImage applyGaussianBlur(BufferedImage image, int blurRadius) {
+        if (image == null) {
+            return image;
         } else {
-            ConvolveOp var4 = new ConvolveOp(method35035((float) size), 1, null);
-            int var5 = img.getWidth();
-            int var6 = img.getHeight();
-            BufferedImage var7 = new BufferedImage(var6 + size * 2, var5 + size * 2, img.getType());
+            ConvolveOp blurOperation = new ConvolveOp(createGaussianKernel((float) blurRadius), ConvolveOp.EDGE_NO_OP, null);
+            int imageWidth = image.getWidth();
+            int imageHeight = image.getHeight();
+            BufferedImage extendedImage = new BufferedImage(imageWidth + blurRadius * 2, imageHeight + blurRadius * 2, image.getType());
 
-            for (int var8 = 0; var8 < var5; var8++) {
-                for (int var9 = 0; var9 < var6; var9++) {
-                    var7.setRGB(var8 + size, var9 + size / 2, img.getRGB(var8, var9));
+            for (int x = 0; x < imageWidth; x++) {
+                for (int y = 0; y < imageHeight; y++) {
+                    extendedImage.setRGB(x + blurRadius, y + blurRadius / 2, image.getRGB(x, y));
                 }
             }
 
-            BufferedImage var10 = var4.filter(var7, null);
-            var10 = var4.filter(method35034(var10), null);
-            var10 = method35034(var10);
-            return var10.getSubimage(size, size, var7.getWidth() - size - size, var7.getHeight() - size - size);
+            BufferedImage blurredImage = blurOperation.filter(extendedImage, null);
+            blurredImage = blurOperation.filter(applyEdgeWrap(blurredImage), null);
+            blurredImage = applyEdgeWrap(blurredImage);
+            return blurredImage.getSubimage(blurRadius, blurRadius, extendedImage.getWidth() - blurRadius * 2, extendedImage.getHeight() - blurRadius * 2);
         }
     }
 

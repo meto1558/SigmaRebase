@@ -59,12 +59,12 @@ public class Class4335 extends Class4333 {
    public void draw(float var1) {
       super.draw(var1);
       if (this.field21181 == null) {
-         for (CustomGuiScreen var5 : this.method13241()) {
+         for (CustomGuiScreen var5 : this.getRenderObjects()) {
             if (var5 instanceof Class4368 && this.field21149.calcPercent() == 1.0F && var5.method13114(this.getHeightO(), this.getWidthO())) {
                Class4368 var6 = (Class4368)var5;
                RenderUtil.drawString(Resources.regular17, 20.0F, (float)(this.getHeightA() - 26), var6.field21351.getDescription(), -14540254);
                RenderUtil.startScissor(5.0F, (float)(this.getHeightA() - 27), 12.0F, 24.0F);
-               RenderUtil.method11455(5.0F, (float)(this.getHeightA() - 27), 24.0F, 24.0F, Class4334.field21177);
+               RenderUtil.drawImage(5.0F, (float)(this.getHeightA() - 27), 24.0F, 24.0F, Class4334.field21177);
                RenderUtil.endScissor();
                break;
             }

@@ -9,7 +9,7 @@ public class Class6665 implements Class6664 {
       int var5 = 0;
       int var6 = 0;
 
-      for (CustomGuiScreen var8 : var1.method13241()) {
+      for (CustomGuiScreen var8 : var1.getRenderObjects()) {
          if (var8.getXA() + var8.getWidthA() > var5) {
             var5 = var8.getXA() + var8.getWidthA();
          }

@@ -62,7 +62,7 @@ public class Class4375 extends UIBase {
       int var3 = 1;
       ArrayList var4 = new ArrayList();
 
-      for (CustomGuiScreen var6 : this.method13241()) {
+      for (CustomGuiScreen var6 : this.getRenderObjects()) {
          if (var6.getHeightA() != 0) {
             var4.add(var6.getName());
          }
@@ -92,7 +92,7 @@ public class Class4375 extends UIBase {
    public void method13028(int var1, int var2) {
       Map<Integer, Class4253> var5 = new HashMap();
 
-      for (CustomGuiScreen var7 : this.method13241()) {
+      for (CustomGuiScreen var7 : this.getRenderObjects()) {
          if (var7 instanceof Class4253) {
              var5.put(((Class4253) var7).field20626, (Class4253) var7);
          }

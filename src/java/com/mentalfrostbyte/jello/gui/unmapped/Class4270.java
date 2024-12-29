@@ -15,7 +15,7 @@ public class Class4270 extends UIBase {
          this.addToList(
             var11 = new Class4268(
                this,
-               "KEY_" + key.row + this.method13241().size(),
+               "KEY_" + key.row + this.getRenderObjects().size(),
                key.getX(),
                key.method9026(),
                key.getY(),
@@ -59,7 +59,7 @@ public class Class4270 extends UIBase {
    }
 
    public void method13104() {
-      for (CustomGuiScreen var4 : this.method13241()) {
+      for (CustomGuiScreen var4 : this.getRenderObjects()) {
          if (var4 instanceof Class4268) {
             Class4268 var5 = (Class4268)var4;
             var5.method13102();

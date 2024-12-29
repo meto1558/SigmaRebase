@@ -41,7 +41,7 @@ public class RectangleFaded extends ButtonPanel {
         int var5 = 40;
         float var6 = - SwitchScreen.field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
         float var7 = - SwitchScreen.field21071 / (float) Minecraft.getInstance().getMainWindow().getHeight();
-        RenderUtil.method11455(
+        RenderUtil.drawImage(
                 (float) var5 * var6,
                 (float) var5 * var7,
                 (float) (Minecraft.getInstance().getMainWindow().getWidth() + var5),

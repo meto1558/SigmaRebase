@@ -150,7 +150,7 @@ public class AlertPanel extends UIBase {
    @Override
    public void method13296(boolean var1) {
       if (var1) {
-         for (CustomGuiScreen var5 : this.field21279.method13241()) {
+         for (CustomGuiScreen var5 : this.field21279.getRenderObjects()) {
             if (var5 instanceof UIInput) {
                ((UIInput)var5).setTypedText("");
                ((UIInput)var5).method13146();
@@ -169,7 +169,7 @@ public class AlertPanel extends UIBase {
    private Map<String, String> method13599() {
       HashMap var3 = new HashMap();
 
-      for (CustomGuiScreen var5 : this.field21279.method13241()) {
+      for (CustomGuiScreen var5 : this.field21279.getRenderObjects()) {
          AnimatedIconPanelWrap var6 = (AnimatedIconPanelWrap)var5;
          if (var6 instanceof UIInput) {
             UIInput var7 = (UIInput)var6;
