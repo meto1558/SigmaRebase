@@ -97,7 +97,7 @@ public class LoginAndOutScreen extends Screen {
                 String[] var6 = ColorUtils.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
 
                 for (int var7 = 0; var7 < var6.length; var7++) {
-                    var5.add(new MiniAlert(AlertType.FIRSTLINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
+                    var5.add(new MiniAlert(AlertType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
                 }
 
                 var5.add(new MiniAlert(AlertType.BUTTON, "Ok", 55));

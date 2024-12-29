@@ -91,13 +91,13 @@ public class JelloClickGUI extends Screen {
          this.method13222(() -> {
             List<MiniAlert> var3 = new ArrayList();
             var3.add(new MiniAlert(AlertType.HEADER, "Music", 40));
-            var3.add(new MiniAlert(AlertType.FIRSTLINE, "Jello Music requires:", 20));
+            var3.add(new MiniAlert(AlertType.FIRST_LINE, "Jello Music requires:", 20));
             if (!Client.getInstance().musicManager.hasPython()) {
-               var3.add(new MiniAlert(AlertType.FIRSTLINE, "- Python 3.12.5", 30));
+               var3.add(new MiniAlert(AlertType.FIRST_LINE, "- Python 3.12.5", 30));
             }
 
             if (!Client.getInstance().musicManager.hasVCRedist()) {
-               var3.add(new MiniAlert(AlertType.FIRSTLINE, "- Visual C++ 2010 x86", 30));
+               var3.add(new MiniAlert(AlertType.FIRST_LINE, "- Visual C++ 2010 x86", 30));
             }
 
             var3.add(new MiniAlert(AlertType.BUTTON, "Download", 55));

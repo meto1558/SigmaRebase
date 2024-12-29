@@ -252,10 +252,10 @@ public class AltManagerScreen extends Screen {
 
    private void method13362() {
       MiniAlert header = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
-      MiniAlert firstline1 = new MiniAlert(AlertType.FIRSTLINE, "Login with your minecraft", 15);
-      MiniAlert firstline2 = new MiniAlert(AlertType.FIRSTLINE, "account here!", 25);
-      MiniAlert email = new MiniAlert(AlertType.SEKONDLINE, "Email", 50);
-      MiniAlert password = new MiniAlert(AlertType.SEKONDLINE, "Password", 50);
+      MiniAlert firstline1 = new MiniAlert(AlertType.FIRST_LINE, "Login with your minecraft", 15);
+      MiniAlert firstline2 = new MiniAlert(AlertType.FIRST_LINE, "account here!", 25);
+      MiniAlert email = new MiniAlert(AlertType.SECOND_LINE, "Email", 50);
+      MiniAlert password = new MiniAlert(AlertType.SECOND_LINE, "Password", 50);
       MiniAlert button  = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
       this.addToList(this.field21012 = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, email, password, button));
       this.field21012.method13036(var1 -> {
@@ -286,8 +286,8 @@ public class AltManagerScreen extends Screen {
 
    private void method13363() {
       MiniAlert var3 = new MiniAlert(AlertType.HEADER, "Delete?", 50);
-      MiniAlert var4 = new MiniAlert(AlertType.FIRSTLINE, "Are you sure you want", 15);
-      MiniAlert var5 = new MiniAlert(AlertType.FIRSTLINE, "to delete this alt?", 40);
+      MiniAlert var4 = new MiniAlert(AlertType.FIRST_LINE, "Are you sure you want", 15);
+      MiniAlert var5 = new MiniAlert(AlertType.FIRST_LINE, "to delete this alt?", 40);
       MiniAlert var6 = new MiniAlert(AlertType.BUTTON, "Delete", 50);
       this.addToList(this.field21013 = new AlertPanel(this, "delete", true, "Delete", var3, var4, var5, var6));
    }
