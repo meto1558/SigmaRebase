@@ -403,7 +403,7 @@ public class GuiManager {
         return this.screen;
     }
 
-    public void method33481() throws JSONException {
+    public void handleCurrentScreen() throws JSONException {
         this.handleScreen(handleScreen(Minecraft.getInstance().currentScreen));
     }
 
