@@ -106,7 +106,7 @@ public class Class4266 extends UIBase {
                (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 8.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
             );
             RenderUtil.method11477(Class2329.field15940);
-            RenderUtil.method11448(
+            RenderUtil.drawTexture(
                (float)(this.xA - 1),
                (float)(this.yA - 1),
                (float)(this.widthA + 2),

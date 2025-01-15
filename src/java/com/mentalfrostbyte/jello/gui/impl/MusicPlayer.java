@@ -492,7 +492,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
 
         float var4 = this.field20863 < 50 ? (float) this.field20863 / 50.0F : 1.0F;
         if (this.field20864 != null) {
-            RenderUtil.method11448(
+            RenderUtil.drawTexture(
                     (float) this.field20845,
                     0.0F,
                     (float) (this.getWidthA() - this.field20845),

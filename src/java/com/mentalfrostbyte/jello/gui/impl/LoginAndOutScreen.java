@@ -196,7 +196,7 @@ public class LoginAndOutScreen extends Screen {
         GL11.glTranslatef((float) this.widthA / 2.0F, (float) this.widthA / 2.0F, 0.0F);
         GL11.glScalef(1.0F + var7 * 0.2F, 1.0F + var7 * 0.2F, 0.0F);
         GL11.glTranslatef((float) (-this.widthA) / 2.0F, (float) (-this.widthA) / 2.0F, 0.0F);
-        RenderUtil.method11448(
+        RenderUtil.drawTexture(
                 (float) this.field21083,
                 (float) this.field21082,
                 (float) (this.getWidthA() * 2),

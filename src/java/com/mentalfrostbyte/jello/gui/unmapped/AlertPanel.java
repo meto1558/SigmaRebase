@@ -210,7 +210,7 @@ public class AlertPanel extends UIBase {
          float var8 = this.method13602(this.field21282.calcPercent(), 1.0F);
          var4 = (int)((float)var4 * var8);
          var5 = (int)((float)var5 * var8);
-         RenderUtil.method11448(
+         RenderUtil.drawTexture(
             -5.0F,
             -5.0F,
             (float)(this.getWidthA() + 10),

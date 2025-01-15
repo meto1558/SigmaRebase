@@ -70,7 +70,7 @@ public class JelloInGameOptions extends Screen {
       float var7 = (float)(var4 - this.field21110);
       GL11.glPushMatrix();
       if (this.field21113 != null) {
-         RenderUtil.method11448(
+         RenderUtil.drawTexture(
                  (float)this.field21110,
                  (float)this.field21109,
                  (float)(this.getWidthA() * 2),
