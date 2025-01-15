@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.ClickEvent;
 import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.EventRender;
 import com.mentalfrostbyte.jello.gui.base.Animation;
@@ -21,7 +20,7 @@ import java.util.Iterator;
 public class KeyStrokes extends Module {
     public int field23585 = 10;
     public int field23586 = 260;
-    public ArrayList<Class7930> field23587 = new ArrayList<>();
+    public ArrayList<KeyAnimationData> field23587 = new ArrayList<>();
 
     public KeyStrokes() {
         super(ModuleCategory.GUI, "KeyStrokes", "Shows what keybind you are pressing");
@@ -60,13 +59,13 @@ public class KeyStrokes extends Module {
                     this.field23586 = var1.method13960();
                     if (Client.getInstance().guiManager.getGuiBlur()) {
                         for (Keystroke var7 : Keystroke.values()) {
-                            Class9268 var8 = var7.method8814();
-                            Class9268 var9 = var7.method8815();
+                            KeyPosition var8 = var7.getTopLeftPosition();
+                            KeyPosition var9 = var7.getBottomRightPosition();
                             RenderUtil.drawPortalBackground(
-                                    this.field23585 + var8.field42635,
-                                    this.field23586 + var8.field42636,
-                                    this.field23585 + var8.field42635 + var9.field42635,
-                                    this.field23586 + var8.field42636 + var9.field42636
+                                    this.field23585 + var8.x,
+                                    this.field23586 + var8.y,
+                                    this.field23585 + var8.x + var9.x,
+                                    this.field23586 + var8.y + var9.y
                             );
                             // TODO: blur
 //                            BlurEngine.drawBlur(this.field23585 + var8.field42635, this.field23586 + var8.field42636, var9.field42635, var9.field42636);
@@ -75,9 +74,9 @@ public class KeyStrokes extends Module {
                         }
                     }
 
-                    for (Keystroke var19 : Keystroke.values()) {
-                        Class9268 var21 = var19.method8814();
-                        Class9268 var23 = var19.method8815();
+                    for (Keystroke keystroke : Keystroke.values()) {
+                        KeyPosition var21 = keystroke.getTopLeftPosition();
+                        KeyPosition var23 = keystroke.getBottomRightPosition();
                         float var10 = 1.0F;
                         float var11 = 1.0F;
                         if (Client.getInstance().guiManager.getGuiBlur()) {
@@ -86,9 +85,9 @@ public class KeyStrokes extends Module {
                         }
 
                         // TODO
-                        String var12 = RenderUtil.getKeyName(var19.bind.keyCode.getKeyCode());
-                        if (var19.bind != mc.gameSettings.keyBindAttack) {
-                            if (var19.bind == mc.gameSettings.keyBindUseItem) {
+                        String var12 = RenderUtil.getKeyName(keystroke.bind.keyCode.getKeyCode());
+                        if (keystroke.bind != mc.gameSettings.keyBindAttack) {
+                            if (keystroke.bind == mc.gameSettings.keyBindUseItem) {
                                 var12 = "R";
                             }
                         } else {
@@ -96,24 +95,24 @@ public class KeyStrokes extends Module {
                         }
 
                         RenderUtil.drawRoundedRect( // TODO: check this, again
-                                (float) (this.field23585 + var21.field42635),
-                                (float) (this.field23586 + var21.field42636),
-                                (float) (this.field23585 + var21.field42635 + var23.field42635),
-                                (float) (this.field23586 + var21.field42636 + var23.field42636),
+                                (float) (this.field23585 + var21.x),
+                                (float) (this.field23586 + var21.y),
+                                (float) (this.field23585 + var21.x + var23.x),
+                                (float) (this.field23586 + var21.y + var23.y),
                                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
                         );
                         RenderUtil.drawRoundedRect(
-                                (float) (this.field23585 + var21.field42635),
-                                (float) (this.field23586 + var21.field42636),
-                                (float) var23.field42635,
-                                (float) var23.field42636,
+                                (float) (this.field23585 + var21.x),
+                                (float) (this.field23586 + var21.y),
+                                (float) var23.x,
+                                (float) var23.y,
                                 10.0F,
                                 0.75F * var11
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
-                                (float) (this.field23585 + var21.field42635 + (var23.field42635 - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
-                                (float) (this.field23586 + var21.field42636 + 12),
+                                (float) (this.field23585 + var21.x + (var23.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
+                                (float) (this.field23586 + var21.y + 12),
                                 var12,
                                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
                         );
@@ -122,30 +121,30 @@ public class KeyStrokes extends Module {
                     Iterator var14 = this.field23587.iterator();
 
                     while (var14.hasNext()) {
-                        Class7930 var16 = (Class7930) var14.next();
-                        Keystroke var18 = var16.field33987;
-                        Class9268 var20 = var18.method8814();
-                        Class9268 var22 = var18.method8815();
+                        KeyAnimationData var16 = (KeyAnimationData) var14.next();
+                        Keystroke var18 = var16.keyStroke;
+                        KeyPosition var20 = var18.getTopLeftPosition();
+                        KeyPosition var22 = var18.getBottomRightPosition();
                         RenderUtil.drawPortalBackground(
-                                this.field23585 + var20.field42635,
-                                this.field23586 + var20.field42636,
-                                this.field23585 + var20.field42635 + var22.field42635,
-                                this.field23586 + var20.field42636 + var22.field42636
+                                this.field23585 + var20.x,
+                                this.field23586 + var20.y,
+                                this.field23585 + var20.x + var22.x,
+                                this.field23586 + var20.y + var22.y
                         );
                         float var24 = 0.7F;
                         int var25 = 0;
 
-                        for (Class7930 var28 : this.field23587) {
-                            if (var28.field33987.equals(var18)) {
+                        for (KeyAnimationData var28 : this.field23587) {
+                            if (var28.keyStroke.equals(var18)) {
                                 var25++;
                             }
                         }
 
-                        if (var18.method8816().isKeyDown() && var16.field33988.calcPercent() >= var24 && var25 < 2) {
-                            var16.field33988.method25318(var24);
+                        if (var18.getKeyBinding().isKeyDown() && var16.animation.calcPercent() >= var24 && var25 < 2) {
+                            var16.animation.method25318(var24);
                         }
 
-                        float var27 = var16.field33988.calcPercent();
+                        float var27 = var16.animation.calcPercent();
                         float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
                         int var29 = ColorUtils.applyAlpha(-5658199, alpha);
                         if (Client.getInstance().guiManager.getGuiBlur()) { // TODO: check this
@@ -153,13 +152,13 @@ public class KeyStrokes extends Module {
                         }
 
                         RenderUtil.method11436(
-                                (float) (this.field23585 + var20.field42635 + var22.method34904() / 2),
-                                (float) (this.field23586 + var20.field42636 + var22.field42636 / 2),
-                                (float) (var22.method34904() - 4) * var27 + 4.0F,
+                                (float) (this.field23585 + var20.x + var22.getX() / 2),
+                                (float) (this.field23586 + var20.y + var22.y / 2),
+                                (float) (var22.getX() - 4) * var27 + 4.0F,
                                 var29
                         );
                         RenderUtil.endScissor();
-                        if (var16.field33988.calcPercent() == 1.0F) {
+                        if (var16.animation.calcPercent() == 1.0F) {
                             var14.remove();
                         }
                     }
@@ -174,7 +173,7 @@ public class KeyStrokes extends Module {
     public void onKeyPress(EventKeyPress event) {
         if (this.isEnabled() && mc.player != null) {
             if (this.getKeyStrokeForKey(event.getKey()) != null && !event.isPressed()) {
-                this.field23587.add(new Class7930(this, this.getKeyStrokeForKey(event.getKey())));
+                this.field23587.add(new KeyAnimationData(this.getKeyStrokeForKey(event.getKey())));
             }
         }
     }
@@ -184,7 +183,11 @@ public class KeyStrokes extends Module {
 //        if (!this.isEnabled() || mc.player == null) {
 //        }
 //    }
-
+    /**
+     * {@link Keystroke} represents a key on the keyboard that can be pressed
+     * or released. It provides information about the key such as its position
+     * on the keyboard, its binding, and its state.
+     */
     public enum Keystroke {
         Left(0.0F, 1.0F, mc.gameSettings.keyBindLeft),
         Right(2.0F, 1.0F, mc.gameSettings.keyBindRight),
@@ -193,86 +196,91 @@ public class KeyStrokes extends Module {
         Attack(0.0F, 2.0F, 74, mc.gameSettings.keyBindAttack),
         UseItem(1.02F, 2.0F, 73, mc.gameSettings.keyBindUseItem);
 
-        public float field13914;
-        public float field13915;
-        public int field13916 = 48;
-        public int field13917 = 48;
-        public int field13918 = 3;
-        public KeyBinding bind;
+        public final float positionX;
+        public final float positionY;
+        public int width = 48;
+        public int height = 48;
+        public int padding = 3;
+        public final KeyBinding bind;
 
-        private Keystroke(float var3, float var4, KeyBinding bind) {
-            this.field13914 = var3;
-            this.field13915 = var4;
+        private Keystroke(float positionX, float positionY, KeyBinding bind) {
+            this.positionX = positionX;
+            this.positionY = positionY;
             this.bind = bind;
         }
 
-        private Keystroke(float var3, float var4, int var5, KeyBinding bind) {
-            this.field13914 = var3;
-            this.field13915 = var4;
+        private Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
+            this.positionX = positionX;
+            this.positionY = positionY;
             this.bind = bind;
-            this.field13916 = var5;
+            this.width = width;
         }
 
-        public Class9268 method8814() {
-            return new Class9268(
-                    this, (int)(this.field13914 * (float)(this.field13916 + this.field13918)), (int)(this.field13915 * (float)(this.field13917 + this.field13918))
+        /**
+         * Gets the top left position of the key on the keyboard.
+         * @return the top left position of the key on the keyboard.
+         */
+        public KeyPosition getTopLeftPosition() {
+            return new KeyPosition(
+                    this, (int)(this.positionX * (float)(this.width + this.padding)), (int)(this.positionY * (float)(this.height + this.padding))
             );
         }
 
-        public Class9268 method8815() {
-            return new Class9268(this, this.field13916, this.field13917);
+        /**
+         * Gets the bottom right position of the key on the keyboard.
+         * @return the bottom right position of the key on the keyboard.
+         */
+        public KeyPosition getBottomRightPosition() {
+            return new KeyPosition(this, this.width, this.height);
         }
 
-        public KeyBinding method8816() {
-            if (this != Left) {
-                if (this != Right) {
-                    if (this != Forward) {
-                        if (this != Back) {
-                            if (this != Attack) {
-                                return this != UseItem ? null : mc.gameSettings.keyBindUseItem;
-                            } else {
-                                return mc.gameSettings.keyBindAttack;
-                            }
-                        } else {
-                            return mc.gameSettings.keyBindBack;
-                        }
-                    } else {
-                        return mc.gameSettings.keyBindForward;
-                    }
-                } else {
-                    return mc.gameSettings.keyBindRight;
-                }
-            } else {
-                return mc.gameSettings.keyBindLeft;
+        /**
+         * Gets the key binding for the key.
+         * @return the key binding for the key.
+         */
+        public KeyBinding getKeyBinding() {
+            switch (this) {
+                case Left: return mc.gameSettings.keyBindLeft;
+                case Right: return mc.gameSettings.keyBindRight;
+                case Forward: return mc.gameSettings.keyBindForward;
+                case Back: return mc.gameSettings.keyBindBack;
+                case Attack: return mc.gameSettings.keyBindAttack;
+                case UseItem: return mc.gameSettings.keyBindUseItem;
+                default: return null;
             }
         }
     }
 
-    public static class Class7930 {
-        public Keystroke field33987;
-        public Animation field33988;
-        public final KeyStrokes field33989;
+    public static class KeyAnimationData {
+        public Keystroke keyStroke;
+        public Animation animation;
 
-        public Class7930(KeyStrokes var1, Keystroke var2) {
-            this.field33989 = var1;
-            this.field33988 = new Animation(300, 0);
-            this.field33987 = var2;
+        public KeyAnimationData(Keystroke keyStroke) {
+            this.animation = new Animation(300, 0);
+            this.keyStroke = keyStroke;
         }
     }
 
-    public static class Class9268 {
-        public int field42635;
-        public int field42636;
-        public final Keystroke field42637;
+    /**
+     * represents the position of a key on the keyboard.
+     */
+    public static class KeyPosition {
+        public int x;
+        public int y;
+        public final Keystroke keystroke;
 
-        public Class9268(Keystroke var1, int var2, int var3) {
-            this.field42637 = var1;
-            this.field42635 = var2;
-            this.field42636 = var3;
+        public KeyPosition(Keystroke keystroke, int x, int y) {
+            this.keystroke = keystroke;
+            this.x = x;
+            this.y = y;
         }
 
-        public int method34904() {
-            return this.field42635;
+        /**
+         * Gets the x position of the key.
+         * @return the x position of the key.
+         */
+        public int getX() {
+            return this.x;
         }
     }
 }
