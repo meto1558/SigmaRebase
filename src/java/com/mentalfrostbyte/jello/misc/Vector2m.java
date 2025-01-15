@@ -223,6 +223,16 @@ public class Vector2m {
       return new Vector2m(Math.abs(this.x), Math.abs(this.y));
    }
 
+   /**
+    * Rotates this vector around a specified point.
+    *
+    * @param angleDegrees The angle of rotation in degrees.
+    * @param centerX The x-coordinate of the center of rotation.
+    * @param centerZ The z-coordinate of the center of rotation.
+    * @param offsetX Additional x-offset to apply after rotation.
+    * @param offsetZ Additional z-offset to apply after rotation.
+    * @return A new `Vector2m` representing the rotated vector.
+    */
    public Vector2m rotateAroundPoint(double angleDegrees, double centerX, double centerZ, double offsetX, double offsetZ) {
       angleDegrees = Math.toRadians(angleDegrees);
       double centeredX = this.x - centerX;
