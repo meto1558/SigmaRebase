@@ -216,21 +216,21 @@ public class RenderUtil {
         drawRoundedRect(x, y, x + width, y + height, color);
     }
 
-    public static void drawRoundedRect(float x, float y, float var2, float var3, float var4, int var5) {
-        drawRoundedRect(x, y + var4, x + var2, y + var3 - var4, var5);
-        drawRoundedRect(x + var4, y, x + var2 - var4, y + var4, var5);
-        drawRoundedRect(x + var4, y + var3 - var4, x + var2 - var4, y + var3, var5);
-        method11418(x, y, x + var4, y + var4);
-        method11438(x + var4, y + var4, var4 * 2.0F, var5);
+    public static void drawRoundedRect(float x, float y, float width, float height, float size, int color) {
+        drawRoundedRect(x, y + size, x + width, y + height - size, color);
+        drawRoundedRect(x + size, y, x + width - size, y + size, color);
+        drawRoundedRect(x + size, y + height - size, x + width - size, y + height, color);
+        method11418(x, y, x + size, y + size);
+        method11438(x + size, y + size, size * 2.0F, color);
         endScissor();
-        method11418(x + var2 - var4, y, x + var2, y + var4);
-        method11438(x - var4 + var2, y + var4, var4 * 2.0F, var5);
+        method11418(x + width - size, y, x + width, y + size);
+        method11438(x - size + width, y + size, size * 2.0F, color);
         endScissor();
-        method11418(x, y + var3 - var4, x + var4, y + var3);
-        method11438(x + var4, y - var4 + var3, var4 * 2.0F, var5);
+        method11418(x, y + height - size, x + size, y + height);
+        method11438(x + size, y - size + height, size * 2.0F, color);
         endScissor();
-        method11418(x + var2 - var4, y + var3 - var4, x + var2, y + var3);
-        method11438(x - var4 + var2, y - var4 + var3, var4 * 2.0F, var5);
+        method11418(x + width - size, y + height - size, x + width, y + height);
+        method11438(x - size + width, y - size + height, size * 2.0F, color);
         endScissor();
     }
 
