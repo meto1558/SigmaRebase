@@ -985,8 +985,8 @@ public class RenderUtil {
         mouseX = (int)((float)mouseX * GuiManager.scaleFactor);
         mouseY = (int)((float)mouseY * GuiManager.scaleFactor);
         ByteBuffer var5 = ByteBuffer.allocateDirect(3);
-        GL11.glPixelStorei(3317, 1);
-        GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, 6407, 5120, var5);
+        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+        GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, GL11.GL_RGB, GL11.GL_BYTE, var5);
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
     }
 }
