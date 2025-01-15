@@ -1,78 +1,184 @@
 package com.mentalfrostbyte.jello.misc;
 
+/**
+ * Represents a 2-dimensional vector with x and y coordinates.
+ */
 public class Vector2m {
+   /**
+    * The x-coordinate of the vector.
+    */
    public final double x;
+
+   /**
+    * The y-coordinate of the vector.
+    */
    public final double y;
 
+   /**
+    * Constructs a `Vector2m` with the specified x and y coordinates.
+    *
+    * @param x the x-coordinate
+    * @param y the y-coordinate
+    */
    public Vector2m(double x, double y) {
       this.x = x;
       this.y = y;
    }
 
+   /**
+    * Constructs a `Vector2m` with the specified x and y coordinates.
+    *
+    * @param x the x-coordinate
+    * @param y the y-coordinate
+    */
    public Vector2m(int x, int y) {
       this.x = x;
       this.y = y;
    }
 
+   /**
+    * Constructs a `Vector2m` with the specified x and y coordinates.
+    *
+    * @param x the x-coordinate
+    * @param y the y-coordinate
+    */
    public Vector2m(float x, float y) {
       this.x = x;
       this.y = y;
    }
 
+   /**
+    * Constructs a `Vector2m` by copying another `Vector2m`.
+    *
+    * @param from the `Vector2m` to copy
+    */
    public Vector2m(Vector2m from) {
       this.x = from.x;
       this.y = from.y;
    }
 
+   /**
+    * Constructs a `Vector2m` with coordinates (0.0, 0.0).
+    */
    public Vector2m() {
       this.x = 0.0;
       this.y = 0.0;
    }
 
+   /**
+    * Returns the x-coordinate of this vector.
+    *
+    * @return the x-coordinate
+    */
    public double getX() {
       return this.x;
    }
 
+   /**
+    * Returns the rounded value of the x-coordinate.
+    *
+    * @return the rounded x-coordinate
+    */
    public int roundX() {
       return (int)Math.round(this.x);
    }
 
+   /**
+    * Returns a new `Vector2m` with the specified x-coordinate and the y-coordinate of this vector.
+    *
+    * @param x the new x-coordinate
+    * @return a new `Vector2m` with the specified x-coordinate
+    */
    public Vector2m withX(double x) {
       return new Vector2m(x, this.y);
    }
 
+   /**
+    * Returns a new `Vector2m` with the specified x-coordinate and the y-coordinate of this vector.
+    *
+    * @param x the new x-coordinate
+    * @return a new `Vector2m` with the specified x-coordinate
+    */
    public Vector2m withX(int x) {
       return new Vector2m(x, this.y);
    }
 
+   /**
+    * Returns the y-coordinate of this vector.
+    *
+    * @return the y-coordinate
+    */
    public double getY() {
       return this.y;
    }
 
+   /**
+    * Returns the rounded value of the y-coordinate.
+    *
+    * @return the rounded y-coordinate
+    */
    public int roundY() {
       return (int)Math.round(this.y);
    }
 
+   /**
+    * Returns a new `Vector2m` with the same x-coordinate and the specified y-coordinate.
+    *
+    * @param y the new y-coordinate
+    * @return a new `Vector2m` with the updated y-coordinate
+    */
    public Vector2m withY(double y) {
       return new Vector2m(this.x, y);
    }
 
+   /**
+    * Returns a new `Vector2m` with the same x-coordinate and the specified y-coordinate.
+    *
+    * @param y the new y-coordinate
+    * @return a new `Vector2m` with the updated y-coordinate
+    */
    public Vector2m withY(int y) {
       return new Vector2m(this.x, y);
    }
 
+   /**
+    * Adds the specified `Vector2m` to this vector and returns the result.
+    *
+    * @param of the vector to add
+    * @return the sum of this vector and the specified vector
+    */
    public Vector2m add(Vector2m of) {
       return new Vector2m(this.x + of.x, this.y + of.y);
    }
 
+   /**
+    * Adds the specified x and y coordinates to this vector and returns the result.
+    *
+    * @param x the x-coordinate to add
+    * @param y the y-coordinate to add
+    * @return the sum of this vector and the specified coordinates
+    */
    public Vector2m add(double x, double y) {
       return new Vector2m(this.x + x, this.y + y);
    }
 
+   /**
+    * Adds the specified x and y coordinates to this vector and returns the result.
+    *
+    * @param x the x-coordinate to add
+    * @param y the y-coordinate to add
+    * @return the sum of this vector and the specified coordinates
+    */
    public Vector2m add(int x, int y) {
       return new Vector2m(this.x + (double)x, this.y + (double)y);
    }
 
+   /**
+    * Adds all the specified vectors to this vector and returns the result.
+    *
+    * @param vectorsIn the vectors to add
+    * @return the sum of this vector and all the specified vectors
+    */
    public Vector2m addAll(Vector2m... vectorsIn) {
       double x = this.x;
       double y = this.y;
@@ -85,18 +191,44 @@ public class Vector2m {
       return new Vector2m(x, y);
    }
 
+   /**
+    * Subtracts the specified vector from this vector and returns the result.
+    *
+    * @param vec the vector to subtract
+    * @return the difference between this vector and the specified vector
+    */
    public Vector2m subtract(Vector2m vec) {
       return new Vector2m(this.x - vec.x, this.y - vec.y);
    }
 
+   /**
+    * Subtracts the specified x and y coordinates from this vector and returns the result.
+    *
+    * @param x the x-coordinate to subtract
+    * @param y the y-coordinate to subtract
+    * @return the difference between this vector and the specified coordinates
+    */
    public Vector2m subtract(double x, double y) {
       return new Vector2m(this.x - x, this.y - y);
    }
 
+   /**
+    * Subtracts the specified x and y coordinates from this vector and returns the result.
+    *
+    * @param x the x-coordinate to subtract
+    * @param y the y-coordinate to subtract
+    * @return the difference between this vector and the specified coordinates
+    */
    public Vector2m subtract(int x, int y) {
       return new Vector2m(this.x - (double)x, this.y - (double)y);
    }
 
+   /**
+    * Subtracts all specified vectors from this vector and returns the result.
+    *
+    * @param vectorsIn the vectors to subtract
+    * @return the difference between this vector and all specified vectors
+    */
    public Vector2m subtractAll(Vector2m... vectorsIn) {
       double x = this.x;
       double y = this.y;
@@ -109,18 +241,44 @@ public class Vector2m {
       return new Vector2m(x, y);
    }
 
+   /**
+    * Multiplies this vector by the specified vector and returns the result.
+    *
+    * @param vec the vector to multiply by
+    * @return the product of this vector and the specified vector
+    */
    public Vector2m multiply(Vector2m vec) {
       return new Vector2m(this.x * vec.x, this.y * vec.y);
    }
 
+   /**
+    * Multiplies this vector by the specified x and y coordinates and returns the result.
+    *
+    * @param x the x-coordinate to multiply by
+    * @param y the y-coordinate to multiply by
+    * @return the product of this vector and the specified coordinates
+    */
    public Vector2m multiply(double x, double y) {
       return new Vector2m(this.x * x, this.y * y);
    }
 
+   /**
+    * Multiplies this vector by the specified x and y coordinates and returns the result.
+    *
+    * @param x the x-coordinate to multiply by
+    * @param y the y-coordinate to multiply by
+    * @return the product of this vector and the specified coordinates
+    */
    public Vector2m multiply(int x, int y) {
       return new Vector2m(this.x * (double)x, this.y * (double)y);
    }
 
+   /**
+    * Multiplies this vector by all specified vectors and returns the result.
+    *
+    * @param vectorsIn the vectors to multiply by
+    * @return the product of this vector and all specified vectors
+    */
    public Vector2m multiplyAll(Vector2m... vectorsIn) {
       double x = this.x;
       double y = this.y;
@@ -133,95 +291,111 @@ public class Vector2m {
       return new Vector2m(x, y);
    }
 
+   /**
+    * Scales this vector by the specified scalar and returns the result.
+    *
+    * @param scalar the scalar value to scale by
+    * @return the scaled vector
+    */
    public Vector2m scale(double scalar) {
       return new Vector2m(this.x * scalar, this.y * scalar);
    }
 
+   /**
+    * Multiplies this vector by the specified scalar and returns the result.
+    *
+    * @param scalar the scalar value to multiply by
+    * @return the product of this vector and the scalar
+    */
    public Vector2m multiply(float scalar) {
       return new Vector2m(this.x * (double)scalar, this.y * (double)scalar);
    }
 
+   /**
+    * Multiplies this vector by the specified scalar and returns the result.
+    *
+    * @param scalar the scalar value to multiply by
+    * @return the product of this vector and the scalar
+    */
    public Vector2m multiply(int scalar) {
       return new Vector2m(this.x * (double)scalar, this.y * (double)scalar);
    }
 
+   /**
+    * Divides this vector by the specified vector and returns the result.
+    *
+    * @param vectorIn the vector to divide by
+    * @return the quotient of this vector and the specified vector
+    */
    public Vector2m divide(Vector2m vectorIn) {
       return new Vector2m(this.x / vectorIn.x, this.y / vectorIn.y);
    }
 
+   /**
+    * Divides this vector by the specified x and y coordinates and returns the result.
+    *
+    * @param x the x-coordinate to divide by
+    * @param y the y-coordinate to divide by
+    * @return the quotient of this vector and the specified coordinates
+    */
    public Vector2m divide(double x, double y) {
       return new Vector2m(this.x / x, this.y / y);
    }
 
+   /**
+    * Divides this vector by the specified x and y coordinates and returns the result.
+    *
+    * @param x the x-coordinate to divide by
+    * @param y the y-coordinate to divide by
+    * @return the quotient of this vector and the specified coordinates
+    */
    public Vector2m divide(int x, int y) {
       return new Vector2m(this.x / (double)x, this.y / (double)y);
    }
 
+   /**
+    * Divides this vector by the specified scalar and returns the result.
+    *
+    * @param scalar the scalar value to divide by
+    * @return the quotient of this vector and the scalar
+    */
    public Vector2m divide(int scalar) {
       return new Vector2m(this.x / (double)scalar, this.y / (double)scalar);
    }
 
+   /**
+    * Divides this vector by the specified scalar and returns the result.
+    *
+    * @param scalar the scalar value to divide by
+    * @return the quotient of this vector and the scalar
+    */
    public Vector2m divide(double scalar) {
       return new Vector2m(this.x / scalar, this.y / scalar);
    }
 
+   /**
+    * Divides this vector by the specified scalar and returns the result.
+    *
+    * @param scalar the scalar value to divide by
+    * @return the quotient of this vector and the scalar
+    */
    public Vector2m divide(float scalar) {
       return new Vector2m(this.x / (double)scalar, this.y / (double)scalar);
    }
 
+   /**
+    * Returns the magnitude of this vector.
+    *
+    * @return the magnitude of this vector
+    */
    public double magnitude() {
       return Math.sqrt(this.x * this.x + this.y * this.y);
    }
 
-   public double magnitudeSquared() {
-      return this.x * this.x + this.y * this.y;
-   }
-
-   public double distanceTo(Vector2m vec) {
-      return Math.sqrt(Math.pow(vec.x - this.x, 2.0) + Math.pow(vec.y - this.y, 2.0));
-   }
-
-   public double squaredDistanceTo(Vector2m vec) {
-      return Math.pow(vec.x - this.x, 2.0) + Math.pow(vec.y - this.y, 2.0);
-   }
-
-   public Vector2m normalize() {
-      return this.divide(this.magnitude());
-   }
-
-   public double dotProduct(Vector2m vectorIn) {
-      return this.x * vectorIn.x + this.y * vectorIn.y;
-   }
-
-   public boolean isWithinBounds(Vector2m vector1In, Vector2m vector2In) {
-      return this.x >= vector1In.x
-         && this.x <= vector2In.x
-         && this.y >= vector1In.y
-         && this.y <= vector2In.y;
-   }
-
-   public boolean isWithinRoundedBounds(Vector2m vector1In, Vector2m vector2In) {
-      return this.roundX() >= vector1In.roundX()
-         && this.roundX() <= vector2In.roundX()
-         && this.roundY() >= vector1In.roundY()
-         && this.roundY() <= vector2In.roundY();
-   }
-
-   public Vector2m floor() {
-      return new Vector2m(Math.floor(this.x), Math.floor(this.y));
-   }
-
-   public Vector2m ceil() {
-      return new Vector2m(Math.ceil(this.x), Math.ceil(this.y));
-   }
-
-   public Vector2m round() {
-      return new Vector2m(Math.floor(this.x + 0.5), Math.floor(this.y + 0.5));
-   }
-
-   public Vector2m abs() {
-      return new Vector2m(Math.abs(this.x), Math.abs(this.y));
-   }
+   /**
+    * Returns the squared magnitude of this vector.
+    *
+    * @return the squared magnitude of this vector
 
    /**
     * Rotates this vector around a specified point.
