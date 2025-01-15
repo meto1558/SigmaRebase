@@ -99,12 +99,6 @@ public class MovementUtil {
             }
         }
 
-        if (/*Client.getInstance().method19950().method31742()
-                && !Client.getInstance().method19950().method31741()
-                &&*/ (mc.player.moveForward != 0.0F || mc.player.moveStrafing != 0.0F)) {
-            forward = 1.0F;
-        }
-
         return new float[]{yaw, forward, strafe};
     }
     public static boolean isMovingHorizontally() {
