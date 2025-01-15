@@ -128,16 +128,16 @@ public class KeyStrokes extends Module {
 
                         float var27 = animationData.animation.calcPercent();
                         float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
-                        int var29 = ColorUtils.applyAlpha(-5658199, alpha);
+                        int color = ColorUtils.applyAlpha(-5658199, alpha);
                         if (Client.getInstance().guiManager.getGuiBlur()) { // TODO: check this
-                            var29 = ColorUtils.applyAlpha(-1, alpha);
+                            color = ColorUtils.applyAlpha(-1, alpha);
                         }
 
-                        RenderUtil.method11446(
+                        RenderUtil.drawFilledArc(
                                 (float) (this.xBase + topLeftPosition.x + bottomRightPosition.getX() / 2),
                                 (float) (this.yBase + topLeftPosition.y + bottomRightPosition.y / 2),
                                 (float) (bottomRightPosition.getX() - 4) * var27 + 4.0F,
-                                var29
+                                color
                         );
                         RenderUtil.endScissor();
                         if (animationData.animation.calcPercent() == 1.0F) {

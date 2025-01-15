@@ -614,29 +614,39 @@ public class RenderUtil {
         endScissor();
     }
 
-    public static void method11446(float var0, float var1, float var2, int var3) {
-        method11446(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
+    public static void drawFilledArc(float var0, float var1, float var2, int var3) {
+        drawFilledArc(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
     }
 
-    public static void method11446(float var0, float var1, float var2, float var3, float var4, int var5) {
-        method11446(var0, var1, var2, var3, var4, var4, var5);
+    public static void drawFilledArc(float var0, float var1, float var2, float var3, float var4, int var5) {
+        drawFilledArc(var0, var1, var2, var3, var4, var4, var5);
     }
 
-
-    public static void method11446(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
+    /**
+     * Draws a filled arc with the specified center, radii, start and end angles, and color.
+     *
+     * @param x The x-coordinate of the center of the arc.
+     * @param y The y-coordinate of the center of the arc.
+     * @param startAngle The start angle of the arc in degrees.
+     * @param endAngle The end angle of the arc in degrees.
+     * @param hRadius The horizontal radius of the arc.
+     * @param vRadius The vertical radius of the arc.
+     * @param color The color of the arc in ARGB format.
+     */
+    public static void drawFilledArc(float x, float y, float startAngle, float endAngle, float hRadius, float vRadius, int color) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         float var9 = 0.0F;
-        if (var2 > var3) {
-            var9 = var3;
-            var3 = var2;
-            var2 = var9;
+        if (startAngle > endAngle) {
+            var9 = endAngle;
+            endAngle = startAngle;
+            startAngle = var9;
         }
 
-        float var10 = (float)(var6 >> 24 & 0xFF) / 255.0F;
-        float var11 = (float)(var6 >> 16 & 0xFF) / 255.0F;
-        float var12 = (float)(var6 >> 8 & 0xFF) / 255.0F;
-        float var13 = (float)(var6 & 0xFF) / 255.0F;
+        float var10 = (float)(color >> 24 & 0xFF) / 255.0F;
+        float var11 = (float)(color >> 16 & 0xFF) / 255.0F;
+        float var12 = (float)(color >> 8 & 0xFF) / 255.0F;
+        float var13 = (float)(color & 0xFF) / 255.0F;
         Tessellator var14 = Tessellator.getInstance();
         BufferBuilder var15 = var14.getBuffer();
         RenderSystem.enableBlend();
@@ -648,10 +658,10 @@ public class RenderUtil {
             GL11.glLineWidth(2.0F);
             GL11.glBegin(3);
 
-            for (float var16 = var3; var16 >= var2; var16 -= 4.0F) {
-                float var17 = (float)Math.cos((double)var16 * Math.PI / 180.0) * var4 * 1.001F;
-                float var18 = (float)Math.sin((double)var16 * Math.PI / 180.0) * var5 * 1.001F;
-                GL11.glVertex2f(var0 + var17, var1 + var18);
+            for (float var16 = endAngle; var16 >= startAngle; var16 -= 4.0F) {
+                float var17 = (float)Math.cos((double)var16 * Math.PI / 180.0) * hRadius * 1.001F;
+                float var18 = (float)Math.sin((double)var16 * Math.PI / 180.0) * vRadius * 1.001F;
+                GL11.glVertex2f(x + var17, y + var18);
             }
 
             GL11.glEnd();
@@ -660,10 +670,10 @@ public class RenderUtil {
 
         GL11.glBegin(6);
 
-        for (float var20 = var3; var20 >= var2; var20 -= 4.0F) {
-            float var21 = (float)Math.cos((double)var20 * Math.PI / 180.0) * var4;
-            float var22 = (float)Math.sin((double)var20 * Math.PI / 180.0) * var5;
-            GL11.glVertex2f(var0 + var21, var1 + var22);
+        for (float var20 = endAngle; var20 >= startAngle; var20 -= 4.0F) {
+            float var21 = (float)Math.cos((double)var20 * Math.PI / 180.0) * hRadius;
+            float var22 = (float)Math.sin((double)var20 * Math.PI / 180.0) * vRadius;
+            GL11.glVertex2f(x + var21, y + var22);
         }
 
         GL11.glEnd();
