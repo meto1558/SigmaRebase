@@ -85,16 +85,16 @@ public class Vector2m {
       return new Vector2m(x, y);
    }
 
-   public Vector2m method31890(Vector2m var1) {
-      return new Vector2m(this.x - var1.x, this.y - var1.y);
+   public Vector2m subtract(Vector2m vec) {
+      return new Vector2m(this.x - vec.x, this.y - vec.y);
    }
 
-   public Vector2m method31891(double var1, double var3) {
-      return new Vector2m(this.x - var1, this.y - var3);
+   public Vector2m subtract(double x, double y) {
+      return new Vector2m(this.x - x, this.y - y);
    }
 
-   public Vector2m method31892(int var1, int var2) {
-      return new Vector2m(this.x - (double)var1, this.y - (double)var2);
+   public Vector2m subtract(int x, int y) {
+      return new Vector2m(this.x - (double)x, this.y - (double)y);
    }
 
    public Vector2m subtractAll(Vector2m... vectorsIn) {
@@ -109,8 +109,8 @@ public class Vector2m {
       return new Vector2m(x, y);
    }
 
-   public Vector2m multiply(Vector2m vectorIn) {
-      return new Vector2m(this.x * vectorIn.x, this.y * vectorIn.y);
+   public Vector2m multiply(Vector2m vec) {
+      return new Vector2m(this.x * vec.x, this.y * vec.y);
    }
 
    public Vector2m multiply(double x, double y) {
@@ -133,7 +133,7 @@ public class Vector2m {
       return new Vector2m(x, y);
    }
 
-   public Vector2m multiply(double scalar) {
+   public Vector2m scale(double scalar) {
       return new Vector2m(this.x * scalar, this.y * scalar);
    }
 
@@ -153,7 +153,7 @@ public class Vector2m {
       return new Vector2m(this.x / x, this.y / y);
    }
 
-   public Vector2m divideBy(int x, int y) {
+   public Vector2m divide(int x, int y) {
       return new Vector2m(this.x / (double)x, this.y / (double)y);
    }
 
@@ -177,12 +177,12 @@ public class Vector2m {
       return this.x * this.x + this.y * this.y;
    }
 
-   public double method31909(Vector2m var1) {
-      return Math.sqrt(Math.pow(var1.x - this.x, 2.0) + Math.pow(var1.y - this.y, 2.0));
+   public double distanceTo(Vector2m vec) {
+      return Math.sqrt(Math.pow(vec.x - this.x, 2.0) + Math.pow(vec.y - this.y, 2.0));
    }
 
-   public double method31910(Vector2m var1) {
-      return Math.pow(var1.x - this.x, 2.0) + Math.pow(var1.y - this.y, 2.0);
+   public double squaredDistanceTo(Vector2m vec) {
+      return Math.pow(vec.x - this.x, 2.0) + Math.pow(vec.y - this.y, 2.0);
    }
 
    public Vector2m normalize() {
@@ -193,65 +193,65 @@ public class Vector2m {
       return this.x * vectorIn.x + this.y * vectorIn.y;
    }
 
-   public boolean method31913(Vector2m var1, Vector2m var2) {
-      return this.x >= var1.x
-         && this.x <= var2.x
-         && this.y >= var1.y
-         && this.y <= var2.y;
+   public boolean isWithinBounds(Vector2m vector1In, Vector2m vector2In) {
+      return this.x >= vector1In.x
+         && this.x <= vector2In.x
+         && this.y >= vector1In.y
+         && this.y <= vector2In.y;
    }
 
-   public boolean method31914(Vector2m var1, Vector2m var2) {
-      return this.roundX() >= var1.roundX()
-         && this.roundX() <= var2.roundX()
-         && this.roundY() >= var1.roundY()
-         && this.roundY() <= var2.roundY();
+   public boolean isWithinRoundedBounds(Vector2m vector1In, Vector2m vector2In) {
+      return this.roundX() >= vector1In.roundX()
+         && this.roundX() <= vector2In.roundX()
+         && this.roundY() >= vector1In.roundY()
+         && this.roundY() <= vector2In.roundY();
    }
 
-   public Vector2m method31915() {
+   public Vector2m floor() {
       return new Vector2m(Math.floor(this.x), Math.floor(this.y));
    }
 
-   public Vector2m method31916() {
+   public Vector2m ceil() {
       return new Vector2m(Math.ceil(this.x), Math.ceil(this.y));
    }
 
-   public Vector2m method31917() {
+   public Vector2m round() {
       return new Vector2m(Math.floor(this.x + 0.5), Math.floor(this.y + 0.5));
    }
 
-   public Vector2m method31918() {
+   public Vector2m abs() {
       return new Vector2m(Math.abs(this.x), Math.abs(this.y));
    }
 
-   public Vector2m method31919(double var1, double var3, double var5, double var7, double var9) {
-      var1 = Math.toRadians(var1);
-      double var13 = this.x - var3;
-      double var15 = this.y - var5;
-      double var17 = var13 * Math.cos(var1) - var15 * Math.sin(var1);
-      double var19 = var13 * Math.sin(var1) + var15 * Math.cos(var1);
-      return new Vector2m(var17 + var3 + var7, var19 + var5 + var9);
+   public Vector2m rotateAroundPoint(double angleDegrees, double centerX, double centerZ, double offsetX, double offsetZ) {
+      angleDegrees = Math.toRadians(angleDegrees);
+      double centeredX = this.x - centerX;
+      double centeredZ = this.y - centerZ;
+      double rotatedX = centeredX * Math.cos(angleDegrees) - centeredZ * Math.sin(angleDegrees);
+      double rotatedY = centeredX * Math.sin(angleDegrees) + centeredZ * Math.cos(angleDegrees);
+      return new Vector2m(rotatedX + centerX + offsetX, rotatedY + centerZ + offsetZ);
    }
 
-   public boolean method31920(Vector2m var1) {
+   public boolean isProportionalTo(Vector2m vectorIn) {
       if (this.x == 0.0 && this.y == 0.0) {
          return true;
       } else {
-         double var4 = var1.x;
-         double var6 = var1.y;
-         if (var4 == 0.0 && var6 == 0.0) {
+         double x = vectorIn.x;
+         double y = vectorIn.y;
+         if (x == 0.0 && y == 0.0) {
             return true;
-         } else if (this.x == 0.0 == (var4 == 0.0)) {
-            if (this.y == 0.0 == (var6 == 0.0)) {
-               double var8 = var4 / this.x;
+         } else if (this.x == 0.0 == (x == 0.0)) {
+            if (this.y == 0.0 == (y == 0.0)) {
+               double var8 = x / this.x;
                if (Double.isNaN(var8)) {
-                  double var10 = var6 / this.y;
+                  double var10 = y / this.y;
                   if (Double.isNaN(var10)) {
                      throw new RuntimeException("This should not happen");
                   } else {
-                     return var1.equals(this.multiply(var10));
+                     return vectorIn.equals(this.scale(var10));
                   }
                } else {
-                  return var1.equals(this.multiply(var8));
+                  return vectorIn.equals(this.scale(var8));
                }
             } else {
                return false;
@@ -270,8 +270,8 @@ public class Vector2m {
       return new Vector3m(this.x, 0.0, this.y);
    }
 
-   public Vector3m toVec3(double var1) {
-      return new Vector3m(this.x, var1, this.y);
+   public Vector3m toVec3(double y) {
+      return new Vector3m(this.x, y, this.y);
    }
 
    @Override
@@ -294,11 +294,11 @@ public class Vector2m {
       return "(" + this.x + ", " + this.y + ")";
    }
 
-   public static Vector2m min(Vector2m v1, Vector2m v2) {
-      return new Vector2m(Math.min(v1.x, v2.x), Math.min(v1.y, v2.y));
+   public static Vector2m min(Vector2m a, Vector2m b) {
+      return new Vector2m(Math.min(a.x, b.x), Math.min(a.y, b.y));
    }
 
-   public static Vector2m max(Vector2m v1, Vector2m v2) {
-      return new Vector2m(Math.max(v1.x, v2.x), Math.max(v1.y, v2.y));
+   public static Vector2m max(Vector2m a, Vector2m b) {
+      return new Vector2m(Math.max(a.x, b.x), Math.max(a.y, b.y));
    }
 }
