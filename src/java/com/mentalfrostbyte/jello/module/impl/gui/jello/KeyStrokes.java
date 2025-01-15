@@ -15,11 +15,10 @@ import net.minecraft.client.settings.KeyBinding;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class KeyStrokes extends Module {
-    public int field23585 = 10;
-    public int field23586 = 260;
+    public int xBase = 10;
+    public int yBase = 260;
     public ArrayList<KeyAnimationData> animations = new ArrayList<>();
 
     public KeyStrokes() {
@@ -43,16 +42,16 @@ public class KeyStrokes extends Module {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    this.field23586 = var1.method13960();
+                    this.yBase = var1.method13960();
                     if (Client.getInstance().guiManager.getGuiBlur()) {
                         for (Keystroke var7 : Keystroke.values()) {
                             KeyPosition var8 = var7.getTopLeftPosition();
                             KeyPosition var9 = var7.getBottomRightPosition();
                             RenderUtil.drawPortalBackground(
-                                    this.field23585 + var8.x,
-                                    this.field23586 + var8.y,
-                                    this.field23585 + var8.x + var9.x,
-                                    this.field23586 + var8.y + var9.y
+                                    this.xBase + var8.x,
+                                    this.yBase + var8.y,
+                                    this.xBase + var8.x + var9.x,
+                                    this.yBase + var8.y + var9.y
                             );
                             // TODO: blur
 //                            BlurEngine.drawBlur(this.field23585 + var8.field42635, this.field23586 + var8.field42636, var9.field42635, var9.field42636);
@@ -81,15 +80,15 @@ public class KeyStrokes extends Module {
                         }
 
                         RenderUtil.drawRoundedRect( // TODO: check this, again
-                                (float) (this.field23585 + var21.x),
-                                (float) (this.field23586 + var21.y),
-                                (float) (this.field23585 + var21.x + var23.x),
-                                (float) (this.field23586 + var21.y + var23.y),
+                                (float) (this.xBase + var21.x),
+                                (float) (this.yBase + var21.y),
+                                (float) (this.xBase + var21.x + var23.x),
+                                (float) (this.yBase + var21.y + var23.y),
                                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
                         );
                         RenderUtil.drawRoundedRect(
-                                (float) (this.field23585 + var21.x),
-                                (float) (this.field23586 + var21.y),
+                                (float) (this.xBase + var21.x),
+                                (float) (this.yBase + var21.y),
                                 (float) var23.x,
                                 (float) var23.y,
                                 10.0F,
@@ -97,52 +96,52 @@ public class KeyStrokes extends Module {
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
-                                (float) (this.field23585 + var21.x + (var23.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
-                                (float) (this.field23586 + var21.y + 12),
+                                (float) (this.xBase + var21.x + (var23.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
+                                (float) (this.yBase + var21.y + 12),
                                 var12,
                                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
                         );
                     }
 
-                    for (KeyAnimationData var16 : this.animations) {
-                        Keystroke var18 = var16.keyStroke;
-                        KeyPosition var20 = var18.getTopLeftPosition();
-                        KeyPosition var22 = var18.getBottomRightPosition();
+                    for (KeyAnimationData animationData : this.animations) {
+                        Keystroke keyStroke = animationData.keyStroke;
+                        KeyPosition topLeftPosition = keyStroke.getTopLeftPosition();
+                        KeyPosition bottomRightPosition = keyStroke.getBottomRightPosition();
                         RenderUtil.drawPortalBackground(
-                                this.field23585 + var20.x,
-                                this.field23586 + var20.y,
-                                this.field23585 + var20.x + var22.x,
-                                this.field23586 + var20.y + var22.y
+                                this.xBase + topLeftPosition.x,
+                                this.yBase + topLeftPosition.y,
+                                this.xBase + topLeftPosition.x + bottomRightPosition.x,
+                                this.yBase + topLeftPosition.y + bottomRightPosition.y
                         );
-                        float var24 = 0.7F;
-                        int var25 = 0;
+                        float maxAnimPercent = 0.7F;
+                        int duplicates = 0;
 
-                        for (KeyAnimationData var28 : this.animations) {
-                            if (var28.keyStroke.equals(var18)) {
-                                var25++;
+                        for (KeyAnimationData animationData1 : this.animations) {
+                            if (animationData1.keyStroke.equals(keyStroke)) {
+                                duplicates++;
                             }
                         }
 
-                        if (var18.getKeyBinding().isKeyDown() && var16.animation.calcPercent() >= var24 && var25 < 2) {
-                            var16.animation.method25318(var24);
+                        if (keyStroke.getKeyBinding().isKeyDown() && animationData.animation.calcPercent() >= maxAnimPercent && duplicates < 2) {
+                            animationData.animation.updateStartTime(maxAnimPercent);
                         }
 
-                        float var27 = var16.animation.calcPercent();
+                        float var27 = animationData.animation.calcPercent();
                         float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
                         int var29 = ColorUtils.applyAlpha(-5658199, alpha);
                         if (Client.getInstance().guiManager.getGuiBlur()) { // TODO: check this
                             var29 = ColorUtils.applyAlpha(-1, alpha);
                         }
 
-                        RenderUtil.method11436(
-                                (float) (this.field23585 + var20.x + var22.getX() / 2),
-                                (float) (this.field23586 + var20.y + var22.y / 2),
-                                (float) (var22.getX() - 4) * var27 + 4.0F,
+                        RenderUtil.method11446(
+                                (float) (this.xBase + topLeftPosition.x + bottomRightPosition.getX() / 2),
+                                (float) (this.yBase + topLeftPosition.y + bottomRightPosition.y / 2),
+                                (float) (bottomRightPosition.getX() - 4) * var27 + 4.0F,
                                 var29
                         );
                         RenderUtil.endScissor();
-                        if (var16.animation.calcPercent() == 1.0F) {
-                            this.animations.remove(var16);
+                        if (animationData.animation.calcPercent() == 1.0F) {
+                            this.animations.remove(animationData);
                         }
                     }
 

@@ -614,11 +614,11 @@ public class RenderUtil {
         endScissor();
     }
 
-    public static void method11436(float var0, float var1, float var2, int var3) {
-        method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
+    public static void method11446(float var0, float var1, float var2, int var3) {
+        method11446(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
     }
 
-    public static void method11445(float var0, float var1, float var2, float var3, float var4, int var5) {
+    public static void method11446(float var0, float var1, float var2, float var3, float var4, int var5) {
         method11446(var0, var1, var2, var3, var4, var4, var5);
     }
 

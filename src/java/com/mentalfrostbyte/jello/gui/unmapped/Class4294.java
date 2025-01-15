@@ -40,7 +40,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
    public void method13167(boolean var1, boolean var2) {
       this.field20803.changeDirection(!var1 ? Direction.BACKWARDS : Direction.FORWARDS);
       if (var2) {
-         this.field20803.method25318(1.0F);
+         this.field20803.updateStartTime(1.0F);
       }
    }
 

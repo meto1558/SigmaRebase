@@ -77,7 +77,7 @@ public class FloatingBubble extends CustomGuiScreen {
 
     @Override
     public void draw(float var1) {
-        RenderUtil.method11436(
+        RenderUtil.method11446(
                 (float) this.xA,
                 (float) this.yA,
                 (float) this.getWidthA(),
