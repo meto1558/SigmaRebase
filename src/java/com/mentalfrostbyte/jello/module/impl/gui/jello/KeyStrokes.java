@@ -28,27 +28,14 @@ public class KeyStrokes extends Module {
     }
 
     public Keystroke getKeyStrokeForKey(int key) {
-        if (key != mc.gameSettings.keyBindLeft.keyCode.getKeyCode()) {
-            if (key != mc.gameSettings.keyBindRight.keyCode.getKeyCode()) {
-                if (key != mc.gameSettings.keyBindForward.keyCode.getKeyCode()) {
-                    if (key != mc.gameSettings.keyBindBack.keyCode.getKeyCode()) {
-                        if (key != mc.gameSettings.keyBindAttack.keyCode.getKeyCode()) {
-                            return key != mc.gameSettings.keyBindUseItem.keyCode.getKeyCode() ? null : Keystroke.UseItem;
-                        } else {
-                            return Keystroke.Attack;
-                        }
-                    } else {
-                        return Keystroke.Back;
-                    }
-                } else {
-                    return Keystroke.Forward;
-                }
-            } else {
-                return Keystroke.Right;
+        Keystroke[] keystrokes = Keystroke.values();
+        for (Keystroke keystroke : keystrokes) {
+            assert keystroke.getKeyBinding() != null;
+            if (key == keystroke.getKeyBinding().keyCode.getKeyCode()) {
+                return keystroke;
             }
-        } else {
-            return Keystroke.Left;
         }
+        return null;
     }
 
     @EventTarget
@@ -84,7 +71,6 @@ public class KeyStrokes extends Module {
                             var10 = 0.5F;
                         }
 
-                        // TODO
                         String var12 = RenderUtil.getKeyName(keystroke.bind.keyCode.getKeyCode());
                         if (keystroke.bind != mc.gameSettings.keyBindAttack) {
                             if (keystroke.bind == mc.gameSettings.keyBindUseItem) {
