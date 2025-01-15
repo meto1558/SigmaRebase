@@ -22,14 +22,14 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class MineplexFly extends Module {
-    private int field23668;
+    private int boostTicks;
     private int field23669;
-    private int field23670;
+    private int currentItem;
     private double speed;
-    private double field23672;
+    private double moveY;
     private double posY;
     private boolean field23674;
-    private boolean field23675;
+    private boolean failed;
 
     public MineplexFly() {
         super(ModuleCategory.MOVEMENT, "Mineplex", "Mineplex fly/longjump");
@@ -39,22 +39,22 @@ public class MineplexFly extends Module {
 
     @Override
     public void onEnable() {
-        this.field23668 = -1;
+        this.boostTicks = -1;
         this.speed = MovementUtil.getSpeed();
         this.field23669 = 0;
-        this.field23675 = false;
-        this.field23670 = -1;
+        this.failed = false;
+        this.currentItem = -1;
         this.posY = -1.0;
         this.method16461();
     }
 
     @Override
     public void onDisable() {
-        double var3 = MovementUtil.getSpeed() * 0.5;
-        MovementUtil.strafe(var3);
-        if (this.field23670 != -1) {
+        double speed = MovementUtil.getSpeed() * 0.5;
+        MovementUtil.strafe(speed);
+        if (this.currentItem != -1) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
-            this.field23670 = mc.player.inventory.currentItem;
+            this.currentItem = mc.player.inventory.currentItem;
         }
 
 //        mc.timer.timerSpeed = 1.0F;
@@ -70,39 +70,39 @@ public class MineplexFly extends Module {
     @EventTarget
     public void onWorldLoad(WorldLoadEvent var1) {
         if (this.isEnabled()) {
-            this.posY = this.field23668 = this.field23670 = -1;
+            this.posY = this.boostTicks = this.currentItem = -1;
             this.field23669 = 0;
-            this.field23675 = false;
+            this.failed = false;
             this.speed = MovementUtil.getSpeed();
         }
     }
 
     public boolean method16456() {
         return this.isEnabled()
-                && this.field23670 != -1
+                && this.currentItem != -1
                 && this.speed < (double) this.getNumberValueBySettingName("Boost")
                 && (mc.player.isOnGround() /*|| MultiUtilities.isAboveBounds(mc.player, 0.001F)*/)
-                && !this.field23675;
+                && !this.failed;
     }
 
-//    @EventTarget
-//    public void onSafeWalk(SafeWalkEvent var1) {
-//        if (this.isEnabled() && this.field23675 && mc.player != null) {
-//            if (mc.player.isOnGround()) {
-//                var1.setSafe(true);
-//            }
-//        }
-//    }
+    @EventTarget
+    public void onSafeWalk(SafeWalkEvent var1) {
+        if (this.isEnabled() && this.failed && mc.player != null) {
+            if (mc.player.isOnGround()) {
+                var1.setSafe(true);
+            }
+        }
+    }
 
     @EventTarget
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
-            if (this.field23675) {
+            if (this.failed) {
                 MovementUtil.setSpeed(var1, 0.01);
             } else {
-                float var4 = mc.player.rotationYaw + 90.0F;
+                float offsetRotationYaw = mc.player.rotationYaw + 90.0F;
                 if (!mc.player.isOnGround()/* && !MultiUtilities.isAboveBounds(mc.player, 0.001F)*/) {
-                    if (this.field23668 != -1) {
+                    if (this.boostTicks != -1) {
                         if (this.field23674 /*&& !MultiUtilities.method17686()*/) {
                             this.field23674 = !this.field23674;
                             this.speed = 0.5;
@@ -110,20 +110,20 @@ public class MineplexFly extends Module {
 
                         this.field23669++;
                         this.speed *= 0.98;
-                        this.field23672 -= 0.04000000000001;
+                        this.moveY -= 0.04000000000001;
                         if (this.field23669 <= 22) {
                             if (this.field23669 == 10 && this.field23674) {
-                                this.field23672 = -0.005;
+                                this.moveY = -0.005;
                             }
                         } else {
-                            this.field23672 -= 0.02;
+                            this.moveY -= 0.02;
                         }
 
                         if (this.field23669 > 6 /*&& !MultiUtilities.method17686()*/) {
-                            this.field23672 -= 0.05;
+                            this.moveY -= 0.05;
                         }
 
-                        var1.setY(this.field23672);
+                        var1.setY(this.moveY);
                         if (mc.player.collidedHorizontally/* || !MultiUtilities.method17686()*/) {
                             this.speed = 0.35;
                         }
@@ -137,45 +137,45 @@ public class MineplexFly extends Module {
                         return;
                     }
 
-                    if (this.field23668 == -1) {
-                        this.field23668 = 0;
+                    if (this.boostTicks == -1) {
+                        this.boostTicks = 0;
                         this.speed = 0.35;
                         return;
                     }
 
-                    this.field23668++;
+                    this.boostTicks++;
                     int var5 = this.method16461();
                     if (var5 == -1) {
                         return;
                     }
 
-                    Vector3d var6 = new Vector3d(0.475 + Math.random() * 0.05, 1.0, 0.475 + Math.random() * 0.05);
-                    BlockPos var7 = new BlockPos(mc.player.getPosition()).add(0, -1, 0);
-                    BlockRayTraceResult var8 = new BlockRayTraceResult(var6, Direction.UP, var7, false);
-                    CPlayerTryUseItemOnBlockPacket var9 = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, var8);
-                    mc.getConnection().sendPacket(var9);
+                    Vector3d rayHitVec = new Vector3d(0.475 + Math.random() * 0.05, 1.0, 0.475 + Math.random() * 0.05);
+                    BlockPos standingOnBlock = new BlockPos(mc.player.getPosition()).add(0, -1, 0);
+                    BlockRayTraceResult rayTraceResult = new BlockRayTraceResult(rayHitVec, Direction.UP, standingOnBlock, false);
+                    CPlayerTryUseItemOnBlockPacket usePacket = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, rayTraceResult);
+                    mc.getConnection().sendPacket(usePacket);
                     if (!(this.speed < (double) this.getNumberValueBySettingName("Boost"))) {
                         MovementUtil.setSpeed(var1, 0.0);
                         mc.player.jump();
-                        this.field23672 = 0.4299999;
+                        this.moveY = 0.4299999;
                         this.field23669 = 0;
 //                        this.field23674 = MultiUtilities.method17686();
-                        var1.setY(this.field23672);
+                        var1.setY(this.moveY);
                         this.posY = mc.player.getPosY();
-                        this.field23668++;
+                        this.boostTicks++;
                         this.speed += 0.5;
                     } else {
 //                        mc.timer.timerSpeed = Math.min(1.0F, Math.max(0.1F, (float) (1.2 - this.speed * 0.15)));
-                        if (this.field23668 > 2) {
+                        if (this.boostTicks > 2) {
                             this.speed += 0.05;
                         }
 
-                        if (this.field23668 % 2 != 0) {
-                            var1.setX(Math.cos(Math.toRadians(var4)) * this.speed);
-                            var1.setZ(Math.sin(Math.toRadians(var4)) * this.speed);
+                        if (this.boostTicks % 2 != 0) {
+                            var1.setX(Math.cos(Math.toRadians(offsetRotationYaw)) * this.speed);
+                            var1.setZ(Math.sin(Math.toRadians(offsetRotationYaw)) * this.speed);
                         } else {
-                            var1.setX(Math.cos(Math.toRadians(var4 + 180.0F)) * this.speed);
-                            var1.setZ(Math.sin(Math.toRadians(var4 + 180.0F)) * this.speed);
+                            var1.setX(Math.cos(Math.toRadians(offsetRotationYaw + 180.0F)) * this.speed);
+                            var1.setZ(Math.sin(Math.toRadians(offsetRotationYaw + 180.0F)) * this.speed);
                         }
                     }
                 }
@@ -184,10 +184,10 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void method16459(ReceivePacketEvent var1) {
+    public void onReceivePacketEvent(ReceivePacketEvent var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
-                this.field23675 = true;
+                this.failed = true;
                 Client.getInstance().notificationManager
                         .send(new Notification("Mineplex fly", "Please try again"));
             }
@@ -195,13 +195,13 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void method16460(SendPacketEvent var1) {
+    public void onSendPacketEvent(SendPacketEvent var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof CHeldItemChangePacket
-                    && this.field23670 != -1
+                    && this.currentItem != -1
                     && this.speed < (double) this.getNumberValueBySettingName("Boost")
                     && (mc.player.isOnGround() /*|| MultiUtilities.isAboveBounds(mc.player, 0.001F)*/)
-                    && !this.field23675) {
+                    && !this.failed) {
                 var1.cancelled = true;
             }
         }
@@ -209,18 +209,18 @@ public class MineplexFly extends Module {
 
     private int method16461() {
         if (mc.player.getHeldItemMainhand().isEmpty()) {
-            this.field23670 = mc.player.inventory.currentItem;
-            return this.field23670;
+            this.currentItem = mc.player.inventory.currentItem;
+            return this.currentItem;
         } else {
-            for (int var3 = 36; var3 < 45; var3++) {
-                int var4 = var3 - 36;
-                if (mc.player.container.getSlot(var3).getStack().isEmpty()) {
-                    if (mc.player.inventory.currentItem != var4 && this.field23670 != var4) {
-                        mc.getConnection().sendPacket(new CHeldItemChangePacket(var4));
-                        this.field23670 = var4;
+            for (int slot = 36; slot < 45; slot++) {
+                int slotId = slot - 36;
+                if (mc.player.container.getSlot(slot).getStack().isEmpty()) {
+                    if (mc.player.inventory.currentItem != slotId && this.currentItem != slotId) {
+                        mc.getConnection().sendPacket(new CHeldItemChangePacket(slotId));
+                        this.currentItem = slotId;
                     }
 
-                    return var4;
+                    return slotId;
                 }
             }
 
@@ -228,9 +228,9 @@ public class MineplexFly extends Module {
             if (!mc.player.container.getSlot(42).getStack().isEmpty()) {
                 Client.getInstance().notificationManager
                         .send(new Notification("Mineplex Fly", "Please empty a slot in your inventory"));
-            } else if (mc.player.inventory.currentItem != 6 && this.field23670 != 6) {
+            } else if (mc.player.inventory.currentItem != 6 && this.currentItem != 6) {
                 mc.getConnection().sendPacket(new CHeldItemChangePacket(6));
-                this.field23670 = 6;
+                this.currentItem = 6;
                 return 6;
             }
 
@@ -239,7 +239,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void method16462(Render2DEvent var1) {
+    public void onRender2D(Render2DEvent var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Fake") && !(this.posY < 0.0)
                 && !(mc.player.getPosY() < this.posY)) {
             mc.player.setPosition(mc.player.getPosX(), this.posY, mc.player.getPosZ());
