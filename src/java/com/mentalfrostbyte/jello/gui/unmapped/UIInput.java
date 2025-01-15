@@ -339,7 +339,7 @@ public class UIInput extends AnimatedIconPanelWrap {
          var6 = this.typedText.replaceAll(".", this.field20755);
       }
 
-      RenderUtil.method11421(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);
+      RenderUtil.drawPortalBackground(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);
       int var7 = this.xA + 4;
       int var8 = this.widthA - 4;
       float var9 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20749));

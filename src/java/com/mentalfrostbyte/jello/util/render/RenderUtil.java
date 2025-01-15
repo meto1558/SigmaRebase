@@ -54,7 +54,7 @@ public class RenderUtil {
     }
 
     public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
-        method11421(var0, var1, var2, var3, false);
+        drawPortalBackground(var0, var1, var2, var3, false);
     }
 
     public static float getScaleFactor() {
@@ -72,7 +72,7 @@ public class RenderUtil {
         return new float[]{(float)Math.round(var5 * getScaleFactor()), (float)Math.round(var6 * getScaleFactor())};
     }
 
-    public static void method11421(int var0, int var1, int var2, int var3, boolean var4) {
+    public static void drawPortalBackground(int var0, int var1, int var2, int var3, boolean var4) {
         if (!var4) {
             var0 = (int)((float)var0 * GuiManager.scaleFactor);
             var1 = (int)((float)var1 * GuiManager.scaleFactor);
@@ -220,7 +220,7 @@ public class RenderUtil {
     }
 
     public static void method11418(float var0, float var1, float var2, float var3) {
-        method11421((int)var0, (int)var1, (int)var2, (int)var3, true);
+        drawPortalBackground((int)var0, (int)var1, (int)var2, (int)var3, true);
     }
 
     public static void method11438(float var0, float var1, float var2, int var3) {
@@ -358,7 +358,7 @@ public class RenderUtil {
     }
 
     public static void method11415(CustomGuiScreen var0) {
-        method11421(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
+        drawPortalBackground(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
     }
 
     public static void method11474(float var0, float var1, float var2, float var3, float var4, int var5) {
@@ -391,7 +391,7 @@ public class RenderUtil {
     }
 
     public static void startScissor(float var0, float var1, float var2, float var3) {
-        method11421((int)var0, (int)var1, (int)var0 + (int)var2, (int)var1 + (int)var3, true);
+        drawPortalBackground((int)var0, (int)var1, (int)var0 + (int)var2, (int)var1 + (int)var3, true);
     }
 
     public static void method11465(int var0, int var1, int var2, int var3, int var4) {
@@ -569,14 +569,14 @@ public class RenderUtil {
         GL11.glTranslatef((float)(-var0 - var7 / 2), (float)(-var1 - var3 - var7 / 2), 0.0F);
         drawImage((float)(var0 + var8), (float)(var1 + var8 + var3), (float)var7, (float)var7, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
-        method11421(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
+        drawPortalBackground(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
 
         for (int var10 = 0; var10 < var3; var10 += var7) {
             drawImage((float)(var0 - var9), (float)(var1 + var8 + var10) - 0.4F, (float)var7, (float)var7 + 0.4F, Resources.floatingBorderPNG, var4);
         }
 
         endScissor();
-        method11421(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
+        drawPortalBackground(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
 
         for (int var11 = 0; var11 < var2; var11 += var7) {
             GL11.glPushMatrix();
@@ -588,7 +588,7 @@ public class RenderUtil {
         }
 
         endScissor();
-        method11421(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
+        drawPortalBackground(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
 
         for (int var12 = 0; var12 < var3; var12 += var7) {
             GL11.glPushMatrix();
@@ -600,7 +600,7 @@ public class RenderUtil {
         }
 
         endScissor();
-        method11421(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
+        drawPortalBackground(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
 
         for (int var13 = 0; var13 < var2; var13 += var7) {
             GL11.glPushMatrix();

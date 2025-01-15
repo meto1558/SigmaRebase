@@ -104,7 +104,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
          );
       }
 
-      RenderUtil.method11421(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+      RenderUtil.drawPortalBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
       if (this.field21249 != null) {
          this.method13584();
          RenderUtil.endScissor();

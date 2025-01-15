@@ -60,7 +60,7 @@ public class Class4253 extends UIBase {
          }
       }
 
-      RenderUtil.method11421(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+      RenderUtil.drawPortalBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
       RenderUtil.drawString(
          ResourceRegistry.RegularFont20,
          (float)(this.xA + 25),

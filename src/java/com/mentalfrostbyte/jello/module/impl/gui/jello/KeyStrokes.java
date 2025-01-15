@@ -20,7 +20,7 @@ import java.util.Iterator;
 public class KeyStrokes extends Module {
     public int field23585 = 10;
     public int field23586 = 260;
-    public ArrayList<KeyAnimationData> field23587 = new ArrayList<>();
+    public ArrayList<KeyAnimationData> animations = new ArrayList<>();
 
     public KeyStrokes() {
         super(ModuleCategory.GUI, "KeyStrokes", "Shows what keybind you are pressing");
@@ -104,10 +104,7 @@ public class KeyStrokes extends Module {
                         );
                     }
 
-                    Iterator var14 = this.field23587.iterator();
-
-                    while (var14.hasNext()) {
-                        KeyAnimationData var16 = (KeyAnimationData) var14.next();
+                    for (KeyAnimationData var16 : this.animations) {
                         Keystroke var18 = var16.keyStroke;
                         KeyPosition var20 = var18.getTopLeftPosition();
                         KeyPosition var22 = var18.getBottomRightPosition();
@@ -120,7 +117,7 @@ public class KeyStrokes extends Module {
                         float var24 = 0.7F;
                         int var25 = 0;
 
-                        for (KeyAnimationData var28 : this.field23587) {
+                        for (KeyAnimationData var28 : this.animations) {
                             if (var28.keyStroke.equals(var18)) {
                                 var25++;
                             }
@@ -145,7 +142,7 @@ public class KeyStrokes extends Module {
                         );
                         RenderUtil.endScissor();
                         if (var16.animation.calcPercent() == 1.0F) {
-                            var14.remove();
+                            this.animations.remove(var16);
                         }
                     }
 
@@ -159,7 +156,7 @@ public class KeyStrokes extends Module {
     public void onKeyPress(EventKeyPress event) {
         if (this.isEnabled() && mc.player != null) {
             if (this.getKeyStrokeForKey(event.getKey()) != null && !event.isPressed()) {
-                this.field23587.add(new KeyAnimationData(this.getKeyStrokeForKey(event.getKey())));
+                this.animations.add(new KeyAnimationData(this.getKeyStrokeForKey(event.getKey())));
             }
         }
     }
