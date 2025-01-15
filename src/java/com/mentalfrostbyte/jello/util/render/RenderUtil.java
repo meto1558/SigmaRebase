@@ -87,7 +87,7 @@ public class RenderUtil {
             height = (int) var8[1];
         }
 
-        if (GL11.glIsEnabled(3089)) {
+        if (GL11.glIsEnabled(GL_SCISSOR_TEST)) {
             IntBuffer var17 = BufferUtils.createIntBuffer(16);
             GL11.glGetIntegerv(GL11.GL_SCISSOR_BOX, var17);
             buffer.push(var17);
@@ -123,7 +123,7 @@ public class RenderUtil {
         int adjustedY = mc.getMainWindow().getFramebufferHeight() - height;
         int width2 = width - x;
         int height2 = height - y;
-        GL11.glEnable(3089);
+        GL11.glEnable(GL_SCISSOR_TEST);
         if (width2 >= 0 && height2 >= 0) {
             GL11.glScissor(x, adjustedY, width2, height2);
         }
@@ -180,8 +180,8 @@ public class RenderUtil {
             RenderSystem.disableTexture();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
             RenderSystem.color4f(var14, var15, var16, var13);
-            GL11.glEnable(3042);
-            GL11.glEnable(3553);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
             texture.bind();
             float var17 = width / (float) texture.getTextureWidth() / (width / (float) texture.getImageWidth());
             float var18 = height / (float) texture.getTextureHeight() / (height / (float) texture.getImageHeight());
@@ -238,26 +238,26 @@ public class RenderUtil {
         drawPortalBackground((int) var0, (int) var1, (int) var2, (int) var3, true);
     }
 
-    public static void method11438(float var0, float var1, float var2, int var3) {
+    public static void method11438(float var0, float var1, float size, int color) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 0.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var6 = (float) (var3 >> 24 & 0xFF) / 255.0F;
-        float var7 = (float) (var3 >> 16 & 0xFF) / 255.0F;
-        float var8 = (float) (var3 >> 8 & 0xFF) / 255.0F;
-        float var9 = (float) (var3 & 0xFF) / 255.0F;
+        float a = (float) (color >> 24 & 0xFF) / 255.0F;
+        float r = (float) (color >> 16 & 0xFF) / 255.0F;
+        float g = (float) (color >> 8 & 0xFF) / 255.0F;
+        float b = (float) (color & 0xFF) / 255.0F;
         Tessellator var10 = Tessellator.getInstance();
         BufferBuilder var11 = var10.getBuffer();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var7, var8, var9, var6);
-        GL11.glEnable(2832);
-        GL11.glEnable(3042);
-        GL11.glPointSize(var2 * GuiManager.scaleFactor);
+        RenderSystem.color4f(r, g, b, a);
+        GL11.glEnable(GL11.GL_POINT_SMOOTH);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glPointSize(size * GuiManager.scaleFactor);
         GL11.glBegin(0);
         GL11.glVertex2f(var0, var1);
         GL11.glEnd();
-        GL11.glDisable(2832);
-        GL11.glDisable(3042);
+        GL11.glDisable(GL11.GL_POINT_SMOOTH);
+        GL11.glDisable(GL11.GL_BLEND);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
