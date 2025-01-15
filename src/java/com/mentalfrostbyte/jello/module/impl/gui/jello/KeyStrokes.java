@@ -15,6 +15,7 @@ import net.minecraft.client.settings.KeyBinding;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class KeyStrokes extends Module {
     public int xBase = 10;
@@ -103,7 +104,10 @@ public class KeyStrokes extends Module {
                         );
                     }
 
-                    for (KeyAnimationData animationData : this.animations) {
+                    Iterator iter = this.animations.iterator();
+
+                    while (iter.hasNext()) {
+                        KeyAnimationData animationData = (KeyAnimationData) iter.next();
                         Keystroke keyStroke = animationData.keyStroke;
                         KeyPosition topLeftPosition = keyStroke.getTopLeftPosition();
                         KeyPosition bottomRightPosition = keyStroke.getBottomRightPosition();
@@ -141,7 +145,7 @@ public class KeyStrokes extends Module {
                         );
                         RenderUtil.endScissor();
                         if (animationData.animation.calcPercent() == 1.0F) {
-                            this.animations.remove(animationData);
+                            iter.remove();
                         }
                     }
 
