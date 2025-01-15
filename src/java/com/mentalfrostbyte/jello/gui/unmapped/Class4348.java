@@ -146,7 +146,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
             (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.0F, 0.0F, 64.0F, 64.0F
          );
       } else {
-         RenderUtil.method11450(
+         RenderUtil.drawImage(
             (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, this.field21245, ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
          );
       }

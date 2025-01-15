@@ -214,7 +214,7 @@ public class JelloMainMenuManager extends Screen {
             );
 
 
-            RenderUtil.method11450(
+            RenderUtil.drawImage(
                     (float) this.field20967,
                     (float) (this.field20966 - 50),
                     (float) (this.getWidthA() * 2),

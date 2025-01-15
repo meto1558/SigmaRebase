@@ -57,7 +57,7 @@ public class RenderUtil {
         method11421(var0, var1, var2, var3, false);
     }
 
-    public static float method11417() {
+    public static float getScaleFactor() {
         return (float) mc.getMainWindow().getGuiScaleFactor();
     }
 
@@ -69,7 +69,7 @@ public class RenderUtil {
         float var7 = var4.get(3) * (float)var0 + var4.get(7) * (float)var1 + var4.get(11) * 0.0F + var4.get(15);
         var5 /= var7;
         var6 /= var7;
-        return new float[]{(float)Math.round(var5 * method11417()), (float)Math.round(var6 * method11417())};
+        return new float[]{(float)Math.round(var5 * getScaleFactor()), (float)Math.round(var6 * getScaleFactor())};
     }
 
     public static void method11421(int var0, int var1, int var2, int var3, boolean var4) {
@@ -141,11 +141,11 @@ public class RenderUtil {
         drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), true);
     }
 
-    public static void method11450(float var0, float var1, float var2, float var3, Texture var4, int var5, boolean var6) {
+    public static void drawImage(float var0, float var1, float var2, float var3, Texture var4, int var5, boolean var6) {
         drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float)var4.getImageWidth(), (float)var4.getImageHeight(), var6);
     }
 
-    public static void method11451(float var0, float var1, float var2, float var3, Texture var4, int var5, float var6, float var7, float var8, float var9) {
+    public static void drawImage(float var0, float var1, float var2, float var3, Texture var4, int var5, float var6, float var7, float var8, float var9) {
         drawImage(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9, true);
     }
 
@@ -384,10 +384,10 @@ public class RenderUtil {
         drawImage(var0 + var2, var1 - var4, var4, var4, Resources.shadowCorner2PNG, var8);
         drawImage(var0 - var4, var1 + var3, var4, var4, Resources.shadowCorner3PNG, var8);
         drawImage(var0 + var2, var1 + var3, var4, var4, Resources.shadowCorner4PNG, var8);
-        method11450(var0 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
-        method11450(var0 + var2, var1, var4, var3, Resources.shadowRightPNG, var8, false);
-        method11450(var0, var1 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
-        method11450(var0, var1 + var3, var2, var4, Resources.shadowBottomPNG, var8, false);
+        drawImage(var0 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
+        drawImage(var0 + var2, var1, var4, var3, Resources.shadowRightPNG, var8, false);
+        drawImage(var0, var1 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
+        drawImage(var0, var1 + var3, var2, var4, Resources.shadowBottomPNG, var8, false);
     }
 
     public static void startScissor(float var0, float var1, float var2, float var3) {
@@ -539,10 +539,10 @@ public class RenderUtil {
 
     public static void method11464(float var0, float var1, float var2, float var3, float var4, float var5) {
         int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
-        method11450(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
-        method11450(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
-        method11450(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);
-        method11450(var0, var1 + var3 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
+        drawImage(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
+        drawImage(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
+        drawImage(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);
+        drawImage(var0, var1 + var3 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
     }
 
     public static void method11467(int var0, int var1, int var2, int var3, int var4) {

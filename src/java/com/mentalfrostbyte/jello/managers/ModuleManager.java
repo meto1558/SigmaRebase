@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.impl.movement.Step;
@@ -54,6 +55,7 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Compass());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Coords());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
+            this.register(new KeyStrokes());
         }
 
         if (clientMode == ClientMode.CLASSIC) {
