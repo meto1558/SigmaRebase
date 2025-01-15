@@ -190,9 +190,9 @@ public class RenderUtil {
             float var21 = tlX / (float) texture.getImageWidth() * var17;
             float var22 = tlY / (float) texture.getImageHeight() * var18;
             if (!linearFiltering) {
-                GL11.glTexParameteri(3553, 10240, 9729);
+                GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
             } else {
-                GL11.glTexParameteri(3553, 10240, 9728);
+                GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
             }
 
             GL11.glBegin(7);
@@ -205,8 +205,8 @@ public class RenderUtil {
             GL11.glTexCoord2f(var21 + var19, var22);
             GL11.glVertex2f(x + width, y);
             GL11.glEnd();
-            GL11.glDisable(3553);
-            GL11.glDisable(3042);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            GL11.glDisable(GL11.GL_BLEND);
             RenderSystem.enableTexture();
             RenderSystem.disableBlend();
         }
