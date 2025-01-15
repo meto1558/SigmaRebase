@@ -415,7 +415,10 @@ public class Vector2m {
       double rotatedY = centeredX * Math.sin(angleDegrees) + centeredZ * Math.cos(angleDegrees);
       return new Vector2m(rotatedX + centerX + offsetX, rotatedY + centerZ + offsetZ);
    }
-
+   /**
+    * @param vectorIn the vector to compare to
+    * @return if the two vectors are proportional (that is, if they have the same direction)
+    */
    public boolean isProportionalTo(Vector2m vectorIn) {
       if (this.x == 0.0 && this.y == 0.0) {
          return true;
@@ -446,18 +449,32 @@ public class Vector2m {
       }
    }
 
+   /**
+    * @return a Class8829 instance created from this vector
+    */
    public Class8829 toClass8829() {
       return new Class8829(this);
    }
 
+   /**
+    * @return a Vector3m instance created from this vector with the z-coordinate set to 0
+    */
    public Vector3m toVec3() {
       return new Vector3m(this.x, 0.0, this.y);
    }
 
+   /**
+    * @param y the y-coordinate to use for the Vector3m
+    * @return a Vector3m instance created from this vector
+    */
    public Vector3m toVec3(double y) {
       return new Vector3m(this.x, y, this.y);
    }
 
+   /**
+    * @param to the object to compare to
+    * @return if the two objects are equal
+    */
    @Override
    public boolean equals(Object to) {
       if (!(to instanceof Vector2m)) {
@@ -468,20 +485,36 @@ public class Vector2m {
       }
    }
 
+   /**
+    * @return the hash code of this vector
+    */
    @Override
    public int hashCode() {
       return new Double(this.x).hashCode() >> 13 ^ new Double(this.y).hashCode();
    }
 
+   /**
+    * @return a string representing this vector
+    */
    @Override
    public String toString() {
       return "(" + this.x + ", " + this.y + ")";
    }
 
+   /**
+    * @param a the first vector
+    * @param b the second vector
+    * @return a vector representing the minimum of the two vectors
+    */
    public static Vector2m min(Vector2m a, Vector2m b) {
       return new Vector2m(Math.min(a.x, b.x), Math.min(a.y, b.y));
    }
 
+   /**
+    * @param a the first vector
+    * @param b the second vector
+    * @return a vector representing the maximum of the two vectors
+    */
    public static Vector2m max(Vector2m a, Vector2m b) {
       return new Vector2m(Math.max(a.x, b.x), Math.max(a.y, b.y));
    }
