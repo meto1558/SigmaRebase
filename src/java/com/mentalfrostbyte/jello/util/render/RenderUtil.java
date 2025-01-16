@@ -992,10 +992,10 @@ public class RenderUtil {
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
             int var18 = GL11.glGenTextures();
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, (int) var8, (int) var9, 0, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, var4);
-            float var19 = var8 / var8 * 1.0F;
-            float var20 = var9 / var9 * 1.0F;
-            float var21 = var6 / var8 * 1.0F;
-            float var22 = var7 / var9 * 1.0F;
+            float var19 = var8 / var8;
+            float var20 = var9 / var9;
+            float var21 = var6 / var8;
+            float var22 = var7 / var9;
             GL11.glBegin(7);
             GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? 0.0F : var20));
             GL11.glVertex2f(var0, var1);
