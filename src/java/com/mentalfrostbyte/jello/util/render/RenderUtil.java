@@ -962,7 +962,7 @@ public class RenderUtil {
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(true);
         GL11.glStencilMask(0);
-        GL11.glStencilFunc(var0 != Class2329.field15940 ? 517 : 514, 1, 1);
+        GL11.glStencilFunc(var0 != Class2329.field15940 ? GL11.GL_NOTEQUAL : GL11.GL_EQUAL, 1, 1);
     }
 
     public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int var5, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {
