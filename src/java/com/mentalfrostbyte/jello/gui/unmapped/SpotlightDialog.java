@@ -11,20 +11,20 @@ import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 
-public class Class4257 extends UIBase {
-   public UIInput field20639;
+public class SpotlightDialog extends UIBase {
+   public UIInput query;
    public String field20640;
 
-   public Class4257(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, boolean var7) {
-      super(var1, var2, var3, var4, var5, var6, var7);
-      this.addToList(this.field20639 = new UIInput(this, "search", 50, 0, var5 - 60, var6 - 2, UIInput.field20741, "", "Search..."));
-      this.field20639.method13156(false);
-      this.field20639.method13151(var1x -> this.field20640 = this.field20639.getTypedText());
+   public SpotlightDialog(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, boolean var7) {
+      super(screen, iconName, var3, var4, width, height, var7);
+      this.addToList(this.query = new UIInput(this, "search", 50, 0, width - 60, height - 2, UIInput.field20741, "", "Search..."));
+      this.query.method13156(false);
+      this.query.method13151(var1x -> this.field20640 = this.query.getTypedText());
    }
 
    @Override
    public void draw(float var1) {
-      this.field20639.method13145(true);
+      this.query.method13145(true);
       int var4 = 10;
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var4 / 2),
@@ -65,7 +65,7 @@ public class Class4257 extends UIBase {
             + ((Module)var5.get(0)).getName().substring(this.field20640.length(), var6.length())
             + (!((Module)var5.get(0)).isEnabled() ? " - Disabled" : " - Enabled");
          RenderUtil.drawString(
-            this.field20639.getFont(),
+            this.query.getFont(),
             (float)(this.xA + 54),
             (float)(this.yA + 14),
             var7,

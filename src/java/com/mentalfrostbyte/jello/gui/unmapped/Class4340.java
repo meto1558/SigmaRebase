@@ -49,7 +49,7 @@ public class Class4340 extends Class4339 {
             Class4251 var6x = (Class4251)this.getScreen();
             var6x.field20614.method13077(var7.field21292.getX(), var7.field21292.getZ());
          });
-         var7.method13036(
+         var7.addUIHandler(
             var3x -> {
                Client.getInstance()
                   .waypointsManager

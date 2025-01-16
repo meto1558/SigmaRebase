@@ -59,7 +59,7 @@ public class Class4258 extends UIBase {
                Class4372 var10;
                this.field20642.addToList(var10 = new Class4372(this, "btn" + var9, 0, 0, 40, 40, var13.getDefaultInstance()));
                var10.method13702(this.field20641.contains(var9), false);
-               var10.method13036(var3 -> {
+               var10.addUIHandler(var3 -> {
                   int var6 = this.field20641.size();
                   this.field20641.remove(var9);
                   if (var10.method13700()) {
@@ -67,7 +67,7 @@ public class Class4258 extends UIBase {
                   }
 
                   if (var6 != this.field20641.size()) {
-                     this.method13037();
+                     this.callUIHandlers();
                   }
                });
             }

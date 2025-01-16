@@ -37,10 +37,10 @@ public class Class4363 extends UIBase {
       Class4362 var5 = new Class4362(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
       this.field21331.put(var2, var5);
       var5.setEnabled(false);
-      var5.method13036(var2x -> {
+      var5.addUIHandler(var2x -> {
          this.method13656(var2);
          this.method13658(false);
-         this.method13037();
+         this.callUIHandlers();
       });
       this.addToList(var5);
    }
@@ -96,7 +96,7 @@ public class Class4363 extends UIBase {
             this.method13656(this.values.indexOf(mode));
             this.method13658(false);
             if (var6x != this.method13655()) {
-               this.method13037();
+               this.callUIHandlers();
             }
          });
       }

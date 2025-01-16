@@ -46,7 +46,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var45.method13705((Boolean)var1x.getCurrentValue(), false);
                }
             });
-            var45.method13036(var1x -> setting.setCurrentValue(((UICheckBox)var1x).method13703()));
+            var45.addUIHandler(var1x -> setting.setCurrentValue(((UICheckBox)var1x).method13703()));
             var45.setSize((var1x, var2x) -> var1x.setXA(var2x.getWidthA() - 24 - var5));
             panel.addToList(var37);
             panel.addToList(var45);
@@ -71,7 +71,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   }
                }
             );
-            var47.method13036(var4x -> {
+            var47.addUIHandler(var4x -> {
                float var7 = ((Class4277)var4x).method13138();
                float var8x = Class4277.method13135(var7, numbaSetting.getMin(), numbaSetting.getMax(), numbaSetting.getStep(), var13);
                if (var8x != (Float)setting.getCurrentValue()) {
@@ -132,7 +132,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var42.method13656(((ModeSetting)setting).getModeIndex());
                }
             });
-            var42.method13036(var2x -> {
+            var42.addUIHandler(var2x -> {
                ((ModeSetting)setting).setModeByIndex(((Class4363)var2x).method13655());
                var42.method13656(((ModeSetting)setting).getModeIndex());
             });
@@ -167,7 +167,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var40.method13722((Integer)var1x.getCurrentValue(), false);
                }
             });
-            var40.method13036(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
+            var40.addUIHandler(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
             var40.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 123 - var5));
             panel.addToList(var32);
             panel.addToList(var40);
@@ -186,7 +186,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                ((BooleanListSetting)setting).getCurrentValue().<String>toArray(new String[0])
             );
             this.field21223.put(var31, setting);
-            var39.method13036(var2x -> setting.setCurrentValue(var39.method13072()));
+            var39.addUIHandler(var2x -> setting.setCurrentValue(var39.method13072()));
             var39.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 175 - var5));
             panel.addToList(var31);
             panel.addToList(var39);
@@ -203,7 +203,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                var46.method13048((Integer)setting.getCurrentValue());
                var46.method13046(var30.isRainbowEnabled());
             });
-            var46.method13036(var2x -> {
+            var46.addUIHandler(var2x -> {
                setting.updateCurrentValue(((Class4252)var2x).method13049(), false);
                var30.setRainbowEnabled(((Class4252)var2x).method13047());
             });
@@ -232,7 +232,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                SpeedRampSetting.SpeedRamp var5x = (SpeedRampSetting.SpeedRamp)setting.getCurrentValue();
                var12.method13041(var5x.startValue, var5x.middleValue, var5x.endValue, var5x.maxValue);
             });
-            var12.method13036(
+            var12.addUIHandler(
                var2x -> ((SpeedRampSetting)setting).updateValues(var12.method13040()[0], var12.method13040()[1], var12.method13040()[2], var12.method13040()[3])
             );
             panel.addToList(var11);

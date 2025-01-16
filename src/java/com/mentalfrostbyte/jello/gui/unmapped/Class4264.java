@@ -77,7 +77,7 @@ public class Class4264 extends UIBase {
       float var5 = this.field20679;
       this.field20679 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 }

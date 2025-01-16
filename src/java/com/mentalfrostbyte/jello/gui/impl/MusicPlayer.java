@@ -145,7 +145,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.pngButtons.addToList(this.volumeSlider = new VolumeSlider(this.pngButtons, "volume", this.getWidthA() - this.field20845 - 19, 14, 4, 40));
         PNGButtonChanging repeat;
         this.pngButtons.addToList(repeat = new PNGButtonChanging(this.pngButtons, "repeat", 14, 34, 27, 20, this.field20854.method24304()));
-        repeat.method13036(var2x -> this.field20854.method24303(repeat.method13038()));
+        repeat.addUIHandler(var2x -> this.field20854.method24303(repeat.method13038()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.field20845, this.getHeightA() - 5, this.getWidthA() - this.field20845, 5));
         this.field20867.method13292(true);
         this.field20867.method13300(false);

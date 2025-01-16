@@ -24,7 +24,7 @@ public class Class4253 extends UIBase {
       this.addToList(this.field20628 = new Class4263(this, "delete", 200, 20, 20, 20));
       this.field20628.doThis((var1x, var2x) -> {
          this.field20625 = new Date();
-         this.method13037();
+         this.callUIHandlers();
       });
       this.field20624 = var7;
       this.field20626 = var8;

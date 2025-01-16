@@ -102,7 +102,7 @@ public class JelloClickGUI extends Screen {
 
             var3.add(new MiniAlert(AlertType.BUTTON, "Download", 55));
             this.method13233(this.field20950 = new AlertPanel(this, "music", true, "Dependencies.", var3.toArray(new MiniAlert[0])));
-            this.field20950.method13036(var0 -> {
+            this.field20950.addUIHandler(var0 -> {
                if (!Client.getInstance().musicManager.hasPython()) {
                   Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/python-3.12.5-macos11.pkg");
                }

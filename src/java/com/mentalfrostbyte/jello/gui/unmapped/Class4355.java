@@ -42,7 +42,7 @@ public class Class4355 extends UIBase {
          this.method13215(false);
          this.setXA(Math.round((float)this.getWidthA() * QuadraticEasing.easeInQuad(this.field21290.calcPercent(), 0.0F, 1.0F, 1.0F)));
          if (this.field21290.calcPercent() == 1.0F) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }

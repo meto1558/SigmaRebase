@@ -125,7 +125,7 @@ public class LoginScreen extends UIBase {
             var5.method13424("Error", var4);
             this.field21355.setTypedText("");
          } else {
-            this.method13037();
+            this.callUIHandlers();
          }
 
          this.loadingThingy.method13296(false);

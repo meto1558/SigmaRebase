@@ -187,7 +187,7 @@ public class AlertPanel extends UIBase {
    public void method13601() {
       this.field21286 = this.method13599();
       this.method13603(false);
-      this.method13037();
+      this.callUIHandlers();
    }
 
    @Override

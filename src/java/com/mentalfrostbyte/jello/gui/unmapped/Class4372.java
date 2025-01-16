@@ -38,7 +38,7 @@ public class Class4372 extends UIBase {
    public void method13702(boolean var1, boolean var2) {
       if (var1 != this.method13700()) {
          this.field21367 = var1;
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 

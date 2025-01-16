@@ -31,7 +31,7 @@ public class UICheckBox extends UIBase {
          this.field21369 = var1;
          this.field21370.changeDirection(!this.field21369 ? Direction.FORWARDS : Direction.BACKWARDS);
          if (var2) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }

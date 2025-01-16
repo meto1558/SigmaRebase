@@ -77,9 +77,9 @@ public class Class4375 extends UIBase {
          if (var7 == this.field21376) {
             Class4253 var8;
             this.addToList(var8 = new Class4253(this, var10.method21596(), 0, 20 + 55 * var3, this.widthA, 55, var10, var3++));
-            var8.method13036(var2 -> {
+            var8.addUIHandler(var2 -> {
                var10.method21598(0);
-               this.method13037();
+               this.callUIHandlers();
             });
             if (var4.size() > 0 && !var4.contains(var10.method21596())) {
                var8.method13056();

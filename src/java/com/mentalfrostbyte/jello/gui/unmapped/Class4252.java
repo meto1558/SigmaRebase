@@ -22,15 +22,15 @@ public class Class4252 extends UIBase {
       this.addToList(this.field20620 = new Class4367(this, "block", 10, 10, var5 - 20, var6 - 50, var12[0], var12[1], var12[2]));
       this.addToList(this.field20621 = new Class4264(this, "slider", 14, var6 - 25, var5 - 65, 8, var12[0]));
       this.addToList(this.field20622 = new Class4371(this, "bubble", var5 - 40, var6 - 32, 25, 25, var11.getRGB()));
-      this.field20620.method13036(var1x -> this.method13050());
-      this.field20621.method13036(var1x -> this.method13050());
+      this.field20620.addUIHandler(var1x -> this.method13050());
+      this.field20621.addUIHandler(var1x -> this.method13050());
       this.field20622.doThis((var1x, var2x) -> this.method13045(!this.method13047()));
       this.field20619 = var8;
    }
 
    public void method13045(boolean var1) {
       this.method13046(var1);
-      this.method13037();
+      this.callUIHandlers();
    }
 
    public void method13046(boolean var1) {
@@ -59,7 +59,7 @@ public class Class4252 extends UIBase {
 
    private void method13050() {
       this.method13051();
-      this.method13037();
+      this.callUIHandlers();
    }
 
    private void method13051() {

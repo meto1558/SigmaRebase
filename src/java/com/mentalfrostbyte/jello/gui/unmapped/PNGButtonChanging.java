@@ -15,7 +15,7 @@ public class PNGButtonChanging extends UIBase {
       this.field20607 = var7;
       this.doThis((var1x, var2x) -> {
          this.field20607 = this.field20607.method577();
-         this.method13037();
+         this.callUIHandlers();
       });
    }
 

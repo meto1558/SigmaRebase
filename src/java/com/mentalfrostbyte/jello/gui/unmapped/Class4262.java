@@ -53,7 +53,7 @@ public class Class4262 extends Class4261 {
 
          this.field20676 = var1;
          if (var2) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }

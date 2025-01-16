@@ -54,7 +54,7 @@ public class Class4362 extends UIBase {
          var5.method13034(10);
          var5.doThis((var2, var3) -> {
             this.method13641(this.field21323.indexOf(var4));
-            this.method13037();
+            this.callUIHandlers();
          });
       }
 

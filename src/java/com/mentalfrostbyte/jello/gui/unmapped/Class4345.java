@@ -46,7 +46,7 @@ public class Class4345 extends Class4339 {
                   var26.method13094((Boolean)var1x.getCurrentValue(), false);
                }
             });
-            var26.method13036(var1x -> setting.setCurrentValue(((Class4262)var1x).method13092()));
+            var26.addUIHandler(var1x -> setting.setCurrentValue(((Class4262)var1x).method13092()));
             screen.addToList(var26);
             y += 18 + value;
             break;
@@ -67,7 +67,7 @@ public class Class4345 extends Class4339 {
                   }
                }
             );
-            var13.method13036(var5x -> {
+            var13.addUIHandler(var5x -> {
                float var8x = ((Class4370)var5x).method13697();
                float var9x = Class4370.method13694(var8x, var25.getMin(), var25.getMax(), var25.getStep(), var14);
                if (var9x != (Float)setting.getCurrentValue()) {
@@ -116,7 +116,7 @@ public class Class4345 extends Class4339 {
                   var23.method13672(((ModeSetting)setting).getModeIndex());
                }
             });
-            var23.method13036(var1x -> ((ModeSetting)setting).setModeByIndex(((Class4366)var1x).method13671()));
+            var23.addUIHandler(var1x -> ((ModeSetting)setting).setModeByIndex(((Class4366)var1x).method13671()));
             screen.addToList(var23);
             y += 65;
             break;
@@ -129,7 +129,7 @@ public class Class4345 extends Class4339 {
                   var12.method13722((Integer)var1x.getCurrentValue(), false);
                }
             });
-            var12.method13036(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
+            var12.addUIHandler(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
             var12.setSize((var2x, var3x) -> var2x.setXA(screen.getWidthA() - 123 - value));
             screen.addToList(var12);
             y += 27 + value;

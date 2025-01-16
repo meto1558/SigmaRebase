@@ -127,7 +127,7 @@ public class AltManagerScreen extends Screen {
       var9.method13643(servers, 1);
       var9.method13656(2);
       this.addToList(var9);
-      var9.method13036(var2 -> {
+      var9.addUIHandler(var2 -> {
          switch (var9.method13655()) {
             case 0:
                this.field21023 = Class2209.field14446;
@@ -197,7 +197,7 @@ public class AltManagerScreen extends Screen {
 
       var5.method13247((var2x, var3) -> {
          if (var3 != 0) {
-            this.field21013.method13036(var2xx -> {
+            this.field21013.addUIHandler(var2xx -> {
                this.accountManager.removeAccountDirectly(var5.selectedAccount);
                this.field21018.method13178(null);
                this.field21017.method13181(null);
@@ -258,7 +258,7 @@ public class AltManagerScreen extends Screen {
       MiniAlert password = new MiniAlert(AlertType.SECOND_LINE, "Password", 50);
       MiniAlert button  = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
       this.addToList(this.field21012 = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, email, password, button));
-      this.field21012.method13036(var1 -> {
+      this.field21012.addUIHandler(var1 -> {
          if (!this.field21012.method13600().get("Email").contains(":")) {
             Account account = new Account(this.field21012.method13600().get("Email"), this.field21012.method13600().get("Password"));
             if (!this.accountManager.containsAccount(account)) {

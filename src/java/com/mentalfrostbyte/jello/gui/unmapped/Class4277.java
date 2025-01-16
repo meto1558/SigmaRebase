@@ -124,7 +124,7 @@ public class Class4277 extends UIBase {
       this.field20733 = var1;
       this.field20734.setXA((int)((float)(this.getWidthA() - this.field20734.getWidthA()) * var1 + 0.5F));
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 

@@ -77,7 +77,7 @@ public class Class4377 extends PNGIconButton {
          this.field21385 = var1;
          this.setTypedText(this.field21384[var1]);
          if (var2) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }

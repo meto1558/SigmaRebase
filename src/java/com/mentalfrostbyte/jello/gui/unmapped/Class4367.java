@@ -97,7 +97,7 @@ public class Class4367 extends UIBase {
       float var5 = this.field21348;
       this.field21348 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 
@@ -114,7 +114,7 @@ public class Class4367 extends UIBase {
       float var5 = this.field21349;
       this.field21349 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 

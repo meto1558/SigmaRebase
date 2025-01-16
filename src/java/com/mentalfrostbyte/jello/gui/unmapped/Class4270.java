@@ -26,7 +26,7 @@ public class Class4270 extends UIBase {
          );
          var11.doThis((var2x, var3x) -> {
             this.field20696 = var11.field20690;
-            this.method13037();
+            this.callUIHandlers();
          });
       }
 
@@ -39,7 +39,7 @@ public class Class4270 extends UIBase {
          return super.method13078(var1, var2, var3);
       } else {
          this.field20696 = var3;
-         this.method13037();
+         this.callUIHandlers();
          return false;
       }
    }
@@ -54,7 +54,7 @@ public class Class4270 extends UIBase {
       }
 
       this.field20696 = keycode;
-      this.method13037();
+      this.callUIHandlers();
       super.keyPressed(keycode);
    }
 

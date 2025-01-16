@@ -26,7 +26,7 @@ public class Class4250 extends UIBase {
       this.field20610 = var7;
       this.addToList(this.field20608 = new Class4279(this, 10, "pos1"));
       this.addToList(this.field20609 = new Class4279(this, 10, "pos2"));
-      this.method13249((var1x, var2x) -> this.method13037());
+      this.method13249((var1x, var2x) -> this.callUIHandlers());
       this.method13041(var8, var9, var10, var11);
    }
 

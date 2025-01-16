@@ -66,7 +66,7 @@ public class Class4366 extends UIBase {
             this.method13672(this.field21343.indexOf(var5));
             this.method13674(false);
             if (var6x != this.method13671()) {
-               this.method13037();
+               this.callUIHandlers();
             }
          });
       }
