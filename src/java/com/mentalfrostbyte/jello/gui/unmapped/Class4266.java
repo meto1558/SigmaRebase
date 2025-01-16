@@ -101,7 +101,7 @@ public class Class4266 extends UIBase {
                var1
             );
             GL11.glPushMatrix();
-            RenderUtil.method11476();
+            RenderUtil.initStencilBuffer();
             RenderUtil.method11474(
                (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 8.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
             );
@@ -134,7 +134,7 @@ public class Class4266 extends UIBase {
                }
             }
 
-            RenderUtil.method11478();
+            RenderUtil.restorePreviousStencilBuffer();
             RenderUtil.drawRoundedRect(
                (float)this.xA,
                (float)this.yA,

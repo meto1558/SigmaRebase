@@ -75,7 +75,7 @@ public class Class4251 extends UIBase {
          14.0F,
          -7687425
       );
-      RenderUtil.method11476();
+      RenderUtil.initStencilBuffer();
       RenderUtil.method11474(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
@@ -88,7 +88,7 @@ public class Class4251 extends UIBase {
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
       this.field20614.draw(var1);
       GL11.glPopMatrix();
-      RenderUtil.method11478();
+      RenderUtil.restorePreviousStencilBuffer();
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + this.field20616),
          (float)(this.yA + 0),

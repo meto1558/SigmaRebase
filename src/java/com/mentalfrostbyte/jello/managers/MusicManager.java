@@ -215,7 +215,7 @@ public class MusicManager {
                         );
                     }
 
-                    RenderUtil.method11476();
+                    RenderUtil.initStencilBuffer();
 
                     for (int var13 = 0; (float) var13 < var3; var13++) {
                         float var14 = (float) mc.getMainWindow().getHeight() / 1080.0F;
@@ -228,7 +228,7 @@ public class MusicManager {
                         RenderUtil.drawImage(0.0F, 0.0F, (float) mc.getMainWindow().getWidth(), (float) mc.getMainWindow().getHeight(), this.field32153, 0.4F);
                     }
 
-                    RenderUtil.method11478();
+                    RenderUtil.restorePreviousStencilBuffer();
                     double var9 = 0.0;
                     float var16 = 4750;
 

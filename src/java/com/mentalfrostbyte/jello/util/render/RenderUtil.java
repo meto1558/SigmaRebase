@@ -40,7 +40,7 @@ public class RenderUtil {
 
     private static final Minecraft mc = Minecraft.getInstance();
 
-    public static boolean field18461 = false;
+    public static boolean stencilOpInProgress = false;
 
     private static final Stack<IntBuffer> buffer = new Stack<>();
 
@@ -904,24 +904,58 @@ public class RenderUtil {
         }
     }
 
-    public static void method11476() {
+    /**
+     * Initializes the stencil buffer for rendering operations.
+     * This method sets up the OpenGL state for stencil testing, disables color and depth writing,
+     * configures the stencil function and operation, and clears the stencil buffer.
+     * It's typically used before performing stencil-based rendering techniques.
+     * <p>
+     * The method performs the following operations:
+     * 1. Pushes the current matrix onto the stack.
+     * 2. Resets the depth buffer.
+     * 3. Enables stencil testing.
+     * 4. Disables color and depth writing.
+     * 5. Sets up the stencil function and operation.
+     * 6. Clears the stencil buffer.
+     * 7. Sets a flag indicating that stencil operations are in progress.
+     * <p>
+     * Note: This method doesn't take any parameters and doesn't return any value.
+     * It modifies the OpenGL state and should be used in conjunction with method11478()
+     * to restore the previous state after stencil operations are complete.
+     */
+    public static void initStencilBuffer() {
         GL11.glPushMatrix();
         resetDepthBuffer();
-        GL11.glEnable(2960);
+        GL11.glEnable(GL11.GL_STENCIL_TEST);
         GL11.glColorMask(false, false, false, false);
         GL11.glDepthMask(false);
-        GL11.glStencilFunc(512, 1, 1);
-        GL11.glStencilOp(7681, 7680, 7680);
+        GL11.glStencilFunc(GL11.GL_ACCUM_BUFFER_BIT, 1, 1);
+        GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
         GL11.glStencilMask(1);
-        GL11.glClear(1024);
-        field18461 = true;
+        GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+        stencilOpInProgress = true;
     }
 
-    public static void method11478() {
+    /**
+     * Restores the previous stencil buffer state after stencil operations.
+     * This method resets the OpenGL state modified by initStencilBuffer().
+     * It disables stencil testing, restores the previous matrix state,
+     * and marks stencil operations as no longer in progress.
+     * <p>
+     * The method performs the following operations:
+     * 1. Resets the stencil mask to allow writing to all bits.
+     * 2. Disables stencil testing.
+     * 3. Pops the matrix stack, restoring the previous transformation state.
+     * 4. Sets the stencil operation flag to false.
+     * <p>
+     * This method should be called after completing stencil-based rendering
+     * to restore the OpenGL state to its previous condition.
+     */
+    public static void restorePreviousStencilBuffer() {
         GL11.glStencilMask(-1);
-        GL11.glDisable(2960);
+        GL11.glDisable(GL11.GL_STENCIL_TEST);
         GL11.glPopMatrix();
-        field18461 = false;
+        stencilOpInProgress = false;
     }
 
     public static void method11477(Class2329 var0) {
