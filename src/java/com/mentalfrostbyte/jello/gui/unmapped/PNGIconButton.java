@@ -43,7 +43,7 @@ public class PNGIconButton extends ButtonPanel {
 
     @Override
     public void draw(float var1) {
-        float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(var1 * this.field20584, 0.0F) : 1.5F) : 0.0F);
+        float var4 = !this.isHovered() ? 0.3F : (!this.isVisible() ? (!this.method13212() ? Math.max(var1 * this.field20584, 0.0F) : 1.5F) : 0.0F);
         RenderUtil.drawImage(
                 (float) this.getXA(),
                 (float) this.getYA(),

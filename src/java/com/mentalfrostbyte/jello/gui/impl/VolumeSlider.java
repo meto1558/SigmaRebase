@@ -55,10 +55,10 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int x, int y) {
+      super.updatePanelDimensions(x, y);
       if (this.field21373) {
-         this.method13708(this.method13706(var2));
+         this.method13708(this.method13706(y));
          this.method13710();
       }
    }

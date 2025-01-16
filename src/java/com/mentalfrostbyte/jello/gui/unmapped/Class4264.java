@@ -18,13 +18,13 @@ public class Class4264 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int x, int y) {
       int var5 = this.getHeightO() - this.method13271();
       if (this.field20680) {
          this.method13097((float)var5 / (float)this.getWidthA());
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(x, y);
    }
 
    @Override

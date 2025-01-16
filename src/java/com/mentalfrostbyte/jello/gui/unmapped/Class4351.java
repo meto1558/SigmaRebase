@@ -145,7 +145,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int x, int y) {
       if (!this.profileName.method13297() && this.profileName.isVisible()) {
          this.profileName.setEnabled(false);
          this.profileName.method13145(false);
@@ -158,12 +158,12 @@ public class Class4351 extends AnimatedIconPanelWrap {
          }
       }
 
-      this.field21264.changeDirection(this.method13114(var1, var2) ? Direction.FORWARDS : Direction.BACKWARDS);
-      if (!this.method13114(var1, var2)) {
+      this.field21264.changeDirection(this.method13114(x, y) ? Direction.FORWARDS : Direction.BACKWARDS);
+      if (!this.method13114(x, y)) {
          this.field21265.changeDirection(Direction.BACKWARDS);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(x, y);
    }
 
    @Override

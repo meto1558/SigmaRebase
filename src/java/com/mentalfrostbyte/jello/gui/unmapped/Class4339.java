@@ -55,9 +55,9 @@ public class Class4339 extends AnimatedIconPanel {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int x, int y) {
       if (!this.field21203 || this.isVisible()) {
-         super.method13028(var1, var2);
+         super.updatePanelDimensions(x, y);
          this.buttonList.setYA(-1 * this.field21205.method13162());
 
          for (CustomGuiScreen var6 : this.getButton().getRenderObjects()) {

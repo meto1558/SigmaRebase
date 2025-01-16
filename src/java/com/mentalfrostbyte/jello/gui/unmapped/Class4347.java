@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 public interface Class4347 {
-   void method13213(int var1, int var2);
+   void updateVisibilityAndPosition(int var1, int var2);
 
-   boolean method13214();
+   boolean isEnabled();
 
-   void method13215(boolean var1);
+   void setEnabled(boolean var1);
 
-   boolean method13216();
+   boolean isVisible();
 
-   void method13217(boolean var1);
+   void setVisible(boolean var1);
 }

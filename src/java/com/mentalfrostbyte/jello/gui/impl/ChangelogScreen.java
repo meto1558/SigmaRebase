@@ -37,8 +37,8 @@ public class ChangelogScreen extends CustomGuiScreen {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int var1, int var2) {
+      super.updatePanelDimensions(var1, var2);
       if (this.field21184 != null) {
          if (this.isHovered() && this.isVisible()) {
             for (CustomGuiScreen var9 : this.field21184.getButton().getRenderObjects()) {

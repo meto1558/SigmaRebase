@@ -56,8 +56,8 @@ public class JelloMaps extends Screen {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int var1, int var2) {
+      super.updatePanelDimensions(var1, var2);
       this.method13300(false);
    }
 

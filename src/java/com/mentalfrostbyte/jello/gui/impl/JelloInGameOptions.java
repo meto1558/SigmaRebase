@@ -32,12 +32,12 @@ public class JelloInGameOptions extends Screen {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int var1, int var2) {
       if (field21112.getDirection() == Direction.BACKWARDS && field21112.calcPercent() == 0.0F && field21115 != null) {
          Minecraft.getInstance().displayGuiScreen(field21115);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(var1, var2);
    }
 
    @Override

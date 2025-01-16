@@ -73,8 +73,8 @@ public class Class4335 extends Class4333 {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int var1, int var2) {
+      super.updatePanelDimensions(var1, var2);
       if (this.field21181 != null && this.field21181.method13557()) {
          this.method13222(() -> {
             this.method13236(this.field21181);

@@ -35,8 +35,8 @@ public class Class4236 extends PNGIconButton implements Class4238 {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int x, int y) {
+      super.updatePanelDimensions(x, y);
       this.field20577 = this.method13298();
       if (!this.field20577) {
          if (this.method13029()) {

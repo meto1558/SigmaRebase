@@ -64,7 +64,7 @@ public class JelloClickGUI extends Screen {
       }
 
       this.addToList(this.musicPlayer = new MusicPlayer(this, "musicPlayer"));
-      this.musicPlayer.method13215(true);
+      this.musicPlayer.setEnabled(true);
       PNGIconButton var9;
       this.addToList(var9 = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
       var9.getTextColor().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
@@ -132,9 +132,9 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int var1, int var2) {
       this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(var1, var2);
       ColorUtils.method17740(Math.min(1.0F, field20942.calcPercent() * 4.0F));
       this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
       if (this.configButton != null) {

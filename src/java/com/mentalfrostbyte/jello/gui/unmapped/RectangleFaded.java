@@ -24,9 +24,9 @@ public class RectangleFaded extends ButtonPanel {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
+    public void updatePanelDimensions(int x, int y) {
         this.field20591 = this.method13298();
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(x, y);
     }
 
     @Override

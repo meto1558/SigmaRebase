@@ -49,14 +49,14 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int x, int y) {
       if (!(this.field21195 >= 1.0F)) {
-         this.method13215(false);
+         this.setEnabled(false);
          this.field20909 = false;
       } else {
          this.field21197 = this.getXA();
          this.field21198 = this.getYA();
-         this.method13215(true);
+         this.setEnabled(true);
       }
 
       float var5 = 200.0F;
@@ -85,7 +85,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
       this.setHeightA(var10);
       this.setXA(var12);
       this.setYA(var11);
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(x, y);
    }
 
    @Override

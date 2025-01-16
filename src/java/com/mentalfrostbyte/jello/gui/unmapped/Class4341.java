@@ -98,8 +98,8 @@ public class Class4341 extends Class4339 implements Class4342 {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int x, int y) {
+      super.updatePanelDimensions(x, y);
       JelloClickGUIPanels var5 = (JelloClickGUIPanels)this.screen;
       float var6 = (float)(0.07F * (60.0 / (double) Minecraft.getFps()));
       this.field21218 = this.field21218 + (!this.method13525() ? 0.0F : (!this.field21217 ? var6 : -var6));
