@@ -43,10 +43,10 @@ public class Class4367 extends UIBase {
       int var5 = ColorUtils.applyAlpha(Color.HSBtoRGB(this.field21347, 1.0F, 1.0F), var1);
       int var6 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1);
       RenderUtil.method11415(this);
-      RenderUtil.method11432(
+      RenderUtil.drawQuad(
          this.getXA(), this.getYA(), this.getXA() + this.getWidthA(), this.getYA() + this.getHeightA(), var4, var5, var5, var4
       );
-      RenderUtil.method11432(
+      RenderUtil.drawQuad(
          this.getXA(),
          this.getYA(),
          this.getXA() + this.getWidthA(),

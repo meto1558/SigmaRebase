@@ -803,7 +803,7 @@ public class RenderUtil {
      * @param color3 The x-coordinate of the fourth vertex.
      * @param color The color of the quad in integer format.
      */
-    public static void method11432(int x1, int y1, int x2, int y2, int color, int color2, int color3, int color4) {
+    public static void drawQuad(int x1, int y1, int x2, int y2, int color, int color2, int color3, int color4) {
         float a1 = (float) (color >> 24 & 0xFF) / 255.0F;
         float r1 = (float) (color >> 16 & 0xFF) / 255.0F;
         float g1 = (float) (color >> 8 & 0xFF) / 255.0F;

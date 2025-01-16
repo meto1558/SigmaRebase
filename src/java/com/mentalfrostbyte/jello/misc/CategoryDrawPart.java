@@ -61,7 +61,7 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
       int var6 = this.getWidth() - 8;
       int var8 = -15781024;
       int var9 = -15626304;
-      RenderUtil.method11432(var4, var5, var4 + var6, var5 + 25, var8, var9, var9, var8);
+      RenderUtil.drawQuad(var4, var5, var4 + var6, var5 + 25, var8, var9, var9, var8);
       float var10 = 6;
 
       for (String categoryName : this.categoryList) {
