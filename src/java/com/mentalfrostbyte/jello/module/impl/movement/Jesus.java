@@ -1,12 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-//import com.mentalfrostbyte.jello.event.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.*;
-//import com.mentalfrostbyte.jello.event.priority.LowerPriority;
 import com.mentalfrostbyte.jello.misc.Class116;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-//import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
+import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
@@ -42,7 +40,7 @@ public class Jesus extends Module {
 
     @EventTarget
     public void method16945(EventBlockCollision var1) {
-        if (this.isEnabled() && mc.world != null /*&& !AutoMLG.method16421()*/) {
+        if (this.isEnabled() && mc.world != null &&!AutoMLG.method16421()) {
             if (mc.world.getBlockState(var1.getBlockPos()).getMaterial() == Material.SEA_GRASS
                     || mc.world.getBlockState(var1.getBlockPos()).getMaterial() == Material.WATER
                     || mc.world.getBlockState(var1.getBlockPos()).getMaterial() == Material.LAVA) {
@@ -99,7 +97,7 @@ public class Jesus extends Module {
     @EventTarget
     @LowerPriority
     public void onMove(EventMove var1) {
-        if (this.isEnabled() && mc.world != null/* && !AutoMLG.method16421()*/) {
+        if (this.isEnabled() && mc.world != null && !AutoMLG.method16421()) {
             if (this.isOnLiquid(mc.player.getBoundingBox()) && !mc.player.isSneaking()) {
                 BlockState var4 = mc.world.getBlockState(mc.player.getPosition());
                 if (!var4.getFluidState().isEmpty()) {
