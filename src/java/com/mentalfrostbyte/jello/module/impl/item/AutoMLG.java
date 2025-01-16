@@ -3,9 +3,8 @@ package com.mentalfrostbyte.jello.module.impl.item;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-//import com.mentalfrostbyte.jello.module.PremiumModule;
+import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
@@ -25,7 +24,7 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-public class AutoMLG extends Module {
+public class AutoMLG extends PremiumModule {
     private static int preTicks;
     private int field23647;
     private int field23648;
