@@ -779,7 +779,7 @@ public class RenderUtil {
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        RenderSystem.shadeModel(7425);
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
         Tessellator var16 = Tessellator.getInstance();
         BufferBuilder var17 = var16.getBuffer();
         var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
@@ -788,7 +788,7 @@ public class RenderUtil {
         var17.pos((double) var0, (double) var3, 0.0).color(var13, var14, var15, var12).endVertex();
         var17.pos((double) var2, (double) var3, 0.0).color(var13, var14, var15, var12).endVertex();
         var16.draw();
-        RenderSystem.shadeModel(7424);
+        RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.disableBlend();
         RenderSystem.enableAlphaTest();
         RenderSystem.enableTexture();
