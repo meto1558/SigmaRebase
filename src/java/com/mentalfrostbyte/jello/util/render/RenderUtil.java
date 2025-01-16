@@ -804,22 +804,22 @@ public class RenderUtil {
      * @param color The color of the quad in integer format.
      */
     public static void method11432(int x1, int y1, int x2, int y2, int color, int color2, int color3, int color4) {
-        float var10 = (float) (color >> 24 & 0xFF) / 255.0F;
-        float var11 = (float) (color >> 16 & 0xFF) / 255.0F;
-        float var12 = (float) (color >> 8 & 0xFF) / 255.0F;
-        float var13 = (float) (color & 0xFF) / 255.0F;
-        float var14 = (float) (color2 >> 24 & 0xFF) / 255.0F;
-        float var15 = (float) (color2 >> 16 & 0xFF) / 255.0F;
-        float var16 = (float) (color2 >> 8 & 0xFF) / 255.0F;
-        float var17 = (float) (color2 & 0xFF) / 255.0F;
-        float var18 = (float) (color3 >> 24 & 0xFF) / 255.0F;
-        float var19 = (float) (color3 >> 16 & 0xFF) / 255.0F;
-        float var20 = (float) (color3 >> 8 & 0xFF) / 255.0F;
-        float var21 = (float) (color3 & 0xFF) / 255.0F;
-        float var22 = (float) (color4 >> 24 & 0xFF) / 255.0F;
-        float var23 = (float) (color4 >> 16 & 0xFF) / 255.0F;
-        float var24 = (float) (color4 >> 8 & 0xFF) / 255.0F;
-        float var25 = (float) (color4 & 0xFF) / 255.0F;
+        float a1 = (float) (color >> 24 & 0xFF) / 255.0F;
+        float r1 = (float) (color >> 16 & 0xFF) / 255.0F;
+        float g1 = (float) (color >> 8 & 0xFF) / 255.0F;
+        float b1 = (float) (color & 0xFF) / 255.0F;
+        float a2 = (float) (color2 >> 24 & 0xFF) / 255.0F;
+        float r2 = (float) (color2 >> 16 & 0xFF) / 255.0F;
+        float g2 = (float) (color2 >> 8 & 0xFF) / 255.0F;
+        float b2 = (float) (color2 & 0xFF) / 255.0F;
+        float a3 = (float) (color3 >> 24 & 0xFF) / 255.0F;
+        float r3 = (float) (color3 >> 16 & 0xFF) / 255.0F;
+        float g3 = (float) (color3 >> 8 & 0xFF) / 255.0F;
+        float b3 = (float) (color3 & 0xFF) / 255.0F;
+        float a4 = (float) (color4 >> 24 & 0xFF) / 255.0F;
+        float r4 = (float) (color4 >> 16 & 0xFF) / 255.0F;
+        float g4 = (float) (color4 >> 8 & 0xFF) / 255.0F;
+        float b4 = (float) (color4 & 0xFF) / 255.0F;
         RenderSystem.disableTexture();
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();
@@ -828,10 +828,10 @@ public class RenderUtil {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder var27 = tessellator.getBuffer();
         var27.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var27.pos((double) x2, (double) y1, 0.0).color(var15, var16, var17, var14).endVertex();
-        var27.pos((double) x1, (double) y1, 0.0).color(var11, var12, var13, var10).endVertex();
-        var27.pos((double) x1, (double) y2, 0.0).color(var23, var24, var25, var22).endVertex();
-        var27.pos((double) x2, (double) y2, 0.0).color(var19, var20, var21, var18).endVertex();
+        var27.pos((double) x2, (double) y1, 0.0).color(r2, g2, b2, a2).endVertex();
+        var27.pos((double) x1, (double) y1, 0.0).color(r1, g1, b1, a1).endVertex();
+        var27.pos((double) x1, (double) y2, 0.0).color(r4, g4, b4, a4).endVertex();
+        var27.pos((double) x2, (double) y2, 0.0).color(r3, g3, b3, a3).endVertex();
         tessellator.draw();
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.disableBlend();
