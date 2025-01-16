@@ -60,13 +60,22 @@ public class RenderUtil {
     public static float getScaleFactor() {
         return (float) mc.getMainWindow().getGuiScaleFactor();
     }
-
-    public static float[] method11416(int var0, int var1) {
+    /**
+     * Transforms 2D coordinates using the current OpenGL model view matrix and applies scaling.
+     * This method is typically used for converting screen coordinates to scaled OpenGL coordinates.
+     *
+     * @param x The x-coordinate to transform.
+     * @param y The y-coordinate to transform.
+     * @return A float array containing two elements:
+     *         [0] The transformed and scaled x-coordinate.
+     *         [1] The transformed and scaled y-coordinate.
+     */
+    public static float[] screenCoordinatesToOpenGLCoordinates(int x, int y) {
         FloatBuffer var4 = BufferUtils.createFloatBuffer(16);
         GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, var4);
-        float var5 = var4.get(0) * (float) var0 + var4.get(4) * (float) var1 + var4.get(8) * 0.0F + var4.get(12);
-        float var6 = var4.get(1) * (float) var0 + var4.get(5) * (float) var1 + var4.get(9) * 0.0F + var4.get(13);
-        float var7 = var4.get(3) * (float) var0 + var4.get(7) * (float) var1 + var4.get(11) * 0.0F + var4.get(15);
+        float var5 = var4.get(0) * (float) x + var4.get(4) * (float) y + var4.get(8) * 0.0F + var4.get(12);
+        float var6 = var4.get(1) * (float) x + var4.get(5) * (float) y + var4.get(9) * 0.0F + var4.get(13);
+        float var7 = var4.get(3) * (float) x + var4.get(7) * (float) y + var4.get(11) * 0.0F + var4.get(15);
         var5 /= var7;
         var6 /= var7;
         return new float[]{(float) Math.round(var5 * getScaleFactor()), (float) Math.round(var6 * getScaleFactor())};
@@ -79,10 +88,10 @@ public class RenderUtil {
             width = (int) ((float) width * GuiManager.scaleFactor);
             height = (int) ((float) height * GuiManager.scaleFactor);
         } else {
-            float[] var7 = method11416(x, y);
+            float[] var7 = screenCoordinatesToOpenGLCoordinates(x, y);
             x = (int) var7[0];
             y = (int) var7[1];
-            float[] var8 = method11416(width, height);
+            float[] var8 = screenCoordinatesToOpenGLCoordinates(width, height);
             width = (int) var8[0];
             height = (int) var8[1];
         }
@@ -348,7 +357,7 @@ public class RenderUtil {
             }
 
             if (!var16) {
-                float[] var17 = method11416((int) var1, (int) var2);
+                float[] var17 = screenCoordinatesToOpenGLCoordinates((int) var1, (int) var2);
                 int var18 = (int) var17[0];
                 int var19 = (int) var17[1];
                 GL11.glTranslatef(var1, var2, 0.0F);
@@ -381,7 +390,7 @@ public class RenderUtil {
         drawRoundedRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
         drawRoundedRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, var5);
         FloatBuffer var8 = BufferUtils.createFloatBuffer(16);
-        GL11.glGetFloatv(2982, var8);
+        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, var8);
         float var9 = 1.0F;
         drawCircle(var0 + var4, var1 + var4, var4 * 2.0F * var9, var5);
         drawCircle(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
