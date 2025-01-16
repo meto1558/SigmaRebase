@@ -965,7 +965,7 @@ public class RenderUtil {
         GL11.glStencilFunc(var0 != Class2329.field15940 ? GL11.GL_NOTEQUAL : GL11.GL_EQUAL, 1, 1);
     }
 
-    public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int var5, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {
+    public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int color, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {
         if (var4 != null) {
             RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
             GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
@@ -973,10 +973,10 @@ public class RenderUtil {
             var2 = (float) Math.round(var2);
             var1 = (float) Math.round(var1);
             var3 = (float) Math.round(var3);
-            float b = (float) (var5 >> 24 & 0xFF) / 255.0F;
-            float a = (float) (var5 >> 16 & 0xFF) / 255.0F;
-            float r = (float) (var5 >> 8 & 0xFF) / 255.0F;
-            float g = (float) (var5 & 0xFF) / 255.0F;
+            float b = (float) (color >> 24 & 0xFF) / 255.0F;
+            float a = (float) (color >> 16 & 0xFF) / 255.0F;
+            float r = (float) (color >> 8 & 0xFF) / 255.0F;
+            float g = (float) (color & 0xFF) / 255.0F;
             RenderSystem.enableBlend();
             RenderSystem.disableTexture();
             RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
