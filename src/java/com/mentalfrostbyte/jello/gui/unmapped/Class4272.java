@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.ConfigButtonOnClickGui;
-import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
+import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -69,7 +69,7 @@ public class Class4272 extends UIBase {
                   this.method13118(true);
                   new Thread(() -> {
                      Client.getInstance();
-                     Class6814 var5xx = Client.getInstance().moduleManager.getConfigurationManager();
+                     ProfileManager var5xx = Client.getInstance().moduleManager.getConfigurationManager();
                      Configuration var6x = var5xx.getCurrentConfig();
                      Configuration var7x = field20706.method28657(var6x, var7);
                      var5x.method13611(var7x);

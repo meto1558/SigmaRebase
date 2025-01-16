@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
+import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -45,7 +45,7 @@ public class ConfigButtonOnClickGui extends UIBase {
 
    public void method13610() {
       Client.getInstance();
-      Class6814 var3 = Client.getInstance().moduleManager.getConfigurationManager();
+      ProfileManager var3 = Client.getInstance().moduleManager.getConfigurationManager();
       Configuration var4 = var3.getCurrentConfig();
       int var5 = 1;
 
@@ -60,7 +60,7 @@ public class ConfigButtonOnClickGui extends UIBase {
 
    public void method13611(Configuration var1) {
       Client.getInstance();
-      Class6814 var4 = Client.getInstance().moduleManager.getConfigurationManager();
+      ProfileManager var4 = Client.getInstance().moduleManager.getConfigurationManager();
       Configuration var5 = var4.getCurrentConfig();
       int var6 = 1;
 
@@ -75,7 +75,7 @@ public class ConfigButtonOnClickGui extends UIBase {
 
    public void method13612() {
       Client.getInstance();
-      Class6814 var3 = Client.getInstance().moduleManager.getConfigurationManager();
+      ProfileManager var3 = Client.getInstance().moduleManager.getConfigurationManager();
       int var4 = 1;
 
       while (var3.method20768("New Profile " + var4)) {

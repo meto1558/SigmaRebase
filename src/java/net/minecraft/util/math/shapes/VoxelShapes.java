@@ -3,6 +3,7 @@ package net.minecraft.util.math.shapes;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.math.DoubleMath;
 import com.google.common.math.IntMath;
+import com.mentalfrostbyte.jello.event.impl.EventBlockCollision;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
+import team.sdhq.eventBus.EventBus;
 
 public final class VoxelShapes
 {
@@ -311,7 +313,17 @@ public final class VoxelShapes
 
                                 if ((k2 != 1 || blockstate.isCollisionShapeLargerThanFullBlock()) && (k2 != 2 || blockstate.isIn(Blocks.MOVING_PISTON)))
                                 {
-                                    desiredOffset = blockstate.getCollisionShape(worldReader, blockpos$mutable, selectionContext).getAllowedOffset(direction$axis2, collisionBox.offset((double)(-blockpos$mutable.getX()), (double)(-blockpos$mutable.getY()), (double)(-blockpos$mutable.getZ())), desiredOffset);
+                                    // MODIFICATION BEGIN: call the EventBlockCollision event
+                                    VoxelShape shape = blockstate.getCollisionShape(worldReader, blockpos$mutable, selectionContext);
+//                                    TODO: can't find a method with the `var7` boolean parameter here. is this correct?
+                                    EventBlockCollision event = new EventBlockCollision(blockpos$mutable, shape);
+                                    EventBus.call(event);
+                                    shape = event.getVoxelShape();
+                                    // MODIFICATION END
+
+                                    // MODIFICATION BEGIN: use our modified shape
+                                    desiredOffset = shape.getAllowedOffset(direction$axis2, collisionBox.offset((double)(-blockpos$mutable.getX()), (double)(-blockpos$mutable.getY()), (double)(-blockpos$mutable.getZ())), desiredOffset);
+                                    // MODIFICATION END
 
                                     if (Math.abs(desiredOffset) < 1.0E-7D)
                                     {

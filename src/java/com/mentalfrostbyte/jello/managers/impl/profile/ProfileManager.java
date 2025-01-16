@@ -14,7 +14,7 @@ import org.apache.commons.io.IOUtils;
 import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
-public class Class6814 {
+public class ProfileManager {
     private final List<Configuration> savedConfigs = new ArrayList<>();
     private Configuration currentConfigs;
 

@@ -33,6 +33,10 @@ public class MovementUtil {
         return !mc.player.isPotionActive(Effects.JUMP_BOOST) ? 0 : mc.player.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1;
     }
 
+    public static double method37080() {
+        return 0.42F + (double)getJumpBoost() * 0.1;
+    }
+
     /**
      * Calculates the player's current movement speed, taking into account various factors such as sprinting, potion effects, sneaking, and being in water.
      *

@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.trackers.CombatTracker;
 import team.sdhq.eventBus.EventBus;
 
 public class NetworkManager {
-    public static boolean premium = false;
+    public static boolean premium = true;
     public Class9507 field38418;
     public String username;
     public String field38425;

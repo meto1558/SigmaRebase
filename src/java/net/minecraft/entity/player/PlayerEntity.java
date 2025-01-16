@@ -121,7 +121,7 @@ public abstract class PlayerEntity extends LivingEntity
     protected static final DataParameter<CompoundNBT> LEFT_SHOULDER_ENTITY = EntityDataManager.createKey(PlayerEntity.class, DataSerializers.COMPOUND_NBT);
     protected static final DataParameter<CompoundNBT> RIGHT_SHOULDER_ENTITY = EntityDataManager.createKey(PlayerEntity.class, DataSerializers.COMPOUND_NBT);
     private long timeEntitySatOnShoulder;
-    public final PlayerInventory inventory = new PlayerInventory(this);
+    public PlayerInventory inventory = new PlayerInventory(this);
     protected EnderChestInventory enterChestInventory = new EnderChestInventory();
     public final PlayerContainer container;
     public Container openContainer;
@@ -1284,7 +1284,7 @@ public abstract class PlayerEntity extends LivingEntity
         EventBus.call(event);
         // MODIFICATION END
         // MODIFICATION START (ENDS AFTER NEXT LINE): Add `event.getSituation() == Situation.PLAYER`
-        if (event.getSituation() == Situation.PLAYER || !this.abilities.isFlying && (mover == MoverType.SELF || mover == MoverType.PLAYER) && this.isStayingOnGroundSurface() && this.func_242375_q())
+        if (event.getSituation() == Situation.SAFE || !this.abilities.isFlying && (mover == MoverType.SELF || mover == MoverType.PLAYER) && this.isStayingOnGroundSurface() && this.func_242375_q())
         {
             double d0 = vec.x;
             double d1 = vec.z;
