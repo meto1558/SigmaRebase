@@ -17,9 +17,9 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Iterator;
 
 public class AGCFly extends Module {
-    private int field23902;
+    private int preUpdates;
     private int field23903;
-    private boolean field23904;
+    private boolean down;
 
     public AGCFly() {
         super(ModuleCategory.MOVEMENT, "AGC", "A fly for AntiGamingChair");
@@ -27,12 +27,12 @@ public class AGCFly extends Module {
 
     @Override
     public void onEnable() {
-        this.field23902 = 0;
+        this.preUpdates = 0;
         if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
-            this.field23904 = false;
+            this.down = false;
         } else {
             mc.gameSettings.keyBindSneak.setPressed(false);
-            this.field23904 = true;
+            this.down = true;
         }
 
         this.field23903 = 1;
@@ -43,7 +43,7 @@ public class AGCFly extends Module {
         if (this.isEnabled()) {
             if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
-                this.field23904 = true;
+                this.down = true;
             }
         }
     }
@@ -53,7 +53,7 @@ public class AGCFly extends Module {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
-                this.field23904 = false;
+                this.down = false;
             }
         }
     }
@@ -70,8 +70,8 @@ public class AGCFly extends Module {
     @LowerPriority
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
-            if (this.field23902 <= (this.field23903 != 3 ? this.field23903 : 1) - 2) {
-                if (this.field23902 == -1) {
+            if (this.preUpdates <= (this.field23903 != 3 ? this.field23903 : 1) - 2) {
+                if (this.preUpdates == -1) {
                     var1.setY(this.field23903 != 3 ? 0.001 : 0.095);
                     if (this.field23903 != 3) {
                         MovementUtil.setSpeed(var1, 0.32);
@@ -89,10 +89,10 @@ public class AGCFly extends Module {
     @EventTarget
     public void onUpdate(EventUpdate var1) {
         if (this.isEnabled() && var1.isPre()) {
-            this.field23902++;
-            if (this.field23902 != (this.field23903 != 3 ? this.field23903 : 1)) {
-                if (this.field23902 > (this.field23903 != 3 ? this.field23903 : 1)) {
-                    if (this.field23902 % 20 != 0) {
+            this.preUpdates++;
+            if (this.preUpdates != (this.field23903 != 3 ? this.field23903 : 1)) {
+                if (this.preUpdates > (this.field23903 != 3 ? this.field23903 : 1)) {
+                    if (this.preUpdates % 20 != 0) {
                         var1.cancelled = true;
                     } else {
                         double var4 = this.method16785();
@@ -106,7 +106,7 @@ public class AGCFly extends Module {
                 var1.setY(var6 - 1.0E-4);
                 var1.setGround(true);
                 var1.method13908(true);
-                this.field23903 = !this.field23904
+                this.field23903 = !this.down
                         ? (!mc.gameSettings.keyBindJump.isKeyDown() ? 1 : 3)
                         : (!mc.gameSettings.keyBindJump.isKeyDown() ? 2 : 1);
             }
@@ -119,8 +119,8 @@ public class AGCFly extends Module {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {
                 SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.field23902 >= (this.field23903 != 3 ? this.field23903 : 1)) {
-                    this.field23902 = -1;
+                if (this.preUpdates >= (this.field23903 != 3 ? this.field23903 : 1)) {
+                    this.preUpdates = -1;
                 }
 
                 var5.yaw = mc.player.rotationYaw;
