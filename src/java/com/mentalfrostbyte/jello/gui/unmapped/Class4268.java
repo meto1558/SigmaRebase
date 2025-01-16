@@ -54,7 +54,7 @@ public class Class4268 extends UIBase {
       );
       TrueTypeFont var4 = ResourceRegistry.JelloLightFont20;
       if (this.typedText.contains("Lock")) {
-         RenderUtil.method11438(
+         RenderUtil.drawCircle(
             (float)(this.xA + 14),
             (float)(this.yA + 11) + 3.0F * this.field20691,
             10.0F,
@@ -114,7 +114,7 @@ public class Class4268 extends UIBase {
             } else {
                int var7 = this.xA + 32;
                int var10 = this.yA + 32 + (int)(3.0F * this.field20691);
-               RenderUtil.method11438(
+               RenderUtil.drawCircle(
                   (float)var7, (float)var10, 14.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                );
             }

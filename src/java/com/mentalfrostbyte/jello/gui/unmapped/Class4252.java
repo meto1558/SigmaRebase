@@ -70,13 +70,13 @@ public class Class4252 extends UIBase {
    }
 
    public static void method13052(int var0, int var1, int var2, float var3) {
-      RenderUtil.method11438((float)var0, (float)var1, (float)14, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var3));
-      RenderUtil.method11438((float)var0, (float)var1, (float)(14 - 1), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F * var3));
-      RenderUtil.method11438((float)var0, (float)var1, (float)(14 - 2), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
-      RenderUtil.method11438(
+      RenderUtil.drawCircle((float)var0, (float)var1, (float)14, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var3));
+      RenderUtil.drawCircle((float)var0, (float)var1, (float)(14 - 1), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F * var3));
+      RenderUtil.drawCircle((float)var0, (float)var1, (float)(14 - 2), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
+      RenderUtil.drawCircle(
          (float)var0, (float)var1, (float)(14 - 6), ColorUtils.applyAlpha(ColorUtils.method17690(var2, ClientColors.DEEP_TEAL.getColor(), 0.7F), var3)
       );
-      RenderUtil.method11438((float)var0, (float)var1, (float)(14 - 7), ColorUtils.applyAlpha(var2, var3));
+      RenderUtil.drawCircle((float)var0, (float)var1, (float)(14 - 7), ColorUtils.applyAlpha(var2, var3));
    }
 
    @Override

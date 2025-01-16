@@ -59,7 +59,7 @@ public class ModuleWithModuleSettings extends Module {
         }
 
         if (!isOurName) {
-            this.method15984("Type", this.moduleArray[0].name);
+            this.setSetting("Type", this.moduleArray[0].name);
         }
     }
 

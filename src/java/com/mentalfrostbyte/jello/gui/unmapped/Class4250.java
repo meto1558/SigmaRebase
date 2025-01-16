@@ -80,7 +80,7 @@ public class Class4250 extends UIBase {
       var11.add(new Class9778(1.0, 1.0));
       MathUtils var12 = new MathUtils((double)(1.0F / var6 * 2.0F));
       double var13 = var12.method30789(var11, Math.min(0.8F, this.field20611.calcPercent()) * 1.25F);
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),
          (float)(this.yA - var5 / 2 + this.heightA),
          14.0F,

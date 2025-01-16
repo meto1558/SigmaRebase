@@ -79,8 +79,8 @@ public class Module {
         }
     }
 
-    public void method15984(String var1, String var2) {
-        this.settingMap.get(var1).setCurrentValue(var2);
+    public void setSetting(String settingName, String value) {
+        this.settingMap.get(settingName).setCurrentValue(value);
     }
 
     public void resetModuleState() {
@@ -91,8 +91,8 @@ public class Module {
         this.enabled = false;
         this.allowed = true;
 
-        for (Setting var4 : this.settingMap.values()) {
-            var4.resetToDefault();
+        for (Setting setting : this.settingMap.values()) {
+            setting.resetToDefault();
         }
     }
 

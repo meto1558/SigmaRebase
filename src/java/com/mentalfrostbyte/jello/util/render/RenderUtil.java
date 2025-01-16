@@ -63,7 +63,7 @@ public class RenderUtil {
 
     public static float[] method11416(int var0, int var1) {
         FloatBuffer var4 = BufferUtils.createFloatBuffer(16);
-        GL11.glGetFloatv(2982, var4);
+        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, var4);
         float var5 = var4.get(0) * (float) var0 + var4.get(4) * (float) var1 + var4.get(8) * 0.0F + var4.get(12);
         float var6 = var4.get(1) * (float) var0 + var4.get(5) * (float) var1 + var4.get(9) * 0.0F + var4.get(13);
         float var7 = var4.get(3) * (float) var0 + var4.get(7) * (float) var1 + var4.get(11) * 0.0F + var4.get(15);
@@ -172,14 +172,14 @@ public class RenderUtil {
             width = (float) Math.round(width);
             y = (float) Math.round(y);
             height = (float) Math.round(height);
-            float var13 = (float) (color >> 24 & 0xFF) / 255.0F;
-            float var14 = (float) (color >> 16 & 0xFF) / 255.0F;
-            float var15 = (float) (color >> 8 & 0xFF) / 255.0F;
-            float var16 = (float) (color & 0xFF) / 255.0F;
+            float a = (float) (color >> 24 & 0xFF) / 255.0F;
+            float r = (float) (color >> 16 & 0xFF) / 255.0F;
+            float g = (float) (color >> 8 & 0xFF) / 255.0F;
+            float b = (float) (color & 0xFF) / 255.0F;
             RenderSystem.enableBlend();
             RenderSystem.disableTexture();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-            RenderSystem.color4f(var14, var15, var16, var13);
+            RenderSystem.color4f(r, g, b, a);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             texture.bind();
@@ -220,25 +220,25 @@ public class RenderUtil {
         drawRoundedRect(x, y + size, x + width, y + height - size, color);
         drawRoundedRect(x + size, y, x + width - size, y + size, color);
         drawRoundedRect(x + size, y + height - size, x + width - size, y + height, color);
-        method11418(x, y, x + size, y + size);
-        method11438(x + size, y + size, size * 2.0F, color);
+        drawPortalBackground(x, y, x + size, y + size);
+        drawCircle(x + size, y + size, size * 2.0F, color);
         endScissor();
-        method11418(x + width - size, y, x + width, y + size);
-        method11438(x - size + width, y + size, size * 2.0F, color);
+        drawPortalBackground(x + width - size, y, x + width, y + size);
+        drawCircle(x - size + width, y + size, size * 2.0F, color);
         endScissor();
-        method11418(x, y + height - size, x + size, y + height);
-        method11438(x + size, y - size + height, size * 2.0F, color);
+        drawPortalBackground(x, y + height - size, x + size, y + height);
+        drawCircle(x + size, y - size + height, size * 2.0F, color);
         endScissor();
-        method11418(x + width - size, y + height - size, x + width, y + height);
-        method11438(x - size + width, y - size + height, size * 2.0F, color);
+        drawPortalBackground(x + width - size, y + height - size, x + width, y + height);
+        drawCircle(x - size + width, y - size + height, size * 2.0F, color);
         endScissor();
     }
 
-    public static void method11418(float var0, float var1, float var2, float var3) {
-        drawPortalBackground((int) var0, (int) var1, (int) var2, (int) var3, true);
+    public static void drawPortalBackground(float x, float y, float width, float height) {
+        drawPortalBackground((int) x, (int) y, (int) width, (int) height, true);
     }
 
-    public static void method11438(float var0, float var1, float size, int color) {
+    public static void drawCircle(float centerX, float centerY, float size, int color) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 0.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         float a = (float) (color >> 24 & 0xFF) / 255.0F;
@@ -254,7 +254,7 @@ public class RenderUtil {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glPointSize(size * GuiManager.scaleFactor);
         GL11.glBegin(0);
-        GL11.glVertex2f(var0, var1);
+        GL11.glVertex2f(centerX, centerY);
         GL11.glEnd();
         GL11.glDisable(GL11.GL_POINT_SMOOTH);
         GL11.glDisable(GL11.GL_BLEND);
@@ -383,10 +383,10 @@ public class RenderUtil {
         FloatBuffer var8 = BufferUtils.createFloatBuffer(16);
         GL11.glGetFloatv(2982, var8);
         float var9 = 1.0F;
-        method11438(var0 + var4, var1 + var4, var4 * 2.0F * var9, var5);
-        method11438(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
-        method11438(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, var5);
-        method11438(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
+        drawCircle(var0 + var4, var1 + var4, var4 * 2.0F * var9, var5);
+        drawCircle(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
+        drawCircle(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, var5);
+        drawCircle(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
     }
 
     public static void drawString(TrueTypeFont font, float var1, float var2, String string, int color) {

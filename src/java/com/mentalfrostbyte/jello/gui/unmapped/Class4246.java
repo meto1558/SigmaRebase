@@ -57,7 +57,7 @@ public class Class4246 extends ButtonPanel {
          10.0F,
          var1 * 0.8F
       );
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)(this.getXA() + this.getWidthA() / 2),
          (float)(this.getYA() + this.getWidthA() / 2),
          var6,

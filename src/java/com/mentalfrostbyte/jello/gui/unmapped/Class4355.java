@@ -85,13 +85,13 @@ public class Class4355 extends UIBase {
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)(this.xA + 35),
          (float)(this.yA + this.heightA / 2),
          20.0F,
               ColorUtils.method17690(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
       );
-      RenderUtil.method11438((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
+      RenderUtil.drawCircle((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
       RenderUtil.drawRoundedRect(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, var1 * 0.2F * this.field21289.calcPercent()
       );

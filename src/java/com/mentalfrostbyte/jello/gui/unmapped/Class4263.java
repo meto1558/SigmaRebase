@@ -22,7 +22,7 @@ public class Class4263 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)this.widthA,

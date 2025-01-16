@@ -40,7 +40,7 @@ public class Class4279 extends AnimatedIconPanelWrap {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)(this.xA + 5),
          (float)(this.yA + 5),
          10.0F,
