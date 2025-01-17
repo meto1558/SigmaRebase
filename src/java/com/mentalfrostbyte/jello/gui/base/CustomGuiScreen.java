@@ -131,7 +131,17 @@ public class CustomGuiScreen implements IGuiEventListener {
             }
         }
     }
-
+    /**
+     * Manages the arrangement and removal of CustomGuiScreen objects within various lists.
+     * This method performs the following operations:
+     * 1. Removes specified screens from iconPanelList and clears field20919 if necessary.
+     * 2. Clears and repopulates iconPanelList with elements from field20916.
+     * 3. Ensures field20919, if not null, is at the end of iconPanelList.
+     * 4. Calls method13220() to further arrange the iconPanelList.
+     * <p>
+     * This method does not take any parameters and does not return a value.
+     * It operates on the class's internal lists and fields.
+     */
     private void method13223() {
         for (CustomGuiScreen var4 : this.field20918) {
             this.iconPanelList.remove(var4);
