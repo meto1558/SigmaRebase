@@ -14,10 +14,7 @@ import java.util.List;
 
 public class ColorUtils {
     private static final Minecraft mc = Minecraft.getInstance();
-    public static final float[] field24951 = new float[4];
-    public static final float[] field24952 = new float[4];
     public static final ResourceLocation BLUR_SHADER = new ResourceLocation("shaders/post/blur.json");
-    private static boolean field24954 = false;
 
     public static int applyAlpha(int color, float alpha) {
         return (int)(alpha * 255.0F) << 24 | color & 16777215;
