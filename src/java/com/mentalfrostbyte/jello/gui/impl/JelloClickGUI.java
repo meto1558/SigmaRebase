@@ -176,7 +176,7 @@ public class JelloClickGUI extends Screen {
       }
 
       if (field20944 && field20943) {
-         ColorUtils.method17742();
+         ColorUtils.resetShaders();
       }
    }
 
@@ -187,7 +187,7 @@ public class JelloClickGUI extends Screen {
 
    @Override
    public JSONObject method13160(JSONObject var1) {
-      ColorUtils.method17742();
+      ColorUtils.resetShaders();
       this.method13234(this.blurOverlay);
       return super.method13160(var1);
    }

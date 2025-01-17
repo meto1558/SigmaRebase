@@ -131,7 +131,7 @@ public class JelloKeyboardScreen extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       if (var1 == 256) {
-         ColorUtils.method17742();
+         ColorUtils.resetShaders();
          field20953.displayGuiScreen(null);
       }
    }

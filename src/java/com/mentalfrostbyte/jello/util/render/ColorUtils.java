@@ -169,7 +169,12 @@ public class ColorUtils {
         }
     }
 
-    public static void method17742() {
+    /**
+     * Resets the current shader to its default state or loads a specific shader based on the current shader index.
+     * If the shader index is equal to the total number of shaders, it sets the shader group to null, effectively
+     * disabling any active shaders. Otherwise, it loads the shader corresponding to the current shader index.
+     */
+    public static void resetShaders() {
         if (mc.gameRenderer.shaderIndex == GameRenderer.SHADER_COUNT) {
             mc.gameRenderer.shaderGroup = null;
         } else {

@@ -70,7 +70,7 @@ public class JelloMaps extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       if (var1 == 256) {
-         ColorUtils.method17742();
+         ColorUtils.resetShaders();
          field21033.displayGuiScreen(null);
       }
    }
