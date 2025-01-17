@@ -133,12 +133,12 @@ public class JelloMainMenuManager extends Screen {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
+    public void updatePanelDimensions(int newHeight, int newWidth) {
         for (CustomGuiScreen var6 : this.bubbles) {
-            var6.method13028(var1, var2);
+            var6.updatePanelDimensions(newHeight, newWidth);
         }
 
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override

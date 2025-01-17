@@ -53,9 +53,9 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
-      this.field20908 = this.method13228(var1, var2, false);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
+      this.field20908 = this.method13228(newHeight, newWidth, false);
       this.field20794 = this.field20794
          + (
             this.field20796.getHeightA() >= this.getHeightA()

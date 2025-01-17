@@ -20,8 +20,8 @@ public class Class4246 extends ButtonPanel {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       float var5 = this.field20600.method13138();
       float var6 = (float)this.getXA() / (float)(this.screen.getWidthA() - this.getWidthA());
       if (!this.method13212() && !this.method13298() && !this.method13216()) {

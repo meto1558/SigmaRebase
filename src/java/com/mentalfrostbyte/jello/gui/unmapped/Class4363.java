@@ -134,22 +134,22 @@ public class Class4363 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
-      if (!this.method13114(var1, var2) && this.field21330.getDirection() == Direction.FORWARDS) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
+      if (!this.method13114(newHeight, newWidth) && this.field21330.getDirection() == Direction.FORWARDS) {
          this.method13658(false);
       }
 
-      int var5 = (var2 - this.method13272()) / this.getHeightA() - 1;
+      int var5 = (newWidth - this.method13272()) / this.getHeightA() - 1;
       if (var5 >= 0
          && var5 < this.values.size()
          && this.field21330.getDirection() == Direction.FORWARDS
          && this.field21330.calcPercent() == 1.0F
-         && var1 - this.method13271() < this.getWidthA()) {
+         && newHeight - this.method13271() < this.getWidthA()) {
          for (Entry var9 : this.field21331.entrySet()) {
             ((Class4362)var9.getValue()).setEnabled((Integer)var9.getKey() == var5);
          }
-      } else if (!this.method13114(var1, var2) || this.field21330.getDirection() == Direction.BACKWARDS) {
+      } else if (!this.method13114(newHeight, newWidth) || this.field21330.getDirection() == Direction.BACKWARDS) {
          for (Entry var7 : this.field21331.entrySet()) {
             ((Class4362)var7.getValue()).setEnabled(false);
          }

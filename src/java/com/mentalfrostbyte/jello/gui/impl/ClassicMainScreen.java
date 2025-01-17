@@ -121,12 +121,12 @@ public class ClassicMainScreen extends Screen {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
-        float var5 = (float) var1 - this.field21104;
-        float var6 = (float) var2 - this.field21105;
+    public void updatePanelDimensions(int newHeight, int newWidth) {
+        float var5 = (float) newHeight - this.field21104;
+        float var6 = (float) newWidth - this.field21105;
         this.field21104 += var5 * 0.055F;
         this.field21105 += var6 * 0.055F;
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override

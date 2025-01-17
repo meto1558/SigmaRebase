@@ -20,8 +20,8 @@ public class Class4288 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       float var5 = (float)this.field20780.getButton().getHeightA();
       float var6 = (float)this.screen.getScreen().getHeightA();
       float var7 = (float)this.screen.getHeightA();

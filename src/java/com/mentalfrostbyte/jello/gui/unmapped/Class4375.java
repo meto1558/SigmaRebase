@@ -89,7 +89,7 @@ public class Class4375 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       Map<Integer, Class4253> var5 = new HashMap();
 
       for (CustomGuiScreen var7 : this.getRenderObjects()) {
@@ -105,7 +105,7 @@ public class Class4375 extends UIBase {
          var9 += var11.getValue().getHeightA();
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override

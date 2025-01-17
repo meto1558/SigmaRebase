@@ -22,8 +22,8 @@ public class BoxedButton extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       if (this.method13298() && (double)this.field20630.calcPercent() < 0.1) {
          this.field20630.changeDirection(Direction.FORWARDS);
       } else if (!this.method13298() && this.field20630.calcPercent() == 1.0F) {

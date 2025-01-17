@@ -54,14 +54,14 @@ public class Class4277 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       this.field20735
          .changeDirection(
             !this.method13298() && !this.field20734.method13298() && !this.method13212() && !this.field20734.method13216()
                ? Direction.BACKWARDS
                : Direction.FORWARDS
          );
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override

@@ -192,11 +192,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
+    public void updatePanelDimensions(int newHeight, int newWidth) {
         long var5 = System.nanoTime() - field20870;
         float var7 = Math.min(10.0F, Math.max(0.0F, (float) var5 / 1.810361E7F));
         field20870 = System.nanoTime();
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
         if (this.screen instanceof JelloClickGUI) {
             if (!this.method13216()) {
                 if ((this.field20909 || this.field20874) && !this.method13214() && !this.method13216()) {
@@ -258,9 +258,9 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     this.method13217(false);
                 }
             } else {
-                int var12 = var1 - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271());
+                int var12 = newHeight - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271());
                 int var14 = 200;
-                if (var12 + this.getWidthA() > this.screen.getWidthA() + var14 && var1 - this.field20878 > 70) {
+                if (var12 + this.getWidthA() > this.screen.getWidthA() + var14 && newHeight - this.field20878 > 70) {
                     int var15 = var12 - this.getXA() - var14;
                     this.setXA((int) ((float) this.getXA() + (float) var15 * 0.5F));
                     this.field20871 = (float) this.getXA();

@@ -81,12 +81,12 @@ public class SwitchScreen extends Screen {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
-        float var5 = (float) var1 - field21070;
-        float var6 = (float) var2 - field21071;
+    public void updatePanelDimensions(int newHeight, int newWidth) {
+        float var5 = (float) newHeight - field21070;
+        float var6 = (float) newWidth - field21071;
         field21070 += var5 * 0.09F;
         field21071 += var6 * 0.09F;
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override

@@ -132,14 +132,14 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
       ColorUtils.setShaderParamsRounded(Math.min(1.0F, field20942.calcPercent() * 4.0F));
       this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
       if (this.configButton != null) {
-         int var5 = var1 - this.configButton.method13271();
-         int var6 = var2 - this.configButton.method13272();
+         int var5 = newHeight - this.configButton.method13271();
+         int var6 = newWidth - this.configButton.method13272();
          boolean var7 = var5 >= -10 && var6 >= -10;
          if (!var7) {
             this.configButton.method13613();

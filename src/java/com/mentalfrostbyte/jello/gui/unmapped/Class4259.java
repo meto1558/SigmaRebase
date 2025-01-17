@@ -49,19 +49,19 @@ public class Class4259 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       if (this.field20909) {
-         int var5 = var1 - this.field20652;
-         int var6 = var2 - this.field20653;
+         int var5 = newHeight - this.field20652;
+         int var6 = newWidth - this.field20653;
          float var7 = ((float)this.field20649 - 1.0F) / (float)this.field20649;
          float var8 = (float)this.widthA / ((float)this.field20649 * 2.0F * var7);
          this.field20651 += (float)var5 / var8;
          this.field20650 += (float)var6 / var8;
       }
 
-      this.field20652 = var1;
-      this.field20653 = var2;
+      this.field20652 = newHeight;
+      this.field20653 = newWidth;
    }
 
    public void method13077(int var1, int var2) {
