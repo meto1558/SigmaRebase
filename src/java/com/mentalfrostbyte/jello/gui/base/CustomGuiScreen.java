@@ -49,7 +49,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public String typedText;
     public TrueTypeFont font;
     public ColorHelper textColor;
-    private final ArrayList<Runnable> field20915 = new ArrayList<Runnable>();
+    private final ArrayList<Runnable> runOnDimentionUpdate = new ArrayList<Runnable>();
     private boolean field20917;
     private CustomGuiScreen field20919;
     private int heightO;
@@ -127,7 +127,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public void method13222(Runnable var1) {
         synchronized (this) {
             if (var1 != null) {
-                this.field20915.add(var1);
+                this.runOnDimentionUpdate.add(var1);
             }
         }
     }
@@ -169,13 +169,13 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20908 = this.method13289() && this.method13229(newHeight, newWidth);
 
 
-        for (Runnable var6 : this.field20915) {
-            if (var6 != null) {
-                var6.run();
+        for (Runnable runnable : this.runOnDimentionUpdate) {
+            if (runnable != null) {
+                runnable.run();
             }
         }
 
-        this.field20915.clear();
+        this.runOnDimentionUpdate.clear();
         this.field20917 = true;
 
         try {
