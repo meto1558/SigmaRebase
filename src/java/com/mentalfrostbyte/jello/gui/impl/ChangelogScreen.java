@@ -41,7 +41,7 @@ public class ChangelogScreen extends CustomGuiScreen {
       super.updatePanelDimensions(newHeight, newWidth);
       if (this.field21184 != null) {
          if (this.isHovered() && this.isVisible()) {
-            for (CustomGuiScreen var9 : this.field21184.getButton().getRenderObjects()) {
+            for (CustomGuiScreen var9 : this.field21184.getButton().getChildren()) {
                Class4330 var10 = (Class4330)var9;
                var10.animation2.changeDirection(Direction.FORWARDS);
                if ((double)var10.animation2.calcPercent() < 0.5) {
@@ -49,7 +49,7 @@ public class ChangelogScreen extends CustomGuiScreen {
                }
             }
          } else {
-            for (CustomGuiScreen var6 : this.field21184.getButton().getRenderObjects()) {
+            for (CustomGuiScreen var6 : this.field21184.getButton().getChildren()) {
                Class4330 var7 = (Class4330)var6;
                var7.animation2.changeDirection(Direction.BACKWARDS);
             }

@@ -47,7 +47,7 @@ public class JelloMaps extends Screen {
    private void method13390() {
       JelloMaps var3 = this;
 
-      for (CustomGuiScreen var5 : this.getRenderObjects()) {
+      for (CustomGuiScreen var5 : this.getChildren()) {
          if (var5 instanceof Class4276) {
             Class4276 var6 = (Class4276)var5;
             this.runThisOnDimensionUpdate(new Class605(this, var3, var5));

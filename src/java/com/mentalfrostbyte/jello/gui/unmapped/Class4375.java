@@ -62,7 +62,7 @@ public class Class4375 extends UIBase {
       int var3 = 1;
       ArrayList var4 = new ArrayList();
 
-      for (CustomGuiScreen var6 : this.getRenderObjects()) {
+      for (CustomGuiScreen var6 : this.getChildren()) {
          if (var6.getHeightA() != 0) {
             var4.add(var6.getName());
          }
@@ -70,7 +70,7 @@ public class Class4375 extends UIBase {
 
       this.method13242();
       this.method13145(true);
-      this.method13238();
+      this.clearChildren();
 
       for (Class6984 var10 : JelloKeyboardScreen.method13328()) {
          int var7 = var10.method21599();
@@ -92,7 +92,7 @@ public class Class4375 extends UIBase {
    public void updatePanelDimensions(int newHeight, int newWidth) {
       Map<Integer, Class4253> var5 = new HashMap();
 
-      for (CustomGuiScreen var7 : this.getRenderObjects()) {
+      for (CustomGuiScreen var7 : this.getChildren()) {
          if (var7 instanceof Class4253) {
              var5.put(((Class4253) var7).field20626, (Class4253) var7);
          }

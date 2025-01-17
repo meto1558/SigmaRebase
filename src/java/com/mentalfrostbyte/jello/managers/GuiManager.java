@@ -296,7 +296,7 @@ public class GuiManager {
 
     public JSONObject getUIConfig(JSONObject uiConfig) {
         if (this.screen != null) {
-            JSONObject var4 = this.screen.method13160(new JSONObject());
+            JSONObject var4 = this.screen.toConfigWithExtra(new JSONObject());
             if (var4.length() != 0) {
                 uiConfig.put(this.screen.getName(), var4);
             }
@@ -341,7 +341,7 @@ public class GuiManager {
             } catch (Exception var9) {
                 var4 = new JSONObject();
             } finally {
-                this.screen.method13161(var4);
+                this.screen.loadConfig(var4);
             }
         }
 

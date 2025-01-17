@@ -59,14 +59,14 @@ public class ClassicScreenk extends Screen {
     }
 
     @Override
-    public JSONObject method13160(JSONObject var1) {
+    public JSONObject toConfigWithExtra(JSONObject config) {
         ColorUtils.resetShaders();
-        return super.method13160(var1);
+        return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void method13161(JSONObject var1) {
-        super.method13161(var1);
+    public void loadConfig(JSONObject config) {
+        super.loadConfig(config);
     }
 
     @Override

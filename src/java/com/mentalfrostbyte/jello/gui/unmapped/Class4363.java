@@ -56,7 +56,7 @@ public class Class4363 extends UIBase {
    }
 
    private void method13646() {
-      this.getRenderObjects().clear();
+      this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
       ButtonPanel dropdownButton;
       this.addToList(dropdownButton = new ButtonPanel(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));

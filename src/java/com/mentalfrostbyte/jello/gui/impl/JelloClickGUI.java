@@ -70,7 +70,7 @@ public class JelloClickGUI extends Screen {
       var9.method13300(false);
       this.musicPlayer.setEnabled(field20951);
       var9.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
-            if (this.configButton != null && this.method13239(this.configButton)) {
+            if (this.configButton != null && this.hasChild(this.configButton)) {
                this.method13234(this.configButton);
             } else {
                this.addToList(this.configButton = new ConfigButtonOnClickGui(this, "morepopover", this.getWidthA() - 14, this.getHeightA() - 14));
@@ -185,15 +185,15 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
+   public JSONObject toConfigWithExtra(JSONObject config) {
       ColorUtils.resetShaders();
       this.method13234(this.blurOverlay);
-      return super.method13160(var1);
+      return super.toConfigWithExtra(config);
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      super.method13161(var1);
+   public void loadConfig(JSONObject config) {
+      super.loadConfig(config);
    }
 
    private void method13316(boolean var1) {
@@ -268,7 +268,7 @@ public class JelloClickGUI extends Screen {
          );
       }
 
-      for (CustomGuiScreen var9 : this.getRenderObjects()) {
+      for (CustomGuiScreen var9 : this.getChildren()) {
          float var10 = (float)(var9.getYA() + var9.getHeightA() / 2 - mc.getMainWindow().getHeight() / 2) * (1.0F - var4) * 0.5F;
          float var11 = (float)(var9.getXA() + var9.getWidthA() / 2 - mc.getMainWindow().getWidth() / 2) * (1.0F - var4) * 0.5F;
          var9.method13286((int)var11, (int)var10);

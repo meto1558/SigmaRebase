@@ -26,7 +26,7 @@ public class Class4362 extends UIBase {
    }
 
    private void method13634() {
-      this.getRenderObjects().clear();
+      this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
 
       for (String var4 : this.field21323) {

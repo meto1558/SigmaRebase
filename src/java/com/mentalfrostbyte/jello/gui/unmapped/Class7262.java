@@ -31,16 +31,16 @@ public class Class7262 implements Class7261 {
 
    @Override
    public void method22796(CustomGuiScreen var1) {
-      if (var1.getRenderObjects().size() > 0) {
+      if (var1.getChildren().size() > 0) {
          int var4 = 0;
 
-         while (var4 < var1.getRenderObjects().size()) {
-            CustomGuiScreen var5 = var1.getRenderObjects().get(var4);
+         while (var4 < var1.getChildren().size()) {
+            CustomGuiScreen var5 = var1.getChildren().get(var4);
             if (var4 > 0 && var4 % this.field31151 == 0) {
                CustomGuiScreen[] var6 = new CustomGuiScreen[this.field31151];
 
                for (int var7 = 0; var7 < this.field31151; var7++) {
-                  var6[var7] = var1.getRenderObjects().get(var4 - this.field31151 + var7);
+                  var6[var7] = var1.getChildren().get(var4 - this.field31151 + var7);
                }
 
                CustomGuiScreen var9 = this.method22797(var6);
@@ -51,7 +51,7 @@ public class Class7262 implements Class7261 {
             var8[0] = var5;
 
             for (int var10 = 1; var10 < this.field31151; var10++) {
-               var8[var10] = var1.getRenderObjects().get(var4 + var10);
+               var8[var10] = var1.getChildren().get(var4 + var10);
                this.method22797(var8).setSize((var1x, var2) -> var1x.setYA(var5.getYA() + var5.getHeightA() / 2));
             }
 

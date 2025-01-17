@@ -168,9 +168,9 @@ public class SigmaClassicAltManager extends Screen {
    private int method13400() {
       int var3 = 0;
 
-      for (CustomGuiScreen var5 : this.field21055.getRenderObjects()) {
+      for (CustomGuiScreen var5 : this.field21055.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                var3++;
             }
          }
@@ -193,16 +193,16 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
+   public JSONObject toConfigWithExtra(JSONObject config) {
       this.field21061.saveAlts();
-      return var1;
+      return config;
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      for (CustomGuiScreen var5 : this.field21055.getRenderObjects()) {
+   public void loadConfig(JSONObject config) {
+      for (CustomGuiScreen var5 : this.field21055.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.getRenderObjects()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                this.field21055.method13234(var7);
             }
          }
@@ -250,9 +250,9 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    public Class4349 method13406() {
-      for (CustomGuiScreen var4 : this.field21055.getRenderObjects()) {
+      for (CustomGuiScreen var4 : this.field21055.getChildren()) {
          if (!(var4 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var6 : var4.getRenderObjects()) {
+            for (CustomGuiScreen var6 : var4.getChildren()) {
                if (var6 instanceof Class4349) {
                   Class4349 var7 = (Class4349)var6;
                   if (var7.method13582()) {

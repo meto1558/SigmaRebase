@@ -15,7 +15,7 @@ public class Class543 implements Runnable {
 
    @Override
    public void run() {
-      for (CustomGuiScreen var4 : this.field2603.getRenderObjects()) {
+      for (CustomGuiScreen var4 : this.field2603.getChildren()) {
          if (var4 instanceof Class4375) {
             Class4375 var5 = (Class4375)var4;
             var5.method13712();

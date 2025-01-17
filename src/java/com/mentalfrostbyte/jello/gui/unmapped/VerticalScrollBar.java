@@ -125,15 +125,15 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
-      var1.put("offset", this.field20793);
-      return super.method13160(var1);
+   public JSONObject toConfigWithExtra(JSONObject config) {
+      config.put("offset", this.field20793);
+      return super.toConfigWithExtra(config);
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      super.method13161(var1);
-      this.field20793 = CJsonUtils.getIntOrDefault(var1, "offset", this.field20793);
+   public void loadConfig(JSONObject config) {
+      super.loadConfig(config);
+      this.field20793 = CJsonUtils.getIntOrDefault(config, "offset", this.field20793);
    }
 
    @Override

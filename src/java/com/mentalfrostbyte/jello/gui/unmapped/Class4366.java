@@ -26,7 +26,7 @@ public class Class4366 extends UIBase {
    }
 
    private void method13663() {
-      this.getRenderObjects().clear();
+      this.getChildren().clear();
       this.font = Resources.regular15;
       ButtonPanel var3;
       this.addToList(var3 = new ButtonPanel(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));
@@ -131,7 +131,7 @@ public class Class4366 extends UIBase {
          );
       }
 
-      for (CustomGuiScreen var7 : this.getRenderObjects()) {
+      for (CustomGuiScreen var7 : this.getChildren()) {
          if (!var7.getName().equals("dropdownButton")) {
             var7.setEnabled(this.field21345);
          }

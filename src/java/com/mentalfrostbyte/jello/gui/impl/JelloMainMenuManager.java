@@ -229,7 +229,7 @@ public class JelloMainMenuManager extends Screen {
             );
 
 
-            for (CustomGuiScreen object : this.getRenderObjects()) {
+            for (CustomGuiScreen object : this.getChildren()) {
                 if (object.isVisible()) {
                     GL11.glPushMatrix();
                     if (object instanceof ChangelogScreen) {

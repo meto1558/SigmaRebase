@@ -42,7 +42,7 @@ public class JelloKeyboardScreen extends Screen {
             var2 -> {
                boolean var5 = false;
 
-               for (CustomGuiScreen var7 : this.getRenderObjects()) {
+               for (CustomGuiScreen var7 : this.getChildren()) {
                   if (var7 instanceof Class4375) {
                      var5 = true;
                   }
@@ -106,14 +106,14 @@ public class JelloKeyboardScreen extends Screen {
    public void updatePanelDimensions(int newHeight, int newWidth) {
       if (this.method13212()) {
          this.field20957.method13242();
-         this.method13244();
+         this.clearChildren();
          this.field20961 = 0;
          this.field20956 = null;
       }
 
       if (this.field20956 != null) {
          this.field20957.method13242();
-         this.method13244();
+         this.clearChildren();
          this.addToList(this.field20956);
          this.field20956 = null;
       }
