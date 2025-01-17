@@ -270,7 +270,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public boolean method13078(int var1, int var2, int var3) {
+    public boolean boolEvent(int var1, int var2, int var3) {
         boolean var6 = false;
 
         for (int var7 = this.children.size() - 1; var7 >= 0; var7--) {
@@ -288,7 +288,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                     }
                 }
             } else {
-                var8.method13078(var1, var2, var3);
+                var8.boolEvent(var1, var2, var3);
                 var6 = !var9;
             }
         }
@@ -304,33 +304,33 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public void method13095(int var1, int var2, int var3) {
+    public void voidEvent1(int var1, int var2, int var3) {
         this.field20908 = this.method13114(var1, var2);
 
         for (CustomGuiScreen var7 : this.children) {
             if (var7.isHovered() && var7.isVisible()) {
-                var7.method13095(var1, var2, var3);
+                var7.voidEvent1(var1, var2, var3);
             }
         }
 
         this.method13250(var3);
         if (this.method13212() && this.method13298()) {
-            this.method13089(var1, var2, var3);
+            this.voidEvent2(var1, var2, var3);
         }
 
         this.field20909 = false;
     }
 
     @Override
-    public void method13089(int var1, int var2, int var3) {
+    public void voidEvent2(int var1, int var2, int var3) {
         this.method13252(var3);
     }
 
     @Override
-    public void method13079(float var1) {
+    public void voidEvent3(float var1) {
         for (CustomGuiScreen var5 : this.children) {
             if (var5.isHovered() && var5.isVisible()) {
-                var5.method13079(var1);
+                var5.voidEvent3(var1);
             }
         }
     }

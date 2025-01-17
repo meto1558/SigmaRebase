@@ -97,8 +97,8 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean boolEvent(int var1, int var2, int var3) {
+      if (!super.boolEvent(var1, var2, var3)) {
          String var6 = this.typedText;
          if (this.field20754) {
             var6 = this.typedText.replaceAll(".", this.field20755);
@@ -125,8 +125,8 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
-      super.method13095(var1, var2, var3);
+   public void voidEvent1(int var1, int var2, int var3) {
+      super.voidEvent1(var1, var2, var3);
       this.field20752 = false;
    }
 

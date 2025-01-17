@@ -34,9 +34,9 @@ public class Class4270 extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean boolEvent(int var1, int var2, int var3) {
       if (var3 <= 1) {
-         return super.method13078(var1, var2, var3);
+         return super.boolEvent(var1, var2, var3);
       } else {
          this.field20696 = var3;
          this.callUIHandlers();

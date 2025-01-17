@@ -41,8 +41,8 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(this.xA, this.yA, var3)) {
+   public boolean boolEvent(int var1, int var2, int var3) {
+      if (!super.boolEvent(this.xA, this.yA, var3)) {
          this.field21373 = true;
          return false;
       } else {
@@ -64,19 +64,19 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
-      super.method13095(var1, var2, var3);
+   public void voidEvent1(int var1, int var2, int var3) {
+      super.voidEvent1(var1, var2, var3);
       this.field21373 = false;
    }
 
    @Override
-   public void method13079(float var1) {
+   public void voidEvent3(float var1) {
       if (this.method13298()) {
          this.method13708(this.method13707() - var1 / 2000.0F);
          this.method13710();
       }
 
-      super.method13079(var1);
+      super.voidEvent3(var1);
    }
 
    public float method13707() {

@@ -5,11 +5,11 @@ public interface IGuiEventListener {
 
    void keyPressed(int var1);
 
-   boolean method13078(int var1, int var2, int var3);
+   boolean boolEvent(int var1, int var2, int var3);
 
-   void method13095(int var1, int var2, int var3);
+   void voidEvent1(int var1, int var2, int var3);
 
-   void method13089(int var1, int var2, int var3);
+   void voidEvent2(int var1, int var2, int var3);
 
-   void method13079(float var1);
+   void voidEvent3(float var1);
 }

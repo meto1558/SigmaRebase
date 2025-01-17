@@ -257,7 +257,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean boolEvent(int var1, int var2, int var3) {
       return false;
    }
 }

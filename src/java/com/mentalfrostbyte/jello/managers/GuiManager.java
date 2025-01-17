@@ -278,19 +278,19 @@ public class GuiManager {
 
     public void method33465(float var1) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13079(var1);
+            this.screen.voidEvent3(var1);
         }
     }
 
     public void method33466(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13078(var1, var2, var3);
+            this.screen.boolEvent(var1, var2, var3);
         }
     }
 
     public void method33467(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13095(var1, var2, var3);
+            this.screen.voidEvent1(var1, var2, var3);
         }
     }
 

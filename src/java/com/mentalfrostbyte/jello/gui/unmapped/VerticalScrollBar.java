@@ -30,8 +30,8 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public void method13079(float var1) {
-      super.method13079(var1);
+   public void voidEvent3(float var1) {
+      super.voidEvent3(var1);
       if (this.parent != null && this.parent.method13228(this.getHeightO(), this.getWidthO(), false) || ((Class4339)this.parent).field21208) {
          float var4 = (float)((Class4339)this.getParent()).getButton().getHeightA();
          float var5 = (float)this.getParent().getHeightA();
@@ -104,8 +104,8 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean boolEvent(int var1, int var2, int var3) {
+      if (!super.boolEvent(var1, var2, var3)) {
          this.field20908 = this.method13228(var1, var2, false);
          if (this.method13298()) {
             int var6 = var2 - this.method13272();

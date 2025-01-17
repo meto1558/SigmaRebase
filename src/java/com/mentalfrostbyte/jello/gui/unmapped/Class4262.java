@@ -24,7 +24,7 @@ public class Class4262 extends Class4261 {
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
+   public void voidEvent2(int var1, int var2, int var3) {
       this.method13086().method23104();
       this.method13093(this.method13086().method23105());
    }

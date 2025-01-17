@@ -97,8 +97,8 @@ public class Class4277 extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean boolEvent(int var1, int var2, int var3) {
+      if (!super.boolEvent(var1, var2, var3)) {
          this.field20734.method13217(true);
          return false;
       } else {

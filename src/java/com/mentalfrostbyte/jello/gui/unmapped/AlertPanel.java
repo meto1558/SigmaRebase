@@ -191,8 +191,8 @@ public class AlertPanel extends UIBase {
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
-      super.method13089(var1, var2, var3);
+   public void voidEvent2(int var1, int var2, int var3) {
+      super.voidEvent2(var1, var2, var3);
    }
 
    public float method13602(float var1, float var2) {
@@ -240,8 +240,8 @@ public class AlertPanel extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean boolEvent(int var1, int var2, int var3) {
+      if (!super.boolEvent(var1, var2, var3)) {
          int var6 = this.field21284 + 60;
          int var7 = this.field21285 + 60;
          if (var1 > (this.widthA - var6) / 2

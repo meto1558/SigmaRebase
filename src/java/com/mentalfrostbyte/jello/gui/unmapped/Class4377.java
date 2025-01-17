@@ -48,9 +48,9 @@ public class Class4377 extends PNGIconButton {
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
+   public void voidEvent2(int var1, int var2, int var3) {
       this.method13721(this.method13720() + 1);
-      super.method13089(var1, var2, var3);
+      super.voidEvent2(var1, var2, var3);
    }
 
    @Override
