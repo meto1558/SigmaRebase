@@ -26,23 +26,23 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    public int field20889 = 2;
    private final List<Class6751> field20890 = new ArrayList<Class6751>();
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconNanme, int var3, int var4, int var5, int var6, boolean var7) {
-      super(screen, iconNanme, var3, var4, var5, var6);
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconNanme, int x, int y, int width, int height, boolean var7) {
+      super(screen, iconNanme, x, y, width, height);
       this.field20876 = var7;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, boolean var8) {
-      super(screen, iconName, var3, var4, var5, var6, colorHelper);
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper colorHelper, boolean var8) {
+      super(screen, iconName, x, y, width, height, colorHelper);
       this.field20876 = var8;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, boolean var9) {
-      super(screen, iconName, var3, var4, var5, var6, colorHelper, var8);
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper colorHelper, String var8, boolean var9) {
+      super(screen, iconName, x, y, width, height, colorHelper, var8);
       this.field20876 = var9;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
-      super(screen, iconName, var3, var4, var5, var6, colorHelper, var8, font);
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
+      super(screen, iconName, x, y, width, height, colorHelper, var8, font);
       this.field20876 = var10;
    }
 

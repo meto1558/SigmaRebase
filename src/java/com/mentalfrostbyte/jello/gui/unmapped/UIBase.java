@@ -12,20 +12,20 @@ import java.util.List;
 public class UIBase extends AnimatedIconPanelWrap {
     private final List<UIHandler> uiHandlers = new ArrayList<UIHandler>();
 
-   public UIBase(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, boolean var7) {
-      super(screen, iconName, var3, var4, width, height, var7);
+   public UIBase(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, boolean var7) {
+      super(screen, iconName, x, y, width, height, var7);
    }
 
-   public UIBase(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, ColorHelper var7, boolean var8) {
-      super(screen, iconName, var3, var4, width, height, var7, var8);
+   public UIBase(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper var7, boolean var8) {
+      super(screen, iconName, x, y, width, height, var7, var8);
    }
 
-   public UIBase(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, boolean var9) {
-      super(screen, iconName, var3, var4, var5, var6, var7, var8, var9);
+   public UIBase(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper var7, String var8, boolean var9) {
+      super(screen, iconName, x, y, width, height, var7, var8, var9);
    }
 
-   public UIBase(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont font, boolean var10) {
-      super(screen, iconName, var3, var4, var5, var6, var7, var8, font, var10);
+   public UIBase(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper var7, String var8, TrueTypeFont font, boolean var10) {
+      super(screen, iconName, x, y, width, height, var7, var8, font, var10);
    }
 
    public final void addUIHandler(UIHandler uiHandler) {

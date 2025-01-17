@@ -17,12 +17,22 @@ public class VolumeSlider extends UIBase {
    private boolean field21373 = false;
    private final List<Class6649> field21374 = new ArrayList<Class6649>();
 
-   public VolumeSlider(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
-      super(var1, var2, var3, var4, var5, var6, false);
+   /**
+    * Constructs a new VolumeSlider instance.
+    *
+    * @param parent    The CustomGuiScreen that this VolumeSlider belongs to.
+    * @param iconName  The name of the icon associated with this VolumeSlider.
+    * @param xV      The x-coordinate of the VolumeSlider.
+    * @param yV      The y-coordinate of the VolumeSlider.
+    * @param width     The width of the VolumeSlider.
+    * @param height    The height of the VolumeSlider.
+    */
+   public VolumeSlider(CustomGuiScreen parent, String iconName, int xV, int yV, int width, int height) {
+      super(parent, iconName, xV, yV, width, height, false);
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float f) {
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
@@ -37,7 +47,7 @@ public class VolumeSlider extends UIBase {
          (float)this.yA + (float)this.heightA * this.field21372,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
       );
-      super.draw(var1);
+      super.draw(f);
    }
 
    @Override
@@ -58,7 +68,7 @@ public class VolumeSlider extends UIBase {
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
       if (this.field21373) {
-         this.method13708(this.method13706(newWidth));
+         this.setField21372(this.method13706(newWidth));
          this.method13710();
       }
    }
@@ -72,19 +82,19 @@ public class VolumeSlider extends UIBase {
    @Override
    public void voidEvent3(float var1) {
       if (this.method13298()) {
-         this.method13708(this.method13707() - var1 / 2000.0F);
+         this.setField21372(this.getField21372() - var1 / 2000.0F);
          this.method13710();
       }
 
       super.voidEvent3(var1);
    }
 
-   public float method13707() {
+   public float getField21372() {
       return this.field21372;
    }
 
-   public void method13708(float var1) {
-      this.field21372 = Math.min(Math.max(var1, 0.0F), 1.0F);
+   public void setField21372(float value) {
+      this.field21372 = Math.min(Math.max(value, 0.0F), 1.0F);
    }
 
    public AnimatedIconPanel method13709(Class6649 var1) {

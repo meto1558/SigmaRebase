@@ -10,19 +10,19 @@ import org.newdawn.slick.TrueTypeFont;
 // as it just passes in the arguments to it and there's no extra methods
 public class AnimatedIconPanelWrap extends AnimatedIconPanel {
 
-    public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, boolean var7) {
-      super(screen, name, var3, var4, var5, var6, var7);
+    public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int x, int y, int width, int height, boolean var7) {
+      super(screen, name, x, y, width, height, var7);
    }
 
-   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, boolean var8) {
-      super(screen, name, var3, var4, var5, var6, colorHelper, var8);
+   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int x, int y, int width, int height, ColorHelper colorHelper, boolean var8) {
+      super(screen, name, x, y, width, height, colorHelper, var8);
    }
 
-   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, boolean var9) {
-      super(screen, name, var3, var4, var5, var6, colorHelper, var8, var9);
+   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int x, int y, int width, int height, ColorHelper colorHelper, String var8, boolean var9) {
+      super(screen, name, x, y, width, height, colorHelper, var8, var9);
    }
 
-   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
-      super(screen, name, var3, var4, var5, var6, colorHelper, var8, font, var10);
+   public AnimatedIconPanelWrap(CustomGuiScreen screen, String name, int x, int y, int width, int height, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
+      super(screen, name, x, y, width, height, colorHelper, var8, font, var10);
    }
 }
