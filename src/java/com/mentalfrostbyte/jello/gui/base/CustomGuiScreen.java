@@ -55,16 +55,16 @@ public class CustomGuiScreen implements IGuiEventListener {
     private int heightO;
     private int widthO;
 
-    public CustomGuiScreen(CustomGuiScreen var1, String var2) {
-        this(var1, var2, 0, 0, 0, 0);
+    public CustomGuiScreen(CustomGuiScreen parent, String name) {
+        this(parent, name, 0, 0, 0, 0);
     }
 
-    public CustomGuiScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
-        this(var1, var2, var3, var4, var5, var6, ColorHelper.field27961);
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA) {
+        this(parent, name, xA, yA, widthA, heightA, ColorHelper.field27961);
     }
 
-    public CustomGuiScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7) {
-        this(var1, var2, var3, var4, var5, var6, var7, null);
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor) {
+        this(parent, name, xA, yA, widthA, heightA, textColor, null);
     }
 
     public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText) {
