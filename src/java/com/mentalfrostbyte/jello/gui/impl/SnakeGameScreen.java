@@ -24,7 +24,7 @@ public class SnakeGameScreen extends Screen {
       this.method13300(false);
       this.field21045.start();
       this.field21047 = new Animation(200, 0);
-      ColorUtils.method17739();
+      ColorUtils.blur();
       int var3 = 48;
       int var4 = 27;
       int var5 = 14;

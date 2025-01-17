@@ -65,7 +65,7 @@ public class JelloKeyboardScreen extends Screen {
                }
             }
          );
-      ColorUtils.method17739();
+      ColorUtils.blur();
    }
 
    public static ArrayList<Class6984> method13328() {

@@ -80,7 +80,7 @@ public class Class4277 extends UIBase {
          (float)(var7 - var10),
          (float)var6,
          (float)(var6 / 2),
-              ColorUtils.applyAlpha(ColorUtils.method17692(this.textColor.method19405(), 0.8F), var1 * var1 * var1)
+              ColorUtils.applyAlpha(ColorUtils.adjustColorTowardsWhite(this.textColor.method19405(), 0.8F), var1 * var1 * var1)
       );
       if (this.getTypedText() != null) {
          int var11 = Math.max(0, 9 - this.field20734.getXA());

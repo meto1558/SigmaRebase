@@ -33,7 +33,7 @@ public class JelloMaps extends Screen {
       this.addToList(this.field21036 = new Class4251(this, "mapView", (this.widthA - var3) / 2, (this.heightA - var4) / 2, var3, var4));
       this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.method13222(new Class774(this, this, var3x, var4x, var5)));
       this.field21036.field20614.method13082(var1 -> this.method13390());
-      ColorUtils.method17739();
+      ColorUtils.blur();
    }
 
    private void method13389(Class4276 var1) {

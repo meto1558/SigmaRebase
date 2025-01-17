@@ -80,7 +80,7 @@ public class JelloClickGUI extends Screen {
          }));
       field20942 = new Animation(450, 125);
       this.blurOverlay = new ClickGUIBlurOverlay(this, this, "overlay");
-      ColorUtils.method17739();
+      ColorUtils.blur();
       ColorUtils.method17740(field20942.calcPercent());
    }
 

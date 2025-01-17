@@ -23,7 +23,7 @@ public class ClassicScreenk extends Screen {
         super("ClassicScreen");
         field21079 = new Animation(250, 200, Direction.FORWARDS);
         this.method13419();
-        ColorUtils.method17739();
+        ColorUtils.blur();
     }
 
     public void method13417() {

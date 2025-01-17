@@ -16,7 +16,7 @@ public class ColorUtils {
     private static final Minecraft mc = Minecraft.getInstance();
     public static final float[] field24951 = new float[4];
     public static final float[] field24952 = new float[4];
-    public static final ResourceLocation field24953 = new ResourceLocation("shaders/post/blur.json");
+    public static final ResourceLocation BLUR_SHADER = new ResourceLocation("shaders/post/blur.json");
     private static boolean field24954 = false;
 
     public static int applyAlpha(int color, float alpha) {
@@ -142,22 +142,22 @@ public class ColorUtils {
         return var6.values().toArray(new String[var6.values().size()]);
     }
 
-    public static void method17739() {
+    public static void blur() {
         if (mc.getRenderViewEntity() instanceof PlayerEntity && Client.getInstance().guiManager.getGuiBlur()) {
             if (mc.gameRenderer.shaderGroup != null) {
                 mc.gameRenderer.shaderGroup.close();
             }
 
-            mc.gameRenderer.loadShader(field24953);
+            mc.gameRenderer.loadShader(BLUR_SHADER);
         }
 
-        method17741(20);
+        setShaderParams(20);
     }
 
-    public static void method17741(int var0) {
+    public static void setShaderParams(int radius) {
         if (mc.gameRenderer.shaderGroup != null) {
-            mc.gameRenderer.shaderGroup.listShaders.get(0).getShaderManager().getShaderUniform("Radius").set((float)var0);
-            mc.gameRenderer.shaderGroup.listShaders.get(1).getShaderManager().getShaderUniform("Radius").set((float)var0);
+            mc.gameRenderer.shaderGroup.listShaders.get(0).getShaderManager().getShaderUniform("Radius").set((float)radius);
+            mc.gameRenderer.shaderGroup.listShaders.get(1).getShaderManager().getShaderUniform("Radius").set((float)radius);
         }
     }
 
@@ -169,23 +169,33 @@ public class ColorUtils {
         }
     }
 
-    public static float[] intColorToFloatArrayColor(int var0) {
-        float var3 = (float)(var0 >> 24 & 0xFF) / 255.0F;
-        float var4 = (float)(var0 >> 16 & 0xFF) / 255.0F;
-        float var5 = (float)(var0 >> 8 & 0xFF) / 255.0F;
-        float var6 = (float)(var0 & 0xFF) / 255.0F;
-        return new float[]{var4, var5, var6, var3};
+    public static float[] intColorToFloatArrayColor(int color) {
+        float a = (float)(color >> 24 & 0xFF) / 255.0F;
+        float r = (float)(color >> 16 & 0xFF) / 255.0F;
+        float g = (float)(color >> 8 & 0xFF) / 255.0F;
+        float b = (float)(color & 0xFF) / 255.0F;
+        return new float[]{r, g, b, a};
     }
 
-    public static int method17692(int var0, float var1) {
-        int var4 = var0 >> 24 & 0xFF;
-        int var5 = var0 >> 16 & 0xFF;
-        int var6 = var0 >> 8 & 0xFF;
-        int var7 = var0 & 0xFF;
-        int var8 = (int)((float)var5 + (float)(255 - var5) * var1);
-        int var9 = (int)((float)var6 + (float)(255 - var6) * var1);
-        int var10 = (int)((float)var7 + (float)(255 - var7) * var1);
-        return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
+        /**
+     * Adjusts the RGB components of a color towards white by a specified factor.
+     *
+     * @param original The original color represented as an integer, where the highest byte is the alpha component,
+     *             followed by red, green, and blue components.
+     * @param shift The factor by which to adjust the color towards white. A value of 0.0 will leave the color unchanged,
+     *             while a value of 1.0 will result in a completely white color.
+     * @return The adjusted color as an integer, with the same alpha component as the original color and RGB components
+     *         adjusted towards white by the specified factor.
+     */
+    public static int adjustColorTowardsWhite(int original, float shift) {
+        int a = original >> 24 & 0xFF;
+        int r = original >> 16 & 0xFF;
+        int g = original >> 8 & 0xFF;
+        int b = original & 0xFF;
+        int var8 = (int)((float)r + (float)(255 - r) * shift);
+        int var9 = (int)((float)g + (float)(255 - g) * shift);
+        int var10 = (int)((float)b + (float)(255 - b) * shift);
+        return a << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
 
     public static Color method17682(Color... var0) {
@@ -226,6 +236,6 @@ public class ColorUtils {
     }
 
     public static void method17740(float var0) {
-        method17741(Math.round(var0 * 20.0F));
+        setShaderParams(Math.round(var0 * 20.0F));
     }
 }
