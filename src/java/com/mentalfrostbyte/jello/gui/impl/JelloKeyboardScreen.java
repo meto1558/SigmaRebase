@@ -83,23 +83,23 @@ public class JelloKeyboardScreen extends Screen {
    }
 
    private void method13329(Class4270 var1) {
-      this.method13222(new Class635(this, var1));
+      this.runThisOnDimensionUpdate(new Class635(this, var1));
    }
 
    private void method13330() {
-      this.method13222(new Class544(this, this));
+      this.runThisOnDimensionUpdate(new Class544(this, this));
    }
 
    private void method13331() {
-      this.method13222(new Class1533(this, this));
+      this.runThisOnDimensionUpdate(new Class1533(this, this));
    }
 
    private void method13332() {
-      this.method13222(new Class543(this, this));
+      this.runThisOnDimensionUpdate(new Class543(this, this));
    }
 
    private void method13333() {
-      this.method13222(new Class1376(this, this));
+      this.runThisOnDimensionUpdate(new Class1376(this, this));
    }
 
    @Override

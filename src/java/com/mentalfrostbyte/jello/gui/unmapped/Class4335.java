@@ -47,7 +47,7 @@ public class Class4335 extends Class4333 {
    }
 
    public void method13486(Module var1) {
-      this.method13222(() -> {
+      this.runThisOnDimensionUpdate(() -> {
          if (this.field21181 == null) {
             this.addToList(this.field21181 = new Class4345(this, "settings", 5, 70, this.getWidthA() - 10, this.getHeightA() - 75, var1));
             this.field21181.method13292(true);
@@ -76,7 +76,7 @@ public class Class4335 extends Class4333 {
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
       if (this.field21181 != null && this.field21181.method13557()) {
-         this.method13222(() -> {
+         this.runThisOnDimensionUpdate(() -> {
             this.method13236(this.field21181);
             this.field21181 = null;
          });

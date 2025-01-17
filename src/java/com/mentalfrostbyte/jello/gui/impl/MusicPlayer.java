@@ -112,7 +112,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     field20855.put(video.id, video);
                 }
 
-                this.method13222(new MusicPlayerInstance(this, video, var6, player));
+                this.runThisOnDimensionUpdate(new MusicPlayerInstance(this, video, var6, player));
             }));
             ((Thread) var7.get(var7.size() - 1)).start();
         }

@@ -444,7 +444,7 @@ public class AltManagerScreen extends Screen {
 
    public void method13372(boolean var1) {
       List<Account> var5 = Class8270.method28878(this.accountManager.getAccounts(), this.field21023, this.field21024, this.field21026.getTypedText());
-      this.method13222(new Class1428(this, this, var5, var1));
+      this.runThisOnDimensionUpdate(new Class1428(this, this, var5, var1));
    }
 
    private void method13373(Object var1) {

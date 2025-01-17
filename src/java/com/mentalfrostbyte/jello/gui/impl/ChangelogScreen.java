@@ -32,7 +32,7 @@ public class ChangelogScreen extends CustomGuiScreen {
 
    public void method13490(JSONArray var1) {
       if (var1 != null) {
-         this.getParent().method13222(new Class576(this, var1));
+         this.getParent().runThisOnDimensionUpdate(new Class576(this, var1));
       }
    }
 

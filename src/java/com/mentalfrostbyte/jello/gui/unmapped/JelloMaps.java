@@ -31,7 +31,7 @@ public class JelloMaps extends Screen {
       int var3 = Math.max(300, Math.min(850, Minecraft.getInstance().getMainWindow().getWidth() - 40));
       int var4 = Math.max(200, Math.min(550, Minecraft.getInstance().getMainWindow().getHeight() - 80));
       this.addToList(this.field21036 = new Class4251(this, "mapView", (this.widthA - var3) / 2, (this.heightA - var4) / 2, var3, var4));
-      this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.method13222(new Class774(this, this, var3x, var4x, var5)));
+      this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.runThisOnDimensionUpdate(new Class774(this, this, var3x, var4x, var5)));
       this.field21036.field20614.method13082(var1 -> this.method13390());
       ColorUtils.blur();
    }
@@ -50,7 +50,7 @@ public class JelloMaps extends Screen {
       for (CustomGuiScreen var5 : this.getRenderObjects()) {
          if (var5 instanceof Class4276) {
             Class4276 var6 = (Class4276)var5;
-            this.method13222(new Class605(this, var3, var5));
+            this.runThisOnDimensionUpdate(new Class605(this, var3, var5));
          }
       }
    }

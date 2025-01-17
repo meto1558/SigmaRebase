@@ -27,11 +27,11 @@ public class ClassicScreenk extends Screen {
     }
 
     public void method13417() {
-        this.method13222(() -> this.method13419());
+        this.runThisOnDimensionUpdate(() -> this.method13419());
     }
 
     public void method13418(String var1, ModuleCategory... var2) {
-        this.method13222(() -> {
+        this.runThisOnDimensionUpdate(() -> {
             if (this.field21081 != null) {
                 this.method13236(this.field21081);
             }

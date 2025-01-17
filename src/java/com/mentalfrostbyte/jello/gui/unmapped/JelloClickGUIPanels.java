@@ -33,7 +33,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
    }
 
    public void method13504() {
-      this.method13222(() -> {
+      this.runThisOnDimensionUpdate(() -> {
          this.method13236(this.field21194);
          this.addToList(this.field21194 = new Class4341(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
       });

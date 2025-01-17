@@ -56,7 +56,7 @@ public class JelloClickGUI extends Screen {
                y += clickGUIPanels.getHeightA() - 20;
             }
 
-            clickGUIPanels.method13507(var2 -> var5.method13222(() -> {
+            clickGUIPanels.method13507(var2 -> var5.runThisOnDimensionUpdate(() -> {
                   var5.addToList(this.field20949 = new ModuleSettingUI(var5, "settings", 0, 0, this.widthA, this.heightA, var2));
                   this.field20949.method13292(true);
             }));
@@ -70,7 +70,7 @@ public class JelloClickGUI extends Screen {
       var9.getTextColor().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
       var9.method13300(false);
       this.musicPlayer.setEnabled(field20951);
-      var9.doThis((var1, var2) -> this.method13222(() -> {
+      var9.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
             if (this.configButton != null && this.method13239(this.configButton)) {
                this.method13234(this.configButton);
             } else {
@@ -88,7 +88,7 @@ public class JelloClickGUI extends Screen {
       if (Client.getInstance().musicManager.hasPython() && Client.getInstance().musicManager.hasVCRedist()) {
          return false;
       } else if (this.field20950 == null) {
-         this.method13222(() -> {
+         this.runThisOnDimensionUpdate(() -> {
             List<MiniAlert> var3 = new ArrayList();
             var3.add(new MiniAlert(AlertType.HEADER, "Music", 40));
             var3.add(new MiniAlert(AlertType.FIRST_LINE, "Jello Music requires:", 20));
@@ -112,7 +112,7 @@ public class JelloClickGUI extends Screen {
                }
             });
             this.field20950.method13604(var1 -> new Thread(() -> {
-                this.method13222(() -> {
+                this.runThisOnDimensionUpdate(() -> {
                    this.method13236(this.field20950);
                    this.field20950 = null;
                 });
@@ -156,7 +156,7 @@ public class JelloClickGUI extends Screen {
       }
 
       if (this.field20949 != null && this.field20949.field20671 && this.field20949.animation1.calcPercent() == 0.0F) {
-         this.method13222(() -> {
+         this.runThisOnDimensionUpdate(() -> {
             this.method13236(this.field20949);
             this.field20949 = null;
          });

@@ -31,7 +31,7 @@ public class Class4258 extends UIBase {
    }
 
    public void method13069(String var1) {
-      this.method13222(() -> {
+      this.runThisOnDimensionUpdate(() -> {
          if (this.field20642 != null) {
             this.method13236(this.field20642);
          }

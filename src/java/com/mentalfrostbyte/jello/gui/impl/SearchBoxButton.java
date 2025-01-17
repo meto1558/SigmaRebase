@@ -45,7 +45,7 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
                             this.field20842.add(new YoutubeVideoData(var7.videoID, var7.title, var7.fullUrl));
                         }
 
-                        this.method13222(
+                        this.runThisOnDimensionUpdate(
                                 () -> {
                                     this.method13236(this.field20840);
                                     this.addToList(

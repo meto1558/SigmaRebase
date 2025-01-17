@@ -49,7 +49,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public String typedText;
     public TrueTypeFont font;
     public ColorHelper textColor;
-    private final ArrayList<Runnable> runOnDimentionUpdate = new ArrayList<Runnable>();
+    private final ArrayList<Runnable> runOnDimensionUpdate = new ArrayList<Runnable>();
     private boolean field20917;
     private CustomGuiScreen field20919;
     private int heightO;
@@ -124,10 +124,10 @@ public class CustomGuiScreen implements IGuiEventListener {
         return null;
     }
 
-    public void method13222(Runnable var1) {
+    public void runThisOnDimensionUpdate(Runnable that) {
         synchronized (this) {
-            if (var1 != null) {
-                this.runOnDimentionUpdate.add(var1);
+            if (that != null) {
+                this.runOnDimensionUpdate.add(that);
             }
         }
     }
@@ -169,13 +169,13 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20908 = this.method13289() && this.method13229(newHeight, newWidth);
 
 
-        for (Runnable runnable : this.runOnDimentionUpdate) {
+        for (Runnable runnable : this.runOnDimensionUpdate) {
             if (runnable != null) {
                 runnable.run();
             }
         }
 
-        this.runOnDimentionUpdate.clear();
+        this.runOnDimensionUpdate.clear();
         this.field20917 = true;
 
         try {

@@ -295,14 +295,14 @@ public class JelloMainMenuManager extends Screen {
 
     public void logout() {
         if (this.alertPanel == null) {
-            this.method13222(() -> {
+            this.runThisOnDimensionUpdate(() -> {
                 ArrayList<MiniAlert> alert = new ArrayList<>();
                 alert.add(new MiniAlert(AlertType.HEADER, "Logout", 45));
                 alert.add(new MiniAlert(AlertType.FIRST_LINE, "Are you sure?", 35));
                 alert.add(new MiniAlert(AlertType.BUTTON, "Yes", 55));
                 this.method13233(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
                 this.alertPanel.method13604(var1 -> new Thread(() -> {
-                    this.method13222(() -> {
+                    this.runThisOnDimensionUpdate(() -> {
                         this.method13236(this.alertPanel);
                         this.alertPanel = null;
 

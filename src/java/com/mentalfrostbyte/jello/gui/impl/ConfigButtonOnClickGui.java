@@ -54,7 +54,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       }
 
       var3.saveConfig(var4.method22987(var4.getName + " Copy " + var5));
-      this.method13222(() -> this.method13615());
+      this.runThisOnDimensionUpdate(() -> this.method13615());
       this.field21300.method13119(false);
    }
 
@@ -69,7 +69,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       }
 
       var4.saveConfig(var1.method22987(var1.getName + " " + var6));
-      this.method13222(() -> this.method13615());
+      this.runThisOnDimensionUpdate(() -> this.method13615());
       this.field21300.method13119(false);
    }
 
@@ -83,7 +83,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       }
 
       var3.saveConfig(new Configuration("New Profile " + var4, new JSONObject()));
-      this.method13222(this::method13615);
+      this.runThisOnDimensionUpdate(this::method13615);
       this.field21300.method13119(false);
    }
 

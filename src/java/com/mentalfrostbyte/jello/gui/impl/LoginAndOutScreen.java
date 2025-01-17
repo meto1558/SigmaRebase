@@ -91,7 +91,7 @@ public class LoginAndOutScreen extends Screen {
 
     public void method13424(String var1, String var2) {
         if (this.field21090 == null) {
-            this.method13222(() -> {
+            this.runThisOnDimensionUpdate(() -> {
                 ArrayList<MiniAlert> var5 = new ArrayList();
                 var5.add(new MiniAlert(AlertType.HEADER, var1, 45));
                 String[] var6 = ColorUtils.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
@@ -102,7 +102,7 @@ public class LoginAndOutScreen extends Screen {
 
                 var5.add(new MiniAlert(AlertType.BUTTON, "Ok", 55));
                 this.method13233(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new MiniAlert[0])));
-                this.field21090.method13604(var1xx -> new Thread(() -> this.method13222(() -> {
+                this.field21090.method13604(var1xx -> new Thread(() -> this.runThisOnDimensionUpdate(() -> {
                     this.method13236(this.field21090);
                     this.field21090 = null;
                 })).start());

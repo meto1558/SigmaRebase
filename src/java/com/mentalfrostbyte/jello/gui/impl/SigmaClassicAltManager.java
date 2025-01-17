@@ -212,7 +212,7 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    public void method13402() {
-      this.method13222(new Class1387(this));
+      this.runThisOnDimensionUpdate(new Class1387(this));
    }
 
    public void method13403() {

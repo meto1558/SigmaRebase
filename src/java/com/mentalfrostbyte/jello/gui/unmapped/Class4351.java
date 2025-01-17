@@ -130,7 +130,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
                Client.getInstance().moduleManager.getConfigurationManager().loadConfig(this.currentConfig);
                Client.getInstance().soundManager.play("switch");
                ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent().getParent().getParent();
-               var5x.method13222(() -> var5x.method13615());
+               var5x.runThisOnDimensionUpdate(() -> var5x.method13615());
 
                for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
                   if (!Client.getInstance().networkManager.isPremium()) {
@@ -172,7 +172,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
          this.field21272 = true;
          ConfigButtonOnClickGui var4 = (ConfigButtonOnClickGui)this.getParent().getParent().getParent();
          Client.getInstance().moduleManager.getConfigurationManager().checkConfig(this.currentConfig);
-         var4.method13222(() -> var4.method13615());
+         var4.runThisOnDimensionUpdate(() -> var4.method13615());
       }
 
       float var8 = MathUtils.lerp(this.animation.calcPercent(), 0.1, 0.81, 0.14, 1.0);
