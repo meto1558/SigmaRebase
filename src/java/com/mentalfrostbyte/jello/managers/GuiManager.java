@@ -284,7 +284,7 @@ public class GuiManager {
 
     public void method33466(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.boolEvent(var1, var2, var3);
+            this.screen.onClick(var1, var2, var3);
         }
     }
 

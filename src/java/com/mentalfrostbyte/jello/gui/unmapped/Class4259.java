@@ -72,23 +72,23 @@ public class Class4259 extends UIBase {
    }
 
    @Override
-   public boolean boolEvent(int var1, int var2, int var3) {
-      if (this.method13298() && var3 == 1) {
+   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+      if (this.method13298() && probablyTimes == 1) {
          int var6 = Math.max(this.widthA, this.heightA);
          float var7 = (float)(this.widthA - var6) / 2.0F;
          float var8 = (float)(this.heightA - var6) / 2.0F;
-         float var9 = (float)var1 - ((float)this.method13271() + var8 + (float)(var6 / 2));
-         float var10 = (float)(Minecraft.getInstance().getMainWindow().getHeight() - var2) - ((float)this.method13272() + var7 + (float)(var6 / 2));
+         float var9 = (float) mouseX - ((float)this.method13271() + var8 + (float)(var6 / 2));
+         float var10 = (float)(Minecraft.getInstance().getMainWindow().getHeight() - mouseY) - ((float)this.method13272() + var7 + (float)(var6 / 2));
          float var11 = (float)var6 / ((float)(this.field20649 - 1) * 2.0F);
          float var12 = (float)(this.chunkPos.x * 16) - this.field20651 * 16.0F;
          float var13 = (float)(this.chunkPos.z * 16) - this.field20650 * 16.0F;
          float var14 = var12 + var9 / var11 * 16.0F;
          float var15 = var13 - var10 / var11 * 16.0F;
-         this.method13081(var1, var2, new Vector3i(Math.round(var14), 0, Math.round(var15)));
+         this.method13081(mouseX, mouseY, new Vector3i(Math.round(var14), 0, Math.round(var15)));
          return false;
       } else {
          this.method13083();
-         return super.boolEvent(var1, var2, var3);
+         return super.onClick(mouseX, mouseY, probablyTimes);
       }
    }
 

@@ -60,17 +60,17 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
             this.sizeHeightThingy = this.getHeightA() / 2;
          }
 
-         this.method13213(newHeight, newWidth);
+         this.handleMovementAndCheckBoundaries(newHeight, newWidth);
       }
    }
 
    @Override
-   public boolean boolEvent(int var1, int var2, int var3) {
-      if (!super.boolEvent(var1, var2, var3)) {
+   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+      if (!super.onClick(mouseX, mouseY, probablyTimes)) {
          if (this.method13214()) {
             this.timerUtil.start();
-            this.field20878 = var1;
-            this.field20879 = var2;
+            this.field20878 = mouseX;
+            this.field20879 = mouseY;
             this.sizeWidthThingy = this.field20878 - this.method13271();
             this.sizeHeightThingy = this.field20879 - this.method13272();
          }
@@ -93,20 +93,20 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    }
 
    @Override
-   public void method13213(int var1, int var2) {
+   public void handleMovementAndCheckBoundaries(int newHeight, int newWidth) {
       boolean var5 = this.field20877;
       if (!this.method13216() && this.method13214()) {
          boolean var6 = this.field20884 && this.timerUtil.getElapsedTime() >= (long)this.field20888;
          boolean var7 = this.field20885
             && this.field20909
-            && (Math.abs(this.field20878 - var1) > this.field20889 || Math.abs(this.field20879 - var2) > this.field20889);
+            && (Math.abs(this.field20878 - newHeight) > this.field20889 || Math.abs(this.field20879 - newWidth) > this.field20889);
          boolean var8 = this.field20886 && this.field20909;
          if (var6 || var7 || var8) {
             this.method13217(true);
          }
       } else if (this.method13216()) {
-         this.setXA(var1 - this.sizeWidthThingy - (this.parent == null ? 0 : this.parent.method13271()));
-         this.setYA(var2 - this.sizeHeightThingy - (this.parent == null ? 0 : this.parent.method13272()));
+         this.setXA(newHeight - this.sizeWidthThingy - (this.parent == null ? 0 : this.parent.method13271()));
+         this.setYA(newWidth - this.sizeHeightThingy - (this.parent == null ? 0 : this.parent.method13272()));
          if (this.field20882) {
             if (this.parent == null) {
                if (this.getXA() < 0) {

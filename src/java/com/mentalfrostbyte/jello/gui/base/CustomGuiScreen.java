@@ -270,17 +270,17 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public boolean boolEvent(int var1, int var2, int var3) {
+    public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
         boolean var6 = false;
 
         for (int var7 = this.children.size() - 1; var7 >= 0; var7--) {
             CustomGuiScreen var8 = this.children.get(var7);
             boolean var9 = var8.getParent() != null
                     && var8.getParent() instanceof Class4339
-                    && var8.getParent().method13114(var1, var2)
+                    && var8.getParent().method13114(mouseX, mouseY)
                     && var8.getParent().isVisible()
                     && var8.getParent().isHovered();
-            if (var6 || !var8.isHovered() || !var8.isVisible() || !var8.method13114(var1, var2) && !var9) {
+            if (var6 || !var8.isHovered() || !var8.isVisible() || !var8.method13114(mouseX, mouseY) && !var9) {
                 var8.method13145(false);
                 if (var8 != null) {
                     for (CustomGuiScreen var12 : var8.getChildren()) {
@@ -288,7 +288,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                     }
                 }
             } else {
-                var8.boolEvent(var1, var2, var3);
+                var8.onClick(mouseX, mouseY, probablyTimes);
                 var6 = !var9;
             }
         }
@@ -296,7 +296,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         if (!var6) {
             this.field20909 = this.field20908 = true;
             this.method13242();
-            this.method13248(var3);
+            this.method13248(probablyTimes);
             return false;
         } else {
             return true;

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 public interface Class4347 {
-   void method13213(int var1, int var2);
+   void handleMovementAndCheckBoundaries(int var1, int var2);
 
    boolean method13214();
 

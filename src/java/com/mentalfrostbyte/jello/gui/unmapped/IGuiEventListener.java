@@ -5,7 +5,7 @@ public interface IGuiEventListener {
 
    void keyPressed(int var1);
 
-   boolean boolEvent(int var1, int var2, int var3);
+   boolean onClick(int mouseX, int mouseY, int probablyTimes);
 
    void voidEvent1(int var1, int var2, int var3);
 

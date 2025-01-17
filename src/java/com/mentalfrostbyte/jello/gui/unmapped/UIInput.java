@@ -97,15 +97,15 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean boolEvent(int var1, int var2, int var3) {
-      if (!super.boolEvent(var1, var2, var3)) {
+   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+      if (!super.onClick(mouseX, mouseY, probablyTimes)) {
          String var6 = this.typedText;
          if (this.field20754) {
             var6 = this.typedText.replaceAll(".", this.field20755);
          }
 
          this.field20752 = true;
-         this.field20749 = Class8906.method32494(var6, this.font, (float)this.method13271(), var1, this.field20746);
+         this.field20749 = Class8906.method32494(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
          if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
             && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
             this.field20750 = this.field20749;

@@ -74,9 +74,9 @@ public class Class4367 extends UIBase {
    }
 
    @Override
-   public boolean boolEvent(int var1, int var2, int var3) {
+   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
       this.field21350 = true;
-      return super.boolEvent(var1, var2, var3);
+      return super.onClick(mouseX, mouseY, probablyTimes);
    }
 
    @Override

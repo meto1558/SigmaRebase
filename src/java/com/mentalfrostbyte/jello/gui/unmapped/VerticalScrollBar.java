@@ -104,11 +104,11 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public boolean boolEvent(int var1, int var2, int var3) {
-      if (!super.boolEvent(var1, var2, var3)) {
-         this.field20908 = this.method13228(var1, var2, false);
+   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+      if (!super.onClick(mouseX, mouseY, probablyTimes)) {
+         this.field20908 = this.method13228(mouseX, mouseY, false);
          if (this.method13298()) {
-            int var6 = var2 - this.method13272();
+            int var6 = mouseY - this.method13272();
             if (var6 <= this.field20796.getYA() + this.field20796.getHeightA()) {
                if (var6 < this.field20796.getYA()) {
                   this.field20793 = this.field20793 - (int)((float)((Class4339)this.parent).getButton().getHeightA() / 4.0F);
