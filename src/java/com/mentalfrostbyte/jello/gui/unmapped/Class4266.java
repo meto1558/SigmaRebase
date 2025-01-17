@@ -74,7 +74,7 @@ public class Class4266 extends UIBase {
          if (this.field20687) {
             BufferedImage var6 = ImageUtil.method35039(this.method13271(), this.method13272(), this.widthA, this.heightA, 3, 10, true);
             this.field20684 = ColorUtils.method17682(new Color(var6.getRGB(6, 7)), new Color(var6.getRGB(6, 22))).getRGB();
-            this.field20684 = ColorUtils.method17691(this.field20684, 0.25F);
+            this.field20684 = ColorUtils.shiftTowardsBlack(this.field20684, 0.25F);
             if (this.field20688 != null) {
                this.field20688.release();
             }

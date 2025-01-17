@@ -10,7 +10,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.lwjgl.opengl.GL11;
 
 public class PNGIconButton extends ButtonPanel {
-    public static final ColorHelper field20574 = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ColorUtils.method17691(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
+    public static final ColorHelper field20574 = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ColorUtils.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
     public Texture field20575;
 
     public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, TrueTypeFont var10) {

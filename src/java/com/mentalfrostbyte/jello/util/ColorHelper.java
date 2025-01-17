@@ -13,7 +13,7 @@ public class ColorHelper {
    public Class2218 field27967;
 
    public ColorHelper(int color) {
-      this(color, ColorUtils.method17691(color, 0.05F));
+      this(color, ColorUtils.shiftTowardsBlack(color, 0.05F));
    }
 
    public ColorHelper(int var1, int var2) {

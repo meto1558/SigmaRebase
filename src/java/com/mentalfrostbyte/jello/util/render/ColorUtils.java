@@ -23,15 +23,26 @@ public class ColorUtils {
         return (int)(alpha * 255.0F) << 24 | color & 16777215;
     }
 
-    public static int method17691(int var0, float var1) {
-        int var4 = var0 >> 24 & 0xFF;
-        int var5 = var0 >> 16 & 0xFF;
-        int var6 = var0 >> 8 & 0xFF;
-        int var7 = var0 & 0xFF;
-        int var8 = (int)((float)var5 * (1.0F - var1));
-        int var9 = (int)((float)var6 * (1.0F - var1));
-        int var10 = (int)((float)var7 * (1.0F - var1));
-        return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
+    /**
+     * Adjusts the RGB components of a color towards black by a specified factor.
+     * The alpha component remains unchanged.
+     *
+     * @param color The original color represented as an integer, where the highest byte is the alpha component,
+     *              followed by red, green, and blue components.
+     * @param shift The factor by which to adjust the color towards black. A value of 0.0 will leave the color unchanged,
+     *              while a value of 1.0 will result in a completely black color.
+     * @return The adjusted color as an integer, with the same alpha component as the original color and RGB components
+     *         adjusted towards black by the specified factor.
+     */
+    public static int shiftTowardsBlack(int color, float shift) {
+        int a = color >> 24 & 0xFF;
+        int r = color >> 16 & 0xFF;
+        int g = color >> 8 & 0xFF;
+        int b = color & 0xFF;
+        int shiftedR = (int)((float)r * (1.0F - shift));
+        int shiftedG = (int)((float)g * (1.0F - shift));
+        int shiftedB = (int)((float)b * (1.0F - shift));
+        return a << 24 | (shiftedR & 0xFF) << 16 | (shiftedG & 0xFF) << 8 | shiftedB & 0xFF;
     }
 
     public static List<PlayerEntity> method17680() {

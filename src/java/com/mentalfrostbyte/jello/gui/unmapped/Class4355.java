@@ -58,7 +58,7 @@ public class Class4355 extends UIBase {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ColorUtils.method17691(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
+              ColorUtils.applyAlpha(ColorUtils.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
