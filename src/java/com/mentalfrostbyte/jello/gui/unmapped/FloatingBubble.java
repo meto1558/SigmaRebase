@@ -28,7 +28,7 @@ public class FloatingBubble extends CustomGuiScreen {
     }
 
     @Override
-    public void updatePanelDimensions(int var1, int var2) {
+    public void method13028(int var1, int var2) {
         if (this.field20932 == -9999.0F || this.field20933 == -9999.0F) {
             this.field20932 = (float) this.xA;
             this.field20933 = (float) this.yA;

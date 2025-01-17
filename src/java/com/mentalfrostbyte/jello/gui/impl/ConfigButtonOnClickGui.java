@@ -99,12 +99,12 @@ public class ConfigButtonOnClickGui extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      if (y > this.field21300.method13272() + this.field21300.getHeightA()) {
+   public void method13028(int var1, int var2) {
+      if (var2 > this.field21300.method13272() + this.field21300.getHeightA()) {
          this.field21300.method13119(false);
       }
 
-      super.updatePanelDimensions(x, y);
+      super.method13028(var1, var2);
    }
 
    public void method13615() {

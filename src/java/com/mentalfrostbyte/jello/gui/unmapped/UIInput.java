@@ -66,8 +66,8 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       String var5 = this.typedText;
       if (this.field20754) {
          var5 = this.typedText.replaceAll(".", this.field20755);
@@ -76,7 +76,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       this.field20744 = this.field20744 + ((!this.field20905 ? 0.0F : 1.0F) - this.field20744) / 2.0F;
       if (this.field20905) {
          if (this.field20752) {
-            this.field20749 = Class8906.method32494(var5, this.font, (float)this.method13271(), x, this.field20746);
+            this.field20749 = Class8906.method32494(var5, this.font, (float)this.method13271(), var1, this.field20746);
          }
       } else {
          this.field20749 = 0;

@@ -66,11 +66,11 @@ public class Class4286 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      boolean var5 = this.method13298() && this.getScreen().getScreen().method13114(x, y);
+   public void method13028(int var1, int var2) {
+      boolean var5 = this.method13298() && this.getScreen().getScreen().method13114(var1, var2);
       this.field20777.changeDirection(!var5 ? Direction.BACKWARDS : Direction.FORWARDS);
 
-      super.updatePanelDimensions(x, y);
+      super.method13028(var1, var2);
    }
 
    public boolean method13157() {

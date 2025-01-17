@@ -26,7 +26,7 @@ public class Class4340 extends Class4339 {
    public Class4340(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.field21211.changeDirection(Direction.BACKWARDS);
-      this.isHovered = true;
+      this.field20883 = true;
       this.method13300(false);
       this.method13511();
    }
@@ -62,18 +62,18 @@ public class Class4340 extends Class4339 {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       this.field21209.sort((var0, var1x) -> var0.field21288 < var1x.field21288 + var0.getHeightA() / 2 ? -1 : 1);
       int var5 = 0;
-      if (this.field21213 != null && !this.field21213.isVisible() && this.field21212) {
+      if (this.field21213 != null && !this.field21213.method13216() && this.field21212) {
          this.field21213.method13608();
          this.field21213 = null;
          this.field21212 = false;
       }
 
       for (Class4355 var7 : this.field21209) {
-         if (!var7.isVisible() && var7.field21290.getDirection() == Direction.BACKWARDS) {
+         if (!var7.method13216() && var7.field21290.getDirection() == Direction.BACKWARDS) {
             var7.field21288 = var5 + 5;
          } else {
             var7.field21288 = var7.getYA();
@@ -83,12 +83,12 @@ public class Class4340 extends Class4339 {
       }
 
       for (Class4355 var11 : this.field21209) {
-         if (var11.isVisible()) {
+         if (var11.method13216()) {
             this.field21211.changeDirection(Direction.FORWARDS);
-            if (x > this.method13271() + 10
-               && x < this.method13271() + 50
-               && y < this.method13272() + this.getHeightA() - 10
-               && y > this.method13272() + this.getHeightA() - 50) {
+            if (var1 > this.method13271() + 10
+               && var1 < this.method13271() + 50
+               && var2 < this.method13272() + this.getHeightA() - 10
+               && var2 > this.method13272() + this.getHeightA() - 50) {
                this.field21212 = true;
                this.field21213 = var11;
             } else {
@@ -98,7 +98,7 @@ public class Class4340 extends Class4339 {
             break;
          }
 
-         if (!var11.isVisible() && this.field21211.getDirection() == Direction.FORWARDS) {
+         if (!var11.method13216() && this.field21211.getDirection() == Direction.FORWARDS) {
             Client.getInstance().waypointsManager.method29989().clear();
 
             for (Class4355 var9 : this.field21209) {
@@ -121,7 +121,7 @@ public class Class4340 extends Class4339 {
       float var4 = Math.min(1.0F, 0.21F * (60.0F / (float) Minecraft.getFps()));
 
       for (Class4355 var6 : this.field21209) {
-         if (!var6.isVisible()) {
+         if (!var6.method13216()) {
             float var7 = (float)(var6.getYA() - var6.field21288) * var4;
             if (Math.round(var7) == 0 && var7 > 0.0F) {
                var7 = 1.0F;

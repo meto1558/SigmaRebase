@@ -14,17 +14,17 @@ public class Class4246 extends ButtonPanel {
    public Class4246(Class4277 var1, int var2) {
       super(var1, "sliderButton", 0, 0, var2, var2, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()));
       this.field20601.changeDirection(Direction.BACKWARDS);
-      this.setEnabled(true);
+      this.method13215(true);
       this.field20886 = true;
       this.field20600 = var1;
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       float var5 = this.field20600.method13138();
       float var6 = (float)this.getXA() / (float)(this.screen.getWidthA() - this.getWidthA());
-      if (!this.method13212() && !this.method13298() && !this.isVisible()) {
+      if (!this.method13212() && !this.method13298() && !this.method13216()) {
          this.field20601.changeDirection(Direction.BACKWARDS);
       } else {
          this.field20601.changeDirection(Direction.FORWARDS);
@@ -37,7 +37,7 @@ public class Class4246 extends ButtonPanel {
    public void draw(float var1) {
       if (!this.isHovered()) {
          float var10000 = 0.3F;
-      } else if (!this.isVisible()) {
+      } else if (!this.method13216()) {
          if (!this.method13212()) {
             Math.max(var1 * this.field20584, 0.0F);
          } else {

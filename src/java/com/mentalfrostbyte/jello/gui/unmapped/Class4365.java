@@ -23,9 +23,9 @@ public class Class4365 extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      this.field21337 = x;
-      this.field21338 = y;
+   public void method13028(int var1, int var2) {
+      this.field21337 = var1;
+      this.field21338 = var2;
    }
 
    @Override

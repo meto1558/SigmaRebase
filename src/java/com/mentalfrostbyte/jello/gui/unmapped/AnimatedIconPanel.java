@@ -8,76 +8,71 @@ import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * A custom GUI panel that displays an animated icon.
- * <p>
- * This panel extends the CustomGuiScreen class and implements the Class4347 interface.
- * It provides functionality for animating an icon and handling user interactions.
- */
- public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
-    public boolean isEnabled;
-   public boolean isVisible;
-   public int xPos;
-   public int yPos;
-   public int panelWidth;
-   public int panelHeight;
-   public boolean isFocused = true;
-   public boolean isHovered = false;
-   public boolean isPressed = true;
-   public boolean isActive = true;
+
+public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
+    public boolean field20876;
+   public boolean field20877;
+   public int field20878;
+   public int field20879;
+   public int sizeWidthThingy;
+   public int sizeHeightThingy;
+   public boolean field20882 = true;
+   public boolean field20883 = false;
+   public boolean field20884 = true;
+   public boolean field20885 = true;
    public boolean field20886 = false;
    public final TimerUtil timerUtil = new TimerUtil();
    public int field20888 = 300;
    public int field20889 = 2;
-   private final List<AnimatedIconPanelAnimation> animations = new ArrayList<AnimatedIconPanelAnimation>();
+   private final List<Class6751> field20890 = new ArrayList<Class6751>();
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconNanme, int var3, int var4, int var5, int var6, boolean isEnabled) {
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconNanme, int var3, int var4, int var5, int var6, boolean var7) {
       super(screen, iconNanme, var3, var4, var5, var6);
-      this.isEnabled = isEnabled;
+      this.field20876 = var7;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, boolean isEnabled) {
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, boolean var8) {
       super(screen, iconName, var3, var4, var5, var6, colorHelper);
-      this.isEnabled = isEnabled;
+      this.field20876 = var8;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, boolean isEnabled) {
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, boolean var9) {
       super(screen, iconName, var3, var4, var5, var6, colorHelper, var8);
-      this.isEnabled = isEnabled;
+      this.field20876 = var9;
    }
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean isEnabled) {
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font, boolean var10) {
       super(screen, iconName, var3, var4, var5, var6, colorHelper, var8, font);
-      this.isEnabled = isEnabled;
+      this.field20876 = var10;
    }
 
    @Override
    public boolean method13212() {
-      return this.field20909 && !this.isVisible();
+      return this.field20909 && !this.method13216();
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
-      if (this.isEnabled()) {
-         if (!this.field20909 && !this.isVisible) {
-            this.panelWidth = this.getWidthA() / 2;
-            this.panelHeight = this.getHeightA() / 2;
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
+      if (this.method13214()) {
+         if (!this.field20909 && !this.field20877) {
+            this.sizeWidthThingy = this.getWidthA() / 2;
+            this.sizeHeightThingy = this.getHeightA() / 2;
          }
 
-         this.updateVisibilityAndPosition(x, y);
+         this.method13213(var1, var2);
       }
    }
 
    @Override
    public boolean method13078(int var1, int var2, int var3) {
       if (!super.method13078(var1, var2, var3)) {
-         if (this.isEnabled()) {
+         if (this.method13214()) {
             this.timerUtil.start();
-            this.xPos = var1;
-            this.yPos = var2;
-            this.panelWidth = this.xPos - this.method13271();
-            this.panelHeight = this.yPos - this.method13272();
+            this.field20878 = var1;
+            this.field20879 = var2;
+            this.sizeWidthThingy = this.field20878 - this.method13271();
+            this.sizeHeightThingy = this.field20879 - this.method13272();
          }
 
          return false;
@@ -89,39 +84,30 @@ import java.util.List;
    @Override
    public void method13095(int var1, int var2, int var3) {
       super.method13095(var1, var2, var3);
-      if (this.isEnabled()) {
+      if (this.method13214()) {
          this.timerUtil.stop();
          this.timerUtil.reset();
       }
 
-      this.setVisible(false);
+      this.method13217(false);
    }
-   /**
-    * Updates the visibility and position of the panel based on the given coordinates.
-    * <p>
-    * This method checks the current visibility and enabled state of the panel,
-    * and adjusts its position and visibility accordingly. It also ensures that
-    * the panel remains within the bounds of the screen or parent component.
-    *
-    * @param x the x-coordinate to update the panel's position
-    * @param y the y-coordinate to update the panel's position
-    */
+
    @Override
-   public void updateVisibilityAndPosition(int x, int y) {
-      boolean var5 = this.isVisible;
-      if (!this.isVisible() && this.isEnabled()) {
-         boolean var6 = this.isPressed && this.timerUtil.getElapsedTime() >= (long)this.field20888;
-         boolean var7 = this.isActive
+   public void method13213(int var1, int var2) {
+      boolean var5 = this.field20877;
+      if (!this.method13216() && this.method13214()) {
+         boolean var6 = this.field20884 && this.timerUtil.getElapsedTime() >= (long)this.field20888;
+         boolean var7 = this.field20885
             && this.field20909
-            && (Math.abs(this.xPos - x) > this.field20889 || Math.abs(this.yPos - y) > this.field20889);
+            && (Math.abs(this.field20878 - var1) > this.field20889 || Math.abs(this.field20879 - var2) > this.field20889);
          boolean var8 = this.field20886 && this.field20909;
          if (var6 || var7 || var8) {
-            this.setVisible(true);
+            this.method13217(true);
          }
-      } else if (this.isVisible()) {
-         this.setXA(x - this.panelWidth - (this.screen == null ? 0 : this.screen.method13271()));
-         this.setYA(y - this.panelHeight - (this.screen == null ? 0 : this.screen.method13272()));
-         if (this.isFocused) {
+      } else if (this.method13216()) {
+         this.setXA(var1 - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271()));
+         this.setYA(var2 - this.sizeHeightThingy - (this.screen == null ? 0 : this.screen.method13272()));
+         if (this.field20882) {
             if (this.screen == null) {
                if (this.getXA() < 0) {
                   this.setXA(0);
@@ -151,51 +137,51 @@ import java.util.List;
                   this.setYA(0);
                }
 
-               if (this.getYA() + this.getHeightA() > this.screen.getHeightA() && !this.isHovered) {
+               if (this.getYA() + this.getHeightA() > this.screen.getHeightA() && !this.field20883) {
                   this.setYA(this.screen.getHeightA() - this.getHeightA());
                }
             }
          }
       }
 
-      if (this.isVisible() && !var5) {
+      if (this.method13216() && !var5) {
          this.timerUtil.stop();
          this.timerUtil.reset();
       }
    }
 
    @Override
-   public boolean isEnabled() {
-      return this.isEnabled;
+   public boolean method13214() {
+      return this.field20876;
    }
 
    @Override
-   public void setEnabled(boolean enabled) {
-      this.isEnabled = enabled;
+   public void method13215(boolean var1) {
+      this.field20876 = var1;
    }
 
    @Override
-   public boolean isVisible() {
-      return this.isVisible;
+   public boolean method13216() {
+      return this.field20877;
    }
 
    @Override
-   public void setVisible(boolean visible) {
-      this.isVisible = visible;
-      if (visible) {
-         this.setEnabled(true);
+   public void method13217(boolean var1) {
+      this.field20877 = var1;
+      if (var1) {
+         this.method13215(true);
          this.method13219();
       }
    }
 
-   public AnimatedIconPanel addAnimation(AnimatedIconPanelAnimation var1) {
-      this.animations.add(var1);
+   public AnimatedIconPanel method13218(Class6751 var1) {
+      this.field20890.add(var1);
       return this;
    }
 
    public void method13219() {
-      for (AnimatedIconPanelAnimation animation : this.animations) {
-         animation.animate(this);
+      for (Class6751 var4 : this.field20890) {
+         var4.method20580(this);
       }
    }
 }

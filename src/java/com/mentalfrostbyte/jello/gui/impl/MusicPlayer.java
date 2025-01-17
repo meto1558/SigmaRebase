@@ -192,14 +192,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     @Override
-    public void updatePanelDimensions(int x, int y) {
+    public void method13028(int var1, int var2) {
         long var5 = System.nanoTime() - field20870;
         float var7 = Math.min(10.0F, Math.max(0.0F, (float) var5 / 1.810361E7F));
         field20870 = System.nanoTime();
-        super.updatePanelDimensions(x, y);
+        super.method13028(var1, var2);
         if (this.screen instanceof JelloClickGUI) {
-            if (!this.isVisible()) {
-                if ((this.field20909 || this.field20874) && !this.isEnabled() && !this.isVisible()) {
+            if (!this.method13216()) {
+                if ((this.field20909 || this.field20874) && !this.method13214() && !this.method13216()) {
                     this.field20874 = true;
                     int var11 = this.screen.getWidthA() - 20 - this.getWidthA();
                     int var13 = (this.screen.getHeightA() - this.getHeightA()) / 2;
@@ -221,7 +221,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     this.setXA((int) this.field20871);
                     this.setYA((int) this.field20872);
                     if (Math.abs(this.field20871 - (float) var11) < 2.0F && Math.abs(this.field20872 - (float) var13) < 2.0F) {
-                        this.setEnabled(true);
+                        this.method13215(true);
                         this.field20874 = false;
                     }
                 } else if (this.getXA() + this.getWidthA() > this.screen.getWidthA() || this.getXA() < 0 || this.getYA() < 0) {
@@ -254,13 +254,13 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
 
                     this.setXA((int) this.field20871);
                     this.setYA((int) this.field20872);
-                    this.setEnabled(false);
-                    this.setVisible(false);
+                    this.method13215(false);
+                    this.method13217(false);
                 }
             } else {
-                int var12 = x - this.panelWidth - (this.screen == null ? 0 : this.screen.method13271());
+                int var12 = var1 - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271());
                 int var14 = 200;
-                if (var12 + this.getWidthA() > this.screen.getWidthA() + var14 && x - this.xPos > 70) {
+                if (var12 + this.getWidthA() > this.screen.getWidthA() + var14 && var1 - this.field20878 > 70) {
                     int var15 = var12 - this.getXA() - var14;
                     this.setXA((int) ((float) this.getXA() + (float) var15 * 0.5F));
                     this.field20871 = (float) this.getXA();

@@ -19,8 +19,8 @@ public class Class4262 extends Class4261 {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
    }
 
    @Override

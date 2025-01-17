@@ -14,8 +14,8 @@ public class Class4263 extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       this.field20678 = this.field20678 + (!this.method13298() ? -0.14F : 0.14F);
       this.field20678 = Math.min(Math.max(0.0F, this.field20678), 1.0F);
    }

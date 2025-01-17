@@ -104,9 +104,9 @@ public class Class4358 extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
+   public void method13028(int var1, int var2) {
       if (this.method13212()
-         && (x < this.field21304 || y < this.field21303 || x > this.field21304 + this.field21305 || y > this.field21303 + this.field21306)) {
+         && (var1 < this.field21304 || var2 < this.field21303 || var1 > this.field21304 + this.field21305 || var2 > this.field21303 + this.field21306)) {
          this.field21311 = true;
       }
 
@@ -166,7 +166,7 @@ public class Class4358 extends UIBase {
          var23.setEnabled(false);
       }
 
-      super.updatePanelDimensions(x, y);
+      super.method13028(var1, var2);
    }
 
    private boolean method13621(String var1, String var2) {

@@ -201,13 +201,13 @@ public class JelloMainMenu extends CustomGuiScreen {
     }
 
     @Override
-    public void updatePanelDimensions(int var1, int var2) {
+    public void method13028(int var1, int var2) {
         this.field21128.setEnabled(!Client.getInstance().networkManager.isPremium());
         int var5 = 30;
         int var6 = 90;
         this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
         this.field21133.setXA(var5 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
-        super.updatePanelDimensions(var1, var2);
+        super.method13028(var1, var2);
     }
 
     public void playClickSound() {

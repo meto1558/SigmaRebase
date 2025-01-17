@@ -142,7 +142,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.method13220();
     }
 
-    public void updatePanelDimensions(int var1, int var2) {
+    public void method13028(int var1, int var2) {
         this.widthO = var2;
         this.heightO = var1;
         this.field20908 = this.method13289() && this.method13229(var1, var2);
@@ -159,7 +159,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
         try {
             for (CustomGuiScreen var10 : this.iconPanelList) {
-                var10.updatePanelDimensions(var1, var2);
+                var10.method13028(var1, var2);
             }
         } catch (ConcurrentModificationException var7) {
             var7.printStackTrace();

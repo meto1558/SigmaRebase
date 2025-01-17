@@ -20,8 +20,8 @@ public class Class4288 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       float var5 = (float)this.field20780.getButton().getHeightA();
       float var6 = (float)this.screen.getScreen().getHeightA();
       float var7 = (float)this.screen.getHeightA();
@@ -37,7 +37,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
       }
 
       this.setHeightA((int)var9);
-      if (!this.isVisible && this.getHeightA() != this.screen.getHeightA()) {
+      if (!this.field20877 && this.getHeightA() != this.screen.getHeightA()) {
          if (this.field20781.field20793 >= 0) {
             if (this.field20781.field20793 + this.screen.getScreen().getHeightA() > this.field20780.getButton().getHeightA()) {
                this.field20781.field20793 = this.field20780.getButton().getHeightA() - this.screen.getScreen().getHeightA();
@@ -51,7 +51,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
          float var14 = (float)(this.screen.getHeightA() - this.getHeightA());
          float var15 = var14 * var13 + 0.5F;
          this.setYA((int)var15);
-      } else if (this.isVisible()) {
+      } else if (this.method13216()) {
          float var12 = (float)this.getYA() / (float)this.screen.getHeightA();
          this.field20781.field20793 = (int)(var12 * (float)this.field20780.getButton().getHeightA());
          if (this.field20781.field20793 >= 0) {
@@ -70,7 +70,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
    @Override
    public void draw(float var1) {
       int var4 = 5;
-      var1 *= !this.isVisible ? (!this.field20908 ? 0.3F : 0.7F) : 0.75F;
+      var1 *= !this.field20877 ? (!this.field20908 ? 0.3F : 0.7F) : 0.75F;
       int var5 = this.xA;
       int var6 = this.widthA;
       if (Client.getInstance().clientMode != ClientMode.JELLO) {

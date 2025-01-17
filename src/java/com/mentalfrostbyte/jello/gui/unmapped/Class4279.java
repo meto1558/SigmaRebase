@@ -9,14 +9,14 @@ public class Class4279 extends AnimatedIconPanelWrap {
 
    public Class4279(Class4250 var1, int var2, String var3) {
       super(var1, "bezierButton-" + var3, 0, 0, var2, var2, true);
-      this.setEnabled(true);
+      this.method13215(true);
       this.field20886 = true;
       this.field20737 = var1;
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       int var5 = this.field20737.getWidthA() - this.field20737.field20610;
       int var6 = this.field20737.getHeightA() - this.getHeightA();
       int var7 = this.field20737.field20610;
@@ -44,7 +44,7 @@ public class Class4279 extends AnimatedIconPanelWrap {
          (float)(this.xA + 5),
          (float)(this.yA + 5),
          10.0F,
-         ColorUtils.applyAlpha(!this.isVisible() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), var1)
+         ColorUtils.applyAlpha(!this.method13216() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), var1)
       );
       super.draw(var1);
    }

@@ -29,17 +29,17 @@ public class Class4355 extends UIBase {
       this.field21292 = var8;
       this.field21293 = var9;
       this.field21294 = var6;
-      this.isHovered = true;
+      this.field20883 = true;
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
-      this.field21289.changeDirection(!this.isVisible() ? Direction.BACKWARDS : Direction.FORWARDS);
-      boolean var5 = this.isVisible() || x > this.method13271() + this.getWidthA() - 62;
-      this.setEnabled(var5);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
+      this.field21289.changeDirection(!this.method13216() ? Direction.BACKWARDS : Direction.FORWARDS);
+      boolean var5 = this.method13216() || var1 > this.method13271() + this.getWidthA() - 62;
+      this.method13215(var5);
       if (this.field21290.getDirection() == Direction.FORWARDS) {
-         this.setEnabled(false);
+         this.method13215(false);
          this.setXA(Math.round((float)this.getWidthA() * QuadraticEasing.easeInQuad(this.field21290.calcPercent(), 0.0F, 1.0F, 1.0F)));
          if (this.field21290.calcPercent() == 1.0F) {
             this.callUIHandlers();
@@ -75,7 +75,7 @@ public class Class4355 extends UIBase {
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
       );
       int var5 = this.widthA - 43;
-      float var6 = !this.isVisible() ? 0.2F : 0.4F;
+      float var6 = !this.method13216() ? 0.2F : 0.4F;
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );

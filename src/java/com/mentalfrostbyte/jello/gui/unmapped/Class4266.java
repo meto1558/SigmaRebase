@@ -31,10 +31,10 @@ public class Class4266 extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       if (this.field20909 && this.field20686 <= 0) {
-         if (y >= this.method13272() + this.getHeightA() / 2) {
+         if (var2 >= this.method13272() + this.getHeightA() / 2) {
             ((Class4259)this.screen).method13076(false);
             this.field20685.add(new Class7086(this, false));
          } else {

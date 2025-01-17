@@ -54,14 +54,14 @@ public class Class4277 extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
+   public void method13028(int var1, int var2) {
       this.field20735
          .changeDirection(
-            !this.method13298() && !this.field20734.method13298() && !this.method13212() && !this.field20734.isVisible()
+            !this.method13298() && !this.field20734.method13298() && !this.method13212() && !this.field20734.method13216()
                ? Direction.BACKWARDS
                : Direction.FORWARDS
          );
-      super.updatePanelDimensions(x, y);
+      super.method13028(var1, var2);
    }
 
    @Override
@@ -99,7 +99,7 @@ public class Class4277 extends UIBase {
    @Override
    public boolean method13078(int var1, int var2, int var3) {
       if (!super.method13078(var1, var2, var3)) {
-         this.field20734.setVisible(true);
+         this.field20734.method13217(true);
          return false;
       } else {
          return true;

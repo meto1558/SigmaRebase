@@ -47,8 +47,8 @@ public class Class4250 extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
    }
 
    @Override

@@ -30,15 +30,15 @@ public class ButtonPanel extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
-      super.updatePanelDimensions(x, y);
+   public void method13028(int var1, int var2) {
+      super.method13028(var1, var2);
       this.field20584 = this.field20584 + (!this.method13298() ? -0.1F : 0.1F);
       this.field20584 = Math.min(Math.max(0.0F, this.field20584), 1.0F);
    }
 
    @Override
    public void draw(float var1) {
-      float var4 = !this.isHovered() ? 0.3F : (!this.isVisible() ? (!this.method13212() ? Math.max(var1 * this.field20584, 0.0F) : 1.5F) : 0.0F);
+      float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(var1 * this.field20584, 0.0F) : 1.5F) : 0.0F);
       int var5 = ColorUtils.applyAlpha(
               ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
          (float)(this.textColor.method19405() >> 24 & 0xFF) / 255.0F * var1

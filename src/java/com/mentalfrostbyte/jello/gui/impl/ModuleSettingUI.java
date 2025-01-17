@@ -40,15 +40,15 @@ public class ModuleSettingUI extends UIBase {
    }
 
    @Override
-   public void updatePanelDimensions(int x, int y) {
+   public void method13028(int var1, int var2) {
       if (this.method13212()
-         && (x < this.x || y < this.y || x > this.x + this.width || y > this.y + this.height)) {
+         && (var1 < this.x || var2 < this.y || var1 > this.x + this.width || var2 > this.y + this.height)) {
          this.field20671 = true;
       }
 
       this.animation1.changeDirection(this.field20671 ? Direction.BACKWARDS : Direction.FORWARDS);
       this.animation.changeDirection(this.field20671 ? Direction.BACKWARDS : Direction.FORWARDS);
-      super.updatePanelDimensions(x, y);
+      super.method13028(var1, var2);
    }
 
    private boolean method13084(String var1, String var2) {

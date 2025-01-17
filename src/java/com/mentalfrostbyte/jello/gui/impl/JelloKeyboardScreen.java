@@ -103,7 +103,7 @@ public class JelloKeyboardScreen extends Screen {
    }
 
    @Override
-   public void updatePanelDimensions(int var1, int var2) {
+   public void method13028(int var1, int var2) {
       if (this.method13212()) {
          this.field20957.method13242();
          this.method13244();
@@ -118,7 +118,7 @@ public class JelloKeyboardScreen extends Screen {
          this.field20956 = null;
       }
 
-      super.updatePanelDimensions(var1, var2);
+      super.method13028(var1, var2);
       this.method13300(false);
    }
 
