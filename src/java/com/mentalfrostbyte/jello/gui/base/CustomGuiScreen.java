@@ -71,14 +71,27 @@ public class CustomGuiScreen implements IGuiEventListener {
         this(var1, var2, var3, var4, var5, var6, var7, var8, ResourceRegistry.JelloLightFont25);
     }
 
-    public CustomGuiScreen(CustomGuiScreen screen, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String var8, TrueTypeFont font) {
+    /**
+     * Constructs a new CustomGuiScreen with specified parameters.
+     *
+     * @param screen    The parent CustomGuiScreen object.
+     * @param name      The name of this CustomGuiScreen.
+     * @param xA        The x-coordinate of the top-left corner.
+     * @param yA        The y-coordinate of the top-left corner.
+     * @param widthA    The width of the screen.
+     * @param heightA   The height of the screen.
+     * @param textColor The color of the text.
+     * @param typedText The initial typed text (can be null).
+     * @param font      The TrueTypeFont to be used for rendering text.
+     */
+    public CustomGuiScreen(CustomGuiScreen screen, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText, TrueTypeFont font) {
         this.name = name;
         this.screen = screen;
         this.xA = xA;
         this.yA = yA;
         this.widthA = widthA;
         this.heightA = heightA;
-        this.typedText = var8;
+        this.typedText = typedText;
         this.textColor = textColor;
         this.font = font;
         this.field20903 = true;
