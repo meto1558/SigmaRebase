@@ -31,8 +31,8 @@ public class JelloClickGUI extends Screen {
    public MusicPlayer musicPlayer;
    public BrainFreezeGui brainFreeze;
    public ConfigButtonOnClickGui configButton;
-   public ModuleSettingUI field20949;
-   public AlertPanel field20950;
+   public ModuleSettingUI moduleSettingUI;
+   public AlertPanel dependenciesAlert;
    private static boolean field20951 = true;
    public JelloClickGUIPanels jelloClickGUIPanels = null;
 
@@ -42,7 +42,6 @@ public class JelloClickGUI extends Screen {
       int x = 30;
       int y = 30;
       this.addToList(this.brainFreeze = new BrainFreezeGui(this, "brainFreeze"));
-      JelloClickGUI var5 = this;
 
       for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
          if (!this.categoryPanel.containsKey(module.getAdjustedCategoryBasedOnClientMode())) {
@@ -56,9 +55,9 @@ public class JelloClickGUI extends Screen {
                y += clickGUIPanels.getHeightA() - 20;
             }
 
-            clickGUIPanels.method13507(var2 -> var5.runThisOnDimensionUpdate(() -> {
-                  var5.addToList(this.field20949 = new ModuleSettingUI(var5, "settings", 0, 0, this.widthA, this.heightA, var2));
-                  this.field20949.method13292(true);
+            clickGUIPanels.method13507(var2 -> this.runThisOnDimensionUpdate(() -> {
+                  this.addToList(this.moduleSettingUI = new ModuleSettingUI(this, "settings", 0, 0, this.widthA, this.heightA, var2));
+                  this.moduleSettingUI.method13292(true);
             }));
          }
       }
@@ -87,7 +86,7 @@ public class JelloClickGUI extends Screen {
    public boolean hasJelloMusicRequirements() {
       if (Client.getInstance().musicManager.hasPython() && Client.getInstance().musicManager.hasVCRedist()) {
          return false;
-      } else if (this.field20950 == null) {
+      } else if (this.dependenciesAlert == null) {
          this.runThisOnDimensionUpdate(() -> {
             List<MiniAlert> var3 = new ArrayList();
             var3.add(new MiniAlert(AlertType.HEADER, "Music", 40));
@@ -101,8 +100,8 @@ public class JelloClickGUI extends Screen {
             }
 
             var3.add(new MiniAlert(AlertType.BUTTON, "Download", 55));
-            this.method13233(this.field20950 = new AlertPanel(this, "music", true, "Dependencies.", var3.toArray(new MiniAlert[0])));
-            this.field20950.addUIHandler(var0 -> {
+            this.method13233(this.dependenciesAlert = new AlertPanel(this, "music", true, "Dependencies.", var3.toArray(new MiniAlert[0])));
+            this.dependenciesAlert.addUIHandler(var0 -> {
                if (!Client.getInstance().musicManager.hasPython()) {
                   Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/python-3.12.5-macos11.pkg");
                }
@@ -111,13 +110,13 @@ public class JelloClickGUI extends Screen {
                   Util.getOSType().openLink("https://www.microsoft.com/en-US/Download/confirmation.aspx?id=26999");
                }
             });
-            this.field20950.method13604(var1 -> new Thread(() -> {
+            this.dependenciesAlert.method13604(var1 -> new Thread(() -> {
                 this.runThisOnDimensionUpdate(() -> {
-                   this.method13236(this.field20950);
-                   this.field20950 = null;
+                   this.method13236(this.dependenciesAlert);
+                   this.dependenciesAlert = null;
                 });
             }).start());
-            this.field20950.method13603(true);
+            this.dependenciesAlert.method13603(true);
          });
          return true;
       } else {
@@ -126,8 +125,8 @@ public class JelloClickGUI extends Screen {
    }
 
    public void method13315() {
-      for (JelloClickGUIPanels var4 : this.categoryPanel.values()) {
-         var4.method13504();
+      for (JelloClickGUIPanels panel : this.categoryPanel.values()) {
+         panel.method13504();
       }
    }
 
@@ -151,14 +150,14 @@ public class JelloClickGUI extends Screen {
          this.configButton = null;
       }
 
-      if (field20942.getDirection() == Direction.BACKWARDS && this.field20949 != null && !this.field20949.field20671) {
-         this.field20949.field20671 = true;
+      if (field20942.getDirection() == Direction.BACKWARDS && this.moduleSettingUI != null && !this.moduleSettingUI.field20671) {
+         this.moduleSettingUI.field20671 = true;
       }
 
-      if (this.field20949 != null && this.field20949.field20671 && this.field20949.animation1.calcPercent() == 0.0F) {
+      if (this.moduleSettingUI != null && this.moduleSettingUI.field20671 && this.moduleSettingUI.animation1.calcPercent() == 0.0F) {
          this.runThisOnDimensionUpdate(() -> {
-            this.method13236(this.field20949);
-            this.field20949 = null;
+            this.method13236(this.moduleSettingUI);
+            this.moduleSettingUI = null;
          });
       }
 
@@ -218,7 +217,7 @@ public class JelloClickGUI extends Screen {
    public void keyPressed(int var1) {
       super.keyPressed(var1);
       int var4 = Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGui.class);
-      if (var1 == 256 || var1 == var4 && this.field20949 == null && !this.method13227()) {
+      if (var1 == 256 || var1 == var4 && this.moduleSettingUI == null && !this.method13227()) {
          if (field20944) {
             field20943 = !field20943;
          }
@@ -248,13 +247,13 @@ public class JelloClickGUI extends Screen {
       );
       Object var6 = null;
       float var7 = 1.0F;
-      if (this.field20949 != null) {
-         float var8 = EasingFunctions.easeOutBack(this.field20949.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
-         if (this.field20949.animation.getDirection() == Direction.BACKWARDS) {
-            var8 = MathHelper.calculateBackwardTransition(this.field20949.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
+      if (this.moduleSettingUI != null) {
+         float var8 = EasingFunctions.easeOutBack(this.moduleSettingUI.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
+         if (this.moduleSettingUI.animation.getDirection() == Direction.BACKWARDS) {
+            var8 = MathHelper.calculateBackwardTransition(this.moduleSettingUI.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
          }
 
-         var7 -= this.field20949.animation.calcPercent() * 0.1F;
+         var7 -= this.moduleSettingUI.animation.calcPercent() * 0.1F;
          var4 *= 1.0F + var8 * 0.2F;
       }
 

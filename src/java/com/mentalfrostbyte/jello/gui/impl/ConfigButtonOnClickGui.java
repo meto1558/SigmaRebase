@@ -22,7 +22,7 @@ import java.util.List;
 public class ConfigButtonOnClickGui extends UIBase {
    private List<ButtonPanel> field21297 = new ArrayList<ButtonPanel>();
    public final Animation field21298;
-   public Class4339 field21299;
+   public Class4339 profileScrollView;
    public Class4272 field21300;
    private List<Class4351> field21301 = new ArrayList<Class4351>();
 
@@ -31,13 +31,13 @@ public class ConfigButtonOnClickGui extends UIBase {
       this.field21298 = new Animation(300, 100);
       this.method13292(true);
       this.method13300(false);
-      UIButton var7;
+      UIButton addButton;
       this.addToList(
-         var7 = new UIButton(
+         addButton = new UIButton(
             this, "addButton", this.widthA - 55, 0, ResourceRegistry.JelloLightFont25.getWidth("Add"), 69, ColorHelper.field27961, "+", ResourceRegistry.JelloLightFont25
          )
       );
-      var7.doThis((var1x, var2x) -> this.field21300.method13119(true));
+      addButton.doThis((var1x, var2x) -> this.field21300.method13119(true));
       this.addToList(this.field21300 = new Class4272(this, "profile", 0, 69, this.widthA, 200));
       this.field21300.method13292(true);
       this.method13615();
@@ -109,20 +109,20 @@ public class ConfigButtonOnClickGui extends UIBase {
 
    public void method13615() {
       int var3 = 0;
-      if (this.field21299 != null) {
-         var3 = this.field21299.method13513();
-         this.method13236(this.field21299);
+      if (this.profileScrollView != null) {
+         var3 = this.profileScrollView.method13513();
+         this.method13236(this.profileScrollView);
       }
 
-      this.addToList(this.field21299 = new Class4339(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
-      this.field21299.method13512(var3);
+      this.addToList(this.profileScrollView = new Class4339(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
+      this.profileScrollView.method13512(var3);
       this.field21301.clear();
       int var4 = 0;
       int var5 = 70;
 
       for (Configuration var7 : Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs()) {
-         Class4351 var8 = new Class4351(this, "profile" + var4, 0, var5 * var4, this.field21299.getWidthA(), var5, var7, var4);
-         this.field21299.addToList(var8);
+         Class4351 var8 = new Class4351(this, "profile" + var4, 0, var5 * var4, this.profileScrollView.getWidthA(), var5, var7, var4);
+         this.profileScrollView.addToList(var8);
          this.field21301.add(var8);
          var4++;
       }
@@ -177,7 +177,7 @@ public class ConfigButtonOnClickGui extends UIBase {
          var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16)) * 0.1F;
       }
 
-      this.field21299.method13279(var7, var7);
+      this.profileScrollView.method13279(var7, var7);
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont25,
          (float)(this.xA + 25),
