@@ -142,9 +142,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
         this.field20916.clear();
 
-        for (CustomGuiScreen var6 : this.field20916) {
-            this.iconPanelList.add(var6);
-        }
+        this.iconPanelList.addAll(this.field20916);
 
         this.field20916.clear();
         if (this.field20919 != null) {
