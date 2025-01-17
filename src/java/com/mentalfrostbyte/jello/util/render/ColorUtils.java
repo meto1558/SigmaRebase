@@ -235,15 +235,25 @@ public class ColorUtils {
         }
     }
 
-    public static Color method17681(Color var0, Color var1, float var2) {
-        float var5 = 1.0F - var2;
-        float var6 = (float)var0.getRed() * var2 + (float)var1.getRed() * var5;
-        float var7 = (float)var0.getGreen() * var2 + (float)var1.getGreen() * var5;
-        float var8 = (float)var0.getBlue() * var2 + (float)var1.getBlue() * var5;
-        return new Color(var6 / 255.0F, var7 / 255.0F, var8 / 255.0F);
+    /**
+     * Blends two colors by a specified factor, resulting in a color that is a mix of the two.
+     * The blending is done by interpolating each RGB component separately.
+     *
+     * @param first The first color to blend, represented as a {@link Color} object.
+     * @param second The second color to blend, represented as a {@link Color} object.
+     * @param factor The blending factor, where 0.0 results in the second color, and 1.0 results in the first color.
+     *             Values between 0.0 and 1.0 will result in a mix of the two colors.
+     * @return A new {@link Color} object representing the blended color.
+     */
+    public static Color blendColor(Color first, Color second, float factor) {
+        float newFactor = 1.0F - factor;
+        float blendedR = (float)first.getRed() * factor + (float)second.getRed() * newFactor;
+        float blendedG = (float)first.getGreen() * factor + (float)second.getGreen() * newFactor;
+        float blendedB = (float)first.getBlue() * factor + (float)second.getBlue() * newFactor;
+        return new Color(blendedR / 255.0F, blendedG / 255.0F, blendedB / 255.0F);
     }
 
-    public static void method17740(float var0) {
-        setShaderParams(Math.round(var0 * 20.0F));
+    public static void setShaderParamsRounded(float radius) {
+        setShaderParams(Math.round(radius * 20.0F));
     }
 }

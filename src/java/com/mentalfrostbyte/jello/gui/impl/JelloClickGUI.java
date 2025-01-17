@@ -81,7 +81,7 @@ public class JelloClickGUI extends Screen {
       field20942 = new Animation(450, 125);
       this.blurOverlay = new ClickGUIBlurOverlay(this, this, "overlay");
       ColorUtils.blur();
-      ColorUtils.method17740(field20942.calcPercent());
+      ColorUtils.setShaderParamsRounded(field20942.calcPercent());
    }
 
    public boolean hasJelloMusicRequirements() {
@@ -135,7 +135,7 @@ public class JelloClickGUI extends Screen {
    public void updatePanelDimensions(int var1, int var2) {
       this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
       super.updatePanelDimensions(var1, var2);
-      ColorUtils.method17740(Math.min(1.0F, field20942.calcPercent() * 4.0F));
+      ColorUtils.setShaderParamsRounded(Math.min(1.0F, field20942.calcPercent() * 4.0F));
       this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
       if (this.configButton != null) {
          int var5 = var1 - this.configButton.method13271();

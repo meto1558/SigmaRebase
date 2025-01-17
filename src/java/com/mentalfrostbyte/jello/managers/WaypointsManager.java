@@ -447,9 +447,9 @@ public class WaypointsManager {
             Material var12 = this.field36365.world.getBlockState(var1.north()).getMaterial();
             Material var13 = this.field36365.world.getBlockState(var1.south()).getMaterial();
             if (var12 == Material.AIR || var12 == Material.SNOW) {
-                var6 = ColorUtils.method17681(new Color(var6, true), Color.BLACK, 0.6F).getRGB();
+                var6 = ColorUtils.blendColor(new Color(var6, true), Color.BLACK, 0.6F).getRGB();
             } else if (var13 == Material.AIR || var13 == Material.SNOW) {
-                var6 = ColorUtils.method17681(new Color(var6, true), Color.WHITE, 0.6F).getRGB();
+                var6 = ColorUtils.blendColor(new Color(var6, true), Color.WHITE, 0.6F).getRGB();
             }
         }
 
