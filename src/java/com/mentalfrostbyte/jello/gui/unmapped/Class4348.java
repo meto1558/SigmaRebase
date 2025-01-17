@@ -257,7 +257,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       return false;
    }
 }

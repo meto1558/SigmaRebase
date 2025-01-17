@@ -72,8 +72,8 @@ public class Class4259 extends UIBase {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (this.method13298() && probablyTimes == 1) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (this.method13298() && mouseButton == 1) {
          int var6 = Math.max(this.widthA, this.heightA);
          float var7 = (float)(this.widthA - var6) / 2.0F;
          float var8 = (float)(this.heightA - var6) / 2.0F;
@@ -88,7 +88,7 @@ public class Class4259 extends UIBase {
          return false;
       } else {
          this.method13083();
-         return super.onClick(mouseX, mouseY, probablyTimes);
+         return super.onClick(mouseX, mouseY, mouseButton);
       }
    }
 

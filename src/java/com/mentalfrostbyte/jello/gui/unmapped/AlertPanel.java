@@ -240,8 +240,8 @@ public class AlertPanel extends UIBase {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (!super.onClick(mouseX, mouseY, probablyTimes)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
          int var6 = this.field21284 + 60;
          int var7 = this.field21285 + 60;
          if (mouseX > (this.widthA - var6) / 2

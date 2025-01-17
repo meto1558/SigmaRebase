@@ -204,11 +204,11 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (probablyTimes <= 1) {
-         return super.onClick(mouseX, mouseY, probablyTimes);
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (mouseButton <= 1) {
+         return super.onClick(mouseX, mouseY, mouseButton);
       } else {
-         this.keyPressed(probablyTimes);
+         this.keyPressed(mouseButton);
          return false;
       }
    }

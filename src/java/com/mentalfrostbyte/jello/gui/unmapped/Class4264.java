@@ -54,9 +54,9 @@ public class Class4264 extends UIBase {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       this.field20680 = true;
-      return super.onClick(mouseX, mouseY, probablyTimes);
+      return super.onClick(mouseX, mouseY, mouseButton);
    }
 
    @Override

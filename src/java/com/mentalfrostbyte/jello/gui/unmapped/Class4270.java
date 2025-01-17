@@ -34,11 +34,11 @@ public class Class4270 extends UIBase {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (probablyTimes <= 1) {
-         return super.onClick(mouseX, mouseY, probablyTimes);
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (mouseButton <= 1) {
+         return super.onClick(mouseX, mouseY, mouseButton);
       } else {
-         this.field20696 = probablyTimes;
+         this.field20696 = mouseButton;
          this.callUIHandlers();
          return false;
       }

@@ -51,8 +51,8 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (!super.onClick(this.xA, this.yA, probablyTimes)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(this.xA, this.yA, mouseButton)) {
          this.field21373 = true;
          return false;
       } else {

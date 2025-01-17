@@ -270,7 +270,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
+    public boolean onClick(int mouseX, int mouseY, int mouseButton) {
         boolean var6 = false;
 
         for (int var7 = this.children.size() - 1; var7 >= 0; var7--) {
@@ -288,7 +288,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                     }
                 }
             } else {
-                var8.onClick(mouseX, mouseY, probablyTimes);
+                var8.onClick(mouseX, mouseY, mouseButton);
                 var6 = !var9;
             }
         }
@@ -296,7 +296,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         if (!var6) {
             this.field20909 = this.field20908 = true;
             this.method13242();
-            this.method13248(probablyTimes);
+            this.method13248(mouseButton);
             return false;
         } else {
             return true;

@@ -97,8 +97,8 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (!super.onClick(mouseX, mouseY, probablyTimes)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
          String var6 = this.typedText;
          if (this.field20754) {
             var6 = this.typedText.replaceAll(".", this.field20755);

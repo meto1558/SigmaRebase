@@ -97,8 +97,8 @@ public class Class4277 extends UIBase {
    }
 
    @Override
-   public boolean onClick(int mouseX, int mouseY, int probablyTimes) {
-      if (!super.onClick(mouseX, mouseY, probablyTimes)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
          this.field20734.method13217(true);
          return false;
       } else {
