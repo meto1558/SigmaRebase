@@ -55,7 +55,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
             }
 
             if (Client.getInstance().networkManager.isPremium()) {
-               this.method13222(() -> ((JelloMainMenuManager)this.getScreen()).goOut());
+               this.method13222(() -> ((JelloMainMenuManager)this.getParent()).goOut());
             }
          }).start());
    }

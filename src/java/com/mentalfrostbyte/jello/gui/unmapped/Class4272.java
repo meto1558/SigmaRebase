@@ -29,7 +29,7 @@ public class Class4272 extends UIBase {
          blankButton = new UIButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
       );
       blankButton.doThis((var1x, var2x) -> {
-         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen();
+         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent();
          var5x.method13612();
       });
       UIButton var10;
@@ -47,7 +47,7 @@ public class Class4272 extends UIBase {
          )
       );
       var10.doThis((var1x, var2x) -> {
-         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen();
+         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent();
          var5x.method13610();
       });
       this.addToList(this.field20707 = new UILoadingCircle(this, "loading", (var5 - 30) / 2, 100, 30, 30));
@@ -55,7 +55,7 @@ public class Class4272 extends UIBase {
       field20706 = new Class8233(
          var2x -> {
             this.field20707.setEnabled(false);
-            ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen();
+            ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent();
 
             for (String var7 : var2x) {
                ButtonPanel var8;

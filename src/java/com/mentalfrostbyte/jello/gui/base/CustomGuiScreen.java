@@ -28,7 +28,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     private final List<Class8446> field20923 = new ArrayList<>();
     private final List<Class7381> field20924 = new ArrayList<>();
     public String name;
-    public CustomGuiScreen screen;
+    public CustomGuiScreen parent;
     public int xA;
     public int yA;
     public int widthA;
@@ -67,14 +67,14 @@ public class CustomGuiScreen implements IGuiEventListener {
         this(var1, var2, var3, var4, var5, var6, var7, null);
     }
 
-    public CustomGuiScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8) {
-        this(var1, var2, var3, var4, var5, var6, var7, var8, ResourceRegistry.JelloLightFont25);
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText) {
+        this(parent, name, xA, yA, widthA, heightA, textColor, typedText, ResourceRegistry.JelloLightFont25);
     }
 
     /**
      * Constructs a new CustomGuiScreen with specified parameters.
      *
-     * @param screen    The parent CustomGuiScreen object.
+     * @param parent    The parent CustomGuiScreen object.
      * @param name      The name of this CustomGuiScreen.
      * @param xA        The x-coordinate of the top-left corner.
      * @param yA        The y-coordinate of the top-left corner.
@@ -84,9 +84,9 @@ public class CustomGuiScreen implements IGuiEventListener {
      * @param typedText The initial typed text (can be null).
      * @param font      The TrueTypeFont to be used for rendering text.
      */
-    public CustomGuiScreen(CustomGuiScreen screen, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText, TrueTypeFont font) {
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText, TrueTypeFont font) {
         this.name = name;
-        this.screen = screen;
+        this.parent = parent;
         this.xA = xA;
         this.yA = yA;
         this.widthA = widthA;
@@ -182,7 +182,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
         for (Class6664 var11 : this.method13260()) {
             if (this.field20903) {
-                var11.method20320(this, this.getScreen());
+                var11.method20320(this, this.getParent());
             }
         }
 
@@ -268,11 +268,11 @@ public class CustomGuiScreen implements IGuiEventListener {
 
         for (int var7 = this.iconPanelList.size() - 1; var7 >= 0; var7--) {
             CustomGuiScreen var8 = this.iconPanelList.get(var7);
-            boolean var9 = var8.getScreen() != null
-                    && var8.getScreen() instanceof Class4339
-                    && var8.getScreen().method13114(var1, var2)
-                    && var8.getScreen().isVisible()
-                    && var8.getScreen().isHovered();
+            boolean var9 = var8.getParent() != null
+                    && var8.getParent() instanceof Class4339
+                    && var8.getParent().method13114(var1, var2)
+                    && var8.getParent().isVisible()
+                    && var8.getParent().isHovered();
             if (var6 || !var8.isHovered() || !var8.isVisible() || !var8.method13114(var1, var2) && !var9) {
                 var8.method13145(false);
                 if (var8 != null) {
@@ -336,7 +336,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     public boolean method13228(int var1, int var2, boolean var3) {
         boolean var6 = this.method13114(var1, var2);
-        if (var6 && this.screen != null) {
+        if (var6 && this.parent != null) {
             if (var3) {
                 for (CustomGuiScreen var8 : this.getRenderObjects()) {
                     if (var8.isVisible() && var8.method13114(var1, var2)) {
@@ -347,7 +347,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
             CustomGuiScreen var11 = this;
 
-            for (CustomGuiScreen var12 = this.getScreen(); var12 != null; var12 = var12.getScreen()) {
+            for (CustomGuiScreen var12 = this.getParent(); var12 != null; var12 = var12.getParent()) {
                 for (int var9 = var12.method13240(var11) + 1; var9 < var12.getRenderObjects().size(); var9++) {
                     CustomGuiScreen var10 = var12.getRenderObjects().get(var9);
                     if (var10 != var11 && var10.isVisible() && var10.method13114(var1, var2)) {
@@ -375,7 +375,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                 }
             }
 
-            var1.setScreen(this);
+            var1.setParent(this);
             if (this.field20917) {
                 this.field20916.add(var1);
             } else {
@@ -406,7 +406,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                 }
             }
 
-            var1.setScreen(this);
+            var1.setParent(this);
             this.field20916.add(var1);
         }
     }
@@ -419,7 +419,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                 }
             }
 
-            var1.setScreen(this);
+            var1.setParent(this);
 
             try {
                 this.iconPanelList.add(var1);
@@ -471,14 +471,14 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     public void method13242() {
         this.method13145(true);
-        if (this.screen != null) {
-            this.screen.field20919 = this;
-            this.screen.method13242();
+        if (this.parent != null) {
+            this.parent.field20919 = this;
+            this.parent.method13242();
         }
     }
 
     public void method13243() {
-        for (CustomGuiScreen var4 : this.screen.getRenderObjects()) {
+        for (CustomGuiScreen var4 : this.parent.getRenderObjects()) {
             if (var4 == this) {
                 return;
             }
@@ -501,7 +501,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                 var1.put("height", this.getHeightA());
             }
 
-            var1.put("index", this.screen == null ? 0 : this.screen.method13240(this));
+            var1.put("index", this.parent == null ? 0 : this.parent.method13240(this));
             return this.method13245(var1);
         } else {
             return var1;
@@ -573,7 +573,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                 return false;
             } else {
                 CustomGuiScreen var4 = (CustomGuiScreen) var1;
-                return this.name.equals(var4.name) && (this.getScreen() == null || this.getScreen().equals(var4.getScreen()));
+                return this.name.equals(var4.name) && (this.getParent() == null || this.getParent().equals(var4.getParent()));
             }
         } else {
             return true;
@@ -641,12 +641,12 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this.name;
     }
 
-    public CustomGuiScreen getScreen() {
-        return this.screen;
+    public CustomGuiScreen getParent() {
+        return this.parent;
     }
 
-    public void setScreen(CustomGuiScreen var1) {
-        this.screen = var1;
+    public void setParent(CustomGuiScreen var1) {
+        this.parent = var1;
     }
 
     public List<Class6664> method13260() {
@@ -690,11 +690,11 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public int method13271() {
-        return this.screen == null ? this.xA : this.screen.method13271() + this.xA;
+        return this.parent == null ? this.xA : this.parent.method13271() + this.xA;
     }
 
     public int method13272() {
-        return this.screen == null ? this.yA : this.screen.method13272() + this.yA;
+        return this.parent == null ? this.yA : this.parent.method13272() + this.yA;
     }
 
     public float method13273() {
@@ -748,7 +748,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public boolean method13289() {
-        return this.screen == null ? this.field20903 : this.field20903 && this.screen.method13289();
+        return this.parent == null ? this.field20903 : this.field20903 && this.parent.method13289();
     }
 
     public boolean method13291() {

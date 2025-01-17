@@ -134,7 +134,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 )
         );
         this.field21133.doThis((var1x, var2x) -> {
-            ((JelloMainMenuManager) this.getScreen()).method13341();
+            ((JelloMainMenuManager) this.getParent()).method13341();
             new Thread(() -> {
                 try {
                     Thread.sleep(2000L);
@@ -148,12 +148,12 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
         this.field21128.method13247((var1x, var2x) -> {
             if (Client.getInstance().networkManager.username != null) {
-                ((JelloMainMenuManager) this.getScreen()).animateNext();
+                ((JelloMainMenuManager) this.getParent()).animateNext();
             } else {
                 this.displayScreen(new LoginAndOutScreen());
             }
         });
-        this.changelogButton.doThis((var1x, var2x) -> ((JelloMainMenuManager) this.getScreen()).animateIn());
+        this.changelogButton.doThis((var1x, var2x) -> ((JelloMainMenuManager) this.getParent()).animateIn());
         this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
         this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
         this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
@@ -161,7 +161,7 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.realmsButton.doThis((var1x, var2x) -> this.method13443());
         this.loginButton.doThis((var1x, var2x) -> {
             if (Client.getInstance().networkManager.username != null) {
-                ((JelloMainMenuManager) this.getScreen()).logout();
+                ((JelloMainMenuManager) this.getParent()).logout();
             } else {
                 this.displayScreen(new LoginAndOutScreen());
             }

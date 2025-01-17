@@ -72,12 +72,12 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
             var12 = 0;
          }
 
-         if (var12 + var9 > this.screen.getWidthA()) {
-            var12 = this.screen.getWidthA() - var9;
+         if (var12 + var9 > this.parent.getWidthA()) {
+            var12 = this.parent.getWidthA() - var9;
          }
 
-         if (var11 + var10 > this.screen.getHeightA()) {
-            var11 = this.screen.getHeightA() - var10;
+         if (var11 + var10 > this.parent.getHeightA()) {
+            var11 = this.parent.getHeightA() - var10;
          }
       }
 

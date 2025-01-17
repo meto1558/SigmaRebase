@@ -105,10 +105,10 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
             this.method13217(true);
          }
       } else if (this.method13216()) {
-         this.setXA(var1 - this.sizeWidthThingy - (this.screen == null ? 0 : this.screen.method13271()));
-         this.setYA(var2 - this.sizeHeightThingy - (this.screen == null ? 0 : this.screen.method13272()));
+         this.setXA(var1 - this.sizeWidthThingy - (this.parent == null ? 0 : this.parent.method13271()));
+         this.setYA(var2 - this.sizeHeightThingy - (this.parent == null ? 0 : this.parent.method13272()));
          if (this.field20882) {
-            if (this.screen == null) {
+            if (this.parent == null) {
                if (this.getXA() < 0) {
                   this.setXA(0);
                }
@@ -129,16 +129,16 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
                   this.setXA(0);
                }
 
-               if (this.getXA() + this.getWidthA() > this.screen.getWidthA()) {
-                  this.setXA(this.screen.getWidthA() - this.getWidthA());
+               if (this.getXA() + this.getWidthA() > this.parent.getWidthA()) {
+                  this.setXA(this.parent.getWidthA() - this.getWidthA());
                }
 
                if (this.getYA() < 0) {
                   this.setYA(0);
                }
 
-               if (this.getYA() + this.getHeightA() > this.screen.getHeightA() && !this.field20883) {
-                  this.setYA(this.screen.getHeightA() - this.getHeightA());
+               if (this.getYA() + this.getHeightA() > this.parent.getHeightA() && !this.field20883) {
+                  this.setYA(this.parent.getHeightA() - this.getHeightA());
                }
             }
          }

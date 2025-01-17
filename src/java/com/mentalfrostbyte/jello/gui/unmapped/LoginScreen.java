@@ -79,7 +79,7 @@ public class LoginScreen extends UIBase {
       this.field21355.setEnabled(false);
       this.loginButton.doThis((var1x, var2x) -> this.method13688());
       this.registerButton.doThis((var1x, var2x) -> {
-         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getScreen();
+         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getParent();
          var5x.method13422();
       });
       this.forgotButton.doThis((var0, var1x) -> Util.getOSType().openLink("https://sigma-web-alpha.vercel.app/"));
@@ -121,7 +121,7 @@ public class LoginScreen extends UIBase {
 
          String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText());
          if (var4 != null) {
-            LoginAndOutScreen var5 = (LoginAndOutScreen)this.getScreen();
+            LoginAndOutScreen var5 = (LoginAndOutScreen)this.getParent();
             var5.method13424("Error", var4);
             this.field21355.setTypedText("");
          } else {

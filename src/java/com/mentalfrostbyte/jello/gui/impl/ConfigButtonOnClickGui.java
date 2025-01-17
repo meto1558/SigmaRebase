@@ -127,7 +127,7 @@ public class ConfigButtonOnClickGui extends UIBase {
          var4++;
       }
 
-      JelloClickGUI var9 = (JelloClickGUI)this.getScreen();
+      JelloClickGUI var9 = (JelloClickGUI)this.getParent();
       var9.method13315();
    }
 
