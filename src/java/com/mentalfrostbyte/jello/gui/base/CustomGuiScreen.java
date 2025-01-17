@@ -19,7 +19,7 @@ import java.util.List;
 
 public class CustomGuiScreen implements IGuiEventListener {
     private final List<CustomGuiScreen> iconPanelList = new ArrayList<>();
-    private final List<Class6664> field20894 = new ArrayList<>();
+    private final List<IWidthSetter> field20894 = new ArrayList<>();
     private final List<CustomGuiScreen> field20916 = new ArrayList<>();
     private final List<CustomGuiScreen> field20918 = new ArrayList<>();
     private final List<Class7914> field20920 = new ArrayList<>();
@@ -188,9 +188,9 @@ public class CustomGuiScreen implements IGuiEventListener {
 
         this.field20909 = this.field20909 & this.field20908;
 
-        for (Class6664 var11 : this.method13260()) {
+        for (IWidthSetter var11 : this.method13260()) {
             if (this.field20903) {
-                var11.method20320(this, this.getParent());
+                var11.setWidth(this, this.getParent());
             }
         }
 
@@ -657,11 +657,11 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.parent = var1;
     }
 
-    public List<Class6664> method13260() {
+    public List<IWidthSetter> method13260() {
         return this.field20894;
     }
 
-    public void setSize(Class6664 var1) {
+    public void setSize(IWidthSetter var1) {
         this.field20894.add(var1);
     }
 

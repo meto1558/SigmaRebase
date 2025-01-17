@@ -14,14 +14,14 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class4341 extends Class4339 implements Class4342 {
+public class ModListView extends Class4339 implements Class4342 {
    public final ModuleCategory field21214;
    private List<ButtonPanel> field21215 = new ArrayList<ButtonPanel>();
    private boolean field21216;
    private boolean field21217;
    private float field21218 = 1.0F;
 
-   public Class4341(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ModuleCategory var7) {
+   public ModListView(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ModuleCategory var7) {
       super(var1, var2, var3, var4, var5, var6);
       this.field21214 = var7;
       this.field21217 = true;
@@ -76,7 +76,7 @@ public class Class4341 extends Class4339 implements Class4342 {
                }
             }
          );
-         var13.setSize(new Class6666());
+         var13.setSize(new CustomGuiScreenWidthSetter());
          var3++;
       }
 

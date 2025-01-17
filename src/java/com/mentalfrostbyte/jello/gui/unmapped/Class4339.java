@@ -61,8 +61,8 @@ public class Class4339 extends AnimatedIconPanel {
          this.buttonList.setYA(-1 * this.field21205.method13162());
 
          for (CustomGuiScreen var6 : this.getButton().getRenderObjects()) {
-            for (Class6664 var8 : var6.method13260()) {
-               var8.method20320(var6, this);
+            for (IWidthSetter var8 : var6.method13260()) {
+               var8.setWidth(var6, this);
             }
          }
       }

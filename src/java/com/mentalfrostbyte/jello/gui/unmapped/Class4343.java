@@ -151,7 +151,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                var25 = this.method13531(var17, var41, 0, var25, var5);
             }
 
-            new Class6665().method20320(var17, panel);
+            new Class6665().setWidth(var17, panel);
             var17.setSize((var1x, var2x) -> var1x.setWidthA(var2x.getWidthA() - var5));
             panel.addToList(var17);
             var4 += var17.getHeightA() + var5;

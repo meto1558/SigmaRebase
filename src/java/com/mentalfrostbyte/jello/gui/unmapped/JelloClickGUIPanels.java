@@ -16,7 +16,7 @@ import java.util.List;
 
 public class JelloClickGUIPanels extends AnimatedIconPanel {
    public final ModuleCategory category;
-   public Class4341 field21194;
+   public ModListView modListView;
    public float field21195;
    public int field21197;
    public int field21198;
@@ -34,15 +34,15 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
 
    public void method13504() {
       this.runThisOnDimensionUpdate(() -> {
-         this.method13236(this.field21194);
-         this.addToList(this.field21194 = new Class4341(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
+         this.method13236(this.modListView);
+         this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
       });
    }
 
    private void method13505() {
-      this.addToList(this.field21194 = new Class4341(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
-      this.field21194.setSize(new Class6666());
-      this.field21194.setSize((var0, var1) -> {
+      this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
+      this.modListView.setSize(new CustomGuiScreenWidthSetter());
+      this.modListView.setSize((var0, var1) -> {
          var0.setYA(60);
          var0.setHeightA(var1.getHeightA() - 60);
       });
@@ -136,7 +136,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
       GL11.glPushMatrix();
       super.draw(var1 * var1);
       GL11.glPopMatrix();
-      if (this.field21194.method13513() > 0) {
+      if (this.modListView.method13513() > 0) {
          RenderUtil.drawImage(
             (float)this.getXA(),
             (float)(this.getYA() + 60),
