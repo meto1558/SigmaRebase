@@ -179,8 +179,8 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20917 = true;
 
         try {
-            for (CustomGuiScreen var10 : this.iconPanelList) {
-                var10.updatePanelDimensions(newHeight, newWidth);
+            for (CustomGuiScreen iconPanel : this.iconPanelList) {
+                iconPanel.updatePanelDimensions(newHeight, newWidth);
             }
         } catch (ConcurrentModificationException var7) {
             var7.printStackTrace();
