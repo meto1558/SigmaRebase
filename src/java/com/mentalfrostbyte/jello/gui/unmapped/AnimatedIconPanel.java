@@ -26,8 +26,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    public int field20889 = 2;
    private final List<Class6751> field20890 = new ArrayList<Class6751>();
 
-   public AnimatedIconPanel(CustomGuiScreen screen, String iconNanme, int x, int y, int width, int height, boolean var7) {
-      super(screen, iconNanme, x, y, width, height);
+   public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, boolean var7) {
+      super(screen, iconName, x, y, width, height);
       this.field20876 = var7;
    }
 
