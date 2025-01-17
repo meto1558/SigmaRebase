@@ -304,18 +304,18 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public void voidEvent1(int var1, int var2, int var3) {
-        this.field20908 = this.method13114(var1, var2);
+    public void onClick2(int mouseX, int mouseY, int mouseButton) {
+        this.field20908 = this.method13114(mouseX, mouseY);
 
         for (CustomGuiScreen var7 : this.children) {
             if (var7.isHovered() && var7.isVisible()) {
-                var7.voidEvent1(var1, var2, var3);
+                var7.onClick2(mouseX, mouseY, mouseButton);
             }
         }
 
-        this.method13250(var3);
+        this.method13250(mouseButton);
         if (this.method13212() && this.method13298()) {
-            this.voidEvent2(var1, var2, var3);
+            this.voidEvent2(mouseX, mouseY, mouseButton);
         }
 
         this.field20909 = false;

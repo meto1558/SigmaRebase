@@ -125,8 +125,8 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void voidEvent1(int var1, int var2, int var3) {
-      super.voidEvent1(var1, var2, var3);
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
+      super.onClick2(mouseX, mouseY, mouseButton);
       this.field20752 = false;
    }
 

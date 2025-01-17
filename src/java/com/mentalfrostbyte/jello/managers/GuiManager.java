@@ -290,7 +290,7 @@ public class GuiManager {
 
     public void method33467(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.voidEvent1(var1, var2, var3);
+            this.screen.onClick2(var1, var2, var3);
         }
     }
 

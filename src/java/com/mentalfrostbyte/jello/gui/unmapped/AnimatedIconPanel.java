@@ -82,8 +82,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements Class4347 {
    }
 
    @Override
-   public void voidEvent1(int var1, int var2, int var3) {
-      super.voidEvent1(var1, var2, var3);
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
+      super.onClick2(mouseX, mouseY, mouseButton);
       if (this.method13214()) {
          this.timerUtil.stop();
          this.timerUtil.reset();

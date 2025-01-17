@@ -84,7 +84,7 @@ public class Class4370 extends UIBase {
    }
 
    @Override
-   public void voidEvent1(int var1, int var2, int var3) {
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
       this.field21364 = false;
    }
 
