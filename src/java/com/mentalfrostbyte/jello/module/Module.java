@@ -285,6 +285,7 @@ public class Module {
     public void initialize() {
     }
 
+
     public boolean isEnabled2() {
         return this.isEnabled();
     }
@@ -293,3 +294,6 @@ public class Module {
         return this.settingMap;
     }
 }
+
+
+

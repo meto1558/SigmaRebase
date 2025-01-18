@@ -66,6 +66,15 @@ public class MovementUtil {
         return speed * (double)multiplier;
     }
 
+    public static double method37076() {
+        double var2 = 0.2873 + (double)getSpeedBoost() * 0.057;
+        if (mc.player.isSneaking()) {
+            var2 *= 0.25;
+        }
+
+        return var2;
+    }
+
     /**
      * Calculates movement angles and directions based on input forward and strafe values.
      * This method adjusts the player's yaw and movement direction for smooth motion.

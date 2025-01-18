@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
-import com.mentalfrostbyte.jello.module.impl.combat.*;
+import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
@@ -59,11 +59,7 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
         }
         // COMBAT
-        this.register(new AutoClicker());
         this.register(new AntiKnockback());
-        this.register(new Criticals());
-        this.register(new Teams());
-        this.register(new Aimbot());
 
         // RENDER
 
@@ -88,6 +84,8 @@ public class ModuleManager {
         this.register(new Jesus());
         this.register(new SafeWalk());
         this.register(new HighJump());
+        this.register(new LongJump());
+
 
 
         this.sortBySuffixAndRegisterEvents();
