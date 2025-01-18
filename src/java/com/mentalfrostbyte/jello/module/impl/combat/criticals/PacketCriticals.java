@@ -26,7 +26,7 @@ public class PacketCriticals extends Module {
     }
 
     @EventTarget
-    private void method16923(EventRayTraceResult var1) {
+    public void method16923(EventRayTraceResult var1) {
         if (this.isEnabled() && var1.getEntity() != null && var1.isHovering()) {
             Entity var4 = var1.getEntity();
             if (var4 instanceof LivingEntity
@@ -57,7 +57,7 @@ public class PacketCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    private void method16924(SendPacketEvent var1) {
+    public void method16924(SendPacketEvent var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof CPlayerPacket) {
                 if (!this.timer.isEnabled()) {

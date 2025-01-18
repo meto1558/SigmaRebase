@@ -23,7 +23,7 @@ public class MinemenCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    private void method16861(EventUpdate var1) {
+    public void method16861(EventUpdate var1) {
         if (var1.isPre()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(AntiKnockback.class);
             if (!var4.isEnabled() || !var4.getStringSettingValueByName("Type").equalsIgnoreCase("Minemen")) {

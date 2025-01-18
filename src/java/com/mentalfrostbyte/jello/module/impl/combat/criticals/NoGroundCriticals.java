@@ -37,7 +37,7 @@ public class NoGroundCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    private void method16034(EventStep var1) {
+    public void method16034(EventStep var1) {
         if (this.isEnabled() && !(var1.getHeight() < 0.625)) {
             if (this.field23410 == 0 && this.field23411) {
                 var1.setCancelled(true);
@@ -46,7 +46,7 @@ public class NoGroundCriticals extends Module {
     }
 
     @EventTarget
-    private void method16035(JumpEvent var1) {
+    public void method16035(JumpEvent var1) {
         if (this.isEnabled()) {
             if (this.field23410 == 1) {
                 var1.setCancelled(true);
@@ -57,7 +57,7 @@ public class NoGroundCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    private void method16036(EventUpdate var1) {
+    public void method16036(EventUpdate var1) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround()) {
                 this.field23413 = false;
