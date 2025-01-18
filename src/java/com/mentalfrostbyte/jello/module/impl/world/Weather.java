@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SUpdateTimePacket;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.misc.*;
 
 public class Weather extends Module {
     private float field23538;
@@ -42,7 +41,7 @@ public class Weather extends Module {
     }
 
     @EventTarget
-    private void method16230(TickEvent var1) {
+    public void onTick(TickEvent var1) {
         if (this.isEnabled()) {
             if (!this.getBooleanValueFromSettingName("Disable rain")) {
                 if (this.field23539) {
@@ -68,7 +67,7 @@ public class Weather extends Module {
     }
 
     @EventTarget
-    private void method16231(ReceivePacketEvent var1) {
+    public void onReceivePacket(ReceivePacketEvent var1) {
         if (this.isEnabled()) {
             if (!(var1.getPacket() instanceof SUpdateTimePacket)) {
                 if (var1.getPacket() instanceof SChangeGameStatePacket) {
