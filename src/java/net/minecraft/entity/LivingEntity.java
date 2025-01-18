@@ -2488,16 +2488,23 @@ public abstract class LivingEntity extends Entity
 
         Vector3d vector3d = this.getMotion();
         this.setMotion(vector3d.x, (double)f, vector3d.z);
+        JumpEvent jumpEvent = null;
         // MODIFICATION START: Emit `JumpEvent`s
         if (this instanceof ClientPlayerEntity) {
-            EventBus.call(new JumpEvent(new Vector3d(vector3d.x, (double)f, vector3d.z)));
+            jumpEvent = new JumpEvent(this.getMotion());
+            EventBus.call(jumpEvent);
         }
         // MODIFICATION END
 
         if (this.isSprinting())
         {
             float f1 = this.rotationYaw * ((float)Math.PI / 180F);
-            this.setMotion(this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F)));
+            // MODIFICATION START: Adjust our motion if the jump event was modified
+            Vector3d motion = this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F));
+            if (jumpEvent != null && jumpEvent.modified)
+                motion = jumpEvent.getVector();
+            this.setMotion(motion);
+            // MODIFICATION END
         }
 
         this.isAirBorne = true;
