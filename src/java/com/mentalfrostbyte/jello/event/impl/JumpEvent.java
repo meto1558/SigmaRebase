@@ -47,4 +47,7 @@ public class JumpEvent extends CancellableEvent {
         this.vector = vector;
         this.modified = true;
     }
+    public void method14002(double var1) {
+        this.vector.y = var1;
+    }
 }

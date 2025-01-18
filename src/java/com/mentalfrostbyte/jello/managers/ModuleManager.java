@@ -83,6 +83,7 @@ public class ModuleManager {
         this.register(new Step());
         this.register(new Jesus());
         this.register(new SafeWalk());
+        this.register(new HighJump());
 
 
         this.sortBySuffixAndRegisterEvents();

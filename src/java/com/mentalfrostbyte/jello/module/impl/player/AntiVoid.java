@@ -9,6 +9,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 //import com.mentalfrostbyte.jello.module.impl.movement.HighJump;
+import com.mentalfrostbyte.jello.module.impl.movement.HighJump;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -53,18 +54,18 @@ public class AntiVoid extends Module {
             if (this.disableTimer <= 0) {
                 Module flyModule = Client.getInstance().moduleManager.getModuleByClass(Fly.class);
                 String flyMode = flyModule.getStringSettingValueByName("Type");
-              //  Module highJumpModule = Client.getInstance().moduleManager.getModuleByClass(HighJump.class);
-               // String highJumpMode = highJumpModule.getStringSettingValueByName("Type");
+                Module highJumpModule = Client.getInstance().moduleManager.getModuleByClass(HighJump.class);
+                String highJumpMode = highJumpModule.getStringSettingValueByName("Type");
                 boolean shouldFly = flyModule.isEnabled();
 
                 if (flyMode.equals("Cubecraft") && event.getY() < -0.4) {
                     shouldFly = false;
                 }
 
-//                if (highJumpModule.isEnabled() && highJumpMode.equals("Hypixel")) {
-//                    shouldFly = true;
-//                }
-//
+                if (highJumpModule.isEnabled() && highJumpMode.equals("Hypixel")) {
+                   shouldFly = true;
+                }
+
                 if (mc.player.getMotion().y < -0.08 && !shouldFly) {
                     this.fallDistanceAccumulated -= mc.player.getMotion().y;
                 } else if (mc.player.isOnGround()) {
