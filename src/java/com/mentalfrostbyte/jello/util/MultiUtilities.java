@@ -3,10 +3,13 @@ package com.mentalfrostbyte.jello.util;
 
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.play.client.CPlayerDiggingPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.client.CPlayerTryUseItemPacket;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -64,6 +67,9 @@ public class MultiUtilities {
     public static void block() {
         mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
         mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.OFF_HAND));
+    }
+    public static void unblock() {
+        mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.RELEASE_USE_ITEM, new BlockPos(0, 0, 0), Direction.DOWN));
     }
 
     public static double method17750() {

@@ -12,6 +12,7 @@ import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
+import com.mentalfrostbyte.jello.module.impl.world.Weather;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -68,6 +69,8 @@ public class ModuleManager {
         // RENDER
 
         // WORLD
+        this.register(new Weather());
+
 
         // MISC
 
@@ -89,6 +92,7 @@ public class ModuleManager {
         this.register(new SafeWalk());
         this.register(new HighJump());
         this.register(new LongJump());
+
 
 
 
