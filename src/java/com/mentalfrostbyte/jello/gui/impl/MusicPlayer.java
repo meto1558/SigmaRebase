@@ -161,8 +161,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.pause.doThis((var1x, var2x) -> this.field20854.method24310(false));
         this.forwards.doThis((var1x, var2x) -> this.field20854.method24316());
         this.backwards.doThis((var1x, var2x) -> this.field20854.method24315());
-        this.volumeSlider.method13709(var1x -> this.field20854.method24311((int) ((1.0F - this.volumeSlider.getField21372()) * 100.0F)));
-        this.volumeSlider.setField21372(1.0F - (float) this.field20854.method24314() / 100.0F);
+        this.volumeSlider.method13709(var1x -> this.field20854.method24311((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
+        this.volumeSlider.setVolume(1.0F - (float) this.field20854.method24314() / 100.0F);
         this.addToList(
                 this.searchBox = new SearchBoxButton(
                         this, "search", this.field20845, 0, this.getWidthA() - this.field20845, this.getHeightA() - this.field20848, "Search..."
