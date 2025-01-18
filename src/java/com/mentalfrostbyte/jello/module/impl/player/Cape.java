@@ -15,8 +15,10 @@ public class Cape extends Module {
         super(ModuleCategory.PLAYER, "Cape", "gives you a cape (wow)");
     }
 
+
+
     public ResourceLocation getCape() {
-        return new ResourceLocation("minecraft", "com/mentalfrostbyte/gui/resources/jello/capes/EazyPesy.png");
+        return new ResourceLocation("minecraft", "com/mentalfrostbyte/gui/resources/jello/capes/2016.png");
     }
 
     public void onDisable() {
