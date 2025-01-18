@@ -31,63 +31,46 @@ public class Aimbot extends ModuleWithModuleSettings {
     }
 
     public Entity getTarget(float var1) {
-        List var4 = EntityUtil.getEntitesInWorld(__ -> true);
-        Entity var5 = null;
-        Iterator var6 = var4.iterator();
+        List<Entity> entities = EntityUtil.getEntitesInWorld(__ -> true);
+        Entity target = null;
+        Iterator<Entity> iter = entities.iterator();
 
-        while (var6.hasNext()) {
-            Entity var7 = (Entity) var6.next();
-            if (var7 != mc.player) {
-                if (!Client.getInstance().friendManager.method26997(var7)) {
-                    if (var7 instanceof LivingEntity) {
-                        if (((LivingEntity) var7).getHealth() != 0.0F) {
-                            if (!(mc.player.getDistance(var7) > var1)) {
-                                if (mc.player.canAttack((LivingEntity) var7)) {
-                                    if (!(var7 instanceof ArmorStandEntity)) {
-                                        if (!this.getBooleanValueFromSettingName("Players") && var7 instanceof PlayerEntity) {
-                                            var6.remove();
-                                        } else if (var7 instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(var7)) {
-                                            var6.remove();
-                                        } else if (!this.getBooleanValueFromSettingName("Invisible") && var7.isInvisible()) {
-                                            var6.remove();
-                                        } else if (!this.getBooleanValueFromSettingName("Animals/Monsters") && !(var7 instanceof PlayerEntity)) {
-                                            var6.remove();
-                                        } else if (mc.player.getRidingEntity() != null && mc.player.getRidingEntity().equals(var7)) {
-                                            var6.remove();
-                                        } else if (!var7.isInvulnerable()) {
-                                            if (var7 instanceof PlayerEntity
-                                                    && TeamUtil.method31662((PlayerEntity) var7)
-                                                    && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
-                                                var6.remove();
-                                            } else if (var5 == null || mc.player.getDistance(var7) < mc.player.getDistance(var5)) {
-                                                var5 = var7;
-                                            }
-                                        } else {
-                                            var6.remove();
+        for (Entity entity : entities) {
+            if (entity != mc.player) {
+                if (!Client.getInstance().friendManager.method26997(entity)) {
+                    if (entity instanceof LivingEntity) {
+                        if (((LivingEntity) entity).getHealth() != 0.0F) {
+                            if (!(mc.player.getDistance(entity) > var1)) {
+                                if (mc.player.canAttack((LivingEntity) entity)) {
+                                    if (entity instanceof ArmorStandEntity)
+                                        continue;
+                                    if (!this.getBooleanValueFromSettingName("Players") && entity instanceof PlayerEntity) {
+                                        
+                                    } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(entity)) {
+                                        
+                                    } else if (!this.getBooleanValueFromSettingName("Invisible") && entity.isInvisible()) {
+                                        
+                                    } else if (!this.getBooleanValueFromSettingName("Animals/Monsters") && !(entity instanceof PlayerEntity)) {
+                                        
+                                    } else if (mc.player.getRidingEntity() != null && mc.player.getRidingEntity().equals(entity)) {
+                                        
+                                    } else if (!entity.isInvulnerable()) {
+                                        if (entity instanceof PlayerEntity
+                                                && TeamUtil.method31662((PlayerEntity) entity)
+                                                && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
+                                            
+                                        } else if (target == null || mc.player.getDistance(entity) < mc.player.getDistance(target)) {
+                                            target = entity;
                                         }
-                                    } else {
-                                        var6.remove();
                                     }
-                                } else {
-                                    var6.remove();
                                 }
-                            } else {
-                                var6.remove();
                             }
-                        } else {
-                            var6.remove();
                         }
-                    } else {
-                        var6.remove();
                     }
-                } else {
-                    var6.remove();
                 }
-            } else {
-                var6.remove();
             }
         }
 
-        return var5;
+        return target;
     }
 }
