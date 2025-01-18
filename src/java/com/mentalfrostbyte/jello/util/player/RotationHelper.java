@@ -22,17 +22,17 @@ public class RotationHelper {
     public static float field42014;
     public static long field42015;
 
-    public static float calculate(float var0, float var1, float var2) {
-        float var5 = MathHelper.wrapDegrees(var1 - var0);
-        if (var5 > var2) {
-            var5 = var2;
+    public static float calculate(float current, float var1, float max) {
+        float wrapped = MathHelper.wrapDegrees(var1 - current);
+        if (wrapped > max) {
+            wrapped = max;
         }
 
-        if (var5 < -var2) {
-            var5 = -var2;
+        if (wrapped < -max) {
+            wrapped = -max;
         }
 
-        return var0 + var5;
+        return current + wrapped;
     }
 
 //    public static float[] advancedRotation(LivingEntity var0, double var1, double var3, double var5) {
@@ -46,11 +46,11 @@ public class RotationHelper {
 //        return new float[]{var18, var19};
 //    }
 
-    public static float[] doBasicRotation(Entity var0) {
+    public static float[] doBasicRotation(Entity target) {
         double var3 = mc.player.getPosX() + (mc.player.getPosX() - mc.player.lastTickPosX) * (double) mc.getRenderPartialTicks();
         double var5 = mc.player.getPosZ() + (mc.player.getPosZ() - mc.player.lastTickPosZ) * (double) mc.getRenderPartialTicks();
         double var7 = mc.player.getPosY() + (mc.player.getPosY() - mc.player.lastTickPosY) * (double) mc.getRenderPartialTicks();
-        return calculateEntityRotations(var0, var3, var7, var5);
+        return calculateEntityRotations(target, var3, var7, var5);
     }
 
     public static float[] calculateEntityRotations(Entity entity, double playerX, double playerZ, double playerY) {
