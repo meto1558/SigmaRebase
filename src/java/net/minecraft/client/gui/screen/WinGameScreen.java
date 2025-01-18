@@ -201,13 +201,13 @@ public class WinGameScreen extends Screen
         tessellator.draw();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.drawWinGameScreen(mouseX, mouseY, partialTicks);
+        this.drawWinGameScreen(mouseX, mouseY, delta);
         int i = 274;
         int j = this.width / 2 - 137;
         int k = this.height + 50;
-        this.time += partialTicks;
+        this.time += delta;
         float f = -this.time * this.scrollSpeed;
         RenderSystem.pushMatrix();
         RenderSystem.translatef(0.0F, f, 0.0F);
@@ -217,12 +217,12 @@ public class WinGameScreen extends Screen
         RenderSystem.enableBlend();
         this.blitBlackOutline(j, k, (p_238665_2_, p_238665_3_) ->
         {
-            this.blit(matrixStack, p_238665_2_ + 0, p_238665_3_, 0, 0, 155, 44);
-            this.blit(matrixStack, p_238665_2_ + 155, p_238665_3_, 0, 45, 155, 44);
+            this.blit(matrices, p_238665_2_ + 0, p_238665_3_, 0, 0, 155, 44);
+            this.blit(matrices, p_238665_2_ + 155, p_238665_3_, 0, 45, 155, 44);
         });
         RenderSystem.disableBlend();
         this.minecraft.getTextureManager().bindTexture(MINECRAFT_EDITION);
-        blit(matrixStack, j + 88, k + 37, 0.0F, 0.0F, 98, 14, 128, 16);
+        blit(matrices, j + 88, k + 37, 0.0F, 0.0F, 98, 14, 128, 16);
         RenderSystem.disableAlphaTest();
         int l = k + 100;
 
@@ -244,12 +244,12 @@ public class WinGameScreen extends Screen
 
                 if (this.field_238664_v_.contains(i1))
                 {
-                    this.font.func_238407_a_(matrixStack, ireorderingprocessor, (float)(j + (274 - this.font.func_243245_a(ireorderingprocessor)) / 2), (float)l, 16777215);
+                    this.font.func_238407_a_(matrices, ireorderingprocessor, (float)(j + (274 - this.font.func_243245_a(ireorderingprocessor)) / 2), (float)l, 16777215);
                 }
                 else
                 {
                     this.font.random.setSeed((long)((float)((long)i1 * 4238972211L) + this.time / 4.0F));
-                    this.font.func_238407_a_(matrixStack, ireorderingprocessor, (float)j, (float)l, 16777215);
+                    this.font.func_238407_a_(matrices, ireorderingprocessor, (float)j, (float)l, 16777215);
                 }
             }
 
@@ -271,6 +271,6 @@ public class WinGameScreen extends Screen
         bufferbuilder.pos(0.0D, 0.0D, (double)this.getBlitOffset()).tex(0.0F, 0.0F).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
         RenderSystem.disableBlend();
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

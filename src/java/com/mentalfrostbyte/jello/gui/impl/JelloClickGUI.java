@@ -31,8 +31,8 @@ public class JelloClickGUI extends Screen {
    public MusicPlayer musicPlayer;
    public BrainFreezeGui brainFreeze;
    public ConfigButtonOnClickGui configButton;
-   public ModuleSettingUI field20949;
-   public AlertPanel field20950;
+   public ModuleSettingUI moduleSettingUI;
+   public AlertPanel dependenciesAlert;
    private static boolean field20951 = true;
    public JelloClickGUIPanels jelloClickGUIPanels = null;
 
@@ -42,7 +42,6 @@ public class JelloClickGUI extends Screen {
       int x = 30;
       int y = 30;
       this.addToList(this.brainFreeze = new BrainFreezeGui(this, "brainFreeze"));
-      JelloClickGUI var5 = this;
 
       for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
          if (!this.categoryPanel.containsKey(module.getAdjustedCategoryBasedOnClientMode())) {
@@ -56,9 +55,9 @@ public class JelloClickGUI extends Screen {
                y += clickGUIPanels.getHeightA() - 20;
             }
 
-            clickGUIPanels.method13507(var2 -> var5.method13222(() -> {
-                  var5.addToList(this.field20949 = new ModuleSettingUI(var5, "settings", 0, 0, this.widthA, this.heightA, var2));
-                  this.field20949.method13292(true);
+            clickGUIPanels.method13507(var2 -> this.runThisOnDimensionUpdate(() -> {
+                  this.addToList(this.moduleSettingUI = new ModuleSettingUI(this, "settings", 0, 0, this.widthA, this.heightA, var2));
+                  this.moduleSettingUI.method13292(true);
             }));
          }
       }
@@ -70,8 +69,8 @@ public class JelloClickGUI extends Screen {
       var9.getTextColor().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
       var9.method13300(false);
       this.musicPlayer.setEnabled(field20951);
-      var9.doThis((var1, var2) -> this.method13222(() -> {
-            if (this.configButton != null && this.method13239(this.configButton)) {
+      var9.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
+            if (this.configButton != null && this.hasChild(this.configButton)) {
                this.method13234(this.configButton);
             } else {
                this.addToList(this.configButton = new ConfigButtonOnClickGui(this, "morepopover", this.getWidthA() - 14, this.getHeightA() - 14));
@@ -80,29 +79,29 @@ public class JelloClickGUI extends Screen {
          }));
       field20942 = new Animation(450, 125);
       this.blurOverlay = new ClickGUIBlurOverlay(this, this, "overlay");
-      ColorUtils.method17739();
-      ColorUtils.method17740(field20942.calcPercent());
+      ColorUtils.blur();
+      ColorUtils.setShaderParamsRounded(field20942.calcPercent());
    }
 
    public boolean hasJelloMusicRequirements() {
       if (Client.getInstance().musicManager.hasPython() && Client.getInstance().musicManager.hasVCRedist()) {
          return false;
-      } else if (this.field20950 == null) {
-         this.method13222(() -> {
+      } else if (this.dependenciesAlert == null) {
+         this.runThisOnDimensionUpdate(() -> {
             List<MiniAlert> var3 = new ArrayList();
             var3.add(new MiniAlert(AlertType.HEADER, "Music", 40));
-            var3.add(new MiniAlert(AlertType.FIRSTLINE, "Jello Music requires:", 20));
+            var3.add(new MiniAlert(AlertType.FIRST_LINE, "Jello Music requires:", 20));
             if (!Client.getInstance().musicManager.hasPython()) {
-               var3.add(new MiniAlert(AlertType.FIRSTLINE, "- Python 3.12.5", 30));
+               var3.add(new MiniAlert(AlertType.FIRST_LINE, "- Python 3.12.5", 30));
             }
 
             if (!Client.getInstance().musicManager.hasVCRedist()) {
-               var3.add(new MiniAlert(AlertType.FIRSTLINE, "- Visual C++ 2010 x86", 30));
+               var3.add(new MiniAlert(AlertType.FIRST_LINE, "- Visual C++ 2010 x86", 30));
             }
 
             var3.add(new MiniAlert(AlertType.BUTTON, "Download", 55));
-            this.method13233(this.field20950 = new AlertPanel(this, "music", true, "Dependencies.", var3.toArray(new MiniAlert[0])));
-            this.field20950.method13036(var0 -> {
+            this.method13233(this.dependenciesAlert = new AlertPanel(this, "music", true, "Dependencies.", var3.toArray(new MiniAlert[0])));
+            this.dependenciesAlert.addUIHandler(var0 -> {
                if (!Client.getInstance().musicManager.hasPython()) {
                   Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/python-3.12.5-macos11.pkg");
                }
@@ -111,13 +110,13 @@ public class JelloClickGUI extends Screen {
                   Util.getOSType().openLink("https://www.microsoft.com/en-US/Download/confirmation.aspx?id=26999");
                }
             });
-            this.field20950.method13604(var1 -> new Thread(() -> {
-                this.method13222(() -> {
-                   this.method13236(this.field20950);
-                   this.field20950 = null;
+            this.dependenciesAlert.method13604(var1 -> new Thread(() -> {
+                this.runThisOnDimensionUpdate(() -> {
+                   this.method13236(this.dependenciesAlert);
+                   this.dependenciesAlert = null;
                 });
             }).start());
-            this.field20950.method13603(true);
+            this.dependenciesAlert.method13603(true);
          });
          return true;
       } else {
@@ -126,20 +125,20 @@ public class JelloClickGUI extends Screen {
    }
 
    public void method13315() {
-      for (JelloClickGUIPanels var4 : this.categoryPanel.values()) {
-         var4.method13504();
+      for (JelloClickGUIPanels panel : this.categoryPanel.values()) {
+         panel.method13504();
       }
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
-      super.method13028(var1, var2);
-      ColorUtils.method17740(Math.min(1.0F, field20942.calcPercent() * 4.0F));
+      super.updatePanelDimensions(newHeight, newWidth);
+      ColorUtils.setShaderParamsRounded(Math.min(1.0F, field20942.calcPercent() * 4.0F));
       this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
       if (this.configButton != null) {
-         int var5 = var1 - this.configButton.method13271();
-         int var6 = var2 - this.configButton.method13272();
+         int var5 = newHeight - this.configButton.method13271();
+         int var6 = newWidth - this.configButton.method13272();
          boolean var7 = var5 >= -10 && var6 >= -10;
          if (!var7) {
             this.configButton.method13613();
@@ -151,14 +150,14 @@ public class JelloClickGUI extends Screen {
          this.configButton = null;
       }
 
-      if (field20942.getDirection() == Direction.BACKWARDS && this.field20949 != null && !this.field20949.field20671) {
-         this.field20949.field20671 = true;
+      if (field20942.getDirection() == Direction.BACKWARDS && this.moduleSettingUI != null && !this.moduleSettingUI.field20671) {
+         this.moduleSettingUI.field20671 = true;
       }
 
-      if (this.field20949 != null && this.field20949.field20671 && this.field20949.animation1.calcPercent() == 0.0F) {
-         this.method13222(() -> {
-            this.method13236(this.field20949);
-            this.field20949 = null;
+      if (this.moduleSettingUI != null && this.moduleSettingUI.field20671 && this.moduleSettingUI.animation1.calcPercent() == 0.0F) {
+         this.runThisOnDimensionUpdate(() -> {
+            this.method13236(this.moduleSettingUI);
+            this.moduleSettingUI = null;
          });
       }
 
@@ -176,7 +175,7 @@ public class JelloClickGUI extends Screen {
       }
 
       if (field20944 && field20943) {
-         ColorUtils.method17742();
+         ColorUtils.resetShaders();
       }
    }
 
@@ -186,15 +185,15 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
-      ColorUtils.method17742();
+   public JSONObject toConfigWithExtra(JSONObject config) {
+      ColorUtils.resetShaders();
       this.method13234(this.blurOverlay);
-      return super.method13160(var1);
+      return super.toConfigWithExtra(config);
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      super.method13161(var1);
+   public void loadConfig(JSONObject config) {
+      super.loadConfig(config);
    }
 
    private void method13316(boolean var1) {
@@ -205,20 +204,20 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (var3 <= 1) {
-         return super.method13078(var1, var2, var3);
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (mouseButton <= 1) {
+         return super.onClick(mouseX, mouseY, mouseButton);
       } else {
-         this.keyPressed(var3);
+         this.keyPressed(mouseButton);
          return false;
       }
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      int var4 = Client.getInstance().moduleManager.getMacOSTouchBar().method13728(ClickGui.class);
-      if (var1 == 256 || var1 == var4 && this.field20949 == null && !this.method13227()) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      int var4 = Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGui.class);
+      if (keyCode == 256 || keyCode == var4 && this.moduleSettingUI == null && !this.method13227()) {
          if (field20944) {
             field20943 = !field20943;
          }
@@ -239,7 +238,7 @@ public class JelloClickGUI extends Screen {
          ? this.method13317(field20942.calcPercent(), 0.8F) * 0.5F + 0.5F
          : (!field20944 ? 1.0F : this.method13317(field20942.calcPercent(), 1.0F));
       float var5 = 0.2F * var1 * var4;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),
@@ -248,13 +247,13 @@ public class JelloClickGUI extends Screen {
       );
       Object var6 = null;
       float var7 = 1.0F;
-      if (this.field20949 != null) {
-         float var8 = EasingFunctions.easeOutBack(this.field20949.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
-         if (this.field20949.animation.getDirection() == Direction.BACKWARDS) {
-            var8 = MathHelper.calculateBackwardTransition(this.field20949.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
+      if (this.moduleSettingUI != null) {
+         float var8 = EasingFunctions.easeOutBack(this.moduleSettingUI.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
+         if (this.moduleSettingUI.animation.getDirection() == Direction.BACKWARDS) {
+            var8 = MathHelper.calculateBackwardTransition(this.moduleSettingUI.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
          }
 
-         var7 -= this.field20949.animation.calcPercent() * 0.1F;
+         var7 -= this.moduleSettingUI.animation.calcPercent() * 0.1F;
          var4 *= 1.0F + var8 * 0.2F;
       }
 
@@ -269,7 +268,7 @@ public class JelloClickGUI extends Screen {
          );
       }
 
-      for (CustomGuiScreen var9 : this.method13241()) {
+      for (CustomGuiScreen var9 : this.getChildren()) {
          float var10 = (float)(var9.getYA() + var9.getHeightA() / 2 - mc.getMainWindow().getHeight() / 2) * (1.0F - var4) * 0.5F;
          float var11 = (float)(var9.getXA() + var9.getWidthA() / 2 - mc.getMainWindow().getWidth() / 2) * (1.0F - var4) * 0.5F;
          var9.method13286((int)var11, (int)var10);

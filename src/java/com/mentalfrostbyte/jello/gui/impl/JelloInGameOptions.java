@@ -32,12 +32,12 @@ public class JelloInGameOptions extends Screen {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       if (field21112.getDirection() == Direction.BACKWARDS && field21112.calcPercent() == 0.0F && field21115 != null) {
          Minecraft.getInstance().displayGuiScreen(field21115);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -70,7 +70,7 @@ public class JelloInGameOptions extends Screen {
       float var7 = (float)(var4 - this.field21110);
       GL11.glPushMatrix();
       if (this.field21113 != null) {
-         RenderUtil.method11448(
+         RenderUtil.drawTexture(
                  (float)this.field21110,
                  (float)this.field21109,
                  (float)(this.getWidthA() * 2),
@@ -97,9 +97,9 @@ public class JelloInGameOptions extends Screen {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
          Minecraft.getInstance().displayGuiScreen(null);
       }
    }

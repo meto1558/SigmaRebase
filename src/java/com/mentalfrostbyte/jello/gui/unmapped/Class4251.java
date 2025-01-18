@@ -36,8 +36,8 @@ public class Class4251 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       if (this.field20909) {
          Client.getInstance().waypointsManager.field36375.clear();
       }
@@ -59,7 +59,7 @@ public class Class4251 extends UIBase {
          var5 = 0.95F;
       }
 
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -75,7 +75,7 @@ public class Class4251 extends UIBase {
          14.0F,
          -7687425
       );
-      RenderUtil.method11476();
+      RenderUtil.initStencilBuffer();
       RenderUtil.method11474(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
@@ -88,8 +88,8 @@ public class Class4251 extends UIBase {
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
       this.field20614.draw(var1);
       GL11.glPopMatrix();
-      RenderUtil.method11478();
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.restorePreviousStencilBuffer();
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + this.field20616),
          (float)(this.yA + 0),
          1.0F,
@@ -101,7 +101,7 @@ public class Class4251 extends UIBase {
       RenderUtil.drawString(
          ResourceRegistry.JelloMediumFont40,
          (float)this.xA,
-         (float)((this.screen.getHeightA() - this.heightA) / 2 - 70),
+         (float)((this.parent.getHeightA() - this.heightA) / 2 - 70),
          "Jello Maps",
          ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
@@ -109,7 +109,7 @@ public class Class4251 extends UIBase {
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont24,
          (float)(this.xA + this.widthA - ResourceRegistry.JelloLightFont24.getWidth(var7) - 10),
-         (float)((this.screen.getHeightA() - this.heightA) / 2 - 62),
+         (float)((this.parent.getHeightA() - this.heightA) / 2 - 62),
          var7,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)
       );

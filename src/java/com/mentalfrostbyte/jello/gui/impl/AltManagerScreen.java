@@ -14,11 +14,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import totalcross.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +91,7 @@ public class AltManagerScreen extends Screen {
       this.field21011.method13300(false);
       this.field21010.method13515(false);
       this.field21011
-         .addToList(
+         .addButton(
             this.field21017 = new Class4298(
                this.field21011,
                "",
@@ -110,7 +108,7 @@ public class AltManagerScreen extends Screen {
             )
          );
       this.field21011
-         .addToList(
+         .addButton(
             this.field21018 = new Class4296(
                this.field21011,
                "info",
@@ -129,7 +127,7 @@ public class AltManagerScreen extends Screen {
       var9.method13643(servers, 1);
       var9.method13656(2);
       this.addToList(var9);
-      var9.method13036(var2 -> {
+      var9.addUIHandler(var2 -> {
          switch (var9.method13655()) {
             case 0:
                this.field21023 = Class2209.field14446;
@@ -178,7 +176,7 @@ public class AltManagerScreen extends Screen {
    private void method13360(Account var1, boolean var2) {
       Class4294 var5;
       this.field21010
-         .addToList(
+         .addButton(
             var5 = new Class4294(
                this.field21010,
                var1.getEmail(),
@@ -199,7 +197,7 @@ public class AltManagerScreen extends Screen {
 
       var5.method13247((var2x, var3) -> {
          if (var3 != 0) {
-            this.field21013.method13036(var2xx -> {
+            this.field21013.addUIHandler(var2xx -> {
                this.accountManager.removeAccountDirectly(var5.selectedAccount);
                this.field21018.method13178(null);
                this.field21017.method13181(null);
@@ -217,9 +215,9 @@ public class AltManagerScreen extends Screen {
             this.field21017.method13181(var5.selectedAccount);
             this.field21018.method13178(var5.selectedAccount);
 
-            for (CustomGuiScreen var7 : this.field21010.method13241()) {
+            for (CustomGuiScreen var7 : this.field21010.getChildren()) {
                if (!(var7 instanceof VerticalScrollBar)) {
-                  for (CustomGuiScreen var9 : var7.method13241()) {
+                  for (CustomGuiScreen var9 : var7.getChildren()) {
                      ((Class4294)var9).method13166(false);
                   }
                }
@@ -254,13 +252,13 @@ public class AltManagerScreen extends Screen {
 
    private void method13362() {
       MiniAlert header = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
-      MiniAlert firstline1 = new MiniAlert(AlertType.FIRSTLINE, "Login with your minecraft", 15);
-      MiniAlert firstline2 = new MiniAlert(AlertType.FIRSTLINE, "account here!", 25);
-      MiniAlert email = new MiniAlert(AlertType.SEKONDLINE, "Email", 50);
-      MiniAlert password = new MiniAlert(AlertType.SEKONDLINE, "Password", 50);
+      MiniAlert firstline1 = new MiniAlert(AlertType.FIRST_LINE, "Login with your minecraft", 15);
+      MiniAlert firstline2 = new MiniAlert(AlertType.FIRST_LINE, "account here!", 25);
+      MiniAlert email = new MiniAlert(AlertType.SECOND_LINE, "Email", 50);
+      MiniAlert password = new MiniAlert(AlertType.SECOND_LINE, "Password", 50);
       MiniAlert button  = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
       this.addToList(this.field21012 = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, email, password, button));
-      this.field21012.method13036(var1 -> {
+      this.field21012.addUIHandler(var1 -> {
          if (!this.field21012.method13600().get("Email").contains(":")) {
             Account account = new Account(this.field21012.method13600().get("Email"), this.field21012.method13600().get("Password"));
             if (!this.accountManager.containsAccount(account)) {
@@ -288,8 +286,8 @@ public class AltManagerScreen extends Screen {
 
    private void method13363() {
       MiniAlert var3 = new MiniAlert(AlertType.HEADER, "Delete?", 50);
-      MiniAlert var4 = new MiniAlert(AlertType.FIRSTLINE, "Are you sure you want", 15);
-      MiniAlert var5 = new MiniAlert(AlertType.FIRSTLINE, "to delete this alt?", 40);
+      MiniAlert var4 = new MiniAlert(AlertType.FIRST_LINE, "Are you sure you want", 15);
+      MiniAlert var5 = new MiniAlert(AlertType.FIRST_LINE, "to delete this alt?", 40);
       MiniAlert var6 = new MiniAlert(AlertType.BUTTON, "Delete", 50);
       this.addToList(this.field21013 = new AlertPanel(this, "delete", true, "Delete", var3, var4, var5, var6));
    }
@@ -327,9 +325,9 @@ public class AltManagerScreen extends Screen {
    private void method13367() {
       float var3 = 1.0F;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                if (var7 instanceof Class4294) {
                   Class4294 var8 = (Class4294)var7;
                   if (var7.getYA() <= Minecraft.getInstance().getMainWindow().getHeight() && this.field21010.method13513() == 0) {
@@ -353,9 +351,9 @@ public class AltManagerScreen extends Screen {
    private void method13368() {
       boolean var3 = false;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                Class4294 var8 = (Class4294)var7;
                var8.method13172(false);
             }
@@ -366,9 +364,9 @@ public class AltManagerScreen extends Screen {
    private boolean method13369() {
       boolean var3 = false;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                if (var7.method13280() != 0 && var7.getXA() > this.widthA) {
                   return false;
                }
@@ -382,9 +380,9 @@ public class AltManagerScreen extends Screen {
    private int method13370() {
       int var3 = 0;
 
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+      for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                var3++;
             }
          }
@@ -404,7 +402,7 @@ public class AltManagerScreen extends Screen {
 
       float var5 = var4 - this.field21006;
       float var6 = (float)(var3 - this.field21005);
-      RenderUtil.method11455((float)this.field21005, this.field21006, (float)(this.getWidthA() * 2), (float)(this.getHeightA() + 114), Resources.panoramaPNG);
+      RenderUtil.drawImage((float)this.field21005, this.field21006, (float)(this.getWidthA() * 2), (float)(this.getHeightA() + 114), Resources.panoramaPNG);
       float var7 = 0.5F;
       if (var4 != this.field21006) {
          this.field21006 += var5 * var7;
@@ -414,28 +412,28 @@ public class AltManagerScreen extends Screen {
          this.field21005 = (int)((float)this.field21005 + var6 * var7);
       }
 
-      RenderUtil.drawRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
+      RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
          Minecraft.getInstance().displayGuiScreen(new MainMenuScreen());
       }
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
+   public JSONObject toConfigWithExtra(JSONObject config) {
       this.accountManager.saveAlts();
-      return var1;
+      return config;
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      for (CustomGuiScreen var5 : this.field21010.method13241()) {
+   public void loadConfig(JSONObject config) {
+      for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                this.field21010.method13234(var7);
             }
          }
@@ -446,7 +444,7 @@ public class AltManagerScreen extends Screen {
 
    public void method13372(boolean var1) {
       List<Account> var5 = Class8270.method28878(this.accountManager.getAccounts(), this.field21023, this.field21024, this.field21026.getTypedText());
-      this.method13222(new Class1428(this, this, var5, var1));
+      this.runThisOnDimensionUpdate(new Class1428(this, this, var5, var1));
    }
 
    private void method13373(Object var1) {

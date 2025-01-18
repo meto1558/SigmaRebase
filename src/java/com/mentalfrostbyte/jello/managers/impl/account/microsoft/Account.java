@@ -28,15 +28,11 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Account {
-    /**
-     * This field is unused so IDK what to name it
-     */
-    private static final Date field42084 = new Date();
     private String knownName = "Unknown name";
     private String knownUUID = "steve";
     private String email;
     private String password;
-    private ArrayList<Ban> bans = new ArrayList<Ban>();
+    private ArrayList<Ban> bans = new ArrayList<>();
     private long lastUsed;
     private final long dateAdded;
     private int useCount;
@@ -118,7 +114,8 @@ public class Account {
 
     /**
      * Seems to be unused. Maybe for a prototype of a clipboard login or smth
-     * @param email Email
+     *
+     * @param email    Email
      * @param password Password
      * @return Returns the session ig
      * @throws MicrosoftAuthenticationException if the authentication fails horribly
@@ -267,6 +264,7 @@ public class Account {
 
     /**
      * Maybe a cracked account check??
+     *
      * @return Session Type
      */
     public Session.Type getAccountType() {
@@ -328,6 +326,7 @@ public class Account {
 
         return var3;
     }
+
     public static byte[] parseBase64Binary(String base64String) {
         return Base64.decodeBase64(base64String);
     }
@@ -366,6 +365,7 @@ public class Account {
 
     /**
      * This is definitely used for a cracked account check!!
+     *
      * @return if the input email is a valid email
      */
     public boolean isEmailAValidEmailFormat() {

@@ -38,12 +38,12 @@ public class Class4372 extends UIBase {
    public void method13702(boolean var1, boolean var2) {
       if (var1 != this.method13700()) {
          this.field21367 = var1;
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
+   public void onClick3(int mouseX, int mouseY, int mouseButton) {
       this.method13702(!this.field21367, true);
    }
 }

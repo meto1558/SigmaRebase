@@ -56,9 +56,9 @@ public class Class4299 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 32) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 32) {
          this.field20836 = 0.045F;
       }
    }
@@ -69,7 +69,7 @@ public class Class4299 extends AnimatedIconPanelWrap {
       RenderUtil.method11415(this);
 
       for (int var4 = 0; var4 < 3; var4++) {
-         RenderUtil.method11455((float)(this.xA + 288 * var4), (float)this.yA, 288.0F, 512.0F, this.backgrnd);
+         RenderUtil.drawImage((float)(this.xA + 288 * var4), (float)this.yA, 288.0F, 512.0F, this.backgrnd);
       }
 
       float var16 = 60.0F / (float) Minecraft.getFps();
@@ -110,7 +110,7 @@ public class Class4299 extends AnimatedIconPanelWrap {
       float var18 = (float)(System.currentTimeMillis() % (long)3400) / 3400;
 
       for (int var19 = 0; var19 < 4; var19++) {
-         RenderUtil.method11455((float)(this.xA + 288 * var19) - 288.0F * var18, (float)(this.yA + var8), 288.0F, 112.0F, this.foregrnd);
+         RenderUtil.drawImage((float)(this.xA + 288 * var19) - 288.0F * var18, (float)(this.yA + var8), 288.0F, 112.0F, this.foregrnd);
       }
 
       RenderUtil.drawImage(

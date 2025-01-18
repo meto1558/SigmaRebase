@@ -33,7 +33,7 @@ public class ClassicMainScreen extends Screen {
     private Animation field21100 = new Animation(325, 325);
     private final Animation field21101 = new Animation(800, 800);
     private final ClassicParticleEngine field21102;
-    private final Class4337 field21103;
+    private final ClassicTitleScreen field21103;
     private float field21104;
     private float field21105;
 
@@ -51,7 +51,7 @@ public class ClassicMainScreen extends Screen {
         this.addToList(this.field21102 = new ClassicParticleEngine(this, "particles"));
         int var13 = 480;
         int var14 = 480;
-        this.addToList(this.field21103 = new Class4337(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
+        this.addToList(this.field21103 = new ClassicTitleScreen(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
         this.addToList(
                 this.field21095 = new UITextDisplay(
                         this, "Copyright", 10, 8, var9.getWidth(var11), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var11, ResourceRegistry.JelloLightFont18
@@ -113,7 +113,7 @@ public class ClassicMainScreen extends Screen {
     }
 
     public void method13435(Screen var1) {
-        Client.getInstance().guiManager.method33482(var1);
+        Client.getInstance().guiManager.handleScreen(var1);
         this.method13436();
     }
 
@@ -121,12 +121,12 @@ public class ClassicMainScreen extends Screen {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
-        float var5 = (float) var1 - this.field21104;
-        float var6 = (float) var2 - this.field21105;
+    public void updatePanelDimensions(int newHeight, int newWidth) {
+        float var5 = (float) newHeight - this.field21104;
+        float var6 = (float) newWidth - this.field21105;
         this.field21104 += var5 * 0.055F;
         this.field21105 += var6 * 0.055F;
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class ClassicMainScreen extends Screen {
                 (int) ((float) (-this.getHeightA() / 100) + this.field21105 / 100.0F) - var4,
                 0.0
         );
-        RenderUtil.method11455(-10.0F, -10.0F, (float) (this.getWidthA() + 20), (float) (this.getHeightA() + 20), Resources.mainmenubackground);
+        RenderUtil.drawImage(-10.0F, -10.0F, (float) (this.getWidthA() + 20), (float) (this.getHeightA() + 20), Resources.mainmenubackground);
         GL11.glPopMatrix();
         this.field21103
                 .method13286(

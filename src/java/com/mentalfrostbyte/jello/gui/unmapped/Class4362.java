@@ -26,7 +26,7 @@ public class Class4362 extends UIBase {
    }
 
    private void method13634() {
-      this.method13241().clear();
+      this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
 
       for (String var4 : this.field21323) {
@@ -54,7 +54,7 @@ public class Class4362 extends UIBase {
          var5.method13034(10);
          var5.doThis((var2, var3) -> {
             this.method13641(this.field21323.indexOf(var4));
-            this.method13037();
+            this.callUIHandlers();
          });
       }
 
@@ -66,13 +66,13 @@ public class Class4362 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
    public void draw(float var1) {
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),

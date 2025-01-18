@@ -11,16 +11,16 @@ import java.util.Date;
 
 public class Ban {
     private final String serverIP;
-    private final Date field39611;
+    private final Date date;
 
     public Ban(String var1, Date var2) {
         this.serverIP = var1;
-        this.field39611 = var2;
+        this.date = var2;
     }
 
     public Ban(JSONObject var1) throws JSONException {
         Calendar var4 = Calendar.getInstance();
-        long var5 = 0L;
+        long var5;
         if (!(var1.get("until") instanceof Integer)) {
             var5 = (Long) var1.get("until");
         } else {
@@ -33,13 +33,13 @@ public class Ban {
 
         var4.setTimeInMillis(var5);
         this.serverIP = var1.getString("server");
-        this.field39611 = var4.getTime();
+        this.date = var4.getTime();
     }
 
     public JSONObject asJSONObject() {
         JSONObject var3 = new JSONObject();
         var3.put("server", this.serverIP);
-        var3.put("until", this.field39611.getTime());
+        var3.put("until", this.date.getTime());
         return var3;
     }
 
@@ -48,7 +48,7 @@ public class Ban {
     }
 
     public Date method31735() {
-        return this.field39611;
+        return this.date;
     }
 
     public ServerData method31736() {

@@ -149,25 +149,25 @@ public class RealmsSubscriptionInfoScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         int i = this.width / 2 - 100;
-        drawCenteredString(matrixStack, this.font, field_243173_b, this.width / 2, 17, 16777215);
-        this.font.func_243248_b(matrixStack, field_243174_c, (float)i, (float)func_239562_k_(0), 10526880);
-        this.font.drawString(matrixStack, this.field_224591_m, (float)i, (float)func_239562_k_(1), 16777215);
+        drawCenteredString(matrices, this.font, field_243173_b, this.width / 2, 17, 16777215);
+        this.font.func_243248_b(matrices, field_243174_c, (float)i, (float)func_239562_k_(0), 10526880);
+        this.font.drawString(matrices, this.field_224591_m, (float)i, (float)func_239562_k_(1), 16777215);
 
         if (this.field_224592_n == Subscription.Type.NORMAL)
         {
-            this.font.func_243248_b(matrixStack, field_243175_p, (float)i, (float)func_239562_k_(3), 10526880);
+            this.font.func_243248_b(matrices, field_243175_p, (float)i, (float)func_239562_k_(3), 10526880);
         }
         else if (this.field_224592_n == Subscription.Type.RECURRING)
         {
-            this.font.func_243248_b(matrixStack, field_243176_q, (float)i, (float)func_239562_k_(3), 10526880);
+            this.font.func_243248_b(matrices, field_243176_q, (float)i, (float)func_239562_k_(3), 10526880);
         }
 
-        this.font.func_243248_b(matrixStack, this.field_224590_l, (float)i, (float)func_239562_k_(4), 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.font.func_243248_b(matrices, this.field_224590_l, (float)i, (float)func_239562_k_(4), 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private ITextComponent func_224576_a(int p_224576_1_)

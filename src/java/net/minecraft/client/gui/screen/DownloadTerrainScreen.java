@@ -22,7 +22,7 @@ public class DownloadTerrainScreen extends Screen
         return false;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.customLoadingScreen != null)
         {
@@ -33,8 +33,8 @@ public class DownloadTerrainScreen extends Screen
             this.renderDirtBackground(0);
         }
 
-        drawCenteredString(matrixStack, this.font, field_243307_a, this.width / 2, this.height / 2 - 50, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawCenteredString(matrices, this.font, field_243307_a, this.width / 2, this.height / 2 - 50, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean isPauseScreen()

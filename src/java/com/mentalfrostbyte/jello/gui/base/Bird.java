@@ -5,12 +5,12 @@ import net.minecraft.util.text.ITextComponent;
 
 public class Bird extends Screen {
 
-   public Bird(ITextComponent title) {
-      super(title);
-   }
+    public Bird(ITextComponent title) {
+        super(title);
+    }
 
-   @Override
-   public boolean isPauseScreen() {
-      return false;
-   }
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
 }

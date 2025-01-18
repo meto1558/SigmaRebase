@@ -79,7 +79,7 @@ public class LoginScreen extends UIBase {
       this.field21355.setEnabled(false);
       this.loginButton.doThis((var1x, var2x) -> this.method13688());
       this.registerButton.doThis((var1x, var2x) -> {
-         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getScreen();
+         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getParent();
          var5x.method13422();
       });
       this.forgotButton.doThis((var0, var1x) -> Util.getOSType().openLink("https://sigma-web-alpha.vercel.app/"));
@@ -95,14 +95,14 @@ public class LoginScreen extends UIBase {
       if (var5 != null) {
          this.field21355.setEnabled(var5.method36702());
          if (var5.method36702()) {
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                (float)(this.xA + 330), (float)(this.yA + 255), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
             );
          }
 
          if (var5.method36701() != null) {
             RenderUtil.startScissor((float)(this.xA + 316), (float)(this.yA + 255), 190.0F, 50.0F);
-            RenderUtil.method11455((float)(this.xA + 316), (float)(this.yA + 255), 190.0F, 190.0F, var5.method36701());
+            RenderUtil.drawImage((float)(this.xA + 316), (float)(this.yA + 255), 190.0F, 190.0F, var5.method36701());
             RenderUtil.endScissor();
          }
       }
@@ -119,13 +119,13 @@ public class LoginScreen extends UIBase {
             var3.method36706(this.field21355.getTypedText());
          }
 
-         String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText(), var3);
+         String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText());
          if (var4 != null) {
-            LoginAndOutScreen var5 = (LoginAndOutScreen)this.getScreen();
+            LoginAndOutScreen var5 = (LoginAndOutScreen)this.getParent();
             var5.method13424("Error", var4);
             this.field21355.setTypedText("");
          } else {
-            this.method13037();
+            this.callUIHandlers();
          }
 
          this.loadingThingy.method13296(false);

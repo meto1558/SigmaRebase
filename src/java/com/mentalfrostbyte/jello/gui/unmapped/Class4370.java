@@ -44,21 +44,21 @@ public class Class4370 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       int var5 = this.getHeightO() - this.method13271();
       if (this.field21364) {
          this.method13698((float)var5 / (float)this.getWidthA());
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
    public void draw(float var1) {
-      RenderUtil.renderBackgroundBox((float)(this.xA + this.widthA), (float)(this.yA + 1), 1.0F, (float)(this.heightA - 2), -8882056);
-      RenderUtil.renderBackgroundBox((float)(this.xA + 1), (float)this.yA, (float)(this.widthA - 1), (float)this.heightA, -8882056);
-      RenderUtil.renderBackgroundBox((float)this.xA, (float)(this.yA + 1), 1.0F, (float)(this.heightA - 2), -6250336);
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2((float)(this.xA + this.widthA), (float)(this.yA + 1), 1.0F, (float)(this.heightA - 2), -8882056);
+      RenderUtil.drawRoundedRect2((float)(this.xA + 1), (float)this.yA, (float)(this.widthA - 1), (float)this.heightA, -8882056);
+      RenderUtil.drawRoundedRect2((float)this.xA, (float)(this.yA + 1), 1.0F, (float)(this.heightA - 2), -6250336);
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + 1), (float)this.yA, (float)this.widthA * this.field21363 - 1.0F, (float)this.heightA, -6250336
       );
       this.method13696(Math.round((float)this.xA + (float)this.widthA * this.field21363) - 2, this.yA - 3);
@@ -66,25 +66,25 @@ public class Class4370 extends UIBase {
    }
 
    public void method13696(int var1, int var2) {
-      RenderUtil.renderBackgroundBox((float)(var1 + 1), (float)(var2 + 1), 4.0F, 8.0F, -3618616);
-      RenderUtil.renderBackgroundBox((float)(var1 + 1), (float)(var2 + 1), 1.0F, 1.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)(var1 + 4), (float)(var2 + 1), 1.0F, 1.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)(var1 + 1), (float)(var2 + 8), 1.0F, 1.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)(var1 + 4), (float)(var2 + 8), 1.0F, 1.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)var1, (float)(var2 + 1), 1.0F, 8.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)(var1 + 5), (float)(var2 + 1), 1.0F, 8.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)(var1 + 1), (float)var2, 4.0F, 1.0F, -4934476);
-      RenderUtil.renderBackgroundBox((float)(var1 + 1), (float)(var2 + 9), 4.0F, 1.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 1), (float)(var2 + 1), 4.0F, 8.0F, -3618616);
+      RenderUtil.drawRoundedRect2((float)(var1 + 1), (float)(var2 + 1), 1.0F, 1.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 4), (float)(var2 + 1), 1.0F, 1.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 1), (float)(var2 + 8), 1.0F, 1.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 4), (float)(var2 + 8), 1.0F, 1.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)var1, (float)(var2 + 1), 1.0F, 8.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 5), (float)(var2 + 1), 1.0F, 8.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 1), (float)var2, 4.0F, 1.0F, -4934476);
+      RenderUtil.drawRoundedRect2((float)(var1 + 1), (float)(var2 + 9), 4.0F, 1.0F, -4934476);
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       this.field21364 = true;
-      return super.method13078(var1, var2, var3);
+      return super.onClick(mouseX, mouseY, mouseButton);
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
       this.field21364 = false;
    }
 
@@ -101,7 +101,7 @@ public class Class4370 extends UIBase {
       float var5 = this.field21363;
       this.field21363 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 }

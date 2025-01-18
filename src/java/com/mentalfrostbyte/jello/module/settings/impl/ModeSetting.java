@@ -23,7 +23,7 @@ public class ModeSetting extends Setting<String> {
    private final List<String> modes;
 
    public String getCurrentValue() {
-      return this.defaultValue;
+      return this.currentValue;
    }
 
    public int getModeIndex() {

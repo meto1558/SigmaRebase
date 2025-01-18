@@ -169,10 +169,10 @@ public class MerchantScreen extends ContainerScreen<MerchantContainer>
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
         MerchantOffers merchantoffers = this.container.getOffers();
 
         if (!merchantoffers.isEmpty())
@@ -184,7 +184,7 @@ public class MerchantScreen extends ContainerScreen<MerchantContainer>
             RenderSystem.pushMatrix();
             RenderSystem.enableRescaleNormal();
             this.minecraft.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
-            this.func_238840_a_(matrixStack, i, j, merchantoffers);
+            this.func_238840_a_(matrices, i, j, merchantoffers);
             int i1 = 0;
 
             for (MerchantOffer merchantoffer : merchantoffers)
@@ -201,7 +201,7 @@ public class MerchantScreen extends ContainerScreen<MerchantContainer>
                     ItemStack itemstack3 = merchantoffer.getSellingStack();
                     this.itemRenderer.zLevel = 100.0F;
                     int j1 = k + 2;
-                    this.func_238841_a_(matrixStack, itemstack1, itemstack, l, j1);
+                    this.func_238841_a_(matrices, itemstack1, itemstack, l, j1);
 
                     if (!itemstack2.isEmpty())
                     {
@@ -209,7 +209,7 @@ public class MerchantScreen extends ContainerScreen<MerchantContainer>
                         this.itemRenderer.renderItemOverlays(this.font, itemstack2, i + 5 + 35, j1);
                     }
 
-                    this.func_238842_a_(matrixStack, merchantoffer, i, j1);
+                    this.func_238842_a_(matrices, merchantoffer, i, j1);
                     this.itemRenderer.renderItemAndEffectIntoGuiWithoutEntity(itemstack3, i + 5 + 68, j1);
                     this.itemRenderer.renderItemOverlays(this.font, itemstack3, i + 5 + 68, j1);
                     this.itemRenderer.zLevel = 0.0F;
@@ -223,19 +223,19 @@ public class MerchantScreen extends ContainerScreen<MerchantContainer>
 
             if (this.container.func_217042_i())
             {
-                this.func_238839_a_(matrixStack, i, j, merchantoffer1);
+                this.func_238839_a_(matrices, i, j, merchantoffer1);
             }
 
             if (merchantoffer1.hasNoUsesLeft() && this.isPointInRegion(186, 35, 22, 21, (double)mouseX, (double)mouseY) && this.container.func_223432_h())
             {
-                this.renderTooltip(matrixStack, field_243353_D, mouseX, mouseY);
+                this.renderTooltip(matrices, field_243353_D, mouseX, mouseY);
             }
 
             for (MerchantScreen.TradeButton merchantscreen$tradebutton : this.field_214138_m)
             {
                 if (merchantscreen$tradebutton.isHovered())
                 {
-                    merchantscreen$tradebutton.renderToolTip(matrixStack, mouseX, mouseY);
+                    merchantscreen$tradebutton.renderToolTip(matrices, mouseX, mouseY);
                 }
 
                 merchantscreen$tradebutton.visible = merchantscreen$tradebutton.field_212938_a < this.container.getOffers().size();
@@ -245,7 +245,7 @@ public class MerchantScreen extends ContainerScreen<MerchantContainer>
             RenderSystem.enableDepthTest();
         }
 
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
     }
 
     private void func_238842_a_(MatrixStack p_238842_1_, MerchantOffer p_238842_2_, int p_238842_3_, int p_238842_4_)

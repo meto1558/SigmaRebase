@@ -31,14 +31,14 @@ public class Class4266 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       if (this.field20909 && this.field20686 <= 0) {
-         if (var2 >= this.method13272() + this.getHeightA() / 2) {
-            ((Class4259)this.screen).method13076(false);
+         if (newWidth >= this.method13272() + this.getHeightA() / 2) {
+            ((Class4259)this.parent).method13076(false);
             this.field20685.add(new Class7086(this, false));
          } else {
-            ((Class4259)this.screen).method13076(true);
+            ((Class4259)this.parent).method13076(true);
             this.field20685.add(new Class7086(this, true));
          }
 
@@ -74,7 +74,7 @@ public class Class4266 extends UIBase {
          if (this.field20687) {
             BufferedImage var6 = ImageUtil.method35039(this.method13271(), this.method13272(), this.widthA, this.heightA, 3, 10, true);
             this.field20684 = ColorUtils.method17682(new Color(var6.getRGB(6, 7)), new Color(var6.getRGB(6, 22))).getRGB();
-            this.field20684 = ColorUtils.method17691(this.field20684, 0.25F);
+            this.field20684 = ColorUtils.shiftTowardsBlack(this.field20684, 0.25F);
             if (this.field20688 != null) {
                this.field20688.release();
             }
@@ -101,12 +101,12 @@ public class Class4266 extends UIBase {
                var1
             );
             GL11.glPushMatrix();
-            RenderUtil.method11476();
+            RenderUtil.initStencilBuffer();
             RenderUtil.method11474(
                (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 8.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
             );
             RenderUtil.method11477(Class2329.field15940);
-            RenderUtil.method11448(
+            RenderUtil.drawTexture(
                (float)(this.xA - 1),
                (float)(this.yA - 1),
                (float)(this.widthA + 2),
@@ -120,8 +120,8 @@ public class Class4266 extends UIBase {
                int var7 = this.heightA / 2;
                int var8 = this.yA + (var11.field30491 ? 0 : var7);
                int var9 = this.widthA / 2;
-               RenderUtil.method11421(this.xA, var8, this.xA + this.widthA, var8 + var7, true);
-               RenderUtil.method11436(
+               RenderUtil.drawPortalBackground(this.xA, var8, this.xA + this.widthA, var8 + var7, true);
+               RenderUtil.drawFilledArc(
                   (float)(this.xA + var9),
                   (float)(var8 + this.heightA / 4),
                   (float)(var9 * 2 - 4) * var11.field30490 + 4.0F,
@@ -134,8 +134,8 @@ public class Class4266 extends UIBase {
                }
             }
 
-            RenderUtil.method11478();
-            RenderUtil.drawRect(
+            RenderUtil.restorePreviousStencilBuffer();
+            RenderUtil.drawRoundedRect(
                (float)this.xA,
                (float)this.yA,
                (float)this.widthA,
@@ -151,7 +151,7 @@ public class Class4266 extends UIBase {
                "+",
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
             );
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                (float)(this.xA + 16), (float)(this.yA + 65), 8.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
             );
          }

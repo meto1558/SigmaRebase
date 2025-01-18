@@ -1,16 +1,17 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.managers.impl.sound.Sound;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import java.io.InputStream;
 import java.util.*;
 
+import jaco.mp3.player.MP3Player;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.advanced.AdvancedPlayer;
+
 public class SoundManager {
-    public static final Map<String, Sound> SOUNDS = new HashMap<>();
+    public static final Map<String, MP3Player> SOUNDS = new HashMap<>();
     private static final String fileType = ".mp3";
     private static final List<String> VALID_SOUNDS = new ArrayList<>(
             Arrays.asList("activate", "deactivate", "click", "error", "pop", "connect", "switch", "clicksound")
@@ -32,7 +33,7 @@ public class SoundManager {
                     }
                 }).start();
 
-                Sound sound = new Sound(audioStream);
+                MP3Player sound = new MP3Player(audioStream);
                 SOUNDS.put(url, sound);
             } catch (JavaLayerException e) {
                 Client.getInstance().getLogger().error("Unsupported audio file: " + url + " : " + e.getMessage());

@@ -78,22 +78,22 @@ public class RealmsLongRunningMcoTaskScreen extends RealmsScreen implements IErr
         this.minecraft.displayGuiScreen(this.field_224241_e);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.field_224243_g, this.width / 2, func_239562_k_(3), 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.field_224243_g, this.width / 2, func_239562_k_(3), 16777215);
         ITextComponent itextcomponent = this.field_224245_i;
 
         if (itextcomponent == null)
         {
-            drawCenteredString(matrixStack, this.font, field_224237_a[this.field_224247_k % field_224237_a.length], this.width / 2, func_239562_k_(8), 8421504);
+            drawCenteredString(matrices, this.font, field_224237_a[this.field_224247_k % field_224237_a.length], this.width / 2, func_239562_k_(8), 8421504);
         }
         else
         {
-            drawCenteredString(matrixStack, this.font, itextcomponent, this.width / 2, func_239562_k_(8), 16711680);
+            drawCenteredString(matrices, this.font, itextcomponent, this.width / 2, func_239562_k_(8), 16711680);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public void func_230434_a_(ITextComponent p_230434_1_)

@@ -53,7 +53,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
       this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
       this.field21258 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
       if (this.field21254 || this.method13212() || this.method13298()) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),
@@ -104,7 +104,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
          );
       }
 
-      RenderUtil.method11421(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+      RenderUtil.drawPortalBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
       if (this.field21249 != null) {
          this.method13584();
          RenderUtil.endScissor();
@@ -124,7 +124,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
    }
 
    public void method13583() {
-      RenderUtil.method11450(
+      RenderUtil.drawImage(
          (float)(this.xA + 13), (float)(this.yA + 13), 75.0F, 75.0F, this.field21249.setSkinTexture(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
       );
       RenderUtil.method11464((float)(this.xA + 13), (float)(this.yA + 13), 75.0F, 75.0F, 20.0F, 1.0F);

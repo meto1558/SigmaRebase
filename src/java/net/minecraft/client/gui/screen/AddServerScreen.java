@@ -138,14 +138,14 @@ public class AddServerScreen extends Screen
         this.buttonAddServer.active = flag && !this.textFieldServerName.getText().isEmpty();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 17, 16777215);
-        drawString(matrixStack, this.font, field_243290_a, this.width / 2 - 100, 53, 10526880);
-        drawString(matrixStack, this.font, field_243291_b, this.width / 2 - 100, 94, 10526880);
-        this.textFieldServerName.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.textFieldServerAddress.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 17, 16777215);
+        drawString(matrices, this.font, field_243290_a, this.width / 2 - 100, 53, 10526880);
+        drawString(matrices, this.font, field_243291_b, this.width / 2 - 100, 94, 10526880);
+        this.textFieldServerName.render(matrices, mouseX, mouseY, delta);
+        this.textFieldServerAddress.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

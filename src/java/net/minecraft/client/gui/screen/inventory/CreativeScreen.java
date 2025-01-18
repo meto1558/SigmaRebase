@@ -756,14 +756,14 @@ public class CreativeScreen extends DisplayEffectsScreen<CreativeScreen.Creative
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
 
         for (ItemGroup itemgroup : ItemGroup.GROUPS)
         {
-            if (this.func_238809_a_(matrixStack, itemgroup, mouseX, mouseY))
+            if (this.func_238809_a_(matrices, itemgroup, mouseX, mouseY))
             {
                 break;
             }
@@ -771,11 +771,11 @@ public class CreativeScreen extends DisplayEffectsScreen<CreativeScreen.Creative
 
         if (this.destroyItemSlot != null && selectedTabIndex == ItemGroup.INVENTORY.getIndex() && this.isPointInRegion(this.destroyItemSlot.xPos, this.destroyItemSlot.yPos, 16, 16, (double)mouseX, (double)mouseY))
         {
-            this.renderTooltip(matrixStack, field_243345_D, mouseX, mouseY);
+            this.renderTooltip(matrices, field_243345_D, mouseX, mouseY);
         }
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
     }
 
     protected void renderTooltip(MatrixStack matrixStack, ItemStack itemStack, int mouseX, int mouseY)

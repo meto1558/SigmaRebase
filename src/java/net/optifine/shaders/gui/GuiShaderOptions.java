@@ -245,20 +245,20 @@ public class GuiShaderOptions extends GuiScreenOF
         }
     }
 
-    public void render(MatrixStack matrixStackIn, int x, int y, float partialTicks)
+    public void render(MatrixStack matrices, int x, int y, float delta)
     {
-        this.renderBackground(matrixStackIn);
+        this.renderBackground(matrices);
 
         if (this.screenText != null)
         {
-            drawCenteredString(matrixStackIn, this.fontRenderer, this.screenText, this.width / 2, 15, 16777215);
+            drawCenteredString(matrices, this.fontRenderer, this.screenText, this.width / 2, 15, 16777215);
         }
         else
         {
-            drawCenteredString(matrixStackIn, this.fontRenderer, this.title, this.width / 2, 15, 16777215);
+            drawCenteredString(matrices, this.fontRenderer, this.title, this.width / 2, 15, 16777215);
         }
 
-        super.render(matrixStackIn, x, y, partialTicks);
-        this.tooltipManager.drawTooltips(matrixStackIn, x, y, this.buttonList);
+        super.render(matrices, x, y, delta);
+        this.tooltipManager.drawTooltips(matrices, x, y, this.buttonList);
     }
 }

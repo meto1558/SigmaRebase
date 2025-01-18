@@ -94,17 +94,17 @@ public class WorldSelectionScreen extends Screen
         return this.searchField.charTyped(codePoint, modifiers);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.worldVersTooltip = null;
-        this.selectionList.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.searchField.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 8, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.selectionList.render(matrices, mouseX, mouseY, delta);
+        this.searchField.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 8, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.worldVersTooltip != null)
         {
-            this.renderTooltip(matrixStack, this.worldVersTooltip, mouseX, mouseY);
+            this.renderTooltip(matrices, this.worldVersTooltip, mouseX, mouseY);
         }
     }
 

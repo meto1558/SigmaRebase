@@ -14,21 +14,21 @@ public class Class4263 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       this.field20678 = this.field20678 + (!this.method13298() ? -0.14F : 0.14F);
       this.field20678 = Math.min(Math.max(0.0F, this.field20678), 1.0F);
    }
 
    @Override
    public void draw(float var1) {
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)this.widthA,
          ColorUtils.applyAlpha(ClientColors.PALE_YELLOW.getColor(), (0.5F + this.field20678 * 0.3F + (!this.field20909 ? 0.0F : 0.2F)) * var1)
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + (this.widthA - 10) / 2),
          (float)(this.yA + this.heightA / 2 - 1),
          10.0F,

@@ -48,17 +48,17 @@ public abstract class WithNarratorSettingsScreen extends SettingsScreen
         }));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.field_243315_q.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 20, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        this.field_243315_q.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 20, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
         List<IReorderingProcessor> list = func_243293_a(this.field_243315_q, mouseX, mouseY);
 
         if (list != null)
         {
-            this.renderTooltip(matrixStack, list, mouseX, mouseY);
+            this.renderTooltip(matrices, list, mouseX, mouseY);
         }
     }
 

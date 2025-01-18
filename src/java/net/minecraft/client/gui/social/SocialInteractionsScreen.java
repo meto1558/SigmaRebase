@@ -222,48 +222,48 @@ public class SocialInteractionsScreen extends Screen
         this.blit(matrixStack, i + 10, 76, 243, 1, 12, 12);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.func_244680_a(this.minecraft);
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
 
         if (this.field_244679_z != null)
         {
-            drawString(matrixStack, this.minecraft.fontRenderer, this.field_244679_z, this.func_244692_n() + 8, 35, -1);
+            drawString(matrices, this.minecraft.fontRenderer, this.field_244679_z, this.func_244692_n() + 8, 35, -1);
         }
 
         if (!this.field_244673_t.func_244660_f())
         {
-            this.field_244673_t.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.field_244673_t.render(matrices, mouseX, mouseY, delta);
         }
         else if (!this.field_244674_u.getText().isEmpty())
         {
-            drawCenteredString(matrixStack, this.minecraft.fontRenderer, field_244764_u, this.width / 2, (78 + this.func_244691_m()) / 2, -1);
+            drawCenteredString(matrices, this.minecraft.fontRenderer, field_244764_u, this.width / 2, (78 + this.func_244691_m()) / 2, -1);
         }
         else
         {
             switch (this.field_244676_w)
             {
                 case HIDDEN:
-                    drawCenteredString(matrixStack, this.minecraft.fontRenderer, field_244672_s, this.width / 2, (78 + this.func_244691_m()) / 2, -1);
+                    drawCenteredString(matrices, this.minecraft.fontRenderer, field_244672_s, this.width / 2, (78 + this.func_244691_m()) / 2, -1);
                     break;
 
                 case BLOCKED:
-                    drawCenteredString(matrixStack, this.minecraft.fontRenderer, field_244765_w, this.width / 2, (78 + this.func_244691_m()) / 2, -1);
+                    drawCenteredString(matrices, this.minecraft.fontRenderer, field_244765_w, this.width / 2, (78 + this.func_244691_m()) / 2, -1);
             }
         }
 
         if (!this.field_244674_u.isFocused() && this.field_244674_u.getText().isEmpty())
         {
-            drawString(matrixStack, this.minecraft.fontRenderer, field_244671_r, this.field_244674_u.x, this.field_244674_u.y, -1);
+            drawString(matrices, this.minecraft.fontRenderer, field_244671_r, this.field_244674_u.x, this.field_244674_u.y, -1);
         }
         else
         {
-            this.field_244674_u.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.field_244674_u.render(matrices, mouseX, mouseY, delta);
         }
 
         this.field_244761_F.visible = this.field_244676_w == SocialInteractionsScreen.Mode.BLOCKED;
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_244665_D != null)
         {

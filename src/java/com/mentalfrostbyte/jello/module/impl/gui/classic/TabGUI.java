@@ -8,8 +8,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.misc.CategoryDrawPart;
 import com.mentalfrostbyte.jello.misc.CategoryDrawPartBackground;
-import com.mentalfrostbyte.jello.misc.Class2071;
-import com.mentalfrostbyte.jello.misc.Class4647;
+import com.mentalfrostbyte.jello.misc.KeyAction;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -61,18 +60,18 @@ public class TabGUI extends Module {
    @EventTarget
    public void method15954(EventKeyPress event) {
       if (this.isEnabled()) {
-         Class2071 var4 = method15960(event.getKey());
-         if (var4 != null) {
+         KeyAction action = mapKeyToAction(event.getKey());
+         if (action != null) {
             animationProgress.changeDirection(Direction.FORWARDS);
             this.field23384 = 80;
             int categoryState = this.getCurrentCategoryState();
             CategoryDrawPart category = categoryDrawParts.get(categoryState - 1);
-            if (var4 != Class2071.field13494 && (!this.method15971() && var4 != Class2071.field13492 || categoryState != 3)) {
+            if (action != KeyAction.EnterKey && (!this.method15971() && action != KeyAction.RightArrowKey || categoryState != 3)) {
                this.secondAnimationProgress = new Animation(500, 200, Direction.BACKWARDS);
             }
 
-            switch (Class4647.field22175[var4.ordinal()]) {
-               case 1:
+            switch (action) {
+               case LeftArrowKey:
                   if (categoryState == 3 && this.method15971()) {
                      this.method15970(false);
                   } else if (categoryState > 1) {
@@ -83,21 +82,21 @@ public class TabGUI extends Module {
                      category.expand();
                   }
                   break;
-               case 2:
+               case DownArrowKey:
                   if (categoryState == 3 && this.method15971()) {
                      this.onSettingChange(true);
                   } else if (category != null) {
                       category.method24731();
                   }
                   break;
-               case 3:
+               case UpArrowKey:
                   if (categoryState == 3 && this.method15971()) {
                      this.onSettingChange(false);
                   } else if (category != null) {
                       category.method24730();
                   }
                   break;
-               case 4:
+               case RightArrowKey:
                   if (categoryState == 1) {
                      this.method15962(this.categories.get(category.index));
                   } else if (categoryState == 2 && category != null) {
@@ -109,7 +108,7 @@ public class TabGUI extends Module {
                      this.method15970(true);
                   }
                   break;
-               case 5:
+               case EnterKey:
                   if (categoryState == 2 && category != null) {
                      CategoryDrawPart drawPart = categoryDrawParts.get(0);
                      ModuleCategory modCat = this.categories.get(drawPart.index);
@@ -198,7 +197,7 @@ public class TabGUI extends Module {
                }
 
                this.drawCategories((float)(0.5 + (double) animationProgress.calcPercent() * 0.5));
-               RenderUtil.renderBackgroundBox(12.0F, 30.0F, 90.0F, 1.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+               RenderUtil.drawRoundedRect2(12.0F, 30.0F, 90.0F, 1.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
             }
          }
       }
@@ -261,7 +260,7 @@ public class TabGUI extends Module {
             int descriptionY = activeCategoryPart.getStartY() + 25 * activeCategoryPart.index + 4;
             int descriptionWidth = activeCategoryPart.fontRenderer.getWidth(description) + 8;
             float secondAnimationValue = MathHelper.calculateTransition(this.secondAnimationProgress.calcPercent(), 0.0F, 1.0F, 1.0F);
-            RenderUtil.renderBackgroundBox((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F));
+            RenderUtil.drawRoundedRect2((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F));
             RenderUtil.startScissor((float)descriptionX, (float)descriptionY, (float)descriptionWidth * secondAnimationValue, 25.0F);
             RenderUtil.drawString(
                     activeCategoryPart.fontRenderer, (float)(descriptionX + 4), (float)(descriptionY + 2), description, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 1.7F))
@@ -273,24 +272,24 @@ public class TabGUI extends Module {
       }
    }
 
-   public static Class2071 method15960(int var0) {
-      switch (var0) {
-         case 257:
-            return Class2071.field13494;
-         case 258:
-         case 259:
-         case 260:
-         case 261:
+   public static KeyAction mapKeyToAction(int keyCode) {
+      switch (keyCode) {
+         case 257: // ENTER key
+            return KeyAction.EnterKey;
+         case 258: // TAB key
+         case 259: // BACKSPACE key
+         case 260: // INSERT key
+         case 261: // DELETE key
          default:
             return null;
          case 262:
-            return Class2071.field13492;
+            return KeyAction.RightArrowKey;
          case 263:
-            return Class2071.field13493;
+            return KeyAction.LeftArrowKey;
          case 264:
-            return Class2071.field13496;
+            return KeyAction.DownArrowKey;
          case 265:
-            return Class2071.field13495;
+            return KeyAction.UpArrowKey;
       }
    }
 
@@ -359,9 +358,9 @@ public class TabGUI extends Module {
       ArrayList var4 = new ArrayList<Setting>(var1.getSettingMap().values());
       if (var1 instanceof ModuleWithModuleSettings) {
          ModuleWithModuleSettings var5 = (ModuleWithModuleSettings)var1;
-         var5.method16724();
-         if (var5.method16726() != null) {
-            var4.addAll(var5.method16726().getSettingMap().values());
+         var5.calledOnEnable();
+         if (var5.getModWithTypeSetToName() != null) {
+            var4.addAll(var5.getModWithTypeSetToName().getSettingMap().values());
          }
       }
 

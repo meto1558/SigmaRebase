@@ -150,9 +150,9 @@ public class ConnectingScreen extends Screen
         }));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         long i = Util.milliTime();
 
         if (i - this.field_213000_g > 2000L)
@@ -161,7 +161,7 @@ public class ConnectingScreen extends Screen
             NarratorChatListener.INSTANCE.say((new TranslationTextComponent("narrator.joining")).getString());
         }
 
-        drawCenteredString(matrixStack, this.font, this.field_209515_s, this.width / 2, this.height / 2 - 50, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawCenteredString(matrices, this.font, this.field_209515_s, this.width / 2, this.height / 2 - 50, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

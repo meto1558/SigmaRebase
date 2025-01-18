@@ -33,8 +33,8 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
     }
 
     @Override
-    public void keyPressed(int var1) {
-        if (var1 == 257 && this.searchBox.method13297()) {
+    public void keyPressed(int keyCode) {
+        if (keyCode == 257 && this.searchBox.method13297()) {
             this.searchBox.method13145(false);
             new Thread(
                     () -> {
@@ -45,7 +45,7 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
                             this.field20842.add(new YoutubeVideoData(var7.videoID, var7.title, var7.fullUrl));
                         }
 
-                        this.method13222(
+                        this.runThisOnDimensionUpdate(
                                 () -> {
                                     this.method13236(this.field20840);
                                     this.addToList(
@@ -56,7 +56,7 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
                                             YoutubeVideoData var4 = this.field20842.get(var3x);
                                             Class4286 var7x;
                                             this.field20840
-                                                    .addToList(
+                                                    .addButton(
                                                             var7x = new Class4286(
                                                                     this.field20840,
                                                                     10 + var3x % 3 * 183 - (var3x % 3 <= 0 ? 0 : 10) - (var3x % 3 <= 1 ? 0 : 10),
@@ -76,6 +76,6 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
                     .start();
         }
 
-        super.keyPressed(var1);
+        super.keyPressed(keyCode);
     }
 }

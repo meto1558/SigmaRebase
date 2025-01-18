@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.managers.impl.account.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -16,7 +15,7 @@ public class Class4365 extends UIBase {
    public float field21334 = 0.0F;
    public int field21337;
    public int field21338;
-   private Account account;
+   private String username;
 
    public Class4365(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String var7) {
       super(var1, var2, var3, var4, var5, var6, ColorHelper.field27961, var7, false);
@@ -24,18 +23,18 @@ public class Class4365 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      this.field21337 = var1;
-      this.field21338 = var2;
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      this.field21337 = newHeight;
+      this.field21338 = newWidth;
    }
 
    @Override
    public void draw(float var1) {
-      this.account = Client.getInstance().networkManager.account;
+      this.username = Client.getInstance().networkManager.username;
       String var4 = "Log in";
       Texture var5 = Resources.accountPNG;
-      if (this.account != null) {
-         var4 = this.account.username;
+      if (this.username != null) {
+         var4 = this.username;
       }
 
       this.setWidthA(this.font.getWidth(var4) + 50 + 60);
@@ -45,7 +44,7 @@ public class Class4365 extends UIBase {
       RenderUtil.drawRoundedRect(
          (float)this.xA, (float)this.yA, (float)this.getWidthA(), (float)this.getHeightA(), 20.0F, this.field21334 * 0.2F * var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.getWidthA()),

@@ -30,11 +30,11 @@ public class FilterList extends AbstractOptionList<FilterListEntry>
         this.func_244606_c(false);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         double d0 = this.field_244651_o.getMainWindow().getGuiScaleFactor();
         RenderSystem.enableScissor((int)((double)this.getRowLeft() * d0), (int)((double)(this.height - this.y1) * d0), (int)((double)(this.getScrollbarPosition() + 6) * d0), (int)((double)(this.height - (this.height - this.y1) - this.y0 - 4) * d0));
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
         RenderSystem.disableScissor();
     }
 

@@ -16,11 +16,11 @@ public class Class4368 extends UIBase {
       Class4262 var10;
       this.addToList(var10 = new Class4262(this, "enable", 114, 9, 40, 18));
       var10.method13093(var7.isEnabled());
-      var10.method13036(var2x -> var7.setEnabled(var10.method13092()));
+      var10.addUIHandler(var2x -> var7.setEnabled(var10.method13092()));
       if (var7.getSettingMap().size() > 0) {
          Class4364 var11;
          this.addToList(var11 = new Class4364(this, "gear", 132, 32));
-         var11.doThis((var2x, var3x) -> ((Class4335)this.getScreen()).method13486(var7));
+         var11.doThis((var2x, var3x) -> ((Class4335)this.getParent()).method13486(var7));
       }
    }
 
@@ -44,7 +44,7 @@ public class Class4368 extends UIBase {
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 52),
-              RenderUtil.method17736(this.field21351.parseSettingValueToIntBySettingName("Keybind")),
+              RenderUtil.getKeyName(this.field21351.parseSettingValueToIntBySettingName("Keybind")),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F)
       );
       if (this.field21351.getSettingMap().size() > 1) {

@@ -18,20 +18,20 @@ public class Class4264 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       int var5 = this.getHeightO() - this.method13271();
       if (this.field20680) {
          this.method13097((float)var5 / (float)this.getWidthA());
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
    public void draw(float var1) {
       for (int var4 = 0; var4 < this.widthA; var4++) {
          float var5 = (float)var4 / (float)this.widthA;
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)(this.xA + var4),
             (float)this.yA,
             1.0F,
@@ -54,13 +54,13 @@ public class Class4264 extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       this.field20680 = true;
-      return super.method13078(var1, var2, var3);
+      return super.onClick(mouseX, mouseY, mouseButton);
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
       this.field20680 = false;
    }
 
@@ -77,7 +77,7 @@ public class Class4264 extends UIBase {
       float var5 = this.field20679;
       this.field20679 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 }

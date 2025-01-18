@@ -28,11 +28,11 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
       UICheckBox var13;
       this.addToList(var13 = new UICheckBox(this, "guiBlurCheckBox", var5 / 2 - 70, var6 - 220, 25, 25));
       var13.method13705(Client.getInstance().guiManager.getGuiBlur(), false);
-      var13.method13036(var1x -> Client.getInstance().guiManager.setGuiBlur(var13.method13703()));
+      var13.addUIHandler(var1x -> Client.getInstance().guiManager.setGuiBlur(var13.method13703()));
       UICheckBox var14;
       this.addToList(var14 = new UICheckBox(this, "guiBlurIngameCheckBox", var5 / 2 + 130, var6 - 220, 25, 25));
       var14.method13705(Client.getInstance().guiManager.getHqIngameBlur(), false);
-      var14.method13036(var1x -> Client.getInstance().guiManager.setHqIngameBlur(var14.method13703()));
+      var14.addUIHandler(var1x -> Client.getInstance().guiManager.setHqIngameBlur(var14.method13703()));
    }
 
    @Override
@@ -49,7 +49,7 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * var1)
       );
       String var5 = "Click GUI is currently bound to: "
-         + RenderUtil.method17736(Client.getInstance().moduleManager.getMacOSTouchBar().method13728(ClickGui.class))
+         + RenderUtil.getKeyName(Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGui.class))
          + " Key";
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,

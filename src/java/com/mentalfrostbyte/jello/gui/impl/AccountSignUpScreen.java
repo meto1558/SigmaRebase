@@ -68,7 +68,7 @@ public class AccountSignUpScreen extends UIBase {
       this.captchaBox.setEnabled(false);
       this.registerButton.doThis((var1x, var2x) -> this.method13126());
       this.loginButton.doThis((var1x, var2x) -> {
-         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getScreen();
+         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getParent();
          var5x.method13423();
       });
    }
@@ -85,14 +85,14 @@ public class AccountSignUpScreen extends UIBase {
       if (var7 != null) {
          this.captchaBox.setEnabled(var7.method36702());
          if (var7.method36702()) {
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                (float)(this.xA + var6), (float)(this.yA + var5), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
             );
          }
 
          if (var7.method36701() != null) {
             RenderUtil.startScissor((float)(this.xA + var6), (float)(this.yA + var5), 190.0F, 50.0F);
-            RenderUtil.method11455((float)(this.xA + var6), (float)(this.yA + var5), 190.0F, 190.0F, var7.method36701());
+            RenderUtil.drawImage((float)(this.xA + var6), (float)(this.yA + var5), 190.0F, 190.0F, var7.method36701());
             RenderUtil.endScissor();
          }
       }
@@ -113,7 +113,7 @@ public class AccountSignUpScreen extends UIBase {
                String var4 = Client.getInstance()
                   .networkManager
                   .method30448(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText(), var3);
-               LoginAndOutScreen var5 = (LoginAndOutScreen)this.getScreen();
+               LoginAndOutScreen var5 = (LoginAndOutScreen)this.getParent();
                var5.method13424("Success", "You can now login.");
                var5.method13423();
 

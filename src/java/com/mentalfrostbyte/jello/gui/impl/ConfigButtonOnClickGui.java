@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
+import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ConfigButtonOnClickGui extends UIBase {
    private List<ButtonPanel> field21297 = new ArrayList<ButtonPanel>();
    public final Animation field21298;
-   public Class4339 field21299;
+   public Class4339 profileScrollView;
    public Class4272 field21300;
    private List<Class4351> field21301 = new ArrayList<Class4351>();
 
@@ -31,13 +31,13 @@ public class ConfigButtonOnClickGui extends UIBase {
       this.field21298 = new Animation(300, 100);
       this.method13292(true);
       this.method13300(false);
-      UIButton var7;
+      UIButton addButton;
       this.addToList(
-         var7 = new UIButton(
+         addButton = new UIButton(
             this, "addButton", this.widthA - 55, 0, ResourceRegistry.JelloLightFont25.getWidth("Add"), 69, ColorHelper.field27961, "+", ResourceRegistry.JelloLightFont25
          )
       );
-      var7.doThis((var1x, var2x) -> this.field21300.method13119(true));
+      addButton.doThis((var1x, var2x) -> this.field21300.method13119(true));
       this.addToList(this.field21300 = new Class4272(this, "profile", 0, 69, this.widthA, 200));
       this.field21300.method13292(true);
       this.method13615();
@@ -45,7 +45,7 @@ public class ConfigButtonOnClickGui extends UIBase {
 
    public void method13610() {
       Client.getInstance();
-      Class6814 var3 = Client.getInstance().moduleManager.getConfigurationManager();
+      ProfileManager var3 = Client.getInstance().moduleManager.getConfigurationManager();
       Configuration var4 = var3.getCurrentConfig();
       int var5 = 1;
 
@@ -54,13 +54,13 @@ public class ConfigButtonOnClickGui extends UIBase {
       }
 
       var3.saveConfig(var4.method22987(var4.getName + " Copy " + var5));
-      this.method13222(() -> this.method13615());
+      this.runThisOnDimensionUpdate(() -> this.method13615());
       this.field21300.method13119(false);
    }
 
    public void method13611(Configuration var1) {
       Client.getInstance();
-      Class6814 var4 = Client.getInstance().moduleManager.getConfigurationManager();
+      ProfileManager var4 = Client.getInstance().moduleManager.getConfigurationManager();
       Configuration var5 = var4.getCurrentConfig();
       int var6 = 1;
 
@@ -69,13 +69,13 @@ public class ConfigButtonOnClickGui extends UIBase {
       }
 
       var4.saveConfig(var1.method22987(var1.getName + " " + var6));
-      this.method13222(() -> this.method13615());
+      this.runThisOnDimensionUpdate(() -> this.method13615());
       this.field21300.method13119(false);
    }
 
    public void method13612() {
       Client.getInstance();
-      Class6814 var3 = Client.getInstance().moduleManager.getConfigurationManager();
+      ProfileManager var3 = Client.getInstance().moduleManager.getConfigurationManager();
       int var4 = 1;
 
       while (var3.method20768("New Profile " + var4)) {
@@ -83,7 +83,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       }
 
       var3.saveConfig(new Configuration("New Profile " + var4, new JSONObject()));
-      this.method13222(this::method13615);
+      this.runThisOnDimensionUpdate(this::method13615);
       this.field21300.method13119(false);
    }
 
@@ -99,35 +99,35 @@ public class ConfigButtonOnClickGui extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      if (var2 > this.field21300.method13272() + this.field21300.getHeightA()) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      if (newWidth > this.field21300.method13272() + this.field21300.getHeightA()) {
          this.field21300.method13119(false);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    public void method13615() {
       int var3 = 0;
-      if (this.field21299 != null) {
-         var3 = this.field21299.method13513();
-         this.method13236(this.field21299);
+      if (this.profileScrollView != null) {
+         var3 = this.profileScrollView.method13513();
+         this.method13236(this.profileScrollView);
       }
 
-      this.addToList(this.field21299 = new Class4339(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
-      this.field21299.method13512(var3);
+      this.addToList(this.profileScrollView = new Class4339(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
+      this.profileScrollView.method13512(var3);
       this.field21301.clear();
       int var4 = 0;
       int var5 = 70;
 
       for (Configuration var7 : Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs()) {
-         Class4351 var8 = new Class4351(this, "profile" + var4, 0, var5 * var4, this.field21299.getWidthA(), var5, var7, var4);
-         this.field21299.addToList(var8);
+         Class4351 var8 = new Class4351(this, "profile" + var4, 0, var5 * var4, this.profileScrollView.getWidthA(), var5, var7, var4);
+         this.profileScrollView.addButton(var8);
          this.field21301.add(var8);
          var4++;
       }
 
-      JelloClickGUI var9 = (JelloClickGUI)this.getScreen();
+      JelloClickGUI var9 = (JelloClickGUI)this.getParent();
       var9.method13315();
    }
 
@@ -164,20 +164,20 @@ public class ConfigButtonOnClickGui extends UIBase {
          35.0F,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + var5 / 2),
          (float)(this.yA + var5 / 2),
          (float)(this.xA - var5 / 2 + this.widthA),
          (float)(this.yA - var5 / 2 + this.heightA),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
       );
-      RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
+      RenderUtil.drawRoundedRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
       float var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
       if (this.field21300.field20703.getDirection() == Direction.BACKWARDS) {
          var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16)) * 0.1F;
       }
 
-      this.field21299.method13279(var7, var7);
+      this.profileScrollView.method13279(var7, var7);
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont25,
          (float)(this.xA + 25),
@@ -185,7 +185,7 @@ public class ConfigButtonOnClickGui extends UIBase {
          "Profiles",
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * var1)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + 25),
          (float)(this.yA + 69),
          (float)(this.xA + this.widthA - 25),

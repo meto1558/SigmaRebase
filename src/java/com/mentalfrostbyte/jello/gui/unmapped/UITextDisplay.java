@@ -11,8 +11,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.lwjgl.opengl.GL11;
 
 public class UITextDisplay extends AnimatedIconPanelWrap {
-   private static String[] field20736;
-   public static ColorHelper field20778 = new ColorHelper(
+   public static ColorHelper defaultColorHelper = new ColorHelper(
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),
@@ -22,16 +21,16 @@ public class UITextDisplay extends AnimatedIconPanelWrap {
    );
    public boolean field20779 = false;
 
-   public UITextDisplay(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8) {
-      super(var1, var2, var3, var4, var5, var6, var7, var8, false);
+   public UITextDisplay(CustomGuiScreen screen, String id, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8) {
+      super(screen, id, var3, var4, var5, var6, colorHelper, var8, false);
    }
 
-   public UITextDisplay(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
-      super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
+   public UITextDisplay(CustomGuiScreen screen, String id, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8, TrueTypeFont font) {
+      super(screen, id, var3, var4, var5, var6, colorHelper, var8, font, false);
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float alpha) {
       if (this.field20779) {
          GL11.glAlphaFunc(518, 0.01F);
          RenderUtil.drawString(
@@ -39,7 +38,7 @@ public class UITextDisplay extends AnimatedIconPanelWrap {
             (float)this.getXA(),
             (float)this.getYA(),
             this.getTypedText(),
-            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1)
+            ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha)
          );
          GL11.glAlphaFunc(519, 0.0F);
       }
@@ -50,7 +49,7 @@ public class UITextDisplay extends AnimatedIconPanelWrap {
             (float)this.getXA(),
             (float)this.getYA(),
             this.getTypedText(),
-            ColorUtils.applyAlpha(this.textColor.getTextColor(), var1 * ColorUtils.method17710(this.textColor.getTextColor()))
+            ColorUtils.applyAlpha(this.textColor.getTextColor(), alpha * ColorUtils.getAlpha(this.textColor.getTextColor()))
          );
       }
    }

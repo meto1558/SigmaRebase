@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.ConfigButtonOnClickGui;
-import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
+import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -29,7 +29,7 @@ public class Class4272 extends UIBase {
          blankButton = new UIButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
       );
       blankButton.doThis((var1x, var2x) -> {
-         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen();
+         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent();
          var5x.method13612();
       });
       UIButton var10;
@@ -47,7 +47,7 @@ public class Class4272 extends UIBase {
          )
       );
       var10.doThis((var1x, var2x) -> {
-         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen();
+         ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent();
          var5x.method13610();
       });
       this.addToList(this.field20707 = new UILoadingCircle(this, "loading", (var5 - 30) / 2, 100, 30, 30));
@@ -55,12 +55,12 @@ public class Class4272 extends UIBase {
       field20706 = new Class8233(
          var2x -> {
             this.field20707.setEnabled(false);
-            ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen();
+            ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent();
 
             for (String var7 : var2x) {
                ButtonPanel var8;
                this.field20705
-                  .addToList(
+                  .addButton(
                      var8 = new ButtonPanel(
                         this.field20705, "p_" + var7, 0, 0, var5, 30, new ColorHelper(-723724, -2039584, 0, -14671840), var7, ResourceRegistry.JelloLightFont18
                      )
@@ -69,7 +69,7 @@ public class Class4272 extends UIBase {
                   this.method13118(true);
                   new Thread(() -> {
                      Client.getInstance();
-                     Class6814 var5xx = Client.getInstance().moduleManager.getConfigurationManager();
+                     ProfileManager var5xx = Client.getInstance().moduleManager.getConfigurationManager();
                      Configuration var6x = var5xx.getCurrentConfig();
                      Configuration var7x = field20706.method28657(var6x, var7);
                      var5x.method13611(var7x);
@@ -98,8 +98,8 @@ public class Class4272 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -120,7 +120,7 @@ public class Class4272 extends UIBase {
             ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * var1 * 0.3F)
          );
          RenderUtil.method11415(this);
-         RenderUtil.renderBackgroundBox(
+         RenderUtil.drawRoundedRect2(
             (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, ColorUtils.applyAlpha(-723724, var1)
          );
          if (field20706 != null && Class8233.field35347 != null && Class8233.field35347.isEmpty()) {

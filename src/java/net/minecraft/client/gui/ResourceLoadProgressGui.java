@@ -57,7 +57,7 @@ public class ResourceLoadProgressGui extends LoadingGui
         mc.getTextureManager().loadTexture(MOJANG_LOGO_TEXTURE, new ResourceLoadProgressGui.MojangLogoTexture());
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         int i = this.mc.getMainWindow().getScaledWidth();
         int j = this.mc.getMainWindow().getScaledHeight();
@@ -78,27 +78,27 @@ public class ResourceLoadProgressGui extends LoadingGui
 
             if (this.mc.currentScreen != null)
             {
-                this.mc.currentScreen.render(matrixStack, 0, 0, partialTicks);
+                this.mc.currentScreen.render(matrices, 0, 0, delta);
             }
 
             int l = MathHelper.ceil((1.0F - MathHelper.clamp(f - 1.0F, 0.0F, 1.0F)) * 255.0F);
-            fill(matrixStack, 0, 0, i, j, this.colorBackground | l << 24);
+            fill(matrices, 0, 0, i, j, this.colorBackground | l << 24);
             f2 = 1.0F - MathHelper.clamp(f - 1.0F, 0.0F, 1.0F);
         }
         else if (this.reloading)
         {
             if (this.mc.currentScreen != null && f1 < 1.0F)
             {
-                this.mc.currentScreen.render(matrixStack, mouseX, mouseY, partialTicks);
+                this.mc.currentScreen.render(matrices, mouseX, mouseY, delta);
             }
 
             int i2 = MathHelper.ceil(MathHelper.clamp((double)f1, 0.15D, 1.0D) * 255.0D);
-            fill(matrixStack, 0, 0, i, j, this.colorBackground | i2 << 24);
+            fill(matrices, 0, 0, i, j, this.colorBackground | i2 << 24);
             f2 = MathHelper.clamp(f1, 0.0F, 1.0F);
         }
         else
         {
-            fill(matrixStack, 0, 0, i, j, this.colorBackground | -16777216);
+            fill(matrices, 0, 0, i, j, this.colorBackground | -16777216);
             f2 = 1.0F;
         }
 
@@ -128,8 +128,8 @@ public class ResourceLoadProgressGui extends LoadingGui
 
         if (flag)
         {
-            blit(matrixStack, j2 - k1, i1 - j1, k1, (int)d0, -0.0625F, 0.0F, 120, 60, 120, 120);
-            blit(matrixStack, j2, i1 - j1, k1, (int)d0, 0.0625F, 60.0F, 120, 60, 120, 120);
+            blit(matrices, j2 - k1, i1 - j1, k1, (int)d0, -0.0625F, 0.0F, 120, 60, 120, 120);
+            blit(matrices, j2, i1 - j1, k1, (int)d0, 0.0625F, 60.0F, 120, 60, 120, 120);
         }
 
         RenderSystem.defaultBlendFunc();
@@ -142,7 +142,7 @@ public class ResourceLoadProgressGui extends LoadingGui
 
         if (f < 1.0F)
         {
-            this.func_238629_a_(matrixStack, i / 2 - k1, l1 - 5, i / 2 + k1, l1 + 5, 1.0F - MathHelper.clamp(f, 0.0F, 1.0F));
+            this.func_238629_a_(matrices, i / 2 - k1, l1 - 5, i / 2 + k1, l1 + 5, 1.0F - MathHelper.clamp(f, 0.0F, 1.0F));
         }
 
         if (f >= 2.0F)

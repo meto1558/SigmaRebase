@@ -100,12 +100,12 @@ public class ServerListScreen extends Screen
         this.field_195170_a.active = !s.isEmpty() && s.split(":").length > 0 && s.indexOf(32) == -1;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 20, 16777215);
-        drawString(matrixStack, this.font, field_243288_a, this.width / 2 - 100, 100, 10526880);
-        this.ipEdit.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 20, 16777215);
+        drawString(matrices, this.font, field_243288_a, this.width / 2 - 100, 100, 10526880);
+        this.ipEdit.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

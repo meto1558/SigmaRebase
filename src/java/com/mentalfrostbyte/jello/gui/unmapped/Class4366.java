@@ -26,7 +26,7 @@ public class Class4366 extends UIBase {
    }
 
    private void method13663() {
-      this.method13241().clear();
+      this.getChildren().clear();
       this.font = Resources.regular15;
       ButtonPanel var3;
       this.addToList(var3 = new ButtonPanel(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));
@@ -66,7 +66,7 @@ public class Class4366 extends UIBase {
             this.method13672(this.field21343.indexOf(var5));
             this.method13674(false);
             if (var6x != this.method13671()) {
-               this.method13037();
+               this.callUIHandlers();
             }
          });
       }
@@ -87,17 +87,17 @@ public class Class4366 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       if (!this.method13297() && this.method13673()) {
          this.method13674(false);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
    public void draw(float var1) {
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
@@ -131,7 +131,7 @@ public class Class4366 extends UIBase {
          );
       }
 
-      for (CustomGuiScreen var7 : this.method13241()) {
+      for (CustomGuiScreen var7 : this.getChildren()) {
          if (!var7.getName().equals("dropdownButton")) {
             var7.setEnabled(this.field21345);
          }

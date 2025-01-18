@@ -33,16 +33,16 @@ public class Class4355 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       this.field21289.changeDirection(!this.method13216() ? Direction.BACKWARDS : Direction.FORWARDS);
-      boolean var5 = this.method13216() || var1 > this.method13271() + this.getWidthA() - 62;
+      boolean var5 = this.method13216() || newHeight > this.method13271() + this.getWidthA() - 62;
       this.method13215(var5);
       if (this.field21290.getDirection() == Direction.FORWARDS) {
          this.method13215(false);
          this.setXA(Math.round((float)this.getWidthA() * QuadraticEasing.easeInQuad(this.field21290.calcPercent(), 0.0F, 1.0F, 1.0F)));
          if (this.field21290.calcPercent() == 1.0F) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }
@@ -53,12 +53,12 @@ public class Class4355 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ColorUtils.method17691(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
+              ColorUtils.applyAlpha(ColorUtils.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
@@ -76,22 +76,22 @@ public class Class4355 extends UIBase {
       );
       int var5 = this.widthA - 43;
       float var6 = !this.method13216() ? 0.2F : 0.4F;
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
       );
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)(this.xA + 35),
          (float)(this.yA + this.heightA / 2),
          20.0F,
               ColorUtils.method17690(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
       );
-      RenderUtil.method11438((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
+      RenderUtil.drawCircle((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
       RenderUtil.drawRoundedRect(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, var1 * 0.2F * this.field21289.calcPercent()
       );

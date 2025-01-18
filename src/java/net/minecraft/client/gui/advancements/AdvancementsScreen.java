@@ -95,14 +95,14 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         int i = (this.width - 252) / 2;
         int j = (this.height - 140) / 2;
-        this.renderBackground(matrixStack);
-        this.drawWindowBackground(matrixStack, mouseX, mouseY, i, j);
-        this.renderWindow(matrixStack, i, j);
-        this.drawWindowTooltips(matrixStack, mouseX, mouseY, i, j);
+        this.renderBackground(matrices);
+        this.drawWindowBackground(matrices, mouseX, mouseY, i, j);
+        this.renderWindow(matrices, i, j);
+        this.drawWindowTooltips(matrices, mouseX, mouseY, i, j);
     }
 
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY)

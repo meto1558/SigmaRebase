@@ -45,10 +45,10 @@ public class RealmsParentalConsentScreen extends RealmsScreen
         this.field_243123_c = IBidiRenderer.func_243258_a(this.font, field_243122_a, (int)Math.round((double)this.width * 0.9D));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.field_243123_c.func_241864_a(matrixStack, this.width / 2, 15, 15, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        this.field_243123_c.func_241864_a(matrices, this.width / 2, 15, 15, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

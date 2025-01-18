@@ -70,23 +70,23 @@ public class GamemodeSelectionScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (!this.func_238718_l_())
         {
-            matrixStack.push();
+            matrices.push();
             RenderSystem.enableBlend();
             this.minecraft.getTextureManager().bindTexture(field_238703_a_);
             int i = this.width / 2 - 62;
             int j = this.height / 2 - 30 - 27;
-            blit(matrixStack, i, j, 0.0F, 0.0F, 125, 75, 128, 128);
-            matrixStack.pop();
-            super.render(matrixStack, mouseX, mouseY, partialTicks);
+            blit(matrices, i, j, 0.0F, 0.0F, 125, 75, 128, 128);
+            matrices.pop();
+            super.render(matrices, mouseX, mouseY, delta);
             this.field_238707_q_.ifPresent((p_238712_2_) ->
             {
-                drawCenteredString(matrixStack, this.font, p_238712_2_.func_238725_a_(), this.width / 2, this.height / 2 - 30 - 20, -1);
+                drawCenteredString(matrices, this.font, p_238712_2_.func_238725_a_(), this.width / 2, this.height / 2 - 30 - 20, -1);
             });
-            drawCenteredString(matrixStack, this.font, field_238705_c_, this.width / 2, this.height / 2 + 5, 16777215);
+            drawCenteredString(matrices, this.font, field_238705_c_, this.width / 2, this.height / 2 + 5, 16777215);
 
             if (!this.field_238710_t_)
             {
@@ -99,7 +99,7 @@ public class GamemodeSelectionScreen extends Screen
 
             for (GamemodeSelectionScreen.SelectorWidget gamemodeselectionscreen$selectorwidget : this.field_238711_u_)
             {
-                gamemodeselectionscreen$selectorwidget.render(matrixStack, mouseX, mouseY, partialTicks);
+                gamemodeselectionscreen$selectorwidget.render(matrices, mouseX, mouseY, delta);
                 this.field_238707_q_.ifPresent((p_238714_1_) ->
                 {
                     gamemodeselectionscreen$selectorwidget.func_238741_e_(p_238714_1_ == gamemodeselectionscreen$selectorwidget.field_238736_b_);

@@ -14,7 +14,7 @@ public class Class4344 extends Class4339 {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),

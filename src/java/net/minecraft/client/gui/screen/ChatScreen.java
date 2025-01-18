@@ -239,21 +239,21 @@ public class ChatScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.setListener(this.inputField);
         this.inputField.setFocused2(true);
-        fill(matrixStack, 2, this.height - 14, this.width - 2, this.height - 2, (int)(minecraft.gameSettings.accessibilityTextBackgroundOpacity * 255) << 24);
-        this.inputField.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.commandSuggestionHelper.drawSuggestionList(matrixStack, mouseX, mouseY);
+        fill(matrices, 2, this.height - 14, this.width - 2, this.height - 2, (int)(minecraft.gameSettings.accessibilityTextBackgroundOpacity * 255) << 24);
+        this.inputField.render(matrices, mouseX, mouseY, delta);
+        this.commandSuggestionHelper.drawSuggestionList(matrices, mouseX, mouseY);
         Style style = this.minecraft.ingameGUI.getChatGUI().func_238494_b_((double)mouseX, (double)mouseY);
 
         if (style != null && style.getHoverEvent() != null)
         {
-            this.renderComponentHoverEffect(matrixStack, style, mouseX, mouseY);
+            this.renderComponentHoverEffect(matrices, style, mouseX, mouseY);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean isPauseScreen()

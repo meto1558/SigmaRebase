@@ -3,12 +3,18 @@ package com.mentalfrostbyte.jello.managers;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.gui.unmapped.MacOSTouchBar;
-import com.mentalfrostbyte.jello.managers.impl.profile.Class6814;
+import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
+import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
+import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
+import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.module.impl.player.Cape;
+import com.mentalfrostbyte.jello.module.impl.player.NoFall;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -18,7 +24,7 @@ import java.util.*;
 public class ModuleManager {
 
     private final Map<Class<? extends Module>, Module> moduleMap = new LinkedHashMap<>();
-    private Class6814 profile;
+    private ProfileManager profile;
     private MacOSTouchBar macOSTouchBar;
     private List<Module> modules;
 
@@ -49,12 +55,14 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Compass());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Coords());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
+            this.register(new KeyStrokes());
         }
 
         if (clientMode == ClientMode.CLASSIC) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
         }
         // COMBAT
+        this.register(new AntiKnockback());
 
         // RENDER
 
@@ -65,10 +73,18 @@ public class ModuleManager {
         // PLAYER
         this.register(new AutoSprint());
         this.register(new Cape());
+        this.register(new NoFall());
+        this.register(new Blink());
 
         // ITEM
+        this.register(new AutoMLG());
 
         // MOVEMENT
+        this.register(new Speed());
+        this.register(new Fly());
+        this.register(new Step());
+        this.register(new Jesus());
+        this.register(new SafeWalk());
 
         this.sortBySuffixAndRegisterEvents();
     }
@@ -159,13 +175,14 @@ public class ModuleManager {
 
         try {
             var4 = var1.getString("profile");
-        } catch (JSONException ignored) {}
+        } catch (JSONException ignored) {
+        }
 
         if (Client.getInstance().clientMode == ClientMode.CLASSIC) {
             var4 = "Classic";
         }
 
-        this.profile = new Class6814();
+        this.profile = new ProfileManager();
         this.macOSTouchBar = new MacOSTouchBar();
 
         try {
@@ -197,7 +214,7 @@ public class ModuleManager {
 
         try {
             this.profile.saveAndReplaceConfigs();
-            this.macOSTouchBar.method13731(var1);
+            this.macOSTouchBar.getKeybindsJSONObject(var1);
         } catch (IOException var5) {
             var5.printStackTrace();
             Client.getInstance().getLogger().warn("Unable to save mod profiles...");
@@ -228,7 +245,7 @@ public class ModuleManager {
         return moduleList;
     }
 
-    public Class6814 getConfigurationManager() {
+    public ProfileManager getConfigurationManager() {
         return this.profile;
     }
 }

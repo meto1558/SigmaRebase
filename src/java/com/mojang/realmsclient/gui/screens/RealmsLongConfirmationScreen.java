@@ -63,13 +63,13 @@ public class RealmsLongConfirmationScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.field_224254_e.field_225144_d, this.width / 2, func_239562_k_(2), this.field_224254_e.field_225143_c);
-        drawCenteredString(matrixStack, this.font, this.field_224255_f, this.width / 2, func_239562_k_(4), 16777215);
-        drawCenteredString(matrixStack, this.font, this.field_224256_g, this.width / 2, func_239562_k_(6), 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.field_224254_e.field_225144_d, this.width / 2, func_239562_k_(2), this.field_224254_e.field_225143_c);
+        drawCenteredString(matrices, this.font, this.field_224255_f, this.width / 2, func_239562_k_(4), 16777215);
+        drawCenteredString(matrices, this.font, this.field_224256_g, this.width / 2, func_239562_k_(6), 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public static enum Type

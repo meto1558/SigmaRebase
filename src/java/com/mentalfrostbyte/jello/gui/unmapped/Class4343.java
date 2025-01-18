@@ -37,7 +37,7 @@ public class Class4343 extends Class4339 implements Class4342 {
    private int method13531(CustomGuiScreen panel, Setting setting, int var3, int var4, int var5) {
       switch (Class8666.field39049[setting.getSettingType().ordinal()]) {
          case 1:
-            UITextDisplay var37 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var37 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
             UICheckBox var45 = new UICheckBox(panel, setting.getName() + "checkbox", panel.getWidthA() - 24 - var5, var4 + 6, 24, 24);
             this.field21223.put(var37, setting);
             var45.method13705((Boolean)setting.getCurrentValue(), false);
@@ -46,14 +46,14 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var45.method13705((Boolean)var1x.getCurrentValue(), false);
                }
             });
-            var45.method13036(var1x -> setting.setCurrentValue(((UICheckBox)var1x).method13703()));
+            var45.addUIHandler(var1x -> setting.setCurrentValue(((UICheckBox)var1x).method13703()));
             var45.setSize((var1x, var2x) -> var1x.setXA(var2x.getWidthA() - 24 - var5));
             panel.addToList(var37);
             panel.addToList(var45);
             var4 += 24 + var5;
             break;
          case 2:
-            UITextDisplay var36 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var36 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
             this.field21223.put(var36, setting);
             NumberSetting numbaSetting = (NumberSetting)setting;
             Class4277 var47 = new Class4277(panel, setting.getName() + "slider", panel.getWidthA() - 126 - var5, var4 + 6, 126, 24);
@@ -71,7 +71,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   }
                }
             );
-            var47.method13036(var4x -> {
+            var47.addUIHandler(var4x -> {
                float var7 = ((Class4277)var4x).method13138();
                float var8x = Class4277.method13135(var7, numbaSetting.getMin(), numbaSetting.getMax(), numbaSetting.getStep(), var13);
                if (var8x != (Float)setting.getCurrentValue()) {
@@ -88,12 +88,12 @@ public class Class4343 extends Class4339 implements Class4342 {
             int var19 = 114;
             int var27 = 27;
             UITextDisplay var43;
-            this.addToList(
-               var43 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, var27, UITextDisplay.field20778, setting.getName())
+            this.addButton(
+               var43 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, var27, UITextDisplay.defaultColorHelper, setting.getName())
             );
             this.field21223.put(var43, setting);
             UIInput var35;
-            this.addToList(
+            this.addButton(
                var35 = new UIInput(
                   panel,
                   setting.getName() + "txt",
@@ -115,7 +115,7 @@ public class Class4343 extends Class4339 implements Class4342 {
             var4 += var27 + var5;
             break;
          case 4:
-            UITextDisplay var34 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4 + 2, this.field21222, 27, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var34 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4 + 2, this.field21222, 27, UITextDisplay.defaultColorHelper, setting.getName());
             Class4363 var42 = new Class4363(
                panel,
                setting.getName() + "btn",
@@ -132,7 +132,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var42.method13656(((ModeSetting)setting).getModeIndex());
                }
             });
-            var42.method13036(var2x -> {
+            var42.addUIHandler(var2x -> {
                ((ModeSetting)setting).setModeByIndex(((Class4363)var2x).method13655());
                var42.method13656(((ModeSetting)setting).getModeIndex());
             });
@@ -151,13 +151,13 @@ public class Class4343 extends Class4339 implements Class4342 {
                var25 = this.method13531(var17, var41, 0, var25, var5);
             }
 
-            new Class6665().method20320(var17, panel);
+            new Class6665().setWidth(var17, panel);
             var17.setSize((var1x, var2x) -> var1x.setWidthA(var2x.getWidthA() - var5));
             panel.addToList(var17);
             var4 += var17.getHeightA() + var5;
             break;
          case 7:
-            UITextDisplay var32 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 27, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var32 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 27, UITextDisplay.defaultColorHelper, setting.getName());
             Class4377 var40 = new Class4377(
                panel, setting.getName() + "btn", panel.getWidthA() - var5, var4 + 6, 123, 27, ((TextBoxSetting)setting).getOptions(), (Integer)setting.getCurrentValue()
             );
@@ -167,14 +167,14 @@ public class Class4343 extends Class4339 implements Class4342 {
                   var40.method13722((Integer)var1x.getCurrentValue(), false);
                }
             });
-            var40.method13036(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
+            var40.addUIHandler(var1x -> setting.setCurrentValue(((Class4377)var1x).method13720()));
             var40.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 123 - var5));
             panel.addToList(var32);
             panel.addToList(var40);
             var4 += 27 + var5;
             break;
          case 8:
-            UITextDisplay var31 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 200, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var31 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 200, UITextDisplay.defaultColorHelper, setting.getName());
             Class4258 var39 = new Class4258(
                panel,
                setting.getName() + "picker",
@@ -186,7 +186,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                ((BooleanListSetting)setting).getCurrentValue().<String>toArray(new String[0])
             );
             this.field21223.put(var31, setting);
-            var39.method13036(var2x -> setting.setCurrentValue(var39.method13072()));
+            var39.addUIHandler(var2x -> setting.setCurrentValue(var39.method13072()));
             var39.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 175 - var5));
             panel.addToList(var31);
             panel.addToList(var39);
@@ -194,7 +194,7 @@ public class Class4343 extends Class4339 implements Class4342 {
             break;
          case 9:
             ColorSetting var30 = (ColorSetting)setting;
-            UITextDisplay var38 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var38 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
             Class4252 var46 = new Class4252(
                panel, setting.getName() + "color", panel.getWidthA() - 160 - var5 + 10, var4, 160, 114, (Integer)setting.getCurrentValue(), var30.isRainbowEnabled()
             );
@@ -203,7 +203,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                var46.method13048((Integer)setting.getCurrentValue());
                var46.method13046(var30.isRainbowEnabled());
             });
-            var46.method13036(var2x -> {
+            var46.addUIHandler(var2x -> {
                setting.updateCurrentValue(((Class4252)var2x).method13049(), false);
                var30.setRainbowEnabled(((Class4252)var2x).method13047());
             });
@@ -213,7 +213,7 @@ public class Class4343 extends Class4339 implements Class4342 {
             break;
          case 10:
             SpeedRampSetting.SpeedRamp var10 = (SpeedRampSetting.SpeedRamp)setting.getCurrentValue();
-            UITextDisplay var11 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.field20778, setting.getName());
+            UITextDisplay var11 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
             Class4250 var12 = new Class4250(
                panel,
                setting.getName() + "color",
@@ -232,7 +232,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                SpeedRampSetting.SpeedRamp var5x = (SpeedRampSetting.SpeedRamp)setting.getCurrentValue();
                var12.method13041(var5x.startValue, var5x.middleValue, var5x.endValue, var5x.maxValue);
             });
-            var12.method13036(
+            var12.addUIHandler(
                var2x -> ((SpeedRampSetting)setting).updateValues(var12.method13040()[0], var12.method13040()[1], var12.method13040()[2], var12.method13040()[3])
             );
             panel.addToList(var11);
@@ -265,7 +265,7 @@ public class Class4343 extends Class4339 implements Class4342 {
 
             var4 = Math.max(var4 + var11, var4);
 
-            for (CustomGuiScreen var20 : var12.method13241()) {
+            for (CustomGuiScreen var20 : var12.getChildren()) {
                if (var20 instanceof Class4363) {
                   Class4363 var15 = (Class4363)var20;
                   int var16 = var15.method13649() + var15.getYA() + var15.getHeightA() + 14;
@@ -274,20 +274,20 @@ public class Class4343 extends Class4339 implements Class4342 {
             }
 
             var12.setHeightA(var11);
-            this.addToList(var12);
+            this.addButton(var12);
             this.field21224.put(var10, var12);
          }
 
-         var18.method16727((var1, var2, var3x) -> this.field21224.get(var2).setEnabled(var3x));
-         var18.method16724();
+         var18.addClass6547((var1, var2, var3x) -> this.field21224.get(var2).setEnabled(var3x));
+         var18.calledOnEnable();
       }
 
-      this.addToList(new CustomGuiScreen(this, "extentionhack", 0, var4, 0, 20));
+      this.addButton(new CustomGuiScreen(this, "extentionhack", 0, var4, 0, 20));
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override

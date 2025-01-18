@@ -26,7 +26,7 @@ public class Class4250 extends UIBase {
       this.field20610 = var7;
       this.addToList(this.field20608 = new Class4279(this, 10, "pos1"));
       this.addToList(this.field20609 = new Class4279(this, 10, "pos2"));
-      this.method13249((var1x, var2x) -> this.method13037());
+      this.method13249((var1x, var2x) -> this.callUIHandlers());
       this.method13041(var8, var9, var10, var11);
    }
 
@@ -47,8 +47,8 @@ public class Class4250 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -65,7 +65,7 @@ public class Class4250 extends UIBase {
       float var8 = var4[1];
       float var9 = var4[2];
       float var10 = var4[3];
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + var5),
          (float)(this.yA + var5),
          (float)(this.widthA - var5 * 2),
@@ -80,7 +80,7 @@ public class Class4250 extends UIBase {
       var11.add(new Class9778(1.0, 1.0));
       MathUtils var12 = new MathUtils((double)(1.0F / var6 * 2.0F));
       double var13 = var12.method30789(var11, Math.min(0.8F, this.field20611.calcPercent()) * 1.25F);
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),
          (float)(this.yA - var5 / 2 + this.heightA),
          14.0F,

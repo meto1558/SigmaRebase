@@ -23,15 +23,15 @@ public class ClassicScreenk extends Screen {
         super("ClassicScreen");
         field21079 = new Animation(250, 200, Direction.FORWARDS);
         this.method13419();
-        ColorUtils.method17739();
+        ColorUtils.blur();
     }
 
     public void method13417() {
-        this.method13222(() -> this.method13419());
+        this.runThisOnDimensionUpdate(() -> this.method13419());
     }
 
     public void method13418(String var1, ModuleCategory... var2) {
-        this.method13222(() -> {
+        this.runThisOnDimensionUpdate(() -> {
             if (this.field21081 != null) {
                 this.method13236(this.field21081);
             }
@@ -49,8 +49,8 @@ public class ClassicScreenk extends Screen {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
-        super.method13028(var1, var2);
+    public void updatePanelDimensions(int newHeight, int newWidth) {
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override
@@ -59,20 +59,20 @@ public class ClassicScreenk extends Screen {
     }
 
     @Override
-    public JSONObject method13160(JSONObject var1) {
-        ColorUtils.method17742();
-        return super.method13160(var1);
+    public JSONObject toConfigWithExtra(JSONObject config) {
+        ColorUtils.resetShaders();
+        return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void method13161(JSONObject var1) {
-        super.method13161(var1);
+    public void loadConfig(JSONObject config) {
+        super.loadConfig(config);
     }
 
     @Override
-    public void keyPressed(int var1) {
-        super.keyPressed(var1);
-        if (var1 == 256) {
+    public void keyPressed(int keyCode) {
+        super.keyPressed(keyCode);
+        if (keyCode == 256) {
             field21078.displayGuiScreen(null);
         }
     }
@@ -80,7 +80,7 @@ public class ClassicScreenk extends Screen {
     @Override
     public void draw(float var1) {
         float var4 = field21079.calcPercent();
-        RenderUtil.drawRect(
+        RenderUtil.drawRoundedRect(
                 (float) this.xA,
                 (float) this.yA,
                 (float) (this.xA + this.widthA),

@@ -149,9 +149,9 @@ public class RealmsUploadScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
 
         if (!this.field_224707_l && this.field_224701_f.field_224978_a != 0L && this.field_224701_f.field_224978_a == this.field_224701_f.field_224979_b)
         {
@@ -159,28 +159,28 @@ public class RealmsUploadScreen extends RealmsScreen
             this.field_224711_p.active = false;
         }
 
-        drawCenteredString(matrixStack, this.font, this.field_224704_i, this.width / 2, 50, 16777215);
+        drawCenteredString(matrices, this.font, this.field_224704_i, this.width / 2, 50, 16777215);
 
         if (this.field_224708_m)
         {
-            this.func_238086_b_(matrixStack);
+            this.func_238086_b_(matrices);
         }
 
         if (this.field_224701_f.field_224978_a != 0L && !this.field_224706_k)
         {
-            this.func_238088_c_(matrixStack);
-            this.func_238089_d_(matrixStack);
+            this.func_238088_c_(matrices);
+            this.func_238089_d_(matrices);
         }
 
         if (this.field_224703_h != null)
         {
             for (int i = 0; i < this.field_224703_h.length; ++i)
             {
-                drawCenteredString(matrixStack, this.font, this.field_224703_h[i], this.width / 2, 110 + 12 * i, 16711680);
+                drawCenteredString(matrices, this.font, this.field_224703_h[i], this.width / 2, 110 + 12 * i, 16711680);
             }
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private void func_238086_b_(MatrixStack p_238086_1_)

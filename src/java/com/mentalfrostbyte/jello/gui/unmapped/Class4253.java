@@ -24,15 +24,15 @@ public class Class4253 extends UIBase {
       this.addToList(this.field20628 = new Class4263(this, "delete", 200, 20, 20, 20));
       this.field20628.doThis((var1x, var2x) -> {
          this.field20625 = new Date();
-         this.method13037();
+         this.callUIHandlers();
       });
       this.field20624 = var7;
       this.field20626 = var8;
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    public void method13056() {
@@ -43,7 +43,7 @@ public class Class4253 extends UIBase {
    @Override
    public void draw(float var1) {
       if (this.field20627 != null) {
-         float var4 = Animation.method25322(this.field20627, 150.0F);
+         float var4 = Animation.calculateProgress(this.field20627, 150.0F);
          var4 = QuadraticEasing.easeOutQuad(var4, 0.0F, 1.0F, 1.0F);
          this.setHeightA((int)(55.0F * var4));
          if (var4 == 1.0F) {
@@ -52,7 +52,7 @@ public class Class4253 extends UIBase {
       }
 
       if (this.field20625 != null) {
-         float var6 = Animation.method25322(this.field20625, 180.0F);
+         float var6 = Animation.calculateProgress(this.field20625, 180.0F);
          var6 = QuadraticEasing.easeOutQuad(var6, 0.0F, 1.0F, 1.0F);
          this.setHeightA((int)(55.0F * (1.0F - var6)));
          if (var6 == 1.0F) {
@@ -60,7 +60,7 @@ public class Class4253 extends UIBase {
          }
       }
 
-      RenderUtil.method11421(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+      RenderUtil.drawPortalBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
       RenderUtil.drawString(
          ResourceRegistry.RegularFont20,
          (float)(this.xA + 25),

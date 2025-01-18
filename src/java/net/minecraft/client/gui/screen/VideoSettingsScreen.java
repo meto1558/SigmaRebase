@@ -261,10 +261,10 @@ public class VideoSettingsScreen extends GuiScreenOF
         super.onClose();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.minecraft.fontRenderer, this.title, this.width / 2, 15, 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.minecraft.fontRenderer, this.title, this.width / 2, 15, 16777215);
         String s = Config.getVersion();
         String s1 = "HD_U";
 
@@ -283,12 +283,12 @@ public class VideoSettingsScreen extends GuiScreenOF
             s = "OptiFine G5 Light";
         }
 
-        drawString(matrixStack, this.minecraft.fontRenderer, s, 2, this.height - 10, 8421504);
+        drawString(matrices, this.minecraft.fontRenderer, s, 2, this.height - 10, 8421504);
         String s2 = "Minecraft 1.16.4";
         int i = this.minecraft.fontRenderer.getStringWidth(s2);
-        drawString(matrixStack, this.minecraft.fontRenderer, s2, this.width - i - 2, this.height - 10, 8421504);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.tooltipManager.drawTooltips(matrixStack, mouseX, mouseY, this.buttonList);
+        drawString(matrices, this.minecraft.fontRenderer, s2, this.width - i - 2, this.height - 10, 8421504);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.tooltipManager.drawTooltips(matrices, mouseX, mouseY, this.buttonList);
     }
 
     public static String getGuiChatText(ChatScreen p_getGuiChatText_0_)

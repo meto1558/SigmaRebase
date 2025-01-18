@@ -15,7 +15,7 @@ public class Class1376 implements Runnable {
    @Override
    public void run() {
       this.field7353.field20957.method13242();
-      this.field7352.method13244();
+      this.field7352.clearChildren();
       this.field7353.field20961 = 0;
    }
 }

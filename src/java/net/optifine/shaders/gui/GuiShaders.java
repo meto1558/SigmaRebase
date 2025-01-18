@@ -333,10 +333,10 @@ public class GuiShaders extends GuiScreenOF
         super.onClose();
     }
 
-    public void render(MatrixStack matrixStackIn, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStackIn);
-        this.shaderList.render(matrixStackIn, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        this.shaderList.render(matrices, mouseX, mouseY, delta);
 
         if (this.updateTimer <= 0)
         {
@@ -344,21 +344,21 @@ public class GuiShaders extends GuiScreenOF
             this.updateTimer += 20;
         }
 
-        drawCenteredString(matrixStackIn, this.fontRenderer, this.title, this.width / 2, 15, 16777215);
+        drawCenteredString(matrices, this.fontRenderer, this.title, this.width / 2, 15, 16777215);
         String s = "OpenGL: " + Shaders.glVersionString + ", " + Shaders.glVendorString + ", " + Shaders.glRendererString;
         int i = this.fontRenderer.getStringWidth(s);
 
         if (i < this.width - 5)
         {
-            drawCenteredString(matrixStackIn, this.fontRenderer, s, this.width / 2, this.height - 40, 8421504);
+            drawCenteredString(matrices, this.fontRenderer, s, this.width / 2, this.height - 40, 8421504);
         }
         else
         {
-            drawString(matrixStackIn, this.fontRenderer, s, 5, this.height - 40, 8421504);
+            drawString(matrices, this.fontRenderer, s, 5, this.height - 40, 8421504);
         }
 
-        super.render(matrixStackIn, mouseX, mouseY, partialTicks);
-        this.tooltipManager.drawTooltips(matrixStackIn, mouseX, mouseY, this.buttonList);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.tooltipManager.drawTooltips(matrices, mouseX, mouseY, this.buttonList);
     }
 
     public void tick()

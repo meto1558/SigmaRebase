@@ -16,7 +16,7 @@ import java.util.List;
 
 public class JelloClickGUIPanels extends AnimatedIconPanel {
    public final ModuleCategory category;
-   public Class4341 field21194;
+   public ModListView modListView;
    public float field21195;
    public int field21197;
    public int field21198;
@@ -33,23 +33,23 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
    }
 
    public void method13504() {
-      this.method13222(() -> {
-         this.method13236(this.field21194);
-         this.addToList(this.field21194 = new Class4341(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
+      this.runThisOnDimensionUpdate(() -> {
+         this.method13236(this.modListView);
+         this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
       });
    }
 
    private void method13505() {
-      this.addToList(this.field21194 = new Class4341(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
-      this.field21194.setSize(new Class6666());
-      this.field21194.setSize((var0, var1) -> {
+      this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
+      this.modListView.setSize(new CustomGuiScreenWidthSetter());
+      this.modListView.setSize((var0, var1) -> {
          var0.setYA(60);
          var0.setHeightA(var1.getHeightA() - 60);
       });
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       if (!(this.field21195 >= 1.0F)) {
          this.method13215(false);
          this.field20909 = false;
@@ -72,12 +72,12 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
             var12 = 0;
          }
 
-         if (var12 + var9 > this.screen.getWidthA()) {
-            var12 = this.screen.getWidthA() - var9;
+         if (var12 + var9 > this.parent.getWidthA()) {
+            var12 = this.parent.getWidthA() - var9;
          }
 
-         if (var11 + var10 > this.screen.getHeightA()) {
-            var11 = this.screen.getHeightA() - var10;
+         if (var11 + var10 > this.parent.getHeightA()) {
+            var11 = this.parent.getHeightA() - var10;
          }
       }
 
@@ -85,7 +85,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
       this.setHeightA(var10);
       this.setXA(var12);
       this.setYA(var11);
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -101,14 +101,14 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
          (float)this.field21199 + (1.0F - this.field21195) * (float)var4,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + 60),
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, var1 * 0.9F * this.field21195))
       );
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.getXA(),
          (float)this.getYA() + 60.0F * this.field21195,
          (float)this.getWidthA(),
@@ -136,7 +136,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
       GL11.glPushMatrix();
       super.draw(var1 * var1);
       GL11.glPopMatrix();
-      if (this.field21194.method13513() > 0) {
+      if (this.modListView.method13513() > 0) {
          RenderUtil.drawImage(
             (float)this.getXA(),
             (float)(this.getYA() + 60),

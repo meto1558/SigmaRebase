@@ -48,9 +48,9 @@ public class WorldLoadProgressScreen extends Screen
         NarratorChatListener.INSTANCE.say((new TranslationTextComponent("narrator.loading.done")).getString());
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         String s = MathHelper.clamp(this.tracker.getPercentDone(), 0, 100) + "%";
         long i = Util.milliTime();
 
@@ -63,8 +63,8 @@ public class WorldLoadProgressScreen extends Screen
         int j = this.width / 2;
         int k = this.height / 2;
         int l = 30;
-        func_238625_a_(matrixStack, this.tracker, j, k + 30, 2, 0);
-        drawCenteredString(matrixStack, this.font, s, j, k - 9 / 2 - 30, 16777215);
+        func_238625_a_(matrices, this.tracker, j, k + 30, 2, 0);
+        drawCenteredString(matrices, this.font, s, j, k - 9 / 2 - 30, 16777215);
     }
 
     public static void func_238625_a_(MatrixStack p_238625_0_, TrackingChunkStatusListener p_238625_1_, int p_238625_2_, int p_238625_3_, int p_238625_4_, int p_238625_5_)

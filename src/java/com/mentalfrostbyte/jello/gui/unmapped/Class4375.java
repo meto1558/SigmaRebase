@@ -62,7 +62,7 @@ public class Class4375 extends UIBase {
       int var3 = 1;
       ArrayList var4 = new ArrayList();
 
-      for (CustomGuiScreen var6 : this.method13241()) {
+      for (CustomGuiScreen var6 : this.getChildren()) {
          if (var6.getHeightA() != 0) {
             var4.add(var6.getName());
          }
@@ -70,16 +70,16 @@ public class Class4375 extends UIBase {
 
       this.method13242();
       this.method13145(true);
-      this.method13238();
+      this.clearChildren();
 
       for (Class6984 var10 : JelloKeyboardScreen.method13328()) {
          int var7 = var10.method21599();
          if (var7 == this.field21376) {
             Class4253 var8;
             this.addToList(var8 = new Class4253(this, var10.method21596(), 0, 20 + 55 * var3, this.widthA, 55, var10, var3++));
-            var8.method13036(var2 -> {
+            var8.addUIHandler(var2 -> {
                var10.method21598(0);
-               this.method13037();
+               this.callUIHandlers();
             });
             if (var4.size() > 0 && !var4.contains(var10.method21596())) {
                var8.method13056();
@@ -89,10 +89,10 @@ public class Class4375 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       Map<Integer, Class4253> var5 = new HashMap();
 
-      for (CustomGuiScreen var7 : this.method13241()) {
+      for (CustomGuiScreen var7 : this.getChildren()) {
          if (var7 instanceof Class4253) {
              var5.put(((Class4253) var7).field20626, (Class4253) var7);
          }
@@ -105,7 +105,7 @@ public class Class4375 extends UIBase {
          var9 += var11.getValue().getHeightA();
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -124,14 +124,14 @@ public class Class4375 extends UIBase {
          35.0F,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + 10 / 2),
          (float)(this.yA + 10 / 2),
          (float)(this.xA - 10 / 2 + this.widthA),
          (float)(this.yA - 10 / 2 + this.heightA),
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
       );
-      RenderUtil.drawRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)10, var6);
+      RenderUtil.drawRoundedRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)10, var6);
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.xA, (float)this.yA, 0.0F);
       GL11.glRotatef(!this.field21378 ? -90.0F : 90.0F, 0.0F, 0.0F, 1.0F);
@@ -152,7 +152,7 @@ public class Class4375 extends UIBase {
          this.typedText + " Key",
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * var1)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.xA + 25),
          (float)(this.yA + 68),
          (float)(this.xA + this.widthA - 25),

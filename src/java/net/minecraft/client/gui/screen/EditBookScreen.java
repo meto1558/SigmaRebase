@@ -511,44 +511,44 @@ public class EditBookScreen extends Screen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
+        this.renderBackground(matrices);
         this.setListener((IGuiEventListener)null);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(ReadBookScreen.BOOK_TEXTURES);
         int i = (this.width - 192) / 2;
         int j = 2;
-        this.blit(matrixStack, i, 2, 0, 0, 192, 192);
+        this.blit(matrices, i, 2, 0, 0, 192, 192);
 
         if (this.bookGettingSigned)
         {
             boolean flag = this.updateCount / 6 % 2 == 0;
             IReorderingProcessor ireorderingprocessor = IReorderingProcessor.func_242234_a(IReorderingProcessor.fromString(this.bookTitle, Style.EMPTY), flag ? field_243342_c : field_243343_p);
             int k = this.font.getStringPropertyWidth(field_243340_a);
-            this.font.func_243248_b(matrixStack, field_243340_a, (float)(i + 36 + (114 - k) / 2), 34.0F, 0);
+            this.font.func_243248_b(matrices, field_243340_a, (float)(i + 36 + (114 - k) / 2), 34.0F, 0);
             int l = this.font.func_243245_a(ireorderingprocessor);
-            this.font.func_238422_b_(matrixStack, ireorderingprocessor, (float)(i + 36 + (114 - l) / 2), 50.0F, 0);
+            this.font.func_238422_b_(matrices, ireorderingprocessor, (float)(i + 36 + (114 - l) / 2), 50.0F, 0);
             int i1 = this.font.getStringPropertyWidth(this.field_243339_L);
-            this.font.func_243248_b(matrixStack, this.field_243339_L, (float)(i + 36 + (114 - i1) / 2), 60.0F, 0);
+            this.font.func_243248_b(matrices, this.field_243339_L, (float)(i + 36 + (114 - i1) / 2), 60.0F, 0);
             this.font.func_238418_a_(field_243341_b, i + 36, 82, 114, 0);
         }
         else
         {
             int j1 = this.font.getStringPropertyWidth(this.field_243338_K);
-            this.font.func_243248_b(matrixStack, this.field_243338_K, (float)(i - j1 + 192 - 44), 18.0F, 0);
+            this.font.func_243248_b(matrices, this.field_243338_K, (float)(i - j1 + 192 - 44), 18.0F, 0);
             EditBookScreen.BookPage editbookscreen$bookpage = this.func_238750_B_();
 
             for (EditBookScreen.BookLine editbookscreen$bookline : editbookscreen$bookpage.field_238784_f_)
             {
-                this.font.func_243248_b(matrixStack, editbookscreen$bookline.field_238797_c_, (float)editbookscreen$bookline.field_238798_d_, (float)editbookscreen$bookline.field_238799_e_, -16777216);
+                this.font.func_243248_b(matrices, editbookscreen$bookline.field_238797_c_, (float)editbookscreen$bookline.field_238798_d_, (float)editbookscreen$bookline.field_238799_e_, -16777216);
             }
 
             this.func_238764_a_(editbookscreen$bookpage.field_238785_g_);
-            this.func_238756_a_(matrixStack, editbookscreen$bookpage.field_238781_c_, editbookscreen$bookpage.field_238782_d_);
+            this.func_238756_a_(matrices, editbookscreen$bookpage.field_238781_c_, editbookscreen$bookpage.field_238782_d_);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private void func_238756_a_(MatrixStack p_238756_1_, EditBookScreen.Point p_238756_2_, boolean p_238756_3_)

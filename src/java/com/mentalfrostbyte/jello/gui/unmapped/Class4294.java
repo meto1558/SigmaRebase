@@ -40,7 +40,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
    public void method13167(boolean var1, boolean var2) {
       this.field20803.changeDirection(!var1 ? Direction.BACKWARDS : Direction.FORWARDS);
       if (var2) {
-         this.field20803.method25318(1.0F);
+         this.field20803.updateStartTime(1.0F);
       }
    }
 
@@ -52,11 +52,11 @@ public class Class4294 extends AnimatedIconPanelWrap {
    public void draw(float var1) {
       this.method13225();
       this.field20808 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
-      int var4 = ((Class4339)this.screen.getScreen()).method13513();
+      int var4 = ((Class4339)this.parent.getParent()).method13513();
       int var5 = Math.max(0, this.yA - var4);
       int var6 = Math.max(0, this.heightA + Math.min(100, this.yA - var4 - var5));
       float var7 = (float)Math.min(50, var6) / 50.0F;
-      int var8 = this.getScreen().getScreen().getHeightA() + this.getScreen().getScreen().method13272();
+      int var8 = this.getParent().getParent().getHeightA() + this.getParent().getParent().method13272();
       int var9 = 0;
       var5 += var4;
       if (var5 - var4 <= var8) {
@@ -68,7 +68,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
                Math.max(20, var6),
                     ColorUtils.applyAlpha(!this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.field20808, var7)
             );
-            RenderUtil.method11421(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
+            RenderUtil.drawPortalBackground(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
             if (this.selectedAccount != null) {
                this.method13169();
                this.method13170();
@@ -94,7 +94,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
    }
 
    public void method13169() {
-      RenderUtil.method11450(
+      RenderUtil.drawImage(
          (float)(this.xA + 13), (float)(this.yA + 13), 75.0F, 75.0F, this.selectedAccount.setSkinTexture(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
       );
       RenderUtil.method11464((float)(this.xA + 13), (float)(this.yA + 13), 75.0F, 75.0F, 20.0F, 1.0F);

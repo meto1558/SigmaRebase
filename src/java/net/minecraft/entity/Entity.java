@@ -3,6 +3,7 @@ package net.minecraft.entity;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mentalfrostbyte.jello.event.impl.EventStep;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import net.minecraft.block.PortalInfo;
 import net.minecraft.block.PortalSize;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.arguments.EntityAnchorArgument;
@@ -106,6 +108,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.server.TicketType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.sdhq.eventBus.EventBus;
 
 public abstract class Entity implements INameable, ICommandSource
 {
@@ -890,6 +893,18 @@ public abstract class Entity implements INameable, ICommandSource
             Vector3d vector3d1 = collideBoundingBoxHeuristically(this, new Vector3d(vec.x, (double)this.stepHeight, vec.z), axisalignedbb, this.world, iselectioncontext, reuseablestream);
             Vector3d vector3d2 = collideBoundingBoxHeuristically(this, new Vector3d(0.0D, (double)this.stepHeight, 0.0D), axisalignedbb.expand(vec.x, 0.0D, vec.z), this.world, iselectioncontext, reuseablestream);
 
+            double height = !(this instanceof ClientPlayerEntity)
+                    ? 0.0
+                    : collideBoundingBoxHeuristically(this, new Vector3d(0.0, -vector3d1.y, 0.0), axisalignedbb.offset(vector3d1), this.world, iselectioncontext, reuseablestream).y + vector3d1.y;
+
+            // MODIFICATION START: add cancelled boolean so we can access it from outside the step height check
+            boolean cancelled = false;
+            if (height != 0.0) {
+                EventStep event = new EventStep(height, vector3d);
+                EventBus.call(event);
+                cancelled = event.cancelled;
+            }
+            // MODIFICATION END
             if (vector3d2.y < (double)this.stepHeight)
             {
                 Vector3d vector3d3 = collideBoundingBoxHeuristically(this, new Vector3d(vec.x, 0.0D, vec.z), axisalignedbb.offset(vector3d2), this.world, iselectioncontext, reuseablestream).add(vector3d2);
@@ -900,10 +915,12 @@ public abstract class Entity implements INameable, ICommandSource
                 }
             }
 
-            if (horizontalMag(vector3d1) > horizontalMag(vector3d))
+            // MODIFICATION START: only enter this branch if the event wasn't cancelled
+            if (horizontalMag(vector3d1) > horizontalMag(vector3d) && !cancelled)
             {
                 return vector3d1.add(collideBoundingBoxHeuristically(this, new Vector3d(0.0D, -vector3d1.y + vec.y, 0.0D), axisalignedbb.offset(vector3d1), this.world, iselectioncontext, reuseablestream));
             }
+            // MODIFICATION END
         }
 
         return vector3d;

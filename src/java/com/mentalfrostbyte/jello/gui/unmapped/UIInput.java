@@ -66,8 +66,8 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       String var5 = this.typedText;
       if (this.field20754) {
          var5 = this.typedText.replaceAll(".", this.field20755);
@@ -76,7 +76,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       this.field20744 = this.field20744 + ((!this.field20905 ? 0.0F : 1.0F) - this.field20744) / 2.0F;
       if (this.field20905) {
          if (this.field20752) {
-            this.field20749 = Class8906.method32494(var5, this.font, (float)this.method13271(), var1, this.field20746);
+            this.field20749 = Class8906.method32494(var5, this.font, (float)this.method13271(), newHeight, this.field20746);
          }
       } else {
          this.field20749 = 0;
@@ -97,15 +97,15 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
          String var6 = this.typedText;
          if (this.field20754) {
             var6 = this.typedText.replaceAll(".", this.field20755);
          }
 
          this.field20752 = true;
-         this.field20749 = Class8906.method32494(var6, this.font, (float)this.method13271(), var1, this.field20746);
+         this.field20749 = Class8906.method32494(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
          if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
             && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
             this.field20750 = this.field20749;
@@ -125,16 +125,16 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
-      super.method13095(var1, var2, var3);
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
+      super.onClick2(mouseX, mouseY, mouseButton);
       this.field20752 = false;
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
       if (this.field20905) {
-         switch (var1) {
+         switch (keyCode) {
             case 65:
                if (this.method13149()) {
                   this.field20749 = this.typedText.length();
@@ -310,13 +310,13 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void charTyped(char var1) {
-      super.charTyped(var1);
-      if (this.method13297() && Class8906.method32486(var1)) {
+   public void charTyped(char typed) {
+      super.charTyped(typed);
+      if (this.method13297() && Class8906.method32486(typed)) {
          if (this.field20750 == this.field20751) {
-            this.typedText = Class8906.method32492(this.typedText, Character.toString(var1), this.field20749);
+            this.typedText = Class8906.method32492(this.typedText, Character.toString(typed), this.field20749);
          } else {
-            this.typedText = Class8906.method32493(this.typedText, Character.toString(var1), this.field20750, this.field20751);
+            this.typedText = Class8906.method32493(this.typedText, Character.toString(typed), this.field20750, this.field20751);
          }
 
          this.field20749++;
@@ -339,12 +339,12 @@ public class UIInput extends AnimatedIconPanelWrap {
          var6 = this.typedText.replaceAll(".", this.field20755);
       }
 
-      RenderUtil.method11421(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);
+      RenderUtil.drawPortalBackground(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);
       int var7 = this.xA + 4;
       int var8 = this.widthA - 4;
       float var9 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20749));
       if (this.method13297()) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             var9 + (float)(var6.isEmpty() ? 0 : -1),
             (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2 + 2),
             var9 + (float)(var6.isEmpty() ? 1 : 0),
@@ -367,7 +367,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       this.field20751 = Math.min(Math.max(0, this.field20751), var6.length());
       float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20750));
       float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20751));
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          var14,
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
          var11,
@@ -387,7 +387,7 @@ public class UIInput extends AnimatedIconPanelWrap {
       );
       RenderUtil.endScissor();
       if (this.field20758) {
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)(this.yA + this.heightA - 2),
             (float)(this.xA + this.widthA),

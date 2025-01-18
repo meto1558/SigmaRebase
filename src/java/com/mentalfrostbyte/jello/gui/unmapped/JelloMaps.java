@@ -31,9 +31,9 @@ public class JelloMaps extends Screen {
       int var3 = Math.max(300, Math.min(850, Minecraft.getInstance().getMainWindow().getWidth() - 40));
       int var4 = Math.max(200, Math.min(550, Minecraft.getInstance().getMainWindow().getHeight() - 80));
       this.addToList(this.field21036 = new Class4251(this, "mapView", (this.widthA - var3) / 2, (this.heightA - var4) / 2, var3, var4));
-      this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.method13222(new Class774(this, this, var3x, var4x, var5)));
+      this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.runThisOnDimensionUpdate(new Class774(this, this, var3x, var4x, var5)));
       this.field21036.field20614.method13082(var1 -> this.method13390());
-      ColorUtils.method17739();
+      ColorUtils.blur();
    }
 
    private void method13389(Class4276 var1) {
@@ -47,17 +47,17 @@ public class JelloMaps extends Screen {
    private void method13390() {
       JelloMaps var3 = this;
 
-      for (CustomGuiScreen var5 : this.method13241()) {
+      for (CustomGuiScreen var5 : this.getChildren()) {
          if (var5 instanceof Class4276) {
             Class4276 var6 = (Class4276)var5;
-            this.method13222(new Class605(this, var3, var5));
+            this.runThisOnDimensionUpdate(new Class605(this, var3, var5));
          }
       }
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       this.method13300(false);
    }
 
@@ -67,10 +67,10 @@ public class JelloMaps extends Screen {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
-         ColorUtils.method17742();
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
+         ColorUtils.resetShaders();
          field21033.displayGuiScreen(null);
       }
    }
@@ -81,7 +81,7 @@ public class JelloMaps extends Screen {
       float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
       float var5 = 0.25F * var1;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),

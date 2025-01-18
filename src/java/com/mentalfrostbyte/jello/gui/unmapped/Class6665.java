@@ -2,14 +2,14 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 
-public class Class6665 implements Class6664 {
+public class Class6665 implements IWidthSetter {
 
    @Override
-   public void method20320(CustomGuiScreen var1, CustomGuiScreen var2) {
+   public void setWidth(CustomGuiScreen forScreen, CustomGuiScreen fromWidthOfThisScreen) {
       int var5 = 0;
       int var6 = 0;
 
-      for (CustomGuiScreen var8 : var1.method13241()) {
+      for (CustomGuiScreen var8 : forScreen.getChildren()) {
          if (var8.getXA() + var8.getWidthA() > var5) {
             var5 = var8.getXA() + var8.getWidthA();
          }
@@ -19,7 +19,7 @@ public class Class6665 implements Class6664 {
          }
       }
 
-      var1.setWidthA(var5);
-      var1.setHeightA(var6);
+      forScreen.setWidthA(var5);
+      forScreen.setHeightA(var6);
    }
 }

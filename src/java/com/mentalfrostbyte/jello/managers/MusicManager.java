@@ -51,12 +51,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MusicManager {
-    private static final float field32167 = 32768.0F;
     private static final Minecraft mc = Minecraft.getInstance();
     public BufferedImage field32149;
     public String field32150 = "";
-    public List<double[]> field32163 = new ArrayList<double[]>();
-    public ArrayList<Double> field32165 = new ArrayList<Double>();
+    public List<double[]> field32163 = new ArrayList<>();
+    public ArrayList<Double> field32165 = new ArrayList<>();
     public SourceDataLine field32166;
     private boolean field32144 = false;
     private MusicPlayerVideo field32145;
@@ -121,7 +120,7 @@ public class MusicManager {
         return var5;
     }
 
-    public void init(){
+    public void init() {
         EventBus.register(this);
         try {
             this.method24295();
@@ -207,7 +206,7 @@ public class MusicManager {
                         float var6 = 1.0F - (float) (var5 + 1) / var3;
                         float var7 = (float) mc.getMainWindow().getHeight() / 1080.0F;
                         float var8 = ((float) (Math.sqrt(this.field32165.get(var5)) / 12.0) - 5.0F) * var7;
-                        RenderUtil.renderBackgroundBox(
+                        RenderUtil.drawRoundedRect2(
                                 (float) var5 * var4,
                                 (float) mc.getMainWindow().getHeight() - var8,
                                 var4,
@@ -216,12 +215,12 @@ public class MusicManager {
                         );
                     }
 
-                    RenderUtil.method11476();
+                    RenderUtil.initStencilBuffer();
 
                     for (int var13 = 0; (float) var13 < var3; var13++) {
                         float var14 = (float) mc.getMainWindow().getHeight() / 1080.0F;
                         float var15 = ((float) (Math.sqrt(this.field32165.get(var13)) / 12.0) - 5.0F) * var14;
-                        RenderUtil.renderBackgroundBox((float) var13 * var4, (float) mc.getMainWindow().getHeight() - var15, var4, var15, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                        RenderUtil.drawRoundedRect2((float) var13 * var4, (float) mc.getMainWindow().getHeight() - var15, var4, var15, ClientColors.LIGHT_GREYISH_BLUE.getColor());
                     }
 
                     RenderUtil.method11477(Class2329.field15940);
@@ -229,7 +228,7 @@ public class MusicManager {
                         RenderUtil.drawImage(0.0F, 0.0F, (float) mc.getMainWindow().getWidth(), (float) mc.getMainWindow().getHeight(), this.field32153, 0.4F);
                     }
 
-                    RenderUtil.method11478();
+                    RenderUtil.restorePreviousStencilBuffer();
                     double var9 = 0.0;
                     float var16 = 4750;
 
@@ -242,7 +241,7 @@ public class MusicManager {
                     GL11.glTranslated(60.0, mc.getMainWindow().getHeight() - 55, 0.0);
                     GL11.glScalef(var18, var18, 0.0F);
                     GL11.glTranslated(-60.0, -(mc.getMainWindow().getHeight() - 55), 0.0);
-                    RenderUtil.method11455(10.0F, (float) (mc.getMainWindow().getHeight() - 110), 100.0F, 100.0F, this.field32151);
+                    RenderUtil.drawImage(10.0F, (float) (mc.getMainWindow().getHeight() - 110), 100.0F, 100.0F, this.field32151);
                     RenderUtil.drawRoundedRect(10.0F, (float) (mc.getMainWindow().getHeight() - 110), 100.0F, 100.0F, 14.0F, 0.3F);
                     GL11.glPopMatrix();
                     String[] var11 = this.field32150.split(" - ");
@@ -743,9 +742,9 @@ public class MusicManager {
 
     public String method24333() {
         String fileName =
-        Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                                       : "yt-dlp_macos";
+                Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
+                        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
+                        : "yt-dlp_macos";
         String var3 = Client.getInstance().file.getAbsolutePath() + "/music/" + fileName;
         if (Util.getOSType() != Util.OS.WINDOWS) {
             File var4 = new File(var3);
@@ -756,39 +755,60 @@ public class MusicManager {
     }
 
     public boolean hasPython() {
+        String[] commands;
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            return true;
+            commands = new String[]{"python --version || py --version || python3 --version"};
         } else {
-            String path = "/usr/bin/python";
-            File var3 = new File(path);
-            if (!var3.exists()) {
-                path = "/usr/local/bin/python";
-                var3 = new File(path);
-            }
-            if (var3.exists()) {
-                Process var4;
-
-                try {
-                    var4 = new ProcessBuilder(path, "-V").start();
-                    InputStream var5 = var4.getErrorStream();
-                    InputStreamReader var6 = new InputStreamReader(var5);
-                    BufferedReader bufferedReader = new BufferedReader(var6);
-
-                    String version;
-                    try {
-                        while ((version = bufferedReader.readLine()) != null) {
-                            if (version.contains("3.12")) { // I will NOT downgrade python for this
-                                return true;
-                            }
-                        }
-                    } catch (IOException ignored) {
-                    }
-                } catch (IOException ignored) {
-                }
-            }
-
-            return false;
+            commands = new String[]{"python3 --version || python --version"};
         }
+
+        for (String command : commands) {
+            try {
+                Process process = new ProcessBuilder(getCommandArray(command)).redirectErrorStream(true).start();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String output = reader.readLine();
+                while (output != null) {
+                    if (
+                            // Windows / command prompt
+                            output.contains("is not recognized as an internal or external command")
+                                    // bash
+                                    || output.contains("command not found")) {
+                        break; // Move to the next command
+                    }
+                    if (output.toLowerCase().contains("python")) {
+                        String version = output.replaceAll("[^0-9.]", "");
+                        if (isVersionAtLeast(version, "3.12")) {
+                            return true;
+                        }
+                    }
+                    output = reader.readLine();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private String[] getCommandArray(String command) {
+        if (Util.getOSType() == Util.OS.WINDOWS) {
+            return new String[]{"cmd", "/c", command};
+        } else {
+            return new String[]{"bash", "-c", command};
+        }
+    }
+
+    private boolean isVersionAtLeast(String actual, String required) {
+        String[] actualParts = actual.split("\\.");
+        String[] requiredParts = required.split("\\.");
+        int length = Math.max(actualParts.length, requiredParts.length);
+        for (int i = 0; i < length; i++) {
+            int actualPart = i < actualParts.length ? Integer.parseInt(actualParts[i]) : 0;
+            int requiredPart = i < requiredParts.length ? Integer.parseInt(requiredParts[i]) : 0;
+            if (actualPart > requiredPart) return true;
+            if (actualPart < requiredPart) return false;
+        }
+        return true;
     }
 
     public boolean hasVCRedist() {

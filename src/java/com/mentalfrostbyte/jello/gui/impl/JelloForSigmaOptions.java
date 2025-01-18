@@ -59,8 +59,8 @@ public class JelloForSigmaOptions extends IngameMenuScreen {
    }
 
    @Override
-   public void render(MatrixStack var1, int var2, int var3, float var4) {
-      super.render(var1, var2, var3, var4);
+   public void render(MatrixStack matrices, int var2, int var3, float delta) {
+      super.render(matrices, var2, var3, delta);
    }
 
    @Override

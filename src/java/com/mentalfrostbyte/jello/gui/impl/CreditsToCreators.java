@@ -31,7 +31,7 @@ public class CreditsToCreators extends Screen {
       String[] var8 = var4.split("\n");
 
       for (String var12 : var8) {
-         var5.addToList(
+         var5.addButton(
             new UITextDisplay(
                var5,
                "lbl" + var6,
@@ -49,7 +49,7 @@ public class CreditsToCreators extends Screen {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          0.0F,
          0.0F,
          (float)this.widthA,
@@ -61,9 +61,9 @@ public class CreditsToCreators extends Screen {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
          Minecraft.getInstance().displayGuiScreen(new InGameOptionsScreen());
       }
    }

@@ -89,7 +89,7 @@ public class SigmaClassicAltManager extends Screen {
       int var4 = 52;
       Class4349 var5;
       this.field21055
-         .addToList(
+         .addButton(
             var5 = new Class4349(this.field21055, var1.getEmail(), 4, var4 * this.method13400() + 4, this.field21055.getWidthA() - 8, var4, var1)
          );
       var5.doThis((var2, var3) -> {
@@ -168,9 +168,9 @@ public class SigmaClassicAltManager extends Screen {
    private int method13400() {
       int var3 = 0;
 
-      for (CustomGuiScreen var5 : this.field21055.method13241()) {
+      for (CustomGuiScreen var5 : this.field21055.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                var3++;
             }
          }
@@ -180,29 +180,29 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    private void method13401() {
-      RenderUtil.method11455(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
-      RenderUtil.renderBackgroundBox(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.23F));
+      RenderUtil.drawImage(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
+      RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.23F));
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
          Minecraft.getInstance().displayGuiScreen(new MainMenuScreen());
       }
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
+   public JSONObject toConfigWithExtra(JSONObject config) {
       this.field21061.saveAlts();
-      return var1;
+      return config;
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      for (CustomGuiScreen var5 : this.field21055.method13241()) {
+   public void loadConfig(JSONObject config) {
+      for (CustomGuiScreen var5 : this.field21055.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var7 : var5.method13241()) {
+            for (CustomGuiScreen var7 : var5.getChildren()) {
                this.field21055.method13234(var7);
             }
          }
@@ -212,7 +212,7 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    public void method13402() {
-      this.method13222(new Class1387(this));
+      this.runThisOnDimensionUpdate(new Class1387(this));
    }
 
    public void method13403() {
@@ -250,9 +250,9 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    public Class4349 method13406() {
-      for (CustomGuiScreen var4 : this.field21055.method13241()) {
+      for (CustomGuiScreen var4 : this.field21055.getChildren()) {
          if (!(var4 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var6 : var4.method13241()) {
+            for (CustomGuiScreen var6 : var4.getChildren()) {
                if (var6 instanceof Class4349) {
                   Class4349 var7 = (Class4349)var6;
                   if (var7.method13582()) {

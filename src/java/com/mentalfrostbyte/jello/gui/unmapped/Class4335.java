@@ -16,7 +16,7 @@ public class Class4335 extends Class4333 {
       super(var1, var2, var3 - 296, var4 - 346, 592, 692);
 
       for (Module var9 : Client.getInstance().moduleManager.getModuleMap().values()) {
-         if (var9.method16006()) {
+         if (var9.isAvailableOnClassic()) {
             for (ModuleCategory var13 : var5) {
                if (var9.getAdjustedCategoryBasedOnClientMode().equals(var13)) {
                   this.method13485(var9);
@@ -29,7 +29,7 @@ public class Class4335 extends Class4333 {
       this.addToList(var14 = new Class4361(this, "exit", this.getWidthA() - 47, 18));
       var14.doThis((var1x, var2x) -> {
          if (this.field21181 == null) {
-            ((ClassicScreenk)this.getScreen()).method13417();
+            ((ClassicScreenk)this.getParent()).method13417();
          } else {
             this.field21181.method13556();
          }
@@ -47,7 +47,7 @@ public class Class4335 extends Class4333 {
    }
 
    public void method13486(Module var1) {
-      this.method13222(() -> {
+      this.runThisOnDimensionUpdate(() -> {
          if (this.field21181 == null) {
             this.addToList(this.field21181 = new Class4345(this, "settings", 5, 70, this.getWidthA() - 10, this.getHeightA() - 75, var1));
             this.field21181.method13292(true);
@@ -59,12 +59,12 @@ public class Class4335 extends Class4333 {
    public void draw(float var1) {
       super.draw(var1);
       if (this.field21181 == null) {
-         for (CustomGuiScreen var5 : this.method13241()) {
+         for (CustomGuiScreen var5 : this.getChildren()) {
             if (var5 instanceof Class4368 && this.field21149.calcPercent() == 1.0F && var5.method13114(this.getHeightO(), this.getWidthO())) {
                Class4368 var6 = (Class4368)var5;
                RenderUtil.drawString(Resources.regular17, 20.0F, (float)(this.getHeightA() - 26), var6.field21351.getDescription(), -14540254);
                RenderUtil.startScissor(5.0F, (float)(this.getHeightA() - 27), 12.0F, 24.0F);
-               RenderUtil.method11455(5.0F, (float)(this.getHeightA() - 27), 24.0F, 24.0F, Class4334.field21177);
+               RenderUtil.drawImage(5.0F, (float)(this.getHeightA() - 27), 24.0F, 24.0F, Resources.xmark);
                RenderUtil.endScissor();
                break;
             }
@@ -73,10 +73,10 @@ public class Class4335 extends Class4333 {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       if (this.field21181 != null && this.field21181.method13557()) {
-         this.method13222(() -> {
+         this.runThisOnDimensionUpdate(() -> {
             this.method13236(this.field21181);
             this.field21181 = null;
          });

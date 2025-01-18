@@ -81,12 +81,12 @@ public class SwitchScreen extends Screen {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
-        float var5 = (float) var1 - field21070;
-        float var6 = (float) var2 - field21071;
+    public void updatePanelDimensions(int newHeight, int newWidth) {
+        float var5 = (float) newHeight - field21070;
+        float var6 = (float) newWidth - field21071;
         field21070 += var5 * 0.09F;
         field21071 += var6 * 0.09F;
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class SwitchScreen extends Screen {
             int var4 = 40;
             float var5 = -field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
             float var6 = -field21071 / (float) Minecraft.getInstance().getMainWindow().getHeight();
-            RenderUtil.method11455(
+            RenderUtil.drawImage(
                     (float) var4 * var5,
                     (float) var4 * var6,
                     (float) (Minecraft.getInstance().getMainWindow().getWidth() + var4),
@@ -106,7 +106,7 @@ public class SwitchScreen extends Screen {
             float var7 = MathUtils.lerp(field21069.calcPercent(), 0.16, 0.71, 0.0, 0.99);
             int var8 = (Minecraft.getInstance().getMainWindow().getWidth() - 455) / 2;
             int var9 = (int) ((float) ((Minecraft.getInstance().getMainWindow().getHeight() - 78) / 2 - 14) - 116.0F * var7);
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                     0.0F,
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
@@ -122,21 +122,21 @@ public class SwitchScreen extends Screen {
                     CustomLoadingScreen.background,
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - field21069.calcPercent())
             );
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                     0.0F,
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     ColorUtils.applyAlpha(0, 0.75F * (1.0F - field21069.calcPercent()))
             );
-            RenderUtil.method11455((float) var8, (float) var9, 455.0F, 78.0F, CustomLoadingScreen.sigmaLogo);
+            RenderUtil.drawImage((float) var8, (float) var9, 455.0F, 78.0F, CustomLoadingScreen.sigmaLogo);
         }
     }
 
     @Override
-    public void keyPressed(int var1) {
-        super.keyPressed(var1);
-        if (var1 == 256) {
+    public void keyPressed(int keyCode) {
+        super.keyPressed(keyCode);
+        if (keyCode == 256) {
             Minecraft.getInstance().displayGuiScreen(new MainMenuScreen());
         }
     }

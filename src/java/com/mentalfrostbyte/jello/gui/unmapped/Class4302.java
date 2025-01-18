@@ -16,7 +16,7 @@ public class Class4302 extends AnimatedIconPanelWrap {
 
    @Override
    public void draw(float var1) {
-      if (this.method13287()) {
+      if (this.isVisible()) {
          RenderUtil.drawImage(
             (float)(this.xA + 30),
             (float)(this.yA + 30),

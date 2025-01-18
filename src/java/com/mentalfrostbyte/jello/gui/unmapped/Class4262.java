@@ -19,12 +19,12 @@ public class Class4262 extends Class4261 {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
+   public void onClick3(int mouseX, int mouseY, int mouseButton) {
       this.method13086().method23104();
       this.method13093(this.method13086().method23105());
    }
@@ -53,7 +53,7 @@ public class Class4262 extends Class4261 {
 
          this.field20676 = var1;
          if (var2) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }

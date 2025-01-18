@@ -80,13 +80,13 @@ public class RealmsResetNormalWorldScreen extends RealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.field_224355_c.func_239560_a_(this, matrixStack);
-        this.font.func_243248_b(matrixStack, field_243144_a, (float)(this.width / 2 - 100), (float)func_239562_k_(1), 10526880);
-        this.field_224356_d.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        this.field_224355_c.func_239560_a_(this, matrices);
+        this.font.func_243248_b(matrices, field_243144_a, (float)(this.width / 2 - 100), (float)func_239562_k_(1), 10526880);
+        this.field_224356_d.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private ITextComponent func_237937_g_()

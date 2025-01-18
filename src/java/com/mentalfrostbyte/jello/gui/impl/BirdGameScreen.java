@@ -24,7 +24,7 @@ public class BirdGameScreen extends Screen {
       this.method13300(false);
       this.field21045.start();
       this.field21047 = new Animation(200, 0);
-      ColorUtils.method17739();
+      ColorUtils.blur();
       int var3 = 48;
       int var4 = 27;
       int var5 = 14;
@@ -39,7 +39,7 @@ public class BirdGameScreen extends Screen {
       float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
       float var5 = 0.25F * var1;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),
@@ -55,7 +55,7 @@ public class BirdGameScreen extends Screen {
          40.0F,
          var1
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(this.field21046.getXA() - 20),
          (float)(this.field21046.getYA() - 20),
          (float)(this.field21046.getWidthA() + 40),
@@ -79,10 +79,10 @@ public class BirdGameScreen extends Screen {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
-         ColorUtils.method17742();
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
+         ColorUtils.resetShaders();
          Minecraft.getInstance().displayGuiScreen(null);
       }
    }

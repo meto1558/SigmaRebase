@@ -24,9 +24,9 @@ public class RectangleFaded extends ButtonPanel {
     }
 
     @Override
-    public void method13028(int var1, int var2) {
+    public void updatePanelDimensions(int newHeight, int newWidth) {
         this.field20591 = this.method13298();
-        super.method13028(var1, var2);
+        super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class RectangleFaded extends ButtonPanel {
         int var5 = 40;
         float var6 = - SwitchScreen.field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
         float var7 = - SwitchScreen.field21071 / (float) Minecraft.getInstance().getMainWindow().getHeight();
-        RenderUtil.method11455(
+        RenderUtil.drawImage(
                 (float) var5 * var6,
                 (float) var5 * var7,
                 (float) (Minecraft.getInstance().getMainWindow().getWidth() + var5),
@@ -50,7 +50,7 @@ public class RectangleFaded extends ButtonPanel {
         );
         RenderUtil.endScissor();
         if (this.field20591) {
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),
                     (float) this.getYA() - var4 * 3.0F,
                     (float) this.getWidthA(),

@@ -21,11 +21,11 @@ public class HopperScreen extends ContainerScreen<HopperContainer>
         this.playerInventoryTitleY = this.ySize - 94;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
     }
 
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y)

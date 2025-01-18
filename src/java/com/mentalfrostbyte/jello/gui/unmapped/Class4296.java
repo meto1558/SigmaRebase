@@ -61,12 +61,12 @@ public class Class4296 extends AnimatedIconPanelWrap {
    @Override
    public void draw(float var1) {
       this.method13225();
-      this.field20815 = (float)((double)this.field20815 + (this.method13287() ? 0.33 : -0.33));
+      this.field20815 = (float)((double)this.field20815 + (this.isVisible() ? 0.33 : -0.33));
       this.field20815 = Math.min(1.0F, Math.max(0.0F, this.field20815));
       if (this.field20813 == null) {
          int var4 = this.widthA - 30;
          int var5 = this.xA + 5;
-         RenderUtil.method11455(
+         RenderUtil.drawImage(
             (float)var5,
             (float)((Minecraft.getInstance().getMainWindow().getHeight() - var4 * 342 / 460) / 2 - 60),
             (float)var4,

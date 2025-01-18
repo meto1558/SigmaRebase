@@ -79,7 +79,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
          }
 
          RenderUtil.method11415(this);
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),
@@ -110,7 +110,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
 
          GL11.glPopMatrix();
          RenderUtil.endScissor();
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),
@@ -146,7 +146,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
             (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.0F, 0.0F, 64.0F, 64.0F
          );
       } else {
-         RenderUtil.method11450(
+         RenderUtil.drawImage(
             (float)(this.xA + 12), (float)(this.yA + 12), 64.0F, 64.0F, this.field21245, ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
          );
       }
@@ -257,7 +257,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       return false;
    }
 }

@@ -79,6 +79,7 @@ public class AccountManager {
 
     /**
      * Logs into the account
+     *
      * @param account specified account
      * @return if the login was successful
      */

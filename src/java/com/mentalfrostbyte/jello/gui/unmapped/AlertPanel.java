@@ -52,8 +52,8 @@ public class AlertPanel extends UIBase {
 
       for (MiniAlert var15 : var5) {
          var17++;
-         if (var15.field44771 != AlertType.FIRSTLINE) {
-            if (var15.field44771 != AlertType.SEKONDLINE) {
+         if (var15.field44771 != AlertType.FIRST_LINE) {
+            if (var15.field44771 != AlertType.SECOND_LINE) {
                if (var15.field44771 != AlertType.BUTTON) {
                   if (var15.field44771 == AlertType.HEADER) {
                      this.field21279
@@ -150,7 +150,7 @@ public class AlertPanel extends UIBase {
    @Override
    public void method13296(boolean var1) {
       if (var1) {
-         for (CustomGuiScreen var5 : this.field21279.method13241()) {
+         for (CustomGuiScreen var5 : this.field21279.getChildren()) {
             if (var5 instanceof UIInput) {
                ((UIInput)var5).setTypedText("");
                ((UIInput)var5).method13146();
@@ -169,7 +169,7 @@ public class AlertPanel extends UIBase {
    private Map<String, String> method13599() {
       HashMap var3 = new HashMap();
 
-      for (CustomGuiScreen var5 : this.field21279.method13241()) {
+      for (CustomGuiScreen var5 : this.field21279.getChildren()) {
          AnimatedIconPanelWrap var6 = (AnimatedIconPanelWrap)var5;
          if (var6 instanceof UIInput) {
             UIInput var7 = (UIInput)var6;
@@ -187,12 +187,12 @@ public class AlertPanel extends UIBase {
    public void method13601() {
       this.field21286 = this.method13599();
       this.method13603(false);
-      this.method13037();
+      this.callUIHandlers();
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
-      super.method13089(var1, var2, var3);
+   public void onClick3(int mouseX, int mouseY, int mouseButton) {
+      super.onClick3(mouseX, mouseY, mouseButton);
    }
 
    public float method13602(float var1, float var2) {
@@ -210,7 +210,7 @@ public class AlertPanel extends UIBase {
          float var8 = this.method13602(this.field21282.calcPercent(), 1.0F);
          var4 = (int)((float)var4 * var8);
          var5 = (int)((float)var5 * var8);
-         RenderUtil.method11448(
+         RenderUtil.drawTexture(
             -5.0F,
             -5.0F,
             (float)(this.getWidthA() + 10),
@@ -218,7 +218,7 @@ public class AlertPanel extends UIBase {
             this.field21281,
                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var7)
          );
          if (var4 > 0) {
@@ -240,14 +240,14 @@ public class AlertPanel extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
          int var6 = this.field21284 + 60;
          int var7 = this.field21285 + 60;
-         if (var1 > (this.widthA - var6) / 2
-            && var1 < (this.widthA - var6) / 2 + var6
-            && var2 > (this.heightA - var7) / 2
-            && var2 < (this.heightA - var7) / 2 + var7) {
+         if (mouseX > (this.widthA - var6) / 2
+            && mouseX < (this.widthA - var6) / 2 + var6
+            && mouseY > (this.heightA - var7) / 2
+            && mouseY < (this.heightA - var7) / 2 + var7) {
             return false;
          } else {
             this.method13603(false);

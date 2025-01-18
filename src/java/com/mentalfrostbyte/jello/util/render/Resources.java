@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.util.render;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
@@ -10,8 +11,10 @@ import org.newdawn.slick.util.BufferedImageUtil;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Resources {
 
@@ -84,9 +87,11 @@ public class Resources {
     public static Texture youtubePNG = loadTexture("com/mentalfrostbyte/gui/resources/loading/youtube.png");
     public static Texture guildedPNG = loadTexture("com/mentalfrostbyte/gui/resources/loading/guilded.png");
     public static Texture redditPNG = loadTexture("com/mentalfrostbyte/gui/resources/loading/reddit.png");
-    public static Texture panoramaPNG = createScaledAndProcessedTexture1("com/mentalfrostbyte/gui/resources/background/panorama5.png", 0.25F, 30);;
+    public static Texture panoramaPNG = createScaledAndProcessedTexture1("com/mentalfrostbyte/gui/resources/background/panorama5.png", 0.25F, 30);
+    ;
 
-    public static Texture singlePlayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/singleplayer.png");;
+    public static Texture singlePlayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/singleplayer.png");
+    ;
     public static Texture multiplayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/multiplayer.png");
     public static Texture options = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/options.png");
     public static Texture language = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/language.png");
@@ -96,6 +101,31 @@ public class Resources {
     public static Texture big = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/big.png");
     public static Texture agora = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/agora.png");
     public static Texture checkbox = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/checkbox.png");
+
+    public static Texture colors = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/colors.png");
+    public static Texture colors2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/colors2.png");
+    public static Texture combat = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/combat.png");
+    public static Texture combat2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/combat2.png");
+    public static Texture downarrow = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/downarrow.png");
+    public static Texture gear = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/gear.png");
+    public static Texture gear2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/gear2.png");
+    public static Texture movement = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/movement.png");
+    public static Texture movement2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/movement2.png");
+    public static Texture msgo = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/msgo.png");
+    public static Texture msgo2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/msgo2.png");
+    public static Texture others = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/others.png");
+    public static Texture others2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/others2.png");
+    public static Texture player = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/player.png");
+    public static Texture player2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/player2.png");
+    public static Texture uparrow = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/uparrow.png");
+    public static Texture uparrow2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/uparrow2.png");
+    public static Texture visuals = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/visuals2.png");
+    public static Texture visuals2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/visuals2.png");
+    public static Texture xmark = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/xmark2.png");
+    public static Texture xmark2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/xmark2.png");
+    public static Texture world = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/world.png");
+    public static Texture world2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/world2.png");
+
     public static TrueTypeFont regular28 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 28.0F);
     public static TrueTypeFont regular25 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 25.0F);
     public static TrueTypeFont regular20 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 20.0F);
@@ -108,7 +138,6 @@ public class Resources {
     public static TrueTypeFont bold14 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Bold.ttf", 0, 14.0F);
     public static TrueTypeFont medium17 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Medium.ttf", 0, 17.0F);
 
-
     public static Texture loadTexture(String filePath) {
         try {
             String extension = filePath.substring(filePath.lastIndexOf(".") + 1).toUpperCase();
@@ -116,7 +145,7 @@ public class Resources {
         } catch (Exception e) {
             System.err.println(
                     "Unable to load texture " + filePath +
-                    ". Please make sure it is a valid path and has a valid extension.");
+                            ". Please make sure it is a valid path and has a valid extension.");
             throw e;
         }
     }

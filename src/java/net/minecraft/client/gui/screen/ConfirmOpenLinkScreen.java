@@ -57,13 +57,13 @@ public class ConfirmOpenLinkScreen extends ConfirmScreen
         this.minecraft.keyboardListener.setClipboardString(this.linkText);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.showSecurityWarning)
         {
-            drawCenteredString(matrixStack, this.font, this.openLinkWarning, this.width / 2, 110, 16764108);
+            drawCenteredString(matrices, this.font, this.openLinkWarning, this.width / 2, 110, 16764108);
         }
     }
 }

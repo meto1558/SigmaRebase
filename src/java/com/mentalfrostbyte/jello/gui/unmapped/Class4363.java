@@ -37,10 +37,10 @@ public class Class4363 extends UIBase {
       Class4362 var5 = new Class4362(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
       this.field21331.put(var2, var5);
       var5.setEnabled(false);
-      var5.method13036(var2x -> {
+      var5.addUIHandler(var2x -> {
          this.method13656(var2);
          this.method13658(false);
-         this.method13037();
+         this.callUIHandlers();
       });
       this.addToList(var5);
    }
@@ -56,7 +56,7 @@ public class Class4363 extends UIBase {
    }
 
    private void method13646() {
-      this.method13241().clear();
+      this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
       ButtonPanel dropdownButton;
       this.addToList(dropdownButton = new ButtonPanel(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));
@@ -96,7 +96,7 @@ public class Class4363 extends UIBase {
             this.method13656(this.values.indexOf(mode));
             this.method13658(false);
             if (var6x != this.method13655()) {
-               this.method13037();
+               this.callUIHandlers();
             }
          });
       }
@@ -109,7 +109,7 @@ public class Class4363 extends UIBase {
       int var3 = this.method13648();
 
       for (Entry var5 : this.field21331.entrySet()) {
-         if (((Class4362)var5.getValue()).method13287()) {
+         if (((Class4362)var5.getValue()).isVisible()) {
             var3 = Math.max(
                var3,
                (((Class4362)var5.getValue()).field21323.size() - 1) * ((Class4362)var5.getValue()).getHeightA() + ((Class4362)var5.getValue()).getYA()
@@ -134,22 +134,22 @@ public class Class4363 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
-      if (!this.method13114(var1, var2) && this.field21330.getDirection() == Direction.FORWARDS) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
+      if (!this.method13114(newHeight, newWidth) && this.field21330.getDirection() == Direction.FORWARDS) {
          this.method13658(false);
       }
 
-      int var5 = (var2 - this.method13272()) / this.getHeightA() - 1;
+      int var5 = (newWidth - this.method13272()) / this.getHeightA() - 1;
       if (var5 >= 0
          && var5 < this.values.size()
          && this.field21330.getDirection() == Direction.FORWARDS
          && this.field21330.calcPercent() == 1.0F
-         && var1 - this.method13271() < this.getWidthA()) {
+         && newHeight - this.method13271() < this.getWidthA()) {
          for (Entry var9 : this.field21331.entrySet()) {
             ((Class4362)var9.getValue()).setEnabled((Integer)var9.getKey() == var5);
          }
-      } else if (!this.method13114(var1, var2) || this.field21330.getDirection() == Direction.BACKWARDS) {
+      } else if (!this.method13114(newHeight, newWidth) || this.field21330.getDirection() == Direction.BACKWARDS) {
          for (Entry var7 : this.field21331.entrySet()) {
             ((Class4362)var7.getValue()).setEnabled(false);
          }
@@ -158,7 +158,7 @@ public class Class4363 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
@@ -267,7 +267,7 @@ public class Class4363 extends UIBase {
    @Override
    public boolean method13114(int var1, int var2) {
       for (Entry var6 : this.field21331.entrySet()) {
-         if (((Class4362)var6.getValue()).method13287() && ((Class4362)var6.getValue()).method13114(var1, var2)) {
+         if (((Class4362)var6.getValue()).isVisible() && ((Class4362)var6.getValue()).method13114(var1, var2)) {
             return true;
          }
       }

@@ -24,7 +24,7 @@ public class Class4300 extends AnimatedIconPanelWrap {
    @Override
    public void draw(float var1) {
       this.setFont(ResourceRegistry.DefaultClientFont);
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),

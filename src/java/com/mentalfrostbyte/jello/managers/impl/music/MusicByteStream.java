@@ -3,13 +3,13 @@ package com.mentalfrostbyte.jello.managers.impl.music;
 import java.io.ByteArrayOutputStream;
 
 public final class MusicByteStream extends ByteArrayOutputStream {
-   public final MusicStream musicStream;
+    public final MusicStream musicStream;
 
-   public MusicByteStream(MusicStream musicStream) {
-      this.musicStream = musicStream;
-   }
+    public MusicByteStream(MusicStream musicStream) {
+        this.musicStream = musicStream;
+    }
 
-   public byte[] getBuffer() {
-      return this.buf;
-   }
+    public byte[] getBuffer() {
+        return this.buf;
+    }
 }

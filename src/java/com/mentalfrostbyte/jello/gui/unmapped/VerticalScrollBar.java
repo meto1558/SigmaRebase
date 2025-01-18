@@ -30,11 +30,11 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public void method13079(float var1) {
-      super.method13079(var1);
-      if (this.screen != null && this.screen.method13228(this.getHeightO(), this.getWidthO(), false) || ((Class4339)this.screen).field21208) {
-         float var4 = (float)((Class4339)this.getScreen()).getButton().getHeightA();
-         float var5 = (float)this.getScreen().getHeightA();
+   public void onScrolling(float scroll) {
+      super.onScrolling(scroll);
+      if (this.parent != null && this.parent.method13228(this.getHeightO(), this.getWidthO(), false) || ((Class4339)this.parent).field21208) {
+         float var4 = (float)((Class4339)this.getParent()).getButton().getHeightA();
+         float var5 = (float)this.getParent().getHeightA();
          float var6 = (float)this.getHeightA();
          if (var4 == 0.0F) {
             return;
@@ -46,16 +46,16 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
          }
 
          this.field20793 = this.field20793
-            - Math.round(!(var1 < 0.0F) ? (float)((Class4339)this.screen).field21207 * var1 : 1.0F * (float)((Class4339)this.screen).field21207 * var1);
+            - Math.round(!(scroll < 0.0F) ? (float)((Class4339)this.parent).field21207 * scroll : 1.0F * (float)((Class4339)this.parent).field21207 * scroll);
          this.field20797.reset();
          this.field20797.start();
       }
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
-      this.field20908 = this.method13228(var1, var2, false);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
+      this.field20908 = this.method13228(newHeight, newWidth, false);
       this.field20794 = this.field20794
          + (
             this.field20796.getHeightA() >= this.getHeightA()
@@ -67,8 +67,8 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
                )
          );
       this.field20794 = Math.min(Math.max(0.0F, this.field20794), 1.0F);
-      float var5 = (float)((Class4339)this.getScreen()).getButton().getHeightA();
-      float var6 = (float)this.getScreen().getHeightA();
+      float var5 = (float)((Class4339)this.getParent()).getButton().getHeightA();
+      float var6 = (float)this.getParent().getHeightA();
       float var7 = (float)this.getHeightA();
       float var8 = var6 / var5;
       boolean var9 = var8 < 1.0F && var5 > 0.0F && this.field20794 >= 0.0F;
@@ -87,7 +87,7 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
          var4 = 0;
          var7 -= 8;
          var6 += 8;
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)var6,
             (float)(this.yA + var4),
             (float)(var6 + var7),
@@ -97,24 +97,24 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
       } else {
          RenderUtil.drawImage((float)var6, (float)this.yA, (float)var7, 5.0F, Resources.verticalScrollBarTopPNG, 0.45F * var1);
          RenderUtil.drawImage((float)var6, (float)(this.yA + this.heightA - var4), (float)var7, 5.0F, Resources.verticalScrollBarBottomPNG, 0.45F * var1);
-         RenderUtil.drawRect((float)var6, (float)(this.yA + var4), (float)(var6 + var7), (float)(this.yA + this.heightA - var4), var5);
+         RenderUtil.drawRoundedRect((float)var6, (float)(this.yA + var4), (float)(var6 + var7), (float)(this.yA + this.heightA - var4), var5);
       }
 
       super.draw(var1);
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
-         this.field20908 = this.method13228(var1, var2, false);
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
+         this.field20908 = this.method13228(mouseX, mouseY, false);
          if (this.method13298()) {
-            int var6 = var2 - this.method13272();
+            int var6 = mouseY - this.method13272();
             if (var6 <= this.field20796.getYA() + this.field20796.getHeightA()) {
                if (var6 < this.field20796.getYA()) {
-                  this.field20793 = this.field20793 - (int)((float)((Class4339)this.screen).getButton().getHeightA() / 4.0F);
+                  this.field20793 = this.field20793 - (int)((float)((Class4339)this.parent).getButton().getHeightA() / 4.0F);
                }
             } else {
-               this.field20793 = this.field20793 + (int)((float)((Class4339)this.screen).getButton().getHeightA() / 4.0F);
+               this.field20793 = this.field20793 + (int)((float)((Class4339)this.parent).getButton().getHeightA() / 4.0F);
             }
          }
 
@@ -125,15 +125,15 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public JSONObject method13160(JSONObject var1) {
-      var1.put("offset", this.field20793);
-      return super.method13160(var1);
+   public JSONObject toConfigWithExtra(JSONObject config) {
+      config.put("offset", this.field20793);
+      return super.toConfigWithExtra(config);
    }
 
    @Override
-   public void method13161(JSONObject var1) {
-      super.method13161(var1);
-      this.field20793 = CJsonUtils.getIntOrDefault(var1, "offset", this.field20793);
+   public void loadConfig(JSONObject config) {
+      super.loadConfig(config);
+      this.field20793 = CJsonUtils.getIntOrDefault(config, "offset", this.field20793);
    }
 
    @Override

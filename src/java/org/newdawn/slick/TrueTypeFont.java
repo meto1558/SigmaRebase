@@ -13,27 +13,77 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A TrueType font implementation for Slick
+ *
+ * @author James Chambers (Jimmy)
+ * @author Jeremy Adams (elias4444)
+ * @author Kevin Glass (kevglass)
+ * @author Peter Korzuszek (genail)
+ */
 public class TrueTypeFont implements Font {
+    /**
+     * The renderer to use for all GL operations
+     */
     private static final SGL GL = Renderer.get();
-    private final int field31944;
+    private final int size;
     public Texture fontTexture;
+    /**
+     * Array that holds necessary information about the font characters
+     */
     private final IntObject[] charArray = new IntObject[256];
+    /**
+     * Map of user defined font characters (Character <-> IntObject)
+     */
     private final Map customChars = new HashMap();
+    /**
+     * Boolean flag on whether AntiAliasing is enabled or not
+     */
     private final boolean antiAlias;
+    /**
+     * Font's size
+     */
     private int fontSize = 0;
+    /**
+     * Font's height
+     */
     private int fontHeight = 0;
+    /**
+     * Default font texture width
+     */
     private int textureWidth = 512;
+
+    /**
+     * Default font texture height
+     */
     private int textureHeight = 512;
+    /**
+     * A reference to Java's AWT Font that we create our font texture from
+     */
     private final java.awt.Font font;
+
+    /**
+     * The font metrics for our Java AWT font
+     */
     private FontMetrics fontMetrics;
 
-    public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars, int var4) {
+    /**
+     * Constructor for the TrueTypeFont class Pass in the preloaded standard
+     * Java TrueType font, and whether you want it to be cached with
+     * AntiAliasing applied.
+     *
+     * @param font            Standard Java AWT font
+     * @param antiAlias       Whether to apply AntiAliasing to the cached font
+     * @param additionalChars Characters of font that will be used in addition of first 256 (by Unicode).
+     * @param size            The size of the font
+     */
+    public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars, int size) {
         GLUtils.checkGLContext();
         this.font = font;
         this.fontSize = font.getSize();
         this.antiAlias = antiAlias;
-        this.field31944 = var4;
-        if (var4 > 0) {
+        this.size = size;
+        if (size > 0) {
             this.textureWidth = 1024;
             this.textureHeight = 1024;
         }
@@ -41,6 +91,14 @@ public class TrueTypeFont implements Font {
         this.createSet(additionalChars);
     }
 
+    /**
+     * Constructor for the TrueTypeFont class Pass in the preloaded standard
+     * Java TrueType font, and whether you want it to be cached with
+     * AntiAliasing applied.
+     *
+     * @param font      Standard Java AWT font
+     * @param antiAlias Whether to apply AntiAliasing to the cached font
+     */
     public TrueTypeFont(java.awt.Font font, boolean antiAlias, char[] additionalChars) {
         this(font, antiAlias, additionalChars, 0);
     }
@@ -49,11 +107,17 @@ public class TrueTypeFont implements Font {
         this(font, antiAlias, null);
     }
 
-    public TrueTypeFont(java.awt.Font font, int var2) {
-        this(font, true, null, var2);
+    public TrueTypeFont(java.awt.Font font, int size) {
+        this(font, true, null, size);
     }
 
-    private BufferedImage getFontImage(char var1) {
+    /**
+     * Create a standard Java2D BufferedImage of the given character
+     *
+     * @param of The character to create a BufferedImage for
+     * @return A BufferedImage containing the character
+     */
+    private BufferedImage getFontImage(char of) {
         BufferedImage bufferedImage = new BufferedImage(1, 1, 2);
         Graphics2D g2d = (Graphics2D) bufferedImage.getGraphics();
         if (this.antiAlias) {
@@ -62,7 +126,7 @@ public class TrueTypeFont implements Font {
 
         g2d.setFont(this.font);
         this.fontMetrics = g2d.getFontMetrics();
-        int charWidth = this.fontMetrics.charWidth(var1);
+        int charWidth = this.fontMetrics.charWidth(of);
         if (charWidth <= 0) {
             charWidth = 1;
         }
@@ -72,7 +136,7 @@ public class TrueTypeFont implements Font {
             charHeight = this.fontSize;
         }
 
-        BufferedImage bufferedImage2 = new BufferedImage(charWidth + this.field31944 * 2, charHeight + this.field31944 * 2, 2);
+        BufferedImage bufferedImage2 = new BufferedImage(charWidth + this.size * 2, charHeight + this.size * 2, 2);
         Graphics2D g2d2 = (Graphics2D) bufferedImage2.getGraphics();
         if (this.antiAlias) {
             g2d2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -80,8 +144,8 @@ public class TrueTypeFont implements Font {
 
         g2d2.setFont(this.font);
         g2d2.setColor(java.awt.Color.WHITE);
-        g2d2.drawString(String.valueOf(var1), this.field31944, this.field31944 + this.fontMetrics.getAscent());
-        return this.field31944 <= 0 ? bufferedImage2 : ImageUtil.method35033(bufferedImage2, this.field31944);
+        g2d2.drawString(String.valueOf(of), this.size, this.size + this.fontMetrics.getAscent());
+        return this.size <= 0 ? bufferedImage2 : ImageUtil.applyGaussianBlur(bufferedImage2, this.size);
     }
 
     private int method23949(char var1) {
@@ -101,10 +165,20 @@ public class TrueTypeFont implements Font {
         return charWidth;
     }
 
+    /**
+     * Create and store the font
+     *
+     * @param customCharsArray Characters that should be also added to the cache.
+     */
     private void createSet(char[] customCharsArray) {
+        // If there are custom chars then I expand the font texture twice
         if (customCharsArray != null && customCharsArray.length > 0) {
             this.textureWidth *= 2;
         }
+
+        // In any case this should be done in other way. Texture with size 512x512
+        // can maintain only 256 characters with resolution of 32x32. The texture
+        // size should be calculated dynamically by looking at character sizes.
 
         try {
             BufferedImage bufferedImage = this.getFontImage('\u0000');
@@ -113,8 +187,8 @@ public class TrueTypeFont implements Font {
                 this.textureHeight *= 2;
             }
 
-            BufferedImage bufferedImage2 = new BufferedImage(this.textureWidth, this.textureHeight, 2);
-            Graphics2D g2d = (Graphics2D) bufferedImage2.getGraphics();
+            BufferedImage imgTemp = new BufferedImage(this.textureWidth, this.textureHeight, 2);
+            Graphics2D g2d = (Graphics2D) imgTemp.getGraphics();
             g2d.setColor(new java.awt.Color(255, 255, 255, 1));
             g2d.fillRect(0, 0, this.textureWidth, this.textureHeight);
             int rowHeight = 0;
@@ -122,165 +196,228 @@ public class TrueTypeFont implements Font {
             int positionY = 0;
             int customCharsLength = customCharsArray != null ? customCharsArray.length : 0;
 
-            for (int var11 = 0; var11 < 256 + customCharsLength; var11++) {
-                char var12 = var11 < 256 ? (char) var11 : customCharsArray[var11 - 256];
-                BufferedImage var13 = this.getFontImage(var12);
-                IntObject var14 = new IntObject();
-                var14.width = var13.getWidth();
-                var14.height = var13.getHeight();
-                if (this.field31944 > 0) {
-                    var14.field35435 = this.method23949(var12);
+            for (int i = 0; i < 256 + customCharsLength; i++) {
+                // get 0-255 characters and then custom characters
+                char ch = i < 256 ? (char) i : customCharsArray[i - 256];
+                BufferedImage var13 = this.getFontImage(ch);
+                IntObject newIntObject = new IntObject();
+                newIntObject.width = var13.getWidth();
+                newIntObject.height = var13.getHeight();
+                if (this.size > 0) {
+                    newIntObject.actualWidth = this.method23949(ch);
                 } else {
-                    var14.field35435 = var14.width;
+                    newIntObject.actualWidth = newIntObject.width;
                 }
 
-                if (positionX + var14.width >= this.textureWidth) {
+                if (positionX + newIntObject.width >= this.textureWidth) {
                     positionX = 0;
                     positionY += rowHeight;
                     rowHeight = 0;
                 }
 
-                var14.storedX = positionX;
-                var14.storedY = positionY;
-                if (var14.height > this.fontHeight) {
-                    this.fontHeight = var14.height;
+                newIntObject.storedX = positionX;
+                newIntObject.storedY = positionY;
+                if (newIntObject.height > this.fontHeight) {
+                    this.fontHeight = newIntObject.height;
                 }
 
-                if (var14.height > rowHeight) {
-                    rowHeight = var14.height + 1;
+                if (newIntObject.height > rowHeight) {
+                    rowHeight = newIntObject.height + 1;
                 }
 
+                // Draw it here
                 g2d.drawImage(var13, positionX, positionY, null);
-                positionX += var14.width + 1;
-                if (var11 < 256) {
-                    this.charArray[var11] = var14;
-                } else {
-                    this.customChars.put(new Character(var12), var14);
+                positionX += newIntObject.width + 1;
+                if (i < 256) { // standard characters
+                    this.charArray[i] = newIntObject;
+                } else { // custom characters
+                    this.customChars.put(ch, newIntObject);
                 }
             }
 
-            this.fontTexture = BufferedImageUtil.getTexture(this.font.toString(), bufferedImage2);
+            this.fontTexture = BufferedImageUtil.getTexture(this.font.toString(), imgTemp);
         } catch (IOException var15) {
             System.err.println("Failed to create font.");
             var15.printStackTrace();
         }
     }
 
-    private void method23951(float var1, float var2, float var3, float var4, float var5, float var6, float var7, float var8) {
-        float var11 = var3 - var1;
-        float var12 = var4 - var2;
-        float var13 = var5 / (float) this.textureWidth;
-        float var14 = var6 / (float) this.textureHeight;
-        float var15 = var7 - var5;
-        float var16 = var8 - var6;
-        float var17 = var15 / (float) this.textureWidth;
-        float var18 = var16 / (float) this.textureHeight;
-        GL.glTexCoord2f(var13, var14);
-        GL.glVertex2f(var1, var2);
-        GL.glTexCoord2f(var13, var14 + var18);
-        GL.glVertex2f(var1, var2 + var12);
-        GL.glTexCoord2f(var13 + var17, var14 + var18);
-        GL.glVertex2f(var1 + var11, var2 + var12);
-        GL.glTexCoord2f(var13 + var17, var14);
-        GL.glVertex2f(var1 + var11, var2);
+    /**
+     * Draw a textured quad
+     *
+     * @param drawX  The left x position to draw to
+     * @param drawY  The top y position to draw to
+     * @param drawX2 The right x position to draw to
+     * @param drawY2 The bottom y position to draw to
+     * @param srcX   The left source x position to draw from
+     * @param srcY   The top source y position to draw from
+     * @param srcX2  The right source x position to draw from
+     * @param srcY2  The bottom source y position to draw from
+     */
+    private void drawQuad(float drawX, float drawY, float drawX2, float drawY2,
+                          float srcX, float srcY, float srcX2, float srcY2) {
+        float DrawWidth = drawX2 - drawX;
+        float DrawHeight = drawY2 - drawY;
+        float TextureSrcX = srcX / textureWidth;
+        float TextureSrcY = srcY / textureHeight;
+        float SrcWidth = srcX2 - srcX;
+        float SrcHeight = srcY2 - srcY;
+        float RenderWidth = (SrcWidth / textureWidth);
+        float RenderHeight = (SrcHeight / textureHeight);
+
+        GL.glTexCoord2f(TextureSrcX, TextureSrcY);
+        GL.glVertex2f(drawX, drawY);
+        GL.glTexCoord2f(TextureSrcX, TextureSrcY + RenderHeight);
+        GL.glVertex2f(drawX, drawY + DrawHeight);
+        GL.glTexCoord2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight);
+        GL.glVertex2f(drawX + DrawWidth, drawY + DrawHeight);
+        GL.glTexCoord2f(TextureSrcX + RenderWidth, TextureSrcY);
+        GL.glVertex2f(drawX + DrawWidth, drawY);
     }
 
-    @Override
-    public int getWidth(String var1) {
-        int var4 = 0;
-        IntObject var5 = null;
-        char var6 = '\u0000';
-        if (var1 != null) {
-            for (int var7 = 0; var7 < var1.length(); var7++) {
-                var6 = var1.charAt(var7);
-                if (var6 >= 256) {
-                    var5 = (IntObject) this.customChars.get(new Character(var6));
-                } else {
-                    var5 = this.charArray[var6];
-                }
-
-                if (var5 != null) {
-                    var4 += var5.field35435;
-                }
+    /**
+     * Get the width of a given String
+     *
+     * @param whatchars The characters to get the width of
+     * @return The width of the characters
+     */
+    public int getWidth(String whatchars) {
+        int totalwidth = 0;
+        IntObject intObject = null;
+        int currentChar = 0;
+        for (int i = 0; i < whatchars.length(); i++) {
+            currentChar = whatchars.charAt(i);
+            if (currentChar < 256) {
+                intObject = charArray[currentChar];
+            } else {
+                intObject = (IntObject) customChars.get(new Character((char) currentChar));
             }
 
-            return var4;
-        } else {
-            return 0;
+            if (intObject != null)
+                totalwidth += intObject.width;
         }
+        return totalwidth;
     }
 
+    /**
+     * Get the font's height
+     *
+     * @return The height of the font
+     */
     public int getHeight() {
-        return this.fontHeight;
+        return fontHeight;
     }
 
-    @Override
-    public int getHeight(String var1) {
-        return this.fontHeight;
+    /**
+     * Get the height of a String
+     *
+     * @return The height of a given string
+     */
+    public int getHeight(String HeightString) {
+        return fontHeight;
     }
 
-    @Override
+    /**
+     * Get the font's line height
+     *
+     * @return The line height of the font
+     */
     public int getLineHeight() {
-        return this.fontHeight;
+        return fontHeight;
     }
 
-    @Override
-    public void drawString(float var1, float var2, String var3, Color var4) {
-        this.drawString(var1, var2, var3, var4, 0, var3.length() - 1);
+    /**
+     * Draw a string
+     *
+     * @param x         The x position to draw the string
+     * @param y         The y position to draw the string
+     * @param whatchars The string to draw
+     * @param color     The color to draw the text
+     */
+    public void drawString(float x, float y, String whatchars,
+                           org.newdawn.slick.Color color) {
+        drawString(x, y, whatchars, color, 0, whatchars.length() - 1);
     }
 
+    /**
+     * @see Font#drawString(float, float, String, org.newdawn.slick.Color, int, int)
+     */
     @Override
-    public void drawString(float var1, float var2, String var3, Color var4, int var5, int var6) {
-        var4.bind();
+    public void drawString(float x, float y, String string, Color color, int startIndex, int endIndex) {
+        color.bind();
         this.fontTexture.bind();
-        IntObject var9 = null;
-        if (this.field31944 > 0) {
-            var2 -= (float) (this.field31944 / 2 - 1);
-            var1 -= (float) (this.field31944 - 1);
+        IntObject intObject = null;
+        if (this.size > 0) {
+            y -= (float) (this.size / 2 - 1);
+            x -= (float) (this.size - 1);
         }
 
         GL.glBegin(7);
-        int var10 = 0;
+        int charIdx = 0;
 
-        for (int var11 = 0; var11 < var3.length(); var11++) {
-            char var12 = var3.charAt(var11);
-            if (var12 >= 256) {
-                var9 = (IntObject) this.customChars.get(new Character(var12));
+        for (int var11 = 0; var11 < string.length(); var11++) {
+            char charCurrent = string.charAt(var11);
+            if (charCurrent >= 256) {
+                intObject = (IntObject) this.customChars.get(charCurrent);
             } else {
-                var9 = this.charArray[var12];
+                intObject = this.charArray[charCurrent];
             }
 
-            if (var9 != null) {
-                if (var11 >= var5 || var11 <= var6) {
-                    this.method23951(
-                            var1 + (float) var10,
-                            var2,
-                            var1 + (float) var10 + (float) var9.width,
-                            var2 + (float) var9.height,
-                            (float) var9.storedX,
-                            (float) var9.storedY,
-                            (float) (var9.storedX + var9.width),
-                            (float) (var9.storedY + var9.height)
+            if (intObject != null) {
+                if (var11 >= startIndex || var11 <= endIndex) {
+                    this.drawQuad(
+                            x + (float) charIdx,
+                            y,
+                            x + (float) charIdx + (float) intObject.width,
+                            y + (float) intObject.height,
+                            (float) intObject.storedX,
+                            (float) intObject.storedY,
+                            (float) (intObject.storedX + intObject.width),
+                            (float) (intObject.storedY + intObject.height)
                     );
                 }
 
-                var10 += var9.field35435;
+                charIdx += intObject.actualWidth;
             }
         }
 
         GL.glEnd();
     }
 
+    /**
+     * Draw a string
+     *
+     * @param x      The x position to draw the string
+     * @param y      The y position to draw the string
+     * @param string The string to draw
+     */
     @Override
-    public void drawString(float var1, float var2, String var3) {
-        this.drawString(var1, var2, var3, Color.white);
+    public void drawString(float x, float y, String string) {
+        this.drawString(x, y, string, Color.white);
     }
 
+    /**
+     * This is a special internal class that holds our necessary information for
+     * the font characters. This includes width, height, and where the character
+     * is stored on the font texture.
+     */
     public static class IntObject {
-       public int width;
-       public int field35435;
-       public int height;
-       public int storedX;
-       public int storedY;
+        /**
+         * Character's width
+         */
+        public int width;
+        public int actualWidth;
+        /**
+         * Character's height
+         */
+        public int height;
+        /**
+         * Character's stored x position
+         */
+        public int storedX;
+        /**
+         * Character's stored y position
+         */
+        public int storedY;
     }
 }

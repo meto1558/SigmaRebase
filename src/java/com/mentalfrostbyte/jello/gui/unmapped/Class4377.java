@@ -48,14 +48,14 @@ public class Class4377 extends PNGIconButton {
    }
 
    @Override
-   public void method13089(int var1, int var2, int var3) {
+   public void onClick3(int mouseX, int mouseY, int mouseButton) {
       this.method13721(this.method13720() + 1);
-      super.method13089(var1, var2, var3);
+      super.onClick3(mouseX, mouseY, mouseButton);
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -77,7 +77,7 @@ public class Class4377 extends PNGIconButton {
          this.field21385 = var1;
          this.setTypedText(this.field21384[var1]);
          if (var2) {
-            this.method13037();
+            this.callUIHandlers();
          }
       }
    }

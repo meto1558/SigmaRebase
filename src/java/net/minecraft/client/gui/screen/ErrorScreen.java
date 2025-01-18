@@ -24,12 +24,12 @@ public class ErrorScreen extends Screen
         }));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.fillGradient(matrixStack, 0, 0, this.width, this.height, -12574688, -11530224);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 90, 16777215);
-        drawCenteredString(matrixStack, this.font, this.message, this.width / 2, 110, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.fillGradient(matrices, 0, 0, this.width, this.height, -12574688, -11530224);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 90, 16777215);
+        drawCenteredString(matrices, this.font, this.message, this.width / 2, 110, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public boolean shouldCloseOnEsc()

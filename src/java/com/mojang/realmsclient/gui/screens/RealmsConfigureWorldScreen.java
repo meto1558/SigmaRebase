@@ -214,16 +214,16 @@ public class RealmsConfigureWorldScreen extends NotifableRealmsScreen
         }
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.field_224414_b = null;
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, field_243108_r, this.width / 2, func_239562_k_(4), 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, field_243108_r, this.width / 2, func_239562_k_(4), 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
 
         if (this.field_224416_d == null)
         {
-            drawCenteredString(matrixStack, this.font, field_243109_s, this.width / 2, 17, 16777215);
+            drawCenteredString(matrices, this.font, field_243109_s, this.width / 2, 17, 16777215);
         }
         else
         {
@@ -231,19 +231,19 @@ public class RealmsConfigureWorldScreen extends NotifableRealmsScreen
             int i = this.font.getStringWidth(s);
             int j = this.field_224416_d.field_230586_e_ == RealmsServer.Status.CLOSED ? 10526880 : 8388479;
             int k = this.font.getStringPropertyWidth(field_243109_s);
-            drawCenteredString(matrixStack, this.font, field_243109_s, this.width / 2, 12, 16777215);
-            drawCenteredString(matrixStack, this.font, s, this.width / 2, 24, j);
+            drawCenteredString(matrices, this.font, field_243109_s, this.width / 2, 12, 16777215);
+            drawCenteredString(matrices, this.font, s, this.width / 2, 24, j);
             int l = Math.min(this.func_224374_a(2, 3) + 80 - 11, this.width / 2 + i / 2 + k / 2 + 10);
-            this.func_237807_c_(matrixStack, l, 7, mouseX, mouseY);
+            this.func_237807_c_(matrices, l, 7, mouseX, mouseY);
 
             if (this.func_224376_g())
             {
-                this.font.func_243248_b(matrixStack, field_243110_t.deepCopy().appendString(this.field_224416_d.func_230778_c_()), (float)(this.field_224418_f + 80 + 20 + 10), (float)func_239562_k_(13), 16777215);
+                this.font.func_243248_b(matrices, field_243110_t.deepCopy().appendString(this.field_224416_d.func_230778_c_()), (float)(this.field_224418_f + 80 + 20 + 10), (float)func_239562_k_(13), 16777215);
             }
 
             if (this.field_224414_b != null)
             {
-                this.func_237796_a_(matrixStack, this.field_224414_b, mouseX, mouseY);
+                this.func_237796_a_(matrices, this.field_224414_b, mouseX, mouseY);
             }
         }
     }

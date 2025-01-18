@@ -23,6 +23,7 @@ public final class EventBus {
 
     /**
      * Registers all method of a class to be called by the <code>call</code> method
+     *
      * @param o The instance of the class that contains the method(s)
      */
     public static void register(final Object o) {
@@ -61,6 +62,7 @@ public final class EventBus {
 
     /**
      * Calls all registered method that need that event
+     *
      * @param e Event that's being passed as an argument
      */
     public static void call(final Event e) {
@@ -91,6 +93,7 @@ public final class EventBus {
 
     /**
      * Nothing too special, just prevents NullPointerException from being thrown
+     *
      * @param arg Event
      */
     private static void ensureHashmap(final Class<? extends Event> arg) {

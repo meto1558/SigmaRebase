@@ -20,8 +20,8 @@ public class UIButton extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       this.field20711.changeDirection(!this.method13298() ? Direction.BACKWARDS : Direction.FORWARDS);
    }
 
@@ -49,16 +49,16 @@ public class UIButton extends UIBase {
             (float)var5,
             (float)var6,
             this.getTypedText(),
-                 ColorUtils.applyAlpha(var4, var1 * ColorUtils.method17710(var4)),
+                 ColorUtils.applyAlpha(var4, var1 * ColorUtils.getAlpha(var4)),
             this.textColor.method19411(),
             this.textColor.method19413()
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)var5 - (float)(var7 / 2) * var9,
                  var6 + var8,
             (float)var5 + (float)(var7 / 2) * var9,
                  var6 + var8 + 2,
-                 ColorUtils.applyAlpha(var4, var1 * ColorUtils.method17710(var4))
+                 ColorUtils.applyAlpha(var4, var1 * ColorUtils.getAlpha(var4))
          );
          super.draw(var1);
       }

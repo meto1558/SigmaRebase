@@ -142,11 +142,11 @@ public class RecipeOverlayGui extends AbstractGui implements IRenderable, IGuiEv
         return false;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         if (this.visible)
         {
-            this.time += partialTicks;
+            this.time += delta;
             RenderSystem.enableBlend();
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(RECIPE_BOOK_TEXTURE);
@@ -159,12 +159,12 @@ public class RecipeOverlayGui extends AbstractGui implements IRenderable, IGuiEv
             int i1 = 4;
             int j1 = 82;
             int k1 = 208;
-            this.func_238923_c_(matrixStack, j, k, 24, 4, 82, 208);
+            this.func_238923_c_(matrices, j, k, 24, 4, 82, 208);
             RenderSystem.disableBlend();
 
             for (RecipeOverlayGui.RecipeButtonWidget recipeoverlaygui$recipebuttonwidget : this.buttonList)
             {
-                recipeoverlaygui$recipebuttonwidget.render(matrixStack, mouseX, mouseY, partialTicks);
+                recipeoverlaygui$recipebuttonwidget.render(matrices, mouseX, mouseY, delta);
             }
 
             RenderSystem.popMatrix();

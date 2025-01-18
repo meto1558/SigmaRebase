@@ -36,10 +36,10 @@ public class StonecutterScreen extends ContainerScreen<StonecutterContainer>
         --this.titleY;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
     }
 
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y)

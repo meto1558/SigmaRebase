@@ -40,16 +40,16 @@ public class Class4340 extends Class4339 {
       String var6 = "waypoint x" + var2.getX() + " z" + var2.getZ();
       if (this.buttonList.method13221(var6) == null) {
          Class4355 var7 = new Class4355(
-            this, var6, this.xA, this.method13241().get(0).method13241().size() * this.field21210, this.widthA, this.field21210, var1, var2, var3
+            this, var6, this.xA, this.getChildren().get(0).getChildren().size() * this.field21210, this.widthA, this.field21210, var1, var2, var3
          );
          var7.field21288 = var7.getYA();
          this.field21209.add(var7);
-         this.addToList(var7);
+         this.addButton(var7);
          var7.doThis((var2x, var3x) -> {
-            Class4251 var6x = (Class4251)this.getScreen();
+            Class4251 var6x = (Class4251)this.getParent();
             var6x.field20614.method13077(var7.field21292.getX(), var7.field21292.getZ());
          });
-         var7.method13036(
+         var7.addUIHandler(
             var3x -> {
                Client.getInstance()
                   .waypointsManager
@@ -62,8 +62,8 @@ public class Class4340 extends Class4339 {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       this.field21209.sort((var0, var1x) -> var0.field21288 < var1x.field21288 + var0.getHeightA() / 2 ? -1 : 1);
       int var5 = 0;
       if (this.field21213 != null && !this.field21213.method13216() && this.field21212) {
@@ -85,10 +85,10 @@ public class Class4340 extends Class4339 {
       for (Class4355 var11 : this.field21209) {
          if (var11.method13216()) {
             this.field21211.changeDirection(Direction.FORWARDS);
-            if (var1 > this.method13271() + 10
-               && var1 < this.method13271() + 50
-               && var2 < this.method13272() + this.getHeightA() - 10
-               && var2 > this.method13272() + this.getHeightA() - 50) {
+            if (newHeight > this.method13271() + 10
+               && newHeight < this.method13271() + 50
+               && newWidth < this.method13272() + this.getHeightA() - 10
+               && newWidth > this.method13272() + this.getHeightA() - 50) {
                this.field21212 = true;
                this.field21213 = var11;
             } else {
@@ -135,7 +135,7 @@ public class Class4340 extends Class4339 {
 
       super.draw(var1);
       int var8 = Math.round(QuadraticEasing.easeInQuad(1.0F - this.field21211.calcPercent(), 0.0F, 1.0F, 1.0F) * 30.0F);
-      RenderUtil.method11450(
+      RenderUtil.drawImage(
          (float)(this.xA - var8 + 18),
          (float)(this.heightA - 46),
          22.0F,

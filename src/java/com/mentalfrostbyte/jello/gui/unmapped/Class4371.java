@@ -15,20 +15,20 @@ public class Class4371 extends UIBase {
 
    @Override
    public void draw(float var1) {
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)this.xA + (float)this.widthA / 2.0F,
          (float)this.yA + (float)this.widthA / 2.0F,
          (float)this.widthA,
          ColorUtils.applyAlpha(ColorUtils.method17690(this.field21365, ClientColors.DEEP_TEAL.getColor(), 0.8F), var1)
       );
-      RenderUtil.method11438(
+      RenderUtil.drawCircle(
          (float)this.xA + (float)this.widthA / 2.0F,
          (float)this.yA + (float)this.widthA / 2.0F,
          (float)(this.widthA - 2),
               ColorUtils.applyAlpha(this.field21365, var1)
       );
       if (this.method13212()) {
-         RenderUtil.method11438(
+         RenderUtil.drawCircle(
             (float)this.xA + (float)this.widthA / 2.0F,
             (float)this.yA + (float)this.widthA / 2.0F,
             (float)(this.widthA - 2),

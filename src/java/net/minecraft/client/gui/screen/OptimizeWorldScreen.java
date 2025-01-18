@@ -90,36 +90,36 @@ public class OptimizeWorldScreen extends Screen
         this.optimizer.cancel();
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 20, 16777215);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 20, 16777215);
         int i = this.width / 2 - 150;
         int j = this.width / 2 + 150;
         int k = this.height / 4 + 100;
         int l = k + 10;
-        drawCenteredString(matrixStack, this.font, this.optimizer.getStatusText(), this.width / 2, k - 9 - 2, 10526880);
+        drawCenteredString(matrices, this.font, this.optimizer.getStatusText(), this.width / 2, k - 9 - 2, 10526880);
 
         if (this.optimizer.getTotalChunks() > 0)
         {
-            fill(matrixStack, i - 1, k - 1, j + 1, l + 1, -16777216);
-            drawString(matrixStack, this.font, new TranslationTextComponent("optimizeWorld.info.converted", this.optimizer.getConverted()), i, 40, 10526880);
-            drawString(matrixStack, this.font, new TranslationTextComponent("optimizeWorld.info.skipped", this.optimizer.getSkipped()), i, 40 + 9 + 3, 10526880);
-            drawString(matrixStack, this.font, new TranslationTextComponent("optimizeWorld.info.total", this.optimizer.getTotalChunks()), i, 40 + (9 + 3) * 2, 10526880);
+            fill(matrices, i - 1, k - 1, j + 1, l + 1, -16777216);
+            drawString(matrices, this.font, new TranslationTextComponent("optimizeWorld.info.converted", this.optimizer.getConverted()), i, 40, 10526880);
+            drawString(matrices, this.font, new TranslationTextComponent("optimizeWorld.info.skipped", this.optimizer.getSkipped()), i, 40 + 9 + 3, 10526880);
+            drawString(matrices, this.font, new TranslationTextComponent("optimizeWorld.info.total", this.optimizer.getTotalChunks()), i, 40 + (9 + 3) * 2, 10526880);
             int i1 = 0;
 
             for (RegistryKey<World> registrykey : this.optimizer.func_233533_c_())
             {
                 int j1 = MathHelper.floor(this.optimizer.func_233531_a_(registrykey) * (float)(j - i));
-                fill(matrixStack, i + i1, k, i + i1 + j1, l, PROGRESS_BAR_COLORS.getInt(registrykey));
+                fill(matrices, i + i1, k, i + i1 + j1, l, PROGRESS_BAR_COLORS.getInt(registrykey));
                 i1 += j1;
             }
 
             int k1 = this.optimizer.getConverted() + this.optimizer.getSkipped();
-            drawCenteredString(matrixStack, this.font, k1 + " / " + this.optimizer.getTotalChunks(), this.width / 2, k + 2 * 9 + 2, 10526880);
-            drawCenteredString(matrixStack, this.font, MathHelper.floor(this.optimizer.getTotalProgress() * 100.0F) + "%", this.width / 2, k + (l - k) / 2 - 9 / 2, 10526880);
+            drawCenteredString(matrices, this.font, k1 + " / " + this.optimizer.getTotalChunks(), this.width / 2, k + 2 * 9 + 2, 10526880);
+            drawCenteredString(matrices, this.font, MathHelper.floor(this.optimizer.getTotalProgress() * 100.0F) + "%", this.width / 2, k + (l - k) / 2 - 9 / 2, 10526880);
         }
 
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

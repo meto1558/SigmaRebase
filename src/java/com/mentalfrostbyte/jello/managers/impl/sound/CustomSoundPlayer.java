@@ -8,7 +8,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 
 public class CustomSoundPlayer extends LocatableSound {
-   private static String[] field27866;
 
    public CustomSoundPlayer(SoundEvent var1, SoundCategory var2, float var3, float var4, BlockPos var5) {
       this(var1, var2, var3, var4, (double)var5.getX() + 0.5, (double)var5.getY() + 0.5, (double)var5.getZ() + 0.5);

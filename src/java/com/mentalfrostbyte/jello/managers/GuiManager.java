@@ -43,7 +43,7 @@ public class GuiManager {
     private static boolean hidpiCocoa = true;
 
     static {
-        replacementScreens.put(MainMenuScreen.class, JelloMainMenuScreen.class);
+        replacementScreens.put(MainMenuScreen.class, JelloMainMenuManager.class);
         replacementScreens.put(ClickGui.class, JelloClickGUI.class);
         replacementScreens.put(KeyboardScreen.class, JelloKeyboardScreen.class);
         replacementScreens.put(Maps.class, JelloMaps.class);
@@ -207,7 +207,7 @@ public class GuiManager {
             }
 
             if (this.screen != null) {
-                this.screen.method13028(this.field41354[0], this.field41354[1]);
+                this.screen.updatePanelDimensions(this.field41354[0], this.field41354[1]);
             }
         }
     }
@@ -244,7 +244,7 @@ public class GuiManager {
             if (Client.getInstance().clientMode != ClientMode.JELLO) {
                 float var7 = 0.5F + TabGUI.animationProgress.calcPercent() * 0.5F;
                 GL11.glAlphaFunc(516, 0.1F);
-                RenderUtil.renderBackgroundBox(4.0F, 2.0F, 106.0F, 28.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * var7));
+                RenderUtil.drawRoundedRect2(4.0F, 2.0F, 106.0F, 28.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * var7));
                 RenderUtil.drawString(Resources.bold22, 9.0F, 2.0F, "Sigma", ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var7));
                 RenderUtil.drawString(
                         Resources.bold22, 8.0F, 1.0F, "Sigma", ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, var7 * 1.2F))
@@ -278,25 +278,25 @@ public class GuiManager {
 
     public void method33465(float var1) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13079(var1);
+            this.screen.onScrolling(var1);
         }
     }
 
     public void method33466(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13078(var1, var2, var3);
+            this.screen.onClick(var1, var2, var3);
         }
     }
 
     public void method33467(int var1, int var2, int var3) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.method13095(var1, var2, var3);
+            this.screen.onClick2(var1, var2, var3);
         }
     }
 
     public JSONObject getUIConfig(JSONObject uiConfig) {
         if (this.screen != null) {
-            JSONObject var4 = this.screen.method13160(new JSONObject());
+            JSONObject var4 = this.screen.toConfigWithExtra(new JSONObject());
             if (var4.length() != 0) {
                 uiConfig.put(this.screen.getName(), var4);
             }
@@ -341,7 +341,7 @@ public class GuiManager {
             } catch (Exception var9) {
                 var4 = new JSONObject();
             } finally {
-                this.screen.method13161(var4);
+                this.screen.loadConfig(var4);
             }
         }
 
@@ -364,7 +364,7 @@ public class GuiManager {
         return null;
     }
 
-    public String method33478(Class<? extends net.minecraft.client.gui.screen.Screen> screen) {
+    public String getNameForTarget(Class<? extends net.minecraft.client.gui.screen.Screen> screen) {
         if (screen == null) {
             return "";
         } else {
@@ -399,15 +399,15 @@ public class GuiManager {
         }
     }
 
-    public Screen getCurrentScreen()  {
+    public Screen getCurrentScreen() {
         return this.screen;
     }
 
-    public void method33481() throws JSONException {
-        this.method33482(handleScreen(Minecraft.getInstance().currentScreen));
+    public void handleCurrentScreen() throws JSONException {
+        this.handleScreen(handleScreen(Minecraft.getInstance().currentScreen));
     }
 
-    public void method33482(Screen screen) {
+    public void handleScreen(Screen screen) {
         if (this.screen != null) {
             this.getUIConfig(Client.getInstance().getConfig());
         }
@@ -415,7 +415,7 @@ public class GuiManager {
         this.screen = screen;
         this.loadUIConfig(Client.getInstance().getConfig());
         if (this.screen != null) {
-            this.screen.method13028(this.field41354[0], this.field41354[1]);
+            this.screen.updatePanelDimensions(this.field41354[0], this.field41354[1]);
         }
 
         if (Client.getInstance().moduleManager != null) {

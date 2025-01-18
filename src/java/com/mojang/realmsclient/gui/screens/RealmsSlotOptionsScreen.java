@@ -257,19 +257,19 @@ public class RealmsSlotOptionsScreen extends RealmsScreen
         return p_238050_0_ ? field_238037_p_ : field_238038_q_;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        this.font.func_243248_b(matrixStack, field_243172_s, (float)(this.field_224643_f + this.field_224644_g / 2 - this.font.getStringPropertyWidth(field_243172_s) / 2), (float)(func_239562_k_(0) - 5), 16777215);
-        this.field_224636_B.func_239560_a_(this, matrixStack);
+        this.renderBackground(matrices);
+        this.font.func_243248_b(matrices, field_243172_s, (float)(this.field_224643_f + this.field_224644_g / 2 - this.font.getStringPropertyWidth(field_243172_s) / 2), (float)(func_239562_k_(0) - 5), 16777215);
+        this.field_224636_B.func_239560_a_(this, matrices);
 
         if (this.field_224637_C != null)
         {
-            this.field_224637_C.func_239560_a_(this, matrixStack);
+            this.field_224637_C.func_239560_a_(this, matrices);
         }
 
-        this.field_224642_e.render(matrixStack, mouseX, mouseY, partialTicks);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.field_224642_e.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private String func_224604_j()

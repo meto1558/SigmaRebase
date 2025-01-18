@@ -34,8 +34,8 @@ public class Class4268 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       this.field20691 = Math.max(0.0F, Math.min(1.0F, this.field20691 + 0.2F * (float)(!this.method13212() && !this.field20692 ? -1 : 1)));
    }
 
@@ -54,7 +54,7 @@ public class Class4268 extends UIBase {
       );
       TrueTypeFont var4 = ResourceRegistry.JelloLightFont20;
       if (this.typedText.contains("Lock")) {
-         RenderUtil.method11438(
+         RenderUtil.drawCircle(
             (float)(this.xA + 14),
             (float)(this.yA + 11) + 3.0F * this.field20691,
             10.0F,
@@ -89,7 +89,7 @@ public class Class4268 extends UIBase {
                      (float)(var6 + 3),
                           ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                   );
-                  RenderUtil.drawRect(
+                  RenderUtil.drawRoundedRect(
                      (float)var5,
                      (float)(var6 + 4),
                      (float)(var5 + 14),
@@ -114,7 +114,7 @@ public class Class4268 extends UIBase {
             } else {
                int var7 = this.xA + 32;
                int var10 = this.yA + 32 + (int)(3.0F * this.field20691);
-               RenderUtil.method11438(
+               RenderUtil.drawCircle(
                   (float)var7, (float)var10, 14.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                );
             }
@@ -130,7 +130,7 @@ public class Class4268 extends UIBase {
                (float)(var11 + 3),
                     ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
-            RenderUtil.drawRect(
+            RenderUtil.drawRoundedRect(
                (float)(var8 + 6),
                (float)(var11 - 1),
                (float)(var8 + 27),
@@ -150,14 +150,14 @@ public class Class4268 extends UIBase {
             (float)(var12 + 3),
                  ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)(var9 + 6),
             (float)(var12 - 1),
             (float)(var9 + 27),
             (float)(var12 + 1),
                  ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
          );
-         RenderUtil.drawRect(
+         RenderUtil.drawRoundedRect(
             (float)(var9 + 25),
             (float)(var12 - 8),
             (float)(var9 + 27),
@@ -170,12 +170,12 @@ public class Class4268 extends UIBase {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      if (var1 == this.field20690) {
+   public void keyPressed(int keyCode) {
+      if (keyCode == this.field20690) {
          this.field20692 = true;
       }
 
-      super.keyPressed(var1);
+      super.keyPressed(keyCode);
    }
 
    @Override

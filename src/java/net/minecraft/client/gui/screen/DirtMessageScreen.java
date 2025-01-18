@@ -15,10 +15,10 @@ public class DirtMessageScreen extends Screen
         return false;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.renderDirtBackground(0);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 70, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 70, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

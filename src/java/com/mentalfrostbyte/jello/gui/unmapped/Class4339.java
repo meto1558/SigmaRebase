@@ -6,8 +6,6 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Class4339 extends AnimatedIconPanel {
-   private boolean field21201;
-   private boolean field21202;
    private boolean field21203 = false;
    public CustomGuiScreen buttonList;
    public VerticalScrollBar field21205;
@@ -36,9 +34,9 @@ public class Class4339 extends AnimatedIconPanel {
    }
 
    private final void method13511() {
-      this.method13241().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
+      this.getChildren().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
       this.buttonList.setSize(new Class6665());
-      this.method13241().add(this.field21205 = new VerticalScrollBar(this, 11));
+      this.getChildren().add(this.field21205 = new VerticalScrollBar(this, 11));
       this.field21205.method13292(true);
    }
 
@@ -55,14 +53,14 @@ public class Class4339 extends AnimatedIconPanel {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      if (!this.field21203 || this.method13287()) {
-         super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      if (!this.field21203 || this.isVisible()) {
+         super.updatePanelDimensions(newHeight, newWidth);
          this.buttonList.setYA(-1 * this.field21205.method13162());
 
-         for (CustomGuiScreen var6 : this.getButton().method13241()) {
-            for (Class6664 var8 : var6.method13260()) {
-               var8.method20320(var6, this);
+         for (CustomGuiScreen var6 : this.getButton().getChildren()) {
+            for (IWidthSetter var8 : var6.method13260()) {
+               var8.setWidth(var6, this);
             }
          }
       }
@@ -79,7 +77,7 @@ public class Class4339 extends AnimatedIconPanel {
    @Override
    public void draw(float var1) {
       this.method13224();
-      if (!this.field21203 || this.method13287()) {
+      if (!this.field21203 || this.isVisible()) {
          if (this.field21206) {
             RenderUtil.method11415(this);
          }
@@ -91,14 +89,13 @@ public class Class4339 extends AnimatedIconPanel {
       }
    }
 
-   @Override
-   public void addToList(CustomGuiScreen var1) {
-      this.buttonList.addToList(var1);
+   public void addButton(CustomGuiScreen button) {
+      this.buttonList.addToList(button);
    }
 
    @Override
-   public boolean method13239(CustomGuiScreen var1) {
-      return this.buttonList.method13239(var1);
+   public boolean hasChild(CustomGuiScreen child) {
+      return this.buttonList.hasChild(child);
    }
 
    @Override

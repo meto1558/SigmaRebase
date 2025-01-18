@@ -168,11 +168,11 @@ public class BeaconScreen extends ContainerScreen<BeaconContainer>
         this.itemRenderer.zLevel = 0.0F;
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.renderHoveredTooltip(matrices, mouseX, mouseY);
     }
 
     abstract static class Button extends AbstractButton

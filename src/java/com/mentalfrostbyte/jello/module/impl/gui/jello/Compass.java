@@ -17,7 +17,7 @@ import java.util.List;
 public class Compass extends Module {
     public Compass() {
         super(ModuleCategory.GUI, "Compass", "Fornite style directions");
-        this.method16005(false);
+        this.setAvailableOnClassic(false);
     }
 
     @EventTarget
@@ -109,7 +109,7 @@ public class Compass extends Module {
                 );
             }
         } else {
-            RenderUtil.drawRect(
+            RenderUtil.drawRoundedRect(
                     (float) (var1 + var3 / 2 - 1),
                     (float) (var2 + 28),
                     (float) (var1 + var3 / 2 + 1),

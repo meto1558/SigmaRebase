@@ -58,11 +58,11 @@ public class CustomizeSkinScreen extends SettingsScreen
         }));
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
-        this.renderBackground(matrixStack);
-        drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 20, 16777215);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderBackground(matrices);
+        drawCenteredString(matrices, this.font, this.title, this.width / 2, 20, 16777215);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     private ITextComponent func_238655_a_(PlayerModelPart p_238655_1_)

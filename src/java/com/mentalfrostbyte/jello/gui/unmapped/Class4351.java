@@ -129,8 +129,8 @@ public class Class4351 extends AnimatedIconPanelWrap {
             if (this.field21265.calcPercent() == 0.0F) {
                Client.getInstance().moduleManager.getConfigurationManager().loadConfig(this.currentConfig);
                Client.getInstance().soundManager.play("switch");
-               ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getScreen().getScreen().getScreen();
-               var5x.method13222(() -> var5x.method13615());
+               ConfigButtonOnClickGui var5x = (ConfigButtonOnClickGui)this.getParent().getParent().getParent();
+               var5x.runThisOnDimensionUpdate(() -> var5x.method13615());
 
                for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
                   if (!Client.getInstance().networkManager.isPremium()) {
@@ -145,8 +145,8 @@ public class Class4351 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      if (!this.profileName.method13297() && this.profileName.method13287()) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      if (!this.profileName.method13297() && this.profileName.isVisible()) {
          this.profileName.setEnabled(false);
          this.profileName.method13145(false);
          this.currentConfig.getName = this.profileName.getTypedText();
@@ -158,21 +158,21 @@ public class Class4351 extends AnimatedIconPanelWrap {
          }
       }
 
-      this.field21264.changeDirection(this.method13114(var1, var2) ? Direction.FORWARDS : Direction.BACKWARDS);
-      if (!this.method13114(var1, var2)) {
+      this.field21264.changeDirection(this.method13114(newHeight, newWidth) ? Direction.FORWARDS : Direction.BACKWARDS);
+      if (!this.method13114(newHeight, newWidth)) {
          this.field21265.changeDirection(Direction.BACKWARDS);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
    public void draw(float var1) {
       if (this.animation.calcPercent() == 1.0F && !this.field21272) {
          this.field21272 = true;
-         ConfigButtonOnClickGui var4 = (ConfigButtonOnClickGui)this.getScreen().getScreen().getScreen();
+         ConfigButtonOnClickGui var4 = (ConfigButtonOnClickGui)this.getParent().getParent().getParent();
          Client.getInstance().moduleManager.getConfigurationManager().checkConfig(this.currentConfig);
-         var4.method13222(() -> var4.method13615());
+         var4.runThisOnDimensionUpdate(() -> var4.method13615());
       }
 
       float var8 = MathUtils.lerp(this.animation.calcPercent(), 0.1, 0.81, 0.14, 1.0);
@@ -188,7 +188,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
       this.buttonList.method13284((int)((float)this.field21270 * (1.0F - var5)));
       RenderUtil.method11415(this);
       float var6 = this.method13212() && this.field21265.getDirection().equals(Direction.BACKWARDS) ? 0.03F : 0.0F;
-      RenderUtil.renderBackgroundBox(
+      RenderUtil.drawRoundedRect2(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,

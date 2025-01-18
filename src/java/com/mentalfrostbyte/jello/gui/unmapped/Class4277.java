@@ -54,14 +54,14 @@ public class Class4277 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       this.field20735
          .changeDirection(
             !this.method13298() && !this.field20734.method13298() && !this.method13212() && !this.field20734.method13216()
                ? Direction.BACKWARDS
                : Direction.FORWARDS
          );
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -71,16 +71,16 @@ public class Class4277 extends UIBase {
       int var8 = this.getXA() + this.field20734.getWidthA() / 4 + 3;
       int var9 = this.getYA() + this.getHeightA() / 2 - var6 / 2;
       int var10 = this.field20734.getXA() + this.field20734.getWidthA() / 2 - 6;
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)var8, (float)var9, (float)var10, (float)var6, (float)(var6 / 2), ColorUtils.applyAlpha(this.textColor.method19405(), var1 * var1 * var1)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)(var8 + var10),
          (float)var9,
          (float)(var7 - var10),
          (float)var6,
          (float)(var6 / 2),
-              ColorUtils.applyAlpha(ColorUtils.method17692(this.textColor.method19405(), 0.8F), var1 * var1 * var1)
+              ColorUtils.applyAlpha(ColorUtils.adjustColorTowardsWhite(this.textColor.method19405(), 0.8F), var1 * var1 * var1)
       );
       if (this.getTypedText() != null) {
          int var11 = Math.max(0, 9 - this.field20734.getXA());
@@ -97,8 +97,8 @@ public class Class4277 extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(var1, var2, var3)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(mouseX, mouseY, mouseButton)) {
          this.field20734.method13217(true);
          return false;
       } else {
@@ -124,7 +124,7 @@ public class Class4277 extends UIBase {
       this.field20733 = var1;
       this.field20734.setXA((int)((float)(this.getWidthA() - this.field20734.getWidthA()) * var1 + 0.5F));
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 

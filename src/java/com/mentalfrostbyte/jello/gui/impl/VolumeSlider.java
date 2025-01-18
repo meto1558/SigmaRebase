@@ -13,36 +13,46 @@ import java.util.List;
 
 public class VolumeSlider extends UIBase {
    private static String[] field21371;
-   private float field21372 = 1.0F;
+   private float volume = 1.0F;
    private boolean field21373 = false;
    private final List<Class6649> field21374 = new ArrayList<Class6649>();
 
-   public VolumeSlider(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
-      super(var1, var2, var3, var4, var5, var6, false);
+   /**
+    * Constructs a new VolumeSlider instance.
+    *
+    * @param parent    The CustomGuiScreen that this VolumeSlider belongs to.
+    * @param iconName  The name of the icon associated with this VolumeSlider.
+    * @param xV      The x-coordinate of the VolumeSlider.
+    * @param yV      The y-coordinate of the VolumeSlider.
+    * @param width     The width of the VolumeSlider.
+    * @param height    The height of the VolumeSlider.
+    */
+   public VolumeSlider(CustomGuiScreen parent, String iconName, int xV, int yV, int width, int height) {
+      super(parent, iconName, xV, yV, width, height, false);
    }
 
    @Override
-   public void draw(float var1) {
-      RenderUtil.drawRect(
+   public void draw(float f) {
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),
-         (float)this.yA + (float)this.heightA * this.field21372,
+         (float)this.yA + (float)this.heightA * this.volume,
          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
       );
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)(this.yA + this.heightA),
          (float)(this.xA + this.widthA),
-         (float)this.yA + (float)this.heightA * this.field21372,
+         (float)this.yA + (float)this.heightA * this.volume,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
       );
-      super.draw(var1);
+      super.draw(f);
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
-      if (!super.method13078(this.xA, this.yA, var3)) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+      if (!super.onClick(this.xA, this.yA, mouseButton)) {
          this.field21373 = true;
          return false;
       } else {
@@ -55,36 +65,36 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
-      super.method13028(var1, var2);
+   public void updatePanelDimensions(int newHeight, int newWidth) {
+      super.updatePanelDimensions(newHeight, newWidth);
       if (this.field21373) {
-         this.method13708(this.method13706(var2));
+         this.setVolume(this.method13706(newWidth));
          this.method13710();
       }
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
-      super.method13095(var1, var2, var3);
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
+      super.onClick2(mouseX, mouseY, mouseButton);
       this.field21373 = false;
    }
 
    @Override
-   public void method13079(float var1) {
+   public void onScrolling(float scroll) {
       if (this.method13298()) {
-         this.method13708(this.method13707() - var1 / 2000.0F);
+         this.setVolume(this.getVolume() - scroll / 2000.0F);
          this.method13710();
       }
 
-      super.method13079(var1);
+      super.onScrolling(scroll);
    }
 
-   public float method13707() {
-      return this.field21372;
+   public float getVolume() {
+      return this.volume;
    }
 
-   public void method13708(float var1) {
-      this.field21372 = Math.min(Math.max(var1, 0.0F), 1.0F);
+   public void setVolume(float value) {
+      this.volume = Math.min(Math.max(value, 0.0F), 1.0F);
    }
 
    public AnimatedIconPanel method13709(Class6649 var1) {

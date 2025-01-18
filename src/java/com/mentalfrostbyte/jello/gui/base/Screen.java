@@ -15,19 +15,19 @@ public abstract class Screen
     }
 
     @Override
-    public void method13161(JSONObject var1) {
-        super.method13161(var1);
+    public void loadConfig(JSONObject config) {
+        super.loadConfig(config);
         this.setWidthA(Minecraft.getInstance().getMainWindow().getWidth());
         this.setHeightA(Minecraft.getInstance().getMainWindow().getHeight());
     }
 
     @Override
-    public void keyPressed(int var1) {
-        if (var1 == Minecraft.getInstance().gameSettings.keyBindFullscreen.keyCode.getKeyCode()) {
+    public void keyPressed(int keyCode) {
+        if (keyCode == Minecraft.getInstance().gameSettings.keyBindFullscreen.keyCode.getKeyCode()) {
             Minecraft.getInstance().getMainWindow().toggleFullscreen();
             Minecraft.getInstance().gameSettings.fullscreen = Minecraft.getInstance().getMainWindow().isFullscreen();
         }
 
-        super.keyPressed(var1);
+        super.keyPressed(keyCode);
     }
 }

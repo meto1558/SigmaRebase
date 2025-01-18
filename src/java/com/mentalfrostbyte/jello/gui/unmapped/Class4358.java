@@ -61,7 +61,7 @@ public class Class4358 extends UIBase {
             .method19412(Class2218.field14492);
          ButtonPanel var16;
          this.field21308
-            .addToList(
+            .addButton(
                var16 = new ButtonPanel(this.field21308, var14.method21596(), 0, var11++ * 55, this.field21308.getWidthA(), 55, var15, var14.method21596())
             );
          var16.doThis((var2x, var3x) -> {
@@ -82,7 +82,7 @@ public class Class4358 extends UIBase {
          ColorHelper var20 = new ColorHelper(16777215, -986896).method19410(ClientColors.DEEP_TEAL.getColor()).method19412(Class2218.field14488);
          ButtonPanel var21;
          this.field21308
-            .addToList(
+            .addButton(
                var21 = new ButtonPanel(
                   this.field21308, var19.getName(), 0, var11++ * 40, this.field21308.getWidthA(), 40, var20, new Class6984(var19).method21596()
                )
@@ -104,9 +104,9 @@ public class Class4358 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       if (this.method13212()
-         && (var1 < this.field21304 || var2 < this.field21303 || var1 > this.field21304 + this.field21305 || var2 > this.field21303 + this.field21306)) {
+         && (newHeight < this.field21304 || newWidth < this.field21303 || newHeight > this.field21304 + this.field21305 || newWidth > this.field21303 + this.field21306)) {
          this.field21311 = true;
       }
 
@@ -116,9 +116,9 @@ public class Class4358 extends UIBase {
       Map<String, ButtonPanel> var7 = new TreeMap();
       List<ButtonPanel> var8 = new ArrayList();
 
-      for (CustomGuiScreen var10 : this.field21308.method13241()) {
+      for (CustomGuiScreen var10 : this.field21308.getChildren()) {
          if (!(var10 instanceof VerticalScrollBar)) {
-            for (CustomGuiScreen var12 : var10.method13241()) {
+            for (CustomGuiScreen var12 : var10.getChildren()) {
                if (var12 instanceof ButtonPanel) {
                   ButtonPanel var13 = (ButtonPanel)var12;
                   boolean var14 = var13.getHeightA() != 40;
@@ -166,7 +166,7 @@ public class Class4358 extends UIBase {
          var23.setEnabled(false);
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    private boolean method13621(String var1, String var2) {
@@ -190,7 +190,7 @@ public class Class4358 extends UIBase {
          this.method13624(this.field21309);
       }
 
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -198,7 +198,7 @@ public class Class4358 extends UIBase {
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F * var1)
       );
       super.method13224();
-      RenderUtil.drawRect(
+      RenderUtil.drawRoundedRect(
          (float)this.field21304,
          (float)this.field21303,
          (float)this.field21305,

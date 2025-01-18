@@ -26,7 +26,7 @@ public class Class4367 extends UIBase {
    }
 
    @Override
-   public void method13028(int var1, int var2) {
+   public void updatePanelDimensions(int newHeight, int newWidth) {
       if (this.field21350) {
          int var5 = this.getHeightO() - this.method13271();
          this.method13680((float)var5 / (float)this.getWidthA());
@@ -34,7 +34,7 @@ public class Class4367 extends UIBase {
          this.method13683(1.0F - (float)var6 / (float)this.getHeightA());
       }
 
-      super.method13028(var1, var2);
+      super.updatePanelDimensions(newHeight, newWidth);
    }
 
    @Override
@@ -43,10 +43,10 @@ public class Class4367 extends UIBase {
       int var5 = ColorUtils.applyAlpha(Color.HSBtoRGB(this.field21347, 1.0F, 1.0F), var1);
       int var6 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1);
       RenderUtil.method11415(this);
-      RenderUtil.method11432(
+      RenderUtil.drawQuad(
          this.getXA(), this.getYA(), this.getXA() + this.getWidthA(), this.getYA() + this.getHeightA(), var4, var5, var5, var4
       );
-      RenderUtil.method11432(
+      RenderUtil.drawQuad(
          this.getXA(),
          this.getYA(),
          this.getXA() + this.getWidthA(),
@@ -74,13 +74,13 @@ public class Class4367 extends UIBase {
    }
 
    @Override
-   public boolean method13078(int var1, int var2, int var3) {
+   public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       this.field21350 = true;
-      return super.method13078(var1, var2, var3);
+      return super.onClick(mouseX, mouseY, mouseButton);
    }
 
    @Override
-   public void method13095(int var1, int var2, int var3) {
+   public void onClick2(int mouseX, int mouseY, int mouseButton) {
       this.field21350 = false;
    }
 
@@ -97,7 +97,7 @@ public class Class4367 extends UIBase {
       float var5 = this.field21348;
       this.field21348 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 
@@ -114,7 +114,7 @@ public class Class4367 extends UIBase {
       float var5 = this.field21349;
       this.field21349 = var1;
       if (var2 && var5 != var1) {
-         this.method13037();
+         this.callUIHandlers();
       }
    }
 
