@@ -50,6 +50,7 @@ public class Client {
     public ModuleManager moduleManager;
     public NetworkManager networkManager;
     public CombatManager combatManager;
+    public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
     public WaypointsManager waypointsManager;
@@ -79,6 +80,8 @@ public class Client {
         this.guiManager = new GuiManager();
         this.combatManager = new CombatManager();
         this.combatManager.init();
+        this.commandManager = new CommandManager();
+        this.commandManager.init();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();
