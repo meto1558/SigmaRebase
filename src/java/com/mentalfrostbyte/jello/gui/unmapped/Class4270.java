@@ -45,17 +45,17 @@ public class Class4270 extends UIBase {
    }
 
    @Override
-   public void keyPressed(int keycode) {
+   public void keyPressed(int keyCode) {
       for (Keys var7 : Keys.values()) {
-         if (var7.row == keycode) {
-            super.keyPressed(keycode);
+         if (var7.row == keyCode) {
+            super.keyPressed(keyCode);
             return;
          }
       }
 
-      this.field20696 = keycode;
+      this.field20696 = keyCode;
       this.callUIHandlers();
-      super.keyPressed(keycode);
+      super.keyPressed(keyCode);
    }
 
    public void method13104() {

@@ -30,8 +30,8 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public void voidEvent3(float var1) {
-      super.voidEvent3(var1);
+   public void onScrolling(float scroll) {
+      super.onScrolling(scroll);
       if (this.parent != null && this.parent.method13228(this.getHeightO(), this.getWidthO(), false) || ((Class4339)this.parent).field21208) {
          float var4 = (float)((Class4339)this.getParent()).getButton().getHeightA();
          float var5 = (float)this.getParent().getHeightA();
@@ -46,7 +46,7 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
          }
 
          this.field20793 = this.field20793
-            - Math.round(!(var1 < 0.0F) ? (float)((Class4339)this.parent).field21207 * var1 : 1.0F * (float)((Class4339)this.parent).field21207 * var1);
+            - Math.round(!(scroll < 0.0F) ? (float)((Class4339)this.parent).field21207 * scroll : 1.0F * (float)((Class4339)this.parent).field21207 * scroll);
          this.field20797.reset();
          this.field20797.start();
       }

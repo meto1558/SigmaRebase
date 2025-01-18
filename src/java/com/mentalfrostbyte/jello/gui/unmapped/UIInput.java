@@ -131,10 +131,10 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
       if (this.field20905) {
-         switch (var1) {
+         switch (keyCode) {
             case 65:
                if (this.method13149()) {
                   this.field20749 = this.typedText.length();
@@ -310,13 +310,13 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void charTyped(char var1) {
-      super.charTyped(var1);
-      if (this.method13297() && Class8906.method32486(var1)) {
+   public void charTyped(char typed) {
+      super.charTyped(typed);
+      if (this.method13297() && Class8906.method32486(typed)) {
          if (this.field20750 == this.field20751) {
-            this.typedText = Class8906.method32492(this.typedText, Character.toString(var1), this.field20749);
+            this.typedText = Class8906.method32492(this.typedText, Character.toString(typed), this.field20749);
          } else {
-            this.typedText = Class8906.method32493(this.typedText, Character.toString(var1), this.field20750, this.field20751);
+            this.typedText = Class8906.method32493(this.typedText, Character.toString(typed), this.field20750, this.field20751);
          }
 
          this.field20749++;

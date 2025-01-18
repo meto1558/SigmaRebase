@@ -8,16 +8,16 @@ public interface IGuiEventListener {
     /**
      * Called when a character is typed.
      *
-     * @param var1 The character that was typed.
+     * @param typed The character that was typed.
      */
-    void charTyped(char var1);
+    void charTyped(char typed);
 
     /**
      * Called when a key is pressed.
      *
-     * @param var1 The key code that was pressed.
+     * @param keyCode The key code that was pressed.
      */
-    void keyPressed(int var1);
+    void keyPressed(int keyCode);
 
     /**
      * Called when a mouse button is clicked.
@@ -48,9 +48,9 @@ public interface IGuiEventListener {
     void onClick3(int mouseX, int mouseY, int mouseButton);
 
     /**
-     * Called when a float event occurs.
+     * Called when the mouse wheel is used.
      *
-     * @param var1 The float value associated with the event.
+     * @param scroll <= -1 is down, > -1 is up
      */
-    void voidEvent3(float var1);
+    void onScrolling(float scroll);
 }

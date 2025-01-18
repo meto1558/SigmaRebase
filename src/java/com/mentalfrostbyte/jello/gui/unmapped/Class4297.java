@@ -61,12 +61,12 @@ public class Class4297 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 != this.field20817.gameSettings.keyBindForward.keyCode.getKeyCode()) {
-         if (var1 != this.field20817.gameSettings.keyBindBack.keyCode.getKeyCode()) {
-            if (var1 != this.field20817.gameSettings.keyBindLeft.keyCode.getKeyCode()) {
-               if (var1 == this.field20817.gameSettings.keyBindRight.keyCode.getKeyCode()) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode != this.field20817.gameSettings.keyBindForward.keyCode.getKeyCode()) {
+         if (keyCode != this.field20817.gameSettings.keyBindBack.keyCode.getKeyCode()) {
+            if (keyCode != this.field20817.gameSettings.keyBindLeft.keyCode.getKeyCode()) {
+               if (keyCode == this.field20817.gameSettings.keyBindRight.keyCode.getKeyCode()) {
                   this.field20818.method29737().method29653(Class2097.field13664);
                }
             } else {

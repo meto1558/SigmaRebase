@@ -214,10 +214,10 @@ public class JelloClickGUI extends Screen {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
       int var4 = Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGui.class);
-      if (var1 == 256 || var1 == var4 && this.moduleSettingUI == null && !this.method13227()) {
+      if (keyCode == 256 || keyCode == var4 && this.moduleSettingUI == null && !this.method13227()) {
          if (field20944) {
             field20943 = !field20943;
          }

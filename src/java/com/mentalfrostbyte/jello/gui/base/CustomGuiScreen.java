@@ -248,25 +248,25 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public void charTyped(char var1) {
+    public void charTyped(char typed) {
         for (CustomGuiScreen var5 : this.children) {
             if (var5.isHovered() && var5.isVisible()) {
-                var5.charTyped(var1);
+                var5.charTyped(typed);
             }
         }
 
-        this.method13256(var1);
+        this.method13256(typed);
     }
 
     @Override
-    public void keyPressed(int var1) {
+    public void keyPressed(int keyCode) {
         for (CustomGuiScreen var5 : this.children) {
             if (var5.isHovered() && var5.isVisible()) {
-                var5.keyPressed(var1);
+                var5.keyPressed(keyCode);
             }
         }
 
-        this.method13254(var1);
+        this.method13254(keyCode);
     }
 
     @Override
@@ -327,10 +327,10 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     @Override
-    public void voidEvent3(float var1) {
+    public void onScrolling(float scroll) {
         for (CustomGuiScreen var5 : this.children) {
             if (var5.isHovered() && var5.isVisible()) {
-                var5.voidEvent3(var1);
+                var5.onScrolling(scroll);
             }
         }
     }

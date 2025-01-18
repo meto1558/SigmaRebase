@@ -286,9 +286,9 @@ public class JelloMainMenuManager extends Screen {
     }
 
     @Override
-    public void keyPressed(int keycode) {
-        super.keyPressed(keycode);
-        if (keycode == 256) { //escape key
+    public void keyPressed(int keyCode) {
+        super.keyPressed(keyCode);
+        if (keyCode == 256) { //escape key
             this.goOut();
         }
     }

@@ -94,9 +94,9 @@ public class ClassicDirectLogin extends Screen {
    }
 
    @Override
-   public void keyPressed(int var1) {
-      super.keyPressed(var1);
-      if (var1 == 256) {
+   public void keyPressed(int keyCode) {
+      super.keyPressed(keyCode);
+      if (keyCode == 256) {
          Client.getInstance().guiManager.handleScreen(new SigmaClassicAltManager());
       }
    }

@@ -93,10 +93,10 @@ public class Class4259 extends UIBase {
    }
 
    @Override
-   public void voidEvent3(float var1) {
-      super.voidEvent3(var1);
+   public void onScrolling(float scroll) {
+      super.onScrolling(scroll);
       if (this.method13298()) {
-         this.field20649 = Math.round(Math.max(3.0F, Math.min(33.0F, (float)this.field20649 + var1 / 10.0F)));
+         this.field20649 = Math.round(Math.max(3.0F, Math.min(33.0F, (float)this.field20649 + scroll / 10.0F)));
          this.method13083();
       }
    }
