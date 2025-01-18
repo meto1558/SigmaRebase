@@ -20,7 +20,7 @@ public class SmoothAimbot extends Module {
     }
 
     @EventTarget
-    private void method16765(Render3DEvent var1) {
+    public void method16765(Render3DEvent var1) {
         if (this.isEnabled()) {
             if (!(mc.player.rotationPitch > 45.0F)) {
                 Entity var4 = ((Aimbot) this.access()).getTarget(this.getNumberValueBySettingName("Range"));

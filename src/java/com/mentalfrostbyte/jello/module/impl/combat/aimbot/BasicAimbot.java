@@ -16,7 +16,7 @@ public class BasicAimbot extends Module {
    }
 
    @EventTarget
-   private void Render3DEvent(Render3DEvent event) {
+   public void Render3DEvent(Render3DEvent event) {
       if (this.isEnabled()) {
          Entity range = ((Aimbot)this.access()).getTarget(this.getNumberValueBySettingName("Range"));
          if (range != null) {
