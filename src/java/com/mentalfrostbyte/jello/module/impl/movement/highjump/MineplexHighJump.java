@@ -12,6 +12,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
+import team.sdhq.eventBus.annotations.EventTarget;
 
 public class MineplexHighJump extends Module {
    private boolean field24023;

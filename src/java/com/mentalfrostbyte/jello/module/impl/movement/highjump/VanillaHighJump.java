@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.highjump;
 
-import com.mentalfrostbyte.jello.event.impl.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.JumpEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import team.sdhq.eventBus.annotations.EventTarget;
 
 public class VanillaHighJump extends Module {
     public VanillaHighJump() {

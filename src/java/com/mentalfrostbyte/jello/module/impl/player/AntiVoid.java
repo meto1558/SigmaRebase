@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
@@ -20,6 +19,7 @@ import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
+import team.sdhq.eventBus.annotations.EventTarget;
 
 public class AntiVoid extends Module {
     private double fallDistanceAccumulated;
@@ -45,7 +45,7 @@ public class AntiVoid extends Module {
     }
 
     @EventTarget
-    private void onMove(EventMove event) {
+    public void onMove(EventMove event) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
                 this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
@@ -90,14 +90,14 @@ public class AntiVoid extends Module {
     }
 
     @EventTarget
-    private void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdate event) {
         if (this.isEnabled() && event.isPre() && this.disableTimer != 0) {
             event.setCancelled(true);
         }
     }
 
     @EventTarget
-    private void onPacketReceive(ReceivePacketEvent event) {
+    public void onPacketReceive(ReceivePacketEvent event) {
         if (this.isEnabled() && this.disableTimer != 0) {
             if (event.getPacket() instanceof SPlayerPositionLookPacket) {
                 this.disableTimer = 0;
