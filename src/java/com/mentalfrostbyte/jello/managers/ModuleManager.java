@@ -9,6 +9,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
 import com.mentalfrostbyte.jello.module.impl.combat.AutoClicker;
+import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
@@ -62,6 +63,7 @@ public class ModuleManager {
         // COMBAT
         this.register(new AutoClicker());
         this.register(new AntiKnockback());
+        this.register(new Criticals());
 
         // RENDER
 
