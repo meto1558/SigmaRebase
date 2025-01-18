@@ -30,7 +30,7 @@ public class Aimbot extends ModuleWithModuleSettings {
         this.registerSetting(new BooleanSetting("Invisible", "Aim at invisible entites", true));
     }
 
-    public Entity getTarget(float var1) {
+    public Entity getTarget(float maxDistance) {
         List<Entity> entities = EntityUtil.getEntitesInWorld(__ -> true);
         Entity target = null;
 
@@ -39,7 +39,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                 if (!Client.getInstance().friendManager.method26997(entity)) {
                     if (entity instanceof LivingEntity) {
                         if (((LivingEntity) entity).getHealth() != 0.0F) {
-                            if (!(mc.player.getDistance(entity) > var1)) {
+                            if (!(mc.player.getDistance(entity) > maxDistance)) {
                                 if (mc.player.canAttack((LivingEntity) entity)) {
                                     if (entity instanceof ArmorStandEntity)
                                         continue;
