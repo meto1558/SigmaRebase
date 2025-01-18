@@ -9,7 +9,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class VanillaHighJump extends Module {
     public VanillaHighJump() {
         super(ModuleCategory.MOVEMENT, "Vanilla", "Highjump for minecraft vanilla");
-        this.registerSetting(new NumberSetting<Float>("Motion", "Highjump motion", 0.75F, Float.class, 0.42F, 5.0F, 0.05F));
+        this.registerSetting(new NumberSetting<>("Motion", "Highjump motion", 0.75F, Float.class, 0.42F, 5.0F, 0.05F));
     }
 
     @EventTarget
