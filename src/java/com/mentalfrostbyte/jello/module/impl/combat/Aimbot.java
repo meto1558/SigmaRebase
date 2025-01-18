@@ -33,7 +33,6 @@ public class Aimbot extends ModuleWithModuleSettings {
     public Entity getTarget(float var1) {
         List<Entity> entities = EntityUtil.getEntitesInWorld(__ -> true);
         Entity target = null;
-        Iterator<Entity> iter = entities.iterator();
 
         for (Entity entity : entities) {
             if (entity != mc.player) {
