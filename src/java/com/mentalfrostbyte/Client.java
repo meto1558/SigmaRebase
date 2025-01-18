@@ -42,6 +42,7 @@ public class Client {
     private static Client instance;
     public ClientMode clientMode = ClientMode.INDETERMINATE;
     public DiscordRichPresence discordRichPresence;
+    public FriendManager friendManager;
 
     private JSONObject config;
 
@@ -78,6 +79,8 @@ public class Client {
         this.guiManager = new GuiManager();
         this.combatManager = new CombatManager();
         this.combatManager.init();
+        this.friendManager = new FriendManager();
+        this.friendManager.init();
         this.musicManager = new MusicManager();
         this.musicManager.init();
         this.soundManager = new SoundManager();

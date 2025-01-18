@@ -9,16 +9,27 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static com.mentalfrostbyte.jello.util.player.RotationHelper.getLookVector;
 
 public class EntityUtil {
     private static Minecraft mc = Minecraft.getInstance();
+
     public static Entity getEntityFromRayTrace(float yaw, float pitch, float reachDistanceModifier, double boundingBoxExpansion) {
         EntityRayTraceResult rayTraceResult = rayTraceFromPlayer(yaw, pitch, reachDistanceModifier, boundingBoxExpansion);
         return rayTraceResult == null ? null : rayTraceResult.getEntity();
+    }
+
+    public static <T extends Entity> List<T> getEntitesInWorld(Predicate<T> filter) {
+        return StreamSupport.stream(mc.world.getAllEntities().spliterator(), true)
+                .filter((Predicate<Entity>)filter).map(entity -> (T)entity).toList();
     }
 
     public static EntityRayTraceResult rayTraceFromPlayer(float yaw, float pitch, float reachDistanceModifier, double boundingBoxExpansion) {

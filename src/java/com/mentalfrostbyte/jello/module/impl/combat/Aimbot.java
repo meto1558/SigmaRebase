@@ -7,9 +7,8 @@ import com.mentalfrostbyte.jello.module.impl.combat.aimbot.BasicAimbot;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.CandCAimbot;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.SmoothAimbot;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-//import mapped.ArmorStandEntity;
-//import mapped.Class8781;
+import com.mentalfrostbyte.jello.util.EntityUtil;
+import com.mentalfrostbyte.jello.util.player.TeamUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -32,14 +31,14 @@ public class Aimbot extends ModuleWithModuleSettings {
     }
 
     public Entity getTarget(float var1) {
-        List var4 = MultiUtilities.getEntitesInWorld();
+        List var4 = EntityUtil.getEntitesInWorld(__ -> true);
         Entity var5 = null;
         Iterator var6 = var4.iterator();
 
         while (var6.hasNext()) {
             Entity var7 = (Entity) var6.next();
             if (var7 != mc.player) {
-                if (!Client.getInstance().getFriendManager().method26997(var7)) {
+                if (!Client.getInstance().friendManager.method26997(var7)) {
                     if (var7 instanceof LivingEntity) {
                         if (((LivingEntity) var7).getHealth() != 0.0F) {
                             if (!(mc.player.getDistance(var7) > var1)) {
@@ -47,7 +46,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                                     if (!(var7 instanceof ArmorStandEntity)) {
                                         if (!this.getBooleanValueFromSettingName("Players") && var7 instanceof PlayerEntity) {
                                             var6.remove();
-                                        } else if (var7 instanceof PlayerEntity && Client.getInstance().getCombatManager().isTargetABot(var7)) {
+                                        } else if (var7 instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(var7)) {
                                             var6.remove();
                                         } else if (!this.getBooleanValueFromSettingName("Invisible") && var7.isInvisible()) {
                                             var6.remove();
@@ -55,9 +54,9 @@ public class Aimbot extends ModuleWithModuleSettings {
                                             var6.remove();
                                         } else if (mc.player.getRidingEntity() != null && mc.player.getRidingEntity().equals(var7)) {
                                             var6.remove();
-                                        } else if (!var7.method3362()) {
+                                        } else if (!var7.isInvulnerable()) {
                                             if (var7 instanceof PlayerEntity
-                                                    && Class8781.method31662((PlayerEntity) var7)
+                                                    && TeamUtil.method31662((PlayerEntity) var7)
                                                     && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                                                 var6.remove();
                                             } else if (var5 == null || mc.player.getDistance(var7) < mc.player.getDistance(var5)) {
