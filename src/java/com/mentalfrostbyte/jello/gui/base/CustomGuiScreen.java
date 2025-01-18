@@ -313,17 +313,17 @@ public class CustomGuiScreen implements IGuiEventListener {
             }
         }
 
-        this.method13250(mouseButton);
+        this.onMouseButtonUsed(mouseButton);
         if (this.method13212() && this.method13298()) {
-            this.voidEvent2(mouseX, mouseY, mouseButton);
+            this.onClick3(mouseX, mouseY, mouseButton);
         }
 
         this.field20909 = false;
     }
 
     @Override
-    public void voidEvent2(int var1, int var2, int var3) {
-        this.method13252(var3);
+    public void onClick3(int mouseX, int mouseY, int mouseButton) {
+        this.method13252(mouseButton);
     }
 
     @Override
@@ -602,9 +602,9 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this;
     }
 
-    public void method13250(int var1) {
+    public void onMouseButtonUsed(int mouseButton) {
         for (Class8867 var5 : this.field20921) {
-            var5.method32268(this, var1);
+            var5.method32268(this, mouseButton);
         }
     }
 

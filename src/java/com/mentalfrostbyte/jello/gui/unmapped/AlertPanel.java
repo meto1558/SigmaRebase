@@ -191,8 +191,8 @@ public class AlertPanel extends UIBase {
    }
 
    @Override
-   public void voidEvent2(int var1, int var2, int var3) {
-      super.voidEvent2(var1, var2, var3);
+   public void onClick3(int mouseX, int mouseY, int mouseButton) {
+      super.onClick3(mouseX, mouseY, mouseButton);
    }
 
    public float method13602(float var1, float var2) {

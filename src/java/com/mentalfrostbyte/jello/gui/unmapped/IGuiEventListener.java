@@ -9,7 +9,7 @@ public interface IGuiEventListener {
 
    void onClick2(int mouseX, int mouseY, int mouseButton);
 
-   void voidEvent2(int var1, int var2, int var3);
+   void onClick3(int mouseX, int mouseY, int mouseButton);
 
    void voidEvent3(float var1);
 }
