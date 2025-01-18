@@ -30,7 +30,7 @@ public interface IGuiEventListener {
     boolean onClick(int mouseX, int mouseY, int mouseButton);
 
     /**
-     * Called when a second mouse button is clicked.
+     * Called when a mouse button is clicked.
      *
      * @param mouseX The x-coordinate of the mouse click.
      * @param mouseY The y-coordinate of the mouse click.
@@ -39,7 +39,7 @@ public interface IGuiEventListener {
     void onClick2(int mouseX, int mouseY, int mouseButton);
 
     /**
-     * Called when a third mouse button is clicked.
+     * Called when a mouse button is clicked.
      *
      * @param mouseX The x-coordinate of the mouse click.
      * @param mouseY The y-coordinate of the mouse click.
