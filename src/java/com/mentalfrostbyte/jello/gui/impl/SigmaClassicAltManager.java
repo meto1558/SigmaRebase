@@ -89,7 +89,7 @@ public class SigmaClassicAltManager extends Screen {
       int var4 = 52;
       Class4349 var5;
       this.field21055
-         .addToList(
+         .addButton(
             var5 = new Class4349(this.field21055, var1.getEmail(), 4, var4 * this.method13400() + 4, this.field21055.getWidthA() - 8, var4, var1)
          );
       var5.doThis((var2, var3) -> {

@@ -91,7 +91,7 @@ public class AltManagerScreen extends Screen {
       this.field21011.method13300(false);
       this.field21010.method13515(false);
       this.field21011
-         .addToList(
+         .addButton(
             this.field21017 = new Class4298(
                this.field21011,
                "",
@@ -108,7 +108,7 @@ public class AltManagerScreen extends Screen {
             )
          );
       this.field21011
-         .addToList(
+         .addButton(
             this.field21018 = new Class4296(
                this.field21011,
                "info",
@@ -176,7 +176,7 @@ public class AltManagerScreen extends Screen {
    private void method13360(Account var1, boolean var2) {
       Class4294 var5;
       this.field21010
-         .addToList(
+         .addButton(
             var5 = new Class4294(
                this.field21010,
                var1.getEmail(),

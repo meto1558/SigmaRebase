@@ -31,7 +31,7 @@ public class CreditsToCreators extends Screen {
       String[] var8 = var4.split("\n");
 
       for (String var12 : var8) {
-         var5.addToList(
+         var5.addButton(
             new UITextDisplay(
                var5,
                "lbl" + var6,

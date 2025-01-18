@@ -44,7 +44,7 @@ public class Class4340 extends Class4339 {
          );
          var7.field21288 = var7.getYA();
          this.field21209.add(var7);
-         this.addToList(var7);
+         this.addButton(var7);
          var7.doThis((var2x, var3x) -> {
             Class4251 var6x = (Class4251)this.getParent();
             var6x.field20614.method13077(var7.field21292.getX(), var7.field21292.getZ());

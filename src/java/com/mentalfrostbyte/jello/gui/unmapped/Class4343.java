@@ -88,12 +88,12 @@ public class Class4343 extends Class4339 implements Class4342 {
             int var19 = 114;
             int var27 = 27;
             UITextDisplay var43;
-            this.addToList(
+            this.addButton(
                var43 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, var27, UITextDisplay.defaultColorHelper, setting.getName())
             );
             this.field21223.put(var43, setting);
             UIInput var35;
-            this.addToList(
+            this.addButton(
                var35 = new UIInput(
                   panel,
                   setting.getName() + "txt",
@@ -274,7 +274,7 @@ public class Class4343 extends Class4339 implements Class4342 {
             }
 
             var12.setHeightA(var11);
-            this.addToList(var12);
+            this.addButton(var12);
             this.field21224.put(var10, var12);
          }
 
@@ -282,7 +282,7 @@ public class Class4343 extends Class4339 implements Class4342 {
          var18.calledOnEnable();
       }
 
-      this.addToList(new CustomGuiScreen(this, "extentionhack", 0, var4, 0, 20));
+      this.addButton(new CustomGuiScreen(this, "extentionhack", 0, var4, 0, 20));
    }
 
    @Override

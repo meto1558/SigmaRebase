@@ -271,29 +271,29 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     @Override
     public boolean onClick(int mouseX, int mouseY, int mouseButton) {
-        boolean var6 = false;
+        boolean handled = false;
 
-        for (int var7 = this.children.size() - 1; var7 >= 0; var7--) {
-            CustomGuiScreen var8 = this.children.get(var7);
-            boolean var9 = var8.getParent() != null
-                    && var8.getParent() instanceof Class4339
-                    && var8.getParent().method13114(mouseX, mouseY)
-                    && var8.getParent().isVisible()
-                    && var8.getParent().isHovered();
-            if (var6 || !var8.isHovered() || !var8.isVisible() || !var8.method13114(mouseX, mouseY) && !var9) {
-                var8.method13145(false);
-                if (var8 != null) {
-                    for (CustomGuiScreen var12 : var8.getChildren()) {
+        for (int i = this.children.size() - 1; i >= 0; i--) {
+            CustomGuiScreen child = this.children.get(i);
+            boolean var9 = child.getParent() != null
+                    && child.getParent() instanceof Class4339
+                    && child.getParent().method13114(mouseX, mouseY)
+                    && child.getParent().isVisible()
+                    && child.getParent().isHovered();
+            if (handled || !child.isHovered() || !child.isVisible() || !child.method13114(mouseX, mouseY) && !var9) {
+                child.method13145(false);
+                if (child != null) {
+                    for (CustomGuiScreen var12 : child.getChildren()) {
                         var12.method13145(false);
                     }
                 }
             } else {
-                var8.onClick(mouseX, mouseY, mouseButton);
-                var6 = !var9;
+                child.onClick(mouseX, mouseY, mouseButton);
+                handled = !var9;
             }
         }
 
-        if (!var6) {
+        if (!handled) {
             this.field20909 = this.field20908 = true;
             this.method13242();
             this.method13248(mouseButton);

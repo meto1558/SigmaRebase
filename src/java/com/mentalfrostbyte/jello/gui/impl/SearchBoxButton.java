@@ -56,7 +56,7 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
                                             YoutubeVideoData var4 = this.field20842.get(var3x);
                                             Class4286 var7x;
                                             this.field20840
-                                                    .addToList(
+                                                    .addButton(
                                                             var7x = new Class4286(
                                                                     this.field20840,
                                                                     10 + var3x % 3 * 183 - (var3x % 3 <= 0 ? 0 : 10) - (var3x % 3 <= 1 ? 0 : 10),

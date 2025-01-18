@@ -6,8 +6,6 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Class4339 extends AnimatedIconPanel {
-   private boolean field21201;
-   private boolean field21202;
    private boolean field21203 = false;
    public CustomGuiScreen buttonList;
    public VerticalScrollBar field21205;
@@ -91,9 +89,8 @@ public class Class4339 extends AnimatedIconPanel {
       }
    }
 
-   @Override
-   public void addToList(CustomGuiScreen var1) {
-      this.buttonList.addToList(var1);
+   public void addButton(CustomGuiScreen button) {
+      this.buttonList.addToList(button);
    }
 
    @Override

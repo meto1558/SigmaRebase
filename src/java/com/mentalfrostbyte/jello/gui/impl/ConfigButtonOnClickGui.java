@@ -122,7 +122,7 @@ public class ConfigButtonOnClickGui extends UIBase {
 
       for (Configuration var7 : Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs()) {
          Class4351 var8 = new Class4351(this, "profile" + var4, 0, var5 * var4, this.profileScrollView.getWidthA(), var5, var7, var4);
-         this.profileScrollView.addToList(var8);
+         this.profileScrollView.addButton(var8);
          this.field21301.add(var8);
          var4++;
       }
