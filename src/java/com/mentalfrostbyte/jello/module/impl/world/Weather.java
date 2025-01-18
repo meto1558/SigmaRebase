@@ -72,21 +72,21 @@ public class Weather extends Module {
             if (!(event.getPacket() instanceof SUpdateTimePacket)) {
                 if (event.getPacket() instanceof SChangeGameStatePacket) {
                     SChangeGameStatePacket var4 = (SChangeGameStatePacket) event.getPacket();
-                    // TODO: find this?
-                    //          if (var4.method17397().field43543 == 7) {
-                    if (var4.getValue() != 1.0F) {
-                        if (var4.getValue() == 0.0F) {
-                            this.raining = false;
+                    if (var4.func_241776_b_().field_241778_b_ == 7) {
+                        if (var4.getValue() != 1.0F) {
+                            if (var4.getValue() == 0.0F) {
+                                this.raining = false;
+                            }
+                        } else {
+                            this.raining = true;
                         }
-                    } else {
-                        this.raining = true;
-                    }
 
-                    if (!this.getBooleanValueFromSettingName("Disable rain")) {
-                        this.strength = var4.getValue();
-                    } else {
-                        event.setPacket(new SChangeGameStatePacket(var4.func_241776_b_(), 0.0F));
-                        this.strength = 0.0F;
+                        if (!this.getBooleanValueFromSettingName("Disable rain")) {
+                            this.strength = var4.getValue();
+                        } else {
+                            event.setPacket(new SChangeGameStatePacket(var4.func_241776_b_(), 0.0F));
+                            this.strength = 0.0F;
+                        }
                     }
                 }
             }
