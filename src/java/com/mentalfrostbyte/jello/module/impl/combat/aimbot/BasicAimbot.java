@@ -12,7 +12,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class BasicAimbot extends Module {
    public BasicAimbot() {
       super(ModuleCategory.COMBAT, "Basic", "Automatically aims at players");
-      this.registerSetting(new NumberSetting<Float>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
+      this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
    }
 
    @EventTarget
