@@ -11,10 +11,7 @@ import com.mentalfrostbyte.jello.module.impl.combat.AntiKnockback;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
-import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
-import com.mentalfrostbyte.jello.module.impl.player.Blink;
-import com.mentalfrostbyte.jello.module.impl.player.Cape;
-import com.mentalfrostbyte.jello.module.impl.player.NoFall;
+import com.mentalfrostbyte.jello.module.impl.player.*;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
@@ -75,6 +72,7 @@ public class ModuleManager {
         this.register(new Cape());
         this.register(new NoFall());
         this.register(new Blink());
+        this.register(new AntiVoid());
 
         // ITEM
         this.register(new AutoMLG());
@@ -85,6 +83,7 @@ public class ModuleManager {
         this.register(new Step());
         this.register(new Jesus());
         this.register(new SafeWalk());
+
 
         this.sortBySuffixAndRegisterEvents();
     }
