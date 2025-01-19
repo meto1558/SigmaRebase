@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.module;
+package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
