@@ -126,6 +126,7 @@ public class Resources {
     public static Texture world = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/world.png");
     public static Texture world2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/world2.png");
 
+
     public static TrueTypeFont regular28 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 28.0F);
     public static TrueTypeFont regular25 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 25.0F);
     public static TrueTypeFont regular20 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 20.0F);
