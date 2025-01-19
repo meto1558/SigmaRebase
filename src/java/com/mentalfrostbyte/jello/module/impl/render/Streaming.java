@@ -20,7 +20,7 @@ public class Streaming extends Module {
     }
 
     @EventTarget
-    public void TextReplaceEvent(TextReplaceEvent event) {
+    public void onTextReplace(TextReplaceEvent event) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Hide server name") && this.getStringSettingValueByName("Server name").length() > 1) {
                 event.setText(event.setText().replaceAll(this.getStringSettingValueByName("Server name"), "sigmaclient"));
@@ -31,16 +31,16 @@ public class Streaming extends Module {
     }
 
     @EventTarget
-    public void EventRenderNameTag(EventRenderNameTag event) {
+    public void renderNameTag(EventRenderNameTag event) {
     }
 
-//    @EventTarget
-//    public void EventRenderEntity(EventRenderEntity event) {
-//        if (this.isEnabled()) {
-//            if (this.getBooleanValueFromSettingName("Hide skins")) {
-//                event.method13955(false);
-//            }
-    // will fix later
+    @EventTarget
+    public void EventRenderEntity(EventRenderEntity event) {
+        if (this.isEnabled()) {
+            if (this.getBooleanValueFromSettingName("Hide skins")) {
+                event.setCancelled(false);
+            }
         }
-
-
+        // will fix later
+    }
+}

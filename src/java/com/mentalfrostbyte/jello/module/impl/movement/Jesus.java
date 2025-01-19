@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -124,7 +125,7 @@ public class Jesus extends Module {
 
                 if (this.getStringSettingValueByName("Mode").equals("Dolphin")) {
                     if (this.field24016 > 0) {
-                        if (/*MultiUtilities.isAboveBounds(mc.player, 0.001F)*/false) {
+                        if (MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
                             this.field24016 = 0;
                         } else {
                             if (mc.player.isSneaking() || mc.player.collidedVertically) {
