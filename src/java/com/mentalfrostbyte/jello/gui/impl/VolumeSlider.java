@@ -80,13 +80,13 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public void onScrolling(float scroll) {
+   public void voidEvent3(float scroll) {
       if (this.method13298()) {
          this.setVolume(this.getVolume() - scroll / 2000.0F);
          this.method13710();
       }
 
-      super.onScrolling(scroll);
+      super.voidEvent3(scroll);
    }
 
    public float getVolume() {
