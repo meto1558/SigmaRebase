@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 
+import com.mentalfrostbyte.jello.event.impl.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.TextReplaceEvent;
 import com.mentalfrostbyte.jello.event.impl.EventRenderNameTag;
 import com.mentalfrostbyte.jello.module.Module;
