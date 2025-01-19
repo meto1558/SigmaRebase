@@ -18,8 +18,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 
 public class BowFly extends Module {
-    private int field23504;
-    private final TimerUtil timerUtil = new TimerUtil();
+    public int field23504;
+    public final TimerUtil timerUtil = new TimerUtil();
 
     public BowFly() {
         super(ModuleCategory.MOVEMENT, "Bow", "Fly for Bow");
@@ -135,7 +135,7 @@ public class BowFly extends Module {
         }
     }
 
-    private int method16181() {
+    public int method16181() {
         for (int var3 = 36; var3 < 45; var3++) {
             if (mc.player.container.getSlot(var3).getHasStack()) {
                 ItemStack var4 = mc.player.container.getSlot(var3).getStack();
