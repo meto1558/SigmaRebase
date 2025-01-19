@@ -61,7 +61,7 @@ public class Class4358 extends UIBase {
             .method19412(Class2218.field14492);
          ButtonPanel var16;
          this.field21308
-            .addButton(
+            .addToList(
                var16 = new ButtonPanel(this.field21308, var14.method21596(), 0, var11++ * 55, this.field21308.getWidthA(), 55, var15, var14.method21596())
             );
          var16.doThis((var2x, var3x) -> {
@@ -82,7 +82,7 @@ public class Class4358 extends UIBase {
          ColorHelper var20 = new ColorHelper(16777215, -986896).method19410(ClientColors.DEEP_TEAL.getColor()).method19412(Class2218.field14488);
          ButtonPanel var21;
          this.field21308
-            .addButton(
+            .addToList(
                var21 = new ButtonPanel(
                   this.field21308, var19.getName(), 0, var11++ * 40, this.field21308.getWidthA(), 40, var20, new Class6984(var19).method21596()
                )

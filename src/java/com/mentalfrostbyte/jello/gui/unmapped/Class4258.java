@@ -57,7 +57,7 @@ public class Class4258 extends UIBase {
                }
 
                Class4372 var10;
-               this.field20642.addButton(var10 = new Class4372(this, "btn" + var9, 0, 0, 40, 40, var13.getDefaultInstance()));
+               this.field20642.addToList(var10 = new Class4372(this, "btn" + var9, 0, 0, 40, 40, var13.getDefaultInstance()));
                var10.method13702(this.field20641.contains(var9), false);
                var10.addUIHandler(var3 -> {
                   int var6 = this.field20641.size();

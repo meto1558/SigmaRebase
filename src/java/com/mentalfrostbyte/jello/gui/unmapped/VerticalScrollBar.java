@@ -30,8 +30,8 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public void onScrolling(float scroll) {
-      super.onScrolling(scroll);
+   public void voidEvent3(float scroll) {
+      super.voidEvent3(scroll);
       if (this.parent != null && this.parent.method13228(this.getHeightO(), this.getWidthO(), false) || ((Class4339)this.parent).field21208) {
          float var4 = (float)((Class4339)this.getParent()).getButton().getHeightA();
          float var5 = (float)this.getParent().getHeightA();

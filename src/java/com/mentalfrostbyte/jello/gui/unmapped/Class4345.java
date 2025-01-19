@@ -84,7 +84,7 @@ public class Class4345 extends Class4339 {
             int var16 = 114;
             int var20 = 27;
             SigmaClassicTextBox var24;
-            this.addButton(
+            this.addToList(
                var24 = new SigmaClassicTextBox(
                   screen,
                   setting.getName() + "txt",
@@ -145,7 +145,7 @@ public class Class4345 extends Class4339 {
       UITextDisplay var3 = new UITextDisplay(
          this, "settingsname", 12, 2, this.widthA, 20, UITextDisplay.defaultColorHelper, this.module.getSuffix() + " Settings", this.settingsNameFont
       );
-      this.addButton(var3);
+      this.addToList(var3);
       int var6 = 35;
 
       for (Setting var8 : this.module.getSettingMap().values()) {
@@ -166,7 +166,7 @@ public class Class4345 extends Class4339 {
                var12 = this.method13555(var13, var15, 30, var12, 20);
             }
 
-            this.addButton(var13);
+            this.addToList(var13);
             this.moduleWithSettingGuiMap.put(var11, var13);
          }
 
@@ -174,7 +174,7 @@ public class Class4345 extends Class4339 {
          var16.calledOnEnable();
       }
 
-      this.addButton(new UITextDisplay(this, "lbl", 5, 200, 0, 33, UITextDisplay.defaultColorHelper, this.typedText));
+      this.addToList(new UITextDisplay(this, "lbl", 5, 200, 0, 33, UITextDisplay.defaultColorHelper, this.typedText));
    }
 
    public void method13556() {

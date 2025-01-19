@@ -25,7 +25,7 @@ public class MusicPlayerInstance implements Runnable {
         if (!MusicPlayer.method13206(this.musicPlayer2).method13231(this.thubmnail.id)) {
             ButtonPanel var3;
             MusicPlayer.method13206(this.musicPlayer2)
-                    .addButton(
+                    .addToList(
                             var3 = new ButtonPanel(
                                     MusicPlayer.method13206(this.musicPlayer2),
                                     this.thubmnail.id,
@@ -62,7 +62,7 @@ public class MusicPlayerInstance implements Runnable {
                     int var8 = 65;
                     int var9 = 10;
                     if (!var4.method13231(this.thubmnail.id)) {
-                        var4.addButton(
+                        var4.addToList(
                                 var7 = new Class4286(
                                         var4,
                                         var9 + var5 % 3 * 183 - (var5 % 3 <= 0 ? 0 : var9) - (var5 % 3 <= 1 ? 0 : var9),

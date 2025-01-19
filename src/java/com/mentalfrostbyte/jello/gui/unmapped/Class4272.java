@@ -60,7 +60,7 @@ public class Class4272 extends UIBase {
             for (String var7 : var2x) {
                ButtonPanel var8;
                this.field20705
-                  .addButton(
+                  .addToList(
                      var8 = new ButtonPanel(
                         this.field20705, "p_" + var7, 0, 0, var5, 30, new ColorHelper(-723724, -2039584, 0, -14671840), var7, ResourceRegistry.JelloLightFont18
                      )
