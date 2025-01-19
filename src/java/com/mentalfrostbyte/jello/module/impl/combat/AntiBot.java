@@ -33,7 +33,7 @@ public class AntiBot extends Module {
         Client.getInstance().combatManager.bots.clear();
     }
 
-    private void setup() {
+    public void setup() {
         Client.getInstance().combatManager.bots.clear();
         String mode = this.getStringSettingValueByName("Mode");
         switch (mode) {

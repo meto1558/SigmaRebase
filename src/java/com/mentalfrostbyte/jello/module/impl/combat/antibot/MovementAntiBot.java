@@ -34,7 +34,7 @@ public class MovementAntiBot extends Class7249 {
    }
 
    @EventTarget
-   private void method22752(TickEvent var1) {
+   public void method22752(TickEvent var1) {
       if (field31119.player.ticksExisted < 10) {
          this.field31116.clear();
       }
@@ -57,7 +57,7 @@ public class MovementAntiBot extends Class7249 {
    }
 
    @EventTarget
-   private void method22753(ReceivePacketEvent var1) {
+   public void method22753(ReceivePacketEvent var1) {
       if (field31119.player != null && this.field31116 != null) {
          if (field31119.player.ticksExisted < 10) {
             this.field31116.clear();
