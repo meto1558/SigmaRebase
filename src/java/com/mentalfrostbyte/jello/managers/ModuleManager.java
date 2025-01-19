@@ -80,6 +80,19 @@ public class ModuleManager {
         this.register(new NoFall());
         this.register(new Blink());
         this.register(new AntiVoid());
+        this.register(new AutoRespawn());
+    //    this.register(new AutoWalk()); - crashes not fixing rn
+        this.register(new Derp());
+        this.register(new FlagDetector());
+        this.register(new NoViewReset());
+        this.register(new Parkour());
+        this.register(new Sneak());
+
+
+
+
+
+
 
         // ITEM
         this.register(new AutoMLG());

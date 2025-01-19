@@ -63,6 +63,17 @@ public class MultiUtilities {
         mc.player.setMotion(mc.player.getMotion().x, var0, mc.player.getMotion().z);
         return var0;
     }
+    public static boolean method17729() {
+        AxisAlignedBB var2 = mc.player.getBoundingBox().offset(0.0, -1.0, 0.0);
+        if (mc.player.getRidingEntity() != null) {
+            double var4 = mc.player.getRidingEntity().prevPosX - mc.player.getRidingEntity().getPosX();
+            double var6 = mc.player.getRidingEntity().prevPosZ - mc.player.getRidingEntity().getPosZ();
+            var2 = mc.player.getRidingEntity().getBoundingBox().expand(Math.abs(var4), 1.0, Math.abs(var6));
+        }
+
+        Stream<VoxelShape> var3 = mc.world.getCollisionShapes(mc.player, var2);
+        return var3.findAny().isPresent();
+    }
 
     public static void block() {
         mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
@@ -91,4 +102,9 @@ public class MultiUtilities {
         }
     }
 }
+
+
+
+
+
 
