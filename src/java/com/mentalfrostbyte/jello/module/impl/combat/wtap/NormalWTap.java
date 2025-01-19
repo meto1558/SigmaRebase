@@ -14,7 +14,7 @@ public class NormalWTap extends Module {
 
    @EventTarget
    @HigherPriority
-   private void EventRayTraceResult(EventRayTraceResult event) {
+   public void onRayTraceResult(EventRayTraceResult event) {
       if (this.isEnabled() && event.isHovering()) {
          mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.START_SPRINTING));
       }
