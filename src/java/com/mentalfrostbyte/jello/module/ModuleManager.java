@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.managers;
+package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
@@ -10,6 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.*;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
+import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
@@ -91,6 +92,8 @@ public class ModuleManager {
 
 
         // MISC
+        this.register(new GamePlay());
+
 
         // PLAYER
         this.register(new AutoSprint());

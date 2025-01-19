@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.util;
 
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.client.CPlayerTryUseItemPacket;
@@ -51,6 +52,10 @@ public class MultiUtilities {
     public static boolean isCubecraft() {
         return mc.getIntegratedServer() == null && mc.getCurrentServerData() != null && mc.getCurrentServerData().serverIP.toLowerCase().contains("cubecraft.net");
     }
+    public static void sendChatMessage(String text) {
+        mc.getConnection().sendPacket(new CChatMessagePacket(text));
+    }
+
 
     public static boolean isHypixel() {
         return !field24954
