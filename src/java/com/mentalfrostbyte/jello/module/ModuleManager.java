@@ -69,6 +69,14 @@ public class ModuleManager {
         this.register(new Criticals());
         this.register(new Teams());
         this.register(new Aimbot());
+        this.register(new AntiBot());
+        this.register(new AutoLog());
+        this.register(new FastBow());
+        this.register(new HitSounds());
+        this.register(new Regen());
+        this.register(new WTap());
+
+
 
         // RENDER
         this.register(new AntiBlind());
