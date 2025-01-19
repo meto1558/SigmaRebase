@@ -64,5 +64,3 @@ This jar will be then compiled in your project's directory/out/artifacts/artifac
 - [Graph](https://github.com/ccfeeX)
 - [StormingMoon](https://github.com/StormingMoon)
 - [Richy](https://github.com/richylotl)
-
-
