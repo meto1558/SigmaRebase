@@ -11,9 +11,8 @@ public class AutoWalk extends Module {
         super(ModuleCategory.PLAYER, "AutoWalk", "Automatically walks forward");
     }
 
-    // crashes my game
     @EventTarget
-    private void TickEvent(TickEvent event) {
+    public void TickEvent(TickEvent event) {
         if (this.isEnabled()) {
             mc.gameSettings.keyBindForward.setPressed(true);
         }

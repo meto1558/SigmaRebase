@@ -12,6 +12,7 @@ import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
+import com.mentalfrostbyte.jello.module.impl.render.*;
 import com.mentalfrostbyte.jello.module.impl.world.Weather;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
@@ -67,6 +68,18 @@ public class ModuleManager {
         this.register(new Aimbot());
 
         // RENDER
+        this.register(new AntiBlind());
+        this.register(new DVDSimulator());
+        this.register(new FPSBooster());
+        this.register(new Fullbright());
+        this.register(new ItemPhysics());
+        this.register(new LowFire());
+        this.register(new NoHurtCam());
+        this.register(new Streaming());
+        this.register(new CameraNoClip());
+        this.register(new XRay());
+
+
 
         // WORLD
         this.register(new Weather());
@@ -81,7 +94,7 @@ public class ModuleManager {
         this.register(new Blink());
         this.register(new AntiVoid());
         this.register(new AutoRespawn());
-    //    this.register(new AutoWalk()); - crashes not fixing rn
+        this.register(new AutoWalk());
         this.register(new Derp());
         this.register(new FlagDetector());
         this.register(new NoViewReset());

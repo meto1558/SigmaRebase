@@ -74,6 +74,10 @@ public class MultiUtilities {
         Stream<VoxelShape> var3 = mc.world.getCollisionShapes(mc.player, var2);
         return var3.findAny().isPresent();
     }
+    public static int applyAlpha(int color, float alpha) {
+        return (int)(alpha * 255.0F) << 24 | color & 16777215;
+    }
+
 
     public static void block() {
         mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
