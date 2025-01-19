@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.gui.unmapped.Class9108;
+import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
@@ -19,7 +19,7 @@ public class DVDSimulator extends Module {
     public float dvdY = 0.0F;
     public float xDirection = 1.0F;
     public float yDirection = 1.0F;
-    public Class9108 dvdDimensions = new Class9108(201, 90);
+    public Dimension dvdDimensions = new Dimension(201, 90);
     public int dvdColor = 0;
 
     public DVDSimulator() {
@@ -29,8 +29,8 @@ public class DVDSimulator extends Module {
 
     @Override
     public void onEnable() {
-        this.dvdX = (float) ((double) (mc.getMainWindow().getWidth() - this.dvdDimensions.field41839) * Math.random());
-        this.dvdY = (float) ((double) (mc.getMainWindow().getHeight() - this.dvdDimensions.field41840) * Math.random());
+        this.dvdX = (float) ((double) (mc.getMainWindow().getWidth() - this.dvdDimensions.width) * Math.random());
+        this.dvdY = (float) ((double) (mc.getMainWindow().getHeight() - this.dvdDimensions.height) * Math.random());
         this.changeColor();
     }
 
@@ -42,7 +42,7 @@ public class DVDSimulator extends Module {
             float speed = 2;
 
             if (!(this.dvdY <= speed)) {
-                if (this.dvdY + (float) this.dvdDimensions.field41840 > (float) windowHeight) {
+                if (this.dvdY + (float) this.dvdDimensions.height > (float) windowHeight) {
                     this.yDirection = -1.0F;
                     this.changeColor();
                 }
@@ -52,7 +52,7 @@ public class DVDSimulator extends Module {
             }
 
             if (!(this.dvdX <= speed)) {
-                if (this.dvdX + (float) this.dvdDimensions.field41839 > (float) windowWidth) {
+                if (this.dvdX + (float) this.dvdDimensions.width > (float) windowWidth) {
                     this.xDirection = -1.0F;
                     this.changeColor();
                 }
@@ -67,8 +67,8 @@ public class DVDSimulator extends Module {
             RenderUtil.drawImage(
                     this.dvdX,
                     this.dvdY,
-                    (float) this.dvdDimensions.field41839,
-                    (float) this.dvdDimensions.field41840,
+                    (float) this.dvdDimensions.width,
+                    (float) this.dvdDimensions.height,
                     Resources.dvdPNG,
                     MultiUtilities.applyAlpha(this.dvdColor, 0.8F)
             );
