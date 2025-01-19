@@ -123,7 +123,7 @@ public class AltManagerScreen extends Screen {
                500
             )
          );
-      Class4363 var9 = new Class4363(this, "drop", (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014) - 220, 44, 200, 32, sortingOptions, 0);
+      Dropdown var9 = new Dropdown(this, "drop", (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014) - 220, 44, 200, 32, sortingOptions, 0);
       var9.method13643(servers, 1);
       var9.method13656(2);
       this.addToList(var9);

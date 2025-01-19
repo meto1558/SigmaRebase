@@ -116,7 +116,7 @@ public class Class4343 extends Class4339 implements Class4342 {
             break;
          case 4:
             UITextDisplay var34 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4 + 2, this.field21222, 27, UITextDisplay.defaultColorHelper, setting.getName());
-            Class4363 var42 = new Class4363(
+            Dropdown var42 = new Dropdown(
                panel,
                setting.getName() + "btn",
                panel.getWidthA() - var5,
@@ -133,7 +133,7 @@ public class Class4343 extends Class4339 implements Class4342 {
                }
             });
             var42.addUIHandler(var2x -> {
-               ((ModeSetting)setting).setModeByIndex(((Class4363)var2x).method13655());
+               ((ModeSetting)setting).setModeByIndex(((Dropdown)var2x).method13655());
                var42.method13656(((ModeSetting)setting).getModeIndex());
             });
             var42.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 123 - var5));
@@ -266,8 +266,8 @@ public class Class4343 extends Class4339 implements Class4342 {
             var4 = Math.max(var4 + var11, var4);
 
             for (CustomGuiScreen var20 : var12.getChildren()) {
-               if (var20 instanceof Class4363) {
-                  Class4363 var15 = (Class4363)var20;
+               if (var20 instanceof Dropdown) {
+                  Dropdown var15 = (Dropdown)var20;
                   int var16 = var15.method13649() + var15.getYA() + var15.getHeightA() + 14;
                   var11 = Math.max(var11, var16);
                }

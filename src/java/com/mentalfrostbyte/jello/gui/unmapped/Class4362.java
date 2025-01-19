@@ -9,17 +9,15 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.lwjgl.opengl.GL11;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Class4362 extends UIBase {
-   private static String[] field20602;
-   public static final ColorHelper field21322 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
-   public List<String> field21323 = new ArrayList<String>();
+   public static final ColorHelper color = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
+   public List<String> field21323;
    public int field21324 = 0;
 
-   public Class4362(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, List<String> var7, int var8) {
-      super(var1, var2, var3, var4, var5, var6, field21322, false);
+   public Class4362(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, List<String> var7, int var8) {
+      super(screen, iconName, x, y, width, height, color, false);
       this.field21323 = var7;
       this.field21324 = var8;
       this.method13634();

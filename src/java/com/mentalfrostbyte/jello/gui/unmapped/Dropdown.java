@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Class4363 extends UIBase {
+public class Dropdown extends UIBase {
    public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> values;
    public int field21327;
@@ -26,7 +26,7 @@ public class Class4363 extends UIBase {
    private Animation field21330 = new Animation(220, 220);
    private Map<Integer, Class4362> field21331 = new HashMap<Integer, Class4362>();
 
-   public Class4363(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, List<String> var7, int var8) {
+   public Dropdown(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, List<String> var7, int var8) {
       super(var1, var2, var3, var4, var5, var6, field21325, false);
       this.values = var7;
       this.field21327 = var8;
