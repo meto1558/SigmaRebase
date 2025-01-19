@@ -27,6 +27,10 @@ and its goal is to have all modules from Sigma Remap and not include any other c
 
 ### I want to run Sigma Rebase within IntelliJ IDEA
 
+> [!NOTE]
+> You don't need to do this, since commit 295ffb83759f4163d04b40c5894941dc060a5a17
+> introduced a run configuration in `.run/Sigma Rebase.run.xml`
+
 1. Press CTRL + SHIFT + A to open the Actions menu.
 2. Search for "Edit configurations" and press enter / click on the result in the "Run" category
 3. Press INSERT or click "Add new..."
