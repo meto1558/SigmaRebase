@@ -423,7 +423,7 @@ public class GuiManager {
         }
     }
 
-    public boolean method33484(net.minecraft.client.gui.screen.Screen screen) {
+    public boolean hasReplacement(net.minecraft.client.gui.screen.Screen screen) {
         return replacementScreens.containsKey(screen.getClass());
     }
 }

@@ -25,37 +25,37 @@ import java.util.*;
 
 public class MacOSTouchBar {
    public JTouchBar touchBar;
-   private LinkedHashSet<Bound> field21387 = new LinkedHashSet<Bound>();
+   private final LinkedHashSet<Bound> boundables = new LinkedHashSet<>();
    public boolean field21388 = false;
-   public HashMap<Module, TouchBarButton> field21389 = new HashMap<Module, TouchBarButton>();
+   public HashMap<Module, TouchBarButton> field21389 = new HashMap<>();
 
    public MacOSTouchBar() {
       EventBus.register(this);
-      if (FileUtil.field25727) {
-         //this.field21387.add(new Bound(344, ClickGui.class));
+      if (FileUtil.freshConfig) {
+         this.boundables.add(new Bound(344, ClickGui.class));
       }
    }
 
    public Set<Bound> method13724() {
-      return this.field21387;
+      return this.boundables;
    }
 
    public void method13725(int var1, Module var2) {
       this.method13727(var2);
       Bound var5 = new Bound(var1, var2);
-      this.field21387.add(var5);
+      this.boundables.add(var5);
       this.displayKeybindsInfo();
    }
 
    public void method13726(int var1, Class<? extends Screen> var2) {
       this.method13727(var2);
       Bound var5 = new Bound(var1, var2);
-      this.field21387.add(var5);
+      this.boundables.add(var5);
       this.displayKeybindsInfo();
    }
 
    public void method13727(Object var1) {
-      Iterator var4 = this.field21387.iterator();
+      Iterator var4 = this.boundables.iterator();
 
       while (var4.hasNext()) {
          if (((Bound)var4.next()).getTarget().equals(var1)) {
@@ -65,7 +65,7 @@ public class MacOSTouchBar {
    }
 
    public int getKeybindFor(Class<? extends Screen> screen) {
-      for (Bound var5 : this.field21387) {
+      for (Bound var5 : this.boundables) {
          if (var5.getKeybindTypes() == KeybindTypes.SCREEN && var5.getScreenTarget() == screen) {
             return var5.getKeybind();
          }
@@ -75,7 +75,7 @@ public class MacOSTouchBar {
    }
 
    public int method13729(Module var1) {
-      for (Bound var5 : this.field21387) {
+      for (Bound var5 : this.boundables) {
          if (var5.getKeybindTypes() == KeybindTypes.MODULE && var5.getModuleTarget() == var1) {
             return var5.getKeybind();
          }
@@ -88,7 +88,7 @@ public class MacOSTouchBar {
       if (var1 == -1) {
          return null;
       } else {
-         for (Bound var5 : this.field21387) {
+         for (Bound var5 : this.boundables) {
             if (var5.getKeybind() == var1) {
                return var5;
             }
@@ -101,7 +101,7 @@ public class MacOSTouchBar {
    public JSONObject getKeybindsJSONObject(JSONObject obj) throws JSONException {
       JSONArray keybinds = new JSONArray();
 
-      for (Bound var6 : this.field21387) {
+      for (Bound var6 : this.boundables) {
          if (var6.getKeybind() != -1 && var6.getKeybind() != 0) {
             keybinds.put(var6.getKeybindData());
          }
@@ -119,29 +119,29 @@ public class MacOSTouchBar {
             JSONObject var6 = var4.getJSONObject(var5);
             Bound var7 = new Bound(var6);
             if (var7.hasTarget()) {
-               this.field21387.add(var7);
+               this.boundables.add(var7);
             }
          }
       }
    }
 
-   public List<Bound> method13733(int var1) {
-      ArrayList var4 = new ArrayList();
-      if (var1 != -1) {
-         for (Bound var6 : this.field21387) {
-            if (var6.getKeybind() == var1) {
-               var4.add(var6);
+   public List<Bound> getBindedObjects(int key) {
+      ArrayList boundObjects = new ArrayList();
+      if (key != -1) {
+         for (Bound boundable : this.boundables) {
+            if (boundable.getKeybind() == key) {
+               boundObjects.add(boundable);
             }
          }
 
-         return var4;
+         return boundObjects;
       } else {
          return null;
       }
    }
 
    @EventTarget
-   public void method13734(TickEvent var1) {
+   public void method13734(TickEvent event) {
       if (Minecraft.getInstance().world == null && this.field21388) {
          this.init();
       } else if (Minecraft.getInstance().world != null && !this.field21388) {
@@ -218,7 +218,7 @@ public class MacOSTouchBar {
       this.touchBar.getItems().clear();
       this.field21389.clear();
 
-      for (Bound var4 : this.field21387) {
+      for (Bound var4 : this.boundables) {
          if (var4.getKeybindTypes() == KeybindTypes.MODULE && var4.getKeybind() > 0) {
             TouchBarButton var5 = new TouchBarButton();
             var5.setTitle(var4.getModuleTarget().getName());

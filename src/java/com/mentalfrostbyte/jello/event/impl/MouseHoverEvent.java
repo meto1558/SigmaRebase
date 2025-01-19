@@ -3,13 +3,13 @@ package com.mentalfrostbyte.jello.event.impl;
 import com.mentalfrostbyte.jello.event.CancellableEvent;
 
 public class MouseHoverEvent extends CancellableEvent {
-    private final int field21563;
+    private final int button;
 
-    public MouseHoverEvent(int var1) {
-        this.field21563 = var1;
+    public MouseHoverEvent(int button) {
+        this.button = button;
     }
 
     public int getMouseButton() {
-        return this.field21563;
+        return this.button;
     }
 }
