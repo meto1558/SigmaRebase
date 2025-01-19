@@ -17,6 +17,13 @@ and its goal is to have all modules from Sigma Remap and not include any other c
 
 1. Clone this repo and open it in IntelliJ IDEA
 2. Set up the project (libraries, natives)
+3. Open Project Structure with CTRL + Alt + Shift + S, we need to mark some directories
+4. Find the "Modules" tab and click `SigmaRebase` (this project's name)
+5. Open the "Sources" tab within the `SigmaRebase` module
+6. Expand the "src" directory
+7. Mark the `java` directory as `Sources` (you need to mark so IntelliJ knows where to look and what to compile).
+8. Mark the `res` directory as `Resources`
+   (you need to mark this so IntelliJ includes this and Minecraft won't crash when trying to look for assets).
 
 ### I want to run Sigma Rebase within IntelliJ IDEA
 
