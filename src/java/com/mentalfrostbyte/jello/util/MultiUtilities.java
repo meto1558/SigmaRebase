@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.util;
 
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -22,6 +23,8 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 
@@ -51,6 +54,15 @@ public class MultiUtilities {
 
     public static boolean isCubecraft() {
         return mc.getIntegratedServer() == null && mc.getCurrentServerData() != null && mc.getCurrentServerData().serverIP.toLowerCase().contains("cubecraft.net");
+    }
+    public static List<PlayerEntity> method17680() {
+        ArrayList<PlayerEntity> var2 = new ArrayList<>();
+        mc.world.entitiesById.forEach((var1, var2x) -> {
+            if (var2x instanceof PlayerEntity) {
+                var2.add((PlayerEntity)var2x);
+            }
+        });
+        return var2;
     }
     public static void sendChatMessage(String text) {
         mc.getConnection().sendPacket(new CChatMessagePacket(text));
