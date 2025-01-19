@@ -112,7 +112,7 @@ public class Dropdown extends UIBase {
          if (((Class4362)var5.getValue()).isVisible()) {
             var3 = Math.max(
                var3,
-               (((Class4362)var5.getValue()).field21323.size() - 1) * ((Class4362)var5.getValue()).getHeightA() + ((Class4362)var5.getValue()).getYA()
+               (((Class4362)var5.getValue()).values.size() - 1) * ((Class4362)var5.getValue()).getHeightA() + ((Class4362)var5.getValue()).getYA()
             );
          }
       }
@@ -187,7 +187,7 @@ public class Dropdown extends UIBase {
 
          for (Entry var6 : this.field21331.entrySet()) {
             if (this.field21327 == (Integer)var6.getKey()) {
-               var4 = " (" + ((Class4362)var6.getValue()).field21323.get(((Class4362)var6.getValue()).field21324) + ")";
+               var4 = " (" + ((Class4362)var6.getValue()).values.get(((Class4362)var6.getValue()).field21324) + ")";
             }
          }
 

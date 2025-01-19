@@ -13,12 +13,12 @@ import java.util.List;
 
 public class Class4362 extends UIBase {
    public static final ColorHelper color = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
-   public List<String> field21323;
+   public List<String> values;
    public int field21324 = 0;
 
-   public Class4362(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, List<String> var7, int var8) {
+   public Class4362(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, List<String> values, int var8) {
       super(screen, iconName, x, y, width, height, color, false);
-      this.field21323 = var7;
+      this.values = values;
       this.field21324 = var8;
       this.method13634();
    }
@@ -27,12 +27,12 @@ public class Class4362 extends UIBase {
       this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
 
-      for (String var4 : this.field21323) {
-         ButtonPanel var5;
+      for (String value : this.values) {
+         ButtonPanel button;
          this.addToList(
-            var5 = new ButtonPanel(
+            button = new ButtonPanel(
                this,
-               var4,
+               value,
                0,
                0,
                this.getWidthA(),
@@ -45,13 +45,13 @@ public class Class4362 extends UIBase {
                   Class2218.field14488,
                   Class2218.field14492
                ),
-               var4,
+               value,
                this.getFont()
             )
          );
-         var5.method13034(10);
-         var5.doThis((var2, var3) -> {
-            this.method13641(this.field21323.indexOf(var4));
+         button.method13034(10);
+         button.doThis((var2, var3) -> {
+            this.method13641(this.values.indexOf(value));
             this.callUIHandlers();
          });
       }
@@ -60,7 +60,7 @@ public class Class4362 extends UIBase {
    }
 
    private int method13635() {
-      return this.getHeightA() * (this.field21323.size() - 1);
+      return this.getHeightA() * (this.values.size() - 1);
    }
 
    @Override
@@ -99,7 +99,7 @@ public class Class4362 extends UIBase {
    }
 
    public List<String> method13636() {
-      return this.field21323;
+      return this.values;
    }
 
    public void method13637(String var1, int var2) {
@@ -108,11 +108,11 @@ public class Class4362 extends UIBase {
    }
 
    public void method13638(String var1) {
-      this.method13637(var1, this.field21323.size());
+      this.method13637(var1, this.values.size());
    }
 
    public <E extends Enum<E>> void method13639(Class<E> var1) {
-      this.field21323.clear();
+      this.values.clear();
 
       for (Enum var7 : (Enum[])var1.getEnumConstants()) {
          String var8 = var7.toString().substring(0, 1).toUpperCase() + var7.toString().substring(1, var7.toString().length()).toLowerCase();

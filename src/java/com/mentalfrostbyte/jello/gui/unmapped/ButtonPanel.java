@@ -8,25 +8,24 @@ import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.newdawn.slick.TrueTypeFont;
 
 public class ButtonPanel extends UIBase {
-   private static String[] field20583;
    public float field20584;
    private int field20585 = 0;
    public int field20586 = 0;
 
-   public ButtonPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
-      super(var1, var2, var3, var4, var5, var6, false);
+   public ButtonPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height) {
+      super(screen, iconName, x, y, width, height, false);
    }
 
-   public ButtonPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7) {
-      super(var1, var2, var3, var4, var5, var6, var7, false);
+   public ButtonPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int var6, ColorHelper var7) {
+      super(screen, iconName, x, y, width, var6, var7, false);
    }
 
-   public ButtonPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8) {
-      super(var1, var2, var3, var4, var5, var6, var7, var8, false);
+   public ButtonPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int var6, ColorHelper var7, String var8) {
+      super(screen, iconName, x, y, width, var6, var7, var8, false);
    }
 
-   public ButtonPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
-      super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
+   public ButtonPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper var7, String var8, TrueTypeFont font) {
+      super(screen, iconName, x, y, width, height, var7, var8, font, false);
    }
 
    @Override
