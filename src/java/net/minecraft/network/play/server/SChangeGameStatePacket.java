@@ -73,7 +73,7 @@ public class SChangeGameStatePacket implements IPacket<IClientPlayNetHandler>
     public static class State
     {
         private static final Int2ObjectMap<SChangeGameStatePacket.State> field_241777_a_ = new Int2ObjectOpenHashMap<>();
-        private final int field_241778_b_;
+        public final int field_241778_b_;
 
         public State(int p_i241264_1_)
         {
