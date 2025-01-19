@@ -45,12 +45,13 @@ This jar will be then compiled in your project's directory/out/artifacts/artifac
 
 ## Contributors
 
-- [Gato](https://github.com/gatov2)
-- [Richy](https://github.com/richylotl)
-- [lamzvam](https://github.com/lamzvam)
-- [StormingMoon](https://github.com/StormingMoon)
-- [Away](https://github.com/AwayXD)
-- [Mark](https://github.com/MarkGG8181)
-- [Graph](https://github.com/ccfeeX)
 - [DataModel](https://github.com/DataM0del/)
+- [Mark](https://github.com/MarkGG8181)
+- [Away](https://github.com/AwayXD)
+- [Gato](https://github.com/gatov2)
+- [lamzvam](https://github.com/lamzvam)
+- [Graph](https://github.com/ccfeeX)
+- [StormingMoon](https://github.com/StormingMoon)
+- [Richy](https://github.com/richylotl)
+
 
