@@ -21,16 +21,16 @@ import java.util.Map.Entry;
 public class Dropdown extends UIBase {
    public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> values;
-   public int field21327;
+   public int selectedIdx;
    public boolean field21328;
-   private Animation field21330 = new Animation(220, 220);
+   private Animation animation = new Animation(220, 220);
    private Map<Integer, Class4362> field21331 = new HashMap<Integer, Class4362>();
 
-   public Dropdown(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, List<String> var7, int var8) {
-      super(var1, var2, var3, var4, var5, var6, field21325, false);
-      this.values = var7;
-      this.field21327 = var8;
-      this.method13646();
+   public Dropdown(CustomGuiScreen var1, String typeThingIdk, int x, int y, int width, int height, List<String> values, int selectedIdx) {
+      super(var1, typeThingIdk, x, y, width, height, field21325, false);
+      this.values = values;
+      this.selectedIdx = selectedIdx;
+      this.addButtons();
    }
 
    public void method13643(List<String> var1, int var2) {
@@ -55,7 +55,7 @@ public class Dropdown extends UIBase {
       return null;
    }
 
-   private void method13646() {
+   private void addButtons() {
       this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
       ButtonPanel dropdownButton;
@@ -101,7 +101,7 @@ public class Dropdown extends UIBase {
          });
       }
 
-      this.field21330.changeDirection(Direction.BACKWARDS);
+      this.animation.changeDirection(Direction.BACKWARDS);
       this.method13246(new Class7262(1));
    }
 
@@ -121,9 +121,9 @@ public class Dropdown extends UIBase {
    }
 
    private int method13648() {
-      float var3 = MathHelper.calculateTransition(this.field21330.calcPercent(), 0.0F, 1.0F, 1.0F);
-      if (this.field21330.getDirection() != Direction.FORWARDS) {
-         var3 = QuadraticEasing.easeInQuad(this.field21330.calcPercent(), 0.0F, 1.0F, 1.0F);
+      float var3 = MathHelper.calculateTransition(this.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
+      if (this.animation.getDirection() != Direction.FORWARDS) {
+         var3 = QuadraticEasing.easeInQuad(this.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
       return (int)((float)(this.getHeightA() * this.values.size() + 1) * var3);
@@ -136,20 +136,20 @@ public class Dropdown extends UIBase {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      if (!this.method13114(newHeight, newWidth) && this.field21330.getDirection() == Direction.FORWARDS) {
+      if (!this.method13114(newHeight, newWidth) && this.animation.getDirection() == Direction.FORWARDS) {
          this.method13658(false);
       }
 
       int var5 = (newWidth - this.method13272()) / this.getHeightA() - 1;
       if (var5 >= 0
          && var5 < this.values.size()
-         && this.field21330.getDirection() == Direction.FORWARDS
-         && this.field21330.calcPercent() == 1.0F
+         && this.animation.getDirection() == Direction.FORWARDS
+         && this.animation.calcPercent() == 1.0F
          && newHeight - this.method13271() < this.getWidthA()) {
          for (Entry var9 : this.field21331.entrySet()) {
             ((Class4362)var9.getValue()).setEnabled((Integer)var9.getKey() == var5);
          }
-      } else if (!this.method13114(newHeight, newWidth) || this.field21330.getDirection() == Direction.BACKWARDS) {
+      } else if (!this.method13114(newHeight, newWidth) || this.animation.getDirection() == Direction.BACKWARDS) {
          for (Entry var7 : this.field21331.entrySet()) {
             ((Class4362)var7.getValue()).setEnabled(false);
          }
@@ -163,7 +163,7 @@ public class Dropdown extends UIBase {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * this.field21330.calcPercent())
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * this.animation.calcPercent())
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -171,7 +171,7 @@ public class Dropdown extends UIBase {
          (float)this.getWidthA(),
          (float)(this.getHeightA() + this.method13648() - 1),
          6.0F,
-         var1 * 0.1F * this.field21330.calcPercent()
+         var1 * 0.1F * this.animation.calcPercent()
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -179,14 +179,14 @@ public class Dropdown extends UIBase {
          (float)this.getWidthA(),
          (float)(this.getHeightA() + this.method13648() - 1),
          20.0F,
-         var1 * 0.2F * this.field21330.calcPercent()
+         var1 * 0.2F * this.animation.calcPercent()
       );
       if (this.getTypedText() != null) {
          RenderUtil.method11415(this);
          String var4 = "";
 
          for (Entry var6 : this.field21331.entrySet()) {
-            if (this.field21327 == (Integer)var6.getKey()) {
+            if (this.selectedIdx == (Integer)var6.getKey()) {
                var4 = " (" + ((Class4362)var6.getValue()).values.get(((Class4362)var6.getValue()).field21324) + ")";
             }
          }
@@ -201,7 +201,7 @@ public class Dropdown extends UIBase {
          RenderUtil.endScissor();
       }
 
-      boolean var8 = this.field21330.calcPercent() < 1.0F;
+      boolean var8 = this.animation.calcPercent() < 1.0F;
       if (var8) {
          RenderUtil.drawPortalBackground(
             this.method13271(), this.method13272(), this.method13271() + this.getWidthA() + 140, this.method13272() + this.getHeightA() + this.method13647()
@@ -209,7 +209,7 @@ public class Dropdown extends UIBase {
       }
 
       GL11.glPushMatrix();
-      if (this.field21330.calcPercent() > 0.0F) {
+      if (this.animation.calcPercent() > 0.0F) {
          super.draw(var1);
       }
 
@@ -222,7 +222,7 @@ public class Dropdown extends UIBase {
       int var10 = (int)((float)this.getHeightA() / 2.0F + 0.5F) + 1;
       int var7 = (int)((float)this.getHeightA() / 6.0F + 0.5F);
       GL11.glTranslatef((float)(this.getXA() + var9), (float)(this.getYA() + var10), 0.0F);
-      GL11.glRotatef(90.0F * this.field21330.calcPercent(), 0.0F, 0.0F, 1.0F);
+      GL11.glRotatef(90.0F * this.animation.calcPercent(), 0.0F, 0.0F, 1.0F);
       GL11.glTranslatef((float)(-this.getXA() - var9), (float)(-this.getYA() - var10), 0.0F);
       RenderUtil.drawString(
          this.font,
@@ -239,15 +239,15 @@ public class Dropdown extends UIBase {
 
    public void method13652(String var1, int var2) {
       this.method13651().add(var2, var1);
-      this.method13646();
+      this.addButtons();
    }
 
    public int method13655() {
-      return this.field21327;
+      return this.selectedIdx;
    }
 
    public void method13656(int var1) {
-      this.field21327 = var1;
+      this.selectedIdx = var1;
    }
 
    public boolean method13657() {
@@ -256,7 +256,7 @@ public class Dropdown extends UIBase {
 
    public void method13658(boolean var1) {
       this.field21328 = var1;
-      this.field21330.changeDirection(!this.method13657() ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.animation.changeDirection(!this.method13657() ? Direction.BACKWARDS : Direction.FORWARDS);
    }
 
    @Override
