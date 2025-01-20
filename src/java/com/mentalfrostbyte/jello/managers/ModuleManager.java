@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.*;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
-import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
+import com.mentalfrostbyte.jello.module.impl.misc.*;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
@@ -103,6 +103,21 @@ public class ModuleManager {
 
         // MISC
         this.register(new GamePlay());
+        this.register(new ChatCleaner());
+        this.register(new ChatFilter());
+        this.register(new FakeForge());
+        this.register(new GameIdler());
+        this.register(new Jargon());
+        this.register(new Murderer());
+        this.register(new NickNameDetector());
+        this.register(new Spammer());
+        this.register(new StaffRepealer());
+        this.register(new Unstuck());
+        this.register(new GamePlay());
+        this.register(new AntiLevitation());
+
+
+
 
 
         // PLAYER
