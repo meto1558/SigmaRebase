@@ -143,7 +143,7 @@ public class HypixelStep extends Module {
     }
 
     @EventTarget
-    public void onStep2(EventStep var1) {
+    public void stepUpEvent(EventStep var1) {
         if (this.isEnabled() && !var1.isCancelled()) {
             double var4 = var1.getHeight();
             if (var4 > 0) {
