@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 public class SEntityPacket implements IPacket<IClientPlayNetHandler>
 {
     protected int entityId;
-    protected short posX;
-    protected short posY;
-    protected short posZ;
+    public short posX;
+    public short posY;
+    public short posZ;
     protected byte yaw;
     protected byte pitch;
     protected boolean onGround;
