@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.util;
 
 
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
@@ -14,22 +14,15 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 
 import static com.mentalfrostbyte.jello.module.Module.mc;
+import static com.mentalfrostbyte.jello.util.EntityUtil.traceEntityRay;
+import static com.mentalfrostbyte.jello.util.player.RotationHelper.getLookVector;
 
 public class MultiUtilities {
 

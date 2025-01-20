@@ -136,6 +136,8 @@ public class ModuleManager {
         this.register(new HighJump());
         this.register(new LongJump());
         this.register(new BlockFly());
+        this.register(new NoSlow());
+
 
 
 
