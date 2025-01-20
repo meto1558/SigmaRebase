@@ -26,6 +26,33 @@ public class EntityUtil {
         EntityRayTraceResult rayTraceResult = rayTraceFromPlayer(yaw, pitch, reachDistanceModifier, boundingBoxExpansion);
         return rayTraceResult == null ? null : rayTraceResult.getEntity();
     }
+    public static EntityRayTraceResult method17714(Entity var0, float var1, float var2, Predicate<Entity> var3, double var4) {
+        double var8 = var4 * var4;
+        Entity var10 = null;
+        Vector3d var11 = null;
+        Vector3d var12 = new Vector3d(
+                mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ()
+        );
+        Vector3d var13 = getLookVector(var2, var1);
+        Vector3d var14 = var12.add(var13.x * var8, var13.y * var8, var13.z * var8);
+
+        assert mc.world != null;
+        for (Entity var16 : mc.world
+                .getEntitiesInAABBexcluding(mc.player, mc.player.getBoundingBox().expand(var13.scale(var8)).grow(1.0, 1.0, 1.0), var3)) {
+            AxisAlignedBB var17 = var16.getBoundingBox();
+            Optional<Vector3d> var18 = var17.rayTrace(var12, var14);
+            if (var18.isPresent()) {
+                double var19 = var12.squareDistanceTo(var18.get());
+                if (var19 < var8 && (var16 == var0 || var0 == null)) {
+                    var11 = var18.get().subtract(var16.getPosX(), var16.getPosY(), var16.getPosZ());
+                    var10 = var16;
+                    var8 = var19;
+                }
+            }
+        }
+
+        return var10 != null && var11 != null ? new EntityRayTraceResult(var10, var11) : null;
+    }
 
     public static <T extends Entity> List<T> getEntitesInWorld(Predicate<T> filter) {
         return StreamSupport.stream(mc.world.getAllEntities().spliterator(), true)

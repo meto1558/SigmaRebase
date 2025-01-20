@@ -320,18 +320,18 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
 
             if (this.isCurrentViewEntity()) {
                 // MODIFICATION BEGIN: spoof some values sent to the server
-                double eventItselfX = eventItself.getX();
-                double eventItselfY = eventItself.getY();
-                double eventItselfZ = eventItself.getZ();
-                float eventItselfPitch = eventItself.getPitch();
-                float eventItselfYaw = eventItself.getYaw() % 360.0F;
+                double eventX = eventItself.getX();
+                double eventY = eventItself.getY();
+                double eventZ = eventItself.getZ();
+                float eventPitch = eventItself.getPitch();
+                float eventYaw = eventItself.getYaw() % 360.0F;
                 boolean eventItselfOnGround = eventItself.onGround();
-                double fixatedYaw = (eventItselfYaw - this.rotationYaw % 360.0F);
-                double fixatedPitch = (eventItselfPitch - this.rotationPitch);
+                double fixatedYaw = (eventYaw - this.rotationYaw % 360.0F);
+                double fixatedPitch = (eventPitch - this.rotationPitch);
                 // MODIFICATION START 2: useless renaming
-                double dX = this.getPosX() - this.lastReportedPosX;
-                double dY = this.getPosY() - this.lastReportedPosY;
-                double dZ = this.getPosZ() - this.lastReportedPosZ;
+                double dX = eventX - this.lastReportedPosX;
+                double dY = eventY - this.lastReportedPosY;
+                double dZ = eventZ - this.lastReportedPosZ;
                 // MODIFICATION END 2
                 // MODIFICATION END
                 // MODIFICATION BEGIN: start of commented out code (unused)
@@ -349,7 +349,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
 //                    Vector3d vector3d = this.getMotion();
                     // MODIFICATION END
                     // MODIFICATION START: using the spoofed values instead of the motion
-                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(eventItselfX, eventItselfY, eventItselfZ, eventItselfYaw, eventItselfPitch, eventItselfOnGround));
+                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(eventX, eventY, eventZ, eventYaw, eventPitch, eventItselfOnGround));
                     // MODIFICATION END
                     isMoving = false;
                 } else if (isMoving && isLooking) {
@@ -359,31 +359,31 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
                         // MODIFICATION END: spoofing ground values
                     } else {
                         // MODIFICATION START: using spoofed values, again
-                        this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(eventItselfX, eventItselfY, eventItselfZ, eventItselfYaw, eventItselfPitch, eventItselfOnGround));
+                        this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(eventX, eventY, eventZ, eventYaw, eventPitch, eventItselfOnGround));
                         // MODIFICATION END
                     }
                 } else if (isMoving) {
                     // MODIFICATION START: using spoofed values, again
-                    this.connection.sendPacket(new CPlayerPacket.PositionPacket(eventItselfX, eventItselfY, eventItselfZ, eventItselfOnGround));
+                    this.connection.sendPacket(new CPlayerPacket.PositionPacket(eventX, eventY, eventZ, eventItselfOnGround));
                     // MODIFICATION END
                 } else if (isLooking) {
                     // MODIFICATION START: using spoofed values, again
-                    this.connection.sendPacket(new CPlayerPacket.RotationPacket(eventItselfYaw, eventItselfPitch, eventItselfOnGround));
+                    this.connection.sendPacket(new CPlayerPacket.RotationPacket(eventYaw, eventPitch, eventItselfOnGround));
                     // MODIFICATION END
                 } else if (this.prevOnGround != this.onGround) { // TODO: remove this?
                     this.connection.sendPacket(new CPlayerPacket(this.onGround));
                 }
 
                 if (isMoving) {
-                    this.lastReportedPosX = this.getPosX();
-                    this.lastReportedPosY = this.getPosY();
-                    this.lastReportedPosZ = this.getPosZ();
+                    this.lastReportedPosX = eventX;
+                    this.lastReportedPosY = eventY;
+                    this.lastReportedPosZ = eventZ;
                     this.positionUpdateTicks = 0;
                 }
 
                 if (isLooking) {
-                    this.lastReportedYaw = this.rotationYaw;
-                    this.lastReportedPitch = this.rotationPitch;
+                    this.lastReportedYaw = eventYaw;
+                    this.lastReportedPitch = eventPitch;
                 }
 
                 this.prevOnGround = this.onGround;
