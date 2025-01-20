@@ -49,7 +49,7 @@ public class MinemenAntiKB extends Module {
                     this.field23853 = false;
                 }
             } else {
-                var1.setY(MovementUtil.method37080());
+                var1.setY(MovementUtil.getJumpValue());
                 this.field23853 = false;
             }
         }

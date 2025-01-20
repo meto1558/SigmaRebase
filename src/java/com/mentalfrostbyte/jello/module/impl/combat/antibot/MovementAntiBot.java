@@ -10,7 +10,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import com.mentalfrostbyte.jello.managers.impl.combat.Class2124;
 import com.mentalfrostbyte.jello.managers.impl.combat.Class7249;
-import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
@@ -35,16 +34,16 @@ public class MovementAntiBot extends Class7249 {
 
    @EventTarget
    public void method22752(TickEvent var1) {
-      if (field31119.player.ticksExisted < 10) {
+      if (mc.player.ticksExisted < 10) {
          this.field31116.clear();
       }
 
       for (PlayerEntity var5 : MultiUtilities.method17680()) {
-         if (var5 != field31119.player) {
+         if (var5 != mc.player) {
             if (var5 == null
                || !MultiUtilities.isAboveBounds(var5, 0.01F)
                || var5.isInvisible()
-               || !(var5.getDistance(field31119.player) > 5.0F)
+               || !(var5.getDistance(mc.player) > 5.0F)
                   && (var5.getPosX() != var5.lastTickPosX || var5.getPosZ() != var5.lastTickPosZ || var5.getPosY() != var5.lastTickPosY)) {
                if (this.field31116.getOrDefault(var5, 0) < this.field31118) {
                   this.field31116.put(var5, 0);
@@ -58,18 +57,21 @@ public class MovementAntiBot extends Class7249 {
 
    @EventTarget
    public void method22753(ReceivePacketEvent var1) {
-      if (field31119.player != null && this.field31116 != null) {
-         if (field31119.player.ticksExisted < 10) {
+      if (mc.player != null && this.field31116 != null) {
+         if (mc.player.ticksExisted < 10) {
             this.field31116.clear();
          }
 
          if (var1.getPacket() instanceof SEntityPacket.RelativeMovePacket) {
             SEntityPacket.RelativeMovePacket var4 = (SEntityPacket.RelativeMovePacket)var1.getPacket();
-            if (!(var4.getEntity(field31119.world) instanceof PlayerEntity)) {
+            if (mc.world == null)
+               return;
+
+            if (!(var4.getEntity(mc.world) instanceof PlayerEntity)) {
                return;
             }
 
-            Entity var5 = var4.getEntity(field31119.world);
+            Entity var5 = var4.getEntity(mc.world);
             boolean var6 = MultiUtilities.isAboveBounds(var5, 0.5F);
             short var7 = var4.getPitch(); // prob wrong will fix
             if (!this.field31117.containsKey(var5)) {
@@ -128,7 +130,7 @@ public class MovementAntiBot extends Class7249 {
    }
 
    public boolean method22756(Entity var1) {
-      if (!field31119.world.getBlockState(var1.getPosition()).isSolid()) {
+      if (!mc.world.getBlockState(var1.getPosition()).isSolid()) {
          AxisAlignedBB var4 = new AxisAlignedBB(
             var1.getBoundingBox().minX,
             var1.getBoundingBox().minY - 0.5,

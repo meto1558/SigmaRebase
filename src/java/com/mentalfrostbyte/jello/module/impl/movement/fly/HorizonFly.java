@@ -50,7 +50,7 @@ public class HorizonFly extends Module {
                         MovementUtil.setSpeed(var1, var4 + 0.0015);
                     }
                 } else {
-//                    var1.setY(MovementUtil.method37080());
+//                    var1.setY(MovementUtil.getJumpValue());
                     MovementUtil.setPlayerYMotion(var1.getY());
                     MovementUtil.setSpeed(var1, 0.125);
                 }

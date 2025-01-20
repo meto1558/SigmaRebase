@@ -119,7 +119,7 @@ public class Jesus extends Module {
                     }
                 }
             } else {
-                if (isWalkingOnLiquid() && var1.getY() != -0.0784000015258789 && var1.getY() != MovementUtil.method37080()) {
+                if (isWalkingOnLiquid() && var1.getY() != -0.0784000015258789 && var1.getY() != MovementUtil.getJumpValue()) {
                     var1.setY(-0.078);
                 }
 

@@ -466,7 +466,7 @@ public class KillAura extends Module {
             if (interactAB.method36820(this.field23939)) {
                 this.field23940 = 1;
                 var8 = var3;
-                var6 = !var2.equals("Cubecraft") ? 0.0626 : MovementUtil.method37080() / 10.0;
+                var6 = !var2.equals("Cubecraft") ? 0.0626 : MovementUtil.getJumpValue() / 10.0;
                 this.field23960 = new double[]{var1.getX(), var1.getY() + var6, var1.getZ()};
             }
         } else if (this.field23940 == 1) {

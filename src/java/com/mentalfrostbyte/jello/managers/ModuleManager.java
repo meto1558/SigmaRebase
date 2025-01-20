@@ -117,7 +117,7 @@ public class ModuleManager {
         this.register(new NoViewReset());
         this.register(new Parkour());
         this.register(new Sneak());
-
+        this.register(new OldHitting());
 
 
 
@@ -135,7 +135,7 @@ public class ModuleManager {
         this.register(new SafeWalk());
         this.register(new HighJump());
         this.register(new LongJump());
-
+        this.register(new BlockFly());
 
 
 

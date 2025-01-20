@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.MovementInput;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Utility class for handling player movement-related operations.
@@ -33,7 +34,7 @@ public class MovementUtil {
         return !mc.player.isPotionActive(Effects.JUMP_BOOST) ? 0 : mc.player.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1;
     }
 
-    public static double method37080() {
+    public static double getJumpValue() {
         return 0.42F + (double)getJumpBoost() * 0.1;
     }
 
@@ -209,6 +210,65 @@ public class MovementUtil {
         moveEvent.setZ(z);
         setPlayerXMotion(moveEvent.getX());
         setPlayerZMotion(moveEvent.getZ());
+    }
+
+    public static float method37086() {
+        float var2 = mc.player.moveForward;
+        float var3 = mc.player.moveStrafing;
+        float var4 = mc.player.rotationYaw + 90.0F;
+        if (var2 > 0.0F && mc.gameSettings.keyBindBack.isKeyDown()) {
+            var2 = -1.0F;
+        }
+
+        if (var3 != 0.0F && var3 > 0.0F) {
+            var4 -= 90.0F;
+        } else if (var3 != 0.0F && var3 < 0.0F) {
+            var4 += 90.0F;
+        }
+
+        if (var2 != 0.0F) {
+            if (var3 != 0.0F && var3 > 0.0F) {
+                var4 -= (float)(!(var2 > 0.0F) ? 45 : -45);
+            } else if (var3 != 0.0F && var3 < 0.0F) {
+                var4 -= (float)(!(var2 > 0.0F) ? -45 : 45);
+            }
+        }
+
+        if (var2 < 0.0F && var3 == 0.0F) {
+            var4 -= 180.0F;
+        }
+
+        return var4;
+    }
+
+    public static float method37093(double var0, float var2, float var3, float var4) {
+        float var7 = RotationHelper.angleDiff(var3, var2);
+        if (!(var7 > var4)) {
+            var3 = var2;
+        } else {
+            var3 += !(MathHelper.wrapDegrees(var2 - var3) > 0.0F) ? -var4 : var4;
+        }
+
+        float var8 = (var3 - 90.0F) * (float) (Math.PI / 180.0);
+        MovementUtil.setPlayerXMotion((double)(-MathHelper.sin(var8)) * var0);
+        MovementUtil.setPlayerZMotion((double) MathHelper.cos(var8) * var0);
+        return var3;
+    }
+
+    public static float method37092(EventMove var0, double var1, float var3, float var4, float var5) {
+        float var8 = RotationHelper.angleDiff(var4, var3);
+        if (!(var8 > var5)) {
+            var4 = var3;
+        } else {
+            var4 += !(MathHelper.wrapDegrees(var3 - var4) > 0.0F) ? -var5 : var5;
+        }
+
+        float var9 = (var4 - 90.0F) * (float) (Math.PI / 180.0);
+        var0.setX((double)(-MathHelper.sin(var9)) * var1);
+        var0.setZ((double) MathHelper.cos(var9) * var1);
+        MovementUtil.setPlayerXMotion(var0.getX());
+        MovementUtil.setPlayerZMotion(var0.getZ());
+        return var4;
     }
 
     /**

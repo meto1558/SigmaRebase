@@ -21,9 +21,9 @@ public class HypixelAntiBot extends Class7249 {
          String var5 = var1.getCustomName() != null ? var1.getDisplayName().getString() : null;
          String var6 = var1.getName().getString();
          if (var1.isInvisible() && !var4.startsWith("§c") && var4.endsWith("§r") && (var5 == null || var5.equals(var6))) {
-            double var7 = Math.abs(var1.getPosX() - field31119.player.getPosX());
-            double var9 = Math.abs(var1.getPosY() - field31119.player.getPosY());
-            double var11 = Math.abs(var1.getPosZ() - field31119.player.getPosZ());
+            double var7 = Math.abs(var1.getPosX() - mc.player.getPosX());
+            double var9 = Math.abs(var1.getPosY() - mc.player.getPosY());
+            double var11 = Math.abs(var1.getPosZ() - mc.player.getPosZ());
             double var13 = Math.sqrt(var7 * var7 + var11 * var11);
             if (var9 < 13.0 && var9 > 10.0 && var13 < 3.0) {
                return true;

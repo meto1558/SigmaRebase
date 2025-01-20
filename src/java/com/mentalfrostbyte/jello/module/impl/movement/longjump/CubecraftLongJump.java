@@ -62,7 +62,7 @@ public class CubecraftLongJump extends Module {
                 }
 
                 mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var4, var6, var8, true));
-                MultiUtilities.setPlayerYMotion(MovementUtil.method37080());
+                MultiUtilities.setPlayerYMotion(MovementUtil.getJumpValue());
                 this.field23501 = 0;
                 this.field23502 = this.getNumberValueBySettingName("Boost") / 2.0F;
                 MovementUtil.strafe(this.field23502);
