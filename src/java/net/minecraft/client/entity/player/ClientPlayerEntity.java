@@ -295,11 +295,11 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     {
         // MODIFICATION START: Sends out `EventUpdate`s
         AxisAlignedBB bounds = this.getBoundingBox();
-        EventUpdate eventItself = new EventUpdate(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
-        EventBus.call(eventItself);
+        EventUpdate event = new EventUpdate(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
+        EventBus.call(event);
         // MODIFICATION END
         // MODIFICATION START: Make the event cancellable by wrapping the related code in an if statement checking
-        if (!eventItself.cancelled) {
+        if (!event.cancelled) {
             boolean flag = this.isSprinting();
 
             if (flag != this.serverSprintState)
@@ -371,11 +371,11 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
             }
         }
 
-        for (Runnable runnable : eventItself.getRunnableList()) {
+        for (Runnable runnable : event.getRunnableList()) {
             runnable.run();
         }
-        eventItself.postUpdate();
-        EventBus.call(eventItself);
+        event.postUpdate();
+        EventBus.call(event);
     }
 
     public boolean drop(boolean p_225609_1_)
