@@ -57,6 +57,7 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Compass());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Coords());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.RearView());
             this.register(new KeyStrokes());
         }
 

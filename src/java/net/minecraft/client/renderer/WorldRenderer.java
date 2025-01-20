@@ -188,7 +188,7 @@ public class WorldRenderer implements IResourceManagerReloadListener, AutoClosea
     private final Long2ObjectMap<SortedSet<DestroyBlockProgress>> damageProgress = new Long2ObjectOpenHashMap<>();
     private final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
     @Nullable
-    private Framebuffer entityOutlineFramebuffer;
+    public Framebuffer entityOutlineFramebuffer;
     @Nullable
 
     /** Stores the shader group for the entity_outline shader */

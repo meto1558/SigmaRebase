@@ -95,7 +95,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
     private float fovModifierHandPrev;
     private float bossColorModifier;
     private float bossColorModifierPrev;
-    private boolean renderHand = true;
+    public boolean renderHand = true;
     private boolean drawBlockOutline = true;
     private long timeWorldIcon;
     private long prevFrameTime = Util.milliTime();

@@ -42,6 +42,7 @@ public class GuiManager {
     public static float scaleFactor = 1.0F;
     private static boolean hidpiCocoa = true;
 
+
     static {
         replacementScreens.put(MainMenuScreen.class, JelloMainMenuManager.class);
         replacementScreens.put(ClickGui.class, JelloClickGUI.class);
