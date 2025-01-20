@@ -18,7 +18,7 @@ public class AACStep extends Module {
 
     @EventTarget
     @LowerPriority
-    private void method16145(EventStep var1) {
+    public void onStep(EventStep var1) {
         if (this.isEnabled() && !var1.isCancelled()) {
             double var4 = var1.getHeight();
             if (!MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)) {
@@ -41,7 +41,7 @@ public class AACStep extends Module {
     }
 
     @EventTarget
-    private void method16146(SafeWalkEvent var1) {
+    public void onSafeWalk(SafeWalkEvent var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!var1.isOnEdge()) {
                 mc.player.stepHeight = 1.0F;

@@ -40,14 +40,14 @@ public class HypixelStep extends Module {
     }
 
     @EventTarget
-    private void method16912(WorldLoadEvent var1) {
+    public void onWorldLoad(WorldLoadEvent var1) {
         this.field23994 = 0;
         this.field23993.clear();
     }
 
     @EventTarget
     @LowerPriority
-    private void method16913(EventStep var1) {
+    public void onStep(EventStep var1) {
         if (this.isEnabled() && !var1.isCancelled()) {
             double var4 = var1.getHeight();
             if (MultiUtilities.isAboveBounds(mc.player, 1.0E-4F) && !MovementUtil.isInWater()) {
@@ -109,7 +109,7 @@ public class HypixelStep extends Module {
     }
 
     @EventTarget
-    private void method16914(SafeWalkEvent var1) {
+    public void onSafeWalk(SafeWalkEvent var1) {
         if (this.isEnabled() && mc.player != null) {
             if (this.field23994 > 0) {
                 this.field23994--;
@@ -143,7 +143,7 @@ public class HypixelStep extends Module {
     }
 
     @EventTarget
-    private void stepUpEvent(EventStep var1) {
+    public void onStep2(EventStep var1) {
         if (this.isEnabled() && !var1.isCancelled()) {
             double var4 = var1.getHeight();
             if (var4 > 0) {
