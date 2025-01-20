@@ -13,14 +13,13 @@ import java.util.stream.Collectors;
 
 /**
  * Made by Jan (raca@sdhq)
- * Modified by lexi aka markie barkie
  */
 public final class EventBus {
 
     /**
      * This just holds all event and methods registered with them
      */
-    private static final HashMap<Class<? extends Event>, HashMap<Method, Object>> REGISTERED_METHODS = new HashMap<>();
+    private static final HashMap<Class<? extends Event> /* Event */, HashMap<Method /* Called method */, Object /* Class instance */>> REGISTERED_METHODS = new HashMap<>();
 
     /**
      * Registers all method of a class to be called by the <code>call</code> method
@@ -40,9 +39,6 @@ public final class EventBus {
 
             if (!instanceofEvent(arg)) continue;
 
-            // Make private methods accessible
-            method.setAccessible(true);
-
             /* Ignore the warning here, the above line prevents this from breaking */
             ensureHashmap((Class<? extends Event>) arg);
 
@@ -60,7 +56,6 @@ public final class EventBus {
             if (Modifier.isStatic(method.getModifiers())) continue;
             if (!method.isAnnotationPresent(EventTarget.class)) continue;
 
-            method.setAccessible(true); // Ensure accessibility when removing
             REGISTERED_METHODS.values().forEach(hm -> hm.remove(method));
         }
     }
@@ -73,13 +68,13 @@ public final class EventBus {
     public static void call(final Event e) {
         final HashMap<Method, Object> map = REGISTERED_METHODS.get(e.getClass());
 
-        if (map == null) return;
+        if (map == null) return; // No registered methods
 
         for (Method m : map.keySet()) {
             try {
                 m.invoke(map.get(m), e);
             } catch (Throwable ex) {
-                throw new RuntimeException("Error calling event listener", ex);
+                throw new RuntimeException(ex);
             }
         }
     }
@@ -89,8 +84,10 @@ public final class EventBus {
     private static boolean instanceofEvent(Class<?> arg) {
         while (!arg.isAssignableFrom(Event.class)) {
             if (arg.isAssignableFrom(Object.class)) return false;
+
             arg = arg.getSuperclass();
         }
+
         return true;
     }
 
@@ -101,6 +98,7 @@ public final class EventBus {
      */
     private static void ensureHashmap(final Class<? extends Event> arg) {
         if (REGISTERED_METHODS.containsKey(arg)) return;
+
         REGISTERED_METHODS.put(arg, new HashMap<>());
     }
 
@@ -114,7 +112,7 @@ public final class EventBus {
         } else if (method.isAnnotationPresent(LowestPriority.class)) {
             return 5;
         } else {
-            return 3; // Default priority
+            return 3; // No annotation = normal priority
         }
     }
 
