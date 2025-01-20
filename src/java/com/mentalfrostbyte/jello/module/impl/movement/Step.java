@@ -27,9 +27,9 @@ public class Step extends ModuleWithModuleSettings {
         super(ModuleCategory.MOVEMENT,
                 "Step",
                 "Allows you to step up more than 0.5 block",
-                new VanillaStep()
-//                new HypixelStep(),
-//                new NCPStep(),
+                new VanillaStep(),
+                new HypixelStep(),
+                new NCPStep()
 //                new AACStep(),
 //                new SpiderStep()
         );
