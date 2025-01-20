@@ -70,13 +70,19 @@ public final class EventBus {
 
         if (map == null) return; // No registered methods
 
-        for (Method m : map.keySet()) {
-            try {
-                m.invoke(map.get(m), e);
-            } catch (Throwable ex) {
-                ex.printStackTrace();
-                throw new RuntimeException(ex);
+        try {
+            for (Method m : map.keySet()) {
+                try {
+                    m.invoke(map.get(m), e);
+                } catch (IllegalAccessException ex) {
+                    System.err.println("!!! PRIVATE EVENT LISTENER: " + m.getName());
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
             }
+        } catch (ConcurrentModificationException ex) {
+            ex.printStackTrace();
+            System.err.println("Ignored concurrent modification exception because those are gay");
         }
     }
 

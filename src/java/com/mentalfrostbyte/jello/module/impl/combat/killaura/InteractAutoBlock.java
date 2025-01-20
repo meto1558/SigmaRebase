@@ -160,7 +160,7 @@ public class InteractAutoBlock {
     public List<TimedEntity> method36823(float var1) {
         ArrayList<TimedEntity> timedEntityList = new ArrayList<>();
 
-        for (Entity ent : EntityUtil.getEntitesInWorld(_ -> true)) {
+        for (Entity ent : EntityUtil.getEntitesInWorld(__ -> true)) {
             timedEntityList.add(new TimedEntity(ent));
         }
 

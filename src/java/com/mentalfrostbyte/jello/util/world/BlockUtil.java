@@ -124,21 +124,21 @@ public class BlockUtil {
       float var5 = 0.0F;
       float var6 = 0.0F;
       switch (var1) {
-         case Direction.EAST:
+         case EAST:
             var4 += 0.49F;
             break;
-         case Direction.NORTH:
+         case NORTH:
             var5 -= 0.49F;
             break;
-         case Direction.SOUTH:
+         case SOUTH:
             var5 += 0.49F;
             break;
-         case Direction.WEST:
+         case WEST:
             var4 -= 0.49F;
             break;
-         case Direction.UP:
+         case UP:
             var6 += 0.0F;
-         case Direction.DOWN:
+         case DOWN:
             var6++;
       }
 
