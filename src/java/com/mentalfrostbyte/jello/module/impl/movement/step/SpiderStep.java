@@ -1,14 +1,17 @@
 package com.mentalfrostbyte.jello.module.impl.movement.step;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
 import com.mentalfrostbyte.jello.event.impl.EventStep;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.misc.StepEnum;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-//import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
+import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.util.math.MathHelper;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -32,43 +35,42 @@ public class SpiderStep extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16586(EventStep var1) {
-        if (this.isEnabled() && !var1.cancelled) {
-            double var4 = var1.getHeight();
-            Class2131 var6 = ((Step) this.access()).method16748(var1);
-            if (var6 == Class2131.field13904) {
-                var1.cancelled = true;
-            } else if (var6 != Class2131.field13905) {
+    public void onStep(EventStep event) {
+        if (this.isEnabled() && !event.isCancelled()) {
+            double var4 = event.getHeight();
+            StepEnum var6 = ((Step) this.access()).method16748(event);
+            if (var6 == StepEnum.NORMAL_BLOCK) {
+                event.setCancelled(true);
+            } else if (var6 != StepEnum.STAIRS) {
                 if (!MovementUtil.isInWater() && var4 >= 0.625) {
                     this.field23760 = var4;
-                    double var7 = MovementUtil.method37080();
+                    double var7 = MovementUtil.getJumpValue();
                     if (var4 < 1.1) {
                         var7 *= var4;
                     }
 
                     var7 = !(var7 > 0.42) ? var7 : 0.4199998;
-                    var1.setY(var7);
-                    this.field23761 = MovementUtil.method37083()[0] - 90.0F;
+                    event.setY(var7);
+                    this.field23761 = MovementUtil.otherStrafe()[0] - 90.0F;
                     this.field23758 = 1;
                     this.field23759 = mc.player.getPosY();
-                    var4 = var1.getHeight();
+                    var4 = event.getHeight();
                 }
             }
         }
     }
 
     @EventTarget
-    public void method16587(EventUpdate var1) {
+    public void onUpdate(EventUpdate var1) {
         if (this.isEnabled() && mc.player != null && var1.isPre()) {
             if (this.field23758 != 1) {
                 if (this.field23758 == 3) {
-//                    TODO: add criticals module and uncomment these lines when done
-//                    Module var4 = Client.getInstance().moduleManager.getModuleByClass(Criticals.class);
-//                    if (var4.isEnabled() && var4.getStringSettingValueByName("Type").equals("NoGround")) {
-//                        var1.setY(var1.getY() + 1.0E-14);
-//                    } else {
-//                        var1.setGround(true);
-//                    }
+                    Module var4 = Client.getInstance().moduleManager.getModuleByClass(Criticals.class);
+                    if (var4.isEnabled() && var4.getStringSettingValueByName("Type").equals("NoGround")) {
+                        var1.setY(var1.getY() + 1.0E-14);
+                    } else {
+                        var1.setGround(true);
+                    }
                 }
             } else {
                 var1.setGround(false);
@@ -77,10 +79,10 @@ public class SpiderStep extends Module {
     }
 
     @EventTarget
-    public void method16588(EventMove var1) {
+    public void onMove(EventMove var1) {
         if (this.isEnabled() && mc.player != null) {
             if (this.field23758 == 1) {
-                double var4 = MovementUtil.method37080();
+                double var4 = MovementUtil.getJumpValue();
                 if (this.field23760 < 1.1) {
                     var4 *= this.field23760;
                 }
@@ -97,7 +99,7 @@ public class SpiderStep extends Module {
                 var1.setZ((double) MathHelper.cos(var6) * var10);
                 this.field23758++;
             } else if (this.field23758 == 3) {
-                if (MovementUtil.isAboveBounds(mc.player, 0.001F)) {
+                if (MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
                     var1.setY(-0.078);
                     String var7 = this.getStringSettingValueByName("Mode");
                     switch (var7) {
@@ -114,7 +116,7 @@ public class SpiderStep extends Module {
                     MovementUtil.setSpeed(var1, 0.25);
                 }
 
-                if (!MovementUtil.method17686()) {
+                if (!MultiUtilities.method17686()) {
                     MovementUtil.setSpeed(var1, 0.0);
                 }
 
@@ -124,7 +126,7 @@ public class SpiderStep extends Module {
     }
 
     @EventTarget
-    public void method16589(SafeWalkEvent var1) {
+    public void onSafeWalk(SafeWalkEvent var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!var1.isOnEdge()) {
                 mc.player.stepHeight = 1.07F;

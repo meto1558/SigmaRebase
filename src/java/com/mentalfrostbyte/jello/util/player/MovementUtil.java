@@ -292,4 +292,42 @@ public class MovementUtil {
         boolean back = mc.gameSettings.keyBindBack.isKeyDown();
         return forward || left || right || back;
     }
+
+    public static float[] getAdjustedStrafe2(float var0, float var1) {
+        float var4 = mc.player.rotationYaw + 90.0F;
+        if (var0 == 0.0F) {
+            if (var1 != 0.0F) {
+                var4 += (float)(!(var1 > 0.0F) ? 90 : -90);
+                var1 = 0.0F;
+            }
+        } else {
+            if (!(var1 >= 1.0F)) {
+                if (var1 <= -1.0F) {
+                    var4 += (float)(!(var0 > 0.0F) ? -45 : 45);
+                    var1 = 0.0F;
+                }
+            } else {
+                var4 += (float)(!(var0 > 0.0F) ? 45 : -45);
+                var1 = 0.0F;
+            }
+
+            if (!(var0 > 0.0F)) {
+                if (var0 < 0.0F) {
+                    var0 = -1.0F;
+                    var4 -= 180.0F;
+                }
+            } else {
+                var0 = 1.0F;
+            }
+        }
+
+        return new float[]{var4, var0, var1};
+    }
+
+    public static float[] otherStrafe() {
+        MovementInput input = mc.player.movementInput;
+        float forward = input.moveForward;
+        float strafe = input.moveStrafe;
+        return getAdjustedStrafe2(forward, strafe);
+    }
 }
