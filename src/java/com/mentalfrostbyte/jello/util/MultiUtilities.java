@@ -13,6 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -38,6 +39,50 @@ public class MultiUtilities {
 
     private static boolean field24954 = false;
 
+
+    public static Vector3d method17751(Entity entity) {
+        return method17752(entity.getBoundingBox());
+    }
+
+    public static Vector3d method17752(AxisAlignedBB var0) {
+        double var3 = var0.getCenter().x;
+        double var5 = var0.minY;
+        double var7 = var0.getCenter().z;
+        double var9 = (var0.maxY - var5) * 0.95;
+        double var11 = (var0.maxX - var0.minX) * 0.95;
+        double var13 = (var0.maxZ - var0.minZ) * 0.95;
+        double var15 = Math.max(var5, Math.min(var5 + var9, mc.player.getPosY() + (double) mc.player.getEyeHeight()));
+        double var17 = Math.max(var3 - var11 / 2.0, Math.min(var3 + var11 / 2.0, mc.player.getPosX()));
+        double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
+        return new Vector3d(var17, var15, var19);
+    }
+
+    public static double method17754(Vector3d vec) {
+        double var3 = mc.player.getPosX() - vec.x;
+        double var5 = mc.player.getPosY() + (double) mc.player.getEyeHeight() - vec.y;
+        double var7 = mc.player.getPosZ() - vec.z;
+        return Math.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
+    }
+
+    public static double method17755(AxisAlignedBB var0) {
+        Vector3d var3 = method17752(var0);
+        return method17754(var3);
+    }
+
+    public static float method17756(float var0, float var1) {
+        var0 %= 360.0F;
+        var1 %= 360.0F;
+        if (var0 < 0.0F) {
+            var0 += 360.0F;
+        }
+
+        if (var1 < 0.0F) {
+            var1 += 360.0F;
+        }
+
+        float var4 = var1 - var0;
+        return !(var4 > 180.0F) ? (!(var4 < -180.0F) ? var4 : var4 + 360.0F) : var4 - 360.0F;
+    }
 
     public static boolean isAboveBounds(Entity var0, float var1) {
         AxisAlignedBB var4 = new AxisAlignedBB(

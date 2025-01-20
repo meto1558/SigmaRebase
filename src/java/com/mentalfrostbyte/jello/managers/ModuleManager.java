@@ -73,6 +73,7 @@ public class ModuleManager {
         this.register(new AutoLog());
         this.register(new FastBow());
         this.register(new HitSounds());
+        this.register(new KillAura());
         this.register(new Regen());
         this.register(new WTap());
 

@@ -214,22 +214,41 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
     }
 
     public void sendPacket(IPacket<?> packetIn, @Nullable GenericFutureListener <? extends Future <? super Void >> p_201058_2_) {
+        // MODIFICATION BEGIN: call send packet event
         SendPacketEvent var5 = new SendPacketEvent(packetIn);
         EventBus.call(var5);
+        // MODIFICATION END
+        // MODIFICATION BEGIN: use the packet from the event
         packetIn = var5.getPacket();
+        // MODIFICATION END
 
-        if (!var5.cancelled) {
-            if (this.isChannelOpen()) {
+        // MODIFICATION BEGIN: return early if the event was cancelled
+        if (var5.cancelled) return;
+        // MODIFICATION END
 
-                this.flushOutboundQueue();
-                this.dispatchPacket(packetIn, p_201058_2_);
-            }
-            else
-            {
-                this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
-            }
+        // MODIFICATION BEGIN: use sendNoEventPacket to send instead so we don't duplicate code
+        //                     (we already handled the send packet event stuff)
+        this.sendNoEventPacket(packetIn, p_201058_2_);
+        // MODIFICATION END
+    }
+
+    // MODIFICATION BEGIN: sendNoEventPacket
+
+    public void sendNoEventPacket(IPacket<?> packetIn) {
+        sendNoEventPacket(packetIn, null);
+    }
+    public void sendNoEventPacket(IPacket<?> packetIn, @Nullable GenericFutureListener <? extends Future <? super Void >> p_201058_2_) {
+        if (this.isChannelOpen()) {
+
+            this.flushOutboundQueue();
+            this.dispatchPacket(packetIn, p_201058_2_);
+        }
+        else
+        {
+            this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
         }
     }
+    // MODIFICATION END
 
     /**
      * Will commit the packet to the channel. If the current thread 'owns' the channel it will write and flush the

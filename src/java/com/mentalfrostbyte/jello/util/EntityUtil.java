@@ -4,23 +4,48 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.play.client.CUseEntityPacket;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static com.mentalfrostbyte.jello.util.player.RotationHelper.getLookVector;
 
 public class EntityUtil {
     private static Minecraft mc = Minecraft.getInstance();
+
+    public static void swing(Entity var0, boolean swing) {
+        if (var0 == null) {
+            return;
+        }
+
+        boolean isOnePointEight = false;
+
+        if (isOnePointEight && swing) {
+            mc.player.swingArm(Hand.MAIN_HAND);
+        }
+
+        mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(var0, mc.player.isSneaking()));
+
+        boolean canSwing = (double) mc.player.getCooledAttackStrength(0.5F) > 0.9 || isOnePointEight;
+
+        mc.player.resetCooldown();
+        if (!isOnePointEight && swing) {
+            mc.player.swingArm(Hand.MAIN_HAND);
+        }
+
+        mc.playerController.attackEntity(mc.player, var0);
+    }
 
     public static Entity getEntityFromRayTrace(float yaw, float pitch, float reachDistanceModifier, double boundingBoxExpansion) {
         EntityRayTraceResult rayTraceResult = rayTraceFromPlayer(yaw, pitch, reachDistanceModifier, boundingBoxExpansion);
@@ -134,6 +159,35 @@ public class EntityUtil {
         double var17 = Math.max(var3 - var11 / 2.0, Math.min(var3 + var11 / 2.0, mc.player.getPosX()));
         double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
         return new Vector3d(var17, var15, var19);
+    }
+
+    public static boolean rayTraceEntity(PlayerEntity player, Entity entity) {
+        Minecraft mc = Minecraft.getInstance();
+
+        Vector3d playerEyesPos = player.getEyePosition(1.0F);
+        Vector3d lookDirection = player.getLook(1.0F);
+
+        double reachDistance = mc.playerController.getBlockReachDistance();
+        Vector3d endPos = playerEyesPos.add(lookDirection.x * reachDistance, lookDirection.y * reachDistance, lookDirection.z * reachDistance);
+
+        AxisAlignedBB entityBoundingBox = entity.getBoundingBox().grow(0.3D);
+
+        RayTraceContext context = new RayTraceContext(
+                playerEyesPos,
+                endPos,
+                RayTraceContext.BlockMode.COLLIDER,
+                RayTraceContext.FluidMode.NONE,
+                player
+        );
+        RayTraceResult rayTraceResult = mc.world.rayTraceBlocks(context);
+
+        if (rayTraceResult.getType() == RayTraceResult.Type.MISS) {
+            Optional<Vector3d> hitResult = entityBoundingBox.rayTrace(playerEyesPos, endPos);
+
+            return hitResult.isPresent();
+        }
+
+        return false;
     }
 
     public static Vector3d getCenteredHitbox(Entity entity) {
