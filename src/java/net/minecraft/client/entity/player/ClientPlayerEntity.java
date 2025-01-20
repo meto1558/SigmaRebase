@@ -664,7 +664,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     }
 
     /**
-     * Handler for {@link World#setEntityState}
+     * Handler for {@link net.minecraft.world.World#setEntityState}
      */
     public void handleStatusUpdate(byte id)
     {
