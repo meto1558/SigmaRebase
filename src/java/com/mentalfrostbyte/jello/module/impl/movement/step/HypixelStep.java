@@ -128,7 +128,7 @@ public class HypixelStep extends Module {
     }
 
     @EventTarget
-    private void method16915(SendPacketEvent var1) {
+    public void onSendPacket(SendPacketEvent var1) {
         if (var1.getPacket() instanceof CPlayerPacket && !this.field23993.isEmpty()) {
             this.field23993.add(var1.getPacket());
             var1.setCancelled(true);
