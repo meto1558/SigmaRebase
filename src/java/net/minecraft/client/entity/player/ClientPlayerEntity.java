@@ -318,72 +318,52 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
                 this.clientSneakState = flag3;
             }
 
-            if (this.isCurrentViewEntity()) {
-                // MODIFICATION BEGIN: spoof some values sent to the server
-                double eventX = eventItself.getX();
-                double eventY = eventItself.getY();
-                double eventZ = eventItself.getZ();
-                float eventPitch = eventItself.getPitch();
-                float eventYaw = eventItself.getYaw() % 360.0F;
-                boolean eventItselfOnGround = eventItself.onGround();
-                double fixatedYaw = (eventYaw - this.rotationYaw % 360.0F);
-                double fixatedPitch = (eventPitch - this.rotationPitch);
-                // MODIFICATION START 2: useless renaming
-                double dX = eventX - this.lastReportedPosX;
-                double dY = eventY - this.lastReportedPosY;
-                double dZ = eventZ - this.lastReportedPosZ;
-                // MODIFICATION END 2
-                // MODIFICATION END
-                // MODIFICATION BEGIN: start of commented out code (unused)
-//                double d2 = (double) (this.rotationYaw - this.lastReportedYaw);
-//                double d3 = (double) (this.rotationPitch - this.lastReportedPitch);
-                // MODIFICATION END
+            if (this.isCurrentViewEntity())
+            {
+                double d4 = this.getPosX() - this.lastReportedPosX;
+                double d0 = this.getPosY() - this.lastReportedPosY;
+                double d1 = this.getPosZ() - this.lastReportedPosZ;
+                double d2 = (double)(this.rotationYaw - this.lastReportedYaw);
+                double d3 = (double)(this.rotationPitch - this.lastReportedPitch);
                 ++this.positionUpdateTicks;
-                // MODIFICATION START: using the spoofed values
-                boolean isMoving = eventItself.isMoving() || dX * dX + dY * dY + dZ * dZ > 9.0E-4D || this.positionUpdateTicks >= 20;
-                boolean isLooking = fixatedYaw != 0.0D || fixatedPitch != 0.0D;
-                // MODIFICATION END
+                boolean flag1 = d4 * d4 + d0 * d0 + d1 * d1 > 9.0E-4D || this.positionUpdateTicks >= 20;
+                boolean flag2 = d2 != 0.0D || d3 != 0.0D;
 
-                if (this.isPassenger()) {
-                    // MODIFICATION START: comment out unused motion variable
-//                    Vector3d vector3d = this.getMotion();
-                    // MODIFICATION END
-                    // MODIFICATION START: using the spoofed values instead of the motion
-                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(eventX, eventY, eventZ, eventYaw, eventPitch, eventItselfOnGround));
-                    // MODIFICATION END
-                    isMoving = false;
-                } else if (isMoving && isLooking) {
-                    // MODIFICATION START: spoofing ground values
-                    if (prevOnGround != this.onGround) {
-                        this.connection.sendPacket(new CPlayerPacket(eventItselfOnGround));
-                        // MODIFICATION END: spoofing ground values
-                    } else {
-                        // MODIFICATION START: using spoofed values, again
-                        this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(eventX, eventY, eventZ, eventYaw, eventPitch, eventItselfOnGround));
-                        // MODIFICATION END
-                    }
-                } else if (isMoving) {
-                    // MODIFICATION START: using spoofed values, again
-                    this.connection.sendPacket(new CPlayerPacket.PositionPacket(eventX, eventY, eventZ, eventItselfOnGround));
-                    // MODIFICATION END
-                } else if (isLooking) {
-                    // MODIFICATION START: using spoofed values, again
-                    this.connection.sendPacket(new CPlayerPacket.RotationPacket(eventYaw, eventPitch, eventItselfOnGround));
-                    // MODIFICATION END
-                } else if (this.prevOnGround != this.onGround) { // TODO: remove this?
+                if (this.isPassenger())
+                {
+                    Vector3d vector3d = this.getMotion();
+                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0D, vector3d.z, this.rotationYaw, this.rotationPitch, this.onGround));
+                    flag1 = false;
+                }
+                else if (flag1 && flag2)
+                {
+                    this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, this.rotationPitch, this.onGround));
+                }
+                else if (flag1)
+                {
+                    this.connection.sendPacket(new CPlayerPacket.PositionPacket(this.getPosX(), this.getPosY(), this.getPosZ(), this.onGround));
+                }
+                else if (flag2)
+                {
+                    this.connection.sendPacket(new CPlayerPacket.RotationPacket(this.rotationYaw, this.rotationPitch, this.onGround));
+                }
+                else if (this.prevOnGround != this.onGround)
+                {
                     this.connection.sendPacket(new CPlayerPacket(this.onGround));
                 }
 
-                if (isMoving) {
-                    this.lastReportedPosX = eventX;
-                    this.lastReportedPosY = eventY;
-                    this.lastReportedPosZ = eventZ;
+                if (flag1)
+                {
+                    this.lastReportedPosX = this.getPosX();
+                    this.lastReportedPosY = this.getPosY();
+                    this.lastReportedPosZ = this.getPosZ();
                     this.positionUpdateTicks = 0;
                 }
 
-                if (isLooking) {
-                    this.lastReportedYaw = eventYaw;
-                    this.lastReportedPitch = eventPitch;
+                if (flag2)
+                {
+                    this.lastReportedYaw = this.rotationYaw;
+                    this.lastReportedPitch = this.rotationPitch;
                 }
 
                 this.prevOnGround = this.onGround;
