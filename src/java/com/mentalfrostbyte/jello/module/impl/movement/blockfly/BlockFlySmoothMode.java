@@ -117,7 +117,7 @@ public class BlockFlySmoothMode extends Module {
     }
 
     @EventTarget
-    public void method16885(SafeWalkEvent var1) {
+    public void onSafeWalk(SafeWalkEvent var1) {
         if (this.isEnabled()) {
             if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
                 if (mc.world
@@ -138,7 +138,7 @@ public class BlockFlySmoothMode extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16886(EventUpdate event) {
+    public void onUpdate(EventUpdate event) {
         if (this.isEnabled() && this.field23976.method16735() != 0) {
             if (!event.isPre()) {
                 if (this.yaw != 999.0F) {
@@ -257,7 +257,7 @@ public class BlockFlySmoothMode extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16887(EventMove var1) {
+    public void onMove(EventMove var1) {
         if (this.isEnabled() && this.field23976.method16735() != 0) {
             if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.01F)) {
                 this.field23979 = mc.player.getPosY();

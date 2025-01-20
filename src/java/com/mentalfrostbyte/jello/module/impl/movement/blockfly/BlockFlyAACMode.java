@@ -212,13 +212,13 @@ public class BlockFlyAACMode extends Module {
         return Class9291.method35030(var1, var2, (int) mc.playerController.getBlockReachDistance());
     }
 
-    @EventTarget
-    public void method16209(Render2DEvent var1) {
-        if (this.isEnabled()) {
-            if (!this.getBooleanValueFromSettingName("Haphe (AACAP)")) {
-            }
-        }
-    }
+//    @EventTarget
+//    public void method16209(Render2DEvent var1) {
+//        if (this.isEnabled()) {
+//            if (!this.getBooleanValueFromSettingName("Haphe (AACAP)")) {
+//            }
+//        }
+//    }
 
     @EventTarget
     @LowestPriority
