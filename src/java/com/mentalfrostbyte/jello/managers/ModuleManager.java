@@ -156,6 +156,8 @@ public class ModuleManager {
         this.register(new LongJump());
         this.register(new BlockFly());
         this.register(new NoSlow());
+        this.register(new TargetStrafe());
+
 
 
 
