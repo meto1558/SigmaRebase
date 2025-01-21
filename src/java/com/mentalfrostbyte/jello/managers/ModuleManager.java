@@ -101,6 +101,7 @@ public class ModuleManager {
         this.register(new FakeLag());
         this.register(new AntiVanish());
         this.register(new Timer());
+        this.register(new InteractRange());
 
 
         // MISC
