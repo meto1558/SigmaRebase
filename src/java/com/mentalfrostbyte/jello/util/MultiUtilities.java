@@ -164,6 +164,12 @@ public class MultiUtilities {
         AxisAlignedBB boundingBox = entity.getBoundingBox();
         return world.containsAnyLiquid(boundingBox);
     }
+
+    // magic numbers used in hypixel fly
+    public static double[] method17747() {
+        return new double[] { 0.0, 0.0625, 0.125, 0.25, 0.3125, 0.5, 0.625, 0.75, 0.8125, 0.875, 0.9375, 1.0, 1.0625,
+                1.125, 1.25, 1.3125, 1.375 };
+    }
 }
 
 
