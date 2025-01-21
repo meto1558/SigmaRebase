@@ -74,7 +74,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
          if (this.profileName.method13297() && var3x == 257) {
             this.profileName.setEnabled(false);
             this.profileName.method13145(false);
-            if (Client.getInstance().moduleManager.getConfigurationManager().method20768(this.profileName.getTypedText())) {
+            if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getTypedText())) {
                return;
             }
 

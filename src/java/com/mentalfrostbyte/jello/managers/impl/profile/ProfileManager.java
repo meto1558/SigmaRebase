@@ -110,9 +110,9 @@ public class ProfileManager {
         Client.getInstance().moduleManager.load(this.currentConfigs.serializedConfigData);
     }
 
-    public boolean method20768(String var1) {
-        for (Configuration var5 : this.savedConfigs) {
-            if (var5.getName.toLowerCase().equals(var1.toLowerCase())) {
+    public boolean getConfigByCaseInsensitiveName(String name) {
+        for (Configuration config : this.savedConfigs) {
+            if (config.getName.toLowerCase().equals(name.toLowerCase())) {
                 return true;
             }
         }

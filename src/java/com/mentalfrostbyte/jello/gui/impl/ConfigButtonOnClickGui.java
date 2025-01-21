@@ -49,7 +49,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       Configuration var4 = var3.getCurrentConfig();
       int var5 = 1;
 
-      while (var3.method20768(var4.getName + " Copy " + var5)) {
+      while (var3.getConfigByCaseInsensitiveName(var4.getName + " Copy " + var5)) {
          var5++;
       }
 
@@ -64,7 +64,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       Configuration var5 = var4.getCurrentConfig();
       int var6 = 1;
 
-      while (var4.method20768(var1.getName + " " + var6)) {
+      while (var4.getConfigByCaseInsensitiveName(var1.getName + " " + var6)) {
          var6++;
       }
 
@@ -78,7 +78,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       ProfileManager var3 = Client.getInstance().moduleManager.getConfigurationManager();
       int var4 = 1;
 
-      while (var3.method20768("New Profile " + var4)) {
+      while (var3.getConfigByCaseInsensitiveName("New Profile " + var4)) {
          var4++;
       }
 
