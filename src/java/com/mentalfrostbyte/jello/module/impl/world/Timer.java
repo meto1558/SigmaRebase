@@ -9,7 +9,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class Timer extends Module {
     public Timer() {
         super(ModuleCategory.WORLD, "Timer", "Speeds up the world's timer");
-        this.registerSetting(new NumberSetting<Float>("Timer", "Timer value", 0.1F, Float.class, 0.1F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting<>("Timer", "Timer value", 0.1F, Float.class, 0.1F, 10.0F, 0.1F));
     }
 
     @EventTarget
