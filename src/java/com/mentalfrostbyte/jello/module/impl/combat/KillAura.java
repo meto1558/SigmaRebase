@@ -368,17 +368,15 @@ public class KillAura extends Module {
             partialTicks = 0.0;
         }
 
-        GL11.glTranslated(
-                targetEntity.lastTickPosX + (targetEntity.getPosX() - targetEntity.lastTickPosX) * partialTicks,
-                targetEntity.lastTickPosY + (targetEntity.getPosY() - targetEntity.lastTickPosY) * partialTicks,
-                targetEntity.lastTickPosZ + (targetEntity.getPosZ() - targetEntity.lastTickPosZ) * partialTicks
-        );
+        double interpolatedX = targetEntity.lastTickPosX + (targetEntity.getPosX() - targetEntity.lastTickPosX) * partialTicks;
+        double interpolatedY = targetEntity.lastTickPosY + (targetEntity.getPosY() - targetEntity.lastTickPosY) * partialTicks;
+        double interpolatedZ = targetEntity.lastTickPosZ + (targetEntity.getPosZ() - targetEntity.lastTickPosZ) * partialTicks;
 
-        GL11.glTranslated(
-                -mc.gameRenderer.getActiveRenderInfo().getBlockPos().getX(),
-                -mc.gameRenderer.getActiveRenderInfo().getBlockPos().getY(),
-                -mc.gameRenderer.getActiveRenderInfo().getBlockPos().getZ()
-        );
+        double cameraX = mc.gameRenderer.getActiveRenderInfo().getProjectedView().getX();
+        double cameraY = mc.gameRenderer.getActiveRenderInfo().getProjectedView().getY();
+        double cameraZ = mc.gameRenderer.getActiveRenderInfo().getProjectedView().getZ();
+
+        GL11.glTranslated(interpolatedX - cameraX, interpolatedY - cameraY, interpolatedZ - cameraZ);
 
         GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -395,18 +393,11 @@ public class KillAura extends Module {
         float glowFactor = (float) Math.sin(glowProgress * Math.PI);
         drawCircle(isFadingOut, 0.45F * glowFactor, 0.6F, 0.35F * glowFactor, this.entityGlowMap.get(targetEntity).calcPercent());
 
-        GL11.glPushMatrix();
-        GL11.glTranslated(
-                mc.gameRenderer.getActiveRenderInfo().getBlockPos().getX(),
-                mc.gameRenderer.getActiveRenderInfo().getBlockPos().getY(),
-                mc.gameRenderer.getActiveRenderInfo().getBlockPos().getZ()
-        );
         GL11.glPopMatrix();
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
-        GL11.glPopMatrix();
     }
 
     public void drawCircle(boolean isFadingOut, float circleHeight, float radius, float glowStrength, float glowOpacity) {
