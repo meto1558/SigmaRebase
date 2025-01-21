@@ -57,7 +57,7 @@ public class KillAura extends Module {
     public static TimedEntity timedEntityIdk;
     public static Rotations previousRotations = new Rotations(0.0F, 0.0F);
     public static int field23954;
-    public HashMap<Entity, Animation> field23961 = new HashMap<>();
+    public HashMap<Entity, Animation> entityGlowMap = new HashMap<>();
     public static InteractAutoBlock interactAB;
     private int field23939;
     private int field23940;
@@ -150,7 +150,7 @@ public class KillAura extends Module {
         this.field23959 = false;
         this.field23946 = -1;
         interactAB.field44349.clear();
-        this.field23961.clear();
+        this.entityGlowMap.clear();
         if (mc.player.isOnGround()) {
             this.field23941 = 1;
         }
@@ -303,7 +303,7 @@ public class KillAura extends Module {
     @EventTarget
     public void on3D(Render3DEvent var1) {
         if (entities != null) {
-            Iterator<Entry<Entity, Animation>> var4 = this.field23961.entrySet().iterator();
+            Iterator<Entry<Entity, Animation>> var4 = this.entityGlowMap.entrySet().iterator();
 
             while (var4.hasNext()) {
                 Entry<Entity, Animation> var5 = var4.next();
@@ -316,16 +316,16 @@ public class KillAura extends Module {
 
             for (TimedEntity var10 : entities) {
                 if (var10 != null) {
-                    if (!this.field23961.containsKey(var10.getEntity())) {
-                        this.field23961.put(var10.getEntity(), new Animation(250, 250));
+                    if (!this.entityGlowMap.containsKey(var10.getEntity())) {
+                        this.entityGlowMap.put(var10.getEntity(), new Animation(250, 250));
                     } else {
-                        this.field23961.get(var10.getEntity()).changeDirection(Direction.FORWARDS);
+                        this.entityGlowMap.get(var10.getEntity()).changeDirection(Direction.FORWARDS);
                     }
                 }
             }
 
-            for (Entry var11 : this.field23961.entrySet()) {
-                this.method16825((Entity) var11.getKey());
+            for (Entry var11 : this.entityGlowMap.entrySet()) {
+                this.renderTargetESP((Entity) var11.getKey());
             }
         }
     }
@@ -355,39 +355,46 @@ public class KillAura extends Module {
         }
     }
 
-    public void method16825(Entity var1) {
+    public void renderTargetESP(Entity targetEntity) {
         GL11.glPushMatrix();
-        GL11.glEnable(2848);
-        GL11.glDisable(3553);
-        GL11.glEnable(32925);
-        GL11.glEnable(2929);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glLineWidth(1.4F);
-        double renderPartialTicks = Minecraft.getInstance().timer.renderPartialTicks;
-        if (!var1.isAlive()) {
-            renderPartialTicks = 0.0;
+
+        double partialTicks = Minecraft.getInstance().timer.renderPartialTicks;
+        if (!targetEntity.isAlive()) {
+            partialTicks = 0.0;
         }
 
         GL11.glTranslated(
-                var1.lastTickPosX + (var1.getPosX() - var1.lastTickPosX) * renderPartialTicks,
-                var1.lastTickPosY + (var1.getPosY() - var1.lastTickPosY) * renderPartialTicks,
-                var1.lastTickPosZ + (var1.getPosZ() - var1.lastTickPosZ) * renderPartialTicks
+                targetEntity.lastTickPosX + (targetEntity.getPosX() - targetEntity.lastTickPosX) * partialTicks,
+                targetEntity.lastTickPosY + (targetEntity.getPosY() - targetEntity.lastTickPosY) * partialTicks,
+                targetEntity.lastTickPosZ + (targetEntity.getPosZ() - targetEntity.lastTickPosZ) * partialTicks
         );
+
         GL11.glTranslated(
                 -mc.gameRenderer.getActiveRenderInfo().getBlockPos().getX(),
                 -mc.gameRenderer.getActiveRenderInfo().getBlockPos().getY(),
                 -mc.gameRenderer.getActiveRenderInfo().getBlockPos().getZ()
         );
-        GL11.glEnable(32823);
-        GL11.glEnable(3008);
-        GL11.glEnable(3042);
-        GL11.glAlphaFunc(519, 0.0F);
-        long var6 = 1800;
-        float var7 = (float) (System.currentTimeMillis() % (long) var6) / (float) var6;
-        boolean var8 = var7 > 0.5F;
-        var7 = !var8 ? var7 * 2.0F : 1.0F - var7 * 2.0F % 1.0F;
-        GL11.glTranslatef(0.0F, (var1.getHeight() + 0.4F) * var7, 0.0F);
-        float var9 = (float) Math.sin((double) var7 * Math.PI);
-        this.method16826(var8, 0.45F * var9, 0.6F, 0.35F * var9, this.field23961.get(var1).calcPercent());
+
+        GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
+
+        long cycleDurationMs = 1800; // Duration of the glow cycle
+        float glowProgress = (float) (System.currentTimeMillis() % cycleDurationMs) / cycleDurationMs;
+        boolean isFadingOut = glowProgress > 0.5F;
+        glowProgress = !isFadingOut ? glowProgress * 2.0F : 1.0F - glowProgress * 2.0F % 1.0F;
+
+        GL11.glTranslatef(0.0F, (targetEntity.getHeight() + 0.4F) * glowProgress, 0.0F);
+
+        float glowFactor = (float) Math.sin(glowProgress * Math.PI);
+        drawCircle(isFadingOut, 0.45F * glowFactor, 0.6F, 0.35F * glowFactor, this.entityGlowMap.get(targetEntity).calcPercent());
+
         GL11.glPushMatrix();
         GL11.glTranslated(
                 mc.gameRenderer.getActiveRenderInfo().getBlockPos().getX(),
@@ -395,56 +402,57 @@ public class KillAura extends Module {
                 mc.gameRenderer.getActiveRenderInfo().getBlockPos().getZ()
         );
         GL11.glPopMatrix();
-        GL11.glEnable(3553);
-        GL11.glDisable(32925);
-        GL11.glDisable(2848);
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GL11.glPopMatrix();
     }
 
-    public void method16826(boolean var1, float var2, float var3, float var4, float var5) {
-        RenderSystem.shadeModel(7425);
-        GL11.glDisable(32823);
-        GL11.glDisable(2929);
-        GL11.glBegin(5);
-        int var8 = (int) (360.0F / (40.0F * var3));
-        Color var9 = new Color(this.parseSettingValueToIntBySettingName("ESP Color"));
-        float var10 = (float) var9.getRed() / 255.0F;
-        float var11 = (float) var9.getGreen() / 255.0F;
-        float var12 = (float) var9.getBlue() / 255.0F;
+    public void drawCircle(boolean isFadingOut, float circleHeight, float radius, float glowStrength, float glowOpacity) {
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
+        GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glBegin(GL11.GL_QUAD_STRIP);
 
-        for (int var13 = 0; var13 <= 360 + var8; var13 += var8) {
-            int var14 = var13;
-            if (var13 > 360) {
-                var14 = 0;
-            }
+        int angleStep = (int) (360.0F / (40.0F * radius));
 
-            double var15 = Math.sin((double) var14 * Math.PI / 180.0) * (double) var3;
-            double var17 = Math.cos((double) var14 * Math.PI / 180.0) * (double) var3;
-            GL11.glColor4f(var10, var11, var12, !var1 ? 0.0F : var4 * var5);
-            GL11.glVertex3d(var15, 0.0, var17);
-            GL11.glColor4f(var10, var11, var12, var1 ? 0.0F : var4 * var5);
-            GL11.glVertex3d(var15, var2, var17);
+        Color espColor = new Color(this.parseSettingValueToIntBySettingName("ESP Color"));
+        float red = (float) espColor.getRed() / 255.0F;
+        float green = (float) espColor.getGreen() / 255.0F;
+        float blue = (float) espColor.getBlue() / 255.0F;
+
+        for (int angle = 0; angle <= 360 + angleStep; angle += angleStep) {
+            int effectiveAngle = angle > 360 ? 0 : angle;
+
+            double x = Math.sin(Math.toRadians(effectiveAngle)) * radius;
+            double z = Math.cos(Math.toRadians(effectiveAngle)) * radius;
+
+            GL11.glColor4f(red, green, blue, isFadingOut ? 0.0F : glowStrength * glowOpacity);
+            GL11.glVertex3d(x, 0.0, z);
+
+            GL11.glColor4f(red, green, blue, isFadingOut ? glowStrength * glowOpacity : 0.0F);
+            GL11.glVertex3d(x, circleHeight, z);
         }
 
         GL11.glEnd();
+
         GL11.glLineWidth(2.2F);
-        GL11.glBegin(3);
+        GL11.glBegin(GL11.GL_LINE_LOOP);
 
-        for (int var19 = 0; var19 <= 360 + var8; var19 += var8) {
-            int var20 = var19;
-            if (var19 > 360) {
-                var20 = 0;
-            }
+        for (int angle = 0; angle <= 360 + angleStep; angle += angleStep) {
+            int effectiveAngle = angle > 360 ? 0 : angle;
 
-            double var21 = Math.sin((double) var20 * Math.PI / 180.0) * (double) var3;
-            double var22 = Math.cos((double) var20 * Math.PI / 180.0) * (double) var3;
-            GL11.glColor4f(var10, var11, var12, (0.5F + 0.5F * var4) * var5);
-            GL11.glVertex3d(var21, !var1 ? (double) var2 : 0.0, var22);
+            double x = Math.sin(Math.toRadians(effectiveAngle)) * radius;
+            double z = Math.cos(Math.toRadians(effectiveAngle)) * radius;
+
+            GL11.glColor4f(red, green, blue, (0.5F + 0.5F * glowStrength) * glowOpacity);
+            GL11.glVertex3d(x, isFadingOut ? 0.0 : circleHeight, z);
         }
 
         GL11.glEnd();
-        GL11.glEnable(2929);
-        RenderSystem.shadeModel(7424);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        RenderSystem.shadeModel(GL11.GL_FLAT);
     }
 
     public boolean isAutoBlockEnabled() {
