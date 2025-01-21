@@ -135,7 +135,7 @@ public class InputMappings
         private final InputMappings.Type type;
         private final int keyCode;
         private final LazyValue<ITextComponent> field_237518_d_;
-        private static final Map<String, InputMappings.Input> REGISTRY = Maps.newHashMap();
+        public static final Map<String, InputMappings.Input> REGISTRY = Maps.newHashMap();
 
         private Input(String nameIn, InputMappings.Type typeIn, int keyCodeIn)
         {

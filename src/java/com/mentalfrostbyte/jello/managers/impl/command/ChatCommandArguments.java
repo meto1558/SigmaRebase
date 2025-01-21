@@ -14,7 +14,7 @@ public class ChatCommandArguments {
             return CommandType.TEXT;
         }
 
-        return CommandType.field14336;
+        return CommandType.NUMBER;
     }
 
     public double method30896() {

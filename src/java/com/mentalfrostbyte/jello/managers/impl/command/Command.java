@@ -27,7 +27,7 @@ public abstract class Command {
         return this.descriptor;
     }
 
-    public String method18326() {
+    public String getOptions() {
         String var3 = "";
 
         for (String var5 : this.field25702) {
