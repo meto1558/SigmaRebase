@@ -25,7 +25,7 @@ public class Speed extends ModuleWithModuleSettings {
 //                new OldAACSpeed(),
 //                new ViperMCSpeed(),
                 new SlowHopSpeed(),
-//                new NCPSpeed(),
+                new NCPSpeed(),
                 new LegitSpeed(),
 //                new CubecraftSpeed(),
 //                new YPortSpeed(),
