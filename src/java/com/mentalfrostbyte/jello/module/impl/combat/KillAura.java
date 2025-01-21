@@ -328,8 +328,8 @@ public class KillAura extends Module {
                 }
             }
 
-            for (Entry var11 : this.entityGlowMap.entrySet()) {
-                this.renderTargetESP((Entity) var11.getKey());
+            for (Entry entity : this.entityGlowMap.entrySet()) {
+                this.renderTargetESP((Entity) entity.getKey());
             }
         }
     }
