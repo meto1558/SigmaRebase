@@ -199,10 +199,10 @@ public class BlockFlyNCPMode extends Module {
                 this.field23925++;
                 event.method13908(true);
                 this.field23927 = Hand.MAIN_HAND;
-                if (BlockFly.method16733(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
+                if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.field23927).isEmpty()
-                                || !BlockFly.method16733(mc.player.getHeldItem(this.field23927).getItem())
+                                || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.field23927).getItem())
                 )) {
                     this.field23927 = Hand.OFF_HAND;
                 }
@@ -385,7 +385,7 @@ public class BlockFlyNCPMode extends Module {
                     }
             }
 
-            this.field23928.method16741(var1);
+            this.field23928.onMove(var1);
         }
     }
 

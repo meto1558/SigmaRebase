@@ -112,7 +112,7 @@ public class BlockFlyAACMode extends Module {
                 mc.player.setSprinting(false);
             }
 
-            ((BlockFly) this.access()).method16741(var1);
+            ((BlockFly) this.access()).onMove(var1);
             if (this.getBooleanValueFromSettingName("Haphe (AACAP)")) {
                 if (!mc.player.isOnGround() || mc.player.moveForward == 0.0F && mc.player.moveStrafing == 0.0F) {
                     if (this.field23524 >= 0) {
@@ -154,7 +154,7 @@ public class BlockFlyAACMode extends Module {
         if (var3 != null && var3.getType() == RayTraceResult.Type.BLOCK) {
             if (this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
                 BlockFly var10000 = (BlockFly) this.access();
-                if (!BlockFly.method16733(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())) {
+                if (!BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())) {
                     return false;
                 }
             }

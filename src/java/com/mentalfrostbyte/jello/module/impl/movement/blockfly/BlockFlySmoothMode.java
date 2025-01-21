@@ -181,10 +181,10 @@ public class BlockFlySmoothMode extends Module {
                 this.field23980--;
                 event.method13908(true);
                 this.field23975 = Hand.MAIN_HAND;
-                if (BlockFly.method16733(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
+                if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.field23975).isEmpty()
-                                || !BlockFly.method16733(mc.player.getHeldItem(this.field23975).getItem())
+                                || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.field23975).getItem())
                 )) {
                     this.field23975 = Hand.OFF_HAND;
                 }
@@ -358,7 +358,7 @@ public class BlockFlySmoothMode extends Module {
                     }
             }
 
-            this.field23976.method16741(var1);
+            this.field23976.onMove(var1);
         }
     }
 
