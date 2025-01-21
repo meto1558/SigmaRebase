@@ -170,6 +170,20 @@ public class MultiUtilities {
         return new double[] { 0.0, 0.0625, 0.125, 0.25, 0.3125, 0.5, 0.625, 0.75, 0.8125, 0.875, 0.9375, 1.0, 1.0625,
                 1.125, 1.25, 1.3125, 1.375 };
     }
+
+    public static boolean method17763(Entity entity) {
+        if (!(entity.getPosY() < 1.0)) {
+            if (!entity.isOnGround()) {
+                AxisAlignedBB var3 = entity.getBoundingBox();
+                var3 = var3.expand(0.0, -entity.getPosY(), 0.0);
+                return mc.world.getCollisionShapes(mc.player, var3).count() == 0L;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
 }
 
 
