@@ -240,8 +240,7 @@ public class BlockFlySmoothMode extends Module {
                 this.blockFly = (BlockFly) this.access();
             }
 
-            String var4 = this.getStringSettingValueByName("Speed Mode");
-            switch (var4) {
+            switch (this.getStringSettingValueByName("Speed Mode")) {
                 case "Jump":
                     if (mc.player.isOnGround() && MultiUtilities.isMoving() && !mc.player.isSneaking()) {
                         this.called = false;
