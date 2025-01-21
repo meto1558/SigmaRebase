@@ -14,14 +14,16 @@ import com.mentalfrostbyte.jello.module.impl.misc.*;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
-import com.mentalfrostbyte.jello.module.impl.world.AntiVanish;
-import com.mentalfrostbyte.jello.module.impl.world.FakeLag;
-import com.mentalfrostbyte.jello.module.impl.world.Weather;
+import com.mentalfrostbyte.jello.module.impl.world.*;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Comparator;
 
 public class ModuleManager {
 
@@ -98,7 +100,7 @@ public class ModuleManager {
         this.register(new Weather());
         this.register(new FakeLag());
         this.register(new AntiVanish());
-
+        this.register(new Timer());
 
 
         // MISC
