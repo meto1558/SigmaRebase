@@ -40,7 +40,7 @@ public class AACSpeed extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.method37093(0.27, MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
+        MovementUtil.setSpeed(0.27, MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
     }
 
     @EventTarget
@@ -64,7 +64,7 @@ public class AACSpeed extends Module {
                     this.field23398 = -1;
                 }
 
-                if (MultiUtilities.method17686() && this.getBooleanValueFromSettingName("Auto Jump")) {
+                if (MultiUtilities.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
                     mc.player.jump();
                     var1.setY(mc.player.getMotion().y);
                 }
@@ -95,7 +95,7 @@ public class AACSpeed extends Module {
                     mc.player.getMotion().y = this.field23402;
             }
 
-            if (!MultiUtilities.method17686()) {
+            if (!MultiUtilities.isMoving()) {
                 this.field23401 = 0.0;
             }
 
@@ -104,7 +104,7 @@ public class AACSpeed extends Module {
             }
 
             if (this.field23398 >= 0) {
-                this.field23404 = MovementUtil.method37092(var1, this.field23401, MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
+                this.field23404 = MovementUtil.setSpeed(var1, this.field23401, MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
             }
 
             MultiUtilities.setPlayerYMotion(var1.getY());

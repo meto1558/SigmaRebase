@@ -189,6 +189,10 @@ public class KillAura extends Module {
                     Client.getInstance().notificationManager.send(new Notification("Aura", "Aura disabled due to death"));
                 }
             }
+
+            if (target != null) {
+                Rots.rotating = true;
+            }
         }
     }
 

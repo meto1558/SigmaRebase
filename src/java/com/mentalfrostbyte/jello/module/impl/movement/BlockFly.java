@@ -37,7 +37,7 @@ import java.util.List;
 
 public class BlockFly extends ModuleWithModuleSettings {
     public static List<Block> blocksToNotPlace;
-    public int field23884;
+    public int lastSpoofedSlot;
     public Animation animation = new Animation(114, 114, Direction.BACKWARDS);
     public int blockCount = 0;
 
@@ -123,49 +123,50 @@ public class BlockFly extends ModuleWithModuleSettings {
         return this.getBooleanValueFromSettingName("No Sprint") && this.isEnabled();
     }
 
-    public void method16734() {
+    public void switchToValidHotbarItem() {
         try {
-            for (int var3 = 36; var3 < 45; var3++) {
-                int slot = var3 - 36;
-                if (mc.player.container.getSlot(var3).getHasStack()
-                        && shouldPlaceItem(mc.player.container.getSlot(var3).getStack().getItem())
-                        && mc.player.container.getSlot(var3).getStack().getCount() != 0) {
-                    if (mc.player.inventory.currentItem == slot) {
+            for (int containerSlot = 36; containerSlot < 45; containerSlot++) {
+                int hotbarSlot = containerSlot - 36;
+                if (mc.player.container.getSlot(containerSlot).getHasStack()
+                        && shouldPlaceItem(mc.player.container.getSlot(containerSlot).getStack().getItem())
+                        && mc.player.container.getSlot(containerSlot).getStack().getCount() != 0) {
+                    if (mc.player.inventory.currentItem == hotbarSlot) {
                         return;
                     }
 
-                    mc.player.inventory.currentItem = slot;
+                    mc.player.inventory.currentItem = hotbarSlot;
                     if (this.getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")
-                            && (this.field23884 < 0 || this.field23884 != slot)) {
-                        mc.getConnection().getNetworkManager().sendPacket(new CHeldItemChangePacket(slot));
-                        this.field23884 = slot;
+                            && (this.lastSpoofedSlot < 0 || this.lastSpoofedSlot != hotbarSlot)) {
+                        mc.getConnection().getNetworkManager().sendPacket(new CHeldItemChangePacket(hotbarSlot));
+                        this.lastSpoofedSlot = hotbarSlot;
                     }
                     break;
                 }
             }
-        } catch (Exception var5) {
+        } catch (Exception e) {
         }
     }
 
-    public int method16735() {
-        int var3 = 0;
+    public int getValidItemCount() {
+        int totalItemCount = 0;
 
-        for (int var4 = 0; var4 < 45; var4++) {
-            if (mc.player.container.getSlot(var4).getHasStack()) {
-                ItemStack var5 = mc.player.container.getSlot(var4).getStack();
-                Item var6 = var5.getItem();
-                if (shouldPlaceItem(var6)) {
-                    var3 += var5.getCount();
+        for (int containerSlot = 0; containerSlot < 45; containerSlot++) {
+            if (mc.player.container.getSlot(containerSlot).getHasStack()) {
+                ItemStack stack = mc.player.container.getSlot(containerSlot).getStack();
+                Item item = stack.getItem();
+
+                if (shouldPlaceItem(item)) {
+                    totalItemCount += stack.getCount();
                 }
             }
         }
 
-        return var3;
+        return totalItemCount;
     }
 
     public void method16736() {
         String var3 = this.getStringSettingValueByName("Picking mode");
-        if ((!var3.equals("OpenInv") || mc.currentScreen instanceof InventoryScreen) && this.method16735() != 0) {
+        if ((!var3.equals("OpenInv") || mc.currentScreen instanceof InventoryScreen) && this.getValidItemCount() != 0) {
             int var4 = 43;
             if (!this.getBooleanValueFromSettingName("Intelligent Block Picker")) {
                 if (!this.hasPlaceableItem()) {
@@ -249,7 +250,7 @@ public class BlockFly extends ModuleWithModuleSettings {
     public int getBiggestSlot() {
         int biggestSlot = -1;
         int biggestSlotCount = 0;
-        if (this.method16735() != 0) {
+        if (this.getValidItemCount() != 0) {
             for (int slot = 9; slot < 45; slot++) {
                 if (mc.player.container.getSlot(slot).getHasStack()) {
                     Item var6 = mc.player.container.getSlot(slot).getStack().getItem();
@@ -280,9 +281,9 @@ public class BlockFly extends ModuleWithModuleSettings {
         return false;
     }
 
-    public boolean method16739(Hand var1) {
+    public boolean canPlaceItem(Hand var1) {
         if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-            return this.method16735() != 0;
+            return this.getValidItemCount() != 0;
         } else
             return shouldPlaceItem(mc.player.getHeldItem(var1).getItem());
     }
@@ -296,9 +297,9 @@ public class BlockFly extends ModuleWithModuleSettings {
             mc.timer.timerSpeed = 1.0F;
         }
 
-        if (this.method16735() != 0 && (!mc.player.collidedVertically
+        if (this.getValidItemCount() != 0 && (!mc.player.collidedVertically
                 || this.getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla"))) {
-            if (!MultiUtilities.method17686() || this.getBooleanValueFromSettingName("Tower while moving")) {
+            if (!MultiUtilities.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
                 String var4 = this.getStringSettingValueByName("Tower Mode");
                 switch (var4) {
                     case "NCP":
@@ -320,7 +321,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                         if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())
                                 && MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
                             if (mc.gameSettings.keyBindJump.isPressed()) {
-                                if (!MultiUtilities.method17686()) {
+                                if (!MultiUtilities.isMoving()) {
                                     MovementUtil.strafe(0.0);
                                     MovementUtil.setSpeed(var1, 0.0);
                                 }
@@ -334,7 +335,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                     case "AAC":
                         if (var1.getY() > 0.247 && var1.getY() < 0.249) {
                             var1.setY((double) ((int) (mc.player.getPosY() + var1.getY())) - mc.player.getPosY());
-                            if (mc.gameSettings.keyBindJump.isPressed() && !MultiUtilities.method17686()) {
+                            if (mc.gameSettings.keyBindJump.isPressed() && !MultiUtilities.isMoving()) {
                                 MovementUtil.strafe(0.0);
                                 MovementUtil.setSpeed(var1, 0.0);
                             }
@@ -366,7 +367,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                 mc.player.jumpTicks = 20;
                 var1.setY(MovementUtil.getJumpValue());
             }
-        } else if (!MultiUtilities.method17686() || this.getBooleanValueFromSettingName("Tower while moving")) {
+        } else if (!MultiUtilities.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
             mc.player.jumpTicks = 0;
             mc.player.jump();
             MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
@@ -387,7 +388,7 @@ public class BlockFly extends ModuleWithModuleSettings {
     public void onTick(TickEvent event) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {
-                this.blockCount = this.method16735();
+                this.blockCount = this.getValidItemCount();
             }
         }
     }

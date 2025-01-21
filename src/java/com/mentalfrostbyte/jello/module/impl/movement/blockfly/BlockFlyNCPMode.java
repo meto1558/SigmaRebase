@@ -14,7 +14,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.player.Rots;
-import com.mentalfrostbyte.jello.util.unmapped.Class7843;
+import com.mentalfrostbyte.jello.util.unmapped.BlockCache;
 import com.mentalfrostbyte.jello.util.world.BlockUtil;
 import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
@@ -32,7 +32,7 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 public class BlockFlyNCPMode extends Module {
     private float pitch;
     private float yaw;
-    private Class7843 field23923;
+    private BlockCache field23923;
     private int field23924 = -1;
     private int field23925;
     private int field23926;
@@ -89,7 +89,7 @@ public class BlockFlyNCPMode extends Module {
     public void onEnable() {
         this.field23924 = mc.player.inventory.currentItem;
         this.yaw = this.pitch = 999.0F;
-        ((BlockFly) this.access()).field23884 = -1;
+        ((BlockFly) this.access()).lastSpoofedSlot = -1;
         if (mc.gameSettings.keyBindSneak.isKeyDown() && this.getBooleanValueFromSettingName("Downwards")) {
             mc.gameSettings.keyBindSneak.setPressed(false);
             this.field23929 = true;
@@ -115,9 +115,9 @@ public class BlockFlyNCPMode extends Module {
         }
 
         this.field23924 = -1;
-        if (((BlockFly) this.access()).field23884 >= 0) {
+        if (((BlockFly) this.access()).lastSpoofedSlot >= 0) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
-            ((BlockFly) this.access()).field23884 = -1;
+            ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
         MovementUtil.strafe(MovementUtil.getSpeed() * 0.9);
@@ -172,16 +172,16 @@ public class BlockFlyNCPMode extends Module {
     @EventTarget
     @LowerPriority
     public void onUpdate(EventUpdate event) {
-        if (this.isEnabled() && this.field23928.method16735() != 0) {
+        if (this.isEnabled() && this.field23928.getValidItemCount() != 0) {
             if (!event.isPre()) {
                 this.field23928.method16736();
                 if (this.field23923 != null) {
                     BlockRayTraceResult var13 = new BlockRayTraceResult(
-                            method16814(this.field23923.field33646, this.field23923.field33647), this.field23923.field33647, this.field23923.field33646, false
+                            method16814(this.field23923.position, this.field23923.direction), this.field23923.direction, this.field23923.position, false
                     );
                     int var14 = mc.player.inventory.currentItem;
                     if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                        this.field23928.method16734();
+                        this.field23928.switchToValidHotbarItem();
                     }
 
                     mc.playerController.func_217292_a(mc.player, mc.world, this.field23927, var13);
@@ -197,7 +197,7 @@ public class BlockFlyNCPMode extends Module {
                 }
             } else {
                 this.field23925++;
-                event.method13908(true);
+                event.setMoving(true);
                 this.field23927 = Hand.MAIN_HAND;
                 if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
                         && (
@@ -227,7 +227,7 @@ public class BlockFlyNCPMode extends Module {
                     var8 = this.field23931;
                 }
 
-                if (!BlockUtil.method34578(
+                if (!BlockUtil.isValidBlockPosition(
                         new BlockPos(
                                 mc.player.getPositionVec().getX(),
                                 mc.player.getPositionVec().getY() - 1.0,
@@ -239,11 +239,11 @@ public class BlockFlyNCPMode extends Module {
                 }
 
                 BlockPos var15 = new BlockPos(var4, var8 - 1.0, var6);
-                if (!BlockUtil.method34578(var15) && this.field23928.method16739(this.field23927)) {
-                    Class7843 var11 = BlockUtil.method34575(var15, !this.field23929 && this.getBooleanValueFromSettingName("Downwards"));
+                if (!BlockUtil.isValidBlockPosition(var15) && this.field23928.canPlaceItem(this.field23927)) {
+                    BlockCache var11 = BlockUtil.findValidBlockCache(var15, !this.field23929 && this.getBooleanValueFromSettingName("Downwards"));
                     this.field23923 = var11;
                     if (var11 != null) {
-                        float[] var12 = BlockUtil.method34542(this.field23923.field33646, this.field23923.field33647);
+                        float[] var12 = BlockUtil.method34542(this.field23923.position, this.field23923.direction);
                         this.yaw = var12[0];
                         this.pitch = var12[1];
                         Rots.rotating = true;
@@ -285,7 +285,7 @@ public class BlockFlyNCPMode extends Module {
     @EventTarget
     @HigherPriority
     public void method16809(EventMove var1) {
-        if (this.isEnabled() && this.field23928.method16735() != 0) {
+        if (this.isEnabled() && this.field23928.getValidItemCount() != 0) {
             if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.01F)) {
                 this.field23931 = mc.player.getPosY();
             }
@@ -307,10 +307,10 @@ public class BlockFlyNCPMode extends Module {
             String var4 = this.getStringSettingValueByName("Speed Mode");
             switch (var4) {
                 case "Jump":
-                    if (mc.player.isOnGround() && MultiUtilities.method17686() && !mc.player.isSneaking() && !this.field23929) {
+                    if (mc.player.isOnGround() && MultiUtilities.isMoving() && !mc.player.isSneaking() && !this.field23929) {
                         this.field23930 = false;
                         mc.player.jump();
-                        ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).method16764();
+                        ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).callHypixelSpeedMethod();
                         this.field23930 = true;
                         var1.setY(mc.player.getMotion().y);
                         var1.setX(mc.player.getMotion().x);
@@ -328,7 +328,7 @@ public class BlockFlyNCPMode extends Module {
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.timer.timerSpeed = 1.0F;
                     } else if (mc.player.isOnGround()) {
-                        if (MultiUtilities.method17686() && !mc.player.isSneaking() && !this.field23929) {
+                        if (MultiUtilities.isMoving() && !mc.player.isSneaking() && !this.field23929) {
                             var1.setY(1.01);
                         }
                     } else if (this.field23926 == 1) {
@@ -356,12 +356,12 @@ public class BlockFlyNCPMode extends Module {
                         var1.setY(-1.023456987345906);
                     }
 
-                    if (!MultiUtilities.method17686()) {
+                    if (!MultiUtilities.isMoving()) {
                         var6 = 0.0;
                     }
 
                     if (mc.player.fallDistance < 1.0F) {
-                        MovementUtil.method37092(var1, var6, var8, var8, 360.0F);
+                        MovementUtil.setSpeed(var1, var6, var8, var8, 360.0F);
                     }
 
                     MultiUtilities.setPlayerYMotion(var1.getY());
@@ -393,7 +393,7 @@ public class BlockFlyNCPMode extends Module {
     @LowerPriority
     public void method16810(SendPacketEvent var1) {
         if (this.isEnabled() && mc.player != null) {
-            if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).field23884 >= 0) {
+            if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
                 var1.setCancelled(true);
             }
         }
@@ -403,7 +403,7 @@ public class BlockFlyNCPMode extends Module {
     public void method16811(JumpEvent var1) {
         if (this.isEnabled() && this.field23930) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!MultiUtilities.method17686() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!MultiUtilities.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 var1.setCancelled(true);
             }
         }
@@ -440,7 +440,7 @@ public class BlockFlyNCPMode extends Module {
         double var17 = 0.0;
 
         for (double var19 = this.getNumberValueBySettingName("Extend") * 2.0F;
-             BlockUtil.method34578(var12);
+             BlockUtil.isValidBlockPosition(var12);
              var12 = new BlockPos(var13, mc.player.getPosY() - 1.0, var15)
         ) {
             if (++var17 > var19) {

@@ -24,11 +24,9 @@ import static com.mentalfrostbyte.jello.module.Module.mc;
 
 public class MultiUtilities {
 
-    public static boolean method17686() {
+    public static boolean isMoving() {
         return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
     }
-
-    private static boolean field24954 = false;
 
 
     public static Vector3d method17751(Entity entity) {
@@ -106,8 +104,7 @@ public class MultiUtilities {
 
 
     public static boolean isHypixel() {
-        return !field24954
-                && mc.getIntegratedServer() == null
+        return mc.getIntegratedServer() == null
                 && mc.getCurrentServerData() != null
                 && mc.getCurrentServerData().serverIP.toLowerCase().contains("hypixel.net");
     }

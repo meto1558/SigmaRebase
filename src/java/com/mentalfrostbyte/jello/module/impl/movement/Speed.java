@@ -55,10 +55,10 @@ public class Speed extends ModuleWithModuleSettings {
         }
     }
 
-    public void method16764() {
-//        if (this.parentModule instanceof HypixelSpeed) {
-//            HypixelSpeed hypixelSpeed = (HypixelSpeed) this.parentModule;
-//            hypixelSpeed.method16044();
-//        }
+    public void callHypixelSpeedMethod() {
+        if (this.parentModule instanceof HypixelSpeed) {
+            HypixelSpeed hypixelSpeed = (HypixelSpeed) this.parentModule;
+            hypixelSpeed.method16044();
+        }
     }
 }

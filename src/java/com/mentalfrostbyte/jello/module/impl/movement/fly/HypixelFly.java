@@ -100,7 +100,7 @@ public class HypixelFly extends Module {
                 }
             }
 
-            event.method13908(true);
+            event.setMoving(true);
         }
     }
 
@@ -159,7 +159,7 @@ public class HypixelFly extends Module {
             double var10 = curMode.equals("Basic") ? MovementUtil.method37076() : MovementUtil.method37076() - 0.008;
             if (this.flySpeed < var10) {
                 this.flySpeed = var10;
-            } else if (!MultiUtilities.method17686()) {
+            } else if (!MultiUtilities.isMoving()) {
                 this.flySpeed = var10;
             }
 

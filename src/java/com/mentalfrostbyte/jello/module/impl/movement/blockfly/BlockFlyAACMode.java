@@ -53,7 +53,7 @@ public class BlockFlyAACMode extends Module {
         this.pitch = mc.player.rotationPitch;
         this.field23522 = (int) mc.player.getPosY();
         this.field23525 = -1;
-        ((BlockFly) this.access()).field23884 = -1;
+        ((BlockFly) this.access()).lastSpoofedSlot = -1;
     }
 
     @Override
@@ -63,9 +63,9 @@ public class BlockFlyAACMode extends Module {
         }
 
         this.field23523 = -1;
-        if (((BlockFly) this.access()).field23884 >= 0) {
+        if (((BlockFly) this.access()).lastSpoofedSlot >= 0) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
-            ((BlockFly) this.access()).field23884 = -1;
+            ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
         mc.timer.timerSpeed = 1.0F;
@@ -75,7 +75,7 @@ public class BlockFlyAACMode extends Module {
     @LowerPriority
     public void method16202(SendPacketEvent var1) {
         if (this.isEnabled() && mc.player != null) {
-            if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).field23884 >= 0) {
+            if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
                 var1.setCancelled(true);
             }
         }
@@ -171,7 +171,7 @@ public class BlockFlyAACMode extends Module {
 
             if (var3.getFace() == Direction.UP
                     && (double) (var3.getPos().getY() + 2) > mc.player.getPosY()
-                    && BlockUtil.method34578(var3.getPos())) {
+                    && BlockUtil.isValidBlockPosition(var3.getPos())) {
                 return false;
             }
 
@@ -182,7 +182,7 @@ public class BlockFlyAACMode extends Module {
             ((BlockFly) this.access()).method16736();
             int var5 = mc.player.inventory.currentItem;
             if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                ((BlockFly) this.access()).method16734();
+                ((BlockFly) this.access()).switchToValidHotbarItem();
             }
 
             ActionResultType var6 = mc.playerController.func_217292_a(mc.player, mc.world, Hand.MAIN_HAND, var3);
@@ -276,7 +276,7 @@ public class BlockFlyAACMode extends Module {
     public void method16211(JumpEvent var1) {
         if (this.isEnabled()) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!MultiUtilities.method17686() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!MultiUtilities.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 var1.setCancelled(true);
             }
         }

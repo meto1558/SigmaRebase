@@ -99,7 +99,7 @@ public class LibreCraftFly extends Module {
                 var1.setY(0.1);
             }
 
-            var1.method13908(true);
+            var1.setMoving(true);
         }
     }
 

@@ -116,7 +116,7 @@ public class SpiderStep extends Module {
                     MovementUtil.setSpeed(var1, 0.25);
                 }
 
-                if (!MultiUtilities.method17686()) {
+                if (!MultiUtilities.isMoving()) {
                     MovementUtil.setSpeed(var1, 0.0);
                 }
 

@@ -2,13 +2,11 @@ package net.minecraft.client.entity.player;
 
 import com.google.common.collect.Lists;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import javax.annotation.Nullable;
 
 import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.util.player.Rots;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BiomeSoundHandler;
@@ -394,6 +392,20 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         }
         event.postUpdate();
         EventBus.call(event);
+    }
+
+    @Override
+    public Vector3d getLookVec() {
+        return this.getLook(1.0f);
+    }
+
+    @Override
+    public Vector3d getLook(float partialTicks)
+    {
+        return this.getVectorForRotation(
+                Rots.rotating ? Rots.pitch : this.rotationPitch,
+                Rots.rotating ? Rots.yaw : this.rotationYaw
+        );
     }
 
     public boolean drop(boolean p_225609_1_)

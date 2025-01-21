@@ -241,34 +241,36 @@ public class MovementUtil {
         return var4;
     }
 
-    public static float method37093(double var0, float var2, float var3, float var4) {
-        float var7 = RotationHelper.angleDiff(var3, var2);
-        if (!(var7 > var4)) {
-            var3 = var2;
+    public static float setSpeed(double speed, float currentYaw, float targetYaw, float maxYawChange) {
+        float yawDifference = RotationHelper.angleDiff(targetYaw, currentYaw);
+        if (!(yawDifference > maxYawChange)) {
+            targetYaw = currentYaw;
         } else {
-            var3 += !(MathHelper.wrapDegrees(var2 - var3) > 0.0F) ? -var4 : var4;
+            targetYaw += !(MathHelper.wrapDegrees(currentYaw - targetYaw) > 0.0F) ? -maxYawChange : maxYawChange;
         }
 
-        float var8 = (var3 - 90.0F) * (float) (Math.PI / 180.0);
-        MovementUtil.setPlayerXMotion((double)(-MathHelper.sin(var8)) * var0);
-        MovementUtil.setPlayerZMotion((double) MathHelper.cos(var8) * var0);
-        return var3;
+        float yawRadians = (targetYaw - 90.0F) * (float) (Math.PI / 180.0);
+        MovementUtil.setPlayerXMotion((double)(-MathHelper.sin(yawRadians)) * speed);
+        MovementUtil.setPlayerZMotion((double) MathHelper.cos(yawRadians) * speed);
+        return targetYaw;
     }
 
-    public static float method37092(EventMove var0, double var1, float var3, float var4, float var5) {
-        float var8 = RotationHelper.angleDiff(var4, var3);
-        if (!(var8 > var5)) {
-            var4 = var3;
+    public static float setSpeed(EventMove event, double speed, float currentYaw, float targetYaw, float maxYawChange) {
+        float yawDifference = RotationHelper.angleDiff(targetYaw, currentYaw);
+        if (!(yawDifference > maxYawChange)) {
+            targetYaw = currentYaw;
         } else {
-            var4 += !(MathHelper.wrapDegrees(var3 - var4) > 0.0F) ? -var5 : var5;
+            targetYaw += !(MathHelper.wrapDegrees(currentYaw - targetYaw) > 0.0F) ? -maxYawChange : maxYawChange;
         }
 
-        float var9 = (var4 - 90.0F) * (float) (Math.PI / 180.0);
-        var0.setX((double)(-MathHelper.sin(var9)) * var1);
-        var0.setZ((double) MathHelper.cos(var9) * var1);
-        MovementUtil.setPlayerXMotion(var0.getX());
-        MovementUtil.setPlayerZMotion(var0.getZ());
-        return var4;
+        float yawRadians = (targetYaw - 90.0F) * (float) (Math.PI / 180.0);
+        event.setX((double)(-MathHelper.sin(yawRadians)) * speed);
+        event.setZ((double) MathHelper.cos(yawRadians) * speed);
+
+        MovementUtil.setPlayerXMotion(event.getX());
+        MovementUtil.setPlayerZMotion(event.getZ());
+
+        return targetYaw;
     }
 
     /**

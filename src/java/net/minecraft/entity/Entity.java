@@ -1647,7 +1647,7 @@ public abstract class Entity implements INameable, ICommandSource
     /**
      * interpolated look vector
      */
-    public final Vector3d getLook(float partialTicks)
+    public Vector3d getLook(float partialTicks)
     {
         return this.getVectorForRotation(this.getPitch(partialTicks), this.getYaw(partialTicks));
     }
