@@ -33,14 +33,14 @@ public class BlockFlySmoothMode extends Module {
     private float pitch;
     private float yaw;
     private Class7843 field23971;
-    private int field23972 = -1;
+    private int previousItem = -1;
     private int field23973;
     private int field23974;
     private Hand field23975;
-    private BlockFly field23976 = null;
+    private BlockFly blockFly = null;
     private boolean field23977;
     private boolean field23978 = false;
-    private double field23979;
+    private double posY;
     private int field23980 = 0;
 
     public BlockFlySmoothMode() {
@@ -80,18 +80,18 @@ public class BlockFlySmoothMode extends Module {
 
     @Override
     public void initialize() {
-        this.field23976 = (BlockFly) this.access();
+        this.blockFly = (BlockFly) this.access();
     }
 
     @Override
     public void onEnable() {
-        this.field23972 = mc.player.inventory.currentItem;
+        this.previousItem = mc.player.inventory.currentItem;
         this.yaw = this.pitch = 999.0F;
         ((BlockFly) this.access()).field23884 = -1;
-        this.field23979 = -1.0;
+        this.posY = -1.0;
         this.field23978 = false;
         if (mc.player.isOnGround()) {
-            this.field23979 = mc.player.getPosY();
+            this.posY = mc.player.getPosY();
         }
 
         this.field23974 = -1;
@@ -99,11 +99,11 @@ public class BlockFlySmoothMode extends Module {
 
     @Override
     public void onDisable() {
-        if (this.field23972 != -1 && this.access().getStringSettingValueByName("ItemSpoof").equals("Switch")) {
-            mc.player.inventory.currentItem = this.field23972;
+        if (this.previousItem != -1 && this.access().getStringSettingValueByName("ItemSpoof").equals("Switch")) {
+            mc.player.inventory.currentItem = this.previousItem;
         }
 
-        this.field23972 = -1;
+        this.previousItem = -1;
         if (((BlockFly) this.access()).field23884 >= 0) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
             ((BlockFly) this.access()).field23884 = -1;
@@ -139,10 +139,10 @@ public class BlockFlySmoothMode extends Module {
     @EventTarget
     @LowerPriority
     public void onUpdate(EventUpdate event) {
-        if (this.isEnabled() && this.field23976.method16735() != 0) {
+        if (this.isEnabled() && this.blockFly.method16735() != 0) {
             if (!event.isPre()) {
                 if (this.yaw != 999.0F) {
-                    this.field23976.method16736();
+                    this.blockFly.method16736();
                     if (this.field23971 != null) {
                         BlockRayTraceResult var13 = BlockUtil.method34568(this.yaw, this.pitch, 5.0F, event);
                         if (var13.getType() == RayTraceResult.Type.MISS) {
@@ -157,7 +157,7 @@ public class BlockFlySmoothMode extends Module {
 
                         int var14 = mc.player.inventory.currentItem;
                         if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                            this.field23976.method16734();
+                            this.blockFly.method16734();
                         }
 
                         ItemStack var15 = mc.player.getHeldItem(Hand.MAIN_HAND);
@@ -204,7 +204,7 @@ public class BlockFlySmoothMode extends Module {
                     var8 += Math.min(mc.player.getMotion().y * 2.0, 4.0);
                 } else if ((this.getStringSettingValueByName("Speed Mode").equals("Jump") || this.getStringSettingValueByName("Speed Mode").equals("Cubecraft"))
                         && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                    var8 = this.field23979;
+                    var8 = this.posY;
                 }
 
                 if (!BlockUtil.method34578(
@@ -219,7 +219,7 @@ public class BlockFlySmoothMode extends Module {
                 }
 
                 BlockPos var18 = new BlockPos(var4, var8 - 1.0, var6);
-                if (!BlockUtil.method34578(var18) && this.field23976.method16739(this.field23975) && this.field23980 <= 0) {
+                if (!BlockUtil.method34578(var18) && this.blockFly.method16739(this.field23975) && this.field23980 <= 0) {
                     Class7843 var11 = BlockUtil.method34575(var18, false);
                     this.field23971 = var11;
                     float[] rots = BlockUtil.method34565();
@@ -258,9 +258,9 @@ public class BlockFlySmoothMode extends Module {
     @EventTarget
     @HigherPriority
     public void onMove(EventMove var1) {
-        if (this.isEnabled() && this.field23976.method16735() != 0) {
+        if (this.isEnabled() && this.blockFly.method16735() != 0) {
             if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.01F)) {
-                this.field23979 = mc.player.getPosY();
+                this.posY = mc.player.getPosY();
             }
 
             if (this.access().getBooleanValueFromSettingName("No Sprint")) {
@@ -273,8 +273,8 @@ public class BlockFlySmoothMode extends Module {
                 this.field23974++;
             }
 
-            if (this.field23976 == null) {
-                this.field23976 = (BlockFly) this.access();
+            if (this.blockFly == null) {
+                this.blockFly = (BlockFly) this.access();
             }
 
             String var4 = this.getStringSettingValueByName("Speed Mode");
@@ -358,7 +358,7 @@ public class BlockFlySmoothMode extends Module {
                     }
             }
 
-            this.field23976.onMove(var1);
+            this.blockFly.onMove(var1);
         }
     }
 
@@ -386,12 +386,12 @@ public class BlockFlySmoothMode extends Module {
     public void method16890(Render2DEvent var1) {
         if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23974 >= 0) {
             if (!(mc.player.fallDistance > 1.2F)) {
-                if (!(mc.player.chasingPosY < this.field23979)) {
+                if (!(mc.player.chasingPosY < this.posY)) {
                     if (!mc.player.isJumping) {
-                        mc.player.setPosition(mc.player.getPosX(), this.field23979, mc.player.getPosZ());
-                        mc.player.lastTickPosY = this.field23979;
-                        mc.player.chasingPosY = this.field23979;
-                        mc.player.prevPosY = this.field23979;
+                        mc.player.setPosition(mc.player.getPosX(), this.posY, mc.player.getPosZ());
+                        mc.player.lastTickPosY = this.posY;
+                        mc.player.chasingPosY = this.posY;
+                        mc.player.prevPosY = this.posY;
                         if (MovementUtil.isMoving()) {
                             mc.player.cameraYaw = 0.099999994F;
                         }

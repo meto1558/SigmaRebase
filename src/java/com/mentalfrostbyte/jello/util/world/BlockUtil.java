@@ -73,13 +73,80 @@ public class BlockUtil {
       return mc.world.rayTraceBlocks(new RayTraceContext(var5, var9, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, var10));
    }
 
-   public static BlockRayTraceResult method34568(float yaw, float pitch, float v, EventUpdate event) {
-      return null;
+   public static BlockRayTraceResult method34568(float var0, float var1, float var2, EventUpdate var3) {
+      Vector3d var6 = new Vector3d(var3.getX(), (double) mc.player.getEyeHeight() + var3.getY(), var3.getZ());
+      var0 = (float)Math.toRadians((double)var0);
+      var1 = (float)Math.toRadians((double)var1);
+      float var7 = -MathHelper.sin(var0) * MathHelper.cos(var1);
+      float var8 = -MathHelper.sin(var1);
+      float var9 = MathHelper.cos(var0) * MathHelper.cos(var1);
+      if (var2 == 0.0F) {
+         var2 = mc.playerController.getBlockReachDistance();
+      }
+
+      Vector3d var10 = new Vector3d(
+              mc.player.lastReportedPosX + (double)(var7 * var2),
+              mc.player.lastReportedPosY + (double)(var8 * var2) + (double) mc.player.getEyeHeight(),
+              mc.player.lastReportedPosZ + (double)(var9 * var2)
+      );
+      Entity var11 = mc.getRenderViewEntity();
+      return mc.world.rayTraceBlocks(new RayTraceContext(var6, var10, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, var11));
    }
 
-   public static float[] method34543(BlockPos blockPos, Direction direction) {
-      return null;
+   public static float[] method34543(BlockPos var0, Direction var1) {
+      float var4 = 0.0F;
+      float var5 = 0.0F;
+      float var6 = (float)(0.4F + Math.random() * 0.1F);
+      switch (var1) {
+         case EAST:
+            var4 += 0.49F;
+            break;
+         case NORTH:
+            var5 -= 0.49F;
+            break;
+         case SOUTH:
+            var5 += 0.49F;
+            break;
+         case WEST:
+            var4 -= 0.49F;
+            break;
+         case UP:
+            var6 = 0.0F;
+            var4 = 0.26F - (float)(Math.random() * 0.2F);
+            var5 = 0.26F - (float)(Math.random() * 0.2F);
+         case DOWN:
+            var6 = 1.0F;
+            var4 = 0.26F - (float)(Math.random() * 0.2F);
+            var5 = 0.26F - (float)(Math.random() * 0.2F);
+      }
+
+      if (var4 == 0.0F) {
+         var4 = (float)(0.1F - Math.sin((double)(System.currentTimeMillis() - 500L) / 1200.0) * 0.2);
+      }
+
+      if (var5 == 0.0F) {
+         var5 = (float)(0.1F - Math.sin((double)(System.currentTimeMillis() - 500L) / 1000.0) * 0.2);
+      }
+
+      if (var6 == 0.0F) {
+         var6 = (float)(0.6F - Math.sin((double)(System.currentTimeMillis() - 500L) / 1600.0) * 0.2);
+      }
+
+      double var7 = (double)var0.getX() + 0.5 - Minecraft.getInstance().player.getPosX() + (double)var4;
+      double var9 = (double)var0.getY()
+              - 0.02
+              - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight())
+              + (double)var6;
+      double var11 = (double)var0.getZ() + 0.5 - Minecraft.getInstance().player.getPosZ() + (double)var5;
+      double var13 = (double) MathHelper.sqrt(var7 * var7 + var11 * var11);
+      float var15 = (float)(Math.atan2(var11, var7) * 180.0 / Math.PI) - 90.0F;
+      float var16 = (float)(-(Math.atan2(var9, var13) * 180.0 / Math.PI));
+      return new float[]{
+              Minecraft.getInstance().player.rotationYaw + MathHelper.wrapDegrees(var15 - Minecraft.getInstance().player.rotationYaw),
+              Minecraft.getInstance().player.rotationPitch + MathHelper.wrapDegrees(var16 - Minecraft.getInstance().player.rotationPitch)
+      };
    }
+
 
    public static RayTraceResult method34569(float var0, float var1, float var2, float var3) {
       double var6 = Math.cos((double) MovementUtil.method37086() * Math.PI / 180.0) * (double)var3;
