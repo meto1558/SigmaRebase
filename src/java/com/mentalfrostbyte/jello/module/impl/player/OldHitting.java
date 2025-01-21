@@ -113,7 +113,6 @@ public class OldHitting extends Module {
 
     @EventTarget
     @LowerPriority
-    @Class5631
     public void onPacketReceive(ReceivePacketEvent event) {
         /* || JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*/
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {
