@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.util.EntityUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.TimerUtil;
-import com.mentalfrostbyte.misc.Class5631;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.BoatEntity;
@@ -33,7 +32,6 @@ public class Class9819 {
    }
 
    @EventTarget
-   @Class5631
    public void onUpdate(EventUpdate event) {
       if (this.entity != null) {
          if (this.field45878 != 1) {

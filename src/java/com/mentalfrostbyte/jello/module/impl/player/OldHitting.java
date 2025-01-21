@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.misc.Class5631;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.*;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -43,7 +42,6 @@ public class OldHitting extends Module {
 
     @EventTarget
     @HigherPriority
-    @Class5631
     public void onUpdate(EventUpdate var1) {
         /* || JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*/
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {
@@ -134,7 +132,6 @@ public class OldHitting extends Module {
 
     @EventTarget
     @LowerPriority
-    @Class5631
     public void method16022(EventHandAnimation event) {
         //JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {

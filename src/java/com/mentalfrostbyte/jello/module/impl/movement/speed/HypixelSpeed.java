@@ -15,7 +15,6 @@ import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import com.mentalfrostbyte.misc.Class5631;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -78,7 +77,6 @@ public class HypixelSpeed extends Module {
     }
 
     @EventTarget
-    @Class5631
     @HigherPriority
     public void method16038(EventMove var1) {
         if (!this.isEnabled()) {
@@ -205,7 +203,6 @@ public class HypixelSpeed extends Module {
     }
 
     @EventTarget
-    @Class5631
     public void method16042(Render2DEvent var1) {
         if (!mc.player.isOnGround()
                 && !MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)

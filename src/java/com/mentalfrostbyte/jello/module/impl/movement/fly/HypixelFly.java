@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import com.mentalfrostbyte.misc.Class5631;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.MathHelper;
@@ -77,7 +76,6 @@ public class HypixelFly extends Module {
     }
 
     @EventTarget
-    @Class5631
     @HighestPriority
     public void onReceive(ReceivePacketEvent event) {
         if (mc.getConnection() != null && MultiUtilities.isHypixel()) {
