@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.util;
 
 
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
@@ -21,8 +21,6 @@ import java.util.stream.Stream;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 
 import static com.mentalfrostbyte.jello.module.Module.mc;
-import static com.mentalfrostbyte.jello.util.EntityUtil.traceEntityRay;
-import static com.mentalfrostbyte.jello.util.player.RotationHelper.getLookVector;
 
 public class MultiUtilities {
 
@@ -159,6 +157,12 @@ public class MultiUtilities {
                 mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3 + var11, var5 + 0.05 + method17750(), var7 + var11, false));
             }
         }
+    }
+
+    public static boolean inLiquid(Entity entity) {
+        ClientWorld world = mc.world;
+        AxisAlignedBB boundingBox = entity.getBoundingBox();
+        return world.containsAnyLiquid(boundingBox);
     }
 }
 
