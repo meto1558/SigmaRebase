@@ -313,7 +313,7 @@ public class KillAura extends Module {
                 Entry<Entity, Animation> var5 = var4.next();
 
                 var5.getValue().changeDirection(Direction.BACKWARDS);
-                if (var5.getValue().calcPercent() == 1.0F) {
+                if (var5.getValue().calcPercent() == 0.5F) {
                     var4.remove();
                 }
             }
