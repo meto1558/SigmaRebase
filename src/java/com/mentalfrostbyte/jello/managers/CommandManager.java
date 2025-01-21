@@ -32,8 +32,8 @@ public class CommandManager {
         EventBus.register(this);
         this.register(new VClip());
         this.register(new HClip());
-//        this.register(new Damage());
-//        this.register(new ClearChat());
+        this.register(new Damage());
+        this.register(new ClearChat());
 //        this.register(new EntityDesync());
 //        this.register(new Peek());
 //        this.register(new Insult());

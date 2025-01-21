@@ -22,7 +22,7 @@ public class VClip extends Command {
                             .handlePlayerPosLook(
                                     new SPlayerPositionLookPacket(
                                             mc.player.getPosX(),
-                                            mc.player.getPosY() + var2[0].method30896(),
+                                            mc.player.getPosY() + var2[0].getDouble(),
                                             mc.player.getPosZ(),
                                             mc.player.rotationYaw,
                                             mc.player.rotationPitch,
@@ -30,7 +30,7 @@ public class VClip extends Command {
                                             (int)(2.147483647E9 * Math.random())
                                     )
                             );
-                    var3.send("VClip'd to position " + (mc.player.getPosY() + var2[0].method30896()));
+                    var3.send("VClip'd to position " + (mc.player.getPosY() + var2[0].getDouble()));
                 }
             } else {
                 throw new CommandException("Too many arguments");

@@ -15,7 +15,7 @@ public class Help extends Command {
     public void run(String var1, ChatCommandArguments[] var2, ChatCommandExecutor var3) throws CommandException {
         List var6 = Client.getInstance().commandManager.getCommands();
         int var7 = (int) Math.ceil((double) ((float) var6.size() / 7.0F));
-        int var8 = var2.length == 1 && var2[0].getCommandType() == CommandType.NUMBER ? var2[0].method30898() - 1 : 0;
+        int var8 = var2.length == 1 && var2[0].getCommandType() == CommandType.NUMBER ? var2[0].getInt() - 1 : 0;
         if (var2.length == 1 && var2[0].getCommandType() == CommandType.TEXT) {
             Command command = Client.getInstance().commandManager.getCommandByName(var2[0].getArguments());
             if (command == null) {

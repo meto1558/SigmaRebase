@@ -20,8 +20,8 @@ public class HClip extends Command {
                     throw new CommandException("Invalid distance \"" + var2[0].getArguments() + "\"");
                 } else {
                     float var6 = (float)Math.toRadians((double)(mc.player.rotationYaw + 90.0F));
-                    double var7 = (double) MathHelper.cos(var6) * var2[0].method30896();
-                    double var9 = (double) MathHelper.sin(var6) * var2[0].method30896();
+                    double var7 = (double) MathHelper.cos(var6) * var2[0].getDouble();
+                    double var9 = (double) MathHelper.sin(var6) * var2[0].getDouble();
                     mc.getConnection()
                             .handlePlayerPosLook(
                                     new SPlayerPositionLookPacket(

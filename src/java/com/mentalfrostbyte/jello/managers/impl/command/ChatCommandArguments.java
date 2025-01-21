@@ -17,7 +17,7 @@ public class ChatCommandArguments {
         return CommandType.NUMBER;
     }
 
-    public double method30896() {
+    public double getDouble() {
         try {
             return Double.parseDouble(this.arguments);
         } catch (NullPointerException | NumberFormatException var4) {
@@ -25,7 +25,7 @@ public class ChatCommandArguments {
         }
     }
 
-    public float method30897() {
+    public float getFloat() {
         try {
             return (float)Double.parseDouble(this.arguments);
         } catch (NullPointerException | NumberFormatException var4) {
@@ -33,7 +33,7 @@ public class ChatCommandArguments {
         }
     }
 
-    public int method30898() {
+    public int getInt() {
         try {
             return (int)Double.parseDouble(this.arguments);
         } catch (NullPointerException | NumberFormatException var4) {
