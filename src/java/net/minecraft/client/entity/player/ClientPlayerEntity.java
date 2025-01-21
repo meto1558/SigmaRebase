@@ -875,10 +875,21 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
         this.movementInput.tickMovement(this.isForcedDown());
         this.mc.getTutorial().handleMovement(this.movementInput);
 
-        if (this.isHandActive() && !this.isPassenger())
+        boolean shouldSlowDown = this.isHandActive() && !this.isPassenger();
+        // MODIFICATION BEGIN: send the event
+        EventSlowDown event = new EventSlowDown(0.2F);
+        if (shouldSlowDown) {
+            EventBus.call(event);
+        }
+        // MODIFICATION END
+        // MODIFICATION BEGIN: make the event cancellable
+        if (shouldSlowDown && !event.isCancelled())
         {
-            this.movementInput.moveStrafe *= 0.2F;
-            this.movementInput.moveForward *= 0.2F;
+            // MODIFICATION END
+            // MODIFICATION BEGIN: use the event slowdown value
+            this.movementInput.moveStrafe *= event.getSlowDown();
+            this.movementInput.moveForward *= event.getSlowDown();
+            // MODIFICATION END
             this.sprintToggleTimer = 0;
         }
 
