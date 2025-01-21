@@ -1,12 +1,16 @@
 package com.mentalfrostbyte.jello.util.world;
 
+import com.google.common.collect.ImmutableList;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.unmapped.PlacementPattern;
 import com.mentalfrostbyte.jello.util.unmapped.BlockCache;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SnowBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -17,8 +21,20 @@ import org.apache.commons.lang3.RandomUtils;
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();
 
+    public static int method34573(BlockState var0) {
+        Block var3 = var0.getBlock();
+        StateContainer<Block, BlockState> var4 = var3.getStateContainer();
+        ImmutableList<BlockState> var5 = var4.getValidStates();
+        return var5.indexOf(var0);
+    }
+
     public static boolean isValidBlockPosition(BlockPos blockPos) {
-        return true;
+        if (blockPos != null) {
+            Block var3 = mc.world.getBlockState(blockPos).getBlock();
+            return (var3.getDefaultState().isSolid() || !var3.getDefaultState().getMaterial().isReplaceable()) && (!(var3 instanceof SnowBlock) || method34573(mc.world.getBlockState(blockPos)) != 0);
+        } else {
+            return false;
+        }
     }
 
     public static BlockCache findValidBlockCache(BlockPos basePos, boolean var1) {
