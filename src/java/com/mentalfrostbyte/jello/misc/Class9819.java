@@ -117,7 +117,6 @@ public class Class9819 {
    }
 
    @EventTarget
-   @Class5631
    public void onMovement(EventMove event) {
       if (this.field45878 == 1) {
          event.setX(0.0);
@@ -149,7 +148,6 @@ public class Class9819 {
    }
 
    @EventTarget
-   @Class5631
    public void onReceivePacket(ReceivePacketEvent event) {
       if (this.field45878 == 1) {
          if (event.getPacket() instanceof SPlayerPositionLookPacket) {
