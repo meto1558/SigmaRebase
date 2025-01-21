@@ -13,7 +13,7 @@ public class Timer extends Module {
     }
 
     @EventTarget
-    private void onTick(TickEvent event) {
+    public void onTick(TickEvent event) {
         if (this.isEnabled()) {
             mc.timer.timerSpeed = this.getNumberValueBySettingName("Timer");
         }
