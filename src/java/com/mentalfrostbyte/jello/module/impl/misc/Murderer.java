@@ -6,19 +6,21 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mojang.datafixers.util.Pair;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.network.play.server.SEntityEquipmentPacket;
 import net.minecraft.network.play.server.SRespawnPacket;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.io.IOException;
@@ -36,16 +38,15 @@ public class Murderer extends Module {
     }
 
     @EventTarget
-    public void method16654(ReceivePacketEvent var1) throws IOException {
+    public void onReceive(ReceivePacketEvent event) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SEntityEquipmentPacket) {
-                SEntityEquipmentPacket var4 = (SEntityEquipmentPacket) var1.getPacket();
+            if (event.getPacket() instanceof SEntityEquipmentPacket entityEquipmentPacket) {
 
-                for (Pair var6 : var4.func_241790_c_()) {
+                for (Pair var6 : entityEquipmentPacket.func_241790_c_()) {
                     if (var6.getSecond() != null
                             && ((ItemStack) var6.getSecond()).getItem() instanceof SwordItem
-                            && mc.world.getEntityByID(var4.getEntityID()) instanceof PlayerEntity) {
-                        Entity var7 = mc.world.getEntityByID(var4.getEntityID());
+                            && mc.world.getEntityByID(entityEquipmentPacket.getEntityID()) instanceof PlayerEntity) {
+                        Entity var7 = mc.world.getEntityByID(entityEquipmentPacket.getEntityID());
                         if (!this.field23833.equalsIgnoreCase(var7.getName().getString())) {
                             if (this.getBooleanValueFromSettingName("Chat Message")) {
                                 mc.player.sendChatMessage("Murderer is " + var7.getName() + ", detected by Jello client");
@@ -61,35 +62,35 @@ public class Murderer extends Module {
                 }
             }
 
-            if (var1.getPacket() instanceof SRespawnPacket) {
+            if (event.getPacket() instanceof SRespawnPacket) {
                 this.field23836 = false;
             }
         }
     }
 
     @EventTarget
-    public void method16655(EventRender var1) throws IOException {
+    public void onRender(EventRender event) {
         if (this.isEnabled()) {
             if (this.field23836) {
                 if (this.getBooleanValueFromSettingName("GUI")) {
-    //                TrueTypeFont var4 = Resources.JelloLightFont20;
-                    int var6 = Minecraft.getInstance().getMainWindow().getWidth();
-                    int var7 = Minecraft.getInstance().getMainWindow().getHeight();
+                    TrueTypeFont var4 = ResourceRegistry.JelloLightFont20;
+                    int width = Minecraft.getInstance().getMainWindow().getWidth();
+                    int height = Minecraft.getInstance().getMainWindow().getHeight();
                     if (this.field23835 && this.field23834 != null) {
                         this.field23835 = false;
                     }
 
-//                    if (this.field23834 != null) {
-//                        RenderUtil.drawRect(
-//                                (float) (var6 - var4.getStringWidth(this.field23833) - 90), (float) (var7 - 130), (float) (var6 - 10), (float) (var7 - 10), 1342177280
-//                        );
-//                        RenderUtil.method11455((float) (var6 - var4.getStringWidth(this.field23833) - 80), (float) (var7 - 120), 50.0F, 100.0F, this.field23834);
-//                        RenderUtil.drawString(
-//                                var4, (float) (var6 - var4.getStringWidth(this.field23833) - 20), (float) (var7 - var4.method23941(this.field23833) - 60), this.field23833, -1
-//                        );
+                    if (this.field23834 != null) {
+                        RenderUtil.drawRoundedRect(
+                                (float) (width - var4.getWidth(this.field23833) - 90), (float) (height - 130), (float) (width - 10), (float) (height - 10), 1342177280
+                        );
+                        RenderUtil.drawImage((float) (width - var4.getWidth(this.field23833) - 80), (float) (height - 120), 50.0F, 100.0F, this.field23834);
+                        RenderUtil.drawString(
+                                var4, (float) (width - var4.getWidth(this.field23833) - 20), (float) (height - var4.getHeight(this.field23833) - 60), this.field23833, -1
+                        );
                     }
                 }
             }
         }
     }
-
+}

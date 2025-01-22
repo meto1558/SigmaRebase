@@ -12,32 +12,31 @@ public class ChatFilter extends Module {
     }
 
     @EventTarget
-    public void method16679(SendPacketEvent var1) {
+    public void onSendPacket(SendPacketEvent event) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof CChatMessagePacket) {
-                CChatMessagePacket var4 = (CChatMessagePacket) var1.getPacket();
-                String[] var5 = var4.message.split(" ");
-                if (var4.message.length() + var5.length <= 100) {
-                    StringBuilder var6 = new StringBuilder();
-                    boolean var7 = false;
+            if (event.getPacket() instanceof CChatMessagePacket chatPacket) {
+                String[] words = chatPacket.message.split(" ");
+                if (chatPacket.message.length() + words.length <= 100) {
+                    StringBuilder modifiedMessage = new StringBuilder();
+                    boolean isCommand = false;
 
-                    for (int var8 = 0; var8 < var5.length; var8++) {
-                        if (!var5[var8].startsWith("/")) {
-                            if (var5.length != 0) {
-                                var6.append(" ");
+                    for (String word : words) {
+                        if (!word.startsWith("/")) {
+                            if (modifiedMessage.length() != 0) {
+                                modifiedMessage.append(" ");
                             }
 
-                            String var9 = var5[var8].substring(0, 1);
-                            String var10 = var5[var8].substring(1);
-                            var6.append(var9 + "\uf8ff" + var10);
+                            String firstChar = word.substring(0, 1);
+                            String remainingChars = word.substring(1);
+                            modifiedMessage.append(firstChar).append("\uf8ff").append(remainingChars);
                         } else {
-                            var6.append(var5[var8]);
-                            var7 = !var5[var8].equals("/r") && !var5[var8].equals("/msg");
+                            modifiedMessage.append(word);
+                            isCommand = !word.equals("/r") && !word.equals("/msg");
                         }
                     }
 
-                    if (!var7) {
-                        var4.message = var6.toString();
+                    if (!isCommand) {
+                        chatPacket.message = modifiedMessage.toString();
                     }
                 }
             }

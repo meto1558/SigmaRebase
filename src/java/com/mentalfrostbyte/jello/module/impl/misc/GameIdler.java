@@ -13,10 +13,10 @@ public class GameIdler extends Module {
     }
 
     @EventTarget
-    public void method16941(EventRender var1) {
+    public void onRender(EventRender event) {
         if (this.isEnabled()) {
-            boolean var4 = GLFW.glfwGetWindowAttrib(mc.getMainWindow().getHandle(), 131073) == 1;
-            if (var4) {
+            boolean focused = GLFW.glfwGetWindowAttrib(mc.getMainWindow().getHandle(), GLFW.GLFW_FOCUSED) == 1;
+            if (focused) {
                 Minecraft.getInstance().getMainWindow().setFramerateLimit(mc.gameSettings.framerateLimit);
             } else {
                 Minecraft.getInstance().getMainWindow().setFramerateLimit(5);

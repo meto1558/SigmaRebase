@@ -12,7 +12,7 @@ public class AntiLevitation extends Module {
     }
 
     @EventTarget
-    public void method16490(TickEvent var1) {
+    public void onTick(TickEvent event) {
         if (this.isEnabled()) {
             mc.player.removeActivePotionEffect(Effects.LEVITATION);
         }

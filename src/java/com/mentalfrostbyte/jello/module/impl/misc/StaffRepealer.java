@@ -6,21 +6,17 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.play.server.SEntityPacket;
 import net.minecraft.network.play.server.SPlayerListItemPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
-import java.util.HashMap;
-
 public class StaffRepealer extends Module {
-    public final HashMap<Integer, Integer> field23506 = new HashMap<Integer, Integer>();
 
     public StaffRepealer() {
         super(ModuleCategory.MISC, "StaffRepealer", "Repeals hypixel's staff ban laws with a simple rage quit!");
     }
 
     @EventTarget
-    public void method16183(TickEvent var1) {
+    public void onTick(TickEvent event) {
         if (this.isEnabled()) {
             if (MultiUtilities.isHypixel()) {
                 mc.gameSettings.sendSettingsToServer();
@@ -29,33 +25,22 @@ public class StaffRepealer extends Module {
     }
 
     @EventTarget
-    public void method16184(ReceivePacketEvent var1) {
+    public void onReceive(ReceivePacketEvent event) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SEntityPacket) {
-                SEntityPacket var4 = (SEntityPacket) var1.getPacket();
-            }
-
-            if (var1.getPacket() instanceof SPlayerListItemPacket) {
-                SPlayerListItemPacket var5 = (SPlayerListItemPacket) var1.getPacket();
+            if (event.getPacket() instanceof SPlayerListItemPacket listItemPacket) {
                 new Thread(() -> {
                     try {
                         Thread.sleep(2000L);
-                    } catch (InterruptedException var8) {
-                        var8.printStackTrace();
+                    } catch (InterruptedException ignored) {
                     }
 
-                    int var3 = 0;
-
-                    for (SPlayerListItemPacket.AddPlayerData var5x : var5.getEntries()) {
-                        PlayerEntity var6 = mc.world.getPlayerByUuid(var5x.getProfile().getId());
-                        if (var6 == null && var5x.getGameMode() != null) {
-                            MultiUtilities.sendChatMessage("Detected an anomaly " + var5x + var5x.getProfile());
+                    for (SPlayerListItemPacket.AddPlayerData entity : listItemPacket.getEntries()) {
+                        PlayerEntity player = mc.world.getPlayerByUuid(entity.getProfile().getId());
+                        if (player == null && entity.getGameMode() != null) {
+                            MultiUtilities.sendChatMessage("Detected an anomaly " + entity + entity.getProfile());
                         } else {
-                            System.out.println("all seems good " + var5x + var5x.getProfile());
+                            System.out.println("all seems good " + entity + entity.getProfile());
                         }
-
-                        boolean var7 = false;
-                        var3++;
                     }
                 }).start();
             }

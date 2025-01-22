@@ -31,26 +31,26 @@ public class Unstuck extends Module {
     }
 
     @EventTarget
-    public void method16285(EventMove var1) {
+    public void onMove(EventMove event) {
         if (this.isEnabled()) {
             if ((float) this.packetCancelled >= this.getNumberValueBySettingName("Flags")) {
-                MovementUtil.setSpeed(var1, 0.0);
-                var1.setY(0.0);
+                MovementUtil.setSpeed(event, 0.0);
+                event.setY(0.0);
                 mc.player.setMotion(0.0, 0.0, 0.0);
             }
         }
     }
 
     @EventTarget
-    public void method16286(WorldLoadEvent var1) {
+    public void onWorldLoad(WorldLoadEvent event) {
         if (this.isEnabled()) {
             this.packetCancelled = 0;
         }
     }
 
     @EventTarget
-    public void method16287(EventUpdate update) {
-        if (this.isEnabled() && update.isPre()) {
+    public void onUpdate(EventUpdate event) {
+        if (this.isEnabled() && event.isPre()) {
             if (!mc.player.isOnGround() && !MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
                 if ((float) this.packetCancelled >= this.getNumberValueBySettingName("Flags") && this.packetsToCancelCount == 0) {
                     this.packetsToCancelCount = 60;
@@ -63,7 +63,7 @@ public class Unstuck extends Module {
                         this.packetCancelled = 0;
                     }
 
-                    update.setCancelled(true);
+                    event.setCancelled(true);
                 }
             } else {
                 this.packetCancelled = 0;
@@ -72,13 +72,13 @@ public class Unstuck extends Module {
     }
 
     @EventTarget
-    public void method16288(ReceivePacketEvent var1) {
+    public void onReceive(ReceivePacketEvent event) {
         if (this.isEnabled()) {
             if (mc.player != null) {
-                if (var1.getPacket() instanceof SPlayerPositionLookPacket && !MultiUtilities.isAboveBounds(mc.player, 0.3F) && mc.player.ticksExisted > 10) {
+                if (event.getPacket() instanceof SPlayerPositionLookPacket && !MultiUtilities.isAboveBounds(mc.player, 0.3F) && mc.player.ticksExisted > 10) {
                     this.packetCancelled++;
                     if ((float) this.packetCancelled > this.getNumberValueBySettingName("Flags")) {
-                        var1.setCancelled(true);
+                        event.setCancelled(true);
                     }
                 }
             }
