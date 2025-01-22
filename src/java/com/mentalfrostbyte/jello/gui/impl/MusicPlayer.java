@@ -20,8 +20,6 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
 import java.io.IOException;
-import java.net.CookieManager;
-import java.net.URL;
 import java.util.*;
 
 public class MusicPlayer extends AnimatedIconPanelWrap {
@@ -30,27 +28,23 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     private int field20847 = 64;
     private int field20848 = 94;
     private String field20849 = "Music Player";
-    public static URL field20850;
     private MusicTabs musicTabs;
     private MusicTabs field20852;
     private CustomGuiScreen musicControls;
-    private MusicManager field20854 = Client.getInstance().musicManager;
-    public static Map<String, MusicVideoManager> field20855 = new LinkedHashMap<String, MusicVideoManager>();
-    public static String field20856;
-    public static MusicVideoManager field20857;
+    private MusicManager musicManager = Client.getInstance().musicManager;
+    public static Map<String, MusicVideoManager> videoMap = new LinkedHashMap<>();
     private ButtonPanel play;
     private ButtonPanel pause;
     private ButtonPanel forwards;
     private ButtonPanel backwards;
     private VolumeSlider volumeSlider;
     private int field20863;
-    private Texture field20864;
+    private Texture texture;
     private CustomGuiScreen field20865;
     public SearchBoxButton searchBox;
     public Class4359 field20867;
     public static List<MusicVideoManager> videos = new ArrayList<>();
-    private static CookieManager field20869 = new CookieManager();
-    public static long field20870 = 0L;
+    public static long time = 0L;
     public float field20871 = 0.0F;
     public float field20872 = 0.0F;
     private final Animation field20873 = new Animation(80, 150, Direction.BACKWARDS);
@@ -59,17 +53,19 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     public MusicPlayer(CustomGuiScreen var1, String var2) {
         super(var1, var2, 875, 55, 800, 600, false);
 
-        videos.clear();
-        videos.add(new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
-        videos.add(new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
+        if (videos.size() != 8) {
+            videos.clear();
+            videos.add(new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
+        }
 
-        field20870 = System.nanoTime();
+        time = System.nanoTime();
         this.setWidthA(800);
         this.setHeightA(600);
         this.setXA(Math.abs(this.getXA()));
@@ -82,11 +78,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         );
         this.addToList(this.field20865 = new CustomGuiScreen(this, "reShowView", 0, 0, 1, this.getHeightA()));
         Class4265 var5;
-        this.addToList(var5 = new Class4265(this, "spectrumButton", 15, this.heightA - 140, 40, 40, this.field20854.method24313()));
+        this.addToList(var5 = new Class4265(this, "spectrumButton", 15, this.heightA - 140, 40, 40, this.musicManager.method24313()));
         var5.method13292(true);
         var5.doThis((var1x, var2x) -> {
-            this.field20854.method24312(!this.field20854.method24313());
-            ((Class4265) var1x).method13099(this.field20854.method24313());
+            this.musicManager.method24312(!this.musicManager.method24313());
+            ((Class4265) var1x).method13099(this.musicManager.method24313());
         });
         this.musicTabs.method13300(false);
         var5.method13300(false);
@@ -98,11 +94,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
 
         for (MusicVideoManager video : videos) {
             threads.add(new Thread(() -> {
-                if (!field20855.containsKey(video.videoId) && !video.isUpdated) {
+                if (!videoMap.containsKey(video.videoId) && !video.isUpdated) {
                     video.isUpdated = true;
                     video.refreshVideoList();
 
-                    field20855.put(video.videoId, video);
+                    videoMap.put(video.videoId, video);
                 }
 
                 this.runThisOnDimensionUpdate(new MusicPlayerInstance(this, video, color, player));
@@ -137,8 +133,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 );
         this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.field20845 - 19, 14, 4, 40));
         PNGButtonChanging repeat;
-        this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.field20854.method24304()));
-        repeat.onPress(var2x -> this.field20854.method24303(repeat.method13038()));
+        this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.method24304()));
+        repeat.onPress(var2x -> this.musicManager.method24303(repeat.method13038()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.field20845, this.getHeightA() - 5, this.getWidthA() - this.field20845, 5));
         this.field20867.method13292(true);
         this.field20867.method13300(false);
@@ -150,12 +146,12 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         });
         this.pause.setEnabled(false);
         this.play.setEnabled(false);
-        this.play.doThis((var1x, var2x) -> this.field20854.method24310(true));
-        this.pause.doThis((var1x, var2x) -> this.field20854.method24310(false));
-        this.forwards.doThis((var1x, var2x) -> this.field20854.method24316());
-        this.backwards.doThis((var1x, var2x) -> this.field20854.method24315());
-        this.volumeSlider.method13709(var1x -> this.field20854.method24311((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
-        this.volumeSlider.setVolume(1.0F - (float) this.field20854.method24314() / 100.0F);
+        this.play.doThis((var1x, var2x) -> this.musicManager.method24310(true));
+        this.pause.doThis((var1x, var2x) -> this.musicManager.method24310(false));
+        this.forwards.doThis((var1x, var2x) -> this.musicManager.method24316());
+        this.backwards.doThis((var1x, var2x) -> this.musicManager.method24315());
+        this.volumeSlider.method13709(var1x -> this.musicManager.method24311((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
+        this.volumeSlider.setVolume(1.0F - (float) this.musicManager.method24314() / 100.0F);
         this.addToList(
                 this.searchBox = new SearchBoxButton(
                         this, "search", this.field20845, 0, this.getWidthA() - this.field20845, this.getHeightA() - this.field20848, "Search..."
@@ -178,15 +174,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13190(MusicVideoManager var1, YoutubeVideoData var2) {
-        this.field20854.method24317(var1, var2);
-        field20857 = var1;
+        this.musicManager.method24317(var1, var2);
     }
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        long var5 = System.nanoTime() - field20870;
+        long var5 = System.nanoTime() - time;
         float var7 = Math.min(10.0F, Math.max(0.0F, (float) var5 / 1.810361E7F));
-        field20870 = System.nanoTime();
+        time = System.nanoTime();
         super.updatePanelDimensions(newHeight, newWidth);
         if (this.parent instanceof JelloClickGUI) {
             if (!this.method13216()) {
@@ -269,7 +264,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20873
                 .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Direction.FORWARDS : Direction.BACKWARDS);
         partialTicks *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
-        if (this.field20854.method24319()) {
+        if (this.musicManager.method24319()) {
             this.play.setEnabled(false);
             this.pause.setEnabled(true);
         } else {
@@ -317,8 +312,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13192(float var1) {
-        int var4 = (int) this.field20854.method24321();
-        int var5 = this.field20854.method24327();
+        int var4 = (int) this.musicManager.method24321();
+        int var5 = this.musicManager.method24327();
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
                 (float) (this.getXA() + this.field20845 + 14),
@@ -336,8 +331,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13193(float var1) {
-        Texture var4 = this.field20854.method24326();
-        Texture var5 = this.field20854.method24325();
+        Texture var4 = this.musicManager.method24326();
+        Texture var5 = this.musicManager.method24325();
         if (var4 != null && var5 != null) {
             RenderUtil.drawImage(
                     (float) this.getXA(),
@@ -410,19 +405,19 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13194(float var1) {
-        if (this.field20854.method24324() != null) {
-            String[] var4 = this.field20854.method24324().split(" - ");
+        if (this.musicManager.method24324() != null) {
+            String[] var4 = this.musicManager.method24324().split(" - ");
             int var5 = 30;
             if (var4.length <= 1) {
-                this.method13195(var1, !var4[0].isEmpty() ? var4[0] : "Jello Music", this.field20845 - var5 * 2, 12, 0);
+                this.drawString(var1, !var4[0].isEmpty() ? var4[0] : "Jello Music", this.field20845 - var5 * 2, 12, 0);
             } else {
-                this.method13195(var1, var4[1], this.field20845 - var5 * 2, 0, 0);
-                this.method13195(var1, var4[0], this.field20845 - var5 * 2, 20, -1000);
+                this.drawString(var1, var4[1], this.field20845 - var5 * 2, 0, 0);
+                this.drawString(var1, var4[0], this.field20845 - var5 * 2, 20, -1000);
             }
         }
     }
 
-    private void method13195(float var1, String var2, int var3, int var4, int var5) {
+    private void drawString(float var1, String text, int var3, int var4, int var5) {
         Date var8 = new Date();
         float var9 = (float) ((var8.getTime() + (long) var5) % 8500L) / 8500.0F;
         if (!(var9 < 0.4F)) {
@@ -433,7 +428,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         }
 
         var9 = QuadraticEasing.easeInOutQuad(var9, 0.0F, 1.0F, 1.0F);
-        int var10 = ResourceRegistry.JelloLightFont14.getWidth(var2);
+        int var10 = ResourceRegistry.JelloLightFont14.getWidth(text);
         int var11 = Math.min(var3, var10);
         int var12 = ResourceRegistry.JelloLightFont14.getHeight();
         int var13 = this.getXA() + (this.field20845 - var11) / 2;
@@ -448,7 +443,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 ResourceRegistry.JelloLightFont14,
                 (float) var13 - (float) var10 * var9 - 50.0F * var9,
                 (float) var14,
-                var2,
+                text,
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1 * Math.min(1.0F, Math.max(0.0F, 1.0F - var9 * 0.75F)))
         );
         if (var9 > 0.0F) {
@@ -456,7 +451,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     ResourceRegistry.JelloLightFont14,
                     (float) var13 - (float) var10 * var9 + (float) var10,
                     (float) var14,
-                    var2,
+                    text,
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
             );
         }
@@ -468,11 +463,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20852.method13292(false);
         if (this.field20863 != this.field20852.method13513()) {
             try {
-                if (this.field20864 != null) {
-                    this.field20864.release();
+                if (this.texture != null) {
+                    this.texture.release();
                 }
 
-                this.field20864 = BufferedImageUtil.getTexture(
+                this.texture = BufferedImageUtil.getTexture(
                         "blur",
                         ImageUtil.method35037(this.getXA() + this.field20845, this.getYA(), this.getWidthA() - this.field20845, this.field20847, 10, 10)
                 );
@@ -482,13 +477,13 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         }
 
         float var4 = this.field20863 < 50 ? (float) this.field20863 / 50.0F : 1.0F;
-        if (this.field20864 != null) {
+        if (this.texture != null) {
             RenderUtil.drawTexture(
                     (float) this.field20845,
                     0.0F,
                     (float) (this.getWidthA() - this.field20845),
                     (float) this.field20847,
-                    this.field20864,
+                    this.texture,
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
             );
         }
