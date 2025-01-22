@@ -387,7 +387,7 @@ public class KillAura extends Module {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
 
-        long cycleDurationMs = 1800; // Duration of the glow cycle
+        long cycleDurationMs = 1425;
         float glowProgress = (float) (System.currentTimeMillis() % cycleDurationMs) / cycleDurationMs;
         boolean isFadingOut = glowProgress > 0.5F;
         glowProgress = !isFadingOut ? glowProgress * 2.0F : 1.0F - glowProgress * 2.0F % 1.0F;

@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.EventWriter;
 import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
+import com.mentalfrostbyte.jello.util.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.ClientLogger;
 import com.mentalfrostbyte.jello.util.FileUtil;
 import org.newdawn.slick.opengl.Texture;

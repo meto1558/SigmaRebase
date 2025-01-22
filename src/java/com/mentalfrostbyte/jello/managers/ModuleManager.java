@@ -7,9 +7,9 @@ import com.mentalfrostbyte.jello.managers.impl.profile.ProfileManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.*;
 import com.mentalfrostbyte.jello.module.impl.combat.*;
-import com.mentalfrostbyte.jello.module.impl.gui.jello.KeyStrokes;
-import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
+import com.mentalfrostbyte.jello.module.impl.item.*;
 import com.mentalfrostbyte.jello.module.impl.misc.*;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
@@ -145,6 +145,12 @@ public class ModuleManager {
 
         // ITEM
         this.register(new AutoMLG());
+        this.register(new AutoTools());
+        this.register(new AutoTotem());
+
+
+
+
 
         // MOVEMENT
         this.register(new Speed());
