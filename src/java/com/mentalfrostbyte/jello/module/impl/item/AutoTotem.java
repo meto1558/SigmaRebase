@@ -9,7 +9,7 @@ import net.minecraft.inventory.container.ClickType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.util.player.InvManagerUtils;
+import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
 
 
 public class AutoTotem extends Module {
@@ -40,7 +40,7 @@ public class AutoTotem extends Module {
         if (this.isEnabled() && mc.player != null && !mc.player.abilities.isCreativeMode) {
             ItemStack offHandItem = mc.player.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
             if (offHandItem.getItem() != Items.TOTEM_OF_UNDYING) {
-                int totemSlot = InvManagerUtils.findItemSlot(Items.TOTEM_OF_UNDYING);
+                int totemSlot = InvManagerUtil.findItemSlot(Items.TOTEM_OF_UNDYING);
                 if (totemSlot != -1) {
                     mc.playerController.windowClick(0, totemSlot >= 9 ? totemSlot : totemSlot + 36, 0, ClickType.PICKUP, mc.player);
                     mc.playerController.windowClick(0, 45, 0, ClickType.PICKUP, mc.player);

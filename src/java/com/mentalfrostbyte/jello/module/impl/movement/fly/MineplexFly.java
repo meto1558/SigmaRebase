@@ -224,7 +224,7 @@ public class MineplexFly extends Module {
                 }
             }
 
-//            InvManagerUtils.fixedClick(mc.player.container.windowId, 42, 0, ClickType.QUICK_MOVE, mc.player, true);
+//            InvManagerUtil.fixedClick(mc.player.container.windowId, 42, 0, ClickType.QUICK_MOVE, mc.player, true);
             if (!mc.player.container.getSlot(42).getStack().isEmpty()) {
                 Client.getInstance().notificationManager
                         .send(new Notification("Mineplex Fly", "Please empty a slot in your inventory"));
