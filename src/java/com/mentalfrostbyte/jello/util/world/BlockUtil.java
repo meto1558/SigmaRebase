@@ -23,6 +23,9 @@ import com.mentalfrostbyte.jello.misc.Class3583;
 import java.util.Collections;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();
 
@@ -306,6 +309,25 @@ public class BlockUtil {
         } else {
             return null;
         }
+    }
+
+    public static List<BlockPos> method34561(float var0) {
+        ArrayList<BlockPos> var3 = new ArrayList<>();
+
+        for (float var4 = -var0; var4 <= var0; var4++) {
+            for (float var5 = -var0; var5 <= var0; var5++) {
+                for (float var6 = -var0; var6 <= var0; var6++) {
+                    BlockPos var7 = new BlockPos(
+                            mc.player.getPosX() + (double)var5,
+                            mc.player.getPosY() + (double)var4,
+                            mc.player.getPosZ() + (double)var6
+                    );
+                    var3.add(var7);
+                }
+            }
+        }
+
+        return var3;
     }
 
 }

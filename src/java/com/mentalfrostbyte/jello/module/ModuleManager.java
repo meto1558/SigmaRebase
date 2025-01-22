@@ -148,11 +148,12 @@ public class ModuleManager {
 
 
         // ITEM
+        this.register(new AutoArmor());
         this.register(new AutoMLG());
         this.register(new AutoTools());
         this.register(new AutoTotem());
-
-
+        this.register(new ChestStealer());
+        this.register(new InvManager());
 
 
 
