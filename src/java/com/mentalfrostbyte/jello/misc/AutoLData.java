@@ -6,8 +6,8 @@ import com.mentalfrostbyte.ClientMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public final class Class6874 {
-    public static ArrayList<String> field29805 = new ArrayList<String>(
+public final class AutoLData {
+    public static ArrayList<String> SIGMAME_QUOTES = new ArrayList<>(
             Arrays.asList(
                     "Download Sigma to kick a!s!s while listening to some badass music!",
                     "Quick Quiz: I am zeus's son, who am I? Sigma",
@@ -68,22 +68,22 @@ public final class Class6874 {
                     "Subscribe to Mentalfrostbyte on youtube and discover Jello for Sigma!"
             )
     );
-    public static ArrayList<String> field29806;
+    public static ArrayList<String> PENSHEN_QUOTES;
 
     public static String method20931() {
-        return field29805.get(Math.round(0.0F + (float)Math.random() * (float)(field29805.size() - 1 - 0)));
+        return SIGMAME_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(SIGMAME_QUOTES.size() - 1 - 0)));
     }
 
     public static String method20932() {
-        return field29806.get(Math.round(0.0F + (float)Math.random() * (float)(field29806.size() - 1 - 0)));
+        return PENSHEN_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(PENSHEN_QUOTES.size() - 1 - 0)));
     }
 
     static {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
-            field29805.add("It's not Scaffold it's BlockFly in Jello for Sigma!");
+            SIGMAME_QUOTES.add("It's not Scaffold it's BlockFly in Jello for Sigma!");
         }
 
-        field29806 = new ArrayList<String>(
+        PENSHEN_QUOTES = new ArrayList<>(
                 Arrays.asList(
                         "完全像一个小丑一样被我打的痛苦连连",
                         "你们还真是死皮赖脸的不要皮味",
