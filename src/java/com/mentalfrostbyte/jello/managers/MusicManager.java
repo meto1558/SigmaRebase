@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.impl.music.*;
 import com.mentalfrostbyte.jello.gui.unmapped.Class9275;
 import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
 import com.sapher.youtubedl.YoutubeDL;
@@ -59,7 +59,7 @@ public class MusicManager {
     public SourceDataLine field32166;
     private boolean field32144 = false;
     private MusicVideoManager field32145;
-    private int field32146 = 50;
+    private int volume = 50;
     private long field32147 = -1L;
     private Texture field32151;
     private BufferedImage field32152;
@@ -70,7 +70,7 @@ public class MusicManager {
     private long field32158 = 0L;
     private int field32159;
     private YoutubeVideoData field32160;
-    private boolean field32161 = true;
+    private boolean spectrum = true;
     private Class189 field32162 = Class189.field717;
     private boolean finished = false;
     private double field32168;
@@ -136,8 +136,8 @@ public class MusicManager {
 
     public void method24294() {
         JSONObject var3 = new JSONObject();
-        var3.put("volume", this.field32146);
-        var3.put("spectrum", this.field32161);
+        var3.put("volume", this.volume);
+        var3.put("spectrum", this.spectrum);
         var3.put("repeat", this.field32162.field719);
         Client.getInstance().getConfig().put("music", var3);
     }
@@ -147,11 +147,11 @@ public class MusicManager {
             JSONObject var3 = Client.getInstance().getConfig().getJSONObject("music");
             if (var3 != null) {
                 if (var3.has("volume")) {
-                    this.field32146 = Math.max(0, Math.min(100, var3.getInt("volume")));
+                    this.volume = Math.max(0, Math.min(100, var3.getInt("volume")));
                 }
 
                 if (var3.has("spectrum")) {
-                    this.field32161 = var3.getBoolean("spectrum");
+                    this.spectrum = var3.getBoolean("spectrum");
                 }
 
                 if (var3.has("repeat")) {
@@ -190,7 +190,7 @@ public class MusicManager {
 
     @EventTarget
     public void method24297(EventRender2D var1) {
-        if (this.field32144 && !this.field32163.isEmpty() && this.field32161) {
+        if (this.field32144 && !this.field32163.isEmpty() && this.spectrum) {
             this.method24298();
         }
     }
@@ -343,14 +343,14 @@ public class MusicManager {
 
             this.field32156 = new Thread(
                     () -> {
-                        Object var3 = null;
+                        Object var3;
                         if (this.field32159 < 0 || this.field32159 >= this.field32145.videoList.size()) {
                             this.field32159 = 0;
                         }
 
                         for (int var4 = this.field32159; var4 < this.field32145.videoList.size(); var4++) {
                             URL var5 = Class9275.method34960(this.field32145.videoList.get(var4).videoId);
-                            Client.getInstance().getLogger().dummyMethod(var5.toString());
+                            Client.getInstance().getLogger().setThreadName(var5.toString());
                             this.field32157 = var4;
                             this.field32160 = this.field32145.videoList.get(var4);
                             this.field32163.clear();
@@ -369,21 +369,21 @@ public class MusicManager {
                             try {
                                 System.out.println(var5);
                                 URL var28 = this.method24323(var5);
-                                Client.getInstance().getLogger().dummyMethod(var28 == null ? "No stream" : var28.toString());
+                                Client.getInstance().getLogger().setThreadName(var28 == null ? "No stream" : var28.toString());
                                 if (var28 != null) {
-                                    URLConnection var7 = var28.openConnection();
-                                    var7.setConnectTimeout(14000);
-                                    var7.setReadTimeout(14000);
-                                    var7.setUseCaches(true);
-                                    var7.setDoOutput(true);
-                                    var7.setRequestProperty("Connection", "Keep-Alive");
-                                    InputStream var8 = var7.getInputStream();
+                                    URLConnection connection = var28.openConnection();
+                                    connection.setConnectTimeout(14000);
+                                    connection.setReadTimeout(14000);
+                                    connection.setUseCaches(true);
+                                    connection.setDoOutput(true);
+                                    connection.setRequestProperty("Connection", "Keep-Alive");
+                                    InputStream var8 = connection.getInputStream();
                                     MusicStream var9 = new MusicStream(var8, new Class8808(this));
                                     MP4Container mp4Container = new MP4Container(var9);
                                     Movie movie = mp4Container.getMovie();
                                     List<Track> var12 = movie.getTracks();
                                     if (var12.isEmpty()) {
-                                        Client.getInstance().getLogger().dummyMethod("No content");
+                                        Client.getInstance().getLogger().setThreadName("No content");
                                     }
 
                                     AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
@@ -423,7 +423,7 @@ public class MusicManager {
                                             this.field32163.remove(0);
                                         }
 
-                                        this.method24328(this.field32166, this.field32146);
+                                        this.method24328(this.field32166, this.volume);
                                         if (!Thread.interrupted()) {
                                             this.field32158 = Math.round(var13.getNextTimeStamp());
                                             this.field32170 = var13.method23326();
@@ -518,21 +518,21 @@ public class MusicManager {
     }
 
     public void method24311(int var1) {
-        this.field32146 = var1;
+        this.volume = var1;
         this.method24294();
     }
 
     public void method24312(boolean var1) {
-        this.field32161 = var1;
+        this.spectrum = var1;
         this.method24294();
     }
 
     public boolean method24313() {
-        return this.field32161;
+        return this.spectrum;
     }
 
     public int method24314() {
-        return this.field32146;
+        return this.volume;
     }
 
     public void method24315() {
@@ -585,49 +585,39 @@ public class MusicManager {
         return this.field32170;
     }
 
-    private boolean isRunning = false;
+    public synchronized URL method24323(URL var1) {
+        String var4 = var1.toString();
+        String var5 = System.getProperty("user.home");
+        YoutubeDLRequest request = new YoutubeDLRequest(var4, var5);
+        request.setOption("get-url");
+        request.setOption("no-check-certificate");
+        request.setOption("rm-cache-dir");
+        request.setOption("retries", "10");
+        request.setOption("format", "18");
 
-    public synchronized URL method24323(URL var1) { // Synchronized to prevent concurrency issues
-        if (isRunning) {
-            System.out.println("Another process is already running. Skipping execution.");
+        try {
+            YoutubeDL.setExecutablePath(this.stopYtDlp());
+            YoutubeDLResponse var7 = YoutubeDL.execute(request);
+            String var8 = var7.getOut();
+            return new URL(var8);
+        } catch (YoutubeDLException var9) {
+            Client.getInstance().notificationManager.send(
+                    new Notification("Failed to Play Song", "Check the logs for more details."));
+
+            this.stopYtDlp();
+
+            return null;
+        } catch (MalformedURLException var10) {
+            MultiUtilities.sendChatMessage("URL Error: " + var10);
+            var10.printStackTrace();
+
+            Client.getInstance().notificationManager.send(
+                    new Notification("Failed to Play Song", "Invalid URL encountered."));
+
+            this.stopYtDlp();
+
             return null;
         }
-
-        isRunning = true; // Mark as running
-        try {
-            String var4 = var1.toString();
-            String var5 = System.getProperty("user.home");
-            YoutubeDLRequest request = new YoutubeDLRequest(var4, var5);
-            request.setOption("get-url");
-            request.setOption("no-check-certificate");
-            request.setOption("rm-cache-dir");
-            request.setOption("retries", "10");
-            request.setOption("format", "18");
-
-            try {
-                YoutubeDL.setExecutablePath(this.method24333());
-                YoutubeDLResponse var7 = YoutubeDL.execute(request);
-                String var8 = var7.getOut();
-                return new URL(var8);
-            } catch (YoutubeDLException var9) {
-                if (var9.getMessage() != null
-                        && var9.getMessage().contains("ERROR: This video contains content from")
-                        && var9.getMessage().contains("who has blocked it in your country on copyright grounds")) {
-                    Client.getInstance().notificationManager.send(
-                            new Notification("Now Playing", "Not available in your region."));
-                } else {
-                    var9.printStackTrace();
-                    this.download(); // Ensure download is safe to retry here
-                }
-            } catch (MalformedURLException var10) {
-                MinecraftUtil.addChatMessage("URL E " + var10);
-                var10.printStackTrace();
-            }
-        } finally {
-            isRunning = false; // Reset the flag in case of completion or exception
-        }
-
-        return null;
     }
 
     public String method24324() {
@@ -680,7 +670,7 @@ public class MusicManager {
     }
 
     public void method24331() {
-        Client.getInstance().getLogger().dummyMethod("Updating dependencies threaded");
+        Client.getInstance().getLogger().setThreadName("Updating dependencies threaded");
         new Thread(this::download).start();
     }
 
@@ -690,6 +680,9 @@ public class MusicManager {
                 File musicDir = new File(Client.getInstance().file + "/music/");
                 musicDir.mkdirs();
 
+                //https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos
+                //https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux
+                //https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe
                 String fileName =
                         Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
                                 : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
@@ -698,35 +691,16 @@ public class MusicManager {
                 File targetFile = new File(Client.getInstance().file + "/music/" + fileName);
 
                 try {
-                    // Fetch the latest release from GitHub API
-                    String apiUrl = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";
-                    HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setRequestProperty("Accept", "application/json");
-
-                    if (connection.getResponseCode() == 200) {
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                            JsonObject jsonResponse = JsonParser.parseReader(reader).getAsJsonObject();
-                            String latestTag = jsonResponse.get("tag_name").getAsString(); // Get latest release tag
-
-                            // Construct download URL dynamically
-                            String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/" + latestTag + "/" + fileName;
-
-                            // Download the file
-                            try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
-                                 FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
-                                byte[] dataBuffer = new byte[1024];
-                                int bytesRead;
-                                while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                                    fileOutputStream.write(dataBuffer, 0, bytesRead);
-                                }
-                                finished = true;
-                                System.out.println("Finished downloading yt-dlp");
-                            }
+                    String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/" + fileName;
+                    try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
+                         FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
+                        byte[] dataBuffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                            fileOutputStream.write(dataBuffer, 0, bytesRead);
                         }
-                    } else {
-                        System.out.println("Failed to fetch the latest release info: HTTP " + connection.getResponseCode());
-                        finished = false;
+                        finished = true;
+                        System.out.println("Finished downloading yt-dlp");
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
@@ -740,18 +714,18 @@ public class MusicManager {
     }
 
 
-    public String method24333() {
+    public String stopYtDlp() {
         String fileName =
                 Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
                         : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
                         : "yt-dlp_macos";
-        String var3 = Client.getInstance().file.getAbsolutePath() + "/music/" + fileName;
+        String ytDlpFile = Client.getInstance().file.getAbsolutePath() + "/music/" + fileName;
         if (Util.getOSType() != Util.OS.WINDOWS) {
-            File var4 = new File(var3);
+            File var4 = new File(ytDlpFile);
             var4.setExecutable(true);
         }
 
-        return var3;
+        return ytDlpFile;
     }
 
     public boolean hasPython() {

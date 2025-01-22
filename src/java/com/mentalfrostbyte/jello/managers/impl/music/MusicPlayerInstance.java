@@ -8,33 +8,33 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 
 public class MusicPlayerInstance implements Runnable {
-    public final MusicVideoManager thubmnail;
+    public final MusicVideoManager thumbnail;
     public final ColorHelper colorHelper;
     public final MusicPlayer musicPlayer;
     public final MusicPlayer musicPlayer2;
 
     public MusicPlayerInstance(MusicPlayer var1, MusicVideoManager var2, ColorHelper var3, MusicPlayer var4) {
         this.musicPlayer2 = var1;
-        this.thubmnail = var2;
+        this.thumbnail = var2;
         this.colorHelper = var3;
         this.musicPlayer = var4;
     }
 
     @Override
     public void run() {
-        if (!MusicPlayer.method13206(this.musicPlayer2).method13231(this.thubmnail.videoId)) {
+        if (!MusicPlayer.method13206(this.musicPlayer2).method13231(this.thumbnail.videoId)) {
             ButtonPanel var3;
             MusicPlayer.method13206(this.musicPlayer2)
                     .addToList(
                             var3 = new ButtonPanel(
                                     MusicPlayer.method13206(this.musicPlayer2),
-                                    this.thubmnail.videoId,
+                                    this.thumbnail.videoId,
                                     0,
                                     MusicPlayer.method13206(this.musicPlayer2).getButton().getChildren().size() * MusicPlayer.method13207(this.musicPlayer2),
                                     MusicPlayer.method13208(this.musicPlayer2),
                                     MusicPlayer.method13207(this.musicPlayer2),
                                     this.colorHelper,
-                                    this.thubmnail.name,
+                                    this.thumbnail.name,
                                     ResourceRegistry.JelloLightFont14
                             )
                     );
@@ -43,25 +43,25 @@ public class MusicPlayerInstance implements Runnable {
                     .addToList(
                             var4 = new MusicTabs(
                                     this.musicPlayer,
-                                    this.thubmnail.videoId,
+                                    this.thumbnail.videoId,
                                     MusicPlayer.method13208(this.musicPlayer2),
                                     0,
                                     this.musicPlayer.getWidthA() - MusicPlayer.method13208(this.musicPlayer2),
                                     this.musicPlayer.getHeightA() - MusicPlayer.method13209(this.musicPlayer2),
                                     ColorHelper.field27961,
-                                    this.thubmnail.name
+                                    this.thumbnail.name
                             )
                     );
             var4.method13514(true);
             var4.setEnabled(false);
             var4.method13300(false);
-            if (this.thubmnail.videoList != null) {
-                for (int var5 = 0; var5 < this.thubmnail.videoList.size(); var5++) {
-                    YoutubeVideoData var6 = this.thubmnail.videoList.get(var5);
+            if (this.thumbnail.videoList != null) {
+                for (int var5 = 0; var5 < this.thumbnail.videoList.size(); var5++) {
+                    YoutubeVideoData var6 = this.thumbnail.videoList.get(var5);
                     Class4286 var7 = null;
                     int var8 = 65;
                     int var9 = 10;
-                    if (!var4.method13231(this.thubmnail.videoId)) {
+                    if (!var4.method13231(this.thumbnail.videoId)) {
                         var4.addToList(
                                 var7 = new Class4286(
                                         var4,
@@ -72,7 +72,7 @@ public class MusicPlayerInstance implements Runnable {
                                         var6
                                 )
                         );
-                        var7.doThis((var3x, var4x) -> MusicPlayer.method13211(this.musicPlayer2, thubmnail, var6));
+                        var7.doThis((var3x, var4x) -> MusicPlayer.method13211(this.musicPlayer2, thumbnail, var6));
                     }
                 }
             }
