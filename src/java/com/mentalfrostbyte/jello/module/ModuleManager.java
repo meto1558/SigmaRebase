@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.managers;
+package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
@@ -14,6 +14,8 @@ import com.mentalfrostbyte.jello.module.impl.misc.*;
 import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
+import com.mentalfrostbyte.jello.module.impl.render.jello.*;
+
 import com.mentalfrostbyte.jello.module.impl.world.*;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
@@ -93,6 +95,8 @@ public class ModuleManager {
         this.register(new Streaming());
         this.register(new CameraNoClip());
         this.register(new XRay());
+        this.register(new ESP());
+
 
 
 

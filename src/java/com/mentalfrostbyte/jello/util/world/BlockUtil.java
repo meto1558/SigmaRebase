@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.*;
@@ -17,6 +18,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 import org.apache.commons.lang3.RandomUtils;
+import com.mentalfrostbyte.jello.misc.Class3583;
+
+import java.util.Collections;
+import java.util.List;
 
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();
@@ -37,6 +42,10 @@ public class BlockUtil {
         }
     }
 
+    public static List<PlayerEntity> method34549(List<PlayerEntity> var0) {
+        Collections.sort(var0, new Class3583());
+        return var0;
+    }
     public static BlockCache findValidBlockCache(BlockPos basePos, boolean var1) {
         Vector3i[] relativePositions = new Vector3i[]{
                 new Vector3i(0, 0, 0),

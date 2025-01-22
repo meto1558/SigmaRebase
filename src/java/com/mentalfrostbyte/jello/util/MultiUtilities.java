@@ -45,6 +45,16 @@ public class MultiUtilities {
         double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
         return new Vector3d(var17, var15, var19);
     }
+    public static int method17691(int var0, float var1) {
+        int var4 = var0 >> 24 & 0xFF;
+        int var5 = var0 >> 16 & 0xFF;
+        int var6 = var0 >> 8 & 0xFF;
+        int var7 = var0 & 0xFF;
+        int var8 = (int)((float)var5 * (1.0F - var1));
+        int var9 = (int)((float)var6 * (1.0F - var1));
+        int var10 = (int)((float)var7 * (1.0F - var1));
+        return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
+    }
 
     public static double method17754(Vector3d vec) {
         double var3 = mc.player.getPosX() - vec.x;

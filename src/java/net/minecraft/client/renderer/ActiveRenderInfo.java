@@ -35,6 +35,14 @@ public class ActiveRenderInfo
     private float height;
     private float previousHeight;
 
+    // START MODIFICATION
+
+    public Vector3d getPos() {
+        return this.pos;
+    }
+
+    // END MODIFICATION
+
     public void update(IBlockReader worldIn, Entity renderViewEntity, boolean thirdPersonIn, boolean thirdPersonReverseIn, float partialTicks)
     {
         this.valid = true;
