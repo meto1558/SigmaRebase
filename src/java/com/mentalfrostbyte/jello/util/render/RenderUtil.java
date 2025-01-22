@@ -313,7 +313,7 @@ public class RenderUtil {
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
-        switch (var5.ordinal()) {
+        switch (Class7820.field33554[var5.ordinal()]) {
             case 1:
                 var10 = -font.getWidth(text) / 2;
                 break;
@@ -321,7 +321,7 @@ public class RenderUtil {
                 var10 = -font.getWidth(text);
         }
 
-        switch (var6.ordinal()) {
+        switch (Class7820.field33554[var6.ordinal()]) {
             case 1:
                 var11 = -font.getHeight(text) / 2;
                 break;
