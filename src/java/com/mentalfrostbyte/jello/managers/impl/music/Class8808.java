@@ -12,6 +12,6 @@ public class Class8808 implements AudioProcessor {
 
     @Override
     public void processBuffer(byte[] var1, int var2, int var3) {
-        Client.getInstance().getLogger().dummyMethod("DONE");
+        Client.getInstance().getLogger().setThreadName("DONE");
     }
 }
