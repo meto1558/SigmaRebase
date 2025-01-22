@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.module.impl.misc;
+package com.mentalfrostbyte.jello.misc;
 
 public enum Class2191 {
     field14327,

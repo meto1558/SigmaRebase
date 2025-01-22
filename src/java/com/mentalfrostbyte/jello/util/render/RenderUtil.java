@@ -5,8 +5,10 @@ import com.mentalfrostbyte.jello.gui.unmapped.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
 import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.unmapped.Class7820;
+import com.mentalfrostbyte.jello.misc.*;
 import org.newdawn.slick.opengl.TextureImpl;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.newdawn.slick.TrueTypeFont;
@@ -34,6 +36,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Stack;
 
+import static com.mentalfrostbyte.jello.module.Module.mc;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 
 public class RenderUtil {
@@ -55,6 +58,9 @@ public class RenderUtil {
 
     public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
         drawPortalBackground(var0, var1, var2, var3, false);
+    }
+    public static void method11425(double var0, double var2, double var4, double var6, int var8) {
+        drawRect((float)var0, (float)var2, (float)var4, (float)var6, var8);
     }
 
     public static float getScaleFactor() {
@@ -79,6 +85,13 @@ public class RenderUtil {
         var5 /= var7;
         var6 /= var7;
         return new float[]{(float) Math.round(var5 * getScaleFactor()), (float) Math.round(var6 * getScaleFactor())};
+    }
+    public static void method11430(double var0, double var2, double var4, double var6, double var8, int var10, int var11) {
+        method11425(var0 + var8, var2 + var8, var4 - var8, var6 - var8, var10);
+        method11425(var0 + var8, var2, var4 - var8, var2 + var8, var11);
+        method11425(var0, var2, var0 + var8, var6, var11);
+        method11425(var4 - var8, var2, var4, var6, var11);
+        method11425(var0 + var8, var6 - var8, var4 - var8, var6, var11);
     }
 
     public static void drawPortalBackground(int x, int y, int width, int height, boolean scale) {
@@ -137,6 +150,51 @@ public class RenderUtil {
             GL11.glScissor(x, adjustedY, width2, height2);
         }
     }
+    public static void drawRect(float var0, float var1, float var2, float var3, int var4) {
+        if (var0 < var2) {
+            int var7 = (int)var0;
+            var0 = var2;
+            var2 = (float)var7;
+        }
+
+        if (var1 < var3) {
+            int var13 = (int)var1;
+            var1 = var3;
+            var3 = (float)var13;
+        }
+
+        float var14 = (float)(var4 >> 24 & 0xFF) / 255.0F;
+        float var8 = (float)(var4 >> 16 & 0xFF) / 255.0F;
+        float var9 = (float)(var4 >> 8 & 0xFF) / 255.0F;
+        float var10 = (float)(var4 & 0xFF) / 255.0F;
+        Tessellator var11 = Tessellator.getInstance();
+        BufferBuilder var12 = var11.getBuffer();
+
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+
+        // Corrected blend function with proper factors
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO
+        );
+
+        RenderSystem.color4f(var8, var9, var10, var14);
+
+        var12.begin(7, DefaultVertexFormats.POSITION);
+        var12.pos((double)var0, (double)var3, 0.0).endVertex();
+        var12.pos((double)var2, (double)var3, 0.0).endVertex();
+        var12.pos((double)var2, (double)var1, 0.0).endVertex();
+        var12.pos((double)var0, (double)var1, 0.0).endVertex();
+
+        var11.draw();
+
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+
 
     public static void drawImage(float x, float y, float width, float height, Texture tex, float alphaValue) {
         drawImage(x, y, width, height, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
@@ -1042,6 +1100,29 @@ public class RenderUtil {
             RenderHelper.setupGui3DDiffuseLighting();
         }
     }
+    public static double[] worldToScreen(double x, double y, double z) {
+        FloatBuffer screenCoords = BufferUtils.createFloatBuffer(3);
+        IntBuffer viewport = BufferUtils.createIntBuffer(16);
+        FloatBuffer modelViewMatrix = BufferUtils.createFloatBuffer(16);
+        FloatBuffer projectionMatrix = BufferUtils.createFloatBuffer(16);
+
+        // Get the current OpenGL matrices and viewport
+        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, modelViewMatrix);
+        GL11.glGetFloatv(GL11.GL_PROJECTION_MATRIX, projectionMatrix);
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, viewport);
+
+        // Project the world coordinates to screen coordinates
+        boolean isSuccessful = MultiUtilities.projectToScreen((float) x, (float) y, (float) z, modelViewMatrix, projectionMatrix, viewport, screenCoords);
+
+        // Return the screen coordinates if successful, otherwise return null
+        return !isSuccessful
+                ? null
+                : new double[] {
+                (double) (screenCoords.get(0) / GuiManager.scaleFactor),
+                (double) (((float) mc.getFramebuffer().framebufferHeight - screenCoords.get(1)) / GuiManager.scaleFactor),
+                (double) screenCoords.get(2)
+        };
+    }
 
     public static java.awt.Color getColorFromScreen(int mouseX, int mouseY, java.awt.Color var2) {
         mouseX = (int) ((float) mouseX * GuiManager.scaleFactor);
@@ -1052,3 +1133,6 @@ public class RenderUtil {
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
     }
 }
+
+
+
