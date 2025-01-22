@@ -55,7 +55,15 @@ public class MultiUtilities {
         int var10 = (int)((float)var7 * (1.0F - var1));
         return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
-
+    public static List<PlayerEntity> method17680() {
+        ArrayList<PlayerEntity> var2 = new ArrayList<>();
+        mc.world.entitiesById.forEach((var1, var2x) -> {
+            if (var2x instanceof PlayerEntity) {
+                var2.add((PlayerEntity)var2x);
+            }
+        });
+        return var2;
+    }
     public static double method17754(Vector3d vec) {
         double var3 = mc.player.getPosX() - vec.x;
         double var5 = mc.player.getPosY() + (double) mc.player.getEyeHeight() - vec.y;
