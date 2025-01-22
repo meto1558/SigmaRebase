@@ -3,6 +3,10 @@ package com.mentalfrostbyte.jello.util;
 
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
@@ -19,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.misc.*;
+
 
 import static com.mentalfrostbyte.jello.module.Module.mc;
 
@@ -63,6 +69,19 @@ public class MultiUtilities {
             }
         });
         return var2;
+    }
+    public static Class2258 method17744(Entity var0) {
+        if (var0 instanceof LivingEntity) {
+            if (!(var0 instanceof PlayerEntity)) {
+                return !(var0 instanceof MobEntity) && !(var0 instanceof MonsterEntity) && !(var0 instanceof SlimeEntity) && !(var0 instanceof Class1111)
+                        ? Class2258.field14691
+                        : Class2258.field14689;
+            } else {
+                return Class2258.field14690;
+            }
+        } else {
+            return Class2258.field14692;
+        }
     }
     public static double method17754(Vector3d vec) {
         double var3 = mc.player.getPosX() - vec.x;
