@@ -57,6 +57,7 @@ public class Client {
     public WaypointsManager waypointsManager;
     public NotificationManager notificationManager;
     public MusicManager musicManager;
+    public PlayerStateTracker playerStateTracker;
     private Logger logger;
 
     public static boolean dontRenderHand = false;
@@ -93,6 +94,7 @@ public class Client {
         this.notificationManager.init();
         this.accountManager = new AccountManager();
         this.accountManager.registerEvents();
+        this.playerStateTracker = new PlayerStateTracker();
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.1");
