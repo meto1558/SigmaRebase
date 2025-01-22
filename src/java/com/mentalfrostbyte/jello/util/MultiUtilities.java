@@ -19,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -33,6 +35,9 @@ public class MultiUtilities {
     public static boolean isMoving() {
         return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
     }
+
+    public static final float[] field24951 = new float[4];
+    public static final float[] field24952 = new float[4];
 
 
     public static Vector3d method17751(Entity entity) {
@@ -50,6 +55,14 @@ public class MultiUtilities {
         double var17 = Math.max(var3 - var11 / 2.0, Math.min(var3 + var11 / 2.0, mc.player.getPosX()));
         double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
         return new Vector3d(var17, var15, var19);
+    }
+    public static void transformVector(FloatBuffer matrixBuffer, float[] inputVector, float[] outputVector) {
+        for (int i = 0; i < 4; i++) {
+            outputVector[i] = inputVector[0] * matrixBuffer.get(matrixBuffer.position() + i)
+                    + inputVector[1] * matrixBuffer.get(matrixBuffer.position() + 4 + i)
+                    + inputVector[2] * matrixBuffer.get(matrixBuffer.position() + 8 + i)
+                    + inputVector[3] * matrixBuffer.get(matrixBuffer.position() + 12 + i);
+        }
     }
     public static int method17691(int var0, float var1) {
         int var4 = var0 >> 24 & 0xFF;
@@ -94,7 +107,37 @@ public class MultiUtilities {
         Vector3d var3 = method17752(var0);
         return method17754(var3);
     }
+    public static boolean projectToScreen(float x, float y, float z, FloatBuffer modelMatrix, FloatBuffer projectionMatrix, IntBuffer viewport, FloatBuffer screenCoords) {
+        float[] inVector = field24951;
+        float[] outVector = field24952;
 
+        // Load input coordinates into the vector
+        inVector[0] = x;
+        inVector[1] = y;
+        inVector[2] = z;
+        inVector[3] = 1.0F;
+
+        // Apply the model and projection transformations
+        transformVector(modelMatrix, inVector, outVector);
+        transformVector(projectionMatrix, outVector, inVector);
+
+        // Perform perspective division if the w-component is non-zero
+        if ((double) inVector[3] != 0.0) {
+            inVector[3] = 1.0F / inVector[3] * 0.5F;
+            inVector[0] = inVector[0] * inVector[3] + 0.5F;
+            inVector[1] = inVector[1] * inVector[3] + 0.5F;
+            inVector[2] = inVector[2] * inVector[3] + 0.5F;
+
+            // Map to screen coordinates using the viewport
+            screenCoords.put(0, inVector[0] * (float) viewport.get(viewport.position() + 2) + (float) viewport.get(viewport.position() + 0));
+            screenCoords.put(1, inVector[1] * (float) viewport.get(viewport.position() + 3) + (float) viewport.get(viewport.position() + 1));
+            screenCoords.put(2, inVector[2]);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
     public static float method17756(float var0, float var1) {
         var0 %= 360.0F;
         var1 %= 360.0F;

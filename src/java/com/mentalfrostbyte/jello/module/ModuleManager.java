@@ -15,6 +15,11 @@ import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
 import com.mentalfrostbyte.jello.module.impl.render.jello.*;
+import com.mentalfrostbyte.jello.module.impl.render.jello.esp.*;
+import com.mentalfrostbyte.jello.module.impl.render.classic.*;
+import com.mentalfrostbyte.jello.module.impl.render.classic.esp.*;
+
+
 
 import com.mentalfrostbyte.jello.module.impl.world.*;
 import team.sdhq.eventBus.EventBus;
@@ -63,10 +68,14 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.RearView());
             this.register(new KeyStrokes());
+            this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.ESP());
+
         }
 
         if (clientMode == ClientMode.CLASSIC) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
+            this.register(new com.mentalfrostbyte.jello.module.impl.render.classic.ESP());
+
         }
         // COMBAT
         this.register(new AutoClicker());
@@ -95,7 +104,6 @@ public class ModuleManager {
         this.register(new Streaming());
         this.register(new CameraNoClip());
         this.register(new XRay());
-        this.register(new ESP());
 
 
 
@@ -148,11 +156,12 @@ public class ModuleManager {
 
 
         // ITEM
+        this.register(new AutoArmor());
         this.register(new AutoMLG());
         this.register(new AutoTools());
         this.register(new AutoTotem());
-
-
+        this.register(new ChestStealer());
+        this.register(new InvManager());
 
 
 

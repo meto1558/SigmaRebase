@@ -140,7 +140,7 @@ public class AutoMLG extends PremiumModule {
                          */
 
 //                        TODO
-//                        InvManagerUtils.moveItemToHotbar(var5, 6);
+//                        InvManagerUtil.moveItemToHotbar(var5, 6);
                         mc.getConnection().sendPacket(new CCloseWindowPacket(-1));
                         return 6;
                     }

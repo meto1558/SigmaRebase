@@ -9,6 +9,8 @@ import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.module.ModuleManager;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
+import com.mentalfrostbyte.jello.trackers.SlotChangeTracker;
+import com.mentalfrostbyte.jello.util.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.ClientLogger;
 import com.mentalfrostbyte.jello.util.FileUtil;
 import org.newdawn.slick.opengl.Texture;
@@ -44,6 +46,7 @@ public class Client {
     public ClientMode clientMode = ClientMode.INDETERMINATE;
     public DiscordRichPresence discordRichPresence;
     public FriendManager friendManager;
+    public SlotChangeTracker slotChangeTracker;
 
     private JSONObject config;
 
@@ -57,6 +60,7 @@ public class Client {
     public WaypointsManager waypointsManager;
     public NotificationManager notificationManager;
     public MusicManager musicManager;
+    public PlayerStateTracker playerTracker;
     private Logger logger;
 
     public static boolean dontRenderHand = false;
@@ -93,6 +97,7 @@ public class Client {
         this.notificationManager.init();
         this.accountManager = new AccountManager();
         this.accountManager.registerEvents();
+        this.playerTracker = new PlayerStateTracker();
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.1");
