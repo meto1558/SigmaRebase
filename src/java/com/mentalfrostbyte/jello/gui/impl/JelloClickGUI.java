@@ -45,7 +45,7 @@ public class JelloClickGUI extends Screen {
 
       for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
          if (!this.categoryPanel.containsKey(module.getAdjustedCategoryBasedOnClientMode())) {
-            JelloClickGUIPanels clickGUIPanels = new JelloClickGUIPanels(this, module.getAdjustedCategoryBasedOnClientMode().getName(), x, y, module.getAdjustedCategoryBasedOnClientMode());
+            JelloClickGUIPanels clickGUIPanels = new JelloClickGUIPanels(this, module.getAdjustedCategoryBasedOnClientMode().name(), x, y, module.getAdjustedCategoryBasedOnClientMode());
             this.categoryPanel.put(module.getAdjustedCategoryBasedOnClientMode(), clickGUIPanels);
             this.addToList(clickGUIPanels);
 

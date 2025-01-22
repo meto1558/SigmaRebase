@@ -123,7 +123,7 @@ public class JelloClickGUIPanels extends AnimatedIconPanel {
          this.field21199 = 20;
       }
 
-      String categoryName = this.getCategory().getName();
+      String categoryName = this.getCategory().name();
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont25,
          (float)(this.getXA() + 20),

@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.TickEvent;
 import com.mentalfrostbyte.jello.module.Module;
@@ -15,11 +14,11 @@ public class NickNameDetector extends Module {
     }
 
     @EventTarget
-    public void method16125(TickEvent var1) {
+    public void onTick(TickEvent event) {
         if (this.isEnabled()) {
-            for (Entity var5 : MultiUtilities.method17680()) {
-                if (!Client.getInstance().combatManager.isTargetABot(var5) && var5.ticksExisted > 30 && var5.hasCustomName()) {
-                    MultiUtilities.sendChatMessage(var5.getName().getUnformattedComponentText() + " might have a custom nametag");
+            for (Entity entity : MultiUtilities.getPlayers()) {
+                if (!Client.getInstance().combatManager.isTargetABot(entity) && entity.ticksExisted > 30 && entity.hasCustomName()) {
+                    MultiUtilities.sendChatMessage(entity.getName().getUnformattedComponentText() + " might have a custom nametag");
                 }
             }
         }
