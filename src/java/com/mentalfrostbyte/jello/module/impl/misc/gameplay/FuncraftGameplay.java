@@ -9,7 +9,7 @@ import net.minecraft.network.play.server.SChatPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class FuncraftGameplay extends Module {
-    public GamePlay field23579;
+    public GamePlay parentModule;
 
     public FuncraftGameplay() {
         super(ModuleCategory.MISC, "Funcraft", "Gameplay for Funcraft");
@@ -17,20 +17,19 @@ public class FuncraftGameplay extends Module {
 
     @Override
     public void initialize() {
-        this.field23579 = (GamePlay) this.access();
+        this.parentModule = (GamePlay) this.access();
     }
 
     @EventTarget
-    public void method16295(ReceivePacketEvent var1) {
+    public void onReceive(ReceivePacketEvent event) {
         if (this.isEnabled() && mc.player != null) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof SChatPacket) {
-                SChatPacket var5 = (SChatPacket) var4;
-                String var6 = var5.getChatComponent().getString();
-                String var7 = mc.player.getName().getString().toLowerCase();
-                if (this.field23579.getBooleanValueFromSettingName("AutoL")
-                        && (var6.toLowerCase().contains("a été tué par " + var7) || var6.toLowerCase().contains("a été tué par le vide et " + var7))) {
-                    this.field23579.processAutoLMessage(var6);
+            IPacket<?> var4 = event.getPacket();
+            if (var4 instanceof SChatPacket chatPacket) {
+                String text = chatPacket.getChatComponent().getString();
+                String playerName = mc.player.getName().getString().toLowerCase();
+                if (this.parentModule.getBooleanValueFromSettingName("AutoL")
+                        && (text.toLowerCase().contains("a été tué par " + playerName) || text.toLowerCase().contains("a été tué par le vide et " + playerName))) {
+                    this.parentModule.processAutoLMessage(text);
                 }
             }
         }

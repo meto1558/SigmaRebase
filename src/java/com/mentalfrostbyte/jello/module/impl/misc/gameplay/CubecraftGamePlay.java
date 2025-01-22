@@ -48,19 +48,19 @@ public class CubecraftGamePlay extends Module {
                 }
 
                 if (text.contains("§a§lPlay Again §r§8• §r§6§lAuto Mode §r§8• §r§c§lLeave") && this.parentModule.getBooleanValueFromSettingName("Auto Join")) {
-                    for (ITextComponent var10 : chatPacket.getChatComponent().getSiblings()) {
-                        ClickEvent var11 = var10.getStyle().getClickEvent();
-                        if (var11 != null && var11.getAction() == ClickEvent.Action.RUN_COMMAND && var11.getValue().contains("playagain")) {}
-                            this.parentModule.updateTimedMessage(new TimedMessage(var11.getValue(), (long) this.parentModule.getNumberValueBySettingName("Auto Join delay") * 1000L));
-                            Client.getInstance()
-                                    .notificationManager
-                                    .send(
-                                            new Notification("Auto Join", "Joining a new game in 3 seconds.", (int) (this.parentModule.getNumberValueBySettingName("Auto Join delay") - 1.0F) * 1000)
-                                    );
-                            break;
+                    for (ITextComponent textCom : chatPacket.getChatComponent().getSiblings()) {
+                        ClickEvent clickEvent = textCom.getStyle().getClickEvent();
+                        if (clickEvent != null && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND && clickEvent.getValue().contains("playagain")) {
                         }
+                        this.parentModule.updateTimedMessage(new TimedMessage(clickEvent.getValue(), (long) this.parentModule.getNumberValueBySettingName("Auto Join delay") * 1000L));
+                        Client.getInstance()
+                                .notificationManager
+                                .send(
+                                        new Notification("Auto Join", "Joining a new game in 3 seconds.", (int) (this.parentModule.getNumberValueBySettingName("Auto Join delay") - 1.0F) * 1000)
+                                );
+                        break;
                     }
-
+                }
 
                 if (this.parentModule.getBooleanValueFromSettingName("AutoGG") && text.equalsIgnoreCase("§e" + mc.player.getName().getString() + "§r§a won the game!§r")) {
                     this.parentModule.initializeAutoL();
