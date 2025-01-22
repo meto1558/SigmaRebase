@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModListView extends Class4339 implements Class4342 {
+public class ModListView extends MusicTabs implements Class4342 {
    public final ModuleCategory field21214;
    private List<ButtonPanel> field21215 = new ArrayList<ButtonPanel>();
    private boolean field21216;

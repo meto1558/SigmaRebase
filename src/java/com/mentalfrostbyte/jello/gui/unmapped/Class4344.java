@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4344 extends Class4339 {
+public class Class4344 extends MusicTabs {
    private static String[] field21228;
 
    public Class4344(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {

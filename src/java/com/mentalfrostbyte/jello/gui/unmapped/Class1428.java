@@ -37,7 +37,7 @@ public class Class1428 implements Runnable {
          .showAlert(
             AltManagerScreen.method13383(
                this.field7664,
-               new Class4339(
+               new MusicTabs(
                   this.field7661,
                   "alts",
                   0,

@@ -58,7 +58,7 @@ public class MusicManager {
     public ArrayList<Double> amplitudes = new ArrayList<>();
     public SourceDataLine field32166;
     private boolean field32144 = false;
-    private MusicPlayerVideo field32145;
+    private MusicVideoManager field32145;
     private int field32146 = 50;
     private long field32147 = -1L;
     private Texture field32151;
@@ -344,15 +344,15 @@ public class MusicManager {
             this.field32156 = new Thread(
                     () -> {
                         Object var3 = null;
-                        if (this.field32159 < 0 || this.field32159 >= this.field32145.youtubeVideos.size()) {
+                        if (this.field32159 < 0 || this.field32159 >= this.field32145.videoList.size()) {
                             this.field32159 = 0;
                         }
 
-                        for (int var4 = this.field32159; var4 < this.field32145.youtubeVideos.size(); var4++) {
-                            URL var5 = Class9275.method34960(this.field32145.youtubeVideos.get(var4).videoId);
+                        for (int var4 = this.field32159; var4 < this.field32145.videoList.size(); var4++) {
+                            URL var5 = Class9275.method34960(this.field32145.videoList.get(var4).videoId);
                             Client.getInstance().getLogger().dummyMethod(var5.toString());
                             this.field32157 = var4;
-                            this.field32160 = this.field32145.youtubeVideos.get(var4);
+                            this.field32160 = this.field32145.videoList.get(var4);
                             this.field32163.clear();
 
                             while (!this.field32144) {
@@ -435,7 +435,7 @@ public class MusicManager {
                                         }
 
                                         if (!var13.hasMoreFrames()
-                                                && (this.field32162 == Class189.field718 || this.field32162 == Class189.field717 && this.field32145.youtubeVideos.size() == 1)) {
+                                                && (this.field32162 == Class189.field718 || this.field32162 == Class189.field717 && this.field32145.videoList.size() == 1)) {
                                             var13.seek(0.0);
                                             this.field32158 = 0L;
                                         }
@@ -460,13 +460,13 @@ public class MusicManager {
 
                             if (this.field32162 == Class189.field718) {
                                 var4--;
-                            } else if (this.field32162 == Class189.field717 && var4 == this.field32145.youtubeVideos.size() - 1) {
+                            } else if (this.field32162 == Class189.field717 && var4 == this.field32145.videoList.size() - 1) {
                                 var4 = -1;
                             } else if (this.field32162 == Class189.field716) {
                                 return;
                             }
 
-                            if (var4 >= this.field32145.youtubeVideos.size()) {
+                            if (var4 >= this.field32145.videoList.size()) {
                                 var4 = 0;
                             }
                         }
@@ -553,10 +553,10 @@ public class MusicManager {
         }
     }
 
-    public void method24317(MusicPlayerVideo var1, YoutubeVideoData var2) {
+    public void method24317(MusicVideoManager var1, YoutubeVideoData var2) {
         if (var1 == null) {
-            var1 = new MusicPlayerVideo("temp", "temp", YoutubeType.PLAYLIST);
-            var1.youtubeVideos.add(var2);
+            var1 = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
+            var1.videoList.add(var2);
         }
 
         this.field32145 = var1;
@@ -564,8 +564,8 @@ public class MusicManager {
         this.field32158 = 0L;
         this.field32170 = 0.0;
 
-        for (int var5 = 0; var5 < var1.youtubeVideos.size(); var5++) {
-            if (var1.youtubeVideos.get(var5) == var2) {
+        for (int var5 = 0; var5 < var1.videoList.size(); var5++) {
+            if (var1.videoList.get(var5) == var2) {
                 this.field32159 = var5;
             }
         }

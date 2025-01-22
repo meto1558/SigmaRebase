@@ -18,7 +18,7 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 public class Class4272 extends UIBase {
    public Animation field20703 = new Animation(300, 200, Direction.BACKWARDS);
    private final int field20704;
-   private Class4339 field20705;
+   private MusicTabs field20705;
    public static Class8233 field20706;
    private UILoadingCircle field20707;
 
@@ -51,7 +51,7 @@ public class Class4272 extends UIBase {
          var5x.method13610();
       });
       this.addToList(this.field20707 = new UILoadingCircle(this, "loading", (var5 - 30) / 2, 100, 30, 30));
-      this.addToList(this.field20705 = new Class4339(this, "defaultProfiles", 0, 40, var5, var6 - 40));
+      this.addToList(this.field20705 = new MusicTabs(this, "defaultProfiles", 0, 40, var5, var6 - 40));
       field20706 = new Class8233(
          var2x -> {
             this.field20707.setEnabled(false);

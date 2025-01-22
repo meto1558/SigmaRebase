@@ -3,17 +3,17 @@ package com.mentalfrostbyte.jello.managers.impl.music;
 import com.mentalfrostbyte.jello.gui.impl.MusicPlayer;
 import com.mentalfrostbyte.jello.gui.unmapped.ButtonPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4286;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
+import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 
 public class MusicPlayerInstance implements Runnable {
-    public final MusicPlayerVideo thubmnail;
+    public final MusicVideoManager thubmnail;
     public final ColorHelper colorHelper;
     public final MusicPlayer musicPlayer;
     public final MusicPlayer musicPlayer2;
 
-    public MusicPlayerInstance(MusicPlayer var1, MusicPlayerVideo var2, ColorHelper var3, MusicPlayer var4) {
+    public MusicPlayerInstance(MusicPlayer var1, MusicVideoManager var2, ColorHelper var3, MusicPlayer var4) {
         this.musicPlayer2 = var1;
         this.thubmnail = var2;
         this.colorHelper = var3;
@@ -22,46 +22,46 @@ public class MusicPlayerInstance implements Runnable {
 
     @Override
     public void run() {
-        if (!MusicPlayer.method13206(this.musicPlayer2).method13231(this.thubmnail.id)) {
+        if (!MusicPlayer.method13206(this.musicPlayer2).method13231(this.thubmnail.videoId)) {
             ButtonPanel var3;
             MusicPlayer.method13206(this.musicPlayer2)
                     .addToList(
                             var3 = new ButtonPanel(
                                     MusicPlayer.method13206(this.musicPlayer2),
-                                    this.thubmnail.id,
+                                    this.thubmnail.videoId,
                                     0,
                                     MusicPlayer.method13206(this.musicPlayer2).getButton().getChildren().size() * MusicPlayer.method13207(this.musicPlayer2),
                                     MusicPlayer.method13208(this.musicPlayer2),
                                     MusicPlayer.method13207(this.musicPlayer2),
                                     this.colorHelper,
-                                    this.thubmnail.displayName,
+                                    this.thubmnail.name,
                                     ResourceRegistry.JelloLightFont14
                             )
                     );
-            Class4339 var4;
+            MusicTabs var4;
             this.musicPlayer
                     .addToList(
-                            var4 = new Class4339(
+                            var4 = new MusicTabs(
                                     this.musicPlayer,
-                                    this.thubmnail.id,
+                                    this.thubmnail.videoId,
                                     MusicPlayer.method13208(this.musicPlayer2),
                                     0,
                                     this.musicPlayer.getWidthA() - MusicPlayer.method13208(this.musicPlayer2),
                                     this.musicPlayer.getHeightA() - MusicPlayer.method13209(this.musicPlayer2),
                                     ColorHelper.field27961,
-                                    this.thubmnail.displayName
+                                    this.thubmnail.name
                             )
                     );
             var4.method13514(true);
             var4.setEnabled(false);
             var4.method13300(false);
-            if (this.thubmnail.youtubeVideos != null) {
-                for (int var5 = 0; var5 < this.thubmnail.youtubeVideos.size(); var5++) {
-                    YoutubeVideoData var6 = this.thubmnail.youtubeVideos.get(var5);
+            if (this.thubmnail.videoList != null) {
+                for (int var5 = 0; var5 < this.thubmnail.videoList.size(); var5++) {
+                    YoutubeVideoData var6 = this.thubmnail.videoList.get(var5);
                     Class4286 var7 = null;
                     int var8 = 65;
                     int var9 = 10;
-                    if (!var4.method13231(this.thubmnail.id)) {
+                    if (!var4.method13231(this.thubmnail.videoId)) {
                         var4.addToList(
                                 var7 = new Class4286(
                                         var4,

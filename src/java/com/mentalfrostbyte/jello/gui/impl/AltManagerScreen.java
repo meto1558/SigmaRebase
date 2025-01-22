@@ -26,8 +26,8 @@ public class AltManagerScreen extends Screen {
    private float field21007 = 0.75F;
    private boolean field21008 = true;
    public UIButton field21009;
-   private Class4339 field21010;
-   private Class4339 field21011;
+   private MusicTabs field21010;
+   private MusicTabs field21011;
    private AlertPanel field21012;
    private AlertPanel field21013;
    private float field21014 = 0.65F;
@@ -68,7 +68,7 @@ public class AltManagerScreen extends Screen {
       this.method13362();
       this.method13363();
       this.addToList(
-         this.field21010 = new Class4339(
+         this.field21010 = new MusicTabs(
             this,
             "alts",
             0,
@@ -78,7 +78,7 @@ public class AltManagerScreen extends Screen {
          )
       );
       this.addToList(
-         this.field21011 = new Class4339(
+         this.field21011 = new MusicTabs(
             this,
             "altView",
             (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014),
@@ -455,12 +455,12 @@ public class AltManagerScreen extends Screen {
    }
 
    // $VF: synthetic method
-   public static Class4339 method13382(AltManagerScreen var0) {
+   public static MusicTabs method13382(AltManagerScreen var0) {
       return var0.field21010;
    }
 
    // $VF: synthetic method
-   public static Class4339 method13383(AltManagerScreen var0, Class4339 var1) {
+   public static MusicTabs method13383(AltManagerScreen var0, MusicTabs var1) {
       return var0.field21010 = var1;
    }
 

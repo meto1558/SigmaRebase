@@ -25,7 +25,7 @@ public class Class4358 extends UIBase {
    public int field21305;
    public int field21306;
    public String field21307;
-   public Class4339 field21308;
+   public MusicTabs field21308;
    public Class6984 field21309;
    public boolean field21311 = false;
    private final List<Class7875> field21312 = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Class4358 extends UIBase {
       });
       var10.method13242();
       this.addToList(
-         this.field21308 = new Class4339(
+         this.field21308 = new MusicTabs(
             this, "mods", this.field21304 + 30, this.field21303 + 30 + 120, this.field21305 - 30 * 2, this.field21306 - 30 * 2 - 120
          )
       );

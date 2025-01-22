@@ -22,7 +22,7 @@ import java.util.List;
 public class ConfigButtonOnClickGui extends UIBase {
    private List<ButtonPanel> field21297 = new ArrayList<ButtonPanel>();
    public final Animation field21298;
-   public Class4339 profileScrollView;
+   public MusicTabs profileScrollView;
    public Class4272 field21300;
    private List<Class4351> field21301 = new ArrayList<Class4351>();
 
@@ -114,7 +114,7 @@ public class ConfigButtonOnClickGui extends UIBase {
          this.method13236(this.profileScrollView);
       }
 
-      this.addToList(this.profileScrollView = new Class4339(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
+      this.addToList(this.profileScrollView = new MusicTabs(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
       this.profileScrollView.method13512(var3);
       this.field21301.clear();
       int var4 = 0;

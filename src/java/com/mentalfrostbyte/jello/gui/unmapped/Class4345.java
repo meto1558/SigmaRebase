@@ -19,7 +19,7 @@ import org.newdawn.slick.TrueTypeFont;
 
 import java.util.HashMap;
 
-public class Class4345 extends Class4339 {
+public class Class4345 extends MusicTabs {
    private final Module module;
    public TrueTypeFont settingsNameFont = Resources.regular20;
    public Animation anim = new Animation(150, 150);

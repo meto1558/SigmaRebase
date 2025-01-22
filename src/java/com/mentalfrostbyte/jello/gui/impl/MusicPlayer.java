@@ -8,8 +8,8 @@ import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.MusicManager;
 import com.mentalfrostbyte.jello.managers.impl.music.MusicPlayerInstance;
-import com.mentalfrostbyte.jello.managers.impl.music.MusicPlayerVideo;
-import com.mentalfrostbyte.jello.managers.impl.music.YoutubeType;
+import com.mentalfrostbyte.jello.managers.impl.music.MusicVideoManager;
+import com.mentalfrostbyte.jello.managers.impl.music.YoutubeContentType;
 import com.mentalfrostbyte.jello.managers.impl.music.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -22,10 +22,7 @@ import org.newdawn.slick.util.BufferedImageUtil;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MusicPlayer extends AnimatedIconPanelWrap {
     private int field20845 = 250;
@@ -34,13 +31,13 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     private int field20848 = 94;
     private String field20849 = "Music Player";
     public static URL field20850;
-    private Class4339 field20851;
-    private Class4339 field20852;
-    private CustomGuiScreen pngButtons;
+    private MusicTabs musicTabs;
+    private MusicTabs field20852;
+    private CustomGuiScreen musicControls;
     private MusicManager field20854 = Client.getInstance().musicManager;
-    public static Map<String, MusicPlayerVideo> field20855 = new LinkedHashMap<String, MusicPlayerVideo>();
+    public static Map<String, MusicVideoManager> field20855 = new LinkedHashMap<String, MusicVideoManager>();
     public static String field20856;
-    public static MusicPlayerVideo field20857;
+    public static MusicVideoManager field20857;
     private ButtonPanel play;
     private ButtonPanel pause;
     private ButtonPanel forwards;
@@ -51,7 +48,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     private CustomGuiScreen field20865;
     public SearchBoxButton searchBox;
     public Class4359 field20867;
-    public static MusicPlayerVideo[] videos;
+    public static MusicVideoManager[] videos;
     private static CookieManager field20869 = new CookieManager();
     public static long field20870 = 0L;
     public float field20871 = 0.0F;
@@ -63,17 +60,16 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         super(var1, var2, 875, 55, 800, 600, false);
 
         if (videos == null) {
-            MusicPlayerVideo[] var4 = new MusicPlayerVideo[]{
-                    new MusicPlayerVideo("Trap Nation", "UUa10nxShhzNrCE1o2ZOPztg", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("Chill Nation", "UUM9KEEuzacwVlkt9JfJad7g", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("Rap Nation", "UU8QfB1wbfrNwNFHQxfyNJsw", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("MrSuicideSheep", "UU5nc_ZtjKW1htCVZVRxlQAQ", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("Trap City", "UU65afEgL62PGFWXY7n6CUbA", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("CloudKid", "UUSa8IUd1uEjlREMa21I3ZPQ", YoutubeType.PLAYLIST),
-                    new MusicPlayerVideo("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeType.PLAYLIST)
+            videos = new MusicVideoManager[]{
+                    new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST),
+                    new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST)
             };
-            videos = var4;
         }
 
         field20870 = System.nanoTime();
@@ -81,9 +77,9 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.setHeightA(600);
         this.setXA(Math.abs(this.getXA()));
         this.setYA(Math.abs(this.getYA()));
-        this.addToList(this.field20851 = new Class4339(this, "musictabs", 0, this.field20847 + 14, this.field20845, this.getHeightA() - 64 - this.field20848));
+        this.addToList(this.musicTabs = new MusicTabs(this, "musictabs", 0, this.field20847 + 14, this.field20845, this.getHeightA() - 64 - this.field20848));
         this.addToList(
-                this.pngButtons = new Class4339(
+                this.musicControls = new MusicTabs(
                         this, "musiccontrols", this.field20845, this.getHeightA() - this.field20848, this.getWidthA() - this.field20845, this.field20848
                 )
         );
@@ -95,56 +91,56 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             this.field20854.method24312(!this.field20854.method24313());
             ((Class4265) var1x).method13099(this.field20854.method24313());
         });
-        this.field20851.method13300(false);
+        this.musicTabs.method13300(false);
         var5.method13300(false);
-        this.pngButtons.method13300(false);
+        this.musicControls.method13300(false);
         this.field20865.method13300(false);
-        ColorHelper var6 = new ColorHelper(1250067, -15329770).method19410(ClientColors.LIGHT_GREYISH_BLUE.getColor()).method19414(Class2218.field14492);
-        ArrayList var7 = new ArrayList();
+        ColorHelper color = new ColorHelper(1250067, -15329770).method19410(ClientColors.LIGHT_GREYISH_BLUE.getColor()).method19414(Class2218.field14492);
+        List<Thread> threads = new ArrayList<>();
         MusicPlayer player = this;
 
-        for (MusicPlayerVideo video : videos) {
-            var7.add(new Thread(() -> {
-                if (!field20855.containsKey(video.id) && !video.field44779) {
-                    video.field44779 = true;
-                    video.updateVideos();
+        for (MusicVideoManager video : videos) {
+            threads.add(new Thread(() -> {
+                if (!field20855.containsKey(video.videoId) && !video.isUpdated) {
+                    video.isUpdated = true;
+                    video.refreshVideoList();
 
-                    field20855.put(video.id, video);
+                    field20855.put(video.videoId, video);
                 }
 
-                this.runThisOnDimensionUpdate(new MusicPlayerInstance(this, video, var6, player));
+                this.runThisOnDimensionUpdate(new MusicPlayerInstance(this, video, color, player));
             }));
-            ((Thread) var7.get(var7.size() - 1)).start();
+            threads.get(threads.size() - 1).start();
         }
 
         int var15 = (this.getWidthA() - this.field20845 - 38) / 2;
-        this.pngButtons
+        this.musicControls
                 .addToList(
                         this.play = new PNGIconButton(
-                                this.pngButtons, "play", var15, 27, 38, 38, Resources.playPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
+                                this.musicControls, "play", var15, 27, 38, 38, Resources.playPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
-        this.pngButtons
+        this.musicControls
                 .addToList(
                         this.pause = new PNGIconButton(
-                                this.pngButtons, "pause", var15, 27, 38, 38, Resources.pausePNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
+                                this.musicControls, "pause", var15, 27, 38, 38, Resources.pausePNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
-        this.pngButtons
+        this.musicControls
                 .addToList(
                         this.forwards = new PNGIconButton(
-                                this.pngButtons, "forwards", var15 + 114, 23, 46, 46, Resources.forwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
+                                this.musicControls, "forwards", var15 + 114, 23, 46, 46, Resources.forwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
-        this.pngButtons
+        this.musicControls
                 .addToList(
                         this.backwards = new PNGIconButton(
-                                this.pngButtons, "backwards", var15 - 114, 23, 46, 46, Resources.backwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
+                                this.musicControls, "backwards", var15 - 114, 23, 46, 46, Resources.backwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
-        this.pngButtons.addToList(this.volumeSlider = new VolumeSlider(this.pngButtons, "volume", this.getWidthA() - this.field20845 - 19, 14, 4, 40));
+        this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.field20845 - 19, 14, 4, 40));
         PNGButtonChanging repeat;
-        this.pngButtons.addToList(repeat = new PNGButtonChanging(this.pngButtons, "repeat", 14, 34, 27, 20, this.field20854.method24304()));
+        this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.field20854.method24304()));
         repeat.onPress(var2x -> this.field20854.method24303(repeat.method13038()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.field20845, this.getHeightA() - 5, this.getWidthA() - this.field20845, 5));
         this.field20867.method13292(true);
@@ -172,7 +168,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.searchBox.method13300(false);
     }
 
-    private void method13189(Class4339 var1) {
+    private void method13189(MusicTabs var1) {
         if (this.field20852 != null) {
             this.field20852.setEnabled(false);
         }
@@ -184,11 +180,9 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20852.field21207 = 65;
     }
 
-    private void method13190(MusicPlayerVideo var1, YoutubeVideoData var2) {
-        if (!((JelloClickGUI) this.getParent()).hasJelloMusicRequirements()) {
-            this.field20854.method24317(var1, var2);
-            field20857 = var1;
-        }
+    private void method13190(MusicVideoManager var1, YoutubeVideoData var2) {
+        this.field20854.method24317(var1, var2);
+        field20857 = var1;
     }
 
     @Override
@@ -535,8 +529,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     // $VF: synthetic method
-    public static Class4339 method13206(MusicPlayer var0) {
-        return var0.field20851;
+    public static MusicTabs method13206(MusicPlayer var0) {
+        return var0.musicTabs;
     }
 
     // $VF: synthetic method
@@ -555,12 +549,12 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     // $VF: synthetic method
-    public static void method13210(MusicPlayer var0, Class4339 var1) {
+    public static void method13210(MusicPlayer var0, MusicTabs var1) {
         var0.method13189(var1);
     }
 
     // $VF: synthetic method
-    public static void method13211(MusicPlayer var0, MusicPlayerVideo var1, YoutubeVideoData var2) {
+    public static void method13211(MusicPlayer var0, MusicVideoManager var1, YoutubeVideoData var2) {
         var0.method13190(var1, var2);
     }
 }

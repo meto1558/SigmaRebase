@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-public class Class4343 extends Class4339 implements Class4342 {
+public class Class4343 extends MusicTabs implements Class4342 {
    private Module field21219;
    private boolean field21220;
    private boolean field21221;

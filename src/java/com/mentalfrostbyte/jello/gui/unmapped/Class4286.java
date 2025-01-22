@@ -76,8 +76,8 @@ public class Class4286 extends AnimatedIconPanelWrap {
    public boolean method13157() {
       if (this.getParent() != null && this.getParent().getParent() != null) {
          CustomGuiScreen var3 = this.getParent().getParent();
-         if (var3 instanceof Class4339) {
-            Class4339 var4 = (Class4339)var3;
+         if (var3 instanceof MusicTabs) {
+            MusicTabs var4 = (MusicTabs)var3;
             int var5 = var4.method13513() + var4.getHeightA() + this.getHeightA();
             int var6 = var4.method13513() - this.getHeightA();
             return this.getYA() <= var5 && this.getYA() >= var6;

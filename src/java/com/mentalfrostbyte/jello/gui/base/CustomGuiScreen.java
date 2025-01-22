@@ -276,7 +276,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         for (int var7 = this.children.size() - 1; var7 >= 0; var7--) {
             CustomGuiScreen var8 = this.children.get(var7);
             boolean var9 = var8.getParent() != null
-                    && var8.getParent() instanceof Class4339
+                    && var8.getParent() instanceof MusicTabs
                     && var8.getParent().method13114(mouseX, mouseY)
                     && var8.getParent().isVisible()
                     && var8.getParent().isHovered();

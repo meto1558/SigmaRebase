@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Class4258 extends UIBase {
    private final List<String> field20641 = new ArrayList<String>();
-   private Class4339 field20642;
+   private MusicTabs field20642;
    private final UIInput field20643;
    private final boolean field20644;
 
@@ -36,7 +36,7 @@ public class Class4258 extends UIBase {
             this.method13236(this.field20642);
          }
 
-         this.addToList(this.field20642 = new Class4339(this, "scrollview", 0, 40, this.widthA, this.heightA - 40));
+         this.addToList(this.field20642 = new MusicTabs(this, "scrollview", 0, 40, this.widthA, this.heightA - 40));
          ArrayList<Item> var5 = new ArrayList<>();
 
          for (Item var7 : Registry.ITEM) {

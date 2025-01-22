@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers.impl.music;
 
-public enum YoutubeType {
+public enum YoutubeContentType {
     PLAYLIST,
     CHANNEL,
     SEARCH

@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4339;
+import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
 import com.mentalfrostbyte.jello.gui.unmapped.Class576;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathUtils;
@@ -18,13 +18,13 @@ import totalcross.json.JSONException;
 
 public class ChangelogScreen extends CustomGuiScreen {
    public Animation animation = new Animation(380, 200, Direction.BACKWARDS);
-   public Class4339 field21184;
+   public MusicTabs field21184;
    private static JSONArray cachedChangelog;
 
    public ChangelogScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.method13300(false);
-      this.field21184 = new Class4339(this, "scroll", 100, 200, var5 - 200, var6 - 200);
+      this.field21184 = new MusicTabs(this, "scroll", 100, 200, var5 - 200, var6 - 200);
       this.field21184.method13518(true);
       this.showAlert(this.field21184);
       new Thread(() -> this.method13490(this.getChangelog())).start();

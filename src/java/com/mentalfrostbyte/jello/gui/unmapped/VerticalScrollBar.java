@@ -32,8 +32,8 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    @Override
    public void voidEvent3(float scroll) {
       super.voidEvent3(scroll);
-      if (this.parent != null && this.parent.method13228(this.getHeightO(), this.getWidthO(), false) || ((Class4339)this.parent).field21208) {
-         float var4 = (float)((Class4339)this.getParent()).getButton().getHeightA();
+      if (this.parent != null && this.parent.method13228(this.getHeightO(), this.getWidthO(), false) || ((MusicTabs)this.parent).field21208) {
+         float var4 = (float)((MusicTabs)this.getParent()).getButton().getHeightA();
          float var5 = (float)this.getParent().getHeightA();
          float var6 = (float)this.getHeightA();
          if (var4 == 0.0F) {
@@ -46,7 +46,7 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
          }
 
          this.field20793 = this.field20793
-            - Math.round(!(scroll < 0.0F) ? (float)((Class4339)this.parent).field21207 * scroll : 1.0F * (float)((Class4339)this.parent).field21207 * scroll);
+            - Math.round(!(scroll < 0.0F) ? (float)((MusicTabs)this.parent).field21207 * scroll : 1.0F * (float)((MusicTabs)this.parent).field21207 * scroll);
          this.field20797.reset();
          this.field20797.start();
       }
@@ -67,7 +67,7 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
                )
          );
       this.field20794 = Math.min(Math.max(0.0F, this.field20794), 1.0F);
-      float var5 = (float)((Class4339)this.getParent()).getButton().getHeightA();
+      float var5 = (float)((MusicTabs)this.getParent()).getButton().getHeightA();
       float var6 = (float)this.getParent().getHeightA();
       float var7 = (float)this.getHeightA();
       float var8 = var6 / var5;
@@ -111,10 +111,10 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
             int var6 = mouseY - this.method13272();
             if (var6 <= this.field20796.getYA() + this.field20796.getHeightA()) {
                if (var6 < this.field20796.getYA()) {
-                  this.field20793 = this.field20793 - (int)((float)((Class4339)this.parent).getButton().getHeightA() / 4.0F);
+                  this.field20793 = this.field20793 - (int)((float)((MusicTabs)this.parent).getButton().getHeightA() / 4.0F);
                }
             } else {
-               this.field20793 = this.field20793 + (int)((float)((Class4339)this.parent).getButton().getHeightA() / 4.0F);
+               this.field20793 = this.field20793 + (int)((float)((MusicTabs)this.parent).getButton().getHeightA() / 4.0F);
             }
          }
 

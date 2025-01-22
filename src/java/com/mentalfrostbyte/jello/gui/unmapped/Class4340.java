@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Class4340 extends Class4339 {
+public class Class4340 extends MusicTabs {
    private List<Class4355> field21209 = new ArrayList<Class4355>();
    public final int field21210 = 70;
    public Animation field21211 = new Animation(300, 300);

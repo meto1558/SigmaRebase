@@ -52,7 +52,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
    public void draw(float partialTicks) {
       this.method13225();
       this.field20808 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
-      int var4 = ((Class4339)this.parent.getParent()).method13513();
+      int var4 = ((MusicTabs)this.parent.getParent()).method13513();
       int var5 = Math.max(0, this.yA - var4);
       int var6 = Math.max(0, this.heightA + Math.min(100, this.yA - var4 - var5));
       float var7 = (float)Math.min(50, var6) / 50.0F;
