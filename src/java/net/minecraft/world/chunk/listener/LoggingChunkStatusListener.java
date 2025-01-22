@@ -41,8 +41,6 @@ public class LoggingChunkStatusListener implements IChunkStatusListener
         if (Util.milliTime() > this.nextLogTime)
         {
             this.nextLogTime += 500L;
-            System.out.println("Loaded chunks: " + loadedChunks);
-            System.out.println("Total chunks: " + totalChunks);
             LOGGER.info((new TranslationTextComponent("menu.preparingSpawn", MathHelper.clamp(i, 0, 100))).getString());
         }
     }
