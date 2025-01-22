@@ -48,29 +48,26 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     private CustomGuiScreen field20865;
     public SearchBoxButton searchBox;
     public Class4359 field20867;
-    public static MusicVideoManager[] videos;
+    public static List<MusicVideoManager> videos = new ArrayList<>();
     private static CookieManager field20869 = new CookieManager();
     public static long field20870 = 0L;
     public float field20871 = 0.0F;
     public float field20872 = 0.0F;
-    private Animation field20873 = new Animation(80, 150, Direction.BACKWARDS);
+    private final Animation field20873 = new Animation(80, 150, Direction.BACKWARDS);
     public boolean field20874 = false;
 
     public MusicPlayer(CustomGuiScreen var1, String var2) {
         super(var1, var2, 875, 55, 800, 600, false);
 
-        if (videos == null) {
-            videos = new MusicVideoManager[]{
-                    new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST),
-                    new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST)
-            };
-        }
+        videos.clear();
+        videos.add(new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
+        videos.add(new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
 
         field20870 = System.nanoTime();
         this.setWidthA(800);
