@@ -55,7 +55,7 @@ public class MusicManager {
     public BufferedImage field32149;
     public String field32150 = "";
     public List<double[]> field32163 = new ArrayList<>();
-    public ArrayList<Double> field32165 = new ArrayList<>();
+    public ArrayList<Double> amplitudes = new ArrayList<>();
     public SourceDataLine field32166;
     private boolean field32144 = false;
     private MusicPlayerVideo field32145;
@@ -166,10 +166,10 @@ public class MusicManager {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
             if (this.field32144 && this.field32163.size() != 0) {
                 double[] var4 = this.field32163.get(0);
-                if (this.field32165.isEmpty()) {
+                if (this.amplitudes.isEmpty()) {
                     for (double v : var4) {
-                        if (this.field32165.size() < 1024) {
-                            this.field32165.add(v);
+                        if (this.amplitudes.size() < 1024) {
+                            this.amplitudes.add(v);
                         }
                     }
                 }
@@ -177,11 +177,11 @@ public class MusicManager {
                 float var10 = 60.0F / (float) Minecraft.getFps();
 
                 for (int var6 = 0; var6 < var4.length; var6++) {
-                    double var7 = this.field32165.get(var6) - var4[var6];
-                    boolean var9 = !(this.field32165.get(var6) < Double.MAX_VALUE);
-                    this.field32165.set(var6, Math.min(2.256E7, Math.max(0.0, this.field32165.get(var6) - var7 * (double) Math.min(0.335F * var10, 1.0F))));
+                    double var7 = this.amplitudes.get(var6) - var4[var6];
+                    boolean var9 = !(this.amplitudes.get(var6) < Double.MAX_VALUE);
+                    this.amplitudes.set(var6, Math.min(2.256E7, Math.max(0.0, this.amplitudes.get(var6) - var7 * (double) Math.min(0.335F * var10, 1.0F))));
                     if (var9) {
-                        this.field32165.set(var6, 0.0);
+                        this.amplitudes.set(var6, 0.0);
                     }
                 }
             }
@@ -198,14 +198,14 @@ public class MusicManager {
     private void method24298() {
         if (!this.field32163.isEmpty()) {
             if (this.field32151 != null) {
-                if (!this.field32165.isEmpty()) {
+                if (!this.amplitudes.isEmpty()) {
                     float var3 = 114.0F;
                     float var4 = (float) Math.ceil((float) mc.getMainWindow().getWidth() / var3);
 
                     for (int var5 = 0; (float) var5 < var3; var5++) {
                         float var6 = 1.0F - (float) (var5 + 1) / var3;
                         float var7 = (float) mc.getMainWindow().getHeight() / 1080.0F;
-                        float var8 = ((float) (Math.sqrt(this.field32165.get(var5)) / 12.0) - 5.0F) * var7;
+                        float var8 = ((float) (Math.sqrt(this.amplitudes.get(var5)) / 12.0) - 5.0F) * var7;
                         RenderUtil.drawRoundedRect2(
                                 (float) var5 * var4,
                                 (float) mc.getMainWindow().getHeight() - var8,
@@ -219,7 +219,7 @@ public class MusicManager {
 
                     for (int var13 = 0; (float) var13 < var3; var13++) {
                         float var14 = (float) mc.getMainWindow().getHeight() / 1080.0F;
-                        float var15 = ((float) (Math.sqrt(this.field32165.get(var13)) / 12.0) - 5.0F) * var14;
+                        float var15 = ((float) (Math.sqrt(this.amplitudes.get(var13)) / 12.0) - 5.0F) * var14;
                         RenderUtil.drawRoundedRect2((float) var13 * var4, (float) mc.getMainWindow().getHeight() - var15, var4, var15, ClientColors.LIGHT_GREYISH_BLUE.getColor());
                     }
 
@@ -233,7 +233,7 @@ public class MusicManager {
                     float var16 = 4750;
 
                     for (int var17 = 0; var17 < 3; var17++) {
-                        var9 = Math.max(var9, Math.sqrt(this.field32165.get(var17)) - 1000.0);
+                        var9 = Math.max(var9, Math.sqrt(this.amplitudes.get(var17)) - 1000.0);
                     }
 
                     float var18 = 1.0F + (float) Math.round((float) (var9 / (double) (var16 - 1000)) * 0.14F * 75.0F) / 75.0F;
@@ -300,7 +300,7 @@ public class MusicManager {
     public void method24299(TickEvent var1) {
         if (!this.field32144) {
             this.field32163.clear();
-            this.field32165.clear();
+            this.amplitudes.clear();
         }
 
         try {
