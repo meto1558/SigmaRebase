@@ -81,9 +81,9 @@ public class ClassicTitleScreen extends CustomGuiScreen {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13225();
       RenderUtil.drawImage((float)(this.xA + (this.getWidthA() - 300) / 2), (float)(this.yA + 30), 300.0F, 97.0F, Resources.big);
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

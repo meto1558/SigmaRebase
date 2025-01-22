@@ -77,14 +77,14 @@ public class Class4339 extends AnimatedIconPanel {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13224();
       if (!this.field21203 || this.isVisible()) {
          if (this.field21206) {
             RenderUtil.method11415(this);
          }
 
-         super.draw(var1);
+         super.draw(partialTicks);
          if (this.field21206) {
             RenderUtil.endScissor();
          }

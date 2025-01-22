@@ -13,7 +13,7 @@ public class Class4344 extends Class4339 {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
@@ -29,6 +29,6 @@ public class Class4344 extends Class4339 {
          2,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.14F)
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

@@ -99,15 +99,17 @@ public class MultiUtilities {
     public static boolean isCubecraft() {
         return mc.getIntegratedServer() == null && mc.getCurrentServerData() != null && mc.getCurrentServerData().serverIP.toLowerCase().contains("cubecraft.net");
     }
-    public static List<PlayerEntity> method17680() {
-        ArrayList<PlayerEntity> var2 = new ArrayList<>();
-        mc.world.entitiesById.forEach((var1, var2x) -> {
-            if (var2x instanceof PlayerEntity) {
-                var2.add((PlayerEntity)var2x);
+
+    public static List<PlayerEntity> getPlayers() {
+        ArrayList<PlayerEntity> players = new ArrayList<>();
+        mc.world.entitiesById.forEach((entityId, entity) -> {
+            if (entity instanceof PlayerEntity) {
+                players.add((PlayerEntity)entity);
             }
         });
-        return var2;
+        return players;
     }
+
     public static void sendChatMessage(String text) {
         mc.getConnection().sendPacket(new CChatMessagePacket(text));
     }

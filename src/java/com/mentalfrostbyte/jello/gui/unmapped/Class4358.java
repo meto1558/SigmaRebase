@@ -178,15 +178,15 @@ public class Class4358 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
-      var1 = this.field21302.calcPercent();
-      float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
+   public void draw(float partialTicks) {
+      partialTicks = this.field21302.calcPercent();
+      float var4 = EasingFunctions.easeOutBack(partialTicks, 0.0F, 1.0F, 1.0F);
       if (this.field21311) {
-         var4 = QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F);
+         var4 = QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F);
       }
 
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
-      if (var1 == 0.0F && this.field21311) {
+      if (partialTicks == 0.0F && this.field21311) {
          this.method13624(this.field21309);
       }
 
@@ -195,7 +195,7 @@ public class Class4358 extends UIBase {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F * partialTicks)
       );
       super.method13224();
       RenderUtil.drawRoundedRect(
@@ -204,16 +204,16 @@ public class Class4358 extends UIBase {
          (float)this.field21305,
          (float)this.field21306,
          10.0F,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont36,
          (float)(30 + this.field21304),
          (float)(30 + this.field21303),
          "Select mod to bind",
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.7F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public final void method13623(Class7875 var1) {

@@ -128,9 +128,9 @@ public class ModListView extends Class4339 implements Class4342 {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13225();
-      super.draw(var1 * ((JelloClickGUIPanels)this.parent).field21195);
+      super.draw(partialTicks * ((JelloClickGUIPanels)this.parent).field21195);
    }
 
    @Override

@@ -28,7 +28,7 @@ public class UIBase extends AnimatedIconPanelWrap {
       super(screen, typeThingIdk, x, y, width, height, var7, var8, font, var10);
    }
 
-   public final void addUIHandler(UIHandler uiHandler) {
+   public final void onPress(UIHandler uiHandler) {
       this.uiHandlers.add(uiHandler);
    }
 

@@ -12,9 +12,9 @@ import net.minecraft.network.play.server.SChatPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class MineplexGamePlay extends Module {
-    public GamePlay field23602;
-    public boolean field23603;
-    public final TimerUtil field23604 = new TimerUtil();
+    public GamePlay parentModule;
+    public boolean foundTeam;
+    public final TimerUtil timer = new TimerUtil();
 
     public MineplexGamePlay() {
         super(ModuleCategory.MISC, "Mineplex", "Gameplay for Mineplex");
@@ -22,32 +22,31 @@ public class MineplexGamePlay extends Module {
 
     @Override
     public void initialize() {
-        this.field23602 = (GamePlay) this.access();
+        this.parentModule = (GamePlay) this.access();
     }
 
     @Override
     public void onEnable() {
-        this.field23603 = false;
+        this.foundTeam = false;
     }
 
     @EventTarget
-    public void method16340(ReceivePacketEvent var1) {
+    public void onReceive(ReceivePacketEvent event) {
         if (this.isEnabled() && mc.player != null) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof SChatPacket) {
-                SChatPacket var5 = (SChatPacket) var4;
-                String var6 = var5.getChatComponent().getString();
-                String var7 = mc.player.getName().getString().toLowerCase();
-                if (this.field23602.getBooleanValueFromSettingName("AutoL") && var6.toLowerCase().contains("killed by " + var7 + " ")) {
-                    this.field23602.method16761(var6);
+            IPacket<?> packet = event.getPacket();
+            if (packet instanceof SChatPacket chatPacket) {
+                String text = chatPacket.getChatComponent().getString();
+                String playerName = mc.player.getName().getString().toLowerCase();
+                if (this.parentModule.getBooleanValueFromSettingName("AutoL") && text.toLowerCase().contains("killed by " + playerName + " ")) {
+                    this.parentModule.processAutoLMessage(text);
                 }
 
-                String[] var8 = new String[]{"Green", "Red", "Blue", "Yellow"};
+                String[] teamColors = new String[]{"Green", "Red", "Blue", "Yellow"};
 
-                for (int var9 = 0; var9 < var8.length; var9++) {
-                    if (var6.equals(var8[var9] + " won the game!")) {
-                        this.field23604.reset();
-                        this.field23603 = true;
+                for (int i = 0; i < teamColors.length; i++) {
+                    if (text.equals(teamColors[i] + " won the game!")) {
+                        this.timer.reset();
+                        this.foundTeam = true;
                     }
                 }
             }
@@ -55,19 +54,19 @@ public class MineplexGamePlay extends Module {
     }
 
     @EventTarget
-    public void method16341(WorldLoadEvent var1) {
+    public void onWorldLoad(WorldLoadEvent event) {
         if (this.isEnabled()) {
-            this.field23603 = false;
+            this.foundTeam = false;
         }
     }
 
     @EventTarget
-    public void method16342(TickEvent var1) {
+    public void onTick(TickEvent event) {
         if (this.isEnabled()) {
-            if (this.getBooleanValueFromSettingName("AutoGG") && this.field23604.getElapsedTime() > 5000L && this.field23603) {
-                this.field23603 = false;
-                this.field23604.reset();
-                this.field23602.method16760();
+            if (this.getBooleanValueFromSettingName("AutoGG") && this.timer.getElapsedTime() > 5000L && this.foundTeam) {
+                this.foundTeam = false;
+                this.timer.reset();
+                this.parentModule.initializeAutoL();
             }
         }
     }

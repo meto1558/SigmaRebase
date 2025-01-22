@@ -23,7 +23,7 @@ public class SpotlightDialog extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.query.method13145(true);
       int var4 = 10;
       RenderUtil.drawRoundedRect(
@@ -32,7 +32,7 @@ public class SpotlightDialog extends UIBase {
          (float)(this.widthA - var4),
          (float)(this.heightA - var4),
          9.0F,
-         var1 * 0.9F
+         partialTicks * 0.9F
       );
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var4 / 2),
@@ -40,7 +40,7 @@ public class SpotlightDialog extends UIBase {
          (float)(this.widthA - var4),
          (float)(this.heightA - var4),
          30.0F,
-         var1 * 0.4F
+         partialTicks * 0.4F
       );
       RenderUtil.drawRoundedRect(
          (float)this.xA,
@@ -73,7 +73,7 @@ public class SpotlightDialog extends UIBase {
          );
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public ArrayList<Module> method13064() {

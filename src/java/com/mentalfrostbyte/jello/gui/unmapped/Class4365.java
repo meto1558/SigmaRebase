@@ -29,7 +29,7 @@ public class Class4365 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.username = Client.getInstance().networkManager.username;
       String var4 = "Log in";
       Texture var5 = Resources.accountPNG;
@@ -42,14 +42,14 @@ public class Class4365 extends UIBase {
       boolean var6 = this.field21337 >= this.xA && this.field21338 <= this.yA + this.getHeightA();
       this.field21334 = Math.max(0.0F, Math.min(1.0F, this.field21334 + (!var6 ? -0.1F : 0.1F)));
       RenderUtil.drawRoundedRect(
-         (float)this.xA, (float)this.yA, (float)this.getWidthA(), (float)this.getHeightA(), 20.0F, this.field21334 * 0.2F * var1
+         (float)this.xA, (float)this.yA, (float)this.getWidthA(), (float)this.getHeightA(), 20.0F, this.field21334 * 0.2F * partialTicks
       );
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.getWidthA()),
          (float)(this.yA + this.getHeightA()),
-         ColorUtils.applyAlpha(ClientColors.DULL_GREEN.getColor(), (0.2F * this.field21334 + (!this.method13212() ? 0.0F : 0.2F)) * var1)
+         ColorUtils.applyAlpha(ClientColors.DULL_GREEN.getColor(), (0.2F * this.field21334 + (!this.method13212() ? 0.0F : 0.2F)) * partialTicks)
       );
       RenderUtil.drawImage(
          (float)(this.xA + this.widthA - 60 - 10),
@@ -57,15 +57,15 @@ public class Class4365 extends UIBase {
          60.0F,
          60.0F,
          var5,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * partialTicks)
       );
       RenderUtil.drawString(
          this.font,
          (float)(this.xA + this.widthA - 90 - this.font.getWidth(var4)),
          (float)(this.yA + 27),
          var4,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * partialTicks)
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

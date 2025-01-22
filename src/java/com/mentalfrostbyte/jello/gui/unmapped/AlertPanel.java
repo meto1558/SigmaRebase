@@ -202,7 +202,7 @@ public class AlertPanel extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       if (this.field21282.calcPercent() != 0.0F) {
          int var4 = this.field21284 + 60;
          int var5 = this.field21285 + 60;

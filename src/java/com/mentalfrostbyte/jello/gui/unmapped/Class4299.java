@@ -64,7 +64,7 @@ public class Class4299 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13184();
       RenderUtil.method11415(this);
 
@@ -123,7 +123,7 @@ public class Class4299 extends AnimatedIconPanelWrap {
       );
       RenderUtil.endScissor();
       this.field20837 = System.currentTimeMillis();
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public int method13179() {

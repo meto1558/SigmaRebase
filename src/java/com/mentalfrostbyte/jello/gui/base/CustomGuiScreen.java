@@ -207,19 +207,19 @@ public class CustomGuiScreen implements IGuiEventListener {
         GL11.glTranslatef((float) this.method13280(), (float) this.method13282(), 0.0F);
     }
 
-    public void draw(float var1) {
-        this.method13226(var1);
+    public void draw(float partialTicks) {
+        this.method13226(partialTicks);
     }
 
-    public final void method13226(float var1) {
+    public final void method13226(float partialTicks) {
         GlStateManager.enableAlphaTest();
         GL11.glAlphaFunc(519, 0.0F);
         GL11.glTranslatef((float) this.getXA(), (float) this.getYA(), 0.0F);
 
-        for (CustomGuiScreen var5 : this.children) {
-            if (var5.isVisible()) {
+        for (CustomGuiScreen child : this.children) {
+            if (child.isVisible()) {
                 GL11.glPushMatrix();
-                var5.draw(var1);
+                child.draw(partialTicks);
                 GL11.glPopMatrix();
             }
         }
@@ -260,9 +260,9 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     @Override
     public void keyPressed(int keyCode) {
-        for (CustomGuiScreen var5 : this.children) {
-            if (var5.isHovered() && var5.isVisible()) {
-                var5.keyPressed(keyCode);
+        for (CustomGuiScreen child : this.children) {
+            if (child.isHovered() && child.isVisible()) {
+                child.keyPressed(keyCode);
             }
         }
 
@@ -418,7 +418,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         }
     }
 
-    public void method13233(CustomGuiScreen var1) {
+    public void showAlert(CustomGuiScreen var1) {
         if (var1 != null) {
             for (CustomGuiScreen var5 : this.getChildren()) {
                 if (var5.getName().equals(var1.getName())) {
@@ -736,7 +736,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20902 = var1;
     }
 
-    public void method13286(int var1, int var2) {
+    public void draw(int var1, int var2) {
         this.field20901 = var1;
         this.field20902 = var2;
     }

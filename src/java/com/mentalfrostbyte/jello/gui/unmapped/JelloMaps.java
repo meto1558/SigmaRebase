@@ -62,7 +62,7 @@ public class JelloMaps extends Screen {
    }
 
    @Override
-   public int method13313() {
+   public int getFPS() {
       return 60;
    }
 
@@ -76,11 +76,11 @@ public class JelloMaps extends Screen {
    }
 
    @Override
-   public void draw(float var1) {
-      var1 = (float)Math.min(200L, new Date().getTime() - this.field21035.getTime()) / 200.0F;
-      float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
+   public void draw(float partialTicks) {
+      partialTicks = (float)Math.min(200L, new Date().getTime() - this.field21035.getTime()) / 200.0F;
+      float var4 = EasingFunctions.easeOutBack(partialTicks, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
-      float var5 = 0.25F * var1;
+      float var5 = 0.25F * partialTicks;
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
@@ -89,7 +89,7 @@ public class JelloMaps extends Screen {
               ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    // $VF: synthetic method

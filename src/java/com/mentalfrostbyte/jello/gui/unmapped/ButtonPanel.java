@@ -36,11 +36,11 @@ public class ButtonPanel extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
-      float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(var1 * this.field20584, 0.0F) : 1.5F) : 0.0F);
+   public void draw(float partialTicks) {
+      float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(partialTicks * this.field20584, 0.0F) : 1.5F) : 0.0F);
       int var5 = ColorUtils.applyAlpha(
               ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
-         (float)(this.textColor.method19405() >> 24 & 0xFF) / 255.0F * var1
+         (float)(this.textColor.method19405() >> 24 & 0xFF) / 255.0F * partialTicks
       );
       int var6 = var5 >> 24 & 0xFF;
       int var7 = var5 >> 16 & 0xFF;
@@ -78,13 +78,13 @@ public class ButtonPanel extends UIBase {
             (float)(this.field20585 + var10),
             (float)var11,
             this.getTypedText(),
-            ColorUtils.applyAlpha(this.textColor.getTextColor(), var1),
+            ColorUtils.applyAlpha(this.textColor.getTextColor(), partialTicks),
             this.textColor.method19411(),
             this.textColor.method19413()
          );
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public void method13034(int var1) {

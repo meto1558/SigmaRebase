@@ -32,7 +32,7 @@ public class VolumeSlider extends UIBase {
    }
 
    @Override
-   public void draw(float f) {
+   public void draw(float partialTicks) {
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
@@ -47,7 +47,7 @@ public class VolumeSlider extends UIBase {
          (float)this.yA + (float)this.heightA * this.volume,
               ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
       );
-      super.draw(f);
+      super.draw(partialTicks);
    }
 
    @Override

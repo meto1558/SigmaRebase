@@ -141,12 +141,12 @@ public class ConfigButtonOnClickGui extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
-      var1 = this.field21298.calcPercent();
+   public void draw(float partialTicks) {
+      partialTicks = this.field21298.calcPercent();
       this.method13616();
-      float var4 = MathUtils.lerp(var1, 0.37, 1.48, 0.17, 0.99);
+      float var4 = MathUtils.lerp(partialTicks, 0.37, 1.48, 0.17, 0.99);
       if (this.field21298.getDirection() == Direction.BACKWARDS) {
-         var4 = MathUtils.lerp(var1, 0.38, 0.73, 0.0, 1.0);
+         var4 = MathUtils.lerp(partialTicks, 0.38, 0.73, 0.0, 1.0);
       }
 
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
@@ -155,21 +155,21 @@ public class ConfigButtonOnClickGui extends UIBase {
       super.method13224();
       super.method13225();
       int var5 = 10;
-      int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F));
+      int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var5 / 2),
          (float)(this.yA + var5 / 2),
          (float)(this.widthA - var5),
          (float)(this.heightA - var5),
          35.0F,
-         var1
+              partialTicks
       );
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var5 / 2),
          (float)(this.yA + var5 / 2),
          (float)(this.xA - var5 / 2 + this.widthA),
          (float)(this.yA - var5 / 2 + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
       );
       RenderUtil.drawRoundedRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)var5, var6);
       float var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
@@ -183,15 +183,15 @@ public class ConfigButtonOnClickGui extends UIBase {
          (float)(this.xA + 25),
          (float)(this.yA + 20),
          "Profiles",
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
       );
       RenderUtil.drawRoundedRect(
          (float)(this.xA + 25),
          (float)(this.yA + 69),
          (float)(this.xA + this.widthA - 25),
          (float)(this.yA + 70),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

@@ -52,7 +52,7 @@ public class Class4355 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       RenderUtil.drawRoundedRect2(
          (float)this.xA,
          (float)this.yA,
@@ -93,8 +93,8 @@ public class Class4355 extends UIBase {
       );
       RenderUtil.drawCircle((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
       RenderUtil.drawRoundedRect(
-         (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, var1 * 0.2F * this.field21289.calcPercent()
+         (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, partialTicks * 0.2F * this.field21289.calcPercent()
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

@@ -44,7 +44,7 @@ public class Class4251 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       int var4 = 14;
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var4 / 2),
@@ -52,7 +52,7 @@ public class Class4251 extends UIBase {
          (float)(this.widthA - var4),
          (float)(this.heightA - var4),
          20.0F,
-         var1 * 0.9F
+         partialTicks * 0.9F
       );
       float var5 = 0.88F;
       if (!Client.getInstance().guiManager.getGuiBlur()) {
@@ -82,11 +82,11 @@ public class Class4251 extends UIBase {
       RenderUtil.method11477(Class2329.field15940);
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
-      this.field20615.draw(var1);
+      this.field20615.draw(partialTicks);
       GL11.glPopMatrix();
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
-      this.field20614.draw(var1);
+      this.field20614.draw(partialTicks);
       GL11.glPopMatrix();
       RenderUtil.restorePreviousStencilBuffer();
       RenderUtil.drawRoundedRect2(

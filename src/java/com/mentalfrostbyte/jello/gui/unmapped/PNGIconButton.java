@@ -42,8 +42,8 @@ public class PNGIconButton extends ButtonPanel {
     }
 
     @Override
-    public void draw(float var1) {
-        float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(var1 * this.field20584, 0.0F) : 1.5F) : 0.0F);
+    public void draw(float partialTicks) {
+        float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(partialTicks * this.field20584, 0.0F) : 1.5F) : 0.0F);
         RenderUtil.drawImage(
                 (float) this.getXA(),
                 (float) this.getYA(),
@@ -52,7 +52,7 @@ public class PNGIconButton extends ButtonPanel {
                 this.method13025(),
                 ColorUtils.applyAlpha(
                         ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
-                        (float) (this.textColor.method19405() >> 24 & 0xFF) / 255.0F * var1
+                        (float) (this.textColor.method19405() >> 24 & 0xFF) / 255.0F * partialTicks
                 )
         );
         if (this.getTypedText() != null) {
@@ -61,14 +61,14 @@ public class PNGIconButton extends ButtonPanel {
                     (float) (this.getXA() + this.getWidthA() / 2),
                     (float) (this.getYA() + this.getHeightA() / 2),
                     this.getTypedText(),
-                    ColorUtils.applyAlpha(this.textColor.getTextColor(), var1),
+                    ColorUtils.applyAlpha(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()
             );
         }
 
         GL11.glPushMatrix();
-        super.method13226(var1);
+        super.method13226(partialTicks);
         GL11.glPopMatrix();
     }
 }

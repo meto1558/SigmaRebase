@@ -10,7 +10,7 @@ public abstract class Screen
         super(null, var1, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight());
     }
 
-    public int method13313() {
+    public int getFPS() {
         return 30;
     }
 

@@ -53,7 +53,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13225();
       float var4 = EasingFunctions.easeOutBack(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       float var5 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
@@ -125,7 +125,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
             this.method13577();
             Resources.shoutIconPNG.bind();
             Resources.shoutIconPNG.bind();
-            super.draw(var1);
+            super.draw(partialTicks);
          }
       }
    }

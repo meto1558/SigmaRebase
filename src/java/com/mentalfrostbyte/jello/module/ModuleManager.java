@@ -106,7 +106,7 @@ public class ModuleManager {
         this.register(new AntiVanish());
         this.register(new Timer());
         this.register(new InteractRange());
-
+        this.register(new Disabler());
 
         // MISC
         this.register(new GamePlay());

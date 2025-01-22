@@ -24,7 +24,7 @@ public class PNGButtonChanging extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       RenderUtil.startScissor((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA);
       RenderUtil.drawImage(
          (float)(this.xA - this.field20607.field719 * this.widthA),
@@ -35,6 +35,6 @@ public class PNGButtonChanging extends UIBase {
          ColorUtils.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.35F)
       );
       RenderUtil.endScissor();
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

@@ -48,7 +48,7 @@ public class CreditsToCreators extends Screen {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       RenderUtil.drawRoundedRect2(
          0.0F,
          0.0F,

@@ -308,25 +308,25 @@ public class RenderUtil {
         drawString(res, var1, var2, string, var4, var5, var6, false);
     }
 
-    public static void drawString(TrueTypeFont font, float var1, float var2, String string, int color, Class2218 var5, Class2218 var6, boolean var7) {
+    public static void drawString(TrueTypeFont font, float x, float y, String text, int color, Class2218 var5, Class2218 var6, boolean var7) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
-        switch (Class7820.field33554[var5.ordinal()]) {
+        switch (var5.ordinal()) {
             case 1:
-                var10 = -font.getWidth(string) / 2;
+                var10 = -font.getWidth(text) / 2;
                 break;
             case 2:
-                var10 = -font.getWidth(string);
+                var10 = -font.getWidth(text);
         }
 
-        switch (Class7820.field33554[var6.ordinal()]) {
+        switch (var6.ordinal()) {
             case 1:
-                var11 = -font.getHeight(string) / 2;
+                var11 = -font.getHeight(text) / 2;
                 break;
             case 3:
-                var11 = -font.getHeight(string);
+                var11 = -font.getHeight(text);
         }
 
         float var12 = (float) (color >> 24 & 0xFF) / 255.0F;
@@ -357,12 +357,12 @@ public class RenderUtil {
             }
 
             if (!var16) {
-                float[] var17 = screenCoordinatesToOpenGLCoordinates((int) var1, (int) var2);
+                float[] var17 = screenCoordinatesToOpenGLCoordinates((int) x, (int) y);
                 int var18 = (int) var17[0];
                 int var19 = (int) var17[1];
-                GL11.glTranslatef(var1, var2, 0.0F);
+                GL11.glTranslatef(x, y, 0.0F);
                 GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
-                GL11.glTranslatef(-var1, -var2, 0.0F);
+                GL11.glTranslatef(-x, -y, 0.0F);
                 var10 = (int) ((float) var10 * GuiManager.scaleFactor);
                 var11 = (int) ((float) var11 * GuiManager.scaleFactor);
             }
@@ -371,11 +371,11 @@ public class RenderUtil {
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
         if (var7) {
-            font.drawString((float) Math.round(var1 + (float) var10), (float) (Math.round(var2 + (float) var11) + 2), string, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+            font.drawString((float) Math.round(x + (float) var10), (float) (Math.round(y + (float) var11) + 2), text, new Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
-        if (string != null) {
-            font.drawString((float) Math.round(var1 + (float) var10), (float) Math.round(var2 + (float) var11), string, new Color(var13, var14, var15, var12));
+        if (text != null) {
+            font.drawString((float) Math.round(x + (float) var10), (float) Math.round(y + (float) var11), text, new Color(var13, var14, var15, var12));
         }
 
         RenderSystem.disableBlend();
@@ -398,8 +398,8 @@ public class RenderUtil {
         drawCircle(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
     }
 
-    public static void drawString(TrueTypeFont font, float var1, float var2, String string, int color) {
-        drawString(font, var1, var2, string, color, Class2218.field14488, Class2218.field14489, false);
+    public static void drawString(TrueTypeFont font, float x, float y, String text, int color) {
+        drawString(font, x, y, text, color, Class2218.field14488, Class2218.field14489, false);
     }
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {

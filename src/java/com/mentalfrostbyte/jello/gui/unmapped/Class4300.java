@@ -22,7 +22,7 @@ public class Class4300 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.setFont(ResourceRegistry.DefaultClientFont);
       RenderUtil.drawRoundedRect(
          (float)this.xA,
@@ -48,6 +48,6 @@ public class Class4300 extends AnimatedIconPanelWrap {
          Class2218.field14492,
          Class2218.field14492
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

@@ -142,7 +142,7 @@ public class JelloMainMenuManager extends Screen {
     }
 
     @Override
-    public void draw(float deltaTime) {
+    public void draw(float partialTicks) {
         float transitionProgress = MathHelper.calculateTransition(this.field20972.calcPercent(), 0.0F, 1.0F, 1.0F);
         if (this.field20972.getDirection() == Direction.BACKWARDS) {
             transitionProgress = MathHelper.calculateBackwardTransition(this.field20972.calcPercent(), 0.0F, 1.0F, 1.0F);
@@ -201,7 +201,7 @@ public class JelloMainMenuManager extends Screen {
 
             for (CustomGuiScreen bubble : this.bubbles) {
                 GL11.glPushMatrix();
-                bubble.draw(deltaTime);
+                bubble.draw(partialTicks);
                 GL11.glPopMatrix();
             }
 
@@ -234,10 +234,10 @@ public class JelloMainMenuManager extends Screen {
                     GL11.glPushMatrix();
                     if (object instanceof ChangelogScreen) {
                         if (transitionProgress > 0.0F) {
-                            object.draw(deltaTime);
+                            object.draw(partialTicks);
                         }
                     } else {
-                        object.draw(deltaTime * (1.0F - transitionProgress));
+                        object.draw(partialTicks * (1.0F - transitionProgress));
                     }
 
                     GL11.glPopMatrix();
@@ -300,7 +300,7 @@ public class JelloMainMenuManager extends Screen {
                 alert.add(new MiniAlert(AlertType.HEADER, "Logout", 45));
                 alert.add(new MiniAlert(AlertType.FIRST_LINE, "Are you sure?", 35));
                 alert.add(new MiniAlert(AlertType.BUTTON, "Yes", 55));
-                this.method13233(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
+                this.showAlert(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
                 this.alertPanel.method13604(var1 -> new Thread(() -> {
                     this.runThisOnDimensionUpdate(() -> {
                         this.method13236(this.alertPanel);

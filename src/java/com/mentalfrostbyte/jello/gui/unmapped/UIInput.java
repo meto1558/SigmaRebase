@@ -326,7 +326,7 @@ public class UIInput extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13225();
       float var4 = 1000.0F;
       boolean var5 = !this.field20905 ? false : (float)this.field20756.getElapsedTime() > var4 / 2.0F;
@@ -349,7 +349,7 @@ public class UIInput extends AnimatedIconPanelWrap {
             (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2 + 2),
             var9 + (float)(var6.isEmpty() ? 1 : 0),
             (float)(this.yA + this.heightA / 2 + this.font.getHeight(var6) / 2 - 1),
-            ColorUtils.applyAlpha(this.textColor.getTextColor(), !var5 ? 0.1F * var1 : 0.8F)
+            ColorUtils.applyAlpha(this.textColor.getTextColor(), !var5 ? 0.1F * partialTicks : 0.8F)
          );
          float var10 = (float)(var7 + this.font.getWidth(var6.substring(0, this.field20749))) + this.field20747;
          if (var10 < (float)var7) {
@@ -372,7 +372,7 @@ public class UIInput extends AnimatedIconPanelWrap {
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
          var11,
          (float)(this.yA + this.heightA / 2 + this.font.getHeight(var6) / 2),
-         ColorUtils.applyAlpha(-5516546, var1)
+         ColorUtils.applyAlpha(-5516546, partialTicks)
       );
       Class2218 var12 = this.textColor.method19411();
       Class2218 var13 = this.textColor.method19413();
@@ -381,7 +381,7 @@ public class UIInput extends AnimatedIconPanelWrap {
          (float)var7 + this.field20746,
          (float)(this.yA + this.heightA / 2),
          var6.length() == 0 && (!this.field20905 || var6.length() <= 0) ? this.field20743 : var6,
-         ColorUtils.applyAlpha(this.textColor.getTextColor(), (this.field20744 / 2.0F + 0.4F) * var1 * (this.field20905 && var6.length() > 0 ? 1.0F : 0.5F)),
+         ColorUtils.applyAlpha(this.textColor.getTextColor(), (this.field20744 / 2.0F + 0.4F) * partialTicks * (this.field20905 && var6.length() > 0 ? 1.0F : 0.5F)),
          var12,
          var13
       );
@@ -392,11 +392,11 @@ public class UIInput extends AnimatedIconPanelWrap {
             (float)(this.yA + this.heightA - 2),
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
-                 ColorUtils.applyAlpha(this.textColor.method19405(), (this.field20744 / 2.0F + 0.5F) * var1)
+                 ColorUtils.applyAlpha(this.textColor.method19405(), (this.field20744 / 2.0F + 0.5F) * partialTicks)
          );
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public final void method13151(Class7902 var1) {

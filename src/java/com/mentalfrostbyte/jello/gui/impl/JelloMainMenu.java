@@ -180,7 +180,7 @@ public class JelloMainMenu extends CustomGuiScreen {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         this.method13224();
         Texture largeLogo = Resources.logoLargePNG;
         int imageWidth = largeLogo.getImageWidth();
@@ -195,9 +195,9 @@ public class JelloMainMenu extends CustomGuiScreen {
                 (float) imageWidth,
                 (float) imageHeight,
                 Resources.logoLargePNG,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
-        super.draw(var1);
+        super.draw(partialTicks);
     }
 
     @Override

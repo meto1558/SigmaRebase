@@ -72,7 +72,7 @@ public class LoginAndOutScreen extends Screen {
                 )
         );
         this.field21091.setEnabled(false);
-        this.field21088.addUIHandler(var1 -> {
+        this.field21088.onPress(var1 -> {
             this.field21092 = true;
             this.field21091.setEnabled(true);
         });
@@ -101,7 +101,7 @@ public class LoginAndOutScreen extends Screen {
                 }
 
                 var5.add(new MiniAlert(AlertType.BUTTON, "Ok", 55));
-                this.method13233(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new MiniAlert[0])));
+                this.showAlert(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new MiniAlert[0])));
                 this.field21090.method13604(var1xx -> new Thread(() -> this.runThisOnDimensionUpdate(() -> {
                     this.method13236(this.field21090);
                     this.field21090 = null;
@@ -112,7 +112,7 @@ public class LoginAndOutScreen extends Screen {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         Resources.cancelIconPNG.bind();
         this.field21085 = Math.max(0.0F, Math.min(this.field21085 + 0.075F, 1.0F));
         if (this.field21092) {

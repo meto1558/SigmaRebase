@@ -38,7 +38,7 @@ public class MovementAntiBot extends Class7249 {
          this.field31116.clear();
       }
 
-      for (PlayerEntity var5 : MultiUtilities.method17680()) {
+      for (PlayerEntity var5 : MultiUtilities.getPlayers()) {
          if (var5 != mc.player) {
             if (var5 == null
                || !MultiUtilities.isAboveBounds(var5, 0.01F)

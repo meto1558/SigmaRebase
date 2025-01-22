@@ -44,12 +44,13 @@ public class Coords extends Module {
         }
     }
 
-    @EventTarget @LowestPriority
+    @EventTarget
+    @LowestPriority
     public void onRender(EventRender eventRender) {
         if (this.isEnabled()) {
             if (mc.player != null) {
                 if (!(mc.gameSettings.showDebugInfo || mc.gameSettings.hideGUI)) {
-                    float var4 = Math.min(1.0F, 0.6F + this.animation.calcPercent() * 2.0F);
+                    float animation = Math.min(1.0F, 0.6F + this.animation.calcPercent() * 2.0F);
                     String xyz = String.format("%.2f", mc.player.getPosX())
                             + " "
                             + String.format("%.2f", mc.player.getPosY())
@@ -75,7 +76,7 @@ public class Coords extends Module {
                             var6,
                             (float) var7,
                             xyz,
-                            ColorUtils.applyAlpha(-16777216, 0.5F * var4),
+                            ColorUtils.applyAlpha(-16777216, 0.5F * animation),
                             Class2218.field14492,
                             Class2218.field14488
                     );
@@ -84,7 +85,7 @@ public class Coords extends Module {
                             var6,
                             (float) var7,
                             xyz,
-                            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F * var4),
+                            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F * animation),
                             Class2218.field14492,
                             Class2218.field14488
                     );

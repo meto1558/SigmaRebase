@@ -82,7 +82,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
     private SocketAddress socketAddress;
 
     /** The INetHandler instance responsible for processing received packets */
-    private INetHandler packetListener;
+    public INetHandler packetListener;
 
     /** A String indicating why the network has shutdown. */
     private ITextComponent terminationReason;
@@ -193,7 +193,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
         }
     }
 
-    private static <T extends INetHandler> void processPacket(IPacket<T> p_197664_0_, INetHandler p_197664_1_)
+    public static <T extends INetHandler> void processPacket(IPacket<T> p_197664_0_, INetHandler p_197664_1_)
     {
         p_197664_0_.processPacket((T)p_197664_1_);
     }
