@@ -34,7 +34,7 @@ public class Class1428 implements Runnable {
       }
 
       this.field7661
-         .method13233(
+         .showAlert(
             AltManagerScreen.method13383(
                this.field7664,
                new Class4339(

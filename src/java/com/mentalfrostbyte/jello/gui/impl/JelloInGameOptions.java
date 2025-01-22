@@ -41,7 +41,7 @@ public class JelloInGameOptions extends Screen {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       float var4 = 1.3F - EasingFunctions.easeOutBack(field21112.calcPercent(), 0.0F, 1.0F, 1.0F) * 0.3F;
       float var5 = 1.0F;
       if (field21112.getDirection() == Direction.BACKWARDS) {

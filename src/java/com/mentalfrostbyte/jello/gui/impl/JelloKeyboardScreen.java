@@ -38,7 +38,7 @@ public class JelloKeyboardScreen extends Screen {
       this.addToList(this.field20957 = new Class4270(this, "keyboard", (this.widthA - 1060) / 2, (this.heightA - 357) / 2));
       this.field20957.method13279(0.4F, 0.4F);
       this.field20957
-         .addUIHandler(
+         .onPress(
             var2 -> {
                boolean var5 = false;
 
@@ -56,7 +56,7 @@ public class JelloKeyboardScreen extends Screen {
                   this.field20956 = new Class4375(
                      this, "popover", this.field20957.getXA() + var8[0], this.field20957.getYA() + var8[1], this.field20957.field20696, var9
                   );
-                  this.field20956.addUIHandler(var1x -> this.method13329(this.field20957));
+                  this.field20956.onPress(var1x -> this.method13329(this.field20957));
                   this.field20956.method13713(var1x -> {
                      var1x.method13292(false);
                      this.method13331();
@@ -123,7 +123,7 @@ public class JelloKeyboardScreen extends Screen {
    }
 
    @Override
-   public int method13313() {
+   public int getFPS() {
       return 60;
    }
 
@@ -137,11 +137,11 @@ public class JelloKeyboardScreen extends Screen {
    }
 
    @Override
-   public void draw(float var1) {
-      var1 = (float)Math.min(200L, new Date().getTime() - this.field20955.getTime()) / 200.0F;
-      float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
+   public void draw(float partialTicks) {
+      partialTicks = (float)Math.min(200L, new Date().getTime() - this.field20955.getTime()) / 200.0F;
+      float var4 = EasingFunctions.easeOutBack(partialTicks, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
-      float var5 = 0.25F * var1;
+      float var5 = 0.25F * partialTicks;
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)this.yA,
@@ -157,7 +157,7 @@ public class JelloKeyboardScreen extends Screen {
          "Keybind Manager",
          ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    // $VF: synthetic method

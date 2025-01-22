@@ -88,7 +88,7 @@ public class Class4286 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       if (!this.method13157()) {
          if (this.field20775 != null) {
             this.field20775.release();
@@ -131,12 +131,12 @@ public class Class4286 extends AnimatedIconPanelWrap {
             (float)(this.getWidthA() - 30) + 10.0F * var4,
             (float)(this.getWidthA() - 30) + 10.0F * var4,
             20.0F,
-            var1
+                 partialTicks
          );
          if (this.field20775 == null && this.field20773 == null) {
-            RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * (1.0F - var4)));
+            RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
             if (this.field20776 != null) {
-               RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1));
+               RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
             }
          } else {
             if (this.field20775 == null) {
@@ -165,9 +165,9 @@ public class Class4286 extends AnimatedIconPanelWrap {
                this.field20776 = null;
             }
 
-            RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * (1.0F - var4)));
+            RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
             if (this.field20776 != null) {
-               RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1));
+               RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
             }
          }
 
@@ -183,7 +183,7 @@ public class Class4286 extends AnimatedIconPanelWrap {
             var9 * var10,
             var9 * var10,
             Resources.playIconPNG,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
          );
          TrueTypeFont var11 = ResourceRegistry.JelloLightFont12;
          if (this.typedText != null) {
@@ -195,14 +195,14 @@ public class Class4286 extends AnimatedIconPanelWrap {
                   (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[1])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2),
                   var12[1],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                );
                RenderUtil.drawString(
                   var11,
                   (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 13),
                   var12[0],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                );
             } else {
                RenderUtil.drawString(
@@ -210,7 +210,7 @@ public class Class4286 extends AnimatedIconPanelWrap {
                   (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 6),
                   var12[0],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                );
             }
 

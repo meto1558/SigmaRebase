@@ -102,12 +102,12 @@ public class Class4259 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       Minecraft var4 = Minecraft.getInstance();
       ChunkPos var5 = new ChunkPos(this.chunkPos.x, this.chunkPos.z);
       var5.x = (int)((double)var5.x - Math.floor((double)this.field20651));
       var5.z = (int)((double)var5.z - Math.floor((double)this.field20650));
-      if (var1 != 1.0F) {
+      if (partialTicks != 1.0F) {
          this.field20647.field20687 = true;
       }
 
@@ -182,7 +182,7 @@ public class Class4259 extends UIBase {
       this.field20657 = this.field20651;
       this.field20655 = this.field20649;
       this.field20658 = var5;
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public final void method13080(Class8041 var1) {

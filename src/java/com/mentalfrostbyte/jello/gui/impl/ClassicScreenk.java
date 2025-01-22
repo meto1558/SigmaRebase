@@ -54,7 +54,7 @@ public class ClassicScreenk extends Screen {
     }
 
     @Override
-    public int method13313() {
+    public int getFPS() {
         return Minecraft.getFps();
     }
 
@@ -78,7 +78,7 @@ public class ClassicScreenk extends Screen {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         float var4 = field21079.calcPercent();
         RenderUtil.drawRoundedRect(
                 (float) this.xA,
@@ -87,6 +87,6 @@ public class ClassicScreenk extends Screen {
                 (float) (this.yA + this.heightA),
                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var4 * 0.35F)
         );
-        super.draw(var1);
+        super.draw(partialTicks);
     }
 }

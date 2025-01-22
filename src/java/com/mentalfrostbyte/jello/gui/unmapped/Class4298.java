@@ -58,7 +58,7 @@ public class Class4298 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       if (this.account != null) {
          GL11.glEnable(2929);
          RenderHelper.enableStandardItemLighting();

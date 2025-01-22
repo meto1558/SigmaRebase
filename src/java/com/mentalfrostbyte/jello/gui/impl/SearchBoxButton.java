@@ -28,8 +28,8 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
     }
 
     @Override
-    public void draw(float var1) {
-        super.draw(var1);
+    public void draw(float partialTicks) {
+        super.draw(partialTicks);
     }
 
     @Override

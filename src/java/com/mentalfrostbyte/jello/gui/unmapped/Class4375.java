@@ -77,7 +77,7 @@ public class Class4375 extends UIBase {
          if (var7 == this.field21376) {
             Class4253 var8;
             this.addToList(var8 = new Class4253(this, var10.method21596(), 0, 20 + 55 * var3, this.widthA, 55, var10, var3++));
-            var8.addUIHandler(var2 -> {
+            var8.onPress(var2 -> {
                var10.method21598(0);
                this.callUIHandlers();
             });
@@ -109,27 +109,27 @@ public class Class4375 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
-      var1 = this.field21377.calcPercent();
-      float var4 = EasingFunctions.easeOutBack(var1, 0.0F, 1.0F, 1.0F);
+   public void draw(float partialTicks) {
+      partialTicks = this.field21377.calcPercent();
+      float var4 = EasingFunctions.easeOutBack(partialTicks, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
       this.method13284((int)((float)this.widthA * 0.2F * (1.0F - var4)) * (!this.field21378 ? 1 : -1));
       super.method13224();
-      int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F));
+      int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
       RenderUtil.drawRoundedRect(
          (float)(this.xA + 10 / 2),
          (float)(this.yA + 10 / 2),
          (float)(this.widthA - 10),
          (float)(this.heightA - 10),
          35.0F,
-         var1
+              partialTicks
       );
       RenderUtil.drawRoundedRect(
          (float)(this.xA + 10 / 2),
          (float)(this.yA + 10 / 2),
          (float)(this.xA - 10 / 2 + this.widthA),
          (float)(this.yA - 10 / 2 + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var1 * 0.25F)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
       );
       RenderUtil.drawRoundedRect((float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, (float)10, var6);
       GL11.glPushMatrix();
@@ -150,16 +150,16 @@ public class Class4375 extends UIBase {
          (float)(this.xA + 25),
          (float)(this.yA + 20),
          this.typedText + " Key",
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
       );
       RenderUtil.drawRoundedRect(
          (float)(this.xA + 25),
          (float)(this.yA + 68),
          (float)(this.xA + this.widthA - 25),
          (float)(this.yA + 69),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * var1)
+              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public final void method13713(Class6601 var1) {

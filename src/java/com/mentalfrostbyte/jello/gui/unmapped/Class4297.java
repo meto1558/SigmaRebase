@@ -24,7 +24,7 @@ public class Class4297 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       if (this.field20819.getElapsedTime() > 70L) {
          this.field20819.reset();
          this.field20818.method29728();
@@ -53,7 +53,7 @@ public class Class4297 extends AnimatedIconPanelWrap {
       }
 
       GL11.glPopMatrix();
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public int method13179() {

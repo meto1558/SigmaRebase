@@ -167,7 +167,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       if (this.animation.calcPercent() == 1.0F && !this.field21272) {
          this.field21272 = true;
          ConfigButtonOnClickGui var4 = (ConfigButtonOnClickGui)this.getParent().getParent().getParent();
@@ -177,7 +177,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
 
       float var8 = MathUtils.lerp(this.animation.calcPercent(), 0.1, 0.81, 0.14, 1.0);
       this.setHeightA(Math.round((1.0F - var8) * (float)this.field21271));
-      var1 *= 1.0F - this.animation.calcPercent();
+      partialTicks *= 1.0F - this.animation.calcPercent();
       float var5 = MathUtils.lerp(this.field21265.calcPercent(), 0.28, 1.26, 0.33, 1.04);
       if (this.field21265.getDirection().equals(Direction.BACKWARDS)) {
          var5 = MathHelper.calculateBackwardTransition(this.field21265.calcPercent(), 0.0F, 1.0F, 1.0F);
@@ -201,7 +201,7 @@ public class Class4351 extends AnimatedIconPanelWrap {
             (float)(this.xA + 20) - var5 * (float)this.widthA,
             (float)(this.yA + 18),
             this.currentConfig.getName,
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.9F * var1)
+                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.9F * partialTicks)
          );
       }
 
@@ -213,11 +213,11 @@ public class Class4351 extends AnimatedIconPanelWrap {
             17.0F,
             13.0F,
             Resources.activePNG,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - this.field21265.calcPercent()) * var1)
+                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - this.field21265.calcPercent()) * partialTicks)
          );
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
       RenderUtil.endScissor();
    }
 }

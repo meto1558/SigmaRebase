@@ -90,7 +90,7 @@ public class SwitchScreen extends Screen {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         if (CustomLoadingScreen.back != null) {
             field21069.changeDirection(Direction.FORWARDS);
             int var4 = 40;
@@ -113,7 +113,7 @@ public class SwitchScreen extends Screen {
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
             );
-            super.draw(var1);
+            super.draw(partialTicks);
             RenderUtil.drawImage(
                     0.0F,
                     0.0F,

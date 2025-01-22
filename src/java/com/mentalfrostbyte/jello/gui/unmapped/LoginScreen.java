@@ -86,11 +86,11 @@ public class LoginScreen extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       super.method13224();
       super.method13225();
       int var4 = 28;
-      RenderUtil.drawImage((float)(this.xA + var4), (float)(this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, var1);
+      RenderUtil.drawImage((float)(this.xA + var4), (float)(this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
       Class9507 var5 = Client.getInstance().networkManager.method30452();
       if (var5 != null) {
          this.field21355.setEnabled(var5.method36702());
@@ -107,7 +107,7 @@ public class LoginScreen extends UIBase {
          }
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    public void method13688() {

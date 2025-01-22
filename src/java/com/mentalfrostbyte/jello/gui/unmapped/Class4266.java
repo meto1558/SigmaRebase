@@ -67,7 +67,7 @@ public class Class4266 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       Iterator var4 = this.field20685.iterator();
 
       try {
@@ -90,7 +90,7 @@ public class Class4266 extends UIBase {
                (float)(this.widthA - 8 * 2),
                (float)(this.heightA - 8 * 2),
                20.0F,
-               var1 * 0.5F
+               partialTicks * 0.5F
             );
             RenderUtil.drawRoundedRect(
                (float)(this.xA + 8),
@@ -98,7 +98,7 @@ public class Class4266 extends UIBase {
                (float)(this.widthA - 8 * 2),
                (float)(this.heightA - 8 * 2),
                14.0F,
-               var1
+                    partialTicks
             );
             GL11.glPushMatrix();
             RenderUtil.initStencilBuffer();
@@ -158,6 +158,6 @@ public class Class4266 extends UIBase {
       } catch (IOException var10) {
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 }

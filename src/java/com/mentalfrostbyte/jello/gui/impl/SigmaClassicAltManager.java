@@ -140,9 +140,9 @@ public class SigmaClassicAltManager extends Screen {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13401();
-      super.draw(var1);
+      super.draw(partialTicks);
       RenderUtil.drawString(ResourceRegistry.DefaultClientFont, 20.0F, 20.0F, Minecraft.getInstance().getSession().getUsername(), -2236963);
       RenderUtil.drawString(
          ResourceRegistry.DefaultClientFont,
@@ -230,7 +230,7 @@ public class SigmaClassicAltManager extends Screen {
 
       int var7 = Minecraft.getInstance().getMainWindow().getWidth() - 200;
       int var8 = this.getWidthA() - var7;
-      this.method13233(this.field21055 = new Class4344(this, "alts", var8 / 2, 69, var7, Minecraft.getInstance().getMainWindow().getHeight() - 169));
+      this.showAlert(this.field21055 = new Class4344(this, "alts", var8 / 2, 69, var7, Minecraft.getInstance().getMainWindow().getHeight() - 169));
 
       for (Account var10 : var4) {
          this.method13395(var10);

@@ -56,8 +56,8 @@ public class Class4335 extends Class4333 {
    }
 
    @Override
-   public void draw(float var1) {
-      super.draw(var1);
+   public void draw(float partialTicks) {
+      super.draw(partialTicks);
       if (this.field21181 == null) {
          for (CustomGuiScreen var5 : this.getChildren()) {
             if (var5 instanceof Class4368 && this.field21149.calcPercent() == 1.0F && var5.method13114(this.getHeightO(), this.getWidthO())) {

@@ -37,7 +37,7 @@ public class Dropdown extends UIBase {
       Class4362 var5 = new Class4362(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
       this.field21331.put(var2, var5);
       var5.setEnabled(false);
-      var5.addUIHandler(var2x -> {
+      var5.onPress(var2x -> {
          this.method13656(var2);
          this.method13658(false);
          this.callUIHandlers();
@@ -157,13 +157,13 @@ public class Dropdown extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * this.animation.calcPercent())
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.animation.calcPercent())
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -171,7 +171,7 @@ public class Dropdown extends UIBase {
          (float)this.getWidthA(),
          (float)(this.getHeightA() + this.method13648() - 1),
          6.0F,
-         var1 * 0.1F * this.animation.calcPercent()
+         partialTicks * 0.1F * this.animation.calcPercent()
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -179,7 +179,7 @@ public class Dropdown extends UIBase {
          (float)this.getWidthA(),
          (float)(this.getHeightA() + this.method13648() - 1),
          20.0F,
-         var1 * 0.2F * this.animation.calcPercent()
+         partialTicks * 0.2F * this.animation.calcPercent()
       );
       if (this.getTypedText() != null) {
          RenderUtil.method11415(this);
@@ -196,7 +196,7 @@ public class Dropdown extends UIBase {
             (float)(this.getXA() + 10),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2 + 1),
             this.getTypedText() + var4,
-                 ColorUtils.applyAlpha(this.textColor.method19405(), var1 * 0.7F)
+                 ColorUtils.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F)
          );
          RenderUtil.endScissor();
       }
@@ -210,7 +210,7 @@ public class Dropdown extends UIBase {
 
       GL11.glPushMatrix();
       if (this.animation.calcPercent() > 0.0F) {
-         super.draw(var1);
+         super.draw(partialTicks);
       }
 
       GL11.glPopMatrix();
@@ -229,7 +229,7 @@ public class Dropdown extends UIBase {
          (float)(this.getXA() + var9 - 6),
          (float)(this.getYA() + var10 - 14),
          ">",
-              ColorUtils.applyAlpha(this.textColor.method19405(), var1 * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
+              ColorUtils.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
       );
    }
 

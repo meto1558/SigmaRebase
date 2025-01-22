@@ -49,7 +49,7 @@ public class Class4340 extends Class4339 {
             Class4251 var6x = (Class4251)this.getParent();
             var6x.field20614.method13077(var7.field21292.getX(), var7.field21292.getZ());
          });
-         var7.addUIHandler(
+         var7.onPress(
             var3x -> {
                Client.getInstance()
                   .waypointsManager
@@ -117,7 +117,7 @@ public class Class4340 extends Class4339 {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       float var4 = Math.min(1.0F, 0.21F * (60.0F / (float) Minecraft.getFps()));
 
       for (Class4355 var6 : this.field21209) {
@@ -133,7 +133,7 @@ public class Class4340 extends Class4339 {
          }
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
       int var8 = Math.round(QuadraticEasing.easeInQuad(1.0F - this.field21211.calcPercent(), 0.0F, 1.0F, 1.0F) * 30.0F);
       RenderUtil.drawImage(
          (float)(this.xA - var8 + 18),

@@ -47,7 +47,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       this.method13225();
       this.field21252 = (float)((double)this.field21252 + (this.field21254 ? 0.2 : -0.2));
       this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
@@ -119,7 +119,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
             );
          }
 
-         super.draw(var1);
+         super.draw(partialTicks);
       }
    }
 

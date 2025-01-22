@@ -28,16 +28,16 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
       UICheckBox var13;
       this.addToList(var13 = new UICheckBox(this, "guiBlurCheckBox", var5 / 2 - 70, var6 - 220, 25, 25));
       var13.method13705(Client.getInstance().guiManager.getGuiBlur(), false);
-      var13.addUIHandler(var1x -> Client.getInstance().guiManager.setGuiBlur(var13.method13703()));
+      var13.onPress(var1x -> Client.getInstance().guiManager.setGuiBlur(var13.method13703()));
       UICheckBox var14;
       this.addToList(var14 = new UICheckBox(this, "guiBlurIngameCheckBox", var5 / 2 + 130, var6 - 220, 25, 25));
       var14.method13705(Client.getInstance().guiManager.getHqIngameBlur(), false);
-      var14.addUIHandler(var1x -> Client.getInstance().guiManager.setHqIngameBlur(var14.method13703()));
+      var14.onPress(var1x -> Client.getInstance().guiManager.setHqIngameBlur(var14.method13703()));
    }
 
    @Override
-   public void draw(float var1) {
-      this.method13463(this.xA + (this.getWidthA() - 202) / 2, this.yA + 10, var1);
+   public void draw(float partialTicks) {
+      this.method13463(this.xA + (this.getWidthA() - 202) / 2, this.yA + 10, partialTicks);
       StringBuilder var10000 = new StringBuilder().append("You're currently using Sigma ");
       Client.getInstance();
       String var4 = var10000.append(Client.VERSION).toString();
@@ -46,7 +46,7 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          (float)(this.xA + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var4)) / 2),
          (float)(this.yA + 70),
          var4,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
       );
       String var5 = "Click GUI is currently bound to: "
          + RenderUtil.getKeyName(Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGui.class))
@@ -56,7 +56,7 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var5)) / 2),
          (float)(this.getYA() + this.getHeightA() - 180),
          var5,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * partialTicks)
       );
       String var6 = "Configure all your keybinds in the keybind manager!";
       RenderUtil.drawString(
@@ -64,7 +64,7 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont14.getWidth(var6)) / 2),
          (float)(this.getYA() + this.getHeightA() - 150),
          var6,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
       );
       String var7 = "GUI Blur: ";
       RenderUtil.drawString(
@@ -72,7 +72,7 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var7)) / 2 - 114),
          (float)(this.getYA() + this.getHeightA() - 221),
          var7,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * partialTicks)
       );
       String var8 = "GPU Accelerated: ";
       RenderUtil.drawString(
@@ -80,9 +80,9 @@ public class JelloOptionsMainMenu extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var8)) / 2 + 52),
          (float)(this.getYA() + this.getHeightA() - 221),
          var8,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * partialTicks)
       );
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    private void method13463(int var1, int var2, float var3) {

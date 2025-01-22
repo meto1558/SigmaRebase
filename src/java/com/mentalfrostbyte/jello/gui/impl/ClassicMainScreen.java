@@ -130,7 +130,7 @@ public class ClassicMainScreen extends Screen {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         int var4 = Math.round((1.0F - QuadraticEasing.easeOutQuad(this.field21100.calcPercent(), 0.0F, 1.0F, 1.0F)) * 5.0F);
         this.drawBackground(var4);
         this.method13225();
@@ -143,11 +143,11 @@ public class ClassicMainScreen extends Screen {
         RenderUtil.drawImage(-10.0F, -10.0F, (float) (this.getWidthA() + 20), (float) (this.getHeightA() + 20), Resources.mainmenubackground);
         GL11.glPopMatrix();
         this.field21103
-                .method13286(
+                .draw(
                         (int) ((float) (-this.getWidthA() / 40) + this.field21104 / 40.0F), (int) ((float) (-this.getHeightA() / 40) + this.field21105 / 40.0F) + var4
                 );
         this.field21102
-                .method13286((int) ((float) (-this.getWidthA() / 12) + this.field21104 / 12.0F), (int) ((float) (-this.getHeightA() / 12) + this.field21105 / 12.0F));
-        super.draw(var1);
+                .draw((int) ((float) (-this.getWidthA() / 12) + this.field21104 / 12.0F), (int) ((float) (-this.getHeightA() / 12) + this.field21105 / 12.0F));
+        super.draw(partialTicks);
     }
 }

@@ -62,7 +62,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       float var4 = !this.method13212() ? 0.0F : 0.1F;
       float var5 = this.method13030();
       if (this.field20578.getDirection() == Direction.BACKWARDS) {
@@ -81,7 +81,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
          var10[2] + (var11 * 2),
          var10[3] + (var11 * 2),
          Resources.shadowPNG,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * var1)
+              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * partialTicks)
       );
       RenderUtil.drawImage(
          (float)var8 + var10[0],
@@ -89,7 +89,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
          var10[2],
          var10[3],
          this.method13025(),
-         ColorUtils.applyAlpha(ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), var1)
+         ColorUtils.applyAlpha(ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
       );
       if (this.getTypedText() != null) {
          RenderUtil.drawString(
@@ -97,7 +97,7 @@ public class Class4236 extends PNGIconButton implements Class4238 {
             (float)(var8 + var6 / 2),
             (float)(var9 + var7 / 2),
             this.getTypedText(),
-                 ColorUtils.applyAlpha(this.textColor.getTextColor(), var1),
+                 ColorUtils.applyAlpha(this.textColor.getTextColor(), partialTicks),
             this.textColor.method19411(),
             this.textColor.method19413()
          );
@@ -119,19 +119,19 @@ public class Class4236 extends PNGIconButton implements Class4238 {
             (float)(font.getWidth(var14) * 2),
             (float)font.getHeight(var14) * 3.0F,
             Resources.shadowPNG,
-            var5 * 0.6F * var1
+            var5 * 0.6F * partialTicks
          );
          RenderUtil.drawString(
             font,
             (1.0F - var13) * (float)font.getWidth(var14) / 2.0F + 1.0F,
             40.0F,
             var14,
-                 ColorUtils.applyAlpha(this.getTextColor().method19405(), var5 * 0.6F * var1)
+                 ColorUtils.applyAlpha(this.getTextColor().method19405(), var5 * 0.6F * partialTicks)
          );
          GL11.glPopMatrix();
       }
 
-      super.method13226(var1);
+      super.method13226(partialTicks);
    }
 
    @Override

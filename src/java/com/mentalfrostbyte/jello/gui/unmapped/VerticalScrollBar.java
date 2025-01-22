@@ -77,10 +77,10 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
    }
 
    @Override
-   public void draw(float var1) {
-      var1 *= this.field20794;
+   public void draw(float partialTicks) {
+      partialTicks *= this.field20794;
       int var4 = 5;
-      int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F * var1);
+      int var5 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F * partialTicks);
       int var6 = this.xA;
       int var7 = this.widthA;
       if (Client.getInstance().clientMode != ClientMode.JELLO) {
@@ -92,15 +92,15 @@ public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class429
             (float)(this.yA + var4),
             (float)(var6 + var7),
             (float)(this.yA + this.heightA - var4),
-            ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.1F * var1)
+            ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.1F * partialTicks)
          );
       } else {
-         RenderUtil.drawImage((float)var6, (float)this.yA, (float)var7, 5.0F, Resources.verticalScrollBarTopPNG, 0.45F * var1);
-         RenderUtil.drawImage((float)var6, (float)(this.yA + this.heightA - var4), (float)var7, 5.0F, Resources.verticalScrollBarBottomPNG, 0.45F * var1);
+         RenderUtil.drawImage((float)var6, (float)this.yA, (float)var7, 5.0F, Resources.verticalScrollBarTopPNG, 0.45F * partialTicks);
+         RenderUtil.drawImage((float)var6, (float)(this.yA + this.heightA - var4), (float)var7, 5.0F, Resources.verticalScrollBarBottomPNG, 0.45F * partialTicks);
          RenderUtil.drawRoundedRect((float)var6, (float)(this.yA + var4), (float)(var6 + var7), (float)(this.yA + this.heightA - var4), var5);
       }
 
-      super.draw(var1);
+      super.draw(partialTicks);
    }
 
    @Override

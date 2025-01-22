@@ -103,7 +103,7 @@ public class Class4272 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       float var4 = MathUtils.lerp(this.field20703.calcPercent(), 0.1, 0.81, 0.14, 1.0);
       if (this.field20703.getDirection() == Direction.BACKWARDS) {
          var4 = MathUtils.lerp(this.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16);
@@ -117,11 +117,11 @@ public class Class4272 extends UIBase {
             (float)this.widthA,
             50.0F,
             Resources.shadowBottomPNG,
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * var1 * 0.3F)
+            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * partialTicks * 0.3F)
          );
          RenderUtil.method11415(this);
          RenderUtil.drawRoundedRect2(
-            (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, ColorUtils.applyAlpha(-723724, var1)
+            (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, ColorUtils.applyAlpha(-723724, partialTicks)
          );
          if (field20706 != null && Class8233.field35347 != null && Class8233.field35347.isEmpty()) {
             RenderUtil.drawString(
@@ -133,7 +133,7 @@ public class Class4272 extends UIBase {
             );
          }
 
-         super.draw(var1);
+         super.draw(partialTicks);
          RenderUtil.endScissor();
       }
    }

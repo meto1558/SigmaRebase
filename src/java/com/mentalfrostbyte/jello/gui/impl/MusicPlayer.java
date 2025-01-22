@@ -145,7 +145,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.pngButtons.addToList(this.volumeSlider = new VolumeSlider(this.pngButtons, "volume", this.getWidthA() - this.field20845 - 19, 14, 4, 40));
         PNGButtonChanging repeat;
         this.pngButtons.addToList(repeat = new PNGButtonChanging(this.pngButtons, "repeat", 14, 34, 27, 20, this.field20854.method24304()));
-        repeat.addUIHandler(var2x -> this.field20854.method24303(repeat.method13038()));
+        repeat.onPress(var2x -> this.field20854.method24303(repeat.method13038()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.field20845, this.getHeightA() - 5, this.getWidthA() - this.field20845, 5));
         this.field20867.method13292(true);
         this.field20867.method13300(false);
@@ -271,13 +271,13 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         super.method13224();
         super.method13225();
         this.field20865.setWidthA(this.getXA() + this.getWidthA() <= this.parent.getWidthA() ? 0 : 41);
         this.field20873
                 .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Direction.FORWARDS : Direction.BACKWARDS);
-        var1 *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
+        partialTicks *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
         if (this.field20854.method24319()) {
             this.play.setEnabled(false);
             this.pause.setEnabled(true);
@@ -291,37 +291,37 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
-                ColorUtils.applyAlpha(-14277082, var1 * 0.8F)
+                ColorUtils.applyAlpha(-14277082, partialTicks * 0.8F)
         );
         RenderUtil.drawRoundedRect(
                 (float) this.getXA(),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.field20845),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
-                ColorUtils.applyAlpha(-16777216, var1 * 0.95F)
+                ColorUtils.applyAlpha(-16777216, partialTicks * 0.95F)
         );
-        this.method13193(var1);
-        this.method13194(var1);
-        this.method13192(var1);
+        this.method13193(partialTicks);
+        this.method13194(partialTicks);
+        this.method13192(partialTicks);
         float var4 = 55;
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont40,
                 var4 + this.getXA(),
                 (float) (this.getYA() + 20),
                 "Jello",
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont20,
                 var4 + this.getXA() + 80,
                 (float) (this.getYA() + 40),
                 "music",
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
-        RenderUtil.drawRoundedRect((float) this.getXA(), (float) this.getYA(), (float) this.getWidthA(), (float) this.getHeightA(), 14.0F, var1);
-        super.draw(var1);
+        RenderUtil.drawRoundedRect((float) this.getXA(), (float) this.getYA(), (float) this.getWidthA(), (float) this.getHeightA(), 14.0F, partialTicks);
+        super.draw(partialTicks);
         if (this.field20852 != null) {
-            this.method13196(var1);
+            this.method13196(partialTicks);
         }
     }
 

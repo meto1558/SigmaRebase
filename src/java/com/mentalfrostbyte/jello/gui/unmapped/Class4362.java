@@ -69,13 +69,13 @@ public class Class4362 extends UIBase {
    }
 
    @Override
-   public void draw(float var1) {
+   public void draw(float partialTicks) {
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA() + this.method13635()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -83,7 +83,7 @@ public class Class4362 extends UIBase {
          (float)this.getWidthA(),
          (float)(this.getHeightA() + this.method13635() - 1),
          6.0F,
-         var1 * 0.1F
+         partialTicks * 0.1F
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -91,10 +91,10 @@ public class Class4362 extends UIBase {
          (float)this.getWidthA(),
          (float)(this.getHeightA() + this.method13635() - 1),
          20.0F,
-         var1 * 0.2F
+         partialTicks * 0.2F
       );
       GL11.glPushMatrix();
-      super.draw(var1);
+      super.draw(partialTicks);
       GL11.glPopMatrix();
    }
 

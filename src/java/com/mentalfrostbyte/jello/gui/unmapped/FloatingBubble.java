@@ -76,13 +76,13 @@ public class FloatingBubble extends CustomGuiScreen {
     }
 
     @Override
-    public void draw(float var1) {
+    public void draw(float partialTicks) {
         RenderUtil.drawFilledArc(
                 (float) this.xA,
                 (float) this.yA,
                 (float) this.getWidthA(),
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.07F + (!(this.field20934 > 0.0F) ? 0.0F : this.field20934 * 0.3F))
         );
-        super.draw(var1);
+        super.draw(partialTicks);
     }
 }
