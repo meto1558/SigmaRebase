@@ -389,7 +389,7 @@ public class MusicManager {
                             } catch (IOException exception) {
                                 if (exception.getMessage() != null && exception.getMessage().contains("403")) {
                                     System.out.println("installing");
-                                    this.download();
+                                    NetworkUtil.download(finished);
                                 }
                             } catch (LineUnavailableException lineException) {
                                 lineException.printStackTrace();
