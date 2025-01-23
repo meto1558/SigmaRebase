@@ -1,10 +1,13 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.DoThis;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.TrueTypeFont;
 import org.lwjgl.opengl.GL11;
@@ -18,9 +21,9 @@ public class PNGIconButton extends ButtonPanel {
         this.field20575 = var7;
     }
 
-    public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9) {
+    public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture texture, ColorHelper var8, String var9) {
         super(var1, var2, var3, var4, var5, var6, var8, var9);
-        this.field20575 = var7;
+        this.field20575 = texture;
     }
 
     public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8) {
@@ -43,6 +46,10 @@ public class PNGIconButton extends ButtonPanel {
 
     @Override
     public void draw(float partialTicks) {
+        if (this.field20575.equals(Resources.optionsPNG1) && Client.getInstance().notificationManager.isRenderingNotification()) {
+            return;
+        }
+
         float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(partialTicks * this.field20584, 0.0F) : 1.5F) : 0.0F);
         RenderUtil.drawImage(
                 (float) this.getXA(),

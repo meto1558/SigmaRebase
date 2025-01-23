@@ -262,7 +262,7 @@ public class JelloClickGUI extends Screen {
             alphaFactor *= 1.0F + var8 * 0.2F;
         }
 
-        if (Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig() != null) {
+        if (Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig() != null && !Client.getInstance().notificationManager.isRenderingNotification()) {
             String configName = Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig().getName;
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont20,
