@@ -19,8 +19,6 @@ import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinReg;
 import com.tagtraum.jipes.math.FFTFactory;
-import com.viaversion.viaversion.libs.gson.JsonObject;
-import com.viaversion.viaversion.libs.gson.JsonParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import net.sourceforge.jaad.aac.Decoder;
@@ -43,7 +41,6 @@ import javax.sound.sampled.*;
 import javax.sound.sampled.FloatControl.Type;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -54,22 +51,22 @@ public class MusicManager {
     private static final Minecraft mc = Minecraft.getInstance();
     public BufferedImage field32149;
     public String field32150 = "";
-    public List<double[]> field32163 = new ArrayList<>();
+    public List<double[]> visualizerData = new ArrayList<>();
     public ArrayList<Double> amplitudes = new ArrayList<>();
-    public SourceDataLine field32166;
-    private boolean field32144 = false;
-    private MusicVideoManager field32145;
+    public SourceDataLine sourceDataLine;
+    private boolean playing = false;
+    private MusicVideoManager videoManager;
     private int volume = 50;
-    private long field32147 = -1L;
+    private long duration = -1L;
     private Texture field32151;
     private BufferedImage field32152;
     private Texture field32153;
     private boolean field32154 = false;
-    private transient volatile Thread field32156 = null;
-    private int field32157;
-    private long field32158 = 0L;
-    private int field32159;
-    private YoutubeVideoData field32160;
+    private transient volatile Thread audioThread = null;
+    private int currentVideoIndex2;
+    private long totalDuration = 0L;
+    private int currentVideoIndex;
+    private YoutubeVideoData currentVideo;
     private boolean spectrum = true;
     private Class189 field32162 = Class189.field717;
     private boolean finished = false;
@@ -164,8 +161,8 @@ public class MusicManager {
     @EventTarget
     public void method24296(EventRender var1) {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
-            if (this.field32144 && this.field32163.size() != 0) {
-                double[] var4 = this.field32163.get(0);
+            if (this.playing && this.visualizerData.size() != 0) {
+                double[] var4 = this.visualizerData.get(0);
                 if (this.amplitudes.isEmpty()) {
                     for (double v : var4) {
                         if (this.amplitudes.size() < 1024) {
@@ -190,13 +187,13 @@ public class MusicManager {
 
     @EventTarget
     public void method24297(EventRender2D var1) {
-        if (this.field32144 && !this.field32163.isEmpty() && this.spectrum) {
+        if (this.playing && !this.visualizerData.isEmpty() && this.spectrum) {
             this.method24298();
         }
     }
 
     private void method24298() {
-        if (!this.field32163.isEmpty()) {
+        if (!this.visualizerData.isEmpty()) {
             if (this.field32151 != null) {
                 if (!this.amplitudes.isEmpty()) {
                     float var3 = 114.0F;
@@ -298,13 +295,13 @@ public class MusicManager {
 
     @EventTarget
     public void method24299(TickEvent var1) {
-        if (!this.field32144) {
-            this.field32163.clear();
+        if (!this.playing) {
+            this.visualizerData.clear();
             this.amplitudes.clear();
         }
 
         try {
-            if (this.field32154 && this.field32152 != null && this.field32149 != null && this.field32160 == null && !mc.isGamePaused()) {
+            if (this.field32154 && this.field32152 != null && this.field32149 != null && this.currentVideo == null && !mc.isGamePaused()) {
                 if (this.field32153 != null) {
                     this.field32153.release();
                 }
@@ -328,151 +325,150 @@ public class MusicManager {
     }
 
     private void method24301() {
-        if (this.field32160 != null) {
-            this.field32163.clear();
-            new Thread(() -> this.method24309(this.field32160)).start();
+        if (this.currentVideo != null) {
+            this.visualizerData.clear();
+            new Thread(() -> this.method24309(this.currentVideo)).start();
         }
     }
 
-    private void method24302() {
-        this.field32163.clear();
-        if (this.field32145 != null) {
-            while (this.field32156 != null && this.field32156.isAlive()) {
-                this.field32156.interrupt();
+    private void initializeAudioPlayback() {
+        this.visualizerData.clear();
+        if (this.videoManager != null) {
+            while (this.audioThread != null && this.audioThread.isAlive()) {
+                this.audioThread.interrupt();
             }
 
-            this.field32156 = new Thread(
+            this.audioThread = new Thread(
                     () -> {
-                        Object var3;
-                        if (this.field32159 < 0 || this.field32159 >= this.field32145.videoList.size()) {
-                            this.field32159 = 0;
+                        Object pcmBufferData;
+                        if (this.currentVideoIndex < 0 || this.currentVideoIndex >= this.videoManager.videoList.size()) {
+                            this.currentVideoIndex = 0;
                         }
 
-                        for (int var4 = this.field32159; var4 < this.field32145.videoList.size(); var4++) {
-                            URL var5 = Class9275.method34960(this.field32145.videoList.get(var4).videoId);
-                            Client.getInstance().getLogger().setThreadName(var5.toString());
-                            this.field32157 = var4;
-                            this.field32160 = this.field32145.videoList.get(var4);
-                            this.field32163.clear();
+                        for (int i = this.currentVideoIndex; i < this.videoManager.videoList.size(); i++) {
+                            URL videoURL = Class9275.getVideoStreamURL(this.videoManager.videoList.get(i).videoId);
+                            Client.getInstance().getLogger().setThreadName(videoURL.toString());
+                            this.currentVideoIndex2 = i;
+                            this.currentVideo = this.videoManager.videoList.get(i);
+                            this.visualizerData.clear();
 
-                            while (!this.field32144) {
-
-                                this.field32163.clear();
+                            // Wait until playback is allowed
+                            while (!this.playing) {
+                                this.visualizerData.clear();
                                 if (Thread.interrupted()) {
-                                    if (this.field32166 != null) {
-                                        this.field32166.close();
-                                    }
+                                    closeAudioLine();
                                     return;
                                 }
                             }
 
                             try {
-                                System.out.println(var5);
-                                URL var28 = this.method24323(var5);
-                                Client.getInstance().getLogger().setThreadName(var28 == null ? "No stream" : var28.toString());
-                                if (var28 != null) {
-                                    URLConnection connection = var28.openConnection();
+                                System.out.println(videoURL);
+                                URL audioStreamURL = this.resolveAudioStream(videoURL);
+                                Client.getInstance().getLogger().setThreadName(audioStreamURL == null ? "No stream" : audioStreamURL.toString());
+                                if (audioStreamURL != null) {
+                                    URLConnection connection = audioStreamURL.openConnection();
                                     connection.setConnectTimeout(14000);
                                     connection.setReadTimeout(14000);
                                     connection.setUseCaches(true);
                                     connection.setDoOutput(true);
                                     connection.setRequestProperty("Connection", "Keep-Alive");
                                     InputStream var8 = connection.getInputStream();
-                                    MusicStream var9 = new MusicStream(var8, new Class8808(this));
-                                    MP4Container mp4Container = new MP4Container(var9);
+                                    MusicStream stream = new MusicStream(var8, new Class8808(this));
+                                    MP4Container mp4Container = new MP4Container(stream);
                                     Movie movie = mp4Container.getMovie();
-                                    List<Track> var12 = movie.getTracks();
-                                    if (var12.isEmpty()) {
+                                    List<Track> tracks = movie.getTracks();
+                                    if (tracks.isEmpty()) {
                                         Client.getInstance().getLogger().setThreadName("No content");
                                     }
 
-                                    AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
-                                    AudioFormat var14 = new AudioFormat((float) var13.getSampleRate(), var13.getSampleSize(), var13.getChannelCount(), true, true);
-                                    this.field32166 = AudioSystem.getSourceDataLine(var14);
-                                    this.field32166.open();
-                                    this.field32166.start();
-                                    this.field32147 = (long) movie.getDuration();
-                                    if (this.field32147 > 1300L) {
-                                        var9.close();
+                                    AudioTrack audioTrack = (AudioTrack) movie.getTracks().get(1);
+                                    AudioFormat audioFormat = new AudioFormat((float) audioTrack.getSampleRate(), audioTrack.getSampleSize(), audioTrack.getChannelCount(), true, true);
+                                    this.sourceDataLine = AudioSystem.getSourceDataLine(audioFormat);
+                                    this.sourceDataLine.open();
+                                    this.sourceDataLine.start();
+                                    this.duration = (long) movie.getDuration();
+                                    if (this.duration > 1300L) {
+                                        stream.close();
                                         Client.getInstance().notificationManager.send(new Notification("Now Playing", "Music is too long."));
                                     }
 
-                                    Decoder var15 = new Decoder(var13.getDecoderSpecificInfo());
-                                    SampleBuffer var16 = new SampleBuffer();
+                                    Decoder decoder = new Decoder(audioTrack.getDecoderSpecificInfo());
+                                    SampleBuffer sampleBuffer = new SampleBuffer();
 
-                                    while (var13.hasMoreFrames()) {
-                                        while (!this.field32144) {
-                                            this.field32163.clear();
+                                    while (audioTrack.hasMoreFrames()) {
+                                        while (!this.playing) {
+                                            this.visualizerData.clear();
                                             if (Thread.interrupted()) {
-                                                this.field32166.close();
+                                                this.sourceDataLine.close();
                                                 return;
                                             }
                                         }
 
-                                        Frame var18 = var13.readNextFrame();
-                                        var15.decodeFrame(var18.getData(), var16);
-                                        var3 = var16.getData();
-                                        this.field32166.write((byte[]) var3, 0, ((byte[]) var3).length);
-                                        float[] var29 = method24305(var16.getData(), var14);
+                                        Frame nextFrame = audioTrack.readNextFrame();
+                                        decoder.decodeFrame(nextFrame.getData(), sampleBuffer);
+                                        pcmBufferData = sampleBuffer.getData();
+                                        this.sourceDataLine.write((byte[]) pcmBufferData, 0, ((byte[]) pcmBufferData).length);
+                                        float[] var29 = method24305(sampleBuffer.getData(), audioFormat);
                                         FFTFactory.JavaFFT var19 = new FFTFactory.JavaFFT(var29.length);
                                         float[][] var20 = var19.transform(var29);
                                         float[] var21 = var20[0];
                                         float[] var22 = var20[1];
-                                        this.field32163.add(method24306(var21, var22));
-                                        if (this.field32163.size() > 18) {
-                                            this.field32163.remove(0);
+
+                                        this.visualizerData.add(method24306(var21, var22));
+                                        if (this.visualizerData.size() > 18) {
+                                            this.visualizerData.remove(0);
                                         }
 
-                                        this.method24328(this.field32166, this.volume);
+                                        this.method24328(this.sourceDataLine, this.volume);
                                         if (!Thread.interrupted()) {
-                                            this.field32158 = Math.round(var13.getNextTimeStamp());
-                                            this.field32170 = var13.method23326();
+                                            this.totalDuration = Math.round(audioTrack.getNextTimeStamp());
+                                            this.field32170 = audioTrack.method23326();
                                             if (this.field32169) {
-                                                var13.seek(this.field32168);
-                                                this.field32158 = (long) this.field32168;
+                                                audioTrack.seek(this.field32168);
+                                                this.totalDuration = (long) this.field32168;
                                                 this.field32169 = false;
                                             }
                                         }
 
-                                        if (!var13.hasMoreFrames()
-                                                && (this.field32162 == Class189.field718 || this.field32162 == Class189.field717 && this.field32145.videoList.size() == 1)) {
-                                            var13.seek(0.0);
-                                            this.field32158 = 0L;
+                                        if (!audioTrack.hasMoreFrames()
+                                                && (this.field32162 == Class189.field718 || this.field32162 == Class189.field717 && this.videoManager.videoList.size() == 1)) {
+                                            audioTrack.seek(0.0);
+                                            this.totalDuration = 0L;
                                         }
 
                                         if (Thread.interrupted()) {
-                                            this.field32166.close();
+                                            this.sourceDataLine.close();
                                             return;
                                         }
                                     }
 
-                                    this.field32166.close();
-                                    var9.close();
+                                    this.sourceDataLine.close();
+                                    stream.close();
                                 }
-                            } catch (IOException var24) {
-                                if (var24.getMessage() != null && var24.getMessage().contains("403")) {
+                            } catch (IOException exception) {
+                                if (exception.getMessage() != null && exception.getMessage().contains("403")) {
                                     System.out.println("installing");
                                     this.download();
                                 }
-                            } catch (LineUnavailableException var25) {
-                                var25.printStackTrace();
+                            } catch (LineUnavailableException lineException) {
+                                lineException.printStackTrace();
                             }
 
                             if (this.field32162 == Class189.field718) {
-                                var4--;
-                            } else if (this.field32162 == Class189.field717 && var4 == this.field32145.videoList.size() - 1) {
-                                var4 = -1;
+                                i--;
+                            } else if (this.field32162 == Class189.field717 && i == this.videoManager.videoList.size() - 1) {
+                                i = -1;
                             } else if (this.field32162 == Class189.field716) {
                                 return;
                             }
 
-                            if (var4 >= this.field32145.videoList.size()) {
-                                var4 = 0;
+                            if (i >= this.videoManager.videoList.size()) {
+                                i = 0;
                             }
                         }
                     }
             );
-            this.field32156.start();
+            this.audioThread.start();
         }
     }
 
@@ -503,18 +499,18 @@ public class MusicManager {
                 this.field32149 = var4;
             }
 
-            this.field32160 = null;
+            this.currentVideo = null;
         } catch (IOException | NumberFormatException var5) {
             var5.printStackTrace();
         }
     }
 
     public void method24310(boolean var1) {
-        if (!var1 && this.field32166 != null) {
-            this.field32166.flush();
+        if (!var1 && this.sourceDataLine != null) {
+            this.sourceDataLine.flush();
         }
 
-        this.field32144 = var1;
+        this.playing = var1;
     }
 
     public void method24311(int var1) {
@@ -536,58 +532,56 @@ public class MusicManager {
     }
 
     public void method24315() {
-        if (this.field32145 != null) {
-            this.field32159 = this.field32157 - 1;
-            this.field32158 = 0L;
+        if (this.videoManager != null) {
+            this.currentVideoIndex = this.currentVideoIndex2 - 1;
+            this.totalDuration = 0L;
             this.field32170 = 0.0;
-            this.method24302();
+            this.initializeAudioPlayback();
         }
     }
 
     public void method24316() {
-        if (this.field32145 != null) {
-            this.field32159 = this.field32157 + 1;
-            this.field32158 = 0L;
+        if (this.videoManager != null) {
+            this.currentVideoIndex = this.currentVideoIndex2 + 1;
+            this.totalDuration = 0L;
             this.field32170 = 0.0;
-            this.method24302();
+            this.initializeAudioPlayback();
         }
     }
 
-    public void method24317(MusicVideoManager var1, YoutubeVideoData var2) {
-        
-
-        if (var1 == null) {
-            var1 = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
-            var1.videoList.add(var2);
+    public void playSong(MusicVideoManager manager, YoutubeVideoData video) {
+        if (manager == null) {
+            manager = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
+            manager.videoList.add(video);
         }
 
-        this.field32145 = var1;
-        this.field32144 = true;
-        this.field32158 = 0L;
+        this.videoManager = manager;
+        this.playing = true;
+        this.totalDuration = 0L;
         this.field32170 = 0.0;
 
-        for (int var5 = 0; var5 < var1.videoList.size(); var5++) {
-            if (var1.videoList.get(var5) == var2) {
-                this.field32159 = var5;
+        for (int i = 0; i < manager.videoList.size(); i++) {
+            if (manager.videoList.get(i) == video) {
+                this.currentVideoIndex = i;
             }
         }
 
-        this.method24302();
+        this.initializeAudioPlayback();
     }
 
     public boolean method24319() {
-        return this.field32144;
+        return this.playing;
     }
 
     public long method24321() {
-        return this.field32158;
+        return this.totalDuration;
     }
 
     public double method24322() {
         return this.field32170;
     }
 
-    public synchronized URL method24323(URL var1) {
+    public synchronized URL resolveAudioStream(URL var1) {
         String var4 = var1.toString();
         String var5 = System.getProperty("user.home");
         YoutubeDLRequest request = new YoutubeDLRequest(var4, var5);
@@ -635,7 +629,7 @@ public class MusicManager {
     }
 
     public int method24327() {
-        return (int) this.field32147;
+        return (int) this.duration;
     }
 
     private void method24328(SourceDataLine var1, int var2) {
@@ -654,7 +648,7 @@ public class MusicManager {
 
     public void method24329(double var1) {
         this.field32168 = var1;
-        this.field32158 = (long) this.field32168;
+        this.totalDuration = (long) this.field32168;
         this.field32169 = true;
     }
 

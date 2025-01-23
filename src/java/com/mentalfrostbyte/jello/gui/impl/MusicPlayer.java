@@ -23,8 +23,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class MusicPlayer extends AnimatedIconPanelWrap {
-    private int field20845 = 250;
-    private int field20846 = 40;
+    private int width = 250;
+    private int height = 40;
     private int field20847 = 64;
     private int field20848 = 94;
     private String field20849 = "Music Player";
@@ -73,10 +73,10 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.setHeightA(600);
         this.setXA(Math.abs(this.getXA()));
         this.setYA(Math.abs(this.getYA()));
-        this.addToList(this.musicTabs = new MusicTabs(this, "musictabs", 0, this.field20847 + 14, this.field20845, this.getHeightA() - 64 - this.field20848));
+        this.addToList(this.musicTabs = new MusicTabs(this, "musictabs", 0, this.field20847 + 14, this.width, this.getHeightA() - 64 - this.field20848));
         this.addToList(
                 this.musicControls = new MusicTabs(
-                        this, "musiccontrols", this.field20845, this.getHeightA() - this.field20848, this.getWidthA() - this.field20845, this.field20848
+                        this, "musiccontrols", this.width, this.getHeightA() - this.field20848, this.getWidthA() - this.width, this.field20848
                 )
         );
         this.addToList(this.field20865 = new CustomGuiScreen(this, "reShowView", 0, 0, 1, this.getHeightA()));
@@ -109,7 +109,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             threads.get(threads.size() - 1).start();
         }
 
-        int var15 = (this.getWidthA() - this.field20845 - 38) / 2;
+        int var15 = (this.getWidthA() - this.width - 38) / 2;
         this.musicControls
                 .addToList(
                         this.play = new PNGIconButton(
@@ -134,11 +134,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                                 this.musicControls, "backwards", var15 - 114, 23, 46, 46, Resources.backwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
-        this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.field20845 - 19, 14, 4, 40));
+        this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.width - 19, 14, 4, 40));
         PNGButtonChanging repeat;
         this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.method24304()));
         repeat.onPress(var2x -> this.musicManager.method24303(repeat.method13038()));
-        this.addToList(this.field20867 = new Class4359(this, "progress", this.field20845, this.getHeightA() - 5, this.getWidthA() - this.field20845, 5));
+        this.addToList(this.field20867 = new Class4359(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
         this.field20867.method13292(true);
         this.field20867.method13300(false);
         this.field20865.method13292(true);
@@ -157,7 +157,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.volumeSlider.setVolume(1.0F - (float) this.musicManager.method24314() / 100.0F);
         this.addToList(
                 this.searchBox = new SearchBoxButton(
-                        this, "search", this.field20845, 0, this.getWidthA() - this.field20845, this.getHeightA() - this.field20848, "Search..."
+                        this, "search", this.width, 0, this.getWidthA() - this.width, this.getHeightA() - this.field20848, "Search..."
                 )
         );
         this.searchBox.setEnabled(true);
@@ -176,8 +176,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20852.field21207 = 65;
     }
 
-    private void method13190(MusicVideoManager var1, YoutubeVideoData var2) {
-        this.musicManager.method24317(var1, var2);
+    private void playSong(MusicVideoManager manager, YoutubeVideoData video) {
+        this.musicManager.playSong(manager, video);
     }
 
     @Override
@@ -276,7 +276,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         }
 
         RenderUtil.drawRoundedRect(
-                (float) (this.getXA() + this.field20845),
+                (float) (this.getXA() + this.width),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
@@ -285,7 +285,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         RenderUtil.drawRoundedRect(
                 (float) this.getXA(),
                 (float) this.getYA(),
-                (float) (this.getXA() + this.field20845),
+                (float) (this.getXA() + this.width),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
                 ColorUtils.applyAlpha(-16777216, partialTicks * 0.95F)
         );
@@ -319,7 +319,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         int var5 = this.musicManager.method24327();
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
-                (float) (this.getXA() + this.field20845 + 14),
+                (float) (this.getXA() + this.width + 14),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
                 Class9275.method34955(var4),
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
@@ -355,12 +355,12 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             RenderUtil.drawRoundedRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - 5),
-                    (float) (this.getXA() + this.field20845),
+                    (float) (this.getXA() + this.width),
                     (float) (this.getYA() + this.getHeightA()),
                     ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
             RenderUtil.drawImage(
-                    (float) (this.getXA() + (this.field20845 - 114) / 2),
+                    (float) (this.getXA() + (this.width - 114) / 2),
                     (float) (this.getYA() + this.getHeightA() - 170),
                     114.0F,
                     114.0F,
@@ -368,7 +368,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
             );
             RenderUtil.drawRoundedRect(
-                    (float) (this.getXA() + (this.field20845 - 114) / 2), (float) (this.getYA() + this.getHeightA() - 170), 114.0F, 114.0F, 14.0F, var1
+                    (float) (this.getXA() + (this.width - 114) / 2), (float) (this.getYA() + this.getHeightA() - 170), 114.0F, 114.0F, 14.0F, var1
             );
         } else {
             RenderUtil.drawImage(
@@ -389,12 +389,12 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             RenderUtil.drawRoundedRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - 5),
-                    (float) (this.getXA() + this.field20845),
+                    (float) (this.getXA() + this.width),
                     (float) (this.getYA() + this.getHeightA()),
                     ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
             RenderUtil.drawImage(
-                    (float) (this.getXA() + (this.field20845 - 114) / 2),
+                    (float) (this.getXA() + (this.width - 114) / 2),
                     (float) (this.getYA() + this.getHeightA() - 170),
                     114.0F,
                     114.0F,
@@ -402,7 +402,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
             );
             RenderUtil.drawRoundedRect(
-                    (float) (this.getXA() + (this.field20845 - 114) / 2), (float) (this.getYA() + this.getHeightA() - 170), 114.0F, 114.0F, 14.0F, var1
+                    (float) (this.getXA() + (this.width - 114) / 2), (float) (this.getYA() + this.getHeightA() - 170), 114.0F, 114.0F, 14.0F, var1
             );
         }
     }
@@ -412,10 +412,10 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             String[] var4 = this.musicManager.method24324().split(" - ");
             int var5 = 30;
             if (var4.length <= 1) {
-                this.drawString(var1, !var4[0].isEmpty() ? var4[0] : "Jello Music", this.field20845 - var5 * 2, 12, 0);
+                this.drawString(var1, !var4[0].isEmpty() ? var4[0] : "Jello Music", this.width - var5 * 2, 12, 0);
             } else {
-                this.drawString(var1, var4[1], this.field20845 - var5 * 2, 0, 0);
-                this.drawString(var1, var4[0], this.field20845 - var5 * 2, 20, -1000);
+                this.drawString(var1, var4[1], this.width - var5 * 2, 0, 0);
+                this.drawString(var1, var4[0], this.width - var5 * 2, 20, -1000);
             }
         }
     }
@@ -434,7 +434,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         int var10 = ResourceRegistry.JelloLightFont14.getWidth(text);
         int var11 = Math.min(var3, var10);
         int var12 = ResourceRegistry.JelloLightFont14.getHeight();
-        int var13 = this.getXA() + (this.field20845 - var11) / 2;
+        int var13 = this.getXA() + (this.width - var11) / 2;
         int var14 = this.getYA() + this.getHeightA() - 50 + var4;
         int var15 = Math.max(0, var10 - var11) * 2;
         if (var10 <= var3) {
@@ -472,7 +472,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
 
                 this.texture = BufferedImageUtil.getTexture(
                         "blur",
-                        ImageUtil.method35037(this.getXA() + this.field20845, this.getYA(), this.getWidthA() - this.field20845, this.field20847, 10, 10)
+                        ImageUtil.method35037(this.getXA() + this.width, this.getYA(), this.getWidthA() - this.width, this.field20847, 10, 10)
                 );
             } catch (IOException var5) {
                 var5.printStackTrace();
@@ -482,9 +482,9 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         float var4 = this.field20863 < 50 ? (float) this.field20863 / 50.0F : 1.0F;
         if (this.texture != null) {
             RenderUtil.drawTexture(
-                    (float) this.field20845,
+                    (float) this.width,
                     0.0F,
-                    (float) (this.getWidthA() - this.field20845),
+                    (float) (this.getWidthA() - this.width),
                     (float) this.field20847,
                     this.texture,
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
@@ -492,7 +492,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         }
 
         RenderUtil.drawRoundedRect(
-                (float) this.field20845,
+                (float) this.width,
                 0.0F,
                 (float) this.getWidthA(),
                 (float) this.field20847,
@@ -500,22 +500,22 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont25,
-                (float) ((this.getWidthA() - ResourceRegistry.JelloLightFont25.getWidth(this.field20849) + this.field20845) / 2),
+                (float) ((this.getWidthA() - ResourceRegistry.JelloLightFont25.getWidth(this.field20849) + this.width) / 2),
                 16.0F + (1.0F - var4) * 14.0F,
                 this.field20849,
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloMediumFont25,
-                (float) ((this.getWidthA() - ResourceRegistry.JelloMediumFont25.getWidth(this.field20849) + this.field20845) / 2),
+                (float) ((this.getWidthA() - ResourceRegistry.JelloMediumFont25.getWidth(this.field20849) + this.width) / 2),
                 16.0F + (1.0F - var4) * 14.0F,
                 this.field20849,
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - var4)
         );
         RenderUtil.drawImage(
-                (float) this.field20845,
+                (float) this.width,
                 (float) this.field20847,
-                (float) (this.getWidthA() - this.field20845),
+                (float) (this.getWidthA() - this.width),
                 20.0F,
                 Resources.shadowBottomPNG,
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1 * 0.5F)
@@ -523,33 +523,27 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20863 = this.field20852.method13513();
     }
 
-    // $VF: synthetic method
-    public static MusicTabs addTab(MusicPlayer var0) {
-        return var0.musicTabs;
+    public static MusicTabs getTabs(MusicPlayer player) {
+        return player.musicTabs;
     }
 
-    // $VF: synthetic method
-    public static int getHeight(MusicPlayer var0) {
-        return var0.field20846;
+    public static int getHeight(MusicPlayer player) {
+        return player.height;
     }
 
-    // $VF: synthetic method
-    public static int getWidth(MusicPlayer var0) {
-        return var0.field20845;
+    public static int getWidth(MusicPlayer player) {
+        return player.width;
     }
 
-    // $VF: synthetic method
-    public static int method13209(MusicPlayer var0) {
-        return var0.field20848;
+    public static int method13209(MusicPlayer player) {
+        return player.field20848;
     }
 
-    // $VF: synthetic method
-    public static void method13210(MusicPlayer var0, MusicTabs var1) {
-        var0.method13189(var1);
+    public static void method13210(MusicPlayer player, MusicTabs tabs) {
+        player.method13189(tabs);
     }
 
-    // $VF: synthetic method
-    public static void playSong(MusicPlayer var0, MusicVideoManager var1, YoutubeVideoData var2) {
-        var0.method13190(var1, var2);
+    public static void playSong(MusicPlayer player, MusicVideoManager videoManager, YoutubeVideoData video) {
+        player.playSong(videoManager, video);
     }
 }
