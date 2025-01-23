@@ -3,12 +3,11 @@ package com.mentalfrostbyte.jello.util.render;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
+import com.mentalfrostbyte.jello.managers.impl.music.StencilMode;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.unmapped.Class7820;
-import com.mentalfrostbyte.jello.misc.*;
 import org.newdawn.slick.opengl.TextureImpl;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.newdawn.slick.TrueTypeFont;
@@ -36,7 +35,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Stack;
 
-import static com.mentalfrostbyte.jello.module.Module.mc;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 
 public class RenderUtil {
@@ -1016,11 +1014,11 @@ public class RenderUtil {
         stencilOpInProgress = false;
     }
 
-    public static void method11477(Class2329 var0) {
+    public static void configureStencilTest(StencilMode mode) {
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(true);
         GL11.glStencilMask(0);
-        GL11.glStencilFunc(var0 != Class2329.field15940 ? GL11.GL_NOTEQUAL : GL11.GL_EQUAL, 1, 1);
+        GL11.glStencilFunc(mode != StencilMode.NOTEQUAL ? GL11.GL_NOTEQUAL : GL11.GL_EQUAL, 1, 1);
     }
 
     public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int color, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {

@@ -58,23 +58,23 @@ public class ImageUtil {
         }
     }
 
-    public static BufferedImage method35032(BufferedImage var0, int var1) {
-        if (var0 != null) {
-            if (var0.getWidth() > var1 + var1) {
-                if (var0.getHeight() > var1 + var1) {
-                    ConvolveOp var4 = new ConvolveOp(createGaussianKernel((float) var1));
-                    BufferedImage var5 = var4.filter(var0, null);
+    public static BufferedImage applyBlur(BufferedImage image, int amount) {
+        if (image != null) {
+            if (image.getWidth() > amount + amount) {
+                if (image.getHeight() > amount + amount) {
+                    ConvolveOp var4 = new ConvolveOp(createGaussianKernel((float) amount));
+                    BufferedImage var5 = var4.filter(image, null);
                     var5 = var4.filter(applyEdgeWrap(var5), null);
                     var5 = applyEdgeWrap(var5);
-                    return var5.getSubimage(var1, var1, var0.getWidth() - var1 - var1, var0.getHeight() - var1 - var1);
+                    return var5.getSubimage(amount, amount, image.getWidth() - amount - amount, image.getHeight() - amount - amount);
                 } else {
-                    return var0;
+                    return image;
                 }
             } else {
-                return var0;
+                return image;
             }
         } else {
-            return var0;
+            return image;
         }
     }
 
@@ -226,7 +226,7 @@ public class ImageUtil {
         if (var5 <= 1) {
             return var12;
         } else {
-            return !var7 ? method35032(method35040(var12, var5, var6), var5) : method35032(method35041(var12, var5), var5);
+            return !var7 ? applyBlur(method35040(var12, var5, var6), var5) : applyBlur(method35041(var12, var5), var5);
         }
     }
 

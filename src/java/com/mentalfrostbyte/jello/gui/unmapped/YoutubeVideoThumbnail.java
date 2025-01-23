@@ -157,7 +157,7 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
                      this.field20776.release();
                   }
 
-                  this.field20776 = BufferedImageUtil.getTexture("picture", ImageUtil.method35032(this.field20773, 14));
+                  this.field20776 = BufferedImageUtil.getTexture("picture", ImageUtil.applyBlur(this.field20773, 14));
                } catch (IOException var13) {
                   var13.printStackTrace();
                }
