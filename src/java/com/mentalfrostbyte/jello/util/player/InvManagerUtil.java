@@ -29,6 +29,9 @@ public class InvManagerUtil {
     public static void method25871(int var0) {
         mc.playerController.windowClick(mc.player.container.windowId, var0, 1, ClickType.THROW, mc.player);
     }
+    public static boolean method25859(ItemStack var0) {
+        return var0 != null ? var0.getItem() instanceof PotionItem : false;
+    }
 
     public static int findBestToolFromHotbarSlotForBlock(BlockState state) {
         int slot = -1;
