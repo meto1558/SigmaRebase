@@ -24,7 +24,7 @@ public class AlertPanel extends UIBase {
    public boolean field21283;
    public int field21284 = 240;
    public int field21285 = 0;
-   private Map<String, String> field21286;
+   private Map<String, String> inputMap;
    private final List<Class9448> field21287 = new ArrayList<>();
 
    public AlertPanel(CustomGuiScreen screen, String iconName, boolean var3, String name, MiniAlert... var5) {
@@ -180,12 +180,12 @@ public class AlertPanel extends UIBase {
       return var3;
    }
 
-   public Map<String, String> method13600() {
-      return this.field21286;
+   public Map<String, String> getInputMap() {
+      return this.inputMap;
    }
 
    public void method13601() {
-      this.field21286 = this.method13599();
+      this.inputMap = this.method13599();
       this.method13603(false);
       this.callUIHandlers();
    }
