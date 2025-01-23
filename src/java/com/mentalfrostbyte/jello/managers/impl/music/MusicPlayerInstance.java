@@ -54,7 +54,7 @@ public class MusicPlayerInstance implements Runnable {
                     );
             queue.method13514(true);
             queue.setEnabled(false);
-            queue.method13300(false);
+            queue.setListening(false);
             if (this.thumbnail.videoList != null) {
                 for (int i = 0; i < this.thumbnail.videoList.size(); i++) {
                     YoutubeVideoData song = this.thumbnail.videoList.get(i);
