@@ -43,7 +43,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public boolean field20907;
     public boolean field20908;
     public boolean field20909;
-    public boolean field20910;
+    public boolean listening;
     public boolean field20911;
     public String typedText;
     public TrueTypeFont font;
@@ -95,7 +95,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.font = font;
         this.field20903 = true;
         this.field20904 = true;
-        this.field20910 = true;
+        this.listening = true;
         this.field20911 = false;
     }
 
@@ -495,7 +495,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public JSONObject toConfigWithExtra(JSONObject config) {
-        if (this.method13299()) {
+        if (this.isListening()) {
             config.put("id", this.getName());
             config.put("x", this.getXA());
             config.put("y", this.getYA());
@@ -515,7 +515,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         JSONArray children = new JSONArray();
 
         for (CustomGuiScreen child : this.children) {
-            if (child.method13299()) {
+            if (child.isListening()) {
                 JSONObject var7 = child.toConfigWithExtra(new JSONObject());
                 if (var7.length() > 0) {
                     children.put(var7);
@@ -528,7 +528,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public void loadConfig(JSONObject config) {
-        if (this.method13299()) {
+        if (this.isListening()) {
             this.xA = CJsonUtils.getIntOrDefault(config, "x", this.xA);
             this.yA = CJsonUtils.getIntOrDefault(config, "y", this.yA);
             if (this.method13301()) {
@@ -793,12 +793,12 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this.field20909;
     }
 
-    public boolean method13299() {
-        return this.field20910;
+    public boolean isListening() {
+        return this.listening;
     }
 
-    public void method13300(boolean var1) {
-        this.field20910 = var1;
+    public void setListening(boolean listening) {
+        this.listening = listening;
     }
 
     public boolean method13301() {

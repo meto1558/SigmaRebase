@@ -67,7 +67,7 @@ public class JelloClickGUI extends Screen {
         this.addToList(moreButton = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
 
         moreButton.getTextColor().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
-        moreButton.method13300(false);
+        moreButton.setListening(false);
 
         this.musicPlayer.setEnabled(true);
         moreButton.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {

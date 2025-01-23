@@ -30,7 +30,7 @@ public class Class4270 extends UIBase {
          });
       }
 
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override

@@ -34,7 +34,7 @@ public class JelloMainMenu extends CustomGuiScreen {
 
     public JelloMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
         super(var1, var2, var3, var4, var5, var6);
-        this.method13300(false);
+        this.setListening(false);
         TrueTypeFont var15 = ResourceRegistry.JelloLightFont20;
         int var17 = 0;
         int var18 = 80;

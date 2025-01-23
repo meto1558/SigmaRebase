@@ -100,7 +100,7 @@ public class Class4358 extends UIBase {
       }
 
       this.field21302 = new Animation(200, 120);
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override

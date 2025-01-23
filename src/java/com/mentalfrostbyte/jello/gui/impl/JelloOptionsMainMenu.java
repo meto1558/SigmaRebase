@@ -13,7 +13,7 @@ import net.minecraft.util.text.StringTextComponent;
 public class JelloOptionsMainMenu extends CustomGuiScreen {
    public JelloOptionsMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
-      this.method13300(false);
+      this.setListening(false);
       ColorHelper var9 = ColorHelper.field27961.method19415();
       var9.method19406(ClientColors.LIGHT_GREYISH_BLUE.getColor());
       UIButton var10;

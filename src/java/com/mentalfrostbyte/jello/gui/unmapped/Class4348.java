@@ -70,7 +70,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
                if (var6 != null) {
                   this.field21245 = BufferedImageUtil.getTexture("servericon", var6);
                   this.field21246 = BufferedImageUtil.getTexture(
-                     "servericon", ImageUtil.method35032(ImageUtil.method35042(method13579(var6, 2.5, 2.5), 0.0F, 1.1F, 0.0F), 25)
+                     "servericon", ImageUtil.applyBlur(ImageUtil.method35042(method13579(var6, 2.5, 2.5), 0.0F, 1.1F, 0.0F), 25)
                   );
                }
             } catch (IOException var8) {

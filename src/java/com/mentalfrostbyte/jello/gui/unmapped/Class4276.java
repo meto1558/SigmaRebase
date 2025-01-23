@@ -41,7 +41,7 @@ public class Class4276 extends UIBase {
 
       this.field20724 = new Date();
       this.method13292(true);
-      this.method13300(false);
+      this.setListening(false);
       UIButton var8;
       this.addToList(
          var8 = new UIButton(

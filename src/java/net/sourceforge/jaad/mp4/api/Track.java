@@ -24,7 +24,6 @@ import net.sourceforge.jaad.mp4.boxes.impl.DecodingTimeToSampleBox;
 import net.sourceforge.jaad.mp4.boxes.impl.TrackHeaderBox;
 import net.sourceforge.jaad.mp4.od.DecoderSpecificInfo;
 import net.sourceforge.jaad.mp4.boxes.impl.ESDBox;
-import net.sourceforge.jaad.mp4.boxes.impl.sampleentries.SampleEntry;
 import net.sourceforge.jaad.mp4.od.Descriptor;
 
 /**
@@ -377,17 +376,17 @@ public abstract class Track {
 
 	public double method23326() {
 		double var3 = 0.0;
-		Object var5;
+		Frame frame;
 
 		for (int var6 = 0; var6 < this.frames.size(); var6++) {
-			var5 = this.frames.get(var6++);
+			frame = this.frames.get(var6++);
 
 			try {
-				if (((Frame)var5).getOffset() <= this.in.getOffset() + this.in.method31872()) {
-					var3 = Math.max(((Frame)var5).getTime(), var3);
+				if (frame.getOffset() <= this.in.getOffset() + this.in.getAvailable()) {
+					var3 = Math.max(frame.getTime(), var3);
 				}
-			} catch (IOException var8) {
-				var8.printStackTrace();
+			} catch (IOException exception) {
+				exception.printStackTrace();
 			}
 		}
 

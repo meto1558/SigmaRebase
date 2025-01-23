@@ -23,7 +23,7 @@ public class ChangelogScreen extends CustomGuiScreen {
 
    public ChangelogScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
-      this.method13300(false);
+      this.setListening(false);
       this.field21184 = new MusicTabs(this, "scroll", 100, 200, var5 - 200, var6 - 200);
       this.field21184.method13518(true);
       this.showAlert(this.field21184);

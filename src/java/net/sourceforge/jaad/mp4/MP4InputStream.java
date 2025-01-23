@@ -440,10 +440,10 @@ public class MP4InputStream {
 		return l;
 	}
 
-	public long method31872() {
+	public long getAvailable() {
 		if (this.in != null) {
 			try {
-				return (long)this.in.available();
+				return this.in.available();
 			} catch (IOException var4) {
 				var4.printStackTrace();
 			}

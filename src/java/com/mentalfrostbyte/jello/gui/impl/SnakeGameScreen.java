@@ -21,7 +21,7 @@ public class SnakeGameScreen extends Screen {
 
    public SnakeGameScreen() {
       super("SnakeGameScreen");
-      this.method13300(false);
+      this.setListening(false);
       this.field21045.start();
       this.field21047 = new Animation(200, 0);
       ColorUtils.blur();

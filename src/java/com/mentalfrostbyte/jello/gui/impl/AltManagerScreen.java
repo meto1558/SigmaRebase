@@ -46,7 +46,7 @@ public class AltManagerScreen extends Screen {
 
    public AltManagerScreen() {
       super("Alt Manager");
-      this.method13300(false);
+      this.setListening(false);
       ArrayList<String> sortingOptions = new ArrayList<>();
       sortingOptions.add("Alphabetical");
       sortingOptions.add("Bans");
@@ -87,8 +87,8 @@ public class AltManagerScreen extends Screen {
             Minecraft.getInstance().getMainWindow().getHeight() - 119 - this.field21016
          )
       );
-      this.field21010.method13300(false);
-      this.field21011.method13300(false);
+      this.field21010.setListening(false);
+      this.field21011.setListening(false);
       this.field21010.method13515(false);
       this.field21011
          .addToList(

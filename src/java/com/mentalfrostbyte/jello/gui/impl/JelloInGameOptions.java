@@ -20,7 +20,7 @@ public class JelloInGameOptions extends Screen {
       super("options");
 
 
-      this.method13300(false);
+      this.setListening(false);
       int var3 = Math.max((int)((float)this.heightA * 0.8F), 420);
       int var4 = (int)((float)this.widthA * 0.8F);
       this.addToList(

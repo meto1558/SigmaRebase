@@ -36,7 +36,7 @@ public class ModuleSettingUI extends UIBase {
       );
       this.animation1 = new Animation(200, 120);
       this.animation = new Animation(240, 200);
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override

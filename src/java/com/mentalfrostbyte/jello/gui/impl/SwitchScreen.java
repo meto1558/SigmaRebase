@@ -27,7 +27,7 @@ public class SwitchScreen extends Screen {
 
     public SwitchScreen() {
         super("Switch");
-        this.method13300(false);
+        this.setListening(false);
         int var3 = 537;
         int var4 = 264;
         int var5 = 93;

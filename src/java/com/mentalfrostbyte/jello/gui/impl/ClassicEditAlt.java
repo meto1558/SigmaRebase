@@ -24,7 +24,7 @@ public class ClassicEditAlt extends Screen {
    public ClassicEditAlt(Account var1) {
       super("Alt Manager");
 
-      this.method13300(false);
+      this.setListening(false);
       int var4 = 400;
       int var5 = 114;
       int var6 = (this.getWidthA() - var4) / 2;

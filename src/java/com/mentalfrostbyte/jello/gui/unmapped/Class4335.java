@@ -34,7 +34,7 @@ public class Class4335 extends Class4333 {
             this.field21181.method13556();
          }
       });
-      this.method13300(false);
+      this.setListening(false);
    }
 
    private void method13485(Module var1) {

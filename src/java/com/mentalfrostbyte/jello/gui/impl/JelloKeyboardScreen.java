@@ -119,7 +119,7 @@ public class JelloKeyboardScreen extends Screen {
       }
 
       super.updatePanelDimensions(newHeight, newWidth);
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override

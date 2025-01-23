@@ -39,7 +39,7 @@ public class ClassicMainScreen extends Screen {
 
     public ClassicMainScreen() {
         super("Main Screen");
-        this.method13300(false);
+        this.setListening(false);
         this.field21100 = new Animation(175, 325);
         this.field21100.changeDirection(Direction.FORWARDS);
         this.field21101.changeDirection(Direction.BACKWARDS);

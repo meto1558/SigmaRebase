@@ -40,7 +40,7 @@ public class Class4259 extends UIBase {
       int var12 = var6 - var9 - 10;
       this.addToList(this.field20647 = new Class4266(this, "zoom", var11, var12, var10, var9));
       this.chunkPos = Minecraft.getInstance().world.getChunk(Minecraft.getInstance().player.getPosition()).getPos();
-      this.method13300(false);
+      this.setListening(false);
    }
 
    public void method13076(boolean var1) {

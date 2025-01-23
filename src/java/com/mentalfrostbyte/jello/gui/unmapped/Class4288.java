@@ -16,7 +16,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
       this.field20781 = var1;
       this.field20886 = true;
       this.field20780 = (MusicTabs)var2.getParent();
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override

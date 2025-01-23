@@ -30,7 +30,7 @@ public class ConfigButtonOnClickGui extends UIBase {
       super(var1, var2, var3 - 250, var4 - 500, 250, 500, ColorHelper.field27961, false);
       this.field21298 = new Animation(300, 100);
       this.method13292(true);
-      this.method13300(false);
+      this.setListening(false);
       UIButton addButton;
       this.addToList(
          addButton = new UIButton(

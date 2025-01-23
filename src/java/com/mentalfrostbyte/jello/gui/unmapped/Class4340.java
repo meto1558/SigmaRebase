@@ -27,7 +27,7 @@ public class Class4340 extends MusicTabs {
       super(var1, var2, var3, var4, var5, var6);
       this.field21211.changeDirection(Direction.BACKWARDS);
       this.field20883 = true;
-      this.method13300(false);
+      this.setListening(false);
       this.method13511();
    }
 

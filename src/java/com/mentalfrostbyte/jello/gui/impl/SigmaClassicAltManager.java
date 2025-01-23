@@ -45,7 +45,7 @@ public class SigmaClassicAltManager extends Screen {
 
    public SigmaClassicAltManager() {
       super("Alt Manager");
-      this.method13300(false);
+      this.setListening(false);
       ClassicParticleEngine var3;
       this.addToList(var3 = new ClassicParticleEngine(this, "particles"));
       var3.method13294(true);
@@ -237,7 +237,7 @@ public class SigmaClassicAltManager extends Screen {
       }
 
       this.field21055.method13512(var5);
-      this.field21055.method13300(false);
+      this.field21055.setListening(false);
       this.field21055.method13515(true);
       this.field21055.method13242();
    }

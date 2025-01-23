@@ -87,10 +87,10 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
             this.musicManager.setSpectrum(!this.musicManager.isSpectrum());
             ((Class4265) var1x).method13099(this.musicManager.isSpectrum());
         });
-        this.musicTabs.method13300(false);
-        var5.method13300(false);
-        this.musicControls.method13300(false);
-        this.field20865.method13300(false);
+        this.musicTabs.setListening(false);
+        var5.setListening(false);
+        this.musicControls.setListening(false);
+        this.field20865.setListening(false);
         ColorHelper color = new ColorHelper(1250067, -15329770).method19410(ClientColors.LIGHT_GREYISH_BLUE.getColor()).method19414(Class2218.field14492);
         List<Thread> threads = new ArrayList<>();
         MusicPlayer player = this;
@@ -140,7 +140,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         repeat.onPress(var2x -> this.musicManager.setRepeat(repeat.getRepeatMode()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
         this.field20867.method13292(true);
-        this.field20867.method13300(false);
+        this.field20867.setListening(false);
         this.field20865.method13292(true);
         this.field20865.method13247((var1x, var2x) -> {
             this.field20874 = true;
@@ -151,8 +151,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.play.setEnabled(false);
         this.play.doThis((var1x, var2x) -> this.musicManager.setPlaying(true));
         this.pause.doThis((var1x, var2x) -> this.musicManager.setPlaying(false));
-        this.forwards.doThis((var1x, var2x) -> this.musicManager.method24316());
-        this.backwards.doThis((var1x, var2x) -> this.musicManager.method24315());
+        this.forwards.doThis((var1x, var2x) -> this.musicManager.playNextSong());
+        this.backwards.doThis((var1x, var2x) -> this.musicManager.playPreviousSong());
         this.volumeSlider.method13709(var1x -> this.musicManager.setVolume((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
         this.volumeSlider.setVolume(1.0F - (float) this.musicManager.getVolume() / 100.0F);
         this.addToList(
@@ -161,7 +161,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 )
         );
         this.searchBox.setEnabled(true);
-        this.searchBox.method13300(false);
+        this.searchBox.setListening(false);
     }
 
     private void method13189(MusicTabs var1) {

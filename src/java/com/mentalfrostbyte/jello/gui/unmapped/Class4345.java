@@ -28,7 +28,7 @@ public class Class4345 extends MusicTabs {
    public Class4345(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Module var7) {
       super(var1, var2, var3, var4, var5, var6);
       this.module = var7;
-      this.method13300(false);
+      this.setListening(false);
       this.method13511();
    }
 

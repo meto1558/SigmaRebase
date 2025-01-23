@@ -58,7 +58,7 @@ public class JelloMaps extends Screen {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override

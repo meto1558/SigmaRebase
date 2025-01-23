@@ -39,7 +39,7 @@ public class Class4375 extends UIBase {
       this.field21376 = var5;
       this.field21377 = new Animation(250, 0);
       this.method13292(true);
-      this.method13300(false);
+      this.setListening(false);
       this.method13712();
       UIButton var9;
       this.addToList(

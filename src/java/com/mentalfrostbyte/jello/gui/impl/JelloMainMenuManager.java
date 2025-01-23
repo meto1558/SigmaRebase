@@ -78,7 +78,7 @@ public class JelloMainMenuManager extends Screen {
 
     public JelloMainMenuManager() {
         super("Main Screen");
-        this.method13300(false);
+        this.setListening(false);
         currentTime = System.nanoTime();
         if (background == null) {
             background = Resources.createScaledAndProcessedTexture2("com/mentalfrostbyte/gui/resources/background/panorama5.png", 0.075F, 8);

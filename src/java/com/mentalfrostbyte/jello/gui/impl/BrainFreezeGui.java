@@ -21,7 +21,7 @@ public class BrainFreezeGui extends AnimatedIconPanelWrap {
         this.method13296(false);
         this.method13292(false);
         this.method13294(true);
-        this.method13300(false);
+        this.setListening(false);
     }
 
     @Override

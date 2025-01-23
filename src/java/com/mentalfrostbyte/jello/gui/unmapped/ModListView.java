@@ -27,7 +27,7 @@ public class ModListView extends MusicTabs implements Class4342 {
       this.field21217 = true;
       ((JelloClickGUIPanels)var1).field21195 = 1.0F;
       this.field21217 = true;
-      this.method13300(false);
+      this.setListening(false);
       this.method13511();
    }
 

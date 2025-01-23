@@ -26,7 +26,7 @@ public class ClassicDirectLogin extends Screen {
 
    public ClassicDirectLogin() {
       super("Alt Manager");
-      this.method13300(false);
+      this.setListening(false);
       int var3 = 400;
       int var4 = 114;
       int var5 = (this.getWidthA() - var3) / 2;

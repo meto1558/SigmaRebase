@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
+import com.mentalfrostbyte.jello.managers.impl.music.StencilMode;
 import com.mentalfrostbyte.jello.misc.Vector3m;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -32,7 +32,7 @@ public class Class4251 extends UIBase {
       }
 
       this.addToList(this.field20614 = new Class4259(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override
@@ -79,7 +79,7 @@ public class Class4251 extends UIBase {
       RenderUtil.method11474(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
-      RenderUtil.method11477(Class2329.field15940);
+      RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
       this.field20615.draw(partialTicks);

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.managers.impl.music.Class2329;
+import com.mentalfrostbyte.jello.managers.impl.music.StencilMode;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
@@ -27,7 +27,7 @@ public class Class4266 extends UIBase {
 
    public Class4266(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false);
-      this.method13300(false);
+      this.setListening(false);
    }
 
    @Override
@@ -105,7 +105,7 @@ public class Class4266 extends UIBase {
             RenderUtil.method11474(
                (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 8.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
             );
-            RenderUtil.method11477(Class2329.field15940);
+            RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);
             RenderUtil.drawTexture(
                (float)(this.xA - 1),
                (float)(this.yA - 1),

@@ -53,7 +53,7 @@ public class Class1428 implements Runnable {
       }
 
       AltManagerScreen.method13382(this.field7664).method13512(var3);
-      AltManagerScreen.method13382(this.field7664).method13300(false);
+      AltManagerScreen.method13382(this.field7664).setListening(false);
       AltManagerScreen.method13382(this.field7664).method13515(false);
    }
 }
