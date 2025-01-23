@@ -149,6 +149,8 @@ public class ModuleManager {
         this.register(new Parkour());
         this.register(new Sneak());
         this.register(new OldHitting());
+        this.register(new InvMove());
+
 
 
 

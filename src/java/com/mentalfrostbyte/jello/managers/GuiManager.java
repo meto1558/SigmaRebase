@@ -100,6 +100,10 @@ public class GuiManager {
             return false;
         }
     }
+    public Screen method33480() {
+        return this.screen;
+    }
+
 
     public static Screen handleScreen(net.minecraft.client.gui.screen.Screen screen) {
         if (screen == null) {
