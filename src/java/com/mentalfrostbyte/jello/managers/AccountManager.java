@@ -153,9 +153,9 @@ public class AccountManager {
         return this.email;
     }
 
-    public boolean method36779(Account var1) {
+    public boolean isCurrentAccount(Account account) {
         return this.getEmail() != null
-                ? var1.getEmail().equals(this.getEmail())
-                : var1.getKnownName().equals(Minecraft.getInstance().getSession().getUsername());
+                ? account.getEmail().equals(this.getEmail())
+                : account.getKnownName().equals(Minecraft.getInstance().getSession().getUsername());
     }
 }

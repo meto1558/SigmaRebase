@@ -27,7 +27,6 @@ import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class Class4298 extends AnimatedIconPanelWrap {
@@ -39,17 +38,17 @@ public class Class4298 extends AnimatedIconPanelWrap {
       Class2218.field14488,
       Class2218.field14492
    );
-   public String field20822 = null;
+   public String skin = null;
    private AbstractClientPlayerEntity field20823;
    private Minecraft mc = Minecraft.getInstance();
    private static ClientWorld clientWorld;
    public Account account;
    private DynamicTexture field20827;
-   private Class1118 entity;
+   private UIEntity entity;
 
-   public Class4298(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String var7) {
+   public Class4298(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String skinName) {
       super(var1, var2, var3, var4, var5, var6, field20821, false);
-      this.field20822 = var7;
+      this.skin = skinName;
    }
 
    public IProfiler method13180() {
@@ -82,7 +81,7 @@ public class Class4298 extends AnimatedIconPanelWrap {
 
          GameProfile prof = new GameProfile(uid, this.account.getKnownName());
          if (this.entity == null || !this.entity.getDisplayName().getString().equals(this.account.getKnownName())) {
-            this.entity = new Class1118(clientWorld, new GameProfile(uid, this.account.getKnownName()));
+            this.entity = new UIEntity(clientWorld, new GameProfile(uid, this.account.getKnownName()));
             this.entity.playerInfo = new NetworkPlayerInfo(new SPlayerListItemPacket.AddPlayerData(prof, 0, GameType.CREATIVE, this.entity.getDisplayName()));
          }
 
@@ -120,7 +119,7 @@ public class Class4298 extends AnimatedIconPanelWrap {
       }
    }
 
-   public void method13181(Account var1) {
+   public void handleSelectedAccount(Account var1) {
       this.account = var1;
       this.field20827 = null;
    }

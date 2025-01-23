@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class Class1118 extends AbstractClientPlayerEntity {
-   public Class1118(ClientWorld var1, GameProfile var2) {
+public class UIEntity extends AbstractClientPlayerEntity {
+   public UIEntity(ClientWorld var1, GameProfile var2) {
       super(var1, var2);
    }
 

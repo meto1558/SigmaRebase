@@ -191,7 +191,7 @@ public class AltManagerScreen extends Screen {
          var5.field20805 = new Animation(0, 0);
       }
 
-      if (this.accountManager.method36779(var1)) {
+      if (this.accountManager.isCurrentAccount(var1)) {
          var5.method13172(true);
       }
 
@@ -199,8 +199,8 @@ public class AltManagerScreen extends Screen {
          if (var3 != 0) {
             this.deleteAlert.onPress(var2xx -> {
                this.accountManager.removeAccountDirectly(var5.selectedAccount);
-               this.field21018.method13178(null);
-               this.field21017.method13181(null);
+               this.field21018.handleSelectedAccount(null);
+               this.field21017.handleSelectedAccount(null);
                this.method13372(false);
             });
             this.deleteAlert.method13145(true);
@@ -212,8 +212,8 @@ public class AltManagerScreen extends Screen {
                this.field21011.method13512(0);
             }
 
-            this.field21017.method13181(var5.selectedAccount);
-            this.field21018.method13178(var5.selectedAccount);
+            this.field21017.handleSelectedAccount(var5.selectedAccount);
+            this.field21018.handleSelectedAccount(var5.selectedAccount);
 
             for (CustomGuiScreen var7 : this.field21010.getChildren()) {
                if (!(var7 instanceof VerticalScrollBar)) {
@@ -226,9 +226,9 @@ public class AltManagerScreen extends Screen {
             var5.method13166(true);
          }
       });
-      if (Client.getInstance().accountManager.method36779(var1)) {
-         this.field21017.method13181(var5.selectedAccount);
-         this.field21018.method13178(var5.selectedAccount);
+      if (Client.getInstance().accountManager.isCurrentAccount(var1)) {
+         this.field21017.handleSelectedAccount(var5.selectedAccount);
+         this.field21018.handleSelectedAccount(var5.selectedAccount);
          var5.method13167(true, true);
       }
    }

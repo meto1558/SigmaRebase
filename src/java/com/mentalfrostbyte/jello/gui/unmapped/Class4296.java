@@ -24,7 +24,7 @@ public class Class4296 extends AnimatedIconPanelWrap {
       super(var1, var2, var3, var4, var5, var6, false);
    }
 
-   public void method13178(Account var1) {
+   public void handleSelectedAccount(Account var1) {
       this.field20813 = var1;
 
       for (Class4348 var5 : this.field20814) {
