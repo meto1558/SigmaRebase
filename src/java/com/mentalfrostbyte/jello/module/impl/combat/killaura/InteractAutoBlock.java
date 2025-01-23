@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.misc.Pair;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.Teams;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters.*;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
@@ -28,10 +27,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class InteractAutoBlock {
     private float[] field44344;
@@ -77,9 +73,9 @@ public class InteractAutoBlock {
     }
 
     public boolean canBlock() {
-        return !this.parent.getStringSettingValueByName("Autoblock Mode").equals("None")
-                && this.mc.player.getHeldItemMainhand().getItem() instanceof SwordItem
-                && !this.isBlocking();
+        String settingValue = this.parent.getStringSettingValueByName("Autoblock Mode");
+        return settingValue != null && !settingValue.equals("None")
+                && Objects.requireNonNull(this.mc.player).getHeldItemMainhand().getItem() instanceof SwordItem && !this.isBlocking();
     }
 
     public void method36818() {
@@ -98,12 +94,12 @@ public class InteractAutoBlock {
         }
     }
 
-    public float method36819(int var1) {
+    public float getInitialDelay(int var1) {
         return var1 >= 0 && var1 < this.field44344.length ? this.field44344[var1] : -1.0F;
     }
 
     public boolean method36820(int var1) {
-        int var4 = (int)this.method36819(0) - var1;
+        int var4 = (int)this.getInitialDelay(0) - var1;
         boolean var5 = this.parent.getStringSettingValueByName("Attack Mode").equals("Pre");
         if (!var5) {
             var4++;
@@ -115,9 +111,9 @@ public class InteractAutoBlock {
             return var12 <= 0.0F && var12 > -1.0F;
         } else if (var4 != 2) {
             if (var4 < 2) {
-                float var6 = this.method36819(0);
-                float var7 = this.method36819(1);
-                float var8 = this.method36819(1);
+                float var6 = this.getInitialDelay(0);
+                float var7 = this.getInitialDelay(1);
+                float var8 = this.getInitialDelay(1);
                 int var9 = (int)(var7 + var6 - (float)((int)var6));
                 if (var4 + var9 == 2) {
                     return true;
@@ -157,7 +153,7 @@ public class InteractAutoBlock {
         }
     }
 
-    public List<TimedEntity> method36823(float var1) {
+    public List<TimedEntity> getEntitiesInRange(float var1) {
         ArrayList<TimedEntity> timedEntityList = new ArrayList<>();
 
         for (Entity ent : EntityUtil.getEntitesInWorld(__ -> true)) {

@@ -13,8 +13,8 @@ public record PrevRangeSorter(InteractAutoBlock interactAB) implements Comparato
     public int compare(TimedEntity a, TimedEntity b) {
         Entity eA = a.getEntity();
         Entity eB = b.getEntity();
-        Object var7 = KillAura.timedEntityIdk != null && KillAura.timedEntityIdk.getEntity() != null
-                ? KillAura.timedEntityIdk.getEntity()
+        Object var7 = KillAura.currentTimedEntity != null && KillAura.currentTimedEntity.getEntity() != null
+                ? KillAura.currentTimedEntity.getEntity()
                 : this.interactAB.mc.player;
         assert var7 != null;
         float distA = ((Entity)var7).getDistance(eA);

@@ -4,6 +4,8 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.impl.music.StencilMode;
+import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -275,6 +277,53 @@ public class RenderUtil {
             RenderSystem.enableTexture();
             RenderSystem.disableBlend();
         }
+    }
+
+    public static void drawCircle(boolean isFadingOut, float circleHeight, float radius, float glowStrength, float glowOpacity) {
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
+        GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glBegin(GL11.GL_QUAD_STRIP);
+
+        int angleStep = (int) (360.0F / (40.0F * radius));
+
+        com.mentalfrostbyte.jello.module.Module moduleInstance = new Module(ModuleCategory.PLAYER, "ESP COLOR", "");
+        java.awt.Color espColor = new java.awt.Color(moduleInstance.parseSettingValueToIntBySettingName("ESP Color"));
+        float red = (float) espColor.getRed() / 255.0F;
+        float green = (float) espColor.getGreen() / 255.0F;
+        float blue = (float) espColor.getBlue() / 255.0F;
+
+        for (int angle = 0; angle <= 360 + angleStep; angle += angleStep) {
+            int effectiveAngle = angle > 360 ? 0 : angle;
+
+            double x = Math.sin(Math.toRadians(effectiveAngle)) * radius;
+            double z = Math.cos(Math.toRadians(effectiveAngle)) * radius;
+
+            GL11.glColor4f(red, green, blue, isFadingOut ? 0.0F : glowStrength * glowOpacity);
+            GL11.glVertex3d(x, 0.0, z);
+
+            GL11.glColor4f(red, green, blue, isFadingOut ? glowStrength * glowOpacity : 0.0F);
+            GL11.glVertex3d(x, circleHeight, z);
+        }
+
+        GL11.glEnd();
+
+        GL11.glLineWidth(2.2F);
+        GL11.glBegin(GL11.GL_LINE_LOOP);
+
+        for (int angle = 0; angle <= 360 + angleStep; angle += angleStep) {
+            int effectiveAngle = angle > 360 ? 0 : angle;
+
+            double x = Math.sin(Math.toRadians(effectiveAngle)) * radius;
+            double z = Math.cos(Math.toRadians(effectiveAngle)) * radius;
+
+            GL11.glColor4f(red, green, blue, (0.5F + 0.5F * glowStrength) * glowOpacity);
+            GL11.glVertex3d(x, isFadingOut ? 0.0 : circleHeight, z);
+        }
+
+        GL11.glEnd();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        RenderSystem.shadeModel(GL11.GL_FLAT);
     }
 
     public static void drawRoundedRect2(float x, float y, float width, float height, int color) {

@@ -55,7 +55,7 @@ public class KillAuraAttackLambda implements Runnable {
         boolean var3 = (float) Math.round((float) Math.random() * 100.0F) <= this.killauraModule.getNumberValueBySettingName("Hit Chance");
 
         // Get range based on player distance or "Range" setting
-        float range = Math.max(KillAura.mc.player.getDistance(KillAura.timedEntityIdk.getEntity()), this.killauraModule.getNumberValueBySettingName("Range"));
+        float range = Math.max(KillAura.mc.player.getDistance(KillAura.currentTimedEntity.getEntity()), this.killauraModule.getNumberValueBySettingName("Range"));
 
         EntityRayTraceResult rayTraceResult;
         if (!this.killauraModule.getStringSettingValueByName("Attack Mode").equals("Pre")) {
@@ -71,13 +71,13 @@ public class KillAuraAttackLambda implements Runnable {
         }
 
         // Handle autoblocking mode
-        if (KillAura.target != null && KillAura.interactAB.isBlocking() && !this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
+        if (KillAura.currentTarget != null && KillAura.interactAB.isBlocking() && !this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
             KillAura.interactAB.method36816();
         }
 
         String mode = this.killauraModule.getStringSettingValueByName("Mode");
         if (var3 && (rayTraceResult != null || !this.killauraModule.getBooleanValueFromSettingName("Raytrace") || mode.equals("Multi"))) {
-            for (TimedEntity timedEnt : KillAura.entities) {
+            for (TimedEntity timedEnt : KillAura.targetEntities) {
                 Entity entity = timedEnt.getEntity();
                 if (rayTraceResult != null && this.killauraModule.getBooleanValueFromSettingName("Raytrace") && !mode.equals("Multi")) {
                     entity = rayTraceResult.getEntity();
@@ -106,9 +106,9 @@ public class KillAuraAttackLambda implements Runnable {
 
                         mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
                     } else {
-                        KillAura.target = null;
-                        KillAura.entities = null;
-                        KillAura.timedEntityIdk = null;
+                        KillAura.currentTarget = null;
+                        KillAura.targetEntities = null;
+                        KillAura.currentTimedEntity = null;
                     }
                 } else {
                     // Non-raytrace handling
@@ -124,15 +124,15 @@ public class KillAuraAttackLambda implements Runnable {
             }
 
             if (mode.equals("Multi2")) {
-                KillAura.method16847(this.killauraModule, KillAura.method16846(this.killauraModule) + 1);
+                KillAura.setTargetIndex(this.killauraModule, KillAura.getTargetIndex(this.killauraModule) + 1);
             }
         } else if (!this.killauraModule.getBooleanValueFromSettingName("No swing")) {
             KillAura.mc.player.swingArm(Hand.MAIN_HAND);
         }
 
         // Handle autoblocking
-        if (KillAura.target != null && KillAura.interactAB.canBlock() && this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
-            KillAura.interactAB.block(KillAura.target, KillAura.getRotations(this.killauraModule).yaw, KillAura.getRotations(this.killauraModule).pitch);
+        if (KillAura.currentTarget != null && KillAura.interactAB.canBlock() && this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
+            KillAura.interactAB.block(KillAura.currentTarget, KillAura.getRotations(this.killauraModule).yaw, KillAura.getRotations(this.killauraModule).pitch);
         }
     }
 }
