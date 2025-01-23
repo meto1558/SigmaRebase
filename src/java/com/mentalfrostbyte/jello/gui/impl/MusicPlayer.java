@@ -81,11 +81,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         );
         this.addToList(this.field20865 = new CustomGuiScreen(this, "reShowView", 0, 0, 1, this.getHeightA()));
         Class4265 var5;
-        this.addToList(var5 = new Class4265(this, "spectrumButton", 15, this.heightA - 140, 40, 40, this.musicManager.method24313()));
+        this.addToList(var5 = new Class4265(this, "spectrumButton", 15, this.heightA - 140, 40, 40, this.musicManager.isSpectrum()));
         var5.method13292(true);
         var5.doThis((var1x, var2x) -> {
-            this.musicManager.method24312(!this.musicManager.method24313());
-            ((Class4265) var1x).method13099(this.musicManager.method24313());
+            this.musicManager.setSpectrum(!this.musicManager.isSpectrum());
+            ((Class4265) var1x).method13099(this.musicManager.isSpectrum());
         });
         this.musicTabs.method13300(false);
         var5.method13300(false);
@@ -136,8 +136,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 );
         this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.width - 19, 14, 4, 40));
         PNGButtonChanging repeat;
-        this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.method24304()));
-        repeat.onPress(var2x -> this.musicManager.method24303(repeat.method13038()));
+        this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeatMode()));
+        repeat.onPress(var2x -> this.musicManager.setRepeat(repeat.getRepeatMode()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
         this.field20867.method13292(true);
         this.field20867.method13300(false);
@@ -149,12 +149,12 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         });
         this.pause.setEnabled(false);
         this.play.setEnabled(false);
-        this.play.doThis((var1x, var2x) -> this.musicManager.method24310(true));
-        this.pause.doThis((var1x, var2x) -> this.musicManager.method24310(false));
+        this.play.doThis((var1x, var2x) -> this.musicManager.setPlaying(true));
+        this.pause.doThis((var1x, var2x) -> this.musicManager.setPlaying(false));
         this.forwards.doThis((var1x, var2x) -> this.musicManager.method24316());
         this.backwards.doThis((var1x, var2x) -> this.musicManager.method24315());
-        this.volumeSlider.method13709(var1x -> this.musicManager.method24311((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
-        this.volumeSlider.setVolume(1.0F - (float) this.musicManager.method24314() / 100.0F);
+        this.volumeSlider.method13709(var1x -> this.musicManager.setVolume((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
+        this.volumeSlider.setVolume(1.0F - (float) this.musicManager.getVolume() / 100.0F);
         this.addToList(
                 this.searchBox = new SearchBoxButton(
                         this, "search", this.width, 0, this.getWidthA() - this.width, this.getHeightA() - this.field20848, "Search..."
@@ -186,7 +186,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         float var7 = Math.min(10.0F, Math.max(0.0F, (float) var5 / 1.810361E7F));
         time = System.nanoTime();
         super.updatePanelDimensions(newHeight, newWidth);
-        if (this.parent instanceof JelloClickGUI) {
+        if (this.parent != null) {
             if (!this.method13216()) {
                 if ((this.field20909 || this.field20874) && !this.method13214() && !this.method13216()) {
                     this.field20874 = true;
@@ -267,7 +267,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20873
                 .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Direction.FORWARDS : Direction.BACKWARDS);
         partialTicks *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
-        if (this.musicManager.method24319()) {
+        if (this.musicManager.isPlayingSong()) {
             this.play.setEnabled(false);
             this.pause.setEnabled(true);
         } else {

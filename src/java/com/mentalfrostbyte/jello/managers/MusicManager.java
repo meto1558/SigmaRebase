@@ -28,6 +28,7 @@ import net.sourceforge.jaad.mp4.api.AudioTrack;
 import net.sourceforge.jaad.mp4.api.Frame;
 import net.sourceforge.jaad.mp4.api.Movie;
 import net.sourceforge.jaad.mp4.api.Track;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -68,7 +69,7 @@ public class MusicManager {
     private int currentVideoIndex;
     private YoutubeVideoData currentVideo;
     private boolean spectrum = true;
-    private Class189 field32162 = Class189.field717;
+    private AudioRepeatMode repeatMode = AudioRepeatMode.REPEAT;
     private boolean finished = false;
     private double field32168;
     private boolean field32169 = false;
@@ -120,7 +121,7 @@ public class MusicManager {
     public void init() {
         EventBus.register(this);
         try {
-            this.method24295();
+            this.loadMusicSettings();
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -131,28 +132,28 @@ public class MusicManager {
         this.finished = false;
     }
 
-    public void method24294() {
-        JSONObject var3 = new JSONObject();
-        var3.put("volume", this.volume);
-        var3.put("spectrum", this.spectrum);
-        var3.put("repeat", this.field32162.field719);
-        Client.getInstance().getConfig().put("music", var3);
+    public void saveMusicSettings() {
+        JSONObject object = new JSONObject();
+        object.put("volume", this.volume);
+        object.put("spectrum", this.spectrum);
+        object.put("repeat", this.repeatMode.type);
+        Client.getInstance().getConfig().put("music", object);
     }
 
-    private void method24295() throws JSONException {
+    private void loadMusicSettings() throws JSONException {
         if (Client.getInstance().getConfig().has("music")) {
-            JSONObject var3 = Client.getInstance().getConfig().getJSONObject("music");
-            if (var3 != null) {
-                if (var3.has("volume")) {
-                    this.volume = Math.max(0, Math.min(100, var3.getInt("volume")));
+            JSONObject object = Client.getInstance().getConfig().getJSONObject("music");
+            if (object != null) {
+                if (object.has("volume")) {
+                    this.volume = Math.max(0, Math.min(100, object.getInt("volume")));
                 }
 
-                if (var3.has("spectrum")) {
-                    this.spectrum = var3.getBoolean("spectrum");
+                if (object.has("spectrum")) {
+                    this.spectrum = object.getBoolean("spectrum");
                 }
 
-                if (var3.has("repeat")) {
-                    this.field32162 = Class189.method578(var3.getInt("repeat"));
+                if (object.has("repeat")) {
+                    this.repeatMode = AudioRepeatMode.parseRepeat(object.getInt("repeat"));
                 }
             }
         }
@@ -356,7 +357,7 @@ public class MusicManager {
                             while (!this.playing) {
                                 this.visualizerData.clear();
                                 if (Thread.interrupted()) {
-                                    closeAudioLine();
+                                    this.sourceDataLine.close();
                                     return;
                                 }
                             }
@@ -366,14 +367,7 @@ public class MusicManager {
                                 URL audioStreamURL = this.resolveAudioStream(videoURL);
                                 Client.getInstance().getLogger().setThreadName(audioStreamURL == null ? "No stream" : audioStreamURL.toString());
                                 if (audioStreamURL != null) {
-                                    URLConnection connection = audioStreamURL.openConnection();
-                                    connection.setConnectTimeout(14000);
-                                    connection.setReadTimeout(14000);
-                                    connection.setUseCaches(true);
-                                    connection.setDoOutput(true);
-                                    connection.setRequestProperty("Connection", "Keep-Alive");
-                                    InputStream var8 = connection.getInputStream();
-                                    MusicStream stream = new MusicStream(var8, new Class8808(this));
+                                    MusicStream stream = getMusicStream(audioStreamURL);
                                     MP4Container mp4Container = new MP4Container(stream);
                                     Movie movie = mp4Container.getMovie();
                                     List<Track> tracks = movie.getTracks();
@@ -431,7 +425,7 @@ public class MusicManager {
                                         }
 
                                         if (!audioTrack.hasMoreFrames()
-                                                && (this.field32162 == Class189.field718 || this.field32162 == Class189.field717 && this.videoManager.videoList.size() == 1)) {
+                                                && (this.repeatMode == AudioRepeatMode.LOOP_CURRENT || this.repeatMode == AudioRepeatMode.REPEAT && this.videoManager.videoList.size() == 1)) {
                                             audioTrack.seek(0.0);
                                             this.totalDuration = 0L;
                                         }
@@ -454,11 +448,11 @@ public class MusicManager {
                                 lineException.printStackTrace();
                             }
 
-                            if (this.field32162 == Class189.field718) {
+                            if (this.repeatMode == AudioRepeatMode.LOOP_CURRENT) {
                                 i--;
-                            } else if (this.field32162 == Class189.field717 && i == this.videoManager.videoList.size() - 1) {
+                            } else if (this.repeatMode == AudioRepeatMode.REPEAT && i == this.videoManager.videoList.size() - 1) {
                                 i = -1;
-                            } else if (this.field32162 == Class189.field716) {
+                            } else if (this.repeatMode == AudioRepeatMode.NO_REPEAT) {
                                 return;
                             }
 
@@ -472,13 +466,25 @@ public class MusicManager {
         }
     }
 
-    public void method24303(Class189 var1) {
-        this.field32162 = var1;
-        this.method24294();
+    private @NotNull MusicStream getMusicStream(URL audioStreamURL) throws IOException {
+        URLConnection connection = audioStreamURL.openConnection();
+        connection.setConnectTimeout(14000);
+        connection.setReadTimeout(14000);
+        connection.setUseCaches(true);
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Connection", "Keep-Alive");
+        InputStream inputStream = connection.getInputStream();
+        MusicStream stream = new MusicStream(inputStream, new Class8808(this));
+        return stream;
     }
 
-    public Class189 method24304() {
-        return this.field32162;
+    public void setRepeat(AudioRepeatMode repeat) {
+        this.repeatMode = repeat;
+        this.saveMusicSettings();
+    }
+
+    public AudioRepeatMode getRepeatMode() {
+        return this.repeatMode;
     }
 
     public void method24309(YoutubeVideoData var1) {
@@ -505,29 +511,29 @@ public class MusicManager {
         }
     }
 
-    public void method24310(boolean var1) {
-        if (!var1 && this.sourceDataLine != null) {
+    public void setPlaying(boolean playing) {
+        if (!playing && this.sourceDataLine != null) {
             this.sourceDataLine.flush();
         }
 
-        this.playing = var1;
+        this.playing = playing;
     }
 
-    public void method24311(int var1) {
-        this.volume = var1;
-        this.method24294();
+    public void setVolume(int volume) {
+        this.volume = volume;
+        this.saveMusicSettings();
     }
 
-    public void method24312(boolean var1) {
-        this.spectrum = var1;
-        this.method24294();
+    public void setSpectrum(boolean spectrum) {
+        this.spectrum = spectrum;
+        this.saveMusicSettings();
     }
 
-    public boolean method24313() {
+    public boolean isSpectrum() {
         return this.spectrum;
     }
 
-    public int method24314() {
+    public int getVolume() {
         return this.volume;
     }
 
@@ -569,7 +575,7 @@ public class MusicManager {
         this.initializeAudioPlayback();
     }
 
-    public boolean method24319() {
+    public boolean isPlayingSong() {
         return this.playing;
     }
 
@@ -739,7 +745,7 @@ public class MusicManager {
                 String output = reader.readLine();
                 while (output != null) {
                     if (
-                            // Windows / command prompt
+                        // Windows / command prompt
                             output.contains("is not recognized as an internal or external command")
                                     // bash
                                     || output.contains("command not found")) {

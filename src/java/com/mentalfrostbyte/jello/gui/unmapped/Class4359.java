@@ -40,7 +40,7 @@ public class Class4359 extends UIBase {
             var8 = this.field21315;
         }
 
-        if (var4 == 0 && !this.musicManager.method24319()) {
+        if (var4 == 0 && !this.musicManager.isPlayingSong()) {
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),
                     (float) this.getYA(),
