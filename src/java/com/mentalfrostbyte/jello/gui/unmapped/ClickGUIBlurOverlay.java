@@ -5,8 +5,7 @@ import com.mentalfrostbyte.jello.gui.impl.JelloClickGUI;
 import net.minecraft.client.Minecraft;
 
 public class ClickGUIBlurOverlay extends AnimatedIconPanelWrap {
-   private static String[] field21277;
-   public final JelloClickGUI field21278;
+    public final JelloClickGUI field21278;
 
    public ClickGUIBlurOverlay(JelloClickGUI var1, CustomGuiScreen var2, String var3) {
       super(var2, var3, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);

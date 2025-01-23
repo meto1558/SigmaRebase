@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4286;
+import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
 import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
 import com.mentalfrostbyte.jello.managers.MusicManager;
@@ -54,10 +54,10 @@ public class SearchBoxButton extends AnimatedIconPanelWrap {
                                     if (this.field20842 != null) {
                                         for (int var3x = 0; var3x < this.field20842.size(); var3x++) {
                                             YoutubeVideoData var4 = this.field20842.get(var3x);
-                                            Class4286 var7x;
+                                            YoutubeVideoThumbnail var7x;
                                             this.field20840
                                                     .addToList(
-                                                            var7x = new Class4286(
+                                                            var7x = new YoutubeVideoThumbnail(
                                                                     this.field20840,
                                                                     10 + var3x % 3 * 183 - (var3x % 3 <= 0 ? 0 : 10) - (var3x % 3 <= 1 ? 0 : 10),
                                                                     80 + 10 + (var3x - var3x % 3) / 3 * 210,

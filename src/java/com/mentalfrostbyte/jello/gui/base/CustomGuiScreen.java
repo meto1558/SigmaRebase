@@ -395,7 +395,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         }
     }
 
-    public boolean method13231(String var1) {
+    public boolean isntQueue(String var1) {
         for (CustomGuiScreen var5 : this.getChildren()) {
             if (var5.getName().equals(var1)) {
                 return true;

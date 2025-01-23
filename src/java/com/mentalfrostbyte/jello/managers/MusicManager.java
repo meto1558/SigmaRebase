@@ -554,6 +554,8 @@ public class MusicManager {
     }
 
     public void method24317(MusicVideoManager var1, YoutubeVideoData var2) {
+        
+
         if (var1 == null) {
             var1 = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
             var1.videoList.add(var2);
@@ -789,23 +791,25 @@ public class MusicManager {
         if (Util.getOSType() != Util.OS.WINDOWS) {
             return true;
         } else {
-            boolean var3 = false;
+            boolean hasRedist;
 
             try {
-                var3 = Advapi32Util.registryGetIntValue(
+                hasRedist = Advapi32Util.registryGetIntValue(
                         WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed"
                 )
                         == 1;
             } catch (RuntimeException ignored) {
+                hasRedist = false;
             }
 
             try {
-                var3 = var3
+                hasRedist = hasRedist
                         || Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed") == 1;
             } catch (RuntimeException ignored) {
+                hasRedist = false;
             }
 
-            return var3;
+            return hasRedist;
         }
     }
 }

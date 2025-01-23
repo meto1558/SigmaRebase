@@ -102,8 +102,8 @@ public class MusicTabs extends AnimatedIconPanel {
    }
 
    @Override
-   public boolean method13231(String var1) {
-      return this.buttonList.method13231(var1);
+   public boolean isntQueue(String var1) {
+      return this.buttonList.isntQueue(var1);
    }
 
    public CustomGuiScreen getButton() {
