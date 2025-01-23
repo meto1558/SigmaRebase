@@ -242,8 +242,14 @@ public class MusicManager {
         }
     }
 
+    private int ticks = 0;
+
     @EventTarget
     public void onTick(TickEvent event) {
+        if (this.playing) {
+            ticks += 1;
+        }
+
         if (!this.playing) {
             this.visualizerData.clear();
             this.amplitudes.clear();
@@ -264,8 +270,8 @@ public class MusicManager {
                 Client.getInstance().notificationManager.send(new Notification("Now Playing", this.songTitle, 7000, this.notificationImage));
                 this.isThumbnailProcessing = false;
             }
-        } catch (IOException var5) {
-            var5.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
         if (!this.isThumbnailProcessing) {
@@ -503,6 +509,12 @@ public class MusicManager {
     }
 
     public void playSong(MusicVideoManager manager, YoutubeVideoData video) {
+        if (totalDuration == 0L) {
+            return;
+        }
+
+        ticks = 0;
+
         if (manager == null) {
             manager = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
             manager.videoList.add(video);
@@ -526,7 +538,7 @@ public class MusicManager {
         return this.playing;
     }
 
-    public long method24321() {
+    public long getDuration() {
         return this.totalDuration;
     }
 
@@ -567,19 +579,19 @@ public class MusicManager {
         }
     }
 
-    public String method24324() {
+    public String getSongTitle() {
         return this.songTitle;
     }
 
-    public Texture method24325() {
+    public Texture getSongThumbnail() {
         return this.songThumbnail;
     }
 
-    public Texture method24326() {
+    public Texture getNotificationImage() {
         return this.notificationImage;
     }
 
-    public int method24327() {
+    public int getDurationInt() {
         return (int) this.duration;
     }
 
