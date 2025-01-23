@@ -241,7 +241,7 @@ public class KillAura extends Module {
     @EventTarget
     public void onStopuseItem(StopUseItemEvent event) {
         if (this.isEnabled()) {
-            if (!this.getStringSettingValueByName("Auto block mode").equals("None")
+            if (!this.getStringSettingValueByName("Auto block Mode").equals("None")
                     && (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem
                             || this.currentItemIndex != mc.player.inventory.currentItem)
                     && currentTarget != null) {
@@ -280,7 +280,7 @@ public class KillAura extends Module {
         if (currentTarget != null
                 && interactAB.isBlocking()
                 && MovementUtil.isMoving()
-                && getStringSettingValueByName("Auto block mode").equals("NCP")) {
+                && getStringSettingValueByName("Auto block Mode").equals("NCP")) {
             interactAB.method36816();
         }
 
@@ -512,7 +512,7 @@ public class KillAura extends Module {
 
         return currentTarget != null && !mc.player.getHeldItemMainhand().isEmpty()
                 && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem &&
-                !this.getStringSettingValueByName("Auto block mode").equals("None");
+                !this.getStringSettingValueByName("Auto block Mode").equals("None");
     }
 
     @Override
