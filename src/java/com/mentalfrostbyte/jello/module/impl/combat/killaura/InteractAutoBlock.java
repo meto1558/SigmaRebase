@@ -53,13 +53,15 @@ public class InteractAutoBlock {
     public void block(Entity var1, float var2, float var3) {
         if (this.parent.getBooleanValueFromSettingName("Interact autoblock")) {
             EntityRayTraceResult var6 = EntityUtil.method17714(
-                    !this.parent.getBooleanValueFromSettingName("Raytrace") ? var1 : null, var2, var3, var0 -> true, (double)this.parent.getNumberValueBySettingName("Range")
-            );
+                    !this.parent.getBooleanValueFromSettingName("Raytrace") ? var1 : null, var2, var3, var0 -> true,
+                    (double) this.parent.getNumberValueBySettingName("Range"));
             if (var6 != null) {
                 this.mc
                         .getConnection()
-                        .sendPacket(new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, var6.getHitVec(), this.mc.player.isSneaking()));
-                this.mc.getConnection().sendPacket(new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, this.mc.player.isSneaking()));
+                        .sendPacket(new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, var6.getHitVec(),
+                                this.mc.player.isSneaking()));
+                this.mc.getConnection().sendPacket(
+                        new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, this.mc.player.isSneaking()));
             }
         }
 
@@ -73,9 +75,10 @@ public class InteractAutoBlock {
     }
 
     public boolean canBlock() {
-        String settingValue = this.parent.getStringSettingValueByName("Autoblock Mode");
+        String settingValue = this.parent.getStringSettingValueByName("Auto block mode");
         return settingValue != null && !settingValue.equals("None")
-                && Objects.requireNonNull(this.mc.player).getHeldItemMainhand().getItem() instanceof SwordItem && !this.isBlocking();
+                && Objects.requireNonNull(this.mc.player).getHeldItemMainhand().getItem() instanceof SwordItem
+                && !this.isBlocking();
     }
 
     public void method36818() {
@@ -89,7 +92,7 @@ public class InteractAutoBlock {
         }
 
         for (int var7 = 0; var7 < 3; var7++) {
-            float var6 = var3 + (float)Math.random() * (var4 - var3);
+            float var6 = var3 + (float) Math.random() * (var4 - var3);
             this.field44344[var7] = var6;
         }
     }
@@ -99,7 +102,7 @@ public class InteractAutoBlock {
     }
 
     public boolean method36820(int var1) {
-        int var4 = (int)this.getInitialDelay(0) - var1;
+        int var4 = (int) this.getInitialDelay(0) - var1;
         boolean var5 = this.parent.getStringSettingValueByName("Attack Mode").equals("Pre");
         if (!var5) {
             var4++;
@@ -107,20 +110,21 @@ public class InteractAutoBlock {
 
         if (this.mc.player.getCooldownPeriod() > 1.26F && this.parent.getBooleanValueFromSettingName("Cooldown")) {
             int var11 = !var5 ? 1 : 2;
-            float var12 = this.mc.player.getCooldownPeriod() - (float)this.mc.player.ticksSinceLastSwing - (float)var11;
+            float var12 = this.mc.player.getCooldownPeriod() - (float) this.mc.player.ticksSinceLastSwing
+                    - (float) var11;
             return var12 <= 0.0F && var12 > -1.0F;
         } else if (var4 != 2) {
             if (var4 < 2) {
                 float var6 = this.getInitialDelay(0);
                 float var7 = this.getInitialDelay(1);
                 float var8 = this.getInitialDelay(1);
-                int var9 = (int)(var7 + var6 - (float)((int)var6));
+                int var9 = (int) (var7 + var6 - (float) ((int) var6));
                 if (var4 + var9 == 2) {
                     return true;
                 }
 
                 if (var4 + var9 == 1) {
-                    float var10 = var6 + var7 + var8 - (float)((int)var6 + (int)var7 + (int)var8);
+                    float var10 = var6 + var7 + var8 - (float) ((int) var6 + (int) var7 + (int) var8);
                     return var10 < 1.0F;
                 }
             }
@@ -132,7 +136,7 @@ public class InteractAutoBlock {
     }
 
     public boolean method36821(int var1) {
-        return var1 >= (int)this.field44344[0];
+        return var1 >= (int) this.field44344[0];
     }
 
     public void setupDelay() {
@@ -144,11 +148,11 @@ public class InteractAutoBlock {
             var4 = var5;
         }
 
-        float var8 = this.field44344[0] - (float)((int)this.field44344[0]);
+        float var8 = this.field44344[0] - (float) ((int) this.field44344[0]);
         this.field44344[0] = this.field44344[1] + var8;
 
         for (int var6 = 1; var6 < 3; var6++) {
-            float var7 = var3 + (float)Math.random() * (var4 - var3);
+            float var7 = var3 + (float) Math.random() * (var4 - var3);
             this.field44344[1] = var7;
         }
     }
@@ -162,11 +166,14 @@ public class InteractAutoBlock {
 
         Iterator<TimedEntity> entities = timedEntityList.iterator();
         // TODO: uncomment these when Disabler is ported
-//        ModuleWithModuleSettings disabler = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Disabler.class);
+        // ModuleWithModuleSettings disabler = (ModuleWithModuleSettings)
+        // Client.getInstance().moduleManager.getModuleByClass(Disabler.class);
         float ping = 150.0F;
-//        if (disabler.isEnabled() && disabler.getStringSettingValueByName("Type").equalsIgnoreCase("PingSpoof")) {
-//            ping += disabler.getModWithTypeSetToName().getNumberValueBySettingName("Lag");
-//        }
+        // if (disabler.isEnabled() &&
+        // disabler.getStringSettingValueByName("Type").equalsIgnoreCase("PingSpoof")) {
+        // ping +=
+        // disabler.getModWithTypeSetToName().getNumberValueBySettingName("Lag");
+        // }
 
         while (entities.hasNext()) {
             TimedEntity timedEntity = entities.next();
@@ -177,9 +184,9 @@ public class InteractAutoBlock {
                 entities.remove();
             } else if (!(ent instanceof LivingEntity)) {
                 entities.remove();
-            } else if (((LivingEntity)ent).getHealth() == 0.0F) {
+            } else if (((LivingEntity) ent).getHealth() == 0.0F) {
                 entities.remove();
-            } else if (!this.mc.player.canAttack((LivingEntity)ent)) {
+            } else if (!this.mc.player.canAttack((LivingEntity) ent)) {
                 entities.remove();
             } else if (ent instanceof ArmorStandEntity) {
                 entities.remove();
@@ -189,7 +196,8 @@ public class InteractAutoBlock {
                 entities.remove();
             } else if (!this.parent.getBooleanValueFromSettingName("Invisible") && ent.isInvisible()) {
                 entities.remove();
-            } else if (!this.parent.getBooleanValueFromSettingName("Animals") && (ent instanceof AnimalEntity || ent instanceof VillagerEntity)) {
+            } else if (!this.parent.getBooleanValueFromSettingName("Animals")
+                    && (ent instanceof AnimalEntity || ent instanceof VillagerEntity)) {
                 entities.remove();
             } else if (!this.parent.getBooleanValueFromSettingName("Monsters") && ent instanceof MonsterEntity) {
                 entities.remove();
@@ -198,7 +206,7 @@ public class InteractAutoBlock {
             } else if (ent.isInvulnerable()) {
                 entities.remove();
             } else if (!(ent instanceof PlayerEntity)
-                    || !TeamUtil.method31662((PlayerEntity)ent)
+                    || !TeamUtil.method31662((PlayerEntity) ent)
                     || !Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                 Vector3d var10 = MultiUtilities.method17751(ent);
                 if (!(this.mc.player.getDistance(ent) < 40.0F)) {
@@ -212,11 +220,11 @@ public class InteractAutoBlock {
                         int var13 = var12.size();
 
                         for (int var14 = 0; var14 < var13; var14++) {
-                            Pair var15 = (Pair)var12.get(var14);
+                            Pair var15 = (Pair) var12.get(var14);
                             if (var15 != null) {
-                                Long var16 = (Long)var15.getValue();
+                                Long var16 = (Long) var15.getValue();
                                 long var17 = System.currentTimeMillis() - var16;
-                                if ((float)var17 > ping) {
+                                if ((float) var17 > ping) {
                                     var12.remove(var14);
                                     var13--;
                                 }
@@ -233,14 +241,14 @@ public class InteractAutoBlock {
                             for (Pair<Vector3d, Long> var30 : var27) {
                                 AxisAlignedBB var21 = getAxisAlignedBBThing(var30);
                                 double var22 = MultiUtilities.method17755(var21);
-                                if (var22 < (double)var1) {
+                                if (var22 < (double) var1) {
                                     var26 = false;
                                 }
                             }
                         }
                     }
 
-                    if (var26 && MultiUtilities.method17754(var10) > (double)var1) {
+                    if (var26 && MultiUtilities.method17754(var10) > (double) var1) {
                         entities.remove();
                     } else if (!this.parent.getBooleanValueFromSettingName("Through walls")) {
                         Rotations rotations = RotationHelper.getRotations(ent, true);
@@ -269,8 +277,7 @@ public class InteractAutoBlock {
                 var31.z - var19,
                 var31.x + var19,
                 var31.y + this.mc.player.getBoundingBox().getYSize(),
-                var31.z + var19
-        );
+                var31.z + var19);
         return var21;
     }
 

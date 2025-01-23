@@ -87,7 +87,7 @@ public class OldHitting extends Module {
                 }
 
                 //MY DUMB "FIX" - MARK
-                boolean isAutoBlockNone = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).getStringSettingValueByName("Autoblock Mode").equals("None");
+                boolean isAutoBlockNone = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).getStringSettingValueByName("Auto block Mode").equals("None");
                 field23408 = mc.gameSettings.keyBindUseItem.isKeyDown() && var4 && var6 && var6 || (auraEnabled && KillAura.currentTarget != null && !isAutoBlockNone);
                 /*
                 if (!field23408) {
