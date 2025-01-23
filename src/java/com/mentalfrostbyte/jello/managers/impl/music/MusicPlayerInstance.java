@@ -22,15 +22,15 @@ public class MusicPlayerInstance implements Runnable {
 
     @Override
     public void run() {
-        if (!MusicPlayer.addTab(this.musicPlayer2).isntQueue(this.thumbnail.videoId)) {
+        if (!MusicPlayer.getTabs(this.musicPlayer2).isntQueue(this.thumbnail.videoId)) {
             ButtonPanel var3;
-            MusicPlayer.addTab(this.musicPlayer2)
+            MusicPlayer.getTabs(this.musicPlayer2)
                     .addToList(
                             var3 = new ButtonPanel(
-                                    MusicPlayer.addTab(this.musicPlayer2),
+                                    MusicPlayer.getTabs(this.musicPlayer2),
                                     this.thumbnail.videoId,
                                     0,
-                                    MusicPlayer.addTab(this.musicPlayer2).getButton().getChildren().size() * MusicPlayer.getHeight(this.musicPlayer2),
+                                    MusicPlayer.getTabs(this.musicPlayer2).getButton().getChildren().size() * MusicPlayer.getHeight(this.musicPlayer2),
                                     MusicPlayer.getWidth(this.musicPlayer2),
                                     MusicPlayer.getHeight(this.musicPlayer2),
                                     this.colorHelper,

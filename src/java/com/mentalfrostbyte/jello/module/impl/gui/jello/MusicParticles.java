@@ -27,7 +27,7 @@ public class MusicParticles extends Module {
     @EventTarget
     public void onRender(EventRender event) {
         if (this.isEnabled() && mc.player != null) {
-            if (Client.getInstance().musicManager.method24319() && !Client.getInstance().musicManager.field32163.isEmpty()) {
+            if (Client.getInstance().musicManager.method24319() && !Client.getInstance().musicManager.visualizerData.isEmpty()) {
                 long timeElapsed = System.nanoTime() - this.lastRenderTime;
                 float particleIntensity = Math.min(10.0F, Math.max(0.0F, (float) timeElapsed / 1.810361E7F));
                 double maxAmplitude = 0.0;
