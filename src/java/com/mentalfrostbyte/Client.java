@@ -179,7 +179,7 @@ public class Client {
                 }
 
                 textureList.clear();
-            } catch (ConcurrentModificationException var7) {
+            } catch (ConcurrentModificationException ignored) {
             }
         }
 
@@ -194,10 +194,7 @@ public class Client {
             RenderSystem.popMatrix();
             RenderSystem.enableDepthTest();
             RenderSystem.enableAlphaTest();
-            GL11.glAlphaFunc(518, 0.1F);
-            TextureManager var10000 = mc.getTextureManager();
-            mc.getTextureManager();
-            var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            GL11.glAlphaFunc(GL11.GL_GEQUAL, 0.1F);
         }
     }
 
