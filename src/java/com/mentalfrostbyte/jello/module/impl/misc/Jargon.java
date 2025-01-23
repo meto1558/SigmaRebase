@@ -13,7 +13,7 @@ public class Jargon extends Module {
         this.registerSetting(new ModeSetting("Jargon", "A test type button", 0, "Excuse", "Techincal", "Audio"));
     }
 
-    public static String method16132(String[] var0) {
+    public static String getRandomItem(String[] var0) {
         Random var3 = new Random();
         int var4 = var3.nextInt(var0.length);
         return var0[var4];
@@ -25,21 +25,21 @@ public class Jargon extends Module {
         if (!this.getStringSettingValueByName("Jargon").equals("Excuse")) {
             if (!this.getStringSettingValueByName("Jargon").equals("Techincal")) {
                 if (this.getStringSettingValueByName("Jargon").equals("Audio")) {
-                    var3 = this.method16130();
+                    var3 = this.getAudioMessage();
                 }
             } else {
-                var3 = this.method16128();
+                var3 = this.getTechnicalMessage();
             }
         } else {
-            var3 = this.method16129();
+            var3 = this.getExcuseMessage();
         }
 
         mc.player.sendChatMessage(var3);
         this.setState(false);
     }
 
-    public String method16128() {
-        String[] var3 = new String[]{
+    public String getTechnicalMessage() {
+        String[] quotes = new String[]{
                 "Do we {3} the {2} to {3} the {0} {2} with the {1} {2}?",
                 "If we {3} the {2}, we can get to the {0} {2} through the {1} {0} {2}",
                 "We need to {3} the {1} {0} {2}",
@@ -53,7 +53,7 @@ public class Jargon extends Module {
                 "They're inside the {2}, use the {1} {0} {2} to {3} their {2}",
                 "Send the {1} {2} into the {2}, it will {3} the {2} by {4} its {0} {2}"
         };
-        String[] var4 = new String[]{
+        String[] technicalTerms = new String[]{
                 "TCP",
                 "HTTP",
                 "SDD",
@@ -102,7 +102,7 @@ public class Jargon extends Module {
                 "GUI",
                 "VPN"
         };
-        String[] var5 = new String[]{
+        String[] excuseTerms = new String[]{
                 "auxiliary",
                 "primary",
                 "back-end",
@@ -232,12 +232,12 @@ public class Jargon extends Module {
                 "reverse engineering",
                 "hijacking"
         };
-        return this.method16131(var3, var4, var5, var6, var7, var8);
+        return this.replaceFromChoices(quotes, technicalTerms, excuseTerms, var6, var7, var8);
     }
 
-    public String method16129() {
-        String[] var3 = new String[]{"I don't hack it's {2} my {0} {0} {0} {1}", "I don't hack it's {2} my {0} {1} {3}"};
-        String[] var4 = new String[]{
+    public String getExcuseMessage() {
+        String[] quotes = new String[]{"I don't hack it's {2} my {0} {0} {0} {1}", "I don't hack it's {2} my {0} {1} {3}"};
+        String[] itemDescriptions = new String[]{
                 "invalid supported rates 99",
                 "fast termomixer",
                 "ultradurable z345 turbo 12",
@@ -312,16 +312,16 @@ public class Jargon extends Module {
                 "escape key",
                 "function keys"
         };
-        String[] var6 = new String[]{"maybe", "just", "for sure", "simply", "possibly", "without any doubts"};
+        String[] adjectives = new String[]{"maybe", "just", "for sure", "simply", "possibly", "without any doubts"};
         String[] var7 = new String[]{"pro", "replica", "i made", "i bought {4}", "i found {4}"};
-        String[] var8 = new String[]{
+        String[] boughtOn = new String[]{
                 "on ebay", "on amazon", "on craiglist", "on the internet", "online", "on the TOR network", "in a garage", "on the deepweb", "near the grocery shop"
         };
-        return this.method16131(var3, var4, var5, var6, var7, var8);
+        return this.replaceFromChoices(quotes, itemDescriptions, var5, adjectives, var7, boughtOn);
     }
 
-    public String method16130() {
-        String[] var3 = new String[]{
+    public String getAudioMessage() {
+        String[] quotes = new String[]{
                 "That {2} is just a poor man's {0} {2}. To really understand {4}, you need to {3} with only {1} {2}s to work with.",
                 "You can get a way with {4} the {1} {2}, but then you run the risk of the {2} getting into your {0} {2}.",
                 "See, the {2} is causing {1} {2} in the {0} {2}. That's why it's best to {3} using a {0} {2}.",
@@ -338,7 +338,7 @@ public class Jargon extends Module {
                 "If you want to {3}, try using the {0} {1} {2}, it's my little trick.",
                 "{4} has never been the same since I lost my {1} {1} {2}, now I have to use my {2} for {4}."
         };
-        String[] var4 = new String[]{
+        String[] terms = new String[]{
                 "THX",
                 "FLAC",
                 "MP3",
@@ -485,20 +485,20 @@ public class Jargon extends Module {
                 "cross-fading",
                 "dialing in"
         };
-        return this.method16131(var3, var4, var5, var6, var7, var8);
+        return this.replaceFromChoices(quotes, terms, var5, var6, var7, var8);
     }
 
-    public String method16131(String[] var1, String[] var2, String[] var3, String[] var4, String[] var5, String[] var6) {
-        String var9 = method16132(var1);
+    public String replaceFromChoices(String[] choices, String[] first, String[] second, String[] third, String[] fourth, String[] fifth) {
+        String result = getRandomItem(choices);
 
-        while (var9.contains("{")) {
-            var9 = StringUtils.replaceOnce(var9, "{0}", method16132(var2));
-            var9 = StringUtils.replaceOnce(var9, "{1}", method16132(var3));
-            var9 = StringUtils.replaceOnce(var9, "{2}", method16132(var4));
-            var9 = StringUtils.replaceOnce(var9, "{3}", method16132(var5));
-            var9 = StringUtils.replaceOnce(var9, "{4}", method16132(var6));
+        while (result.contains("{")) {
+            result = StringUtils.replaceOnce(result, "{0}", getRandomItem(first));
+            result = StringUtils.replaceOnce(result, "{1}", getRandomItem(second));
+            result = StringUtils.replaceOnce(result, "{2}", getRandomItem(third));
+            result = StringUtils.replaceOnce(result, "{3}", getRandomItem(fourth));
+            result = StringUtils.replaceOnce(result, "{4}", getRandomItem(fifth));
         }
 
-        return var9.substring(0, 1).toUpperCase() + var9.substring(1);
+        return result.substring(0, 1).toUpperCase() + result.substring(1);
     }
 }
