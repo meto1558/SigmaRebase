@@ -52,7 +52,7 @@ public class AutoPotion extends Module {
     @LowestPriority
     public void method16629(EventUpdate var1) {
         if (this.isEnabled() && var1.isPre()) {
-            if (this.getBooleanValueFromSettingName("In fight") || KillAura.timedEntityIdk == null && KillAura.target == null) {
+            if (this.getBooleanValueFromSettingName("In fight") || KillAura.currentTimedEntity == null && KillAura.currentTarget == null) {
                 int var4 = this.method16631();
                 this.field23808++;
                 int[] var5 = new int[]{6, -1, -1};
@@ -201,7 +201,7 @@ public class AutoPotion extends Module {
                     mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.OFF_HAND));
                     mc.player.inventory.currentItem = var7;
                     mc.playerController.syncCurrentPlayItem();
-                    KillAura.field23954 = 1;
+                    KillAura.attackCooldown = 1;
                 }
 
                 this.field23810 = var7;
