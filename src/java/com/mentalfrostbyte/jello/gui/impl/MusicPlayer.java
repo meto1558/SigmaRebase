@@ -50,8 +50,11 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     private final Animation field20873 = new Animation(80, 150, Direction.BACKWARDS);
     public boolean field20874 = false;
 
-    public MusicPlayer(CustomGuiScreen var1, String var2) {
-        super(var1, var2, 875, 55, 800, 600, false);
+    public JelloClickGUI parent;
+
+    public MusicPlayer(JelloClickGUI parent, String var2) {
+        super(parent, var2, 875, 55, 800, 600, false);
+        this.parent = parent;
 
         if (videos.size() != 8) {
             videos.clear();
@@ -521,17 +524,17 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     // $VF: synthetic method
-    public static MusicTabs method13206(MusicPlayer var0) {
+    public static MusicTabs addTab(MusicPlayer var0) {
         return var0.musicTabs;
     }
 
     // $VF: synthetic method
-    public static int method13207(MusicPlayer var0) {
+    public static int getHeight(MusicPlayer var0) {
         return var0.field20846;
     }
 
     // $VF: synthetic method
-    public static int method13208(MusicPlayer var0) {
+    public static int getWidth(MusicPlayer var0) {
         return var0.field20845;
     }
 
@@ -546,7 +549,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     // $VF: synthetic method
-    public static void method13211(MusicPlayer var0, MusicVideoManager var1, YoutubeVideoData var2) {
+    public static void playSong(MusicPlayer var0, MusicVideoManager var1, YoutubeVideoData var2) {
         var0.method13190(var1, var2);
     }
 }
