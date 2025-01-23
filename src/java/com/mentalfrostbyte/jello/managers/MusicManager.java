@@ -255,7 +255,7 @@ public class MusicManager {
             ticks += 1;
         }
 
-        if (ticks >= 1800) {
+        if (ticks >= 1800 && getDuration() == 0L) {
             isThumbnailProcessing = false;
             playing = false;
 
@@ -536,6 +536,12 @@ public class MusicManager {
 
     public void playSong(MusicVideoManager manager, YoutubeVideoData video) {
         if (playing && totalDuration == 0L) {
+            return;
+        }
+
+        if (video.videoId.equals("DArzZ3RvejU")) {
+            Client.getInstance().notificationManager.send(
+                    new Notification("Failed to Play Song", "Prevented brick :)"));
             return;
         }
 
