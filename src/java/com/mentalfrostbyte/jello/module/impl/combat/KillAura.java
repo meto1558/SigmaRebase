@@ -369,7 +369,7 @@ public class KillAura extends Module {
 
         double partialTicks = Minecraft.getInstance().timer.renderPartialTicks;
         if (!targetEntity.isAlive()) {
-            partialTicks = 0.0;
+            partialTicks = 0.5;
         }
 
         double interpolatedX = targetEntity.lastTickPosX + (targetEntity.getPosX() - targetEntity.lastTickPosX) * partialTicks;
@@ -387,15 +387,15 @@ public class KillAura extends Module {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
 
-        long cycleDurationMs = 1425;
+        long cycleDurationMs = 1800;
         float glowProgress = (float) (System.currentTimeMillis() % cycleDurationMs) / cycleDurationMs;
-        boolean isFadingOut = glowProgress > 0.5F;
+        boolean isFadingOut = glowProgress > 0.5;
         glowProgress = !isFadingOut ? glowProgress * 2.0F : 1.0F - glowProgress * 2.0F % 1.0F;
 
         GL11.glTranslatef(0.0F, (targetEntity.getHeight() + 0.4F) * glowProgress, 0.0F);
 
         float glowFactor = (float) Math.sin(glowProgress * Math.PI);
-        drawCircle(isFadingOut, 0.45F * glowFactor, 0.6F, 0.35F * glowFactor, this.entityGlowMap.get(targetEntity).calcPercent());
+        drawCircle(isFadingOut, 0.45F * glowFactor, 0.6F, 0.13F * glowFactor, this.entityGlowMap.get(targetEntity).calcPercent());
 
         GL11.glPopMatrix();
 

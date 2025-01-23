@@ -32,6 +32,9 @@ public class InvManagerUtil {
     public static boolean method25859(ItemStack var0) {
         return var0 != null ? var0.getItem() instanceof PotionItem : false;
     }
+    public static ItemStack method25866(int var0) {
+        return mc.player.container.getSlot(var0).getStack();
+    }
 
     public static int findBestToolFromHotbarSlotForBlock(BlockState state) {
         int slot = -1;

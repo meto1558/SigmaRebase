@@ -9,4 +9,5 @@ public enum ClickType
     THROW,
     QUICK_CRAFT,
     PICKUP_ALL;
+
 }

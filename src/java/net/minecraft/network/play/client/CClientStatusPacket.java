@@ -50,6 +50,16 @@ public class CClientStatusPacket implements IPacket<IServerPlayNetHandler>
     public static enum State
     {
         PERFORM_RESPAWN,
-        REQUEST_STATS;
+        REQUEST_STATS,
+
+        // START MODIFICATION
+        OPEN_INVENTORY;
+
+        private static final State[] field14280 = new State[]{PERFORM_RESPAWN, REQUEST_STATS, OPEN_INVENTORY};
+
+        // END MODIFICATION
+
+
+
     }
 }

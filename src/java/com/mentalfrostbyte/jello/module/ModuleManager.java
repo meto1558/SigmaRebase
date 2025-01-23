@@ -165,6 +165,8 @@ public class ModuleManager {
         this.register(new ChestStealer());
         this.register(new InvManager());
         this.register(new AutoPotion());
+        this.register(new AutoSoup());
+
 
 
 
