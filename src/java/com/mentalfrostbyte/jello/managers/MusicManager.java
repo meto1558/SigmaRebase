@@ -246,13 +246,39 @@ public class MusicManager {
 
     @EventTarget
     public void onTick(TickEvent event) {
+        if (!this.playing) {
+            this.visualizerData.clear();
+            this.amplitudes.clear();
+        }
+
         if (this.playing) {
             ticks += 1;
         }
 
-        if (!this.playing) {
-            this.visualizerData.clear();
-            this.amplitudes.clear();
+        if (ticks >= 1800) {
+            isThumbnailProcessing = false;
+            playing = false;
+
+            currentVideoIndex = 0;
+
+            thumbnailImage = null;
+            scaledThumbnail = null;
+            currentVideo = null;
+
+            songThumbnail.release();
+            notificationImage.release();
+
+            visualizerData.clear();
+            amplitudes.clear();
+
+            audioThread.interrupt();
+            sourceDataLine.close();
+
+            ticks = 0;
+            duration = 0L;
+
+            Client.getInstance().notificationManager.send(
+                    new Notification("Failed to Play Song", "You bricked your music player :("));
         }
 
         try {
@@ -509,11 +535,9 @@ public class MusicManager {
     }
 
     public void playSong(MusicVideoManager manager, YoutubeVideoData video) {
-        if (totalDuration == 0L) {
+        if (playing && totalDuration == 0L) {
             return;
         }
-
-        ticks = 0;
 
         if (manager == null) {
             manager = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
