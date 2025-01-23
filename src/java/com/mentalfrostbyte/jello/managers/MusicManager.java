@@ -586,7 +586,7 @@ public class MusicManager {
     private void method24328(SourceDataLine var1, int var2) {
         try {
             FloatControl var5 = (FloatControl) var1.getControl(Type.MASTER_GAIN);
-            BooleanControl var6 = (BooleanControl) var1.getControl(javax.sound.sampled.BooleanControl.Type.MUTE);
+            BooleanControl var6 = (BooleanControl) var1.getControl(BooleanControl.Type.MUTE);
             if (var2 == 0) {
                 var6.setValue(true);
             } else {
@@ -703,22 +703,22 @@ public class MusicManager {
         if (Util.getOSType() != Util.OS.WINDOWS) {
             return true;
         } else {
-            boolean hasRedist;
+            boolean hasRedist = false;
 
             try {
                 hasRedist = Advapi32Util.registryGetIntValue(
                         WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed"
                 )
                         == 1;
-            } catch (RuntimeException ignored) {
-                hasRedist = false;
+            } catch (RuntimeException e) {
+                e.printStackTrace();
             }
 
             try {
                 hasRedist = hasRedist
                         || Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed") == 1;
-            } catch (RuntimeException ignored) {
-                hasRedist = false;
+            } catch (RuntimeException e) {
+                e.printStackTrace();
             }
 
             return hasRedist;
