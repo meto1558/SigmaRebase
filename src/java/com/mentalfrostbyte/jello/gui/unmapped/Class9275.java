@@ -75,7 +75,7 @@ public class Class9275 {
       return var7;
    }
 
-   public static URL method34960(String var0) {
+   public static URL getVideoStreamURL(String var0) {
       try {
          return new URL("https://www.youtube.com/watch?v=" + var0);
       } catch (IOException var4) {
