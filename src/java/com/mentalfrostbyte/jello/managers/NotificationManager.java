@@ -130,6 +130,15 @@ public class NotificationManager {
         }
     }
 
+    public boolean isRenderingNotification() {
+        for (Notification notification : this.notifications) {
+            if (this.getAnimation(notification) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void init() {
         EventBus.register(this);
     }
