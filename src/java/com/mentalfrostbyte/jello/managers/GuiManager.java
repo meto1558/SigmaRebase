@@ -237,7 +237,7 @@ public class GuiManager {
 
     public void renderWatermark() {
         if (Minecraft.getInstance().world != null) {
-            GL11.glDisable(2896);
+            GL11.glDisable(GL11.GL_LIGHTING);
             int var3 = 0;
             int var4 = 0;
             int var5 = 170;
