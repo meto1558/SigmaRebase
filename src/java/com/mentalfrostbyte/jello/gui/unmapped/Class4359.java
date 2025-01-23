@@ -15,13 +15,13 @@ public class Class4359 extends UIBase {
     public Class4359(CustomGuiScreen parentScreen, String var2, int var3, int var4, int var5, int var6) {
         super(parentScreen, var2, var3, var4, var5, var6, false);
         this.method13247((var1x, var2x) -> {
-            int var5x = (int) this.musicManager.method24321();
-            int var6x = this.musicManager.method24327();
+            int var5x = (int) this.musicManager.getDuration();
+            int var6x = this.musicManager.getDurationInt();
             this.field21315 = Math.min((float) var5x / (float) var6x, 1.0F);
         });
         this.method13249((var1x, var2x) -> {
             if (this.method13298() && this.method13297()) {
-                int var5x = (int) Math.min((double) ((int) (this.field21315 * (float) this.musicManager.method24327())), this.musicManager.method24322());
+                int var5x = (int) Math.min((double) ((int) (this.field21315 * (float) this.musicManager.getDurationInt())), this.musicManager.method24322());
                 this.musicManager.method24329((double) var5x);
             }
         });
@@ -29,18 +29,18 @@ public class Class4359 extends UIBase {
 
     @Override
     public void draw(float partialTicks) {
-        int var4 = (int) this.musicManager.method24321();
+        long durationLong = (int) this.musicManager.getDuration();
         double var5 = this.musicManager.method24322();
-        int var7 = this.musicManager.method24327();
-        float var8 = Math.max(0.0F, Math.min((float) var4 / (float) var7, 1.0F));
-        float var9 = Math.max(0.0F, Math.min((float) var5 / (float) var7, 1.0F));
+        int durationInt = this.musicManager.getDurationInt();
+        float var8 = Math.max(0.0F, Math.min((float) durationLong / (float) durationInt, 1.0F));
+        float var9 = Math.max(0.0F, Math.min((float) var5 / (float) durationInt, 1.0F));
         if (this.method13212() && this.method13298() && var5 != 0.0) {
             int var10 = this.getHeightO() - this.method13271();
             this.field21315 = Math.min(Math.max((float) var10 / (float) this.getWidthA(), 0.0F), var9);
             var8 = this.field21315;
         }
 
-        if (var4 == 0 && !this.musicManager.isPlayingSong()) {
+        if (durationLong == 0 && !this.musicManager.isPlayingSong()) {
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),
                     (float) this.getYA(),

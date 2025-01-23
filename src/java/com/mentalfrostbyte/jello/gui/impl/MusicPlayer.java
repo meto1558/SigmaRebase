@@ -315,8 +315,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13192(float var1) {
-        int var4 = (int) this.musicManager.method24321();
-        int var5 = this.musicManager.method24327();
+        int var4 = (int) this.musicManager.getDuration();
+        int var5 = this.musicManager.getDurationInt();
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
                 (float) (this.getXA() + this.width + 14),
@@ -334,8 +334,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13193(float var1) {
-        Texture var4 = this.musicManager.method24326();
-        Texture var5 = this.musicManager.method24325();
+        Texture var4 = this.musicManager.getNotificationImage();
+        Texture var5 = this.musicManager.getSongThumbnail();
         if (var4 != null && var5 != null) {
             RenderUtil.drawImage(
                     (float) this.getXA(),
@@ -408,8 +408,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     }
 
     private void method13194(float var1) {
-        if (this.musicManager.method24324() != null) {
-            String[] var4 = this.musicManager.method24324().split(" - ");
+        if (this.musicManager.getSongTitle() != null) {
+            String[] var4 = this.musicManager.getSongTitle().split(" - ");
             int var5 = 30;
             if (var4.length <= 1) {
                 this.drawString(var1, !var4[0].isEmpty() ? var4[0] : "Jello Music", this.width - var5 * 2, 12, 0);
