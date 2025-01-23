@@ -69,9 +69,7 @@ public class JelloClickGUI extends Screen {
         moreButton.getTextColor().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.method13300(false);
 
-        boolean musicPlayerEnabled = true;
-
-        this.musicPlayer.setEnabled(musicPlayerEnabled);
+        this.musicPlayer.setEnabled(true);
         moreButton.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
             if (this.configButton != null && this.hasChild(this.configButton)) {
                 this.method13234(this.configButton);
@@ -89,7 +87,7 @@ public class JelloClickGUI extends Screen {
 
     public boolean hasJelloMusicRequirements() {
         if (Client.getInstance().musicManager.hasPython() && Client.getInstance().musicManager.hasVCRedist()) {
-            return false;
+            return true;
         } else if (this.dependenciesAlert == null) {
             this.runThisOnDimensionUpdate(() -> {
                 List<MiniAlert> alerts = new ArrayList<>();
@@ -113,7 +111,7 @@ public class JelloClickGUI extends Screen {
                     }
 
                     if (!Client.getInstance().musicManager.hasVCRedist()) {
-                        Util.getOSType().openLink("https://www.microsoft.com/en-US/Download/confirmation.aspx?id=26999");
+                        Util.getOSType().openLink("https://www.microsoft.com/en-us/download/details.aspx?id=26999");
                     }
                 });
 
