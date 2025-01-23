@@ -455,27 +455,27 @@ public class AltManagerScreen extends Screen {
    }
 
    // $VF: synthetic method
-   public static MusicTabs method13382(AltManagerScreen var0) {
-      return var0.field21010;
+   public static MusicTabs method13382(AltManagerScreen instance) {
+      return instance.field21010;
    }
 
    // $VF: synthetic method
-   public static MusicTabs method13383(AltManagerScreen var0, MusicTabs var1) {
-      return var0.field21010 = var1;
+   public static MusicTabs method13383(AltManagerScreen instance, MusicTabs var1) {
+      return instance.field21010 = var1;
    }
 
    // $VF: synthetic method
-   public static float method13384(AltManagerScreen var0) {
-      return var0.field21014;
+   public static float method13384(AltManagerScreen instance) {
+      return instance.field21014;
    }
 
    // $VF: synthetic method
-   public static int method13385(AltManagerScreen var0) {
-      return var0.titleOffset;
+   public static int getTitleOffset(AltManagerScreen instance) {
+      return instance.titleOffset;
    }
 
    // $VF: synthetic method
-   public static void method13386(AltManagerScreen var0, Account var1, boolean var2) {
-      var0.method13360(var1, var2);
+   public static void method13386(AltManagerScreen instance, Account var1, boolean var2) {
+      instance.method13360(var1, var2);
    }
 }

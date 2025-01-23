@@ -43,7 +43,7 @@ public class Class1428 implements Runnable {
                   0,
                   114,
                   (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * AltManagerScreen.method13384(this.field7664)) - 4,
-                  Minecraft.getInstance().getMainWindow().getHeight() - 119 - AltManagerScreen.method13385(this.field7664)
+                  Minecraft.getInstance().getMainWindow().getHeight() - 119 - AltManagerScreen.getTitleOffset(this.field7664)
                )
             )
          );
