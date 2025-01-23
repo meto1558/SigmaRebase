@@ -30,9 +30,9 @@ public class NCPSpeed extends Module {
     @Override
     public void onEnable() {
         this.field23608 = 1;
-        double var3 = mc.player.getMotion().x;
-        double var5 = mc.player.getMotion().z;
-        this.field23609 = Math.sqrt(var3 * var3 + var5 * var5);
+        double mX = mc.player.getMotion().x;
+        double mZ = mc.player.getMotion().z;
+        this.field23609 = Math.sqrt(mX * mX + mZ * mZ);
     }
 
     @EventTarget
