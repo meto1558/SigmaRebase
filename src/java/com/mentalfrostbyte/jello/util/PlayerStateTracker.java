@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.util;
 
 
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
 import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
 import com.mentalfrostbyte.jello.event.impl.TickEvent;
@@ -16,19 +15,19 @@ public class PlayerStateTracker {
     private int focusGameTicks = 0;
     private int groundTicks = 0;
     private int moveTicks = 0;
-    private int field39251 = 0;
+    private int mode = 0;
     private boolean alive = false;
     private long lastMilis = System.currentTimeMillis();
     private float ping = 1.0F;
-    private Minecraft mc = Minecraft.getInstance();
+    private final Minecraft mc = Minecraft.getInstance();
 
 
     @EventTarget
-    private void method31324(TickEvent var1) {
+    public void method31324(TickEvent var1) {
         this.focusGameTicks++;
         this.groundTicks++;
         this.moveTicks++;
-        this.field39251++;
+        this.mode++;
         if (!this.mc.player.isOnGround()) {
             this.groundTicks = 0;
         }
@@ -48,14 +47,14 @@ public class PlayerStateTracker {
     }
 
     @EventTarget
-    private void method31325(SendPacketEvent var1) {
+    public void method31325(SendPacketEvent var1) {
         if (var1.getPacket() instanceof CClickWindowPacket) {
-            this.field39251 = 0;
+            this.mode = 0;
         }
     }
 
     @EventTarget
-    private void method31326(ReceivePacketEvent var1) {
+    public void method31326(ReceivePacketEvent var1) {
         if (var1.getPacket() instanceof SKeepAlivePacket) {
             long var4 = System.currentTimeMillis() - this.lastMilis;
             this.ping = Math.min(1.05F, Math.max(0.0F, 15000.0F / (float)var4));
@@ -67,7 +66,7 @@ public class PlayerStateTracker {
         return this.ping;
     }
 
-    public float method31328() {
+    public float getPingAsTicks() {
         return this.getPing() * 20.0F;
     }
 
@@ -75,7 +74,7 @@ public class PlayerStateTracker {
         return this.groundTicks;
     }
 
-    public boolean isalive() {
+    public boolean isAlive() {
         return this.alive;
     }
 
@@ -88,7 +87,7 @@ public class PlayerStateTracker {
     }
 
     public int getMode() {
-        return this.field39251;
+        return this.mode;
     }
 
     public void method31334() {

@@ -98,6 +98,7 @@ public class Client {
         this.accountManager = new AccountManager();
         this.accountManager.registerEvents();
         this.playerTracker = new PlayerStateTracker();
+        EventBus.register(this.playerTracker);
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.1");
