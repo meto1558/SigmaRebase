@@ -47,8 +47,8 @@ public class ChestStealer extends Module {
         this.registerSetting(new BooleanSetting("Ignore Junk", "Ignores useless items.", true));
         this.registerSetting(new BooleanSetting("Fix ViaVersion", "Fixes ViaVersion delay.", true));
         this.registerSetting(new BooleanSetting("Close", "Automatically closes the chest when done", true));
-        this.registerSetting(new NumberSetting<Float>("Delay", "Click delay", 0.2F, Float.class, 0.0F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<Float>("First Item", "Tick delay before grabbing first item", 0.2F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Delay", "Click delay", 0.2F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("First Item", "Tick delay before grabbing first item", 0.2F, Float.class, 0.0F, 1.0F, 0.01F));
         this.chests = new ConcurrentHashMap<>();
     }
 
