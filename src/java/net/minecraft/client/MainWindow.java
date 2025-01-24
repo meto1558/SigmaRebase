@@ -169,6 +169,10 @@ public final class MainWindow implements AutoCloseable {
 
     public void setWindowIcon(InputStream iconStream16X, InputStream iconStream32X) {
         RenderSystem.assertThread(RenderSystem::isInInitPhase);
+        // MODIFICATION BEGIN: hotfix for Wayland when you have the window icon
+        if (GLFW.glfwGetPlatform() == GLFW.GLFW_PLATFORM_WAYLAND)
+            return;
+        // MODIFICATION END
 
         try (MemoryStack memorystack = MemoryStack.stackPush()) {
             if (iconStream16X == null) {
