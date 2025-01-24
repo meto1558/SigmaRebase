@@ -76,9 +76,10 @@ public class MinibloxDisabler extends Module {
             lastWait = System.currentTimeMillis();
             return;
         }
+        if (mc.player == null) return;
         if (rawPacket instanceof SPlayerPositionLookPacket packet
                 && mc.getConnection() != null
-                && Objects.requireNonNull(mc.player).ticksExisted >= 100) {
+                && mc.player.ticksExisted >= 100) {
             if (waitForPos || System.currentTimeMillis() - lastWait <= clearDelay.currentValue) {
                 MinecraftUtil.addChatMessage("Accepting pos");
                 waitForPos = false;
@@ -102,7 +103,6 @@ public class MinibloxDisabler extends Module {
 //                    )
 //            );
         } else {
-            assert mc.player != null;
             serverPos = new Vector3d(mc.player.lastReportedPosX, mc.player.lastReportedPosY, mc.player.lastReportedPosZ);
             serverRot = new Rotations(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
 //            clientPlayerEntity.inventory = mc.player.inventory;
