@@ -19,8 +19,6 @@ import com.mentalfrostbyte.jello.module.impl.render.jello.esp.*;
 import com.mentalfrostbyte.jello.module.impl.render.classic.*;
 import com.mentalfrostbyte.jello.module.impl.render.classic.esp.*;
 
-
-
 import com.mentalfrostbyte.jello.module.impl.world.*;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
@@ -115,6 +113,8 @@ public class ModuleManager {
         this.register(new Timer());
         this.register(new InteractRange());
         this.register(new Disabler());
+        this.register(new FastBreak());
+        this.register(new FastPlace());
 
         // MISC
         this.register(new GamePlay());

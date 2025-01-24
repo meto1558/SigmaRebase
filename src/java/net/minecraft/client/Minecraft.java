@@ -345,7 +345,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     public Entity pointedEntity;
     @Nullable
     public RayTraceResult objectMouseOver;
-    private int rightClickDelayTimer;
+    public int rightClickDelayTimer;
     protected int leftClickCounter;
     private boolean isGamePaused;
     private float renderPartialTicksPaused;
