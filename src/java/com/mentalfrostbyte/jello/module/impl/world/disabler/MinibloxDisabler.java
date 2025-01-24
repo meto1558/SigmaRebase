@@ -4,6 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
 import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.player.NoFall;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.player.Rotations;
@@ -79,7 +80,8 @@ public class MinibloxDisabler extends Module {
         if (mc.player == null) return;
         if (rawPacket instanceof SPlayerPositionLookPacket packet
                 && mc.getConnection() != null
-                && mc.player.ticksExisted >= 100) {
+                && mc.player.ticksExisted >= 100
+                && !NoFall.falling) {
             if (waitForPos || System.currentTimeMillis() - lastWait <= clearDelay.currentValue) {
                 MinecraftUtil.addChatMessage("Accepting pos");
                 waitForPos = false;

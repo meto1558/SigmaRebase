@@ -16,7 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public class NoFall extends Module {
     private boolean field23507 = false;
-    private boolean falling = false;
+    public static boolean falling = false;
     private boolean field23508;
     private double field23509;
     private boolean field23510;
