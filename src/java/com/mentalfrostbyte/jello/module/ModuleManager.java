@@ -150,6 +150,8 @@ public class ModuleManager {
         this.register(new Sneak());
         this.register(new OldHitting());
         this.register(new InvMove());
+        this.register(new FastEat());
+
 
 
 
