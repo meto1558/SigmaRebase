@@ -1,7 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
+import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
@@ -13,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public class NoFall extends Module {
     private boolean field23507 = false;
+    private boolean falling = false;
     private boolean field23508;
     private double field23509;
     private boolean field23510;
@@ -20,7 +24,7 @@ public class NoFall extends Module {
     public NoFall() {
         super(ModuleCategory.PLAYER, "NoFall", "Avoid you from getting fall damages");
         this.registerSetting(
-                new ModeSetting("Mode", "Nofall mode", 0, "Vanilla", "Hypixel", "Hypixel2", "AAC", "NCPSpigot", "OldHypixel", "Vanilla Legit")
+                new ModeSetting("Mode", "Nofall mode", 0, "Vanilla", "Cancel", "Hypixel", "Hypixel2", "AAC", "NCPSpigot", "OldHypixel", "Vanilla Legit")
 //                        .setPremiumModes("Hypixel", "Hypixel2")
         );
     }
@@ -30,6 +34,13 @@ public class NoFall extends Module {
         this.field23507 = false;
         this.field23508 = false;
         this.field23509 = 0.0;
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        falling = false;
+        mc.player.fallDistance = 0F;
     }
 
     @EventTarget
@@ -74,6 +85,33 @@ public class NoFall extends Module {
                     event.setY(event.getY() + var6);
                     MovementUtil.setPlayerYMotion(event.getY());
                 }
+            }
+        }
+    }
+
+    @EventTarget
+    @SuppressWarnings("unused")
+    public void onSendPacket(SendPacketEvent event) {
+        if (
+                !this.isEnabled() ||
+                !this.getStringSettingValueByName("Mode").equals("Cancel") ||
+                event.cancelled
+        ) return;
+        IPacket<?> rawPacket = event.getPacket();
+        if (rawPacket instanceof SPlayerPositionLookPacket packet && falling) {
+            mc.getConnection().sendPacket(
+                    new CPlayerPacket.PositionRotationPacket(
+                            packet.getX(), packet.getY(),
+                            packet.getZ(), packet.getYaw(),
+                            packet.getPitch(), true
+                    )
+            );
+            falling = false;
+        }
+        if (rawPacket instanceof CPlayerPacket) {
+            if (mc.player.fallDistance > 3f) {
+                falling = true;
+                event.cancelled = true;
             }
         }
     }
