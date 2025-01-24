@@ -44,7 +44,7 @@ public class MinibloxDisabler extends Module {
     @Override
     public void onEnable() {
         super.onEnable();
-        assert mc.player != null;
+        if (mc.player == null) return;
         serverPos = new Vector3d(mc.player.lastReportedPosX, mc.player.lastReportedPosY, mc.player.lastReportedPosZ);
         serverRot = new Rotations(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
 //        updateServerPlayer();
