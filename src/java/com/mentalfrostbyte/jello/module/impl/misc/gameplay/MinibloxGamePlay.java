@@ -5,23 +5,79 @@ import com.mentalfrostbyte.jello.misc.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
-import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.module.settings.impl.*;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
-import net.minecraft.network.play.server.STeamsPacket;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.event.ClickEvent;
-import org.apache.commons.lang3.StringUtils;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class MinibloxGamePlay extends Module {
+//    private final ModeSetting skywarsKit;
+    private final ModeSetting autoVoteMode;
+    private final BooleanSetting autoVote;
     private GamePlay parentModule;
+//    private final ModeSetting kitPvPKit;
 
     public MinibloxGamePlay() {
         super(ModuleCategory.MISC, "Miniblox", "Gameplay for Miniblox");
         registerSetting(new BooleanSetting("FriendAccept", "Automatically accept friend requests", false));
-        registerSetting(new BooleanSetting("Hide infos", "Hide scoreboard server informations & date when ingame", false));
+        registerSetting(
+                this.autoVote = new BooleanSetting(
+                        "AutoVote",
+                        "Automatically vote on the skywars gamemode poll",
+                        true
+                )
+        );
+        registerSetting(
+                this.autoVoteMode = new ModeSetting(
+                        "Mode",
+                        "Mode to vote on Skywars",
+                        "Insane (2)",
+                        "Normal (1)",
+                        "Insane (2)"
+                )
+        );
+        registerSetting(new BooleanSetting("AutoKit", "Automatically select kits", false));
+//        registerSetting(
+//                new SubOptionSetting(
+//                        "Kits",
+//                        "Kits",
+//                        false,
+//                        skywarsKit = new ModeSetting(
+//                                "Skywars",
+//                                "Automatically select kits",
+//                                "Default",
+//                                "Miner",
+//                                "Rookie",
+//                                "Farmer",
+//                                "Hunter",
+//                                "The Slapper",
+//                                "Pyro",
+//                                "Enderman",
+//                                "Princess",
+//                                "Demolitionist",
+//                                "Knight",
+//                                "Troll"
+//                        ),
+//                        kitPvPKit = new ModeSetting(
+//                                "KitPvP",
+//                                "Automatically select kits",
+//                                "Knight",
+//                                "Archer",
+//                                "Tank",
+//                                "Scout",
+//                                "Princess",
+//                                "Medic",
+//                                "Slapper",
+//                                "Pyro",
+//                                "Enderman",
+//                                "Demolitionist",
+//                                "Sloth"
+//                        )
+//                )
+//        );
     }
 
     @Override
@@ -40,6 +96,17 @@ public class MinibloxGamePlay extends Module {
 //                }
 
                 String playerName = mc.player.getName().getString().toLowerCase();
+
+                if (autoVote.currentValue && text.equals("Poll started: Choose a gamemode")) {
+                    switch (autoVoteMode.currentValue) {
+                        case "Normal (1)":
+                            MultiUtilities.sendChatMessage("/vote 1");
+                            break;
+                        case "Insane (2)":
+                            MultiUtilities.sendChatMessage("/vote 2");
+                            break;
+                    }
+                }
 
                 if (parentModule.getBooleanValueFromSettingName("AutoL")) {
 //                    boolean confirmedKill = false;
@@ -95,14 +162,6 @@ public class MinibloxGamePlay extends Module {
 
                     if (parentModule.getBooleanValueFromSettingName("AutoGG")) {
                         parentModule.initializeAutoL();
-                    }
-                }
-            } else if (packet instanceof STeamsPacket teamsPacket && getBooleanValueFromSettingName("Hide infos")) {
-                if (teamsPacket.getAction() == 2 && teamsPacket.getName().startsWith("team_")) {
-                    String teamPrefixSuffixCombined = teamsPacket.getPrefix().getString() + teamsPacket.getSuffix().getString();
-                    String[] splitPrefixSuffix = teamPrefixSuffixCombined.split(" ");
-                    if (splitPrefixSuffix != null && splitPrefixSuffix.length > 1 && StringUtils.countMatches(splitPrefixSuffix[0], "/") == 2) {
-                        event.setCancelled(true);
                     }
                 }
             }
