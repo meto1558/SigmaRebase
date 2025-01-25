@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.combat.wtap;
 
-import com.mentalfrostbyte.jello.event.impl.EventRayTraceResult;
+import com.mentalfrostbyte.jello.event.impl.world.render.EventRayTraceResult;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.client.CEntityActionPacket;

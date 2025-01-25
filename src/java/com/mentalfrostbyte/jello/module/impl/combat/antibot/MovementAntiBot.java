@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

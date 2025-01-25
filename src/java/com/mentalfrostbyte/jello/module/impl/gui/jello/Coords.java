@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
@@ -46,7 +46,7 @@ public class Coords extends Module {
 
     @EventTarget
     @LowestPriority
-    public void onRender(EventRender eventRender) {
+    public void onRender(EventRenderPriorityBased eventRender) {
         if (this.isEnabled()) {
             if (mc.player != null) {
                 if (!(mc.gameSettings.showDebugInfo || mc.gameSettings.hideGUI)) {
@@ -57,7 +57,7 @@ public class Coords extends Module {
                             + " "
                             + String.format("%.2f", mc.player.getPosZ());
                     float var6 = 85;
-                    int var7 = eventRender.method13960();
+                    int var7 = eventRender.getPriority();
                     float var8 = 150;
                     float var9 = (float) ResourceRegistry.JelloLightFont18.getWidth(xyz);
                     float var10 = Math.min(1.0F, (float) var8 / var9);

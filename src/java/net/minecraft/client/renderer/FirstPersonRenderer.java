@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.base.MoreObjects;
-import com.mentalfrostbyte.jello.event.impl.EventHandAnimation;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventHandAnimation;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.Objects;

@@ -1,14 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

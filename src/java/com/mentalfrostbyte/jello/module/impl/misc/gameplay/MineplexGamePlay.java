@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
@@ -54,7 +54,7 @@ public class MineplexGamePlay extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(WorldLoadEvent event) {
+    public void onWorldLoad(EventLoadWorld event) {
         if (this.isEnabled()) {
             this.foundTeam = false;
         }

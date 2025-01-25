@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.gui.classic;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.misc.CategoryDrawPart;
@@ -182,7 +182,7 @@ public class TabGUI extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onRender(EventRender event) {
+    public void onRender(EventRenderPriorityBased event) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {

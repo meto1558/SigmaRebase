@@ -1,9 +1,9 @@
 package net.minecraft.client;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventMouse;
-import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;
@@ -54,7 +54,7 @@ public class MouseHelper {
             if (this.minecraft.currentScreen == null) {
                 if (action != 1 && action != 2) {
                     if (action == 0) {
-                        MouseHoverEvent var15 = new MouseHoverEvent(button);
+                        EventMouseHover var15 = new EventMouseHover(button);
                         EventBus.call(var15);
                         if (var15.cancelled) {
                             return;

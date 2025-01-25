@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.criticals;
 
-import com.mentalfrostbyte.jello.event.impl.EventRayTraceResult;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.world.render.EventRayTraceResult;
+import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Step;

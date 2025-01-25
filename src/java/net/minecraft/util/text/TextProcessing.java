@@ -2,7 +2,7 @@ package net.minecraft.util.text;
 
 import java.util.Optional;
 
-import com.mentalfrostbyte.jello.event.impl.TextReplaceEvent;
+import com.mentalfrostbyte.jello.event.impl.game.EventTextProcessing;
 import net.minecraft.util.ICharacterConsumer;
 import net.minecraft.util.Unit;
 import team.sdhq.eventBus.EventBus;
@@ -116,16 +116,16 @@ public class TextProcessing
         return func_238340_a_(p_238339_0_, p_238339_1_, p_238339_2_, p_238339_2_, p_238339_3_);
     }
 
-    public static boolean func_238340_a_(String p_238340_0_, int p_238340_1_, Style p_238340_2_, Style p_238340_3_, ICharacterConsumer p_238340_4_) {
-        TextReplaceEvent i1 = new TextReplaceEvent(p_238340_0_);
+    public static boolean func_238340_a_(String text, int p_238340_1_, Style p_238340_2_, Style p_238340_3_, ICharacterConsumer p_238340_4_) {
+        EventTextProcessing i1 = new EventTextProcessing(text);
         EventBus.call(i1);
-        p_238340_0_ = i1.setText();
-        int i = p_238340_0_.length();
+        text = i1.setText();
+        int i = text.length();
         Style style = p_238340_2_;
 
         for (int j = p_238340_1_; j < i; ++j)
         {
-            char c0 = p_238340_0_.charAt(j);
+            char c0 = text.charAt(j);
 
             if (c0 == 167)
             {
@@ -134,7 +134,7 @@ public class TextProcessing
                     break;
                 }
 
-                char c1 = p_238340_0_.charAt(j + 1);
+                char c1 = text.charAt(j + 1);
                 TextFormatting textformatting = TextFormatting.fromFormattingCode(c1);
 
                 if (textformatting != null)
@@ -156,7 +156,7 @@ public class TextProcessing
                     break;
                 }
 
-                char c2 = p_238340_0_.charAt(j + 1);
+                char c2 = text.charAt(j + 1);
 
                 if (Character.isLowSurrogate(c2))
                 {

@@ -1,7 +1,14 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -160,7 +167,7 @@ public class BlockFlyNCPMode extends Module {
     }
 
     @EventTarget
-    public void onHover(MouseHoverEvent var1) {
+    public void onHover(EventMouseHover var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Downwards")) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.setCancelled(true);
@@ -410,7 +417,7 @@ public class BlockFlyNCPMode extends Module {
     }
 
     @EventTarget
-    public void method16812(Render2DEvent var1) {
+    public void method16812(EventRender2D var1) {
         if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23926 >= 0) {
             if (!(mc.player.fallDistance > 1.2F)) {
                 if (!(mc.player.chasingPosY < this.field23931)) {

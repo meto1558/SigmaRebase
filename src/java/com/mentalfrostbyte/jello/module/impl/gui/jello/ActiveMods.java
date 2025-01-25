@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.EventRenderGUI;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderInGameGui;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
@@ -81,7 +81,7 @@ public class ActiveMods extends Module {
     }
 
     @EventTarget
-    public void onGUI(EventRenderGUI event) {
+    public void onGUI(EventRenderInGameGui event) {
         if (mc.player != null) {
             if (!event.isRendering) {
                 GlStateManager.translatef(0.0F, (float) (-this.totalHeight), 0.0F);
@@ -124,7 +124,7 @@ public class ActiveMods extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRenderPriorityBased event) {
         if (mc.player != null) {
             for (Module module : this.animations.keySet()) {
                 if (this.getBooleanValueFromSettingName("Animations")) {

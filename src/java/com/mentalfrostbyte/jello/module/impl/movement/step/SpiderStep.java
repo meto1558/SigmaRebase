@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.step;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
-import com.mentalfrostbyte.jello.event.impl.EventStep;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.misc.StepEnum;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

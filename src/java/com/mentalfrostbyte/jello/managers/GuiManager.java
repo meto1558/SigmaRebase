@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
 import com.mentalfrostbyte.jello.gui.base.Bird;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.*;
@@ -273,7 +273,7 @@ public class GuiManager {
                 RenderSystem.disableBlend();
             }
 
-            EventBus.call(new EventRender());
+            EventBus.call(new EventRenderPriorityBased());
         }
 
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {

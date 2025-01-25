@@ -1,7 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.world.render.EventRender3D;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
@@ -204,7 +210,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onWorldChange(WorldLoadEvent event) {
+    public void onWorldChange(EventLoadWorld event) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Disable on death")) {
             Client.getInstance().notificationManager.send(new Notification("Aura", "Aura disabled due to respawn"));
             this.toggle();
@@ -239,7 +245,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onStopuseItem(StopUseItemEvent event) {
+    public void onStopuseItem(EventStopUseItem event) {
         if (this.isEnabled()) {
             if (!this.getStringSettingValueByName("Auto block Mode").equals("None")
                     && (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem
@@ -365,7 +371,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onRender2D(EventRender event) {
+    public void onRender2D(EventRenderPriorityBased event) {
 
         if (mc.player == null || mc.world == null) {
             return;
@@ -386,7 +392,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onRender3D(Render3DEvent event) {
+    public void onRender3D(EventRender3D event) {
         if (targetEntities == null) {
             return;
         }

@@ -5,10 +5,10 @@ import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.ClickEvent;
-import com.mentalfrostbyte.jello.event.impl.EventRayTraceResult;
-import com.mentalfrostbyte.jello.event.impl.StopUseItemEvent;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
+import com.mentalfrostbyte.jello.event.impl.world.render.EventRayTraceResult;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
@@ -1360,7 +1360,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     }
 
     private void clickMouse() {
-        ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.LEFT);
+        EventClick clickEvent = new EventClick(EventClick.Button.LEFT);
         EventBus.call(clickEvent);
 
         if (clickEvent.cancelled) {
@@ -1419,7 +1419,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * Called when user clicked he's mouse right button (place)
      */
     private void rightClickMouse() {
-        ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.RIGHT);
+        EventClick clickEvent = new EventClick(EventClick.Button.RIGHT);
         EventBus.call(clickEvent);
 
         if (clickEvent.cancelled) {
@@ -1739,7 +1739,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         if (this.player.isHandActive()) {
             if (!this.gameSettings.keyBindUseItem.isKeyDown()) {
-                StopUseItemEvent var6 = new StopUseItemEvent();
+                EventStopUseItem var6 = new EventStopUseItem();
                 EventBus.call(var6);
                 if (!var6.cancelled) {
                     this.playerController.onStoppedUsingItem(this.player);
@@ -1998,7 +1998,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.updateScreenTick(workingscreen);
         this.world = worldClientIn;
         this.updateWorldRenderer(worldClientIn);
-        EventBus.call(new WorldLoadEvent());
+        EventBus.call(new EventLoadWorld());
         if (!this.integratedServerIsRunning) {
             AuthenticationService authenticationservice = new YggdrasilAuthenticationService(this.proxy);
             MinecraftSessionService minecraftsessionservice = authenticationservice.createMinecraftSessionService();
@@ -2108,7 +2108,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * Called when user clicked he's mouse middle button (pick block)
      */
     private void middleClickMouse() {
-        ClickEvent clickEvent = new ClickEvent(ClickEvent.Button.MID);
+        EventClick clickEvent = new EventClick(EventClick.Button.MID);
         EventBus.call(clickEvent);
 
         if (clickEvent.cancelled) {

@@ -2,10 +2,9 @@ package com.mentalfrostbyte.jello.module.impl.player;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
 import com.mentalfrostbyte.jello.misc.Class1144;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -16,7 +15,6 @@ import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.inventory.*;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.client.CEntityActionPacket;
-import org.lwjgl.glfw.GLFW;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class InvMove extends Module {
@@ -29,14 +27,15 @@ public class InvMove extends Module {
         this.field23757 = false;
     }
 
-    @EventTarget
-    public void method16583(EventKeyPress var1) {
-        if (this.isEnabled()) {
-            if (var1.getKey() == mc.gameSettings.keyBindInventory.keyCode.getKeyCode() && mc.player.isSprinting()) {
-                mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.STOP_SPRINTING));
-            }
-        }
-    }
+//    @EventTarget
+//    public void method16583(EventKeyPress var1) {
+//        if (this.isEnabled()) {
+//            if (var1.getKey() == mc.gameSettings.keyBindInventory.keyCode && mc.player.isSprinting()) {
+//                mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.STOP_SPRINTING));
+//            }
+//        }
+//    }
+    // TODO
 
     @EventTarget
     public void method16584(SendPacketEvent var1) {
@@ -96,14 +95,14 @@ public class InvMove extends Module {
                     return;
                 }
 
-                for (KeyBinding bind : mc.gameSettings.keyBindings) {
-                    if (bind.keyCode.getKeyCode() > 0
-                            && mc.gameSettings.keyBindSneak.keyCode.getKeyCode() != bind.keyCode.getKeyCode()
-                            && bind.keyCode.getKeyCode() > 4) {
-                        int var8 = GLFW.glfwGetKey(mc.getMainWindow().getHandle(), bind.keyCode.getKeyCode());
-                        bind.setPressed(var8 == 1);
-                    }
-                }
+//                for (KeyBinding var7 : mc.gameSettings.keyBindings) {
+//                    if (var7.inputMappingsInput.keyCode > 0
+//                            && mc.gameSettings.keyBindSneak.keyCode != var7.inputMappingsInput.keyCode
+//                            && var7.inputMappingsInput.keyCode > 4) {
+//                        int var8 = GLFW.glfwGetKey(mc.getMainWindow().getHandle(), var7.inputMappingsInput.keyCode);
+//                        var7.setPressed(var8 == 1);
+//                    }
+          //      }
             }
         }
     }

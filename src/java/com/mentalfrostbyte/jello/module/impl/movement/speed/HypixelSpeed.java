@@ -1,7 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.misc.Class2094;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -198,12 +203,12 @@ public class HypixelSpeed extends Module {
     }
 
     @EventTarget
-    public void method16041(WorldLoadEvent var1) {
+    public void method16041(EventLoadWorld var1) {
         this.field23416 = -1.0;
     }
 
     @EventTarget
-    public void method16042(Render2DEvent var1) {
+    public void method16042(EventRender2D var1) {
         if (!mc.player.isOnGround()
                 && !MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)
                 && MultiUtilities.isAboveBounds(mc.player, (float) (MovementUtil.getJumpValue() + 1.0E-5 + 0.0625))

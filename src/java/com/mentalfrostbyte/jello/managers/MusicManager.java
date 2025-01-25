@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.impl.music.*;
 import com.mentalfrostbyte.jello.gui.unmapped.Class9275;
@@ -115,7 +115,7 @@ public class MusicManager {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRenderPriorityBased event) {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
             if (this.playing && !this.visualizerData.isEmpty()) {
                 double[] visualizers = this.visualizerData.get(0);

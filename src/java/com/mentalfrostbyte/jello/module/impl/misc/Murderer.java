@@ -1,14 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mojang.datafixers.util.Pair;
 
 
@@ -22,8 +21,6 @@ import net.minecraft.network.play.server.SRespawnPacket;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.annotations.EventTarget;
-
-import java.io.IOException;
 
 public class Murderer extends Module {
     public String field23833 = "IBreakerman";
@@ -69,7 +66,7 @@ public class Murderer extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRenderPriorityBased event) {
         if (this.isEnabled()) {
             if (this.field23836) {
                 if (this.getBooleanValueFromSettingName("GUI")) {

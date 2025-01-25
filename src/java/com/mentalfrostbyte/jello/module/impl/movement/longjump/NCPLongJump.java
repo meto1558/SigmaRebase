@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.module.impl.movement.longjump;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.JumpEvent;
-import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.LongJump;

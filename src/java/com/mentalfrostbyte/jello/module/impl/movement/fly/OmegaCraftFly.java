@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -48,7 +48,7 @@ public class OmegaCraftFly extends Module {
     }
 
     @EventTarget
-    public void method16494(WorldLoadEvent var1) {
+    public void method16494(EventLoadWorld var1) {
         this.field23701 = 0;
         this.field23700 = -1;
         double var4 = this.field23703[0];

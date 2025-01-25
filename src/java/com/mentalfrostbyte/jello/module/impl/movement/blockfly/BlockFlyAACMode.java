@@ -1,7 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventFOV;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
 import com.mentalfrostbyte.jello.misc.Class9291;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

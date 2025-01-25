@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -401,7 +401,7 @@ public class BlockFly extends ModuleWithModuleSettings {
     }
 
     @EventTarget
-    public void onRender(EventRender render) {
+    public void onRender(EventRenderPriorityBased render) {
         this.animation.changeDirection(Direction.FORWARDS);
         if (this.animation.calcPercent() != 0.0F) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {

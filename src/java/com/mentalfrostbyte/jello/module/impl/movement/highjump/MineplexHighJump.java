@@ -1,6 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.highjump;
 
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventWalkingUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
@@ -122,7 +126,7 @@ public class MineplexHighJump extends Module {
    }
 
    @EventTarget
-   public void method16974(Render2DEvent var1) {
+   public void method16974(EventRender2D var1) {
       if (this.isEnabled() && this.field24023 && !(mc.player.getPosY() < this.field24026) && this.getBooleanValueFromSettingName("Fake fly")) {
          mc.player.getPositionVec().y = this.field24026;
          mc.player.lastTickPosY = this.field24026;

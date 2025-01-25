@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
@@ -24,7 +24,7 @@ public class AutoTools extends Module {
     }
 
     @EventTarget
-    public void onMouseHover(MouseHoverEvent event) {
+    public void onMouseHover(EventMouseHover event) {
         if (this.isEnabled() && mc.player != null && event.getMouseButton() == 0) {
             if (this.previousSlot != -1) {
                 mc.player.inventory.currentItem = this.previousSlot;
