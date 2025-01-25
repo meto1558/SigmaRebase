@@ -39,7 +39,7 @@ public class HypixelGamePlay extends Module {
     }
 
     @EventTarget
-    private void onReceive(ReceivePacketEvent event) {
+    public void onReceive(ReceivePacketEvent event) {
         if (mc.player != null) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {

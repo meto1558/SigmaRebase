@@ -26,7 +26,7 @@ public class JartexGamePlay extends Module {
     }
 
     @EventTarget
-    private void onReceive(ReceivePacketEvent event) {
+    public void onReceive(ReceivePacketEvent event) {
         if (this.isEnabled() && mc.player != null) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {
