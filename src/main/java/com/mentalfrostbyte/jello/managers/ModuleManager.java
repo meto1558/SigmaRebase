@@ -132,7 +132,6 @@ public class ModuleManager {
 
         // PLAYER
         this.register(new AutoSprint());
-        this.register(new Cape());
         this.register(new NoFall());
         this.register(new Blink());
         this.register(new AntiVoid());
