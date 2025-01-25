@@ -1,7 +1,7 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.hash.Hashing;
-import com.mentalfrostbyte.jello.event.impl.player.action.EventFOV;
+import com.mentalfrostbyte.jello.event.impl.EventFOV;
 import com.mojang.authlib.GameProfile;
 import java.io.File;
 import javax.annotation.Nullable;

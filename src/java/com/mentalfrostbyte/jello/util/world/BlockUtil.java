@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.world;
 
 import com.google.common.collect.ImmutableList;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.unmapped.PlacementPattern;
 import com.mentalfrostbyte.jello.util.unmapped.BlockCache;
@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();

@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderInGameGui;
+import com.mentalfrostbyte.jello.event.impl.EventRenderGUI;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -390,13 +390,13 @@ public class IngameGui extends AbstractGui
 
             if (scoreobjective1 != null)
             {
-                EventRenderInGameGui eventRenderGUI = new EventRenderInGameGui(true);
+                EventRenderGUI eventRenderGUI = new EventRenderGUI(true);
                 EventBus.call(eventRenderGUI);
                 if (eventRenderGUI.cancelled) {
                     return;
                 }
                 this.func_238447_a_(matrixStack, scoreobjective1);
-                EventRenderInGameGui eventRenderGUI1 = new EventRenderInGameGui(false);
+                EventRenderGUI eventRenderGUI1 = new EventRenderGUI(false);
                 EventBus.call(eventRenderGUI1);
             }
 

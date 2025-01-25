@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
 import com.mentalfrostbyte.jello.gui.unmapped.Bound;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import net.minecraft.client.Minecraft;
@@ -44,7 +44,7 @@ public class ModuleKeyPress {
     }
 
     public static void listen(int button) {
-        EventMouseHover mouseHoverEvent = new EventMouseHover(button);
+        MouseHoverEvent mouseHoverEvent = new MouseHoverEvent(button);
         EventBus.call(mouseHoverEvent);
     }
 }

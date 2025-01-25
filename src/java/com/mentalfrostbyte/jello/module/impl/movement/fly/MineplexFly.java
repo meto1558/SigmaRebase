@@ -1,14 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
 import team.sdhq.eventBus.annotations.EventTarget;
+import com.mentalfrostbyte.jello.event.impl.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
@@ -74,7 +68,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(EventLoadWorld var1) {
+    public void onWorldLoad(WorldLoadEvent var1) {
         if (this.isEnabled()) {
             this.posY = this.boostTicks = this.currentItem = -1;
             this.field23669 = 0;
@@ -245,7 +239,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onRender2D(EventRender2D var1) {
+    public void onRender2D(Render2DEvent var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Fake") && !(this.posY < 0.0)
                 && !(mc.player.getPosY() < this.posY)) {
             mc.player.setPosition(mc.player.getPosX(), this.posY, mc.player.getPosZ());

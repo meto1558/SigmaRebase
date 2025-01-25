@@ -1,11 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
 import team.sdhq.eventBus.annotations.EventTarget;
+import com.mentalfrostbyte.jello.event.impl.*;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -111,7 +107,7 @@ public class NCPFly extends Module {
     }
 
     @EventTarget
-    public void method16804(EventRender2D var1) {
+    public void method16804(Render2DEvent var1) {
         if (this.isEnabled()) {
             double var4 = this.field23920;
             mc.player.setPosition(mc.player.getPosX(), var4, mc.player.getPosZ());

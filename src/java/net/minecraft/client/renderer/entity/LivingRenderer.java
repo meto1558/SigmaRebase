@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
-import com.mentalfrostbyte.jello.event.impl.world.render.EventRenderEntity;
-import com.mentalfrostbyte.jello.event.impl.world.render.EventRenderNameTag;
+import com.mentalfrostbyte.jello.event.impl.EventRenderEntity;
+import com.mentalfrostbyte.jello.event.impl.EventRenderNameTag;
 import com.mentalfrostbyte.jello.util.player.Rots;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -379,9 +379,9 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
     protected boolean canRenderName(T entity) {
 
 
-        EventRenderNameTag event = new EventRenderNameTag(entity);
-        EventBus.call(event);
-        if (event.cancelled) {
+        EventRenderNameTag var4 = new EventRenderNameTag(entity);
+        EventBus.call(var4);
+        if (var4.cancelled) {
             return false;
         }
 

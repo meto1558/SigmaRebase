@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 
-import com.mentalfrostbyte.jello.event.impl.world.render.EventRenderEntity;
-import com.mentalfrostbyte.jello.event.impl.game.EventTextProcessing;
-import com.mentalfrostbyte.jello.event.impl.world.render.EventRenderNameTag;
+import com.mentalfrostbyte.jello.event.impl.EventRenderEntity;
+import com.mentalfrostbyte.jello.event.impl.TextReplaceEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRenderNameTag;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -21,7 +21,7 @@ public class Streaming extends Module {
     }
 
     @EventTarget
-    public void onTextReplace(EventTextProcessing event) {
+    public void onTextReplace(TextReplaceEvent event) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Hide server name") && this.getStringSettingValueByName("Server name").length() > 1) {
                 event.setText(event.setText().replaceAll(this.getStringSettingValueByName("Server name"), "sigmaclient"));

@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.Render2DEvent;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.module.Module;
@@ -26,8 +26,11 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.Util;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
+
+import java.util.List;
 
 public class RearView extends Module {
     public static Framebuffer framebuffer;
@@ -83,7 +86,7 @@ public class RearView extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRenderPriorityBased onRender) {
+    public void onRender(EventRender onRender) {
         if (framebuffer != null) {
             if (this.isEnabled()) {
                 if (! Minecraft.getInstance().gameSettings.hideGUI) {
@@ -168,7 +171,7 @@ public class RearView extends Module {
     }
 
     @EventTarget
-    public void on2D(EventRender2D event) {
+    public void on2D(Render2DEvent event) {
         if (this.isEnabled()) {
             if (framebuffer != null) {
                 if (mc.currentScreen == null || this.getBooleanValueFromSettingName("Show in GUI") || this.visibilityTimer != 0) {

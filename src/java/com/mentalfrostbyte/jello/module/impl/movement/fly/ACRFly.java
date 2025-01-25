@@ -1,14 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
+import com.mentalfrostbyte.jello.event.impl.*;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -61,7 +55,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16903(EventMouseHover var1) {
+    public void method16903(MouseHoverEvent var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -151,7 +145,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16908(EventRender2D var1) {
+    public void method16908(Render2DEvent var1) {
         if (this.isEnabled()) {
             double y = this.field23987;
             mc.player.setPosition(mc.player.getPosX(), y, mc.player.getPosZ());

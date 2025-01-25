@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.impl.world.render.EventRenderFire;
+import com.mentalfrostbyte.jello.event.impl.RenderFireEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -11,7 +11,7 @@ public class LowFire extends Module {
     }
 
     @EventTarget
-    public void onFire(EventRenderFire event) {
+    public void onFire(RenderFireEvent event) {
         if (this.isEnabled()) {
             event.setFireHeight(0.14F);
         }

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.player;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.EventMove;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;

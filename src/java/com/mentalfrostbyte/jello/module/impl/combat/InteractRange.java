@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
-import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
+import com.mentalfrostbyte.jello.event.impl.ClickEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -20,7 +20,7 @@ public class InteractRange extends Module {
     }
 
     @EventTarget
-    public void onClick(EventClick event) {
+    public void onClick(ClickEvent event) {
         if (this.isEnabled()) {
             Entity var4 = EntityUtil.getEntityFromRayTrace(mc.player.rotationYaw, mc.player.rotationPitch, this.getNumberValueBySettingName("Range"), 0.0);
             BlockRayTraceResult var5 = BlockUtil.rayTrace(mc.player.rotationYaw, mc.player.rotationPitch, this.getNumberValueBySettingName("Range"));

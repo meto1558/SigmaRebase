@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.world.render.EventRenderBlocks;
+import com.mentalfrostbyte.jello.event.impl.EventRenderBlocks;
 
 public class XRay extends Module {
     public static XRay instance;

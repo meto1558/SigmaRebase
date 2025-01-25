@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
-import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.gui.unmapped.Class7101;
 import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.managers.impl.waypoints.Class2531;
@@ -129,7 +129,7 @@ public class WaypointsManager {
     }
 
     @EventTarget
-    public void method29994(EventLoadWorld var1) {
+    public void method29994(WorldLoadEvent var1) {
         try {
             this.method29991();
             this.method29997();

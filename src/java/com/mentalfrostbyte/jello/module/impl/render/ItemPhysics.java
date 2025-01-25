@@ -7,6 +7,4 @@ public class ItemPhysics extends Module {
     public ItemPhysics() {
         super(ModuleCategory.RENDER, "ItemPhysics", "Better phyisics for items");
     }
-
-
 }

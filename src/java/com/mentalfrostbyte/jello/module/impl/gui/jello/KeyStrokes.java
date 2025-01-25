@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
+import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.EventRender;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -39,11 +39,11 @@ public class KeyStrokes extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRenderPriorityBased var1) {
+    public void onRender(EventRender var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    this.yBase = var1.getPriority();
+                    this.yBase = var1.method13960();
                     if (Client.getInstance().guiManager.getGuiBlur()) {
                         for (Keystroke var7 : Keystroke.values()) {
                             KeyPosition var8 = var7.getTopLeftPosition();
@@ -149,7 +149,7 @@ public class KeyStrokes extends Module {
                         }
                     }
 
-                    var1.addPriority(160);
+                    var1.method13962(160);
                 }
             }
         }

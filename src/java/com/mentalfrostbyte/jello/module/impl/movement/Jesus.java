@@ -1,10 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
-import com.mentalfrostbyte.jello.event.impl.player.movement.JumpEvent;
-import com.mentalfrostbyte.jello.event.impl.world.EventBlockCollision;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.*;
 import com.mentalfrostbyte.jello.misc.Class116;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

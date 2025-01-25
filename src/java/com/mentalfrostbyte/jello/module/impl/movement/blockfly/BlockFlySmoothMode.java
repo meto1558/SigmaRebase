@@ -1,12 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.network.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.JumpEvent;
-import com.mentalfrostbyte.jello.event.impl.player.movement.SafeWalkEvent;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -350,7 +345,7 @@ public class BlockFlySmoothMode extends Module {
     }
 
     @EventTarget
-    public void on2D(EventRender2D event) {
+    public void on2D(Render2DEvent event) {
         if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks >= 0) {
             if (!(mc.player.fallDistance > 1.2F)) {
                 if (!(mc.player.chasingPosY < this.posY)) {

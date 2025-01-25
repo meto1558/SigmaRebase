@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.module.impl.misc;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.network.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -42,7 +42,7 @@ public class Unstuck extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(EventLoadWorld event) {
+    public void onWorldLoad(WorldLoadEvent event) {
         if (this.isEnabled()) {
             this.packetCancelled = 0;
         }

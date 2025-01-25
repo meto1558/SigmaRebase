@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.event.impl.game.TickEvent;
-import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.managers.impl.combat.Class7249;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +32,7 @@ public class CombatManager {
 
     @EventTarget
     @HighestPriority
-    public void method29348(EventLoadWorld var1) {
+    public void method29348(WorldLoadEvent var1) {
         this.bots.clear();
     }
 

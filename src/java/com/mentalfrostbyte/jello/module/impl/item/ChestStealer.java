@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderPriorityBased;
-import com.mentalfrostbyte.jello.event.impl.world.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -127,14 +127,14 @@ public class ChestStealer extends Module {
     }
 
     @EventTarget
-    public void method16366(EventLoadWorld var1) {
+    public void method16366(WorldLoadEvent var1) {
         if (!this.chests.isEmpty()) {
             this.chests.clear();
         }
     }
 
     @EventTarget
-    public void method16367(EventRenderPriorityBased var1) {
+    public void method16367(EventRender var1) {
         if (this.isEnabled()) {
             if (!(mc.currentScreen instanceof ChestScreen)) {
                 this.field23621 = false;
