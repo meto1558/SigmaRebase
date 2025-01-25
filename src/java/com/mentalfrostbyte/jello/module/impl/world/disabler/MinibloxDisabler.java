@@ -12,6 +12,7 @@ import com.mentalfrostbyte.jello.util.player.Rots;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
+import net.minecraft.network.play.server.SEntityHeadLookPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.network.play.server.SRespawnPacket;
 import net.minecraft.util.math.vector.Vector3d;
@@ -78,6 +79,9 @@ public class MinibloxDisabler extends Module {
             return;
         }
         if (mc.player == null) return;
+        if (rawPacket instanceof SEntityHeadLookPacket) {
+            event.cancelled = true;
+        }
         if (rawPacket instanceof SPlayerPositionLookPacket packet
                 && mc.getConnection() != null
                 && mc.player.ticksExisted >= 100
@@ -87,7 +91,7 @@ public class MinibloxDisabler extends Module {
                 waitForPos = false;
                 return;
             }
-            event.setCancelled(true);
+            event.cancelled = true;
             serverPos = new Vector3d(packet.getX(), packet.getY(), packet.getZ());
             serverRot = new Rotations(packet.getYaw(), packet.getPitch());
 //            updateServerPlayer();
@@ -96,7 +100,10 @@ public class MinibloxDisabler extends Module {
                             serverRot.yaw, serverRot.pitch, mc.player.isOnGround()
                     )
             );
-            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), Rots.yaw, Rots.pitch, mc.player.isOnGround()));
+            // prevent a too many packets kick, also happens to make this disabler the same as the Rise disabler :skull:
+            if (!mc.player.isOnGround()) {
+                mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), Rots.yaw, Rots.pitch, mc.player.isOnGround()));
+            }
             // this disabler probably performs worse with this, since if the server accepts our pos,
             // and we'll probably be far away
 //            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
