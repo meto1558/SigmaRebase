@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.step;
 
 
-import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.client.CInputPacket;

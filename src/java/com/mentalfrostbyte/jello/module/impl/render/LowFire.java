@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.impl.EventRenderFire;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;

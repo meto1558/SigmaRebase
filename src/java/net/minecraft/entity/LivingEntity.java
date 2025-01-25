@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mentalfrostbyte.jello.event.impl.EventJump;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;

@@ -1,7 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Timer;
@@ -89,7 +91,7 @@ public class HypixelFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (event.isPre()) {
             for (double var7 : MultiUtilities.method17747()) {
                 if ((double) ((int) event.getY()) - event.getY() + var7 == 0.0) {

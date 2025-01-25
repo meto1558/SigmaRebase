@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventMouseHover;
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -73,7 +73,7 @@ public class VanillaFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (!mc.player.isOnGround() && this.getBooleanValueFromSettingName("Kick bypass")) {
                 if (this.ticksInAir > 0 && this.ticksInAir % 30 == 0

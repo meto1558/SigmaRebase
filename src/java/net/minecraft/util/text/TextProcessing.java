@@ -2,7 +2,7 @@ package net.minecraft.util.text;
 
 import java.util.Optional;
 
-import com.mentalfrostbyte.jello.event.impl.EventReplaceText;
+import com.mentalfrostbyte.jello.event.impl.game.EventReplaceText;
 import net.minecraft.util.ICharacterConsumer;
 import net.minecraft.util.Unit;
 import team.sdhq.eventBus.EventBus;

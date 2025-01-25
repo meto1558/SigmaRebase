@@ -1,7 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -103,7 +108,7 @@ public class BlockFlySmoothMode extends Module {
 
     @EventTarget
     @LowerPriority
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
             if (!event.isPre()) {
                 if (this.yaw != 999.0F) {

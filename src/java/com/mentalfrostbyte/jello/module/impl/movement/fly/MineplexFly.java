@@ -1,8 +1,14 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
@@ -61,7 +67,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             var1.setMoving(true);
         }

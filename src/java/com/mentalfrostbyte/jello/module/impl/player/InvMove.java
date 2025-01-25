@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.module.impl.player;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.misc.Class1144;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

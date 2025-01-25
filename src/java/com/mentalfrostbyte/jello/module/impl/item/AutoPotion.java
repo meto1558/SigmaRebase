@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.item;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
@@ -12,7 +12,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -50,7 +49,7 @@ public class AutoPotion extends Module {
 
     @EventTarget
     @LowestPriority
-    public void method16629(EventUpdate var1) {
+    public void method16629(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             if (this.getBooleanValueFromSettingName("In fight") || KillAura.currentTimedEntity == null && KillAura.currentTarget == null) {
                 int var4 = this.method16631();
@@ -176,7 +175,7 @@ public class AutoPotion extends Module {
         return var5;
     }
 
-    public void method16634(EventUpdate var1, int var2, int var3) {
+    public void method16634(EventUpdateWalkingPlayer var1, int var2, int var3) {
         int var6 = this.method16632(var3);
         if (var6 != -1) {
             if (var6 < 36) {

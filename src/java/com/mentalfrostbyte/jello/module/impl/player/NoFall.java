@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -123,7 +123,7 @@ public class NoFall extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate packet) {
+    public void onUpdate(EventUpdateWalkingPlayer packet) {
         if (this.isEnabled() && mc.player != null) {
             if (!(mc.player.getPosY() < 2.0)) {
                 String var4 = this.getStringSettingValueByName("Mode");

@@ -1,7 +1,11 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.*;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -61,7 +65,7 @@ public class HorizonFly extends Module {
     }
 
     @EventTarget
-    public void method16159(EventUpdate var1) {
+    public void method16159(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23497++;
             if (this.field23497 != 11) {

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.misc.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

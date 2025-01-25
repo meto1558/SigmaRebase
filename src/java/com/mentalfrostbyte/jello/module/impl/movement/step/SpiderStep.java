@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.step;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
-import com.mentalfrostbyte.jello.event.impl.EventStep;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.misc.StepEnum;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -61,7 +61,7 @@ public class SpiderStep extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && mc.player != null && var1.isPre()) {
             if (this.field23758 != 1) {
                 if (this.field23758 == 3) {

@@ -1,7 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.EventGetFovModifier;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.misc.Class9291;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -140,7 +146,7 @@ public class BlockFlyAACMode extends Module {
     }
 
     @EventTarget
-    public void onFOV(EventFOV var1) {
+    public void onFOV(EventGetFovModifier var1) {
         if (this.isEnabled() && mc.world != null && mc.player != null) {
             if (this.getBooleanValueFromSettingName("Haphe (AACAP)") && MovementUtil.isMoving() && !mc.player.isSprinting()) {
                 var1.fovModifier *= 1.14F;
@@ -222,7 +228,7 @@ public class BlockFlyAACMode extends Module {
 
     @EventTarget
     @LowestPriority
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (!event.isPre()) {
                 if (MovementUtil.isMoving() && mc.player.isOnGround() && this.getBooleanValueFromSettingName("Haphe (AACAP)") && !mc.player.isJumping) {

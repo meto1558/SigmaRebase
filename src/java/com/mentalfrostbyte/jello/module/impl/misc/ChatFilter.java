@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.client.CChatMessagePacket;

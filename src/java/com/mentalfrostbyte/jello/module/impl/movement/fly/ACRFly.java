@@ -1,8 +1,14 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.*;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -95,7 +101,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16905(EventUpdate var1) {
+    public void method16905(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.preUpdates++;
             if (this.preUpdates != 2) {

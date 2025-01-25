@@ -1,9 +1,9 @@
 package net.minecraft.client;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventMouse;
-import com.mentalfrostbyte.jello.event.impl.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;

@@ -1,7 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
@@ -254,7 +260,7 @@ public class KillAura extends Module {
 
     @EventTarget
     @LowestPriority
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
 
         if (currentTarget == null) {
             Rots.rotating = false;
@@ -520,7 +526,7 @@ public class KillAura extends Module {
         return this.isEnabled() && this.isAutoBlockEnabled();
     }
 
-    public void handleEventUpdate(EventUpdate event, String serverType, boolean avoidFallDamage) {
+    public void handleEventUpdate(EventUpdateWalkingPlayer event, String serverType, boolean avoidFallDamage) {
 
         if (mc.player == null || mc.world == null) {
             return;

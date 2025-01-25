@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.client.Minecraft;

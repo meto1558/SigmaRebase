@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.render.classic.esp;
 
 import com.ibm.icu.text.NumberFormat;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DCustom;
-import com.mentalfrostbyte.jello.event.impl.EventRender3D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.misc.Class9784;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.misc.Class7211;

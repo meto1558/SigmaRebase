@@ -1,7 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.misc.Class2094;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -59,7 +64,7 @@ public class HypixelSpeed extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16037(EventUpdate var1) {
+    public void method16037(EventUpdateWalkingPlayer var1) {
         if (mc.player.isOnGround()) {
             if (!Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled2()
                     || KillAura.currentTarget == null && KillAura.currentTimedEntity == null

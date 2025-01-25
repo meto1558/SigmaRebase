@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
-import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.unmapped.Class7101;
 import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.managers.impl.waypoints.Class2531;

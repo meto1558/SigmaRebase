@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

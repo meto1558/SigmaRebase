@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.gui.base.Bird;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.*;

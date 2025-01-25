@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -25,7 +25,7 @@ public class AutoTotem extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (!var1.isPre()) {
             this.equipTotem();
         }

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.misc.AutoLData;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

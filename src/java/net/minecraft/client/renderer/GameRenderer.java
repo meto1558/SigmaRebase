@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import com.google.gson.JsonSyntaxException;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;

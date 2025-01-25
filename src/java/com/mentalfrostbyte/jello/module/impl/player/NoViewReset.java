@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;

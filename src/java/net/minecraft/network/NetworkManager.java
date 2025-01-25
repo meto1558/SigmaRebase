@@ -2,8 +2,8 @@ package net.minecraft.network;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;

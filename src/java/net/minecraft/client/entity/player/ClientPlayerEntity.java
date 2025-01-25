@@ -5,7 +5,12 @@ import com.google.common.collect.Lists;
 import java.util.*;
 import javax.annotation.Nullable;
 
-import com.mentalfrostbyte.jello.event.impl.*;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.player.Rots;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -293,7 +298,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
     {
         // MODIFICATION START: Sends out `EventUpdate`s
         AxisAlignedBB bounds = this.getBoundingBox();
-        EventUpdate event = new EventUpdate(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
+        EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
         EventBus.call(event);
         // MODIFICATION END
         // MODIFICATION START: Make the event cancellable
@@ -847,7 +852,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
 
     public void updateEntityActionState() {
         super.updateEntityActionState();
-        EventBus.call(new EventEntityActionState());
+        EventBus.call(new EventUpdatePlayerActionState());
 
         if (this.isCurrentViewEntity())
         {

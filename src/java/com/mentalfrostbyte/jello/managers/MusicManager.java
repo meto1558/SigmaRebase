@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DCustom;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.impl.music.*;
 import com.mentalfrostbyte.jello.gui.unmapped.Class9275;

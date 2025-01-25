@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;

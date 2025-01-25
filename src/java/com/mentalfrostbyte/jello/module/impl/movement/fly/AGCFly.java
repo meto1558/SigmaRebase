@@ -1,9 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.*;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -87,7 +91,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.preUpdates++;
             if (this.preUpdates != (this.field23903 != 3 ? this.field23903 : 1)) {

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.trackers;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;

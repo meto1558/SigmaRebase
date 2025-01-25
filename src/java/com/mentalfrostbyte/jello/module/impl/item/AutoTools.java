@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 
-import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
-import com.mentalfrostbyte.jello.event.impl.EventMouseHover;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 

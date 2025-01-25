@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.MultiUtilities;

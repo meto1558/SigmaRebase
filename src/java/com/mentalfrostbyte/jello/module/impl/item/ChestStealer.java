@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -62,7 +62,7 @@ public class ChestStealer extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             if (this.getBooleanValueFromSettingName("Aura")) {
                 if (this.field23624.getElapsedTime() > 2000L && this.field23621) {

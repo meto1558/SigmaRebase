@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.util;
 
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.network.play.server.SKeepAlivePacket;
 import net.minecraft.network.play.client.CClickWindowPacket;

@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.EventRenderGUI;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;

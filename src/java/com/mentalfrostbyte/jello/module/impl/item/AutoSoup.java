@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.Client;
@@ -52,7 +52,7 @@ public class AutoSoup extends Module {
     }
 
     @EventTarget
-    public void method16057(EventUpdate var1) {
+    public void method16057(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23428++;
             this.field23431++;

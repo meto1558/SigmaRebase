@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -27,7 +27,7 @@ public class TPDisabler extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && mc.player != null && event.isPre() && mc.getCurrentServerData() != null) {
             this.tickCounter++;
             double PosY = -4.503599627370497E15;

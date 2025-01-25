@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.trackers;
 
 import com.google.gson.JsonArray;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;

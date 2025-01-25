@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.misc;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.util.EntityUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
@@ -32,7 +32,7 @@ public class Class9819 {
    }
 
    @EventTarget
-   public void onUpdate(EventUpdate event) {
+   public void onUpdate(EventUpdateWalkingPlayer event) {
       if (this.entity != null) {
          if (this.field45878 != 1) {
             if (this.field45878 == 2) {

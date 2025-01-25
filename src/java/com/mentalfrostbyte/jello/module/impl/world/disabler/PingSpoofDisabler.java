@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
-import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;

@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.TimerUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventStopUseItem;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 //import com.mentalfrostbyte.jello.module.impl.item.InvManager;
@@ -71,7 +71,7 @@ public class BowFly extends Module {
     }
 
     @EventTarget
-    public void method16180(EventUpdate var1) {
+    public void method16180(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             if (!this.timerUtil.isEnabled()) {
                 this.timerUtil.start();

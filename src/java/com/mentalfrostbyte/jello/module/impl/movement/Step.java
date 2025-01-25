@@ -6,8 +6,8 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.jello.misc.StepEnum;
 import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventStep;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.step.*;
@@ -52,7 +52,7 @@ public class Step extends ModuleWithModuleSettings {
 
     @EventTarget
 //    @Class5631
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (var1.isPre()) {
             updateTicksBeforeStep++;
         }

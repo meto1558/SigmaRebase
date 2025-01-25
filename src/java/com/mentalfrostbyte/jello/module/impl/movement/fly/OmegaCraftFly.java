@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -67,7 +67,7 @@ public class OmegaCraftFly extends Module {
     }
 
     @EventTarget
-    public void method16495(EventUpdate var1) {
+    public void method16495(EventUpdateWalkingPlayer var1) {
         if (var1.isPre()) {
             var1.setMoving(true);
             if (this.field23700 != 0) {

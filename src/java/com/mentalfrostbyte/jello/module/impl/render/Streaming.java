@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 
-import com.mentalfrostbyte.jello.event.impl.EventRenderEntity;
-import com.mentalfrostbyte.jello.event.impl.EventReplaceText;
-import com.mentalfrostbyte.jello.event.impl.EventRenderNameTag;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
+import com.mentalfrostbyte.jello.event.impl.game.EventReplaceText;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

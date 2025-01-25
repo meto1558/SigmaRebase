@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -59,7 +59,7 @@ public class HawkFly extends Module {
     }
 
     @EventTarget
-    public void method16053(EventUpdate var1) {
+    public void method16053(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23424++;
             if (this.field23424 == 1) {

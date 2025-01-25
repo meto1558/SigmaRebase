@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.module.Module;
