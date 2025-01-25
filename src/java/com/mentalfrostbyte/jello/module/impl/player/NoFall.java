@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
+import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
 import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
@@ -97,8 +98,19 @@ public class NoFall extends Module {
                 !this.getStringSettingValueByName("Mode").equals("Cancel") ||
                 event.cancelled
         ) return;
-        IPacket<?> rawPacket = event.getPacket();
-        if (rawPacket instanceof SPlayerPositionLookPacket packet && falling) {
+        if (event.getPacket() instanceof CPlayerPacket) {
+            if (mc.player.fallDistance > 3f) {
+                falling = true;
+                event.cancelled = true;
+                return;
+            }
+            falling = false;
+        }
+    }
+    @EventTarget
+    @SuppressWarnings("unused")
+    public void onReceivePacket(ReceivePacketEvent event) {
+        if (event.getPacket() instanceof SPlayerPositionLookPacket packet && falling) {
             mc.getConnection().sendPacket(
                     new CPlayerPacket.PositionRotationPacket(
                             packet.getX(), packet.getY(),
@@ -108,12 +120,7 @@ public class NoFall extends Module {
             );
             falling = false;
         }
-        if (rawPacket instanceof CPlayerPacket) {
-            if (mc.player.fallDistance > 3f) {
-                falling = true;
-                event.cancelled = true;
-            }
-        }
+
     }
 
     @EventTarget
