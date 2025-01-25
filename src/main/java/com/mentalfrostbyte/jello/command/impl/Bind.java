@@ -22,7 +22,7 @@ public class Bind extends Command {
     public void run(String var1, ChatCommandArguments[] var2, ChatCommandExecutor var3) throws CommandException {
         Object var6 = null;
         if (var2.length == 0) {
-            CommandManager.method30238(() -> mc.displayGuiScreen(new KeyboardScreen(new StringTextComponent("GuiKeybinds"))));
+            CommandManager.runRunnable(() -> mc.displayGuiScreen(new KeyboardScreen(new StringTextComponent("GuiKeybinds"))));
         }
 
         if (var2.length < 1) {
