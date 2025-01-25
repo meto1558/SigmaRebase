@@ -6,7 +6,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
-import com.mentalfrostbyte.jello.module.ModuleManager;
+import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
 import com.mentalfrostbyte.jello.trackers.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.PlayerStateTracker;

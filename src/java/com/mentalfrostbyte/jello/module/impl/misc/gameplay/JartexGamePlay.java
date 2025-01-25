@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
+import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.misc.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

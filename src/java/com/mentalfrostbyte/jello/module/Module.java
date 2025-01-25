@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.managers.impl.sound.CustomSoundPlayer;
+import com.mentalfrostbyte.jello.managers.util.sound.CustomSoundPlayer;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.SoundEvents;

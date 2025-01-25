@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.*;
-import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
+import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;

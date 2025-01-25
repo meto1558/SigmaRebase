@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
 
-import com.mentalfrostbyte.jello.managers.impl.combat.Class2124;
-import com.mentalfrostbyte.jello.managers.impl.combat.Class7249;
+import com.mentalfrostbyte.jello.managers.util.combat.Class2124;
+import com.mentalfrostbyte.jello.managers.util.combat.Class7249;
 import net.minecraft.entity.Entity;
 
 import java.util.HashMap;

@@ -8,8 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SEntityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import com.mentalfrostbyte.jello.managers.impl.combat.Class2124;
-import com.mentalfrostbyte.jello.managers.impl.combat.Class7249;
+import com.mentalfrostbyte.jello.managers.util.combat.Class2124;
+import com.mentalfrostbyte.jello.managers.util.combat.Class7249;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;

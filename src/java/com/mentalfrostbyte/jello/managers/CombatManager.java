@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.managers.impl.combat.Class7249;
+import com.mentalfrostbyte.jello.managers.util.combat.Class7249;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;

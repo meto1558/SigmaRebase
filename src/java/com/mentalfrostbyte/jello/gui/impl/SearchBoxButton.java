@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
 import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
 import com.mentalfrostbyte.jello.managers.MusicManager;
-import com.mentalfrostbyte.jello.managers.impl.music.YoutubeJPGThumbnail;
-import com.mentalfrostbyte.jello.managers.impl.music.YoutubeVideoData;
+import com.mentalfrostbyte.jello.managers.util.music.YoutubeJPGThumbnail;
+import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ThumbnailUtil;
 

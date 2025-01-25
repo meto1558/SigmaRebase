@@ -1,8 +1,7 @@
 package com.mentalfrostbyte.jello.misc;
 
-import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.managers.impl.combat.Class2124;
-import com.mentalfrostbyte.jello.managers.impl.combat.Class7251;
+import com.mentalfrostbyte.jello.managers.util.combat.Class2124;
+import com.mentalfrostbyte.jello.managers.util.combat.Class7251;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;

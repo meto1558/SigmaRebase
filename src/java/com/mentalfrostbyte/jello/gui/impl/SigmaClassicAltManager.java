@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
-import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
+import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;

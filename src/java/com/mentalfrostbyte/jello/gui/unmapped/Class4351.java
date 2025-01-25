@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.ConfigButtonOnClickGui;
 import com.mentalfrostbyte.jello.gui.impl.ConfigScreenButton;
-import com.mentalfrostbyte.jello.managers.impl.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.*;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;

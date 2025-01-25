@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
-import com.mentalfrostbyte.jello.managers.impl.account.microsoft.Account;
+import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.MathUtils;
