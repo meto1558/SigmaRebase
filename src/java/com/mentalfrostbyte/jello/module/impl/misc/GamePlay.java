@@ -37,6 +37,7 @@ public class GamePlay extends ModuleWithModuleSettings {
                 new HypixelGamePlay(),
                 new CubecraftGamePlay(),
                 new MineplexGamePlay(),
+                new MinibloxGamePlay(),
                 new FuncraftGameplay(),
                 new JartexGamePlay()
         );
@@ -162,6 +163,9 @@ public class GamePlay extends ModuleWithModuleSettings {
 
                 if ("Cubecraft".equals(serverType)) {
                     autoLMessage = autoLMessage.replaceAll("sigma", "ＳＩＧＭＡ").replaceAll("Sigma", "ＳＩＧＭＡ");
+                }
+                if ("Miniblox".equals(serverType)) {
+                    autoLMessage = autoLMessage.replaceAll("suck", "s\u200Buck");
                 }
 
                 autoLMessage = getStringSettingValueByName("First character") + autoLMessage;
