@@ -71,11 +71,11 @@ public final class AutoLData {
     public static ArrayList<String> PENSHEN_QUOTES;
 
     public static String method20931() {
-        return SIGMAME_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(SIGMAME_QUOTES.size() - 1 - 0)));
+        return SIGMAME_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(SIGMAME_QUOTES.size() - 1)));
     }
 
     public static String method20932() {
-        return PENSHEN_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(PENSHEN_QUOTES.size() - 1 - 0)));
+        return PENSHEN_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(PENSHEN_QUOTES.size() - 1)));
     }
 
     static {
