@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.EventRenderGUI;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
@@ -124,7 +124,7 @@ public class ActiveMods extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRender2DOffset event) {
         if (mc.player != null) {
             for (Module module : this.animations.keySet()) {
                 if (this.getBooleanValueFromSettingName("Animations")) {

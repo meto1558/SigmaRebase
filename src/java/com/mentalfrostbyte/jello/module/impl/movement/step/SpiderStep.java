@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.step;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.EventStep;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.misc.StepEnum;
@@ -126,7 +126,7 @@ public class SpiderStep extends Module {
     }
 
     @EventTarget
-    public void onSafeWalk(SafeWalkEvent var1) {
+    public void onSafeWalk(EventSafeWalk var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!var1.isOnEdge()) {
                 mc.player.stepHeight = 1.07F;

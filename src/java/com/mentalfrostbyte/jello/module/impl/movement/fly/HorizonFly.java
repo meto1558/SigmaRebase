@@ -77,7 +77,7 @@ public class HorizonFly extends Module {
     }
 
     @EventTarget
-    public void method16160(ReceivePacketEvent var1) {
+    public void method16160(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {
@@ -94,7 +94,7 @@ public class HorizonFly extends Module {
     }
 
     @EventTarget
-    public void method16161(SendPacketEvent var1) {
+    public void method16161(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof CPlayerPacket) {
@@ -107,7 +107,7 @@ public class HorizonFly extends Module {
     }
 
     @EventTarget
-    public void method16162(Render2DEvent var1) {
+    public void method16162(EventRender2D var1) {
         if (this.isEnabled()) {
             double y = this.field23498;
             mc.player.setPosition(mc.player.getPosX(), y, mc.player.getPosZ());

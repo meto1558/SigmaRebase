@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
 import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -35,7 +35,7 @@ public class DVDSimulator extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) throws IOException {
+    public void onRender(EventRender2DOffset event) throws IOException {
         if (this.isEnabled() && mc.player != null && mc.world != null) {
             int windowHeight = mc.getMainWindow().getHeight();
             int windowWidth = mc.getMainWindow().getWidth();

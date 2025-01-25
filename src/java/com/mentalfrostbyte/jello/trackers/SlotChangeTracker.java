@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.trackers;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -16,7 +16,7 @@ public class SlotChangeTracker {
     }
 
     @EventTarget
-    public void onReceivePacket(ReceivePacketEvent var1) {
+    public void onReceivePacket(EventReceivePacket var1) {
         if (var1.getPacket() instanceof SSetSlotPacket) {
             SSetSlotPacket slotPacket = (SSetSlotPacket) var1.getPacket();
             if (slotPacket.getWindowId() != 0) {

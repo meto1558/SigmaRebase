@@ -51,7 +51,7 @@ public class LibreCraftFly extends Module {
     }
 
     @EventTarget
-    public void method16792(MouseHoverEvent var1) {
+    public void method16792(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -104,7 +104,7 @@ public class LibreCraftFly extends Module {
     }
 
     @EventTarget
-    public void method16795(ReceivePacketEvent var1) {
+    public void method16795(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (mc.player != null && var4 instanceof SPlayerPositionLookPacket) {

@@ -1,14 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
 import com.mojang.datafixers.util.Pair;
 
 
@@ -23,8 +22,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.annotations.EventTarget;
 
-import java.io.IOException;
-
 public class Murderer extends Module {
     public String field23833 = "IBreakerman";
     private Texture field23834;
@@ -38,7 +35,7 @@ public class Murderer extends Module {
     }
 
     @EventTarget
-    public void onReceive(ReceivePacketEvent event) {
+    public void onReceive(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof SEntityEquipmentPacket entityEquipmentPacket) {
 
@@ -69,7 +66,7 @@ public class Murderer extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRender2DOffset event) {
         if (this.isEnabled()) {
             if (this.field23836) {
                 if (this.getBooleanValueFromSettingName("GUI")) {

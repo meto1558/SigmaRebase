@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -27,7 +27,7 @@ public class FastBreak extends Module {
     }
 
     @EventTarget
-    public void TickEvent(TickEvent event) {
+    public void TickEvent(EventPlayerTick event) {
         if (this.isEnabled()) {
 
             if (mc.playerController.curBlockDamageMP > 0.7F) {

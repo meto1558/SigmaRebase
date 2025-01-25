@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.module.impl.movement.longjump;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.JumpEvent;
-import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.EventJump;
+import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.LongJump;
@@ -140,7 +140,7 @@ public class NCPLongJump extends Module {
     }
 
     @EventTarget
-    public void method16123(JumpEvent var1) {
+    public void method16123(EventJump var1) {
         if (this.isEnabled() && mc.player != null) {
             this.field23479 = true;
             this.field23480 = MovementUtil.method37076();
@@ -176,7 +176,7 @@ public class NCPLongJump extends Module {
     }
 
     @EventTarget
-    public void method16124(SafeWalkEvent var1) {
+    public void method16124(EventSafeWalk var1) {
         if (!this.isEnabled() || !this.getStringSettingValueByName("Glide Mode").equals("High")) {
         }
     }

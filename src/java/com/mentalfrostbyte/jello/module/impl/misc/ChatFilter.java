@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.client.CChatMessagePacket;
@@ -12,7 +12,7 @@ public class ChatFilter extends Module {
     }
 
     @EventTarget
-    public void onSendPacket(SendPacketEvent event) {
+    public void onSendPacket(EventSendPacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof CChatMessagePacket chatPacket) {
                 String[] words = chatPacket.message.split(" ");

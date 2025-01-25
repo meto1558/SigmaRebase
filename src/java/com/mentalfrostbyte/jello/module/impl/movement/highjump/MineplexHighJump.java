@@ -33,7 +33,7 @@ public class MineplexHighJump extends Module {
    }
 
    @EventTarget
-   public void method16970(SafeWalkEvent var1) {
+   public void method16970(EventSafeWalk var1) {
       if (this.isEnabled() && mc.player.isOnGround()) {
          var1.setSafe(true);
       }
@@ -112,7 +112,7 @@ public class MineplexHighJump extends Module {
    }
 
    @EventTarget
-   public void method16973(ReceivePacketEvent var1) {
+   public void method16973(EventReceivePacket var1) {
       if (this.isEnabled()) {
          IPacket var4 = var1.getPacket();
          if (var4 instanceof SPlayerPositionLookPacket) {
@@ -122,7 +122,7 @@ public class MineplexHighJump extends Module {
    }
 
    @EventTarget
-   public void method16974(Render2DEvent var1) {
+   public void method16974(EventRender2D var1) {
       if (this.isEnabled() && this.field24023 && !(mc.player.getPosY() < this.field24026) && this.getBooleanValueFromSettingName("Fake fly")) {
          mc.player.getPositionVec().y = this.field24026;
          mc.player.lastTickPosY = this.field24026;

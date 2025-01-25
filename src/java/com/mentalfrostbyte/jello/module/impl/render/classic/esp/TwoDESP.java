@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.render.classic.esp;
 
 import com.ibm.icu.text.NumberFormat;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DCustom;
+import com.mentalfrostbyte.jello.event.impl.EventRender3D;
 import com.mentalfrostbyte.jello.misc.Class9784;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.misc.Class7211;
@@ -116,14 +116,14 @@ public class TwoDESP extends Module {
     }
 
     @EventTarget
-    public void method16514(Render3DEvent var1) {
+    public void method16514(EventRender3D var1) {
         if (this.isEnabled()) {
             this.method16519();
         }
     }
 
     @EventTarget
-    public void method16515(EventRender2D var1) {
+    public void method16515(EventRender2DCustom var1) {
         if (this.isEnabled()) {
             boolean var4 = this.access().getBooleanValueFromSettingName("Show Invisibles");
             boolean var5 = this.getBooleanValueFromSettingName("Show Health");

@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement.step;
 
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
+import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.EventStep;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -35,7 +35,7 @@ public class NCPStep extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(WorldLoadEvent var1) {
+    public void onWorldLoad(EventLoadWorld var1) {
         this.field23994 = 0;
         this.field23993.clear();
     }
@@ -104,7 +104,7 @@ public class NCPStep extends Module {
     }
 
     @EventTarget
-    public void onSafeWalk(SafeWalkEvent var1) {
+    public void onSafeWalk(EventSafeWalk var1) {
         if (this.isEnabled() && mc.player != null) {
             if (this.field23994 > 0) {
                 this.field23994--;
@@ -123,7 +123,7 @@ public class NCPStep extends Module {
     }
 
     @EventTarget
-    public void onSendPacketEvent(SendPacketEvent var1) {
+    public void onSendPacketEvent(EventSendPacket var1) {
         if (var1.getPacket() instanceof CPlayerPacket && !this.field23993.isEmpty()) {
             this.field23993.add(var1.getPacket());
             var1.setCancelled(true);

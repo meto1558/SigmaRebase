@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
@@ -19,7 +19,7 @@ public class Spammer extends Module {
     }
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
             this.ticks++;
             if ((float) this.ticks > this.getNumberValueBySettingName("Messages delay") * 20.0F) {

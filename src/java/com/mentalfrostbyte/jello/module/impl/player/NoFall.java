@@ -1,10 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
@@ -92,7 +91,7 @@ public class NoFall extends Module {
 
     @EventTarget
     @SuppressWarnings("unused")
-    public void onSendPacket(SendPacketEvent event) {
+    public void onSendPacket(EventSendPacket event) {
         if (
                 !this.isEnabled() ||
                 !this.getStringSettingValueByName("Mode").equals("Cancel") ||
@@ -109,7 +108,7 @@ public class NoFall extends Module {
     }
     @EventTarget
     @SuppressWarnings("unused")
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (event.getPacket() instanceof SPlayerPositionLookPacket packet && falling) {
             mc.getConnection().sendPacket(
                     new CPlayerPacket.PositionRotationPacket(

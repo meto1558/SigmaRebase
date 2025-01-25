@@ -4,8 +4,8 @@ package com.mentalfrostbyte.jello.module.impl.player;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.misc.Class1144;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -39,7 +39,7 @@ public class InvMove extends Module {
     }
 
     @EventTarget
-    public void method16584(SendPacketEvent var1) {
+    public void method16584(EventSendPacket var1) {
         if (this.isEnabled()) {
             if (this.field23757 && var1.getPacket() instanceof CEntityActionPacket && this.getBooleanValueFromSettingName("AACP")) {
                 CEntityActionPacket var4 = (CEntityActionPacket) var1.getPacket();
@@ -51,7 +51,7 @@ public class InvMove extends Module {
     }
 
     @EventTarget
-    public void method16585(TickEvent var1) {
+    public void method16585(EventPlayerTick var1) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("AACP")) {
                 boolean var4 = !(mc.currentScreen instanceof InventoryScreen) || !(mc.currentScreen instanceof ChestScreen);

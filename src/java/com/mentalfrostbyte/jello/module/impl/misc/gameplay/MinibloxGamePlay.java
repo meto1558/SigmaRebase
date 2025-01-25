@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.misc.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -86,7 +86,7 @@ public class MinibloxGamePlay extends Module {
     }
 
     @EventTarget
-    public void onReceive(ReceivePacketEvent event) {
+    public void onReceive(EventReceivePacket event) {
         if (mc.player != null) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {

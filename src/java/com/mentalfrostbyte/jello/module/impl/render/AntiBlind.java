@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.impl.Render2DEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +13,7 @@ public class AntiBlind extends Module {
     }
 
     @EventTarget
-    public void onRender2D(Render2DEvent event) {
+    public void onRender2D(EventRender2D event) {
         if (this.isEnabled() && mc.player != null) {
             PlayerEntity player = mc.player;
             if (player.isPotionActive(Effects.BLINDNESS)) {

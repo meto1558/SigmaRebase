@@ -3,9 +3,9 @@ package com.mentalfrostbyte.jello.module.impl.misc;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -42,7 +42,7 @@ public class Unstuck extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(WorldLoadEvent event) {
+    public void onWorldLoad(EventLoadWorld event) {
         if (this.isEnabled()) {
             this.packetCancelled = 0;
         }
@@ -72,7 +72,7 @@ public class Unstuck extends Module {
     }
 
     @EventTarget
-    public void onReceive(ReceivePacketEvent event) {
+    public void onReceive(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (mc.player != null) {
                 if (event.getPacket() instanceof SPlayerPositionLookPacket && !MultiUtilities.isAboveBounds(mc.player, 0.3F) && mc.player.ticksExisted > 10) {

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.misc.ViperEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -74,7 +74,7 @@ public class ViperDisabler extends Module {
     }
 
     @EventTarget
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
             IPacket incomingPacket = event.getPacket();
             if (incomingPacket instanceof SKeepAlivePacket) {

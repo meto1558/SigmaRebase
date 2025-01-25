@@ -2,7 +2,7 @@ package net.minecraft.util.text;
 
 import java.util.Optional;
 
-import com.mentalfrostbyte.jello.event.impl.TextReplaceEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReplaceText;
 import net.minecraft.util.ICharacterConsumer;
 import net.minecraft.util.Unit;
 import team.sdhq.eventBus.EventBus;
@@ -117,7 +117,7 @@ public class TextProcessing
     }
 
     public static boolean func_238340_a_(String p_238340_0_, int p_238340_1_, Style p_238340_2_, Style p_238340_3_, ICharacterConsumer p_238340_4_) {
-        TextReplaceEvent i1 = new TextReplaceEvent(p_238340_0_);
+        EventReplaceText i1 = new EventReplaceText(p_238340_0_);
         EventBus.call(i1);
         p_238340_0_ = i1.setText();
         int i = p_238340_0_.length();

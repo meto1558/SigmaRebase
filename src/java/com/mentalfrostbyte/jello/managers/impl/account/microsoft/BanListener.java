@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers.impl.account.microsoft;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.login.server.SDisconnectLoginPacket;
 import net.minecraft.network.login.server.SLoginSuccessPacket;
@@ -20,7 +20,7 @@ public class BanListener {
     public Minecraft mc = Minecraft.getInstance();
 
     @EventTarget
-    public void onPacketReceive(ReceivePacketEvent event) {
+    public void onPacketReceive(EventReceivePacket event) {
         if (this.mc.getCurrentServerData() != null) {
             if (event.getPacket() instanceof SChatPacket) {
                 SChatPacket packet = (SChatPacket) event.getPacket();

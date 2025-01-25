@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.misc.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
@@ -27,7 +27,7 @@ public class CubecraftGamePlay extends Module {
     }
 
     @EventTarget
-    public void onPacket(ReceivePacketEvent event) {
+    public void onPacket(EventReceivePacket event) {
         if (this.isEnabled() && mc.player != null) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {

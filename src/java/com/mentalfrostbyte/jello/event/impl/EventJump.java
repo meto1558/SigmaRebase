@@ -4,11 +4,11 @@ import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.util.math.vector.Vector3d;
 
-public class JumpEvent extends CancellableEvent {
+public class EventJump extends CancellableEvent {
     public Vector3d vector;
     public boolean modified;
 
-    public JumpEvent(Vector3d vector) {
+    public EventJump(Vector3d vector) {
         this.vector = vector;
     }
 

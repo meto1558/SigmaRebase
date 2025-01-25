@@ -84,7 +84,7 @@ public class BlockFlySmoothMode extends Module {
     }
 
     @EventTarget
-    public void onSafeWalk(SafeWalkEvent event) {
+    public void onSafeWalk(EventSafeWalk event) {
         if (this.isEnabled()) {
             if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
                 if (mc.world.getCollisionShapes(
@@ -326,7 +326,7 @@ public class BlockFlySmoothMode extends Module {
 
     @EventTarget
     @LowerPriority
-    public void onPacket(SendPacketEvent event) {
+    public void onPacket(EventSendPacket event) {
         if (this.isEnabled() && mc.player != null) {
             if (event.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
                 event.setCancelled(true);
@@ -335,7 +335,7 @@ public class BlockFlySmoothMode extends Module {
     }
 
     @EventTarget
-    public void onJump(JumpEvent event) {
+    public void onJump(EventJump event) {
         if (this.isEnabled() && this.called) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
                     && (!MultiUtilities.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
@@ -345,7 +345,7 @@ public class BlockFlySmoothMode extends Module {
     }
 
     @EventTarget
-    public void on2D(Render2DEvent event) {
+    public void on2D(EventRender2D event) {
         if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks >= 0) {
             if (!(mc.player.fallDistance > 1.2F)) {
                 if (!(mc.player.chasingPosY < this.posY)) {

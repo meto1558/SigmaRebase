@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import com.google.gson.JsonSyntaxException;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.Render2DEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2D;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -645,7 +645,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
             if (renderWorldIn && this.mc.world != null && !Config.isReloadingResources())
             {
                 this.mc.getProfiler().startSection("level");
-                EventBus.call(new Render2DEvent(partialTicks, nanoTime));
+                EventBus.call(new EventRender2D(partialTicks, nanoTime));
                 this.renderWorld(partialTicks, nanoTime, new MatrixStack());
 
                 if (this.mc.isSingleplayer() && this.timeWorldIcon < Util.milliTime() - 1000L)

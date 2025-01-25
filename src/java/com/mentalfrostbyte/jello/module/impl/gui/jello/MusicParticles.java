@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -25,7 +25,7 @@ public class MusicParticles extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null) {
             if (Client.getInstance().musicManager.isPlayingSong() && !Client.getInstance().musicManager.visualizerData.isEmpty()) {
                 long timeElapsed = System.nanoTime() - this.lastRenderTime;

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -15,7 +15,7 @@ public class NullDisabler extends Module {
     }
 
     @EventTarget
-    public void RecievePacketEvent(ReceivePacketEvent event) {
+    public void RecievePacketEvent(EventReceivePacket event) {
         if (this.isEnabled() && mc.getCurrentServerData() != null) {
             if (!(event.getPacket() instanceof SKeepAlivePacket)) {
                 if (event.getPacket() instanceof SConfirmTransactionPacket) {

@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.Render2DEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.EventJump;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -44,7 +44,7 @@ public class AACSpeed extends Module {
     }
 
     @EventTarget
-    public void method16008(ReceivePacketEvent var1) {
+    public void method16008(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
                 this.field23399 = 0;
@@ -112,7 +112,7 @@ public class AACSpeed extends Module {
     }
 
     @EventTarget
-    public void method16010(Render2DEvent var1) {
+    public void method16010(EventRender2D var1) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Fluid Fix")) {
                 if (!mc.player.collidedHorizontally && !mc.player.collidedVertically) {
@@ -141,7 +141,7 @@ public class AACSpeed extends Module {
     }
 
     @EventTarget
-    public void method16011(JumpEvent var1) {
+    public void method16011(EventJump var1) {
         this.field23398 = 0;
         this.field23400 = 0;
         this.field23404 = MovementUtil.lenientStrafe()[0];

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.EventStep;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
-import com.mentalfrostbyte.jello.event.impl.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.EventJump;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -91,7 +91,7 @@ public class NCPSpeed extends Module {
 
     @EventTarget
     @LowerPriority
-    public void onJump(JumpEvent event) {
+    public void onJump(EventJump event) {
         if (this.isEnabled() && !Jesus.isWalkingOnLiquid()) {
             if (this.field23607 != 0) {
                 event.setCancelled(true);

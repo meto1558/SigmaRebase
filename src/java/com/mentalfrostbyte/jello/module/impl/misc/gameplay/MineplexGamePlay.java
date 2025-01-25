@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
@@ -31,7 +31,7 @@ public class MineplexGamePlay extends Module {
     }
 
     @EventTarget
-    public void onReceive(ReceivePacketEvent event) {
+    public void onReceive(EventReceivePacket event) {
         if (this.isEnabled() && mc.player != null) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {
@@ -54,14 +54,14 @@ public class MineplexGamePlay extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(WorldLoadEvent event) {
+    public void onWorldLoad(EventLoadWorld event) {
         if (this.isEnabled()) {
             this.foundTeam = false;
         }
     }
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("AutoGG") && this.timer.getElapsedTime() > 5000L && this.foundTeam) {
                 this.foundTeam = false;

@@ -1,13 +1,11 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antikb;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.play.client.CUseEntityPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.network.play.server.SExplosionPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -28,7 +26,7 @@ public class DelayAntiKB extends Module {
 
     /** handles receiving packets **/
     @EventTarget
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof SExplosionPacket) {
                 SExplosionPacket packet = (SExplosionPacket) event.getPacket();
@@ -65,7 +63,7 @@ public class DelayAntiKB extends Module {
 
     /** handles tick events **/
     @EventTarget
-    public void onTick(TickEvent _event) {
+    public void onTick(EventPlayerTick _event) {
         if (this.delay != 0) {
             if (this.delay > 0) {
                 this.delay--;

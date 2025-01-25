@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.util;
 
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.network.play.server.SKeepAlivePacket;
 import net.minecraft.network.play.client.CClickWindowPacket;
@@ -23,7 +23,7 @@ public class PlayerStateTracker {
 
 
     @EventTarget
-    public void method31324(TickEvent var1) {
+    public void method31324(EventPlayerTick var1) {
         this.focusGameTicks++;
         this.groundTicks++;
         this.moveTicks++;
@@ -47,14 +47,14 @@ public class PlayerStateTracker {
     }
 
     @EventTarget
-    public void method31325(SendPacketEvent var1) {
+    public void method31325(EventSendPacket var1) {
         if (var1.getPacket() instanceof CClickWindowPacket) {
             this.mode = 0;
         }
     }
 
     @EventTarget
-    public void method31326(ReceivePacketEvent var1) {
+    public void method31326(EventReceivePacket var1) {
         if (var1.getPacket() instanceof SKeepAlivePacket) {
             long var4 = System.currentTimeMillis() - this.lastMilis;
             this.ping = Math.min(1.05F, Math.max(0.0F, 15000.0F / (float)var4));

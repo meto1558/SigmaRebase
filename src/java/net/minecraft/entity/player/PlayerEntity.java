@@ -3,7 +3,7 @@ package net.minecraft.entity.player;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.mentalfrostbyte.jello.event.impl.SafeWalkEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSafeWalk;
 import com.mentalfrostbyte.jello.misc.Situation;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
@@ -1280,7 +1280,7 @@ public abstract class PlayerEntity extends LivingEntity
     protected Vector3d maybeBackOffFromEdge(Vector3d vec, MoverType mover)
     {
         // MODIFICATION START: Send on edge `SafeWalkEvent`
-        SafeWalkEvent event = new SafeWalkEvent(true);
+        EventSafeWalk event = new EventSafeWalk(true);
         EventBus.call(event);
         // MODIFICATION END
         // MODIFICATION START (ENDS AFTER NEXT LINE): Add `event.getSituation() == Situation.PLAYER`
@@ -1355,7 +1355,7 @@ public abstract class PlayerEntity extends LivingEntity
         }
 
         // MODIFICATION START: Send off edge `SafeWalkEvent`
-        SafeWalkEvent offEdgeEvent = new SafeWalkEvent(false);
+        EventSafeWalk offEdgeEvent = new EventSafeWalk(false);
         EventBus.call(offEdgeEvent);
         // MODIFICATION END
         return vec;

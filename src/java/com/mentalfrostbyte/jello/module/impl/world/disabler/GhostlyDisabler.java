@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.client.CInputPacket;
@@ -12,7 +12,7 @@ public class GhostlyDisabler extends Module {
     }
 
     @EventTarget
-    public void TickEvent(TickEvent event) {
+    public void TickEvent(EventPlayerTick event) {
         if (this.isEnabled() && mc.getCurrentServerData() != null) {
             mc.getConnection().sendPacket(new CInputPacket(1.0F, 1.0F, false, false));
         }

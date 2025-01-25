@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.event.impl;
 
 import com.mentalfrostbyte.jello.event.CancellableEvent;
 
-public class TextReplaceEvent extends CancellableEvent {
+public class EventReplaceText extends CancellableEvent {
     private String text;
 
-    public TextReplaceEvent(String var1) {
+    public EventReplaceText(String var1) {
         this.text = var1;
     }
 

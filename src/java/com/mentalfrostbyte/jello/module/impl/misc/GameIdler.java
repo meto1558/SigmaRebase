@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,7 @@ public class GameIdler extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRender2DOffset event) {
         if (this.isEnabled()) {
             boolean focused = GLFW.glfwGetWindowAttrib(mc.getMainWindow().getHandle(), GLFW.GLFW_FOCUSED) == 1;
             if (focused) {

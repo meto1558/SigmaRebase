@@ -240,7 +240,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity
      * Called to update the entity's position/logic.
      */
     public void tick() {
-        TickEvent tickEvent = new TickEvent();
+        EventPlayerTick tickEvent = new EventPlayerTick();
         EventBus.call(tickEvent);
 
         if(tickEvent.cancelled){

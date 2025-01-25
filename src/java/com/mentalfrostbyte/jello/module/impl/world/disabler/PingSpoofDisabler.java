@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
-import com.mentalfrostbyte.jello.event.impl.WorldLoadEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -32,7 +32,7 @@ public class PingSpoofDisabler extends Module {
     }
 
     @EventTarget
-    public void method16100(WorldLoadEvent var1) {
+    public void method16100(EventLoadWorld var1) {
         if (!this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager
                     .getModuleByClass(Disabler.class);
@@ -46,7 +46,7 @@ public class PingSpoofDisabler extends Module {
     }
 
     @EventTarget
-    public void method16101(TickEvent var1) {
+    public void method16101(EventPlayerTick var1) {
         if (!this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Disabler.class);
             if (!var4.isEnabled() || !var4.getStringSettingValueByName("Type").equalsIgnoreCase("TP") || !var4.getModWithTypeSetToName().getBooleanValueFromSettingName("Ping spoof")) {
@@ -78,7 +78,7 @@ public class PingSpoofDisabler extends Module {
     }
 
     @EventTarget
-    public void method16102(SendPacketEvent var1) {
+    public void method16102(EventSendPacket var1) {
         IPacket var4 = var1.getPacket();
         if (var4 instanceof CClickWindowPacket) {
             CClickWindowPacket var5 = (CClickWindowPacket) var4;
@@ -87,7 +87,7 @@ public class PingSpoofDisabler extends Module {
     }
 
     @EventTarget
-    public void method16103(ReceivePacketEvent var1) {
+    public void method16103(EventReceivePacket var1) {
         if (!this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager
                     .getModuleByClass(Disabler.class);

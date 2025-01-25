@@ -4,11 +4,11 @@ package com.mentalfrostbyte.jello.event.impl;
 import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.misc.Situation;
 
-public class SafeWalkEvent extends CancellableEvent {
+public class EventSafeWalk extends CancellableEvent {
     public boolean onEdge;
     public Situation situation;
 
-    public SafeWalkEvent(boolean onEdge) {
+    public EventSafeWalk(boolean onEdge) {
         this.onEdge = onEdge;
         this.situation = Situation.DEFAULT;
     }

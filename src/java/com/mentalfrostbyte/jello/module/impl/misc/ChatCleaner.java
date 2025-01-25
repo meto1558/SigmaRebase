@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SChatPacket;
@@ -12,7 +12,7 @@ public class ChatCleaner extends Module {
     }
 
     @EventTarget
-    public void onReceive(ReceivePacketEvent event) {
+    public void onReceive(EventReceivePacket event) {
         if (isEnabled()) {
             if (event.getPacket() instanceof SChatPacket packet) {
                 if (isSpam(cleanChatMessage(packet.getChatComponent().getString()))) {

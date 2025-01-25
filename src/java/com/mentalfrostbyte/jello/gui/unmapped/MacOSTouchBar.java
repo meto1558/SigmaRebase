@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.FileUtil;
@@ -141,7 +141,7 @@ public class MacOSTouchBar {
    }
 
    @EventTarget
-   public void method13734(TickEvent event) {
+   public void method13734(EventPlayerTick event) {
       if (Minecraft.getInstance().world == null && this.field21388) {
          this.init();
       } else if (Minecraft.getInstance().world != null && !this.field21388) {

@@ -57,7 +57,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    public void method16046(MouseHoverEvent var1) {
+    public void method16046(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -127,7 +127,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    public void method16049(ReceivePacketEvent var1) {
+    public void method16049(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (!(var4 instanceof SPlayerPositionLookPacket)) {
@@ -152,7 +152,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    public void method16050(SendPacketEvent var1) {
+    public void method16050(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof CPlayerPacket) {
@@ -165,7 +165,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    public void method16051(Render2DEvent var1) {
+    public void method16051(EventRender2D var1) {
         if (this.isEnabled()) {
             double var4 = this.field23421;
             mc.player.setPosition(mc.player.getPosX(), var4, mc.player.getPosZ());

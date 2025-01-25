@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -34,7 +34,7 @@ public class Weather extends Module {
     }
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
             applyCustomTime();
             if (this.getBooleanValueFromSettingName("Disable rain")) {
@@ -44,7 +44,7 @@ public class Weather extends Module {
     }
 
     @EventTarget
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof SUpdateTimePacket) {
                 event.setCancelled(true);

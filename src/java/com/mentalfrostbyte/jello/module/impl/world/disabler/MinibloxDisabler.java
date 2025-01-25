@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.player.NoFall;
@@ -17,8 +17,6 @@ import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.network.play.server.SRespawnPacket;
 import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
-
-import java.util.Objects;
 
 public class MinibloxDisabler extends Module {
 //    public static RemoteClientPlayerEntity clientPlayerEntity;
@@ -64,14 +62,14 @@ public class MinibloxDisabler extends Module {
 //        }
     }
 
-    public void onSendPacket(SendPacketEvent event) {
+    public void onSendPacket(EventSendPacket event) {
         if (event.getPacket() instanceof CClientStatusPacket packet && packet.getStatus() == CClientStatusPacket.State.PERFORM_RESPAWN) {
             waitForPos = true;
         }
     }
     @SuppressWarnings("unused")
     @EventTarget
-    public void onReceivedPacket(ReceivePacketEvent event) {
+    public void onReceivedPacket(EventReceivePacket event) {
         IPacket<?> rawPacket = event.getPacket();
         if (rawPacket instanceof SRespawnPacket) {
             waitForPos = true;

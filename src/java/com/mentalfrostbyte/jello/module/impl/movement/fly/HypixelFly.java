@@ -77,7 +77,7 @@ public class HypixelFly extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onReceive(ReceivePacketEvent event) {
+    public void onReceive(EventReceivePacket event) {
         if (mc.getConnection() != null && MultiUtilities.isHypixel()) {
             IPacket pack = event.getPacket();
             if (this.isEnabled()) {

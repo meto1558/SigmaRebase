@@ -57,7 +57,7 @@ public class ViperMCFly extends Module {
     }
 
     @EventTarget
-    public void method16330(MouseHoverEvent var1) {
+    public void method16330(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -129,7 +129,7 @@ public class ViperMCFly extends Module {
     }
 
     @EventTarget
-    public void method16333(ReceivePacketEvent var1) {
+    public void method16333(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (!(var4 instanceof SPlayerPositionLookPacket)) {
@@ -156,7 +156,7 @@ public class ViperMCFly extends Module {
     }
 
     @EventTarget
-    public void method16334(SendPacketEvent var1) {
+    public void method16334(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof CPlayerPacket) {
@@ -169,7 +169,7 @@ public class ViperMCFly extends Module {
     }
 
     @EventTarget
-    public void method16335(Render2DEvent var1) {
+    public void method16335(EventRender2D var1) {
         if (this.isEnabled()) {
             double var4 = this.field23596 - this.field23597;
             double var6 = this.field23596;

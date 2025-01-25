@@ -160,7 +160,7 @@ public class Jesus extends Module {
     }
 
     @EventTarget
-    public void onJump(JumpEvent var1) {
+    public void onJump(EventJump var1) {
         if (this.isEnabled() && mc.world != null && mc.getCurrentServerData() != null) {
             if (isWalkingOnLiquid()) {
                 if (this.liquidTicks % 2 != 0) {

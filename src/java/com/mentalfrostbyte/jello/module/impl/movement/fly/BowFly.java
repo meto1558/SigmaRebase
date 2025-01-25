@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 import com.mentalfrostbyte.jello.util.TimerUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.StopUseItemEvent;
+import com.mentalfrostbyte.jello.event.impl.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -37,7 +37,7 @@ public class BowFly extends Module {
     }
 
     @EventTarget
-    public void onStopuseItem(StopUseItemEvent var1) {
+    public void onStopuseItem(EventStopUseItem var1) {
         if (this.isEnabled()) {
             if (mc.player.getHeldItem(Hand.MAIN_HAND).getItem() == Items.BOW && this.field23504 >= 1) {
                 var1.cancelled = true;

@@ -73,7 +73,7 @@ public class BlockFlyAACMode extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16202(SendPacketEvent var1) {
+    public void method16202(EventSendPacket var1) {
         if (this.isEnabled() && mc.player != null) {
             if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
                 var1.setCancelled(true);
@@ -82,7 +82,7 @@ public class BlockFlyAACMode extends Module {
     }
 
     @EventTarget
-    public void method16203(ReceivePacketEvent var1) {
+    public void method16203(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {
@@ -92,7 +92,7 @@ public class BlockFlyAACMode extends Module {
     }
 
     @EventTarget
-    public void method16204(SafeWalkEvent var1) {
+    public void method16204(EventSafeWalk var1) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround() && Client.getInstance().moduleManager.getModuleByClass(SafeWalk.class).isEnabled()) {
                 var1.setSafe(true);
@@ -273,7 +273,7 @@ public class BlockFlyAACMode extends Module {
     }
 
     @EventTarget
-    public void method16211(JumpEvent var1) {
+    public void method16211(EventJump var1) {
         if (this.isEnabled()) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
                     && (!MultiUtilities.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {

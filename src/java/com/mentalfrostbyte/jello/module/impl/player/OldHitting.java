@@ -4,7 +4,7 @@ package com.mentalfrostbyte.jello.module.impl.player;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.EventHandAnimation;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
@@ -113,7 +113,7 @@ public class OldHitting extends Module {
 
     @EventTarget
     @LowerPriority
-    public void onPacketReceive(ReceivePacketEvent event) {
+    public void onPacketReceive(EventReceivePacket event) {
         /* || JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*/
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {
             if (mc.player != null) {

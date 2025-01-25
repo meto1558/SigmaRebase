@@ -49,7 +49,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    public void onHover(MouseHoverEvent var1) {
+    public void onHover(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -114,7 +114,7 @@ public class AGCFly extends Module {
     }
 
     @EventTarget
-    public void onReceivePacket(ReceivePacketEvent var1) {
+    public void onReceivePacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {

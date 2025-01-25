@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mentalfrostbyte.jello.event.impl.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.EventJump;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
@@ -2488,11 +2488,11 @@ public abstract class LivingEntity extends Entity
 
         Vector3d vector3d = this.getMotion();
         this.setMotion(vector3d.x, (double)f, vector3d.z);
-        JumpEvent jumpEvent = null;
+        EventJump eventJump = null;
         // MODIFICATION START: Emit `JumpEvent`s
         if (this instanceof ClientPlayerEntity) {
-            jumpEvent = new JumpEvent(this.getMotion());
-            EventBus.call(jumpEvent);
+            eventJump = new EventJump(this.getMotion());
+            EventBus.call(eventJump);
         }
         // MODIFICATION END
 
@@ -2501,8 +2501,8 @@ public abstract class LivingEntity extends Entity
             float f1 = this.rotationYaw * ((float)Math.PI / 180F);
             // MODIFICATION START: Adjust our motion if the jump event was modified
             Vector3d motion = this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F));
-            if (jumpEvent != null && jumpEvent.modified)
-                motion = jumpEvent.getVector();
+            if (eventJump != null && eventJump.modified)
+                motion = eventJump.getVector();
             this.setMotion(motion);
             // MODIFICATION END
         }

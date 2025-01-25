@@ -68,7 +68,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onWorldLoad(WorldLoadEvent var1) {
+    public void onWorldLoad(EventLoadWorld var1) {
         if (this.isEnabled()) {
             this.posY = this.boostTicks = this.currentItem = -1;
             this.field23669 = 0;
@@ -86,7 +86,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onSafeWalk(SafeWalkEvent var1) {
+    public void onSafeWalk(EventSafeWalk var1) {
         if (this.isEnabled() && this.failed && mc.player != null) {
             if (mc.player.isOnGround()) {
                 var1.setSafe(true);
@@ -184,7 +184,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onReceivePacketEvent(ReceivePacketEvent var1) {
+    public void onReceivePacketEvent(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
                 this.failed = true;
@@ -195,7 +195,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onSendPacketEvent(SendPacketEvent var1) {
+    public void onSendPacketEvent(EventSendPacket var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof CHeldItemChangePacket
                     && this.currentItem != -1
@@ -239,7 +239,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onRender2D(Render2DEvent var1) {
+    public void onRender2D(EventRender2D var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Fake") && !(this.posY < 0.0)
                 && !(mc.player.getPosY() < this.posY)) {
             mc.player.setPosition(mc.player.getPosX(), this.posY, mc.player.getPosZ());

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.misc.AutoLData;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -69,7 +69,7 @@ public class GamePlay extends ModuleWithModuleSettings {
     }
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
         if (isEnabled()) {
             if (timedMessage != null) {
                 if (mc.currentScreen instanceof ChatScreen) {

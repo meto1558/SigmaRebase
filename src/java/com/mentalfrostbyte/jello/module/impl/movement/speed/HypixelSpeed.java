@@ -178,7 +178,7 @@ public class HypixelSpeed extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16039(JumpEvent var1) {
+    public void method16039(EventJump var1) {
         if (!Jesus.isWalkingOnLiquid() && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
             if (this.getBooleanValueFromSettingName("Auto Jump") || mc.player.isJumping) {
                 if (this.field23414 < 0) {
@@ -189,7 +189,7 @@ public class HypixelSpeed extends Module {
     }
 
     @EventTarget
-    public void method16040(ReceivePacketEvent var1) {
+    public void method16040(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
                 this.field23414 = -2;
@@ -198,12 +198,12 @@ public class HypixelSpeed extends Module {
     }
 
     @EventTarget
-    public void method16041(WorldLoadEvent var1) {
+    public void method16041(EventLoadWorld var1) {
         this.field23416 = -1.0;
     }
 
     @EventTarget
-    public void method16042(Render2DEvent var1) {
+    public void method16042(EventRender2D var1) {
         if (!mc.player.isOnGround()
                 && !MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)
                 && MultiUtilities.isAboveBounds(mc.player, (float) (MovementUtil.getJumpValue() + 1.0E-5 + 0.0625))

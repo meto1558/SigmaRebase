@@ -77,7 +77,7 @@ public class NCPFly extends Module {
     }
 
     @EventTarget
-    public void method16802(ReceivePacketEvent event) {
+    public void method16802(EventReceivePacket event) {
         if (this.isEnabled()) {
             IPacket packet = event.getPacket();
             if (packet instanceof SPlayerPositionLookPacket) {
@@ -94,7 +94,7 @@ public class NCPFly extends Module {
     }
 
     @EventTarget
-    public void method16803(SendPacketEvent event) {
+    public void method16803(EventSendPacket event) {
         if (this.isEnabled()) {
             IPacket packet = event.getPacket();
             if (packet instanceof CPlayerPacket) {
@@ -107,7 +107,7 @@ public class NCPFly extends Module {
     }
 
     @EventTarget
-    public void method16804(Render2DEvent var1) {
+    public void method16804(EventRender2D var1) {
         if (this.isEnabled()) {
             double var4 = this.field23920;
             mc.player.setPosition(mc.player.getPosX(), var4, mc.player.getPosZ());

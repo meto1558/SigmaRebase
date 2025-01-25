@@ -93,7 +93,7 @@ public class OmegaCraftTestFly extends Module {
     }
 
     @EventTarget
-    public void method16702(ReceivePacketEvent event) {
+    public void method16702(EventReceivePacket event) {
         if (this.isEnabled()) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SPlayerPositionLookPacket) {
@@ -114,7 +114,7 @@ public class OmegaCraftTestFly extends Module {
     }
 
     @EventTarget
-    public void method16703(SendPacketEvent event) {
+    public void method16703(EventSendPacket event) {
         if (this.isEnabled()) {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof CPlayerPacket) {

@@ -2,8 +2,8 @@ package net.minecraft.network;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
@@ -175,7 +175,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
     protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, IPacket<?> p_channelRead0_2_) throws Exception {
         if (this.channel.isOpen()) {
 
-            ReceivePacketEvent receivePacketEvent = new ReceivePacketEvent(p_channelRead0_2_);
+            EventReceivePacket receivePacketEvent = new EventReceivePacket(p_channelRead0_2_);
             EventBus.call(receivePacketEvent);
 
             if (receivePacketEvent.cancelled) {
@@ -215,7 +215,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < IPacket<? >>
 
     public void sendPacket(IPacket<?> packetIn, @Nullable GenericFutureListener <? extends Future <? super Void >> p_201058_2_) {
         // MODIFICATION BEGIN: call send packet event
-        SendPacketEvent var5 = new SendPacketEvent(packetIn);
+        EventSendPacket var5 = new EventSendPacket(packetIn);
         EventBus.call(var5);
         // MODIFICATION END
         // MODIFICATION BEGIN: use the packet from the event

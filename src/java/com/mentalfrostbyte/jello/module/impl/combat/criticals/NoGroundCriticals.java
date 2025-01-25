@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.criticals;
 
 import com.mentalfrostbyte.jello.event.impl.EventStep;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.JumpEvent;
+import com.mentalfrostbyte.jello.event.impl.EventJump;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
@@ -46,7 +46,7 @@ public class NoGroundCriticals extends Module {
     }
 
     @EventTarget
-    public void method16035(JumpEvent var1) {
+    public void method16035(EventJump var1) {
         if (this.isEnabled()) {
             if (this.field23410 == 1) {
                 var1.setCancelled(true);

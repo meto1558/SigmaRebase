@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
@@ -385,7 +385,7 @@ public class BlockFly extends ModuleWithModuleSettings {
     }
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {
                 this.blockCount = this.getValidItemCount();
@@ -401,7 +401,7 @@ public class BlockFly extends ModuleWithModuleSettings {
     }
 
     @EventTarget
-    public void onRender(EventRender render) {
+    public void onRender(EventRender2DOffset render) {
         this.animation.changeDirection(Direction.FORWARDS);
         if (this.animation.calcPercent() != 0.0F) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {

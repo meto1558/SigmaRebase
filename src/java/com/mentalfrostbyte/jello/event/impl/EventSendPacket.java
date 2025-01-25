@@ -6,11 +6,11 @@ import net.minecraft.network.IPacket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SendPacketEvent extends CancellableEvent {
+public class EventSendPacket extends CancellableEvent {
     private IPacket packet;
     private final List<IPacket> field21514 = new ArrayList<IPacket>();
 
-    public SendPacketEvent(IPacket var1) {
+    public EventSendPacket(IPacket var1) {
         this.packet = var1;
         this.field21514.add(var1);
     }

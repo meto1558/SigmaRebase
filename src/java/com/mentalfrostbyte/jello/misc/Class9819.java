@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.misc;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
@@ -148,7 +148,7 @@ public class Class9819 {
    }
 
    @EventTarget
-   public void onReceivePacket(ReceivePacketEvent event) {
+   public void onReceivePacket(EventReceivePacket event) {
       if (this.field45878 == 1) {
          if (event.getPacket() instanceof SPlayerPositionLookPacket) {
             this.field45878 = 2;

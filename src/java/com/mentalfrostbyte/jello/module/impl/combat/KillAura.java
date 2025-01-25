@@ -204,7 +204,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onWorldChange(WorldLoadEvent event) {
+    public void onWorldChange(EventLoadWorld event) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Disable on death")) {
             Client.getInstance().notificationManager.send(new Notification("Aura", "Aura disabled due to respawn"));
             this.toggle();
@@ -212,7 +212,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
 
         if (currentTarget == null) {
             Rots.rotating = false;
@@ -239,7 +239,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onStopuseItem(StopUseItemEvent event) {
+    public void onStopuseItem(EventStopUseItem event) {
         if (this.isEnabled()) {
             if (!this.getStringSettingValueByName("Auto block Mode").equals("None")
                     && (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem
@@ -365,7 +365,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onRender2D(EventRender event) {
+    public void onRender2D(EventRender2DOffset event) {
 
         if (mc.player == null || mc.world == null) {
             return;
@@ -386,7 +386,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onRender3D(Render3DEvent event) {
+    public void onRender3D(EventRender3D event) {
         if (targetEntities == null) {
             return;
         }
@@ -422,7 +422,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(EventReceivePacket event) {
 
         if (mc.player == null || mc.world == null) {
             return;

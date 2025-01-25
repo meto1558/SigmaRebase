@@ -55,7 +55,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16903(MouseHoverEvent var1) {
+    public void method16903(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
@@ -115,7 +115,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16906(ReceivePacketEvent var1) {
+    public void method16906(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {
@@ -132,7 +132,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16907(SendPacketEvent var1) {
+    public void method16907(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof CPlayerPacket) {
@@ -145,7 +145,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16908(Render2DEvent var1) {
+    public void method16908(EventRender2D var1) {
         if (this.isEnabled()) {
             double y = this.field23987;
             mc.player.setPosition(mc.player.getPosX(), y, mc.player.getPosZ());

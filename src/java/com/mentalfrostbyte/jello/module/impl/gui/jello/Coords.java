@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
@@ -26,7 +26,7 @@ public class Coords extends Module {
     }
 
     @EventTarget
-    public void onTick(TickEvent tickEvent) {
+    public void onTick(EventPlayerTick tickEvent) {
         if (this.isEnabled()) {
             boolean moved = x != mc.player.getPosX() || y != mc.player.getPosY() || z != mc.player.getPosZ();
 
@@ -46,7 +46,7 @@ public class Coords extends Module {
 
     @EventTarget
     @LowestPriority
-    public void onRender(EventRender eventRender) {
+    public void onRender(EventRender2DOffset eventRender2DOffset) {
         if (this.isEnabled()) {
             if (mc.player != null) {
                 if (!(mc.gameSettings.showDebugInfo || mc.gameSettings.hideGUI)) {
@@ -57,7 +57,7 @@ public class Coords extends Module {
                             + " "
                             + String.format("%.2f", mc.player.getPosZ());
                     float var6 = 85;
-                    int var7 = eventRender.method13960();
+                    int var7 = eventRender2DOffset.getyOffset();
                     float var8 = 150;
                     float var9 = (float) ResourceRegistry.JelloLightFont18.getWidth(xyz);
                     float var10 = Math.min(1.0F, (float) var8 / var9);

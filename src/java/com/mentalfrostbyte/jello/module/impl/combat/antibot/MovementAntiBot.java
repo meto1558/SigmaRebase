@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,7 +33,7 @@ public class MovementAntiBot extends Class7249 {
    }
 
    @EventTarget
-   public void method22752(TickEvent var1) {
+   public void method22752(EventPlayerTick var1) {
       if (mc.player.ticksExisted < 10) {
          this.field31116.clear();
       }
@@ -56,7 +56,7 @@ public class MovementAntiBot extends Class7249 {
    }
 
    @EventTarget
-   public void method22753(ReceivePacketEvent var1) {
+   public void method22753(EventReceivePacket var1) {
       if (mc.player != null && this.field31116 != null) {
          if (mc.player.ticksExisted < 10) {
             this.field31116.clear();

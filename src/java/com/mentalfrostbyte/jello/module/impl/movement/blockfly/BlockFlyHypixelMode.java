@@ -127,7 +127,7 @@ public class BlockFlyHypixelMode extends Module {
     }
 
     @EventTarget
-    public void method16108(SafeWalkEvent var1) {
+    public void method16108(EventSafeWalk var1) {
         if (this.isEnabled()) {
             if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
                 if (mc.world
@@ -159,7 +159,7 @@ public class BlockFlyHypixelMode extends Module {
     }
 
     @EventTarget
-    public void onHover(MouseHoverEvent var1) {
+    public void onHover(EventMouseHover var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Downwards")) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.setCancelled(true);
@@ -398,7 +398,7 @@ public class BlockFlyHypixelMode extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16113(SendPacketEvent var1) {
+    public void method16113(EventSendPacket var1) {
         if (this.isEnabled() && mc.player != null) {
             if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
                 var1.setCancelled(true);
@@ -407,7 +407,7 @@ public class BlockFlyHypixelMode extends Module {
     }
 
     @EventTarget
-    public void method16114(JumpEvent var1) {
+    public void method16114(EventJump var1) {
         if (this.isEnabled() && this.field23475) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
                     && (!MultiUtilities.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
@@ -417,7 +417,7 @@ public class BlockFlyHypixelMode extends Module {
     }
 
     @EventTarget
-    public void method16115(Render2DEvent var1) {
+    public void method16115(EventRender2D var1) {
         if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23471 >= 0) {
             if (!(mc.player.fallDistance > 1.2F)) {
                 if (!(mc.player.chasingPosY < this.field23476)) {

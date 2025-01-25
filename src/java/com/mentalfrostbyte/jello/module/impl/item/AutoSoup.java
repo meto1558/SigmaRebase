@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.item;
 
 
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.Client;
@@ -83,7 +83,7 @@ public class AutoSoup extends Module {
     }
 
     @EventTarget
-    public void method16058(SendPacketEvent var1) {
+    public void method16058(EventSendPacket var1) {
         if (this.isEnabled()) {
             if (this.field23433 && var1.getPacket() instanceof CClientStatusPacket) {
                 CClientStatusPacket var4 = (CClientStatusPacket) var1.getPacket();

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.MouseHoverEvent;
+import com.mentalfrostbyte.jello.event.impl.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
@@ -51,7 +51,7 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    public void onMouseHover(MouseHoverEvent var1) {
+    public void onMouseHover(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;

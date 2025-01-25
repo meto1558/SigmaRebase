@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SEntityStatusPacket;
@@ -14,7 +14,7 @@ public class HitSounds extends Module {
 
     @EventTarget
     @LowerPriority
-    public void onReceivePacket(ReceivePacketEvent event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof SEntityStatusPacket sEntityStatusPacket) {
                 if (mc.world == null) return;

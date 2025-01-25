@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.managers;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.command.*;
-import com.mentalfrostbyte.jello.event.impl.SendPacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.impl.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.impl.command.Command;
 import com.mentalfrostbyte.jello.managers.impl.command.CommandException;
@@ -101,7 +101,7 @@ public class CommandManager {
     }
 
     @EventTarget
-    public void method30237(TickEvent var1) {
+    public void method30237(EventPlayerTick var1) {
         for (Runnable var5 : runnableList) {
             var5.run();
         }
@@ -110,7 +110,7 @@ public class CommandManager {
     }
 
     @EventTarget
-    public void onSendPacket(SendPacketEvent var1) {
+    public void onSendPacket(EventSendPacket var1) {
         if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
             if (var1.getPacket() instanceof CChatMessagePacket) {
                 CChatMessagePacket var4 = (CChatMessagePacket) var1.getPacket();

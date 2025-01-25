@@ -2,14 +2,14 @@ package com.mentalfrostbyte.jello.event.impl;
 
 import com.mentalfrostbyte.jello.event.CancellableEvent;
 
-public class RenderFireEvent extends CancellableEvent {
+public class EventRenderFire extends CancellableEvent {
     private float fireHeight;
 
-    public RenderFireEvent() {
+    public EventRenderFire() {
         this.fireHeight = 1.0F;
     }
 
-    public RenderFireEvent(float fireHeight) {
+    public EventRenderFire(float fireHeight) {
         this.fireHeight = fireHeight;
     }
 

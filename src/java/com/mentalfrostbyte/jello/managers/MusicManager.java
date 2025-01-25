@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DCustom;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.impl.music.*;
 import com.mentalfrostbyte.jello.gui.unmapped.Class9275;
@@ -115,7 +115,7 @@ public class MusicManager {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRender2DOffset event) {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
             if (this.playing && !this.visualizerData.isEmpty()) {
                 double[] visualizers = this.visualizerData.get(0);
@@ -142,7 +142,7 @@ public class MusicManager {
     }
 
     @EventTarget
-    public void onRender(EventRender2D render) {
+    public void onRender(EventRender2DCustom render) {
         if (this.playing && !this.visualizerData.isEmpty() && this.spectrum) {
             if (this.notificationImage != null) {
                 if (!this.amplitudes.isEmpty()) {
@@ -245,7 +245,7 @@ public class MusicManager {
     private int ticks = 0;
 
     @EventTarget
-    public void onTick(TickEvent event) {
+    public void onTick(EventPlayerTick event) {
         if (!this.playing) {
             this.visualizerData.clear();
             this.amplitudes.clear();

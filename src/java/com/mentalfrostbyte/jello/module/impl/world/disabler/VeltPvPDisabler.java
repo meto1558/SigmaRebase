@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -32,7 +32,7 @@ public class VeltPvPDisabler extends Module {
     }
 
     @EventTarget
-    public void RecievePacketEvent(ReceivePacketEvent event) {
+    public void RecievePacketEvent(EventReceivePacket event) {
         if (!this.isEnabled()) {
         }
     }

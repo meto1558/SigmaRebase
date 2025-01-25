@@ -1,15 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello.esp;
 
 
-import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.util.world.BlockUtil;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import com.mentalfrostbyte.jello.misc.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
@@ -99,7 +97,7 @@ public class SimsESP extends Module {
     }
 
     @EventTarget
-    public void method16213(Render3DEvent var1) {
+    public void method16213(EventRender3D var1) {
         if (this.isEnabled()) {
             for (Entity var5 : BlockUtil.method34549(MultiUtilities.method17680())) {
                 if (var5 != mc.player && !Client.getInstance().combatManager.isTargetABot(var5)) {

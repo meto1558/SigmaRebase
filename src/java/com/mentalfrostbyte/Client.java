@@ -3,9 +3,8 @@ package com.mentalfrostbyte;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import com.mentalfrostbyte.jello.event.impl.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.EventWriter;
-import com.mentalfrostbyte.jello.event.impl.Render3DEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DCustom;
+import com.mentalfrostbyte.jello.event.impl.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.module.ModuleManager;
 import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
@@ -117,10 +116,7 @@ public class Client {
                 this.moduleManager.method14660(this.config);
             }
 
-            EventWriter var3 = new EventWriter(this.config);
-            EventBus.call(var3);
-
-            FileUtil.save(var3.getFile(), new File(this.file + "/config.json"));
+            FileUtil.save(this.config, new File(this.file + "/config.json"));
         } catch (IOException var4) {
             this.logger.error("Unable to shutdown correctly. Config may be corrupt?");
             var4.printStackTrace();
@@ -146,7 +142,7 @@ public class Client {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(2896);
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        EventBus.call(new EventRender2D());
+        EventBus.call(new EventRender2DCustom());
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableCull();
         RenderSystem.disableDepthTest();
@@ -161,7 +157,7 @@ public class Client {
             RenderSystem.disableDepthTest();
             RenderSystem.depthMask(false);
             GL11.glDisable(2896);
-            EventBus.call(new Render3DEvent());
+            EventBus.call(new EventRender3D());
             RenderSystem.enableDepthTest();
             RenderSystem.depthMask(true);
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);

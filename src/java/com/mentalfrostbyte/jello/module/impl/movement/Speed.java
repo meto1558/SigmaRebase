@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.ReceivePacketEvent;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.*;
@@ -41,12 +41,12 @@ public class Speed extends ModuleWithModuleSettings {
     }
 
     @EventTarget    
-    public void TickEvent(TickEvent event) {
+    public void TickEvent(EventPlayerTick event) {
         tickCounter++;
     }
 
     @EventTarget
-    public void RecievePacketEvent(ReceivePacketEvent event) {
+    public void RecievePacketEvent(EventReceivePacket event) {
         if (event.getPacket() instanceof SPlayerPositionLookPacket && mc.player != null) {
             tickCounter = 0;
             if (this.getBooleanValueFromSettingName("Lag back checker") && this.isEnabled() && mc.player.ticksExisted > 2) {

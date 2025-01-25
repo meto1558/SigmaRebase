@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.event.impl.EventRender;
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.managers.impl.notifs.Notification;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -56,7 +56,7 @@ public class NotificationManager {
     }
 
     @EventTarget
-    public void onRender(EventRender event) {
+    public void onRender(EventRender2DOffset event) {
         if (!Minecraft.getInstance().gameSettings.hideGUI) {
             for (int var4 = 0; var4 < this.notifications.size(); var4++) {
                 Notification notif = this.notifications.get(var4);
@@ -102,7 +102,7 @@ public class NotificationManager {
     }
 
     @EventTarget
-    public void onTick(TickEvent var1) {
+    public void onTick(EventPlayerTick var1) {
         Iterator var4 = this.notifications.iterator();
 
         while (var4.hasNext()) {

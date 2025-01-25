@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.longjump;
 
-import com.mentalfrostbyte.jello.event.impl.TickEvent;
+import com.mentalfrostbyte.jello.event.impl.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -31,7 +31,7 @@ public class CubecraftLongJump extends Module {
     }
 
     @EventTarget
-    public void method16174(TickEvent var1) {
+    public void method16174(EventPlayerTick var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
                 this.field23501++;
