@@ -40,13 +40,13 @@ public class CommandManager {
         this.register(new Bind());
         this.register(new Help());
         this.register(new Friend());
-//        this.register(new Enemy());
+        this.register(new Enemy());
         this.register(new Toggle());
         this.register(new Config());
         this.register(new Panic());
-//        this.register(new HighDPI());
-//        this.register(new KillPotion());
-//        this.register(new Enchant());
+        this.register(new HighDPI());
+        this.register(new KillPotion());
+        this.register(new Enchant());
         this.register(new TP());
     }
 
