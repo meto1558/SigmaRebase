@@ -56,6 +56,7 @@ public class Client {
     public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
+
     public WaypointsManager waypointsManager;
     public NotificationManager notificationManager;
     public MusicManager musicManager;

@@ -110,6 +110,8 @@ public class ModuleManager {
         this.register(new Disabler());
         this.register(new FastBreak());
         this.register(new FastPlace());
+        this.register(new Nuker());
+
 
         // MISC
         this.register(new GamePlay());

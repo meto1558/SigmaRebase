@@ -1539,6 +1539,17 @@ public abstract class Entity implements INameable, ICommandSource
         return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
     }
 
+
+    // START MODIFICATION
+
+    public double getDistanceNearest(double var1, double var3, double var5) {
+        double var9 = this.getPosX() - var1;
+        double var11 = this.getPosY() - var3;
+        double var13 = this.getPosZ() - var5;
+        return var9 * var9 + var11 * var11 + var13 * var13;
+    }
+
+    // END MODIFICATION
     /**
      * Gets the squared distance to the position.
      */
