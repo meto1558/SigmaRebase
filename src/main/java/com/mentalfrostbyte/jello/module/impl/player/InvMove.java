@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
@@ -9,7 +8,6 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.misc.Class1144;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.ChatScreen;
@@ -33,7 +31,6 @@ public class InvMove extends Module {
     public void method16583(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (var1.getKey() == mc.gameSettings.keyBindInventory.keyCode.getKeyCode() && mc.player.isSprinting()) {
-                mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.STOP_SPRINTING));
             }
         }
     }
@@ -53,6 +50,7 @@ public class InvMove extends Module {
     @EventTarget
     public void method16585(EventPlayerTick var1) {
         if (this.isEnabled()) {
+            boolean isInventoryScreen = mc.currentScreen instanceof InventoryScreen || mc.currentScreen instanceof ChestScreen;
             if (this.getBooleanValueFromSettingName("AACP")) {
                 boolean var4 = !(mc.currentScreen instanceof InventoryScreen) || !(mc.currentScreen instanceof ChestScreen);
                 if (this.field23757 && !var4) {
@@ -69,15 +67,7 @@ public class InvMove extends Module {
             }
 
             if (mc.currentScreen instanceof ContainerScreen || Client.getInstance().playerTracker.focusGameTicks() <= 1) {
-                if (mc.currentScreen instanceof ChatScreen) {
-                    return;
-                }
-
-                if (mc.currentScreen instanceof AnvilScreen) {
-                    return;
-                }
-
-                if (mc.currentScreen instanceof Class1144) {
+                if (mc.currentScreen instanceof ChatScreen || mc.currentScreen instanceof AnvilScreen || mc.currentScreen instanceof Class1144) {
                     return;
                 }
 
