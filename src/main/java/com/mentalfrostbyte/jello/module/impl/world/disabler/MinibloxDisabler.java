@@ -62,6 +62,8 @@ public class MinibloxDisabler extends Module {
 //        }
     }
 
+    @EventTarget
+    @SuppressWarnings("unused")
     public void onSendPacket(EventSendPacket event) {
         if (event.getPacket() instanceof CClientStatusPacket packet && packet.getStatus() == CClientStatusPacket.State.PERFORM_RESPAWN) {
             waitForPos = true;
