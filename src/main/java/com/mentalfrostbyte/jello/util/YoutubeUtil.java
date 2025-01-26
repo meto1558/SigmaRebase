@@ -1,13 +1,11 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
@@ -16,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
-public class Class9275 {
+public class YoutubeUtil {
    public static String method34955(int var0) {
       if (var0 < 0) {
          var0 = 0;
@@ -36,22 +34,6 @@ public class Class9275 {
       }
 
       return var3.toString();
-   }
-
-   public static JSONObject method34957(String var0) throws IOException, org.json.JSONException {
-      InputStream var3 = new URL(var0).openStream();
-
-      JSONObject var7;
-      try {
-         BufferedReader var4 = new BufferedReader(new InputStreamReader(var3, Charset.forName("UTF-8")));
-         String var5 = method34956(var4);
-         JSONObject var6 = new JSONObject(var5);
-         var7 = var6;
-      } finally {
-         var3.close();
-      }
-
-      return var7;
    }
 
    public static JSONObject method34958(String var0) throws JSONException {
@@ -84,9 +66,9 @@ public class Class9275 {
       }
    }
 
-   public static URL method34961(String var0) {
+   public static URL getVideoThumbnail(String videoId) {
       try {
-         return new URL("https://i.ytimg.com/vi/" + var0 + "/mqdefault.jpg");
+         return new URL("https://i.ytimg.com/vi/" + videoId + "/mqdefault.jpg");
       } catch (IOException var4) {
          var4.printStackTrace();
          return null;

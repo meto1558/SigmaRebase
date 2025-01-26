@@ -14,6 +14,7 @@ import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.render.*;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import org.newdawn.slick.opengl.Texture;
@@ -321,14 +322,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 ResourceRegistry.JelloLightFont14,
                 (float) (this.getXA() + this.width + 14),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
-                Class9275.method34955(var4),
+                YoutubeUtil.method34955(var4),
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
-                (float) (this.getXA() + this.getWidthA() - 14 - ResourceRegistry.JelloLightFont14.getWidth(Class9275.method34955(var5))),
+                (float) (this.getXA() + this.getWidthA() - 14 - ResourceRegistry.JelloLightFont14.getWidth(YoutubeUtil.method34955(var5))),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
-                Class9275.method34955(var5),
+                YoutubeUtil.method34955(var5),
                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
         );
     }

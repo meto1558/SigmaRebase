@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.util.music.*;
-import com.mentalfrostbyte.jello.gui.unmapped.Class9275;
+import com.mentalfrostbyte.jello.util.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.*;
 import com.mentalfrostbyte.jello.util.render.*;
 import com.sapher.youtubedl.YoutubeDL;
@@ -327,7 +327,7 @@ public class MusicManager {
                         }
 
                         for (int i = this.currentVideoIndex; i < this.videoManager.videoList.size(); i++) {
-                            URL videoURL = Class9275.getVideoStreamURL(this.videoManager.videoList.get(i).videoId);
+                            URL videoURL = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(i).videoId);
                             Client.getInstance().getLogger().setThreadName(videoURL.toString());
                             this.currentVideoIndex2 = i;
                             this.currentVideo = this.videoManager.videoList.get(i);
