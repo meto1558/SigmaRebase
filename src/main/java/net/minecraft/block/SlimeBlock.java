@@ -1,5 +1,9 @@
 package net.minecraft.block;
 
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
@@ -61,6 +65,7 @@ public class SlimeBlock extends BreakableBlock
      */
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
     {
+        if (entityIn instanceof ClientPlayerEntity && noSlow().isEnabled2() && noSlow().blocks.currentValue) return;
         double d0 = Math.abs(entityIn.getMotion().y);
 
         if (d0 < 0.1D && !entityIn.isSteppingCarefully())
@@ -70,5 +75,18 @@ public class SlimeBlock extends BreakableBlock
         }
 
         super.onEntityWalk(worldIn, pos, entityIn);
+    }
+
+    @Override
+    public float getSlipperiness() {
+        // MODIFICATION BEGIN: less slipperiness if NoSlow is enabled, this is the local player, and Blocks is enabled in NoSlow.
+        if (noSlow().isEnabled2() && noSlow().blocks.currentValue)
+            return 0.6f;
+        return super.getSlipperiness();
+        // MODIFICATION END
+    }
+
+    private NoSlow noSlow() {
+        return (NoSlow)Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
     }
 }
