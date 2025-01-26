@@ -197,7 +197,7 @@ public class Module {
     public void setState(boolean enabled) {
         if (this.enabled != enabled) {
             if (!(this.enabled = enabled)) {
-               // Client.getInstance().getEventManager().unsubscribe(this);
+                EventBus.unregister(this);
                 this.onDisable();
             } else {
                 EventBus.register(this);

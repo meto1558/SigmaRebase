@@ -145,14 +145,14 @@ public class RotationHelper {
         return var4;
     }
 
-    public static float[] method34144(double var0, double var2, double var4) {
-        double var8 = var0 - mc.player.getPosX();
-        double var10 = var2 - mc.player.getPosZ();
-        double var12 = var4 - mc.player.getPosY() - 1.2;
-        double var14 = (double) MathHelper.sqrt(var8 * var8 + var10 * var10);
-        float var16 = (float)(Math.atan2(var10, var8) * 180.0 / Math.PI) - 90.0F;
-        float var17 = (float)(-(Math.atan2(var12, var14) * 180.0 / Math.PI));
-        return new float[]{var16, var17};
+    public static float[] rotationToPos(double x, double y, double z) {
+        double dX = x - mc.player.getPosX();
+        double dY = y - mc.player.getPosZ();
+        double adjustedDZ = z - mc.player.getPosY() - 1.2;
+        double var14 = (double) MathHelper.sqrt(dX * dX + dY * dY);
+        float yaw = (float)(Math.atan2(dY, dX) * 180.0 / Math.PI) - 90.0F;
+        float pitch = (float)(-(Math.atan2(adjustedDZ, var14) * 180.0 / Math.PI));
+        return new float[]{yaw, pitch};
     }
 
     public static float[] method34145(Vector3d var0, Vector3d var1) {

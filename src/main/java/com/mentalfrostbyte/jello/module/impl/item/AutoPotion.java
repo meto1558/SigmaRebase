@@ -103,7 +103,7 @@ public class AutoPotion extends Module {
         double var3 = mc.player.getPosX() + mc.player.getMotion().x * 26.0;
         double var5 = mc.player.getBoundingBox().minY - 3.6;
         double var7 = mc.player.getPosZ() + mc.player.getMotion().z * 26.0;
-        return !this.getBooleanValueFromSettingName("Predict") ? new float[]{mc.player.rotationYaw, 90.0F} : RotationHelper.method34144(var3, var7, var5);
+        return !this.getBooleanValueFromSettingName("Predict") ? new float[]{mc.player.rotationYaw, 90.0F} : RotationHelper.rotationToPos(var3, var7, var5);
     }
 
     public int method16631() {
