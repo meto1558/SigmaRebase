@@ -36,6 +36,17 @@ public class InvManagerUtil {
         return mc.player.container.getSlot(var0).getStack();
     }
 
+    public static int isHotbarEmpty() {
+        for (int hotbarSlot = 0; hotbarSlot < 9; hotbarSlot++) {
+            ItemStack itemStack = mc.player.inventory.getStackInSlot(hotbarSlot);
+            if (itemStack == null) {
+                return hotbarSlot;
+            }
+        }
+
+        return 0;
+    }
+
     public static int findBestToolFromHotbarSlotForBlock(BlockState state) {
         int slot = -1;
         float dmg = 1.0F;

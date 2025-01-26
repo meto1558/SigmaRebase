@@ -1,5 +1,8 @@
 package net.minecraft.util;
 
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import net.minecraft.client.GameSettings;
 
 public class MovementInputFromOptions extends MovementInput
@@ -24,6 +27,12 @@ public class MovementInputFromOptions extends MovementInput
 
         if (p_225607_1_)
         {
+            // MODIFICATION BEGIN: Don't slow down if NoSlow is enabled & the Sneak setting in NoSlow is enabled
+            NoSlow noSlow = (NoSlow) Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
+            boolean shouldCancelSneakSlowdown = noSlow.isEnabled2() && this.sneaking && noSlow.sneak.currentValue;
+            if (shouldCancelSneakSlowdown) return;
+            // MODIFICATION END
+
             this.moveStrafe = (float)((double)this.moveStrafe * 0.3D);
             this.moveForward = (float)((double)this.moveForward * 0.3D);
         }

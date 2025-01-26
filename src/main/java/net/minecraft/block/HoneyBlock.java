@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.BoatEntity;
@@ -99,6 +102,13 @@ public class HoneyBlock extends BreakableBlock
 
     private void setSlideVelocity(Entity entity)
     {
+        // MODIFICATION BEGIN: cancel slide velocity if NoSlow is enabled, this is the local player, and Blocks is enabled in NoSlow.
+        NoSlow noSlow = (NoSlow)Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
+        if (entity instanceof ClientPlayerEntity && noSlow.isEnabled2() && noSlow.blocks.currentValue) {
+            entity.fallDistance = 0;
+            return;
+        }
+        // MODIFICATION END
         Vector3d vector3d = entity.getMotion();
 
         if (vector3d.y < -0.13D)
