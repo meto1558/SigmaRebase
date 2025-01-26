@@ -321,7 +321,7 @@ public class MusicManager {
 
             this.audioThread = new Thread(
                     () -> {
-                        Object pcmBufferData;
+                        byte[] pcmBufferData;
                         if (this.currentVideoIndex < 0 || this.currentVideoIndex >= this.videoManager.videoList.size()) {
                             this.currentVideoIndex = 0;
                         }
@@ -392,7 +392,7 @@ public class MusicManager {
                                             this.visualizerData.remove(0);
                                         }
 
-                                        this.method24328(this.sourceDataLine, this.volume);
+                                        this.adjustAudioVolume(this.sourceDataLine, this.volume);
                                         if (!Thread.interrupted()) {
                                             this.totalDuration = Math.round(audioTrack.getNextTimeStamp());
                                             this.field32170 = audioTrack.method23326();
@@ -453,7 +453,7 @@ public class MusicManager {
         connection.setDoOutput(true);
         connection.setRequestProperty("Connection", "Keep-Alive");
         InputStream inputStream = connection.getInputStream();
-        MusicStream stream = new MusicStream(inputStream, new Class8808(this));
+        MusicStream stream = new MusicStream(inputStream, new BasicAudioProcessor());
         return stream;
     }
 
@@ -625,7 +625,7 @@ public class MusicManager {
         return (int) this.duration;
     }
 
-    private void method24328(SourceDataLine var1, int var2) {
+    private void adjustAudioVolume(SourceDataLine var1, int var2) {
         try {
             FloatControl var5 = (FloatControl) var1.getControl(Type.MASTER_GAIN);
             BooleanControl var6 = (BooleanControl) var1.getControl(BooleanControl.Type.MUTE);
