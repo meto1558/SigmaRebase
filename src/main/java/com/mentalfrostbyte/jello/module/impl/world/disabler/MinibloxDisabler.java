@@ -24,13 +24,11 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 public class MinibloxDisabler extends Module {
     //    public static RemoteClientPlayerEntity clientPlayerEntity;
-    private final NumberSetting<Integer> clearDelay;
     private final BooleanSetting floatingTooLongKickBypass;
     private final NumberSetting<Integer> bypassDelay;
     private int ticksSinceClientOffGround;
     //    private boolean wasSetback;
     private boolean waitForPos;
-    private long lastWait;
     //    private long ticksSinceLagback;
 //    private boolean dontCancelPacket;
     private Vector3d serverPos;
@@ -38,7 +36,6 @@ public class MinibloxDisabler extends Module {
 
     public MinibloxDisabler() {
         super(ModuleCategory.EXPLOIT, "Miniblox", "Shitty & Horrible but working disabler for Miniblox.");
-        this.registerSetting(this.clearDelay = new NumberSetting<>("Clear Threshold Delay", "Delay", 20, Integer.class, 1, 25, 1));
         this.registerSetting(
                 this.floatingTooLongKickBypass = new BooleanSetting(
                         "Floating Kick Bypass",
@@ -102,7 +99,6 @@ public class MinibloxDisabler extends Module {
         IPacket<?> rawPacket = event.getPacket();
         if (rawPacket instanceof SRespawnPacket) {
             waitForPos = true;
-            lastWait = System.currentTimeMillis();
             return;
         }
         if (mc.player == null) return;
@@ -113,8 +109,8 @@ public class MinibloxDisabler extends Module {
                 && mc.getConnection() != null
                 && mc.player.ticksExisted >= 100
                 && !NoFall.falling) {
-            if (waitForPos || System.currentTimeMillis() - lastWait <= clearDelay.currentValue) {
-                MinecraftUtil.addChatMessage("Accepting pos");
+            if (waitForPos) {
+                MinecraftUtil.addChatMessage("[Miniblox Disabler] Accepting pos due to respawn");
                 waitForPos = false;
                 return;
             }
