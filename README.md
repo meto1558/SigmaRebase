@@ -46,6 +46,10 @@ and its goal is to have all modules from Sigma Remap and not include any other c
 
 ### I want a runnable JAR for the Minecraft launcher!
 
+> [!IMPORTANT]
+> This seems to be broken for now.
+> Hopefully I can fix it later.
+
 1. Open the project structure with Ctrl + Alt + Shift + S;
 2. Find and click on the Artifacts tab;
 3. Press + -> JAR -> Empty;
