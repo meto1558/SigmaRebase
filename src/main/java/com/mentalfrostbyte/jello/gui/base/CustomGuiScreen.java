@@ -168,10 +168,14 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20908 = this.method13289() && this.method13229(newHeight, newWidth);
 
 
-        for (Runnable runnable : this.runOnDimensionUpdate) {
-            if (runnable != null) {
-                runnable.run();
+        try {
+            for (Runnable runnable : this.runOnDimensionUpdate) {
+                if (runnable != null) {
+                    runnable.run();
+                }
             }
+        } catch (ConcurrentModificationException e) {
+            Client.getInstance().getLogger().info("kys concurrent modification exception go away");
         }
 
         this.runOnDimensionUpdate.clear();
@@ -181,8 +185,8 @@ public class CustomGuiScreen implements IGuiEventListener {
             for (CustomGuiScreen iconPanel : this.children) {
                 iconPanel.updatePanelDimensions(newHeight, newWidth);
             }
-        } catch (ConcurrentModificationException var7) {
-            var7.printStackTrace();
+        } catch (ConcurrentModificationException e) {
+            e.printStackTrace();
         }
 
         this.field20909 = this.field20909 & this.field20908;
