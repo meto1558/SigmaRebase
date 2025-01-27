@@ -1,5 +1,6 @@
 package team.sdhq.eventBus;
 
+import com.mentalfrostbyte.Client;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HigherPriority;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
@@ -72,17 +73,21 @@ public final class EventBus {
 
         try {
             for (Method m : map.keySet()) {
+                Object instance = map.get(m);
                 try {
-                    m.invoke(map.get(m), e);
+                    m.invoke(instance, e);
                 } catch (IllegalAccessException ex) {
-                    System.err.println("!!! PRIVATE EVENT LISTENER: " + m.getName());
+                    Client.getInstance().getLogger().error("!!! PRIVATE EVENT LISTENER: " + instance.getClass().getName() + "#" + m.getName());
                 } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
             }
         } catch (ConcurrentModificationException ex) {
             ex.printStackTrace();
-            System.err.println("Ignored concurrent modification exception because those are gay");
+            Client
+                    .getInstance()
+                    .getLogger()
+                    .warn("Ignored concurrent modification exception because those are gay");
         }
     }
 
