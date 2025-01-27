@@ -35,7 +35,7 @@ import java.util.List;
 
 public class InfiniteAura extends Module {
     private int attacksPerTick;
-    private boolean field23898;
+    private boolean alwaysFalse;
     private float attacksPerTickF;
     private final List<List<Vector3d>> renderPositions;
     private Thread thread;
@@ -60,7 +60,7 @@ public class InfiniteAura extends Module {
 
     @Override
     public void onEnable() {
-        this.field23898 = false;
+        this.alwaysFalse = false;
         this.attacksPerTick = (int) (20.0F / this.access().getNumberValueBySettingName("CPS"));
         this.attacksPerTickF = (float) this.attacksPerTick;
     }
@@ -68,7 +68,7 @@ public class InfiniteAura extends Module {
     @Override
     public void onDisable() {
         this.renderPositions.clear();
-        this.field23898 = false;
+        this.alwaysFalse = false;
         this.thread = null;
     }
 
@@ -77,7 +77,7 @@ public class InfiniteAura extends Module {
     public void method16772(EventPlayerTick var1) {
         if (this.isEnabled()) {
             List<TimedEntity> var4 = this.getTimedEntities((float) ((int) this.getNumberValueBySettingName("Range")));
-            if (var4 != null && var4.size() != 0) {
+            if (var4 != null && !var4.isEmpty()) {
                 if (this.attacksPerTickF < 1.0F) {
                     this.attacksPerTickF = this.attacksPerTickF + 20.0F / this.access().getNumberValueBySettingName("CPS");
                 }
@@ -103,10 +103,10 @@ public class InfiniteAura extends Module {
                                 ArrayList var11 = Class8901.method32447(var10, var9);
                                 this.renderPositions.add(var11);
                                 Collections.reverse(var11);
-                                this.method16773(var11, Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled());
+                                this.moveToThingy(var11, Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled());
                                 EntityUtil.swing(target, !this.getBooleanValueFromSettingName("No Swing"));
                                 Collections.reverse(var11);
-                                this.method16773(var11, false);
+                                this.moveToThingy(var11, false);
                             }
                         } catch (Exception var12) {
                             this.thread = null;
@@ -117,41 +117,41 @@ public class InfiniteAura extends Module {
                     this.thread.start();
                 }
             } else {
-                this.field23898 = false;
+                this.alwaysFalse = false;
                 this.renderPositions.clear();
             }
         }
     }
 
-    public void method16773(List<Vector3d> var1, boolean var2) {
+    public void moveToThingy(List<Vector3d> steps, boolean goBackOrSomething) {
         Entity var5 = mc.player.getRidingEntity();
-        Vector3d var6 = null;
+        Vector3d lastPos = null;
 
-        for (Vector3d var8 : var1) {
-            var6 = var8;
+        for (Vector3d pos : steps) {
+            lastPos = pos;
             if (var5 == null) {
-                mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var8.getX(), var8.getY(), var8.getZ(), true));
+                mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(pos.getX(), pos.getY(), pos.getZ(), true));
             } else {
-                var5.setPosition(var8.getX() + 0.5, var8.getY(), var8.getZ() + 0.5);
+                var5.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                 mc.getConnection().sendPacket(new CSteerBoatPacket(false, false));
                 mc.getConnection().sendPacket(new CPlayerPacket.RotationPacket(mc.player.rotationYaw, mc.player.rotationPitch, false));
                 mc.getConnection().sendPacket(new CInputPacket(0.0F, 1.0F, false, false));
-                BoatEntity var9 = new BoatEntity(mc.world, var8.getX() + 0.5, var8.getY(), var8.getZ() + 0.5);
+                BoatEntity var9 = new BoatEntity(mc.world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                 var9.rotationYaw = var5.rotationYaw;
                 var9.rotationPitch = var5.rotationPitch;
                 mc.getConnection().sendPacket(new CMoveVehiclePacket(var9));
             }
         }
 
-        if (var2 && var6 != null) {
-            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var6.getX(), var6.getY() + 1.0E-14, var6.getZ(), false));
-            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var6.getX(), var6.getY(), var6.getZ(), false));
+        if (goBackOrSomething && lastPos != null) {
+            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(lastPos.getX(), lastPos.getY() + 1.0E-14, lastPos.getZ(), false));
+            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(lastPos.getX(), lastPos.getY(), lastPos.getZ(), false));
         }
     }
 
     @EventTarget
-    public void method16774(EventRender3D var1) {
-        if (this.isEnabled() && this.renderPositions != null && this.renderPositions.size() != 0) {
+    public void onRender3d(EventRender3D var1) {
+        if (this.isEnabled() && this.renderPositions != null && !this.renderPositions.isEmpty()) {
             for (List<Vector3d> list : this.renderPositions) {
                 GL11.glPushMatrix();
                 GL11.glEnable(2848);
@@ -190,7 +190,7 @@ public class InfiniteAura extends Module {
         }
     }
 
-    public List<TimedEntity> getTimedEntities(float var1) {
+    public List<TimedEntity> getTimedEntities(float range) {
         ArrayList<TimedEntity> list = new ArrayList<>();
 
         for (Entity entity : EntityUtil.getEntitesInWorld(__ -> true)) {
@@ -205,7 +205,7 @@ public class InfiniteAura extends Module {
                 if (!Client.getInstance().friendManager.method26997(var8)) {
                     if (var8 instanceof LivingEntity) {
                         if (((LivingEntity) var8).getHealth() != 0.0F) {
-                            if (!(mc.player.getDistance(var8) > var1)) {
+                            if (!(mc.player.getDistance(var8) > range)) {
                                 if (mc.player.canAttack((LivingEntity) var8)) {
                                     if (!(var8 instanceof ArmorStandEntity)) {
                                         if (!this.getBooleanValueFromSettingName("Players") && var8 instanceof PlayerEntity) {
@@ -254,14 +254,14 @@ public class InfiniteAura extends Module {
         return list;
     }
 
-    public boolean method16776() {
-        return this.field23898
+    public boolean hasSword() {
+        return this.alwaysFalse
                 && Minecraft.getInstance().player.getHeldItemMainhand() != null
                 && Minecraft.getInstance().player.getHeldItemMainhand().getItem() instanceof SwordItem;
     }
 
     @Override
     public boolean isEnabled2() {
-        return this.isEnabled() && this.method16776() && Client.getInstance().playerTracker.isAlive();
+        return this.isEnabled() && this.hasSword() && Client.getInstance().playerTracker.isAlive();
     }
 }
