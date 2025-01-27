@@ -24,8 +24,8 @@ import static com.mentalfrostbyte.jello.util.player.RotationHelper.getLookVector
 public class EntityUtil {
     private static Minecraft mc = Minecraft.getInstance();
 
-    public static void swing(Entity var0, boolean swing) {
-        if (var0 == null) {
+    public static void swing(Entity target, boolean swing) {
+        if (target == null) {
             return;
         }
 
@@ -35,7 +35,7 @@ public class EntityUtil {
             mc.player.swingArm(Hand.MAIN_HAND);
         }
 
-        mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(var0, mc.player.isSneaking()));
+        mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(target, mc.player.isSneaking()));
 
         boolean canSwing = (double) mc.player.getCooledAttackStrength(0.5F) > 0.9 || isOnePointEight;
 
@@ -44,7 +44,7 @@ public class EntityUtil {
             mc.player.swingArm(Hand.MAIN_HAND);
         }
 
-        mc.playerController.attackEntity(mc.player, var0);
+        mc.playerController.attackEntity(mc.player, target);
     }
 
     public static Entity getEntityFromRayTrace(float yaw, float pitch, float reachDistanceModifier, double boundingBoxExpansion) {
