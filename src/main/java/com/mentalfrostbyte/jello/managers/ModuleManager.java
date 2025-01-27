@@ -83,7 +83,7 @@ public class ModuleManager {
         this.register(new KillAura());
         this.register(new Regen());
         this.register(new WTap());
-
+        this.register(new InfiniteAura());
 
 
         // RENDER
