@@ -1,6 +1,8 @@
 package com.mentalfrostbyte.jello.util.player;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
@@ -56,7 +58,8 @@ public class MovementUtil {
             multiplier = (float)((double)multiplier - 0.03000002 * (double)(mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1));
         }
 
-        if (mc.player.isSneaking()) {
+        NoSlow noSlow = (NoSlow)Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
+        if (mc.player.isSneaking() && !noSlow.sneak.currentValue) {
             speed *= 0.25;
         }
 
