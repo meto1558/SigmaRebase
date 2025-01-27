@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 //import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 //import com.mentalfrostbyte.jello.module.impl.movement.Fly;
@@ -28,7 +27,6 @@ public class MinibloxDisabler extends Module {
     private final BooleanSetting floatingTooLongKickBypass;
     private final NumberSetting<Integer> bypassDelay;
     private int ticksSinceClientOffGround;
-    private int ticksSinceResync;
     //    private boolean wasSetback;
     private boolean waitForPos;
     //    private long ticksSinceLagback;
@@ -94,16 +92,6 @@ public class MinibloxDisabler extends Module {
             waitForPos = true;
         }
     }
-    @EventTarget
-    @SuppressWarnings("unused")
-    public void onUpdate(EventPlayerTick event) {
-        if (ticksSinceResync % 24 == 0) {
-            syncWithServer();
-            ticksSinceResync = 0;
-            return;
-        }
-        ticksSinceResync++;
-    }
 
     @SuppressWarnings("unused")
     @EventTarget
@@ -133,11 +121,7 @@ public class MinibloxDisabler extends Module {
             serverPos = new Vector3d(packet.getX(), packet.getY(), packet.getZ());
             serverRot = new Rotations(packet.getYaw(), packet.getPitch());
 //            updateServerPlayer();
-            mc.getConnection().getNetworkManager().sendNoEventPacket(new CPlayerPacket.PositionRotationPacket(
-                            serverPos.x, serverPos.y, serverPos.z,
-                            serverRot.yaw, serverRot.pitch, mc.player.isOnGround()
-                    )
-            );
+            sendSilentTeleportPacket(serverPos.x, serverPos.y, serverPos.z);
 //            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
 //                            serverPos.x, serverPos.y, serverPos.z,
 //                            serverRot.yaw, serverRot.pitch, mc.player.isOnGround()
@@ -193,17 +177,10 @@ public class MinibloxDisabler extends Module {
         return posPacket;
     }
 
-    // https://discord.com/channels/1331752496556675174/1331754995187585055/1333492455215206441
-    // thanks @bukky1337 (discord)
-    private void syncWithServer() {
-        double x = mc.player.getPosX();
-        double y = mc.player.getPosY();
-        double z = mc.player.getPosZ();
-        float yaw = mc.player.rotationYaw;
-        float pitch = mc.player.rotationPitch;
-
-        mc.getConnection().getNetworkManager().sendNoEventPacket(
-                new CPlayerPacket.PositionRotationPacket(x, y, z, yaw, pitch, true)
-        );
+    private void sendSilentTeleportPacket(double x, double y, double z) {
+        for (int i = 0; i < 3; i++) {
+            mc.getConnection().getNetworkManager().sendNoEventPacket(new CPlayerPacket.PositionPacket(x, y, z, true));
+        }
+        mc.player.setPosition(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
     }
 }
