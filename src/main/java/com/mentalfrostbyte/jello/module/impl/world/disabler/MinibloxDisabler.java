@@ -121,12 +121,11 @@ public class MinibloxDisabler extends Module {
             serverPos = new Vector3d(packet.getX(), packet.getY(), packet.getZ());
             serverRot = new Rotations(packet.getYaw(), packet.getPitch());
 //            updateServerPlayer();
-            sendSilentTeleportPacket(serverPos.x, serverPos.y, serverPos.z);
-//            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
-//                            serverPos.x, serverPos.y, serverPos.z,
-//                            serverRot.yaw, serverRot.pitch, mc.player.isOnGround()
-//                    )
-//            );
+            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
+                            serverPos.x, serverPos.y, serverPos.z,
+                            serverRot.yaw, serverRot.pitch, mc.player.isOnGround()
+                    )
+            );
             // prevent a too many packets kick, also happens to make this disabler the same as the Rise disabler :skull:
             if (!mc.player.isOnGround()) {
                 CPlayerPacket.PositionRotationPacket posPacket = getLagbackResponsePacket();
@@ -175,12 +174,5 @@ public class MinibloxDisabler extends Module {
         else
             ticksSinceClientOffGround++;
         return posPacket;
-    }
-
-    private void sendSilentTeleportPacket(double x, double y, double z) {
-        for (int i = 0; i < 3; i++) {
-            mc.getConnection().getNetworkManager().sendNoEventPacket(new CPlayerPacket.PositionPacket(x, y, z, true));
-        }
-        mc.player.setPosition(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
     }
 }
