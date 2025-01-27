@@ -10,9 +10,9 @@ import java.util.List;
 public class Class8901 {
    private Vector3d field40284;
    private Vector3d field40285;
-   private ArrayList<Vector3d> field40286 = new ArrayList<Vector3d>();
-   private ArrayList<Class8534> field40287 = new ArrayList<Class8534>();
-   private ArrayList<Class8534> field40288 = new ArrayList<Class8534>();
+   private ArrayList<Vector3d> field40286 = new ArrayList<>();
+   private ArrayList<Class8534> field40287 = new ArrayList<>();
+   private ArrayList<Class8534> field40288 = new ArrayList<>();
    private double field40289 = 9.0;
    private boolean field40290 = true;
    private static Minecraft field40291 = Minecraft.getInstance();
@@ -80,14 +80,14 @@ public class Class8901 {
       }
    }
 
-   public static ArrayList<Vector3d> method32447(Vector3d vec1, Vector3d vec2) {
-      Class8901 instance = new Class8901(vec1, vec2);
+   public static ArrayList<Vector3d> pathfindToPos(Vector3d location, Vector3d destination) {
+      Class8901 instance = new Class8901(location, destination);
       instance.method32445();
       byte var5 = 5;
       int var6 = 0;
       Vector3d var7 = null;
       Vector3d var8 = null;
-      ArrayList var9 = new ArrayList();
+      ArrayList<Vector3d> steps = new ArrayList<>();
       List<Vector3d> var10 = instance.method32444();
 
       for (Vector3d var12 : var10) {
@@ -117,15 +117,15 @@ public class Class8901 {
             }
 
             if (!var13) {
-               var9.add(var7.method29879(0.5, 0.0, 0.5));
+               steps.add(var7.method29879(0.5, 0.0, 0.5));
                var8 = var7;
             }
          } else {
             if (var7 != null) {
-               var9.add(var7.method29879(0.5, 0.0, 0.5));
+               steps.add(var7.method29879(0.5, 0.0, 0.5));
             }
 
-            var9.add(var12.method29879(0.5, 0.0, 0.5));
+            steps.add(var12.method29879(0.5, 0.0, 0.5));
             var8 = var12;
          }
 
@@ -133,7 +133,7 @@ public class Class8901 {
          var6++;
       }
 
-      return var9;
+      return steps;
    }
 
    public static boolean method32448(Vector3d var0, boolean var1) {

@@ -34,17 +34,37 @@ import java.util.Iterator;
 import java.util.List;
 
 public class InfiniteAura extends Module {
+    private final BooleanSetting pathfind;
     private int attacksPerTick;
     private boolean alwaysFalse;
     private float attacksPerTickF;
     private final List<List<Vector3d>> renderPositions;
+    private final NumberSetting<Float> attackRange;
     private Thread thread;
 
     public InfiniteAura() {
         super(ModuleCategory.COMBAT, "InfiniteAura", "Basically infinite aura");
         this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 8.0F, 120.0F, 1.0F));
+        this.registerSetting(
+                attackRange = new NumberSetting<>(
+                        "Attack Range",
+                        "Range where the player can attack entities in",
+                        4.0F,
+                        Float.class,
+                        8.0F,
+                        120.0F,
+                        1.0F
+                )
+        );
         this.registerSetting(new NumberSetting<>("CPS", "CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F));
         this.registerSetting(new NumberSetting<>("Targets", "Number of targets", 4.0F, Float.class, 1.0F, 10.0F, 1.0F));
+        this.registerSetting(
+                pathfind = new BooleanSetting(
+                        "Pathfind",
+                        "Pathfind to targets or teleport directly to targets?",
+                        true
+                )
+        );
         this.registerSetting(new BooleanSetting("Players", "Hit players", true));
         this.registerSetting(new BooleanSetting("Animals/Monsters", "Hit animals and monsters", false));
         this.registerSetting(new BooleanSetting("Anti-Bot", "Doesn't hit bots", true));
@@ -98,15 +118,17 @@ public class InfiniteAura extends Module {
                                     break;
                                 }
 
-                                Vector3d var9 = new Vector3d(var5.getPosX(), var5.getPosY(), var5.getPosZ());
-                                Vector3d var10 = new Vector3d(target.getPosX(), target.getPosY(), target.getPosZ());
-                                ArrayList var11 = Class8901.method32447(var10, var9);
-                                this.renderPositions.add(var11);
-                                Collections.reverse(var11);
-                                this.moveToThingy(var11, Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled());
+                                Vector3d destination = new Vector3d(var5.getPosX(), var5.getPosY(), var5.getPosZ());
+                                Vector3d location = new Vector3d(target.getPosX(), target.getPosY(), target.getPosZ());
+                                ArrayList<Vector3d> path = pathfind.currentValue
+                                        ? Class8901.pathfindToPos(location, destination)
+                                        : new ArrayList<>(List.of(location));
+                                this.renderPositions.add(path);
+                                Collections.reverse(path);
+                                this.moveToThingy(path, Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled());
                                 EntityUtil.swing(target, !this.getBooleanValueFromSettingName("No Swing"));
-                                Collections.reverse(var11);
-                                this.moveToThingy(var11, false);
+                                Collections.reverse(path);
+                                this.moveToThingy(path, false);
                             }
                         } catch (Exception var12) {
                             this.thread = null;
@@ -123,7 +145,7 @@ public class InfiniteAura extends Module {
         }
     }
 
-    public void moveToThingy(List<Vector3d> steps, boolean goBackOrSomething) {
+    public void moveToThingy(List<Vector3d> steps, boolean criticalsEnabled) {
         Entity var5 = mc.player.getRidingEntity();
         Vector3d lastPos = null;
 
@@ -143,7 +165,7 @@ public class InfiniteAura extends Module {
             }
         }
 
-        if (goBackOrSomething && lastPos != null) {
+        if (criticalsEnabled && lastPos != null) {
             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(lastPos.getX(), lastPos.getY() + 1.0E-14, lastPos.getZ(), false));
             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(lastPos.getX(), lastPos.getY(), lastPos.getZ(), false));
         }
