@@ -154,7 +154,7 @@ public class GamePlay extends ModuleWithModuleSettings {
             case "Penshen":
                 if (autoLQueue.isEmpty()) {
                     autoLQueue = "Sigmeme".equals(getStringSettingValueByName("AutoL Mode"))
-                            ? new ArrayList<>(AutoLData.SIGMAME_QUOTES)
+                            ? new ArrayList<>(AutoLData.SIGMEME_QUOTES)
                             : new ArrayList<>(AutoLData.PENSHEN_QUOTES);
                     Collections.shuffle(autoLQueue);
                 }

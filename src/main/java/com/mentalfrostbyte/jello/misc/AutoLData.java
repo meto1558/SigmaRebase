@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class AutoLData {
-    public static ArrayList<String> SIGMAME_QUOTES = new ArrayList<>(
+    public static ArrayList<String> SIGMEME_QUOTES = new ArrayList<>(
             Arrays.asList(
                     "Download Sigma to kick a!s!s while listening to some badass music!",
                     "Quick Quiz: I am zeus's son, who am I? Sigma",
@@ -71,7 +71,7 @@ public final class AutoLData {
     public static ArrayList<String> PENSHEN_QUOTES;
 
     public static String method20931() {
-        return SIGMAME_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(SIGMAME_QUOTES.size() - 1)));
+        return SIGMEME_QUOTES.get(Math.round(0.0F + (float)Math.random() * (float)(SIGMEME_QUOTES.size() - 1)));
     }
 
     public static String method20932() {
@@ -80,7 +80,7 @@ public final class AutoLData {
 
     static {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
-            SIGMAME_QUOTES.add("It's not Scaffold it's BlockFly in Jello for Sigma!");
+            SIGMEME_QUOTES.add("It's not Scaffold it's BlockFly in Jello for Sigma!");
         }
 
         PENSHEN_QUOTES = new ArrayList<>(
