@@ -111,6 +111,8 @@ public class ModuleManager {
         this.register(new FastBreak());
         this.register(new FastPlace());
         this.register(new Nuker());
+        this.register(new CakeEater());
+
 
 
         // MISC

@@ -52,6 +52,15 @@ public class RotationHelper {
         double var7 = mc.player.getPosY() + (mc.player.getPosY() - mc.player.lastTickPosY) * (double) mc.getRenderPartialTicks();
         return calculateEntityRotations(target, var3, var7, var5);
     }
+    public static float[] method34144(double var0, double var2, double var4) {
+        double var8 = var0 - mc.player.getPosX();
+        double var10 = var2 - mc.player.getPosZ();
+        double var12 = var4 - mc.player.getPosY() - 1.2;
+        double var14 = (double) MathHelper.sqrt(var8 * var8 + var10 * var10);
+        float var16 = (float)(Math.atan2(var10, var8) * 180.0 / Math.PI) - 90.0F;
+        float var17 = (float)(-(Math.atan2(var12, var14) * 180.0 / Math.PI));
+        return new float[]{var16, var17};
+    }
 
     public static float[] calculateEntityRotations(Entity entity, double playerX, double playerZ, double playerY) {
         // Calculate the interpolated position of the entity based on render ticks
