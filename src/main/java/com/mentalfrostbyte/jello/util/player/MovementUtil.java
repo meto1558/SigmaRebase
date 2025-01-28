@@ -78,6 +78,37 @@ public class MovementUtil {
 
         return var2;
     }
+    public static void method37095(double var0) {
+        double forward = (double) mc.player.movementInput.moveForward;
+        double strafe = (double) mc.player.movementInput.moveStrafe;
+        float yaw = mc.player.rotationYaw;
+        if (forward != 0.0) {
+            if (!(strafe > 0.0)) {
+                if (strafe < 0.0) {
+                    yaw += (float)(!(forward > 0.0) ? -45 : 45);
+                }
+            } else {
+                yaw += (float)(!(forward > 0.0) ? 45 : -45);
+            }
+
+            strafe = 0.0;
+            if (!(forward > 0.0)) {
+                if (forward < 0.0) {
+                    forward = -1.0;
+                }
+            } else {
+                forward = 1.0;
+            }
+        }
+
+        double var9 = mc.player.getPosX();
+        double var11 = mc.player.getPosY();
+        double var13 = mc.player.getPosZ();
+        double var15 = forward * var0 * Math.cos(Math.toRadians((double)(yaw + 90.0F))) + strafe * var0 * Math.sin(Math.toRadians((double)(yaw + 90.0F)));
+        double var17 = forward * var0 * Math.sin(Math.toRadians((double)(yaw + 90.0F))) - strafe * var0 * Math.cos(Math.toRadians((double)(yaw + 90.0F)));
+        mc.player.setPosition(var9 + var15, var11, var13 + var17);
+    }
+
 
     /**
      * Calculates movement angles and directions based on input forward and strafe values.

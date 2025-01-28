@@ -22,6 +22,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
@@ -43,6 +44,10 @@ public class MultiUtilities {
     public static Vector3d method17751(Entity entity) {
         return method17752(entity.getBoundingBox());
     }
+    public static boolean method17686() {
+        return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
+    }
+
 
     public static Vector3d method17752(AxisAlignedBB var0) {
         double var3 = var0.getCenter().x;
@@ -64,6 +69,26 @@ public class MultiUtilities {
                     + inputVector[3] * matrixBuffer.get(matrixBuffer.position() + 12 + i);
         }
     }
+    public static Class9629<Direction, Vector3d> method17760(double var0) {
+        AxisAlignedBB var4 = mc.player.getBoundingBox();
+        Direction[] var5 = new Direction[] { Direction.EAST, Direction.WEST, Direction.SOUTH, Direction.NORTH };
+
+        for (Direction var9 : var5) {
+            Iterator var10 = mc.world
+                    .getCollisionShapes(mc.player,
+                            var4.expand(var0 * (double) var9.getXOffset(), 0.0, var0 * (double) var9.getZOffset()))
+                    .iterator();
+            if (var10.hasNext()) {
+                Vector3d var11 = mc.player
+                        .getPositionVec()
+                        .add(mc.player
+                                .getAllowedMovement(new Vector3d((double) var9.getXOffset(), 0.0, (double) var9.getZOffset())));
+                return new Class9629<>(var9, var11);
+            }
+        }
+
+        return null;
+    }
     public static int method17691(int var0, float var1) {
         int var4 = var0 >> 24 & 0xFF;
         int var5 = var0 >> 16 & 0xFF;
@@ -74,6 +99,13 @@ public class MultiUtilities {
         int var10 = (int)((float)var7 * (1.0F - var1));
         return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
+    public static boolean method17761() {
+        double var2 = 1.0E-7;
+        return mc.world
+                .getCollisionShapes(mc.player, mc.player.getBoundingBox().expand(var2, 0.0, var2).expand(-var2, 0.0, -var2))
+                .findAny().isPresent();
+    }
+
     public static List<PlayerEntity> method17680() {
         ArrayList<PlayerEntity> var2 = new ArrayList<>();
         mc.world.entitiesById.forEach((var1, var2x) -> {

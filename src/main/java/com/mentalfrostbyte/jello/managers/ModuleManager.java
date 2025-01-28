@@ -186,6 +186,8 @@ public class ModuleManager {
         this.register(new BlockFly());
         this.register(new NoSlow());
         this.register(new TargetStrafe());
+        this.register(new Phase());
+
 
 
 
