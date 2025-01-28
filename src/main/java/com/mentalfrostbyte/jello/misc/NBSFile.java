@@ -7,9 +7,9 @@ public class NBSFile implements Cloneable {
     private HashMap<Integer, Class9616> map = new HashMap<>();
     private final short short1;
     private final short short2;
-    private final String string1;
+    private final String author;
     private final File file;
-    private final String string2;
+    private final String songName;
     private final String string3;
     private final float field16345;
     private float field16346;
@@ -20,11 +20,11 @@ public class NBSFile implements Cloneable {
         this(
                 file.method9957(),
                 file.method9950(),
-                file.method9951(),
-                file.method9952(),
-                file.method9953(),
-                file.method9954(),
-                file.method9956(),
+                file.getShort1(),
+                file.getShort2(),
+                file.getAuthor(),
+                file.getSongName(),
+                file.getString3(),
                 file.getFile(),
                 file.method9960(),
                 file.method9959()
@@ -53,8 +53,8 @@ public class NBSFile implements Cloneable {
         this.map = var2;
         this.short1 = var3;
         this.short2 = var4;
-        this.string1 = var5;
-        this.string2 = var6;
+        this.author = var5;
+        this.songName = var6;
         this.string3 = var7;
         this.file = var8;
         this.field16348 = var9;
@@ -65,27 +65,27 @@ public class NBSFile implements Cloneable {
         return this.map;
     }
 
-    public short method9951() {
+    public short getShort1() {
         return this.short1;
     }
 
-    public short method9952() {
+    public short getShort2() {
         return this.short2;
     }
 
-    public String method9953() {
-        return this.string1;
+    public String getAuthor() {
+        return this.author;
     }
 
-    public String method9954() {
-        return this.string2;
+    public String getSongName() {
+        return this.songName;
     }
 
     public File getFile() {
         return this.file;
     }
 
-    public String method9956() {
+    public String getString3() {
         return this.string3;
     }
 

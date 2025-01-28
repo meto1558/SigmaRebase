@@ -108,7 +108,7 @@ public class NoteblockPlayer extends Module {
 
                     if (this.method16406(this.field23641)) {
                         if (Math.floor((float) mc.player.ticksExisted % this.field23639.method9958()) / 20.0 == 0.0) {
-                            if (this.field23638 > this.field23639.method9952()) {
+                            if (this.field23638 > this.field23639.getShort2()) {
                                 this.field23638 = 0;
                             }
 
@@ -358,8 +358,8 @@ public class NoteblockPlayer extends Module {
                 }
             }
 
-            System.out.println(this.field23639.method9953());
-            MinecraftUtil.addChatMessage("Now Playing: " + this.field23639.method9953());
+            System.out.println(this.field23639.getAuthor());
+            MinecraftUtil.addChatMessage("Now Playing: " + this.field23639.getAuthor());
             if (Math.floor(20.0F / this.field23639.method9958()) != (double) (20.0F / this.field23639.method9958())) {
                 MinecraftUtil.addChatMessage(
                         "§cNBS Error! Invalid tempo! (" + this.field23639.method9958() + ") Unpredictable results!");
