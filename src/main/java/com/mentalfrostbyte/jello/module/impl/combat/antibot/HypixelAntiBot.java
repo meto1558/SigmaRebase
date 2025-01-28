@@ -1,15 +1,11 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
-
 import com.mentalfrostbyte.jello.managers.util.combat.Class2124;
 import com.mentalfrostbyte.jello.managers.util.combat.Class7249;
 import net.minecraft.entity.Entity;
-
-import java.util.HashMap;
+import java.util.Objects;
 
 public class HypixelAntiBot extends Class7249 {
-   public HashMap<Entity, Boolean> field31124 = new HashMap<Entity, Boolean>();
-
    public HypixelAntiBot() {
       super("Hypixel", "Detects bots on Hypixel based on entity names", Class2124.field13865);
    }
@@ -21,7 +17,8 @@ public class HypixelAntiBot extends Class7249 {
          String var5 = var1.getCustomName() != null ? var1.getDisplayName().getString() : null;
          String var6 = var1.getName().getString();
          if (var1.isInvisible() && !var4.startsWith("§c") && var4.endsWith("§r") && (var5 == null || var5.equals(var6))) {
-            double var7 = Math.abs(var1.getPosX() - mc.player.getPosX());
+             assert mc.player != null;
+             double var7 = Math.abs(var1.getPosX() - mc.player.getPosX());
             double var9 = Math.abs(var1.getPosY() - mc.player.getPosY());
             double var11 = Math.abs(var1.getPosZ() - mc.player.getPosZ());
             double var13 = Math.sqrt(var7 * var7 + var11 * var11);
@@ -32,12 +29,12 @@ public class HypixelAntiBot extends Class7249 {
 
          if (!var4.startsWith("§") && var4.endsWith("§r")) {
             return true;
-         } else if (var1.isInvisible() && var6.equals(var4) && var5.equals(var6 + "§r")) {
+         } else if (var1.isInvisible() && var6.equals(var4) && Objects.equals(var5, var6 + "§r")) {
             return true;
          } else if (var5 != null && !var5.equalsIgnoreCase("") && var4.toLowerCase().contains("§c") && var4.toLowerCase().contains("§r")) {
             return true;
          } else {
-            return !var4.contains("§8[NPC]") ? !var4.contains("§c") && var5 != null && !var5.equalsIgnoreCase("") : true;
+            return var4.contains("§8[NPC]") || !var4.contains("§c") && var5 != null && !var5.equalsIgnoreCase("");
          }
       } else {
          return false;
