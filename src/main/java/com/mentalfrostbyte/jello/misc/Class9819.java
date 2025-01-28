@@ -66,7 +66,7 @@ public class Class9819 {
                         Vector3d playerVec = new Vector3d(
                            this.mc.player.getPosX(), this.mc.player.getPosY(), this.mc.player.getPosZ()
                         );
-                        List<Vector3d> vectors = Class8901.method32447(playerVec, entityVec);
+                        List<Vector3d> vectors = Class8901.pathfindToPos(playerVec, entityVec);
                         Client.getInstance().notificationManager.send(new Notification("Teleport", "Successfully teleported !"));
                         Entity ridingEntity = this.mc.player.getRidingEntity();
 
