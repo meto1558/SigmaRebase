@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.misc;
 import java.io.File;
 import java.util.HashMap;
 
-public class Class2403 implements Cloneable {
+public class NBSFile implements Cloneable {
     private static String[] field16337;
     private HashMap<Integer, Class9616> field16338 = new HashMap<Integer, Class9616>();
     private short field16339;
@@ -17,7 +17,7 @@ public class Class2403 implements Cloneable {
     private Class8084[] field16347;
     private int field16348;
 
-    public Class2403(Class2403 var1) {
+    public NBSFile(NBSFile var1) {
         this(
                 var1.method9957(),
                 var1.method9950(),
@@ -33,20 +33,20 @@ public class Class2403 implements Cloneable {
     }
 
     /** @deprecated */
-    public Class2403(float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8) {
+    public NBSFile(float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8) {
         this(var1, var2, var3, var4, var5, var6, var7, var8, Class9705.maxId(), new Class8084[0]);
     }
 
     /** @deprecated */
-    public Class2403(float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8, Class8084[] var9) {
+    public NBSFile(float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8, Class8084[] var9) {
         this(var1, var2, var3, var4, var5, var6, var7, var8, Class9705.maxId(), var9);
     }
 
-    public Class2403(float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8, int var9) {
+    public NBSFile(float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8, int var9) {
         this(var1, var2, var3, var4, var5, var6, var7, var8, var9, new Class8084[0]);
     }
 
-    public Class2403(
+    public NBSFile(
             float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8, int var9, Class8084[] var10
     ) {
         this.field16345 = var1;
@@ -102,8 +102,8 @@ public class Class2403 implements Cloneable {
         return this.field16347;
     }
 
-    public Class2403 clone() {
-        return new Class2403(this);
+    public NBSFile clone() {
+        return new NBSFile(this);
     }
 
     public int method9960() {

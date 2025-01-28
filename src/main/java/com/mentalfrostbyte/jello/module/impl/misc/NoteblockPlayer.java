@@ -33,7 +33,7 @@ import java.util.*;
 
 public class NoteblockPlayer extends Module {
     public int field23638;
-    private Class2403 field23639;
+    private NBSFile field23639;
     private List<String> field23640 = new ArrayList<>();
     private final List<Class6463> field23641 = new ArrayList<>();
     private final List<BlockPos> field23642 = new ArrayList<>();
@@ -343,7 +343,7 @@ public class NoteblockPlayer extends Module {
                 MinecraftUtil.addChatMessage(
                         "§cNo Song available! Place NBS formated files in sigma5/nbs and restart the client to try again!");
                 MinecraftUtil.addChatMessage("§cPlaying the only integrated demo song!");
-                this.field23639 = Class8471.method29870(
+                this.field23639 = NBSFileReader.fromInputStream(
                         Resources.readInputStream("com/mentalfrostbyte/gui/resources/music/rememberthis.nbs"));
                 if (this.field23639 == null) {
                     MinecraftUtil.addChatMessage("§cError loading included song, wtf!");
@@ -352,7 +352,7 @@ public class NoteblockPlayer extends Module {
                 }
             } else {
                 File var3 = new File(Client.getInstance().file + "/nbs/" + this.getStringSettingValueByName("Song"));
-                this.field23639 = Class8471.method29869(var3);
+                this.field23639 = NBSFileReader.fromFile(var3);
                 if (this.field23639 == null) {
                     MinecraftUtil.addChatMessage("§cError loading song! Make sure song is saved as <= V3 format");
                     this.setEnabled(false);
