@@ -56,6 +56,37 @@ public class BlockUtil {
 
         return new float[]{var12, var13};
     }
+    public static boolean method34535(PlayerEntity var0, BlockPos var1) {
+        return method34550(var0, var1) < method34560();
+    }
+    public static List<BlockPos> method34545(List<BlockPos> var0) {
+        var0.sort((var0x, var1) -> {
+            float var4 = method34550(mc.player, var0x);
+            float var5 = method34550(mc.player, var1);
+            if (!(var4 > var5)) {
+                return var4 != var5 ? -1 : 0;
+            } else {
+                return 1;
+            }
+        });
+        return var0;
+    }
+    public static float method34550(Entity var0, BlockPos var1) {
+        return method34553(var0, (double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
+    }
+    public static float method34553(Entity var0, double var1, double var3, double var5) {
+        float var9 = (float)(var0.getPosX() - var1);
+        float var10 = (float)(var0.getPosY() - var3);
+        float var11 = (float)(var0.getPosZ() - var5);
+        return method34558(var9, var10, var11);
+    }
+    public static float method34558(float var0, float var1, float var2) {
+        return MathHelper.sqrt((var0 - 0.5F) * (var0 - 0.5F) + (var1 - 0.5F) * (var1 - 0.5F) + (var2 - 0.5F) * (var2 - 0.5F));
+    }
+    public static float method34560() {
+        return mc.playerController.getBlockReachDistance();
+    }
+
     public static Direction method34580(BlockPos var0) {
         Direction var3 = Direction.UP;
         float var4 = MathHelper.wrapDegrees(method34581(var0, Direction.UP)[0]);
