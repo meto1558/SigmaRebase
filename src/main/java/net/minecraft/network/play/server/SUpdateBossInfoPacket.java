@@ -167,6 +167,13 @@ public class SUpdateBossInfoPacket implements IPacket<IClientPlayNetHandler>
         return this.name;
     }
 
+    // START MOD
+    public void setName(ITextComponent name)
+    {
+        this.name = name;
+    }
+// END MOD
+
     public float getPercent()
     {
         return this.percent;

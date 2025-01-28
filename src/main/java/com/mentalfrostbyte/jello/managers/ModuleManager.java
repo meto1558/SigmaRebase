@@ -97,6 +97,8 @@ public class ModuleManager {
         this.register(new Streaming());
         this.register(new CameraNoClip());
         this.register(new XRay());
+        this.register(new NameProtect());
+
 
 
 
