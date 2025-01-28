@@ -8,26 +8,26 @@ import team.sdhq.eventBus.EventBus;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class Class7249 implements Class7251 {
+public abstract class AntiBotBase implements IBotDetector {
     public static final Minecraft mc = Minecraft.getInstance();
     private boolean field31120 = true;
-    public String field31121;
-    public String field31122;
-    public Class2124 field31123;
+    public String name;
+    public String description;
+    public BotRecognitionTechnique technique;
 
-    public Class7249(String var1, String var2, Class2124 var3) {
-        this.field31121 = var1;
-        this.field31122 = var2;
-        this.field31123 = var3;
+    public AntiBotBase(String name, String description, BotRecognitionTechnique technique) {
+        this.name = name;
+        this.description = description;
+        this.technique = technique;
         EventBus.register(this);
     }
 
-    public String method22759() {
-        return this.field31121;
+    public String getName() {
+        return this.name;
     }
 
-    public String method22760() {
-        return this.field31122;
+    public String getDescription() {
+        return this.description;
     }
 
     public void method22761() {
@@ -49,7 +49,7 @@ public abstract class Class7249 implements Class7251 {
         return this.field31120;
     }
 
-    public List<AbstractClientPlayerEntity> method22765() {
+    public List<AbstractClientPlayerEntity> getPlayers() {
         return mc.world.getPlayers();
     }
 

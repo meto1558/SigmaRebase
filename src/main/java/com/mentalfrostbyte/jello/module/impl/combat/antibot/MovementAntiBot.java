@@ -8,8 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SEntityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import com.mentalfrostbyte.jello.managers.util.combat.Class2124;
-import com.mentalfrostbyte.jello.managers.util.combat.Class7249;
+import com.mentalfrostbyte.jello.managers.util.combat.BotRecognitionTechnique;
+import com.mentalfrostbyte.jello.managers.util.combat.AntiBotBase;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
@@ -17,24 +17,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class MovementAntiBot extends Class7249 {
+public class MovementAntiBot extends AntiBotBase {
    public List<Integer> field31115 = new CopyOnWriteArrayList<Integer>();
    public HashMap<Entity, Integer> field31116 = new HashMap<Entity, Integer>();
    public HashMap<Entity, ArrayList<Integer>> field31117 = new HashMap<Entity, ArrayList<Integer>>();
    public int field31118 = 30;
 
    public MovementAntiBot() {
-      super("Movement", "Detects bots based on movement patterns", Class2124.field13866);
+      super("Movement", "Detects bots based on movement patterns", BotRecognitionTechnique.PATTERNS);
    }
 
    @Override
-   public boolean method22751(Entity var1) {
-      return this.field31116.getOrDefault(var1, 0) < this.field31118;
+   public boolean isBot(Entity entity) {
+      return this.field31116.getOrDefault(entity, 0) < this.field31118;
    }
 
    @EventTarget
-   public void method22752(EventPlayerTick var1) {
-      if (mc.player.ticksExisted < 10) {
+   public void onTick(EventPlayerTick var1) {
+       assert mc.player != null;
+       if (mc.player.ticksExisted < 10) {
          this.field31116.clear();
       }
 
@@ -56,31 +57,31 @@ public class MovementAntiBot extends Class7249 {
    }
 
    @EventTarget
-   public void method22753(EventReceivePacket var1) {
+   public void onClientboundPacket(EventReceivePacket var1) {
       if (mc.player != null && this.field31116 != null) {
          if (mc.player.ticksExisted < 10) {
             this.field31116.clear();
          }
 
          if (var1.getPacket() instanceof SEntityPacket.RelativeMovePacket) {
-            SEntityPacket.RelativeMovePacket var4 = (SEntityPacket.RelativeMovePacket)var1.getPacket();
+            SEntityPacket.RelativeMovePacket relativeMovePacket = (SEntityPacket.RelativeMovePacket)var1.getPacket();
             if (mc.world == null)
                return;
 
-            if (!(var4.getEntity(mc.world) instanceof PlayerEntity)) {
+            if (!(relativeMovePacket.getEntity(mc.world) instanceof PlayerEntity)) {
                return;
             }
 
-            Entity var5 = var4.getEntity(mc.world);
+            Entity var5 = relativeMovePacket.getEntity(mc.world);
             boolean var6 = MultiUtilities.isAboveBounds(var5, 0.5F);
-            short var7 = var4.getPitch(); // prob wrong will fix
+            short var7 = relativeMovePacket.getPitch(); // prob wrong will fix
             if (!this.field31117.containsKey(var5)) {
                this.field31117.put(var5, new ArrayList<Integer>());
             }
 
             ArrayList var8 = this.field31117.get(var5);
             if (var6) {
-               if (var8.size() > 0) {
+               if (!var8.isEmpty()) {
                   int var9 = this.method22754(var8);
                   int var10 = this.method22755(var8);
                   if (var10 > 0 && var10 < 1300 && var9 < 3500 && var9 > 2900) {
@@ -92,7 +93,7 @@ public class MovementAntiBot extends Class7249 {
                this.field31117.put(var5, var8);
             }
 
-            if (var8.size() > 0 && (Integer)var8.get(var8.size() - 1) < 0 && var7 > 0) {
+            if (!var8.isEmpty() && (Integer)var8.get(var8.size() - 1) < 0 && var7 > 0) {
                var8.clear();
             }
 
@@ -100,7 +101,7 @@ public class MovementAntiBot extends Class7249 {
                var8.clear();
             }
 
-            if ((var8.size() == 0 || !var6) && var7 != 0) {
+            if ((var8.isEmpty() || !var6) && var7 != 0) {
                var8.add(Integer.valueOf(var7));
             }
 
@@ -169,7 +170,7 @@ public class MovementAntiBot extends Class7249 {
    }
 
    @Override
-   public boolean method22758(Entity var1) {
-      return this.field31116.getOrDefault(var1, 0) >= this.field31118;
+   public boolean isNotBot(Entity entity) {
+      return this.field31116.getOrDefault(entity, 0) >= this.field31118;
    }
 }

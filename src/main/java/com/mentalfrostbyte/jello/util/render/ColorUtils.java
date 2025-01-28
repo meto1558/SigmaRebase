@@ -42,14 +42,16 @@ public class ColorUtils {
         return a << 24 | (shiftedR & 0xFF) << 16 | (shiftedG & 0xFF) << 8 | shiftedB & 0xFF;
     }
 
-    public static List<PlayerEntity> method17680() {
-        ArrayList<PlayerEntity> var2 = new ArrayList<>();
+    // why is this in color utils :skull:
+    public static List<PlayerEntity> getPlayerEntities() {
+        ArrayList<PlayerEntity> result = new ArrayList<>();
+        assert mc.world != null;
         mc.world.entitiesById.forEach((var1, var2x) -> {
             if (var2x instanceof PlayerEntity) {
-                var2.add((PlayerEntity)var2x);
+                result.add((PlayerEntity)var2x);
             }
         });
-        return var2;
+        return result;
     }
 
     public static int method17690(int var0, int var1, float var2) {
