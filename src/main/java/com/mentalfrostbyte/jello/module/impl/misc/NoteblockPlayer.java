@@ -36,7 +36,7 @@ public class NoteblockPlayer extends Module {
     private NBSFile field23639;
     private List<String> field23640 = new ArrayList<>();
     private final List<Class6463> field23641 = new ArrayList<>();
-    private final List<BlockPos> field23642 = new ArrayList<>();
+    private final List<BlockPos> positions = new ArrayList<>();
 
     public NoteblockPlayer() {
         super(ModuleCategory.MISC, "NoteblockPlayer", "Plays noteblocks! Needs NBS files in sigma5/nbs");
@@ -59,7 +59,7 @@ public class NoteblockPlayer extends Module {
         }
     }
 
-    public static void method16410(BlockPos var0) {
+    public static void handlerRenderingAt(BlockPos var0) {
         double var3 = (double) ((float) var0.getX() + 0.5F)
                 - Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getPos().getX();
         double var5 = (double) ((float) var0.getY() + 1.0F)
@@ -112,7 +112,7 @@ public class NoteblockPlayer extends Module {
                                 this.field23638 = 0;
                             }
 
-                            this.field23642.clear();
+                            this.positions.clear();
 
                             Rots.rotating = true;
 
@@ -147,7 +147,7 @@ public class NoteblockPlayer extends Module {
                                                             CPlayerDiggingPacket.Action.START_DESTROY_BLOCK,
                                                             var8.field28401, Direction.UP));
                                             mc.player.swingArm(Hand.MAIN_HAND);
-                                            this.field23642.add(var8.field28401);
+                                            this.positions.add(var8.field28401);
                                         }
                                     }
                                 }
@@ -191,8 +191,8 @@ public class NoteblockPlayer extends Module {
                 mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK,
                         var5.field28401, Direction.UP));
                 mc.player.swingArm(Hand.MAIN_HAND);
-                this.field23642.clear();
-                this.field23642.add(var5.field28401);
+                this.positions.clear();
+                this.positions.add(var5.field28401);
                 return true;
             }
         }
@@ -217,8 +217,8 @@ public class NoteblockPlayer extends Module {
                 mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK,
                         var5.field28401, Direction.UP));
                 mc.player.swingArm(Hand.MAIN_HAND);
-                this.field23642.clear();
-                this.field23642.add(var5.field28401);
+                this.positions.clear();
+                this.positions.add(var5.field28401);
                 return;
             }
         }
@@ -243,8 +243,8 @@ public class NoteblockPlayer extends Module {
                 mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                         BlockUtil.rayTrace(var6[0], var6[1], mc.playerController.getBlockReachDistance() + 1.0F)));
-                this.field23642.clear();
-                this.field23642.add(var5.field28401);
+                this.positions.clear();
+                this.positions.add(var5.field28401);
 
                 return;
             }
@@ -271,8 +271,8 @@ public class NoteblockPlayer extends Module {
                 mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                         BlockUtil.rayTrace(var6[0], var6[1], mc.playerController.getBlockReachDistance() + 1.0F)));
-                this.field23642.clear();
-                this.field23642.add(var5.field28401);
+                this.positions.clear();
+                this.positions.add(var5.field28401);
 
                 return;
             }
@@ -283,10 +283,8 @@ public class NoteblockPlayer extends Module {
     @EventTarget
     public void method16409(EventRender3D var1) {
         if (this.isEnabled()) {
-            if (this.field23641 != null) {
-                for (BlockPos var7 : this.field23642) {
-                    method16410(var7);
-                }
+            for (BlockPos pos : this.positions) {
+                handlerRenderingAt(pos);
             }
         }
     }
@@ -304,7 +302,7 @@ public class NoteblockPlayer extends Module {
     }
 
     @EventTarget
-    public void method16412(EventReceivePacket var1) {
+    public void onPacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (this.field23641 != null) {
                 if (var1.getPacket() instanceof SPlaySoundEffectPacket) {

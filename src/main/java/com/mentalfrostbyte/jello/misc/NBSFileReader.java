@@ -16,7 +16,7 @@ public class NBSFileReader {
      * Reads an NBS file from the specified input stream or file.
      *
      * @param file         The file to read the NBS file from, if inputStream is null.
-     * @return              An instance of {@link NBSFile} representing the read NBS file, or null if an error occurs.
+     * @return             An instance of {@link NBSFile} representing the read NBS file, or null if an error occurs.
      */
     public static NBSFile fromFile(File file) {
         try {
