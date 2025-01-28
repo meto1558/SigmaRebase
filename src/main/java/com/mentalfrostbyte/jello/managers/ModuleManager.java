@@ -133,7 +133,7 @@ public class ModuleManager {
         this.register(new Unstuck());
         this.register(new GamePlay());
         this.register(new AntiLevitation());
-
+        this.register(new NoteblockPlayer());
 
 
 
