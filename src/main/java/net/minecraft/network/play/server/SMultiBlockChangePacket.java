@@ -14,7 +14,7 @@ import net.minecraft.world.chunk.ChunkSection;
 
 public class SMultiBlockChangePacket implements IPacket<IClientPlayNetHandler>
 {
-    private SectionPos field_244305_a;
+    private SectionPos sectionPos;
     private short[] field_244306_b;
     private BlockState[] field_244307_c;
     private boolean field_244308_d;
@@ -25,7 +25,7 @@ public class SMultiBlockChangePacket implements IPacket<IClientPlayNetHandler>
 
     public SMultiBlockChangePacket(SectionPos p_i242085_1_, ShortSet p_i242085_2_, ChunkSection p_i242085_3_, boolean p_i242085_4_)
     {
-        this.field_244305_a = p_i242085_1_;
+        this.sectionPos = p_i242085_1_;
         this.field_244308_d = p_i242085_4_;
         this.func_244309_a(p_i242085_2_.size());
         int i = 0;
@@ -49,7 +49,7 @@ public class SMultiBlockChangePacket implements IPacket<IClientPlayNetHandler>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.field_244305_a = SectionPos.from(buf.readLong());
+        this.sectionPos = SectionPos.from(buf.readLong());
         this.field_244308_d = buf.readBoolean();
         int i = buf.readVarInt();
         this.func_244309_a(i);
@@ -67,7 +67,7 @@ public class SMultiBlockChangePacket implements IPacket<IClientPlayNetHandler>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeLong(this.field_244305_a.asLong());
+        buf.writeLong(this.sectionPos.asLong());
         buf.writeBoolean(this.field_244308_d);
         buf.writeVarInt(this.field_244306_b.length);
 
@@ -92,9 +92,13 @@ public class SMultiBlockChangePacket implements IPacket<IClientPlayNetHandler>
         for (int i = 0; i < this.field_244306_b.length; ++i)
         {
             short short1 = this.field_244306_b[i];
-            blockpos$mutable.setPos(this.field_244305_a.func_243644_d(short1), this.field_244305_a.func_243645_e(short1), this.field_244305_a.func_243646_f(short1));
+            blockpos$mutable.setPos(this.sectionPos.func_243644_d(short1), this.sectionPos.func_243645_e(short1), this.sectionPos.func_243646_f(short1));
             p_244310_1_.accept(blockpos$mutable, this.field_244307_c[i]);
         }
+    }
+
+    public SectionPos getSectionPos() {
+        return sectionPos;
     }
 
     public boolean func_244311_b()

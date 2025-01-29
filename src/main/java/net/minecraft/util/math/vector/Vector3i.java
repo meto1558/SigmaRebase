@@ -24,9 +24,9 @@ public class Vector3i implements Comparable<Vector3i>
 
     /** An immutable vector with zero as all coordinates. */
     public static final Vector3i NULL_VECTOR = new Vector3i(0, 0, 0);
-    private int x;
+    public int x;
     private int y;
-    private int z;
+    public int z;
 
     public Vector3i(int xIn, int yIn, int zIn)
     {

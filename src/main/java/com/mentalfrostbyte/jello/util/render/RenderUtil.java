@@ -63,6 +63,53 @@ public class RenderUtil {
     public static void method11425(double var0, double var2, double var4, double var6, int var8) {
         drawRect((float)var0, (float)var2, (float)var4, (float)var6, var8);
     }
+
+    public static void renderWireframeBox(Box3D boxIn, int color) {
+        renderWireframeBox(boxIn, 2.8F, color);
+    }
+
+    public static void renderWireframeBox(Box3D boxIn, float width, int color) {
+        if (boxIn != null) {
+            float var5 = (float)(color >> 24 & 0xFF) / 255.0F;
+            float var6 = (float)(color >> 16 & 0xFF) / 255.0F;
+            float var7 = (float)(color >> 8 & 0xFF) / 255.0F;
+            float var8 = (float)(color & 0xFF) / 255.0F;
+            GL11.glColor4f(var6, var7, var8, var5);
+            GL11.glDisable(3553);
+            GL11.glDisable(2896);
+            GL11.glLineWidth(width);
+            GL11.glEnable(2848);
+            GL11.glEnable(3042);
+            GL11.glBegin(3);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glEnd();
+            GL11.glBegin(3);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glEnd();
+            GL11.glBegin(1);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.minZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.maxX, boxIn.maxY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.minY, boxIn.maxZ);
+            GL11.glVertex3d(boxIn.minX, boxIn.maxY, boxIn.maxZ);
+            GL11.glEnd();
+            GL11.glEnable(3553);
+            GL11.glEnable(2896);
+            GL11.glDisable(2848);
+            GL11.glDisable(3042);
+        }
+    }
     public static void render3DColoredBox(Box3D boxIn, int color) {
         if (boxIn != null) {
             float var4 = (float)(color >> 24 & 0xFF) / 255.0F;
