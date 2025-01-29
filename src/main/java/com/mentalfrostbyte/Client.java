@@ -101,7 +101,7 @@ public class Client {
         EventBus.register(this.playerTracker);
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
-        GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.1");
+        GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.0");
         this.logger.info("Initialized.");
     }
 
@@ -226,11 +226,11 @@ public class Client {
         if (mode != ClientMode.CLASSIC) {
             if (mode == ClientMode.JELLO) {
                 this.initRPC();
-                GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma 5.1");
+                GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma 5.0");
             }
         } else {
             getInstance().guiManager.method33452();
-            GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma 5.1");
+            GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma 5.0");
         }
 
         if (this.moduleManager == null && RandomModuleThread.field8341 != null) {

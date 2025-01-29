@@ -62,6 +62,9 @@ public class ClassicMainScreen extends Screen {
         ArrayList<String> var16 = new ArrayList<>();
         var16.add("LeakedPvP");
         var16.add("Omikron");
+        var16.add("Away");
+        var16.add("Mark");
+        var16.add("DataModel");
         Collections.shuffle(var16);
         String var17 = "by " + var16.get(0) + ", " + var16.get(1);
         this.addToList(new UITextDisplay(this, "names", 130, 9, var9.getWidth(var11), 140, var15, var17, Resources.regular17));

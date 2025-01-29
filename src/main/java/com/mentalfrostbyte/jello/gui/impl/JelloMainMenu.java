@@ -42,7 +42,7 @@ public class JelloMainMenu extends CustomGuiScreen {
         String var20 = "© Sigma Prod";
         StringBuilder var10000 = new StringBuilder().append("Jello for Sigma ");
         Client.getInstance();
-        String var21 = var10000.append(Client.VERSION).append("  -  1.8 to ").append("1.16.4").toString();
+        String var21 = var10000.append(Client.VERSION).append("  -  1.7.2 to ").append("1.21.4").toString();
         this.addToList(
                 this.singleplayerButton = new Class4236(
                         this,
