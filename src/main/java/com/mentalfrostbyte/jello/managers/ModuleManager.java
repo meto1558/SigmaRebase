@@ -179,8 +179,12 @@ public class ModuleManager {
 
 
         // MOVEMENT
+        this.register(new ClickTP());
         this.register(new Speed());
+        this.register(new FastLadder());
         this.register(new Fly());
+        this.register(new ElytraFly());
+        this.register(new BoatFly());
         this.register(new Step());
         this.register(new Jesus());
         this.register(new SafeWalk());
@@ -190,11 +194,9 @@ public class ModuleManager {
         this.register(new NoSlow());
         this.register(new TargetStrafe());
         this.register(new Phase());
-
-
-
-
-
+        this.register(new VClip());
+        this.register(new Strafe());
+        this.register(new EntitySpeed());
 
         this.sortBySuffixAndRegisterEvents();
     }
