@@ -172,7 +172,7 @@ public class MacOSTouchBar {
          this.method13739();
          if (this.touchBar.getItems().isEmpty()) {
             TouchBarTextField var3 = new TouchBarTextField();
-            var3.setStringValue(" Jello for Sigma 5.0   -   Open the keybind manager to add keybinds here!");
+            var3.setStringValue(" Jello for Sigma 5.1   -   Open the keybind manager to add keybinds here!");
             this.touchBar.addItem(new TouchBarItem("Jello", var3, true));
          }
 
@@ -207,7 +207,7 @@ public class MacOSTouchBar {
          this.touchBar = new JTouchBar();
          this.touchBar.setCustomizationIdentifier("JelloTouch");
          TouchBarTextField textField = new TouchBarTextField();
-         textField.setStringValue(" Jello for Sigma 5.0   -   © SIGMA Prod");
+         textField.setStringValue(" Jello for Sigma 5.1   -   © SIGMA Prod");
          this.touchBar.addItem(new TouchBarItem("Jello", textField, true));
          this.touchBar.show(GLFWNativeCocoa.glfwGetCocoaWindow(Minecraft.getInstance().getMainWindow().getHandle()));
          this.field21388 = false;
