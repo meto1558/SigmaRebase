@@ -39,7 +39,7 @@ public class SpartanClickTP extends Module {
     }
 
     @EventTarget
-    private void method16104(EventClick var1) {
+    public void method16104(EventClick var1) {
         if (this.isEnabled() && (mc.player.isSneaking() || !this.access().getBooleanValueFromSettingName("Sneak"))) {
             if (var1.getButton() == EventClick.Button.RIGHT) {
                 BlockRayTraceResult var4 = BlockUtil.rayTrace(
@@ -91,7 +91,7 @@ public class SpartanClickTP extends Module {
     }
 
     @EventTarget
-    private void method16106(EventMove var1) {
+    public void method16106(EventMove var1) {
         if (this.isEnabled()) {
             if (this.field23464 > -1 && this.field23465 != null) {
                 var1.setY(0.01);
