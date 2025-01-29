@@ -43,8 +43,8 @@ public class BlockFlyNCPMode extends Module {
     private int field23924 = -1;
     private int field23925;
     private int field23926;
-    private Hand field23927;
-    private BlockFly field23928 = null;
+    private Hand hand;
+    private BlockFly parent = null;
     private boolean field23929;
     private boolean field23930 = false;
     private double field23931;
@@ -89,7 +89,7 @@ public class BlockFlyNCPMode extends Module {
 
     @Override
     public void initialize() {
-        this.field23928 = (BlockFly) this.access();
+        this.parent = (BlockFly) this.access();
     }
 
     @Override
@@ -179,39 +179,46 @@ public class BlockFlyNCPMode extends Module {
     @EventTarget
     @LowerPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
-        if (this.isEnabled() && this.field23928.getValidItemCount() != 0) {
+        if (this.isEnabled() && this.parent.getValidItemCount() != 0) {
             if (!event.isPre()) {
-                this.field23928.method16736();
+                this.parent.method16736();
                 if (this.field23923 != null) {
-                    BlockRayTraceResult var13 = new BlockRayTraceResult(
+                    BlockRayTraceResult rayTraceResult = new BlockRayTraceResult(
                             method16814(this.field23923.position, this.field23923.direction), this.field23923.direction, this.field23923.position, false
                     );
-                    int var14 = mc.player.inventory.currentItem;
-                    if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                        this.field23928.switchToValidHotbarItem();
+                    int prevSlot = mc.player.inventory.currentItem;
+                    int newSlot = parent.getValidHotbarItemSlot();
+
+                    if (newSlot != -1 && !access().getStringSettingValueByName("ItemSpoof").equals("None")) {
+                        mc.getConnection().sendPacket(new CHeldItemChangePacket(newSlot));
+                        mc.player.inventory.currentItem = newSlot;
                     }
 
-                    mc.playerController.func_217292_a(mc.player, mc.world, this.field23927, var13);
-                    if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
-                        mc.player.swingArm(this.field23927);
+                    mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
+
+                    if (!access().getBooleanValueFromSettingName("NoSwing")) {
+                        mc.player.swingArm(this.hand);
                     } else {
-                        mc.getConnection().sendPacket(new CAnimateHandPacket(this.field23927));
+                        mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
                     }
 
-                    if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
-                        mc.player.inventory.currentItem = var14;
+                    if ((access().getStringSettingValueByName("ItemSpoof").equals("Spoof")
+                            || access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof"))
+                            && newSlot != -1) {
+                        mc.getConnection().sendPacket(new CHeldItemChangePacket(prevSlot));
+                        mc.player.inventory.currentItem = prevSlot;
                     }
                 }
             } else {
                 this.field23925++;
                 event.setMoving(true);
-                this.field23927 = Hand.MAIN_HAND;
+                this.hand = Hand.MAIN_HAND;
                 if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
                         && (
-                        mc.player.getHeldItem(this.field23927).isEmpty()
-                                || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.field23927).getItem())
+                        mc.player.getHeldItem(this.hand).isEmpty()
+                                || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
                 )) {
-                    this.field23927 = Hand.OFF_HAND;
+                    this.hand = Hand.OFF_HAND;
                 }
 
                 double var4 = event.getX();
@@ -246,7 +253,7 @@ public class BlockFlyNCPMode extends Module {
                 }
 
                 BlockPos var15 = new BlockPos(var4, var8 - 1.0, var6);
-                if (!BlockUtil.isValidBlockPosition(var15) && this.field23928.canPlaceItem(this.field23927)) {
+                if (!BlockUtil.isValidBlockPosition(var15) && this.parent.canPlaceItem(this.hand)) {
                     BlockCache var11 = BlockUtil.findValidBlockCache(var15, !this.field23929 && this.getBooleanValueFromSettingName("Downwards"));
                     this.field23923 = var11;
                     if (var11 != null) {
@@ -292,7 +299,7 @@ public class BlockFlyNCPMode extends Module {
     @EventTarget
     @HigherPriority
     public void method16809(EventMove var1) {
-        if (this.isEnabled() && this.field23928.getValidItemCount() != 0) {
+        if (this.isEnabled() && this.parent.getValidItemCount() != 0) {
             if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.01F)) {
                 this.field23931 = mc.player.getPosY();
             }
@@ -307,8 +314,8 @@ public class BlockFlyNCPMode extends Module {
                 this.field23926++;
             }
 
-            if (this.field23928 == null) {
-                this.field23928 = (BlockFly) this.access();
+            if (this.parent == null) {
+                this.parent = (BlockFly) this.access();
             }
 
             String var4 = this.getStringSettingValueByName("Speed Mode");
@@ -392,7 +399,7 @@ public class BlockFlyNCPMode extends Module {
                     }
             }
 
-            this.field23928.onMove(var1);
+            this.parent.onMove(var1);
         }
     }
 

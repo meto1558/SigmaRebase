@@ -22,6 +22,7 @@ import com.mentalfrostbyte.jello.util.world.BlockUtil;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
+import net.minecraft.network.play.client.CPlayerTryUseItemOnBlockPacket;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -93,9 +94,9 @@ public class BlockFlySmoothMode extends Module {
         if (this.isEnabled()) {
             if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
                 if (mc.world.getCollisionShapes(
-                                mc.player,
-                                mc.player.getBoundingBox().expand(0.0, -1.5, 0.0).contract(0.05, 0.0, 0.05).contract(-0.05, 0.0, -0.05)
-                        ).count()
+                        mc.player,
+                        mc.player.getBoundingBox().expand(0.0, -1.5, 0.0).contract(0.05, 0.0, 0.05).contract(-0.05, 0.0, -0.05)
+                ).count()
                         == 0L
                         && mc.player.fallDistance < 1.0F) {
                     event.setSafe(true);
@@ -130,6 +131,10 @@ public class BlockFlySmoothMode extends Module {
                             this.blockFly.switchToValidHotbarItem();
                         }
 
+                        mc.player.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(
+                                this.hand,
+                                rayTraceResult
+                        ));
                         new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
                         mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
                         this.blockCache = null;

@@ -10,7 +10,7 @@ public abstract class Setting<T> {
     public final SettingType settingType;
     public final String name;
     public final String description;
-    private final List<SettingObserver> observers = new ArrayList<SettingObserver>();
+    private final List<SettingObserver> observers = new ArrayList<>();
     public T currentValue;
     public T defaultValue;
 

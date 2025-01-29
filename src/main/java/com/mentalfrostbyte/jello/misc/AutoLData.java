@@ -42,7 +42,7 @@ public final class AutoLData {
                     "Do like Tenebrous, subscribe to LeakedPvP!",
                     "Hypixel wants to know Sigma owner’s location [Accept] [Deny]",
                     "Why are you just here? Just to suffer? Sigma is your only solution",
-                    "A mother becomes a true grandmother the day she gets Sigma 5.0",
+                    "A mother becomes a true grandmother the day she gets Sigma 5.1",
                     "Beauty is not in the face; beauty is in Jello for Sigma",
                     "No hax just beta testing the anti-cheat with Sigma.",
                     "Don't forget to report me for Sigma on the forums!",
