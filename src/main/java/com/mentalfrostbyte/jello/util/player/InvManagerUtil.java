@@ -74,6 +74,30 @@ public class InvManagerUtil {
 
         return slot;
     }
+
+    public static int method25843(Item... var0) {
+        int var3 = 0;
+        int var4 = -1;
+
+        for (int var5 = 0; var5 < 9; var5++) {
+            ItemStack var6 = mc.player.inventory.getStackInSlot(var5);
+            if (var6 != null) {
+                for (Item var10 : var0) {
+                    if (var6.getItem() == var10) {
+                        int var11 = var6.getCount();
+                        if (var11 > var3) {
+                            var4 = var5;
+                            var3 = var11;
+                        }
+                    }
+                }
+            }
+        }
+
+        return var4;
+    }
+
+
     public static int findItemSlot(Item var0) {
         int var3 = 0;
         int var4 = -1;

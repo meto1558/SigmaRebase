@@ -92,6 +92,10 @@ public class FireworkRocketEntity extends ProjectileEntity implements IRendersAs
         this.dataManager.register(field_213895_d, false);
     }
 
+    public LivingEntity getBoostedEntity() {
+        return boostedEntity;
+    }
+
     /**
      * Checks if the entity is in range to render.
      */

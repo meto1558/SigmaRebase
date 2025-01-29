@@ -139,8 +139,8 @@ public abstract class Entity implements INameable, ICommandSource
     public float rotationPitch;
     public float prevRotationYaw;
     public float prevRotationPitch;
-    private AxisAlignedBB boundingBox = ZERO_AABB;
-    protected boolean onGround;
+    public AxisAlignedBB boundingBox = ZERO_AABB;
+    public boolean onGround;
     public boolean collidedHorizontally;
     public boolean collidedVertically;
     public boolean velocityChanged;

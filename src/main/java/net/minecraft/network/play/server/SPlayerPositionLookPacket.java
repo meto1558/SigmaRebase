@@ -9,9 +9,9 @@ import net.minecraft.network.PacketBuffer;
 
 public class SPlayerPositionLookPacket implements IPacket<IClientPlayNetHandler>
 {
-    private double x;
-    private double y;
-    private double z;
+    public double x;
+    public double y;
+    public double z;
     public float yaw;
     public float pitch;
     private Set<SPlayerPositionLookPacket.Flags> flags;
