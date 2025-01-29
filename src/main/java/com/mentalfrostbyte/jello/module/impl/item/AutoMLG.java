@@ -3,12 +3,16 @@ package com.mentalfrostbyte.jello.module.impl.item;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.player.RotationHelper;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -128,19 +132,17 @@ public class AutoMLG extends PremiumModule {
             }
         }
 
-        if (true/*Client.getInstance().playerTracker.getMode() > 1*/) { // TODO
+        if (Client.getInstance().playerTracker.getMode() > 1) { // TODO
             for (int var5 = 9; var5 < 36; var5++) {
                 if (mc.player.container.getSlot(var5).getHasStack()) {
                     ItemStack var6 = mc.player.container.getSlot(var5).getStack();
                     if (var6.getItem() == Items.WATER_BUCKET) {
-                        /*
-                        if (JelloPortal.getCurrentVersionApplied() <= ViaVerList._1_11_1_or_2.getVersionNumber()) {
+
+                        if (JelloPortal.getVersion().olderThanOrEqualTo(ProtocolVersion.v1_11_1)) {
                             mc.getConnection().sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
                         }
-                         */
 
-//                        TODO
-//                        InvManagerUtil.moveItemToHotbar(var5, 6);
+                        InvManagerUtil.moveItemToHotbar(var5, 6);
                         mc.getConnection().sendPacket(new CCloseWindowPacket(-1));
                         return 6;
                     }

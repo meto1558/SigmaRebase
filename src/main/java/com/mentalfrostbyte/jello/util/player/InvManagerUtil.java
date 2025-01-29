@@ -1,6 +1,8 @@
 package com.mentalfrostbyte.jello.util.player;
 
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.misc.Class3280;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -15,8 +17,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.PotionUtils;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.mentalfrostbyte.jello.module.Module.mc;
 
@@ -26,12 +27,98 @@ public class InvManagerUtil {
         return var3 == null || var3.getItem() instanceof Class3280;
     }
 
+
+    public static float method25854(ItemStack var0) {
+        if (var0 != null) {
+            Item var3 = var0.getItem();
+            if (!(var3 instanceof SwordItem)) {
+                if (!(var3 instanceof BucketItem)) {
+                    if (!(var3 instanceof CompassItem)) {
+                        if (!(var3 instanceof ToolItem)) {
+                            if (!(var3 instanceof BowItem)) {
+                                if (!(var3 instanceof PotionItem)) {
+                                    if (!(var3 instanceof BlockItem)) {
+                                        if (var0.isFood() && var0.getItem().getFood() == Foods.GOLDEN_APPLE) {
+                                            return 1.0F;
+                                        } else if (!(var3 instanceof EnderPearlItem)) {
+                                            if (!var0.isFood()) {
+                                                if (!(var3 instanceof EggItem)) {
+                                                    return !(var3 instanceof SnowballItem) ? 0.0F : 0.25F;
+                                                } else {
+                                                    return 0.25F;
+                                                }
+                                            } else {
+                                                return 0.5F;
+                                            }
+                                        } else {
+                                            return 1.0F;
+                                        }
+                                    } else {
+                                        return 1.0F;
+                                    }
+                                } else {
+                                    return 1.25F;
+                                }
+                            } else {
+                                return 1.5F;
+                            }
+                        } else {
+                            return 1.5F;
+                        }
+                    } else {
+                        return 1.5F;
+                    }
+                } else {
+                    return 1.5F;
+                }
+            } else {
+                return 2.0F;
+            }
+        } else {
+            return -1.0F;
+        }
+    }
+
+    public static HashMap<Integer, Float> method25855() {
+        HashMap var2 = new HashMap();
+
+        for (int var3 = 0; var3 < 9; var3++) {
+            ItemStack var4 = mc.player.inventory.getStackInSlot(var3);
+            var2.put(var3, method25854(var4) * (float) (mc.player.inventory.currentItem != var3 ? 1 : 2));
+        }
+
+        return var2;
+    }
+
+    public static int method25856() {
+        HashMap<Integer, Float> var2 = method25855();
+        TreeMap<Integer, Float> var3 = new TreeMap(Collections.reverseOrder());
+        var3.putAll(var2);
+        Map.Entry<Integer, Float> var4 = null;
+
+        for (Map.Entry<Integer, Float> var6 : var3.entrySet()) {
+            if (var4 == null || var4.getValue() > var6.getValue()) {
+                var4 = var6;
+            }
+        }
+
+        return var4.getKey();
+    }
+
+    public static int swapToolToHotbar(int var0) {
+        int var3 = method25856();
+        method25869(mc.player.container.windowId, var0, var3, ClickType.SWAP, mc.player);
+        return var3;
+    }
+
     public static void method25871(int var0) {
         mc.playerController.windowClick(mc.player.container.windowId, var0, 1, ClickType.THROW, mc.player);
     }
+
     public static boolean method25859(ItemStack var0) {
         return var0 != null ? var0.getItem() instanceof PotionItem : false;
     }
+
     public static ItemStack method25866(int var0) {
         return mc.player.container.getSlot(var0).getStack();
     }
@@ -60,7 +147,7 @@ public class InvManagerUtil {
                         continue;
                     }
 
-                    damage = ((SwordItem)item.getItem()).getAttackDamage();
+                    damage = ((SwordItem) item.getItem()).getAttackDamage();
                 } else {
                     damage = item.getDestroySpeed(state);
                 }
@@ -115,9 +202,10 @@ public class InvManagerUtil {
 
         return var4;
     }
+
     public static int getArmorProtectionValue(ItemStack itemStack) {
         if (itemStack != null) {
-            return itemStack.getItem() instanceof ArmorItem ? ((ArmorItem)itemStack.getItem()).getDamageReduceAmount() + EnchantmentHelper.getEnchantmentLevel(Enchantments.PROTECTION, itemStack) : 0;
+            return itemStack.getItem() instanceof ArmorItem ? ((ArmorItem) itemStack.getItem()).getDamageReduceAmount() + EnchantmentHelper.getEnchantmentLevel(Enchantments.PROTECTION, itemStack) : 0;
         } else {
             return 0;
         }
@@ -183,7 +271,7 @@ public class InvManagerUtil {
         if (mode == null) {
             return item;
         }
-        if (clickedItem == null || /*JelloPortal.getCurrentVersion().getVersionNumber() > ViaVerList._1_12.getVersionNumber() && */!fixed || mode == ClickType.SWAP) {
+        if (clickedItem == null || JelloPortal.getVersion().newerThan(ProtocolVersion.v1_12) && !fixed || mode == ClickType.SWAP) {
             clickedItem = item;
         }
 
@@ -205,7 +293,7 @@ public class InvManagerUtil {
                     Item i = st.getItem();
                     if (i instanceof ArmorItem it) {
                         float armorProtection = (float) getArmorProtectionValue(st);
-                        if (armorProtection > prot && it.getEquipmentSlot() == ((ArmorItem)stack.getItem()).getEquipmentSlot()) {
+                        if (armorProtection > prot && it.getEquipmentSlot() == ((ArmorItem) stack.getItem()).getEquipmentSlot()) {
                             return false;
                         }
                     }
@@ -251,7 +339,7 @@ public class InvManagerUtil {
 
     public static boolean method25848(ItemStack itemStack) {
         if (itemStack.getItem() instanceof ArmorItem) {
-            ArmorItem armorItem = (ArmorItem)itemStack.getItem();
+            ArmorItem armorItem = (ArmorItem) itemStack.getItem();
             int var4 = getArmorProtectionValue(itemStack);
             if (!isHead(armorItem)) {
                 if (!isChestplate(armorItem)) {

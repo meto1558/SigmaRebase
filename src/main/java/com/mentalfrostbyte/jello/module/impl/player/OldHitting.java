@@ -5,12 +5,14 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventHandAnimation;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Items;
@@ -43,8 +45,7 @@ public class OldHitting extends Module {
     @EventTarget
     @HigherPriority
     public void onUpdate(EventUpdateWalkingPlayer var1) {
-        /* || JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*/
-        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {
+        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             if (var1.isPre()) {
                 boolean var4 = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;
                 boolean auraEnabled = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled();
@@ -114,8 +115,7 @@ public class OldHitting extends Module {
     @EventTarget
     @LowerPriority
     public void onPacketReceive(EventReceivePacket event) {
-        /* || JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*/
-        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {
+        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             if (mc.player != null) {
                 if (event.getPacket() instanceof SEntityEquipmentPacket) {
                     SEntityEquipmentPacket pack = (SEntityEquipmentPacket) event.getPacket();
@@ -132,8 +132,7 @@ public class OldHitting extends Module {
     @EventTarget
     @LowerPriority
     public void method16022(EventHandAnimation event) {
-        //JelloPortal.getCurrentVersion() == ViaVerList._1_8_x*
-        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown()) {
+        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             float var4 = event.method13924();
             if (event.method13926() && event.getHand() == HandSide.LEFT && event.getItemStack().getItem() instanceof ShieldItem) {
                 event.renderBlocking(false);

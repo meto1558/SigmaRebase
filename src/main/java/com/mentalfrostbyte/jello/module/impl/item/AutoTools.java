@@ -1,15 +1,19 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.network.play.client.CClientStatusPacket;
+import net.minecraft.network.play.client.CCloseWindowPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -61,23 +65,22 @@ public class AutoTools extends Module {
 
                 if (bestToolSlot >= 36 && bestToolSlot <= 44) {
                     mc.player.inventory.currentItem = bestToolSlot % 9;
-                } /* else if  (Client.getInstance().getPlayerTracker().getMode() > 1) */ { // TODO
+                } else if (Client.getInstance().playerTracker.getMode() > 1) {
                     String invMode = this.getStringSettingValueByName("Inv Mode");
                     if (invMode.equals("OpenInv") && !(mc.currentScreen instanceof InventoryScreen)) {
                         return;
                     }
 
-//                    if (invMode.equals("FakeInv")/* && JelloPortal.getCurrentVersionApplied() <= ViaVerList._1_11_1_or_2.getVersionNumber()*/) {
-//                        mc.getConnection().sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
-//                    }
-//
-//                    mc.player.inventory.currentItem = InvManagerUtil.swapToolToHotbar(bestToolSlot);
-//                    if (invMode.equals("FakeInv")) {
-//                        mc.getConnection().sendPacket(new CCloseWindowPacket(-1));
-                    // TODO
+                    if (invMode.equals("FakeInv") && JelloPortal.getVersion().olderThanOrEqualTo(ProtocolVersion.v1_11_1)) {
+                        mc.getConnection().sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
+                    }
+
+                    mc.player.inventory.currentItem = InvManagerUtil.swapToolToHotbar(bestToolSlot);
+                    if (invMode.equals("FakeInv")) {
+                        mc.getConnection().sendPacket(new CCloseWindowPacket(-1));
                     }
                 }
             }
         }
     }
-
+}

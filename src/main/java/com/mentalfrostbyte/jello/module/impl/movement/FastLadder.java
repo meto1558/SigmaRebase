@@ -1,10 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class FastLadder extends Module {
@@ -17,7 +19,7 @@ public class FastLadder extends Module {
     @EventTarget
     public void EventMove(EventMove event) {
         if (this.isEnabled() && mc.player.isOnLadder()) {
-            boolean ViaVer = /*JelloPortal.getCurrentVersionApplied() >= ViaVerList._1_9.getVersionNumber() ||*/ mc.getCurrentServerData() == null;
+            boolean ViaVer = JelloPortal.getVersion().newerThanOrEqualTo(ProtocolVersion.v1_9) || mc.getCurrentServerData() == null;
             if (!mc.player.collidedHorizontally && (!mc.player.isJumping || !ViaVer)) {
                 if (this.getStringSettingValueByName("Down mode").equals("OnSneak") && mc.gameSettings.keyBindSneak.isKeyDown()
                         || this.getStringSettingValueByName("Down mode").equals("Always")) {

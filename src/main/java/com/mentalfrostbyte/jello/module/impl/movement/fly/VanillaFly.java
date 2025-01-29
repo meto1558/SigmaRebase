@@ -1,19 +1,21 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import net.minecraft.util.math.shapes.VoxelShape;
-import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
+import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.shapes.VoxelShape;
+import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,51 +80,48 @@ public class VanillaFly extends Module {
             if (!mc.player.isOnGround() && this.getBooleanValueFromSettingName("Kick bypass")) {
                 if (this.ticksInAir > 0 && this.ticksInAir % 30 == 0
                         && !MultiUtilities.isAboveBounds(mc.player, 0.01F)) {
-                    /*
-                     * if (JelloPortal.getCurrentVersionApplied() !=
-                     * ViaVerList._1_8_x.getVersionNumber()) {
-                     * event.setY(event.getY() - 0.04);
-                     * } else {
-                     * 
-                     */
-                    double collisionHeight = this.getGroundCollisionHeight();
-                    if (collisionHeight < 0.0) {
-                        return;
-                    }
 
-                    double yPosition = event.getY();
-                    List<Double> yPositions = new ArrayList<>();
-                    if (!(yPosition - collisionHeight > 9.0)) {
-                        mc.getConnection().sendPacket(
-                                new CPlayerPacket.PositionPacket(event.getX(), collisionHeight, event.getZ(), true));
+                    if (!JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+                        event.setY(event.getY() - 0.04);
                     } else {
-                        while (yPosition > collisionHeight + 9.0) {
-                            yPosition -= 9.0;
-                            yPositions.add(yPosition);
+                        double collisionHeight = this.getGroundCollisionHeight();
+                        if (collisionHeight < 0.0) {
+                            return;
+                        }
+
+                        double yPosition = event.getY();
+                        List<Double> yPositions = new ArrayList<>();
+                        if (!(yPosition - collisionHeight > 9.0)) {
                             mc.getConnection().sendPacket(
-                                    new CPlayerPacket.PositionPacket(event.getX(), yPosition, event.getZ(), true));
-                        }
+                                    new CPlayerPacket.PositionPacket(event.getX(), collisionHeight, event.getZ(), true));
+                        } else {
+                            while (yPosition > collisionHeight + 9.0) {
+                                yPosition -= 9.0;
+                                yPositions.add(yPosition);
+                                mc.getConnection().sendPacket(
+                                        new CPlayerPacket.PositionPacket(event.getX(), yPosition, event.getZ(), true));
+                            }
 
-                        for (Double intermediateY : yPositions) {
+                            for (Double intermediateY : yPositions) {
+                                mc.getConnection().sendPacket(
+                                        new CPlayerPacket.PositionPacket(event.getX(), intermediateY, event.getZ(), true));
+                            }
+
                             mc.getConnection().sendPacket(
-                                    new CPlayerPacket.PositionPacket(event.getX(), intermediateY, event.getZ(), true));
+                                    new CPlayerPacket.PositionPacket(event.getX(), collisionHeight, event.getZ(), true));
+                            Collections.reverse(yPositions);
+
+                            for (Double intermediateYReversed : yPositions) {
+                                mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(event.getX(),
+                                        intermediateYReversed, event.getZ(), true));
+                            }
+
+                            mc.getConnection().sendPacket(
+                                    new CPlayerPacket.PositionPacket(event.getX(), event.getY(), event.getZ(), true));
                         }
 
-                        mc.getConnection().sendPacket(
-                                new CPlayerPacket.PositionPacket(event.getX(), collisionHeight, event.getZ(), true));
-                        Collections.reverse(yPositions);
-
-                        for (Double intermediateYReversed : yPositions) {
-                            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(event.getX(),
-                                    intermediateYReversed, event.getZ(), true));
-                        }
-
-                        mc.getConnection().sendPacket(
-                                new CPlayerPacket.PositionPacket(event.getX(), event.getY(), event.getZ(), true));
+                        this.ticksInAir = 0;
                     }
-
-                    this.ticksInAir = 0;
-                    // }
                 }
             }
         }

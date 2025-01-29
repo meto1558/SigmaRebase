@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.misc.Class2094;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -20,6 +21,7 @@ import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -236,7 +238,7 @@ public class HypixelSpeed extends Module {
         if (var2 != 0) {
             if (var2 != 1) {
                 if (var2 != 2) {
-                    if (var2 == 3 && Math.abs(var1.getY()) < 0.1/* && JelloPortal.getCurrentVersionApplied() == ViaVerList._1_8_x.getVersionNumber()*/) {
+                    if (var2 == 3 && Math.abs(var1.getY()) < 0.1 && JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
                         var1.setY(0.0300011120129438);
                     }
                 } else {
