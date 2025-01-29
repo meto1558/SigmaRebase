@@ -132,7 +132,7 @@ public abstract class Entity implements INameable, ICommandSource
     public double prevPosX;
     public double prevPosY;
     public double prevPosZ;
-    private Vector3d positionVec;
+    public Vector3d positionVec;
     private BlockPos position;
     private Vector3d motion = Vector3d.ZERO;
     public float rotationYaw;
@@ -185,7 +185,7 @@ public abstract class Entity implements INameable, ICommandSource
     public boolean ignoreFrustumCheck;
     public boolean isAirBorne;
     private int field_242273_aw;
-    protected boolean inPortal;
+    public boolean inPortal;
     protected int portalCounter;
     protected BlockPos field_242271_ac;
     private boolean invulnerable;
