@@ -89,6 +89,13 @@ public class MultiUtilities {
 
         return null;
     }
+    public static float[] method17709(int var0) {
+        float var3 = (float) (var0 >> 24 & 0xFF) / 255.0F;
+        float var4 = (float) (var0 >> 16 & 0xFF) / 255.0F;
+        float var5 = (float) (var0 >> 8 & 0xFF) / 255.0F;
+        float var6 = (float) (var0 & 0xFF) / 255.0F;
+        return new float[] { var4, var5, var6, var3 };
+    }
     public static int method17691(int var0, float var1) {
         int var4 = var0 >> 24 & 0xFF;
         int var5 = var0 >> 16 & 0xFF;

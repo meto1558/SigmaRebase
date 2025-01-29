@@ -100,6 +100,8 @@ public class ModuleManager {
         this.register(new CameraNoClip());
         this.register(new XRay());
         this.register(new NameProtect());
+        this.register(new Tracers());
+
 
 
 
