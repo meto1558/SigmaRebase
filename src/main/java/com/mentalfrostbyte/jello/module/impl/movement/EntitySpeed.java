@@ -2,6 +2,8 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRideable;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUnused;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
@@ -60,8 +62,7 @@ public class EntitySpeed extends Module {
                 double var10 = Math.sin(Math.toRadians(var7));
                 this.field23546 = 2.75F;
                 float var12 = this.field23546;
-                if (mc.player.getRidingEntity() instanceof HorseEntity) {
-                    HorseEntity var15 = (HorseEntity) mc.player.getRidingEntity();
+                if (mc.player.getRidingEntity() instanceof HorseEntity var15) {
                     if (var15.onGround && mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.player.horseJumpPower = 1.0F;
                     }
@@ -94,9 +95,9 @@ public class EntitySpeed extends Module {
         }
     }
 
-    @EventTarget
-    public void method16243(EventUseLess var1) {
-        mc.player.getRidingEntity().stepHeight = 0.0F;
-        this.field23547 = 0;
-    }
+//    @EventTarget
+//    public void method16243(EventUnused var1) {
+//        mc.player.getRidingEntity().stepHeight = 0.0F;
+//        this.field23547 = 0;
+//    }
 }

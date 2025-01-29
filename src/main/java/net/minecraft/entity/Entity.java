@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRideable;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
@@ -32,6 +33,7 @@ import net.minecraft.block.PortalInfo;
 import net.minecraft.block.PortalSize;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;
@@ -626,6 +628,17 @@ public abstract class Entity implements INameable, ICommandSource
 
     public void move(MoverType typeIn, Vector3d pos)
     {
+        if (Minecraft.getInstance().player != null
+                && Minecraft.getInstance().player.getRidingEntity() != null
+                && Minecraft.getInstance().player.getRidingEntity().getEntityId() == this.getEntityId()) {
+            EventMoveRideable event = new EventMoveRideable(pos.x, pos.y, pos.z);
+            EventBus.call(event);
+            if (event.isCancelled()) {
+                return;
+            }
+
+            pos = new Vector3d(event.getX(), event.getY(), event.getZ());
+        }
         if (this.noClip)
         {
             this.setBoundingBox(this.getBoundingBox().offset(pos));
