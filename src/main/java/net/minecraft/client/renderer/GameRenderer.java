@@ -99,7 +99,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
     private boolean drawBlockOutline = true;
     private long timeWorldIcon;
     private long prevFrameTime = Util.milliTime();
-    private final LightTexture lightmapTexture;
+    public final LightTexture lightmapTexture;
     private final OverlayTexture overlayTexture = new OverlayTexture();
     private boolean debugView;
     private float cameraZoom = 1.0F;

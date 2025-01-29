@@ -101,6 +101,10 @@ public class ModuleManager {
         this.register(new XRay());
         this.register(new NameProtect());
         this.register(new Tracers());
+        this.register(new Search());
+        this.register(new Projectiles());
+        this.register(new NoServerInfo());
+        this.register(new Breadcrumbs());
 
 
 
@@ -119,6 +123,8 @@ public class ModuleManager {
         this.register(new Nuker());
         this.register(new CakeEater());
         this.register(new ServerCrasher());
+        this.register(new NewChunks());
+        this.register(new AntiCactus());
 
 
 
