@@ -125,7 +125,7 @@ public class BlockFly extends ModuleWithModuleSettings {
         }
     }
 
-    public boolean method16732() {
+    public boolean isEnabled2() {
         return this.getBooleanValueFromSettingName("No Sprint") && this.isEnabled();
     }
 
@@ -290,6 +290,21 @@ public class BlockFly extends ModuleWithModuleSettings {
 
     public void windowClick(int slot, int mouseButton) {
         mc.playerController.windowClick(mc.player.container.windowId, slot, mouseButton, ClickType.SWAP, mc.player);
+    }
+
+    public int getValidHotbarItemSlot() {
+        try {
+            for (int containerSlot = 36; containerSlot < 45; containerSlot++) {
+                int hotbarSlot = containerSlot - 36;
+                if (mc.player.container.getSlot(containerSlot).getHasStack()
+                        && shouldPlaceItem(mc.player.container.getSlot(containerSlot).getStack().getItem())
+                        && mc.player.container.getSlot(containerSlot).getStack().getCount() != 0) {
+                    return hotbarSlot;
+                }
+            }
+        } catch (Exception e) {
+        }
+        return -1;
     }
 
     public void onMove(EventMove var1) {
