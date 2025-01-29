@@ -62,8 +62,8 @@ public class NBSFileReader {
 
             int var10 = Class9705.maxId() - var8;
             short var11 = readSigned16(stream);
-            String songName = readString(stream);
-            String songAuthor = readString(stream);
+            String author = readString(stream);
+            String name = readString(stream);
             readString(stream);
             String var14 = readString(stream);
             float var15 = (float) readSigned16(stream) / 100.0F;
@@ -116,7 +116,7 @@ public class NBSFileReader {
                         var8 += var10;
                     }
 
-                    NBSFile result = new NBSFile(var15, var4, var11, var25, songName, songAuthor, var14, file, var8, var29);;
+                    NBSFile result = new NBSFile(var15, var4, var11, var25, author, name, var14, file, var8, var29);;
 
                     return result;
                 }

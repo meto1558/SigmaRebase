@@ -7,12 +7,12 @@ public class NBSFile implements Cloneable {
     private HashMap<Integer, Class9616> map = new HashMap<>();
     private final short short1;
     private final short short2;
-    private final String author;
-    private final File file;
     private final String songName;
+    private final File file;
+    private final String songAuthor;
     private final String string3;
-    private final float field16345;
-    private float field16346;
+    private final float originalTempo;
+    private float tempo;
     private final Class8084[] field16347;
     private final int field16348;
 
@@ -22,8 +22,8 @@ public class NBSFile implements Cloneable {
                 file.method9950(),
                 file.getShort1(),
                 file.getShort2(),
-                file.getAuthor(),
                 file.getSongName(),
+                file.getSongAuthor(),
                 file.getString3(),
                 file.getFile(),
                 file.method9960(),
@@ -46,17 +46,17 @@ public class NBSFile implements Cloneable {
     }
 
     public NBSFile(
-            float var1, HashMap<Integer, Class9616> var2, short var3, short var4, String var5, String var6, String var7, File var8, int var9, Class8084[] var10
+            float tempo, HashMap<Integer, Class9616> map, short var3, short var4, String songName, String songAuthor, String string3, File file, int var9, Class8084[] var10
     ) {
-        this.field16345 = var1;
-        this.method9961(20.0F / var1);
-        this.map = var2;
+        this.originalTempo = tempo;
+        this.setTempo(20.0F / tempo);
+        this.map = map;
         this.short1 = var3;
         this.short2 = var4;
-        this.author = var5;
-        this.songName = var6;
-        this.string3 = var7;
-        this.file = var8;
+        this.songName = songName;
+        this.songAuthor = songAuthor;
+        this.string3 = string3;
+        this.file = file;
         this.field16348 = var9;
         this.field16347 = var10;
     }
@@ -73,12 +73,12 @@ public class NBSFile implements Cloneable {
         return this.short2;
     }
 
-    public String getAuthor() {
-        return this.author;
-    }
-
     public String getSongName() {
         return this.songName;
+    }
+
+    public String getSongAuthor() {
+        return this.songAuthor;
     }
 
     public File getFile() {
@@ -90,11 +90,11 @@ public class NBSFile implements Cloneable {
     }
 
     public float method9957() {
-        return this.field16345;
+        return this.originalTempo;
     }
 
-    public float method9958() {
-        return this.field16346;
+    public float getTempo() {
+        return this.tempo;
     }
 
     public Class8084[] method9959() {
@@ -110,7 +110,7 @@ public class NBSFile implements Cloneable {
         return this.field16348;
     }
 
-    public void method9961(float var1) {
-        this.field16346 = var1;
+    public void setTempo(float tempo) {
+        this.tempo = tempo;
     }
 }
