@@ -33,7 +33,7 @@ public class Client {
     private static final Minecraft mc = Minecraft.getInstance();
     public static int currentVersionIndex = 28;
 
-    public static final String VERSION = "5.0.0b15";
+    public static final String VERSION = "5.1.0b16";
     public static String NAME = "Jello";
     public static String PROD = "Sigma Production";
 
