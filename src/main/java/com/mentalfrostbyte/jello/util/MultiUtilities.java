@@ -115,6 +115,11 @@ public class MultiUtilities {
         });
         return var2;
     }
+    public static List<Entity> method17708() {
+        ArrayList var2 = new ArrayList();
+        mc.world.entitiesById.forEach((var1, var2x) -> var2.add(var2x));
+        return var2;
+    }
     public static Class2258 method17744(Entity var0) {
         if (var0 instanceof LivingEntity) {
             if (!(var0 instanceof PlayerEntity)) {

@@ -83,7 +83,9 @@ public class ModuleManager {
         this.register(new KillAura());
         this.register(new Regen());
         this.register(new WTap());
+        this.register(new BowAimbot());
         this.register(new InfiniteAura());
+
 
 
         // RENDER
@@ -170,6 +172,7 @@ public class ModuleManager {
         this.register(new InvManager());
         this.register(new AutoPotion());
         this.register(new AutoSoup());
+        this.register(new AutoGapple());
 
 
 
