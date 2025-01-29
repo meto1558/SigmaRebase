@@ -7,25 +7,31 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.Direction;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
-import com.mentalfrostbyte.jello.module.impl.movement.blockfly.*;
+import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlyAACMode;
+import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlyHypixelMode;
+import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlyNCPMode;
+import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlySmoothMode;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathHelper;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.player.Rots;
-import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.network.play.client.CCloseWindowPacket;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
 import net.minecraft.util.Hand;
@@ -191,8 +197,8 @@ public class BlockFly extends ModuleWithModuleSettings {
 
                     if (var5 >= 0) {
                         if (!(mc.currentScreen instanceof InventoryScreen) && var3.equals("FakeInv")) {
-//                            mc.getConnection()
-//                                    .sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
+                            mc.getConnection()
+                                    .sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
                         }
 
                         this.windowClick(var5, var4 - 36);
@@ -227,15 +233,9 @@ public class BlockFly extends ModuleWithModuleSettings {
                 }
 
                 if (var4 >= 0 && mc.player.container.getSlot(var4).slotNumber != var8) {
-                    if (!(mc.currentScreen instanceof InventoryScreen) && var3.equals("FakeInv")/*
-                                                                                                 * && JelloPortal.
-                                                                                                 * getCurrentVersionApplied
-                                                                                                 * () <= ViaVerList.
-                                                                                                 * _1_11_1_or_2.
-                                                                                                 * getVersionNumber()
-                                                                                                 */) {
-//                        mc.getConnection()
-//                                .sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
+                    if (!(mc.currentScreen instanceof InventoryScreen) && var3.equals("FakeInv") && JelloPortal.getVersion().olderThanOrEqualTo(ProtocolVersion.v1_11_1)) {
+                        mc.getConnection()
+                                .sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
                     }
 
                     this.windowClick(var8, var4 - 36);
@@ -348,7 +348,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                         if (mc.gameSettings.keyBindJump.isPressed()
                                 && MultiUtilities.isAboveBounds(mc.player, 0.001F)
                                 && mc.world.getCollisionShapes(mc.player, mc.player.getBoundingBox().offset(0.0, 1.0, 0.0))
-                                        .count() == 0L) {
+                                .count() == 0L) {
                             mc.player
                                     .setPosition(mc.player.getPosX(), mc.player.getPosY() + 1.0, mc.player.getPosZ());
                             var1.setY(0.0);
@@ -415,7 +415,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                             mc.getMainWindow().getWidth() / 2,
                             mc.getMainWindow().getHeight() - 138
                                     - (int) (25.0F * MathHelper.calculateTransition(this.animation.calcPercent(), 0.0F,
-                                            1.0F, 1.0F)),
+                                    1.0F, 1.0F)),
                             this.animation.calcPercent());
                 }
             }
