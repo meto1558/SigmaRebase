@@ -2,9 +2,10 @@ package com.mentalfrostbyte.jello.util.world;
 
 import com.google.common.collect.ImmutableList;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.misc.Class3583;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import com.mentalfrostbyte.jello.util.unmapped.PlacementPattern;
 import com.mentalfrostbyte.jello.util.unmapped.BlockCache;
+import com.mentalfrostbyte.jello.util.unmapped.PlacementPattern;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
@@ -18,12 +19,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 import org.apache.commons.lang3.RandomUtils;
-import com.mentalfrostbyte.jello.misc.Class3583;
-
-import java.util.Collections;
-import java.util.List;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();
@@ -43,22 +42,25 @@ public class BlockUtil {
             return false;
         }
     }
+
     public static float[] method34581(BlockPos var0, Direction var1) {
-        double var4 = (double)var0.getX() + 0.5 - mc.player.getPosX() + (double)var1.getXOffset() / 2.0;
-        double var6 = (double)var0.getZ() + 0.5 - mc.player.getPosZ() + (double)var1.getZOffset() / 2.0;
-        double var8 = mc.player.getPosY() + (double) mc.player.getEyeHeight() - ((double)var0.getY() + 0.5);
+        double var4 = (double) var0.getX() + 0.5 - mc.player.getPosX() + (double) var1.getXOffset() / 2.0;
+        double var6 = (double) var0.getZ() + 0.5 - mc.player.getPosZ() + (double) var1.getZOffset() / 2.0;
+        double var8 = mc.player.getPosY() + (double) mc.player.getEyeHeight() - ((double) var0.getY() + 0.5);
         double var10 = (double) MathHelper.sqrt(var4 * var4 + var6 * var6);
-        float var12 = (float)(Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F;
-        float var13 = (float)(Math.atan2(var8, var10) * 180.0 / Math.PI);
+        float var12 = (float) (Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F;
+        float var13 = (float) (Math.atan2(var8, var10) * 180.0 / Math.PI);
         if (var12 < 0.0F) {
             var12 += 360.0F;
         }
 
         return new float[]{var12, var13};
     }
+
     public static boolean method34535(PlayerEntity var0, BlockPos var1) {
         return method34550(var0, var1) < method34560();
     }
+
     public static List<BlockPos> method34545(List<BlockPos> var0) {
         var0.sort((var0x, var1) -> {
             float var4 = method34550(mc.player, var0x);
@@ -71,18 +73,22 @@ public class BlockUtil {
         });
         return var0;
     }
+
     public static float method34550(Entity var0, BlockPos var1) {
-        return method34553(var0, (double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
+        return method34553(var0, (double) var1.getX(), (double) var1.getY(), (double) var1.getZ());
     }
+
     public static float method34553(Entity var0, double var1, double var3, double var5) {
-        float var9 = (float)(var0.getPosX() - var1);
-        float var10 = (float)(var0.getPosY() - var3);
-        float var11 = (float)(var0.getPosZ() - var5);
+        float var9 = (float) (var0.getPosX() - var1);
+        float var10 = (float) (var0.getPosY() - var3);
+        float var11 = (float) (var0.getPosZ() - var5);
         return method34558(var9, var10, var11);
     }
+
     public static float method34558(float var0, float var1, float var2) {
         return MathHelper.sqrt((var0 - 0.5F) * (var0 - 0.5F) + (var1 - 0.5F) * (var1 - 0.5F) + (var2 - 0.5F) * (var2 - 0.5F));
     }
+
     public static float method34560() {
         return mc.playerController.getBlockReachDistance();
     }
@@ -108,10 +114,12 @@ public class BlockUtil {
 
         return var3;
     }
+
     public static List<PlayerEntity> method34549(List<PlayerEntity> var0) {
         Collections.sort(var0, new Class3583());
         return var0;
     }
+
     public static BlockCache findValidBlockCache(BlockPos basePos, boolean var1) {
         Vector3i[] relativePositions = new Vector3i[]{
                 new Vector3i(0, 0, 0),
@@ -129,10 +137,10 @@ public class BlockUtil {
         };
 
         for (PlacementPattern pattern : placementPatterns) {
-            for (Vector3i offset  : relativePositions) {
+            for (Vector3i offset : relativePositions) {
                 Vector3i positionToCheck = !pattern.isOffset
-                        ? new Vector3i(offset .getX() * pattern.offsetX, offset .getY() * pattern.offsetY, offset .getZ() * pattern.offsetZ)
-                        : new Vector3i(offset .getX() + pattern.offsetX, offset .getY() + pattern.offsetY, offset .getZ() + pattern.offsetZ);
+                        ? new Vector3i(offset.getX() * pattern.offsetX, offset.getY() * pattern.offsetY, offset.getZ() * pattern.offsetZ)
+                        : new Vector3i(offset.getX() + pattern.offsetX, offset.getY() + pattern.offsetY, offset.getZ() + pattern.offsetZ);
 
                 for (Direction direction : Direction.values()) {
                     if ((direction != Direction.DOWN || !var1) && isValidBlockPosition(basePos.add(positionToCheck).offset(direction, -1))) {
@@ -381,9 +389,9 @@ public class BlockUtil {
             for (float var5 = -var0; var5 <= var0; var5++) {
                 for (float var6 = -var0; var6 <= var0; var6++) {
                     BlockPos var7 = new BlockPos(
-                            mc.player.getPosX() + (double)var5,
-                            mc.player.getPosY() + (double)var4,
-                            mc.player.getPosZ() + (double)var6
+                            mc.player.getPosX() + (double) var5,
+                            mc.player.getPosY() + (double) var4,
+                            mc.player.getPosZ() + (double) var6
                     );
                     var3.add(var7);
                 }
