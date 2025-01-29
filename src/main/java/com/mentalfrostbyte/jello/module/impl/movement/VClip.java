@@ -30,7 +30,7 @@ public class VClip extends Module {
     }
 
     @EventTarget
-    private void method16289(EventClick var1) {
+    public void method16289(EventClick var1) {
         if (this.isEnabled()) {
             if (mc.gameSettings.keyBindSneak.isKeyDown() && var1.getButton() == EventClick.Button.RIGHT) {
                 if (!(mc.player.rotationPitch < 0.0F)) {
@@ -43,7 +43,7 @@ public class VClip extends Module {
     }
 
     @EventTarget
-    private void method16290(EventSendPacket var1) {
+    public void method16290(EventSendPacket var1) {
         if (var1.getPacket() instanceof CChatMessagePacket) {
             CChatMessagePacket var4 = (CChatMessagePacket) var1.getPacket();
             String var5 = var4.getMessage();

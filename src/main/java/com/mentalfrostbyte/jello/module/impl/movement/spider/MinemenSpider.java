@@ -30,7 +30,7 @@ public class MinemenSpider extends Module {
     }
 
     @EventTarget
-    private void EventMove(EventMove event) {
+    public void EventMove(EventMove event) {
         double var4 = 1.0E-5;
         boolean world = mc.world
                 .getCollisionShapes(mc.player, mc.player.boundingBox.expand(var4, 0.0, var4).expand(-var4, 0.0, -var4))
@@ -96,7 +96,7 @@ public class MinemenSpider extends Module {
     }
 
     @EventTarget
-    private void EventUpdate(EventUpdateWalkingPlayer event) {
+    public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
             Class9629 var4 = MultiUtilities.method17760(1.0E-4);
             if (this.getBooleanValueFromSettingName("Ceiling")
@@ -132,7 +132,7 @@ public class MinemenSpider extends Module {
     }
 
     @EventTarget
-    private void EventBlockCollision(EventBlockCollision event) {
+    public void EventBlockCollision(EventBlockCollision event) {
         if (this.isEnabled() && mc.player != null) {
             if (event.getVoxelShape() != null
                     && !event.getVoxelShape().isEmpty()

@@ -48,7 +48,7 @@ public class BowAimbot extends Module {
     }
 
     @EventTarget
-    private void method16569(EventUpdateWalkingPlayer event) {
+    public void method16569(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
             if (!(mc.player.getActiveItemStack().getItem() instanceof BowItem)) {
                 this.field23754.clear();
@@ -75,7 +75,7 @@ public class BowAimbot extends Module {
     }
 
     @EventTarget
-    private void method16570(EventRender3D var1) {
+    public void method16570(EventRender3D var1) {
         if (this.isEnabled() && !this.getBooleanValueFromSettingName("Silent")) {
             if (!this.field23754.isEmpty()) {
                 float[] var4 = RotationHelper.method34146((LivingEntity) this.field23754.get(0));

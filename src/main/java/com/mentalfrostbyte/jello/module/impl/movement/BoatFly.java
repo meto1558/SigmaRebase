@@ -42,7 +42,7 @@ public class BoatFly extends PremiumModule {
     }
 
     @EventTarget
-    private void method16417(EventKeyPress var1) {
+    public void method16417(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (mc.player.getRidingEntity() != null) {
                 if (!mc.player.getRidingEntity().onGround) {
@@ -56,7 +56,7 @@ public class BoatFly extends PremiumModule {
     }
 
     @EventTarget
-    private void method16418(EventMouse var1) {
+    public void method16418(EventMouse var1) {
         if (this.isEnabled()) {
             if (this.field23643 && var1.method13980() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 this.field23643 = false;

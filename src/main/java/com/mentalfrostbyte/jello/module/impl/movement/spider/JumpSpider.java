@@ -29,7 +29,7 @@ public class JumpSpider extends Module {
     }
 
     @EventTarget
-    private void EventMove(EventMove event) {
+    public void EventMove(EventMove event) {
         if (!mc.player.collidedHorizontally) {
             this.isJumping = false;
         } else if (!mc.player.onGround) {
@@ -57,7 +57,7 @@ public class JumpSpider extends Module {
     }
 
     @EventTarget
-    private void EventUpdate(EventUpdateWalkingPlayer event) {
+    public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
             Class9629 var4 = MultiUtilities.method17760(1.0E-4);
             String mode = this.getStringSettingValueByName("Mode");
@@ -109,7 +109,7 @@ public class JumpSpider extends Module {
     }
 
     @EventTarget
-    private void EventBlockCollision(EventBlockCollision event) {
+    public void EventBlockCollision(EventBlockCollision event) {
         if (this.isEnabled() && mc.player != null) {
             if (event.getVoxelShape() != null
                     && !event.getVoxelShape().isEmpty()

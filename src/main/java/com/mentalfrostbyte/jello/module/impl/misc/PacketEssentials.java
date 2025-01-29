@@ -15,7 +15,7 @@ public class PacketEssentials extends Module {
     }
 
     @EventTarget
-    private void onReceivePacket(EventReceivePacket var1) {
+    public void onReceivePacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (!(var1.getPacket() instanceof SSpawnObjectPacket)) {
                 if (!(var1.getPacket() instanceof SSpawnMobPacket)) {

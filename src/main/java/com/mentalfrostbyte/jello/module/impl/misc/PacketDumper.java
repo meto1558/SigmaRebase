@@ -72,14 +72,14 @@ public class PacketDumper extends Module {
     }
 
     @EventTarget
-    private void onPacketSend(EventSendPacket event) {
+    public void onPacketSend(EventSendPacket event) {
         if (this.isEnabled()) {
             logPacket(event.getPacket(), true);
         }
     }
 
     @EventTarget
-    private void onPacketReceive(EventReceivePacket event) {
+    public void onPacketReceive(EventReceivePacket event) {
         if (this.isEnabled()) {
             logPacket(event.getPacket(), false);
         }
@@ -87,7 +87,7 @@ public class PacketDumper extends Module {
 
     /*
     @EventTarget
-    private void onShutdown(EventWritter event) {
+    public void onShutdown(EventWritter event) {
         try {
             packetWriter.close();
         } catch (IOException e) {

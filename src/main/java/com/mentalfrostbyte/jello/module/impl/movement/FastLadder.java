@@ -15,7 +15,7 @@ public class FastLadder extends Module {
     }
 
     @EventTarget
-    private void EventMove(EventMove event) {
+    public void EventMove(EventMove event) {
         if (this.isEnabled() && mc.player.isOnLadder()) {
             boolean ViaVer = /*JelloPortal.getCurrentVersionApplied() >= ViaVerList._1_9.getVersionNumber() ||*/ mc.getCurrentServerData() == null;
             if (!mc.player.collidedHorizontally && (!mc.player.isJumping || !ViaVer)) {

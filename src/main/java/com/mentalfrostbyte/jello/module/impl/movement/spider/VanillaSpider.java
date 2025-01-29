@@ -13,7 +13,7 @@ public class VanillaSpider extends Module {
     }
 
     @EventTarget
-    private void EventMove(EventMove event) {
+    public void EventMove(EventMove event) {
         if (this.isEnabled()) {
             if (mc.player.collidedHorizontally) {
                 event.setY((double)this.getNumberValueBySettingName("Motion"));
