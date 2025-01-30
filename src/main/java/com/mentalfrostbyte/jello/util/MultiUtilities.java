@@ -61,6 +61,27 @@ public class MultiUtilities {
         double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
         return new Vector3d(var17, var15, var19);
     }
+    public static int method17690(int var0, int var1, float var2) {
+        int var5 = var0 >> 24 & 0xFF;
+        int var6 = var0 >> 16 & 0xFF;
+        int var7 = var0 >> 8 & 0xFF;
+        int var8 = var0 & 0xFF;
+        int var9 = var1 >> 24 & 0xFF;
+        int var10 = var1 >> 16 & 0xFF;
+        int var11 = var1 >> 8 & 0xFF;
+        int var12 = var1 & 0xFF;
+        float var13 = 1.0F - var2;
+        float var14 = (float) var5 * var2 + (float) var9 * var13;
+        float var15 = (float) var6 * var2 + (float) var10 * var13;
+        float var16 = (float) var7 * var2 + (float) var11 * var13;
+        float var17 = (float) var8 * var2 + (float) var12 * var13;
+        return (int) var14 << 24 | ((int) var15 & 0xFF) << 16 | ((int) var16 & 0xFF) << 8 | (int) var17 & 0xFF;
+    }
+    public static List<Entity> getEntitesInWorld() {
+        ArrayList<Entity> entities = new ArrayList<>();
+        mc.world.entitiesById.forEach((entity1, entity2) -> entities.add(entity2));
+        return entities;
+    }
     public static void transformVector(FloatBuffer matrixBuffer, float[] inputVector, float[] outputVector) {
         for (int i = 0; i < 4; i++) {
             outputVector[i] = inputVector[0] * matrixBuffer.get(matrixBuffer.position() + i)

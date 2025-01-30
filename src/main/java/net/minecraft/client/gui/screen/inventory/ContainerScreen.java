@@ -42,8 +42,7 @@ public abstract class ContainerScreen<T extends Container> extends Screen implem
     protected final PlayerInventory playerInventory;
     @Nullable
 
-    /** Holds the slot currently hovered */
-    protected Slot hoveredSlot;
+    /** Holds the slot currently hovered */ public Slot hoveredSlot;
     @Nullable
 
     /** Used when touchscreen is enabled */

@@ -60,11 +60,19 @@ public class RenderUtil {
     public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
         drawPortalBackground(var0, var1, var2, var3, false);
     }
+    public static float method11417() {
+        return (float) mc.mainWindow.getGuiScaleFactor();
+    }
     public static void method11425(double var0, double var2, double var4, double var6, int var8) {
         drawRect((float)var0, (float)var2, (float)var4, (float)var6, var8);
     }
     public static void renderBackgroundBox(float var0, float var1, float var2, float var3, int var4) {
         drawRect(var0, var1, var0 + var2, var1 + var3, var4);
+    }
+    public static void method11450(float var0, float var1, float var2, float var3, Texture var4, int var5,
+                                   boolean var6) {
+        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(),
+                (float) var4.getImageHeight(), var6);
     }
 
     public static void renderWireframeBox(Box3D boxIn, int color) {

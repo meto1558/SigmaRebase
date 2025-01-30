@@ -63,6 +63,8 @@ public class ModuleManager {
             this.register(new KeyStrokes());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.ESP());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.InfoHUD());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.ShulkerInfo());
+
 
 
         }
