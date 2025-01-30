@@ -4,7 +4,6 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.util.EntityUtil;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -75,7 +74,7 @@ public class KillAuraAttackLambda implements Runnable {
 
         // Handle autoblocking mode
         if (KillAura.currentTarget != null && KillAura.interactAB.isBlocking()
-                && !this.killauraModule.getStringSettingValueByName("Auto block mode").equals("Vanilla")) {
+                && !this.killauraModule.getStringSettingValueByName("Auto block Mode").equals("Vanilla")) {
             KillAura.interactAB.method36816();
         }
 
@@ -140,7 +139,7 @@ public class KillAuraAttackLambda implements Runnable {
 
         // Handle autoblocking
         if (KillAura.currentTarget != null && KillAura.interactAB.canBlock()
-                && this.killauraModule.getStringSettingValueByName("Auto block mode").equals("Basic1")) {
+                && this.killauraModule.getStringSettingValueByName("Auto block Mode").equals("Basic1")) {
             KillAura.interactAB.block(KillAura.currentTarget, KillAura.getRotations(this.killauraModule).yaw,
                     KillAura.getRotations(this.killauraModule).pitch);
         }
