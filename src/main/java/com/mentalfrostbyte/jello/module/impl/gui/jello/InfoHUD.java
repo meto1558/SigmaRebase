@@ -30,7 +30,7 @@ public class InfoHUD extends Module {
     }
 
     @EventTarget
-    private void method16692(EventRender var1) {
+    public void method16692(EventRender var1) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.hideGUI) {
                 if (!(mc.currentScreen instanceof ChatScreen)) {
