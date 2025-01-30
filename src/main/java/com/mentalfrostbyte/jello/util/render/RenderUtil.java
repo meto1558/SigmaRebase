@@ -63,6 +63,9 @@ public class RenderUtil {
     public static void method11425(double var0, double var2, double var4, double var6, int var8) {
         drawRect((float)var0, (float)var2, (float)var4, (float)var6, var8);
     }
+    public static void renderBackgroundBox(float var0, float var1, float var2, float var3, int var4) {
+        drawRect(var0, var1, var0 + var2, var1 + var3, var4);
+    }
 
     public static void renderWireframeBox(Box3D boxIn, int color) {
         renderWireframeBox(boxIn, 2.8F, color);
