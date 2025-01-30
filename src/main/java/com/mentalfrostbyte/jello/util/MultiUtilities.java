@@ -27,6 +27,13 @@ import java.util.List;
 import java.util.stream.Stream;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.misc.*;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import totalcross.json.JSONArray;
+import totalcross.json.JSONObject;
 
 
 import static com.mentalfrostbyte.jello.module.Module.mc;
@@ -60,6 +67,35 @@ public class MultiUtilities {
         double var17 = Math.max(var3 - var11 / 2.0, Math.min(var3 + var11 / 2.0, mc.player.getPosX()));
         double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
         return new Vector3d(var17, var15, var19);
+    }
+    public static List<String> method17700(String uuid) throws Exception {
+        ArrayList<String> var3 = new ArrayList<>();
+        String var4;
+        System.out.println("https://api.mojang.com/user/profiles/" + uuid.replaceAll("-", "") + "/names");
+        CloseableHttpClient var5 = HttpClients.createDefault();
+        HttpGet var6 = new HttpGet("https://api.mojang.com/user/profiles/" + uuid.replaceAll("-", "") + "/names");
+        CloseableHttpResponse var7 = var5.execute(var6);
+        int var8 = var7.getStatusLine().getStatusCode();
+        if (var8 == 204) {
+            ArrayList<String> var15 = new ArrayList<>();
+            var15.add("Unknown Name");
+            return var15;
+        } else {
+            try {
+                var4 = EntityUtils.toString(var7.getEntity());
+            } finally {
+                var7.close();
+            }
+
+            JSONArray var9 = new JSONArray(var4);
+
+            for (int var10 = 0; var10 < var9.length(); var10++) {
+                JSONObject var11 = new JSONObject(var9.get(var10).toString());
+                var3.add(var11.getString("name"));
+            }
+
+            return var3;
+        }
     }
     public static int method17690(int var0, int var1, float var2) {
         int var5 = var0 >> 24 & 0xFF;
