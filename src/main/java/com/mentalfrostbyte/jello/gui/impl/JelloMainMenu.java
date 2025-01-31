@@ -11,12 +11,17 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.TrueTypeFont;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.viamcp.protocolinfo.ProtocolInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
 import net.minecraft.realms.RealmsBridgeScreen;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
+
+import java.util.Comparator;
+import java.util.List;
 
 public class JelloMainMenu extends CustomGuiScreen {
     private final ButtonPanel singleplayerButton;
@@ -39,12 +44,20 @@ public class JelloMainMenu extends CustomGuiScreen {
         int var17 = 0;
         int var18 = 80;
         int var19 = 10;
-        String var20 = "© Sigma Prod";
-        StringBuilder var10000 = new StringBuilder().append("Jello for Sigma ");
+        String prod = "© Sigma Prod";
+        StringBuilder clientInfo = new StringBuilder().append("Jello for Sigma ");
         Client.getInstance();
-        String var21 = var10000.append(Client.VERSION).append("  -  1.7.2 to ").append("1.21.4").toString();
+        List<ProtocolVersion> sorted = ProtocolInfo.
+                PROTOCOL_INFOS
+                .stream()
+                .sorted(Comparator.comparing(ProtocolInfo::getProtocolVersion))
+                .map(ProtocolInfo::getProtocolVersion)
+                .toList();
+        String oldestVersion = sorted.get(0).getIncludedVersions().stream().toList().get(0);
+        List<String> newestIncludedVersions = sorted.get(sorted.size() - 1).getIncludedVersions().stream().toList();
+        String newestVersion = newestIncludedVersions.get(newestIncludedVersions.size() - 1);
         this.addToList(
-                this.singleplayerButton = new Class4236(
+                this.singleplayerButton = new MainMenuButton(
                         this,
                         "Singleplayer",
                         this.method13447(var17++),
@@ -55,8 +68,10 @@ public class JelloMainMenu extends CustomGuiScreen {
                         new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
                 )
         );
+        String version = clientInfo
+                .append(Client.VERSION).append("  -  ").append(oldestVersion).append(" to ").append(newestVersion).toString();
         this.addToList(
-                this.multiplayerButton = new Class4236(
+                this.multiplayerButton = new MainMenuButton(
                         this,
                         "Multiplayer",
                         this.method13447(var17++),
@@ -68,7 +83,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 )
         );
         this.addToList(
-                this.realmsButton = new Class4236(
+                this.realmsButton = new MainMenuButton(
                         this,
                         "Realms",
                         this.method13447(var17++),
@@ -80,7 +95,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 )
         );
         this.addToList(
-                this.optionsButton = new Class4236(
+                this.optionsButton = new MainMenuButton(
                         this,
                         "Options",
                         this.method13447(var17++),
@@ -92,7 +107,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 )
         );
         this.addToList(
-                this.altManagerButton = new Class4236(
+                this.altManagerButton = new MainMenuButton(
                         this,
                         "Alt Manager",
                         this.method13447(var17++),
@@ -105,19 +120,19 @@ public class JelloMainMenu extends CustomGuiScreen {
         );
         this.addToList(
                 this.field21130 = new UITextDisplay(
-                        this, "Copyright", 10, this.getHeightA() - 31, var15.getWidth(var20), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var20, var15
+                        this, "Copyright", 10, this.getHeightA() - 31, var15.getWidth(prod), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), prod, var15
                 )
         );
         this.addToList(
                 this.field21129 = new UITextDisplay(
                         this,
                         "Version",
-                        this.getWidthA() - var15.getWidth(var21) - 9,
+                        this.getWidthA() - var15.getWidth(version) - 9,
                         this.getHeightA() - 31,
                         128,
                         128,
                         new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()),
-                        var21,
+                        version,
                         var15
                 )
         );

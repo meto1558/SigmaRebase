@@ -14,23 +14,23 @@ import org.newdawn.slick.TrueTypeFont;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
-public class Class4236 extends PNGIconButton implements Class4238 {
+public class MainMenuButton extends PNGIconButton implements Class4238 {
    public boolean field20577 = false;
    public Animation field20578 = new Animation(160, 140, Direction.BACKWARDS);
 
-   public Class4236(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, TrueTypeFont var10) {
+   public MainMenuButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, TrueTypeFont var10) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10);
    }
 
-   public Class4236(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9) {
+   public MainMenuButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9);
    }
 
-   public Class4236(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8) {
+   public MainMenuButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8) {
       super(var1, var2, var3, var4, var5, var6, var7, var8);
    }
 
-   public Class4236(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
+   public MainMenuButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
       super(var1, var2, var3, var4, var5, var6, var7, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor()));
    }
 
