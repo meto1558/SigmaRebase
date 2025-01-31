@@ -15,7 +15,7 @@ public class Spammer extends Module {
     public Spammer() {
         super(ModuleCategory.MISC, "Spammer", "Spam a message");
         this.registerSetting(new InputSetting("Message", "The message sent.", "Use Sigma Client, it's free ! %r"));
-        this.registerSetting(new NumberSetting<Float>("Messages delay", "Delay between messages", 3.0F, Float.class, 0.1F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting<>("Messages delay", "Delay between messages", 3.0F, Float.class, 0.1F, 10.0F, 0.1F));
     }
 
     @EventTarget
