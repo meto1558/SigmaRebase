@@ -115,7 +115,6 @@ public class MinibloxDisabler extends Module {
                 return;
             }
 //            if (!dontCancelPacket)
-            event.cancelled = true;
 //            ticksSinceLagback = 0;
 //            wasSetback = true;
             serverPos = new Vector3d(packet.getX(), packet.getY(), packet.getZ());
@@ -132,6 +131,7 @@ public class MinibloxDisabler extends Module {
 
                 mc.getConnection().sendPacket(posPacket);
             }
+            event.cancelled = true;
             return;
             // this disabler probably performs worse with this, since if the server accepts our pos,
             // and we'll probably be far away
