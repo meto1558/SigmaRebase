@@ -18,7 +18,6 @@ import com.mentalfrostbyte.jello.util.render.Box3D;
 import com.mentalfrostbyte.jello.util.render.PositionUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.misc.TooltipFlags;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
