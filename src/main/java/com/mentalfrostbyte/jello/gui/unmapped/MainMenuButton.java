@@ -73,7 +73,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
       int var7 = (int)((double)this.getHeightA() * (1.0 + (double)var5 * 0.2));
       int var8 = this.getXA() - (var6 - this.getWidthA()) / 2;
       int var9 = (int)((double)(this.getYA() - (var7 - this.getHeightA()) / 2) - (double)((float)(this.getHeightA() / 2) * var5) * 0.2);
-      float[] var10 = ColorUtils.method17701(this.method13025().getWidth(), this.method13025().getHeight(), (float)var6, (float)var7);
+      float[] var10 = ColorUtils.method17701(this.getTexture().getWidth(), this.getTexture().getHeight(), (float)var6, (float)var7);
       float var11 = 85;
       RenderUtil.drawImage(
          (float)var8 + var10[0] - var11,
@@ -88,7 +88,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
          (float)var9 + var10[1],
          var10[2],
          var10[3],
-         this.method13025(),
+         this.getTexture(),
          ColorUtils.applyAlpha(ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
       );
       if (this.getTypedText() != null) {

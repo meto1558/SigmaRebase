@@ -67,7 +67,7 @@ public class Class4251 extends UIBase {
          14.0F,
          ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
       );
-      RenderUtil.method11474(
+      RenderUtil.drawRoundedButton(
          (float)(this.xA + this.field20616),
          (float)this.yA,
          (float)(this.widthA - this.field20616),
@@ -76,7 +76,7 @@ public class Class4251 extends UIBase {
          -7687425
       );
       RenderUtil.initStencilBuffer();
-      RenderUtil.method11474(
+      RenderUtil.drawRoundedButton(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
       RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);

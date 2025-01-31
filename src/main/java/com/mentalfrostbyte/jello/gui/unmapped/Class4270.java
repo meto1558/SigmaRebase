@@ -89,7 +89,7 @@ public class Class4270 extends UIBase {
       int var8 = this.widthA + 20 * 2;
       int var9 = this.heightA + 5 + 20 * 2;
       RenderUtil.drawRoundedRect((float)(var6 + 14 / 2), (float)(var7 + 14 / 2), (float)(var8 - 14), (float)(var9 - 14), 20.0F, partialTicks * 0.5F);
-      RenderUtil.method11474((float)var6, (float)var7, (float)var8, (float)var9, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+      RenderUtil.drawRoundedButton((float)var6, (float)var7, (float)var8, (float)var9, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor());
       super.draw(partialTicks);
    }
 }

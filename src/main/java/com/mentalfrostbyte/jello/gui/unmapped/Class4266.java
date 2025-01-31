@@ -102,7 +102,7 @@ public class Class4266 extends UIBase {
             );
             GL11.glPushMatrix();
             RenderUtil.initStencilBuffer();
-            RenderUtil.method11474(
+            RenderUtil.drawRoundedButton(
                (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 8.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
             );
             RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);

@@ -41,7 +41,7 @@ public class Class4268 extends UIBase {
 
    @Override
    public void draw(float partialTicks) {
-      RenderUtil.method11474(
+      RenderUtil.drawRoundedButton(
          (float)this.xA,
          (float)(this.yA + 5),
          (float)this.widthA,
@@ -49,7 +49,7 @@ public class Class4268 extends UIBase {
          8.0F,
          ColorUtils.method17690(-3092272, -2171170, this.field20691)
       );
-      RenderUtil.method11474(
+      RenderUtil.drawRoundedButton(
          (float)this.xA, (float)this.yA + 3.0F * this.field20691, (float)this.widthA, (float)this.heightA, 8.0F, -986896
       );
       TrueTypeFont var4 = ResourceRegistry.JelloLightFont20;

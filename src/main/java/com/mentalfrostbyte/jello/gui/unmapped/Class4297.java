@@ -33,7 +33,7 @@ public class Class4297 extends AnimatedIconPanelWrap {
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.xA, (float)this.yA, 0.0F);
       RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), ClientColors.DEEP_TEAL.getColor());
-      RenderUtil.method11474(
+      RenderUtil.drawRoundedButton(
          (float)(this.field20818.method29736().width * this.field20820),
          (float)(this.field20818.method29736().height * this.field20820),
          (float)this.field20820,

@@ -38,25 +38,21 @@ public class ButtonPanel extends UIBase {
    @Override
    public void draw(float partialTicks) {
       float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(partialTicks * this.field20584, 0.0F) : 1.5F) : 0.0F);
-      int var5 = ColorUtils.applyAlpha(
+      int color = ColorUtils.applyAlpha(
               ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
          (float)(this.textColor.method19405() >> 24 & 0xFF) / 255.0F * partialTicks
       );
-      int var6 = var5 >> 24 & 0xFF;
-      int var7 = var5 >> 16 & 0xFF;
-      int var8 = var5 >> 8 & 0xFF;
-      int var9 = var5 & 0xFF;
       if (this.field20586 <= 0) {
          RenderUtil.drawRoundedRect(
             (float)this.getXA(),
             (float)this.getYA(),
             (float)(this.getXA() + this.getWidthA()),
             (float)(this.getYA() + this.getHeightA()),
-            var5
+            color
          );
       } else {
-         RenderUtil.method11474(
-            (float)this.getXA(), (float)this.getYA(), (float)this.getWidthA(), (float)this.getHeightA(), (float)this.field20586, var5
+         RenderUtil.drawRoundedButton(
+            (float)this.getXA(), (float)this.getYA(), (float)this.getWidthA(), (float)this.getHeightA(), (float)this.field20586, color
          );
       }
 

@@ -641,16 +641,16 @@ public class RenderUtil {
         drawPortalBackground(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
     }
 
-    public static void method11474(float var0, float var1, float var2, float var3, float var4, int var5) {
-        drawRoundedRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, var5);
-        drawRoundedRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, var5);
+    public static void drawRoundedButton(float var0, float var1, float var2, float var3, float var4, int color) {
+        drawRoundedRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, color);
+        drawRoundedRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, color);
         FloatBuffer var8 = BufferUtils.createFloatBuffer(16);
         GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, var8);
         float var9 = 1.0F;
-        drawCircle(var0 + var4, var1 + var4, var4 * 2.0F * var9, var5);
-        drawCircle(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, var5);
-        drawCircle(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, var5);
-        drawCircle(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, var5);
+        drawCircle(var0 + var4, var1 + var4, var4 * 2.0F * var9, color);
+        drawCircle(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, color);
+        drawCircle(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, color);
+        drawCircle(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, color);
     }
 
     public static void drawString(TrueTypeFont font, float x, float y, String text, int color) {
