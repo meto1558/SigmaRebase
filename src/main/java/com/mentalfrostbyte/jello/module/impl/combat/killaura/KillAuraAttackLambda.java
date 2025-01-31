@@ -63,7 +63,7 @@ public class KillAuraAttackLambda implements Runnable {
         if (!this.killauraModule.getStringSettingValueByName("Attack Mode").equals("Pre")) {
             rayTraceResult = EntityUtil.rayTraceFromPlayer(
                     KillAura.getRotations(this.killauraModule).yaw, KillAura.getRotations(this.killauraModule).pitch,
-                    range, (double) this.field1477);
+                    range, this.field1477);
         } else {
             double motionSpeed = Math.sqrt(
                     KillAura.mc.player.getMotion().x * KillAura.mc.player.getMotion().x
