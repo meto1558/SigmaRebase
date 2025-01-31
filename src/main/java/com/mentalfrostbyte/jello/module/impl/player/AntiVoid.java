@@ -30,8 +30,8 @@ public class AntiVoid extends Module {
     public AntiVoid() {
         super(ModuleCategory.PLAYER, "AntiVoid", "Avoids you from falling into the void");
         this.registerSetting(new BooleanSetting("Void", "Catch only above void", true));
-        this.registerSetting(new NumberSetting<Float>("Fall Distance", "Fall distance before catching you", 8.0F, Float.class, 2.0F, 15.0F, 0.5F));
-        this.registerSetting(new ModeSetting("Mode", "AntiVoid method", 0, "Hypixel", "Motion", "Cubecraft", "Legit"));
+        this.registerSetting(new NumberSetting<>("Fall Distance", "Fall distance before catching you", 8.0F, Float.class, 2.0F, 15.0F, 0.5F));
+        this.registerSetting(new ModeSetting("Mode", "AntiVoid method", 0, "Hypixel", "Motion", "TP", "Cubecraft", "Legit"));
     }
 
     @Override
@@ -136,6 +136,9 @@ public class AntiVoid extends Module {
             case "Motion":
                 event.setY(0.1);
                 MultiUtilities.setPlayerYMotion(event.getY());
+                break;
+            case "TP":
+                mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);
                 break;
             case "Cubecraft":
                 double highPosition = 3.2E7;
