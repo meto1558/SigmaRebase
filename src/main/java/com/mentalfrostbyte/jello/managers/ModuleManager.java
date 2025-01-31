@@ -129,6 +129,8 @@ public class ModuleManager {
         this.register(new ServerCrasher());
         this.register(new NewChunks());
         this.register(new AntiCactus());
+        this.register(new Auto32k());
+
 
 
 

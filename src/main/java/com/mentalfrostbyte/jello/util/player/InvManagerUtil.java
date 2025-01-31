@@ -110,6 +110,28 @@ public class InvManagerUtil {
         method25869(mc.player.container.windowId, var0, var3, ClickType.SWAP, mc.player);
         return var3;
     }
+    public static int method25823(Item... var0) {
+        int var3 = 0;
+        int var4 = -1;
+
+        for (int var5 = 44; var5 >= 9; var5--) {
+            ItemStack var6 = mc.player.container.getSlot(var5).getStack();
+            if (!method25819(var5)) {
+                for (Item var10 : var0) {
+                    if (var6.getItem() == var10) {
+                        int var11 = var6.getCount();
+                        if (var11 > var3) {
+                            var4 = var5;
+                            var3 = var11;
+                        }
+                    }
+                }
+            }
+        }
+
+        return var4;
+    }
+
 
     public static void method25871(int var0) {
         mc.playerController.windowClick(mc.player.container.windowId, var0, 1, ClickType.THROW, mc.player);

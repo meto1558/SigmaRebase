@@ -56,6 +56,14 @@ public class BlockUtil {
 
         return new float[]{var12, var13};
     }
+    public static Vector3d method34572(Direction var0, BlockPos var1) {
+        float var4 = (float)Math.max(0, var0.getXOffset());
+        float var5 = (float)Math.max(0, var0.getZOffset());
+        float var6 = (float)var1.getX() + var4 + (var0.getXOffset() != 0 ? 0.0F : (float)Math.random());
+        float var7 = (float)var1.getY() + (var0.getYOffset() != 0 ? 0.0F : (var0.getYOffset() != 1 ? (float)Math.random() : 1.0F));
+        float var8 = (float)var1.getZ() + var5 + (var0.getZOffset() != 0 ? 0.0F : (float)Math.random());
+        return new Vector3d((double)var6, (double)var7, (double)var8);
+    }
 
     public static boolean method34535(PlayerEntity var0, BlockPos var1) {
         return method34550(var0, var1) < method34560();
