@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.impl.others.CustomLoadingScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -534,7 +534,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         ResourceLoadProgressGui.loadLogoTexture(this);
         List<IResourcePack> list = this.resourcePackRepository.func_232623_f_();
-        this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
+        this.setLoadingGui(new LoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
         {
             Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
                 if (SharedConstants.developmentMode) {
@@ -790,7 +790,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             } else {
                 this.resourcePackRepository.reloadPacksFromFinders();
                 List<IResourcePack> list = this.resourcePackRepository.func_232623_f_();
-                this.setLoadingGui(new CustomLoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
+                this.setLoadingGui(new LoadingScreen(this, this.resourceManager.reloadResources(Util.getServerExecutor(), this, RESOURCE_RELOAD_INIT_TASK, list), (throwable) ->
                         Util.acceptOrElse(throwable, this::restoreResourcePacks, () -> {
                             this.worldRenderer.loadRenderers();
                             completablefuture.complete(null);

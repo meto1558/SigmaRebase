@@ -2,20 +2,22 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.gui.base.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 
 public class Class4288 extends AnimatedIconPanelWrap {
-   private final MusicTabs field20780;
+   private final ScrollableContentPanel field20780;
    public final VerticalScrollBar field20781;
 
    public Class4288(VerticalScrollBar var1, VerticalScrollBar var2, int var3) {
       super(var2, "verticalScrollBarButton", 0, 0, var3, 10, true);
       this.field20781 = var1;
       this.field20886 = true;
-      this.field20780 = (MusicTabs)var2.getParent();
+      this.field20780 = (ScrollableContentPanel)var2.getParent();
       this.setListening(false);
    }
 

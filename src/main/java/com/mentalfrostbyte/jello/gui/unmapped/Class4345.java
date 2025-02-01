@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.*;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Dropdown;
-import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
-import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider;
-import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Textbox;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
@@ -23,7 +23,7 @@ import org.newdawn.slick.TrueTypeFont;
 
 import java.util.HashMap;
 
-public class Class4345 extends MusicTabs {
+public class Class4345 extends ScrollableContentPanel {
     private final Module module;
     public TrueTypeFont settingsNameFont = Resources.regular20;
     public Animation anim = new Animation(150, 150);
@@ -96,7 +96,7 @@ public class Class4345 extends MusicTabs {
                                 y + 27,
                                 var16,
                                 var20,
-                                UIInput.field20741,
+                                TextField.field20741,
                                 (String) setting.getCurrentValue(),
                                 setting.getName(),
                                 ResourceRegistry.DefaultClientFont

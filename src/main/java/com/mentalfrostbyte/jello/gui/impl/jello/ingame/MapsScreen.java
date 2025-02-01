@@ -4,6 +4,10 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.Class774;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.Waypoint;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.WaypointPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -17,12 +21,12 @@ public class MapsScreen extends Screen {
    private static Minecraft field21033 = Minecraft.getInstance();
    private Texture field21034;
    public Date field21035;
-   public Class4251 field21036;
+   public MapPanel field21036;
    public boolean field21037 = false;
    public boolean field21038;
    public int field21039;
    public boolean field21040;
-   public Class4276 field21041;
+   public WaypointPanel field21041;
    private boolean field21042;
    private boolean field21043;
 
@@ -31,13 +35,13 @@ public class MapsScreen extends Screen {
       this.field21035 = new Date();
       int var3 = Math.max(300, Math.min(850, Minecraft.getInstance().getMainWindow().getWidth() - 40));
       int var4 = Math.max(200, Math.min(550, Minecraft.getInstance().getMainWindow().getHeight() - 80));
-      this.addToList(this.field21036 = new Class4251(this, "mapView", (this.widthA - var3) / 2, (this.heightA - var4) / 2, var3, var4));
+      this.addToList(this.field21036 = new MapPanel(this, "mapView", (this.widthA - var3) / 2, (this.heightA - var4) / 2, var3, var4));
       this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.runThisOnDimensionUpdate(new Class774(this, this, var3x, var4x, var5)));
       this.field21036.field20614.method13082(var1 -> this.method13390());
       ColorUtils.blur();
    }
 
-   private void method13389(Class4276 var1) {
+   private void method13389(WaypointPanel var1) {
       var1.method13131((var1x, var2, var3, var4) -> {
          this.field21036.field20615.method13519(var2, var3, var4);
          Client.getInstance().waypointsManager.method29990(new Class8351(var2, var3.getX(), var3.getZ(), var4));
@@ -49,9 +53,9 @@ public class MapsScreen extends Screen {
       MapsScreen var3 = this;
 
       for (CustomGuiScreen var5 : this.getChildren()) {
-         if (var5 instanceof Class4276) {
-            Class4276 var6 = (Class4276)var5;
-            this.runThisOnDimensionUpdate(new Class605(this, var3, var5));
+         if (var5 instanceof WaypointPanel) {
+            WaypointPanel var6 = (WaypointPanel)var5;
+            this.runThisOnDimensionUpdate(new Waypoint(this, var3, var5));
          }
       }
    }
@@ -94,7 +98,7 @@ public class MapsScreen extends Screen {
    }
 
    // $VF: synthetic method
-   public static void method13394(MapsScreen var0, Class4276 var1) {
+   public static void method13394(MapsScreen var0, WaypointPanel var1) {
       var0.method13389(var1);
    }
 }

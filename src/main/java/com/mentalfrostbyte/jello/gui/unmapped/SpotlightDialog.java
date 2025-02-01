@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -12,12 +13,12 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 
 public class SpotlightDialog extends UIBase {
-   public UIInput query;
+   public TextField query;
    public String field20640;
 
    public SpotlightDialog(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, boolean var7) {
       super(screen, iconName, var3, var4, width, height, var7);
-      this.addToList(this.query = new UIInput(this, "search", 50, 0, width - 60, height - 2, UIInput.field20741, "", "Search..."));
+      this.addToList(this.query = new TextField(this, "search", 50, 0, width - 60, height - 2, TextField.field20741, "", "Search..."));
       this.query.method13156(false);
       this.query.method13151(var1x -> this.field20640 = this.query.getTypedText());
    }

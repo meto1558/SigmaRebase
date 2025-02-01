@@ -2,6 +2,8 @@ package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.util.account.Class9507;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -14,13 +16,13 @@ import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 
 public class AccountSignUpScreen extends UIBase {
    private Text stringPanel;
-   private UIInput usernameInputBox;
-   private UIInput emailInputBox;
-   private UIInput passwordInputBox;
-   private UIInput captchaBox;
+   private TextField usernameInputBox;
+   private TextField emailInputBox;
+   private TextField passwordInputBox;
+   private TextField captchaBox;
    private UIButton registerButton;
    private UIButton loginButton;
-   private UILoadingCircle loadingBox;
+   private LoadingIndicator loadingBox;
    public static int widthy = 390;
    public static int height = 590;
 
@@ -49,26 +51,26 @@ public class AccountSignUpScreen extends UIBase {
             this, "LoginButton", 98, 333, ResourceRegistry.JelloLightFont14.getWidth("Login"), 14, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont14
          )
       );
-      this.addToList(this.loadingBox = new UILoadingCircle(this, "loading", 530, 314, 30, 30));
+      this.addToList(this.loadingBox = new LoadingIndicator(this, "loading", 530, 314, 30, 30));
       this.loadingBox.method13296(false);
       this.loadingBox.method13294(true);
       int var9 = 50;
       int var10 = 320;
       int var11 = 106;
       ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor(), Class2218.field14488, Class2218.field14492);
-      this.addToList(this.usernameInputBox = new UIInput(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
+      this.addToList(this.usernameInputBox = new TextField(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
       this.usernameInputBox.setFont(ResourceRegistry.JelloLightFont20);
-      this.addToList(this.emailInputBox = new UIInput(this, "Email", 228, var11 + 53, var10, var9, var12, "", "Email"));
+      this.addToList(this.emailInputBox = new TextField(this, "Email", 228, var11 + 53, var10, var9, var12, "", "Email"));
       this.emailInputBox.setFont(ResourceRegistry.JelloLightFont20);
-      this.addToList(this.passwordInputBox = new UIInput(this, "Password", 228, var11 + 106, var10, var9, var12, "", "Password"));
+      this.addToList(this.passwordInputBox = new TextField(this, "Password", 228, var11 + 106, var10, var9, var12, "", "Password"));
       this.passwordInputBox.setFont(ResourceRegistry.JelloLightFont20);
       this.passwordInputBox.method13155(true);
-      this.addToList(this.captchaBox = new UIInput(this, "CaptchaBox", 228, var11 + 53 + 135, 80, var9, var12, "", "Captcha"));
+      this.addToList(this.captchaBox = new TextField(this, "CaptchaBox", 228, var11 + 53 + 135, 80, var9, var12, "", "Captcha"));
       this.captchaBox.setFont(ResourceRegistry.JelloLightFont20);
       this.captchaBox.setEnabled(false);
       this.registerButton.doThis((var1x, var2x) -> this.method13126());
       this.loginButton.doThis((var1x, var2x) -> {
-         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getParent();
+         RegisterScreen var5x = (RegisterScreen)this.getParent();
          var5x.method13423();
       });
    }
@@ -113,7 +115,7 @@ public class AccountSignUpScreen extends UIBase {
                String var4 = Client.getInstance()
                   .networkManager
                   .method30448(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText(), var3);
-               LoginAndOutScreen var5 = (LoginAndOutScreen)this.getParent();
+               RegisterScreen var5 = (RegisterScreen)this.getParent();
                var5.method13424("Success", "You can now login.");
                var5.method13423();
 

@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.ImageQ;
-import com.mentalfrostbyte.jello.gui.unmapped.RectangleFaded;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.FadedImageButton;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -34,12 +34,12 @@ public class SwitchScreen extends Screen {
         int var6 = 61;
         int var7 = (this.getWidthA() - var3) / 2;
         int var8 = (this.getHeightA() - var5) / 2 + 14;
-        RectangleFaded var9 = null;
-        RectangleFaded var10 = null;
-        RectangleFaded var11 = null;
-        this.addToList(var9 = new RectangleFaded(this, "pb", var7, var8, var3, var5, Resources.noaddonsPNG));
-        this.addToList(var11 = new RectangleFaded(this, "pb2", var7, var5 + var8 + 9, var4, var6, Resources.sigmaLigmaPNG));
-        this.addToList(var10 = new RectangleFaded(this, "pb3", var7 + var4 + 9, var5 + var8 + 9, var4, var6, Resources.jelloPNG));
+        FadedImageButton var9 = null;
+        FadedImageButton var10 = null;
+        FadedImageButton var11 = null;
+        this.addToList(var9 = new FadedImageButton(this, "pb", var7, var8, var3, var5, Resources.noaddonsPNG));
+        this.addToList(var11 = new FadedImageButton(this, "pb2", var7, var5 + var8 + 9, var4, var6, Resources.sigmaLigmaPNG));
+        this.addToList(var10 = new FadedImageButton(this, "pb3", var7 + var4 + 9, var5 + var8 + 9, var4, var6, Resources.jelloPNG));
         var9.doThis((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.NOADDONS);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
@@ -91,7 +91,7 @@ public class SwitchScreen extends Screen {
 
     @Override
     public void draw(float partialTicks) {
-        if (CustomLoadingScreen.back != null) {
+        if (LoadingScreen.back != null) {
             field21069.changeDirection(Direction.FORWARDS);
             int var4 = 40;
             float var5 = -field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
@@ -101,7 +101,7 @@ public class SwitchScreen extends Screen {
                     (float) var4 * var6,
                     (float) (Minecraft.getInstance().getMainWindow().getWidth() + var4),
                     (float) (Minecraft.getInstance().getMainWindow().getHeight() + var4),
-                    CustomLoadingScreen.back
+                    LoadingScreen.back
             );
             float var7 = MathUtils.lerp(field21069.calcPercent(), 0.16, 0.71, 0.0, 0.99);
             int var8 = (Minecraft.getInstance().getMainWindow().getWidth() - 455) / 2;
@@ -119,7 +119,7 @@ public class SwitchScreen extends Screen {
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
-                    CustomLoadingScreen.background,
+                    LoadingScreen.background,
                     ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - field21069.calcPercent())
             );
             RenderUtil.drawRoundedRect2(
@@ -129,7 +129,7 @@ public class SwitchScreen extends Screen {
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     ColorUtils.applyAlpha(0, 0.75F * (1.0F - field21069.calcPercent()))
             );
-            RenderUtil.drawImage((float) var8, (float) var9, 455.0F, 78.0F, CustomLoadingScreen.sigmaLogo);
+            RenderUtil.drawImage((float) var8, (float) var9, 455.0F, 78.0F, LoadingScreen.sigmaLogo);
         }
     }
 

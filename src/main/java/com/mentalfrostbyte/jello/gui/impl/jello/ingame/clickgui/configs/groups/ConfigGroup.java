@@ -4,6 +4,8 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
@@ -19,9 +21,9 @@ import com.mentalfrostbyte.jello.util.render.Resources;
 public class ConfigGroup extends UIBase {
    public Animation field20703 = new Animation(300, 200, Direction.BACKWARDS);
    private final int field20704;
-   private MusicTabs field20705;
+   private ScrollableContentPanel field20705;
    public static Class8233 field20706;
-   private UILoadingCircle field20707;
+   private LoadingIndicator field20707;
 
    public ConfigGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, 0, ColorHelper.field27961, false);
@@ -51,8 +53,8 @@ public class ConfigGroup extends UIBase {
          ConfigScreen var5x = (ConfigScreen)this.getParent();
          var5x.method13610();
       });
-      this.addToList(this.field20707 = new UILoadingCircle(this, "loading", (var5 - 30) / 2, 100, 30, 30));
-      this.addToList(this.field20705 = new MusicTabs(this, "defaultProfiles", 0, 40, var5, var6 - 40));
+      this.addToList(this.field20707 = new LoadingIndicator(this, "loading", (var5 - 30) / 2, 100, 30, 30));
+      this.addToList(this.field20705 = new ScrollableContentPanel(this, "defaultProfiles", 0, 40, var5, var6 - 40));
       field20706 = new Class8233(
          var2x -> {
             this.field20707.setEnabled(false);

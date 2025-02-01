@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups.ConfigGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups.ProfileGroup;
@@ -25,7 +26,7 @@ import java.util.List;
 public class ConfigScreen extends UIBase {
     private List<Button> field21297 = new ArrayList<Button>();
     public final Animation field21298;
-    public MusicTabs profileScrollView;
+    public ScrollableContentPanel profileScrollView;
     public ConfigGroup field21300;
     private List<ProfileGroup> field21301 = new ArrayList<ProfileGroup>();
 
@@ -117,7 +118,7 @@ public class ConfigScreen extends UIBase {
             this.method13236(this.profileScrollView);
         }
 
-        this.addToList(this.profileScrollView = new MusicTabs(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
+        this.addToList(this.profileScrollView = new ScrollableContentPanel(this, "profileScrollView", 10, 80, this.widthA - 20, this.heightA - 80 - 10));
         this.profileScrollView.method13512(var3);
         this.field21301.clear();
         int var4 = 0;

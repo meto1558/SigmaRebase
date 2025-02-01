@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.SearchBox;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.VolumeSlider;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
@@ -32,8 +33,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     private int field20847 = 64;
     private int field20848 = 94;
     private String field20849 = "Music Player";
-    private MusicTabs musicTabs;
-    private MusicTabs field20852;
+    private ScrollableContentPanel musicTabs;
+    private ScrollableContentPanel field20852;
     private CustomGuiScreen musicControls;
     private MusicManager musicManager = Client.getInstance().musicManager;
     public static Map<String, MusicVideoManager> videoMap = new LinkedHashMap<>();
@@ -77,9 +78,9 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.setHeightA(600);
         this.setXA(Math.abs(this.getXA()));
         this.setYA(Math.abs(this.getYA()));
-        this.addToList(this.musicTabs = new MusicTabs(this, "musictabs", 0, this.field20847 + 14, this.width, this.getHeightA() - 64 - this.field20848));
+        this.addToList(this.musicTabs = new ScrollableContentPanel(this, "musictabs", 0, this.field20847 + 14, this.width, this.getHeightA() - 64 - this.field20848));
         this.addToList(
-                this.musicControls = new MusicTabs(
+                this.musicControls = new ScrollableContentPanel(
                         this, "musiccontrols", this.width, this.getHeightA() - this.field20848, this.getWidthA() - this.width, this.field20848
                 )
         );
@@ -168,7 +169,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.searchBox.setListening(false);
     }
 
-    private void method13189(MusicTabs var1) {
+    private void method13189(ScrollableContentPanel var1) {
         if (this.field20852 != null) {
             this.field20852.setEnabled(false);
         }
@@ -527,7 +528,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         this.field20863 = this.field20852.method13513();
     }
 
-    public static MusicTabs getTabs(MusicPlayer player) {
+    public static ScrollableContentPanel getTabs(MusicPlayer player) {
         return player.musicTabs;
     }
 
@@ -543,7 +544,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         return player.field20848;
     }
 
-    public static void method13210(MusicPlayer player, MusicTabs tabs) {
+    public static void method13210(MusicPlayer player, ScrollableContentPanel tabs) {
         player.method13189(tabs);
     }
 

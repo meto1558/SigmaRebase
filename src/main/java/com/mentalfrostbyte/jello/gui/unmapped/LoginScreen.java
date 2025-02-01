@@ -2,7 +2,9 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.LoginAndOutScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.RegisterScreen;
 import com.mentalfrostbyte.jello.managers.util.account.Class9507;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -14,13 +16,13 @@ import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.util.Util;
 
 public class LoginScreen extends UIBase {
-    private UIInput inputUsername;
-   private UIInput inputPassword;
-   private UIInput field21355;
+    private TextField inputUsername;
+   private TextField inputPassword;
+   private TextField field21355;
    private UIButton loginButton;
    private UIButton registerButton;
    private UIButton forgotButton;
-   private UILoadingCircle loadingThingy;
+   private LoadingIndicator loadingThingy;
    public static int widthy = 334;
    public static int heighty = 571;
 
@@ -62,27 +64,27 @@ public class LoginScreen extends UIBase {
             ResourceRegistry.JelloLightFont14
          )
       );
-      this.addToList(this.loadingThingy = new UILoadingCircle(this, "loading", 511, 260, 30, 30));
+      this.addToList(this.loadingThingy = new LoadingIndicator(this, "loading", 511, 260, 30, 30));
       this.loadingThingy.method13296(false);
       this.loadingThingy.method13294(true);
       int var9 = 50;
       int var10 = 300;
       int var11 = 106;
       ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor(), Class2218.field14488, Class2218.field14492);
-      this.addToList(this.inputUsername = new UIInput(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
-      this.addToList(this.inputPassword = new UIInput(this, "Password", 228, var11 + 53, var10, var9, var12, "", "Password"));
+      this.addToList(this.inputUsername = new TextField(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
+      this.addToList(this.inputPassword = new TextField(this, "Password", 228, var11 + 53, var10, var9, var12, "", "Password"));
       this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
       this.inputPassword.setFont(ResourceRegistry.JelloLightFont20);
       this.inputPassword.method13155(true);
-      this.addToList(this.field21355 = new UIInput(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
+      this.addToList(this.field21355 = new TextField(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
       this.field21355.setFont(ResourceRegistry.JelloLightFont20);
       this.field21355.setEnabled(false);
       this.loginButton.doThis((var1x, var2x) -> this.method13688());
       this.registerButton.doThis((var1x, var2x) -> {
-         LoginAndOutScreen var5x = (LoginAndOutScreen)this.getParent();
+         RegisterScreen var5x = (RegisterScreen)this.getParent();
          var5x.method13422();
       });
-      this.forgotButton.doThis((var0, var1x) -> Util.getOSType().openLink("https://sigma-web-alpha.vercel.app/"));
+      this.forgotButton.doThis((var0, var1x) -> Util.getOSType().openLink("https://sigmaclient.cloud"));
    }
 
    @Override
@@ -121,7 +123,7 @@ public class LoginScreen extends UIBase {
 
          String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText());
          if (var4 != null) {
-            LoginAndOutScreen var5 = (LoginAndOutScreen)this.getParent();
+            RegisterScreen var5 = (RegisterScreen)this.getParent();
             var5.method13424("Error", var4);
             this.field21355.setTypedText("");
          } else {

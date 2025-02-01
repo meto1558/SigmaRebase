@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups;
 
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4343;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels.SettingPanel;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -16,7 +16,7 @@ public class SettingGroup extends UIBase {
    public int x;
    public int width;
    public int height;
-   public Class4343 field20668;
+   public SettingPanel field20668;
    public final Module module;
    public boolean field20671 = false;
 
@@ -30,7 +30,7 @@ public class SettingGroup extends UIBase {
       int var10 = 10;
       int var11 = 59;
       this.addToList(
-         this.field20668 = new Class4343(
+         this.field20668 = new SettingPanel(
             this, "mods", this.x + var10, this.y + var11, this.width - var10 * 2, this.height - var11 - var10, var7
          )
       );

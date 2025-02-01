@@ -1,7 +1,8 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
 import com.mentalfrostbyte.jello.misc.Vector3m;
 
 public interface Class9514 {
-   void method36764(Class4251 var1, int var2, int var3, Vector3m var4);
+   void method36764(MapPanel var1, int var2, int var3, Vector3m var4);
 }

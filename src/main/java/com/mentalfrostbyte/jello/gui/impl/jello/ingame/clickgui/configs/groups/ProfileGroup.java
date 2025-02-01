@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigSc
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.buttons.ConfigButton;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4284;
-import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.*;
@@ -27,7 +27,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
    public Animation field21265;
    public Animation animation;
    public Configuration currentConfig;
-   public UIInput profileName;
+   public TextField profileName;
    public int field21269;
    public final int field21270;
    public final int field21271;
@@ -69,7 +69,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
       this.buttonList.addToList(deleteButton = new ConfigButton(this.buttonList, "remove", this.field21270 / 2, 0, this.field21270 / 2, var6, var12, "Delete"));
       this.buttonList.method13296(false);
       ColorHelper var15 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), Class2218.field14488, Class2218.field14492);
-      this.addToList(this.profileName = new UIInput(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.getName));
+      this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.getName));
       this.profileName.method13156(false);
       this.profileName.setFont(ResourceRegistry.JelloLightFont24);
       this.profileName.setEnabled(false);

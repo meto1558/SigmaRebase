@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
-import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class576;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathUtils;
@@ -18,15 +18,15 @@ import totalcross.json.JSONException;
 
 public class ChangelogScreen extends CustomGuiScreen {
    public Animation animation = new Animation(380, 200, Direction.BACKWARDS);
-   public MusicTabs field21184;
+   public ScrollableContentPanel scrollPanel;
    private static JSONArray cachedChangelog;
 
    public ChangelogScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.setListening(false);
-      this.field21184 = new MusicTabs(this, "scroll", 100, 200, var5 - 200, var6 - 200);
-      this.field21184.method13518(true);
-      this.showAlert(this.field21184);
+      this.scrollPanel = new ScrollableContentPanel(this, "scroll", 100, 200, var5 - 200, var6 - 200);
+      this.scrollPanel.method13518(true);
+      this.showAlert(this.scrollPanel);
       new Thread(() -> this.method13490(this.getChangelog())).start();
    }
 
@@ -39,9 +39,9 @@ public class ChangelogScreen extends CustomGuiScreen {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      if (this.field21184 != null) {
+      if (this.scrollPanel != null) {
          if (this.isHovered() && this.isVisible()) {
-            for (CustomGuiScreen var9 : this.field21184.getButton().getChildren()) {
+            for (CustomGuiScreen var9 : this.scrollPanel.getButton().getChildren()) {
                Class4330 var10 = (Class4330)var9;
                var10.animation2.changeDirection(Direction.FORWARDS);
                if ((double)var10.animation2.calcPercent() < 0.5) {
@@ -49,7 +49,7 @@ public class ChangelogScreen extends CustomGuiScreen {
                }
             }
          } else {
-            for (CustomGuiScreen var6 : this.field21184.getButton().getChildren()) {
+            for (CustomGuiScreen var6 : this.scrollPanel.getButton().getChildren()) {
                Class4330 var7 = (Class4330)var6;
                var7.animation2.changeDirection(Direction.BACKWARDS);
             }
@@ -102,7 +102,17 @@ public class ChangelogScreen extends CustomGuiScreen {
                   {
                       "title": "5.1.0 (1.16.4) Update",
                       "changes": [
-                          "To be added."
+                          "Added TP AntiVoid",
+                          "Added VClip Fly",
+                          "Added VClip Fly",
+                          "Fixed NoServerInfo",
+                          "Added Search module",
+                          "Added Projectiles module",
+                          "Added Breadcrumbs module",
+                          "Added AntiCactus module",
+                          "Added NewChunks module",
+                          "Added InfoHUD module",
+                          "Reimplemented JelloPortal fixes",
                       ]
                   },
                   {

@@ -1,6 +1,8 @@
 package com.mentalfrostbyte.jello.gui.base;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -230,7 +232,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     public boolean method13227() {
         for (CustomGuiScreen var4 : this.getChildren()) {
-            if (var4 instanceof UIInput && var4.field20905) {
+            if (var4 instanceof TextField && var4.field20905) {
                 return true;
             }
 
@@ -279,7 +281,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         for (int var7 = this.children.size() - 1; var7 >= 0; var7--) {
             CustomGuiScreen var8 = this.children.get(var7);
             boolean var9 = var8.getParent() != null
-                    && var8.getParent() instanceof MusicTabs
+                    && var8.getParent() instanceof ScrollableContentPanel
                     && var8.getParent().method13114(mouseX, mouseY)
                     && var8.getParent().isVisible()
                     && var8.getParent().isHovered();

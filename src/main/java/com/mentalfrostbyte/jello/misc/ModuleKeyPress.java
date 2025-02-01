@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
-import com.mentalfrostbyte.jello.gui.unmapped.Bound;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.keybind.Bound;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;

@@ -4,9 +4,8 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.impl.jello.MainMenuScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.util.account.Class9507;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -20,13 +19,13 @@ public class RedeemKeyScreen extends CustomGuiScreen {
    public String field21135 = "";
    public Animation field21136 = new Animation(380, 200, Direction.BACKWARDS);
    private static JSONArray field21137;
-   private UIInput field21138;
+   private TextField field21138;
 
    public RedeemKeyScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
       this.setListening(false);
-      UIInput var9;
-      this.addToList(var9 = new UIInput(this, "redeemBox", 100, 200, 350, 50, UIInput.field20742, "", "Premium Code"));
+      TextField var9;
+      this.addToList(var9 = new TextField(this, "redeemBox", 100, 200, 350, 50, TextField.field20742, "", "Premium Code"));
       UIButton var10;
       this.addToList(
          var10 = new UIButton(
@@ -41,7 +40,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
             ResourceRegistry.JelloLightFont20
          )
       );
-      this.addToList(this.field21138 = new UIInput(this, "captcha", 195, 290, 75, 35, UIInput.field20742, "", "Captcha"));
+      this.addToList(this.field21138 = new TextField(this, "captcha", 195, 290, 75, 35, TextField.field20742, "", "Captcha"));
       this.field21138.setFont(ResourceRegistry.JelloLightFont18);
       this.field21138.setEnabled(false);
       var10.doThis((var2x, var3x) -> new Thread(() -> {

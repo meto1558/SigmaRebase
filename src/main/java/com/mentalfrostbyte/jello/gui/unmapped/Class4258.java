@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
@@ -16,14 +18,14 @@ import java.util.List;
 
 public class Class4258 extends UIBase {
    private final List<String> field20641 = new ArrayList<String>();
-   private MusicTabs field20642;
-   private final UIInput field20643;
+   private ScrollableContentPanel field20642;
+   private final TextField field20643;
    private final boolean field20644;
 
    public Class4258(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, boolean var7, String... var8) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field20644 = var7;
-      this.addToList(this.field20643 = new UIInput(this, "textbox", 0, 0, var5, 32, UIInput.field20741, "", "Search...", ResourceRegistry.JelloLightFont14));
+      this.addToList(this.field20643 = new TextField(this, "textbox", 0, 0, var5, 32, TextField.field20741, "", "Search...", ResourceRegistry.JelloLightFont14));
       this.field20643.setFont(ResourceRegistry.JelloLightFont18);
       this.field20643.method13151(var1x -> this.method13069(this.field20643.getTypedText()));
       this.method13071(var8);
@@ -36,7 +38,7 @@ public class Class4258 extends UIBase {
             this.method13236(this.field20642);
          }
 
-         this.addToList(this.field20642 = new MusicTabs(this, "scrollview", 0, 40, this.widthA, this.heightA - 40));
+         this.addToList(this.field20642 = new ScrollableContentPanel(this, "scrollview", 0, 40, this.widthA, this.heightA - 40));
          ArrayList<Item> var5 = new ArrayList<>();
 
          for (Item var7 : Registry.ITEM) {

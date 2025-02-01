@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.but
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.MusicPlayer;
 import com.mentalfrostbyte.jello.gui.unmapped.Button;
 import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
-import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.MusicVideoManager;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -40,10 +40,10 @@ public class Songs implements Runnable {
                                     ResourceRegistry.JelloLightFont14
                             )
                     );
-            MusicTabs queue;
+            ScrollableContentPanel queue;
             this.musicPlayer
                     .addToList(
-                            queue = new MusicTabs(
+                            queue = new ScrollableContentPanel(
                                     this.musicPlayer,
                                     this.thumbnail.videoId,
                                     MusicPlayer.getWidth(this.musicPlayer2),

@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -34,8 +35,8 @@ public class AlertPanel extends UIBase {
       this.method13296(false);
       this.method13292(false);
       this.method13243();
-      UIInput var8 = null;
-      UIInput var9 = null;
+      TextField var8 = null;
+      TextField var9 = null;
 
       for (MiniAlert var13 : var5) {
          this.field21285 = this.field21285 + var13.field44773 + 10;
@@ -88,11 +89,11 @@ public class AlertPanel extends UIBase {
                   var16.doThis((var1x, var2x) -> this.method13601());
                }
             } else {
-               UIInput var22;
+               TextField var22;
                this.field21279
                   .addToList(
-                     var22 = new UIInput(
-                        this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, UIInput.field20741, "", var15.field44772
+                     var22 = new TextField(
+                        this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, TextField.field20741, "", var15.field44772
                      )
                   );
                if (!var15.field44772.contains("Password")) {
@@ -127,7 +128,7 @@ public class AlertPanel extends UIBase {
       }
 
       if (var8 != null && var9 != null) {
-         UIInput var20 = var9;
+         TextField var20 = var9;
          var8.method13151(var2x -> {
             String var5x = var2x.getTypedText();
             if (var5x != null && var5x.contains(":")) {
@@ -151,9 +152,9 @@ public class AlertPanel extends UIBase {
    public void method13296(boolean var1) {
       if (var1) {
          for (CustomGuiScreen var5 : this.field21279.getChildren()) {
-            if (var5 instanceof UIInput) {
-               ((UIInput)var5).setTypedText("");
-               ((UIInput)var5).method13146();
+            if (var5 instanceof TextField) {
+               ((TextField)var5).setTypedText("");
+               ((TextField)var5).method13146();
             }
          }
       }
@@ -171,8 +172,8 @@ public class AlertPanel extends UIBase {
 
       for (CustomGuiScreen var5 : this.field21279.getChildren()) {
          AnimatedIconPanelWrap var6 = (AnimatedIconPanelWrap)var5;
-         if (var6 instanceof UIInput) {
-            UIInput var7 = (UIInput)var6;
+         if (var6 instanceof TextField) {
+            TextField var7 = (TextField)var6;
             var3.put(var7.method13153(), var7.getTypedText());
          }
       }

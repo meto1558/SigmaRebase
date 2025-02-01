@@ -2,6 +2,8 @@ package com.mentalfrostbyte.jello.gui.impl.jello.altmanager;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -26,8 +28,8 @@ public class AltManagerScreen extends Screen {
    private float field21007 = 0.75F;
    private boolean field21008 = true;
    public UIButton field21009;
-   private MusicTabs field21010;
-   private MusicTabs field21011;
+   private ScrollableContentPanel field21010;
+   private ScrollableContentPanel field21011;
    private AlertPanel loginDialog;
    private AlertPanel deleteAlert;
    private float field21014 = 0.65F;
@@ -42,7 +44,7 @@ public class AltManagerScreen extends Screen {
    private Class2209 field21023 = Class2209.field14448;
    private String field21024 = "";
    private boolean field21025 = false;
-   private UIInput field21026;
+   private TextField field21026;
 
    public AltManagerScreen() {
       super("Alt Manager");
@@ -68,7 +70,7 @@ public class AltManagerScreen extends Screen {
       this.getLoginDialog();
       this.deleteAlert();
       this.addToList(
-         this.field21010 = new MusicTabs(
+         this.field21010 = new ScrollableContentPanel(
             this,
             "alts",
             0,
@@ -78,7 +80,7 @@ public class AltManagerScreen extends Screen {
          )
       );
       this.addToList(
-         this.field21011 = new MusicTabs(
+         this.field21011 = new ScrollableContentPanel(
             this,
             "altView",
             (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014),
@@ -149,14 +151,14 @@ public class AltManagerScreen extends Screen {
          this.method13372(false);
       });
       this.addToList(
-         this.field21026 = new UIInput(
+         this.field21026 = new TextField(
             this,
             "textbox",
             (int)((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014),
             44,
             150,
             32,
-            UIInput.field20741,
+            TextField.field20741,
             "",
             "Search...",
             ResourceRegistry.JelloLightFont18
@@ -455,12 +457,12 @@ public class AltManagerScreen extends Screen {
    }
 
    // $VF: synthetic method
-   public static MusicTabs method13382(AltManagerScreen instance) {
+   public static ScrollableContentPanel method13382(AltManagerScreen instance) {
       return instance.field21010;
    }
 
    // $VF: synthetic method
-   public static MusicTabs method13383(AltManagerScreen instance, MusicTabs var1) {
+   public static ScrollableContentPanel method13383(AltManagerScreen instance, ScrollableContentPanel var1) {
       return instance.field21010 = var1;
    }
 

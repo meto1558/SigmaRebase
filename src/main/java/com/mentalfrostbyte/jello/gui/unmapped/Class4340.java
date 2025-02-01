@@ -5,6 +5,8 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Class4340 extends MusicTabs {
+public class Class4340 extends ScrollableContentPanel {
    private List<Class4355> field21209 = new ArrayList<Class4355>();
    public final int field21210 = 70;
    public Animation field21211 = new Animation(300, 300);
@@ -46,7 +48,7 @@ public class Class4340 extends MusicTabs {
          this.field21209.add(var7);
          this.addToList(var7);
          var7.doThis((var2x, var3x) -> {
-            Class4251 var6x = (Class4251)this.getParent();
+            MapPanel var6x = (MapPanel)this.getParent();
             var6x.field20614.method13077(var7.field21292.getX(), var7.field21292.getZ());
          });
          var7.onPress(

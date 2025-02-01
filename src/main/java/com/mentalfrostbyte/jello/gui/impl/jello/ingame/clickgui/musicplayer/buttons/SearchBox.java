@@ -4,8 +4,8 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
-import com.mentalfrostbyte.jello.gui.unmapped.MusicTabs;
-import com.mentalfrostbyte.jello.gui.unmapped.UIInput;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.MusicManager;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeJPGThumbnail;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
@@ -15,15 +15,15 @@ import com.mentalfrostbyte.jello.util.ThumbnailUtil;
 import java.util.ArrayList;
 
 public class SearchBox extends AnimatedIconPanelWrap {
-    public MusicTabs field20840;
-    public UIInput searchBox;
+    public ScrollableContentPanel field20840;
+    public TextField searchBox;
     private ArrayList<YoutubeVideoData> field20842;
     private final MusicManager field20843 = Client.getInstance().musicManager;
 
     public SearchBox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String var7) {
         super(var1, var2, var3, var4, var5, var6, ColorHelper.field27961, var7, false);
-        this.addToList(this.field20840 = new MusicTabs(this, "albumView", 0, 0, var5, var6, ColorHelper.field27961, "View"));
-        this.addToList(this.searchBox = new UIInput(this, "searchInput", 30, 14, var5 - 60, 70, UIInput.field20742, "", "Search..."));
+        this.addToList(this.field20840 = new ScrollableContentPanel(this, "albumView", 0, 0, var5, var6, ColorHelper.field27961, "View"));
+        this.addToList(this.searchBox = new TextField(this, "searchInput", 30, 14, var5 - 60, 70, TextField.field20742, "", "Search..."));
         this.searchBox.method13292(true);
     }
 
@@ -49,7 +49,7 @@ public class SearchBox extends AnimatedIconPanelWrap {
                                 () -> {
                                     this.method13236(this.field20840);
                                     this.addToList(
-                                            this.field20840 = new MusicTabs(this, "albumView", 0, 0, this.widthA, this.heightA, ColorHelper.field27961, "View")
+                                            this.field20840 = new ScrollableContentPanel(this, "albumView", 0, 0, this.widthA, this.heightA, ColorHelper.field27961, "View")
                                     );
                                     if (this.field20842 != null) {
                                         for (int var3x = 0; var3x < this.field20842.size(); var3x++) {

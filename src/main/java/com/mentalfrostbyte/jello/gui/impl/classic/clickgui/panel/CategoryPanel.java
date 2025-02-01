@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.ModuleSettingGroup;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Setting;
-import com.mentalfrostbyte.jello.gui.unmapped.Checkbox;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Checkbox;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.ClientColors;

@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -76,8 +77,8 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
    public boolean method13157() {
       if (this.getParent() != null && this.getParent().getParent() != null) {
          CustomGuiScreen var3 = this.getParent().getParent();
-         if (var3 instanceof MusicTabs) {
-            MusicTabs var4 = (MusicTabs)var3;
+         if (var3 instanceof ScrollableContentPanel) {
+            ScrollableContentPanel var4 = (ScrollableContentPanel)var3;
             int var5 = var4.method13513() + var4.getHeightA() + this.getHeightA();
             int var6 = var4.method13513() - this.getHeightA();
             return this.getYA() <= var5 && this.getYA() >= var6;

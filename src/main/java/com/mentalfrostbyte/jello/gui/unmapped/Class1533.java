@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.ModsPanel;
 
 public class Class1533 implements Runnable {
    public final KeyboardScreen field8318;
@@ -15,7 +16,7 @@ public class Class1533 implements Runnable {
    public void run() {
       this.field8318
          .addToList(
-            this.field8319.field20960 = new Class4358(
+            this.field8319.field20960 = new ModsPanel(
                this.field8318, "mods", 0, 0, KeyboardScreen.method13337(this.field8319), KeyboardScreen.method13338(this.field8319)
             )
          );

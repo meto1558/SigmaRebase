@@ -6,8 +6,6 @@ import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4365;
-import com.mentalfrostbyte.jello.gui.unmapped.ClassicParticleEngine;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -15,24 +13,19 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import org.newdawn.slick.TrueTypeFont;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.TrueTypeFont;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class ClassicMainScreen extends Screen {
-    private static final long field21106 = System.nanoTime();
     public final AnimatedIconPanelWrap field21094;
     public final AnimatedIconPanelWrap field21095;
-    private final int field21096 = 0;
-    private final int field21097 = 0;
-    private final boolean field21098 = true;
-    private Class4365 field21099;
-    private Animation field21100 = new Animation(325, 325);
+    private Animation field21100;
     private final Animation field21101 = new Animation(800, 800);
-    private final ClassicParticleEngine field21102;
+    private final ParticleOverlay particleOverlay;
     private final ClassicMainScreenGroup field21103;
     private float field21104;
     private float field21105;
@@ -43,18 +36,18 @@ public class ClassicMainScreen extends Screen {
         this.field21100 = new Animation(175, 325);
         this.field21100.changeDirection(Direction.FORWARDS);
         this.field21101.changeDirection(Direction.BACKWARDS);
-        TrueTypeFont var9 = Resources.regular20;
-        String var11 = "© Sigma Prod";
-        StringBuilder var10000 = new StringBuilder().append("Sigma ");
+        TrueTypeFont font = Resources.regular20;
+        String copyrightTag = "© Sigma Prod";
+        StringBuilder versionBuilder = new StringBuilder().append("Sigma ");
         Client.getInstance();
-        String var12 = var10000.append(Client.VERSION).append(" for Minecraft 1.7.2 to ").append("1.21.4").toString();
-        this.addToList(this.field21102 = new ClassicParticleEngine(this, "particles"));
+        String versionTag = versionBuilder.append(Client.VERSION).append(" for Minecraft 1.7.2 to ").append("1.21.4").toString();
+        this.addToList(this.particleOverlay = new ParticleOverlay(this, "particles"));
         int var13 = 480;
         int var14 = 480;
         this.addToList(this.field21103 = new ClassicMainScreenGroup(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
         this.addToList(
                 this.field21095 = new Text(
-                        this, "Copyright", 10, 8, var9.getWidth(var11), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), var11, ResourceRegistry.JelloLightFont18
+                        this, "Copyright", 10, 8, font.getWidth(copyrightTag), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), copyrightTag, ResourceRegistry.JelloLightFont18
                 )
         );
         ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
@@ -67,24 +60,24 @@ public class ClassicMainScreen extends Screen {
         var16.add("DataModel");
         Collections.shuffle(var16);
         String var17 = "by " + var16.get(0) + ", " + var16.get(1);
-        this.addToList(new Text(this, "names", 130, 9, var9.getWidth(var11), 140, var15, var17, Resources.regular17));
+        this.addToList(new Text(this, "names", 130, 9, font.getWidth(copyrightTag), 140, var15, var17, Resources.regular17));
         this.addToList(
                 this.field21094 = new Text(
                         this,
                         "Version",
-                        this.getWidthA() - var9.getWidth(var12) - 9,
+                        this.getWidthA() - font.getWidth(versionTag) - 9,
                         this.getHeightA() - 31,
                         114,
                         140,
                         new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()),
-                        var12,
-                        var9
+                        versionTag,
+                        font
                 )
         );
-        this.addToList(new Text(this, "Hello", 10, this.getHeightA() - 55, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "Hello,", var9));
+        this.addToList(new Text(this, "Hello", 10, this.getHeightA() - 55, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "Hello,", font));
         this.addToList(
                 new Text(
-                        this, "Latest", 10, this.getHeightA() - 31, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "You are using the latest version", var9
+                        this, "Latest", 10, this.getHeightA() - 31, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "You are using the latest version", font
                 )
         );
         this.field21104 = (float) (this.getWidthA() / 2);
@@ -149,7 +142,7 @@ public class ClassicMainScreen extends Screen {
                 .draw(
                         (int) ((float) (-this.getWidthA() / 40) + this.field21104 / 40.0F), (int) ((float) (-this.getHeightA() / 40) + this.field21105 / 40.0F) + var4
                 );
-        this.field21102
+        this.particleOverlay
                 .draw((int) ((float) (-this.getWidthA() / 12) + this.field21104 / 12.0F), (int) ((float) (-this.getHeightA() / 12) + this.field21105 / 12.0F));
         super.draw(partialTicks);
     }

@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -14,7 +15,7 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModListView extends MusicTabs implements Class4342 {
+public class ModListView extends ScrollableContentPanel implements Class4342 {
     public final ModuleCategory field21214;
     private List<Button> field21215 = new ArrayList<Button>();
     private boolean field21216;

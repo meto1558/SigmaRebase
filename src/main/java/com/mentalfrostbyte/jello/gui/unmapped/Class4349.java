@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -17,7 +18,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
    private BufferedImage field21250;
    private Texture field21251;
    private float field21252 = 0.0F;
-   private UILoadingCircle field21253;
+   private LoadingIndicator field21253;
    private boolean field21254 = false;
    private float field21255 = 0.0F;
    private int field21256 = 0;
@@ -27,7 +28,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
    public Class4349(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Account var7) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field21249 = var7;
-      this.addToList(this.field21253 = new UILoadingCircle(this, "loading", var5 - 50, 35, 30, 30));
+      this.addToList(this.field21253 = new LoadingIndicator(this, "loading", var5 - 50, 35, 30, 30));
       this.field21253.method13296(false);
    }
 

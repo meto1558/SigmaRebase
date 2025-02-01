@@ -7,14 +7,14 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.*;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.ClassicMainScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.ClassicClickGui;
-import com.mentalfrostbyte.jello.gui.impl.jello.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.CreditsHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.JelloIngameOptionButton;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.buttons.JelloOptionsButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.JelloOptions;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.CreditsScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.NoAddOnnScreenMenu;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.MainMenuScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.holders.NoAddonHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
@@ -97,13 +97,13 @@ public class GuiManager {
             Minecraft.getInstance().currentScreen = null;
             Minecraft.getInstance().displayGuiScreen(new JelloPortalScreen(((MultiplayerScreen) screen).parentScreen));
             return true;
-        } else if (screen instanceof IngameMenuScreen && !(screen instanceof JelloIngameOptionButton)) {
+        } else if (screen instanceof IngameMenuScreen && !(screen instanceof JelloOptionsButton)) {
             Minecraft.getInstance().currentScreen = null;
-            Minecraft.getInstance().displayGuiScreen(new JelloIngameOptionButton());
+            Minecraft.getInstance().displayGuiScreen(new JelloOptionsButton());
             return true;
-        } else if (Client.getInstance().clientMode == ClientMode.NOADDONS && screen instanceof MainMenuHolder && !(screen instanceof NoAddOnnScreenMenu)) {
+        } else if (Client.getInstance().clientMode == ClientMode.NOADDONS && screen instanceof MainMenuHolder && !(screen instanceof NoAddonHolder)) {
             Minecraft.getInstance().currentScreen = null;
-            Minecraft.getInstance().displayGuiScreen(new NoAddOnnScreenMenu());
+            Minecraft.getInstance().displayGuiScreen(new NoAddonHolder());
             return true;
         } else {
             return false;
