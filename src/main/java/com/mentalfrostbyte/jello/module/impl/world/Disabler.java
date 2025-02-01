@@ -12,6 +12,7 @@ public class Disabler extends ModuleWithModuleSettings {
                 new PingSpoofDisabler(),
                 new NullDisabler(),
                 new HypixelDisabler(),
+                new HypixelPredictionDisabler(),
                 new TPDisabler(),
                 new ViperDisabler(),
                 new VeltPvPDisabler(),

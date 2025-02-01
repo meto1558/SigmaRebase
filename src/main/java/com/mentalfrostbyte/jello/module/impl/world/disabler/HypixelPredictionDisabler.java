@@ -9,14 +9,14 @@ import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 // Skidded from titties client lol
-public class HypixelPrediction extends Module {
+public class HypixelPredictionDisabler extends Module {
     public static boolean watchDogDisabled = false;
     public static boolean stuckOnAir = false;
     public static boolean startDisabler = false;
     public static int airTicks = 0;
     private final BooleanSetting motion;
 
-    public HypixelPrediction() {
+    public HypixelPredictionDisabler() {
         super(
                 ModuleCategory.EXPLOIT,
                 "Hypixel Prediction",
@@ -26,7 +26,7 @@ public class HypixelPrediction extends Module {
     }
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer __) {
-        if (HypixelPrediction.mc.player == null)
+        if (HypixelPredictionDisabler.mc.player == null)
             return;
 
         if (motion.currentValue && !watchDogDisabled) {
