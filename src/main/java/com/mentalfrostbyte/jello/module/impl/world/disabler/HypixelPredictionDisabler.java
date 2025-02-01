@@ -29,6 +29,28 @@ public class HypixelPredictionDisabler extends Module {
         );
         this.registerSetting(this.motion = new BooleanSetting("Motion", "Motion check disabler", true));
     }
+
+    @Override
+    public void onEnable() {
+        super.onEnable();
+
+        startDisabler = true;
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
+
+        startDisabler = false;
+        watchDogDisabled = false;
+        stuckOnAir = false;
+        airStuckTicks = 0;
+        airTicks = 0;
+        caughtClientStatus = false;
+        caughtCloseWindow = false;
+        sentFirstOpen = false;
+    }
+
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer __) {
         if (HypixelPredictionDisabler.mc.player == null)
