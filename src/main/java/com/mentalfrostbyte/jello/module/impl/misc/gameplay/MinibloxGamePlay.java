@@ -144,6 +144,12 @@ public class MinibloxGamePlay extends Module {
                     }
                 }
 
+                if (text.contains("The game is currently in progress. Please wait for the next game to start.")) {
+                    if (parentModule.getBooleanValueFromSettingName("Auto Join")) {
+                        // TODO: get the gamemode from the first line of the scoreboard
+                    }
+                }
+
                 if (text.contains("Click here to play again")) {
                     if (parentModule.getBooleanValueFromSettingName("Auto Join")) {
                         for (ITextComponent textCom : chatPacket.getChatComponent().getSiblings()) {
