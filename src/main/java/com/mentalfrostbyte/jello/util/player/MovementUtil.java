@@ -365,4 +365,11 @@ public class MovementUtil {
         float strafe = input.moveStrafe;
         return getAdjustedStrafe2(forward, strafe);
     }
+
+    public static void stopMoving() {
+        if (mc.player == null) return;
+        mc.player.setMotion(0, mc.player.getMotion().y, 0);
+        mc.player.movementInput.moveForward = 0;
+        mc.player.movementInput.moveStrafe = 0;
+    }
 }
