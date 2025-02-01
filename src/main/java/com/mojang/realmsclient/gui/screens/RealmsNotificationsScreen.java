@@ -6,7 +6,7 @@ import com.mojang.realmsclient.client.RealmsClient;
 import com.mojang.realmsclient.exception.RealmsServiceException;
 import com.mojang.realmsclient.gui.RealmsDataFetcher;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.realms.RealmsScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -65,7 +65,7 @@ public class RealmsNotificationsScreen extends RealmsScreen
 
     private boolean func_237859_j_()
     {
-        return this.minecraft.currentScreen instanceof MainMenuScreen;
+        return this.minecraft.currentScreen instanceof MainMenuHolder;
     }
 
     private void func_224261_a()

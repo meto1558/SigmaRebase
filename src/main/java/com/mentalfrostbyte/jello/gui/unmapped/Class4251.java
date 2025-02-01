@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class4251 extends UIBase {
-   private List<ButtonPanel> field20612 = new ArrayList<ButtonPanel>();
+   private List<Button> field20612 = new ArrayList<Button>();
    public int field20613;
    public Class4259 field20614;
    public Class4340 field20615;

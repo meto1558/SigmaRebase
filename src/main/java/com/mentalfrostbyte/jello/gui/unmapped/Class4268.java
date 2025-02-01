@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.JelloKeyboardScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -22,7 +22,7 @@ public class Class4268 extends UIBase {
    }
 
    public void method13102() {
-      for (Class6984 var4 : JelloKeyboardScreen.method13328()) {
+      for (Class6984 var4 : KeyboardScreen.method13328()) {
          int var5 = var4.method21599();
          if (var5 == this.field20690) {
             this.field20693 = true;

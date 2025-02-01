@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
-import com.mentalfrostbyte.jello.gui.impl.JelloKeyboardScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
@@ -72,7 +72,7 @@ public class Class4375 extends UIBase {
       this.method13145(true);
       this.clearChildren();
 
-      for (Class6984 var10 : JelloKeyboardScreen.method13328()) {
+      for (Class6984 var10 : KeyboardScreen.method13328()) {
          int var7 = var10.method21599();
          if (var7 == this.field21376) {
             Class4253 var8;

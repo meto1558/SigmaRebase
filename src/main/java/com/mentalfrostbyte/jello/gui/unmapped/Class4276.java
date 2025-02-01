@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Class4276 extends UIBase {
-   private List<ButtonPanel> field20723 = new ArrayList<ButtonPanel>();
+   private List<Button> field20723 = new ArrayList<Button>();
    private final Date field20724;
    private boolean field20725 = false;
    private Date field20726;

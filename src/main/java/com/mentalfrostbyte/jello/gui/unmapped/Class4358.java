@@ -59,10 +59,10 @@ public class Class4358 extends UIBase {
          ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.02F), -986896)
             .method19410(ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F))
             .method19412(Class2218.field14492);
-         ButtonPanel var16;
+         Button var16;
          this.field21308
             .addToList(
-               var16 = new ButtonPanel(this.field21308, var14.method21596(), 0, var11++ * 55, this.field21308.getWidthA(), 55, var15, var14.method21596())
+               var16 = new Button(this.field21308, var14.method21596(), 0, var11++ * 55, this.field21308.getWidthA(), 55, var15, var14.method21596())
             );
          var16.doThis((var2x, var3x) -> {
             for (Entry var7 : GuiManager.screenToScreenName.entrySet()) {
@@ -80,10 +80,10 @@ public class Class4358 extends UIBase {
 
       for (Module var19 : Client.getInstance().moduleManager.getModuleMap().values()) {
          ColorHelper var20 = new ColorHelper(16777215, -986896).method19410(ClientColors.DEEP_TEAL.getColor()).method19412(Class2218.field14488);
-         ButtonPanel var21;
+         Button var21;
          this.field21308
             .addToList(
-               var21 = new ButtonPanel(
+               var21 = new Button(
                   this.field21308, var19.getName(), 0, var11++ * 40, this.field21308.getWidthA(), 40, var20, new Class6984(var19).method21596()
                )
             );
@@ -111,16 +111,16 @@ public class Class4358 extends UIBase {
       }
 
       this.field21302.changeDirection(this.field21311 ? Direction.BACKWARDS : Direction.FORWARDS);
-      Map<String, ButtonPanel> var5 = new TreeMap();
-      Map<String, ButtonPanel> var6 = new TreeMap();
-      Map<String, ButtonPanel> var7 = new TreeMap();
-      List<ButtonPanel> var8 = new ArrayList();
+      Map<String, Button> var5 = new TreeMap();
+      Map<String, Button> var6 = new TreeMap();
+      Map<String, Button> var7 = new TreeMap();
+      List<Button> var8 = new ArrayList();
 
       for (CustomGuiScreen var10 : this.field21308.getChildren()) {
          if (!(var10 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var12 : var10.getChildren()) {
-               if (var12 instanceof ButtonPanel) {
-                  ButtonPanel var13 = (ButtonPanel)var12;
+               if (var12 instanceof Button) {
+                  Button var13 = (Button)var12;
                   boolean var14 = var13.getHeightA() != 40;
                   if (!var14 || this.field21307 != null && (this.field21307 == null || this.field21307.length() != 0)) {
                      if (!var14 && this.method13622(this.field21307, var13.getTypedText())) {
@@ -140,7 +140,7 @@ public class Class4358 extends UIBase {
 
       int var15 = var5.size() <= 0 ? 0 : 10;
 
-      for (ButtonPanel var20 : var5.values()) {
+      for (Button var20 : var5.values()) {
          var20.setEnabled(true);
          var20.setYA(var15);
          var15 += var20.getHeightA();
@@ -150,19 +150,19 @@ public class Class4358 extends UIBase {
          var15 += 10;
       }
 
-      for (ButtonPanel var21 : var6.values()) {
+      for (Button var21 : var6.values()) {
          var21.setEnabled(true);
          var21.setYA(var15);
          var15 += var21.getHeightA();
       }
 
-      for (ButtonPanel var22 : var7.values()) {
+      for (Button var22 : var7.values()) {
          var22.setEnabled(true);
          var22.setYA(var15);
          var15 += var22.getHeightA();
       }
 
-      for (ButtonPanel var23 : var8) {
+      for (Button var23 : var8) {
          var23.setEnabled(false);
       }
 

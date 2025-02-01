@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ModListView extends MusicTabs implements Class4342 {
     public final ModuleCategory field21214;
-    private List<ButtonPanel> field21215 = new ArrayList<ButtonPanel>();
+    private List<Button> field21215 = new ArrayList<Button>();
     private boolean field21216;
     private boolean field21217;
     private float field21218 = 1.0F;
@@ -25,7 +25,7 @@ public class ModListView extends MusicTabs implements Class4342 {
         super(var1, var2, var3, var4, var5, var6);
         this.field21214 = var7;
         this.field21217 = true;
-        ((JelloClickGUIPanels) var1).field21195 = 1.0F;
+        ((PanelGroup) var1).field21195 = 1.0F;
         this.field21217 = true;
         this.setListening(false);
         this.method13511();
@@ -39,10 +39,10 @@ public class ModListView extends MusicTabs implements Class4342 {
             ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
                     .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
             var12.method19412(Class2218.field14488);
-            ButtonPanel var13;
+            Button var13;
             this.getButton()
                     .addToList(
-                            var13 = new ButtonPanel(
+                            var13 = new Button(
                                     this.getButton(), var5.getName() + "Button", 0, var3 * 30, this.getWidthA(), 30, var12, var5.getName(), ResourceRegistry.JelloLightFont20
                             )
                     );
@@ -55,10 +55,10 @@ public class ModListView extends MusicTabs implements Class4342 {
             this.field21215.add(var13);
             var13.doThis(
                     (var3x, var4) -> {
-                        ButtonPanel var7 = (ButtonPanel) var3x;
+                        Button var7 = (Button) var3x;
                         if (var4 != 0) {
                             if (var4 == 1) {
-                                JelloClickGUIPanels var8 = (JelloClickGUIPanels) this.getParent();
+                                PanelGroup var8 = (PanelGroup) this.getParent();
                                 var8.method13508(var5);
                             }
                         } else {
@@ -100,7 +100,7 @@ public class ModListView extends MusicTabs implements Class4342 {
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
         super.updatePanelDimensions(newHeight, newWidth);
-        JelloClickGUIPanels var5 = (JelloClickGUIPanels) this.parent;
+        PanelGroup var5 = (PanelGroup) this.parent;
         float var6 = (float) (0.07F * (60.0 / (double) Minecraft.getFps()));
         this.field21218 = this.field21218 + (!this.method13525() ? 0.0F : (!this.field21217 ? var6 : -var6));
         this.field21218 = Math.max(0.0F, Math.min(1.0F, this.field21218));
@@ -110,7 +110,7 @@ public class ModListView extends MusicTabs implements Class4342 {
     @Override
     public void draw(float partialTicks) {
         this.method13225();
-        super.draw(partialTicks * ((JelloClickGUIPanels) this.parent).field21195);
+        super.draw(partialTicks * ((PanelGroup) this.parent).field21195);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class ModListView extends MusicTabs implements Class4342 {
     public int method13529(Module var1) {
         int var4 = 0;
 
-        for (ButtonPanel var6 : this.field21215) {
+        for (Button var6 : this.field21215) {
             var4++;
             if (var6.getName().equals(var1.getName() + "Button")) {
                 break;

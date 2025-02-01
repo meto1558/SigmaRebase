@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 
-public class Class4246 extends ButtonPanel {
+public class Class4246 extends Button {
    private Class4277 field20600;
    private Animation field20601 = new Animation(125, 125);
 

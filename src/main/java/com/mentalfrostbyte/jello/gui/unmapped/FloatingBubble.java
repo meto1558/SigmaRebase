@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.JelloMainMenuManager;
+import com.mentalfrostbyte.jello.gui.impl.jello.MainMenuScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -34,8 +34,8 @@ public class FloatingBubble extends CustomGuiScreen {
             this.field20933 = (float) this.yA;
         }
 
-        this.field20932 = this.field20932 + this.field20928 * JelloMainMenuManager.field20982;
-        this.field20933 = this.field20933 + this.field20929 * JelloMainMenuManager.field20982;
+        this.field20932 = this.field20932 + this.field20928 * MainMenuScreen.field20982;
+        this.field20933 = this.field20933 + this.field20929 * MainMenuScreen.field20982;
         this.xA = Math.round(this.field20932);
         this.yA = Math.round(this.field20933);
         if (!(this.field20932 + (float) this.widthA < 0.0F)) {
@@ -58,8 +58,8 @@ public class FloatingBubble extends CustomGuiScreen {
         float var6 = (float) (newWidth - this.method13272());
         this.field20934 = (float) (1.0 - Math.sqrt((double) (var5 * var5 + var6 * var6)) / (double) this.field20938);
         if (!(Math.sqrt((double) (var5 * var5 + var6 * var6)) < (double) this.field20938)) {
-            this.field20928 = this.field20928 - (this.field20928 - this.field20930) * 0.05F * JelloMainMenuManager.field20982;
-            this.field20929 = this.field20929 - (this.field20929 - this.field20931) * 0.05F * JelloMainMenuManager.field20982;
+            this.field20928 = this.field20928 - (this.field20928 - this.field20930) * 0.05F * MainMenuScreen.field20982;
+            this.field20929 = this.field20929 - (this.field20929 - this.field20931) * 0.05F * MainMenuScreen.field20982;
         } else {
             float var7 = this.field20932 - (float) newHeight;
             float var8 = this.field20933 - (float) newWidth;
@@ -67,8 +67,8 @@ public class FloatingBubble extends CustomGuiScreen {
             float var10 = var9 / 2.0F;
             float var11 = var7 / var10;
             float var12 = var8 / var10;
-            this.field20928 = this.field20928 + var11 / (1.0F + this.field20934) * JelloMainMenuManager.field20982;
-            this.field20929 = this.field20929 + var12 / (1.0F + this.field20934) * JelloMainMenuManager.field20982;
+            this.field20928 = this.field20928 + var11 / (1.0F + this.field20934) * MainMenuScreen.field20982;
+            this.field20929 = this.field20929 + var12 / (1.0F + this.field20934) * MainMenuScreen.field20982;
         }
 
         this.field20936 = newHeight;

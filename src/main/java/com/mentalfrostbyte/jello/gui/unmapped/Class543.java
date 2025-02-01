@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.JelloKeyboardScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 
 public class Class543 implements Runnable {
    private static String[] field2602;
-   public final JelloKeyboardScreen field2603;
-   public final JelloKeyboardScreen field2604;
+   public final KeyboardScreen field2603;
+   public final KeyboardScreen field2604;
 
-   public Class543(JelloKeyboardScreen var1, JelloKeyboardScreen var2) {
+   public Class543(KeyboardScreen var1, KeyboardScreen var2) {
       this.field2604 = var1;
       this.field2603 = var2;
    }

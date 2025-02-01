@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.screen.MultiplayerScreen;
 import net.minecraft.item.Items;
 import net.minecraft.util.text.StringTextComponent;
@@ -32,7 +32,7 @@ public class AutoLog extends Module {
                 mc.unloadWorld();
                 mc.displayGuiScreen(
                         new DisconnectedScreen(
-                                new MultiplayerScreen(new MainMenuScreen()),
+                                new MultiplayerScreen(new MainMenuHolder()),
                                 new TranslationTextComponent("disconnect.lost"),
                                 new StringTextComponent(
                                         "AutoLog disconnected you. " + (!var5 ? "Disable it in a singleplayer world to reconnect." : "The mod is now disabled for you to reconnect.")

@@ -11,7 +11,7 @@ import java.util.Set;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.fonts.FontResourceManager;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -350,7 +350,7 @@ public class Reflector
     public static ReflectorClass ModListScreen = new ReflectorClass("net.minecraftforge.fml.client.gui.screen.ModListScreen");
     public static ReflectorConstructor ModListScreen_Constructor = new ReflectorConstructor(ModListScreen, new Class[] {Screen.class});
     public static ReflectorClass NotificationModUpdateScreen = new ReflectorClass("net.minecraftforge.client.gui.NotificationModUpdateScreen");
-    public static ReflectorMethod NotificationModUpdateScreen_init = new ReflectorMethod(NotificationModUpdateScreen, "init", new Class[] {MainMenuScreen.class, Button.class});
+    public static ReflectorMethod NotificationModUpdateScreen_init = new ReflectorMethod(NotificationModUpdateScreen, "init", new Class[] {MainMenuHolder.class, Button.class});
     public static ReflectorClass PlaySoundAtEntityEvent = new ReflectorClass("net.minecraftforge.event.entity.PlaySoundAtEntityEvent");
     public static ReflectorMethod PlaySoundAtEntityEvent_getSound = new ReflectorMethod(PlaySoundAtEntityEvent, "getSound");
     public static ReflectorMethod PlaySoundAtEntityEvent_getCategory = new ReflectorMethod(PlaySoundAtEntityEvent, "getCategory");
@@ -382,7 +382,7 @@ public class Reflector
     public static ReflectorField EntityItem_ITEM = new ReflectorField(EntityItem, DataParameter.class);
     public static ReflectorClass EnderDragonRenderer = new ReflectorClass(EnderDragonRenderer.class);
     public static ReflectorField EnderDragonRenderer_model = new ReflectorField(EnderDragonRenderer, EnderDragonRenderer.EnderDragonModel.class);
-    public static ReflectorClass GuiMainMenu = new ReflectorClass(MainMenuScreen.class);
+    public static ReflectorClass GuiMainMenu = new ReflectorClass(MainMenuHolder.class);
     public static ReflectorField GuiMainMenu_splashText = new ReflectorField(GuiMainMenu, String.class);
     public static ReflectorClass ItemOverride = new ReflectorClass(ItemOverride.class);
     public static ReflectorField ItemOverride_mapResourceValues = new ReflectorField(ItemOverride, Map.class);

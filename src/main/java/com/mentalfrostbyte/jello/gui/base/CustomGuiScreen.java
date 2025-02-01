@@ -167,7 +167,6 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.heightO = newHeight;
         this.field20908 = this.method13289() && this.method13229(newHeight, newWidth);
 
-
         try {
             for (Runnable runnable : this.runOnDimensionUpdate) {
                 if (runnable != null) {

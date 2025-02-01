@@ -89,7 +89,7 @@ public class DeathScreen extends Screen
         }
 
         this.minecraft.unloadWorld(new DirtMessageScreen(new TranslationTextComponent("menu.savingLevel")));
-        this.minecraft.displayGuiScreen(new MainMenuScreen());
+        this.minecraft.displayGuiScreen(new MainMenuHolder());
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)

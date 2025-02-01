@@ -58,7 +58,7 @@ public class AlertPanel extends UIBase {
                   if (var15.field44771 == AlertType.HEADER) {
                      this.field21279
                         .addToList(
-                           new UITextDisplay(
+                           new Text(
                               this.field21279,
                               "Item" + var17,
                               0,
@@ -77,10 +77,10 @@ public class AlertPanel extends UIBase {
                         );
                   }
                } else {
-                  ButtonPanel var16;
+                  Button var16;
                   this.field21279
                      .addToList(
-                        var16 = new ButtonPanel(
+                        var16 = new Button(
                            this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, ColorHelper.field27961, var15.field44772
                         )
                      );
@@ -107,7 +107,7 @@ public class AlertPanel extends UIBase {
          } else {
             this.field21279
                .addToList(
-                  new UITextDisplay(
+                  new Text(
                      this.field21279,
                      "Item" + var17,
                      0,

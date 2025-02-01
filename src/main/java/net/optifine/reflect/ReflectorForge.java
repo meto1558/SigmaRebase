@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.Entity;
@@ -162,7 +162,7 @@ public class ReflectorForge
         }
     }
 
-    public static Button makeButtonMods(MainMenuScreen guiMainMenu, int yIn, int rowHeightIn)
+    public static Button makeButtonMods(MainMenuHolder guiMainMenu, int yIn, int rowHeightIn)
     {
         return !Reflector.ModListScreen_Constructor.exists() ? null : new Button(guiMainMenu.width / 2 - 100, yIn + rowHeightIn * 2, 98, 20, new TranslationTextComponent("fml.menu.mods"), (button) ->
         {

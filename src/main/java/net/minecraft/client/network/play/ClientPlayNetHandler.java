@@ -51,7 +51,7 @@ import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.DemoScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.screen.MultiplayerScreen;
 import net.minecraft.client.gui.screen.ReadBookScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -1021,7 +1021,7 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         }
         else
         {
-            this.client.displayGuiScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuScreen()), field_243491_b, reason));
+            this.client.displayGuiScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuHolder()), field_243491_b, reason));
         }
     }
 

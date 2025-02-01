@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Textbox;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
@@ -20,7 +21,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
     private Module field21219;
     private boolean field21220;
     public int field21222 = 200;
-    private HashMap<UITextDisplay, Setting> field21223 = new HashMap<UITextDisplay, Setting>();
+    private HashMap<Text, Setting> field21223 = new HashMap<Text, Setting>();
     public HashMap<Module, CustomGuiScreen> field21224 = new HashMap<Module, CustomGuiScreen>();
     public Animation field21225 = new Animation(114, 114);
     private String field21226 = "";
@@ -36,7 +37,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
     private int method13531(CustomGuiScreen panel, Setting setting, int var3, int var4, int var5) {
         switch (Class8666.field39049[setting.getSettingType().ordinal()]) {
             case 1:
-                UITextDisplay var37 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
+                Text var37 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
                 UICheckBox var45 = new UICheckBox(panel, setting.getName() + "checkbox", panel.getWidthA() - 24 - var5, var4 + 6, 24, 24);
                 this.field21223.put(var37, setting);
                 var45.method13705((Boolean) setting.getCurrentValue(), false);
@@ -52,7 +53,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
                 var4 += 24 + var5;
                 break;
             case 2:
-                UITextDisplay var36 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
+                Text var36 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
                 this.field21223.put(var36, setting);
                 NumberSetting numbaSetting = (NumberSetting) setting;
                 Class4277 var47 = new Class4277(panel, setting.getName() + "slider", panel.getWidthA() - 126 - var5, var4 + 6, 126, 24);
@@ -86,9 +87,9 @@ public class Class4343 extends MusicTabs implements Class4342 {
             case 3:
                 int var19 = 114;
                 int var27 = 27;
-                UITextDisplay var43;
+                Text var43;
                 this.addToList(
-                        var43 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, var27, UITextDisplay.defaultColorHelper, setting.getName())
+                        var43 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, var27, Text.defaultColorHelper, setting.getName())
                 );
                 this.field21223.put(var43, setting);
                 UIInput var35;
@@ -114,7 +115,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
                 var4 += var27 + var5;
                 break;
             case 4:
-                UITextDisplay var34 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4 + 2, this.field21222, 27, UITextDisplay.defaultColorHelper, setting.getName());
+                Text var34 = new Text(panel, setting.getName() + "lbl", var3, var4 + 2, this.field21222, 27, Text.defaultColorHelper, setting.getName());
                 Dropdown var42 = new Dropdown(
                         panel,
                         setting.getName() + "btn",
@@ -156,8 +157,8 @@ public class Class4343 extends MusicTabs implements Class4342 {
                 var4 += var17.getHeightA() + var5;
                 break;
             case 7:
-                UITextDisplay var32 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 27, UITextDisplay.defaultColorHelper, setting.getName());
-                Class4377 var40 = new Class4377(
+                Text var32 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 27, Text.defaultColorHelper, setting.getName());
+                Textbox var40 = new Textbox(
                         panel, setting.getName() + "btn", panel.getWidthA() - var5, var4 + 6, 123, 27, ((TextBoxSetting) setting).getOptions(), (Integer) setting.getCurrentValue()
                 );
                 this.field21223.put(var32, setting);
@@ -166,14 +167,14 @@ public class Class4343 extends MusicTabs implements Class4342 {
                         var40.method13722((Integer) var1x.getCurrentValue(), false);
                     }
                 });
-                var40.onPress(var1x -> setting.setCurrentValue(((Class4377) var1x).method13720()));
+                var40.onPress(var1x -> setting.setCurrentValue(((Textbox) var1x).method13720()));
                 var40.setSize((var2x, var3x) -> var2x.setXA(panel.getWidthA() - 123 - var5));
                 panel.addToList(var32);
                 panel.addToList(var40);
                 var4 += 27 + var5;
                 break;
             case 8:
-                UITextDisplay var31 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 200, UITextDisplay.defaultColorHelper, setting.getName());
+                Text var31 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 200, Text.defaultColorHelper, setting.getName());
                 Class4258 var39 = new Class4258(
                         panel,
                         setting.getName() + "picker",
@@ -193,7 +194,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
                 break;
             case 9:
                 ColorSetting var30 = (ColorSetting) setting;
-                UITextDisplay var38 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
+                Text var38 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
                 Class4252 var46 = new Class4252(
                         panel, setting.getName() + "color", panel.getWidthA() - 160 - var5 + 10, var4, 160, 114, (Integer) setting.getCurrentValue(), var30.isRainbowEnabled()
                 );
@@ -212,7 +213,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
                 break;
             case 10:
                 SpeedRampSetting.SpeedRamp var10 = (SpeedRampSetting.SpeedRamp) setting.getCurrentValue();
-                UITextDisplay var11 = new UITextDisplay(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, UITextDisplay.defaultColorHelper, setting.getName());
+                Text var11 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
                 Class4250 var12 = new Class4250(
                         panel,
                         setting.getName() + "color",
@@ -294,7 +295,7 @@ public class Class4343 extends MusicTabs implements Class4342 {
         boolean var4 = false;
 
         for (Entry var6 : this.field21223.entrySet()) {
-            UITextDisplay var7 = (UITextDisplay) var6.getKey();
+            Text var7 = (Text) var6.getKey();
             Setting var8 = (Setting) var6.getValue();
             if (var7.method13298() && var7.method13289()) {
                 var4 = true;

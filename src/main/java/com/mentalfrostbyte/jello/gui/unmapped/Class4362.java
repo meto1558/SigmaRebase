@@ -28,9 +28,9 @@ public class Class4362 extends UIBase {
       this.font = ResourceRegistry.JelloLightFont18;
 
       for (String value : this.values) {
-         ButtonPanel button;
+         Button button;
          this.addToList(
-            button = new ButtonPanel(
+            button = new Button(
                this,
                value,
                0,

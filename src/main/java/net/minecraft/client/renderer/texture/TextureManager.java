@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -257,7 +257,7 @@ public class TextureManager implements IFutureReloadListener, ITickable, AutoClo
         }
 
         EmissiveTextures.update();
-        return CompletableFuture.allOf(MainMenuScreen.loadAsync(this, backgroundExecutor), this.loadAsync(Widget.WIDGETS_LOCATION, backgroundExecutor)).thenCompose(stage::markCompleteAwaitingOthers).thenAcceptAsync((p_lambda$reload$4_3_) ->
+        return CompletableFuture.allOf(MainMenuHolder.loadAsync(this, backgroundExecutor), this.loadAsync(Widget.WIDGETS_LOCATION, backgroundExecutor)).thenCompose(stage::markCompleteAwaitingOthers).thenAcceptAsync((p_lambda$reload$4_3_) ->
         {
             MissingTextureSprite.getDynamicTexture();
             RealmsMainScreen.func_227932_a_(this.resourceManager);

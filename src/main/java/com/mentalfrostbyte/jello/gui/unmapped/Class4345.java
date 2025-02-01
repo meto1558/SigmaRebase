@@ -3,6 +3,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Dropdown;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Textbox;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
@@ -33,43 +37,43 @@ public class Class4345 extends MusicTabs {
     }
 
     private int renderModuleSettings(CustomGuiScreen screen, Setting setting, int x, int y, int value) {
-        UITextDisplay name = new UITextDisplay(screen, setting.getName() + "lbl", x, y, 0, 0, UITextDisplay.defaultColorHelper, setting.getName(), this.settingsNameFont);
-        UITextDisplaySmall description = new UITextDisplaySmall(screen, setting.getName() + "desc", x + 195, y + 4, 330, 18, setting);
+        Text name = new Text(screen, setting.getName() + "lbl", x, y, 0, 0, Text.defaultColorHelper, setting.getName(), this.settingsNameFont);
+        com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Text description = new com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Text(screen, setting.getName() + "desc", x + 195, y + 4, 330, 18, setting);
         screen.addToList(name);
         screen.addToList(description);
         switch (setting.getSettingType()) {
             case BOOLEAN:
-                Class4262 var26 = new Class4262(screen, setting.getName() + "checkbox", x + 135, y + 4, 40, 18);
+                Checkbox var26 = new Checkbox(screen, setting.getName() + "checkbox", x + 135, y + 4, 40, 18);
                 var26.method13094((Boolean) setting.getCurrentValue(), false);
                 setting.addObserver(var1x -> {
                     if (var26.method13092() != (Boolean) var1x.getCurrentValue()) {
                         var26.method13094((Boolean) var1x.getCurrentValue(), false);
                     }
                 });
-                var26.onPress(var1x -> setting.setCurrentValue(((Class4262) var1x).method13092()));
+                var26.onPress(var1x -> setting.setCurrentValue(((Checkbox) var1x).method13092()));
                 screen.addToList(var26);
                 y += 18 + value;
                 break;
             case NUMBER:
                 NumberSetting var25 = (NumberSetting) setting;
-                Class4370 var13 = new Class4370(screen, setting.getName() + "slider", x, y + 31, 240, 4);
+                Slider var13 = new Slider(screen, setting.getName() + "slider", x, y + 31, 240, 4);
                 var13.setTypedText(Float.toString((Float) setting.getCurrentValue()));
                 name.setTypedText(setting.getName() + ": " + (Float) setting.getCurrentValue());
                 var13.method13699(Class4277.method13134(var25.getMin(), var25.getMax(), (Float) var25.getCurrentValue()), false);
                 int var14 = var25.getDecimalPlaces();
                 var25.addObserver(
                         var5x -> {
-                            if (Class4370.method13694(var13.method13697(), var25.getMin(), var25.getMax(), var25.getStep(), var14)
+                            if (Slider.method13694(var13.method13697(), var25.getMin(), var25.getMax(), var25.getStep(), var14)
                                     != (Float) var5x.getCurrentValue()) {
                                 var13.setTypedText(Float.toString((Float) var5x.getCurrentValue()));
-                                var13.method13699(Class4370.method13693(var25.getMin(), var25.getMax(), (Float) var5x.getCurrentValue()), false);
+                                var13.method13699(Slider.method13693(var25.getMin(), var25.getMax(), (Float) var5x.getCurrentValue()), false);
                                 name.setTypedText(setting.getName() + ": " + (Float) setting.getCurrentValue());
                             }
                         }
                 );
                 var13.onPress(var5x -> {
-                    float var8x = ((Class4370) var5x).method13697();
-                    float var9x = Class4370.method13694(var8x, var25.getMin(), var25.getMax(), var25.getStep(), var14);
+                    float var8x = ((Slider) var5x).method13697();
+                    float var9x = Slider.method13694(var8x, var25.getMin(), var25.getMax(), var25.getStep(), var14);
                     if (var9x != (Float) setting.getCurrentValue()) {
                         var13.setTypedText(Float.toString(var9x));
                         setting.setCurrentValue(var9x);
@@ -83,9 +87,9 @@ public class Class4345 extends MusicTabs {
             case INPUT:
                 int var16 = 114;
                 int var20 = 27;
-                SigmaClassicTextBox var24;
+                Input var24;
                 this.addToList(
-                        var24 = new SigmaClassicTextBox(
+                        var24 = new Input(
                                 screen,
                                 setting.getName() + "txt",
                                 x,
@@ -108,7 +112,7 @@ public class Class4345 extends MusicTabs {
                 y += var20 + value;
                 break;
             case MODE:
-                Class4366 var23 = new Class4366(
+                Dropdown var23 = new Dropdown(
                         screen, setting.getName() + "btn", x, y + 27, 80, 20, ((ModeSetting) setting).getAvailableModes(), ((ModeSetting) setting).getModeIndex()
                 );
                 setting.addObserver(var2x -> {
@@ -116,12 +120,12 @@ public class Class4345 extends MusicTabs {
                         var23.method13672(((ModeSetting) setting).getModeIndex());
                     }
                 });
-                var23.onPress(var1x -> ((ModeSetting) setting).setModeByIndex(((Class4366) var1x).method13671()));
+                var23.onPress(var1x -> ((ModeSetting) setting).setModeByIndex(((Dropdown) var1x).method13671()));
                 screen.addToList(var23);
                 y += 65;
                 break;
             case TEXTBOX:
-                Class4377 var12 = new Class4377(
+                Textbox var12 = new Textbox(
                         screen, setting.getName() + "btn", screen.getWidthA() - value, y + 6, 123, 27, ((TextBoxSetting) setting).getOptions(), (Integer) setting.getCurrentValue()
                 );
                 setting.addObserver(var1x -> {
@@ -129,7 +133,7 @@ public class Class4345 extends MusicTabs {
                         var12.method13722((Integer) var1x.getCurrentValue(), false);
                     }
                 });
-                var12.onPress(var1x -> setting.setCurrentValue(((Class4377) var1x).method13720()));
+                var12.onPress(var1x -> setting.setCurrentValue(((Textbox) var1x).method13720()));
                 var12.setSize((var2x, var3x) -> var2x.setXA(screen.getWidthA() - 123 - value));
                 screen.addToList(var12);
                 y += 27 + value;
@@ -142,8 +146,8 @@ public class Class4345 extends MusicTabs {
     }
 
     private void method13511() {
-        UITextDisplay var3 = new UITextDisplay(
-                this, "settingsname", 12, 2, this.widthA, 20, UITextDisplay.defaultColorHelper, this.module.getSuffix() + " Settings", this.settingsNameFont
+        Text var3 = new Text(
+                this, "settingsname", 12, 2, this.widthA, 20, Text.defaultColorHelper, this.module.getSuffix() + " Settings", this.settingsNameFont
         );
         this.addToList(var3);
         int var6 = 35;
@@ -174,7 +178,7 @@ public class Class4345 extends MusicTabs {
             moduleWithModuleSettings.calledOnEnable();
         }
 
-        this.addToList(new UITextDisplay(this, "lbl", 5, 200, 0, 33, UITextDisplay.defaultColorHelper, this.typedText));
+        this.addToList(new Text(this, "lbl", 5, 200, 0, 33, Text.defaultColorHelper, this.typedText));
     }
 
     public void method13556() {

@@ -58,8 +58,8 @@ public class Dropdown extends UIBase {
    private void addButtons() {
       this.getChildren().clear();
       this.font = ResourceRegistry.JelloLightFont18;
-      ButtonPanel dropdownButton;
-      this.addToList(dropdownButton = new ButtonPanel(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));
+      Button dropdownButton;
+      this.addToList(dropdownButton = new Button(this, "dropdownButton", 0, 0, this.getHeightA(), this.getHeightA(), this.textColor));
       dropdownButton.setSize((var1, var2) -> {
          var1.setXA(0);
          var1.setYA(0);
@@ -69,9 +69,9 @@ public class Dropdown extends UIBase {
       dropdownButton.doThis((var1, var2) -> this.method13658(!this.method13657()));
 
       for (String mode : this.values) {
-         ButtonPanel buttonPanel;
+         Button button;
          this.addToList(
-            buttonPanel = new ButtonPanel(
+            button = new Button(
                this,
                mode,
                0,
@@ -90,8 +90,8 @@ public class Dropdown extends UIBase {
                this.getFont()
             )
          );
-         buttonPanel.method13034(10);
-         buttonPanel.doThis((var2, var3x) -> {
+         button.method13034(10);
+         button.doThis((var2, var3x) -> {
             int var6x = this.method13655();
             this.method13656(this.values.indexOf(mode));
             this.method13658(false);

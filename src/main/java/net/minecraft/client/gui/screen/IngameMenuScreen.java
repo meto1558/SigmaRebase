@@ -92,15 +92,15 @@ public class IngameMenuScreen extends Screen
 
             if (flag)
             {
-                this.minecraft.displayGuiScreen(new MainMenuScreen());
+                this.minecraft.displayGuiScreen(new MainMenuHolder());
             }
             else if (flag1)
             {
                 RealmsBridgeScreen realmsbridgescreen = new RealmsBridgeScreen();
-                realmsbridgescreen.func_231394_a_(new MainMenuScreen());
+                realmsbridgescreen.func_231394_a_(new MainMenuHolder());
             }
             else {
-                this.minecraft.displayGuiScreen(new MultiplayerScreen(new MainMenuScreen()));
+                this.minecraft.displayGuiScreen(new MultiplayerScreen(new MainMenuHolder()));
             }
         }));
 

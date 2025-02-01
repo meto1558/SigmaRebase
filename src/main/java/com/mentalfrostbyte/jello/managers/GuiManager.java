@@ -3,10 +3,20 @@ package com.mentalfrostbyte.jello.managers;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.gui.base.Bird;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.*;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.impl.*;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.ClassicMainScreen;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.ClassicClickGui;
+import com.mentalfrostbyte.jello.gui.impl.jello.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.CreditsHolder;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.JelloIngameOptionButton;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.JelloOptions;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.CreditsScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.NoAddOnnScreenMenu;
+import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.FileUtil;
@@ -18,7 +28,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.screen.MultiplayerScreen;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
@@ -42,23 +52,22 @@ public class GuiManager {
     public static float scaleFactor = 1.0F;
     private static boolean hidpiCocoa = true;
 
-
     static {
-        replacementScreens.put(MainMenuScreen.class, JelloMainMenuManager.class);
-        replacementScreens.put(ClickGui.class, JelloClickGUI.class);
-        replacementScreens.put(KeyboardScreen.class, JelloKeyboardScreen.class);
-        replacementScreens.put(Maps.class, JelloMaps.class);
-        replacementScreens.put(Snake.class, SnakeGameScreen.class);
-        replacementScreens.put(Bird.class, BirdGameScreen.class);
-        replacementScreens.put(SpotLight.class, SearchBar.class);
-        replacementScreens.put(InGameOptionsScreen.class, JelloInGameOptions.class);
-        replacementScreens.put(CreditToCreatorsScreen.class, CreditsToCreators.class);
-        screenToScreenName.put(ClickGui.class, "Click GUI");
-        screenToScreenName.put(KeyboardScreen.class, "Keybind Manager");
-        screenToScreenName.put(Maps.class, "Jello Maps");
-        screenToScreenName.put(Snake.class, "Snake");
-        screenToScreenName.put(Bird.class, "Bird");
-        screenToScreenName.put(SpotLight.class, "Spotlight");
+        replacementScreens.put(MainMenuHolder.class, MainMenuScreen.class);
+        replacementScreens.put(ClickGuiHolder.class, ClickGuiScreen.class);
+        replacementScreens.put(KeyboardHolder.class, KeyboardScreen.class);
+        replacementScreens.put(MapsHolder.class, MapsScreen.class);
+        replacementScreens.put(SnakeHolder.class, SnakeGameScreen.class);
+        replacementScreens.put(BirdHolder.class, BirdGameScreen.class);
+        replacementScreens.put(SpotlightHolder.class, SpotlightScreen.class);
+        replacementScreens.put(JelloOptionsHolder.class, JelloOptions.class);
+        replacementScreens.put(CreditsHolder.class, CreditsScreen.class);
+        screenToScreenName.put(ClickGuiHolder.class, "Click GUI");
+        screenToScreenName.put(KeyboardHolder.class, "Keybind Manager");
+        screenToScreenName.put(MapsHolder.class, "Jello Maps");
+        screenToScreenName.put(SnakeHolder.class, "Snake");
+        screenToScreenName.put(BirdHolder.class, "Bird");
+        screenToScreenName.put(SpotlightHolder.class, "Spotlight");
     }
 
     public double field41347;
@@ -88,11 +97,11 @@ public class GuiManager {
             Minecraft.getInstance().currentScreen = null;
             Minecraft.getInstance().displayGuiScreen(new JelloPortalScreen(((MultiplayerScreen) screen).parentScreen));
             return true;
-        } else if (screen instanceof IngameMenuScreen && !(screen instanceof JelloForSigmaOptions)) {
+        } else if (screen instanceof IngameMenuScreen && !(screen instanceof JelloIngameOptionButton)) {
             Minecraft.getInstance().currentScreen = null;
-            Minecraft.getInstance().displayGuiScreen(new JelloForSigmaOptions());
+            Minecraft.getInstance().displayGuiScreen(new JelloIngameOptionButton());
             return true;
-        } else if (Client.getInstance().clientMode == ClientMode.NOADDONS && screen instanceof MainMenuScreen && !(screen instanceof NoAddOnnScreenMenu)) {
+        } else if (Client.getInstance().clientMode == ClientMode.NOADDONS && screen instanceof MainMenuHolder && !(screen instanceof NoAddOnnScreenMenu)) {
             Minecraft.getInstance().currentScreen = null;
             Minecraft.getInstance().displayGuiScreen(new NoAddOnnScreenMenu());
             return true;
@@ -143,8 +152,8 @@ public class GuiManager {
 
     public void method33452() {
         replacementScreens.clear();
-        replacementScreens.put(MainMenuScreen.class, ClassicMainScreen.class);
-        replacementScreens.put(ClickGui.class, ClassicScreenk.class);
+        replacementScreens.put(MainMenuHolder.class, ClassicMainScreen.class);
+        replacementScreens.put(ClickGuiHolder.class, ClassicClickGui.class);
     }
 
     public void method33453(int var1, int var2) {

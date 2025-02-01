@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.CustomLoadingScreen;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -79,7 +79,7 @@ import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.DirtMessageScreen;
 import net.minecraft.client.gui.screen.EditWorldScreen;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.gui.screen.MemoryErrorScreen;
 import net.minecraft.client.gui.screen.MultiplayerScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -527,9 +527,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         ViaMCP.create();
 
         if (s != null) {
-            this.displayGuiScreen(new ConnectingScreen(new MainMenuScreen(), this, s, i));
+            this.displayGuiScreen(new ConnectingScreen(new MainMenuHolder(), this, s, i));
         } else {
-            this.displayGuiScreen(new MainMenuScreen(true));
+            this.displayGuiScreen(new MainMenuHolder(true));
         }
 
         ResourceLoadProgressGui.loadLogoTexture(this);
@@ -871,7 +871,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
 
         if (guiScreenIn == null && this.world == null) {
-            guiScreenIn = new MainMenuScreen();
+            guiScreenIn = new MainMenuHolder();
         } else if (guiScreenIn == null && this.player.getShouldBeDead()) {
             if (this.player.isShowDeathScreen()) {
                 guiScreenIn = new DeathScreen((ITextComponent) null, this.world.getWorldInfo().isHardcore());
@@ -880,7 +880,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
         }
 
-        if (guiScreenIn instanceof MainMenuScreen || guiScreenIn instanceof MultiplayerScreen) {
+        if (guiScreenIn instanceof MainMenuHolder || guiScreenIn instanceof MultiplayerScreen) {
             this.gameSettings.showDebugInfo = false;
             this.ingameGUI.getChatGUI().clearChatMessages(true);
         }

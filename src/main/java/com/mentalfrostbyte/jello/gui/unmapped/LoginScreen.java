@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.LoginAndOutScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.LoginAndOutScreen;
 import com.mentalfrostbyte.jello.managers.util.account.Class9507;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -27,7 +27,7 @@ public class LoginScreen extends UIBase {
    public LoginScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false);
        this.addToList(
-               new UITextDisplay(
+               new Text(
                   this,
                   "Login",
                   228,

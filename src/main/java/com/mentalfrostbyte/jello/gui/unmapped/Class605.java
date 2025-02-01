@@ -1,14 +1,15 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.MapsScreen;
 
 public class Class605 implements Runnable {
    private static String[] field2986;
-   public final JelloMaps field2987;
+   public final MapsScreen field2987;
    public final CustomGuiScreen field2988;
-   public final JelloMaps field2989;
+   public final MapsScreen field2989;
 
-   public Class605(JelloMaps var1, JelloMaps var2, CustomGuiScreen var3) {
+   public Class605(MapsScreen var1, MapsScreen var2, CustomGuiScreen var3) {
       this.field2989 = var1;
       this.field2987 = var2;
       this.field2988 = var3;

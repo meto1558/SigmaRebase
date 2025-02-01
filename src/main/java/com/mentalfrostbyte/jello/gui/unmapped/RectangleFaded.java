@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.impl.CustomLoadingScreen;
-import com.mentalfrostbyte.jello.gui.impl.SwitchScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.CustomLoadingScreen;
+import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -13,7 +13,7 @@ import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
-public class RectangleFaded extends ButtonPanel {
+public class RectangleFaded extends Button {
     private final Texture field20590;
     private final Animation field20592 = new Animation(150, 190, Direction.BACKWARDS);
     private boolean field20591;

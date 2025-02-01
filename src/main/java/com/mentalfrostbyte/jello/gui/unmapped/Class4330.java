@@ -26,13 +26,13 @@ public class Class4330 extends CustomGuiScreen {
 
       String var7 = var3.getString("title");
       JSONArray var8 = var3.getJSONArray("changes");
-      this.addToList(new UITextDisplay(this, "title", 0, var6, 0, 0, ColorHelper.field27961, var7, ResourceRegistry.JelloMediumFont40));
+      this.addToList(new Text(this, "title", 0, var6, 0, 0, ColorHelper.field27961, var7, ResourceRegistry.JelloMediumFont40));
       var6 += 55;
 
       for (int var9 = 0; var9 < var8.length(); var9++) {
          String var10 = " - " + var8.getString(var9);
          this.addToList(
-            new UITextDisplay(
+            new Text(
                this,
                "change" + var9,
                0,

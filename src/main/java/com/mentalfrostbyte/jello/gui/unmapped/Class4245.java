@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
-public class Class4245 extends ButtonPanel {
+public class Class4245 extends Button {
    private static String[] field20596;
    public final NamedColors field20597;
    public boolean field20598;

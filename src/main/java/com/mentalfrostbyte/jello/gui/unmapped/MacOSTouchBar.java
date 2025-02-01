@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.FileUtil;
@@ -32,7 +33,7 @@ public class MacOSTouchBar {
    public MacOSTouchBar() {
       EventBus.register(this);
       if (FileUtil.freshConfig) {
-         this.boundables.add(new Bound(344, ClickGui.class));
+         this.boundables.add(new Bound(344, ClickGuiHolder.class));
       }
    }
 

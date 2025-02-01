@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
-public class PNGIconButton extends ButtonPanel {
+public class PNGIconButton extends Button {
     public static final ColorHelper color = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ColorUtils.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
     public Texture texture;
 

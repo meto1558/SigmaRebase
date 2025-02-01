@@ -21,7 +21,7 @@ import net.minecraft.client.gui.MapItemRenderer;
 import net.minecraft.client.gui.ResourceLoadProgressGui;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
-import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -1152,9 +1152,9 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
             }
         }
 
-        if (this.mc.currentScreen instanceof MainMenuScreen)
+        if (this.mc.currentScreen instanceof MainMenuHolder)
         {
-            this.updateMainMenu((MainMenuScreen)this.mc.currentScreen);
+            this.updateMainMenu((MainMenuHolder)this.mc.currentScreen);
         }
 
         if (this.updatedWorld != world)
@@ -1192,7 +1192,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
         }
     }
 
-    private void updateMainMenu(MainMenuScreen p_updateMainMenu_1_)
+    private void updateMainMenu(MainMenuHolder p_updateMainMenu_1_)
     {
         try
         {
