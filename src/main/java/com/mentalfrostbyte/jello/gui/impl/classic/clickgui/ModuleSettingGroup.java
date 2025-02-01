@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4345;
-import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.ExitButton;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Exit;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.CategoryPanel;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -28,8 +28,8 @@ public class ModuleSettingGroup extends ClickGuiPanel {
          }
       }
 
-      ExitButton var14;
-      this.addToList(var14 = new ExitButton(this, "exit", this.getWidthA() - 47, 18));
+      Exit var14;
+      this.addToList(var14 = new Exit(this, "exit", this.getWidthA() - 47, 18));
       var14.doThis((var1x, var2x) -> {
          if (this.field21181 == null) {
             ((ClassicClickGui)this.getParent()).method13417();

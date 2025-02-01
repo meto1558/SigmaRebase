@@ -8,11 +8,11 @@ import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import org.lwjgl.opengl.GL11;
 
-public class SettingButton extends UIBase {
+public class Setting extends UIBase {
    private static String[] field21332;
    public Animation field21333 = new Animation(1200, 1200, Direction.BACKWARDS);
 
-   public SettingButton(CustomGuiScreen var1, String var2, int var3, int var4) {
+   public Setting(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 20, 20, false);
    }
 

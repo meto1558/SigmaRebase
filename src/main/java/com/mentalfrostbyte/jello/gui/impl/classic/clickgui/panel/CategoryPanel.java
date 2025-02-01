@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.ModuleSettingGroup;
-import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.SettingButton;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Setting;
 import com.mentalfrostbyte.jello.gui.unmapped.Checkbox;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
@@ -22,8 +22,8 @@ public class CategoryPanel extends UIBase {
       var10.method13093(var7.isEnabled());
       var10.onPress(var2x -> var7.setEnabled(var10.method13092()));
       if (var7.getSettingMap().size() > 0) {
-         SettingButton var11;
-         this.addToList(var11 = new SettingButton(this, "gear", 132, 32));
+         Setting var11;
+         this.addToList(var11 = new Setting(this, "gear", 132, 32));
          var11.doThis((var2x, var3x) -> ((ModuleSettingGroup)this.getParent()).method13486(var7));
       }
    }
