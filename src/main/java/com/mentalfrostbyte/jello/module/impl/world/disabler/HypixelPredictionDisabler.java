@@ -35,7 +35,7 @@ public class HypixelPredictionDisabler extends Module {
                 "Disables some checks for Hypixel's Prediction anti-cheat (untested)"
         );
         this.registerSetting(this.motion = new BooleanSetting("Motion", "Motion check disabler", true));
-        this.registerSetting(this.inventoryMove = new BooleanSetting("Motion", "Motion check disabler", true));
+        this.registerSetting(this.inventoryMove = new BooleanSetting("InvMove", "Inventory move check disabler", true));
     }
 
     @Override
