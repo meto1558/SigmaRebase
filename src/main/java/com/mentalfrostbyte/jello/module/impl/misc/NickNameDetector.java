@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.util.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -18,7 +19,7 @@ public class NickNameDetector extends Module {
         if (this.isEnabled()) {
             for (Entity entity : MultiUtilities.getPlayers()) {
                 if (!Client.getInstance().combatManager.isTargetABot(entity) && entity.ticksExisted > 30 && entity.hasCustomName()) {
-                    MultiUtilities.sendChatMessage(entity.getName().getUnformattedComponentText() + " might have a custom nametag");
+                    MinecraftUtil.addChatMessage(entity.getName().getUnformattedComponentText() + " might have a custom nametag");
                 }
             }
         }

@@ -281,10 +281,13 @@ public class MultiUtilities {
         return players;
     }
 
+    /**
+     * Sends a chat message as the player
+     * @param text
+     */
     public static void sendChatMessage(String text) {
         mc.getConnection().sendPacket(new CChatMessagePacket(text));
     }
-
 
     public static boolean isHypixel() {
         return mc.getIntegratedServer() == null

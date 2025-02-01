@@ -597,7 +597,8 @@ public class MusicManager {
 
             return null;
         } catch (MalformedURLException exception) {
-            MultiUtilities.sendChatMessage("URL Error: " + exception);
+
+            MinecraftUtil.addChatMessage("URL Error: " + exception);
             exception.printStackTrace();
 
             Client.getInstance().notificationManager.send(

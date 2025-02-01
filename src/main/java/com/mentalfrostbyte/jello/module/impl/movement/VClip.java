@@ -6,6 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.util.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
@@ -103,7 +104,7 @@ public class VClip extends Module {
 
     private void method16294(int var1) {
         if (var1 == 0) {
-            MultiUtilities.sendChatMessage("§cCouldn't VClip");
+            MinecraftUtil.addChatMessage("§cCouldn't VClip");
         } else {
             mc.getConnection()
                     .sendPacket(

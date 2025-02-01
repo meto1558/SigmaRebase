@@ -4,6 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.util.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SPlayerListItemPacket;
@@ -37,7 +38,7 @@ public class StaffRepealer extends Module {
                     for (SPlayerListItemPacket.AddPlayerData entity : listItemPacket.getEntries()) {
                         PlayerEntity player = mc.world.getPlayerByUuid(entity.getProfile().getId());
                         if (player == null && entity.getGameMode() != null) {
-                            MultiUtilities.sendChatMessage("Detected an anomaly " + entity + entity.getProfile());
+                            MinecraftUtil.addChatMessage("Detected an anomaly " + entity + entity.getProfile());
                         } else {
                             System.out.println("all seems good " + entity + entity.getProfile());
                         }
