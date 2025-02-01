@@ -1,12 +1,18 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.item.InvManager;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.network.play.client.CClientStatusPacket;
+import net.minecraft.network.play.client.CCloseWindowPacket;
+import net.minecraft.potion.Effects;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 // Skidded from titties client lol
@@ -17,9 +23,10 @@ public class HypixelPredictionDisabler extends Module {
     public static boolean startDisabler = false;
     public static int airTicks = 0;
     private final BooleanSetting motion;
-    private boolean sentFirstOpen;
-    private boolean caughtClientStatus;
-    private boolean caughtCloseWindow;
+    private final BooleanSetting inventoryMove;
+    public boolean sentFirstOpen;
+    public boolean caughtClientStatus;
+    public boolean caughtCloseWindow;
 
     public HypixelPredictionDisabler() {
         super(
@@ -28,6 +35,7 @@ public class HypixelPredictionDisabler extends Module {
                 "Disables some checks for Hypixel's Prediction anti-cheat (untested)"
         );
         this.registerSetting(this.motion = new BooleanSetting("Motion", "Motion check disabler", true));
+        this.registerSetting(this.inventoryMove = new BooleanSetting("Motion", "Motion check disabler", true));
     }
 
     @Override
@@ -60,6 +68,26 @@ public class HypixelPredictionDisabler extends Module {
             airTicks = HypixelDisabler.mc.player.isOnGround() ? 0 : ++airTicks;
             if (stuckOnAir && airTicks >= 9) {
                 MovementUtil.stopMoving();
+            }
+        }
+        if (inventoryMove.currentValue) {
+            caughtClientStatus = false;
+            caughtCloseWindow = false;
+            // TODO: invmanager thingy
+            if (mc.currentScreen instanceof InventoryScreen || Client.getInstance().moduleManager.getModuleByClass(InvManager.class).isEnabled()/* && InvManager*/) {
+                if (!sentFirstOpen) {
+                    mc.currentScreen.closeScreen();
+                    mc.getConnection().getNetworkManager().sendNoEventPacket(new CCloseWindowPacket(mc.player.openContainer.windowId));
+                    sentFirstOpen = true;
+                }
+
+                if (mc.player.ticksExisted % (mc.player.isPotionActive(Effects.SPEED) ? 3 : 4) == 0) {
+                    mc.getConnection().getNetworkManager().sendNoEventPacket(new CCloseWindowPacket(0));
+                } else if (mc.player.ticksExisted % (mc.player.isPotionActive(Effects.SPEED) ? 3 : 4) == 1) {
+                    mc.getConnection().sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
+                }
+            } else {
+                sentFirstOpen = false;
             }
         }
     }
