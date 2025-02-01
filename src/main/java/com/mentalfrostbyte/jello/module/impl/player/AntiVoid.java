@@ -139,6 +139,7 @@ public class AntiVoid extends Module {
                 break;
             case "TP":
                 mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);
+                event.cancelled = true;
                 break;
             case "Cubecraft":
                 double highPosition = 3.2E7;
