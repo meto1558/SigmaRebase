@@ -13,7 +13,7 @@ public class NoServerInfo extends Module {
     }
 
     @EventTarget
-    private void RecievePacketEvent(EventReceivePacket event) {
+    public void RecievePacketEvent(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof SUpdateBossInfoPacket) {
                 SUpdateBossInfoPacket sUpdateBossInfoPacket = (SUpdateBossInfoPacket) event.getPacket();
