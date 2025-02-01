@@ -71,7 +71,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 )
         );
         String version = clientInfo
-                .append(Client.VERSION).append("  -  ").append(oldestVersion).append(" to ").append(newestVersion).toString();
+                .append(Client.FULL_VERSION).append("  -  ").append(oldestVersion).append(" to ").append(newestVersion).toString();
         this.addToList(
                 this.multiplayerButton = new MainMenuButton(
                         this,

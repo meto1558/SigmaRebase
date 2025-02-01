@@ -43,7 +43,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
       this.method13463(this.xA + (this.getWidthA() - 202) / 2, this.yA + 10, partialTicks);
       StringBuilder var10000 = new StringBuilder().append("You're currently using Sigma ");
       Client.getInstance();
-      String var4 = var10000.append(Client.VERSION).toString();
+      String var4 = var10000.append(Client.FULL_VERSION).toString();
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
          (float)(this.xA + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var4)) / 2),

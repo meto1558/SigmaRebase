@@ -40,7 +40,7 @@ public class ClassicMainScreen extends Screen {
         String copyrightTag = "© Sigma Prod";
         StringBuilder versionBuilder = new StringBuilder().append("Sigma ");
         Client.getInstance();
-        String versionTag = versionBuilder.append(Client.VERSION).append(" for Minecraft 1.7.2 to ").append("1.21.4").toString();
+        String versionTag = versionBuilder.append(Client.FULL_VERSION).append(" for Minecraft 1.7.2 to ").append("1.21.4").toString();
         this.addToList(this.particleOverlay = new ParticleOverlay(this, "particles"));
         int var13 = 480;
         int var14 = 480;

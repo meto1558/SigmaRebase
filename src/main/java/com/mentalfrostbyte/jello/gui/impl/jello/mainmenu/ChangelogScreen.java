@@ -72,7 +72,7 @@ public class ChangelogScreen extends CustomGuiScreen {
       this.method13225();
       RenderUtil.drawString(ResourceRegistry.JelloLightFont36, 100.0F, 100.0F, "Changelog", ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks));
       TrueTypeFont jelloLightFont25 = ResourceRegistry.JelloLightFont25;
-      String versionText = "You're currently using Sigma " + Client.VERSION;
+      String versionText = "You're currently using Sigma " + Client.FULL_VERSION;
       RenderUtil.drawString(
               jelloLightFont25,
               100.0f, 150.0f,
@@ -103,7 +103,6 @@ public class ChangelogScreen extends CustomGuiScreen {
                       "title": "5.1.0 (1.16.4) Update",
                       "changes": [
                           "Added TP AntiVoid",
-                          "Added VClip Fly",
                           "Added VClip Fly",
                           "Fixed NoServerInfo",
                           "Added Search module",
