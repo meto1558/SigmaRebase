@@ -33,7 +33,7 @@ public class Client {
     private static final Minecraft mc = Minecraft.getInstance();
     public static int currentVersionIndex = 28;
 
-    public static final String RELEASE_TARGET = "5.1.0";
+    public static final String RELEASE_TARGET = "5.1";
     public static final int BETA_ITERATION = 16;
     public static final String FULL_VERSION = RELEASE_TARGET + (BETA_ITERATION > 0 ? "b" + BETA_ITERATION : "");
     public static String NAME = "Jello";
@@ -103,7 +103,7 @@ public class Client {
         EventBus.register(this.playerTracker);
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
-        GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma 5.1");
+        GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
         this.logger.info("Initialized.");
     }
 
@@ -228,11 +228,11 @@ public class Client {
         if (mode != ClientMode.CLASSIC) {
             if (mode == ClientMode.JELLO) {
                 this.initRPC();
-                GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma 5.1");
+                GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
             }
         } else {
             getInstance().guiManager.method33452();
-            GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma 5.1");
+            GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         }
 
         if (this.moduleManager == null && RandomModuleThread.field8341 != null) {

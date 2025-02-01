@@ -250,6 +250,8 @@ import org.apache.logging.log4j.Logger;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONException;
 
+import static com.mentalfrostbyte.Client.RELEASE_TARGET;
+
 public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperInfo, IWindowEventListener {
     private static Minecraft instance;
     private static final Logger LOGGER = LogManager.getLogger();
@@ -553,7 +555,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     }
 
     private String getWindowTitle() {
-        StringBuilder stringbuilder = new StringBuilder(Client.getInstance().clientMode == ClientMode.JELLO ? "Jello for Sigma 5.1" : "Sigma 5.1");
+        StringBuilder stringbuilder = new StringBuilder(Client.getInstance().clientMode == ClientMode.JELLO ? ("Jello for Sigma " + RELEASE_TARGET) : ("Sigma " + RELEASE_TARGET));
         stringbuilder.append(" ");
         stringbuilder.append(SharedConstants.getVersion().getName());
         ClientPlayNetHandler clientplaynethandler = this.getConnection();
