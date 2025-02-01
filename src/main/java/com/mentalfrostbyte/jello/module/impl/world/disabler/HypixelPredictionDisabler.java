@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
@@ -12,9 +13,13 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class HypixelPredictionDisabler extends Module {
     public static boolean watchDogDisabled = false;
     public static boolean stuckOnAir = false;
+    public static int airStuckTicks = 0;
     public static boolean startDisabler = false;
     public static int airTicks = 0;
     private final BooleanSetting motion;
+    private boolean sentFirstOpen;
+    private boolean caughtClientStatus;
+    private boolean caughtCloseWindow;
 
     public HypixelPredictionDisabler() {
         super(
@@ -54,5 +59,16 @@ public class HypixelPredictionDisabler extends Module {
                 MovementUtil.setPlayerYMotion(0.0);
             }
         }
+    }
+    @EventTarget
+    public void onWorldLoad(EventLoadWorld event) {
+        watchDogDisabled = false;
+        stuckOnAir = false;
+        airStuckTicks = 0;
+        airTicks = 0;
+        sentFirstOpen = false;
+        caughtClientStatus = false;
+        caughtCloseWindow = false;
+        startDisabler = true;
     }
 }
