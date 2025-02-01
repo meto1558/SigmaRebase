@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
@@ -8,10 +9,12 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.InvManager;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.util.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.network.play.client.CCloseWindowPacket;
+import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.potion.Effects;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -88,6 +91,36 @@ public class HypixelPredictionDisabler extends Module {
                 }
             } else {
                 sentFirstOpen = false;
+            }
+        }
+    }
+
+    @EventTarget
+    public void onReceivePacket(EventReceivePacket event) {
+        if (mc.player == null) return;
+        if (event.getPacket() instanceof CClientStatusPacket) {
+            if (caughtClientStatus) {
+                event.cancelled = true;
+            }
+
+            caughtClientStatus = false;
+        }
+        if (event.getPacket() instanceof CCloseWindowPacket) {
+            if (caughtCloseWindow) {
+                event.cancelled = true;
+            }
+
+            caughtCloseWindow = true;
+        }
+
+        if (motion.currentValue && !watchDogDisabled && stuckOnAir && event.getPacket() instanceof SPlayerPositionLookPacket) {
+            airStuckTicks++;
+            if (airStuckTicks >= 20) {
+                MinecraftUtil.addChatMessage("Watchdog jump checks disabled.");
+                airStuckTicks = 0;
+                airTicks = 0;
+                stuckOnAir = false;
+                watchDogDisabled = true;
             }
         }
     }
