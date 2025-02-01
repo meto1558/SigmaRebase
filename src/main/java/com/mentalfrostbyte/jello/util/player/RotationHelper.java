@@ -200,14 +200,14 @@ public class RotationHelper {
         return new float[]{var34, -var37};
     }
 
-    public static Rotations method34147(Entity var0) {
+    public static Rotation method34147(Entity var0) {
         float[] var3 = calculateEntityRotations(var0, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
-        return new Rotations(var3[0], var3[1]);
+        return new Rotation(var3[0], var3[1]);
     }
 
-    public static Rotations getRotationsToVector(Vector3d var0) {
+    public static Rotation getRotationsToVector(Vector3d var0) {
         float[] var3 = method34145(mc.player.getPositionVec().add(0.0, mc.player.getEyeHeight(), 0.0), var0);
-        return new Rotations(var3[0], var3[1]);
+        return new Rotation(var3[0], var3[1]);
     }
 
     public static boolean raytraceVector(Vector3d vec) {
@@ -221,7 +221,7 @@ public class RotationHelper {
         return var6;
     }
 
-    public static Rotations getRotations(Entity targetIn, boolean throughWalls) {
+    public static Rotation getRotations(Entity targetIn, boolean throughWalls) {
         Vector3d var4 = getCenteredHitbox(targetIn);
         if (throughWalls && !raytraceVector(var4)) {
             for (int var5 = -1; var5 < 2; var5++) {
@@ -243,7 +243,7 @@ public class RotationHelper {
                 float pitch = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(playeryPos, var20) * 180.0 / Math.PI)), 360.0F);
                 boolean position = raytraceVector(new Vector3d(xPos, yPos, zPos));
                 if (position) {
-                    return new Rotations(yaw, pitch);
+                    return new Rotation(yaw, pitch);
                 }
 
                 for (int var25 = -1; var25 < 2; var25 += 2) {
@@ -288,7 +288,7 @@ public class RotationHelper {
                     pitch = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(playeryPos, var20) * 180.0 / Math.PI)), 360.0F);
                     position = raytraceVector(new Vector3d(xPos, yPos, zPos));
                     if (position) {
-                        return new Rotations(yaw, pitch);
+                        return new Rotation(yaw, pitch);
                     }
                 }
             }

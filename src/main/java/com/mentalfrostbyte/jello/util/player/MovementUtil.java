@@ -78,6 +78,7 @@ public class MovementUtil {
 
         return var2;
     }
+
     public static void method37095(double var0) {
         double forward = (double) mc.player.movementInput.moveForward;
         double strafe = (double) mc.player.movementInput.moveStrafe;
@@ -191,11 +192,9 @@ public class MovementUtil {
      * Sets the player's X motion component.
      *
      * @param x The new X motion value.
-     * @return The set X motion value.
      */
-    public static double setPlayerXMotion(double x) {
+    public static void setPlayerXMotion(double x) {
         mc.player.setMotion(x, mc.player.getMotion().y, mc.player.getMotion().z);
-        return x;
     }
 
     /**

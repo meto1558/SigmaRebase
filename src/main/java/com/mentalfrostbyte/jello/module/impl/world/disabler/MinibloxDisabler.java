@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.impl.player.NoFall;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.player.Rotations;
+import com.mentalfrostbyte.jello.util.player.Rotation;
 import com.mentalfrostbyte.jello.util.player.Rots;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CClientStatusPacket;
@@ -32,7 +32,7 @@ public class MinibloxDisabler extends Module {
     //    private long ticksSinceLagback;
 //    private boolean dontCancelPacket;
     private Vector3d serverPos;
-    private Rotations serverRot;
+    private Rotation serverRot;
 
     public MinibloxDisabler() {
         super(ModuleCategory.EXPLOIT, "Miniblox", "Shitty & Horrible but working disabler for Miniblox.");
@@ -69,7 +69,7 @@ public class MinibloxDisabler extends Module {
         super.onEnable();
         if (mc.player == null) return;
         serverPos = new Vector3d(mc.player.lastReportedPosX, mc.player.lastReportedPosY, mc.player.lastReportedPosZ);
-        serverRot = new Rotations(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
+        serverRot = new Rotation(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
 //        updateServerPlayer();
 //        assert mc.world != null;
 //        mc.world.addEntity(-2, clientPlayerEntity);
@@ -118,7 +118,7 @@ public class MinibloxDisabler extends Module {
 //            ticksSinceLagback = 0;
 //            wasSetback = true;
             serverPos = new Vector3d(packet.getX(), packet.getY(), packet.getZ());
-            serverRot = new Rotations(packet.getYaw(), packet.getPitch());
+            serverRot = new Rotation(packet.getYaw(), packet.getPitch());
 //            updateServerPlayer();
             mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
                             serverPos.x, serverPos.y, serverPos.z,
@@ -142,7 +142,7 @@ public class MinibloxDisabler extends Module {
 //            );
         } else {
             serverPos = new Vector3d(mc.player.lastReportedPosX, mc.player.lastReportedPosY, mc.player.lastReportedPosZ);
-            serverRot = new Rotations(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
+            serverRot = new Rotation(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
 //            clientPlayerEntity.inventory = mc.player.inventory;
 //            clientPlayerEntity.collidedHorizontally = false;
 //            clientPlayerEntity.collidedVertically = false;

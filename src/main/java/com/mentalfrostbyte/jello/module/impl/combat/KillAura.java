@@ -31,7 +31,7 @@ import com.mentalfrostbyte.jello.util.EntityUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import com.mentalfrostbyte.jello.util.player.Rotations;
+import com.mentalfrostbyte.jello.util.player.Rotation;
 import com.mentalfrostbyte.jello.util.player.Rots;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -59,7 +59,7 @@ public class KillAura extends Module {
     public static boolean isAuraActive = false;
     public static Entity currentTarget;
     public static TimedEntity currentTimedEntity;
-    public static Rotations previousRotations = new Rotations(0.0F, 0.0F);
+    public static Rotation previousRotation = new Rotation(0.0F, 0.0F);
     public static int attackCooldown;
     public HashMap<Entity, Animation> entityGlowAnimations = new HashMap<>();
     public static InteractAutoBlock interactAB;
@@ -72,8 +72,8 @@ public class KillAura extends Module {
     private int blockCooldown;
     private int hitDelay;
     public static List<TimedEntity> targetEntities;
-    private Rotations currentRotations;
-    private Rotations secondaryRotations;
+    private Rotation currentRotation;
+    private Rotation secondaryRotation;
     private double randomOffset;
     private float rotationSpeed;
     private float rotationProgress;
@@ -123,12 +123,12 @@ public class KillAura extends Module {
                 new ColorSetting("ESP Color", "The render color", ClientColors.LIGHT_GREYISH_BLUE.getColor()));
     }
 
-    public static Rotations getRotations2(KillAura killaura) {
-        return killaura.secondaryRotations;
+    public static Rotation getRotations2(KillAura killaura) {
+        return killaura.secondaryRotation;
     }
 
-    public static Rotations getRotations(KillAura killaura) {
-        return killaura.currentRotations;
+    public static Rotation getRotations(KillAura killaura) {
+        return killaura.currentRotation;
     }
 
     public static int getTargetIndex(KillAura killaura) {
@@ -180,9 +180,9 @@ public class KillAura extends Module {
             return;
         }
 
-        secondaryRotations = new Rotations(mc.player.rotationYaw, mc.player.rotationPitch);
-        currentRotations = new Rotations(mc.player.rotationYaw, mc.player.rotationPitch);
-        previousRotations = new Rotations(mc.player.rotationYaw, mc.player.rotationPitch);
+        secondaryRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
+        currentRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
+        previousRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
         rotationProgress = -1.0F;
     }
 
@@ -273,8 +273,8 @@ public class KillAura extends Module {
         if (!event.isPre()) {
             currentItemIndex = mc.player.inventory.currentItem;
 
-            if (currentTarget != null && interactAB.canBlock() && currentRotations != null) {
-                interactAB.block(currentTarget, currentRotations.yaw, currentRotations.pitch);
+            if (currentTarget != null && interactAB.canBlock() && currentRotation != null) {
+                interactAB.block(currentTarget, currentRotation.yaw, currentRotation.pitch);
             }
             return;
         }
@@ -326,17 +326,17 @@ public class KillAura extends Module {
         setRotation();
 
         if (event.getYaw() - mc.player.rotationYaw != 0.0F) {
-            currentRotations.yaw = event.getYaw();
-            currentRotations.pitch = event.getPitch();
+            currentRotation.yaw = event.getYaw();
+            currentRotation.pitch = event.getPitch();
         }
 
         if (currentTarget != null) {
-            Rots.prevYaw = currentRotations.yaw;
-            Rots.prevPitch = currentRotations.pitch;
-            event.setYaw(currentRotations.yaw);
-            event.setPitch(currentRotations.pitch);
-            Rots.yaw = currentRotations.yaw;
-            Rots.pitch = currentRotations.pitch;
+            Rots.prevYaw = currentRotation.yaw;
+            Rots.prevPitch = currentRotation.pitch;
+            event.setYaw(currentRotation.yaw);
+            event.setPitch(currentRotation.pitch);
+            Rots.yaw = currentRotation.yaw;
+            Rots.pitch = currentRotation.pitch;
 
             mc.player.rotationYawHead = event.getYaw();
             mc.player.renderYawOffset = event.getYaw();
@@ -383,9 +383,9 @@ public class KillAura extends Module {
         }
 
         float interpolatedYaw = MathHelper.wrapDegrees(
-                secondaryRotations.yaw + (currentRotations.yaw - secondaryRotations.yaw) * mc.getRenderPartialTicks());
-        float interpolatedPitch = MathHelper.wrapDegrees(secondaryRotations.pitch
-                + (currentRotations.pitch - secondaryRotations.pitch) * mc.getRenderPartialTicks());
+                secondaryRotation.yaw + (currentRotation.yaw - secondaryRotation.yaw) * mc.getRenderPartialTicks());
+        float interpolatedPitch = MathHelper.wrapDegrees(secondaryRotation.pitch
+                + (currentRotation.pitch - secondaryRotation.pitch) * mc.getRenderPartialTicks());
 
         mc.player.rotationYaw = interpolatedYaw;
         mc.player.rotationPitch = interpolatedPitch;
@@ -600,7 +600,7 @@ public class KillAura extends Module {
 
         potentialTargets = interactAB.sortEntities(potentialTargets);
         Entity closestEntity = getClosestEntity(potentialTargets);
-        if (currentRotations == null) {
+        if (currentRotation == null) {
             onEnable();
         }
 
@@ -622,7 +622,7 @@ public class KillAura extends Module {
         if (rotationProgress == -1.0F) {
             float targetYaw = RotationHelper
                     .getRotationsToVector(MultiUtilities.method17751(targets.get(0).getEntity())).yaw;
-            float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotations.yaw));
+            float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
             rotationSpeed = yawDifference * 1.95F / 50.0F;
             rotationProgress++;
             randomOffset = Math.random();
@@ -641,7 +641,7 @@ public class KillAura extends Module {
             } else if (currentTimedEntity == null || currentTimedEntity.getEntity() != targets.get(0).getEntity()) {
                 float targetYaw = RotationHelper
                         .getRotationsToVector(MultiUtilities.method17751(targets.get(0).getEntity())).yaw;
-                float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotations.yaw));
+                float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 rotationProgress++;
                 randomOffset = Math.random();
@@ -659,7 +659,7 @@ public class KillAura extends Module {
                 TimedEntity nextTarget = targets.get(targetIndex);
                 float targetYaw = RotationHelper
                         .getRotationsToVector(MultiUtilities.method17751(nextTarget.getEntity())).yaw;
-                float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotations.yaw));
+                float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 randomOffset = Math.random();
                 currentTimedEntity = new TimedEntity(nextTarget.getEntity(), createExpirationTimer());
@@ -691,51 +691,51 @@ public class KillAura extends Module {
         }
 
         Entity targ = currentTimedEntity.getEntity();
-        Rotations newRots = RotationHelper.getRotations(targ, !getBooleanValueFromSettingName("Through walls"));
+        Rotation newRots = RotationHelper.getRotations(targ, !getBooleanValueFromSettingName("Through walls"));
         if (newRots == null) {
             System.out.println("[KillAura] newRots is null??? on line 612");
             return;
         }
-        float yawDifference = RotationHelper.method34152(currentRotations.yaw, newRots.yaw);
-        float pitchDifference = newRots.pitch - currentRotations.pitch;
+        float yawDifference = RotationHelper.method34152(currentRotation.yaw, newRots.yaw);
+        float pitchDifference = newRots.pitch - currentRotation.pitch;
         String rotationMode = getStringSettingValueByName("Rotation Mode");
         float range = getNumberValueBySettingName("Range");
         switch (rotationMode) {
             case "NCP":
-                secondaryRotations.yaw = currentRotations.yaw;
-                secondaryRotations.pitch = currentRotations.pitch;
-                currentRotations = newRots;
+                secondaryRotation.yaw = currentRotation.yaw;
+                secondaryRotation.pitch = currentRotation.pitch;
+                currentRotation = newRots;
                 break;
             case "New":
-                updateRotations(mc.player, currentTarget, currentRotations, secondaryRotations, 0.1, 0.1);
+                updateRotations(mc.player, currentTarget, currentRotation, secondaryRotation, 0.1, 0.1);
                 break;
             case "Smooth":
-                secondaryRotations.yaw = currentRotations.yaw;
-                secondaryRotations.pitch = currentRotations.pitch;
-                currentRotations.yaw += (float) (yawDifference * 2.0F / 5.0);
-                currentRotations.pitch += (float) (pitchDifference * 2.0F / 5.0);
+                secondaryRotation.yaw = currentRotation.yaw;
+                secondaryRotation.pitch = currentRotation.pitch;
+                currentRotation.yaw += (float) (yawDifference * 2.0F / 5.0);
+                currentRotation.pitch += (float) (pitchDifference * 2.0F / 5.0);
                 break;
             case "None":
-                secondaryRotations.yaw = currentRotations.yaw;
-                secondaryRotations.pitch = currentRotations.pitch;
-                currentRotations.yaw = mc.player.rotationYaw;
-                currentRotations.pitch = mc.player.rotationPitch;
+                secondaryRotation.yaw = currentRotation.yaw;
+                secondaryRotation.pitch = currentRotation.pitch;
+                currentRotation.yaw = mc.player.rotationYaw;
+                currentRotation.pitch = mc.player.rotationPitch;
                 break;
             case "LockView":
-                secondaryRotations.yaw = currentRotations.yaw;
-                secondaryRotations.pitch = currentRotations.pitch;
-                EntityRayTraceResult ray = EntityUtil.method17714(targ, currentRotations.yaw, currentRotations.pitch,
+                secondaryRotation.yaw = currentRotation.yaw;
+                secondaryRotation.pitch = currentRotation.pitch;
+                EntityRayTraceResult ray = EntityUtil.method17714(targ, currentRotation.yaw, currentRotation.pitch,
                         e -> true, getNumberValueBySettingName("Range"));
                 if (ray == null || ray.getEntity() != targ) {
-                    currentRotations = newRots;
+                    currentRotation = newRots;
                 }
                 break;
         }
     }
 
-    public void updateRotations(Entity player, Entity target, Rotations currentRotations, Rotations secondaryRotations,
-            double mouseDeltaX, double mouseDeltaY) {
-        if (player == null || target == null || currentRotations == null || secondaryRotations == null) {
+    public void updateRotations(Entity player, Entity target, Rotation currentRotation, Rotation secondaryRotation,
+                                double mouseDeltaX, double mouseDeltaY) {
+        if (player == null || target == null || currentRotation == null || secondaryRotation == null) {
             return;
         }
 
@@ -788,11 +788,11 @@ public class KillAura extends Module {
         double advancedCalculationY = deltaY * radianFactor + mouseDeltaY;
         double advancedCalculationZ = deltaZ * radianFactor;
 
-        currentRotations.yaw = (float) (targetYaw + advancedCalculationX);
-        currentRotations.pitch = (float) (targetPitch + advancedCalculationY);
+        currentRotation.yaw = (float) (targetYaw + advancedCalculationX);
+        currentRotation.pitch = (float) (targetPitch + advancedCalculationY);
 
-        secondaryRotations.yaw = (float) (targetYaw + advancedCalculationZ);
-        secondaryRotations.pitch = (float) (targetPitch + advancedCalculationY);
+        secondaryRotation.yaw = (float) (targetYaw + advancedCalculationZ);
+        secondaryRotation.pitch = (float) (targetPitch + advancedCalculationY);
     }
 
     // simple because i didnt bother making better one.

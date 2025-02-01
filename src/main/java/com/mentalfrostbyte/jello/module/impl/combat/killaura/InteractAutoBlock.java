@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.util.EntityUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import com.mentalfrostbyte.jello.util.player.Rotations;
+import com.mentalfrostbyte.jello.util.player.Rotation;
 import com.mentalfrostbyte.jello.util.player.TeamUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
@@ -251,8 +251,8 @@ public class InteractAutoBlock {
                     if (var26 && MultiUtilities.method17754(var10) > (double) var1) {
                         entities.remove();
                     } else if (!this.parent.getBooleanValueFromSettingName("Through walls")) {
-                        Rotations rotations = RotationHelper.getRotations(ent, true);
-                        if (rotations == null) {
+                        Rotation rotation = RotationHelper.getRotations(ent, true);
+                        if (rotation == null) {
                             entities.remove();
                         }
                     }
