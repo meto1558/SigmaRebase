@@ -1,13 +1,13 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import net.minecraft.client.Minecraft;
 
-public class ClickGUIBlurOverlay extends AnimatedIconPanelWrap {
+public class BlurOverlay extends AnimatedIconPanelWrap {
     public final ClickGuiScreen field21278;
 
-   public ClickGUIBlurOverlay(ClickGuiScreen var1, CustomGuiScreen var2, String var3) {
+   public BlurOverlay(ClickGuiScreen var1, CustomGuiScreen var2, String var3) {
       super(var2, var3, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
       this.field21278 = var1;
    }

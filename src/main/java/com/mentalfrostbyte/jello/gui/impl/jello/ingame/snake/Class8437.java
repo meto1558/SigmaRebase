@@ -1,4 +1,6 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.snake;
+
+import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
 
 public class Class8437 {
    private static String[] field36150;

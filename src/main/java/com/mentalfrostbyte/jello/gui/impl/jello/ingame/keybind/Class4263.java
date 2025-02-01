@@ -1,6 +1,7 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.keybind;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;

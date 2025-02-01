@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.gui.impl.others.Class8270;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;

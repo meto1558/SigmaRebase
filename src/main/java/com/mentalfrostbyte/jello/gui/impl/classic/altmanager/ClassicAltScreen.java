@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.buttons.AltList;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.ParticleOverlay;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.gui.impl.others.Class8270;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;

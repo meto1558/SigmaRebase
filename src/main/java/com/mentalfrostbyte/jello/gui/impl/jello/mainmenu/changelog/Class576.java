@@ -1,6 +1,7 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.changelog;
 
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.ChangelogScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
 import net.minecraft.util.Util;
 import totalcross.json.JSONArray;
 import totalcross.json.JSONException;

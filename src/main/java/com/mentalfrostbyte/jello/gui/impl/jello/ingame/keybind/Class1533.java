@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.keybind;
 
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.ModsPanel;

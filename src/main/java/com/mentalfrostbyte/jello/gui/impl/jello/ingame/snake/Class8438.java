@@ -1,4 +1,6 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.snake;
+
+import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
 
 import java.util.ArrayList;
 import java.util.List;

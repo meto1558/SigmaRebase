@@ -1,6 +1,7 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.snake;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
 
 public class Class8455 {
    public final int field36259;

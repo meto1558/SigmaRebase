@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.Class576;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.changelog.Class576;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;

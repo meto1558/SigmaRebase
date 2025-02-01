@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
-import com.mentalfrostbyte.jello.gui.unmapped.Class8906;
+import com.mentalfrostbyte.jello.gui.impl.others.Class8906;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONArray;

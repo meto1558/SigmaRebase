@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.others;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -107,31 +107,6 @@ public class Class8906 {
       }
 
       return var12;
-   }
-
-   public static Class2122 method32495(char var0) {
-      if ((var0 < '0' || var0 > '9') && (var0 < 'a' || var0 > 'f')) {
-         switch (var0) {
-            case 'k':
-               return Class2122.field13850;
-            case 'l':
-               return Class2122.field13850;
-            case 'm':
-               return Class2122.field13850;
-            case 'n':
-               return Class2122.field13850;
-            case 'o':
-               return Class2122.field13850;
-            case 'p':
-            case 'q':
-            default:
-               return Class2122.field13852;
-            case 'r':
-               return Class2122.field13850;
-         }
-      } else {
-         return Class2122.field13851;
-      }
    }
 
    public static Color method32496(char var0) {

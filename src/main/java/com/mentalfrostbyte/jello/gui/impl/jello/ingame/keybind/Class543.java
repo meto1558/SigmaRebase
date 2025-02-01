@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.keybind;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4375;
 
 public class Class543 implements Runnable {
    private static String[] field2602;

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ClickGuiScreen extends Screen {
-    public ClickGUIBlurOverlay blurOverlay;
+    public BlurOverlay blurOverlay;
     private static final Minecraft mc = Minecraft.getInstance();
     private static Animation animationProgress;
     private static boolean animationStarted;
@@ -84,7 +84,7 @@ public class ClickGuiScreen extends Screen {
         }));
 
         animationProgress = new Animation(450, 125);
-        this.blurOverlay = new ClickGUIBlurOverlay(this, this, "overlay");
+        this.blurOverlay = new BlurOverlay(this, this, "overlay");
         ColorUtils.blur();
         ColorUtils.setShaderParamsRounded(animationProgress.calcPercent());
     }

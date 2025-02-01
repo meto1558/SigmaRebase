@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.snake;
 
 // $VF: synthetic class
 public class Class7463 {

@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.impl.jello.ingame.snake;
 
 public enum Class2097 {
    field13661,
