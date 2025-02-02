@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class InteractAutoBlock {
-    private float[] field44344;
+    private float[] clicks;
     public final int field44345 = 3;
     private Module parent;
     public Minecraft mc = Minecraft.getInstance();
@@ -82,23 +82,23 @@ public class InteractAutoBlock {
     }
 
     public void method36818() {
-        this.field44344 = new float[3];
-        float var3 = 20.0F / this.parent.getNumberValueBySettingName("Min CPS");
-        float var4 = 20.0F / this.parent.getNumberValueBySettingName("Max CPS");
-        if (var3 > var4) {
-            float var5 = var3;
-            var3 = var4;
-            var4 = var5;
+        this.clicks = new float[3];
+        float minCPT = 20.0F / this.parent.getNumberValueBySettingName("Min CPS");
+        float maxCPT = 20.0F / this.parent.getNumberValueBySettingName("Max CPS");
+        if (minCPT > maxCPT) {
+            float mCPT = minCPT;
+            minCPT = maxCPT;
+            maxCPT = mCPT;
         }
 
-        for (int var7 = 0; var7 < 3; var7++) {
-            float var6 = var3 + (float) Math.random() * (var4 - var3);
-            this.field44344[var7] = var6;
+        for (int i = 0; i < 3; i++) {
+            float rand = minCPT + (float) Math.random() * (maxCPT - minCPT);
+            this.clicks[i] = rand;
         }
     }
 
     public float getInitialDelay(int var1) {
-        return var1 >= 0 && var1 < this.field44344.length ? this.field44344[var1] : -1.0F;
+        return var1 >= 0 && var1 < this.clicks.length ? this.clicks[var1] : -1.0F;
     }
 
     public boolean method36820(int var1) {
@@ -136,24 +136,24 @@ public class InteractAutoBlock {
     }
 
     public boolean method36821(int var1) {
-        return var1 >= (int) this.field44344[0];
+        return var1 >= (int) this.clicks[0];
     }
 
     public void setupDelay() {
-        float var3 = 20.0F / this.parent.getNumberValueBySettingName("Min CPS");
-        float var4 = 20.0F / this.parent.getNumberValueBySettingName("Max CPS");
-        if (var3 > var4) {
-            float var5 = var3;
-            var3 = var4;
-            var4 = var5;
+        float minCPT = 20.0F / this.parent.getNumberValueBySettingName("Min CPS");
+        float maxCPT = 20.0F / this.parent.getNumberValueBySettingName("Max CPS");
+        if (minCPT > maxCPT) {
+            float mCPT = minCPT;
+            minCPT = maxCPT;
+            maxCPT = mCPT;
         }
 
-        float var8 = this.field44344[0] - (float) ((int) this.field44344[0]);
-        this.field44344[0] = this.field44344[1] + var8;
+        float var8 = this.clicks[0] - (float) ((int) this.clicks[0]);
+        this.clicks[0] = this.clicks[1] + var8;
 
         for (int var6 = 1; var6 < 3; var6++) {
-            float var7 = var3 + (float) Math.random() * (var4 - var3);
-            this.field44344[1] = var7;
+            float var7 = minCPT + (float) Math.random() * (maxCPT - minCPT);
+            this.clicks[1] = var7;
         }
     }
 
