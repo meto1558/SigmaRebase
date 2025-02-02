@@ -74,7 +74,7 @@ public class Class4252 extends UIBase {
       RenderUtil.drawCircle((float)var0, (float)var1, (float)(14 - 1), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F * var3));
       RenderUtil.drawCircle((float)var0, (float)var1, (float)(14 - 2), ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
       RenderUtil.drawCircle(
-         (float)var0, (float)var1, (float)(14 - 6), ColorUtils.applyAlpha(ColorUtils.method17690(var2, ClientColors.DEEP_TEAL.getColor(), 0.7F), var3)
+         (float)var0, (float)var1, (float)(14 - 6), ColorUtils.applyAlpha(ColorUtils.shiftTowardsOther(var2, ClientColors.DEEP_TEAL.getColor(), 0.7F), var3)
       );
       RenderUtil.drawCircle((float)var0, (float)var1, (float)(14 - 7), ColorUtils.applyAlpha(var2, var3));
    }

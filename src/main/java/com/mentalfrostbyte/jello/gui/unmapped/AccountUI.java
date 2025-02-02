@@ -11,28 +11,25 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
-import org.newdawn.slick.opengl.Texture;
 
-import java.awt.image.BufferedImage;
-
-public class Class4294 extends AnimatedIconPanelWrap {
-   public Account selectedAccount = null;
-   private BufferedImage field20799;
-   private Texture field20800;
-   private LoadingIndicator field20801;
+public class AccountUI extends AnimatedIconPanelWrap {
+   public Account selectedAccount;
+//   private BufferedImage field20799;
+//   private Texture field20800;
+   private LoadingIndicator loadingIndicator;
    private boolean field20802 = false;
    private Animation field20803 = new Animation(114, 114, Direction.BACKWARDS);
    private float field20804 = 0.0F;
    public Animation field20805 = new Animation(300, 300, Direction.BACKWARDS);
    private int field20806 = 0;
    private int field20807 = 0;
-   private int field20808 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
+   private int color = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
 
-   public Class4294(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Account var7) {
+   public AccountUI(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Account var7) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.selectedAccount = var7;
-      this.addToList(this.field20801 = new LoadingIndicator(this, "loading", var5 - 50, 35, 30, 30));
-      this.field20801.method13296(false);
+      this.addToList(this.loadingIndicator = new LoadingIndicator(this, "loading", var5 - 50, 35, 30, 30));
+      this.loadingIndicator.method13296(false);
    }
 
    public void method13166(boolean var1) {
@@ -53,7 +50,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
    @Override
    public void draw(float partialTicks) {
       this.method13225();
-      this.field20808 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
+      this.color = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
       int var4 = ((ScrollableContentPanel)this.parent.getParent()).method13513();
       int var5 = Math.max(0, this.yA - var4);
       int var6 = Math.max(0, this.heightA + Math.min(100, this.yA - var4 - var5));
@@ -68,7 +65,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
                var5,
                this.widthA,
                Math.max(20, var6),
-                    ColorUtils.applyAlpha(!this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.field20808, var7)
+                    ColorUtils.applyAlpha(!this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.color, var7)
             );
             RenderUtil.drawPortalBackground(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
             if (this.selectedAccount != null) {
@@ -82,7 +79,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
                      18.0F * this.field20803.calcPercent() * (float)var6 / 100.0F,
                      (float)(47 * var6) / 100.0F,
                      Resources.selectPNG,
-                     !this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.field20808
+                     !this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.color
                   );
                }
 
@@ -106,7 +103,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
          100.0F,
          100.0F,
          Resources.cerclePNG,
-         !this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.field20808
+         !this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.color
       );
    }
 
@@ -179,7 +176,7 @@ public class Class4294 extends AnimatedIconPanelWrap {
       this.field20807 = var1;
    }
 
-   public void method13174(boolean var1) {
-      this.field20801.method13296(var1);
+   public void method13174(boolean notInThread) {
+      this.loadingIndicator.method13296(notInThread);
    }
 }

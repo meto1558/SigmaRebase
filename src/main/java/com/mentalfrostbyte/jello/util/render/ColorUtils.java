@@ -54,21 +54,34 @@ public class ColorUtils {
         return result;
     }
 
-    public static int method17690(int var0, int var1, float var2) {
-        int var5 = var0 >> 24 & 0xFF;
-        int var6 = var0 >> 16 & 0xFF;
-        int var7 = var0 >> 8 & 0xFF;
-        int var8 = var0 & 0xFF;
-        int var9 = var1 >> 24 & 0xFF;
-        int var10 = var1 >> 16 & 0xFF;
-        int var11 = var1 >> 8 & 0xFF;
-        int var12 = var1 & 0xFF;
-        float var13 = 1.0F - var2;
-        float var14 = (float)var5 * var2 + (float)var9 * var13;
-        float var15 = (float)var6 * var2 + (float)var10 * var13;
-        float var16 = (float)var7 * var2 + (float)var11 * var13;
-        float var17 = (float)var8 * var2 + (float)var12 * var13;
-        return (int)var14 << 24 | ((int)var15 & 0xFF) << 16 | ((int)var16 & 0xFF) << 8 | (int)var17 & 0xFF;
+    /**
+     * Adjusts the RGB components of 2 colors towards black by 1 specified factor.
+     * The alpha component remains unchanged.
+     *
+     * @param color The 1st original color represented as an integer, where the highest byte is the alpha component,
+     *              followed by red, green, and blue components.
+     * @param color2 The 2nd original color represented as an integer, where the highest byte is the alpha component,
+     *              followed by red, green, and blue components.
+     * @param shift The factor by which to adjust the color towards black. A value of 0.0 will leave the color unchanged,
+     *              while a value of 1.0 will result in the same color as the other.
+     * @return The adjusted color as an integer, with the same alpha component as the original color and RGB components
+     *         adjusted towards each-other, I think...
+     */
+    public static int shiftTowardsOther(int color, int color2, float shift) {
+        int a1 = color >> 24 & 0xFF;
+        int r1 = color >> 16 & 0xFF;
+        int g1 = color >> 8 & 0xFF;
+        int b1 = color & 0xFF;
+        int a2 = color2 >> 24 & 0xFF;
+        int r2 = color2 >> 16 & 0xFF;
+        int g2 = color2 >> 8 & 0xFF;
+        int b2 = color2 & 0xFF;
+        float factor = 1.0F - shift;
+        float shiftedA = (float)a1 * shift + (float)a2 * factor;
+        float shiftedR = (float)r1 * shift + (float)r2 * factor;
+        float shiftedG = (float)g1 * shift + (float)g2 * factor;
+        float shiftedB = (float)b1 * shift + (float)b2 * factor;
+        return (int)shiftedA << 24 | ((int)shiftedR & 0xFF) << 16 | ((int)shiftedG & 0xFF) << 8 | (int)shiftedB & 0xFF;
     }
 
     public static float getAlpha(int color) {

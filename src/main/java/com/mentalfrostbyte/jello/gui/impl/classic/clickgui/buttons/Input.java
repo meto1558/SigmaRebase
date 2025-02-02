@@ -34,7 +34,7 @@ public class Input extends TextField {
          (float)(this.xA + this.widthA + 2),
          (float)(this.yA + this.heightA),
          2,
-         ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 625.0F)
+         ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 625.0F)
       );
       super.draw(partialTicks);
    }

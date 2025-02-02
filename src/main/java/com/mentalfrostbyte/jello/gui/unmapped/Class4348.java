@@ -104,7 +104,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
                (float)this.widthA,
                (float)this.widthA,
                this.field21246,
-                    ColorUtils.applyAlpha(ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 0.7F), 0.8F)
+                    ColorUtils.applyAlpha(ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 0.7F), 0.8F)
             );
          }
 
@@ -195,7 +195,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
                (float)(this.xA + var12),
                (float)(this.yA + var13),
                "Unban: " + var8 + " days, " + var7 + "h " + var6 + "m " + var5 + "s",
-                    ColorUtils.method17690(ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
+                    ColorUtils.shiftTowardsOther(ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
             );
          } else if (this.field21243.method31735().getTime() != Long.MAX_VALUE) {
             RenderUtil.drawString(
@@ -203,7 +203,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
                (float)(this.xA + var12),
                (float)(this.yA + var13),
                "Unbanned!",
-                    ColorUtils.method17690(ClientColors.DARK_SLATE_GREY.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
+                    ColorUtils.shiftTowardsOther(ClientColors.DARK_SLATE_GREY.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
             );
          } else {
             RenderUtil.drawString(
@@ -211,7 +211,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
                (float)(this.xA + var12),
                (float)(this.yA + var13),
                "Permanently banned!",
-                    ColorUtils.method17690(ClientColors.PALE_YELLOW.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
+                    ColorUtils.shiftTowardsOther(ClientColors.PALE_YELLOW.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
             );
          }
       } else {
@@ -220,7 +220,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
             (float)(this.xA + var12),
             (float)(this.yA + var13),
             "Compromised ban (unbannable)!",
-                 ColorUtils.method17690(ClientColors.DARK_OLIVE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
+                 ColorUtils.shiftTowardsOther(ClientColors.DARK_OLIVE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
          );
       }
 

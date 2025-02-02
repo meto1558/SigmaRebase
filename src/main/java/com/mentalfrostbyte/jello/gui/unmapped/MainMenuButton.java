@@ -89,7 +89,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
          var10[2],
          var10[3],
          this.getTexture(),
-         ColorUtils.applyAlpha(ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
+         ColorUtils.applyAlpha(ColorUtils.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
       );
       if (this.getTypedText() != null) {
          RenderUtil.drawString(

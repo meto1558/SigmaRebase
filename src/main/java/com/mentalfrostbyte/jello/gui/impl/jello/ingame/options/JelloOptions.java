@@ -49,8 +49,8 @@ public class JelloOptions extends Screen {
          var5 = field21112.calcPercent();
       }
 
-      int var6 = ColorUtils.method17690(-1072689136, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
-      int var7 = ColorUtils.method17690(-804253680, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
+      int var6 = ColorUtils.shiftTowardsOther(-1072689136, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
+      int var7 = ColorUtils.shiftTowardsOther(-804253680, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
       RenderUtil.method11431(0, 0, this.getWidthA(), this.getHeightA(), var6, var7);
       this.method13279(var4, var4);
       this.method13224();

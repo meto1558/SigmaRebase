@@ -23,7 +23,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
    private float field21255 = 0.0F;
    private int field21256 = 0;
    private int field21257 = 0;
-   private int field21258 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
+   private int field21258 = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
 
    public Class4349(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Account var7) {
       super(var1, var2, var3, var4, var5, var6, false);
@@ -52,7 +52,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
       this.method13225();
       this.field21252 = (float)((double)this.field21252 + (this.field21254 ? 0.2 : -0.2));
       this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
-      this.field21258 = ColorUtils.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
+      this.field21258 = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
       if (this.field21254 || this.method13212() || this.method13298()) {
          RenderUtil.drawRoundedRect(
             (float)this.xA,

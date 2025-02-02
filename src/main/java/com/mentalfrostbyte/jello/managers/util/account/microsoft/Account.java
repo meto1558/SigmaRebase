@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
 public class Account {
@@ -123,11 +124,21 @@ public class Account {
         return alternativeLogin(new Account(email, password));
     }
 
+    public static CompletableFuture<Session> cookieLogin() throws MicrosoftAuthenticationException {
+        MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+        CompletableFuture<MicrosoftAuthResult> future = authenticator.loginWithAsyncWebview();
+        return future.thenApply(result -> new Session(
+                result.getProfile().getName(),
+                result.getProfile().getId(),
+                result.getAccessToken(),
+                "mojang"
+        ));
+    }
+
     public static Session alternativeLogin(Account account) throws MicrosoftAuthenticationException {
         if (!account.isEmailAValidEmailFormat()) {
             MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
             MicrosoftAuthResult result = authenticator.loginWithCredentials("email", "password");
-            // Or using a webview: authenticator.loginWithWebView();
             // Or using refresh token: authenticator.loginWithRefreshToken("refresh token");
             // Or using your own way: authenticator.loginWithTokens("access token", "refresh token");
 

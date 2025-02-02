@@ -23,7 +23,7 @@ public class ImageQ extends AnimatedIconPanelWrap {
          (float)this.widthA,
          (float)this.heightA,
          this.field20792,
-         ColorUtils.method17690(
+         ColorUtils.shiftTowardsOther(
             ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
          )
       );

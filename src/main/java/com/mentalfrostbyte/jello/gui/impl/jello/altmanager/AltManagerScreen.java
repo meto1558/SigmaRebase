@@ -177,10 +177,10 @@ public class AltManagerScreen extends Screen {
    }
 
    private void method13360(Account var1, boolean var2) {
-      Class4294 var5;
+      AccountUI var5;
       this.field21010
          .addToList(
-            var5 = new Class4294(
+            var5 = new AccountUI(
                this.field21010,
                var1.getEmail(),
                this.titleOffset,
@@ -210,7 +210,7 @@ public class AltManagerScreen extends Screen {
             this.deleteAlert.method13603(true);
          } else {
             if (this.field21017.account == var5.selectedAccount && var5.method13168()) {
-               this.method13361(var5);
+               this.loginToAccount(var5);
             } else {
                this.field21011.method13512(0);
             }
@@ -221,7 +221,7 @@ public class AltManagerScreen extends Screen {
             for (CustomGuiScreen var7 : this.field21010.getChildren()) {
                if (!(var7 instanceof VerticalScrollBar)) {
                   for (CustomGuiScreen var9 : var7.getChildren()) {
-                     ((Class4294)var9).method13166(false);
+                     ((AccountUI)var9).method13166(false);
                   }
                }
             }
@@ -236,20 +236,20 @@ public class AltManagerScreen extends Screen {
       }
    }
 
-   private void method13361(Class4294 var1) {
-      var1.method13174(true);
+   private void loginToAccount(AccountUI account) {
+      account.method13174(true);
       new Thread(() -> {
-         if (!this.accountManager.login(var1.selectedAccount)) {
-            var1.method13173(114);
+         if (!this.accountManager.login(account.selectedAccount)) {
+            account.method13173(114);
             Client.getInstance().soundManager.play("error");
          } else {
             this.method13368();
-            var1.method13172(true);
+            account.method13172(true);
             Client.getInstance().soundManager.play("connect");
             this.method13372(false);
          }
 
-         var1.method13174(false);
+         account.method13174(false);
       }).start();
    }
 
@@ -331,8 +331,8 @@ public class AltManagerScreen extends Screen {
       for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var7 : var5.getChildren()) {
-               if (var7 instanceof Class4294) {
-                  Class4294 var8 = (Class4294)var7;
+               if (var7 instanceof AccountUI) {
+                  AccountUI var8 = (AccountUI)var7;
                   if (var7.getYA() <= Minecraft.getInstance().getMainWindow().getHeight() && this.field21010.method13513() == 0) {
                      if (var3 > 0.2F) {
                         var8.field20805.changeDirection(Direction.FORWARDS);
@@ -357,7 +357,7 @@ public class AltManagerScreen extends Screen {
       for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var7 : var5.getChildren()) {
-               Class4294 var8 = (Class4294)var7;
+               AccountUI var8 = (AccountUI)var7;
                var8.method13172(false);
             }
          }

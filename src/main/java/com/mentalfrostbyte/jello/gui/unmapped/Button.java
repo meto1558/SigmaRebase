@@ -39,7 +39,7 @@ public class Button extends UIBase {
    public void draw(float partialTicks) {
       float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(partialTicks * this.field20584, 0.0F) : 1.5F) : 0.0F);
       int color = ColorUtils.applyAlpha(
-              ColorUtils.method17690(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
+              ColorUtils.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
          (float)(this.textColor.method19405() >> 24 & 0xFF) / 255.0F * partialTicks
       );
       if (this.field20586 <= 0) {

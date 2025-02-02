@@ -89,7 +89,7 @@ public class Class4355 extends UIBase {
          (float)(this.xA + 35),
          (float)(this.yA + this.heightA / 2),
          20.0F,
-              ColorUtils.method17690(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
+              ColorUtils.shiftTowardsOther(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
       );
       RenderUtil.drawCircle((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
       RenderUtil.drawRoundedRect(

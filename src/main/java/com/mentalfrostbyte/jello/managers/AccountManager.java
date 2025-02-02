@@ -16,6 +16,7 @@ import totalcross.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class AccountManager {
     public ArrayList<Account> accounts = new ArrayList<Account>();
@@ -96,6 +97,17 @@ public class AccountManager {
         } catch (MicrosoftAuthenticationException e) {
             return false;
         }
+    }
+    /**
+     * Logs into the account
+     */
+    public void cookieLogin() throws MicrosoftAuthenticationException, ExecutionException, InterruptedException {
+        Session session = Minecraft.getInstance().getSession();
+        Session newSession = Account.cookieLogin().get();
+        session.username = newSession.getUsername();
+        session.playerID = newSession.getPlayerID();
+        session.token = newSession.getToken();
+        this.email = "microsoft-account-lol";
     }
 
     // What
