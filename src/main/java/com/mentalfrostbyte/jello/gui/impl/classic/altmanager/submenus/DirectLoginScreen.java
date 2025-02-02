@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
+import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -19,9 +19,9 @@ import org.lwjgl.glfw.GLFW;
 public class DirectLoginScreen extends Screen {
    public Input emailOrUsername;
    public Input password;
-   public Class4300 field20987;
-   public Class4300 field20988;
-   public Class4300 field20989;
+   public AltManagerButton loginButton;
+   public AltManagerButton backButton;
+   public AltManagerButton importButton;
    public AccountManager accountManager = Client.getInstance().accountManager;
    private String status = "§7Idle...";
 
@@ -37,14 +37,14 @@ public class DirectLoginScreen extends Screen {
       var4 += 80;
       this.addToList(this.password = new Input(this, "password", var5, var4, var3, 45, Input.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
       var4 += 190;
-      this.addToList(this.field20987 = new Class4300(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.loginButton = new AltManagerButton(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
       var4 += 50;
-      this.addToList(this.field20988 = new Class4300(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.backButton = new AltManagerButton(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
       var4 += 50;
-      this.addToList(this.field20989 = new Class4300(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.importButton = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
       this.password.method13155(true);
       this.password.method13147("*");
-      this.field20987.doThis((var1, var2) -> {
+      this.loginButton.doThis((var1, var2) -> {
          this.status = "§bLogging in...";
          new Thread(() -> {
             Account account = new Account(this.emailOrUsername.getTypedText(), this.password.getTypedText());
@@ -55,8 +55,8 @@ public class DirectLoginScreen extends Screen {
             }
          }).start();
       });
-      this.field20988.doThis((var0, var1) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
-      this.field20989.doThis((var1, var2) -> {
+      this.backButton.doThis((var0, var1) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
+      this.importButton.doThis((var1, var2) -> {
          String var5x = "";
 
          var5x = GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle()) == null ? "" : GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle());
