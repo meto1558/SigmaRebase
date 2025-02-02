@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.game.world.PlayerFinder;
+import com.mentalfrostbyte.jello.util.game.world.pathing.PlayerFinder;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.entity.Entity;

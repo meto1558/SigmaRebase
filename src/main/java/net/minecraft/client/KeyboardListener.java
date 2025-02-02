@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
-import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
+import com.mentalfrostbyte.jello.util.system.other.ModuleKeyPress;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.INestedGuiEventHandler;

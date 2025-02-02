@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
 
+import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -124,26 +125,28 @@ public class MovementUtil2 {
                     + inputVector[3] * matrixBuffer.get(matrixBuffer.position() + 12 + i);
         }
     }
-    public static Class9629<Direction, Vector3d> method17760(double var0) {
-        AxisAlignedBB var4 = mc.player.getBoundingBox();
-        Direction[] var5 = new Direction[] { Direction.EAST, Direction.WEST, Direction.SOUTH, Direction.NORTH };
 
-        for (Direction var9 : var5) {
-            Iterator var10 = mc.world
+    public static SimpleEntryPair<Direction, Vector3d> findCollisionDirection(double var0) {
+        AxisAlignedBB playerBoundBox = mc.player.getBoundingBox();
+        Direction[] directions = new Direction[] { Direction.EAST, Direction.WEST, Direction.SOUTH, Direction.NORTH };
+
+        for (Direction direction : directions) {
+            Iterator<VoxelShape> collisionShapes = mc.world
                     .getCollisionShapes(mc.player,
-                            var4.expand(var0 * (double) var9.getXOffset(), 0.0, var0 * (double) var9.getZOffset()))
+                            playerBoundBox.expand(var0 * (double) direction.getXOffset(), 0.0, var0 * (double) direction.getZOffset()))
                     .iterator();
-            if (var10.hasNext()) {
-                Vector3d var11 = mc.player
+            if (collisionShapes.hasNext()) {
+                Vector3d position = mc.player
                         .getPositionVec()
                         .add(mc.player
-                                .getAllowedMovement(new Vector3d((double) var9.getXOffset(), 0.0, (double) var9.getZOffset())));
-                return new Class9629<>(var9, var11);
+                                .getAllowedMovement(new Vector3d(direction.getXOffset(), 0.0, direction.getZOffset())));
+                return new SimpleEntryPair<>(direction, position);
             }
         }
 
         return null;
     }
+
     public static float[] method17709(int var0) {
         float var3 = (float) (var0 >> 24 & 0xFF) / 255.0F;
         float var4 = (float) (var0 >> 16 & 0xFF) / 255.0F;
@@ -151,6 +154,7 @@ public class MovementUtil2 {
         float var6 = (float) (var0 & 0xFF) / 255.0F;
         return new float[] { var4, var5, var6, var3 };
     }
+
     public static int method17691(int var0, float var1) {
         int var4 = var0 >> 24 & 0xFF;
         int var5 = var0 >> 16 & 0xFF;

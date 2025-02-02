@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockRayTraceResult;

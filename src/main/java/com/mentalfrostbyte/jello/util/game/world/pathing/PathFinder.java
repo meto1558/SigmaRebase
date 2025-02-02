@@ -1,5 +1,6 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.game.world.pathing;
 
+import com.mentalfrostbyte.jello.misc.Class3604;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -8,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Class8901 {
+public class PathFinder {
    private Vector3d field40284;
    private Vector3d field40285;
    private ArrayList<Vector3d> field40286 = new ArrayList<>();
-   private ArrayList<Class8534> field40287 = new ArrayList<>();
-   private ArrayList<Class8534> field40288 = new ArrayList<>();
+   private ArrayList<Path> field40287 = new ArrayList<>();
+   private ArrayList<Path> field40288 = new ArrayList<>();
    private double field40289 = 9.0;
    private boolean field40290 = true;
    private static Minecraft field40291 = Minecraft.getInstance();
@@ -21,7 +22,7 @@ public class Class8901 {
       new Vector3d(1.0, 0.0, 0.0), new Vector3d(-1.0, 0.0, 0.0), new Vector3d(0.0, 0.0, 1.0), new Vector3d(0.0, 0.0, -1.0)
    };
 
-   public Class8901(Vector3d var1, Vector3d var2) {
+   public PathFinder(Vector3d var1, Vector3d var2) {
       this.field40284 = var1.method29879(0.0, 0.0, 0.0).method29880();
       this.field40285 = var2.method29879(0.0, 0.0, 0.0).method29880();
    }
@@ -39,7 +40,7 @@ public class Class8901 {
       this.field40288.clear();
       ArrayList var5 = new ArrayList();
       var5.add(this.field40284);
-      this.field40288.add(new Class8534(this.field40284, null, var5, this.field40284.method29881(this.field40285), 0.0, 0.0));
+      this.field40288.add(new Path(this.field40284, null, var5, this.field40284.method29881(this.field40285), 0.0, 0.0));
 
       label72:
       for (int var6 = 0; var6 < var1; var6++) {
@@ -49,7 +50,7 @@ public class Class8901 {
             break;
          }
 
-         for (Class8534 var9 : new ArrayList<Class8534>(this.field40288)) {
+         for (Path var9 : new ArrayList<Path>(this.field40288)) {
             if (++var7 <= var2) {
                this.field40288.remove(var9);
                this.field40287.add(var9);
@@ -82,7 +83,7 @@ public class Class8901 {
    }
 
    public static ArrayList<Vector3d> pathfindToPos(Vector3d location, Vector3d destination) {
-      Class8901 instance = new Class8901(location, destination);
+      PathFinder instance = new PathFinder(location, destination);
       instance.method32445();
       byte var5 = 5;
       int var6 = 0;
@@ -154,8 +155,8 @@ public class Class8901 {
       return field40291.world.getCollisionShapes(field40291.player, var7).count() == 0L;
    }
 
-   public Class8534 method32450(Vector3d var1) {
-      for (Class8534 var5 : this.field40287) {
+   public Path method32450(Vector3d var1) {
+      for (Path var5 : this.field40287) {
          if (var5.method30354().getX() == var1.getX()
             && var5.method30354().getY() == var1.getY()
             && var5.method30354().getZ() == var1.getZ()) {
@@ -163,7 +164,7 @@ public class Class8901 {
          }
       }
 
-      for (Class8534 var7 : this.field40288) {
+      for (Path var7 : this.field40288) {
          if (var7.method30354().getX() == var1.getX()
             && var7.method30354().getY() == var1.getY()
             && var7.method30354().getZ() == var1.getZ()) {
@@ -174,8 +175,8 @@ public class Class8901 {
       return null;
    }
 
-   public boolean method32451(Class8534 var1, Vector3d var2, double var3) {
-      Class8534 instance = this.method32450(var2);
+   public boolean method32451(Path var1, Vector3d var2, double var3) {
+      Path instance = this.method32450(var2);
       double var8 = var3;
       if (var1 != null) {
          var8 = var3 + var1.method30364();
@@ -205,7 +206,7 @@ public class Class8901 {
 
          ArrayList var10 = new ArrayList<Vector3d>(var1.method30356());
          var10.add(var2);
-         this.field40288.add(new Class8534(var2, var1, var10, var2.method29881(this.field40285), var3, var8));
+         this.field40288.add(new Path(var2, var1, var10, var2.method29881(this.field40285), var3, var8));
       }
 
       return false;

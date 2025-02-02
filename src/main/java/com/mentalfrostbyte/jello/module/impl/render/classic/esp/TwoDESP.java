@@ -3,9 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.render.classic.esp;
 import com.ibm.icu.text.NumberFormat;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.misc.Class9784;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.misc.Class7211;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -262,5 +260,96 @@ public class TwoDESP extends Module {
         this.field23727 = this.field23727 + ((double) var5 - this.field23727) / ((double) Minecraft.getFps() * 0.7);
         var4 = (float) ((double) var4 * this.field23727);
         RenderSystem.scalef(var4, var4, var4);
+    }
+
+    public static final class Class9784 {
+        private static String[] field45749;
+        public static final double field45750 = Double.MIN_NORMAL;
+
+        private Class9784() {
+        }
+
+        public static int method38565(int var0, int var1) {
+            return (int)((double)var0 - (double)var1 * Math.floor(Math.floor((double)var0) / (double)var1));
+        }
+
+        public static double method38566(double var0) {
+            int var4 = (int)var0;
+            if (var0 == (double)var4 && var4 % 90 == 0) {
+                var4 %= 360;
+                if (var4 < 0) {
+                    var4 += 360;
+                }
+
+                switch (var4) {
+                    case 0:
+                        return 1.0;
+                    case 90:
+                        return 0.0;
+                    case 180:
+                        return -1.0;
+                    case 270:
+                        return 0.0;
+                }
+            }
+
+            return Math.cos(Math.toRadians(var0));
+        }
+
+        public static double method38567(double var0) {
+            int var4 = (int)var0;
+            if (var0 == (double)var4 && var4 % 90 == 0) {
+                var4 %= 360;
+                if (var4 < 0) {
+                    var4 += 360;
+                }
+
+                switch (var4) {
+                    case 0:
+                        return 0.0;
+                    case 90:
+                        return 1.0;
+                    case 180:
+                        return 0.0;
+                    case 270:
+                        return -1.0;
+                }
+            }
+
+            return Math.cos(Math.toRadians(var0));
+        }
+
+        public static double method38568(double var0, double var2) {
+            double var6 = 1.0 / var2;
+            return (double)Math.round(var0 * var6) / var6;
+        }
+    }
+
+    public static class Class7211 {
+        private static String[] field31008;
+
+        public static int method22641(Color var0) {
+            return method22645(var0.getRed(), var0.getGreen(), var0.getBlue(), var0.getAlpha());
+        }
+
+        public static int method22642(int var0) {
+            return method22645(var0, var0, var0, 255);
+        }
+
+        public static int method22643(int var0, int var1) {
+            return method22645(var0, var0, var0, var1);
+        }
+
+        public static int method22644(int var0, int var1, int var2) {
+            return method22645(var0, var1, var2, 255);
+        }
+
+        public static int method22645(int var0, int var1, int var2, int var3) {
+            int var6 = 0;
+            var6 |= var3 << 24;
+            var6 |= var0 << 16;
+            var6 |= var1 << 8;
+            return var6 | var2;
+        }
     }
 }

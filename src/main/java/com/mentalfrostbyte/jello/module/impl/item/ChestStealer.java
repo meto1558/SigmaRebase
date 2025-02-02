@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
-import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.BarrierBlock;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.gui.screen.inventory.ChestScreen;

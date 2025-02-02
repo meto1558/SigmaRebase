@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
-import com.mentalfrostbyte.jello.misc.ModuleKeyPress;
+import com.mentalfrostbyte.jello.util.system.other.ModuleKeyPress;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.KeyBinding;

@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.container.ClickType;

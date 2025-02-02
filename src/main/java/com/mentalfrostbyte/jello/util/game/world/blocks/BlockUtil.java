@@ -1,9 +1,9 @@
-package com.mentalfrostbyte.jello.util.game.world;
+package com.mentalfrostbyte.jello.util.game.world.blocks;
 
 import com.google.common.collect.ImmutableList;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.misc.Class3583;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
@@ -20,6 +20,7 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BlockUtil {
@@ -418,6 +419,20 @@ public class BlockUtil {
             this.offsetY = offsetY;
             this.offsetZ = offsetZ;
             this.isOffset = isOffset;
+        }
+    }
+
+    public static final class Class3583 implements Comparator<PlayerEntity> {
+        private static String[] field19525;
+
+        public int compare(PlayerEntity var1, PlayerEntity var2) {
+            float var5 = mc.player.getDistance(var1);
+            float var6 = mc.player.getDistance(var2);
+            if (!(var5 - var6 < 0.0F)) {
+                return var5 - var6 != 0.0F ? -1 : 0;
+            } else {
+                return 1;
+            }
         }
     }
 }

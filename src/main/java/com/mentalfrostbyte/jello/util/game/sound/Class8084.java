@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.game.sound;
 
 
 public class Class8084 {

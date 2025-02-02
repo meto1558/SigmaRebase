@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.module.impl.world;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.misc.Class3593;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -27,6 +26,7 @@ import team.sdhq.eventBus.annotations.priority.HigherPriority;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CakeEater extends Module {
@@ -152,5 +152,31 @@ public class CakeEater extends Module {
         }
 
         return var4;
+    }
+
+    public static class Class3593 implements Comparator<BlockPos> {
+        private static String[] field19539;
+        public final CakeEater field19540;
+
+        public Class3593(CakeEater var1) {
+            this.field19540 = var1;
+        }
+
+        public int compare(BlockPos var1, BlockPos var2) {
+            return !(
+                    Math.sqrt(
+                            method16322()
+                                    .player
+                                    .getDistanceSq((double)var1.getX() + 0.5, (double)var1.getY() + 0.5, (double)var1.getZ() + 0.5)
+                    )
+                            > Math.sqrt(
+                            method16323()
+                                    .player
+                                    .getDistanceSq((double)var2.getX() + 0.5, (double)var2.getY() + 0.5, (double)var2.getZ() + 0.5)
+                    )
+            )
+                    ? -1
+                    : 1;
+        }
     }
 }

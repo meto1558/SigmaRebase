@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.misc.Class8901;
+import com.mentalfrostbyte.jello.util.game.world.pathing.PathFinder;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -121,7 +121,7 @@ public class InfiniteAura extends Module {
                                 Vector3d destination = new Vector3d(var5.getPosX(), var5.getPosY(), var5.getPosZ());
                                 Vector3d location = new Vector3d(target.getPosX(), target.getPosY(), target.getPosZ());
                                 ArrayList<Vector3d> path = pathfind.currentValue
-                                        ? Class8901.pathfindToPos(location, destination)
+                                        ? PathFinder.pathfindToPos(location, destination)
                                         : new ArrayList<>(List.of(location));
                                 this.renderPositions.add(path);
                                 Collections.reverse(path);

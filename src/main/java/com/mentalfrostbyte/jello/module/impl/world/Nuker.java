@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.*;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
-import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 

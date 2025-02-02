@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
@@ -16,12 +15,13 @@ import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlySmoothMod
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathHelper;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;

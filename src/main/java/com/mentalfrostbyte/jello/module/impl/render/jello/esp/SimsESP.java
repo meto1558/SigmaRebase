@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;

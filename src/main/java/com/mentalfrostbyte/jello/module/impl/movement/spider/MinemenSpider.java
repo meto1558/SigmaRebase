@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.spider;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.misc.Class9629;
+import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -97,7 +97,7 @@ public class MinemenSpider extends Module {
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
-            Class9629 var4 = MovementUtil2.method17760(1.0E-4);
+            SimpleEntryPair var4 = MovementUtil2.findCollisionDirection(1.0E-4);
             if (this.getBooleanValueFromSettingName("Ceiling")
                     && !mc.player.onGround
                     && mc.world.getCollisionShapes(mc.player, mc.player.boundingBox.offset(0.0, 1.0E-6, 0.0)).count() > 0L) {
@@ -115,15 +115,15 @@ public class MinemenSpider extends Module {
                 }
 
                 double var7 = 4.88E-7;
-                if (((Direction) var4.method37538()).getAxis() != Direction.Axis.X) {
+                if (((Direction) var4.getKey()).getAxis() != Direction.Axis.X) {
                     event.setZ(
-                            (double) Math.round((((Vector3d) var4.method37539()).z + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.method37538()).getZOffset() * var7
+                            (double) Math.round((((Vector3d) var4.getValue()).z + 1.1921022E-8) * 10000.0) / 10000.0
+                                    + (double) ((Direction) var4.getKey()).getZOffset() * var7
                     );
                 } else {
                     event.setX(
-                            (double) Math.round((((Vector3d) var4.method37539()).x + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.method37538()).getXOffset() * var7
+                            (double) Math.round((((Vector3d) var4.getValue()).x + 1.1921022E-8) * 10000.0) / 10000.0
+                                    + (double) ((Direction) var4.getKey()).getXOffset() * var7
                     );
                 }
             }

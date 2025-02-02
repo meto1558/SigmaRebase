@@ -1,12 +1,12 @@
-package com.mentalfrostbyte.jello.util.game.world;
+package com.mentalfrostbyte.jello.util.game.world.pathing;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.misc.Class8901;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import net.minecraft.client.Minecraft;
@@ -67,7 +67,7 @@ public class PlayerFinder {
                         Vector3d playerVec = new Vector3d(
                            this.mc.player.getPosX(), this.mc.player.getPosY(), this.mc.player.getPosZ()
                         );
-                        List<Vector3d> vectors = Class8901.pathfindToPos(playerVec, entityVec);
+                        List<Vector3d> vectors = PathFinder.pathfindToPos(playerVec, entityVec);
                         Client.getInstance().notificationManager.send(new Notification("Teleport", "Successfully teleported !"));
                         Entity ridingEntity = this.mc.player.getRidingEntity();
 

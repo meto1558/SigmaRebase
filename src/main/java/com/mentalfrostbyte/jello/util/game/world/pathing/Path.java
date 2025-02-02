@@ -1,19 +1,19 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.game.world.pathing;
 
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 
 import java.util.ArrayList;
 
-public class Class8534 {
+public class Path {
     private static String[] field38374;
     private Vector3d field38375 = null;
-    private Class8534 field38376 = null;
+    private Path field38376 = null;
     private ArrayList<Vector3d> field38377;
     private double field38378;
     private double field38379;
     private double field38380;
 
-    public Class8534(Vector3d var1, Class8534 var2, ArrayList<Vector3d> var3, double var4, double var6, double var8) {
+    public Path(Vector3d var1, Path var2, ArrayList<Vector3d> var3, double var4, double var6, double var8) {
         this.field38375 = var1;
         this.field38376 = var2;
         this.field38377 = var3;
@@ -26,7 +26,7 @@ public class Class8534 {
         return this.field38375;
     }
 
-    public Class8534 method30355() {
+    public Path method30355() {
         return this.field38376;
     }
 
@@ -46,7 +46,7 @@ public class Class8534 {
         this.field38375 = var1;
     }
 
-    public void method30360(Class8534 var1) {
+    public void method30360(Path var1) {
         this.field38376 = var1;
     }
 

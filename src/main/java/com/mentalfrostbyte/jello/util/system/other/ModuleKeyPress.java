@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.system.other;
 
 import java.lang.reflect.InvocationTargetException;
 

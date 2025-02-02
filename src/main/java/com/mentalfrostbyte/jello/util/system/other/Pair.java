@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.system;
+package com.mentalfrostbyte.jello.util.system.other;
 
 public class Pair<key, value> {
     private key key;

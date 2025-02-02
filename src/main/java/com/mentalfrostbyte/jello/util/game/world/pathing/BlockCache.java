@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.game.world;
+package com.mentalfrostbyte.jello.util.game.world.pathing;
 
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;

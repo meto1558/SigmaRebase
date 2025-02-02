@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
-import com.mentalfrostbyte.jello.misc.Class3280;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -24,7 +23,7 @@ import static com.mentalfrostbyte.jello.module.Module.mc;
 public class InvManagerUtil {
     public static boolean method25819(int var0) {
         ItemStack var3 = mc.player.container.getSlot(var0).getStack();
-        return var3 == null || var3.getItem() instanceof Class3280;
+        return var3 == null || var3.getItem() instanceof AirItem;
     }
 
 

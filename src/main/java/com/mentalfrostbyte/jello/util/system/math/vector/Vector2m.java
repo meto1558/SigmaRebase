@@ -1,7 +1,5 @@
 package com.mentalfrostbyte.jello.util.system.math.vector;
 
-import com.mentalfrostbyte.jello.misc.Class8829;
-
 /**
  * Represents a 2-dimensional vector with x and y coordinates.
  */
@@ -519,5 +517,32 @@ public class Vector2m {
     */
    public static Vector2m max(Vector2m a, Vector2m b) {
       return new Vector2m(Math.max(a.x, b.x), Math.max(a.y, b.y));
+   }
+
+   public static class Class8829 extends Vector2m {
+
+      public Class8829(Vector2m var1) {
+         super(var1);
+      }
+
+      @Override
+      public boolean equals(Object to) {
+         if (!(to instanceof Vector2m)) {
+            return false;
+         } else {
+            Vector2m var4 = (Vector2m) to;
+            return (int)var4.x == (int)this.x && (int)var4.y == (int)this.y;
+         }
+      }
+
+      @Override
+      public int hashCode() {
+         return Integer.valueOf((int)this.x).hashCode() >> 13 ^ Integer.valueOf((int)this.y).hashCode();
+      }
+
+      @Override
+      public Class8829 toClass8829() {
+         return this;
+      }
    }
 }

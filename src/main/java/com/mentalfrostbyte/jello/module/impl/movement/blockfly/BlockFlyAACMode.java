@@ -18,7 +18,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
-import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.network.IPacket;
