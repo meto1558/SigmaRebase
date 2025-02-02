@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.Button;
 import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.MusicVideoManager;
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 

@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeContentType;
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeJPGThumbnail;
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeContentType;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeJPGThumbnail;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.youtube.ThumbnailUtil;
 
 import java.util.ArrayList;

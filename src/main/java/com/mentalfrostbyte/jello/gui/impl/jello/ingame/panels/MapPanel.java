@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.managers.util.music.StencilMode;
+import com.mentalfrostbyte.jello.util.game.render.StencilMode;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;

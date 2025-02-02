@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.managers.util.music;
+package com.mentalfrostbyte.jello.util.system.sound;
 
 import java.io.ByteArrayOutputStream;
 

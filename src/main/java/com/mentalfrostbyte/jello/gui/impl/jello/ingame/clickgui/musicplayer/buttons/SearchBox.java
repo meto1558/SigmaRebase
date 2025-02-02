@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.MusicManager;
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeJPGThumbnail;
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeJPGThumbnail;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.youtube.ThumbnailUtil;
 

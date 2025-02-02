@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.util.client.youtube;
 
-import com.mentalfrostbyte.jello.managers.util.music.YoutubeJPGThumbnail;
 import org.apache.http.ParseException;
 import totalcross.json.JSONArray;
 import org.apache.commons.lang3.StringEscapeUtils;

@@ -6,10 +6,10 @@ import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons.BoxedButton;
-import com.mentalfrostbyte.jello.managers.util.sound.CustomSoundPlayer;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.LanguageScreen;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
@@ -60,7 +60,7 @@ public class ClassicMainScreenGroup extends CustomGuiScreen {
    }
 
    public void playClick() {
-      Minecraft.getInstance().getSoundHandler().play(CustomSoundPlayer.playSoundWithCustomPitch(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+      Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
    }
 
    private int method13496() {

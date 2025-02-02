@@ -1,10 +1,11 @@
 package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.managers.util.sound.CustomSoundPlayer;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
@@ -223,13 +224,13 @@ public class Module {
                 EventBus.unregister(this);
                 if (!(this instanceof ModuleWithModuleSettings)) {
                     if (Client.getInstance().clientMode == ClientMode.JELLO
-                            /*&& Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")*/) {
+                            && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                         Client.getInstance().soundManager.play("deactivate");
                     }
 
                     if (Client.getInstance().clientMode == ClientMode.CLASSIC
-                        /*&& Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")*/) {
-                        Minecraft.getInstance().getSoundHandler().play(CustomSoundPlayer.playSoundWithCustomPitch(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.6F));
+                        && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.6F));
                     }
                 }
 
@@ -237,13 +238,13 @@ public class Module {
             } else {
                 EventBus.register(this);
                 if (Client.getInstance().clientMode == ClientMode.JELLO
-                        /*&& Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")*/) {
+                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                     Client.getInstance().soundManager.play("activate");
                 }
 
                 if (Client.getInstance().clientMode == ClientMode.CLASSIC
                         /*&& Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")*/) {
-                    Minecraft.getInstance().getSoundHandler().play(CustomSoundPlayer.playSoundWithCustomPitch(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.7F));
+                    Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.7F));
                 }
 
                 this.onEnable();
