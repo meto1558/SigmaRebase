@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.util.game.world.pathing;
 
-import com.mentalfrostbyte.jello.misc.Class3604;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PathFinder {
@@ -211,4 +211,16 @@ public class PathFinder {
 
       return false;
    }
+
+    public static class Class3604 implements Comparator<Path> {
+        public final PathFinder field19567;
+
+        public Class3604(PathFinder var1) {
+            this.field19567 = var1;
+        }
+
+        public int compare(Path var1, Path var2) {
+            return (int)(var1.method30357() + var1.method30364() - (var2.method30357() + var2.method30364()));
+        }
+    }
 }

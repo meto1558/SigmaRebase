@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
-import com.mentalfrostbyte.jello.misc.Class2094;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
@@ -253,5 +252,10 @@ public class HypixelSpeed extends Module {
 
     public void method16044() {
         this.field23414 = 0;
+    }
+
+    public enum Class2094 {
+        field13640,
+        field13641;
     }
 }

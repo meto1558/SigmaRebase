@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.client.render.classicgui;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;

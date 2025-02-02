@@ -4,6 +4,7 @@ package com.mentalfrostbyte.jello.util.game.player;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -27,7 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mentalfrostbyte.jello.misc.*;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -189,7 +189,7 @@ public class MovementUtil2 {
     public static Class2258 method17744(Entity var0) {
         if (var0 instanceof LivingEntity) {
             if (!(var0 instanceof PlayerEntity)) {
-                return !(var0 instanceof MobEntity) && !(var0 instanceof MonsterEntity) && !(var0 instanceof SlimeEntity) && !(var0 instanceof Class1111)
+                return !(var0 instanceof MobEntity) && !(var0 instanceof MonsterEntity) && !(var0 instanceof SlimeEntity) && !(var0 instanceof FlyingEntity)
                         ? Class2258.field14691
                         : Class2258.field14689;
             } else {
@@ -368,6 +368,15 @@ public class MovementUtil2 {
         } else {
             return true;
         }
+    }
+
+    public enum Class2258 {
+        field14689,
+        field14690,
+        field14691,
+        field14692;
+
+        private static final Class2258[] field14693 = new Class2258[]{field14689, field14690, field14691, field14692};
     }
 }
 

@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.client.render.classicgui;
 
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;

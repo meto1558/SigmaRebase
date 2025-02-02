@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.misc.Class116;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
@@ -18,7 +17,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -194,21 +192,7 @@ public class Jesus extends Module {
     }
 
     public boolean isOnLiquid(AxisAlignedBB on) {
-        return this.method16952(on, Material.WATER) || this.method16952(on, Material.LAVA);
-    }
-
-    public boolean method16952(AxisAlignedBB var1, Material var2) {
-        int var5 = MathHelper.floor(var1.minX);
-        int var6 = MathHelper.ceil(var1.maxX);
-        int var7 = MathHelper.floor(var1.minY);
-        int var8 = MathHelper.ceil(var1.maxY);
-        int var9 = MathHelper.floor(var1.minZ);
-        int var10 = MathHelper.ceil(var1.maxZ);
-        Class116 var11 = Class116.fromMaterial(var2);
-        return BlockPos.getAllInBox(var5, var7, var9, var6 - 1, var8 - 1, var10 - 1).anyMatch(var1x -> {
-            assert mc.world != null;
-            return var11.test(mc.world.getBlockState(var1x));
-        });
+        return mc.world.isMaterialInBB(on, Material.WATER) || mc.world.isMaterialInBB(on, Material.LAVA);
     }
 
     public static boolean isWalkingOnLiquid() {

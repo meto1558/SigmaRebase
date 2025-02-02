@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.client.spam;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;

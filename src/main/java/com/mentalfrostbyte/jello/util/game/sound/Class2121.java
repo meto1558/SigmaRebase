@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.game.sound;
 
 public enum Class2121 {
     field13822(0, 0.4920635F),
