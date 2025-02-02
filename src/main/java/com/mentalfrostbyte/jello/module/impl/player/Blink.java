@@ -20,7 +20,7 @@ public class Blink extends Module {
     private Vector3d vector;
 
     // New boolean flag for controlling the blinking state
-    private boolean isBlinking = false;
+    public boolean isBlinking = false;
 
     public Blink() {
         super(ModuleCategory.PLAYER, "Blink", "Stops your packets to blink");
@@ -37,7 +37,6 @@ public class Blink extends Module {
         clientPlayerEntity.rotationYawHead = mc.player.rotationYawHead;
         mc.world.addEntity(-1, clientPlayerEntity);
 
-        // Start blinking when enabled
         isBlinking = true;
     }
 
@@ -70,12 +69,10 @@ public class Blink extends Module {
         }
     }
 
-    // Getter for the isBlinking flag
     public boolean isBlinking() {
         return isBlinking;
     }
 
-    // Setter for the isBlinking flag
     public void setBlinking(boolean isBlinking) {
         this.isBlinking = isBlinking;
     }
