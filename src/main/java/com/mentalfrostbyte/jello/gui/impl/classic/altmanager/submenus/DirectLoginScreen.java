@@ -17,13 +17,13 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
 public class DirectLoginScreen extends Screen {
-   public Input field20985;
-   public Input field20986;
+   public Input emailOrUsername;
+   public Input password;
    public Class4300 field20987;
    public Class4300 field20988;
    public Class4300 field20989;
-   public AccountManager field20990 = Client.getInstance().accountManager;
-   private String field20991 = "§7Idle...";
+   public AccountManager accountManager = Client.getInstance().accountManager;
+   private String status = "§7Idle...";
 
    public DirectLoginScreen() {
       super("Alt Manager");
@@ -32,26 +32,26 @@ public class DirectLoginScreen extends Screen {
       int var4 = 114;
       int var5 = (this.getWidthA() - var3) / 2;
       this.addToList(
-         this.field20985 = new Input(this, "username", var5, var4, var3, 45, Input.field20741, "", "Username / E-Mail", ResourceRegistry.DefaultClientFont)
+         this.emailOrUsername = new Input(this, "username", var5, var4, var3, 45, Input.field20741, "", "Username / E-Mail", ResourceRegistry.DefaultClientFont)
       );
       var4 += 80;
-      this.addToList(this.field20986 = new Input(this, "password", var5, var4, var3, 45, Input.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
+      this.addToList(this.password = new Input(this, "password", var5, var4, var3, 45, Input.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
       var4 += 190;
       this.addToList(this.field20987 = new Class4300(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
       var4 += 50;
       this.addToList(this.field20988 = new Class4300(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
       var4 += 50;
       this.addToList(this.field20989 = new Class4300(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
-      this.field20986.method13155(true);
-      this.field20986.method13147("*");
+      this.password.method13155(true);
+      this.password.method13147("*");
       this.field20987.doThis((var1, var2) -> {
-         this.field20991 = "§bLogging in...";
+         this.status = "§bLogging in...";
          new Thread(() -> {
-            Account var3x = new Account(this.field20985.getTypedText(), this.field20986.getTypedText());
-            if (!this.field20990.login(var3x)) {
-               this.field20991 = "§cLogin failed!";
+            Account account = new Account(this.emailOrUsername.getTypedText(), this.password.getTypedText());
+            if (!this.accountManager.login(account)) {
+               this.status = "§cLogin failed!";
             } else {
-               this.field20991 = "Logged in. (" + var3x.getEmail() + (!var3x.isEmailAValidEmailFormat() ? "" : " - offline name") + ")";
+               this.status = "Logged in. (" + account.getEmail() + (!account.isEmailAValidEmailFormat() ? "" : " - offline name") + ")";
             }
          }).start();
       });
@@ -67,9 +67,9 @@ public class DirectLoginScreen extends Screen {
 
          if (var5x.contains(":")) {
             String[] var6x = var5x.split(":");
-            this.field20985.setTypedText(var6x[0]);
-            this.field20986.setTypedText(var6x[1]);
-         } else this.field20991 = "§cPlease copy a valid username:password format to clipboard";
+            this.emailOrUsername.setTypedText(var6x[0]);
+            this.password.setTypedText(var6x[1]);
+         } else this.status = "§cPlease copy a valid username:password format to clipboard";
       });
    }
 
@@ -85,7 +85,7 @@ public class DirectLoginScreen extends Screen {
          ResourceRegistry.DefaultClientFont,
          (float)(this.getWidthA() / 2),
          58.0F,
-         this.field20991,
+         this.status,
          ClientColors.LIGHT_GREYISH_BLUE.getColor(),
          Class2218.field14492,
          Class2218.field14488,
