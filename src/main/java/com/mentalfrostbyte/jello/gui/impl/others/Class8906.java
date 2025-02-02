@@ -75,38 +75,38 @@ public class Class8906 {
       return var6 + var1 + var7;
    }
 
-   public static int method32494(String var0, TrueTypeFont var1, float var2, int var3, float var4) {
+   public static int getStringLen(String text, TrueTypeFont font, float var2, int height, float var4) {
       int var7 = -1;
-      int var8 = -1;
+      int width = -1;
 
-      for (int var9 = 0; var9 <= var0.length(); var9++) {
-         int var10 = var1.getWidth(var0.substring(0, Math.max(var9 - 1, 0)));
-         int var11 = var1.getWidth(var0.substring(0, var9));
-         if ((float)var11 > (float)var3 - var2 - var4) {
+      for (int var9 = 0; var9 <= text.length(); var9++) {
+         int var10 = font.getWidth(text.substring(0, Math.max(var9 - 1, 0)));
+         int var11 = font.getWidth(text.substring(0, var9));
+         if ((float)var11 > (float)height - var2 - var4) {
             var7 = var10;
-            var8 = var11;
+            width = var11;
             break;
          }
       }
 
-      if ((float)var3 - var2 - var4 >= (float)var1.getWidth(var0)) {
-         var8 = var1.getWidth(var0);
+      if ((float)height - var2 - var4 >= (float)font.getWidth(text)) {
+         width = font.getWidth(text);
       }
 
-      int var12 = !(Math.abs((float)var3 - var2 - var4 - (float)var7) < Math.abs((float)var3 - var2 - var4 - (float)var8)) ? var8 : var7;
+      int len = !(Math.abs((float)height - var2 - var4 - (float)var7) < Math.abs((float)height - var2 - var4 - (float)width)) ? width : var7;
 
-      for (int var13 = 0; var13 < var0.length(); var13++) {
-         if (var1.getWidth(var0.substring(0, var13)) == var12) {
-            var12 = var13;
+      for (int i = 0; i < text.length(); i++) {
+         if (font.getWidth(text.substring(0, i)) == len) {
+            len = i;
             break;
          }
       }
 
-      if (var12 > var0.length()) {
-         var12 = var0.length();
+      if (len > text.length()) {
+         len = text.length();
       }
 
-      return var12;
+      return len;
    }
 
    public static Color method32496(char var0) {
