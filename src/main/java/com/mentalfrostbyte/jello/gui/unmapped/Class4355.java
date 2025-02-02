@@ -2,8 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -24,7 +23,7 @@ public class Class4355 extends UIBase {
       this.field21288 = var4;
       this.field21289 = new Animation(114, 114);
       this.field21290 = new Animation(200, 200);
-      this.field21290.changeDirection(Direction.BACKWARDS);
+      this.field21290.changeDirection(Animation.Direction.BACKWARDS);
       this.field21291 = var7;
       this.field21292 = var8;
       this.field21293 = var9;
@@ -35,10 +34,10 @@ public class Class4355 extends UIBase {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      this.field21289.changeDirection(!this.method13216() ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.field21289.changeDirection(!this.method13216() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       boolean var5 = this.method13216() || newHeight > this.method13271() + this.getWidthA() - 62;
       this.method13215(var5);
-      if (this.field21290.getDirection() == Direction.FORWARDS) {
+      if (this.field21290.getDirection() == Animation.Direction.FORWARDS) {
          this.method13215(false);
          this.setXA(Math.round((float)this.getWidthA() * QuadraticEasing.easeInQuad(this.field21290.calcPercent(), 0.0F, 1.0F, 1.0F)));
          if (this.field21290.calcPercent() == 1.0F) {
@@ -48,7 +47,7 @@ public class Class4355 extends UIBase {
    }
 
    public void method13608() {
-      this.field21290.changeDirection(Direction.FORWARDS);
+      this.field21290.changeDirection(Animation.Direction.FORWARDS);
    }
 
    @Override

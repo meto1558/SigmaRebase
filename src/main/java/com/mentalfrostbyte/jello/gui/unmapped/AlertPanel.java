@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import net.minecraft.client.Minecraft;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -53,10 +54,10 @@ public class AlertPanel extends UIBase {
 
       for (MiniAlert var15 : var5) {
          var17++;
-         if (var15.field44771 != AlertType.FIRST_LINE) {
-            if (var15.field44771 != AlertType.SECOND_LINE) {
-               if (var15.field44771 != AlertType.BUTTON) {
-                  if (var15.field44771 == AlertType.HEADER) {
+         if (var15.alertType != AlertType.FIRST_LINE) {
+            if (var15.alertType != AlertType.SECOND_LINE) {
+               if (var15.alertType != AlertType.BUTTON) {
+                  if (var15.alertType == AlertType.HEADER) {
                      this.field21279
                         .addToList(
                            new Text(
@@ -159,7 +160,7 @@ public class AlertPanel extends UIBase {
          }
       }
 
-      this.field21282.changeDirection(!var1 ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.field21282.changeDirection(!var1 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       super.method13296(var1);
    }
 
@@ -197,7 +198,7 @@ public class AlertPanel extends UIBase {
    }
 
    public float method13602(float var1, float var2) {
-      return this.field21282.getDirection() != Direction.BACKWARDS
+      return this.field21282.getDirection() != Animation.Direction.BACKWARDS
          ? (float)(Math.pow(2.0, (double)(-10.0F * var1)) * Math.sin((double)(var1 - var2 / 4.0F) * (Math.PI * 2) / (double)var2) + 1.0)
          : 0.5F + QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F) * 0.5F;
    }

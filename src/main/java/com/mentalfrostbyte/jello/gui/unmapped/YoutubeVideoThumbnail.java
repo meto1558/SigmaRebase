@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -69,7 +68,7 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       boolean var5 = this.method13298() && this.getParent().getParent().method13114(newHeight, newWidth);
-      this.animation.changeDirection(!var5 ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.animation.changeDirection(!var5 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
 
       super.updatePanelDimensions(newHeight, newWidth);
    }

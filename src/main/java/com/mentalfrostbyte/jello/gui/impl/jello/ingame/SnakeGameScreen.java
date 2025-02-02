@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.snake.Class4297;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.snake.Class4297;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.TimerUtil;

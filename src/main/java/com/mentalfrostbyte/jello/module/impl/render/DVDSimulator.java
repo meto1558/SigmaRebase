@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.gui.unmapped.Dimension;
+import com.mentalfrostbyte.jello.gui.unmapped.ScreenDimension;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
@@ -19,7 +19,7 @@ public class DVDSimulator extends Module {
     public float dvdY = 0.0F;
     public float xDirection = 1.0F;
     public float yDirection = 1.0F;
-    public Dimension dvdDimensions = new Dimension(201, 90);
+    public ScreenDimension dvdDimensions = new ScreenDimension(201, 90);
     public int dvdColor = 0;
 
     public DVDSimulator() {

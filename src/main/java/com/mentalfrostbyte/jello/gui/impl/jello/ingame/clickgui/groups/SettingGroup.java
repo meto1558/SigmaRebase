@@ -8,6 +8,8 @@ import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 
 public class SettingGroup extends UIBase {
    public Animation animation1;
@@ -46,8 +48,8 @@ public class SettingGroup extends UIBase {
          this.field20671 = true;
       }
 
-      this.animation1.changeDirection(this.field20671 ? Direction.BACKWARDS : Direction.FORWARDS);
-      this.animation.changeDirection(this.field20671 ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.animation1.changeDirection(this.field20671 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+      this.animation.changeDirection(this.field20671 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       super.updatePanelDimensions(newHeight, newWidth);
    }
 

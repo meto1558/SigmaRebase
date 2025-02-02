@@ -47,7 +47,7 @@ public class Ban {
         return this.serverIP;
     }
 
-    public Date method31735() {
+    public Date getDate() {
         return this.date;
     }
 

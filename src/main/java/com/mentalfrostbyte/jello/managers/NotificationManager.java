@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;

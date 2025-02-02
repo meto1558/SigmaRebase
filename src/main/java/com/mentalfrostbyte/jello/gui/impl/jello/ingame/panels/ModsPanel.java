@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
@@ -12,6 +13,8 @@ import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.unmapped.Class2218;
 import net.minecraft.client.gui.screen.Screen;
 
@@ -113,7 +116,7 @@ public class ModsPanel extends UIBase {
          this.field21311 = true;
       }
 
-      this.field21302.changeDirection(this.field21311 ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.field21302.changeDirection(this.field21311 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       Map<String, Button> var5 = new TreeMap();
       Map<String, Button> var6 = new TreeMap();
       Map<String, Button> var7 = new TreeMap();

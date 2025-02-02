@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
@@ -13,7 +12,7 @@ public class Class4246 extends Button {
 
    public Class4246(Class4277 var1, int var2) {
       super(var1, "sliderButton", 0, 0, var2, var2, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()));
-      this.field20601.changeDirection(Direction.BACKWARDS);
+      this.field20601.changeDirection(Animation.Direction.BACKWARDS);
       this.method13215(true);
       this.field20886 = true;
       this.field20600 = var1;
@@ -25,9 +24,9 @@ public class Class4246 extends Button {
       float var5 = this.field20600.method13138();
       float var6 = (float)this.getXA() / (float)(this.parent.getWidthA() - this.getWidthA());
       if (!this.method13212() && !this.method13298() && !this.method13216()) {
-         this.field20601.changeDirection(Direction.BACKWARDS);
+         this.field20601.changeDirection(Animation.Direction.BACKWARDS);
       } else {
-         this.field20601.changeDirection(Direction.FORWARDS);
+         this.field20601.changeDirection(Animation.Direction.FORWARDS);
       }
 
       this.field20600.method13139(var6);

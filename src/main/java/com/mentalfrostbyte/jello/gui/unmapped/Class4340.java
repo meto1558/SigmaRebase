@@ -3,8 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -27,7 +26,7 @@ public class Class4340 extends ScrollableContentPanel {
 
    public Class4340(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);
-      this.field21211.changeDirection(Direction.BACKWARDS);
+      this.field21211.changeDirection(Animation.Direction.BACKWARDS);
       this.field20883 = true;
       this.setListening(false);
       this.method13511();
@@ -75,7 +74,7 @@ public class Class4340 extends ScrollableContentPanel {
       }
 
       for (Class4355 var7 : this.field21209) {
-         if (!var7.method13216() && var7.field21290.getDirection() == Direction.BACKWARDS) {
+         if (!var7.method13216() && var7.field21290.getDirection() == Animation.Direction.BACKWARDS) {
             var7.field21288 = var5 + 5;
          } else {
             var7.field21288 = var7.getYA();
@@ -86,7 +85,7 @@ public class Class4340 extends ScrollableContentPanel {
 
       for (Class4355 var11 : this.field21209) {
          if (var11.method13216()) {
-            this.field21211.changeDirection(Direction.FORWARDS);
+            this.field21211.changeDirection(Animation.Direction.FORWARDS);
             if (newHeight > this.method13271() + 10
                && newHeight < this.method13271() + 50
                && newWidth < this.method13272() + this.getHeightA() - 10
@@ -100,7 +99,7 @@ public class Class4340 extends ScrollableContentPanel {
             break;
          }
 
-         if (!var11.method13216() && this.field21211.getDirection() == Direction.FORWARDS) {
+         if (!var11.method13216() && this.field21211.getDirection() == Animation.Direction.FORWARDS) {
             Client.getInstance().waypointsManager.method29989().clear();
 
             for (Class4355 var9 : this.field21209) {
@@ -114,7 +113,7 @@ public class Class4340 extends ScrollableContentPanel {
             Client.getInstance().waypointsManager.method29991();
          }
 
-         this.field21211.changeDirection(Direction.BACKWARDS);
+         this.field21211.changeDirection(Animation.Direction.BACKWARDS);
       }
    }
 

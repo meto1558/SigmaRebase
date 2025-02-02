@@ -4,8 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -69,10 +68,10 @@ public class ActiveMods extends Module {
         for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
             if (module.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI) {
                 this.activeModules.add(module);
-                this.animations.put(module, new Animation(150, 150, Direction.BACKWARDS));
+                this.animations.put(module, new Animation(150, 150, Animation.Direction.BACKWARDS));
 
                 if (this.getBooleanValueFromSettingName("Animations")) {
-                    this.animations.get(module).changeDirection(!module.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
+                    this.animations.get(module).changeDirection(!module.isEnabled() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
                 }
             }
         }
@@ -128,7 +127,7 @@ public class ActiveMods extends Module {
         if (mc.player != null) {
             for (Module module : this.animations.keySet()) {
                 if (this.getBooleanValueFromSettingName("Animations")) {
-                    this.animations.get(module).changeDirection(!module.isEnabled() ? Direction.BACKWARDS : Direction.FORWARDS);
+                    this.animations.get(module).changeDirection(!module.isEnabled() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
                 }
             }
 

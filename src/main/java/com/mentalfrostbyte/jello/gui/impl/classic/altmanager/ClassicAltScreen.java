@@ -3,12 +3,12 @@ package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.base.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.buttons.AltList;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.ParticleOverlay;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.impl.others.Class8270;
+import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -207,7 +207,7 @@ public class ClassicAltScreen extends Screen {
     }
 
     public void method13403() {
-        List<Account> var4 = Class8270.method28878(this.accountManager.getAccounts(), Class2209.field14448, "", this.altSearchBox.getTypedText());
+        List<Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getTypedText());
         int var5 = 0;
         if (this.altList != null) {
             var5 = this.altList.method13513();

@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
@@ -10,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class Setting extends UIBase {
    private static String[] field21332;
-   public Animation field21333 = new Animation(1200, 1200, Direction.BACKWARDS);
+   public Animation field21333 = new Animation(1200, 1200, Animation.Direction.BACKWARDS);
 
    public Setting(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 20, 20, false);
@@ -18,9 +17,9 @@ public class Setting extends UIBase {
 
    @Override
    public void draw(float partialTicks) {
-      this.field21333.changeDirection(!this.method13298() ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.field21333.changeDirection(!this.method13298() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       if (this.field21333.calcPercent() == 1.0F && this.method13298()) {
-         this.field21333 = new Animation(1200, 1200, Direction.FORWARDS);
+         this.field21333 = new Animation(1200, 1200, Animation.Direction.FORWARDS);
       }
 
       int var4 = this.getXA() + 10;

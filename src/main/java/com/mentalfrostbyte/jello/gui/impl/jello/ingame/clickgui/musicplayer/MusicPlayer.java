@@ -3,9 +3,9 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.ChangingButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.SearchBox;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.VolumeSlider;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
@@ -52,7 +52,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
     public static long time = 0L;
     public float field20871 = 0.0F;
     public float field20872 = 0.0F;
-    private final Animation field20873 = new Animation(80, 150, Direction.BACKWARDS);
+    private final Animation field20873 = new Animation(80, 150, Animation.Direction.BACKWARDS);
     public boolean field20874 = false;
 
     public ClickGuiScreen parent;
@@ -140,8 +140,8 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                         )
                 );
         this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.width - 19, 14, 4, 40));
-        PNGButtonChanging repeat;
-        this.musicControls.addToList(repeat = new PNGButtonChanging(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeatMode()));
+        ChangingButton repeat;
+        this.musicControls.addToList(repeat = new ChangingButton(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeatMode()));
         repeat.onPress(var2x -> this.musicManager.setRepeat(repeat.getRepeatMode()));
         this.addToList(this.field20867 = new Class4359(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
         this.field20867.method13292(true);
@@ -270,7 +270,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         super.method13225();
         this.field20865.setWidthA(this.getXA() + this.getWidthA() <= this.parent.getWidthA() ? 0 : 41);
         this.field20873
-                .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Direction.FORWARDS : Direction.BACKWARDS);
+                .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Animation.Direction.FORWARDS : Animation.Direction.BACKWARDS);
         partialTicks *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
         if (this.musicManager.isPlayingSong()) {
             this.play.setEnabled(false);

@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.MathUtils;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -11,7 +10,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.lwjgl.opengl.GL11;
 
 public class ClickGuiPanel extends CustomGuiScreen {
-   public Animation field21149 = new Animation(500, 200, Direction.FORWARDS);
+   public Animation field21149 = new Animation(500, 200, Animation.Direction.FORWARDS);
 
    public ClickGuiPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6);

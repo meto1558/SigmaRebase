@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -19,7 +18,7 @@ public class Class4265 extends UIBase {
 
    @Override
    public void draw(float partialTicks) {
-      this.field20683.changeDirection(!this.method13298() ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.field20683.changeDirection(!this.method13298() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       partialTicks *= 0.09F + 0.25F * this.field20683.calcPercent() + (this.field20682 ? 0.0F : 0.2F);
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + 10), (float)(this.yA + 16), 5.0F, 14.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)

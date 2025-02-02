@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -29,7 +28,7 @@ public class UICheckBox extends UIBase {
    public void method13705(boolean var1, boolean var2) {
       if (var1 != this.method13703()) {
          this.field21369 = var1;
-         this.field21370.changeDirection(!this.field21369 ? Direction.FORWARDS : Direction.BACKWARDS);
+         this.field21370.changeDirection(!this.field21369 ? Animation.Direction.FORWARDS : Animation.Direction.BACKWARDS);
          if (var2) {
             this.callUIHandlers();
          }

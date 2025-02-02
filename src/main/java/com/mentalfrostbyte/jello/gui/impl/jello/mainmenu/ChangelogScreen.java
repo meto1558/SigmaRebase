@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.changelog.Class576;
@@ -17,7 +16,7 @@ import totalcross.json.JSONArray;
 import totalcross.json.JSONException;
 
 public class ChangelogScreen extends CustomGuiScreen {
-   public Animation animation = new Animation(380, 200, Direction.BACKWARDS);
+   public Animation animation = new Animation(380, 200, Animation.Direction.BACKWARDS);
    public ScrollableContentPanel scrollPanel;
    private static JSONArray cachedChangelog;
 
@@ -43,7 +42,7 @@ public class ChangelogScreen extends CustomGuiScreen {
          if (this.isHovered() && this.isVisible()) {
             for (CustomGuiScreen var9 : this.scrollPanel.getButton().getChildren()) {
                Class4330 var10 = (Class4330)var9;
-               var10.animation2.changeDirection(Direction.FORWARDS);
+               var10.animation2.changeDirection(Animation.Direction.FORWARDS);
                if ((double)var10.animation2.calcPercent() < 0.5) {
                   break;
                }
@@ -51,7 +50,7 @@ public class ChangelogScreen extends CustomGuiScreen {
          } else {
             for (CustomGuiScreen var6 : this.scrollPanel.getButton().getChildren()) {
                Class4330 var7 = (Class4330)var6;
-               var7.animation2.changeDirection(Direction.BACKWARDS);
+               var7.animation2.changeDirection(Animation.Direction.BACKWARDS);
             }
          }
       }
@@ -59,12 +58,12 @@ public class ChangelogScreen extends CustomGuiScreen {
 
    @Override
    public void draw(float partialTicks) {
-      this.animation.changeDirection(!this.isHovered() ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.animation.changeDirection(!this.isHovered() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       partialTicks *= this.animation.calcPercent();
 
       float fadeFactor = MathUtils.lerp(this.animation.calcPercent(), 0.17f, 1.0f, 0.51f, 1.0f);
 
-      if (this.animation.getDirection() == Direction.BACKWARDS) {
+      if (this.animation.getDirection() == Animation.Direction.BACKWARDS) {
          fadeFactor = 1.0f;
       }
 

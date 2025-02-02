@@ -6,7 +6,6 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -44,7 +43,7 @@ import java.util.List;
 public class BlockFly extends ModuleWithModuleSettings {
     public static List<Block> blocksToNotPlace;
     public int lastSpoofedSlot;
-    public Animation animation = new Animation(114, 114, Direction.BACKWARDS);
+    public Animation animation = new Animation(114, 114, Animation.Direction.BACKWARDS);
     public int blockCount = 0;
 
     public BlockFly() {
@@ -411,13 +410,13 @@ public class BlockFly extends ModuleWithModuleSettings {
     @Override
     public void onDisable() {
         Rots.rotating = false;
-        this.animation.changeDirection(Direction.BACKWARDS);
+        this.animation.changeDirection(Animation.Direction.BACKWARDS);
         super.onDisable();
     }
 
     @EventTarget
     public void onRender(EventRender2DOffset render) {
-        this.animation.changeDirection(Direction.FORWARDS);
+        this.animation.changeDirection(Animation.Direction.FORWARDS);
         if (this.animation.calcPercent() != 0.0F) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {
                 if (Client.getInstance().clientMode != ClientMode.JELLO) {

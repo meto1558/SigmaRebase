@@ -98,4 +98,9 @@ public class Animation {
                 ? 1.0F - (float) Math.min(this.reverseDuration, new Date().getTime() - this.reverseStartTime.getTime()) / (float) this.reverseDuration
                 : (float) Math.min(this.duration, new Date().getTime() - this.startTime.getTime()) / (float) this.duration;
     }
+
+    public enum Direction {
+        FORWARDS,
+        BACKWARDS
+    }
 }

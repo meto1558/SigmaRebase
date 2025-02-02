@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -18,9 +17,9 @@ public class AccountUI extends AnimatedIconPanelWrap {
 //   private Texture field20800;
    private LoadingIndicator loadingIndicator;
    private boolean field20802 = false;
-   private Animation field20803 = new Animation(114, 114, Direction.BACKWARDS);
+   private Animation field20803 = new Animation(114, 114, Animation.Direction.BACKWARDS);
    private float field20804 = 0.0F;
-   public Animation field20805 = new Animation(300, 300, Direction.BACKWARDS);
+   public Animation field20805 = new Animation(300, 300, Animation.Direction.BACKWARDS);
    private int field20806 = 0;
    private int field20807 = 0;
    private int color = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
@@ -37,14 +36,14 @@ public class AccountUI extends AnimatedIconPanelWrap {
    }
 
    public void method13167(boolean var1, boolean var2) {
-      this.field20803.changeDirection(!var1 ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.field20803.changeDirection(!var1 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       if (var2) {
          this.field20803.updateStartTime(1.0F);
       }
    }
 
    public boolean method13168() {
-      return this.field20803.getDirection() == Direction.FORWARDS;
+      return this.field20803.getDirection() == Animation.Direction.FORWARDS;
    }
 
    @Override

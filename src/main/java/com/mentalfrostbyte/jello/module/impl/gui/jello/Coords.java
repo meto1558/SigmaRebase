@@ -3,9 +3,8 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.ClientColors;
@@ -18,7 +17,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
 
 public class Coords extends Module {
-    private final Animation animation = new Animation(1500, 1500, Direction.BACKWARDS);
+    private final Animation animation = new Animation(1500, 1500, Animation.Direction.BACKWARDS);
     private double x, y, z;
 
     public Coords() {
@@ -35,11 +34,11 @@ public class Coords extends Module {
             z = mc.player.getPosZ();
             boolean var4 = moved || (!mc.player.isOnGround()) || mc.player.isSneaking();
             if (!var4) {
-                if (this.animation.calcPercent() == 1.0F && this.animation.getDirection() == Direction.FORWARDS) {
-                    this.animation.changeDirection(Direction.BACKWARDS);
+                if (this.animation.calcPercent() == 1.0F && this.animation.getDirection() == Animation.Direction.FORWARDS) {
+                    this.animation.changeDirection(Animation.Direction.BACKWARDS);
                 }
             } else {
-                this.animation.changeDirection(Direction.FORWARDS);
+                this.animation.changeDirection(Animation.Direction.FORWARDS);
             }
         }
     }
@@ -61,7 +60,7 @@ public class Coords extends Module {
                     float var8 = 150;
                     float var9 = (float) ResourceRegistry.JelloLightFont18.getWidth(xyz);
                     float var10 = Math.min(1.0F, (float) var8 / var9);
-                    if (this.animation.getDirection() != Direction.FORWARDS) {
+                    if (this.animation.getDirection() != Animation.Direction.FORWARDS) {
                         var10 *= 0.9F + QuadraticEasing.easeInQuad(Math.min(1.0F, this.animation.calcPercent() * 8.0F), 0.0F, 1.0F, 1.0F) * 0.1F;
                     } else {
                         var10 *= 0.9F + EasingFunctions.easeOutBack(Math.min(1.0F, this.animation.calcPercent() * 7.0F), 0.0F, 1.0F, 1.0F) * 0.1F;

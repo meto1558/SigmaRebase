@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.buttons.ConfigButton;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
@@ -98,7 +97,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
          var0.setWidthA(Math.round((float)var1x.getWidthA() / 2.0F));
       });
       deleteButton.doThis((var1x, var2x) -> {
-         this.animation.changeDirection(Direction.FORWARDS);
+         this.animation.changeDirection(Animation.Direction.FORWARDS);
           try {
              boolean profileDeleted = Files.deleteIfExists(new File(Client.getInstance().file + "/profiles/" + this.profileName.getTypedText() + ".profile").toPath());
 
@@ -117,18 +116,18 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
 
       });
       var13.doThis((var1x, var2x) -> {
-         this.field21265.changeDirection(Direction.BACKWARDS);
+         this.field21265.changeDirection(Animation.Direction.BACKWARDS);
          this.profileName.setEnabled(true);
          this.profileName.method13148();
       });
       this.buttonList.setWidthA(0);
       this.buttonList.method13284(this.field21270);
-      this.field21264 = new Animation(100, 100, Direction.BACKWARDS);
-      this.field21265 = new Animation(290, 290, Direction.BACKWARDS);
-      this.animation = new Animation(200, 100, Direction.BACKWARDS);
+      this.field21264 = new Animation(100, 100, Animation.Direction.BACKWARDS);
+      this.field21265 = new Animation(290, 290, Animation.Direction.BACKWARDS);
+      this.animation = new Animation(200, 100, Animation.Direction.BACKWARDS);
       this.doThis((var1x, var2x) -> {
          if (var2x != 1) {
-            this.field21265.changeDirection(Direction.BACKWARDS);
+            this.field21265.changeDirection(Animation.Direction.BACKWARDS);
             if (this.field21265.calcPercent() == 0.0F) {
                Client.getInstance().moduleManager.getConfigurationManager().loadConfig(this.currentConfig);
                Client.getInstance().soundManager.play("switch");
@@ -142,7 +141,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
                }
             }
          } else {
-            this.field21265.changeDirection(Direction.FORWARDS);
+            this.field21265.changeDirection(Animation.Direction.FORWARDS);
          }
       });
    }
@@ -161,9 +160,9 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
          }
       }
 
-      this.field21264.changeDirection(this.method13114(newHeight, newWidth) ? Direction.FORWARDS : Direction.BACKWARDS);
+      this.field21264.changeDirection(this.method13114(newHeight, newWidth) ? Animation.Direction.FORWARDS : Animation.Direction.BACKWARDS);
       if (!this.method13114(newHeight, newWidth)) {
-         this.field21265.changeDirection(Direction.BACKWARDS);
+         this.field21265.changeDirection(Animation.Direction.BACKWARDS);
       }
 
       super.updatePanelDimensions(newHeight, newWidth);
@@ -182,7 +181,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
       this.setHeightA(Math.round((1.0F - var8) * (float)this.field21271));
       partialTicks *= 1.0F - this.animation.calcPercent();
       float var5 = MathUtils.lerp(this.field21265.calcPercent(), 0.28, 1.26, 0.33, 1.04);
-      if (this.field21265.getDirection().equals(Direction.BACKWARDS)) {
+      if (this.field21265.getDirection().equals(Animation.Direction.BACKWARDS)) {
          var5 = MathHelper.calculateBackwardTransition(this.field21265.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
@@ -190,7 +189,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
       this.buttonList.setWidthA(Math.max(0, (int)((float)this.field21270 * var5)));
       this.buttonList.method13284((int)((float)this.field21270 * (1.0F - var5)));
       RenderUtil.method11415(this);
-      float var6 = this.method13212() && this.field21265.getDirection().equals(Direction.BACKWARDS) ? 0.03F : 0.0F;
+      float var6 = this.method13212() && this.field21265.getDirection().equals(Animation.Direction.BACKWARDS) ? 0.03F : 0.0F;
       RenderUtil.drawRoundedRect2(
          (float)this.xA,
          (float)this.yA,

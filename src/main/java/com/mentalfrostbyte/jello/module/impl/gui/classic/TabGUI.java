@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.misc.CategoryDrawPart;
 import com.mentalfrostbyte.jello.misc.CategoryDrawPartBackground;
 import com.mentalfrostbyte.jello.module.Module;
@@ -27,9 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabGUI extends Module {
-    public static final Animation animationProgress = new Animation(200, 200, Direction.BACKWARDS);
-    public Animation secondAnimationProgress = new Animation(500, 0, Direction.BACKWARDS);
-    private final Animation firstAnimationProgress = new Animation(300, 300, Direction.BACKWARDS);
+    public static final Animation animationProgress = new Animation(200, 200, Animation.Direction.BACKWARDS);
+    public Animation secondAnimationProgress = new Animation(500, 0, Animation.Direction.BACKWARDS);
+    private final Animation firstAnimationProgress = new Animation(300, 300, Animation.Direction.BACKWARDS);
 
     private final List<ModuleCategory> categories = new ArrayList<>();
     private int animationCooldown = 0;
@@ -61,12 +60,12 @@ public class TabGUI extends Module {
         if (this.isEnabled()) {
             KeyAction action = mapKeyToAction(event.getKey());
             if (action != null) {
-                animationProgress.changeDirection(Direction.FORWARDS);
+                animationProgress.changeDirection(Animation.Direction.FORWARDS);
                 this.animationCooldown = 80;
                 int categoryState = this.getCurrentCategoryState();
                 CategoryDrawPart category = categoryDrawParts.get(categoryState - 1);
                 if (action != KeyAction.EnterKey && (!this.isAnimationForwards() && action != KeyAction.RightArrowKey || categoryState != 3)) {
-                    this.secondAnimationProgress = new Animation(500, 200, Direction.BACKWARDS);
+                    this.secondAnimationProgress = new Animation(500, 200, Animation.Direction.BACKWARDS);
                 }
 
                 switch (action) {
@@ -172,8 +171,8 @@ public class TabGUI extends Module {
     public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
             if (this.animationCooldown <= 0) {
-                animationProgress.changeDirection(Direction.BACKWARDS);
-                this.secondAnimationProgress.changeDirection(Direction.BACKWARDS);
+                animationProgress.changeDirection(Animation.Direction.BACKWARDS);
+                this.secondAnimationProgress.changeDirection(Animation.Direction.BACKWARDS);
             } else {
                 this.animationCooldown--;
             }
@@ -224,11 +223,11 @@ public class TabGUI extends Module {
                     activeCategoryPart = thirdCategoryPart;
                 }
 
-                if (activeCategoryPart.isAnimating() && animationProgress.getDirection() == Direction.FORWARDS) {
+                if (activeCategoryPart.isAnimating() && animationProgress.getDirection() == Animation.Direction.FORWARDS) {
                     if (this.getCurrentCategoryState() == categoryDrawParts.size()) {
-                        this.secondAnimationProgress.changeDirection(Direction.FORWARDS);
+                        this.secondAnimationProgress.changeDirection(Animation.Direction.FORWARDS);
                     } else if (categoryDrawParts.get(categoryDrawParts.size() - 1).isFullyCollapsed()) {
-                        this.secondAnimationProgress.changeDirection(Direction.FORWARDS);
+                        this.secondAnimationProgress.changeDirection(Animation.Direction.FORWARDS);
                     }
                 }
 
@@ -241,7 +240,7 @@ public class TabGUI extends Module {
                 }
 
                 float animationProgressValue = MathHelper.calculateTransition(this.firstAnimationProgress.calcPercent(), 0.0F, 1.0F, 1.0F) * animationProgress.calcPercent();
-                if (this.firstAnimationProgress.getDirection() == Direction.BACKWARDS) {
+                if (this.firstAnimationProgress.getDirection() == Animation.Direction.BACKWARDS) {
                     animationProgressValue = MathHelper.calculateBackwardTransition(this.firstAnimationProgress.calcPercent(), 0.0F, 1.0F, 1.0F);
                 }
 
@@ -325,13 +324,13 @@ public class TabGUI extends Module {
 
     @Override
     public void onDisable() {
-        animationProgress.changeDirection(Direction.BACKWARDS);
+        animationProgress.changeDirection(Animation.Direction.BACKWARDS);
         this.animationCooldown = 0;
     }
 
     @Override
     public void onEnable() {
-        animationProgress.changeDirection(Direction.FORWARDS);
+        animationProgress.changeDirection(Animation.Direction.FORWARDS);
         this.animationCooldown = 40;
     }
 
@@ -370,11 +369,11 @@ public class TabGUI extends Module {
     }
 
     private void setAnimationDirection(boolean isForwards) {
-        this.firstAnimationProgress.changeDirection(!isForwards ? Direction.BACKWARDS : Direction.FORWARDS);
+        this.firstAnimationProgress.changeDirection(!isForwards ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
     }
 
     private boolean isAnimationForwards() {
-        return this.firstAnimationProgress.getDirection() == Direction.FORWARDS;
+        return this.firstAnimationProgress.getDirection() == Animation.Direction.FORWARDS;
     }
 
     public enum KeyAction {

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class6665;
 import com.mentalfrostbyte.jello.gui.unmapped.IWidthSetter;

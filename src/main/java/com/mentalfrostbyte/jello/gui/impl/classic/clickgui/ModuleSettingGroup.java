@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4345;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Class4345;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Exit;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.CategoryPanel;
 import com.mentalfrostbyte.jello.module.Module;

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
-import com.mentalfrostbyte.jello.gui.base.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;

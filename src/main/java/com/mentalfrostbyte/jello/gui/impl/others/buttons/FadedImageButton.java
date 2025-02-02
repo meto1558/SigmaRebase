@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.impl.others.buttons;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
 import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Button;
@@ -16,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 public class FadedImageButton extends Button {
     private final Texture field20590;
-    private final Animation field20592 = new Animation(150, 190, Direction.BACKWARDS);
+    private final Animation field20592 = new Animation(150, 190, Animation.Direction.BACKWARDS);
     private boolean field20591;
 
     public FadedImageButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
@@ -32,9 +31,9 @@ public class FadedImageButton extends Button {
 
     @Override
     public void draw(float partialTicks) {
-        this.field20592.changeDirection(!this.field20591 ? Direction.BACKWARDS : Direction.FORWARDS);
+        this.field20592.changeDirection(!this.field20591 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
         float var4 = MathUtils.lerp(this.field20592.calcPercent(), 0.07, 0.73, 0.63, 1.01);
-        if (this.field20592.getDirection() == Direction.BACKWARDS) {
+        if (this.field20592.getDirection() == Animation.Direction.BACKWARDS) {
             var4 = MathUtils.lerp(this.field20592.calcPercent(), 0.71, 0.18, 0.95, 0.57);
         }
 

@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
+
 public class AnimationManager {
    private float currentValue;
    private final RandomIntGenerator random = new RandomIntGenerator();

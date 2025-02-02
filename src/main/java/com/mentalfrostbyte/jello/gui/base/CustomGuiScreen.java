@@ -841,4 +841,24 @@ public class CustomGuiScreen implements IGuiEventListener {
     public int getWidthO() {
         return this.widthO;
     }
+
+    public interface DoThis {
+        void doIt(CustomGuiScreen parent, int var2);
+    }
+
+    public interface Class7381 {
+        void method23497(char var1);
+    }
+
+    public interface Class8867 {
+        void method32268(CustomGuiScreen var1, int var2);
+    }
+
+    public interface Class8446 {
+        void method29709(CustomGuiScreen screen, int var2);
+    }
+
+    public static interface Class7914 {
+       void method26544(CustomGuiScreen var1, int var2);
+    }
 }

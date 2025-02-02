@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.MathUtils;
@@ -14,7 +13,7 @@ import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 public class Class4330 extends CustomGuiScreen {
-   public Animation animation2 = new Animation(370, 150, Direction.BACKWARDS);
+   public Animation animation2 = new Animation(370, 150, Animation.Direction.BACKWARDS);
 
    public Class4330(CustomGuiScreen var1, String var2, JSONObject var3) throws JSONException {
       super(var1, var2);

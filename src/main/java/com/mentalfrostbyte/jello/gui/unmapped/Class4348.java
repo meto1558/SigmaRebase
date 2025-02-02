@@ -6,6 +6,8 @@ import com.mentalfrostbyte.jello.managers.util.account.microsoft.Ban;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.*;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +36,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field21243 = var7;
       this.field21244 = var7.method31736();
-      this.field21248 = new Animation(200, 200, Direction.BACKWARDS);
+      this.field21248 = new Animation(200, 200, Animation.Direction.BACKWARDS);
    }
 
    @Override
@@ -58,9 +60,9 @@ public class Class4348 extends AnimatedIconPanelWrap {
       float var4 = EasingFunctions.easeOutBack(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       float var5 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       if (this.method13298()) {
-         this.field21248.changeDirection(Direction.FORWARDS);
+         this.field21248.changeDirection(Animation.Direction.FORWARDS);
       } else if ((double)Math.abs(var4 - var5) < 0.7) {
-         this.field21248.changeDirection(Direction.BACKWARDS);
+         this.field21248.changeDirection(Animation.Direction.BACKWARDS);
       }
 
       if (this.method13272() + this.method13282() < Minecraft.getInstance().getMainWindow().getHeight() - 36 && this.method13272() + this.method13282() > 52) {
@@ -90,7 +92,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
          GL11.glPushMatrix();
          int var9 = this.widthA / 2;
          int var7 = this.heightA / 2;
-         if (this.field21248.getDirection() == Direction.BACKWARDS) {
+         if (this.field21248.getDirection() == Animation.Direction.BACKWARDS) {
             var4 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
          }
 
@@ -133,7 +135,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    public void method13576() {
       GL11.glPushMatrix();
       float var5 = EasingFunctions.easeOutBack(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
-      if (this.field21248.getDirection() == Direction.BACKWARDS) {
+      if (this.field21248.getDirection() == Animation.Direction.BACKWARDS) {
          var5 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
@@ -157,7 +159,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    }
 
    public void method13577() {
-      long var3 = this.field21243.method31735().getTime() - new Date().getTime();
+      long var3 = this.field21243.getDate().getTime() - new Date().getTime();
       int var5 = (int)(var3 / 1000L) % 60;
       int var6 = (int)(var3 / 60000L % 60L);
       int var7 = (int)(var3 / 3600000L % 24L);
@@ -170,7 +172,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
       );
       GL11.glPushMatrix();
       float var11 = EasingFunctions.easeOutBack(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
-      if (this.field21248.getDirection() == Direction.BACKWARDS) {
+      if (this.field21248.getDirection() == Animation.Direction.BACKWARDS) {
          var11 = QuadraticEasing.easeInQuad(this.field21248.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
@@ -188,8 +190,8 @@ public class Class4348 extends AnimatedIconPanelWrap {
       );
       int var12 = 94;
       int var13 = 46;
-      if (this.field21243.method31735().getTime() != 9223372036854775806L) {
-         if (var3 > 0L && this.field21243.method31735().getTime() != Long.MAX_VALUE) {
+      if (this.field21243.getDate().getTime() != 9223372036854775806L) {
+         if (var3 > 0L && this.field21243.getDate().getTime() != Long.MAX_VALUE) {
             RenderUtil.drawString(
                ResourceRegistry.JelloLightFont18,
                (float)(this.xA + var12),
@@ -197,7 +199,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
                "Unban: " + var8 + " days, " + var7 + "h " + var6 + "m " + var5 + "s",
                     ColorUtils.shiftTowardsOther(ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
             );
-         } else if (this.field21243.method31735().getTime() != Long.MAX_VALUE) {
+         } else if (this.field21243.getDate().getTime() != Long.MAX_VALUE) {
             RenderUtil.drawString(
                ResourceRegistry.JelloLightFont18,
                (float)(this.xA + var12),

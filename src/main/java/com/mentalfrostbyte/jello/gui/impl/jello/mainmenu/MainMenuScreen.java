@@ -5,7 +5,6 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.FloatingBubble;
 import com.mentalfrostbyte.jello.managers.NetworkManager;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathHelper;
@@ -33,8 +32,8 @@ public class MainMenuScreen extends Screen {
     public JelloMainMenu mainMenuScreen;
     public ChangelogScreen changelogScreen;
     public RedeemKeyScreen redeemKeyScreen;
-    public Animation field20972 = new Animation(200, 200, Direction.BACKWARDS);
-    public Animation animation = new Animation(200, 200, Direction.BACKWARDS);
+    public Animation field20972 = new Animation(200, 200, Animation.Direction.BACKWARDS);
+    public Animation animation = new Animation(200, 200, Animation.Direction.BACKWARDS);
     private final Animation field20974 = new Animation(325, 325);
     private final Animation field20975 = new Animation(800, 800);
     private static Texture background;
@@ -85,8 +84,8 @@ public class MainMenuScreen extends Screen {
             background = Resources.createScaledAndProcessedTexture2("com/mentalfrostbyte/gui/resources/background/panorama5.png", 0.075F, 8);
         }
 
-        this.field20974.changeDirection(Direction.BACKWARDS);
-        this.field20975.changeDirection(Direction.BACKWARDS);
+        this.field20974.changeDirection(Animation.Direction.BACKWARDS);
+        this.field20975.changeDirection(Animation.Direction.BACKWARDS);
         int var3 = Minecraft.getInstance().getMainWindow().getWidth() * Minecraft.getInstance().getMainWindow().getHeight() / 14000;
         Random var4 = new Random();
 
@@ -109,7 +108,7 @@ public class MainMenuScreen extends Screen {
     }
 
     public void goOut() {
-        this.field20972.changeDirection(Direction.BACKWARDS);
+        this.field20972.changeDirection(Animation.Direction.BACKWARDS);
         this.changelogScreen.method13296(false);
         this.redeemKeyScreen.method13296(false);
         this.redeemKeyScreen.method13292(false);
@@ -117,17 +116,17 @@ public class MainMenuScreen extends Screen {
     }
 
     public void method13341() {
-        this.field20972.changeDirection(Direction.FORWARDS);
-        this.animation.changeDirection(Direction.FORWARDS);
+        this.field20972.changeDirection(Animation.Direction.FORWARDS);
+        this.animation.changeDirection(Animation.Direction.FORWARDS);
     }
 
     public void animateIn() {
-        this.field20972.changeDirection(Direction.FORWARDS);
+        this.field20972.changeDirection(Animation.Direction.FORWARDS);
         this.changelogScreen.method13296(true);
     }
 
     public void animateNext() {
-        this.field20972.changeDirection(Direction.FORWARDS);
+        this.field20972.changeDirection(Animation.Direction.FORWARDS);
         this.redeemKeyScreen.method13296(true);
         this.redeemKeyScreen.method13292(true);
         this.redeemKeyScreen.method13294(false);
@@ -145,7 +144,7 @@ public class MainMenuScreen extends Screen {
     @Override
     public void draw(float partialTicks) {
         float transitionProgress = MathHelper.calculateTransition(this.field20972.calcPercent(), 0.0F, 1.0F, 1.0F);
-        if (this.field20972.getDirection() == Direction.BACKWARDS) {
+        if (this.field20972.getDirection() == Animation.Direction.BACKWARDS) {
             transitionProgress = MathHelper.calculateBackwardTransition(this.field20972.calcPercent(), 0.0F, 1.0F, 1.0F);
         }
 
@@ -174,8 +173,8 @@ public class MainMenuScreen extends Screen {
                 this.field20967 = (int) ((float) this.field20967 + deltaY * field20982);
             }
         } else {
-            this.field20974.changeDirection(Direction.FORWARDS);
-            this.field20975.changeDirection(Direction.FORWARDS);
+            this.field20974.changeDirection(Animation.Direction.FORWARDS);
+            this.field20975.changeDirection(Animation.Direction.FORWARDS);
             float parallaxFactor = 0.5F - (float) this.field20967 / (float) Minecraft.getInstance().getMainWindow().getWidth() * -1.0F;
             float backgroundOpacity = 1.0F - this.field20974.calcPercent();
             float foregroundOpacity = 1.0F - this.field20975.calcPercent();
@@ -263,7 +262,7 @@ public class MainMenuScreen extends Screen {
                 }
             }
 
-            if (this.animation.getDirection() == Direction.FORWARDS) {
+            if (this.animation.getDirection() == Animation.Direction.FORWARDS) {
                 RenderUtil.drawString(
                         ResourceRegistry.JelloMediumFont50,
                         (float) (this.widthA / 2),

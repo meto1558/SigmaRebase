@@ -16,6 +16,8 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import totalcross.json.JSONObject;
@@ -160,7 +162,7 @@ public class ClickGuiScreen extends Screen {
             this.configButton = null;
         }
 
-        if (animationProgress.getDirection() == Direction.BACKWARDS && this.settingGroup != null && !this.settingGroup.field20671) {
+        if (animationProgress.getDirection() == Animation.Direction.BACKWARDS && this.settingGroup != null && !this.settingGroup.field20671) {
             this.settingGroup.field20671 = true;
         }
 
@@ -172,8 +174,8 @@ public class ClickGuiScreen extends Screen {
         }
 
         if (animationCompleted) {
-            Direction direction = animationProgress.getDirection();
-            animationProgress.changeDirection(!animationStarted ? Direction.FORWARDS : Direction.BACKWARDS);
+            Animation.Direction direction = animationProgress.getDirection();
+            animationProgress.changeDirection(!animationStarted ? Animation.Direction.FORWARDS : Animation.Direction.BACKWARDS);
 
             if (animationProgress.calcPercent() <= 0.0F && animationStarted) {
                 animationStarted = false;
@@ -237,7 +239,7 @@ public class ClickGuiScreen extends Screen {
     }
 
     public float method13317(float var1, float var2) {
-        return animationProgress.getDirection() != Direction.BACKWARDS
+        return animationProgress.getDirection() != Animation.Direction.BACKWARDS
                 ? (float) (Math.pow(2.0, (double) (-10.0F * var1)) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
                 : QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F);
     }
@@ -258,7 +260,7 @@ public class ClickGuiScreen extends Screen {
         float fadeAmount = 1.0F;
         if (this.settingGroup != null) {
             float var8 = EasingFunctions.easeOutBack(this.settingGroup.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
-            if (this.settingGroup.animation.getDirection() == Direction.BACKWARDS) {
+            if (this.settingGroup.animation.getDirection() == Animation.Direction.BACKWARDS) {
                 var8 = MathHelper.calculateBackwardTransition(this.settingGroup.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
             }
 

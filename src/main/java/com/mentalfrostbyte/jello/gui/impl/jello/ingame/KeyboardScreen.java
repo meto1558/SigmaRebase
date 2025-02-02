@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.keybind.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.ModsPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;

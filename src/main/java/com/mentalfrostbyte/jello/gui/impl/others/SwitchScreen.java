@@ -4,9 +4,8 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.ClientMode;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.ImageQ;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.ImageQ;
 import com.mentalfrostbyte.jello.gui.impl.others.buttons.FadedImageButton;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.MathUtils;
@@ -21,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SwitchScreen extends Screen {
-    public static Animation field21069 = new Animation(300, 200, Direction.BACKWARDS);
+    public static Animation field21069 = new Animation(300, 200, Animation.Direction.BACKWARDS);
     public static float field21070;
     public static float field21071;
 
@@ -92,7 +91,7 @@ public class SwitchScreen extends Screen {
     @Override
     public void draw(float partialTicks) {
         if (LoadingScreen.back != null) {
-            field21069.changeDirection(Direction.FORWARDS);
+            field21069.changeDirection(Animation.Direction.FORWARDS);
             int var4 = 40;
             float var5 = -field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
             float var6 = -field21071 / (float) Minecraft.getInstance().getMainWindow().getHeight();

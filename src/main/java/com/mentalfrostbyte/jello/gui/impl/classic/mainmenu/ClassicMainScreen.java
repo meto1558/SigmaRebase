@@ -2,8 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
@@ -34,8 +33,8 @@ public class ClassicMainScreen extends Screen {
         super("Main Screen");
         this.setListening(false);
         this.field21100 = new Animation(175, 325);
-        this.field21100.changeDirection(Direction.FORWARDS);
-        this.field21101.changeDirection(Direction.BACKWARDS);
+        this.field21100.changeDirection(Animation.Direction.FORWARDS);
+        this.field21101.changeDirection(Animation.Direction.BACKWARDS);
         TrueTypeFont font = Resources.regular20;
         String copyrightTag = "© Sigma Prod";
         StringBuilder versionBuilder = new StringBuilder().append("Sigma ");

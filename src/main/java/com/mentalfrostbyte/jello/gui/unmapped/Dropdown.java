@@ -2,8 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 import com.mentalfrostbyte.jello.util.MathHelper;
@@ -101,7 +100,7 @@ public class Dropdown extends UIBase {
          });
       }
 
-      this.animation.changeDirection(Direction.BACKWARDS);
+      this.animation.changeDirection(Animation.Direction.BACKWARDS);
       this.method13246(new Class7262(1));
    }
 
@@ -122,7 +121,7 @@ public class Dropdown extends UIBase {
 
    private int method13648() {
       float var3 = MathHelper.calculateTransition(this.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
-      if (this.animation.getDirection() != Direction.FORWARDS) {
+      if (this.animation.getDirection() != Animation.Direction.FORWARDS) {
          var3 = QuadraticEasing.easeInQuad(this.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
@@ -136,20 +135,20 @@ public class Dropdown extends UIBase {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      if (!this.method13114(newHeight, newWidth) && this.animation.getDirection() == Direction.FORWARDS) {
+      if (!this.method13114(newHeight, newWidth) && this.animation.getDirection() == Animation.Direction.FORWARDS) {
          this.method13658(false);
       }
 
       int var5 = (newWidth - this.method13272()) / this.getHeightA() - 1;
       if (var5 >= 0
          && var5 < this.values.size()
-         && this.animation.getDirection() == Direction.FORWARDS
+         && this.animation.getDirection() == Animation.Direction.FORWARDS
          && this.animation.calcPercent() == 1.0F
          && newHeight - this.method13271() < this.getWidthA()) {
          for (Entry var9 : this.field21331.entrySet()) {
             ((Class4362)var9.getValue()).setEnabled((Integer)var9.getKey() == var5);
          }
-      } else if (!this.method13114(newHeight, newWidth) || this.animation.getDirection() == Direction.BACKWARDS) {
+      } else if (!this.method13114(newHeight, newWidth) || this.animation.getDirection() == Animation.Direction.BACKWARDS) {
          for (Entry var7 : this.field21331.entrySet()) {
             ((Class4362)var7.getValue()).setEnabled(false);
          }
@@ -256,7 +255,7 @@ public class Dropdown extends UIBase {
 
    public void method13658(boolean var1) {
       this.field21328 = var1;
-      this.animation.changeDirection(!this.method13657() ? Direction.BACKWARDS : Direction.FORWARDS);
+      this.animation.changeDirection(!this.method13657() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
    }
 
    @Override

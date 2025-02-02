@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -19,7 +18,7 @@ public class ClassicClickGui extends Screen {
 
     public ClassicClickGui() {
         super("ClassicScreen");
-        field21079 = new Animation(250, 200, Direction.FORWARDS);
+        field21079 = new Animation(250, 200, Animation.Direction.FORWARDS);
         this.method13419();
         ColorUtils.blur();
     }

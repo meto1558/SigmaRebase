@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.misc;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
 import com.mentalfrostbyte.jello.util.MathHelper;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
@@ -33,7 +32,7 @@ public class   CategoryDrawPartBackground {
 
    public void expand() {
       this.expanded = true;
-      this.animation.changeDirection(Direction.BACKWARDS);
+      this.animation.changeDirection(Animation.Direction.BACKWARDS);
    }
 
    public boolean isExpanded() {
@@ -50,7 +49,7 @@ public class   CategoryDrawPartBackground {
 
    public void render(float partialTicks) {
       float transitionFactor = MathHelper.calculateTransition(this.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
-      if (this.animation.getDirection() == Direction.BACKWARDS) {
+      if (this.animation.getDirection() == Animation.Direction.BACKWARDS) {
          transitionFactor = MathHelper.calculateBackwardTransition(this.animation.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 

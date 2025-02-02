@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others;
 
-import com.mentalfrostbyte.jello.gui.base.NamedColors;
+import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.WaypointColors;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4245;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.Waypoint;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.ColorHelper;
 
@@ -15,11 +15,11 @@ public class BadgeSelect extends UIBase {
       int offset = 0;
       boolean var7 = true;
 
-      for (NamedColors var11 : NamedColors.values()) {
+      for (WaypointColors var11 : WaypointColors.values()) {
          String var10004 = "badge" + var11.name;
          offset += 25;
-         Class4245 var12;
-         this.addToList(var12 = new Class4245(this, var10004, offset, 0, var11));
+         Waypoint var12;
+         this.addToList(var12 = new Waypoint(this, var10004, offset, 0, var11));
          if (var7) {
             var12.field20598 = true;
             this.field21296 = var11.color;
@@ -27,15 +27,15 @@ public class BadgeSelect extends UIBase {
 
          var12.doThis((var1x, var2x) -> {
             for (CustomGuiScreen var6 : var1x.getParent().getChildren()) {
-               if (var6 instanceof Class4245) {
-                  ((Class4245)var6).field20598 = false;
-                  ((Class4245)var6).field20599.changeDirection(Direction.BACKWARDS);
+               if (var6 instanceof Waypoint) {
+                  ((Waypoint)var6).field20598 = false;
+                  ((Waypoint)var6).field20599.changeDirection(Animation.Direction.BACKWARDS);
                }
             }
 
-            ((Class4245)var1x).field20598 = true;
-            ((Class4245)var1x).field20599.changeDirection(Direction.FORWARDS);
-            this.field21296 = ((Class4245)var1x).field20597.color;
+            ((Waypoint)var1x).field20598 = true;
+            ((Waypoint)var1x).field20599.changeDirection(Animation.Direction.FORWARDS);
+            this.field21296 = ((Waypoint)var1x).color.color;
          });
          var7 = false;
       }

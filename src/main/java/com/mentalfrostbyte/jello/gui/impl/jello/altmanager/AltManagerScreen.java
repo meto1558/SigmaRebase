@@ -4,7 +4,8 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.impl.others.Class8270;
+import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -42,7 +43,7 @@ public class AltManagerScreen extends Screen {
    private Texture field21020;
    private float field21021;
    private UIButton field21022;
-   private Class2209 field21023 = Class2209.field14448;
+   private AccountCompareType field21023 = AccountCompareType.DateAdded;
    private String field21024 = "";
    private boolean field21025 = false;
    private TextField field21026;
@@ -133,20 +134,20 @@ public class AltManagerScreen extends Screen {
       var9.onPress(var2 -> {
          switch (var9.method13655()) {
             case 0:
-               this.field21023 = Class2209.field14446;
+               this.field21023 = AccountCompareType.Alphabetical;
                break;
             case 1:
-               this.field21023 = Class2209.field14447;
+               this.field21023 = AccountCompareType.Bans;
                this.field21024 = var9.method13645(1).method13636().get(var9.method13645(1).method13640());
                break;
             case 2:
-               this.field21023 = Class2209.field14448;
+               this.field21023 = AccountCompareType.DateAdded;
                break;
             case 3:
-               this.field21023 = Class2209.field14449;
+               this.field21023 = AccountCompareType.LastUsed;
                break;
             case 4:
-               this.field21023 = Class2209.field14450;
+               this.field21023 = AccountCompareType.UseCount;
          }
 
          this.method13372(false);
@@ -335,7 +336,7 @@ public class AltManagerScreen extends Screen {
                   AccountUI var8 = (AccountUI)var7;
                   if (var7.getYA() <= Minecraft.getInstance().getMainWindow().getHeight() && this.field21010.method13513() == 0) {
                      if (var3 > 0.2F) {
-                        var8.field20805.changeDirection(Direction.FORWARDS);
+                        var8.field20805.changeDirection(Animation.Direction.FORWARDS);
                      }
 
                      float var9 = MathUtils.lerp(var8.field20805.calcPercent(), 0.51, 0.82, 0.0, 0.99);
@@ -343,7 +344,7 @@ public class AltManagerScreen extends Screen {
                      var3 = var8.field20805.calcPercent();
                   } else {
                      var8.method13284(0);
-                     var8.field20805.changeDirection(Direction.FORWARDS);
+                     var8.field20805.changeDirection(Animation.Direction.FORWARDS);
                   }
                }
             }
@@ -446,7 +447,7 @@ public class AltManagerScreen extends Screen {
    }
 
    public void method13372(boolean var1) {
-      List<Account> var5 = Class8270.method28878(this.accountManager.getAccounts(), this.field21023, this.field21024, this.field21026.getTypedText());
+      List<Account> var5 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), this.field21023, this.field21024, this.field21026.getTypedText());
       this.runThisOnDimensionUpdate(new Class1428(this, this, var5, var1));
    }
 

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.render;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Keys;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.managers.util.music.StencilMode;
 import com.mentalfrostbyte.jello.module.Module;

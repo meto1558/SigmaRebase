@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.RandomIntGenerator;
+import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.ParticleEffect;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimationManager;

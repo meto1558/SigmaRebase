@@ -3,6 +3,8 @@ import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
@@ -33,7 +35,7 @@ public class JelloOptions extends Screen {
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
-      if (field21112.getDirection() == Direction.BACKWARDS && field21112.calcPercent() == 0.0F && field21115 != null) {
+      if (field21112.getDirection() == Animation.Direction.BACKWARDS && field21112.calcPercent() == 0.0F && field21115 != null) {
          Minecraft.getInstance().displayGuiScreen(field21115);
       }
 
@@ -44,7 +46,7 @@ public class JelloOptions extends Screen {
    public void draw(float partialTicks) {
       float var4 = 1.3F - EasingFunctions.easeOutBack(field21112.calcPercent(), 0.0F, 1.0F, 1.0F) * 0.3F;
       float var5 = 1.0F;
-      if (field21112.getDirection() == Direction.BACKWARDS) {
+      if (field21112.getDirection() == Animation.Direction.BACKWARDS) {
          var4 = 0.7F + QuadraticEasing.easeOutQuad(field21112.calcPercent(), 0.0F, 1.0F, 1.0F) * 0.3F;
          var5 = field21112.calcPercent();
       }
@@ -93,7 +95,7 @@ public class JelloOptions extends Screen {
 
    public static void showGUI(net.minecraft.client.gui.screen.Screen var0) {
       field21115 = var0;
-      field21112.changeDirection(Direction.BACKWARDS);
+      field21112.changeDirection(Animation.Direction.BACKWARDS);
    }
 
    @Override

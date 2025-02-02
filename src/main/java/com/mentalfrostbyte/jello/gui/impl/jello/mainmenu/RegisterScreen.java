@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.LoginScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
 import com.mentalfrostbyte.jello.util.ClientColors;
 import com.mentalfrostbyte.jello.util.ColorHelper;
@@ -11,6 +10,7 @@ import com.mentalfrostbyte.jello.util.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
@@ -31,7 +31,7 @@ public class RegisterScreen extends Screen {
     private AlertPanel field21090;
     private UIButton field21091;
     private boolean field21092 = false;
-    private Animation field21093 = new Animation(250, 250, Direction.BACKWARDS);
+    private Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
 
     public RegisterScreen() {
         super("Credits");
@@ -116,7 +116,7 @@ public class RegisterScreen extends Screen {
         Resources.cancelIconPNG.bind();
         this.field21085 = Math.max(0.0F, Math.min(this.field21085 + 0.075F, 1.0F));
         if (this.field21092) {
-            this.field21093.changeDirection(Direction.FORWARDS);
+            this.field21093.changeDirection(Animation.Direction.FORWARDS);
         }
 
         this.method13425();

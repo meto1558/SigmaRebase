@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.BadgeSelect;
 import com.mentalfrostbyte.jello.gui.unmapped.*;

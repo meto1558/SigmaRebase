@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Textbox;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
@@ -217,7 +216,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
             case 10:
                 SpeedRampSetting.SpeedRamp var10 = (SpeedRampSetting.SpeedRamp) setting.getCurrentValue();
                 Text var11 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
-                Class4250 var12 = new Class4250(
+                Bezier var12 = new Bezier(
                         panel,
                         setting.getName() + "color",
                         panel.getWidthA() - 150 - var5 + 10,
@@ -311,7 +310,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
         GL11.glPushMatrix();
         super.draw(partialTicks);
         GL11.glPopMatrix();
-        this.field21225.changeDirection(!var4 ? Direction.BACKWARDS : Direction.FORWARDS);
+        this.field21225.changeDirection(!var4 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
                 (float) (this.getXA() + 10),

@@ -9,7 +9,6 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Direction;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.misc.Pair;
 import com.mentalfrostbyte.jello.module.Module;
@@ -425,7 +424,7 @@ public class KillAura extends Module {
             Entry<Entity, Animation> entry = animationIterator.next();
             Animation animation = entry.getValue();
 
-            animation.changeDirection(Direction.BACKWARDS);
+            animation.changeDirection(Animation.Direction.BACKWARDS);
 
             if (animation.calcPercent() == 0.5F) {
                 animationIterator.remove();
@@ -439,7 +438,7 @@ public class KillAura extends Module {
                 if (!entityGlowAnimations.containsKey(entity)) {
                     entityGlowAnimations.put(entity, new Animation(250, 250));
                 } else {
-                    entityGlowAnimations.get(entity).changeDirection(Direction.FORWARDS);
+                    entityGlowAnimations.get(entity).changeDirection(Animation.Direction.FORWARDS);
                 }
             }
         }
