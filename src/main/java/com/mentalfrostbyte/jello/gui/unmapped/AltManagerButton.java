@@ -10,15 +10,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
 
-public class Class4300 extends AnimatedIconPanelWrap {
-   private static String[] field20838;
-   public int field20839;
+public class AltManagerButton extends AnimatedIconPanelWrap {
+   public int color;
 
-   public Class4300(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String var7, int var8) {
-      super(var1, var2, var3, var4, var5, var6, false);
-      this.setTypedText(var7);
-      this.doThis((var0, var1x) -> Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F)));
-      this.field20839 = var8;
+   public AltManagerButton(CustomGuiScreen screen, String id, int x, int y, int width, int height, String text, int color) {
+      super(screen, id, x, y, width, height, false);
+      this.setTypedText(text);
+      this.doThis((sc, i) -> Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F)));
+      this.color = color;
    }
 
    @Override
@@ -29,7 +28,7 @@ public class Class4300 extends AnimatedIconPanelWrap {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-         RenderUtil2.applyAlpha(this.field20839, !this.isHovered() ? 0.25F : (!this.method13298() ? 0.4F : (!this.method13212() ? 0.5F : 0.6F)))
+         RenderUtil2.applyAlpha(this.color, !this.isHovered() ? 0.25F : (!this.method13298() ? 0.4F : (!this.method13212() ? 0.5F : 0.6F)))
       );
       RenderUtil.method11429(
          (float)this.xA,
@@ -37,7 +36,7 @@ public class Class4300 extends AnimatedIconPanelWrap {
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
          2,
-              RenderUtil2.applyAlpha(this.field20839, 0.2F)
+              RenderUtil2.applyAlpha(this.color, 0.2F)
       );
       RenderUtil.drawString(
          ResourceRegistry.DefaultClientFont,

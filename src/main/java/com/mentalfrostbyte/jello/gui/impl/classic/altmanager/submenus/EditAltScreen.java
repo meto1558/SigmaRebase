@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
+import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -17,8 +17,8 @@ import com.mentalfrostbyte.jello.util.client.render.Class2218;
 public class EditAltScreen extends Screen {
    public Input field21027;
    public Input field21028;
-   public Class4300 field21029;
-   public Class4300 field21030;
+   public AltManagerButton field21029;
+   public AltManagerButton field21030;
    public AccountManager field21031 = Client.getInstance().accountManager;
    private String field21032 = "§7Waiting...";
 
@@ -33,9 +33,9 @@ public class EditAltScreen extends Screen {
       var5 += 80;
       this.addToList(this.field21028 = new Input(this, "password", var6, var5, var4, 45, Input.field20741, "", "New password", ResourceRegistry.DefaultClientFont));
       var5 += 190;
-      this.addToList(this.field21029 = new Class4300(this, "edit", var6, var5, var4, 40, "Edit", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.field21029 = new AltManagerButton(this, "edit", var6, var5, var4, 40, "Edit", ClientColors.MID_GREY.getColor()));
       var5 += 50;
-      this.addToList(this.field21030 = new Class4300(this, "back", var6, var5, var4, 40, "Cancel", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.field21030 = new AltManagerButton(this, "back", var6, var5, var4, 40, "Cancel", ClientColors.MID_GREY.getColor()));
       this.field21028.method13155(true);
       this.field21028.method13147("*");
       this.field21029.doThis((var2, var3) -> {

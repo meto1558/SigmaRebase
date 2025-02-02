@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.AddAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.DirectLoginScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.EditAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
+import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4349;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
@@ -15,30 +15,30 @@ import net.minecraft.client.gui.screen.MainMenuHolder;
 import java.util.Random;
 
 public class ClassicAltScreenGroup extends CustomGuiScreen {
-   public Class4300 field21140;
-   public Class4300 field21141;
-   public Class4300 field21142;
-   public Class4300 field21143;
-   public Class4300 field21144;
-   public Class4300 field21145;
-   public Class4300 field21146;
-   public Class4300 field21147;
-   public Class4300 field21148;
+   public AltManagerButton field21140;
+   public AltManagerButton field21141;
+   public AltManagerButton field21142;
+   public AltManagerButton field21143;
+   public AltManagerButton field21144;
+   public AltManagerButton field21145;
+   public AltManagerButton field21146;
+   public AltManagerButton field21147;
+   public AltManagerButton field21148;
 
    public ClassicAltScreenGroup(CustomGuiScreen var1, String var2, int var3, int var4) {
       super(var1, var2, var3, var4, 760, 87);
-      this.addToList(this.field21140 = new Class4300(this, "reload", 0, 0, 120, 40, "Reload", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21141 = new Class4300(this, "back", 0, 48, 120, 40, "Back", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21140 = new AltManagerButton(this, "reload", 0, 0, 120, 40, "Reload", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21141 = new AltManagerButton(this, "back", 0, 48, 120, 40, "Back", ClientColors.DEEP_TEAL.getColor()));
       int var7 = 200;
       int var8 = 146;
       int var9 = this.getWidthA() - 625;
-      this.addToList(this.field21142 = new Class4300(this, "login", var9, 0, var7, 40, "Login", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21145 = new Class4300(this, "direct", var9 + var7 + 16, 0, var7, 40, "Direct Login", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21147 = new Class4300(this, "add", var9 + var7 * 2 + 32, 0, var7, 40, "Add", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21143 = new Class4300(this, "random", var9, 48, var8, 40, "Random", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21144 = new Class4300(this, "remove", var9 + var8 + 16, 48, var8, 40, "Remove", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21146 = new Class4300(this, "edit", var9 + var8 * 2 + 32, 48, var8, 40, "Edit", ClientColors.DEEP_TEAL.getColor()));
-      this.addToList(this.field21148 = new Class4300(this, "alpha", var9 + var8 * 3 + 48, 48, var8, 40, "Alphalts", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21142 = new AltManagerButton(this, "login", var9, 0, var7, 40, "Login", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21145 = new AltManagerButton(this, "direct", var9 + var7 + 16, 0, var7, 40, "Direct Login", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21147 = new AltManagerButton(this, "add", var9 + var7 * 2 + 32, 0, var7, 40, "Add", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21143 = new AltManagerButton(this, "random", var9, 48, var8, 40, "Random", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21144 = new AltManagerButton(this, "remove", var9 + var8 + 16, 48, var8, 40, "Remove", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21146 = new AltManagerButton(this, "edit", var9 + var8 * 2 + 32, 48, var8, 40, "Edit", ClientColors.DEEP_TEAL.getColor()));
+      this.addToList(this.field21148 = new AltManagerButton(this, "alpha", var9 + var8 * 3 + 48, 48, var8, 40, "Alphalts", ClientColors.DEEP_TEAL.getColor()));
       ClassicAltScreen var10 = (ClassicAltScreen)this.getParent();
       this.field21143
          .doThis(

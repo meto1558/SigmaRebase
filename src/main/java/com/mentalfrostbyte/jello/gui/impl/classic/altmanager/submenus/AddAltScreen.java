@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
+import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -19,9 +19,9 @@ import org.lwjgl.glfw.GLFW;
 public class AddAltScreen extends Screen {
    public Input field21116;
    public Input field21117;
-   public Class4300 field21118;
-   public Class4300 field21119;
-   public Class4300 field21120;
+   public AltManagerButton field21118;
+   public AltManagerButton field21119;
+   public AltManagerButton field21120;
    public AccountManager field21121 = Client.getInstance().accountManager;
    private String field21122 = "§7Idle...";
 
@@ -37,11 +37,11 @@ public class AddAltScreen extends Screen {
       var4 += 80;
       this.addToList(this.field21117 = new Input(this, "password", var5, var4, var3, 45, Input.field20741, "", "Password", ResourceRegistry.DefaultClientFont));
       var4 += 190;
-      this.addToList(this.field21118 = new Class4300(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.field21118 = new AltManagerButton(this, "login", var5, var4, var3, 40, "Login", ClientColors.MID_GREY.getColor()));
       var4 += 50;
-      this.addToList(this.field21119 = new Class4300(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.field21119 = new AltManagerButton(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
       var4 += 50;
-      this.addToList(this.field21120 = new Class4300(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
+      this.addToList(this.field21120 = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
       this.field21117.method13155(true);
       this.field21117.method13147("*");
       this.field21118.doThis((var1, var2) -> {
