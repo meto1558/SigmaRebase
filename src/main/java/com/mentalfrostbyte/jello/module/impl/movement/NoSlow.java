@@ -61,10 +61,13 @@ public class NoSlow extends Module {
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (!this.isEnabled()) return;
         if (this.getBooleanValueFromSettingName("Blink")) {
+            Module Blink = Client.getInstance().moduleManager.getModuleByClass(Blink.class);
+            if (!Blink.isEnabled()) {
                 boolean isEating = mc.player.getHeldItemMainhand() != null &&
                         mc.player.getHeldItemMainhand().getItem().isFood() &&
                         mc.gameSettings.keyBindUseItem.isKeyDown();
-
+                Blink.isEnabled();
+        }
     }
         boolean auraEnabled = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2();
         boolean isSwordEquipped = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;

@@ -35,9 +35,7 @@ public class Blink extends Module {
         clientPlayerEntity.inventory = mc.player.inventory;
         clientPlayerEntity.setPositionAndRotation(this.vector.x, this.vector.y, this.vector.z, this.yaw, this.pitch);
         clientPlayerEntity.rotationYawHead = mc.player.rotationYawHead;
-   //     mc.world.addEntity(-1, clientPlayerEntity);
-
-        isBlinking = true;
+        mc.world.addEntity(-1, clientPlayerEntity);
     }
 
     @Override
@@ -65,6 +63,7 @@ public class Blink extends Module {
                     || event.getPacket() instanceof CPlayerTryUseItemPacket) {
                 this.packets.add(event.getPacket());
                 event.cancelled = true;
+                isBlinking = true;
             }
         }
     }
