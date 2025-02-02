@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
@@ -23,7 +23,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
    private float field21255 = 0.0F;
    private int field21256 = 0;
    private int field21257 = 0;
-   private int field21258 = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
+   private int field21258 = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
 
    public Class4349(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Account var7) {
       super(var1, var2, var3, var4, var5, var6, false);
@@ -52,14 +52,14 @@ public class Class4349 extends AnimatedIconPanelWrap {
       this.method13225();
       this.field21252 = (float)((double)this.field21252 + (this.field21254 ? 0.2 : -0.2));
       this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
-      this.field21258 = ColorUtils.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
+      this.field21258 = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
       if (this.field21254 || this.method13212() || this.method13298()) {
          RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)this.yA,
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.05F)
+            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.05F)
          );
       }
 
@@ -71,7 +71,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
                (float)(this.xA + this.widthA),
                (float)(this.yA + this.heightA),
                2,
-                    ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.5F)
+                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.5F)
             );
          } else if (!this.method13298()) {
             if (this.field21254) {
@@ -81,7 +81,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
                   (float)(this.xA + this.widthA),
                   (float)(this.yA + this.heightA),
                   2,
-                       ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.3F)
+                       RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.3F)
                );
             }
          } else {
@@ -91,7 +91,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
                (float)(this.xA + this.widthA),
                (float)(this.yA + this.heightA),
                2,
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
             );
          }
       } else {
@@ -101,7 +101,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
             2,
-                 ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.65F)
+                 RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.65F)
          );
       }
 
@@ -150,7 +150,7 @@ public class Class4349 extends AnimatedIconPanelWrap {
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + 20),
          var3,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F),
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F),
          Class2218.field14492,
          Class2218.field14492
       );

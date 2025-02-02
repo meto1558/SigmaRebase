@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.lwjgl.opengl.GL11;
@@ -12,7 +12,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
 public class PNGIconButton extends Button {
-    public static final ColorHelper color = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ColorUtils.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
+    public static final ColorHelper color = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), RenderUtil2.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
     public Texture texture;
 
     public PNGIconButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, TrueTypeFont var10) {
@@ -56,8 +56,8 @@ public class PNGIconButton extends Button {
                 (float) this.getWidthA(),
                 (float) this.getHeightA(),
                 this.getTexture(),
-                ColorUtils.applyAlpha(
-                        ColorUtils.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
+                RenderUtil2.applyAlpha(
+                        RenderUtil2.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
                         (float) (this.textColor.method19405() >> 24 & 0xFF) / 255.0F * partialTicks
                 )
         );
@@ -67,7 +67,7 @@ public class PNGIconButton extends Button {
                     (float) (this.getXA() + this.getWidthA() / 2),
                     (float) (this.getYA() + this.getHeightA() / 2),
                     this.getTypedText(),
-                    ColorUtils.applyAlpha(this.textColor.getTextColor(), partialTicks),
+                    RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()
             );

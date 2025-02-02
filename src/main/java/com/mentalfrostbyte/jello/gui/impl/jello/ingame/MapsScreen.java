@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.Waypoint;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.WaypointPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
@@ -38,7 +38,7 @@ public class MapsScreen extends Screen {
       this.addToList(this.field21036 = new MapPanel(this, "mapView", (this.widthA - var3) / 2, (this.heightA - var4) / 2, var3, var4));
       this.field21036.field20614.method13080((var2, var3x, var4x, var5) -> this.runThisOnDimensionUpdate(new Class774(this, this, var3x, var4x, var5)));
       this.field21036.field20614.method13082(var1 -> this.method13390());
-      ColorUtils.blur();
+      RenderUtil2.blur();
    }
 
    private void method13389(WaypointPanel var1) {
@@ -75,7 +75,7 @@ public class MapsScreen extends Screen {
    public void keyPressed(int keyCode) {
       super.keyPressed(keyCode);
       if (keyCode == 256) {
-         ColorUtils.resetShaders();
+         RenderUtil2.resetShaders();
          field21033.displayGuiScreen(null);
       }
    }
@@ -91,7 +91,7 @@ public class MapsScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
       super.draw(partialTicks);

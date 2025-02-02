@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.misc.ViperEvent;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.IPacket;
@@ -84,6 +83,26 @@ public class ViperDisabler extends Module {
             if (incomingPacket instanceof SConfirmTransactionPacket) {
                 event.setCancelled(true);
             }
+        }
+    }
+
+    public static class ViperEvent {
+        private final long timeToSendPacket;
+        private final IPacket<?> packet;
+        public final ViperDisabler instance;
+
+        public ViperEvent(ViperDisabler instance, IPacket<?> packet, long delay) {
+            this.instance = instance;
+            this.packet = packet;
+            this.timeToSendPacket = System.currentTimeMillis() + delay;
+        }
+
+        public boolean shouldSendPacket() {
+            return this.timeToSendPacket - System.currentTimeMillis() < 0L;
+        }
+
+        public IPacket getPacket() {
+            return this.packet;
         }
     }
 }

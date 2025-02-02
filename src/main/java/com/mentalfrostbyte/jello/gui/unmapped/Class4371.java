@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class Class4371 extends UIBase {
@@ -19,20 +19,20 @@ public class Class4371 extends UIBase {
          (float)this.xA + (float)this.widthA / 2.0F,
          (float)this.yA + (float)this.widthA / 2.0F,
          (float)this.widthA,
-         ColorUtils.applyAlpha(ColorUtils.shiftTowardsOther(this.field21365, ClientColors.DEEP_TEAL.getColor(), 0.8F), partialTicks)
+         RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(this.field21365, ClientColors.DEEP_TEAL.getColor(), 0.8F), partialTicks)
       );
       RenderUtil.drawCircle(
          (float)this.xA + (float)this.widthA / 2.0F,
          (float)this.yA + (float)this.widthA / 2.0F,
          (float)(this.widthA - 2),
-              ColorUtils.applyAlpha(this.field21365, partialTicks)
+              RenderUtil2.applyAlpha(this.field21365, partialTicks)
       );
       if (this.method13212()) {
          RenderUtil.drawCircle(
             (float)this.xA + (float)this.widthA / 2.0F,
             (float)this.yA + (float)this.widthA / 2.0F,
             (float)(this.widthA - 2),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.2F)
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.2F)
          );
       }
 

@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.misc.StepEnum;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
@@ -37,10 +36,10 @@ public class SpiderStep extends Module {
     public void onStep(EventStep event) {
         if (this.isEnabled() && !event.isCancelled()) {
             double var4 = event.getHeight();
-            StepEnum var6 = ((Step) this.access()).method16748(event);
-            if (var6 == StepEnum.NORMAL_BLOCK) {
+            Step.StepEnum var6 = ((Step) this.access()).method16748(event);
+            if (var6 == Step.StepEnum.NORMAL_BLOCK) {
                 event.setCancelled(true);
-            } else if (var6 != StepEnum.STAIRS) {
+            } else if (var6 != Step.StepEnum.STAIRS) {
                 if (!com.mentalfrostbyte.jello.util.game.player.MovementUtil.isInWater() && var4 >= 0.625) {
                     this.field23760 = var4;
                     double var7 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue();

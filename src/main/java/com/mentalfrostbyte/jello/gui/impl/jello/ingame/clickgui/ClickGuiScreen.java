@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
@@ -72,7 +72,7 @@ public class ClickGuiScreen extends Screen {
         PNGIconButton moreButton;
         this.addToList(moreButton = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
 
-        moreButton.getTextColor().method19406(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
+        moreButton.getTextColor().method19406(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
 
         this.musicPlayer.setEnabled(true);
@@ -87,8 +87,8 @@ public class ClickGuiScreen extends Screen {
 
         animationProgress = new Animation(450, 125);
         this.blurOverlay = new BlurOverlay(this, this, "overlay");
-        ColorUtils.blur();
-        ColorUtils.setShaderParamsRounded(animationProgress.calcPercent());
+        RenderUtil2.blur();
+        RenderUtil2.setShaderParamsRounded(animationProgress.calcPercent());
     }
 
     public boolean hasJelloMusicRequirements() {
@@ -146,7 +146,7 @@ public class ClickGuiScreen extends Screen {
     public void updatePanelDimensions(int newHeight, int newWidth) {
         this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
         super.updatePanelDimensions(newHeight, newWidth);
-        ColorUtils.setShaderParamsRounded(Math.min(1.0F, animationProgress.calcPercent() * 4.0F));
+        RenderUtil2.setShaderParamsRounded(Math.min(1.0F, animationProgress.calcPercent() * 4.0F));
         this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
         if (this.configButton != null) {
             int newHeightValue = newHeight - this.configButton.method13271();
@@ -187,7 +187,7 @@ public class ClickGuiScreen extends Screen {
         }
 
         if (animationCompleted && animationStarted) {
-            ColorUtils.resetShaders();
+            RenderUtil2.resetShaders();
         }
     }
 
@@ -198,7 +198,7 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public JSONObject toConfigWithExtra(JSONObject config) {
-        ColorUtils.resetShaders();
+        RenderUtil2.resetShaders();
         this.method13234(this.blurOverlay);
         return super.toConfigWithExtra(config);
     }
@@ -255,7 +255,7 @@ public class ClickGuiScreen extends Screen {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha)
+                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha)
         );
         float fadeAmount = 1.0F;
         if (this.settingGroup != null) {
@@ -275,7 +275,7 @@ public class ClickGuiScreen extends Screen {
                     (float) (this.widthA - ResourceRegistry.JelloLightFont20.getWidth(configName) - 80),
                     (float) (this.heightA - 47),
                     configName,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * Math.max(0.0F, Math.min(1.0F, alphaFactor)))
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * Math.max(0.0F, Math.min(1.0F, alphaFactor)))
             );
         }
 

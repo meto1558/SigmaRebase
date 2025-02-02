@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -142,12 +142,12 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.field21129.field20779 = true;
         this.addToList(
                 this.changelogButton = new UIButton(
-                        this, "changelog", 432, 24, 110, 50, new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
+                        this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
                 )
         );
         this.addToList(
                 this.field21133 = new UIButton(
-                        this, "quit", 30, 24, 50, 50, new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
+                        this, "quit", 30, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
                 )
         );
         this.field21133.doThis((var1x, var2x) -> {
@@ -212,7 +212,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 (float) imageWidth,
                 (float) imageHeight,
                 Resources.logoLargePNG,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
         super.draw(partialTicks);
     }

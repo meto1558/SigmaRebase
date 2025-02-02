@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.ChangingButton;
@@ -21,8 +22,8 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.youtube.YoutubeUtil;
-import com.mentalfrostbyte.jello.util.render.*;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
@@ -287,14 +288,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
-                ColorUtils.applyAlpha(-14277082, partialTicks * 0.8F)
+                RenderUtil2.applyAlpha(-14277082, partialTicks * 0.8F)
         );
         RenderUtil.drawRoundedRect(
                 (float) this.getXA(),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.width),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
-                ColorUtils.applyAlpha(-16777216, partialTicks * 0.95F)
+                RenderUtil2.applyAlpha(-16777216, partialTicks * 0.95F)
         );
         this.method13193(partialTicks);
         this.method13194(partialTicks);
@@ -305,14 +306,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 var4 + this.getXA(),
                 (float) (this.getYA() + 20),
                 "Jello",
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont20,
                 var4 + this.getXA() + 80,
                 (float) (this.getYA() + 40),
                 "music",
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
         RenderUtil.drawRoundedRect((float) this.getXA(), (float) this.getYA(), (float) this.getWidthA(), (float) this.getHeightA(), 14.0F, partialTicks);
         super.draw(partialTicks);
@@ -329,14 +330,14 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 (float) (this.getXA() + this.width + 14),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
                 YoutubeUtil.method34955(var4),
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
                 (float) (this.getXA() + this.getWidthA() - 14 - ResourceRegistry.JelloLightFont14.getWidth(YoutubeUtil.method34955(var5))),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
                 YoutubeUtil.method34955(var5),
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
         );
     }
 
@@ -350,21 +351,21 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     (float) this.getWidthA(),
                     (float) this.field20848,
                     var5,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
             );
             RenderUtil.drawRoundedRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - this.field20848),
                     (float) (this.getXA() + this.getWidthA()),
                     (float) (this.getYA() + this.getHeightA() - 5),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
             RenderUtil.drawRoundedRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - 5),
                     (float) (this.getXA() + this.width),
                     (float) (this.getYA() + this.getHeightA()),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
             RenderUtil.drawImage(
                     (float) (this.getXA() + (this.width - 114) / 2),
@@ -372,7 +373,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     114.0F,
                     114.0F,
                     var4,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
             );
             RenderUtil.drawRoundedRect(
                     (float) (this.getXA() + (this.width - 114) / 2), (float) (this.getYA() + this.getHeightA() - 170), 114.0F, 114.0F, 14.0F, var1
@@ -384,21 +385,21 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     (float) this.getWidthA(),
                     (float) this.field20848,
                     Resources.bgPNG,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
             );
             RenderUtil.drawRoundedRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - this.field20848),
                     (float) (this.getXA() + this.getWidthA()),
                     (float) (this.getYA() + this.getHeightA() - 5),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
             RenderUtil.drawRoundedRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - 5),
                     (float) (this.getXA() + this.width),
                     (float) (this.getYA() + this.getHeightA()),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
             RenderUtil.drawImage(
                     (float) (this.getXA() + (this.width - 114) / 2),
@@ -406,7 +407,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     114.0F,
                     114.0F,
                     Resources.artworkPNG,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
             );
             RenderUtil.drawRoundedRect(
                     (float) (this.getXA() + (this.width - 114) / 2), (float) (this.getYA() + this.getHeightA() - 170), 114.0F, 114.0F, 14.0F, var1
@@ -454,7 +455,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 (float) var13 - (float) var10 * var9 - 50.0F * var9,
                 (float) var14,
                 text,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1 * Math.min(1.0F, Math.max(0.0F, 1.0F - var9 * 0.75F)))
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1 * Math.min(1.0F, Math.max(0.0F, 1.0F - var9 * 0.75F)))
         );
         if (var9 > 0.0F) {
             RenderUtil.drawString(
@@ -462,7 +463,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     (float) var13 - (float) var10 * var9 + (float) var10,
                     (float) var14,
                     text,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
             );
         }
 
@@ -494,7 +495,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                     (float) (this.getWidthA() - this.width),
                     (float) this.field20847,
                     this.texture,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1)
             );
         }
 
@@ -503,21 +504,21 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 0.0F,
                 (float) this.getWidthA(),
                 (float) this.field20847,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1 * 0.2F)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1 * 0.2F)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont25,
                 (float) ((this.getWidthA() - ResourceRegistry.JelloLightFont25.getWidth(this.field20849) + this.width) / 2),
                 16.0F + (1.0F - var4) * 14.0F,
                 this.field20849,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloMediumFont25,
                 (float) ((this.getWidthA() - ResourceRegistry.JelloMediumFont25.getWidth(this.field20849) + this.width) / 2),
                 16.0F + (1.0F - var4) * 14.0F,
                 this.field20849,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - var4)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - var4)
         );
         RenderUtil.drawImage(
                 (float) this.width,
@@ -525,7 +526,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
                 (float) (this.getWidthA() - this.width),
                 20.0F,
                 Resources.shadowBottomPNG,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1 * 0.5F)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * var1 * 0.5F)
         );
         this.field20863 = this.field20852.method13513();
     }

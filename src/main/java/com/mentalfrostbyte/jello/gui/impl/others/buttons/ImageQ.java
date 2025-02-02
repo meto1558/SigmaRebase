@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.others.buttons;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 
@@ -23,7 +23,7 @@ public class ImageQ extends AnimatedIconPanelWrap {
          (float)this.widthA,
          (float)this.heightA,
          this.image,
-         ColorUtils.shiftTowardsOther(
+         RenderUtil2.shiftTowardsOther(
             ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
          )
       );

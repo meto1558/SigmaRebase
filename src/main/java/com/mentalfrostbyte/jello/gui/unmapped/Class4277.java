@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -71,7 +71,7 @@ public class Class4277 extends UIBase {
       int var9 = this.getYA() + this.getHeightA() / 2 - var6 / 2;
       int var10 = this.field20734.getXA() + this.field20734.getWidthA() / 2 - 6;
       RenderUtil.drawRoundedRect(
-         (float)var8, (float)var9, (float)var10, (float)var6, (float)(var6 / 2), ColorUtils.applyAlpha(this.textColor.method19405(), partialTicks * partialTicks * partialTicks)
+         (float)var8, (float)var9, (float)var10, (float)var6, (float)(var6 / 2), RenderUtil2.applyAlpha(this.textColor.method19405(), partialTicks * partialTicks * partialTicks)
       );
       RenderUtil.drawRoundedRect(
          (float)(var8 + var10),
@@ -79,7 +79,7 @@ public class Class4277 extends UIBase {
          (float)(var7 - var10),
          (float)var6,
          (float)(var6 / 2),
-              ColorUtils.applyAlpha(ColorUtils.adjustColorTowardsWhite(this.textColor.method19405(), 0.8F), partialTicks * partialTicks * partialTicks)
+              RenderUtil2.applyAlpha(RenderUtil2.adjustColorTowardsWhite(this.textColor.method19405(), 0.8F), partialTicks * partialTicks * partialTicks)
       );
       if (this.getTypedText() != null) {
          int var11 = Math.max(0, 9 - this.field20734.getXA());
@@ -88,7 +88,7 @@ public class Class4277 extends UIBase {
             (float)(var8 - ResourceRegistry.JelloLightFont14.getWidth(this.getTypedText()) - 10 - var11),
             (float)(var9 - 5),
             this.getTypedText(),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * this.field20735.calcPercent() * partialTicks)
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * this.field20735.calcPercent() * partialTicks)
          );
       }
 

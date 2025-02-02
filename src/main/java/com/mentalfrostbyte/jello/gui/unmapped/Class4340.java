@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -142,7 +142,7 @@ public class Class4340 extends ScrollableContentPanel {
          22.0F,
          26.0F,
          Resources.trashcanPNG,
-         ColorUtils.applyAlpha(!this.field21212 ? ClientColors.DEEP_TEAL.getColor() : ClientColors.PALE_YELLOW.getColor(), this.field21211.calcPercent() * 0.5F),
+         RenderUtil2.applyAlpha(!this.field21212 ? ClientColors.DEEP_TEAL.getColor() : ClientColors.PALE_YELLOW.getColor(), this.field21211.calcPercent() * 0.5F),
          false
       );
    }

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class Class4263 extends UIBase {
@@ -27,14 +27,14 @@ public class Class4263 extends UIBase {
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)this.widthA,
-         ColorUtils.applyAlpha(ClientColors.PALE_YELLOW.getColor(), (0.5F + this.field20678 * 0.3F + (!this.field20909 ? 0.0F : 0.2F)) * partialTicks)
+         RenderUtil2.applyAlpha(ClientColors.PALE_YELLOW.getColor(), (0.5F + this.field20678 * 0.3F + (!this.field20909 ? 0.0F : 0.2F)) * partialTicks)
       );
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + (this.widthA - 10) / 2),
          (float)(this.yA + this.heightA / 2 - 1),
          10.0F,
          2.0F,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F * partialTicks)
+              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F * partialTicks)
       );
       super.draw(partialTicks);
    }

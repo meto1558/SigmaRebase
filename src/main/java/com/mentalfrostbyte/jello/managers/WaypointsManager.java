@@ -25,7 +25,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class2531;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class7927;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -447,9 +447,9 @@ public class WaypointsManager {
             Material var12 = this.field36365.world.getBlockState(var1.north()).getMaterial();
             Material var13 = this.field36365.world.getBlockState(var1.south()).getMaterial();
             if (var12 == Material.AIR || var12 == Material.SNOW) {
-                var6 = ColorUtils.blendColor(new Color(var6, true), Color.BLACK, 0.6F).getRGB();
+                var6 = RenderUtil2.blendColor(new Color(var6, true), Color.BLACK, 0.6F).getRGB();
             } else if (var13 == Material.AIR || var13 == Material.SNOW) {
-                var6 = ColorUtils.blendColor(new Color(var6, true), Color.WHITE, 0.6F).getRGB();
+                var6 = RenderUtil2.blendColor(new Color(var6, true), Color.WHITE, 0.6F).getRGB();
             }
         }
 

@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class7262;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
@@ -120,7 +120,7 @@ public class Dropdown extends UIBase {
             (float)(this.getYA() + 1),
             (float)(this.getXA() + this.getWidthA() - 1),
             (float)(this.getYA() + this.getHeightA() - 1),
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.25F)
+            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.25F)
          );
       }
 
@@ -147,7 +147,7 @@ public class Dropdown extends UIBase {
             (float)(this.getXA() + 7),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2),
             this.getTypedText(),
-            ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
+            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
          );
          RenderUtil.endScissor();
       }

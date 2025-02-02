@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
@@ -67,7 +67,7 @@ public class KeyboardScreen extends Screen {
                }
             }
          );
-      ColorUtils.blur();
+      RenderUtil2.blur();
    }
 
    public static ArrayList<Class6984> method13328() {
@@ -133,7 +133,7 @@ public class KeyboardScreen extends Screen {
    public void keyPressed(int keyCode) {
       super.keyPressed(keyCode);
       if (keyCode == 256) {
-         ColorUtils.resetShaders();
+         RenderUtil2.resetShaders();
          field20953.displayGuiScreen(null);
       }
    }
@@ -149,7 +149,7 @@ public class KeyboardScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
       RenderUtil.drawString(

@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.managers.util.music.StencilMode;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 import org.lwjgl.opengl.GL11;
@@ -66,7 +66,7 @@ public class MapPanel extends UIBase {
          (float)this.widthA,
          (float)this.heightA,
          14.0F,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
+         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
       );
       RenderUtil.drawRoundedButton(
          (float)(this.xA + this.field20616),
@@ -95,9 +95,9 @@ public class MapPanel extends UIBase {
          (float)(this.yA + 0),
          1.0F,
          (float)this.heightA,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F)
       );
-      int var6 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F);
+      int var6 = RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F);
       RenderUtil.drawString(ResourceRegistry.JelloLightFont25, (float)(this.xA + 30), (float)(this.yA + 25), "Waypoints", var6);
       RenderUtil.drawString(
          ResourceRegistry.JelloMediumFont40,
@@ -112,7 +112,7 @@ public class MapPanel extends UIBase {
          (float)(this.xA + this.widthA - ResourceRegistry.JelloLightFont24.getWidth(var7) - 10),
          (float)((this.parent.getHeightA() - this.heightA) / 2 - 62),
          var7,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)
+              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)
       );
    }
 

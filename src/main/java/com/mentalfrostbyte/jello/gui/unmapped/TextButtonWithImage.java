@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -49,7 +49,7 @@ public class TextButtonWithImage extends UIBase {
                 (float) this.yA,
                 (float) (this.xA + this.getWidthA()),
                 (float) (this.yA + this.getHeightA()),
-                ColorUtils.applyAlpha(ClientColors.DULL_GREEN.getColor(), (0.2F * this.field21334 + (!this.method13212() ? 0.0F : 0.2F)) * partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.DULL_GREEN.getColor(), (0.2F * this.field21334 + (!this.method13212() ? 0.0F : 0.2F)) * partialTicks)
         );
         RenderUtil.drawImage(
                 (float) (this.xA + this.widthA - 60 - 10),
@@ -57,14 +57,14 @@ public class TextButtonWithImage extends UIBase {
                 60.0F,
                 60.0F,
                 texture,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * partialTicks)
         );
         RenderUtil.drawString(
                 this.font,
                 (float) (this.xA + this.widthA - 90 - this.font.getWidth(text)),
                 (float) (this.yA + 27),
                 text,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (0.5F + 0.5F * this.field21334) * partialTicks)
         );
         super.draw(partialTicks);
     }

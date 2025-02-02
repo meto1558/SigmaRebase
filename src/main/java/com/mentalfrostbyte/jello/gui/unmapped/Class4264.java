@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.awt.Color;
@@ -36,7 +36,7 @@ public class Class4264 extends UIBase {
             (float)this.yA,
             1.0F,
             (float)this.heightA,
-            ColorUtils.applyAlpha(Color.HSBtoRGB(var5, 1.0F, 1.0F), partialTicks)
+            RenderUtil2.applyAlpha(Color.HSBtoRGB(var5, 1.0F, 1.0F), partialTicks)
          );
       }
 
@@ -45,7 +45,7 @@ public class Class4264 extends UIBase {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-              ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.5F * partialTicks)
+              RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.5F * partialTicks)
       );
       Class4252.method13052(
          this.xA + Math.round((float)this.widthA * this.field20679) + 1, this.yA + 4, Color.HSBtoRGB(this.field20679, 1.0F, 1.0F), partialTicks

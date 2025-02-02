@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.gui.unmapped.Class6649;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.util.ArrayList;
@@ -38,14 +38,14 @@ public class VolumeSlider extends UIBase {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)this.yA + (float)this.heightA * this.volume,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
       );
       RenderUtil.drawRoundedRect(
          (float)this.xA,
          (float)(this.yA + this.heightA),
          (float)(this.xA + this.widthA),
          (float)this.yA + (float)this.heightA * this.volume,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
+              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
       );
       super.draw(partialTicks);
    }

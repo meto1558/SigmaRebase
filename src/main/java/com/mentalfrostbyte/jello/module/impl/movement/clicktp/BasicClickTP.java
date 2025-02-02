@@ -2,12 +2,11 @@ package com.mentalfrostbyte.jello.module.impl.movement.clicktp;
 
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
-import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasicClickTP extends Module {
-    private final List<Vector3d> field23589 = new ArrayList<Vector3d>();
+    private final List<com.mentalfrostbyte.jello.util.system.math.vector.Vector3d> field23589 = new ArrayList<com.mentalfrostbyte.jello.util.system.math.vector.Vector3d>();
     private final TimerUtil field23590 = new TimerUtil();
 
     public BasicClickTP() {
@@ -71,7 +70,7 @@ public class BasicClickTP extends Module {
                 double var32 = mc.player.getPosZ();
                 double var34 = mc.player.getPosY();
                 this.field23589.clear();
-                this.field23589.add(new Vector3d(var30, var34, var32));
+                this.field23589.add(new com.mentalfrostbyte.jello.util.system.math.vector.Vector3d(var30, var34, var32));
 
                 for (int var36 = 0; (double) var36 < var22 - 1.0; var36++) {
                     var30 -= var24;
@@ -84,10 +83,10 @@ public class BasicClickTP extends Module {
                         mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var30, var34, var32, true));
                     }
 
-                    this.field23589.add(new Vector3d(var30, var34, var32));
+                    this.field23589.add(new com.mentalfrostbyte.jello.util.system.math.vector.Vector3d(var30, var34, var32));
                 }
 
-                this.field23589.add(new Vector3d(var6, var8, var10));
+                this.field23589.add(new com.mentalfrostbyte.jello.util.system.math.vector.Vector3d(var6, var8, var10));
                 mc.player.setPosition(var6, var8, var10);
                 this.field23590.reset();
                 this.field23590.start();
@@ -118,7 +117,7 @@ public class BasicClickTP extends Module {
             GL11.glColor4d(1.0, 1.0, 1.0, 1.0);
             GL11.glBegin(3);
 
-            for (Vector3d var5 : this.field23589) {
+            for (com.mentalfrostbyte.jello.util.system.math.vector.Vector3d var5 : this.field23589) {
                 GL11.glVertex3d(
                         var5.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX(),
                         var5.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY(),
@@ -127,10 +126,10 @@ public class BasicClickTP extends Module {
 
             GL11.glEnd();
 
-            for (Vector3d var12 : this.field23589) {
+            for (com.mentalfrostbyte.jello.util.system.math.vector.Vector3d var12 : this.field23589) {
                 double var6 = var12.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
                 double var8 = var12.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
-                Box3D var10 = new Box3D(
+                BoundingBox var10 = new BoundingBox(
                         var6 - 0.3F,
                         var12.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY(),
                         var8 - 0.3F,

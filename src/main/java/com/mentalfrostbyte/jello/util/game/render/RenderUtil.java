@@ -9,8 +9,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.system.render.FontSomething;
 import org.newdawn.slick.opengl.TextureImpl;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
@@ -77,11 +77,11 @@ public class RenderUtil {
                 (float) var4.getImageHeight(), var6);
     }
 
-    public static void renderWireframeBox(Box3D boxIn, int color) {
+    public static void renderWireframeBox(BoundingBox boxIn, int color) {
         renderWireframeBox(boxIn, 2.8F, color);
     }
 
-    public static void renderWireframeBox(Box3D boxIn, float width, int color) {
+    public static void renderWireframeBox(BoundingBox boxIn, float width, int color) {
         if (boxIn != null) {
             float var5 = (float)(color >> 24 & 0xFF) / 255.0F;
             float var6 = (float)(color >> 16 & 0xFF) / 255.0F;
@@ -123,7 +123,7 @@ public class RenderUtil {
             GL11.glDisable(3042);
         }
     }
-    public static void render3DColoredBox(Box3D boxIn, int color) {
+    public static void render3DColoredBox(BoundingBox boxIn, int color) {
         if (boxIn != null) {
             float var4 = (float)(color >> 24 & 0xFF) / 255.0F;
             float var5 = (float)(color >> 16 & 0xFF) / 255.0F;
@@ -349,7 +349,7 @@ public class RenderUtil {
 
 
     public static void drawImage(float x, float y, float width, float height, Texture tex, float alphaValue) {
-        drawImage(x, y, width, height, tex, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
+        drawImage(x, y, width, height, tex, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
     }
 
     public static void drawImage(float x, float y, float width, float height, Texture texture) {
@@ -657,7 +657,7 @@ public class RenderUtil {
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
         GL11.glAlphaFunc(519, 0.0F);
-        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
+        int var8 = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
         drawImage(var0 - var4, var1 - var4, var4, var4, Resources.shadowCorner1PNG, var8);
         drawImage(var0 + var2, var1 - var4, var4, var4, Resources.shadowCorner2PNG, var8);
         drawImage(var0 - var4, var1 + var3, var4, var4, Resources.shadowCorner3PNG, var8);
@@ -816,7 +816,7 @@ public class RenderUtil {
     }
 
     public static void method11464(float var0, float var1, float var2, float var3, float var4, float var5) {
-        int var8 = ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
+        int var8 = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
         drawImage(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
         drawImage(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
         drawImage(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);
@@ -1109,7 +1109,7 @@ public class RenderUtil {
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        GL11.glColor4fv(ColorUtils.intColorToFloatArrayColor(color));
+        GL11.glColor4fv(RenderUtil2.intColorToFloatArrayColor(color));
         GL11.glEnable(2881);
         GL11.glBegin(4);
         GL11.glVertex2f(x + size / 2.0F, y + size / 2.0F);
@@ -1117,7 +1117,7 @@ public class RenderUtil {
         GL11.glVertex2f(x - size / 2.0F, y);
         GL11.glEnd();
         GL11.glLineWidth(2.0F);
-        GL11.glColor4fv(ColorUtils.intColorToFloatArrayColor(outlineColor));
+        GL11.glColor4fv(RenderUtil2.intColorToFloatArrayColor(outlineColor));
         GL11.glBegin(3);
         GL11.glVertex2f(x + size / 2.0F, y + size / 2.0F);
         GL11.glVertex2f(x + size / 2.0F, y - size / 2.0F);

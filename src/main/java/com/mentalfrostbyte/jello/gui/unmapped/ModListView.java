@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import net.minecraft.client.Minecraft;
 
@@ -36,7 +36,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
         int var3 = 0;
 
         for (Module var5 : Client.getInstance().moduleManager.getModulesByCategory(this.field21214)) {
-            int var9 = ColorUtils.applyAlpha(-3487030, 0.0F);
+            int var9 = RenderUtil2.applyAlpha(-3487030, 0.0F);
             ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
                     .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
             var12.method19412(Class2218.field14488);

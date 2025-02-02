@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.unmapped.Button;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
@@ -34,25 +34,25 @@ public class Waypoint extends Button {
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          25.0F,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.025F * partialTicks * this.field20599.calcPercent())
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.025F * partialTicks * this.field20599.calcPercent())
       );
       RenderUtil.drawCircle(
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          23.0F,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks * this.field20599.calcPercent())
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks * this.field20599.calcPercent())
       );
       RenderUtil.drawCircle(
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)(18 + var4),
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.field20599.calcPercent())
+              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.field20599.calcPercent())
       );
       RenderUtil.drawCircle(
          (float)(this.xA + this.widthA / 2),
          (float)(this.yA + this.heightA / 2),
          (float)(18 - var4),
-              ColorUtils.applyAlpha(this.color.color, partialTicks)
+              RenderUtil2.applyAlpha(this.color.color, partialTicks)
       );
       GL11.glPushMatrix();
       super.method13226(partialTicks);

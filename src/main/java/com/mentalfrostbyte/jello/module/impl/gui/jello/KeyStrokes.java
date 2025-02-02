@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -85,7 +85,7 @@ public class KeyStrokes extends Module {
                                 (float) (this.yBase + var21.y),
                                 (float) (this.xBase + var21.x + var23.x),
                                 (float) (this.yBase + var21.y + var23.y),
-                                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
                         );
                         RenderUtil.drawRoundedRect(
                                 (float) (this.xBase + var21.x),
@@ -132,9 +132,9 @@ public class KeyStrokes extends Module {
 
                         float var27 = animationData.animation.calcPercent();
                         float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
-                        int color = ColorUtils.applyAlpha(-5658199, alpha);
+                        int color = RenderUtil2.applyAlpha(-5658199, alpha);
                         if (Client.getInstance().guiManager.getGuiBlur()) { // TODO: check this
-                            color = ColorUtils.applyAlpha(-1, alpha);
+                            color = RenderUtil2.applyAlpha(-1, alpha);
                         }
 
                         RenderUtil.drawFilledArc(

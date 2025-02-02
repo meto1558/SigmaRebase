@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.gui.impl.others.buttons.ImageQ;
 import com.mentalfrostbyte.jello.gui.impl.others.buttons.FadedImageButton;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -110,7 +110,7 @@ public class SwitchScreen extends Screen {
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
             );
             super.draw(partialTicks);
             RenderUtil.drawImage(
@@ -119,14 +119,14 @@ public class SwitchScreen extends Screen {
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     LoadingScreen.background,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - field21069.calcPercent())
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - field21069.calcPercent())
             );
             RenderUtil.drawRoundedRect2(
                     0.0F,
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
-                    ColorUtils.applyAlpha(0, 0.75F * (1.0F - field21069.calcPercent()))
+                    RenderUtil2.applyAlpha(0, 0.75F * (1.0F - field21069.calcPercent()))
             );
             RenderUtil.drawImage((float) var8, (float) var9, 455.0F, 78.0F, LoadingScreen.sigmaLogo);
         }

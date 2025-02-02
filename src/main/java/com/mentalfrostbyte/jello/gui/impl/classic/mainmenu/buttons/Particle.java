@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons;
 import java.awt.Color;
 
 import com.mentalfrostbyte.jello.gui.unmapped.Class2421;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import org.lwjgl.opengl.GL11;
 
 public class Particle {
@@ -35,7 +35,7 @@ public class Particle {
 
    public void method37519(float var1) {
       method37520(
-         this.field45023 * 2.0F, this.field45024 * 2.0F, this.field45025 * 2.0F, ColorUtils.applyAlpha(this.field45034.getRGB(), var1 * this.field45032)
+         this.field45023 * 2.0F, this.field45024 * 2.0F, this.field45025 * 2.0F, RenderUtil2.applyAlpha(this.field45034.getRGB(), var1 * this.field45032)
       );
    }
 
@@ -53,7 +53,7 @@ public class Particle {
       GL11.glPushMatrix();
       GL11.glScalef(0.5F, 0.5F, 0.5F);
       GL11.glBegin(2);
-      GL11.glColor4fv(ColorUtils.intColorToFloatArrayColor(var3));
+      GL11.glColor4fv(RenderUtil2.intColorToFloatArrayColor(var3));
 
       for (int var11 = 0; var11 < 32; var11++) {
          GL11.glVertex2f(var9 + var0, var10 + var1);

@@ -5,8 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
-import com.mentalfrostbyte.jello.misc.Situation;
-import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
@@ -1288,7 +1286,7 @@ public abstract class PlayerEntity extends LivingEntity
         EventBus.call(event);
         // MODIFICATION END
         // MODIFICATION START (ENDS AFTER NEXT LINE): Add `event.getSituation() == Situation.PLAYER`
-        if (event.getSituation() == Situation.SAFE || !this.abilities.isFlying && (mover == MoverType.SELF || mover == MoverType.PLAYER) && this.isStayingOnGroundSurface() && this.func_242375_q())
+        if (event.getSituation() == EventSafeWalk.Situation.SAFE || !this.abilities.isFlying && (mover == MoverType.SELF || mover == MoverType.PLAYER) && this.isStayingOnGroundSurface() && this.func_242375_q())
         {
             double d0 = vec.x;
             double d1 = vec.z;

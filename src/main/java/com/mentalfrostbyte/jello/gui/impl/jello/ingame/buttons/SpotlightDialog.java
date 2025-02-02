@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -50,7 +50,7 @@ public class SpotlightDialog extends UIBase {
          (float)this.widthA,
          (float)this.heightA,
          (float)var4,
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.97F)
+         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.97F)
       );
       RenderUtil.drawImage(
          (float)(this.xA + 20),
@@ -58,7 +58,7 @@ public class SpotlightDialog extends UIBase {
          20.0F,
          20.0F,
          Resources.searchPNG,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
       );
       ArrayList<Module> var5 = this.method13064();
       if (!var5.isEmpty() && this.method13067(this.field20640, ((Module)var5.get(0)).getName())) {
@@ -71,7 +71,7 @@ public class SpotlightDialog extends UIBase {
             (float)(this.xA + 54),
             (float)(this.yA + 14),
             var7,
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.25F)
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.25F)
          );
       }
 

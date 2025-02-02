@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
@@ -84,7 +84,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
             (float)(this.yA + var4),
             (float)(var5 + var6),
             (float)(this.yA + this.getHeightA() - var4),
-            ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 1.0F * partialTicks)
+            RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 1.0F * partialTicks)
          );
       } else {
          RenderUtil.drawImage((float)var5, (float)this.yA, (float)var6, (float)var4, Resources.verticalScrollBarTopPNG, partialTicks);
@@ -94,7 +94,7 @@ public class Class4288 extends AnimatedIconPanelWrap {
             (float)(this.yA + var4),
             (float)(var5 + var6),
             (float)(this.yA + this.getHeightA() - var4),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * partialTicks)
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * partialTicks)
          );
       }
 

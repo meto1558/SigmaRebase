@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.awt.Color;
@@ -39,9 +39,9 @@ public class Class4367 extends UIBase {
 
    @Override
    public void draw(float partialTicks) {
-      int var4 = ColorUtils.applyAlpha(Color.HSBtoRGB(this.field21347, 0.0F, 1.0F), partialTicks);
-      int var5 = ColorUtils.applyAlpha(Color.HSBtoRGB(this.field21347, 1.0F, 1.0F), partialTicks);
-      int var6 = ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks);
+      int var4 = RenderUtil2.applyAlpha(Color.HSBtoRGB(this.field21347, 0.0F, 1.0F), partialTicks);
+      int var5 = RenderUtil2.applyAlpha(Color.HSBtoRGB(this.field21347, 1.0F, 1.0F), partialTicks);
+      int var6 = RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks);
       RenderUtil.method11415(this);
       RenderUtil.drawQuad(
          this.getXA(), this.getYA(), this.getXA() + this.getWidthA(), this.getYA() + this.getHeightA(), var4, var5, var5, var4
@@ -51,8 +51,8 @@ public class Class4367 extends UIBase {
          this.getYA(),
          this.getXA() + this.getWidthA(),
          this.getYA() + this.getHeightA(),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0F),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0F),
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0F),
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0F),
          var6,
          var6
       );
@@ -67,7 +67,7 @@ public class Class4367 extends UIBase {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.25F * partialTicks)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.25F * partialTicks)
       );
       RenderUtil.endScissor();
       super.draw(partialTicks);

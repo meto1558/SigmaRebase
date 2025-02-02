@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector2d;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -71,7 +71,7 @@ public class Bezier extends UIBase {
          (float)(this.widthA - var5 * 2),
          (float)(this.heightA - var5 * 2),
          3.0F,
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
       );
       ArrayList var11 = new ArrayList();
       var11.add(new Vector2d(0.0, 0.0));
@@ -84,7 +84,7 @@ public class Bezier extends UIBase {
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),
          (float)(this.yA - var5 / 2 + this.heightA),
          14.0F,
-              ColorUtils.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
+              RenderUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
       );
       List<Vector2d> var15 = var12.method30790(var11);
       GL11.glPushMatrix();

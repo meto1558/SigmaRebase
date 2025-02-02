@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
@@ -22,11 +22,11 @@ public class Class4284 extends AnimatedIconPanelWrap {
          this.method13225();
          float var4 = 1.0F - Math.min(1.0F, Math.max((float)this.getWidthA() / (float)this.field20768, 0.0F));
          RenderUtil.drawRoundedRect2(
-            (float)this.xA, (float)this.yA, (float)this.field20768, (float)this.heightA, ColorUtils.applyAlpha(-3254955, partialTicks)
+            (float)this.xA, (float)this.yA, (float)this.field20768, (float)this.heightA, RenderUtil2.applyAlpha(-3254955, partialTicks)
          );
          super.draw(partialTicks * (1.0F - var4));
          RenderUtil.drawImage(
-            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
+            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
          );
       }
    }

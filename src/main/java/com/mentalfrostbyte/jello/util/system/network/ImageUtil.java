@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.render;
+package com.mentalfrostbyte.jello.util.system.network;
 
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.util.client.ClientColors;

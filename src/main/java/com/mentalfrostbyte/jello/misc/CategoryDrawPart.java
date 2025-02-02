@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.misc;
 
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 
@@ -53,7 +53,7 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
                 (float) this.getStartY(),
                 (float) this.getWidth(),
                 (float) this.getHeight(),
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F)
+                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F)
         );
         this.scrollOffset += calculateScrollOffset();
         int startX = this.getStartX() + 4;
@@ -77,7 +77,7 @@ public class CategoryDrawPart extends CategoryDrawPartBackground {
                     (float) (7 + this.getStartX()),
                     this.getStartY() + categoryOffsetY,
                     categoryName,
-                    ColorUtils.applyAlpha(color, Math.min(1.0F, partialTicks * 1.7F))
+                    RenderUtil2.applyAlpha(color, Math.min(1.0F, partialTicks * 1.7F))
             );
             categoryOffsetY += 25;
         }

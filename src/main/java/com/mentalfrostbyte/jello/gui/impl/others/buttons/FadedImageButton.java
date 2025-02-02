@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Button;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
@@ -55,7 +55,7 @@ public class FadedImageButton extends Button {
                     (float) this.getYA() - var4 * 3.0F,
                     (float) this.getWidthA(),
                     (float) this.getHeightA(),
-                    ColorUtils.applyAlpha(-12319668, 0.5F)
+                    RenderUtil2.applyAlpha(-12319668, 0.5F)
             );
         }
 

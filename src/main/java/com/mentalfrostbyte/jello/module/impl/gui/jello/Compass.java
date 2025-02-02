@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -41,7 +41,7 @@ public class Compass extends Module {
                         (float) (var4 * var5 * 2) * 1.5F,
                         (float) (220 + var6),
                         Resources.shadowPNG,
-                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.25F)
+                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.25F)
                 );
                 int var12 = 0;
 
@@ -97,7 +97,7 @@ public class Compass extends Module {
                         (float) (var1 + (var3 - ResourceRegistry.JelloLightFont25.getWidth(var8)) / 2),
                         (float) (var2 + 20),
                         var8,
-                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
+                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
                 );
             } else {
                 RenderUtil.drawString(
@@ -105,7 +105,7 @@ public class Compass extends Module {
                         (float) (var1 + (var3 - ResourceRegistry.JelloMediumFont40.getWidth(var8)) / 2),
                         (float) (var2 + 10),
                         var8,
-                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
+                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
                 );
             }
         } else {
@@ -114,14 +114,14 @@ public class Compass extends Module {
                     (float) (var2 + 28),
                     (float) (var1 + var3 / 2 + 1),
                     (float) (var2 + 38),
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5 * 0.5F)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5 * 0.5F)
             );
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont18,
                     (float) (var1 + (var3 - ResourceRegistry.JelloLightFont18.getWidth(var8)) / 2),
                     (float) (var2 + 40),
                     var8,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
             );
         }
     }

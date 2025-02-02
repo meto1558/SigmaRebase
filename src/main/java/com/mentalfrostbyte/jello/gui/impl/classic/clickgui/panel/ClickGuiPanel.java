@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
@@ -30,7 +30,7 @@ public class ClickGuiPanel extends CustomGuiScreen {
       );
       if (var4 != 0.0F) {
          RenderUtil.drawRoundedRect2(
-            (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, ColorUtils.applyAlpha(-2500135, 0.9F)
+            (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, RenderUtil2.applyAlpha(-2500135, 0.9F)
          );
       } else {
          RenderUtil.drawRoundedRect(
@@ -39,7 +39,7 @@ public class ClickGuiPanel extends CustomGuiScreen {
             (float)(this.widthA - 1),
             (float)(this.heightA - 1),
             3.0F,
-            ColorUtils.applyAlpha(-2500135, 0.9F)
+            RenderUtil2.applyAlpha(-2500135, 0.9F)
          );
       }
 

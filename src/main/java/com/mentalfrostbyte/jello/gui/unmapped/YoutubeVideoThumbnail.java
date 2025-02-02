@@ -10,8 +10,9 @@ import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.*;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -136,9 +137,9 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
                  partialTicks
          );
          if (this.field20775 == null && this.field20773 == null) {
-            RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
+            RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
             if (this.field20776 != null) {
-               RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
+               RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
             }
          } else {
             if (this.field20775 == null) {
@@ -167,9 +168,9 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
                this.field20776 = null;
             }
 
-            RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
+            RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
             if (this.field20776 != null) {
-               RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
+               RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
             }
          }
 
@@ -185,7 +186,7 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
             var9 * var10,
             var9 * var10,
             Resources.playIconPNG,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
+                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
          );
          TrueTypeFont var11 = ResourceRegistry.JelloLightFont12;
          if (this.typedText != null) {
@@ -197,14 +198,14 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
                   (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[1])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2),
                   var12[1],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                       RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                );
                RenderUtil.drawString(
                   var11,
                   (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 13),
                   var12[0],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                       RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                );
             } else {
                RenderUtil.drawString(
@@ -212,7 +213,7 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
                   (float)(this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
                   (float)(this.getYA() + this.getWidthA() - 2 + 6),
                   var12[0],
-                       ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                       RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                );
             }
 

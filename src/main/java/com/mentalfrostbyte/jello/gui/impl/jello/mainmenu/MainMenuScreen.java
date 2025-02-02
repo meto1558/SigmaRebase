@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.managers.NetworkManager;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
@@ -220,12 +220,12 @@ public class MainMenuScreen extends Screen {
                     (float) (this.getWidthA() * 2),
                     (float) (this.getHeightA() + 200),
                     background,
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), transitionProgress),
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), transitionProgress),
                     false
             );
 
             RenderUtil.drawRoundedRect2(
-                    0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), transitionProgress * 0.3F)
+                    0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), transitionProgress * 0.3F)
             );
 
 
@@ -268,7 +268,7 @@ public class MainMenuScreen extends Screen {
                         (float) (this.widthA / 2),
                         (float) (this.heightA / 2 - 30),
                         currentTitle,
-                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent()),
+                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent()),
                         Class2218.field14492,
                         Class2218.field14492
                 );
@@ -277,7 +277,7 @@ public class MainMenuScreen extends Screen {
                         (float) (this.widthA / 2),
                         (float) (this.heightA / 2 + 30),
                         "\"" + currentMessage + "\"",
-                        ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent() * 0.5F),
+                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent() * 0.5F),
                         Class2218.field14492,
                         Class2218.field14492
                 );

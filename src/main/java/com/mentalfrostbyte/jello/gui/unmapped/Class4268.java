@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -47,7 +47,7 @@ public class Class4268 extends UIBase {
          (float)this.widthA,
          (float)this.heightA,
          8.0F,
-         ColorUtils.shiftTowardsOther(-3092272, -2171170, this.field20691)
+         RenderUtil2.shiftTowardsOther(-3092272, -2171170, this.field20691)
       );
       RenderUtil.drawRoundedButton(
          (float)this.xA, (float)this.yA + 3.0F * this.field20691, (float)this.widthA, (float)this.heightA, 8.0F, -986896
@@ -58,7 +58,7 @@ public class Class4268 extends UIBase {
             (float)(this.xA + 14),
             (float)(this.yA + 11) + 3.0F * this.field20691,
             10.0F,
-                 ColorUtils.applyAlpha(ClientColors.DARK_SLATE_GREY.getColor(), this.field20691)
+                 RenderUtil2.applyAlpha(ClientColors.DARK_SLATE_GREY.getColor(), this.field20691)
          );
       }
 
@@ -76,7 +76,7 @@ public class Class4268 extends UIBase {
                         (float)(this.xA + (this.widthA - var4.getWidth(this.typedText)) / 2),
                         (float)(this.yA + 19) + 3.0F * this.field20691,
                         this.typedText,
-                             ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F + (!this.field20693 ? 0.0F : 0.2F))
+                             RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F + (!this.field20693 ? 0.0F : 0.2F))
                      );
                   }
                } else {
@@ -87,35 +87,35 @@ public class Class4268 extends UIBase {
                      (float)var6,
                      (float)(var5 + 14),
                      (float)(var6 + 3),
-                          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                   );
                   RenderUtil.drawRoundedRect(
                      (float)var5,
                      (float)(var6 + 4),
                      (float)(var5 + 14),
                      (float)(var6 + 7),
-                          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                   );
                   RenderUtil.method11428(
                      (float)var5,
                      (float)(var6 + 8),
                      (float)(var5 + 14),
                      (float)(var6 + 11),
-                          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                   );
                   RenderUtil.method11428(
                      (float)var5,
                      (float)(var6 + 12),
                      (float)(var5 + 14),
                      (float)(var6 + 15),
-                          ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                   );
                }
             } else {
                int var7 = this.xA + 32;
                int var10 = this.yA + 32 + (int)(3.0F * this.field20691);
                RenderUtil.drawCircle(
-                  (float)var7, (float)var10, 14.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                  (float)var7, (float)var10, 14.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                );
             }
          } else {
@@ -128,14 +128,14 @@ public class Class4268 extends UIBase {
                (float)(var11 - 3),
                (float)(var8 + 6),
                (float)(var11 + 3),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
             RenderUtil.drawRoundedRect(
                (float)(var8 + 6),
                (float)(var11 - 1),
                (float)(var8 + 27),
                (float)(var11 + 1),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
          }
       } else {
@@ -148,21 +148,21 @@ public class Class4268 extends UIBase {
             (float)(var12 - 3),
             (float)(var9 + 6),
             (float)(var12 + 3),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
          );
          RenderUtil.drawRoundedRect(
             (float)(var9 + 6),
             (float)(var12 - 1),
             (float)(var9 + 27),
             (float)(var12 + 1),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
          );
          RenderUtil.drawRoundedRect(
             (float)(var9 + 25),
             (float)(var12 - 8),
             (float)(var9 + 27),
             (float)(var12 - 1),
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
          );
       }
 

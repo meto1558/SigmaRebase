@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels;
 
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class BezierButton extends AnimatedIconPanelWrap {
@@ -45,7 +45,7 @@ public class BezierButton extends AnimatedIconPanelWrap {
          (float)(this.xA + 5),
          (float)(this.yA + 5),
          10.0F,
-         ColorUtils.applyAlpha(!this.method13216() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
+         RenderUtil2.applyAlpha(!this.method13216() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
       );
       super.draw(partialTicks);
    }

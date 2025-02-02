@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 //import com.mentalfrostbyte.jello.misc.unmapped.StepEnum;
 //import com.mentalfrostbyte.jello.misc.unmapped.Class5631;
-import com.mentalfrostbyte.jello.misc.StepEnum;
 import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
@@ -120,5 +119,11 @@ public class Step extends ModuleWithModuleSettings {
         } else {
             return StepEnum.NORMAL_BLOCK;
         }
+    }
+
+    public enum StepEnum {
+        NORMAL_BLOCK,
+        STAIRS,
+        HALF_BLOCK;
     }
 }

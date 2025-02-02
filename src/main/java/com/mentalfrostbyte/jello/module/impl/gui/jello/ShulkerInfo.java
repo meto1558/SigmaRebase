@@ -14,8 +14,8 @@ import com.mentalfrostbyte.jello.managers.GuiManager;
 
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-import com.mentalfrostbyte.jello.util.game.render.Box3D;
-import com.mentalfrostbyte.jello.util.render.PositionUtils;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
+import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -77,29 +77,29 @@ public class ShulkerInfo extends Module {
                     }
 
                     this.method16674(
-                            PositionUtils.getEntityPosition(var5).x,
-                            PositionUtils.getEntityPosition(var5).y + (double) var5.getHeight(),
-                            PositionUtils.getEntityPosition(var5).z,
+                            PositionUtil.getEntityPosition(var5).x,
+                            PositionUtil.getEntityPosition(var5).y + (double) var5.getHeight(),
+                            PositionUtil.getEntityPosition(var5).z,
                             var5,
                             0.8F);
                     if (this.method16672(var6)) {
-                        double var7 = PositionUtils.getEntityPosition(var5).x
+                        double var7 = PositionUtil.getEntityPosition(var5).x
                                 - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
-                        double var9 = PositionUtils.getEntityPosition(var5).y
+                        double var9 = PositionUtil.getEntityPosition(var5).y
                                 - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
-                        double var11 = PositionUtils.getEntityPosition(var5).z
+                        double var11 = PositionUtil.getEntityPosition(var5).z
                                 - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
                         float var13 = 0.3F;
                         GL11.glEnable(3042);
                         GL11.glAlphaFunc(516, 0.0F);
                         GL11.glEnable(2848);
                         RenderUtil.render3DColoredBox(
-                                new Box3D(
+                                new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
                                 MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(
-                                new Box3D(
+                                new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
                                 3.0F,
@@ -127,7 +127,7 @@ public class ShulkerInfo extends Module {
         if (mc.player.getDistance(var1) > 5.0F) {
             return false;
         } else {
-            float var4 = (float) Math.sqrt(6.0 / PositionUtils.calculateDistanceSquared(var1));
+            float var4 = (float) Math.sqrt(6.0 / PositionUtil.calculateDistanceSquared(var1));
             float var5 = 10.0F * var4;
             double var6 = var1.getPosX() - mc.player.getPosX();
             double var8 = var1.getPosY() - mc.player.getPosY() - (double) mc.player.getHeight() + 0.4F;

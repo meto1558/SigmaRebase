@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
-import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 
@@ -29,7 +29,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -149,7 +148,7 @@ public class Auto32k extends Module {
                 double var7 = (double) var4.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
                 double var9 = (double) var4.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
                 RenderUtil.render3DColoredBox(
-                        new Box3D(var5, var7 + 1.625, var9, var5 + 1.0, var7 + 3.0, var9 + 1.0), MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.3F)
+                        new BoundingBox(var5, var7 + 1.625, var9, var5 + 1.0, var7 + 3.0, var9 + 1.0), MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.3F)
                 );
                 GL11.glColor3f(1.0F, 1.0F, 1.0F);
                 GL11.glBlendFunc(770, 771);
@@ -249,7 +248,7 @@ public class Auto32k extends Module {
 
                                 int var6 = mc.player.inventory.currentItem;
                                 mc.player.inventory.currentItem = this.field23871;
-                                Vector3d var7 = BlockUtil.method34572(Direction.UP, this.field23870);
+                                net.minecraft.util.math.vector.Vector3d var7 = BlockUtil.method34572(Direction.UP, this.field23870);
                                 BlockRayTraceResult var8 = new BlockRayTraceResult(var7, Direction.UP, this.field23870, false);
                                 ActionResultType var9 = mc.playerController.func_217292_a(mc.player, mc.world, Hand.MAIN_HAND, var8);
                                 mc.player.swingArm(Hand.MAIN_HAND);
@@ -258,7 +257,7 @@ public class Auto32k extends Module {
                                     mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.PRESS_SHIFT_KEY));
                                     mc.player.movementInput.sneaking = true;
                                     mc.player.inventory.currentItem = this.field23872;
-                                    Vector3d var10 = BlockUtil.method34572(Direction.UP, this.field23870.up());
+                                    net.minecraft.util.math.vector.Vector3d var10 = BlockUtil.method34572(Direction.UP, this.field23870.up());
                                     BlockRayTraceResult var11 = new BlockRayTraceResult(var10, Direction.UP, this.field23870.up(), false);
                                     mc.playerController.func_217292_a(mc.player, mc.world, Hand.MAIN_HAND, var11);
                                     mc.player.swingArm(Hand.MAIN_HAND);

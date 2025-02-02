@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import org.newdawn.slick.TrueTypeFont;
@@ -48,7 +48,7 @@ public class UIButton extends UIBase {
             (float)var5,
             (float)var6,
             this.getTypedText(),
-                 ColorUtils.applyAlpha(var4, partialTicks * ColorUtils.getAlpha(var4)),
+                 RenderUtil2.applyAlpha(var4, partialTicks * RenderUtil2.getAlpha(var4)),
             this.textColor.method19411(),
             this.textColor.method19413()
          );
@@ -57,7 +57,7 @@ public class UIButton extends UIBase {
                  var6 + var8,
             (float)var5 + (float)(var7 / 2) * var9,
                  var6 + var8 + 2,
-                 ColorUtils.applyAlpha(var4, partialTicks * ColorUtils.getAlpha(var4))
+                 RenderUtil2.applyAlpha(var4, partialTicks * RenderUtil2.getAlpha(var4))
          );
          super.draw(partialTicks);
       }

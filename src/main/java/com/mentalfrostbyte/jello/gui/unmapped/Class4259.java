@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -176,7 +176,7 @@ public class Class4259 extends UIBase {
          (float)(this.xA - ResourceRegistry.JelloLightFont14.getWidth(var24) - 23),
          (float)(this.yA + 35),
          var24,
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
       );
       this.field20656 = this.field20650;
       this.field20657 = this.field20651;

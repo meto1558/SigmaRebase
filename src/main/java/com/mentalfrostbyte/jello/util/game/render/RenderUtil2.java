@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.render;
+package com.mentalfrostbyte.jello.util.game.render;
 
 import com.mentalfrostbyte.Client;
 import org.newdawn.slick.TrueTypeFont;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ColorUtils {
+public class RenderUtil2 {
     private static final Minecraft mc = Minecraft.getInstance();
     public static final ResourceLocation BLUR_SHADER = new ResourceLocation("shaders/post/blur.json");
 

@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.managers.util.account.Class9507;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
@@ -88,7 +88,7 @@ public class AccountSignUpScreen extends UIBase {
          this.captchaBox.setEnabled(var7.method36702());
          if (var7.method36702()) {
             RenderUtil.drawRoundedRect2(
-               (float)(this.xA + var6), (float)(this.yA + var5), 114.0F, 40.0F, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
+               (float)(this.xA + var6), (float)(this.yA + var5), 114.0F, 40.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
             );
          }
 

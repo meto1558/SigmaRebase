@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class Class4265 extends UIBase {
@@ -21,13 +21,13 @@ public class Class4265 extends UIBase {
       this.field20683.changeDirection(!this.method13298() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
       partialTicks *= 0.09F + 0.25F * this.field20683.calcPercent() + (this.field20682 ? 0.0F : 0.2F);
       RenderUtil.drawRoundedRect2(
-         (float)(this.xA + 10), (float)(this.yA + 16), 5.0F, 14.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+         (float)(this.xA + 10), (float)(this.yA + 16), 5.0F, 14.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.drawRoundedRect2(
-         (float)(this.xA + 17), (float)(this.yA + 10), 5.0F, 20.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+         (float)(this.xA + 17), (float)(this.yA + 10), 5.0F, 20.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.drawRoundedRect2(
-         (float)(this.xA + 24), (float)(this.yA + 20), 5.0F, 10.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+         (float)(this.xA + 24), (float)(this.yA + 20), 5.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       super.draw(partialTicks);
    }

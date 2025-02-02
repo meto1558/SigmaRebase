@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -204,7 +204,7 @@ public class Search extends Module {
                 double var8 = (double) var7.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
                 double var10 = (double) var7.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
                 double var12 = (double) var7.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
-                Box3D var14 = new Box3D(var8, var10, var12, var8 + 1.0, var10 + 1.0, var12 + 1.0);
+                BoundingBox var14 = new BoundingBox(var8, var10, var12, var8 + 1.0, var10 + 1.0, var12 + 1.0);
                 RenderUtil.render3DColoredBox(var14, var3);
             }
         }

@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class6984;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.util.Date;
@@ -68,14 +68,14 @@ public class Class4253 extends UIBase {
          (float)(this.xA + 25),
          (float)this.yA + (float)this.heightA / 2.0F - 17.5F,
          this.field20624.method21596(),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont12,
          (float)(this.xA + 25),
          (float)this.yA + (float)this.heightA / 2.0F + 7.5F,
          this.field20624.method21597(),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
       );
       this.field20628.setYA((int)((float)this.heightA / 2.0F - 7.5F));
       super.draw(partialTicks);

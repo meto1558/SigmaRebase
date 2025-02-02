@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Checkbox;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
@@ -35,21 +35,21 @@ public class CategoryPanel extends UIBase {
          (float)(this.xA + 10),
          (float)(this.yA + 8),
          this.module.getSuffix(),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), !this.module.isEnabled() ? 0.5F : 0.9F)
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), !this.module.isEnabled() ? 0.5F : 0.9F)
       );
       RenderUtil.drawString(
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 33),
          "Bind",
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
       );
       RenderUtil.drawString(
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 52),
               RenderUtil.getKeyName(this.module.parseSettingValueToIntBySettingName("Keybind")),
-              ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F)
+              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F)
       );
       if (this.module.getSettingMap().size() > 1) {
          RenderUtil.drawString(
@@ -57,7 +57,7 @@ public class CategoryPanel extends UIBase {
             (float)(this.xA + 84),
             (float)(this.yA + 34),
             "Settings",
-                 ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
+                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
          );
       }
 

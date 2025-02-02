@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import org.lwjgl.opengl.GL11;
@@ -162,7 +162,7 @@ public class Dropdown extends UIBase {
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
-         ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.animation.calcPercent())
+         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.animation.calcPercent())
       );
       RenderUtil.drawRoundedRect(
          (float)this.getXA(),
@@ -195,7 +195,7 @@ public class Dropdown extends UIBase {
             (float)(this.getXA() + 10),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2 + 1),
             this.getTypedText() + var4,
-                 ColorUtils.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F)
+                 RenderUtil2.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F)
          );
          RenderUtil.endScissor();
       }
@@ -228,7 +228,7 @@ public class Dropdown extends UIBase {
          (float)(this.getXA() + var9 - 6),
          (float)(this.getYA() + var10 - 14),
          ">",
-              ColorUtils.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
+              RenderUtil2.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
       );
    }
 

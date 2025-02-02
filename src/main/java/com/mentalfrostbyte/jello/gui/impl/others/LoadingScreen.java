@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.others;
 
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
@@ -86,7 +86,7 @@ public class LoadingScreen extends LoadingGui {
         GL11.glEnable(3008);
         GL11.glEnable(3042);
         RenderUtil.drawImage(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), background, var0);
-        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), ColorUtils.applyAlpha(0, 0.75F));
+        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), RenderUtil2.applyAlpha(0, 0.75F));
         int var4 = 455;
         int var5 = 78;
         int var6 = (Minecraft.getInstance().getMainWindow().getWidth() - var4) / 2;
@@ -96,12 +96,12 @@ public class LoadingScreen extends LoadingGui {
         GL11.glTranslatef((float)(Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
         GL11.glScalef(var8, var8, 0.0F);
         GL11.glTranslatef((float)(-Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(-Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
-        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var0));
+        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var0));
         float var9 = Math.min(1.0F, var1 * 1.02F);
         float var11 = 80;
         if (var0 == 1.0F) {
             RenderUtil.drawRoundedRect(
-                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * var0)
+                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * var0)
             );
             RenderUtil.drawRoundedRect(
                     (float)(var6 + 1),
@@ -109,7 +109,7 @@ public class LoadingScreen extends LoadingGui {
                     (float)(var4 - 2),
                     18.0F,
                     9.0F,
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F * var0)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F * var0)
             );
         }
 
@@ -119,7 +119,7 @@ public class LoadingScreen extends LoadingGui {
                 (float)((int)((float)(var4 - 4) * var9)),
                 16.0F,
                 8.0F,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * var0)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * var0)
         );
         GL11.glPopMatrix();
     }

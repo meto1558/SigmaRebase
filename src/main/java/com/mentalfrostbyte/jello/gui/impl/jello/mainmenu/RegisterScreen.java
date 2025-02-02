@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
@@ -66,7 +66,7 @@ public class RegisterScreen extends Screen {
                         this.heightA / 2 + 120,
                         240,
                         60,
-                        new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)),
+                        new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)),
                         "Continue",
                         ResourceRegistry.JelloLightFont25
                 )
@@ -94,7 +94,7 @@ public class RegisterScreen extends Screen {
             this.runThisOnDimensionUpdate(() -> {
                 ArrayList<MiniAlert> var5 = new ArrayList();
                 var5.add(new MiniAlert(AlertType.HEADER, var1, 45));
-                String[] var6 = ColorUtils.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
+                String[] var6 = RenderUtil2.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
 
                 for (int var7 = 0; var7 < var6.length; var7++) {
                     var5.add(new MiniAlert(AlertType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
@@ -141,7 +141,7 @@ public class RegisterScreen extends Screen {
                     (int) ((double) this.heightA - var5.getHeight()) / 2,
                     (int) var5.getWidth(),
                     (int) var5.getHeight(),
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - this.field21093.calcPercent())
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - this.field21093.calcPercent())
             );
         }
 
@@ -162,7 +162,7 @@ public class RegisterScreen extends Screen {
                     0.0F,
                     (float) this.widthA,
                     (float) this.heightA,
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * this.field21093.calcPercent())
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * this.field21093.calcPercent())
             );
             RenderUtil.drawImage(
                     (float) (var11 + 20), (float) (var12 + 40), (float) (var8 + 30), (float) (var8 + 30), Resources.sigmaPNG, this.field21093.calcPercent()
@@ -202,7 +202,7 @@ public class RegisterScreen extends Screen {
                 (float) (this.getWidthA() * 2),
                 (float) (this.getHeightA() + 114),
                 this.field21087,
-                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field21085)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field21085)
         );
         GL11.glPopMatrix();
         float var8 = 0.5F;

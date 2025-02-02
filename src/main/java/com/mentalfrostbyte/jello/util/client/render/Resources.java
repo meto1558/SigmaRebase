@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.client.render;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.render.ImageUtil;
+import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;

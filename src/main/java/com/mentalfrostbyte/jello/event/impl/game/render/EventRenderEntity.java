@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.event.impl.game.render;
 
 import com.mentalfrostbyte.jello.event.CancellableEvent;
-import com.mentalfrostbyte.jello.misc.RenderState;
 import net.minecraft.entity.LivingEntity;
 
 public class EventRenderEntity extends CancellableEvent {
@@ -88,5 +87,11 @@ public class EventRenderEntity extends CancellableEvent {
 
     public void method13957(boolean var1) {
         this.field21533 = var1;
+    }
+
+    public enum RenderState {
+        DEFAULT,
+        field13213,
+        field13214
     }
 }

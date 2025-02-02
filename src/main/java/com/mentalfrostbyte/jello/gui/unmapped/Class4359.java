@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.MusicManager;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
@@ -46,7 +46,7 @@ public class Class4359 extends UIBase {
                     (float) this.getYA(),
                     (float) this.getWidthA(),
                     (float) this.getHeightA(),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
             );
         } else {
             RenderUtil.drawRoundedRect2(
@@ -54,21 +54,21 @@ public class Class4359 extends UIBase {
                     (float) this.getYA(),
                     (float) this.getWidthA(),
                     (float) this.getHeightA(),
-                    ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.075F)
+                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.075F)
             );
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA() + (float) this.getWidthA() * var9,
                     (float) this.getYA(),
                     (float) this.getWidthA() * (1.0F - var9),
                     (float) this.getHeightA(),
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
             );
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),
                     (float) this.getYA(),
                     (float) this.getWidthA() * var8,
                     (float) this.getHeightA(),
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * partialTicks)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * partialTicks)
             );
             if (var8 != 0.0F) {
                 RenderUtil.drawImage((float) this.getXA() + (float) this.getWidthA() * var8, (float) this.getYA(), 5.0F, 5.0F, Resources.shadowRightPNG);

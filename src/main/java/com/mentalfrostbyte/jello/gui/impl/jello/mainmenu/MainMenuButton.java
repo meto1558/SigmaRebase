@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.PNGIconButton;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
@@ -74,7 +74,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
       int var7 = (int)((double)this.getHeightA() * (1.0 + (double)var5 * 0.2));
       int var8 = this.getXA() - (var6 - this.getWidthA()) / 2;
       int var9 = (int)((double)(this.getYA() - (var7 - this.getHeightA()) / 2) - (double)((float)(this.getHeightA() / 2) * var5) * 0.2);
-      float[] var10 = ColorUtils.method17701(this.getTexture().getWidth(), this.getTexture().getHeight(), (float)var6, (float)var7);
+      float[] var10 = RenderUtil2.method17701(this.getTexture().getWidth(), this.getTexture().getHeight(), (float)var6, (float)var7);
       float var11 = 85;
       RenderUtil.drawImage(
          (float)var8 + var10[0] - var11,
@@ -82,7 +82,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
          var10[2] + (var11 * 2),
          var10[3] + (var11 * 2),
          Resources.shadowPNG,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * partialTicks)
+              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * partialTicks)
       );
       RenderUtil.drawImage(
          (float)var8 + var10[0],
@@ -90,7 +90,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
          var10[2],
          var10[3],
          this.getTexture(),
-         ColorUtils.applyAlpha(ColorUtils.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
+         RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
       );
       if (this.getTypedText() != null) {
          RenderUtil.drawString(
@@ -98,7 +98,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
             (float)(var8 + var6 / 2),
             (float)(var9 + var7 / 2),
             this.getTypedText(),
-                 ColorUtils.applyAlpha(this.textColor.getTextColor(), partialTicks),
+                 RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
             this.textColor.method19411(),
             this.textColor.method19413()
          );
@@ -127,7 +127,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
             (1.0F - var13) * (float)font.getWidth(var14) / 2.0F + 1.0F,
             40.0F,
             var14,
-                 ColorUtils.applyAlpha(this.getTextColor().method19405(), var5 * 0.6F * partialTicks)
+                 RenderUtil2.applyAlpha(this.getTextColor().method19405(), var5 * 0.6F * partialTicks)
          );
          GL11.glPopMatrix();
       }

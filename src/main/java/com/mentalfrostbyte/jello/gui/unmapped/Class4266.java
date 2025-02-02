@@ -6,7 +6,8 @@ import com.mentalfrostbyte.jello.managers.util.music.StencilMode;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.*;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
@@ -74,8 +75,8 @@ public class Class4266 extends UIBase {
       try {
          if (this.field20687) {
             BufferedImage var6 = ImageUtil.method35039(this.method13271(), this.method13272(), this.widthA, this.heightA, 3, 10, true);
-            this.field20684 = ColorUtils.method17682(new Color(var6.getRGB(6, 7)), new Color(var6.getRGB(6, 22))).getRGB();
-            this.field20684 = ColorUtils.shiftTowardsBlack(this.field20684, 0.25F);
+            this.field20684 = RenderUtil2.method17682(new Color(var6.getRGB(6, 7)), new Color(var6.getRGB(6, 22))).getRGB();
+            this.field20684 = RenderUtil2.shiftTowardsBlack(this.field20684, 0.25F);
             if (this.field20688 != null) {
                this.field20688.release();
             }
@@ -126,7 +127,7 @@ public class Class4266 extends UIBase {
                   (float)(this.xA + var9),
                   (float)(var8 + this.heightA / 4),
                   (float)(var9 * 2 - 4) * var11.field30490 + 4.0F,
-                  ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - var11.field30490 * (0.5F + var11.field30490 * 0.5F)) * 0.4F)
+                  RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - var11.field30490 * (0.5F + var11.field30490 * 0.5F)) * 0.4F)
                );
                RenderUtil.endScissor();
                var11.field30490 = Math.min(var11.field30490 + 3.0F / (float) Minecraft.getFps(), 1.0F);
@@ -142,7 +143,7 @@ public class Class4266 extends UIBase {
                (float)this.widthA,
                (float)this.heightA,
                6.0F,
-                    ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
             );
             GL11.glPopMatrix();
             RenderUtil.drawString(
@@ -150,10 +151,10 @@ public class Class4266 extends UIBase {
                (float)(this.xA + 14),
                (float)(this.yA + 8),
                "+",
-                    ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
             );
             RenderUtil.drawRoundedRect2(
-               (float)(this.xA + 16), (float)(this.yA + 65), 8.0F, 2.0F, ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
+               (float)(this.xA + 16), (float)(this.yA + 65), 8.0F, 2.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
             );
          }
       } catch (IOException var10) {

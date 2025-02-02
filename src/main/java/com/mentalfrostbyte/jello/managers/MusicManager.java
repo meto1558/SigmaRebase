@@ -12,8 +12,9 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.*;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import com.mentalfrostbyte.jello.util.system.network.NetworkUtil;
 import com.sapher.youtubedl.YoutubeDL;
 import com.sapher.youtubedl.YoutubeDLException;
@@ -163,7 +164,7 @@ public class MusicManager {
                                 (float) mc.getMainWindow().getHeight() - height,
                                 width,
                                 height,
-                                ColorUtils.applyAlpha(ClientColors.MID_GREY.getColor(), 0.2F * alphaValue)
+                                RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.2F * alphaValue)
                         );
                     }
 
@@ -203,14 +204,14 @@ public class MusicManager {
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 70),
                                 titleSplit[0],
-                                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 70),
                                 titleSplit[0],
-                                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
+                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
                         );
                     } else {
                         RenderUtil.drawString(
@@ -218,28 +219,28 @@ public class MusicManager {
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 81),
                                 titleSplit[0],
-                                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18_1,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 56),
                                 titleSplit[1],
-                                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 56),
                                 titleSplit[1],
-                                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
+                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloMediumFont20,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 81),
                                 titleSplit[0],
-                                ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F)
+                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F)
                         );
                     }
                 }

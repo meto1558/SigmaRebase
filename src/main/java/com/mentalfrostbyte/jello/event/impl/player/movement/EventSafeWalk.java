@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.event.impl.player.movement;
 
 
 import com.mentalfrostbyte.jello.event.CancellableEvent;
-import com.mentalfrostbyte.jello.misc.Situation;
 
 public class EventSafeWalk extends CancellableEvent {
     public boolean onEdge;
@@ -23,5 +22,11 @@ public class EventSafeWalk extends CancellableEvent {
 
     public boolean isOnEdge() {
         return this.onEdge;
+    }
+
+    public enum Situation {
+        DEFAULT, // IDK, it's only used in constructor
+        PLAYER,
+        SAFE;
     }
 }

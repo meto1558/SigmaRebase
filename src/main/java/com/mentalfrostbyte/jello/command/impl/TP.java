@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.misc.Class9819;
+import com.mentalfrostbyte.jello.util.game.world.PlayerFinder;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.entity.Entity;
@@ -16,12 +16,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TP extends Command {
-   private final Class9819 field25710;
+   private final PlayerFinder field25710;
 
    public TP() {
       super("tp", "Teleports to a player", "teleport");
       this.registerSubCommands("name");
-      this.field25710 = new Class9819();
+      this.field25710 = new PlayerFinder();
    }
 
    @Override

@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.Text;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
@@ -49,8 +49,8 @@ public class ClassicMainScreen extends Screen {
                         this, "Copyright", 10, 8, font.getWidth(copyrightTag), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), copyrightTag, ResourceRegistry.JelloLightFont18
                 )
         );
-        ColorHelper var15 = new ColorHelper(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
-        var15.method19410(ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
+        ColorHelper var15 = new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
+        var15.method19410(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
         ArrayList<String> var16 = new ArrayList<>();
         var16.add("LeakedPvP");
         var16.add("Omikron");

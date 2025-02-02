@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
@@ -113,7 +113,7 @@ public class BrainFreezeOverlay extends AnimatedIconPanelWrap {
 
         public void render(float partialTicks) {
             RenderUtil.drawCircle(
-                    this.initialXPosition * 2.0F, this.yPosition * 2.0F, this.size * 2.0F, ColorUtils.applyAlpha(this.color.getRGB(), partialTicks * 0.7F)
+                    this.initialXPosition * 2.0F, this.yPosition * 2.0F, this.size * 2.0F, RenderUtil2.applyAlpha(this.color.getRGB(), partialTicks * 0.7F)
             );
         }
 

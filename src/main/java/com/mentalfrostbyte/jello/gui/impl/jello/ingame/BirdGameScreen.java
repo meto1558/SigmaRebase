@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class4299;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 
@@ -24,7 +24,7 @@ public class BirdGameScreen extends Screen {
       this.setListening(false);
       this.field21045.start();
       this.field21047 = new Animation(200, 0);
-      ColorUtils.blur();
+      RenderUtil2.blur();
       int var3 = 48;
       int var4 = 27;
       int var5 = 14;
@@ -44,7 +44,7 @@ public class BirdGameScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-         ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
+         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
       RenderUtil.drawRoundedRect(
@@ -74,7 +74,7 @@ public class BirdGameScreen extends Screen {
          (float)(var6 + this.field21046.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var8)),
          (float)(var7 - 50),
          var8,
-              ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
+              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
       );
    }
 
@@ -82,7 +82,7 @@ public class BirdGameScreen extends Screen {
    public void keyPressed(int keyCode) {
       super.keyPressed(keyCode);
       if (keyCode == 256) {
-         ColorUtils.resetShaders();
+         RenderUtil2.resetShaders();
          Minecraft.getInstance().displayGuiScreen(null);
       }
    }

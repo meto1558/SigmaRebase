@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -114,7 +114,7 @@ public class Nuker extends Module {
             double var7 = (double) this.targetPos.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
             double var9 = (double) this.targetPos.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
             AxisAlignedBB var11 = mc.world.getBlockState(this.targetPos).getCollisionShape(mc.world, this.targetPos).getBoundingBox();
-            Box3D var12 = new Box3D(
+            BoundingBox var12 = new BoundingBox(
                     var5 + var11.minX,
                     var7 + var11.minY,
                     var9 + var11.minZ,

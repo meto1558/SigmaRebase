@@ -1,11 +1,11 @@
-package com.mentalfrostbyte.jello.misc;
+package com.mentalfrostbyte.jello.util.game.world;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+import com.mentalfrostbyte.jello.misc.Class8901;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
@@ -21,13 +21,13 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.List;
 
-public class Class9819 {
+public class PlayerFinder {
    public TimerUtil timer;
    public int field45878;
    public Entity entity;
    public Minecraft mc = Minecraft.getInstance();
 
-   public Class9819() {
+   public PlayerFinder() {
       this.timer = new TimerUtil();
       EventBus.register(this);
    }

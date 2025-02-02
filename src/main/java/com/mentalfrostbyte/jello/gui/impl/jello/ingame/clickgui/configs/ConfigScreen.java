@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import totalcross.json.JSONObject;
 
@@ -158,7 +158,7 @@ public class ConfigScreen extends UIBase {
         super.method13224();
         super.method13225();
         int var5 = 10;
-        int var6 = ColorUtils.applyAlpha(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
+        int var6 = RenderUtil2.applyAlpha(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
         RenderUtil.drawRoundedRect(
                 (float) (this.xA + var5 / 2),
                 (float) (this.yA + var5 / 2),
@@ -172,7 +172,7 @@ public class ConfigScreen extends UIBase {
                 (float) (this.yA + var5 / 2),
                 (float) (this.xA - var5 / 2 + this.widthA),
                 (float) (this.yA - var5 / 2 + this.heightA),
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
+                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
         );
         RenderUtil.drawRoundedRect((float) this.xA, (float) this.yA, (float) this.widthA, (float) this.heightA, (float) var5, var6);
         float var7 = 0.9F + (1.0F - MathUtils.lerp(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
@@ -186,14 +186,14 @@ public class ConfigScreen extends UIBase {
                 (float) (this.xA + 25),
                 (float) (this.yA + 20),
                 "Profiles",
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
         );
         RenderUtil.drawRoundedRect(
                 (float) (this.xA + 25),
                 (float) (this.yA + 69),
                 (float) (this.xA + this.widthA - 25),
                 (float) (this.yA + 70),
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
+                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
         );
         super.draw(partialTicks);
     }

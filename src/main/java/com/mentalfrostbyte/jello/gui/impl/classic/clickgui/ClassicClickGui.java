@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import totalcross.json.JSONObject;
@@ -20,7 +20,7 @@ public class ClassicClickGui extends Screen {
         super("ClassicScreen");
         field21079 = new Animation(250, 200, Animation.Direction.FORWARDS);
         this.method13419();
-        ColorUtils.blur();
+        RenderUtil2.blur();
     }
 
     public void method13417() {
@@ -57,7 +57,7 @@ public class ClassicClickGui extends Screen {
 
     @Override
     public JSONObject toConfigWithExtra(JSONObject config) {
-        ColorUtils.resetShaders();
+        RenderUtil2.resetShaders();
         return super.toConfigWithExtra(config);
     }
 
@@ -82,7 +82,7 @@ public class ClassicClickGui extends Screen {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
-                ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var4 * 0.35F)
+                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var4 * 0.35F)
         );
         super.draw(partialTicks);
     }

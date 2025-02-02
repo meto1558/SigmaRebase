@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.client;
 
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
 
 public class ColorHelper {
@@ -13,7 +13,7 @@ public class ColorHelper {
    public Class2218 field27967;
 
    public ColorHelper(int color) {
-      this(color, ColorUtils.shiftTowardsBlack(color, 0.05F));
+      this(color, RenderUtil2.shiftTowardsBlack(color, 0.05F));
    }
 
    public ColorHelper(int var1, int var2) {

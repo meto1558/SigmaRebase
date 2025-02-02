@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.options;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.render.ColorUtils;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
@@ -51,8 +51,8 @@ public class JelloOptions extends Screen {
          var5 = field21112.calcPercent();
       }
 
-      int var6 = ColorUtils.shiftTowardsOther(-1072689136, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
-      int var7 = ColorUtils.shiftTowardsOther(-804253680, ColorUtils.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
+      int var6 = RenderUtil2.shiftTowardsOther(-1072689136, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
+      int var7 = RenderUtil2.shiftTowardsOther(-804253680, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F), var5);
       RenderUtil.method11431(0, 0, this.getWidthA(), this.getHeightA(), var6, var7);
       this.method13279(var4, var4);
       this.method13224();
@@ -78,7 +78,7 @@ public class JelloOptions extends Screen {
                  (float)(this.getWidthA() * 2),
                  (float)(this.getHeightA() + 114),
                  this.field21113,
-                 ColorUtils.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
+                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1)
          );
       }
 
