@@ -11,7 +11,6 @@ public class Parkour extends Module {
         super(ModuleCategory.PLAYER, "Parkour", "Automatically jumps at the edge of blocks");
     }
 
-    // doesnt jump not fixing rn
     @EventTarget
     public void EventWalkingUpdate(EventPlayerTick event) {
         if (this.isEnabled()) {
