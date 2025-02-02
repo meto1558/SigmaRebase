@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -129,6 +129,9 @@ public class AutoArmor extends Module {
                                         || Client.getInstance().slotChangeTracker.method33238(slot) >= 1500L
                         )) {
                             this.method16617(var1);
+                            if (!(AutoArmor.mc.player.inventory.getStackInSlot(36 + type.getIndex()).getItem() instanceof AirItem)) {
+                                InvManagerUtil.click(8 - type.getIndex(), 0, true);
+                            }
                             Item var11 = mc.player.inventory.getStackInSlot(36 + armorItem.getEquipmentSlot().getIndex()).getItem();
                             if (!(var11 instanceof ElytraItem)) {
                                 if (!(var11 instanceof AirItem)) {

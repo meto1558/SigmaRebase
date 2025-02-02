@@ -11,11 +11,11 @@ public class EventRenderBlocks extends CancellableEvent {
         this.field21559 = var1;
     }
 
-    public AbstractBlock.AbstractBlockState method13970() {
+    public AbstractBlock.AbstractBlockState getBlockState() {
         return this.field21559;
     }
 
-    public boolean method13971() {
+    public boolean shouldRenderSide() {
         return this.field21560;
     }
 
