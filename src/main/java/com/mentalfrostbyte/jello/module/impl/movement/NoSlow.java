@@ -24,7 +24,7 @@ public class NoSlow extends Module {
 
     public NoSlow() {
         super(ModuleCategory.MOVEMENT, "NoSlow", "Stops slowdown when using an item");
-        this.registerSetting(new ModeSetting("Mode", "NoSlow mode", 0, "Vanilla", "NCP", "Blink"));
+        this.registerSetting(new ModeSetting("Mode", "NoSlow mode", 0, "Vanilla", "NCP"));
         this.registerSetting(this.sword = new BooleanSetting("Sword", "Cancels blocking slowdown", true));
         this.registerSetting(this.consume = new BooleanSetting("Consume", "Cancels consuming slowdown", true));
         this.registerSetting(this.bow = new BooleanSetting("Bow", "Cancels bow's slowdown", true));
@@ -32,6 +32,9 @@ public class NoSlow extends Module {
         this.registerSetting(this.sneak = new BooleanSetting("Sneak", "Cancels sneaking slowdown", false));
         // See net.minecraft.entity.player.PlayerEntity/Entity and net.minecraft.block.SlimeBlock
         this.registerSetting(this.blocks = new BooleanSetting("Blocks", "Cancels some blocks slowdown like honey, slime & soul sand", false));
+        this.registerSetting(new BooleanSetting("Blink", "blink consumables", false));
+
+
     }
 
     @EventTarget
@@ -58,19 +61,11 @@ public class NoSlow extends Module {
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (!this.isEnabled()) return;
         if (this.getBooleanValueFromSettingName("Blink")) {
-            Blink blink = (Blink) Client.getInstance().moduleManager.getModuleByClass(Blink.class);
-            boolean isEating = mc.player.getHeldItemMainhand() != null &&
-                    (mc.player.getHeldItemMainhand().getItem().isFood() ||
-                            mc.player.getHeldItemMainhand().getItem() instanceof PotionItem ||
-                            mc.player.getHeldItemMainhand().getItem() instanceof MilkBucketItem) &&
-                    mc.gameSettings.keyBindUseItem.isKeyDown();
+                boolean isEating = mc.player.getHeldItemMainhand() != null &&
+                        mc.player.getHeldItemMainhand().getItem().isFood() &&
+                        mc.gameSettings.keyBindUseItem.isKeyDown();
 
-            if (consume.currentValue && blink != null) {
-                blink.isBlinking();
-            }
-        }
-
-
+    }
         boolean auraEnabled = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2();
         boolean isSwordEquipped = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;
 
