@@ -69,7 +69,7 @@ public class InteractAutoBlock {
         this.setBlocking(true);
     }
 
-    public void method36816() {
+    public void doUnblock() {
         MultiUtilities.unblock();
         this.setBlocking(false);
     }

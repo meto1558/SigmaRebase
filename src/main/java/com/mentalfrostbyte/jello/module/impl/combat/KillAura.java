@@ -309,7 +309,7 @@ public class KillAura extends Module {
                 && interactAB.isBlocking()
                 && MovementUtil.isMoving()
                 && getStringSettingValueByName("Auto block Mode").equals("NCP")) {
-            interactAB.method36816();
+            interactAB.doUnblock();
         }
 
         if (interactAB.isBlocking()
@@ -319,7 +319,7 @@ public class KillAura extends Module {
 
         if (blockCooldown >= 0) {
             if (blockCooldown == 0) {
-                interactAB.method36816();
+                interactAB.doUnblock();
                 interactAB.setBlocking(true);
             }
             blockCooldown--;

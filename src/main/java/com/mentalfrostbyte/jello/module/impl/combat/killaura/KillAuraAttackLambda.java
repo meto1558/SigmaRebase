@@ -74,7 +74,7 @@ public class KillAuraAttackLambda implements Runnable {
         // Handle autoblocking mode
         if (KillAura.currentTarget != null && KillAura.interactAB.isBlocking()
                 && !this.killauraModule.getStringSettingValueByName("Auto block Mode").equals("Vanilla")) {
-            KillAura.interactAB.method36816();
+            KillAura.interactAB.doUnblock();
         }
 
         String mode = this.killauraModule.getStringSettingValueByName("Mode");
