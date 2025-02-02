@@ -54,7 +54,6 @@ public class Blink extends Module {
 
     @EventTarget
     public void onSendPacket(EventSendPacket event) {
-        // Only handle packets when blinking is enabled
         if (isBlinking && this.isEnabled()) {
             if (mc.player != null && event.getPacket() instanceof CEntityActionPacket
                     || event.getPacket() instanceof CPlayerPacket
