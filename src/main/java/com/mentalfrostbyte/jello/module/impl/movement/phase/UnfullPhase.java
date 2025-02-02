@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventWalkingUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
@@ -20,7 +20,7 @@ public class UnfullPhase extends Module {
     }
     
     @EventTarget
-    public void onWalkingUpdate(EventWalkingUpdate event) {
+    public void onWalkingUpdate(EventPlayerTick event) {
         if (this.isEnabled()) {
             if ((int) mc.player.getPosY() == currentYPosition && !mc.player.isJumping) {
                 MovementUtil2.setPlayerYMotion(-2.0);
