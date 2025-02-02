@@ -80,8 +80,8 @@ public class Dropdown extends UIBase {
                new ColorHelper(
                   ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                   -1381654,
-                  this.textColor.method19405(),
-                  this.textColor.method19405(),
+                  this.textColor.getPrimaryColor(),
+                  this.textColor.getPrimaryColor(),
                   Class2218.field14488,
                   Class2218.field14492
                ),
@@ -195,7 +195,7 @@ public class Dropdown extends UIBase {
             (float)(this.getXA() + 10),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2 + 1),
             this.getTypedText() + var4,
-                 RenderUtil2.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F)
+                 RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F)
          );
          RenderUtil.endScissor();
       }
@@ -228,7 +228,7 @@ public class Dropdown extends UIBase {
          (float)(this.getXA() + var9 - 6),
          (float)(this.getYA() + var10 - 14),
          ">",
-              RenderUtil2.applyAlpha(this.textColor.method19405(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
+              RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
       );
    }
 

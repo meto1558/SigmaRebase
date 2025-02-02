@@ -90,7 +90,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
          var10[2],
          var10[3],
          this.getTexture(),
-         RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4), partialTicks)
+         RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4), partialTicks)
       );
       if (this.getTypedText() != null) {
          RenderUtil.drawString(
@@ -127,7 +127,7 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
             (1.0F - var13) * (float)font.getWidth(var14) / 2.0F + 1.0F,
             40.0F,
             var14,
-                 RenderUtil2.applyAlpha(this.getTextColor().method19405(), var5 * 0.6F * partialTicks)
+                 RenderUtil2.applyAlpha(this.getTextColor().getPrimaryColor(), var5 * 0.6F * partialTicks)
          );
          GL11.glPopMatrix();
       }

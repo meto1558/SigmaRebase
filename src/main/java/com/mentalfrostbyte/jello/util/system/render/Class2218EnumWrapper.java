@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.util.system.render;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
 
 // $VF: synthetic class
-public class FontSomething {
+public class Class2218EnumWrapper {
    public static final int[] field33554 = new int[Class2218.values().length];
 
    static {

@@ -71,7 +71,7 @@ public class Class4277 extends UIBase {
       int var9 = this.getYA() + this.getHeightA() / 2 - var6 / 2;
       int var10 = this.field20734.getXA() + this.field20734.getWidthA() / 2 - 6;
       RenderUtil.drawRoundedRect(
-         (float)var8, (float)var9, (float)var10, (float)var6, (float)(var6 / 2), RenderUtil2.applyAlpha(this.textColor.method19405(), partialTicks * partialTicks * partialTicks)
+         (float)var8, (float)var9, (float)var10, (float)var6, (float)(var6 / 2), RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * partialTicks * partialTicks)
       );
       RenderUtil.drawRoundedRect(
          (float)(var8 + var10),
@@ -79,7 +79,7 @@ public class Class4277 extends UIBase {
          (float)(var7 - var10),
          (float)var6,
          (float)(var6 / 2),
-              RenderUtil2.applyAlpha(RenderUtil2.adjustColorTowardsWhite(this.textColor.method19405(), 0.8F), partialTicks * partialTicks * partialTicks)
+              RenderUtil2.applyAlpha(RenderUtil2.adjustColorTowardsWhite(this.textColor.getPrimaryColor(), 0.8F), partialTicks * partialTicks * partialTicks)
       );
       if (this.getTypedText() != null) {
          int var11 = Math.max(0, 9 - this.field20734.getXA());

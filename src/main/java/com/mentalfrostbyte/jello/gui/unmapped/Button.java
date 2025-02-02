@@ -39,8 +39,8 @@ public class Button extends UIBase {
    public void draw(float partialTicks) {
       float var4 = !this.isHovered() ? 0.3F : (!this.method13216() ? (!this.method13212() ? Math.max(partialTicks * this.field20584, 0.0F) : 1.5F) : 0.0F);
       int color = RenderUtil2.applyAlpha(
-              RenderUtil2.shiftTowardsOther(this.textColor.method19405(), this.textColor.method19403(), 1.0F - var4),
-         (float)(this.textColor.method19405() >> 24 & 0xFF) / 255.0F * partialTicks
+              RenderUtil2.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4),
+         (float)(this.textColor.getPrimaryColor() >> 24 & 0xFF) / 255.0F * partialTicks
       );
       if (this.field20586 <= 0) {
          RenderUtil.drawRoundedRect(

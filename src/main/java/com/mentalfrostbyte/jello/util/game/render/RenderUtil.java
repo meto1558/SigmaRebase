@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
-import com.mentalfrostbyte.jello.util.system.render.FontSomething;
+import com.mentalfrostbyte.jello.util.system.render.Class2218EnumWrapper;
 import org.newdawn.slick.opengl.TextureImpl;
 import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import org.newdawn.slick.TrueTypeFont;
@@ -569,13 +569,13 @@ public class RenderUtil {
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
         int var10 = 0;
         int var11 = 0;
-        var10 = switch (FontSomething.field33554[var5.ordinal()]) {
+        var10 = switch (Class2218EnumWrapper.field33554[var5.ordinal()]) {
             case 1 -> -font.getWidth(text) / 2;
             case 2 -> -font.getWidth(text);
             default -> var10;
         };
 
-        var11 = switch (FontSomething.field33554[var6.ordinal()]) {
+        var11 = switch (Class2218EnumWrapper.field33554[var6.ordinal()]) {
             case 1 -> -font.getHeight(text) / 2;
             case 3 -> -font.getHeight(text);
             default -> var11;

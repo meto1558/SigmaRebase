@@ -53,8 +53,8 @@ public class Dropdown extends UIBase {
                17,
                new ColorHelper(
                   -14540254,
-                  this.textColor.method19405(),
-                  this.textColor.method19405(),
+                  this.textColor.getPrimaryColor(),
+                  this.textColor.getPrimaryColor(),
                   ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                   Class2218.field14488,
                   Class2218.field14492

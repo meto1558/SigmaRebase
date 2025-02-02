@@ -40,8 +40,8 @@ public class Class4362 extends UIBase {
                new ColorHelper(
                   ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                   -1381654,
-                  this.textColor.method19405(),
-                  this.textColor.method19405(),
+                  this.textColor.getPrimaryColor(),
+                  this.textColor.getPrimaryColor(),
                   Class2218.field14488,
                   Class2218.field14492
                ),

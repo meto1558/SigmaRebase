@@ -18,7 +18,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
       super(var1, var2, var3, var4, var5, var6);
       this.setListening(false);
       ColorHelper var9 = ColorHelper.field27961.clone();
-      var9.method19406(ClientColors.LIGHT_GREYISH_BLUE.getColor());
+      var9.setPrimaryColor(ClientColors.LIGHT_GREYISH_BLUE.getColor());
       UIButton var10;
       this.addToList(var10 = new UIButton(this, "openKeybinds", var5 / 2 - 300, var6 - 80, 300, 38, var9, "Open Keybind Manager", ResourceRegistry.JelloLightFont24));
       UIButton var11;

@@ -58,12 +58,12 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
        */
 
       ColorHelper var11 = ColorHelper.field27961.clone();
-      var11.method19406(-11371052);
-      var11.method19404(-12096331);
+      var11.setPrimaryColor(-11371052);
+      var11.setSecondaryColor(-12096331);
       var11.setTextColor(ClientColors.LIGHT_GREYISH_BLUE.getColor());
       ColorHelper var12 = ColorHelper.field27961.clone();
-      var12.method19406(-3254955);
-      var12.method19404(-4700859);
+      var12.setPrimaryColor(-3254955);
+      var12.setSecondaryColor(-4700859);
       var12.setTextColor(ClientColors.LIGHT_GREYISH_BLUE.getColor());
       this.addToList(this.buttonList = new Class4284(this, "edit", var5 - this.field21270, 0, this.field21270, var6));
       ConfigButton var13;

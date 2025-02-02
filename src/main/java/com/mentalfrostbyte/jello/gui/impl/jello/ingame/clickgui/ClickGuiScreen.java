@@ -72,7 +72,7 @@ public class ClickGuiScreen extends Screen {
         PNGIconButton moreButton;
         this.addToList(moreButton = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
 
-        moreButton.getTextColor().method19406(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
+        moreButton.getTextColor().setPrimaryColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
 
         this.musicPlayer.setEnabled(true);

@@ -394,7 +394,7 @@ public class TextField extends AnimatedIconPanelWrap {
             (float)(this.yA + this.heightA - 2),
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
-                 RenderUtil2.applyAlpha(this.textColor.method19405(), (this.field20744 / 2.0F + 0.5F) * partialTicks)
+                 RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), (this.field20744 / 2.0F + 0.5F) * partialTicks)
          );
       }
 

@@ -27,7 +27,7 @@ public class UIButton extends UIBase {
    @Override
    public void draw(float partialTicks) {
       if (this.getTypedText() != null) {
-         int var4 = this.textColor.method19405();
+         int var4 = this.textColor.getPrimaryColor();
          int var5 = this.getXA()
             + (
                this.textColor.method19411() != Class2218.field14492
