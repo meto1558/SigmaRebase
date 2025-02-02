@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dropdown extends UIBase {
-   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
+   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> field21343 = new ArrayList<String>();
    public int field21344 = 0;
    public boolean field21345;

@@ -50,7 +50,7 @@ public class ClassicMainScreen extends Screen {
                 )
         );
         ColorHelper var15 = new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
-        var15.method19410(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
+        var15.setTextColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F));
         ArrayList<String> var16 = new ArrayList<>();
         var16.add("LeakedPvP");
         var16.add("Omikron");

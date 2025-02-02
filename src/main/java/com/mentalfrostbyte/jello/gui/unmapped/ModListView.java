@@ -38,7 +38,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
         for (Module var5 : Client.getInstance().moduleManager.getModulesByCategory(this.field21214)) {
             int var9 = RenderUtil2.applyAlpha(-3487030, 0.0F);
             ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
-                    .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                    .setTextColor(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
             var12.method19412(Class2218.field14488);
             Button var13;
             this.getButton()
@@ -65,7 +65,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
                         } else {
                             var5.toggle();
                             ColorHelper var9x = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
-                                    .method19410(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                                    .setTextColor(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
                             if (!var5.isEnabled()) {
                                 var7.method13034(22);
                             } else {

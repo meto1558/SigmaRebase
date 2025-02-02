@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 
 public class Class4362 extends UIBase {
-   public static final ColorHelper color = new ColorHelper(1250067, -15329770).method19410(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
+   public static final ColorHelper color = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
    public List<String> values;
    public int field21324 = 0;
 
