@@ -5,8 +5,8 @@ import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.Class6665;
 import com.mentalfrostbyte.jello.gui.unmapped.IWidthSetter;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
 public class ScrollableContentPanel extends AnimatedIconPanel {

@@ -7,10 +7,10 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9110;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.FloatVector4;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.ProjectileThingy;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.render.Box3D;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.math.BlockPos;
@@ -124,9 +124,9 @@ public class Projectiles extends Module {
                             Box3D var37 = new Box3D(var31 - var47, var41, var44 - var47, var31 + var47, var41 + var35,
                                     var44 + var47);
                             RenderUtil.render3DColoredBox(var37,
-                                    MultiUtilities.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                                    MovementUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                             RenderUtil.renderWireframeBox(var37,
-                                    MultiUtilities.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                                    MovementUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                         }
 
                     } else {
@@ -150,9 +150,9 @@ public class Projectiles extends Module {
                         GL11.glTranslatef(-0.5F, 0.0F, -0.5F);
                         Box3D box = new Box3D(0.0, 0.0, 0.0, 1.0, 0.0, 1.0);
                         RenderUtil.render3DColoredBox(box,
-                                MultiUtilities.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(box,
-                                MultiUtilities.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         GL11.glPopMatrix();
                     }
 

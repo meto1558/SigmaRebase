@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.*;
 import com.mentalfrostbyte.jello.gui.base.Screen;
@@ -18,11 +18,11 @@ import com.mentalfrostbyte.jello.gui.impl.others.holders.NoAddonHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.FileUtil;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

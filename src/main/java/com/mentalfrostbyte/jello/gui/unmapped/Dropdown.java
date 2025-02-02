@@ -2,14 +2,14 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.MathHelper;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;

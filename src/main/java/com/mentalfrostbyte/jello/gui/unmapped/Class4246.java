@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class Class4246 extends Button {
    private Class4277 field20600;

@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.MusicManager;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 
 public class Class4359 extends UIBase {
     private final MusicManager musicManager = Client.getInstance().musicManager;

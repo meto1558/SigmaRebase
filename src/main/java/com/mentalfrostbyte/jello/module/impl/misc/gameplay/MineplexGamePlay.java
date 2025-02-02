@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
-import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
 import team.sdhq.eventBus.annotations.EventTarget;

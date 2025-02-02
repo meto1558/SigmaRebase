@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers.util.notifs;
 
-import com.mentalfrostbyte.jello.util.TimerUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 
 import java.awt.*;

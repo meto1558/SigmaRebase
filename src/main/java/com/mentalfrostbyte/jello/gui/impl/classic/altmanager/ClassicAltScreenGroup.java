@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.EditAltScr
 import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4349;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 

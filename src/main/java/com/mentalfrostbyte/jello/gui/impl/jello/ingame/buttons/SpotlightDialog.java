@@ -5,10 +5,10 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.misc;
 
+import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
+
 import java.util.ArrayList;
 
 public class Class8534 {

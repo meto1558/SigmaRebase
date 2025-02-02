@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
+import com.mentalfrostbyte.jello.util.system.math.counter.Timer;
 
 public class AnimationManager {
    private float currentValue;

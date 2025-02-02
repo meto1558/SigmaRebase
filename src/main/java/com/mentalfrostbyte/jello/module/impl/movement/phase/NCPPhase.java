@@ -8,8 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -48,20 +47,20 @@ public class NCPPhase extends PremiumModule {
                 double var4 = mc.player.getPosX();
                 double var6 = mc.player.getPosY();
                 double var8 = mc.player.getPosZ();
-                if (!MultiUtilities.method17686()) {
-                    if (MultiUtilities.isAboveBounds(mc.player, 0.001F) && !MultiUtilities.method17761()) {
+                if (!MovementUtil2.method17686()) {
+                    if (MovementUtil2.isAboveBounds(mc.player, 0.001F) && !MovementUtil2.method17761()) {
                         mc.player.setPosition(var4, var6 - 1.0, var8);
                         event.setY(var6 - 1.0);
                         event.setMoving(true);
                         event.setYaw(event.getYaw() + 10.0F);
-                        MultiUtilities.setPlayerYMotion(0.0);
+                        MovementUtil2.setPlayerYMotion(0.0);
                     } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())) {
                         mc.player.setPosition(var4, var6 - 0.3, var8);
                     }
                 }
             }
 
-            if (this.field23652 > 0 && this.field23651 && MultiUtilities.method17761()) {
+            if (this.field23652 > 0 && this.field23651 && MovementUtil2.method17761()) {
                 this.field23653++;
                 float var10 = (float) Math.sin(this.field23653) * 5.0F;
                 float var11 = (float) Math.cos(this.field23653) * 5.0F;
@@ -90,20 +89,20 @@ public class NCPPhase extends PremiumModule {
 
             if (this.field23652 >= 0) {
                 if (this.field23652 != 0) {
-                    if (!MultiUtilities.method17761()) {
+                    if (!MovementUtil2.method17761()) {
                         this.field23651 = false;
-                        MovementUtil.setSpeed(var1, 0.0);
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.0);
                         return;
                     }
 
                     if (!this.field23651) {
-                        MovementUtil.setSpeed(var1, !this.getBooleanValueFromSettingName("Hypixel") ? 0.0031 : 0.03);
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, !this.getBooleanValueFromSettingName("Hypixel") ? 0.0031 : 0.03);
                     } else {
-                        MovementUtil.setSpeed(var1, 0.617);
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.617);
                     }
                 } else {
-                    MovementUtil.setSpeed(var1, 0.0);
-                    MovementUtil.method37095(6.000000238415E-4);
+                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.0);
+                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37095(6.000000238415E-4);
                 }
 
                 this.field23652++;

@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.others;
 
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.misc;
 
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.Comparator;

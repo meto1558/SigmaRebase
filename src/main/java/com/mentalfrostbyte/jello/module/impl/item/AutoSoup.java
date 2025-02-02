@@ -10,7 +10,7 @@ import com.mentalfrostbyte.Client;
 
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.container.ClickType;

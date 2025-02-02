@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.util.math.RayTraceResult;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HigherPriority;
@@ -27,7 +27,7 @@ public class NoGroundCriticals extends Module {
 
     @Override
     public void onEnable() {
-        if (MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
+        if (MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
             this.field23411 = this.getStringSettingValueByName("Offset").equals("OldHypixel");
             this.field23410 = !this.field23411 ? 1 : 2;
         }

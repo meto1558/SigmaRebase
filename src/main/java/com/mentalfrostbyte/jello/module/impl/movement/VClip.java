@@ -6,15 +6,12 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.network.play.client.CChatMessagePacket;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.event.ClickEvent;
-import team.sdhq.eventBus.Event;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class VClip extends Module {

@@ -4,11 +4,11 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.util.music.StencilMode;
-import com.mentalfrostbyte.jello.misc.Vector3m;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 import org.lwjgl.opengl.GL11;
 

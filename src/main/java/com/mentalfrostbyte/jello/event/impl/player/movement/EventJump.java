@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.event.impl.player.movement;
 
 import com.mentalfrostbyte.jello.event.CancellableEvent;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class EventJump extends CancellableEvent {

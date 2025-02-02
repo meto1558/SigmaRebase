@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;

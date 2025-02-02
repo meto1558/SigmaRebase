@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.managers;
 import club.minnced.discord.rpc.DiscordRPC;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.Class9507;
-import com.mentalfrostbyte.jello.trackers.CombatTracker;
+import com.mentalfrostbyte.jello.util.game.player.tracker.CombatTracker;
 import team.sdhq.eventBus.EventBus;
 
 public class NetworkManager {

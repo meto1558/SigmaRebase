@@ -7,14 +7,13 @@ import com.mentalfrostbyte.jello.module.impl.combat.aimbot.BasicAimbot;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.CandCAimbot;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.SmoothAimbot;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.EntityUtil;
-import com.mentalfrostbyte.jello.util.player.TeamUtil;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Aimbot extends ModuleWithModuleSettings {

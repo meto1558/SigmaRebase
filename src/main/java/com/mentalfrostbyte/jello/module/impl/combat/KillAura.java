@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.misc.Pair;
+import com.mentalfrostbyte.jello.util.system.Pair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -25,13 +25,12 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.EntityUtil;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import com.mentalfrostbyte.jello.util.player.Rotation;
-import com.mentalfrostbyte.jello.util.player.Rots;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
+import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
@@ -52,7 +51,7 @@ import team.sdhq.eventBus.annotations.priority.LowestPriority;
 import java.util.*;
 import java.util.Map.Entry;
 
-import static com.mentalfrostbyte.jello.util.render.RenderUtil.drawCircle;
+import static com.mentalfrostbyte.jello.util.game.render.RenderUtil.drawCircle;
 
 @SuppressWarnings({ "unused", "cast" })
 public class KillAura extends Module {
@@ -306,7 +305,7 @@ public class KillAura extends Module {
 
         if (currentTarget != null
                 && interactAB.isBlocking()
-                && MovementUtil.isMoving()
+                && com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()
                 && getStringSettingValueByName("Auto block Mode").equals("NCP")) {
             interactAB.doUnblock();
         }
@@ -560,7 +559,7 @@ public class KillAura extends Module {
             if (interactAB.method36820(attackDelay)) {
                 blockDelay = 1;
                 shouldSetGround = avoidFallDamage;
-                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : MovementUtil.getJumpValue() / 10.0;
+                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue() / 10.0;
                 positionOffset = new double[] { event.getX(), event.getY() + yOffset, event.getZ() };
             }
         } else if (blockDelay == 1) {
@@ -574,7 +573,7 @@ public class KillAura extends Module {
         }
 
         boolean isOnGroundOrAboveBounds = !Jesus.isWalkingOnLiquid()
-                && (Objects.requireNonNull(mc.player).isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.001F));
+                && (Objects.requireNonNull(mc.player).isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F));
         if (!isOnGroundOrAboveBounds) {
             groundTicks = 0;
             blockDelay = 0;
@@ -642,7 +641,7 @@ public class KillAura extends Module {
     private void processTargets(List<TimedEntity> targets, String mode, float range) {
         if (rotationProgress == -1.0F) {
             float targetYaw = RotationHelper
-                    .getRotationsToVector(MultiUtilities.method17751(targets.get(0).getEntity())).yaw;
+                    .getRotationsToVector(MovementUtil2.method17751(targets.get(0).getEntity())).yaw;
             float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
             rotationSpeed = yawDifference * 1.95F / 50.0F;
             rotationProgress++;
@@ -661,7 +660,7 @@ public class KillAura extends Module {
                 currentTimedEntity = targets.get(targetIndex);
             } else if (currentTimedEntity == null || currentTimedEntity.getEntity() != targets.get(0).getEntity()) {
                 float targetYaw = RotationHelper
-                        .getRotationsToVector(MultiUtilities.method17751(targets.get(0).getEntity())).yaw;
+                        .getRotationsToVector(MovementUtil2.method17751(targets.get(0).getEntity())).yaw;
                 float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 rotationProgress++;
@@ -679,7 +678,7 @@ public class KillAura extends Module {
                 targetIndex = (targetIndex + 1) % targets.size();
                 TimedEntity nextTarget = targets.get(targetIndex);
                 float targetYaw = RotationHelper
-                        .getRotationsToVector(MultiUtilities.method17751(nextTarget.getEntity())).yaw;
+                        .getRotationsToVector(MovementUtil2.method17751(nextTarget.getEntity())).yaw;
                 float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 randomOffset = Math.random();
@@ -697,7 +696,7 @@ public class KillAura extends Module {
     }
 
     private float getYawDifference(float targetYaw, float currentYaw) {
-        return MultiUtilities.method17756(targetYaw, currentYaw);
+        return MovementUtil2.method17756(targetYaw, currentYaw);
     }
 
     private ExpirationTimer createExpirationTimer() {

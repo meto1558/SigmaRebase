@@ -6,11 +6,11 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.CreditsHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.KeyboardHolder;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.text.StringTextComponent;
 
 public class JelloOptionsGroup extends CustomGuiScreen {

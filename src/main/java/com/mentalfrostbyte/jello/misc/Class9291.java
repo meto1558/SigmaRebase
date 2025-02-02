@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.misc;
 
 
-import com.mentalfrostbyte.jello.util.PositionFacing;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;

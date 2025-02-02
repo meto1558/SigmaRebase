@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class Class4263 extends UIBase {
    private static String[] field20677;

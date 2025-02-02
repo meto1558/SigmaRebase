@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.snake;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.unmapped.ScreenDimension;
+import com.mentalfrostbyte.jello.util.system.render.ScreenDimension;
 
 public class Class8455 {
    public final int field36259;

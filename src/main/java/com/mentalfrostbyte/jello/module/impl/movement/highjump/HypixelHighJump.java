@@ -6,8 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 
 public class HypixelHighJump extends Module {
    private int field23405;
@@ -43,18 +42,18 @@ public class HypixelHighJump extends Module {
          if (this.field23405 >= 0) {
             this.field23405++;
             var1.setY(0.0);
-            MovementUtil.setSpeed(var1, 0.0);
+            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.0);
             var1.setY((double)this.getNumberValueBySettingName("Motion"));
             this.field23406 = true;
             this.field23407 = mc.player.getPosY();
             this.field23405 = -1;
          }
 
-         if (this.field23406 && MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
+         if (this.field23406 && MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
             this.field23406 = !this.field23406;
          }
 
-         MultiUtilities.setPlayerYMotion(var1.getY());
+         MovementUtil2.setPlayerYMotion(var1.getY());
       }
    }
 

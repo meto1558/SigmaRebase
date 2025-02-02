@@ -6,8 +6,8 @@ import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.MusicVideoManager;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 
 public class Songs implements Runnable {
     public final MusicVideoManager thumbnail;

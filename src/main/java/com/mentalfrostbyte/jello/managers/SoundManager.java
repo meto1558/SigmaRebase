@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 
 import java.io.InputStream;
 import java.util.*;

@@ -7,11 +7,13 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.trackers.RandomModuleThread;
-import com.mentalfrostbyte.jello.trackers.SlotChangeTracker;
-import com.mentalfrostbyte.jello.util.PlayerStateTracker;
-import com.mentalfrostbyte.jello.util.ClientLogger;
-import com.mentalfrostbyte.jello.util.FileUtil;
+import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.logger.Logger;
+import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
+import com.mentalfrostbyte.jello.util.client.logger.ClientLogger;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -235,7 +237,7 @@ public class Client {
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         }
 
-        if (this.moduleManager == null && RandomModuleThread.field8341 != null) {
+        if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
             this.moduleManager.method14659(this.config);

@@ -4,7 +4,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedImage;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2188;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 
 public class Checkbox extends AnimatedImageButton {
    private boolean field20675;

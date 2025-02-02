@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.MathUtils;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
 import totalcross.json.JSONArray;
 import org.lwjgl.opengl.GL11;

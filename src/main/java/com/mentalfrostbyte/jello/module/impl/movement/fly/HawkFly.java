@@ -9,7 +9,7 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 
 public class HawkFly extends Module {

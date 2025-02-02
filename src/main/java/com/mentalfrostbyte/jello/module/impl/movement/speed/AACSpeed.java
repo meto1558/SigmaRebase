@@ -8,8 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -34,13 +33,13 @@ public class AACSpeed extends Module {
         this.field23398 = -1;
         this.field23399 = 0;
         this.field23403 = mc.player.getPosY();
-        this.field23404 = MovementUtil.lenientStrafe()[0];
+        this.field23404 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0];
         this.field23400 = 0;
     }
 
     @Override
     public void onDisable() {
-        MovementUtil.setSpeed(0.27, MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
+        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(0.27, com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
     }
 
     @EventTarget
@@ -56,7 +55,7 @@ public class AACSpeed extends Module {
     public void method16009(EventMove var1) {
         if (this.isEnabled()) {
             String var4 = this.getStringSettingValueByName("Mode");
-            if (MultiUtilities.isAboveBounds(mc.player, 0.01F)) {
+            if (MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
                 if (this.field23400 <= 1) {
                     this.field23400++;
                 } else {
@@ -64,7 +63,7 @@ public class AACSpeed extends Module {
                     this.field23398 = -1;
                 }
 
-                if (MultiUtilities.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
+                if (MovementUtil2.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
                     mc.player.jump();
                     var1.setY(mc.player.getMotion().y);
                 }
@@ -95,7 +94,7 @@ public class AACSpeed extends Module {
                     mc.player.getMotion().y = this.field23402;
             }
 
-            if (!MultiUtilities.isMoving()) {
+            if (!MovementUtil2.isMoving()) {
                 this.field23401 = 0.0;
             }
 
@@ -104,10 +103,10 @@ public class AACSpeed extends Module {
             }
 
             if (this.field23398 >= 0) {
-                this.field23404 = MovementUtil.setSpeed(var1, this.field23401, MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
+                this.field23404 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field23401, com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
             }
 
-            MultiUtilities.setPlayerYMotion(var1.getY());
+            MovementUtil2.setPlayerYMotion(var1.getY());
         }
     }
 
@@ -144,7 +143,7 @@ public class AACSpeed extends Module {
     public void method16011(EventJump var1) {
         this.field23398 = 0;
         this.field23400 = 0;
-        this.field23404 = MovementUtil.lenientStrafe()[0];
+        this.field23404 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0];
         String var4 = this.getStringSettingValueByName("Mode");
         switch (var4) {
             case "Basic":
@@ -170,7 +169,7 @@ public class AACSpeed extends Module {
 
     private double method16012(int var1) {
         double var4 = mc.player.getMotion().y;
-        boolean var6 = MultiUtilities.isAboveBounds(mc.player, 0.37F);
+        boolean var6 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
         double[] var7 = new double[]{0.41, 0.309, 0.21, 0.113, 0.03, -0.05, -0.12, -0.192, -0.26, -0.33, !var6 ? -0.4 : -0.0, !var6 ? -0.47 : -0.13};
         if (var1 >= 0 && var1 < var7.length) {
             var4 = var7[var1];
@@ -180,7 +179,7 @@ public class AACSpeed extends Module {
     }
 
     private double method16013(int var1, int var2) {
-        boolean var5 = MultiUtilities.isAboveBounds(mc.player, 0.37F);
+        boolean var5 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
         double[] var6 = new double[]{0.497, 0.671, 0.719, 0.733, 0.738};
         double[] var7 = new double[]{0.303, 0.407, 0.436, 0.444, 0.447};
         double[] var8 = new double[]{0.0, 0.003, 0.004, 0.004, 0.004};
@@ -217,7 +216,7 @@ public class AACSpeed extends Module {
 
     private double method16014(int var1) {
         double var4 = mc.player.getMotion().y;
-        boolean var6 = MultiUtilities.isAboveBounds(mc.player, 0.37F);
+        boolean var6 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
         double[] var7 = new double[]{0.41, 0.309, 0.21, 0.113, 0.03, -0.06, -0.14, -0.22, -0.29, 0.0, -0.082, -0.11, 0.0, -0.18};
         if (var1 >= 0 && var1 < var7.length) {
             var4 = var7[var1];
@@ -235,7 +234,7 @@ public class AACSpeed extends Module {
     }
 
     private double method16015(int var1, int var2) {
-        boolean var5 = MultiUtilities.isAboveBounds(mc.player, 0.37F);
+        boolean var5 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
         double[] var6 = new double[]{0.497, 0.709, 0.746, 0.753};
         double[] var7 = new double[]{0.303, 0.43, 0.4525, 0.456};
         double[] var8 = new double[]{0.0, 0.0036, 0.0041, 0.0042};

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.snake;
 
-import com.mentalfrostbyte.jello.gui.unmapped.ScreenDimension;
+import com.mentalfrostbyte.jello.util.system.render.ScreenDimension;
 
 import java.util.ArrayList;
 import java.util.List;

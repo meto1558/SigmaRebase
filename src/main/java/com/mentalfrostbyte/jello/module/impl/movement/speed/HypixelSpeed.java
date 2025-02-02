@@ -19,8 +19,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -45,7 +44,7 @@ public class HypixelSpeed extends Module {
 
     @Override
     public void onEnable() {
-        this.field23415 = MovementUtil.method37076();
+        this.field23415 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37076();
         this.field23414 = 6;
         this.field23418 = Class2094.field13640;
         this.field23416 = -1.0;
@@ -55,7 +54,7 @@ public class HypixelSpeed extends Module {
     @Override
     public void onDisable() {
         if (this.field23418 == Class2094.field13641 && mc.player.getMotion().y > 0.0 && this.field23414 == 0) {
-            MultiUtilities.setPlayerYMotion(-MovementUtil.getJumpValue() - 1.0E-5 - 0.0625);
+            MovementUtil2.setPlayerYMotion(-com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue() - 1.0E-5 - 0.0625);
         }
 
         if (Math.abs((double) mc.timer.timerSpeed - 1.4123) < 0.001
@@ -87,7 +86,7 @@ public class HypixelSpeed extends Module {
     @HigherPriority
     public void method16038(EventMove var1) {
         if (!this.isEnabled()) {
-            if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.001F) || mc.player.getPosY() < this.field23416) {
+            if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F) || mc.player.getPosY() < this.field23416) {
                 this.field23416 = -1.0;
             }
         } else {
@@ -99,21 +98,21 @@ public class HypixelSpeed extends Module {
                 }
 
                 if (this.field23414 >= 0 && Step.updateTicksBeforeStep >= 2) {
-                    if ((var1.getY() > 0.0 || this.getBooleanValueFromSettingName("AutoJump") && MultiUtilities.isMoving()) && !MultiUtilities.inLiquid(mc.player)) {
+                    if ((var1.getY() > 0.0 || this.getBooleanValueFromSettingName("AutoJump") && MovementUtil2.isMoving()) && !MovementUtil2.inLiquid(mc.player)) {
                         mc.player.jump();
-                        var1.setY(MovementUtil.getJumpValue());
-                        MovementUtil.setSpeed(var1, 0.644348756324588 + Math.random() * 1.0E-6 + (double) MovementUtil.getSpeedBoost() * 0.13);
+                        var1.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.644348756324588 + Math.random() * 1.0E-6 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.13);
                         if (this.getBooleanValueFromSettingName("Timer") && !Client.getInstance().moduleManager.getModuleByClass(Timer.class).isEnabled()) {
                             mc.timer.timerSpeed = 1.4123F;
                         }
 
                         this.field23414 = 0;
                         this.field23418 = Class2094.field13640;
-                    } else if (MultiUtilities.isMoving() && this.getBooleanValueFromSettingName("GroundSpeed") && !MultiUtilities.inLiquid(mc.player)) {
+                    } else if (MovementUtil2.isMoving() && this.getBooleanValueFromSettingName("GroundSpeed") && !MovementUtil2.inLiquid(mc.player)) {
                         mc.player.stepHeight = 0.5F;
                         mc.player.jump();
-                        var1.setY(0.399 + (double) MovementUtil.getJumpBoost() * 0.1 + 1.0E-14);
-                        MovementUtil.setSpeed(var1, 0.51 + Math.random() * 1.0E-6 + (double) MovementUtil.getSpeedBoost() * 0.098);
+                        var1.setY(0.399 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() * 0.1 + 1.0E-14);
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.51 + Math.random() * 1.0E-6 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.098);
                         this.field23414 = 0;
                         if (this.getBooleanValueFromSettingName("Timer") && !Client.getInstance().moduleManager.getModuleByClass(Timer.class).isEnabled()) {
                             mc.timer.timerSpeed = 1.1123F;
@@ -124,13 +123,13 @@ public class HypixelSpeed extends Module {
                         this.field23417 = 0.0;
                     }
                 } else {
-                    MovementUtil.setSpeed(var1, 0.25);
+                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.25);
                     if (this.field23414 < 0) {
                         this.field23414++;
                     }
                 }
             } else if (this.field23414 >= 0) {
-                double var4 = MovementUtil.getSpeed();
+                double var4 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
                 if (!Client.getInstance().moduleManager.getModuleByClass(Timer.class).isEnabled()) {
                     mc.timer.timerSpeed = 1.0F;
                 }
@@ -138,13 +137,13 @@ public class HypixelSpeed extends Module {
                 switch (this.field23418) {
                     case field13640:
                         if (this.field23414 == 0) {
-                            this.field23415 = 0.3893478969348657 + Math.random() * 1.0E-6 + (double) MovementUtil.getSpeedBoost() * 0.077;
+                            this.field23415 = 0.3893478969348657 + Math.random() * 1.0E-6 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.077;
                         } else {
                             double var8 = 0.99375 - (double) this.field23414 * 1.0E-13;
                             this.field23415 *= var8;
                         }
 
-                        if (MovementUtil.getJumpBoost() == 0 && !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
+                        if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() == 0 && !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
                             this.method16043(var1, this.field23414);
                         }
 
@@ -155,16 +154,16 @@ public class HypixelSpeed extends Module {
                         break;
                     case field13641:
                         if (this.field23414 == 0) {
-                            double var6 = 0.399 + (double) MovementUtil.getJumpBoost() * 0.1 + 1.0E-5;
+                            double var6 = 0.399 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() * 0.1 + 1.0E-5;
                             if (this.getBooleanValueFromSettingName("BorderJump")
                                     && mc.world.getCollisionShapes(mc.player, mc.player.getBoundingBox().expand(0.0, -var6 - 0.0625, 0.0)).count()
                                     == 0L) {
-                                this.field23415 = 0.4103345672948576 + Math.random() * 1.0E-6 + (double) MovementUtil.getSpeedBoost() * 0.085;
+                                this.field23415 = 0.4103345672948576 + Math.random() * 1.0E-6 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.085;
                                 this.field23416 = -1.0;
                             } else {
                                 var1.setY(-var6 - 0.0625);
                                 this.field23417 = this.field23417 - var1.getY();
-                                this.field23415 = 0.3 + Math.random() * 1.0E-6 + (double) MovementUtil.getSpeedBoost() * 0.067;
+                                this.field23415 = 0.3 + Math.random() * 1.0E-6 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.067;
                             }
                         } else if (this.field23414 == 1 && var1.getY() < 0.0) {
                             this.field23415 *= 0.7;
@@ -173,11 +172,11 @@ public class HypixelSpeed extends Module {
                         }
                 }
 
-                if (this.field23415 < var4 || mc.player.collidedHorizontally || !MultiUtilities.isMoving() || MultiUtilities.inLiquid(mc.player)) {
+                if (this.field23415 < var4 || mc.player.collidedHorizontally || !MovementUtil2.isMoving() || MovementUtil2.inLiquid(mc.player)) {
                     this.field23415 = var4;
                 }
 
-                MovementUtil.setSpeed(var1, this.field23415);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field23415);
                 this.field23414++;
             }
         }
@@ -212,8 +211,8 @@ public class HypixelSpeed extends Module {
     @EventTarget
     public void method16042(EventRender2D var1) {
         if (!mc.player.isOnGround()
-                && !MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)
-                && MultiUtilities.isAboveBounds(mc.player, (float) (MovementUtil.getJumpValue() + 1.0E-5 + 0.0625))
+                && !MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)
+                && MovementUtil2.isAboveBounds(mc.player, (float) (com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue() + 1.0E-5 + 0.0625))
                 && Step.updateTicksBeforeStep >= 2
                 && !(this.field23416 < 0.0)
                 && this.field23418 == Class2094.field13641
@@ -222,7 +221,7 @@ public class HypixelSpeed extends Module {
             mc.player.lastTickPosY = this.field23416;
             mc.player.chasingPosY = this.field23416;
             mc.player.prevPosY = this.field23416;
-            if (MovementUtil.isMoving()) {
+            if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
                 mc.player.cameraYaw = 0.099999994F;
             }
         }

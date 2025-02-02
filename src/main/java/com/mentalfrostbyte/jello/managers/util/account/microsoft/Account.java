@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.render.ImageUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;

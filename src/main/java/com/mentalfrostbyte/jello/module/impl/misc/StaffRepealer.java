@@ -4,8 +4,8 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SPlayerListItemPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -19,7 +19,7 @@ public class StaffRepealer extends Module {
     @EventTarget
     public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
-            if (MultiUtilities.isHypixel()) {
+            if (MovementUtil2.isHypixel()) {
                 mc.gameSettings.sendSettingsToServer();
             }
         }

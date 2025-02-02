@@ -5,9 +5,10 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.EntityUtil;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
+import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.BoatEntity;
@@ -36,7 +37,7 @@ public class Class9819 {
       if (this.entity != null) {
          if (this.field45878 != 1) {
             if (this.field45878 == 2) {
-               boolean var4 = MultiUtilities.isHypixel();
+               boolean var4 = MovementUtil2.isHypixel();
                if (var4) {
                   PlayerAbilities abilities = new PlayerAbilities();
                   abilities.isFlying = true;
@@ -128,7 +129,7 @@ public class Class9819 {
             this.entity = null;
          } else if (!this.mc.player.isSneaking()) {
             double posY = this.entity.getPosY() - this.entity.lastTickPosY;
-            if (posY < -2.0 && MultiUtilities.method17763(this.entity) && this.entity.getPosY() - this.mc.player.getPosY() < -10.0) {
+            if (posY < -2.0 && MovementUtil2.method17763(this.entity) && this.entity.getPosY() - this.mc.player.getPosY() < -10.0) {
                this.field45878 = 0;
                this.entity = null;
                Client.getInstance().notificationManager.send(new Notification("Teleport", "Target seems to be falling in void"));

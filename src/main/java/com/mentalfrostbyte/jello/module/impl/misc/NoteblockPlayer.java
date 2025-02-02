@@ -8,10 +8,12 @@ import com.mentalfrostbyte.jello.misc.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.player.Rots;
-import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.sound.NBSFile;
+import com.mentalfrostbyte.jello.util.game.sound.NBSFileReader;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NoteBlock;
 import net.minecraft.client.Minecraft;
@@ -33,7 +35,7 @@ import java.util.*;
 
 public class NoteblockPlayer extends Module {
     public int field23638;
-    private NBSFile field23639;
+    private NBSFile nbsFile;
     private List<String> field23640 = new ArrayList<>();
     private final List<Class6463> field23641 = new ArrayList<>();
     private final List<BlockPos> positions = new ArrayList<>();
@@ -97,7 +99,7 @@ public class NoteblockPlayer extends Module {
     @EventTarget
     public void method16405(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled()) {
-            if (this.field23639 != null) {
+            if (this.nbsFile != null) {
                 if (mc.playerController.isInCreativeMode()) {
                     MinecraftUtil.addChatMessage("§cNoteBlockPlayer isn't available in creative mode!");
                     this.setEnabled(false);
@@ -107,8 +109,8 @@ public class NoteblockPlayer extends Module {
                     }
 
                     if (this.method16406(this.field23641)) {
-                        if (Math.floor((float) mc.player.ticksExisted % this.field23639.getTempo()) / 20.0 == 0.0) {
-                            if (this.field23638 > this.field23639.getShort2()) {
+                        if (Math.floor((float) mc.player.ticksExisted % this.nbsFile.getTempo()) / 20.0 == 0.0) {
+                            if (this.field23638 > this.nbsFile.getShort2()) {
                                 this.field23638 = 0;
                             }
 
@@ -116,7 +118,7 @@ public class NoteblockPlayer extends Module {
 
                             Rots.rotating = true;
 
-                            for (Class9616 var5 : this.field23639.method9950().values()) {
+                            for (Class9616 var5 : this.nbsFile.method9950().values()) {
                                 Class8255 var6 = var5.method37433(this.field23638);
                                 if (var6 != null) {
                                     for (Class6463 var8 : this.field23641) {
@@ -341,28 +343,28 @@ public class NoteblockPlayer extends Module {
                 MinecraftUtil.addChatMessage(
                         "§cNo Song available! Place NBS formated files in sigma5/nbs and restart the client to try again!");
                 MinecraftUtil.addChatMessage("§cPlaying the only integrated demo song!");
-                this.field23639 = NBSFileReader.fromInputStream(
+                this.nbsFile = NBSFileReader.fromInputStream(
                         Resources.readInputStream("com/mentalfrostbyte/gui/resources/music/rememberthis.nbs"));
-                if (this.field23639 == null) {
+                if (this.nbsFile == null) {
                     MinecraftUtil.addChatMessage("§cError loading included song, wtf!");
                     this.setEnabled(false);
                     return;
                 }
             } else {
                 File var3 = new File(Client.getInstance().file + "/nbs/" + this.getStringSettingValueByName("Song"));
-                this.field23639 = NBSFileReader.fromFile(var3);
-                if (this.field23639 == null) {
+                this.nbsFile = NBSFileReader.fromFile(var3);
+                if (this.nbsFile == null) {
                     MinecraftUtil.addChatMessage("§cError loading song! Make sure song is saved as <= V3 format");
                     this.setEnabled(false);
                     return;
                 }
             }
 
-            System.out.println(this.field23639.getSongName());
-            MinecraftUtil.addChatMessage("Now Playing: " + this.field23639.getSongName());
-            if (Math.floor(20.0F / this.field23639.getTempo()) != (double) (20.0F / this.field23639.getTempo())) {
+            System.out.println(this.nbsFile.getSongName());
+            MinecraftUtil.addChatMessage("Now Playing: " + this.nbsFile.getSongName());
+            if (Math.floor(20.0F / this.nbsFile.getTempo()) != (double) (20.0F / this.nbsFile.getTempo())) {
                 MinecraftUtil.addChatMessage(
-                        "§cNBS Error! Invalid tempo! (" + this.field23639.getTempo() + ") Unpredictable results!");
+                        "§cNBS Error! Invalid tempo! (" + this.nbsFile.getTempo() + ") Unpredictable results!");
             }
 
             this.field23638 = 0;

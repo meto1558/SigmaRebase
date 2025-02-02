@@ -7,9 +7,8 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.BlockPos;
@@ -32,9 +31,9 @@ public class SpartanClickTP extends Module {
 
     @Override
     public void onDisable() {
-        MultiUtilities.setPlayerYMotion(-0.08);
-        double var3 = MovementUtil.getSpeed();
-        MovementUtil.strafe(var3);
+        MovementUtil2.setPlayerYMotion(-0.08);
+        double var3 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
+        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var3);
         mc.timer.timerSpeed = 1.0F;
     }
 
@@ -78,9 +77,9 @@ public class SpartanClickTP extends Module {
                     if (!this.access().getBooleanValueFromSettingName("Auto Disable")) {
                         this.field23464 = -1;
                         this.field23465 = null;
-                        MultiUtilities.setPlayerYMotion(-0.08);
-                        double var5 = MovementUtil.getSpeed();
-                        MovementUtil.strafe(var5);
+                        MovementUtil2.setPlayerYMotion(-0.08);
+                        double var5 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var5);
                         mc.timer.timerSpeed = 1.0F;
                     } else {
                         this.access().toggle();

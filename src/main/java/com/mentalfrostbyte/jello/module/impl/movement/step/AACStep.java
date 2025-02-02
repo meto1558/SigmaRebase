@@ -5,8 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.play.client.CPlayerPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
@@ -21,10 +20,10 @@ public class AACStep extends Module {
     public void onStep(EventStep var1) {
         if (this.isEnabled() && !var1.isCancelled()) {
             double var4 = var1.getHeight();
-            if (!MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)) {
+            if (!MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)) {
                 var1.setCancelled(true);
             } else {
-                if (!MovementUtil.isInWater() && var4 >= 0.625) {
+                if (!com.mentalfrostbyte.jello.util.game.player.MovementUtil.isInWater() && var4 >= 0.625) {
                     double var6 = mc.player.getPosX();
                     double var8 = mc.player.getPosY();
                     double var10 = mc.player.getPosZ();

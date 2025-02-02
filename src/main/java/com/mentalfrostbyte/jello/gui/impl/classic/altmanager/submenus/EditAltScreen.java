@@ -7,12 +7,12 @@ import com.mentalfrostbyte.jello.gui.unmapped.Class4300;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.Class2218;
 
 public class EditAltScreen extends Screen {
    public Input field21027;

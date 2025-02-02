@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters;
 
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.InteractAutoBlock;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
-import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 

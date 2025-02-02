@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.KeybindTypes;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Bound;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.FileUtil;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.thizzer.jtouchbar.JTouchBar;
 import com.thizzer.jtouchbar.common.Color;
 import com.thizzer.jtouchbar.item.TouchBarItem;

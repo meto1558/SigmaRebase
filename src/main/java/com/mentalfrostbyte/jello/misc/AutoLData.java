@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.misc;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -13,10 +13,10 @@ import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.TextBoxSetting;
-import com.mentalfrostbyte.jello.util.MathHelper;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
 
 import java.util.HashMap;

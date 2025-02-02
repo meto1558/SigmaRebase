@@ -6,12 +6,12 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.render.Box3D;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import net.minecraft.block.*;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -107,7 +107,7 @@ public class Nuker extends Module {
     @EventTarget
     public void onRender(EventRender3D var1) {
         if (this.targetPos != null && !mc.world.getBlockState(this.targetPos).isAir()) {
-            int var4 = MultiUtilities.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.4F);
+            int var4 = MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.4F);
             GL11.glPushMatrix();
             GL11.glDisable(2929);
             double var5 = (double) this.targetPos.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();

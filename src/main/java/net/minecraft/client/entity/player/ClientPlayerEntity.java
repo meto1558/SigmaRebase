@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActio
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.player.Rots;
+import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BiomeSoundHandler;

@@ -1,18 +1,18 @@
 package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.misc.Pair;
+import com.mentalfrostbyte.jello.util.system.Pair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.Teams;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters.*;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
-import com.mentalfrostbyte.jello.util.EntityUtil;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import com.mentalfrostbyte.jello.util.player.Rotation;
-import com.mentalfrostbyte.jello.util.player.TeamUtil;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
+import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
@@ -67,12 +67,12 @@ public class InteractAutoBlock {
             }
         }
 
-        MultiUtilities.block();
+        MovementUtil2.block();
         this.setBlocking(true);
     }
 
     public void doUnblock() {
-        MultiUtilities.unblock();
+        MovementUtil2.unblock();
         this.setBlocking(false);
     }
 
@@ -209,7 +209,7 @@ public class InteractAutoBlock {
             } else if (!(ent instanceof PlayerEntity)
                     || !TeamUtil.method31662((PlayerEntity) ent)
                     || !Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
-                Vector3d var10 = MultiUtilities.method17751(ent);
+                Vector3d var10 = MovementUtil2.method17751(ent);
                 if (!(this.mc.player.getDistance(ent) < 40.0F)) {
                     if (this.field44349.containsKey(ent)) {
                         this.field44349.remove(ent);
@@ -234,14 +234,14 @@ public class InteractAutoBlock {
                     }
                 }
 
-                if (!(MultiUtilities.method17754(var10) > 8.0)) {
+                if (!(MovementUtil2.method17754(var10) > 8.0)) {
                     boolean var26 = true;
                     if (this.parent.getBooleanValueFromSettingName("Smart Reach")) {
                         List<Pair<Vector3d, Long>> var27 = this.field44349.get(ent);
                         if (var27 != null) {
                             for (Pair<Vector3d, Long> var30 : var27) {
                                 AxisAlignedBB var21 = getAxisAlignedBBThing(var30);
-                                double var22 = MultiUtilities.method17755(var21);
+                                double var22 = MovementUtil2.method17755(var21);
                                 if (var22 < (double) var1) {
                                     var26 = false;
                                 }
@@ -249,7 +249,7 @@ public class InteractAutoBlock {
                         }
                     }
 
-                    if (var26 && MultiUtilities.method17754(var10) > (double) var1) {
+                    if (var26 && MovementUtil2.method17754(var10) > (double) var1) {
                         entities.remove();
                     } else if (!this.parent.getBooleanValueFromSettingName("Through walls")) {
                         Rotation rotation = RotationHelper.getRotations(ent, true);

@@ -11,10 +11,10 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanListSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.render.Box3D;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.SChangeBlockPacket;
@@ -195,7 +195,7 @@ public class Search extends Module {
     }
 
     public void method16170() {
-        int var3 = MultiUtilities.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.14F);
+        int var3 = MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.14F);
         GL11.glPushMatrix();
         GL11.glDisable(2929);
 

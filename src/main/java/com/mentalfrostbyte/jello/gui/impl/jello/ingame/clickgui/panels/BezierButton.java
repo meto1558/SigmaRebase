@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels;
 
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class BezierButton extends AnimatedIconPanelWrap {
    public Bezier field20737;

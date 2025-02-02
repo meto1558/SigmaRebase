@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.bowaimbot;
 
 import com.mentalfrostbyte.jello.module.impl.combat.BowAimbot;
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 

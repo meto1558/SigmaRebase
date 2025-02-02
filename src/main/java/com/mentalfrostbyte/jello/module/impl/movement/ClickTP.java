@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.clicktp.BasicClickTP;
 import com.mentalfrostbyte.jello.module.impl.movement.clicktp.SpartanClickTP;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;

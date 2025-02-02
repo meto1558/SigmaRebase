@@ -2,17 +2,17 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.Screen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.ModsPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 

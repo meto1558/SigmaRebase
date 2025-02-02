@@ -6,10 +6,10 @@ import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Setting;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Checkbox;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 
 public class CategoryPanel extends UIBase {
    public Module module;

@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Image;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Exit;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;

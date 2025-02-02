@@ -3,11 +3,9 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRideable;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUnused;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.network.play.client.CMoveVehiclePacket;
@@ -38,7 +36,7 @@ public class EntitySpeed extends Module {
             float var6 = var4.moveStrafe;
             if (!mc.player.getRidingEntity().collidedHorizontally
                     && !mc.player.getRidingEntity().onGround
-                    && MultiUtilities.isAboveBounds(mc.player.getRidingEntity(), 5.0F)
+                    && MovementUtil2.isAboveBounds(mc.player.getRidingEntity(), 5.0F)
                     && !mc.player.getRidingEntity().isInWater()
                     && mc.world.getBlockState(mc.player.getRidingEntity().getPosition()).getBlock() != Blocks.WATER) {
                 var1.setY(-2.0);
@@ -57,7 +55,7 @@ public class EntitySpeed extends Module {
                 var1.setX(0.0);
                 var1.setZ(0.0);
             } else {
-                float var7 = MovementUtil.method37086();
+                float var7 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37086();
                 double var8 = Math.cos(Math.toRadians(var7));
                 double var10 = Math.sin(Math.toRadians(var7));
                 this.field23546 = 2.75F;

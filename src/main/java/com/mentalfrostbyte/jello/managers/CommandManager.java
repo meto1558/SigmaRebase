@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.command.impl.*;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
-import com.mentalfrostbyte.jello.util.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CTabCompletePacket;
 import team.sdhq.eventBus.EventBus;

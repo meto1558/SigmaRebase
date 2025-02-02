@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CUseEntityPacket;
 import net.minecraft.util.Hand;

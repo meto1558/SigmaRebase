@@ -4,7 +4,7 @@ import com.ibm.icu.text.NumberFormat;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.misc.Class9784;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.misc.Class7211;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;

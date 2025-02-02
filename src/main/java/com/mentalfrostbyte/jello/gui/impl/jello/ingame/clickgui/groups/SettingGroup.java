@@ -4,12 +4,12 @@ import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels.SettingPanel;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
-import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 
 public class SettingGroup extends UIBase {
    public Animation animation1;

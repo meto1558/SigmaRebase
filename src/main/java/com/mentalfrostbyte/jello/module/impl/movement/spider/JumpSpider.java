@@ -8,8 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -43,7 +42,7 @@ public class JumpSpider extends Module {
                 mc.player.jump();
                 event.setY(mc.player.getMotion().y);
             } else if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
-                MovementUtil.setSpeed(event, 0.28 + (double) MovementUtil.getSpeedBoost() * 0.05);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.28 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.05);
                 event.setY(0.0);
             } else {
                 event.setY(-0.0784);
@@ -53,13 +52,13 @@ public class JumpSpider extends Module {
             event.setY(mc.player.getMotion().y);
         }
 
-        MultiUtilities.setPlayerYMotion(event.getY());
+        MovementUtil2.setPlayerYMotion(event.getY());
     }
 
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
-            Class9629 var4 = MultiUtilities.method17760(1.0E-4);
+            Class9629 var4 = MovementUtil2.method17760(1.0E-4);
             String mode = this.getStringSettingValueByName("Mode");
             if (this.getBooleanValueFromSettingName("Ceiling")
                     && !mc.player.onGround

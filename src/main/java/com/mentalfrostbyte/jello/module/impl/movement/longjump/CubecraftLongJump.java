@@ -4,8 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.play.client.CPlayerPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -20,7 +19,7 @@ public class CubecraftLongJump extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(MovementUtil.getSpeed() * 0.8);
+        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.8);
      //   mc.timer.timerSpeed = 1.0F;
     }
 
@@ -33,20 +32,20 @@ public class CubecraftLongJump extends Module {
     @EventTarget
     public void method16174(EventPlayerTick var1) {
         if (this.isEnabled() && mc.player != null) {
-            if (!MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
+            if (!MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
                 this.field23501++;
                 this.field23502 -= 0.005;
                 if (this.field23502 < 0.26 || this.field23501 > 6) {
                     this.field23502 = 0.26;
                 }
 
-                MovementUtil.strafe(this.field23502);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(this.field23502);
                 if (this.field23501 > 5) {
                     this.access().toggle();
                 }
             } else {
                 if (this.field23501 > 0) {
-                    MovementUtil.strafe(0.0);
+                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
                     this.access().toggle();
                     this.field23501 = 0;
                 }
@@ -54,7 +53,7 @@ public class CubecraftLongJump extends Module {
                 double var4 = mc.player.getPosX();
                 double var6 = mc.player.getPosY();
                 double var8 = mc.player.getPosZ();
-                int var10 = 49 + MovementUtil.getJumpBoost() * 17;
+                int var10 = 49 + com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() * 17;
 
                 for (int var11 = 0; var11 < var10; var11++) {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var4, var6 + 0.06248, var8, false));
@@ -62,10 +61,10 @@ public class CubecraftLongJump extends Module {
                 }
 
                 mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var4, var6, var8, true));
-                MultiUtilities.setPlayerYMotion(MovementUtil.getJumpValue());
+                MovementUtil2.setPlayerYMotion(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
                 this.field23501 = 0;
                 this.field23502 = this.getNumberValueBySettingName("Boost") / 2.0F;
-                MovementUtil.strafe(this.field23502);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(this.field23502);
             }
         }
     }

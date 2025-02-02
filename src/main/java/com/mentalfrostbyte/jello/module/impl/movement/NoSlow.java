@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.item.*;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -72,7 +72,7 @@ public class NoSlow extends Module {
 
         if (!event.isPre()) {
             if (isSwordEquipped && mc.gameSettings.keyBindUseItem.isKeyDown() && !isBlocking && !auraEnabled && isModeNCP()) {
-                MultiUtilities.block();
+                MovementUtil2.block();
                 isBlocking = true;
             } else if (!isSwordEquipped && isBlocking) {
                 isBlocking = false;
@@ -93,7 +93,7 @@ public class NoSlow extends Module {
             }
         } else if (isBlocking && mc.gameSettings.keyBindUseItem.isKeyDown() && !auraEnabled) {
             if (isSwordEquipped) {
-                MultiUtilities.unblock();
+                MovementUtil2.unblock();
             }
             isBlocking = false;
         }

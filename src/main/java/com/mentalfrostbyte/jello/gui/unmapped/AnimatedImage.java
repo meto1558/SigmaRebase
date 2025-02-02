@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.TimerUtil;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
 
 public class AnimatedImage {

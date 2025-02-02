@@ -1,36 +1,15 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.gui.base.JelloPortal;
-import com.mentalfrostbyte.jello.misc.Class2094;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
-import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
-import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
-import com.mentalfrostbyte.jello.module.impl.movement.Fly;
-import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
-import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
-import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.impl.world.disabler.HypixelPredictionDisabler;
-import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
-import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.server.SPlayerPositionLookPacket;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.potion.Effects;
 import team.sdhq.eventBus.annotations.EventTarget;
-import team.sdhq.eventBus.annotations.priority.HigherPriority;
-import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 // pasted from titties client, as requested by AwayXD (lol)
 public class HypixelNewSpeed extends Module {

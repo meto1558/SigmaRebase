@@ -6,8 +6,8 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.datafixers.util.Pair;
 
 

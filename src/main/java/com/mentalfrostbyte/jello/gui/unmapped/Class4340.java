@@ -3,13 +3,13 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.vector.Vector3i;
 

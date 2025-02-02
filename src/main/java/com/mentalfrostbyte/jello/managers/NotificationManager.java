@@ -2,10 +2,10 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;

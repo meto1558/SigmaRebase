@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.misc;
 
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;

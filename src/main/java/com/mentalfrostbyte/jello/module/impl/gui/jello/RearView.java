@@ -12,10 +12,10 @@ import com.mentalfrostbyte.jello.managers.GuiManager;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

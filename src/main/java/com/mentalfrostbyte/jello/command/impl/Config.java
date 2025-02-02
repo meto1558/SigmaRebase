@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.command.impl;
 
-import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 
 import java.io.File;
 import java.io.FileOutputStream;

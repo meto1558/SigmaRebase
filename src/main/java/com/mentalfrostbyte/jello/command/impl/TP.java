@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.misc.Class9819;
-import com.mentalfrostbyte.jello.util.EntityUtil;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CPlayerPacket;
 
@@ -30,7 +30,7 @@ public class TP extends Command {
          throw new CommandException();
       } else if (var2.length > 1) {
          throw new CommandException("Too many arguments");
-      } else if (!mc.player.isOnGround() && MultiUtilities.isHypixel()) {
+      } else if (!mc.player.isOnGround() && MovementUtil2.isHypixel()) {
          throw new CommandException("Use this command on ground");
       } else if (var2[0].getArguments().equalsIgnoreCase(mc.getSession().username)) {
          throw new CommandException("You can not tp to yourself");
@@ -48,7 +48,7 @@ public class TP extends Command {
 
          if (this.field25710.entity != null) {
             this.field25710.timer.reset();
-            if (!MultiUtilities.isHypixel()) {
+            if (!MovementUtil2.isHypixel()) {
                this.field25710.timer.stop();
                this.field25710.field45878 = 2;
             } else {

@@ -8,13 +8,13 @@ import com.mentalfrostbyte.jello.gui.unmapped.Text;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
 import com.mentalfrostbyte.jello.managers.util.account.Class9507;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
-import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import net.minecraft.util.Util;
 
 public class LoginScreen extends UIBase {

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 
 
 public class Insult extends Command {
@@ -341,7 +341,7 @@ public class Insult extends Command {
     @Override
     public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor var3) throws CommandException {
         if (args.length == 0) {
-            MultiUtilities.sendChatMessage(generateInsult());
+            MovementUtil2.sendChatMessage(generateInsult());
         } else {
             throw new CommandException("Too many arguments");
         }

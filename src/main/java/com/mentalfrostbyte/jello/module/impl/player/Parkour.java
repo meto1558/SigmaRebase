@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.player;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventWalkingUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class Parkour extends Module {
@@ -16,7 +16,7 @@ public class Parkour extends Module {
     public void EventWalkingUpdate(EventWalkingUpdate event) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround()) {
-                if (!MultiUtilities.method17729()) {
+                if (!MovementUtil2.method17729()) {
                     mc.player.jump();
                 }
             }

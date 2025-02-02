@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.misc.TimedMessage;
+import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
 import net.minecraft.util.text.ITextComponent;
@@ -100,10 +100,10 @@ public class MinibloxGamePlay extends Module {
                 if (autoVote.currentValue && text.equals("Poll started: Choose a gamemode")) {
                     switch (autoVoteMode.currentValue) {
                         case "Normal (1)":
-                            MultiUtilities.sendChatMessage("/vote 1");
+                            MovementUtil2.sendChatMessage("/vote 1");
                             break;
                         case "Insane (2)":
-                            MultiUtilities.sendChatMessage("/vote 2");
+                            MovementUtil2.sendChatMessage("/vote 2");
                             break;
                     }
                 }
@@ -139,7 +139,7 @@ public class MinibloxGamePlay extends Module {
                     for (ITextComponent textCom : chatPacket.getChatComponent().getSiblings()) {
                         ClickEvent clickEvent = textCom.getStyle().getClickEvent();
                         if (clickEvent != null && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND && clickEvent.getValue().contains("/f accept")) {
-                            MultiUtilities.sendChatMessage(clickEvent.getValue());
+                            MovementUtil2.sendChatMessage(clickEvent.getValue());
                         }
                     }
                 }

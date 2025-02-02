@@ -13,8 +13,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,7 +38,7 @@ public class AntiVoid extends Module {
         this.fallDistanceAccumulated = 0.0;
         this.speedBoostTimer = 0;
         this.disableTimer = 0;
-        if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
+        if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
             this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
         }
     }
@@ -47,7 +46,7 @@ public class AntiVoid extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            if (mc.player.isOnGround() || MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
+            if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
                 this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
             }
 
@@ -72,7 +71,7 @@ public class AntiVoid extends Module {
                     this.fallDistanceAccumulated = 0.0;
                 }
             } else {
-                MovementUtil.setSpeed(event, 0.0);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.0);
                 event.setY(0.0);
                 this.disableTimer--;
             }
@@ -84,7 +83,7 @@ public class AntiVoid extends Module {
 
             if (this.speedBoostTimer > 0) {
                 this.speedBoostTimer--;
-                MovementUtil.setSpeed(event, 0.1);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.1);
             }
         }
     }
@@ -125,7 +124,7 @@ public class AntiVoid extends Module {
         double posY = mc.player.getPositionVec().getY();
         double posZ = mc.player.getPositionVec().getZ();
 
-        if (mode.equals("Cubecraft") && !MultiUtilities.isCubecraft()) {
+        if (mode.equals("Cubecraft") && !MovementUtil2.isCubecraft()) {
             mode = "Motion";
         }
 
@@ -135,7 +134,7 @@ public class AntiVoid extends Module {
                 break;
             case "Motion":
                 event.setY(0.1);
-                MultiUtilities.setPlayerYMotion(event.getY());
+                MovementUtil2.setPlayerYMotion(event.getY());
                 break;
             case "TP":
                 mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);

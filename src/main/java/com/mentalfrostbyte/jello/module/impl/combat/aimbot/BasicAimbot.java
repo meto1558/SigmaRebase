@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Aimbot;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
 

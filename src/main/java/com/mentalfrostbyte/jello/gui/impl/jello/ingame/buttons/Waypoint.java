@@ -3,11 +3,11 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons;
 import com.mentalfrostbyte.jello.gui.base.WaypointColors;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.unmapped.Button;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
 public class Waypoint extends Button {

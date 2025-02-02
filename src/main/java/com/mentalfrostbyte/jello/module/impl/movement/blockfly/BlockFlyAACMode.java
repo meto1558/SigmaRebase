@@ -15,11 +15,10 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.AACSpeed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.PositionFacing;
-import com.mentalfrostbyte.jello.util.player.Rots;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
+import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.network.IPacket;
@@ -127,7 +126,7 @@ public class BlockFlyAACMode extends Module {
                 } else {
                     this.field23524 = 0;
                     mc.player.jump();
-                    var1.setY(0.419998 + (double) MovementUtil.getJumpBoost() * 0.1);
+                    var1.setY(0.419998 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() * 0.1);
                     if (this.field23525 < 3) {
                         this.field23525++;
                     }
@@ -139,7 +138,7 @@ public class BlockFlyAACMode extends Module {
 
                 this.field23526 = AACSpeed.method16016(this.field23524, this.field23525, () -> this.field23525 = 0);
                 if (this.field23524 >= 0) {
-                    MovementUtil.setSpeed(var1, this.field23526);
+                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field23526);
                 }
             }
         }
@@ -148,7 +147,7 @@ public class BlockFlyAACMode extends Module {
     @EventTarget
     public void onFOV(EventGetFovModifier var1) {
         if (this.isEnabled() && mc.world != null && mc.player != null) {
-            if (this.getBooleanValueFromSettingName("Haphe (AACAP)") && MovementUtil.isMoving() && !mc.player.isSprinting()) {
+            if (this.getBooleanValueFromSettingName("Haphe (AACAP)") && com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving() && !mc.player.isSprinting()) {
                 var1.fovModifier *= 1.14F;
             }
         }
@@ -231,7 +230,7 @@ public class BlockFlyAACMode extends Module {
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (!event.isPre()) {
-                if (MovementUtil.isMoving() && mc.player.isOnGround() && this.getBooleanValueFromSettingName("Haphe (AACAP)") && !mc.player.isJumping) {
+                if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving() && mc.player.isOnGround() && this.getBooleanValueFromSettingName("Haphe (AACAP)") && !mc.player.isJumping) {
                     mc.player.jump();
                 }
 
@@ -282,7 +281,7 @@ public class BlockFlyAACMode extends Module {
     public void method16211(EventJump var1) {
         if (this.isEnabled()) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!MultiUtilities.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!MovementUtil2.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 var1.setCancelled(true);
             }
         }

@@ -2,20 +2,19 @@ package com.mentalfrostbyte.jello.module.impl.movement.clicktp;
 
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.misc.Vector3d;
+import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.TimerUtil;
-import com.mentalfrostbyte.jello.util.render.Box3D;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.world.BlockUtil;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
+import com.mentalfrostbyte.jello.util.game.render.Box3D;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.world.BlockUtil;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.event.ClickEvent;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -139,7 +138,7 @@ public class BasicClickTP extends Module {
                         var12.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() + 1.6F,
                         var8 + 0.3F);
                 RenderUtil.render3DColoredBox(var10,
-                        MultiUtilities.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
+                        MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
             }
 
             GL11.glPushMatrix();

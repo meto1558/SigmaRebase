@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.options;
 import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.util.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.render.ColorUtils;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.system.math.EasingFunctions;
-import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;

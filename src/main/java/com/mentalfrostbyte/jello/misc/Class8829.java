@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.misc;
 
+import com.mentalfrostbyte.jello.util.system.math.vector.Vector2m;
+
 public class Class8829 extends Vector2m {
    private static String[] field39807;
    public static final Class8829 field39808 = new Class8829(0, 0);

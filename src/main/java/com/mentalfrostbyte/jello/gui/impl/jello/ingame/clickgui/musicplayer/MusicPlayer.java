@@ -3,7 +3,9 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.system.math.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.ChangingButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.SearchBox;
@@ -15,12 +17,12 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.butt
 import com.mentalfrostbyte.jello.managers.MusicVideoManager;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeContentType;
 import com.mentalfrostbyte.jello.managers.util.music.YoutubeVideoData;
-import com.mentalfrostbyte.jello.util.ClientColors;
-import com.mentalfrostbyte.jello.util.ColorHelper;
-import com.mentalfrostbyte.jello.util.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.YoutubeUtil;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.render.*;
-import com.mentalfrostbyte.jello.util.unmapped.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.Class2218;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 

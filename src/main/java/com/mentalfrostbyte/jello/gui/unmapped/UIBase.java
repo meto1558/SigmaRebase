@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import org.newdawn.slick.TrueTypeFont;
 
 import java.util.ArrayList;

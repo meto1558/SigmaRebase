@@ -9,7 +9,7 @@ import net.minecraft.inventory.container.ClickType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import team.sdhq.eventBus.annotations.EventTarget;
-import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 
 
 public class AutoTotem extends Module {

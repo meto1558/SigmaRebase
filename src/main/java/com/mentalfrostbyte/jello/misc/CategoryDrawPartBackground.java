@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.misc;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
-import com.mentalfrostbyte.jello.util.MathHelper;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
 
 public class   CategoryDrawPartBackground {

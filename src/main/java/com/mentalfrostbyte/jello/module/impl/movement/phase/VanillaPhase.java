@@ -8,8 +8,7 @@ import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.misc.Class9629;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
@@ -24,7 +23,7 @@ public class VanillaPhase extends Module {
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (mc.player.collidedHorizontally) {
-                Class9629 var4 = MultiUtilities.method17760(1.0E-4);
+                Class9629 var4 = MovementUtil2.method17760(1.0E-4);
                 double var5 = !JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8) ? 1.0E-6 : 0.0625;
                 if (((Direction) var4.method37538()).getAxis() != Direction.Axis.X) {
                     event.setZ(
@@ -44,9 +43,9 @@ public class VanillaPhase extends Module {
     @EventTarget
     public void EventMove(EventMove event) {
         if (this.isEnabled()) {
-            if (mc.player.collidedHorizontally || MultiUtilities.method17761()) {
-                MovementUtil.setSpeed(event, 0.0);
-                MovementUtil.method37095(1.7);
+            if (mc.player.collidedHorizontally || MovementUtil2.method17761()) {
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.0);
+                com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37095(1.7);
             }
         }
     }

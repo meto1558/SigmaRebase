@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.render.Resources;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 
 public class Exit extends UIBase {
    public Exit(CustomGuiScreen var1, String var2, int var3, int var4) {

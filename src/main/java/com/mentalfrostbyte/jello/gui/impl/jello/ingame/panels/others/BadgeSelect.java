@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.WaypointColors;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.Waypoint;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 
 public class BadgeSelect extends UIBase {
    public int field21296;

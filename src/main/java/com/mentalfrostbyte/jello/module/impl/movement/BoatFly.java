@@ -5,13 +5,10 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
-import com.mentalfrostbyte.jello.util.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.text.event.HoverEvent;
 import team.sdhq.eventBus.annotations.EventTarget;
-
-import java.awt.event.MouseEvent;
 
 public class BoatFly extends PremiumModule {
     public boolean field23643 = false;

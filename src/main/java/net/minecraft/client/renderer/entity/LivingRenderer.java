@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
-import com.mentalfrostbyte.jello.util.player.Rots;
+import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.List;

@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.network.play.client.CClientStatusPacket;

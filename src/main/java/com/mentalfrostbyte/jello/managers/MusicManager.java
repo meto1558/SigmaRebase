@@ -1,15 +1,20 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.managers.util.music.*;
-import com.mentalfrostbyte.jello.util.YoutubeUtil;
-import com.mentalfrostbyte.jello.util.*;
+import com.mentalfrostbyte.jello.util.client.youtube.YoutubeUtil;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.render.*;
+import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.network.NetworkUtil;
 import com.sapher.youtubedl.YoutubeDL;
 import com.sapher.youtubedl.YoutubeDLException;
 import com.sapher.youtubedl.YoutubeDLRequest;

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
-import com.mentalfrostbyte.jello.util.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;

@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.misc.TimedMessage;
+import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.MultiUtilities;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
 import net.minecraft.network.play.server.STeamsPacket;
@@ -117,7 +117,7 @@ public class HypixelGamePlay extends Module {
                     for (ITextComponent textCom : chatPacket.getChatComponent().getSiblings()) {
                         ClickEvent clickEvent = textCom.getStyle().getClickEvent();
                         if (clickEvent != null && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND && clickEvent.getValue().contains("/f accept")) {
-                            MultiUtilities.sendChatMessage(clickEvent.getValue());
+                            MovementUtil2.sendChatMessage(clickEvent.getValue());
                         }
                     }
                 }

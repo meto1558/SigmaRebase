@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
-import com.mentalfrostbyte.jello.util.EntityUtil;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;

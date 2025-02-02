@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters;
 
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.InteractAutoBlock;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
-import com.mentalfrostbyte.jello.util.player.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import net.minecraft.entity.Entity;
 
 import java.util.Comparator;
