@@ -3,9 +3,11 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.misc.Pair;
 import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.Teams;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters.*;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
+import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.util.EntityUtil;
 import com.mentalfrostbyte.jello.util.MultiUtilities;
 import com.mentalfrostbyte.jello.util.player.RotationHelper;
@@ -165,15 +167,14 @@ public class InteractAutoBlock {
         }
 
         Iterator<TimedEntity> entities = timedEntityList.iterator();
-        // TODO: uncomment these when Disabler is ported
-        // ModuleWithModuleSettings disabler = (ModuleWithModuleSettings)
-        // Client.getInstance().moduleManager.getModuleByClass(Disabler.class);
+        ModuleWithModuleSettings disabler = (ModuleWithModuleSettings)
+                Client.getInstance().moduleManager.getModuleByClass(Disabler.class);
         float ping = 150.0F;
-        // if (disabler.isEnabled() &&
-        // disabler.getStringSettingValueByName("Type").equalsIgnoreCase("PingSpoof")) {
-        // ping +=
-        // disabler.getModWithTypeSetToName().getNumberValueBySettingName("Lag");
-        // }
+        if (disabler.isEnabled() &&
+                disabler.getStringSettingValueByName("Type").equalsIgnoreCase("PingSpoof")) {
+            ping +=
+                    disabler.getModWithTypeSetToName().getNumberValueBySettingName("Lag");
+        }
 
         while (entities.hasNext()) {
             TimedEntity timedEntity = entities.next();
