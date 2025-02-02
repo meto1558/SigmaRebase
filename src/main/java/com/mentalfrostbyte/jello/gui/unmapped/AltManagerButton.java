@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
@@ -44,8 +44,8 @@ public class AltManagerButton extends AnimatedIconPanelWrap {
          (float)(this.getYA() + this.getHeightA() / 2),
          this.typedText,
               RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.isHovered() ? 0.5F : 1.0F),
-         Class2218.field14492,
-         Class2218.field14492
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
       );
       super.draw(partialTicks);
    }

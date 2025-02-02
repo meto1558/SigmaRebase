@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class Dropdown extends UIBase {
-   public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
+   public static final ColorHelper field21325 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
    public List<String> values;
    public int selectedIdx;
    public boolean field21328;
@@ -82,8 +82,8 @@ public class Dropdown extends UIBase {
                   -1381654,
                   this.textColor.getPrimaryColor(),
                   this.textColor.getPrimaryColor(),
-                  Class2218.field14488,
-                  Class2218.field14492
+                  FontSizeAdjust.field14488,
+                  FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                ),
                mode,
                this.getFont()

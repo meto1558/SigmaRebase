@@ -22,7 +22,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.youtube.YoutubeUtil;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -99,7 +99,7 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         var5.setListening(false);
         this.musicControls.setListening(false);
         this.field20865.setListening(false);
-        ColorHelper color = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.LIGHT_GREYISH_BLUE.getColor()).method19414(Class2218.field14492);
+        ColorHelper color = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.LIGHT_GREYISH_BLUE.getColor()).method19414(FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
         List<Thread> threads = new ArrayList<>();
         MusicPlayer player = this;
 

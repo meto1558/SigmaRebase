@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
@@ -269,8 +269,8 @@ public class MainMenuScreen extends Screen {
                         (float) (this.heightA / 2 - 30),
                         currentTitle,
                         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent()),
-                        Class2218.field14492,
-                        Class2218.field14492
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                 );
                 RenderUtil.drawString(
                         ResourceRegistry.JelloLightFont18,
@@ -278,8 +278,8 @@ public class MainMenuScreen extends Screen {
                         (float) (this.heightA / 2 + 30),
                         "\"" + currentMessage + "\"",
                         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent() * 0.5F),
-                        Class2218.field14492,
-                        Class2218.field14492
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                 );
             }
         }

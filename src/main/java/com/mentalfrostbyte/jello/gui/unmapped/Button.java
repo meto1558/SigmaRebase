@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Button extends UIBase {
@@ -58,15 +58,15 @@ public class Button extends UIBase {
 
       int var10 = this.getXA()
          + (
-            this.textColor.method19411() != Class2218.field14492
+            this.textColor.method19411() != FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                ? 0
-               : (this.textColor.method19411() != Class2218.field14490 ? this.getWidthA() / 2 : this.getWidthA())
+               : (this.textColor.method19411() != FontSizeAdjust.WIDTH_NEGATE ? this.getWidthA() / 2 : this.getWidthA())
          );
       int var11 = this.getYA()
          + (
-            this.textColor.method19413() != Class2218.field14492
+            this.textColor.method19413() != FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                ? 0
-               : (this.textColor.method19413() != Class2218.field14491 ? this.getHeightA() / 2 : this.getHeightA())
+               : (this.textColor.method19413() != FontSizeAdjust.HEIGHT_NEGATE ? this.getHeightA() / 2 : this.getHeightA())
          );
       if (this.getTypedText() != null) {
          RenderUtil.drawString(

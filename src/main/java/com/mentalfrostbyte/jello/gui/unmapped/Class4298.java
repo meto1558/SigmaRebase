@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -35,8 +35,8 @@ public class Class4298 extends AnimatedIconPanelWrap {
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),
-      Class2218.field14488,
-      Class2218.field14492
+      FontSizeAdjust.field14488,
+      FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
    );
    public String skin = null;
    private AbstractClientPlayerEntity field20823;

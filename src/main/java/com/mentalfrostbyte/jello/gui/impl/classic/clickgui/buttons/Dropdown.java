@@ -9,13 +9,13 @@ import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dropdown extends UIBase {
-   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
+   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
    public List<String> field21343 = new ArrayList<String>();
    public int field21344 = 0;
    public boolean field21345;
@@ -56,8 +56,8 @@ public class Dropdown extends UIBase {
                   this.textColor.getPrimaryColor(),
                   this.textColor.getPrimaryColor(),
                   ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                  Class2218.field14488,
-                  Class2218.field14492
+                  FontSizeAdjust.field14488,
+                  FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                ),
                var5,
                     Resources.regular12

@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -130,8 +130,8 @@ public class PanelGroup extends AnimatedIconPanel {
          (float)(this.getYA() + 30),
          categoryName,
               RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.5F * this.field21195),
-         Class2218.field14488,
-         Class2218.field14492
+         FontSizeAdjust.field14488,
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
       );
       GL11.glPushMatrix();
       super.draw(partialTicks * partialTicks);

@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
@@ -76,8 +76,8 @@ public class Coords extends Module {
                             (float) var7,
                             xyz,
                             RenderUtil2.applyAlpha(-16777216, 0.5F * animation),
-                            Class2218.field14492,
-                            Class2218.field14488
+                            FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                            FontSizeAdjust.field14488
                     );
                     RenderUtil.drawString(
                             ResourceRegistry.JelloLightFont18,
@@ -85,8 +85,8 @@ public class Coords extends Module {
                             (float) var7,
                             xyz,
                             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F * animation),
-                            Class2218.field14492,
-                            Class2218.field14488
+                            FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                            FontSizeAdjust.field14488
                     );
                     GL11.glPopMatrix();
                 }

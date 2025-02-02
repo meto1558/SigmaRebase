@@ -10,9 +10,8 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
-import com.mentalfrostbyte.jello.util.system.render.Class2218EnumWrapper;
 import org.newdawn.slick.opengl.TextureImpl;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.Color;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -560,25 +559,25 @@ public class RenderUtil {
         RenderSystem.disableBlend();
     }
 
-    public static void drawString(TrueTypeFont res, float var1, float var2, String string, int var4, Class2218 var5, Class2218 var6) {
+    public static void drawString(TrueTypeFont res, float var1, float var2, String string, int var4, FontSizeAdjust var5, FontSizeAdjust var6) {
         drawString(res, var1, var2, string, var4, var5, var6, false);
     }
 
-    public static void drawString(TrueTypeFont font, float x, float y, String text, int color, Class2218 var5, Class2218 var6, boolean var7) {
+    public static void drawString(TrueTypeFont font, float x, float y, String text, int color, FontSizeAdjust widthAdjust, FontSizeAdjust heightAdjust, boolean var7) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        int var10 = 0;
-        int var11 = 0;
-        var10 = switch (Class2218EnumWrapper.field33554[var5.ordinal()]) {
-            case 1 -> -font.getWidth(text) / 2;
-            case 2 -> -font.getWidth(text);
-            default -> var10;
+        int adjustedWidth = 0;
+        int adjustedHeight = 0;
+        adjustedWidth = switch (widthAdjust) {
+            case NEGATE_AND_DIVIDE_BY_2 -> -font.getWidth(text) / 2;
+            case WIDTH_NEGATE -> -font.getWidth(text);
+            default -> adjustedWidth;
         };
 
-        var11 = switch (Class2218EnumWrapper.field33554[var6.ordinal()]) {
-            case 1 -> -font.getHeight(text) / 2;
-            case 3 -> -font.getHeight(text);
-            default -> var11;
+        adjustedHeight = switch (heightAdjust) {
+            case NEGATE_AND_DIVIDE_BY_2 -> -font.getHeight(text) / 2;
+            case HEIGHT_NEGATE -> -font.getHeight(text);
+            default -> adjustedHeight;
         };
 
         float var12 = (float) (color >> 24 & 0xFF) / 255.0F;
@@ -615,19 +614,19 @@ public class RenderUtil {
                 GL11.glTranslatef(x, y, 0.0F);
                 GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
                 GL11.glTranslatef(-x, -y, 0.0F);
-                var10 = (int) ((float) var10 * GuiManager.scaleFactor);
-                var11 = (int) ((float) var11 * GuiManager.scaleFactor);
+                adjustedWidth = (int) ((float) adjustedWidth * GuiManager.scaleFactor);
+                adjustedHeight = (int) ((float) adjustedHeight * GuiManager.scaleFactor);
             }
         }
 
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
         if (var7) {
-            font.drawString((float) Math.round(x + (float) var10), (float) (Math.round(y + (float) var11) + 2), text, new Color(0.0F, 0.0F, 0.0F, 0.35F));
+            font.drawString((float) Math.round(x + (float) adjustedWidth), (float) (Math.round(y + (float) adjustedHeight) + 2), text, new Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
         if (text != null) {
-            font.drawString((float) Math.round(x + (float) var10), (float) Math.round(y + (float) var11), text, new Color(var13, var14, var15, var12));
+            font.drawString((float) Math.round(x + (float) adjustedWidth), (float) Math.round(y + (float) adjustedHeight), text, new Color(var13, var14, var15, var12));
         }
 
         RenderSystem.disableBlend();
@@ -651,7 +650,7 @@ public class RenderUtil {
     }
 
     public static void drawString(TrueTypeFont font, float x, float y, String text, int color) {
-        drawString(font, x, y, text, color, Class2218.field14488, Class2218.field14489, false);
+        drawString(font, x, y, text, color, FontSizeAdjust.field14488, FontSizeAdjust.field14489, false);
     }
 
     public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {

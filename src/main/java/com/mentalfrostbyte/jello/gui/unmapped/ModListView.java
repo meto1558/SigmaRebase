@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
             int var9 = RenderUtil2.applyAlpha(-3487030, 0.0F);
             ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
                     .setTextColor(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
-            var12.method19412(Class2218.field14488);
+            var12.method19412(FontSizeAdjust.field14488);
             Button var13;
             this.getButton()
                     .addToList(
@@ -72,7 +72,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
                                 var7.method13034(30);
                             }
 
-                            var9x.method19412(Class2218.field14488);
+                            var9x.method19412(FontSizeAdjust.field14488);
                             var7.setTextColor(var9x);
                         }
                     }

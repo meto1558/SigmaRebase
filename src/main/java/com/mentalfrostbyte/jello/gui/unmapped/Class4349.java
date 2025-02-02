@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 
 import java.awt.image.BufferedImage;
 
@@ -151,8 +151,8 @@ public class Class4349 extends AnimatedIconPanelWrap {
          (float)(this.yA + 20),
          var3,
          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F),
-         Class2218.field14492,
-         Class2218.field14492
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
       );
       RenderUtil.drawString(
          ResourceRegistry.DefaultClientFont,
@@ -160,8 +160,8 @@ public class Class4349 extends AnimatedIconPanelWrap {
          (float)(this.yA + 18),
          var3,
          ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-         Class2218.field14492,
-         Class2218.field14492
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
       );
       if (!this.field21249.isEmailAValidEmailFormat()) {
          RenderUtil.drawString(
@@ -170,8 +170,8 @@ public class Class4349 extends AnimatedIconPanelWrap {
             (float)(this.yA + 32),
             this.field21249.getPassword().replaceAll(".", "*"),
             -8355712,
-            Class2218.field14492,
-            Class2218.field14489,
+            FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+            FontSizeAdjust.field14489,
             true
          );
       } else {
@@ -181,8 +181,8 @@ public class Class4349 extends AnimatedIconPanelWrap {
             (float)(this.yA + 29),
             "Cracked",
             ClientColors.PALE_YELLOW.getColor(),
-            Class2218.field14492,
-            Class2218.field14489,
+            FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+            FontSizeAdjust.field14489,
             true
          );
       }

@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
@@ -29,8 +29,8 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),
       ClientColors.DEEP_TEAL.getColor(),
-      Class2218.field14488,
-      Class2218.field14492
+      FontSizeAdjust.field14488,
+      FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
    );
    public URL videoUrl = null;
    public BufferedImage field20773;

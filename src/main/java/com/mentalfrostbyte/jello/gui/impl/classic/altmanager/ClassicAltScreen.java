@@ -18,7 +18,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.multiplayer.ServerData;
@@ -142,8 +142,8 @@ public class ClassicAltScreen extends Screen {
                 20.0F,
                 "Account Manager - " + this.method13400() + " alts",
                 ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                Class2218.field14492,
-                Class2218.field14488
+                FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                FontSizeAdjust.field14488
         );
         RenderUtil.drawString(
                 ResourceRegistry.DefaultClientFont,
@@ -151,8 +151,8 @@ public class ClassicAltScreen extends Screen {
                 40.0F,
                 this.status,
                 ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                Class2218.field14492,
-                Class2218.field14488,
+                FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                FontSizeAdjust.field14488,
                 false
         );
     }
