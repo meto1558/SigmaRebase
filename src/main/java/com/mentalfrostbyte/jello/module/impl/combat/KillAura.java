@@ -37,6 +37,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.play.client.CEntityActionPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SEntityPacket;
 import net.minecraft.network.play.server.SEntityStatusPacket;
@@ -86,8 +87,7 @@ public class KillAura extends Module {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
         this.registerSetting(
-                new ModeSetting("Auto block Mode", "Auto block Mode", 0, "None", "NCP", "Basic1", "Basic2", "Vanilla"));
-        this.registerSetting(
+                new ModeSetting("Auto block Mode", "Auto block Mode", 0, "None", "NCP", "Basic1", "Basic2", "Vanilla", "Fake"));        this.registerSetting(
                 new ModeSetting("Sort Mode", "Sort Mode", 0, "Range", "Health", "Angle", "Armor", "Prev Range"));
         this.registerSetting(
                 new ModeSetting("Attack Mode", "Attacks after or before sending the movement", 0, "Pre", "Post"));
@@ -261,6 +261,28 @@ public class KillAura extends Module {
     @EventTarget
     @LowestPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
+        if (!event.isPre()) {
+            currentItemIndex = mc.player.inventory.currentItem;
+            if (currentTarget != null && interactAB.canBlock() && currentRotation != null) {
+                if (this.getStringSettingValueByName("Auto block Mode").equals("Fake")) {
+                    mc.player.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(
+                            mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(),
+                            mc.player.rotationYaw, mc.player.rotationPitch, mc.player.onGround
+                    ));
+                } else {
+                    interactAB.block(currentTarget, currentRotation.yaw, currentRotation.pitch);
+                    isBlocking = true;
+                }
+            }
+            return;
+        }
+        if (interactAB.isBlocking() && (!(mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) || currentTarget == null)) {
+            if (!this.getStringSettingValueByName("Auto block Mode").equals("Fake")) {
+                interactAB.setBlocking(false);
+                mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.START_SPRINTING));
+
+            }
+        }
 
         if (currentTarget == null) {
             Rots.rotating = false;
