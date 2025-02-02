@@ -83,23 +83,24 @@ public class KillAura extends Module {
 
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
-        this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
         this.registerSetting(
-                new ModeSetting("Auto block Mode", "Auto block Mode", 0, "None", "NCP", "Basic1", "Basic2", "Vanilla", "Fake"));        this.registerSetting(
+                new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
+        this.registerSetting(
+                new ModeSetting("Autoblock Mode", "Autoblock Mode", 0, "None", "NCP", "Basic1", "Basic2", "Vanilla", "Fake"));
+        this.registerSetting(
                 new ModeSetting("Sort Mode", "Sort Mode", 0, "Range", "Health", "Angle", "Armor", "Prev Range"));
         this.registerSetting(
                 new ModeSetting("Attack Mode", "Attacks after or before sending the movement", 0, "Pre", "Post"));
-        this.registerSetting(new ModeSetting("Rotation Mode", "The way you will look at entities", 0, "NCP", "New",
-                "Smooth", "LockView", "None"));
+        this.registerSetting(new ModeSetting("Rotation Mode", "The way you will look at entities", 0, "NCP", "New", "Smooth", "LockView", "None"));
         this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
         this.registerSetting(
                 new NumberSetting<>("Block Range", "Block Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.2F));
         this.registerSetting(
                 new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(var1 -> interactAB.method36818()));
+                        .addObserver(setting -> interactAB.method36818()));
         this.registerSetting(
                 new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(var1 -> interactAB.method36818()));
+                        .addObserver(setting -> interactAB.method36818()));
         this.registerSetting(
                 new NumberSetting<>("Hit box expand", "Hit Box expand", 0.05F, Float.class, 0.0F, 1.0F, 0.01F));
         this.registerSetting(new NumberSetting<>("Hit Chance", "Hit Chance", 100.0F, Float.class, 25.0F, 100.0F, 1.0F));
@@ -113,12 +114,10 @@ public class KillAura extends Module {
         this.registerSetting(new BooleanSetting("No swing", "Hit without swinging", false));
         this.registerSetting(new BooleanSetting("Disable on death", "Disable on death", true));
         this.registerSetting(new BooleanSetting("Through walls", "Target entities through walls", true));
-        this.registerSetting(
-                new BooleanSetting("Smart Reach", "Allows you to get more reach (depends on your ping)", true));
+        this.registerSetting(new BooleanSetting("Smart Reach", "Allows you to get more reach (depends on your ping)", true));
         this.registerSetting(new BooleanSetting("Silent", "Silent rotations", true));
         this.registerSetting(new BooleanSetting("ESP", "ESP on targets", true));
-        this.registerSetting(
-                new ColorSetting("ESP Color", "The render color", ClientColors.LIGHT_GREYISH_BLUE.getColor()));
+        this.registerSetting(new ColorSetting("ESP Color", "The render color", ClientColors.LIGHT_GREYISH_BLUE.getColor()));
     }
 
     public static Rotation getRotations2(KillAura killaura) {
@@ -139,21 +138,21 @@ public class KillAura extends Module {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         targetEntities = new ArrayList<>();
         interactAB = new InteractAutoBlock(this);
-        super.initialize();
     }
 
     @Override
     public void onEnable() {
+        super.onEnable();
         resetState();
         initializeRotations();
         interactAB.setBlocking(isHoldingSword() && isUseItemKeyDown());
-        super.onEnable();
     }
 
     private void resetState() {
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -173,7 +172,6 @@ public class KillAura extends Module {
     }
 
     private void initializeRotations() {
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -185,7 +183,6 @@ public class KillAura extends Module {
     }
 
     private boolean isHoldingSword() {
-
         if (mc.player == null || mc.world == null) {
             return false;
         }
@@ -217,7 +214,6 @@ public class KillAura extends Module {
 
     @EventTarget
     public void onTick(EventPlayerTick event) {
-
         if (currentTarget == null) {
             Rots.rotating = false;
         } else
@@ -245,7 +241,7 @@ public class KillAura extends Module {
     @EventTarget
     public void onStopuseItem(EventStopUseItem event) {
         if (this.isEnabled()) {
-            if (!this.getStringSettingValueByName("Auto block Mode").equals("None")
+            if (!this.getStringSettingValueByName("Autoblock Mode").equals("None")
                     && (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem
                             || this.currentItemIndex != mc.player.inventory.currentItem)
                     && currentTarget != null) {
@@ -262,7 +258,7 @@ public class KillAura extends Module {
         if (!event.isPre()) {
             currentItemIndex = mc.player.inventory.currentItem;
             if (currentTarget != null && interactAB.canBlock() && currentRotation != null) {
-                if (this.getStringSettingValueByName("Auto block Mode").equals("Fake")) {
+                if (this.getStringSettingValueByName("Autoblock Mode").equals("Fake")) {
                     mc.player.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(
                             mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(),
                             mc.player.rotationYaw, mc.player.rotationPitch, mc.player.onGround
@@ -275,7 +271,7 @@ public class KillAura extends Module {
             return;
         }
         if (interactAB.isBlocking() && (!(mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) || currentTarget == null)) {
-            if (!this.getStringSettingValueByName("Auto block Mode").equals("Fake")) {
+            if (!this.getStringSettingValueByName("Autoblock Mode").equals("Fake")) {
                 interactAB.setBlocking(false);
                 mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.START_SPRINTING));
 
@@ -306,7 +302,7 @@ public class KillAura extends Module {
         if (currentTarget != null
                 && interactAB.isBlocking()
                 && com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()
-                && getStringSettingValueByName("Auto block Mode").equals("NCP")) {
+                && getStringSettingValueByName("Autoblock Mode").equals("NCP")) {
             interactAB.doUnblock();
         }
 
@@ -538,7 +534,7 @@ public class KillAura extends Module {
 
         return currentTarget != null && !mc.player.getHeldItemMainhand().isEmpty()
                 && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem &&
-                !this.getStringSettingValueByName("Auto block Mode").equals("None");
+                !this.getStringSettingValueByName("Autoblock Mode").equals("None");
     }
 
     @Override
@@ -713,7 +709,7 @@ public class KillAura extends Module {
         Entity targ = currentTimedEntity.getEntity();
         Rotation newRots = RotationHelper.getRotations(targ, !getBooleanValueFromSettingName("Through walls"));
         if (newRots == null) {
-            System.out.println("[KillAura] newRots is null??? on line 612");
+            System.out.println("[KillAura] newRots is null??? on line 712");
             return;
         }
         float yawDifference = RotationHelper.method34152(currentRotation.yaw, newRots.yaw);

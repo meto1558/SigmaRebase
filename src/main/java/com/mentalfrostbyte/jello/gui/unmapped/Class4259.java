@@ -204,4 +204,8 @@ public class Class4259 extends UIBase {
          var4.method37947(this);
       }
    }
+
+    public static interface Class8041 {
+       void method27609(Class4259 var1, int var2, int var3, Vector3i var4);
+    }
 }

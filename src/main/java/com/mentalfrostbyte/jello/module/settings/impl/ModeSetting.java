@@ -10,8 +10,8 @@ import java.util.List;
 
 public class ModeSetting extends Setting<String> {
 
-   public ModeSetting(String name, String defaultValue, int index, String... modes) {
-      super(name, defaultValue, SettingType.MODE, modes[index]);
+   public ModeSetting(String name, String description, int index, String... modes) {
+      super(name, description, SettingType.MODE, modes[index]);
       this.modes = Arrays.asList(modes);
    }
 
