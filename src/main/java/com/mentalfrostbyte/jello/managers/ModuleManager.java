@@ -202,6 +202,7 @@ public class ModuleManager {
         this.register(new Step());
         this.register(new Jesus());
         this.register(new SafeWalk());
+        this.register(new Spider());
         this.register(new HighJump());
         this.register(new LongJump());
         this.register(new BlockFly());
