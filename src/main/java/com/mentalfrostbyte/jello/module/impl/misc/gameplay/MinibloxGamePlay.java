@@ -1,6 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.LivingDeathEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.module.impl.misc.gameplay.miniblox.AutoBuy;
 import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -17,6 +21,7 @@ public class MinibloxGamePlay extends Module {
 //    private final ModeSetting skywarsKit;
     private final ModeSetting autoVoteMode;
     private final BooleanSetting autoVote;
+    private final BooleanSetting autoBuy;
     private GamePlay parentModule;
 //    private final ModeSetting kitPvPKit;
 
@@ -39,45 +44,14 @@ public class MinibloxGamePlay extends Module {
                         "Insane (2)"
                 )
         );
-        registerSetting(new BooleanSetting("AutoKit", "Automatically select kits", false));
-//        registerSetting(
-//                new SubOptionSetting(
-//                        "Kits",
-//                        "Kits",
-//                        false,
-//                        skywarsKit = new ModeSetting(
-//                                "Skywars",
-//                                "Automatically select kits",
-//                                "Default",
-//                                "Miner",
-//                                "Rookie",
-//                                "Farmer",
-//                                "Hunter",
-//                                "The Slapper",
-//                                "Pyro",
-//                                "Enderman",
-//                                "Princess",
-//                                "Demolitionist",
-//                                "Knight",
-//                                "Troll"
-//                        ),
-//                        kitPvPKit = new ModeSetting(
-//                                "KitPvP",
-//                                "Automatically select kits",
-//                                "Knight",
-//                                "Archer",
-//                                "Tank",
-//                                "Scout",
-//                                "Princess",
-//                                "Medic",
-//                                "Slapper",
-//                                "Pyro",
-//                                "Enderman",
-//                                "Demolitionist",
-//                                "Sloth"
-//                        )
-//                )
-//        );
+//        registerSetting(new BooleanSetting("AutoKit", "Automatically select kits", false));
+        registerSetting(this.autoBuy = new BooleanSetting("AutoBuy", "Automatically buys stuff", false));
+        registerSetting(AutoBuy.armor, AutoBuy.chainmailArmor, AutoBuy.ironArmor, AutoBuy.diamondArmor);
+        registerSetting(AutoBuy.sword, AutoBuy.stoneSword, AutoBuy.ironSword, AutoBuy.diamondSword);
+        registerSetting(AutoBuy.doUpgrades, AutoBuy.sharpnessUpgrade, AutoBuy.protectionUpgrade,
+                AutoBuy.hasteUpgrade, AutoBuy.healPoolUpgrade,
+                AutoBuy.forgeUpgrade
+        );
     }
 
     @Override
@@ -85,6 +59,29 @@ public class MinibloxGamePlay extends Module {
         parentModule = (GamePlay) access();
     }
 
+    @SuppressWarnings("unused")
+    @EventTarget
+    public void onWorldEvent(EventLoadWorld e) {
+        if (!autoBuy.currentValue) return;
+        AutoBuy.onWorldEvent(e);
+    }
+
+    @SuppressWarnings("unused")
+    @EventTarget
+    public void onUpdateEvent(EventUpdateWalkingPlayer e) {
+        if (!autoBuy.currentValue) return;
+        AutoBuy.onUpdateEvent(e);
+    }
+
+    @SuppressWarnings("unused")
+    @EventTarget
+    public void onLivingDeath(LivingDeathEvent e) {
+        if (!autoBuy.currentValue) return;
+        AutoBuy.onLivingDeathEvent(e);
+    }
+
+
+    @SuppressWarnings("unused")
     @EventTarget
     public void onReceive(EventReceivePacket event) {
         if (mc.player != null) {

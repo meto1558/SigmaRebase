@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.mentalfrostbyte.jello.event.impl.player.LivingDeathEvent;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
@@ -1556,6 +1557,12 @@ public abstract class LivingEntity extends Entity
             if (this.scoreValue >= 0 && livingentity != null)
             {
                 livingentity.awardKillScore(this, this.scoreValue, cause);
+            }
+
+            if (entity != null) {
+                if (entity instanceof LivingEntity) {
+                    EventBus.call(new LivingDeathEvent(this, cause));
+                }
             }
 
             if (this.isSleeping())

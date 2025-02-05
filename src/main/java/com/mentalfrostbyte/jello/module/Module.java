@@ -43,6 +43,11 @@ public class Module {
             throw new IllegalArgumentException("Attempted to add an option with the same name");
         }
     }
+    public void registerSetting(Setting... settings) {
+        for (Setting setting : settings) {
+            registerSetting(setting);
+        }
+    }
 
     public Object getSettingValueBySettingName(String settingName) {
         return this.settingMap.get(settingName).getCurrentValue();
