@@ -14,6 +14,8 @@ import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
@@ -33,6 +35,7 @@ import team.sdhq.eventBus.annotations.priority.HigherPriority;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 public class BlockFlySmoothMode extends Module {
+    private final NumberSetting<Float> constantSpeed;
     private float pitch;
     private float yaw;
     private BlockCache blockCache;
@@ -47,7 +50,8 @@ public class BlockFlySmoothMode extends Module {
 
     public BlockFlySmoothMode() {
         super(ModuleCategory.MOVEMENT, "Smooth", "Places block underneath");
-        this.registerSetting(new ModeSetting("Speed Mode", "Speed mode", 0, "None", "Jump", "AAC", "Cubecraft", "Slow", "Sneak"));
+        this.registerSetting(new ModeSetting("Speed Mode", "Speed mode", 0, "None", "Jump", "Constant", "AAC", "Cubecraft", "Slow", "Sneak"));
+        this.registerSetting(this.constantSpeed = new NumberSetting<>("Constant Speed", "Constant speed", 0.0F, Float.class, 0.0F, 6.0F, 0.1F));
     }
 
     @Override
@@ -261,6 +265,13 @@ public class BlockFlySmoothMode extends Module {
                         event.setZ(mc.player.getMotion().z);
                     }
                     break;
+                case "Constant": {
+                    double speed = this.constantSpeed.currentValue;
+                    if (!MovementUtil.isMoving())
+                        speed = 0;
+                    MovementUtil.setSpeed(event, speed);
+                    break;
+                }
                 case "AAC":
                     if (this.rotationStabilityCounter == 0 && mc.player.isOnGround()) {
                         com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.82);
