@@ -107,7 +107,6 @@ public class MinibloxClickTP extends Module {
             else
                 Client.getInstance().notificationManager.send(new Notification("Miniblox ClickTP", "Success!"));
             assert mc.player != null;
-            mc.player.sendChatMessage("/resync");
             teleporting = false;
             mc.player.setPosition(targetX, targetY, targetZ);
         }
