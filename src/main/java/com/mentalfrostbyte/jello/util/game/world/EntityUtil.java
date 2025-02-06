@@ -52,6 +52,7 @@ public class EntityUtil {
         boolean canSwing = mc.player.getCooledAttackStrength(0.5F) > 0.9 || isOnePointEight;
         if (!isOnePointEight && swing && canSwing) {
             mc.player.swingArm(Hand.MAIN_HAND);
+
         }
     }
 
