@@ -75,7 +75,7 @@ public final class AutoLData {
                     "I am not a bot, what are you on?",
                     "2 new movement checks... Still can't stop me?",
                     "The Sigma Rebase developers [1/2]: alwayslacking (Miniblox) / @datamodel (Discord),",
-                    "The Sigma Rebase developers [2/2]: Away: AwayXD / @bedwarsmontage (Discord), @.stormingmoon (Discord), and @grievinglexi (Discord)!",
+                    "The Sigma Rebase developers [2/2]: Away: AwayXD (Miniblox) / @bedwarsmontage (Discord)",
                     "Disabler? I just bypass with my .vclip 0.23 every 0.1 second fly!",
                     "Only bukkyware can beat me, but I can win against bukkyware if I use timer 1.2.",
                     "#SwitchToSigmaRebase",
