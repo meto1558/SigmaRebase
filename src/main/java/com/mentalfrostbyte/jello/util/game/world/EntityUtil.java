@@ -36,17 +36,23 @@ public class EntityUtil {
         if (isOnePointEight && swing) {
             mc.player.swingArm(Hand.MAIN_HAND);
         }
-
+        //this is how 1.9+ packet order is StormingMoon use this on all things that needs swinging like aura and stuff if not it will flag and thats not good ong
+        // 1. Send attack packet first
         mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(target, mc.player.isSneaking()));
 
-        boolean canSwing = (double) mc.player.getCooledAttackStrength(0.5F) > 0.9 || isOnePointEight;
+        // 2. Call attack logic
+        mc.playerController.attackEntity(mc.player, target);
 
-        mc.player.resetCooldown();
+        // 3. Reset cooldown AFTER attack
+        if (!isOnePointEight) {
+            mc.player.resetCooldown();
+        }
+
+        // 4. Swing arm for animation (1.9+ only if allowed)
+        boolean canSwing = mc.player.getCooledAttackStrength(0.5F) > 0.9 || isOnePointEight;
         if (!isOnePointEight && swing && canSwing) {
             mc.player.swingArm(Hand.MAIN_HAND);
         }
-
-        mc.playerController.attackEntity(mc.player, target);
     }
 
     public static Entity getEntityFromRayTrace(float yaw, float pitch, float reachDistanceModifier, double boundingBoxExpansion) {
