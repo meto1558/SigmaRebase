@@ -186,7 +186,7 @@ public final class MainWindow implements AutoCloseable {
             IntBuffer intbuffer = memorystack.mallocInt(1);
             IntBuffer intbuffer1 = memorystack.mallocInt(1);
             IntBuffer intbuffer2 = memorystack.mallocInt(1);
-            Buffer buffer = GLFWImage.mallocStack(2, memorystack);
+            Buffer buffer = GLFWImage.malloc(2, memorystack);
             ByteBuffer bytebuffer = this.loadIcon(iconStream16X, intbuffer, intbuffer1, intbuffer2);
 
             if (bytebuffer == null) {

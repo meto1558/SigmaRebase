@@ -38,7 +38,7 @@ public class Class4348 extends AnimatedIconPanelWrap {
    public Class4348(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Ban var7) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field21243 = var7;
-      this.field21244 = var7.method31736();
+      this.field21244 = var7.getServer();
       this.field21248 = new Animation(200, 200, Animation.Direction.BACKWARDS);
    }
 
