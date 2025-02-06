@@ -93,12 +93,12 @@ public class KillAuraAttackLambda implements Runnable {
 
                 boolean noSwing = this.killauraModule.getBooleanValueFromSettingName("No swing");
                 Minecraft mc = KillAura.mc;
-                boolean isOnePointEight = JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8); // Potential check for 1.8 version
+
 
                 boolean raytrace = this.killauraModule.getBooleanValueFromSettingName("Raytrace");
                 boolean walls = this.killauraModule.getBooleanValueFromSettingName("Through walls");
                 boolean properTrace = EntityUtil.rayTraceEntity(mc.player, entity);
-
+                boolean isOnePointEight = JelloPortal.getVersion().newerThan(ProtocolVersion.v1_8); // Potential check for 1.8 version
                 if (raytrace) {
                     if (properTrace && !walls || walls) {
                         handleAnimationAndAttack(mc, entity, isOnePointEight);
@@ -106,10 +106,10 @@ public class KillAuraAttackLambda implements Runnable {
 
                         if (!noSwing) {
                             mc.player.swingArm(Hand.MAIN_HAND);
+
                         }
 
-                        mc.getConnection().getNetworkManager()
-                                .sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
+                        mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
                     } else {
                         KillAura.currentTarget = null;
                         KillAura.targetEntities = null;
