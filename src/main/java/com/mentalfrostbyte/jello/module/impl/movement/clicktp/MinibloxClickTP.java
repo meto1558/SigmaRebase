@@ -1,7 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement.clicktp;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
+import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
@@ -12,6 +15,7 @@ import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import net.minecraft.network.play.client.CPlayerPacket;
+import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import org.jetbrains.annotations.NotNull;
@@ -20,10 +24,17 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MinibloxClickTP extends Module {
-    private final List<com.mentalfrostbyte.jello.util.system.math.vector.Vector3d> positions = new ArrayList<com.mentalfrostbyte.jello.util.system.math.vector.Vector3d>();
+    private final List<Vector3d> positions = new ArrayList<>();
     private final TimerUtil timer = new TimerUtil();
+    private double targetX;
+    private double targetZ;
+    private boolean teleporting;
+    private double prevZ;
+    private double prevX;
+    private int targetY;
 
     public MinibloxClickTP() {
         super(ModuleCategory.MOVEMENT, "Miniblox", "Click TP for Miniblox");
@@ -31,62 +42,80 @@ public class MinibloxClickTP extends Module {
 
     @Override
     public void onEnable() {
+        teleporting = false;
         this.positions.clear();
     }
 
     @Override
     public void onDisable() {
+        teleporting = false;
         this.positions.clear();
     }
 
     @EventTarget
     public void onClick(EventClick event) {
-        if (this.isEnabled() && (mc.player.isSneaking() || !this.access().getBooleanValueFromSettingName("Sneak"))) {
-            if (event.getButton() == EventClick.Button.RIGHT) {
-                BlockRayTraceResult var4 = BlockUtil.rayTrace(
-                        mc.player.rotationYaw, mc.player.rotationPitch,
-                        this.access().getNumberValueBySettingName("Maximum range"));
-                BlockPos hit = var4.getPos();
+        if (!this.isEnabled()) return;
+        assert mc.player != null;
+        if (!(mc.player.isSneaking() || !this.access().getBooleanValueFromSettingName("Sneak"))) return;
+        if (event.getButton() != EventClick.Button.RIGHT) return;
+        BlockRayTraceResult var4 = BlockUtil.rayTrace(
+                mc.player.rotationYaw, mc.player.rotationPitch,
+                this.access().getNumberValueBySettingName("Maximum range"));
+        BlockPos hit = var4.getPos();
 
-                double targetX = (double) hit.getX() + 0.5;
-                double targetY = hit.getY() + 1;
-                double targetZ = (double) hit.getZ() + 0.5;
-                double curX = mc.player.getPosX();
-                double curZ = mc.player.getPosZ();
-                double curY = mc.player.getPosY();
-                this.positions.clear();
-                this.positions.add(new com.mentalfrostbyte.jello.util.system.math.vector.Vector3d(curX, curY, curZ));
+        this.targetX = (double) hit.getX() + 0.5;
+        this.targetY = hit.getY() + 1;
+        this.targetZ = (double) hit.getZ() + 0.5;
+        this.prevX = mc.player.getPosX();
+        this.prevZ = mc.player.getPosZ();
+        double curY = mc.player.getPosY();
+        this.positions.clear();
+        this.positions.add(new Vector3d(prevX, curY, prevZ));
 
-                this.positions.add(new com.mentalfrostbyte.jello.util.system.math.vector.Vector3d(targetX, targetY, targetZ));
-                mc.player.setPosition(targetX, targetY, targetZ);
-                for (int i = 0; i < 5; i++) {
-                    Vector3d pos = new Vector3d(targetX + 15 + (i * 0.2),
-                            targetY + (i * 1.12),
-                            targetZ);
-                    this.positions.add(pos);
-                    mc.getConnection().sendPacket(
-                            new CPlayerPacket.PositionPacket(
-                                    pos.x,
-                                    pos.y,
-                                    pos.z,
-                                    false
-                            )
-                    );
-                }
-                mc.player.setPosition(targetX, targetY, targetZ);
-                mc.player.setMotion(mc.player.getMotion().x, 0.42f, mc.player.getMotion().z);
-                this.timer.reset();
-                this.timer.start();
-                if (this.access().getBooleanValueFromSettingName("Auto Disable")) {
-                    this.access().toggle();
-                }
-            }
+        this.positions.add(new Vector3d(targetX, targetY, targetZ));
+        mc.player.setPosition(targetX, targetY, targetZ);
+        for (int i = 0; i < 6; i++) {
+            Vector3d pos = new Vector3d(targetX + (i * i % 2 == 0 ? 0.2 : -0.2),
+                    targetY + (i * 1.12),
+                    targetZ + (i * (i % 2 == 0 ? 0.3 : -0.3)));
+            this.positions.add(pos);
+            Objects.requireNonNull(mc.getConnection()).sendPacket(
+                    new CPlayerPacket.PositionPacket(
+                            pos.x,
+                            pos.y,
+                            pos.z,
+                            false
+                    )
+            );
+        }
+        teleporting = true;
+        mc.player.setPosition(targetX, targetY, targetZ);
+        mc.player.setMotion(mc.player.getMotion().x, 0.42f, mc.player.getMotion().z);
+        this.timer.reset();
+        this.timer.start();
+        if (this.access().getBooleanValueFromSettingName("Auto Disable")) {
+            this.access().toggle();
+        }
+    }
+
+    @EventTarget
+    public void onReceivePacket(EventReceivePacket event) {
+        if (!this.isEnabled()) return;
+        if (event.getPacket() instanceof SPlayerPositionLookPacket packet && teleporting) {
+            if (packet.getX() == prevX && packet.getZ() == prevZ)
+                Client.getInstance().notificationManager.send(new Notification("Miniblox ClickTP", "Please try again"));
+            else
+                Client.getInstance().notificationManager.send(new Notification("Miniblox ClickTP", "Success!"));
+            mc.player.sendChatMessage("/resync");
+            teleporting = false;
+            assert mc.player != null;
+            mc.player.setPosition(targetX, targetY, targetZ);
         }
     }
 
     @EventTarget
     public void onRender3D(EventRender3D event) {
-        if (this.isEnabled() && this.positions != null && this.positions.size() != 0) {
+        if (this.isEnabled() && !this.positions.isEmpty()) {
             if (this.timer.getElapsedTime() > 4000L) {
                 this.timer.stop();
                 this.timer.reset();
@@ -104,7 +133,7 @@ public class MinibloxClickTP extends Module {
             GL11.glColor4d(1.0, 1.0, 1.0, 1.0);
             GL11.glBegin(3);
 
-            for (com.mentalfrostbyte.jello.util.system.math.vector.Vector3d var5 : this.positions) {
+            for (Vector3d var5 : this.positions) {
                 GL11.glVertex3d(
                         var5.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX(),
                         var5.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY(),
@@ -113,7 +142,7 @@ public class MinibloxClickTP extends Module {
 
             GL11.glEnd();
 
-            for (com.mentalfrostbyte.jello.util.system.math.vector.Vector3d position : this.positions) {
+            for (Vector3d position : this.positions) {
                 BoundingBox bb = getRenderBoundingBox(position);
                 RenderUtil.render3DColoredBox(bb,
                         MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
