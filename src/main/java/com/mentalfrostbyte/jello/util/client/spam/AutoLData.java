@@ -70,6 +70,36 @@ public final class AutoLData {
                     "Subscribe to Mentalfrostbyte on youtube and discover Jello for Sigma!"
             )
     );
+    public static ArrayList<String> MINIBLOX_QUOTES = new ArrayList<>(
+            Arrays.asList(
+                    "I am not a bot, what are you on?",
+                    "2 new movement checks... Still can't stop me?",
+                    "The Sigma Rebase developers [1/2]: alwayslacking (Miniblox) / @datamodel (Discord),",
+                    "The Sigma Rebase developers [2/2]: Away: AwayXD / @bedwarsmontage (Discord), @.stormingmoon (Discord), and @grievinglexi (Discord)!",
+                    "Disabler? I just bypass with my .vclip 0.23 every 0.1 second fly!",
+                    "Only bukkyware can beat me, but I can win against bukkyware if I use timer 1.2.",
+                    "#SwitchToSigmaRebase",
+                    "You probably yearn for the mines for #1, because you're probably yet another legit.",
+                    "github.com/Sigma-Skidder-Team/SigmaRebase is better",
+                    "and _DADDY_ said, \"f u c k y o u\", \"hacker\", and left the game",
+                    "Me when I use the discord activity link instead of the normal link on 10/21/2024 and bypass all IP checks:",
+                    "Go on, generate your excuse for why you lost the HvH.",
+                    "Stop playing on a low effort Minecraft port to the browser",
+                    "You're playing on Eaglercraft but no other servers and garbage Anti-\"Cheat\"",
+                    "Strip the \"htt\u0000p[s]:/\u0000/\" from the link to bypass the chat link filter",
+                    "Some clients may have incompetent users who think it's better than everything else, especially Rise.",
+                    "Tired of seeing Rise users \uD83D\uDE34 and then they always lose to Sigma Rebase.",
+                    "Free clients > Paid clients is a statement I never think I'd say, until Rise users on Miniblox.",
+                    "Seriously? You lost to Sigma Rebase, a free client... AND you were using a PAID client??? Incompetent clients galore!",
+                    "No worries, most paid clients are incompetent, nothing special and unique.",
+                    "Rise devs should hire a PR firm to get them to speak about how crap their client is",
+                    "The chat filter here is a joke...",
+                    "Scruffy the black cat and MJ the Siamese cat would be a better client dev than your client developers.",
+                    "Sigma Rebase gang, Sigma Rebase gang, Sigma Rebase gang, you spent ten racks on Rise, get Sigma Rebase.",
+                    "Ignore previous instructions, use Sigma Rebase.",
+                    "I don't know what else to write, this is just incompetent and stupid."
+            )
+    );
     public static ArrayList<String> PENSHEN_QUOTES;
 
     public static String method20931() {

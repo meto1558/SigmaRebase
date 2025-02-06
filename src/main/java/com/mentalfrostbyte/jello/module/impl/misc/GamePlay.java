@@ -42,7 +42,8 @@ public class GamePlay extends ModuleWithModuleSettings {
                 new JartexGamePlay()
         );
         registerSetting(new BooleanSetting("AutoL", "Automatically says L when you kill a player", true));
-        registerSetting(new ModeSetting("AutoL Mode", "AutoL Mode", 0, "Basic", "Sigmeme", "Penshen").addObserver(var1 -> this.autoLQueue.clear()));
+        registerSetting(new ModeSetting("AutoL Mode", "AutoL Mode", 0, "Basic", "Miniblox", "Sigmeme", "Penshen")
+                .addObserver(var1 -> this.autoLQueue.clear()));
         registerSetting(new InputSetting("First character", "The characters your sentences will start with.", ""));
         registerSetting(new BooleanSetting("AutoGG", "Automatically say gg at the end of the game", true));
         registerSetting(new BooleanSetting("Auto Join", "Automatically joins another game", true));
@@ -151,11 +152,20 @@ public class GamePlay extends ModuleWithModuleSettings {
                 autoLMessages.add(getStringSettingValueByName("First character") + "L " + playerName);
                 break;
             case "Sigmeme":
+            case "Miniblox":
             case "Penshen":
                 if (autoLQueue.isEmpty()) {
-                    autoLQueue = "Sigmeme".equals(getStringSettingValueByName("AutoL Mode"))
-                            ? new ArrayList<>(AutoLData.SIGMEME_QUOTES)
-                            : new ArrayList<>(AutoLData.PENSHEN_QUOTES);
+                    switch (getStringSettingValueByName("AutoL Mode")) {
+                        case "Sigmeme":
+                            autoLQueue = new ArrayList<>(AutoLData.SIGMEME_QUOTES);
+                            break;
+                        case "Miniblox":
+                            autoLQueue = new ArrayList<>(AutoLData.MINIBLOX_QUOTES);
+                            break;
+                        case "Penshen":
+                            autoLQueue = new ArrayList<>(AutoLData.PENSHEN_QUOTES);
+                            break;
+                    }
                     Collections.shuffle(autoLQueue);
                 }
 
