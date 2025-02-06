@@ -145,7 +145,7 @@ public class Class4345 extends ScrollableContentPanel {
 
     private void method13511() {
         com.mentalfrostbyte.jello.gui.unmapped.Text var3 = new com.mentalfrostbyte.jello.gui.unmapped.Text(
-                this, "settingsname", 12, 2, this.widthA, 20, com.mentalfrostbyte.jello.gui.unmapped.Text.defaultColorHelper, this.module.getSuffix() + " Settings", this.settingsNameFont
+                this, "settingsname", 12, 2, this.widthA, 20, com.mentalfrostbyte.jello.gui.unmapped.Text.defaultColorHelper, this.module.getFormattedName() + " Settings", this.settingsNameFont
         );
         this.addToList(var3);
         int var6 = 35;

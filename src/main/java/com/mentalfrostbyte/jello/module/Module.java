@@ -152,7 +152,7 @@ public class Module {
         }
     }
 
-    public String getSuffix() {
+    public String getFormattedName() {
         return this.name;
     }
 

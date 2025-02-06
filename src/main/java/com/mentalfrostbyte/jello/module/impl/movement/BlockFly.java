@@ -390,8 +390,8 @@ public class BlockFly extends ModuleWithModuleSettings {
     }
 
     @Override
-    public String getSuffix() {
-        return Client.getInstance().clientMode != ClientMode.CLASSIC ? super.getSuffix() : "Scaffold";
+    public String getFormattedName() {
+        return Client.getInstance().clientMode != ClientMode.CLASSIC ? super.getFormattedName() : "Scaffold";
     }
 
     @EventTarget

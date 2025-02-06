@@ -44,10 +44,10 @@ public class Bind extends Command {
 
                     if (var14 != -1) {
                         Client.getInstance().moduleManager.getMacOSTouchBar().method13725(var14, (Module)var6);
-                        var3.send("Key " + var2[1].getArguments() + " was set for module " + ((Module)var6).getSuffix());
+                        var3.send("Key " + var2[1].getArguments() + " was set for module " + ((Module)var6).getFormattedName());
                     } else {
                         Client.getInstance().moduleManager.getMacOSTouchBar().method13727(var6);
-                        var3.send("Keybind was reset for module " + ((Module)var6).getSuffix());
+                        var3.send("Keybind was reset for module " + ((Module)var6).getFormattedName());
                     }
                 }
             } else {
@@ -67,9 +67,9 @@ public class Bind extends Command {
                 }
 
                 if (var9 != null) {
-                    var3.send(((Module)var6).getSuffix() + " is bound to : " + var9);
+                    var3.send(((Module)var6).getFormattedName() + " is bound to : " + var9);
                 } else {
-                    var3.send("§c[Error] " + ((Module)var6).getSuffix() + " is bound to an unknown key");
+                    var3.send("§c[Error] " + ((Module)var6).getFormattedName() + " is bound to an unknown key");
                 }
             }
         }

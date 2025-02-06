@@ -34,7 +34,7 @@ public class CategoryPanel extends UIBase {
               Resources.regular17,
          (float)(this.xA + 10),
          (float)(this.yA + 8),
-         this.module.getSuffix(),
+         this.module.getFormattedName(),
          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), !this.module.isEnabled() ? 0.5F : 0.9F)
       );
       RenderUtil.drawString(

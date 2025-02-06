@@ -41,7 +41,7 @@ public class ModuleManager {
     }
 
     private void sortBySuffixAndRegisterEvents() {
-        this.modules.sort(Comparator.comparing(Module::getSuffix));
+        this.modules.sort(Comparator.comparing(Module::getFormattedName));
 
         for (Module mod : this.modules) {
             EventBus.register(mod);

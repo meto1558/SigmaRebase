@@ -32,7 +32,7 @@ public class AutoTotem extends Module {
     }
 
     @Override
-    public String getSuffix() {
+    public String getFormattedName() {
         return this.getName();
     }
 

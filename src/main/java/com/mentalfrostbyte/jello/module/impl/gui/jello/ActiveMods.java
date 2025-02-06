@@ -165,31 +165,31 @@ public class ActiveMods extends Module {
                         animationScale = 0.86F + 0.14F * transparency;
                     }
 
-                    String suffix = module.getSuffix();
+                    String moduleName = module.getFormattedName();
                     GL11.glAlphaFunc(519, 0.0F);
                     GL11.glPushMatrix();
 
-                    int xPos = screenWidth - margin - this.font.getWidth(suffix) / 2;
+                    int xPos = screenWidth - margin - this.font.getWidth(moduleName) / 2;
                     int yPos = screenHeight + 12;
 
                     GL11.glTranslatef((float) xPos, (float) yPos, 0.0F);
                     GL11.glScalef(animationScale, animationScale, 1.0F);
                     GL11.glTranslatef((float) (-xPos), (float) (-yPos), 0.0F);
 
-                    float scaleFactor = (float) Math.sqrt(Math.min(1.2F, (float) this.font.getWidth(suffix) / 63.0F));
+                    float scaleFactor = (float) Math.sqrt(Math.min(1.2F, (float) this.font.getWidth(moduleName) / 63.0F));
                     RenderUtil.drawImage(
-                            (float) screenWidth - (float) this.font.getWidth(suffix) * 1.5F - (float) margin - 20.0F,
+                            (float) screenWidth - (float) this.font.getWidth(moduleName) * 1.5F - (float) margin - 20.0F,
                             (float) (screenHeight - 20),
-                            (float) this.font.getWidth(suffix) * 3.0F,
+                            (float) this.font.getWidth(moduleName) * 3.0F,
                             this.font.getHeight() + scale + 40,
                             Resources.shadowPNG,
                             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.36F * transparency * scaleFactor)
                     );
                     RenderUtil.drawString(
-                            this.font, (float) (screenWidth - margin - this.font.getWidth(suffix)), (float) screenHeight, suffix, transparency != 1.0F ? RenderUtil2.applyAlpha(-1, transparency * 0.95F) : color
+                            this.font, (float) (screenWidth - margin - this.font.getWidth(moduleName)), (float) screenHeight, moduleName, transparency != 1.0F ? RenderUtil2.applyAlpha(-1, transparency * 0.95F) : color
                     );
                     GL11.glPopMatrix();
-                    screenHeight = (int) ((float) screenHeight + (float) (this.font.getHeight() + scale) * QuadraticEasing.easeInOutQuad(transparency, 0.0F, 1.0F, 1.0F));
+                    screenHeight = (int) ((float) screenHeight + (this.font.getHeight() + scale) * QuadraticEasing.easeInOutQuad(transparency, 0.0F, 1.0F, 1.0F));
                 }
 
                 this.offsetY = screenHeight;

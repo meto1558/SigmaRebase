@@ -206,7 +206,7 @@ public class TabGUI extends Module {
             int index = 0;
 
             for (Module module : Client.getInstance().moduleManager.getModulesByCategory(currentCategory)) {
-                categoryDisplay.updateCategory(index++, (!module.isEnabled() ? "§7" : "") + module.getSuffix());
+                categoryDisplay.updateCategory(index++, (!module.isEnabled() ? "§7" : "") + module.getFormattedName());
             }
         }
     }
@@ -302,7 +302,7 @@ public class TabGUI extends Module {
         List<String> suffixes = new ArrayList<>();
 
         for (Module module : Client.getInstance().moduleManager.getModulesByCategory(category)) {
-            suffixes.add(module.getSuffix());
+            suffixes.add(module.getFormattedName());
         }
 
         this.removePartsByThreshold(1);
