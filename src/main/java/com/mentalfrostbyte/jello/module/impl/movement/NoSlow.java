@@ -1,6 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.module.Module;
@@ -9,9 +11,14 @@ import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.item.*;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.play.client.*;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoSlow extends Module {
     private final BooleanSetting sword;
@@ -20,10 +27,12 @@ public class NoSlow extends Module {
     public final BooleanSetting sneak;
     public final BooleanSetting blocks;
     public boolean isBlocking;
+    private final List<IPacket<?>> packets = new ArrayList<>();
+
 
     public NoSlow() {
         super(ModuleCategory.MOVEMENT, "NoSlow", "Stops slowdown when using an item");
-        this.registerSetting(new ModeSetting("Mode", "NoSlow mode", 0, "Vanilla", "NCP"));
+        this.registerSetting(new ModeSetting("Mode", "NoSlow mode", 0, "Vanilla", "NCP", "Hypixel"));
         this.registerSetting(this.sword = new BooleanSetting("Sword", "Cancels blocking slowdown", true));
         this.registerSetting(this.consume = new BooleanSetting("Consume", "Cancels consuming slowdown", true));
         this.registerSetting(this.bow = new BooleanSetting("Bow", "Cancels bow's slowdown", true));
@@ -53,19 +62,6 @@ public class NoSlow extends Module {
 
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer event) {
-        if (!this.isEnabled()) return;
-        if (this.getBooleanValueFromSettingName("Blink")) {
-            Blink blink = (Blink) Client.getInstance().moduleManager.getModuleByClass(Blink.class);
-            boolean isEating = mc.player.getHeldItemMainhand() != null &&
-                    mc.player.getHeldItemMainhand().getItem().isFood() &&
-                    mc.gameSettings.keyBindUseItem.isKeyDown();
-
-            if (isEating && !blink.isEnabled()) {
-                blink.setBlinking(true);
-            } else if (!isEating && blink.isEnabled()) {
-                blink.setBlinking(false);
-            }
-        }
 
         boolean auraEnabled = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2();
         boolean isSwordEquipped = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;
@@ -85,6 +81,10 @@ public class NoSlow extends Module {
     public boolean isModeNCP() {
         return this.getStringSettingValueByName("Mode").equals("NCP");
     }
+    public boolean isModeHypixel() {
+        return this.getStringSettingValueByName("Mode").equals("Hypixel");
+    }
+
 
     public void handlePreEvent(boolean isSwordEquipped, boolean auraEnabled) {
         if (!isModeNCP()) {
@@ -96,6 +96,20 @@ public class NoSlow extends Module {
                 MovementUtil2.unblock();
             }
             isBlocking = false;
+            if (!isModeHypixel()) {
+                Blink blink = (Blink) Client.getInstance().moduleManager.getModuleByClass(Blink.class);
+
+            }
+        }
+
         }
     }
-}
+
+
+
+
+
+
+
+
+

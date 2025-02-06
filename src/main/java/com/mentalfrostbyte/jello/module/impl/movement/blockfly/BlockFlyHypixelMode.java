@@ -18,8 +18,6 @@ import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
@@ -38,25 +36,23 @@ import team.sdhq.eventBus.annotations.priority.HigherPriority;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 public class BlockFlyHypixelMode extends Module {
-    private final NumberSetting<Float> constantSpeed;
     private float pitch;
     private float yaw;
-    private BlockCache blockCache;
+    private BlockCache field23468;
     private int field23469 = -1;
-    private int rotationStabilityCounter;
-    private int offGroundTicks;
-    private Hand hand;
-    private BlockFly blockFly = null;
+    private int field23470;
+    private int field23471;
+    private Hand field23472;
+    private BlockFly field23473 = null;
     private boolean field23474;
     private boolean field23475 = false;
     private double field23476;
 
     public BlockFlyHypixelMode() {
         super(ModuleCategory.MOVEMENT, "Hypixel", "Places block underneath");
-        this.registerSetting(new ModeSetting("Speed Mode", "Speed mode", 0, "None", "Jump", "Constant", "AAC", "Cubecraft", "Slow", "Sneak"));
+        this.registerSetting(new ModeSetting("Speed Mode", "Speed mode", 0, "None", "Jump", "AAC", "Cubecraft", "Slow", "Sneak"));
         this.registerSetting(new BooleanSetting("KeepRotations", "Keeps your rotations.", true));
         this.registerSetting(new BooleanSetting("Downwards", "Allows you to go down when sneaking.", true));
-        this.registerSetting(this.constantSpeed = new NumberSetting<>("Constant Speed", "Constant speed", 0.0F, Float.class, 0.0F, 6.0F, 0.1F));
     }
 
     public static Vector3d method16116(BlockPos var0, Direction var1) {
@@ -91,7 +87,7 @@ public class BlockFlyHypixelMode extends Module {
 
     @Override
     public void initialize() {
-        this.blockFly = (BlockFly) this.access();
+        this.field23473 = (BlockFly) this.access();
     }
 
     @Override
@@ -114,7 +110,7 @@ public class BlockFlyHypixelMode extends Module {
             this.field23476 = mc.player.getPosY();
         }
 
-        this.offGroundTicks = -1;
+        this.field23471 = -1;
     }
 
     @Override
@@ -131,7 +127,7 @@ public class BlockFlyHypixelMode extends Module {
 
         com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
-        if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
+        if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23471 == 0) {
             MovementUtil2.setPlayerYMotion(-0.0789);
         }
     }
@@ -181,25 +177,25 @@ public class BlockFlyHypixelMode extends Module {
     @EventTarget
     @LowerPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
-        if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
+        if (this.isEnabled() && this.field23473.getValidItemCount() != 0) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Fly.class);
             if (!var4.isEnabled() || !var4.getStringSettingValueByName("Type").equalsIgnoreCase("Hypixel") || !var4.getModWithTypeSetToName().getStringSettingValueByName("Bypass").equals("Blink")) {
                 if (!event.isPre()) {
-                    this.blockFly.method16736();
-                    if (this.blockCache != null) {
+                    this.field23473.method16736();
+                    if (this.field23468 != null) {
                         BlockRayTraceResult var20 = new BlockRayTraceResult(
-                                method16116(this.blockCache.position, this.blockCache.direction), this.blockCache.direction, this.blockCache.position, false
+                                method16116(this.field23468.position, this.field23468.direction), this.field23468.direction, this.field23468.position, false
                         );
                         int var21 = mc.player.inventory.currentItem;
                         if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                            this.blockFly.switchToValidHotbarItem();
+                            this.field23473.switchToValidHotbarItem();
                         }
 
-                        mc.playerController.func_217292_a(mc.player, mc.world, this.hand, var20);
+                        mc.playerController.func_217292_a(mc.player, mc.world, this.field23472, var20);
                         if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
-                            mc.player.swingArm(this.hand);
+                            mc.player.swingArm(this.field23472);
                         } else {
-                            mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
+                            mc.getConnection().sendPacket(new CAnimateHandPacket(this.field23472));
                         }
 
                         if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
@@ -207,15 +203,15 @@ public class BlockFlyHypixelMode extends Module {
                         }
                     }
                 } else {
-                    this.rotationStabilityCounter++;
+                    this.field23470++;
                     event.setMoving(true);
-                    this.hand = Hand.MAIN_HAND;
+                    this.field23472 = Hand.MAIN_HAND;
                     if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
                             && (
-                            mc.player.getHeldItem(this.hand).isEmpty()
-                                    || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
+                            mc.player.getHeldItem(this.field23472).isEmpty()
+                                    || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.field23472).getItem())
                     )) {
-                        this.hand = Hand.OFF_HAND;
+                        this.field23472 = Hand.OFF_HAND;
                     }
 
                     double var5 = event.getX();
@@ -244,11 +240,11 @@ public class BlockFlyHypixelMode extends Module {
                     }
 
                     BlockPos var11 = new BlockPos(var5, var9 - 1.0, var7);
-                    if (!BlockUtil.isValidBlockPosition(var11) && this.blockFly.canPlaceItem(this.hand)) {
+                    if (!BlockUtil.isValidBlockPosition(var11) && this.field23473.canPlaceItem(this.field23472)) {
                         BlockCache var12 = BlockUtil.findValidBlockCache(var11, !this.field23474 && this.getBooleanValueFromSettingName("Downwards"));
-                        this.blockCache = var12;
+                        this.field23468 = var12;
                         if (var12 != null) {
-                            float[] var13 = BlockUtil.method34542(this.blockCache.position, this.blockCache.direction);
+                            float[] var13 = BlockUtil.method34542(this.field23468.position, this.field23468.direction);
                             if ((double) var12.position.getY() - mc.player.getPosY() < 0.0) {
                                 double var14 = mc.player.getPosX()
                                         - ((double) var12.position.getX() + 0.5 + (double) var12.direction.getXOffset() / 2.0);
@@ -288,11 +284,11 @@ public class BlockFlyHypixelMode extends Module {
                             mc.player.renderYawOffset = mc.player.rotationYaw + 1.0F;
                         }
 
-                        this.blockCache = null;
+                        this.field23468 = null;
                     }
 
                     if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
-                        this.rotationStabilityCounter = 0;
+                        this.field23470 = 0;
                     }
                 }
             }
@@ -301,8 +297,8 @@ public class BlockFlyHypixelMode extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16112(EventMove event) {
-        if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
+    public void method16112(EventMove var1) {
+        if (this.isEnabled() && this.field23473.getValidItemCount() != 0) {
             if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
                 this.field23476 = mc.player.getPosY();
             }
@@ -312,13 +308,13 @@ public class BlockFlyHypixelMode extends Module {
             }
 
             if (mc.player.isOnGround()) {
-                this.offGroundTicks = 0;
-            } else if (this.offGroundTicks >= 0) {
-                this.offGroundTicks++;
+                this.field23471 = 0;
+            } else if (this.field23471 >= 0) {
+                this.field23471++;
             }
 
-            if (this.blockFly == null) {
-                this.blockFly = (BlockFly) this.access();
+            if (this.field23473 == null) {
+                this.field23473 = (BlockFly) this.access();
             }
 
             String var4 = this.getStringSettingValueByName("Speed Mode");
@@ -329,87 +325,80 @@ public class BlockFlyHypixelMode extends Module {
                         mc.player.jump();
                         ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).callHypixelSpeedMethod();
                         this.field23475 = true;
-                        event.setY(mc.player.getMotion().y);
-                        event.setX(mc.player.getMotion().x);
-                        event.setZ(mc.player.getMotion().z);
+                        var1.setY(mc.player.getMotion().y);
+                        var1.setX(mc.player.getMotion().x);
+                        var1.setZ(mc.player.getMotion().z);
                     }
                     break;
-                case "Constant": {
-                    double speed = this.constantSpeed.currentValue;
-                    if (!MovementUtil.isMoving())
-                        speed = 0;
-                    MovementUtil.setSpeed(event, speed);
-                    break;
-                }
                 case "AAC":
-                    if (this.rotationStabilityCounter == 0 && mc.player.isOnGround()) {
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.82);
+                    if (this.field23470 == 0 && mc.player.isOnGround()) {
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.82);
                     }
                     break;
                 case "Cubecraft":
-                    double speed = 0.2;
-                    float newYaw = this.getCorrectedYaw(MathHelper.wrapDegrees(mc.player.rotationYaw));
+                    double var6 = 0.2;
+                    float var8 = this.method16118(MathHelper.wrapDegrees(mc.player.rotationYaw));
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.timer.timerSpeed = 1.0F;
                     } else if (mc.player.isOnGround()) {
                         if (MovementUtil2.isMoving() && !mc.player.isSneaking() && !this.field23474) {
-                            event.setY(1.00000000000001);
+                            var1.setY(1.00000000000001);
                         }
-                    } else if (this.offGroundTicks == 1) {
-                        if (event.getY() <= 0.9) {
-                            this.offGroundTicks = -1;
+                    } else if (this.field23471 == 1) {
+                        if (var1.getY() <= 0.9) {
+                            this.field23471 = -1;
                         } else {
-                            event.setY(0.122);
+                            var1.setY(0.122);
                             mc.timer.timerSpeed = 0.7F;
-                            speed = 2.4;
+                            var6 = 2.4;
                         }
-                    } else if (this.offGroundTicks == 2) {
-                        if (event.getY() > 0.05) {
-                            this.offGroundTicks = -1;
+                    } else if (this.field23471 == 2) {
+                        if (var1.getY() > 0.05) {
+                            this.field23471 = -1;
                         } else {
                             mc.timer.timerSpeed = 0.7F;
-                            speed = 0.28;
+                            var6 = 0.28;
                         }
-                    } else if (this.offGroundTicks == 3) {
+                    } else if (this.field23471 == 3) {
                         mc.timer.timerSpeed = 0.3F;
-                        speed = 2.4;
-                    } else if (this.offGroundTicks == 4) {
-                        speed = 0.28;
+                        var6 = 2.4;
+                    } else if (this.field23471 == 4) {
+                        var6 = 0.28;
                         mc.timer.timerSpeed = 1.0F;
-                    } else if (this.offGroundTicks == 6) {
-                        event.setY(-1.023456987345906);
+                    } else if (this.field23471 == 6) {
+                        var1.setY(-1.023456987345906);
                     }
 
                     if (!MovementUtil2.isMoving()) {
-                        speed = 0.0;
+                        var6 = 0.0;
                     }
 
                     if (mc.player.fallDistance < 1.0F) {
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, speed, newYaw, newYaw, 360.0F);
+                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, var6, var8, var8, 360.0F);
                     }
 
-                    MovementUtil2.setPlayerYMotion(event.getY());
+                    MovementUtil2.setPlayerYMotion(var1.getY());
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {
-                        event.setX(event.getX() * 0.75);
-                        event.setZ(event.getZ() * 0.75);
+                        var1.setX(var1.getX() * 0.75);
+                        var1.setZ(var1.getZ() * 0.75);
                     } else {
-                        event.setX(event.getX() * 0.93);
-                        event.setZ(event.getZ() * 0.93);
+                        var1.setX(var1.getX() * 0.93);
+                        var1.setZ(var1.getZ() * 0.93);
                     }
                     break;
                 case "Sneak":
                     if (mc.player.isOnGround()) {
-                        event.setX(event.getX() * 0.65);
-                        event.setZ(event.getZ() * 0.65);
+                        var1.setX(var1.getX() * 0.65);
+                        var1.setZ(var1.getZ() * 0.65);
                     } else {
-                        event.setX(event.getX() * 0.85);
-                        event.setZ(event.getZ() * 0.85);
+                        var1.setX(var1.getX() * 0.85);
+                        var1.setZ(var1.getZ() * 0.85);
                     }
             }
 
-            this.blockFly.onMove(event);
+            this.field23473.onMove(var1);
         }
     }
 
@@ -435,7 +424,7 @@ public class BlockFlyHypixelMode extends Module {
 
     @EventTarget
     public void method16115(EventRender2D var1) {
-        if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks >= 0) {
+        if (this.isEnabled() && this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23471 >= 0) {
             if (!(mc.player.fallDistance > 1.2F)) {
                 if (!(mc.player.chasingPosY < this.field23476)) {
                     if (!mc.player.isJumping) {
@@ -452,7 +441,7 @@ public class BlockFlyHypixelMode extends Module {
         }
     }
 
-    public float getCorrectedYaw(float var1) {
+    public float method16118(float var1) {
         float var4 = 0.0F;
         float var5 = mc.player.moveStrafing;
         float var6 = mc.player.moveForward;
