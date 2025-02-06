@@ -50,11 +50,9 @@ public class KillAuraAttackLambda implements Runnable {
 
     @Override
     public void run() {
-        // Random chance check based on "Hit Chance" setting
         boolean var3 = (float) Math.round((float) Math.random() * 100.0F) <= this.killauraModule
                 .getNumberValueBySettingName("Hit Chance");
 
-        // Get range based on player distance or "Range" setting
         float range = Math.max(KillAura.mc.player.getDistance(KillAura.currentTimedEntity.getEntity()),
                 this.killauraModule.getNumberValueBySettingName("Range"));
 
@@ -71,7 +69,6 @@ public class KillAuraAttackLambda implements Runnable {
                     KillAura.getRotations2(this.killauraModule).pitch, range, (double) this.expandAmount + motionSpeed);
         }
 
-        // Handle autoblocking mode
         if (KillAura.currentTarget != null && KillAura.interactAB.isBlocking()
                 && !this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
             KillAura.interactAB.doUnblock();
@@ -94,11 +91,11 @@ public class KillAuraAttackLambda implements Runnable {
                 boolean noSwing = this.killauraModule.getBooleanValueFromSettingName("No swing");
                 Minecraft mc = KillAura.mc;
 
-
                 boolean raytrace = this.killauraModule.getBooleanValueFromSettingName("Raytrace");
                 boolean walls = this.killauraModule.getBooleanValueFromSettingName("Through walls");
                 boolean properTrace = EntityUtil.rayTraceEntity(mc.player, entity);
-                boolean isOnePointEight = JelloPortal.getVersion().newerThan(ProtocolVersion.v1_8); // Potential check for 1.8 version
+                boolean isOnePointEight = JelloPortal.getVersion().newerThan(ProtocolVersion.v1_8);
+
                 if (raytrace) {
                     if (properTrace && !walls || walls) {
                         handleAnimationAndAttack(mc, entity, isOnePointEight);
@@ -106,7 +103,6 @@ public class KillAuraAttackLambda implements Runnable {
 
                         if (!noSwing) {
                             mc.player.swingArm(Hand.MAIN_HAND);
-
                         }
 
                         mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
@@ -116,7 +112,6 @@ public class KillAuraAttackLambda implements Runnable {
                         KillAura.currentTimedEntity = null;
                     }
                 } else {
-                    // Non-raytrace handling
                     handleAnimationAndAttack(mc, entity, isOnePointEight);
                     mc.player.resetCooldown();
 
@@ -136,7 +131,6 @@ public class KillAuraAttackLambda implements Runnable {
             KillAura.mc.player.swingArm(Hand.MAIN_HAND);
         }
 
-        // Handle autoblocking
         if (KillAura.currentTarget != null && KillAura.interactAB.canBlock()
                 && this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
             KillAura.interactAB.block(KillAura.currentTarget, KillAura.getRotations(this.killauraModule).yaw,
