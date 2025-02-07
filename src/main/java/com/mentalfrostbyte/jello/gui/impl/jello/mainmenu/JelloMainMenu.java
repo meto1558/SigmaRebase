@@ -164,8 +164,8 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.addToList(this.loginButton = new TextButtonWithImage(this, "Account", 0, var19, 0, var18, "Log in"));
         this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
         this.field21128.method13247((var1x, var2x) -> {
-            if (Client.getInstance().networkManager.username != null) {
-                ((MainMenuScreen) this.getParent()).animateNext();
+            if (Client.getInstance().networkManager.encryptor != null) {
+                ((MainMenuScreen)this.getParent()).animateNext();
             } else {
                 this.displayScreen(new RegisterScreen());
             }
@@ -177,8 +177,8 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.altManagerButton.doThis((var1x, var2x) -> this.displayScreen(new AltManagerScreen()));
         this.realmsButton.doThis((var1x, var2x) -> this.method13443());
         this.loginButton.doThis((var1x, var2x) -> {
-            if (Client.getInstance().networkManager.username != null) {
-                ((MainMenuScreen) this.getParent()).logout();
+            if (Client.getInstance().networkManager.encryptor != null) {
+                ((MainMenuScreen)this.getParent()).logout();
             } else {
                 this.displayScreen(new RegisterScreen());
             }

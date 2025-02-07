@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.network.auth.Encryptor;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -29,12 +30,12 @@ public class TextButtonWithImage extends UIBase {
 
     @Override
     public void draw(float partialTicks) {
-        String username = Client.getInstance().networkManager.username;
+        Encryptor encryptor = Client.getInstance().networkManager.encryptor;
         String text = "Log in";
 
         Texture texture = Resources.accountPNG;
-        if (username != null) {
-            text = username;
+        if (encryptor != null) {
+            text = encryptor.username;
         }
 
         this.setWidthA(this.font.getWidth(text) + 50 + 60);

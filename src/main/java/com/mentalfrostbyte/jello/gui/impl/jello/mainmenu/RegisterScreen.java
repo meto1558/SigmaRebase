@@ -150,7 +150,7 @@ public class RegisterScreen extends Screen {
         }
 
         if (this.field21092) {
-            String username = Client.getInstance().networkManager.username;
+            String username = Client.getInstance().networkManager.encryptor.username;
             String welcomeBackSign = "Welcome back";
             int var8 = 100;
             int var9 = 10;
