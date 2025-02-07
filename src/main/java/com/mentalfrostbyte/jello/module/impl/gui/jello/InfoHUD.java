@@ -44,7 +44,7 @@ public class InfoHUD extends Module {
                         yOffset += this.renderArmorStatus(yOffset, mc.mainWindow.getHeight() - 14) + 10;
                     }
 
-                    if (!this.getStringSettingValueByName("Coordinates").equals("None")) {
+                    if (!this.getStringSettingValueByName("Cords").equals("None")) {
                         yOffset += this.renderCoordinates(yOffset, 42) + 10;
                     }
                 }
@@ -64,7 +64,7 @@ public class InfoHUD extends Module {
 
     public int renderCoordinates(int x, int yOffset) {
         String direction = "Facing South";
-        String coordinates = this.getFormattedCoordinates(this.getStringSettingValueByName("Coordinates").equals("Precise"));
+        String coordinates = this.getFormattedCoordinates(this.getStringSettingValueByName("Cords").equals("Precise"));
         RenderUtil.drawString(
                 ResourceRegistry.JelloMediumFont20,
                 (float) x,
