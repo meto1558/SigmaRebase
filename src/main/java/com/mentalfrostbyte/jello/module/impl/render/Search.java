@@ -27,6 +27,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.Heightmap;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -35,28 +36,28 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Search extends Module {
-    private List<ChunkRegion> chunkRegions = new ArrayList<>();
-    private Set<ChunkPos> processedChunks = new HashSet<>();
+    private final BooleanSetting showHolesSetting;
+    private final NumberSetting<Integer> tickDelay;
+    private final NumberSetting<Float> chunkRangeSetting;
+    private final BooleanListSetting blocksToRenderSetting;
+    private final ColorSetting renderColorSetting;
+    private final List<ChunkRegion> chunkRegions = new ArrayList<>();
+    private final Set<ChunkPos> processedChunks = new HashSet<>();
     private int tickCounter = 0;
-    private ExecutorService executorService = Executors.newFixedThreadPool(4);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public Search() {
         super(ModuleCategory.RENDER, "Search", "Searches blocks through the world");
 
-        NumberSetting chunkRangeSetting = new NumberSetting<Float>("Chunk Range", "Range at which search scans blocks", 5.0F, Float.class, 1.0F, 12.0F, 1.0F);
-        this.registerSetting(chunkRangeSetting);
+        this.registerSetting(this.chunkRangeSetting = new NumberSetting<>("Chunk Range", "Range at which search scans blocks", 5.0F, Float.class, 1.0F, 12.0F, 1.0F));
 
-        NumberSetting tickDelay = new NumberSetting<Integer>("Tick Delay", "Delay between each refresh (greatly increases performance)", 50, Integer.class, 0, 500, 50);
-        this.registerSetting(tickDelay);
+        this.registerSetting(this.tickDelay = new NumberSetting<>("Tick Delay", "Delay between each refresh (greatly increases performance)", 50, Integer.class, 0, 500, 50));
 
-        BooleanSetting showHolesSetting = new BooleanSetting("Holes", "Shows 1x1 explosion protection holes", false);
-        this.registerSetting(showHolesSetting);
+        this.registerSetting(this.showHolesSetting = new BooleanSetting("Holes", "Shows 1x1 explosion protection holes", false));
 
-        ColorSetting renderColorSetting = new ColorSetting("Color", "The rendered block color", ClientColors.MID_GREY.getColor(), true);
-        this.registerSetting(renderColorSetting);
+        this.registerSetting(this.renderColorSetting = new ColorSetting("Color", "The rendered block color", ClientColors.MID_GREY.getColor(), true));
 
-        BooleanListSetting blocksToRenderSetting = new BooleanListSetting("Blocks", "Blocks to render", true);
-        this.registerSetting(blocksToRenderSetting);
+        this.registerSetting(this.blocksToRenderSetting = new BooleanListSetting("Blocks", "Blocks to render", true));
 
         blocksToRenderSetting.addObserver(event -> this.chunkRegions.clear());
         chunkRangeSetting.addObserver(event -> this.chunkRegions.clear());
@@ -125,7 +126,7 @@ public class Search extends Module {
         if (chunkPos == null) return Collections.emptyList();
 
         List<BlockPos> blocksInChunk = this.getBlocksInChunk(chunkPos); // Cache the result
-        Set<String> blocksToRender = new HashSet<>((List<String>) this.getSettingValueBySettingName("Blocks"));
+        Set<String> blocksToRender = new HashSet<>(blocksToRenderSetting.currentValue);
         List<BlockPos> filteredPositions = new ArrayList<>();
 
         for (BlockPos pos : blocksInChunk) {
@@ -136,7 +137,7 @@ public class Search extends Module {
         }
 
         // Optimize explosion protection holes
-        if (this.getBooleanValueFromSettingName("Holes")) {
+        if (this.showHolesSetting.currentValue) {
             for (BlockPos pos : blocksInChunk) {
                 if (mc.world.getBlockState(pos).isAir()) {
                     boolean isProtected = true;
@@ -169,19 +170,10 @@ public class Search extends Module {
         }
 
         tickCounter++;
-        if (tickCounter % this.getNumberValueBySettingName("Tick Delay") != 0) return;
+        if (tickCounter % tickDelay.currentValue != 0) return;
 
 
-        int chunkRange = (int) this.getNumberValueBySettingName("Chunk Range");
-        ChunkPos playerChunk = new ChunkPos(mc.player.chunkCoordX, mc.player.chunkCoordZ);
-        Set<ChunkPos> nearbyChunks = new HashSet<>();
-
-        for (int xOffset = -chunkRange; xOffset <= chunkRange; xOffset++) {
-            for (int zOffset = -chunkRange; zOffset <= chunkRange; zOffset++) {
-                ChunkPos chunkPos = new ChunkPos(playerChunk.x + xOffset, playerChunk.z + zOffset);
-                nearbyChunks.add(chunkPos);
-            }
-        }
+        Set<ChunkPos> nearbyChunks = getNearbyChunks();
 
         Iterator<ChunkRegion> iterator = this.chunkRegions.iterator();
         while (iterator.hasNext()) {
@@ -206,6 +198,20 @@ public class Search extends Module {
         }
     }
 
+    private @NotNull Set<ChunkPos> getNearbyChunks() {
+        int chunkRange = this.chunkRangeSetting.currentValue.intValue();
+        ChunkPos playerChunk = new ChunkPos(mc.player.chunkCoordX, mc.player.chunkCoordZ);
+        Set<ChunkPos> nearbyChunks = new HashSet<>();
+
+        for (int xOffset = -chunkRange; xOffset <= chunkRange; xOffset++) {
+            for (int zOffset = -chunkRange; zOffset <= chunkRange; zOffset++) {
+                ChunkPos chunkPos = new ChunkPos(playerChunk.x + xOffset, playerChunk.z + zOffset);
+                nearbyChunks.add(chunkPos);
+            }
+        }
+        return nearbyChunks;
+    }
+
     @Override
     public void onEnable() {
         this.chunkRegions.clear();
@@ -220,7 +226,7 @@ public class Search extends Module {
     }
 
     public void renderChunkRegions() {
-        int color = MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.14F);
+        int color = MovementUtil2.applyAlpha(this.renderColorSetting.currentValue, 0.14F);
         GL11.glPushMatrix();
         GL11.glDisable(2929);
 
