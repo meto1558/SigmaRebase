@@ -33,7 +33,6 @@ public class NetworkManager {
     public HttpClient httpClient;
     public CaptchaChecker captcha;
     public Encryptor encryptor;
-    public String username;
     public String field38425;
     public SigmaIRC sigmaIRC;
 
@@ -49,7 +48,7 @@ public class NetworkManager {
     public static boolean field25696 = false;
 
     public NetworkManager() {
-        this.mainURL = "https://jelloprg.sigmaclient.info/";
+        this.mainURL = "http://localhost/";
         this.loginUrl = this.mainURL + "/login";
         this.registerUrl = this.mainURL + "/register";
         this.claimPremiumUrl = this.mainURL + "/claim_premium";
@@ -68,20 +67,20 @@ public class NetworkManager {
 
         try {
             HttpPost var7 = new HttpPost(this.loginUrl);
-            ArrayList var8 = new ArrayList();
+            List<BasicNameValuePair> var8 = new ArrayList<>();
             var8.add(new BasicNameValuePair("username", var1));
             var8.add(new BasicNameValuePair("password", var2));
             var8.add(new BasicNameValuePair("challengeUid", var3.getChallengeUid()));
             var8.add(new BasicNameValuePair("challengeAnswer", var3.getChallengeAnswer()));
             var8.add(new BasicNameValuePair("token", this.token));
             var3.method30473(false);
-            var7.setEntity(new UrlEncodedFormEntity(var8, "UTF-8"));
+            var7.setEntity(new UrlEncodedFormEntity(var8, StandardCharsets.UTF_8));
             HttpResponse var9 = this.httpClient.execute(var7);
             HttpEntity var10 = var9.getEntity();
             if (var10 != null) {
                 String var15;
                 try (InputStream var11 = var10.getContent()) {
-                    String var13 = IOUtils.toString(var11, "UTF-8");
+                    String var13 = IOUtils.toString(var11, StandardCharsets.UTF_8);
                     JSONObject jsonInstance = new JSONObject(var13);
                     if (jsonInstance.getBoolean("success")) {
                         if (jsonInstance.has("premium")) {
@@ -124,7 +123,7 @@ public class NetworkManager {
             list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getChallengeAnswer()));
             list.add(new BasicNameValuePair("token", this.token));
             captchaChecker.method30473(false);
-            httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
+            httpPost.setEntity(new UrlEncodedFormEntity(list, StandardCharsets.UTF_8));
             final HttpEntity entity = this.httpClient.execute(httpPost).getEntity();
             if (entity != null) {
                 try (final InputStream content = entity.getContent()) {
@@ -168,25 +167,25 @@ public class NetworkManager {
                     Client.getInstance().getLogger().setThreadName("Logged in!");
                 }
             }
-            catch (final IOException ex) {}
+            catch (IOException ex) {}
         }
     }
 
-    public String redeemPremium(final String s, final CaptchaChecker captchaChecker) {
+    public String redeemPremium(String s, CaptchaChecker captchaChecker) {
         String s2 = "Unexpected error";
         try {
-            final HttpPost httpPost = new HttpPost(this.claimPremiumUrl);
-            final ArrayList list = new ArrayList();
+            HttpPost httpPost = new HttpPost(this.claimPremiumUrl);
+            List<BasicNameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("key", s));
             list.add(new BasicNameValuePair("challengeUid", captchaChecker.getChallengeUid()));
             list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getChallengeAnswer()));
             list.add(new BasicNameValuePair("token", this.token));
             captchaChecker.method30473(false);
-            httpPost.setEntity((HttpEntity)new UrlEncodedFormEntity((List)list, "UTF-8"));
-            final HttpEntity entity = this.httpClient.execute((HttpUriRequest)httpPost).getEntity();
+            httpPost.setEntity(new UrlEncodedFormEntity(list, StandardCharsets.UTF_8));
+            HttpEntity entity = this.httpClient.execute(httpPost).getEntity();
             if (entity != null) {
-                try (final InputStream content = entity.getContent()) {
-                    final JSONObject class8774 = new JSONObject(IOUtils.toString(content, "UTF-8"));
+                try (InputStream content = entity.getContent()) {
+                    JSONObject class8774 = new JSONObject(IOUtils.toString(content, StandardCharsets.UTF_8));
                     if (class8774.getBoolean("success")) {
                         this.handleLoginResponse(class8774);
                         return null;
