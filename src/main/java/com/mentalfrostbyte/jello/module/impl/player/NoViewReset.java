@@ -12,7 +12,7 @@ public class NoViewReset extends Module {
     }
 
     @EventTarget
-    public void RecievePacketEvent(EventReceivePacket event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (mc.player != null) {
                 if (mc.player.ticksExisted >= 10) {
