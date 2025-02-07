@@ -15,6 +15,7 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.SChangeBlockPacket;
@@ -24,192 +25,217 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.Heightmap;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Search extends Module {
-    public List<ChunkRegion> field23499 = new ArrayList<ChunkRegion>();
-    public Set<ChunkPos> field23500 = new HashSet<ChunkPos>();
+    private List<ChunkRegion> chunkRegions = new ArrayList<>();
+    private Set<ChunkPos> processedChunks = new HashSet<>();
+    private int tickCounter = 0;
+    private ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public Search() {
         super(ModuleCategory.RENDER, "Search", "Searches blocks through the world");
-        NumberSetting var3;
-        this.registerSetting(var3 = new NumberSetting<Float>("Chunk Range", "Range at which search scans blocks", 5.0F,
-                Float.class, 1.0F, 12.0F, 1.0F));
-        BooleanSetting var4;
-        this.registerSetting(var4 = new BooleanSetting("Holes", "Shows 1x1 explosion protection holes", false));
-        this.registerSetting(
-                new ColorSetting("Color", "The rendered block color", ClientColors.MID_GREY.getColor(), true));
-        BooleanListSetting var5;
-        this.registerSetting(var5 = new BooleanListSetting("Blocks", "Blocks to render", true));
-        var5.addObserver(var1 -> this.field23499.clear());
-        var3.addObserver(var1 -> this.field23499.clear());
-        var4.addObserver(var1 -> this.field23499.clear());
+
+        NumberSetting chunkRangeSetting = new NumberSetting<Float>("Chunk Range", "Range at which search scans blocks", 5.0F, Float.class, 1.0F, 12.0F, 1.0F);
+        this.registerSetting(chunkRangeSetting);
+
+        NumberSetting tickDelay = new NumberSetting<Integer>("Tick Delay", "Delay between each refresh (greatly increases performance)", 50, Integer.class, 0, 500, 50);
+        this.registerSetting(tickDelay);
+
+        BooleanSetting showHolesSetting = new BooleanSetting("Holes", "Shows 1x1 explosion protection holes", false);
+        this.registerSetting(showHolesSetting);
+
+        ColorSetting renderColorSetting = new ColorSetting("Color", "The rendered block color", ClientColors.MID_GREY.getColor(), true);
+        this.registerSetting(renderColorSetting);
+
+        BooleanListSetting blocksToRenderSetting = new BooleanListSetting("Blocks", "Blocks to render", true);
+        this.registerSetting(blocksToRenderSetting);
+
+        blocksToRenderSetting.addObserver(event -> this.chunkRegions.clear());
+        chunkRangeSetting.addObserver(event -> this.chunkRegions.clear());
+        showHolesSetting.addObserver(event -> this.chunkRegions.clear());
     }
 
     @EventTarget
-    public void method16163(EventReceivePacket var1) {
+    public void onPacketReceive(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SChangeBlockPacket) {
-                SChangeBlockPacket var4 = (SChangeBlockPacket) var1.getPacket();
-                this.method16164(mc.world.getChunkAt(var4.getPos()).getPos());
+            if (event.getPacket() instanceof SChangeBlockPacket) {
+                SChangeBlockPacket packet = (SChangeBlockPacket) event.getPacket();
+                this.updateChunkPosition(mc.world.getChunkAt(packet.getPos()).getPos());
             }
 
-            if (var1.getPacket() instanceof SMultiBlockChangePacket) {
-                SMultiBlockChangePacket var5 = (SMultiBlockChangePacket) var1.getPacket();
-                this.method16164(new ChunkPos(var5.getSectionPos().x, var5.getSectionPos().z));
+            if (event.getPacket() instanceof SMultiBlockChangePacket) {
+                SMultiBlockChangePacket packet = (SMultiBlockChangePacket) event.getPacket();
+                this.updateChunkPosition(new ChunkPos(packet.getSectionPos().x, packet.getSectionPos().z));
             }
 
-            if (var1.getPacket() instanceof SChunkDataPacket && Minecraft.getInstance().world != null) {
-                SChunkDataPacket var6 = (SChunkDataPacket) var1.getPacket();
-                this.method16164(new ChunkPos(var6.getChunkX(), var6.getChunkZ()));
+            if (event.getPacket() instanceof SChunkDataPacket && Minecraft.getInstance().world != null) {
+                SChunkDataPacket packet = (SChunkDataPacket) event.getPacket();
+                this.updateChunkPosition(new ChunkPos(packet.getChunkX(), packet.getChunkZ()));
             }
         }
     }
 
-    public void method16164(ChunkPos var1) {
-        for (ChunkRegion var5 : this.field23499) {
-            if (var5.isSameChunk(var1)) {
-                this.field23500.add(var5.getChunkPosition());
+    public void updateChunkPosition(ChunkPos chunkPos) {
+        for (ChunkRegion region : this.chunkRegions) {
+            if (region.isSameChunk(chunkPos)) {
+                this.processedChunks.add(region.getChunkPosition());
             }
         }
     }
 
     @EventTarget
-    public void method16165(EventLoadWorld var1) {
-        this.field23499.clear();
-        this.field23500.clear();
+    public void onWorldLoad(EventLoadWorld event) {
+        this.chunkRegions.clear();
+        this.processedChunks.clear();
     }
 
-    public List<BlockPos> method16166(ChunkPos var1) {
-        ArrayList var4 = new ArrayList();
-        int var5 = var1.x * 16;
-        int var6 = var1.z * 16;
-        float var7 = 1;
-        int var8 = var5 + 15;
-        int var9 = var6 + 15;
-        float var10 = 255;
+    public List<BlockPos> getBlocksInChunk(ChunkPos chunkPos) {
+        List<BlockPos> blockPositions = new ArrayList<>();
+        int chunkStartX = chunkPos.x * 16;
+        int chunkStartZ = chunkPos.z * 16;
+        int chunkEndX = chunkStartX + 15;
+        int chunkEndZ = chunkStartZ + 15;
 
-        for (float var11 = var7; var11 <= (float) var10 && !(var11 > 100.0F); var11++) {
-            for (float var12 = (float) var5; var12 <= (float) var8; var12++) {
-                for (float var13 = (float) var6; var13 <= (float) var9; var13++) {
-                    BlockPos var14 = new BlockPos(var12, var11, var13);
-                    var4.add(var14);
+        Chunk chunk = mc.world.getChunk(chunkPos.x, chunkPos.z);
+
+        for (int x = chunkStartX; x <= chunkEndX; x++) {
+            for (int z = chunkStartZ; z <= chunkEndZ; z++) {
+                int height = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE).getHeight(x - chunk.getPos().getXStart(), z - chunk.getPos().getZStart());
+                for (int y = -64; y <= height; y++) {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    if (mc.world != null && !mc.world.getBlockState(pos).isAir()) { // Skip air blocks
+                        blockPositions.add(pos);
+                    }
                 }
             }
         }
 
-        return var4;
+        return blockPositions;
     }
 
-    public List<BlockPos> method16167(ChunkPos var1) {
-        ArrayList var4 = new ArrayList();
-        if (var1 == null) {
-            return null;
-        } else {
-            List var5 = (List) this.getSettingValueBySettingName("Blocks");
+    public List<BlockPos> getFilteredBlocksInChunk(ChunkPos chunkPos) {
+        if (chunkPos == null) return Collections.emptyList();
 
-            for (BlockPos var7 : this.method16166(var1)) {
-                String var8 = Registry.BLOCK.getKey(mc.world.getBlockState(var7).getBlock()).toString();
-                if (var5.contains(var8)) {
-                    var4.add(var7);
-                }
+        List<BlockPos> blocksInChunk = this.getBlocksInChunk(chunkPos); // Cache the result
+        Set<String> blocksToRender = new HashSet<>((List<String>) this.getSettingValueBySettingName("Blocks"));
+        List<BlockPos> filteredPositions = new ArrayList<>();
+
+        for (BlockPos pos : blocksInChunk) {
+            String blockName = Registry.BLOCK.getKey(mc.world.getBlockState(pos).getBlock()).toString();
+            if (blocksToRender.contains(blockName)) {
+                filteredPositions.add(pos);
             }
+        }
 
-            if (this.getBooleanValueFromSettingName("Holes")) {
-                label57: for (BlockPos var13 : this.method16166(var1)) {
-                    if (mc.world.getBlockState(var13).getBlock() == Blocks.AIR) {
-                        for (Direction var11 : Direction.values()) {
-                            if (var11 != Direction.UP
-                                    && mc.world.getBlockState(var13.add(var11.getDirectionVec()))
-                                    .getBlock() != Blocks.OBSIDIAN
-                                    && mc.world.getBlockState(var13.add(var11.getDirectionVec()))
-                                    .getBlock() != Blocks.BEDROCK) {
-                                continue label57;
+        // Optimize explosion protection holes
+        if (this.getBooleanValueFromSettingName("Holes")) {
+            for (BlockPos pos : blocksInChunk) {
+                if (mc.world.getBlockState(pos).isAir()) {
+                    boolean isProtected = true;
+                    for (Direction direction : Direction.values()) {
+                        if (direction != Direction.UP) {
+                            Block block = mc.world.getBlockState(pos.offset(direction)).getBlock();
+                            if (block != Blocks.OBSIDIAN && block != Blocks.BEDROCK) {
+                                isProtected = false;
+                                break;
                             }
                         }
-
-                        var4.add(var13.down());
+                    }
+                    if (isProtected) {
+                        filteredPositions.add(pos.down());
                     }
                 }
             }
-
-            return var4;
         }
+
+        return filteredPositions;
     }
 
     @EventTarget
-    public void method16168(EventPlayerTick var1) {
-        if (this.isEnabled()) {
-            if (mc.player.ticksExisted < 20) {
-                this.field23499.clear();
-            } else {
-                int var4 = (int) this.getNumberValueBySettingName("Chunk Range");
-                List<ChunkPos> var5 = new ArrayList();
+    public void onPlayerTick(EventPlayerTick event) {
+        if (!this.isEnabled()) return;
 
-                for (int var6 = -5; var6 < 5; var6++) {
-                    for (int var7 = -5; var7 < 5; var7++) {
-                        var5.add(new ChunkPos(mc.player.chunkCoordX + var6, mc.player.chunkCoordZ + var7));
-                    }
-                }
+        if (mc.player.ticksExisted < 20) {
+            this.chunkRegions.clear();
+            return;
+        }
 
-                Iterator var11 = this.field23499.iterator();
+        tickCounter++;
+        if (tickCounter % this.getNumberValueBySettingName("Tick Delay") != 0) return;
 
-                while (var11.hasNext()) {
-                    ChunkRegion var12 = (ChunkRegion) var11.next();
-                    if (var12.getDistanceFromChunk(new ChunkPos(mc.player.chunkCoordX, mc.player.chunkCoordZ)) > 7
-                            || this.field23500.contains(var12.getChunkPosition())) {
-                        var11.remove();
-                    }
-                }
 
-                this.field23500.clear();
+        int chunkRange = (int) this.getNumberValueBySettingName("Chunk Range");
+        ChunkPos playerChunk = new ChunkPos(mc.player.chunkCoordX, mc.player.chunkCoordZ);
+        Set<ChunkPos> nearbyChunks = new HashSet<>();
 
-                label52: for (ChunkPos var8 : var5) {
-                    for (ChunkRegion var10 : this.field23499) {
-                        if (var10.isSameChunk(var8)) {
-                            continue label52;
+        for (int xOffset = -chunkRange; xOffset <= chunkRange; xOffset++) {
+            for (int zOffset = -chunkRange; zOffset <= chunkRange; zOffset++) {
+                ChunkPos chunkPos = new ChunkPos(playerChunk.x + xOffset, playerChunk.z + zOffset);
+                nearbyChunks.add(chunkPos);
+            }
+        }
+
+        Iterator<ChunkRegion> iterator = this.chunkRegions.iterator();
+        while (iterator.hasNext()) {
+            ChunkRegion region = iterator.next();
+            if (!nearbyChunks.contains(region.getChunkPosition())) {
+                iterator.remove();
+            }
+        }
+
+        for (ChunkPos chunkPos : nearbyChunks) {
+            if (!processedChunks.contains(chunkPos)) {
+                executorService.submit(() -> {
+                    List<BlockPos> filteredBlocks = this.getFilteredBlocksInChunk(chunkPos);
+                    if (!filteredBlocks.isEmpty()) {
+                        synchronized (this.chunkRegions) {
+                            this.chunkRegions.add(new ChunkRegion(chunkPos.x, chunkPos.z, filteredBlocks));
                         }
                     }
-
-                    this.field23499.add(new ChunkRegion(var8.x, var8.z, this.method16167(var8)));
-                    break;
-                }
+                });
             }
+
         }
     }
 
     @Override
     public void onEnable() {
-        this.field23499.clear();
-        this.field23500.clear();
+        this.chunkRegions.clear();
+        this.processedChunks.clear();
     }
 
     @EventTarget
-    public void method16169(EventRender3D var1) {
+    public void onRender3D(EventRender3D event) {
         if (this.isEnabled()) {
-            this.method16170();
+            this.renderChunkRegions();
         }
     }
 
-    public void method16170() {
-        int var3 = MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.14F);
+    public void renderChunkRegions() {
+        int color = MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.14F);
         GL11.glPushMatrix();
         GL11.glDisable(2929);
 
-        for (ChunkRegion var5 : this.field23499) {
-            for (BlockPos var7 : var5.blockPositions) {
-                double var8 = (double) var7.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
-                double var10 = (double) var7.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
-                double var12 = (double) var7.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
-                BoundingBox var14 = new BoundingBox(var8, var10, var12, var8 + 1.0, var10 + 1.0, var12 + 1.0);
-                RenderUtil.render3DColoredBox(var14, var3);
+        for (ChunkRegion region : this.chunkRegions) {
+            for (BlockPos pos : region.blockPositions) {
+                double offsetX = (double) pos.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
+                double offsetY = (double) pos.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
+                double offsetZ = (double) pos.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
+                BoundingBox boundingBox = new BoundingBox(offsetX, offsetY, offsetZ, offsetX + 1.0, offsetY + 1.0, offsetZ + 1.0);
+                RenderUtil.renderWireframeBox(boundingBox, color);
             }
         }
 
         GL11.glEnable(2929);
         GL11.glPopMatrix();
     }
+
 }
