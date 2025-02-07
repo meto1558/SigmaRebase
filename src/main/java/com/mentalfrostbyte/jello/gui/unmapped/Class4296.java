@@ -44,7 +44,7 @@ public class Class4296 extends AnimatedIconPanelWrap {
          int var7 = 14;
 
          for (Ban var9 : var11) {
-            if (var9.method31736() != null && var9.method31736().getBase64EncodedIconData() != null) {
+            if (var9.getServer() != null && var9.getServer().getBase64EncodedIconData() != null) {
                Class4348 var10 = new Class4348(
                   this, ((Ban)var11.get(var13)).getServerIP(), 40, 100 + var13 * (var14 + var7), this.widthA - 90, var14, var9
                );
