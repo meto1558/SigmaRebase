@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.managers.util.account.Class9507;
+import com.mentalfrostbyte.jello.managers.util.account.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -20,7 +20,7 @@ import net.minecraft.util.Util;
 public class LoginScreen extends UIBase {
     private TextField inputUsername;
     private TextField inputPassword;
-    private TextField field21355;
+    private TextField captcha;
     private UIButton loginButton;
     private UIButton registerButton;
     private UIButton forgotButton;
@@ -78,9 +78,9 @@ public class LoginScreen extends UIBase {
         this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.method13155(true);
-        this.addToList(this.field21355 = new TextField(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
-        this.field21355.setFont(ResourceRegistry.JelloLightFont20);
-        this.field21355.setEnabled(false);
+        this.addToList(this.captcha = new TextField(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
+        this.captcha.setFont(ResourceRegistry.JelloLightFont20);
+        this.captcha.setEnabled(false);
         this.loginButton.doThis((var1x, var2x) -> this.method13688());
         this.registerButton.doThis((var1x, var2x) -> {
             RegisterScreen var5x = (RegisterScreen) this.getParent();
@@ -95,18 +95,18 @@ public class LoginScreen extends UIBase {
         super.method13225();
         int var4 = 28;
         RenderUtil.drawImage((float) (this.xA + var4), (float) (this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
-        Class9507 var5 = Client.getInstance().networkManager.method30452();
+        CaptchaChecker var5 = Client.getInstance().networkManager.getChallengeResponse();
         if (var5 != null) {
-            this.field21355.setEnabled(var5.method36702());
-            if (var5.method36702()) {
+            this.captcha.setEnabled(var5.method30471());
+            if (var5.method30471()) {
                 RenderUtil.drawRoundedRect2(
                         (float) (this.xA + 330), (float) (this.yA + 255), 114.0F, 40.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
                 );
             }
 
-            if (var5.method36701() != null) {
+            if (var5.method30470() != null) {
                 RenderUtil.startScissor((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 50.0F);
-                RenderUtil.drawImage((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 190.0F, var5.method36701());
+                RenderUtil.drawImage((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 190.0F, var5.method30470());
                 RenderUtil.endScissor();
             }
         }
@@ -118,18 +118,22 @@ public class LoginScreen extends UIBase {
         new Thread(() -> {
             this.loadingThingy.method13296(true);
             this.loginButton.setEnabled(false);
-            Class9507 var3 = Client.getInstance().networkManager.method30452();
-            if (var3 != null) {
-                var3.method36706(this.field21355.getTypedText());
+
+            CaptchaChecker captchaChecker = Client.getInstance().networkManager.getChallengeResponse();
+            if (captchaChecker != null) {
+                captchaChecker.setChallengeAnswer(this.captcha.getTypedText());
+                System.out.println(captchaChecker.getChallengeAnswer());
             }
 
-            String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText());
-            if (var4 != null) {
-                RegisterScreen var5 = (RegisterScreen) this.getParent();
-                var5.method13424("Error", var4);
-                this.field21355.setTypedText("");
+            String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText(), captchaChecker);
+            RegisterScreen reg = (RegisterScreen) this.getParent();
+
+            if (account != null) {
+                reg.method13424("Error", account);
+                this.captcha.setTypedText("");
             } else {
-                this.callUIHandlers();
+                reg.method13424("Success", "You can now login.");
+                reg.method13423();
             }
 
             this.loadingThingy.method13296(false);
