@@ -70,9 +70,10 @@ public class ActiveMods extends Module {
                 this.activeModules.add(module);
                 this.animations.put(module, new Animation(150, 150, Animation.Direction.BACKWARDS));
 
-                if (this.getBooleanValueFromSettingName("Animations")) {
-                    this.animations.get(module).changeDirection(!module.isEnabled() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+                if (!this.getBooleanValueFromSettingName("Animations")) {
+                    continue;
                 }
+                this.animations.get(module).changeDirection(!module.isEnabled() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
             }
         }
 
