@@ -225,15 +225,15 @@ public class KeyStrokes extends Module {
          * @return the key binding for the key.
          */
         public KeyBinding getKeyBinding() {
-            switch (this) {
-                case Left: return mc.gameSettings.keyBindLeft;
-                case Right: return mc.gameSettings.keyBindRight;
-                case Forward: return mc.gameSettings.keyBindForward;
-                case Back: return mc.gameSettings.keyBindBack;
-                case Attack: return mc.gameSettings.keyBindAttack;
-                case UseItem: return mc.gameSettings.keyBindUseItem;
-                default: return null;
-            }
+            return switch (this) {
+                case Left -> mc.gameSettings.keyBindLeft;
+                case Right -> mc.gameSettings.keyBindRight;
+                case Forward -> mc.gameSettings.keyBindForward;
+                case Back -> mc.gameSettings.keyBindBack;
+                case Attack -> mc.gameSettings.keyBindAttack;
+                case UseItem -> mc.gameSettings.keyBindUseItem;
+                default -> null;
+            };
         }
     }
 
