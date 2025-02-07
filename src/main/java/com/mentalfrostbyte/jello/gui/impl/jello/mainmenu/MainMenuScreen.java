@@ -302,16 +302,17 @@ public class MainMenuScreen extends Screen {
                 alert.add(new MiniAlert(AlertType.BUTTON, "Yes", 55));
                 this.showAlert(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
                 this.alertPanel.method13604(var1 -> new Thread(() -> {
-                    this.runThisOnDimensionUpdate(() -> {
-                        this.method13236(this.alertPanel);
-                        this.alertPanel = null;
-
-                        NetworkManager.premium = false;
-                        Client.getInstance().getDRPC().smallImageKey = null;
-                        Client.getInstance().getDRPC().smallImageText = null;
-                        DiscordRPC.INSTANCE.Discord_UpdatePresence(Client.getInstance().getDRPC());
-                    });
+                    try {
+                        Thread.sleep(114L);
+                        this.runThisOnDimensionUpdate(() -> {
+                            this.method13236(this.alertPanel);
+                            this.alertPanel = null;
+                        });
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
                 }).start());
+                this.alertPanel.onPress(var -> Client.getInstance().networkManager.resetLicense());
                 this.alertPanel.method13603(true);
             });
         }

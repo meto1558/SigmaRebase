@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.managers.util.account.CaptchaChecker;
+import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
@@ -85,7 +85,7 @@ public class AccountSignUpScreen extends UIBase {
         RenderUtil.drawImage((float) (this.xA + var4), (float) (this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
         int var5 = 305;
         int var6 = 316;
-        CaptchaChecker var7 = Client.getInstance().networkManager.getChallengeResponse();
+        CaptchaChecker var7 = Client.getInstance().networkManager.getCaptcha();
         if (var7 != null) {
             this.captchaBox.setEnabled(var7.method30471());
             if (var7.method30471()) {
@@ -94,9 +94,9 @@ public class AccountSignUpScreen extends UIBase {
                 );
             }
 
-            if (var7.method30470() != null) {
+            if (var7.getCaptchaImage() != null) {
                 RenderUtil.startScissor((float) (this.xA + var6), (float) (this.yA + var5), 190.0F, 50.0F);
-                RenderUtil.drawImage((float) (this.xA + var6), (float) (this.yA + var5), 190.0F, 190.0F, var7.method30470());
+                RenderUtil.drawImage((float) (this.xA + var6), (float) (this.yA + var5), 190.0F, 190.0F, var7.getCaptchaImage());
                 RenderUtil.endScissor();
             }
         }
@@ -109,9 +109,9 @@ public class AccountSignUpScreen extends UIBase {
                 () -> {
                     this.loadingBox.method13296(true);
                     this.registerButton.setEnabled(false);
-                    CaptchaChecker var3 = Client.getInstance().networkManager.getChallengeResponse();
+                    CaptchaChecker var3 = Client.getInstance().networkManager.getCaptcha();
                     if (var3 != null) {
-                        var3.setChallengeAnswer(this.captchaBox.getTypedText());
+                        var3.setAnswer(this.captchaBox.getTypedText());
                     }
                     Client.getInstance().networkManager.resetLicense();
                     Client.getInstance().networkManager.method30448(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText(), var3);

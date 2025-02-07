@@ -10,26 +10,24 @@ import java.io.IOException;
 import java.net.URL;
 
 public class CaptchaChecker {
-    private String field36881;
+    private final String uid;
     private boolean field36882;
-    private long field36883;
-    private boolean field36884;
-    private String field36885;
+    private final long field36883 = System.currentTimeMillis();
+    private boolean field36884 = true;
+    private String answer = "";
     private BufferedImage field36886;
     private Texture field36887;
 
-    public CaptchaChecker(final String field36881, final boolean field36882) {
-        this.field36883 = System.currentTimeMillis();
-        this.field36884 = true;
-        this.field36885 = "";
-        this.field36881 = field36881;
+    public CaptchaChecker(final String uid, final boolean field36882) {
+        this.uid = uid;
+        this.field36882 = field36882;
         if (this.field36882 == field36882) {
             new Thread(() -> {
                 try {
-                    final URL input = new URL("https://jelloprg.sigmaclient.info/captcha/" + field36881 + ".png");
+                    final URL input = new URL("http://localhost/captcha/" + uid + ".png");
                     this.field36886 = ImageIO.read(input);
-                } catch (final IOException ex) {
                 }
+                catch (final IOException ex) {}
             }).start();
         }
     }
@@ -39,16 +37,18 @@ public class CaptchaChecker {
             if (this.field36887 != null) {
                 Client.getInstance().addTexture(this.field36887);
             }
-        } finally {
+        }
+        finally {
             super.finalize();
         }
     }
 
-    public Texture method30470() {
+    public Texture getCaptchaImage() {
         if (this.field36887 == null && this.field36886 != null) {
             try {
                 this.field36887 = BufferedImageUtil.getTexture("", this.field36886);
-            } catch (final IOException ex) {
+            }
+            catch (final IOException ex) {
                 ex.printStackTrace();
             }
         }
@@ -67,15 +67,15 @@ public class CaptchaChecker {
         this.field36884 = field36884;
     }
 
-    public String method30474() {
-        return this.field36885;
+    public String getAnswer() {
+        return this.answer;
     }
 
-    public void method30475(final String field36885) {
-        this.field36885 = field36885;
+    public void setAnswer(final String answer) {
+        this.answer = answer;
     }
 
-    public String method30476() {
-        return this.field36881;
+    public String getChallengeUid() {
+        return this.uid;
     }
 }

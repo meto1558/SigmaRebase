@@ -31,7 +31,7 @@ public class JelloMainMenu extends CustomGuiScreen {
     private final Button realmsButton;
     private final Button optionsButton;
     private final Button altManagerButton;
-    private final Class4302 field21128;
+    private final GetPremiumButton premiumButton;
     private final Text field21129;
     private final Text field21130;
     private final TextButtonWithImage loginButton;
@@ -162,8 +162,8 @@ public class JelloMainMenu extends CustomGuiScreen {
             }).start();
         });
         this.addToList(this.loginButton = new TextButtonWithImage(this, "Account", 0, var19, 0, var18, "Log in"));
-        this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
-        this.field21128.method13247((var1x, var2x) -> {
+        this.addToList(this.premiumButton = new GetPremiumButton(this, "pre", 0, 0, 240, 100));
+        this.premiumButton.method13247((var1x, var2x) -> {
             if (Client.getInstance().networkManager.encryptor != null) {
                 ((MainMenuScreen)this.getParent()).animateNext();
             } else {
@@ -219,7 +219,7 @@ public class JelloMainMenu extends CustomGuiScreen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.field21128.setEnabled(!Client.getInstance().networkManager.isPremium());
+        this.premiumButton.setEnabled(!Client.getInstance().networkManager.isPremium());
         int var5 = 30;
         int var6 = 90;
         this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));

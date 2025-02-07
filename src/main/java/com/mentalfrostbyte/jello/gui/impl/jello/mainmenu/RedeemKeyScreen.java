@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.managers.util.account.CaptchaChecker;
+import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -14,9 +14,9 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 
 public class RedeemKeyScreen extends CustomGuiScreen {
-    public String field21135 = "";
+    public String premiumLicense = "";
     public Animation animation = new Animation(380, 200, Animation.Direction.BACKWARDS);
-    private final TextField captchaField;
+    private TextField captchaField;
 
     public RedeemKeyScreen(CustomGuiScreen parent, String var2, int var3, int var4, int var5, int var6) {
         super(parent, var2, var3, var4, var5, var6);
@@ -39,16 +39,15 @@ public class RedeemKeyScreen extends CustomGuiScreen {
         );
         this.addToList(this.captchaField = new TextField(this, "captcha", 195, 290, 75, 35, TextField.field20742, "", "Captcha"));
         this.captchaField.setFont(ResourceRegistry.JelloLightFont18);
-        this.captchaField.setEnabled(false);
         redeemButton.doThis((var2x, var3x) -> new Thread(() -> {
-            CaptchaChecker captcha = Client.getInstance().networkManager.getChallengeResponse();
+            CaptchaChecker captcha = Client.getInstance().networkManager.getCaptcha();
             if (captcha != null) {
-                captcha.setChallengeAnswer(this.captchaField.getTypedText());
+                captcha.setAnswer(this.captchaField.getTypedText());
             }
 
-            this.field21135 = Client.getInstance().networkManager.redeemPremium(redeemBox.getTypedText(), Client.getInstance().networkManager.getChallengeResponse());
-            if (this.field21135 == null) {
-                this.field21135 = "";
+            this.premiumLicense = Client.getInstance().networkManager.redeemPremium(redeemBox.getTypedText(), Client.getInstance().networkManager.getCaptcha());
+            if (this.premiumLicense == null) {
+                this.premiumLicense = "";
             }
 
             if (Client.getInstance().networkManager.isPremium()) {
@@ -67,17 +66,17 @@ public class RedeemKeyScreen extends CustomGuiScreen {
             var4 = 1.0F;
         }
 
-        CaptchaChecker captchaChecker = Client.getInstance().networkManager.getChallengeResponse();
+        CaptchaChecker captchaChecker = Client.getInstance().networkManager.getCaptcha();
         if (captchaChecker != null) {
             this.captchaField.setEnabled(captchaChecker.method30471());
-            if (captchaChecker.method30470() != null) {
+            if (captchaChecker.getCaptchaImage() != null) {
                 RenderUtil.startScissor((float) (this.xA + 295), (float) (this.yA + 280), 190.0F, 50.0F);
                 RenderUtil.drawImage(
                         (float) (this.xA + 316),
                         (float) (this.yA + 280),
                         190.0F,
                         190.0F,
-                        captchaChecker.method30470(),
+                        captchaChecker.getCaptchaImage(),
                         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                 );
                 RenderUtil.endScissor();
@@ -94,7 +93,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
                 "Visit https://sigmaclient.cloud for more info",
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * partialTicks)
         );
-        RenderUtil.drawString(ResourceRegistry.JelloLightFont18, 100.0F, 263.0F, this.field21135, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * partialTicks));
+        RenderUtil.drawString(ResourceRegistry.JelloLightFont18, 100.0F, 263.0F, this.premiumLicense, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * partialTicks));
         super.draw(partialTicks);
     }
 }

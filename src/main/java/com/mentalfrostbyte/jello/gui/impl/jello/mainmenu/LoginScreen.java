@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
 import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.managers.util.account.CaptchaChecker;
+import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -95,7 +95,7 @@ public class LoginScreen extends UIBase {
         super.method13225();
         int var4 = 28;
         RenderUtil.drawImage((float) (this.xA + var4), (float) (this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
-        CaptchaChecker var5 = Client.getInstance().networkManager.getChallengeResponse();
+        CaptchaChecker var5 = Client.getInstance().networkManager.getCaptcha();
         if (var5 != null) {
             this.captcha.setEnabled(var5.method30471());
             if (var5.method30471()) {
@@ -104,9 +104,9 @@ public class LoginScreen extends UIBase {
                 );
             }
 
-            if (var5.method30470() != null) {
+            if (var5.getCaptchaImage() != null) {
                 RenderUtil.startScissor((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 50.0F);
-                RenderUtil.drawImage((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 190.0F, var5.method30470());
+                RenderUtil.drawImage((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 190.0F, var5.getCaptchaImage());
                 RenderUtil.endScissor();
             }
         }
@@ -119,10 +119,10 @@ public class LoginScreen extends UIBase {
             this.loadingThingy.method13296(true);
             this.loginButton.setEnabled(false);
 
-            CaptchaChecker captchaChecker = Client.getInstance().networkManager.getChallengeResponse();
+            CaptchaChecker captchaChecker = Client.getInstance().networkManager.getCaptcha();
             if (captchaChecker != null) {
-                captchaChecker.setChallengeAnswer(this.captcha.getTypedText());
-                System.out.println("answer: \"" + captchaChecker.getChallengeAnswer() + "\"");
+                captchaChecker.setAnswer(this.captcha.getTypedText());
+                System.out.println("answer: \"" + captchaChecker.getAnswer() + "\"");
             }
 
             String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText(), captchaChecker);

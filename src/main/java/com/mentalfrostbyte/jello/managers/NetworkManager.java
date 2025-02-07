@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.managers.util.account.CaptchaChecker;
+import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.network.auth.Encryptor;
 import com.mentalfrostbyte.jello.util.client.network.auth.PremiumChecker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SigmaIRC;
@@ -12,7 +12,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import team.sdhq.eventBus.EventBus;
@@ -41,7 +40,7 @@ public class NetworkManager {
     public String registerUrl;
     public String claimPremiumUrl;
     public String challengeUrl;
-    public String field25693;
+    public String session;
     public String token;
 
     public static boolean premium = false;
@@ -71,7 +70,7 @@ public class NetworkManager {
             var8.add(new BasicNameValuePair("username", var1));
             var8.add(new BasicNameValuePair("password", var2));
             var8.add(new BasicNameValuePair("challengeUid", var3.getChallengeUid()));
-            var8.add(new BasicNameValuePair("challengeAnswer", var3.getChallengeAnswer()));
+            var8.add(new BasicNameValuePair("challengeAnswer", var3.getAnswer()));
             var8.add(new BasicNameValuePair("token", this.token));
             var3.method30473(false);
             var7.setEntity(new UrlEncodedFormEntity(var8, StandardCharsets.UTF_8));
@@ -120,7 +119,7 @@ public class NetworkManager {
             list.add(new BasicNameValuePair("password", s2));
             list.add(new BasicNameValuePair("email", s3));
             list.add(new BasicNameValuePair("challengeUid", captchaChecker.getChallengeUid()));
-            list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getChallengeAnswer()));
+            list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getAnswer()));
             list.add(new BasicNameValuePair("token", this.token));
             captchaChecker.method30473(false);
             httpPost.setEntity(new UrlEncodedFormEntity(list, StandardCharsets.UTF_8));
@@ -178,20 +177,21 @@ public class NetworkManager {
             List<BasicNameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("key", s));
             list.add(new BasicNameValuePair("challengeUid", captchaChecker.getChallengeUid()));
-            list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getChallengeAnswer()));
+            list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getAnswer()));
             list.add(new BasicNameValuePair("token", this.token));
             captchaChecker.method30473(false);
             httpPost.setEntity(new UrlEncodedFormEntity(list, StandardCharsets.UTF_8));
             HttpEntity entity = this.httpClient.execute(httpPost).getEntity();
             if (entity != null) {
                 try (InputStream content = entity.getContent()) {
-                    JSONObject class8774 = new JSONObject(IOUtils.toString(content, StandardCharsets.UTF_8));
-                    if (class8774.getBoolean("success")) {
-                        this.handleLoginResponse(class8774);
+                    JSONObject object = new JSONObject(IOUtils.toString(content, StandardCharsets.UTF_8));
+                    if (object.getBoolean("success")) {
+                        System.out.println(object);
+                        this.handleLoginResponse(object);
                         return null;
                     }
-                    if (class8774.has("error")) {
-                        s2 = class8774.getString("error");
+                    if (object.has("error")) {
+                        s2 = object.getString("error");
                     }
                     return s2;
                 }
@@ -204,12 +204,12 @@ public class NetworkManager {
         return s2;
     }
 
-    public void method19346(final String field25693) {
-        if (!field25693.equals("error")) {
-            this.field25693 = field25693;
+    public void validateSession(final String session) {
+        if (!session.equals("error")) {
+            this.session = session;
         }
         else {
-            this.field25693 = null;
+            this.session = null;
         }
     }
 
@@ -218,7 +218,7 @@ public class NetworkManager {
     }
 
     public void resetLicense() {
-        this.field25693 = null;
+        this.session = null;
         this.encryptor = null;
         premium = false;
         final File file = new File("jello/jello.lic");
@@ -227,7 +227,7 @@ public class NetworkManager {
         }
     }
 
-    public CaptchaChecker getChallengeResponse() {
+    public CaptchaChecker getCaptcha() {
         if (this.captcha != null && this.captcha.isCompleted()) {
             return this.captcha;
         }
@@ -235,7 +235,7 @@ public class NetworkManager {
             final HttpPost httpPost = new HttpPost(this.challengeUrl);
             final List<BasicNameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("token", this.token));
-            httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
+            httpPost.setEntity(new UrlEncodedFormEntity(list, StandardCharsets.UTF_8));
             final HttpEntity entity = this.httpClient.execute(httpPost).getEntity();
             if (entity != null) {
                 try (final InputStream content = entity.getContent()) {
@@ -261,27 +261,27 @@ public class NetworkManager {
     }
 
     public void handleLoginResponse(final JSONObject JSONObject) throws JSONException {
-        String method13268 = null;
-        String method13269 = null;
-        String method13270 = null;
+        String authToken = null;
+        String username = null;
+        String agoraToken = null;
         if (JSONObject.has("username")) {
-            method13269 = JSONObject.getString("username");
+            username = JSONObject.getString("username");
         }
         if (JSONObject.has("auth_token")) {
-            method13268 = JSONObject.getString("auth_token");
+            authToken = JSONObject.getString("auth_token");
         }
         if (JSONObject.has("agora_token")) {
-            method13270 = JSONObject.getString("agora_token");
+            agoraToken = JSONObject.getString("agora_token");
         }
-        if (method13268 != null && method13269 != null && method13270 != null) {
+        if (authToken != null && username != null && agoraToken != null) {
             try {
-                this.encryptor = new Encryptor(method13269, method13268, method13270);
+                this.encryptor = new Encryptor(username, authToken, agoraToken);
                 FileUtils.writeByteArrayToFile(new File("jello/jello.lic"), this.encryptor.encrypt());
             }
             catch (final IOException ex) {}
         }
         if (JSONObject.has("session")) {
-            this.method19346(JSONObject.getString("session"));
+            this.validateSession(JSONObject.getString("session"));
         }
     }
 
