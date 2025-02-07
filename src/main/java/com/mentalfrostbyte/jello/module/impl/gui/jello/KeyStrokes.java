@@ -189,13 +189,13 @@ public class KeyStrokes extends Module {
         public int padding = 3;
         public final KeyBinding bind;
 
-        private Keystroke(float positionX, float positionY, KeyBinding bind) {
+        Keystroke(float positionX, float positionY, KeyBinding bind) {
             this.positionX = positionX;
             this.positionY = positionY;
             this.bind = bind;
         }
 
-        private Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
+       Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
             this.positionX = positionX;
             this.positionY = positionY;
             this.bind = bind;
@@ -232,7 +232,6 @@ public class KeyStrokes extends Module {
                 case Back -> mc.gameSettings.keyBindBack;
                 case Attack -> mc.gameSettings.keyBindAttack;
                 case UseItem -> mc.gameSettings.keyBindUseItem;
-                default -> null;
             };
         }
     }
