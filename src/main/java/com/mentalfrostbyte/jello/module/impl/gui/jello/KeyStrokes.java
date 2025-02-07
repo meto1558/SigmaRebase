@@ -64,20 +64,20 @@ public class KeyStrokes extends Module {
                     for (Keystroke keystroke : Keystroke.values()) {
                         KeyPosition topLeftKey = keystroke.getTopLeftPosition();
                         KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
-                        float var10 = 1.0F;
-                        float var11 = 1.0F;
+                        float topLeftOpacityMul = 1.0F;
+                        float bottomRightOpacityMul = 1.0F;
                         if (Client.getInstance().guiManager.getGuiBlur()) {
-                            var11 = 0.5F;
-                            var10 = 0.5F;
+                            bottomRightOpacityMul = 0.5F;
+                            topLeftOpacityMul = 0.5F;
                         }
 
-                        String var12 = RenderUtil.getKeyName(keystroke.bind.keyCode.getKeyCode());
+                        String keyName = RenderUtil.getKeyName(keystroke.bind.keyCode.getKeyCode());
                         if (keystroke.bind != mc.gameSettings.keyBindAttack) {
                             if (keystroke.bind == mc.gameSettings.keyBindUseItem) {
-                                var12 = "R";
+                                keyName = "R";
                             }
                         } else {
-                            var12 = "L";
+                            keyName = "L";
                         }
 
                         RenderUtil.drawRoundedRect(
@@ -85,7 +85,7 @@ public class KeyStrokes extends Module {
                                 (float) (this.yBase + topLeftKey.y),
                                 (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
                                 (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * topLeftOpacityMul)
                         );
                         RenderUtil.drawRoundedRect(
                                 (float) (this.xBase + topLeftKey.x),
@@ -93,13 +93,13 @@ public class KeyStrokes extends Module {
                                 (float) bottomRightKey.x,
                                 (float) bottomRightKey.y,
                                 10.0F,
-                                0.75F * var11
+                                0.75F * bottomRightOpacityMul
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
-                                (float) (this.xBase + topLeftKey.x + (bottomRightKey.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
+                                (float) (this.xBase + topLeftKey.x + (bottomRightKey.x - ResourceRegistry.JelloLightFont18.getWidth(keyName)) / 2),
                                 (float) (this.yBase + topLeftKey.y + 12),
-                                var12,
+                                keyName,
                                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
                         );
                     }
@@ -130,8 +130,8 @@ public class KeyStrokes extends Module {
                             animationData.animation.updateStartTime(maxAnimPercent);
                         }
 
-                        float var27 = animationData.animation.calcPercent();
-                        float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
+                        float animPercent = animationData.animation.calcPercent();
+                        float alpha = (1.0F - animPercent * (0.5F + animPercent * 0.5F)) * 0.8F;
                         int color = RenderUtil2.applyAlpha(-5658199, alpha);
                         if (Client.getInstance().guiManager.getGuiBlur()) {
                             color = RenderUtil2.applyAlpha(-1, alpha);
@@ -140,7 +140,7 @@ public class KeyStrokes extends Module {
                         RenderUtil.drawFilledArc(
                                 (float) (this.xBase + topLeftPosition.x + bottomRightPosition.getX() / 2),
                                 (float) (this.yBase + topLeftPosition.y + bottomRightPosition.y / 2),
-                                (float) (bottomRightPosition.getX() - 4) * var27 + 4.0F,
+                                (float) (bottomRightPosition.getX() - 4) * animPercent + 4.0F,
                                 color
                         );
                         RenderUtil.endScissor();
