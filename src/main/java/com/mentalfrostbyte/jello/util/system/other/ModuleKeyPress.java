@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.util.system.other;
 import java.lang.reflect.InvocationTargetException;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Bound;
 import com.mentalfrostbyte.jello.managers.GuiManager;

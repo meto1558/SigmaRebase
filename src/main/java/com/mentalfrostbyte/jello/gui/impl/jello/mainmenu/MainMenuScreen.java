@@ -2,9 +2,12 @@ package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.notifications.AlertComponentType;
+import com.mentalfrostbyte.jello.gui.base.notifications.AlertComponent;
 import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.impl.others.panels.AlertPanel;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -294,11 +297,11 @@ public class MainMenuScreen extends Screen {
     public void logout() {
         if (this.alertPanel == null) {
             this.runThisOnDimensionUpdate(() -> {
-                ArrayList<MiniAlert> alert = new ArrayList<>();
-                alert.add(new MiniAlert(AlertType.HEADER, "Logout", 45));
-                alert.add(new MiniAlert(AlertType.FIRST_LINE, "Are you sure?", 35));
-                alert.add(new MiniAlert(AlertType.BUTTON, "Yes", 55));
-                this.showAlert(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
+                ArrayList<AlertComponent> alert = new ArrayList<>();
+                alert.add(new AlertComponent(AlertComponentType.HEADER, "Logout", 45));
+                alert.add(new AlertComponent(AlertComponentType.FIRST_LINE, "Are you sure?", 35));
+                alert.add(new AlertComponent(AlertComponentType.BUTTON, "Yes", 55));
+                this.showAlert(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new AlertComponent[0])));
                 this.alertPanel.method13604(var1 -> new Thread(() -> {
                     try {
                         Thread.sleep(114L);

@@ -1,10 +1,12 @@
 package com.mentalfrostbyte.jello.gui.base;
 
 import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
+import com.mentalfrostbyte.jello.gui.base.interfaces.IGuiEventListener;
+import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import org.newdawn.slick.TrueTypeFont;
 import com.mojang.blaze3d.platform.GlStateManager;

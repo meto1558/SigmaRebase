@@ -1,21 +1,19 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4238;
-import com.mentalfrostbyte.jello.gui.unmapped.PNGIconButton;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.SmallImage;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.TrueTypeFont;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
-public class MainMenuButton extends PNGIconButton implements Class4238 {
+public class MainMenuButton extends SmallImage {
    public boolean field20577 = false;
    public Animation field20578 = new Animation(160, 140, Animation.Direction.BACKWARDS);
 
@@ -135,13 +133,4 @@ public class MainMenuButton extends PNGIconButton implements Class4238 {
       super.method13226(partialTicks);
    }
 
-   @Override
-   public float method13032() {
-      return 1.2F;
-   }
-
-   @Override
-   public float method13033() {
-      return 0.07F * (30.0F / (float) Minecraft.getFps());
-   }
 }

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
 import com.mentalfrostbyte.jello.command.impl.*;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;

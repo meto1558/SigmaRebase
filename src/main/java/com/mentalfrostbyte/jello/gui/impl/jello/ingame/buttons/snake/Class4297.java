@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.snake;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
+import com.mentalfrostbyte.jello.gui.impl.others.panels.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.util.system.render.ScreenDimension;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;

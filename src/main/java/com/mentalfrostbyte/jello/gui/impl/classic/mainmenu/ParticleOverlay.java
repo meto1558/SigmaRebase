@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimationManager;
+import com.mentalfrostbyte.jello.gui.impl.others.panels.AnimatedIconPanelWrap;
+import com.mentalfrostbyte.jello.managers.AnimationManager;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons.Particle;
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
 import net.minecraft.client.Minecraft;

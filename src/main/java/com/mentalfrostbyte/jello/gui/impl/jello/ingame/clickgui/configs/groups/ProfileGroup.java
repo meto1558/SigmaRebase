@@ -1,17 +1,17 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.buttons.ConfigButton;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4284;
+import com.mentalfrostbyte.jello.gui.impl.others.panels.AnimatedIconPanelWrap;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.buttons.EditProfileButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -65,7 +65,7 @@ public class ProfileGroup extends AnimatedIconPanelWrap {
       var12.setPrimaryColor(-3254955);
       var12.setSecondaryColor(-4700859);
       var12.setTextColor(ClientColors.LIGHT_GREYISH_BLUE.getColor());
-      this.addToList(this.buttonList = new Class4284(this, "edit", var5 - this.field21270, 0, this.field21270, var6));
+      this.addToList(this.buttonList = new EditProfileButton(this, "edit", var5 - this.field21270, 0, this.field21270, var6));
       ConfigButton var13;
       this.buttonList.addToList(var13 = new ConfigButton(this.buttonList, "rename", 0, 0, this.field21270 / 2, var6, var11, "Rename"));
       ConfigButton deleteButton;

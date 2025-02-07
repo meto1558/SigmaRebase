@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.client.render;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
 import org.newdawn.slick.TrueTypeFont;
 
 import java.awt.*;

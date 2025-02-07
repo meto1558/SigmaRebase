@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.Text;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.impl.others.panels.AnimatedIconPanelWrap;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Label;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -45,7 +45,7 @@ public class ClassicMainScreen extends Screen {
         int var14 = 480;
         this.addToList(this.field21103 = new ClassicMainScreenGroup(this, "group", (this.getWidthA() - var13) / 2, this.getHeightA() / 2 - 230, var13, var14));
         this.addToList(
-                this.field21095 = new Text(
+                this.field21095 = new Label(
                         this, "Copyright", 10, 8, font.getWidth(copyrightTag), 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), copyrightTag, ResourceRegistry.JelloLightFont18
                 )
         );
@@ -56,9 +56,9 @@ public class ClassicMainScreen extends Screen {
         var16.add("Omikron");
         Collections.shuffle(var16);
         String var17 = "by " + var16.get(0) + ", " + var16.get(1);
-        this.addToList(new Text(this, "names", 130, 9, font.getWidth(copyrightTag), 140, var15, var17, Resources.regular17));
+        this.addToList(new Label(this, "names", 130, 9, font.getWidth(copyrightTag), 140, var15, var17, Resources.regular17));
         this.addToList(
-                this.field21094 = new Text(
+                this.field21094 = new Label(
                         this,
                         "Version",
                         this.getWidthA() - font.getWidth(versionTag) - 9,
@@ -70,9 +70,9 @@ public class ClassicMainScreen extends Screen {
                         font
                 )
         );
-        this.addToList(new Text(this, "Hello", 10, this.getHeightA() - 55, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "Hello,", font));
+        this.addToList(new Label(this, "Hello", 10, this.getHeightA() - 55, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "Hello,", font));
         this.addToList(
-                new Text(
+                new Label(
                         this, "Latest", 10, this.getHeightA() - 31, 114, 140, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), "You are using the latest version", font
                 )
         );

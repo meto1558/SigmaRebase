@@ -3,12 +3,16 @@ package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Label;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.GetPremiumButton;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextButtonWithImage;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -32,11 +36,11 @@ public class JelloMainMenu extends CustomGuiScreen {
     private final Button optionsButton;
     private final Button altManagerButton;
     private final GetPremiumButton premiumButton;
-    private final Text field21129;
-    private final Text field21130;
+    private final Label field21129;
+    private final Label field21130;
     private final TextButtonWithImage loginButton;
-    private final UIButton changelogButton;
-    private final UIButton field21133;
+    private final TextButton changelogButton;
+    private final TextButton field21133;
     public int field21134 = 0;
 
     public JelloMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
@@ -121,12 +125,12 @@ public class JelloMainMenu extends CustomGuiScreen {
                 )
         );
         this.addToList(
-                this.field21130 = new Text(
+                this.field21130 = new Label(
                         this, "Copyright", 10, this.getHeightA() - 31, var15.getWidth(prod), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), prod, var15
                 )
         );
         this.addToList(
-                this.field21129 = new Text(
+                this.field21129 = new Label(
                         this,
                         "Version",
                         this.getWidthA() - var15.getWidth(version) - 9,
@@ -141,12 +145,12 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.field21130.field20779 = true;
         this.field21129.field20779 = true;
         this.addToList(
-                this.changelogButton = new UIButton(
+                this.changelogButton = new TextButton(
                         this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
                 )
         );
         this.addToList(
-                this.field21133 = new UIButton(
+                this.field21133 = new TextButton(
                         this, "quit", 30, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
                 )
         );

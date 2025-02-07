@@ -3,9 +3,9 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 
-public class SpotlightDialog extends UIBase {
+public class SpotlightDialog extends Element {
    public TextField query;
    public String field20640;
 

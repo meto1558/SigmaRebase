@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializer;
 import org.apache.commons.io.IOUtils;
 import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
@@ -152,7 +152,7 @@ public class ProfileManager {
 
     public void loadConfig(Configuration var1) {
         Client.getInstance().saveClientData();
-        ModuleSettingInitializr.field8343 = new HashMap<>();
+        ModuleSettingInitializer.field8343 = new HashMap<>();
         if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
             this.currentConfigs.serializedConfigData = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
             this.currentConfigs = var1;

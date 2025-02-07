@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.gui.unmapped.MacOSTouchBar;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
+import com.mentalfrostbyte.jello.util.client.render.JelloTouch;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -29,7 +29,7 @@ public class ModuleManager {
 
     private final Map<Class<? extends Module>, Module> moduleMap = new LinkedHashMap<>();
     private ProfileManager profile;
-    private MacOSTouchBar macOSTouchBar;
+    private JelloTouch jelloTouch;
     private List<Module> modules;
 
     private void createModules() {
@@ -220,8 +220,8 @@ public class ModuleManager {
         return moduleMap;
     }
 
-    public MacOSTouchBar getMacOSTouchBar() {
-        return macOSTouchBar;
+    public JelloTouch getMacOSTouchBar() {
+        return jelloTouch;
     }
 
     public Module getModuleByClass(Class<? extends Module> module) {
@@ -310,18 +310,18 @@ public class ModuleManager {
         }
 
         this.profile = new ProfileManager();
-        this.macOSTouchBar = new MacOSTouchBar();
+        this.jelloTouch = new JelloTouch();
 
         try {
             this.profile.loadProfile(var4);
-            this.macOSTouchBar.method13732(var1);
+            this.jelloTouch.method13732(var1);
         } catch (IOException var6) {
             Client.getInstance().getLogger().warn("Could not load profiles!");
             var6.printStackTrace();
             throw new RuntimeException("sorry m8");
         }
 
-        this.macOSTouchBar.init();
+        this.jelloTouch.init();
     }
 
     public JSONObject saveCurrentConfigToJSON(JSONObject obj) {
@@ -341,7 +341,7 @@ public class ModuleManager {
 
         try {
             this.profile.saveAndReplaceConfigs();
-            this.macOSTouchBar.getKeybindsJSONObject(var1);
+            this.jelloTouch.getKeybindsJSONObject(var1);
         } catch (IOException var5) {
             var5.printStackTrace();
             Client.getInstance().getLogger().warn("Unable to save mod profiles...");

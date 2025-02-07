@@ -1,11 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.Class6665;
-import com.mentalfrostbyte.jello.gui.unmapped.IWidthSetter;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.impl.others.panels.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -13,8 +12,8 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
    private boolean field21201;
    private boolean field21202;
    private boolean field21203 = false;
-   public CustomGuiScreen buttonList;
-   public VerticalScrollBar field21205;
+   public CustomGuiScreen content;
+   public VerticalScrollBar scroll;
    private boolean field21206 = true;
    public int field21207 = 35;
    public boolean field21208 = false;
@@ -39,19 +38,19 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
       this.method13511();
    }
 
-   private final void method13511() {
-      this.getChildren().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
-      this.buttonList.setSize(new Class6665());
-      this.getChildren().add(this.field21205 = new VerticalScrollBar(this, 11));
-      this.field21205.method13292(true);
+   private void method13511() {
+      this.getChildren().add(this.content = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
+      this.content.setSize(new ContentPanel());
+      this.getChildren().add(this.scroll = new VerticalScrollBar(this, 11));
+      this.scroll.method13292(true);
    }
 
    public void method13512(int var1) {
-      this.field21205.field20793 = var1;
+      this.scroll.scrollOffset = var1;
    }
 
    public int method13513() {
-      return this.field21205 != null ? this.field21205.field20793 : 0;
+      return this.scroll != null ? this.scroll.scrollOffset : 0;
    }
 
    public void method13514(boolean var1) {
@@ -62,7 +61,7 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
    public void updatePanelDimensions(int newHeight, int newWidth) {
       if (!this.field21203 || this.isVisible()) {
          super.updatePanelDimensions(newHeight, newWidth);
-         this.buttonList.setYA(-1 * this.field21205.method13162());
+         this.content.setYA(-1 * this.scroll.getScrollOffset());
 
          for (CustomGuiScreen var6 : this.getButton().getChildren()) {
             for (IWidthSetter var8 : var6.method13260()) {
@@ -97,21 +96,21 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
 
    @Override
    public void addToList(CustomGuiScreen var1) {
-      this.buttonList.addToList(var1);
+      this.content.addToList(var1);
    }
 
    @Override
    public boolean hasChild(CustomGuiScreen child) {
-      return this.buttonList.hasChild(child);
+      return this.content.hasChild(child);
    }
 
    @Override
    public boolean isntQueue(String var1) {
-      return this.buttonList.isntQueue(var1);
+      return this.content.isntQueue(var1);
    }
 
    public CustomGuiScreen getButton() {
-      return this.buttonList;
+      return this.content;
    }
 
    public void method13518(boolean var1) {
