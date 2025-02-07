@@ -1,11 +1,11 @@
 package com.mentalfrostbyte.jello.util.game.render;
 
 import com.mentalfrostbyte.jello.Client;
-import org.newdawn.slick.TrueTypeFont;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import org.newdawn.slick.TrueTypeFont;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class RenderUtil2 {
     public static final ResourceLocation BLUR_SHADER = new ResourceLocation("shaders/post/blur.json");
 
     public static int applyAlpha(int color, float alpha) {
-        return (int)(alpha * 255.0F) << 24 | color & 16777215;
+        return (int) (alpha * 255.0F) << 24 | color & 16777215;
     }
 
     /**
@@ -29,16 +29,16 @@ public class RenderUtil2 {
      * @param shift The factor by which to adjust the color towards black. A value of 0.0 will leave the color unchanged,
      *              while a value of 1.0 will result in a completely black color.
      * @return The adjusted color as an integer, with the same alpha component as the original color and RGB components
-     *         adjusted towards black by the specified factor.
+     * adjusted towards black by the specified factor.
      */
     public static int shiftTowardsBlack(int color, float shift) {
         int a = color >> 24 & 0xFF;
         int r = color >> 16 & 0xFF;
         int g = color >> 8 & 0xFF;
         int b = color & 0xFF;
-        int shiftedR = (int)((float)r * (1.0F - shift));
-        int shiftedG = (int)((float)g * (1.0F - shift));
-        int shiftedB = (int)((float)b * (1.0F - shift));
+        int shiftedR = (int) ((float) r * (1.0F - shift));
+        int shiftedG = (int) ((float) g * (1.0F - shift));
+        int shiftedB = (int) ((float) b * (1.0F - shift));
         return a << 24 | (shiftedR & 0xFF) << 16 | (shiftedG & 0xFF) << 8 | shiftedB & 0xFF;
     }
 
@@ -48,7 +48,7 @@ public class RenderUtil2 {
         assert mc.world != null;
         mc.world.entitiesById.forEach((var1, var2x) -> {
             if (var2x instanceof PlayerEntity) {
-                result.add((PlayerEntity)var2x);
+                result.add((PlayerEntity) var2x);
             }
         });
         return result;
@@ -58,14 +58,14 @@ public class RenderUtil2 {
      * Adjusts the RGB components of 2 colors towards black by 1 specified factor.
      * The alpha component remains unchanged.
      *
-     * @param color The 1st original color represented as an integer, where the highest byte is the alpha component,
-     *              followed by red, green, and blue components.
+     * @param color  The 1st original color represented as an integer, where the highest byte is the alpha component,
+     *               followed by red, green, and blue components.
      * @param color2 The 2nd original color represented as an integer, where the highest byte is the alpha component,
-     *              followed by red, green, and blue components.
-     * @param shift The factor by which to adjust the color towards black. A value of 0.0 will leave the color unchanged,
-     *              while a value of 1.0 will result in the same color as the other.
+     *               followed by red, green, and blue components.
+     * @param shift  The factor by which to adjust the color towards black. A value of 0.0 will leave the color unchanged,
+     *               while a value of 1.0 will result in the same color as the other.
      * @return The adjusted color as an integer, with the same alpha component as the original color and RGB components
-     *         adjusted towards each-other, I think...
+     * adjusted towards each-other, I think...
      */
     public static int shiftTowardsOther(int color, int color2, float shift) {
         int a1 = color >> 24 & 0xFF;
@@ -77,15 +77,15 @@ public class RenderUtil2 {
         int g2 = color2 >> 8 & 0xFF;
         int b2 = color2 & 0xFF;
         float factor = 1.0F - shift;
-        float shiftedA = (float)a1 * shift + (float)a2 * factor;
-        float shiftedR = (float)r1 * shift + (float)r2 * factor;
-        float shiftedG = (float)g1 * shift + (float)g2 * factor;
-        float shiftedB = (float)b1 * shift + (float)b2 * factor;
-        return (int)shiftedA << 24 | ((int)shiftedR & 0xFF) << 16 | ((int)shiftedG & 0xFF) << 8 | (int)shiftedB & 0xFF;
+        float shiftedA = (float) a1 * shift + (float) a2 * factor;
+        float shiftedR = (float) r1 * shift + (float) r2 * factor;
+        float shiftedG = (float) g1 * shift + (float) g2 * factor;
+        float shiftedB = (float) b1 * shift + (float) b2 * factor;
+        return (int) shiftedA << 24 | ((int) shiftedR & 0xFF) << 16 | ((int) shiftedG & 0xFF) << 8 | (int) shiftedB & 0xFF;
     }
 
     public static float getAlpha(int color) {
-        return (float)(color >> 24 & 0xFF) / 255.0F;
+        return (float) (color >> 24 & 0xFF) / 255.0F;
     }
 
     public static float[] method17701(float var0, float var1, float var2, float var3) {
@@ -112,13 +112,13 @@ public class RenderUtil2 {
         int var7 = 0;
 
         for (String var11 : var5) {
-            String var12 = var6.get(var7) != null ? (String)var6.get(var7) : "";
+            String var12 = var6.get(var7) != null ? (String) var6.get(var7) : "";
             boolean var13 = var6.get(var7) == null;
             boolean var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
             boolean var15 = var2.getWidth(var11) >= var1;
             if (!var14 && !var15) {
                 var7++;
-                var12 = var6.get(var7) != null ? (String)var6.get(var7) : "";
+                var12 = var6.get(var7) != null ? (String) var6.get(var7) : "";
                 var13 = var6.get(var7) == null;
                 var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
                 var15 = var2.getWidth(var11) >= var1;
@@ -146,7 +146,7 @@ public class RenderUtil2 {
                             var11 = var11.substring(var11.length() - var16, var11.length());
                         }
 
-                        var12 = var6.get(var7) != null ? (String)var6.get(var7) : "";
+                        var12 = var6.get(var7) != null ? (String) var6.get(var7) : "";
                         var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
                         var15 = var2.getWidth(var11) >= var1;
                         var13 = var6.get(var7) == null;
@@ -179,8 +179,8 @@ public class RenderUtil2 {
 
     public static void setShaderParams(int radius) {
         if (mc.gameRenderer.shaderGroup != null) {
-            mc.gameRenderer.shaderGroup.listShaders.get(0).getShaderManager().getShaderUniform("Radius").set((float)radius);
-            mc.gameRenderer.shaderGroup.listShaders.get(1).getShaderManager().getShaderUniform("Radius").set((float)radius);
+            mc.gameRenderer.shaderGroup.listShaders.get(0).getShaderManager().getShaderUniform("Radius").set((float) radius);
+            mc.gameRenderer.shaderGroup.listShaders.get(1).getShaderManager().getShaderUniform("Radius").set((float) radius);
         }
     }
 
@@ -198,38 +198,38 @@ public class RenderUtil2 {
     }
 
     public static float[] intColorToFloatArrayColor(int color) {
-        float a = (float)(color >> 24 & 0xFF) / 255.0F;
-        float r = (float)(color >> 16 & 0xFF) / 255.0F;
-        float g = (float)(color >> 8 & 0xFF) / 255.0F;
-        float b = (float)(color & 0xFF) / 255.0F;
+        float a = (float) (color >> 24 & 0xFF) / 255.0F;
+        float r = (float) (color >> 16 & 0xFF) / 255.0F;
+        float g = (float) (color >> 8 & 0xFF) / 255.0F;
+        float b = (float) (color & 0xFF) / 255.0F;
         return new float[]{r, g, b, a};
     }
 
-        /**
+    /**
      * Adjusts the RGB components of a color towards white by a specified factor.
      *
      * @param original The original color represented as an integer, where the highest byte is the alpha component,
-     *             followed by red, green, and blue components.
-     * @param shift The factor by which to adjust the color towards white. A value of 0.0 will leave the color unchanged,
-     *             while a value of 1.0 will result in a completely white color.
+     *                 followed by red, green, and blue components.
+     * @param shift    The factor by which to adjust the color towards white. A value of 0.0 will leave the color unchanged,
+     *                 while a value of 1.0 will result in a completely white color.
      * @return The adjusted color as an integer, with the same alpha component as the original color and RGB components
-     *         adjusted towards white by the specified factor.
+     * adjusted towards white by the specified factor.
      */
     public static int adjustColorTowardsWhite(int original, float shift) {
         int a = original >> 24 & 0xFF;
         int r = original >> 16 & 0xFF;
         int g = original >> 8 & 0xFF;
         int b = original & 0xFF;
-        int var8 = (int)((float)r + (float)(255 - r) * shift);
-        int var9 = (int)((float)g + (float)(255 - g) * shift);
-        int var10 = (int)((float)b + (float)(255 - b) * shift);
+        int var8 = (int) ((float) r + (float) (255 - r) * shift);
+        int var9 = (int) ((float) g + (float) (255 - g) * shift);
+        int var10 = (int) ((float) b + (float) (255 - b) * shift);
         return a << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
 
     public static Color method17682(Color... var0) {
         if (var0 != null) {
             if (var0.length > 0) {
-                float var3 = 1.0F / (float)var0.length;
+                float var3 = 1.0F / (float) var0.length;
                 float var4 = 0.0F;
                 float var5 = 0.0F;
                 float var6 = 0.0F;
@@ -240,10 +240,10 @@ public class RenderUtil2 {
                         var11 = Color.BLACK;
                     }
 
-                    var4 += (float)var11.getRed() * var3;
-                    var5 += (float)var11.getGreen() * var3;
-                    var6 += (float)var11.getBlue() * var3;
-                    var7 += (float)var11.getAlpha() * var3;
+                    var4 += (float) var11.getRed() * var3;
+                    var5 += (float) var11.getGreen() * var3;
+                    var6 += (float) var11.getBlue() * var3;
+                    var7 += (float) var11.getAlpha() * var3;
                 }
 
                 return new Color(var4 / 255.0F, var5 / 255.0F, var6 / 255.0F, var7 / 255.0F);
@@ -259,17 +259,17 @@ public class RenderUtil2 {
      * Blends two colors by a specified factor, resulting in a color that is a mix of the two.
      * The blending is done by interpolating each RGB component separately.
      *
-     * @param first The first color to blend, represented as a {@link Color} object.
+     * @param first  The first color to blend, represented as a {@link Color} object.
      * @param second The second color to blend, represented as a {@link Color} object.
      * @param factor The blending factor, where 0.0 results in the second color, and 1.0 results in the first color.
-     *             Values between 0.0 and 1.0 will result in a mix of the two colors.
+     *               Values between 0.0 and 1.0 will result in a mix of the two colors.
      * @return A new {@link Color} object representing the blended color.
      */
     public static Color blendColor(Color first, Color second, float factor) {
         float newFactor = 1.0F - factor;
-        float blendedR = (float)first.getRed() * factor + (float)second.getRed() * newFactor;
-        float blendedG = (float)first.getGreen() * factor + (float)second.getGreen() * newFactor;
-        float blendedB = (float)first.getBlue() * factor + (float)second.getBlue() * newFactor;
+        float blendedR = (float) first.getRed() * factor + (float) second.getRed() * newFactor;
+        float blendedG = (float) first.getGreen() * factor + (float) second.getGreen() * newFactor;
+        float blendedB = (float) first.getBlue() * factor + (float) second.getBlue() * newFactor;
         return new Color(blendedR / 255.0F, blendedG / 255.0F, blendedB / 255.0F);
     }
 

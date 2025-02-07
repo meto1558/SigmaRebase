@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.game.render.StencilMode;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -80,7 +79,7 @@ public class MapPanel extends UIBase {
       RenderUtil.drawRoundedButton(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
-      RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);
+      RenderUtil.configureStencilTest();
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
       this.field20615.draw(partialTicks);

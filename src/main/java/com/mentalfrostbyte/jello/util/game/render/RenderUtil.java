@@ -1209,11 +1209,11 @@ public class RenderUtil {
         stencilOpInProgress = false;
     }
 
-    public static void configureStencilTest(StencilMode mode) {
+    public static void configureStencilTest() {
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(true);
         GL11.glStencilMask(0);
-        GL11.glStencilFunc(mode != StencilMode.NOTEQUAL ? GL11.GL_NOTEQUAL : GL11.GL_EQUAL, 1, 1);
+        GL11.glStencilFunc(GL11.GL_EQUAL, 1, 1);
     }
 
     public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int color, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {

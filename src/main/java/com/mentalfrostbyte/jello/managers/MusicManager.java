@@ -14,7 +14,6 @@ import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.game.render.StencilMode;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import com.mentalfrostbyte.jello.util.system.network.NetworkUtil;
@@ -181,7 +180,7 @@ public class MusicManager {
                         RenderUtil.drawRoundedRect2((float) i * width, (float) mc.getMainWindow().getHeight() - height, width, height, ClientColors.LIGHT_GREYISH_BLUE.getColor());
                     }
 
-                    RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);
+                    RenderUtil.configureStencilTest();
                     if (this.notificationImage != null && this.songThumbnail != null) {
                         RenderUtil.drawImage(0.0F, 0.0F, (float) mc.getMainWindow().getWidth(), (float) mc.getMainWindow().getHeight(), this.songThumbnail, 0.4F);
                     }
