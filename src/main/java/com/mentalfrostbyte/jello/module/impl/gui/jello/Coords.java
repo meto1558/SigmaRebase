@@ -3,15 +3,15 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
-import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
+import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
+import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
@@ -50,11 +50,11 @@ public class Coords extends Module {
             if (mc.player != null) {
                 if (!(mc.gameSettings.showDebugInfo || mc.gameSettings.hideGUI)) {
                     float animation = Math.min(1.0F, 0.6F + this.animation.calcPercent() * 2.0F);
-                    String xyz = String.format("%.2f", mc.player.getPosX())
+                    String xyz = String.format("%.0f", mc.player.getPosX())
                             + " "
-                            + String.format("%.2f", mc.player.getPosY())
+                            + String.format("%.0f", mc.player.getPosY())
                             + " "
-                            + String.format("%.2f", mc.player.getPosZ());
+                            + String.format("%.0f", mc.player.getPosZ());
                     float var6 = 85;
                     int var7 = eventRender2DOffset.getyOffset();
                     float var8 = 150;
