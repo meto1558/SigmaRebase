@@ -3,7 +3,7 @@ package net.minecraft.entity.player;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import com.mojang.authlib.GameProfile;

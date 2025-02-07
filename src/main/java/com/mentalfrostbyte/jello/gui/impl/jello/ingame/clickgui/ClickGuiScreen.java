@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.SettingGroup;

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render.projectiles;
 import com.google.common.base.Predicate;
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;

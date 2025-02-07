@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.viamcp.protocolinfo.ProtocolInfo;
 

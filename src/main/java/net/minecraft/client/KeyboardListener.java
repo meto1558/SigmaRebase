@@ -3,7 +3,7 @@ package net.minecraft.client;
 import java.util.Locale;
 import javax.annotation.Nullable;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.util.system.other.ModuleKeyPress;
 import net.minecraft.block.BlockState;

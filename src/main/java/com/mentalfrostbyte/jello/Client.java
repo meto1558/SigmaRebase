@@ -1,8 +1,9 @@
-package com.mentalfrostbyte;
+package com.mentalfrostbyte.jello;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import com.mentalfrostbyte.emulator.Emulator;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
@@ -78,6 +79,14 @@ public class Client {
             if (!this.file.exists()) {
                 this.file.mkdirs();
             }
+
+            new Thread(() -> {
+                try {
+                    Emulator.start();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
 
             this.config = FileUtil.readFile(new File(this.file + "/config.json"));
         } catch (IOException var8) {

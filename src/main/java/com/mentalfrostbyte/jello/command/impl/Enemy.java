@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.command.impl;
 
 import com.mentalfrostbyte.jello.command.Command;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;

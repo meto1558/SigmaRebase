@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.game.render;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import org.newdawn.slick.TrueTypeFont;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.player.tracker;
 
 import com.google.gson.JsonArray;
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mojang.authlib.GameProfile;

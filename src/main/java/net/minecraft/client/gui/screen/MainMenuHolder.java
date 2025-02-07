@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.screen;
 
 import com.google.common.util.concurrent.Runnables;
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mojang.blaze3d.matrix.MatrixStack;

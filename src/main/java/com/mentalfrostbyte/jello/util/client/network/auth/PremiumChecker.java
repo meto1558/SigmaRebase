@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.client.network.auth;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.managers.NetworkManager;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.client.network.auth;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 

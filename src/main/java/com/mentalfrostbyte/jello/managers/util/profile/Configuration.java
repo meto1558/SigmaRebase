@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers.util.profile;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import totalcross.json.*;

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.util.client.logger;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import org.apache.commons.io.IOUtils;
 
 public class ClientLogger implements Logger {
@@ -18,27 +18,27 @@ public class ClientLogger implements Logger {
    }
 
    @Override
-   public void info(String str) {
+   public void info(String message) {
       try {
-         IOUtils.write("Jello: INFO - " + str + "\n", this.infoStream);
+         IOUtils.write("Jello: INFO - " + message + "\n", this.infoStream);
       } catch (IOException var5) {
          var5.printStackTrace();
       }
    }
 
    @Override
-   public void warn(String str) {
+   public void warn(String message) {
       try {
-         IOUtils.write("Jello: WARNING - " + str + "\n", this.warningStream);
+         IOUtils.write("Jello: WARNING - " + message + "\n", this.warningStream);
       } catch (IOException var5) {
          var5.printStackTrace();
       }
    }
 
    @Override
-   public void error(String str) {
+   public void error(String message) {
       try {
-         IOUtils.write("Jello: ERROR - " + str + "\n", this.errorStream);
+         IOUtils.write("Jello: ERROR - " + message + "\n", this.errorStream);
       } catch (IOException var5) {
          var5.printStackTrace();
       }
@@ -48,7 +48,7 @@ public class ClientLogger implements Logger {
     * wtf
     */
    @Override
-   public void setThreadName(String var1) {
+   public void setThreadName(String name) {
       Client.getInstance();
    }
 }

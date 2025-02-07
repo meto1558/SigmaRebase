@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.command.impl;
 
 import java.util.Map.Entry;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.KeyboardHolder;
 import com.mentalfrostbyte.jello.managers.CommandManager;
