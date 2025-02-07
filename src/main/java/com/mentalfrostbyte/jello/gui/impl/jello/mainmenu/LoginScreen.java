@@ -122,7 +122,7 @@ public class LoginScreen extends UIBase {
             CaptchaChecker captchaChecker = Client.getInstance().networkManager.getChallengeResponse();
             if (captchaChecker != null) {
                 captchaChecker.setChallengeAnswer(this.captcha.getTypedText());
-                System.out.println(captchaChecker.getChallengeAnswer());
+                System.out.println("answer: \"" + captchaChecker.getChallengeAnswer() + "\"");
             }
 
             String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText(), captchaChecker);
@@ -132,8 +132,7 @@ public class LoginScreen extends UIBase {
                 reg.method13424("Error", account);
                 this.captcha.setTypedText("");
             } else {
-                reg.method13424("Success", "You can now login.");
-                reg.method13423();
+                this.callUIHandlers();
             }
 
             this.loadingThingy.method13296(false);
