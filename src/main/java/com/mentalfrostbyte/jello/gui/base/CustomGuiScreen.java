@@ -619,9 +619,6 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public void method13252(int i) {
-        if (name.equals("Item3") && typedText.equals("Yes")) {
-            Client.getInstance().networkManager.username = null; // This is so fucking bad code but who cares :trol:
-        }
         for (DoThis doThis : this.doThese) {
             doThis.doIt(this, i);
         }
