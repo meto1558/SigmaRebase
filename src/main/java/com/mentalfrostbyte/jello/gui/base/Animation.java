@@ -5,7 +5,7 @@ import java.util.Date;
 public class Animation {
     public int duration;
     public int reverseDuration;
-    public Direction direction = Direction.FORWARDS;
+    public Direction direction;
     public Date startTime;
     public Date reverseStartTime;
 
@@ -14,6 +14,7 @@ public class Animation {
     }
 
     public Animation(int duration, int reverseDuration, Direction direction) {
+        this.direction = Direction.FORWARDS;
         this.duration = duration;
         this.reverseDuration = reverseDuration;
         this.startTime = new Date();
@@ -21,29 +22,16 @@ public class Animation {
         this.changeDirection(direction);
     }
 
-    /**
-     * Calculates the progress of an animation with consideration for reverse timing.
-     *
-     * @param startForward The start time of the forward animation. If null, the current time is used.
-     * @param startReverse The start time of the reverse animation. If null, the current time is used.
-     * @param maxForward   The maximum duration of the forward animation in milliseconds.
-     * @param maxReverse   The maximum duration of the reverse animation in milliseconds.
-     * @return A float value representing the progress of the animation, ranging from 0.0 to 1.0.
-     */
-    public static float calculateProgressWithReverse(Date startForward, Date startReverse, float maxForward, float maxReverse) {
-        float var6 = Math.min(maxForward, (float) (new Date().getTime() - (startForward != null ? startForward.getTime() : new Date().getTime())))
-                / maxForward
-                * (1.0F - Math.min(maxReverse, (float) (new Date().getTime() - (startReverse != null ? startReverse.getTime() : new Date().getTime()))) / maxReverse);
-        return Math.max(0.0F, Math.min(1.0F, var6));
+    public static float calculateProgressWithReverse(final Date date, final Date date2, final float a, final float a2) {
+        return Math.max(0.0f, Math.min(1.0f, Math.min(a, (float) (new Date().getTime() - ((date != null) ? date.getTime() : new Date().getTime()))) / a * (1.0f - Math.min(a2, (float) (new Date().getTime() - ((date2 != null) ? date2.getTime() : new Date().getTime()))) / a2)));
     }
 
-    public static float calculateProgress(Date date, float max) {
-        float var4 = Math.min(max, (float) (new Date().getTime() - (date != null ? date.getTime() : new Date().getTime()))) / max;
-        return Math.max(0.0F, Math.min(1.0F, var4));
+    public static float calculateProgress(final Date date, final float a) {
+        return Math.max(0.0f, Math.min(1.0f, Math.min(a, (float) (new Date().getTime() - ((date != null) ? date.getTime() : new Date().getTime()))) / a));
     }
 
-    public static float calculateProgressWithReverse(Date startForward, Date startReverse, float max) {
-        return calculateProgressWithReverse(startForward, startReverse, max, max);
+    public static float calculateProgressWithReverse(final Date date, final Date date2, final float max) {
+        return calculateProgressWithReverse(date, date2, max, max);
     }
 
     public static boolean hasTimeElapsed(Date time, float elapsed) {
@@ -54,20 +42,16 @@ public class Animation {
         return this.duration;
     }
 
-    public void changeDirection(Direction newDirection) {
-        if (this.direction != newDirection) {
-            switch (direction) {
-                case FORWARDS:
-                    long var4 = (long) (this.calcPercent() * (float) this.duration);
-                    this.startTime = new Date(new Date().getTime() - var4);
-                    break;
-                case BACKWARDS:
-                    long var6 = (long) ((1.0F - this.calcPercent()) * (float) this.reverseDuration);
-                    this.reverseStartTime = new Date(new Date().getTime() - var6);
-            }
-
-            this.direction = newDirection;
+    public void changeDirection(final Direction direction) {
+        if (this.direction == direction) {
+            return;
         }
+        if (direction == Direction.FORWARDS) {
+            this.startTime = new Date(new Date().getTime() - (long) (this.calcPercent() * this.duration));
+        } else {
+            this.reverseStartTime = new Date(new Date().getTime() - (long) ((1.0f - this.calcPercent()) * this.reverseDuration));
+        }
+        this.direction = direction;
     }
 
     /**
@@ -77,15 +61,16 @@ public class Animation {
      * @see #getDirection()
      * @see #getDuration()
      */
-    public void updateStartTime(float progress) {
-        switch (direction) {
-            case FORWARDS:
-                long timeElapsed = (long) (progress * (float) this.duration);
-                this.startTime = new Date(new Date().getTime() - timeElapsed);
+    public void updateStartTime(final float progress) {
+        switch (this.direction.ordinal()) {
+            case 1: {
+                this.startTime = new Date(new Date().getTime() - (long) (progress * this.duration));
                 break;
-            case BACKWARDS:
-                long timeRemaining = (long) ((1.0F - progress) * (float) this.reverseDuration);
-                this.reverseStartTime = new Date(new Date().getTime() - timeRemaining);
+            }
+            case 2: {
+                this.reverseStartTime = new Date(new Date().getTime() - (long) ((1.0f - progress) * this.reverseDuration));
+                break;
+            }
         }
     }
 
@@ -94,9 +79,10 @@ public class Animation {
     }
 
     public float calcPercent() {
-        return this.direction != Direction.FORWARDS
-                ? 1.0F - (float) Math.min(this.reverseDuration, new Date().getTime() - this.reverseStartTime.getTime()) / (float) this.reverseDuration
-                : (float) Math.min(this.duration, new Date().getTime() - this.startTime.getTime()) / (float) this.duration;
+        if (this.direction == Direction.BACKWARDS) {
+            return Math.max(0.0f, 1.0f - Math.min(1.0f, (new Date().getTime() - this.reverseStartTime.getTime()) / (float) this.reverseDuration));
+        }
+        return Math.min(1.0f, (new Date().getTime() - this.startTime.getTime()) / (float) this.duration);
     }
 
     public enum Direction {
