@@ -1,13 +1,23 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
 import com.mentalfrostbyte.jello.module.Module;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+import totalcross.json.JSONArray;
 import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
@@ -27,10 +37,34 @@ public class Class8233 {
    }
 
    public List<String> getOnlineConfigs() {
+      try {
+         HttpGet var3 = new HttpGet("http://localhost/profiles.php?v=" + Client.RELEASE_TARGET);
+         CloseableHttpResponse var4 = HttpClients.createDefault().execute(var3);
+         HttpEntity var5 = var4.getEntity();
+         if (var5 != null) {
+            List<String> var24;
+            try (InputStream var6 = var5.getContent()) {
+               String var8 = IOUtils.toString(var6, StandardCharsets.UTF_8);
+               JSONArray var9 = new JSONArray(var8);
+               List<String> var10 = new ArrayList<>();
+
+               for (int var11 = 0; var11 < var9.length(); var11++) {
+                  var10.add(var9.getString(var11));
+               }
+
+               var24 = var10;
+            }
+
+            return var24;
+         }
+      } catch (IOException var23) {
+         var23.printStackTrace();
+      }
+
       return Collections.EMPTY_LIST;
    }
 
-   public String method28655(String var1) {
+   public String encode(String var1) {
       try {
          return URLEncoder.encode(var1, "UTF-8");
       } catch (UnsupportedEncodingException var5) {
@@ -39,6 +73,23 @@ public class Class8233 {
    }
 
    public JSONObject getJSONObject(String var1) {
+      try {
+         HttpGet var4 = new HttpGet("http://localhost/profiles/" + this.encode(var1) + ".profile?v=" + Client.RELEASE_TARGET);
+         CloseableHttpResponse var5 = HttpClients.createDefault().execute(var4);
+         HttpEntity var6 = var5.getEntity();
+         if (var6 != null) {
+            JSONObject var10;
+            try (InputStream var7 = var6.getContent()) {
+               String var9 = IOUtils.toString(var7, "UTF-8");
+               var10 = new JSONObject(var9);
+            }
+
+            return var10;
+         }
+      } catch (IOException var22) {
+         var22.printStackTrace();
+      }
+
       return new JSONObject();
    }
 
