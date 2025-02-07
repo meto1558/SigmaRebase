@@ -61,7 +61,7 @@ public class Class4266 extends UIBase {
    public void finalize() throws Throwable {
       try {
          if (this.field20688 != null) {
-            Client.getInstance().method19927(this.field20688);
+            Client.getInstance().addTexture(this.field20688);
          }
       } finally {
          super.finalize();

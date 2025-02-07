@@ -352,7 +352,7 @@ public class ModuleManager {
         ArrayList<Module> moduleList = new ArrayList<>();
 
         for (Module moduleFromMap : this.moduleMap.values()) {
-            if (moduleFromMap.getAdjustedCategoryBasedOnClientMode().equals(category)) {
+            if (moduleFromMap.getCategoryBasedOnMode().equals(category)) {
                 moduleList.add(moduleFromMap);
             }
         }

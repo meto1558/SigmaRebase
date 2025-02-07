@@ -232,7 +232,7 @@ public class Account {
     protected void finalize() throws Throwable {
         try {
             if (this.skinTexture != null) {
-                Client.getInstance().method19927(this.skinTexture);
+                Client.getInstance().addTexture(this.skinTexture);
             }
         } finally {
             super.finalize();

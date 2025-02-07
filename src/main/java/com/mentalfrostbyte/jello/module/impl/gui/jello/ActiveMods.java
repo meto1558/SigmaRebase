@@ -66,7 +66,7 @@ public class ActiveMods extends Module {
         this.activeModules.clear();
 
         for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (module.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI) {
+            if (module.getCategoryBasedOnMode() != ModuleCategory.GUI) {
                 this.activeModules.add(module);
                 this.animations.put(module, new Animation(150, 150, Animation.Direction.BACKWARDS));
 

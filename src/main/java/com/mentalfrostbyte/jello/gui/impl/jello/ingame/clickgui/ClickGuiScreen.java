@@ -49,9 +49,9 @@ public class ClickGuiScreen extends Screen {
         this.addToList(this.brainFreeze = new BrainFreezeOverlay(this, "brainFreeze"));
 
         for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (!this.categoryPanels.containsKey(module.getAdjustedCategoryBasedOnClientMode())) {
-                PanelGroup clickGUIPanels = new PanelGroup(this, module.getAdjustedCategoryBasedOnClientMode().name(), x, y, module.getAdjustedCategoryBasedOnClientMode());
-                this.categoryPanels.put(module.getAdjustedCategoryBasedOnClientMode(), clickGUIPanels);
+            if (!this.categoryPanels.containsKey(module.getCategoryBasedOnMode())) {
+                PanelGroup clickGUIPanels = new PanelGroup(this, module.getCategoryBasedOnMode().name(), x, y, module.getCategoryBasedOnMode());
+                this.categoryPanels.put(module.getCategoryBasedOnMode(), clickGUIPanels);
                 this.addToList(clickGUIPanels);
 
                 x += clickGUIPanels.getWidthA() + 10;

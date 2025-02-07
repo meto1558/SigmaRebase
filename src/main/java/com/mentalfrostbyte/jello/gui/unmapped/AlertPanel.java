@@ -293,7 +293,7 @@ public class AlertPanel extends UIBase {
    public void finalize() throws Throwable {
       try {
          if (this.field21281 != null) {
-            Client.getInstance().method19927(this.field21281);
+            Client.getInstance().addTexture(this.field21281);
          }
       } finally {
          super.finalize();

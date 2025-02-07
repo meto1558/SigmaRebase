@@ -63,7 +63,7 @@ public class Configuration {
                 }
 
                 for (Module var8 : Client.getInstance().moduleManager.getModuleMap().values()) {
-                    if (var8.getName().equals(var6) && var8.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI && var8.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.RENDER) {
+                    if (var8.getName().equals(var6) && var8.getCategoryBasedOnMode() != ModuleCategory.GUI && var8.getCategoryBasedOnMode() != ModuleCategory.RENDER) {
                         var5.put("enabled", "false");
                     }
                 }
@@ -88,7 +88,7 @@ public class Configuration {
                     JSONObject var8 = var5.getJSONObject(var7);
                     var9 = CJsonUtils.getStringOrDefault(var8, "name", null);
                     if (var2.getName().equals(var9)) {
-                        if (var2.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI && var2.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.RENDER) {
+                        if (var2.getCategoryBasedOnMode() != ModuleCategory.GUI && var2.getCategoryBasedOnMode() != ModuleCategory.RENDER) {
                             var5.put(var7, var1);
                         }
 

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -43,11 +43,11 @@ public class YoutubeVideoThumbnail extends AnimatedIconPanelWrap {
    public void finalize() throws Throwable {
       try {
          if (this.field20775 != null) {
-            Client.getInstance().method19927(this.field20775);
+            Client.getInstance().addTexture(this.field20775);
          }
 
          if (this.field20776 != null) {
-            Client.getInstance().method19927(this.field20776);
+            Client.getInstance().addTexture(this.field20776);
          }
       } finally {
          super.finalize();

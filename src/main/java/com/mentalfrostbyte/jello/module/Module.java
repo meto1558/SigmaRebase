@@ -174,7 +174,7 @@ public class Module {
     public void onDisable() {
     }
 
-    public ModuleCategory getAdjustedCategoryBasedOnClientMode() {
+    public ModuleCategory getCategoryBasedOnMode() {
         if (Client.getInstance().clientMode == ClientMode.CLASSIC && this.category == ModuleCategory.ITEM) {
             return ModuleCategory.PLAYER;
         } else {

@@ -46,11 +46,11 @@ public class Class4348 extends AnimatedIconPanelWrap {
    public void finalize() throws Throwable {
       try {
          if (this.field21246 != null) {
-            Client.getInstance().method19927(this.field21246);
+            Client.getInstance().addTexture(this.field21246);
          }
 
          if (this.field21245 != null) {
-            Client.getInstance().method19927(this.field21245);
+            Client.getInstance().addTexture(this.field21245);
          }
       } finally {
          super.finalize();

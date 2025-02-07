@@ -238,14 +238,14 @@ public class MacOSTouchBar {
 
    public Color method13740(Module var1) {
       Color var4 = new Color(0.0F, 0.0F, 0.0F, 0.0F);
-      if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.COMBAT) {
-         if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI) {
-            if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.ITEM) {
-               if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.MISC) {
-                  if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.MOVEMENT) {
-                     if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.PLAYER) {
-                        if (var1.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.RENDER) {
-                           if (var1.getAdjustedCategoryBasedOnClientMode() == ModuleCategory.WORLD) {
+      if (var1.getCategoryBasedOnMode() != ModuleCategory.COMBAT) {
+         if (var1.getCategoryBasedOnMode() != ModuleCategory.GUI) {
+            if (var1.getCategoryBasedOnMode() != ModuleCategory.ITEM) {
+               if (var1.getCategoryBasedOnMode() != ModuleCategory.MISC) {
+                  if (var1.getCategoryBasedOnMode() != ModuleCategory.MOVEMENT) {
+                     if (var1.getCategoryBasedOnMode() != ModuleCategory.PLAYER) {
+                        if (var1.getCategoryBasedOnMode() != ModuleCategory.RENDER) {
+                           if (var1.getCategoryBasedOnMode() == ModuleCategory.WORLD) {
                               var4 = this.method13741(-5118535, var1.isEnabled());
                            }
                         } else {

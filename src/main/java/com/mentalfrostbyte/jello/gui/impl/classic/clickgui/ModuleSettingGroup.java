@@ -21,7 +21,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
       for (Module var9 : Client.getInstance().moduleManager.getModuleMap().values()) {
          if (var9.isAvailableOnClassic()) {
             for (ModuleCategory var13 : var5) {
-               if (var9.getAdjustedCategoryBasedOnClientMode().equals(var13)) {
+               if (var9.getCategoryBasedOnMode().equals(var13)) {
                   this.method13485(var9);
                }
             }

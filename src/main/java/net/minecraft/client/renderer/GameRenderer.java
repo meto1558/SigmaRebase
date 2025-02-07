@@ -734,7 +734,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
             }
 
             RenderSystem.pushMatrix();
-            Client.getInstance().method19928();
+            Client.getInstance().renderVisuals();
             RenderSystem.popMatrix();
             if (this.guiLoadingVisible != (this.mc.loadingGui != null))
             {

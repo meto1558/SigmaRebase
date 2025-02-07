@@ -169,11 +169,11 @@ public class Client {
         }
     }
 
-    public void method19927(Texture var1) {
+    public void addTexture(Texture var1) {
         textureList.add(var1);
     }
 
-    public void method19928() {
+    public void renderVisuals() {
         if (!textureList.isEmpty()) {
             try {
                 for (Texture var4 : textureList) {
