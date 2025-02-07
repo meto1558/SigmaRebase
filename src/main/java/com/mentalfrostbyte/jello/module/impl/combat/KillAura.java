@@ -120,6 +120,8 @@ public class KillAura extends Module {
         this.registerSetting(new ColorSetting("ESP Color", "The render color", ClientColors.LIGHT_GREYISH_BLUE.getColor()));
     }
 
+    private KillAuraAttackLambda attack;
+
     public static Rotation getRotations2(KillAura killaura) {
         return killaura.secondaryRotation;
     }
@@ -371,7 +373,9 @@ public class KillAura extends Module {
         }
 
         if (shouldAttack) {
-            KillAuraAttackLambda attack = new KillAuraAttackLambda(this, hitboxExpand);
+            if (attack == null) {
+                attack = new KillAuraAttackLambda(this, hitboxExpand);
+            }
             boolean isPre = getStringSettingValueByName("Attack Mode").equals("Pre");
             if (!isPre) {
                 event.attackPost(attack);
@@ -701,7 +705,6 @@ public class KillAura extends Module {
     }
 
     private void setRotation() {
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -712,8 +715,10 @@ public class KillAura extends Module {
             System.out.println("[KillAura] newRots is null??? on line 712");
             return;
         }
-        float yawDifference = RotationHelper.method34152(currentRotation.yaw, newRots.yaw);
+
+        float yawDifference = RotationHelper.getShortestAngleDifference(currentRotation.yaw, newRots.yaw);
         float pitchDifference = newRots.pitch - currentRotation.pitch;
+
         String rotationMode = getStringSettingValueByName("Rotation Mode");
         float range = getNumberValueBySettingName("Range");
         switch (rotationMode) {

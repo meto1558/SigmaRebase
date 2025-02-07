@@ -320,8 +320,8 @@ public class RotationHelper {
         return MathHelper.wrapDegrees(-(var0 - (float)var11));
     }
 
-    public static float method34152(float var0, float var1) {
-        return MathHelper.wrapDegrees(-(var0 - var1));
+    public static float getShortestAngleDifference(float currentAngle, float targetAngle) {
+        return MathHelper.wrapDegrees(-(currentAngle - targetAngle));
     }
 
     private double method34153(double var1, double var3) {
