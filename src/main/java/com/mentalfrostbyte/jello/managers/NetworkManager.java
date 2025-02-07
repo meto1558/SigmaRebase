@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.network.auth.Encryptor;
 import com.mentalfrostbyte.jello.util.client.network.auth.PremiumChecker;
-import com.mentalfrostbyte.jello.util.game.player.tracker.CombatTracker;
+import com.mentalfrostbyte.jello.util.game.player.tracker.SigmaIRC;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -35,7 +35,7 @@ public class NetworkManager {
     public Encryptor encryptor;
     public String username;
     public String field38425;
-    public CombatTracker combatTracker;
+    public SigmaIRC sigmaIRC;
 
     public String mainURL;
     public String loginUrl;
@@ -60,7 +60,7 @@ public class NetworkManager {
 
     public void init() {
         EventBus.register(this);
-        this.combatTracker = new CombatTracker();
+        this.sigmaIRC = new SigmaIRC();
     }
 
     public String newAccount(String var1, String var2, CaptchaChecker var3) {

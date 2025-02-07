@@ -18,21 +18,21 @@ import java.io.IOException;
 import java.net.Proxy;
 import java.util.*;
 
-public class CombatTracker {
+public class SigmaIRC {
     public HashMap<UUID, Class8433> field36054 = new HashMap<>();
     private final Minecraft mc = Minecraft.getInstance();
     private final List<UUID> field36053 = new ArrayList<>();
 
-    public CombatTracker() {
+    public SigmaIRC() {
         EventBus.register(this);
         ModuleSettingInitializr.field8342 = ModuleSettingInitializr.field8342 | Client.getInstance().networkManager.field38425 != null;
     }
 
-    public static Minecraft method29522(CombatTracker var0) {
+    public static Minecraft method29522(SigmaIRC var0) {
         return var0.mc;
     }
 
-    public static void method29523(CombatTracker var0, GameProfile var1, String var2) throws AuthenticationException, IOException {
+    public static void method29523(SigmaIRC var0, GameProfile var1, String var2) throws AuthenticationException, IOException {
         var0.method29520(var1, var2);
     }
 
