@@ -27,7 +27,7 @@ public class Class4372 extends UIBase {
          );
       }
 
-      RenderUtil.method11479(this.field21366, this.xA + var4, this.yA + var4, this.widthA - var4 * 2, this.heightA - var4 * 2);
+      RenderUtil.renderItem(this.field21366, this.xA + var4, this.yA + var4, this.widthA - var4 * 2, this.heightA - var4 * 2);
       super.draw(partialTicks);
    }
 

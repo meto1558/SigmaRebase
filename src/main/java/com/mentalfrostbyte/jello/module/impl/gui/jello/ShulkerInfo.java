@@ -256,7 +256,7 @@ public class ShulkerInfo extends Module {
                         MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
             }
 
-            RenderUtil.method11479(var15, var17, var16, var10, var10);
+            RenderUtil.renderItem(var15, var17, var16, var10, var10);
             if (var15.getCount() > 1) {
                 int var18 = var10 - ResourceRegistry.JelloLightFont20.getWidth("" + var15.getCount());
                 int var19 = ResourceRegistry.JelloLightFont20.getWidth("" + var15.getCount());

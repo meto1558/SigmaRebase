@@ -1264,7 +1264,7 @@ public class RenderUtil {
         }
     }
 
-    public static void method11479(ItemStack var0, int var1, int var2, int var3, int var4) {
+    public static void renderItem(ItemStack var0, int var1, int var2, int var3, int var4) {
         if (var0 != null) {
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
             GL11.glPushMatrix();
