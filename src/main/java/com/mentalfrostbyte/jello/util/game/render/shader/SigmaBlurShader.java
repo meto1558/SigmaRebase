@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.util.game.render.shader;
 
-import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
