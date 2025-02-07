@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -39,31 +40,30 @@ public class KeyStrokes extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender2DOffset var1) {
+    public void onRender(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    this.yBase = var1.getyOffset();
+                    this.yBase = event.getyOffset();
                     if (Client.getInstance().guiManager.getGuiBlur()) {
-                        for (Keystroke var7 : Keystroke.values()) {
-                            KeyPosition var8 = var7.getTopLeftPosition();
-                            KeyPosition var9 = var7.getBottomRightPosition();
+                        for (Keystroke keystroke : Keystroke.values()) {
+                            KeyPosition topLeftKey = keystroke.getTopLeftPosition();
+                            KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
                             RenderUtil.drawPortalBackground(
-                                    this.xBase + var8.x,
-                                    this.yBase + var8.y,
-                                    this.xBase + var8.x + var9.x,
-                                    this.yBase + var8.y + var9.y
+                                    this.xBase + topLeftKey.x,
+                                    this.yBase + topLeftKey.y,
+                                    this.xBase + topLeftKey.x + bottomRightKey.x,
+                                    this.yBase + topLeftKey.y + bottomRightKey.y
                             );
-                            // TODO: blur
-//                            BlurEngine.drawBlur(this.field23585 + var8.field42635, this.field23586 + var8.field42636, var9.field42635, var9.field42636);
-//                            BlurEngine.endBlur();
+                            BlurEngine.drawBlur(this.xBase + topLeftKey.getX(), this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
+                            BlurEngine.endBlur();
                             RenderUtil.endScissor();
                         }
                     }
 
                     for (Keystroke keystroke : Keystroke.values()) {
-                        KeyPosition var21 = keystroke.getTopLeftPosition();
-                        KeyPosition var23 = keystroke.getBottomRightPosition();
+                        KeyPosition topLeftKey = keystroke.getTopLeftPosition();
+                        KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
                         float var10 = 1.0F;
                         float var11 = 1.0F;
                         if (Client.getInstance().guiManager.getGuiBlur()) {
@@ -80,25 +80,25 @@ public class KeyStrokes extends Module {
                             var12 = "L";
                         }
 
-                        RenderUtil.drawRoundedRect( // TODO: check this, again
-                                (float) (this.xBase + var21.x),
-                                (float) (this.yBase + var21.y),
-                                (float) (this.xBase + var21.x + var23.x),
-                                (float) (this.yBase + var21.y + var23.y),
+                        RenderUtil.drawRoundedRect(
+                                (float) (this.xBase + topLeftKey.x),
+                                (float) (this.yBase + topLeftKey.y),
+                                (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
+                                (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
                                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
                         );
                         RenderUtil.drawRoundedRect(
-                                (float) (this.xBase + var21.x),
-                                (float) (this.yBase + var21.y),
-                                (float) var23.x,
-                                (float) var23.y,
+                                (float) (this.xBase + topLeftKey.x),
+                                (float) (this.yBase + topLeftKey.y),
+                                (float) bottomRightKey.x,
+                                (float) bottomRightKey.y,
                                 10.0F,
                                 0.75F * var11
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
-                                (float) (this.xBase + var21.x + (var23.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
-                                (float) (this.yBase + var21.y + 12),
+                                (float) (this.xBase + topLeftKey.x + (bottomRightKey.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
+                                (float) (this.yBase + topLeftKey.y + 12),
                                 var12,
                                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
                         );
@@ -133,7 +133,7 @@ public class KeyStrokes extends Module {
                         float var27 = animationData.animation.calcPercent();
                         float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
                         int color = RenderUtil2.applyAlpha(-5658199, alpha);
-                        if (Client.getInstance().guiManager.getGuiBlur()) { // TODO: check this
+                        if (Client.getInstance().guiManager.getGuiBlur()) {
                             color = RenderUtil2.applyAlpha(-1, alpha);
                         }
 
@@ -149,7 +149,7 @@ public class KeyStrokes extends Module {
                         }
                     }
 
-                    var1.addOffset(160);
+                    event.addOffset(160);
                 }
             }
         }

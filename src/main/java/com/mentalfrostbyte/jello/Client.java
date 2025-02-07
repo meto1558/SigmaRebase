@@ -14,6 +14,7 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.logger.Logger;
 import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.client.logger.ClientLogger;
+import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -71,6 +72,8 @@ public class Client {
     public static boolean dontRenderHand = false;
     private boolean field28968 = true;
 
+    public BlurEngine blurEngine;
+
     public void start() {
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
@@ -114,6 +117,8 @@ public class Client {
         EventBus.register(this.playerTracker);
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
+        this.blurEngine = new BlurEngine();
+        blurEngine.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
         this.logger.info("Initialized.");
     }
