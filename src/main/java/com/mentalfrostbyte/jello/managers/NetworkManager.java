@@ -108,17 +108,17 @@ public class NetworkManager {
         return var6;
     }
 
-    public void method30448(final String s, final String s2, String s3, final CaptchaChecker captchaChecker) {
-        if (s3 == null) {
-            s3 = "";
+    public void signup(final String username, final String apssword, String email, final CaptchaChecker captchaChecker) {
+        if (email == null) {
+            email = "";
         }
-        String s4 = "Unexpected error";
+        String err = "Unexpected error";
         try {
             final HttpPost httpPost = new HttpPost(this.registerUrl);
             final List<BasicNameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("username", s));
-            list.add(new BasicNameValuePair("password", s2));
-            list.add(new BasicNameValuePair("email", s3));
+            list.add(new BasicNameValuePair("username", username));
+            list.add(new BasicNameValuePair("password", apssword));
+            list.add(new BasicNameValuePair("email", email));
             list.add(new BasicNameValuePair("challengeUid", captchaChecker.getChallengeUid()));
             list.add(new BasicNameValuePair("challengeAnswer", captchaChecker.getAnswer()));
             list.add(new BasicNameValuePair("token", this.token));
@@ -126,20 +126,20 @@ public class NetworkManager {
             httpPost.setEntity(new UrlEncodedFormEntity(list, StandardCharsets.UTF_8));
             final HttpEntity entity = this.httpClient.execute(httpPost).getEntity();
             if (entity != null) {
-                try (final InputStream content = entity.getContent()) {
-                    final JSONObject class8774 = new JSONObject(IOUtils.toString(content, StandardCharsets.UTF_8));
-                    if (class8774.getBoolean("success")) {
-                        this.handleLoginResponse(class8774);
+                try (final InputStream resJson = entity.getContent()) {
+                    final JSONObject res = new JSONObject(IOUtils.toString(resJson, StandardCharsets.UTF_8));
+                    if (res.getBoolean("success")) {
+                        this.handleLoginResponse(res);
                         return;
                     }
-                    if (class8774.has("error")) {
-                        s4 = class8774.getString("error");
+                    if (res.has("error")) {
+                        err = res.getString("error");
                     }
                 }
             }
         }
         catch (final IOException ex) {
-            s4 = ex.getMessage();
+            err = ex.getMessage();
             ex.printStackTrace();
         }
     }

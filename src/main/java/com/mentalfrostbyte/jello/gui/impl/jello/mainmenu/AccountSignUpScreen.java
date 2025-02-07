@@ -114,7 +114,7 @@ public class AccountSignUpScreen extends Element {
                         var3.setAnswer(this.captchaBox.getTypedText());
                     }
                     Client.getInstance().networkManager.resetLicense();
-                    Client.getInstance().networkManager.method30448(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText(), var3);
+                    Client.getInstance().networkManager.signup(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText(), var3);
                     String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), var3);
                     RegisterScreen var5 = (RegisterScreen) this.getParent();
                     if (s != null) {
