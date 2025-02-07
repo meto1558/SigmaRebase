@@ -68,7 +68,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
 
         CaptchaChecker captchaChecker = Client.getInstance().networkManager.getCaptcha();
         if (captchaChecker != null) {
-            this.captchaField.setEnabled(captchaChecker.method30471());
+            this.captchaField.setEnabled(captchaChecker.isActuallyCompleted());
             if (captchaChecker.getCaptchaImage() != null) {
                 RenderUtil.startScissor((float) (this.xA + 295), (float) (this.yA + 280), 190.0F, 50.0F);
                 RenderUtil.drawImage(

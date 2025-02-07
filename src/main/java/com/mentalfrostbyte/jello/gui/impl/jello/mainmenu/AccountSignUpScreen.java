@@ -87,8 +87,8 @@ public class AccountSignUpScreen extends Element {
         int var6 = 316;
         CaptchaChecker var7 = Client.getInstance().networkManager.getCaptcha();
         if (var7 != null) {
-            this.captchaBox.setEnabled(var7.method30471());
-            if (var7.method30471()) {
+            this.captchaBox.setEnabled(var7.isActuallyCompleted());
+            if (var7.isActuallyCompleted()) {
                 RenderUtil.drawRoundedRect2(
                         (float) (this.xA + var6), (float) (this.yA + var5), 114.0F, 40.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
                 );

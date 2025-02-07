@@ -97,8 +97,8 @@ public class LoginScreen extends Element {
         RenderUtil.drawImage((float) (this.xA + var4), (float) (this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
         CaptchaChecker var5 = Client.getInstance().networkManager.getCaptcha();
         if (var5 != null) {
-            this.captcha.setEnabled(var5.method30471());
-            if (var5.method30471()) {
+            this.captcha.setEnabled(var5.isActuallyCompleted());
+            if (var5.isActuallyCompleted()) {
                 RenderUtil.drawRoundedRect2(
                         (float) (this.xA + 330), (float) (this.yA + 255), 114.0F, 40.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
                 );

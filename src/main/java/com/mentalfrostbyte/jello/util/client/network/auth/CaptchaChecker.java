@@ -11,31 +11,29 @@ import java.net.URL;
 
 public class CaptchaChecker {
     private final String uid;
-    private boolean field36882;
+    private boolean completed;
     private final long field36883 = System.currentTimeMillis();
     private boolean field36884 = true;
     private String answer = "";
-    private BufferedImage field36886;
-    private Texture field36887;
+    private BufferedImage captchaResourceImage;
+    private Texture captchaImage;
 
-    public CaptchaChecker(final String uid, final boolean field36882) {
+    public CaptchaChecker(final String uid, final boolean completed) {
         this.uid = uid;
-        this.field36882 = field36882;
-        if (this.field36882 == field36882) {
-            new Thread(() -> {
-                try {
-                    final URL input = new URL("http://localhost/captcha/" + uid + ".png");
-                    this.field36886 = ImageIO.read(input);
-                }
-                catch (final IOException ex) {}
-            }).start();
-        }
+        this.completed = completed;
+        new Thread(() -> {
+            try {
+                final URL input = new URL("http://localhost/captcha/" + uid + ".png");
+                this.captchaResourceImage = ImageIO.read(input);
+            } catch (final IOException ex) {
+            }
+        }).start();
     }
 
     public void finalize() throws Throwable {
         try {
-            if (this.field36887 != null) {
-                Client.getInstance().addTexture(this.field36887);
+            if (this.captchaImage != null) {
+                Client.getInstance().addTexture(this.captchaImage);
             }
         }
         finally {
@@ -44,19 +42,19 @@ public class CaptchaChecker {
     }
 
     public Texture getCaptchaImage() {
-        if (this.field36887 == null && this.field36886 != null) {
+        if (this.captchaImage == null && this.captchaResourceImage != null) {
             try {
-                this.field36887 = BufferedImageUtil.getTexture("", this.field36886);
+                this.captchaImage = BufferedImageUtil.getTexture("", this.captchaResourceImage);
             }
             catch (final IOException ex) {
                 ex.printStackTrace();
             }
         }
-        return this.field36887;
+        return this.captchaImage;
     }
 
-    public boolean method30471() {
-        return this.field36882;
+    public boolean isActuallyCompleted() {
+        return this.completed;
     }
 
     public boolean isCompleted() {
