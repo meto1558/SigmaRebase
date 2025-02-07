@@ -7,10 +7,10 @@ import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.MusicManager;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeJPGThumbnail;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeJPGThumbnail;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.ColorHelper;
-import com.mentalfrostbyte.jello.util.client.youtube.ThumbnailUtil;
+import com.mentalfrostbyte.jello.util.client.network.youtube.ThumbnailUtil;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.client.youtube;
+package com.mentalfrostbyte.jello.util.client.network.youtube;
 
 public enum YoutubeContentType {
     PLAYLIST,

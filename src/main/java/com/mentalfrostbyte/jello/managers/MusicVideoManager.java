@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeContentType;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeJPGThumbnail;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
-import com.mentalfrostbyte.jello.util.client.youtube.ThumbnailUtil;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeJPGThumbnail;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.network.youtube.ThumbnailUtil;
 
 import java.util.ArrayList;
 import java.util.List;
