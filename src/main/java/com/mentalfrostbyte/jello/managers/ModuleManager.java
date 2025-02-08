@@ -159,7 +159,7 @@ public class ModuleManager {
         this.register(new NoteblockPlayer());
         this.register(new PacketEssentials());
         this.register(new PacketDumper());
-
+        this.register(new DebugSpeed());
 
 
 
