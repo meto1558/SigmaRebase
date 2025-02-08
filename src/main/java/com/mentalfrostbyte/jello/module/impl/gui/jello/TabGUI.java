@@ -282,7 +282,7 @@ public class TabGUI extends Module {
                 this.field23791);
         RenderUtil.drawImage((float) var1, var10 >= 0 ? (float) (var10 + var2) : (float) var2, (float) var4, 14.0F,
                 Resources.shadowBottomPNG, this.field23791);
-        RenderUtil.drawPortalBackground(
+        RenderUtil.drawBlurredBackground(
                 var1,
                 var10 >= 0 ? var10 + var2 : var2,
                 var1 + var4,

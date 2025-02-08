@@ -202,7 +202,7 @@ public class Dropdown extends UIBase {
 
       boolean var8 = this.animation.calcPercent() < 1.0F;
       if (var8) {
-         RenderUtil.drawPortalBackground(
+         RenderUtil.drawBlurredBackground(
             this.method13271(), this.method13272(), this.method13271() + this.getWidthA() + 140, this.method13272() + this.getHeightA() + this.method13647()
          );
       }

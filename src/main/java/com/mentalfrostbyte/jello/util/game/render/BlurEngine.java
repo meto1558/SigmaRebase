@@ -92,7 +92,7 @@ public class BlurEngine {
             RenderSystem.translatef(0.0F, 0.0F, -2000.0F);
             GL11.glScaled(1.0 / mc.mainWindow.getGuiScaleFactor() * (double) GuiManager.scaleFactor, 1.0 / mc.mainWindow.getGuiScaleFactor() * (double) GuiManager.scaleFactor, 1.0);
             int var4 = 35;
-            RenderUtil.drawPortalBackground(frameBuffWidth, frameBuffHeight - var4, screenWidth, screenHeight + var4);
+            RenderUtil.drawBlurredBackground(frameBuffWidth, frameBuffHeight - var4, screenWidth, screenHeight + var4);
             blurShader.render(mc.timer.renderPartialTicks);
             RenderUtil.endScissor();
             GL11.glEnable(3008);

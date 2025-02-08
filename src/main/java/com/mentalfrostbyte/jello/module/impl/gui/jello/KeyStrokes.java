@@ -9,8 +9,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -49,13 +49,13 @@ public class KeyStrokes extends Module {
                         for (Keystroke keystroke : Keystroke.values()) {
                             KeyPosition topLeftKey = keystroke.getTopLeftPosition();
                             KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
-                            RenderUtil.drawPortalBackground(
+                            RenderUtil.drawBlurredBackground(
                                     this.xBase + topLeftKey.x,
                                     this.yBase + topLeftKey.y,
                                     this.xBase + topLeftKey.x + bottomRightKey.x,
                                     this.yBase + topLeftKey.y + bottomRightKey.y
                             );
-                            BlurEngine.drawBlur(this.xBase + topLeftKey.getX(), this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
+                            BlurEngine.drawBlur(this.xBase + topLeftKey.x, this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
                             BlurEngine.endBlur();
                             RenderUtil.endScissor();
                         }
@@ -104,14 +104,14 @@ public class KeyStrokes extends Module {
                         );
                     }
 
-                    Iterator iter = this.animations.iterator();
+                    Iterator<KeyAnimationData> iter = this.animations.iterator();
 
                     while (iter.hasNext()) {
-                        KeyAnimationData animationData = (KeyAnimationData) iter.next();
+                        KeyAnimationData animationData = iter.next();
                         Keystroke keyStroke = animationData.keyStroke;
                         KeyPosition topLeftPosition = keyStroke.getTopLeftPosition();
                         KeyPosition bottomRightPosition = keyStroke.getBottomRightPosition();
-                        RenderUtil.drawPortalBackground(
+                        RenderUtil.drawBlurredBackground(
                                 this.xBase + topLeftPosition.x,
                                 this.yBase + topLeftPosition.y,
                                 this.xBase + topLeftPosition.x + bottomRightPosition.x,
@@ -138,9 +138,9 @@ public class KeyStrokes extends Module {
                         }
 
                         RenderUtil.drawFilledArc(
-                                (float) (this.xBase + topLeftPosition.x + bottomRightPosition.getX() / 2),
+                                (float) (this.xBase + topLeftPosition.x + bottomRightPosition.x / 2),
                                 (float) (this.yBase + topLeftPosition.y + bottomRightPosition.y / 2),
-                                (float) (bottomRightPosition.getX() - 4) * animPercent + 4.0F,
+                                (float) (bottomRightPosition.x - 4) * animPercent + 4.0F,
                                 color
                         );
                         RenderUtil.endScissor();
@@ -164,16 +164,6 @@ public class KeyStrokes extends Module {
         }
     }
 
-//    @EventTarget
-//    public void onClick(ClickEvent var1) {
-//        if (!this.isEnabled() || mc.player == null) {
-//        }
-//    }
-    /**
-     * {@link Keystroke} represents a key on the keyboard that can be pressed
-     * or released. It provides information about the key such as its position
-     * on the keyboard, its binding, and its state.
-     */
     public enum Keystroke {
         Left(0.0F, 1.0F, mc.gameSettings.keyBindLeft),
         Right(2.0F, 1.0F, mc.gameSettings.keyBindRight),
@@ -195,35 +185,23 @@ public class KeyStrokes extends Module {
             this.bind = bind;
         }
 
-       Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
+        Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
             this.positionX = positionX;
             this.positionY = positionY;
             this.bind = bind;
             this.width = width;
         }
 
-        /**
-         * Gets the top left position of the key on the keyboard.
-         * @return the top left position of the key on the keyboard.
-         */
         public KeyPosition getTopLeftPosition() {
             return new KeyPosition(
-                    this, (int)(this.positionX * (float)(this.width + this.padding)), (int)(this.positionY * (float)(this.height + this.padding))
+                    this, (int) (this.positionX * (float) (this.width + this.padding)), (int) (this.positionY * (float) (this.height + this.padding))
             );
         }
 
-        /**
-         * Gets the bottom right position of the key on the keyboard.
-         * @return the bottom right position of the key on the keyboard.
-         */
         public KeyPosition getBottomRightPosition() {
             return new KeyPosition(this, this.width, this.height);
         }
 
-        /**
-         * Gets the key binding for the key.
-         * @return the key binding for the key.
-         */
         public KeyBinding getKeyBinding() {
             return switch (this) {
                 case Left -> mc.gameSettings.keyBindLeft;
@@ -246,9 +224,6 @@ public class KeyStrokes extends Module {
         }
     }
 
-    /**
-     * represents the position of a key on the keyboard.
-     */
     public static class KeyPosition {
         public int x;
         public int y;
@@ -258,14 +233,6 @@ public class KeyStrokes extends Module {
             this.keystroke = keystroke;
             this.x = x;
             this.y = y;
-        }
-
-        /**
-         * Gets the x position of the key.
-         * @return the x position of the key.
-         */
-        public int getX() {
-            return this.x;
         }
     }
 }

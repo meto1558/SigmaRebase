@@ -78,7 +78,7 @@ public class NotificationManager {
                 RenderUtil.drawRoundedRect(
                         (float) (var7 + this.field39923 - 1), (float) (var8 + 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924 - 1), var11
                 );
-                RenderUtil.drawPortalBackground(var7, var8, var7 + this.field39923 - this.field39927, var8 + this.field39924);
+                RenderUtil.drawBlurredBackground(var7, var8, var7 + this.field39923 - this.field39927, var8 + this.field39924);
                 RenderUtil.drawString(
                         ResourceRegistry.JelloLightFont20, (float) (var7 + this.field39924 + this.field39927 - 2), (float) (var8 + this.field39927), notif.title, var12
                 );

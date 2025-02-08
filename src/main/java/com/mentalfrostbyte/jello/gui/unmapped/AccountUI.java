@@ -66,7 +66,7 @@ public class AccountUI extends AnimatedIconPanelWrap {
                Math.max(20, var6),
                     RenderUtil2.applyAlpha(!this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.color, var7)
             );
-            RenderUtil.drawPortalBackground(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
+            RenderUtil.drawBlurredBackground(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
             if (this.selectedAccount != null) {
                this.method13169();
                this.method13170();

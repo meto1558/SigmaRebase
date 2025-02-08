@@ -60,8 +60,8 @@ public class RenderUtil {
     }
 
 
-    public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
-        drawPortalBackground(var0, var1, var2, var3, false);
+    public static void drawBlurredBackground(int var0, int var1, int var2, int var3) {
+        drawBlurredBackground(var0, var1, var2, var3, false);
     }
     public static void method11436(float var0, float var1, float var2, int var3) {
         method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
@@ -300,7 +300,7 @@ public class RenderUtil {
         method11425(var0 + var8, var6 - var8, var4 - var8, var6, var11);
     }
 
-    public static void drawPortalBackground(int x, int y, int width, int height, boolean scale) {
+    public static void drawBlurredBackground(int x, int y, int width, int height, boolean scale) {
         if (!scale) {
             x = (int) ((float) x * GuiManager.scaleFactor);
             y = (int) ((float) y * GuiManager.scaleFactor);
@@ -540,22 +540,22 @@ public class RenderUtil {
         drawRoundedRect(x, y + size, x + width, y + height - size, color);
         drawRoundedRect(x + size, y, x + width - size, y + size, color);
         drawRoundedRect(x + size, y + height - size, x + width - size, y + height, color);
-        drawPortalBackground(x, y, x + size, y + size);
+        drawBlurredBackground(x, y, x + size, y + size);
         drawCircle(x + size, y + size, size * 2.0F, color);
         endScissor();
-        drawPortalBackground(x + width - size, y, x + width, y + size);
+        drawBlurredBackground(x + width - size, y, x + width, y + size);
         drawCircle(x - size + width, y + size, size * 2.0F, color);
         endScissor();
-        drawPortalBackground(x, y + height - size, x + size, y + height);
+        drawBlurredBackground(x, y + height - size, x + size, y + height);
         drawCircle(x + size, y - size + height, size * 2.0F, color);
         endScissor();
-        drawPortalBackground(x + width - size, y + height - size, x + width, y + height);
+        drawBlurredBackground(x + width - size, y + height - size, x + width, y + height);
         drawCircle(x - size + width, y - size + height, size * 2.0F, color);
         endScissor();
     }
 
-    public static void drawPortalBackground(float x, float y, float width, float height) {
-        drawPortalBackground((int) x, (int) y, (int) width, (int) height, true);
+    public static void drawBlurredBackground(float x, float y, float width, float height) {
+        drawBlurredBackground((int) x, (int) y, (int) width, (int) height, true);
     }
 
     public static void drawCircle(float centerX, float centerY, float size, int color) {
@@ -690,7 +690,7 @@ public class RenderUtil {
     }
 
     public static void method11415(CustomGuiScreen var0) {
-        drawPortalBackground(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
+        drawBlurredBackground(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
     }
 
     public static void drawRoundedButton(float var0, float var1, float var2, float var3, float var4, int color) {
@@ -723,7 +723,7 @@ public class RenderUtil {
     }
 
     public static void startScissor(float var0, float var1, float var2, float var3) {
-        drawPortalBackground((int) var0, (int) var1, (int) var0 + (int) var2, (int) var1 + (int) var3, true);
+        drawBlurredBackground((int) var0, (int) var1, (int) var0 + (int) var2, (int) var1 + (int) var3, true);
     }
 
     public static void method11465(int var0, int var1, int var2, int var3, int var4) {
@@ -754,14 +754,14 @@ public class RenderUtil {
         GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var3 - var9 / 2), 0.0F);
         drawImage((float) (var0 + var10), (float) (var1 + var10 + var3), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
-        drawPortalBackground(var5 - var9, var6 + var10, var5 - var11 + var9, var6 - var10 + var3);
+        drawBlurredBackground(var5 - var9, var6 + var10, var5 - var11 + var9, var6 - var10 + var3);
 
         for (int var12 = 0; var12 < var3; var12 += var9) {
             drawImage((float) (var0 - var11), (float) (var1 + var10 + var12), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
         }
 
         endScissor();
-        drawPortalBackground(var5, var6 - var11, var5 + var2 - var10, var6 + var10);
+        drawBlurredBackground(var5, var6 - var11, var5 + var2 - var10, var6 + var10);
 
         for (int var13 = 0; var13 < var2; var13 += var9) {
             GL11.glPushMatrix();
@@ -773,7 +773,7 @@ public class RenderUtil {
         }
 
         endScissor();
-        drawPortalBackground(var5 + var2 - var10, var6 - var11, var0 + var2 + var11, var6 + var3 - var10);
+        drawBlurredBackground(var5 + var2 - var10, var6 - var11, var0 + var2 + var11, var6 + var3 - var10);
 
         for (int var14 = 0; var14 < var3; var14 += var9) {
             GL11.glPushMatrix();
@@ -785,7 +785,7 @@ public class RenderUtil {
         }
 
         endScissor();
-        drawPortalBackground(var5 - var10, var6 - var11 + var3 - var9, var5 + var2 - var10, var6 + var3 + var10 * 2);
+        drawBlurredBackground(var5 - var10, var6 - var11 + var3 - var9, var5 + var2 - var10, var6 + var3 + var10 * 2);
 
         for (int var15 = 0; var15 < var2; var15 += var9) {
             GL11.glPushMatrix();
@@ -901,14 +901,14 @@ public class RenderUtil {
         GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var3 - var7 / 2), 0.0F);
         drawImage((float) (var0 + var8), (float) (var1 + var8 + var3), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
-        drawPortalBackground(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
+        drawBlurredBackground(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
 
         for (int var10 = 0; var10 < var3; var10 += var7) {
             drawImage((float) (var0 - var9), (float) (var1 + var8 + var10) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
         }
 
         endScissor();
-        drawPortalBackground(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
+        drawBlurredBackground(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
 
         for (int var11 = 0; var11 < var2; var11 += var7) {
             GL11.glPushMatrix();
@@ -920,7 +920,7 @@ public class RenderUtil {
         }
 
         endScissor();
-        drawPortalBackground(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
+        drawBlurredBackground(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
 
         for (int var12 = 0; var12 < var3; var12 += var7) {
             GL11.glPushMatrix();
@@ -932,7 +932,7 @@ public class RenderUtil {
         }
 
         endScissor();
-        drawPortalBackground(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
+        drawBlurredBackground(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
 
         for (int var13 = 0; var13 < var2; var13 += var7) {
             GL11.glPushMatrix();

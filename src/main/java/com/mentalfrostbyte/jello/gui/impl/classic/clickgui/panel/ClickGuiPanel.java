@@ -22,7 +22,7 @@ public class ClickGuiPanel extends CustomGuiScreen {
       float var4 = MathUtils.lerp(1.0F - this.field21149.calcPercent(), 0.9, 0.0, 0.9, 0.0);
       float var5 = (float)this.getWidthA() * var4 / 2.0F;
       float var6 = (float)(this.getHeightA() + 10) * var4 / 2.0F;
-      RenderUtil.drawPortalBackground(
+      RenderUtil.drawBlurredBackground(
          (float)this.method13271() + var5,
          (float)this.method13272() + var6,
          (float)(this.method13271() + this.getWidthA()) - var5,
