@@ -274,7 +274,7 @@ public class ClickGuiScreen extends Screen {
         }
 
         if (Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig() != null && !Client.getInstance().notificationManager.isRenderingNotification()) {
-            String configName = Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig().getName;
+            String configName = Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig().profileName;
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont20,
                     (float) (this.widthA - ResourceRegistry.JelloLightFont20.getWidth(configName) - 80),

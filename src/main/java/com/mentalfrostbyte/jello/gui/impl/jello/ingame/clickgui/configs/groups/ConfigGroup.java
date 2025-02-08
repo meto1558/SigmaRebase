@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
@@ -24,7 +24,7 @@ public class ConfigGroup extends Element {
    public Animation field20703 = new Animation(300, 200, Animation.Direction.BACKWARDS);
    private final int field20704;
    private ScrollableContentPanel field20705;
-   public static Class8233 field20706;
+   public static OnlineProfilesManager onlineProfilesManager;
    private LoadingIndicator field20707;
 
    public ConfigGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
@@ -57,10 +57,10 @@ public class ConfigGroup extends Element {
       });
       this.addToList(this.field20707 = new LoadingIndicator(this, "loading", (var5 - 30) / 2, 100, 30, 30));
       this.addToList(this.field20705 = new ScrollableContentPanel(this, "defaultProfiles", 0, 40, var5, var6 - 40));
-      field20706 = new Class8233(
+      onlineProfilesManager = new OnlineProfilesManager(
          var2x -> {
             this.field20707.setEnabled(false);
-            ConfigScreen var5x = (ConfigScreen)this.getParent();
+            ConfigScreen screen = (ConfigScreen)this.getParent();
 
             for (String var7 : var2x) {
                Button var8;
@@ -75,9 +75,9 @@ public class ConfigGroup extends Element {
                   new Thread(() -> {
                      Client.getInstance();
                      ProfileManager var5xx = Client.getInstance().moduleManager.getConfigurationManager();
-                     Configuration var6x = var5xx.getCurrentConfig();
-                     Configuration var7x = field20706.method28657(var6x, var7);
-                     var5x.method13611(var7x);
+                     Profile var6x = var5xx.getCurrentConfig();
+                     Profile var7x = onlineProfilesManager.createProfileFromOnlineConfig(var6x, var7);
+                     screen.method13611(var7x);
                      this.method13118(false);
                   }).start();
                });
@@ -128,7 +128,7 @@ public class ConfigGroup extends Element {
          RenderUtil.drawRoundedRect2(
             (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, RenderUtil2.applyAlpha(-723724, partialTicks)
          );
-         if (field20706 != null && Class8233.field35347 != null && Class8233.field35347.isEmpty()) {
+         if (onlineProfilesManager != null && OnlineProfilesManager.cachedOnlineProfiles != null && OnlineProfilesManager.cachedOnlineProfiles.isEmpty()) {
             RenderUtil.drawString(
                ResourceRegistry.JelloLightFont14,
                (float)(this.xA + 40),

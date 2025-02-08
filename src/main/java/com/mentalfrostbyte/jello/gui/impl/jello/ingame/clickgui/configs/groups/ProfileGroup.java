@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.buttons.
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.EditButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
@@ -29,14 +29,14 @@ public class ProfileGroup extends AnimatedIconPanel {
    public Animation field21264;
    public Animation field21265;
    public Animation animation;
-   public Configuration currentConfig;
+   public Profile currentConfig;
    public TextField profileName;
    public int field21269;
    public final int field21270;
    public final int field21271;
    public boolean field21272 = false;
 
-   public ProfileGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Configuration config, int var8) {
+   public ProfileGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Profile config, int var8) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field21270 = (int)((float)var5 * 0.8F);
       this.currentConfig = config;
@@ -72,7 +72,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.buttonList.addToList(deleteButton = new ConfigButton(this.buttonList, "remove", this.field21270 / 2, 0, this.field21270 / 2, var6, var12, "Delete"));
       this.buttonList.method13296(false);
       ColorHelper var15 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
-      this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.getName));
+      this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.profileName));
       this.profileName.method13156(false);
       this.profileName.setFont(ResourceRegistry.JelloLightFont24);
       this.profileName.setEnabled(false);
@@ -84,7 +84,7 @@ public class ProfileGroup extends AnimatedIconPanel {
                return;
             }
 
-            config.getName = this.profileName.getTypedText();
+            config.profileName = this.profileName.getTypedText();
 
             try {
                System.out.println("Saving and replacing old configs with new names.");
@@ -109,9 +109,9 @@ public class ProfileGroup extends AnimatedIconPanel {
                 File profilesFolder = new File(Client.getInstance().file + "/profiles/");
                 File[] filesInProfiles = profilesFolder.listFiles();
                 if (filesInProfiles == null || filesInProfiles.length == 0) {
-                   System.out.println("Removing " + this.currentConfig.getName);
+                   System.out.println("Removing " + this.currentConfig.profileName);
                    Client.getInstance().moduleManager.getConfigurationManager().removeConfig(this.currentConfig);
-                   this.currentConfig.getName = "";
+                   this.currentConfig.profileName = "";
                 }
              }
           } catch (IOException e) {
@@ -155,7 +155,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       if (!this.profileName.method13297() && this.profileName.isVisible()) {
          this.profileName.setEnabled(false);
          this.profileName.method13145(false);
-         this.currentConfig.getName = this.profileName.getTypedText();
+         this.currentConfig.profileName = this.profileName.getTypedText();
 
          try {
             System.out.println("Saving and replacing old configs with new names.");
@@ -206,7 +206,7 @@ public class ProfileGroup extends AnimatedIconPanel {
             ResourceRegistry.JelloLightFont24,
             (float)(this.xA + 20) - var5 * (float)this.widthA,
             (float)(this.yA + 18),
-            this.currentConfig.getName,
+            this.currentConfig.profileName,
                  RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.9F * partialTicks)
          );
       }

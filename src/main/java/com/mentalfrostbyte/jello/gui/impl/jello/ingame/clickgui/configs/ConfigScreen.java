@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups.ConfigGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups.ProfileGroup;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
@@ -51,29 +51,29 @@ public class ConfigScreen extends Element {
     public void method13610() {
         Client.getInstance();
         ProfileManager var3 = Client.getInstance().moduleManager.getConfigurationManager();
-        Configuration var4 = var3.getCurrentConfig();
+        Profile var4 = var3.getCurrentConfig();
         int var5 = 1;
 
-        while (var3.getConfigByCaseInsensitiveName(var4.getName + " Copy " + var5)) {
+        while (var3.getConfigByCaseInsensitiveName(var4.profileName + " Copy " + var5)) {
             var5++;
         }
 
-        var3.saveConfig(var4.method22987(var4.getName + " Copy " + var5));
+        var3.saveConfig(var4.cloneWithName(var4.profileName + " Copy " + var5));
         this.runThisOnDimensionUpdate(() -> this.method13615());
         this.field21300.method13119(false);
     }
 
-    public void method13611(Configuration var1) {
+    public void method13611(Profile var1) {
         Client.getInstance();
         ProfileManager var4 = Client.getInstance().moduleManager.getConfigurationManager();
-        Configuration var5 = var4.getCurrentConfig();
+        Profile var5 = var4.getCurrentConfig();
         int var6 = 1;
 
-        while (var4.getConfigByCaseInsensitiveName(var1.getName + " " + var6)) {
+        while (var4.getConfigByCaseInsensitiveName(var1.profileName + " " + var6)) {
             var6++;
         }
 
-        var4.saveConfig(var1.method22987(var1.getName + " " + var6));
+        var4.saveConfig(var1.cloneWithName(var1.profileName + " " + var6));
         this.runThisOnDimensionUpdate(() -> this.method13615());
         this.field21300.method13119(false);
     }
@@ -87,7 +87,7 @@ public class ConfigScreen extends Element {
             var4++;
         }
 
-        var3.saveConfig(new Configuration("New Profile " + var4, new JSONObject()));
+        var3.saveConfig(new Profile("New Profile " + var4, new JSONObject()));
         this.runThisOnDimensionUpdate(this::method13615);
         this.field21300.method13119(false);
     }
@@ -125,7 +125,7 @@ public class ConfigScreen extends Element {
         int var4 = 0;
         int var5 = 70;
 
-        for (Configuration var7 : Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs()) {
+        for (Profile var7 : Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs()) {
             ProfileGroup var8 = new ProfileGroup(this, "profile" + var4, 0, var5 * var4, this.profileScrollView.getWidthA(), var5, var7, var4);
             this.profileScrollView.addToList(var8);
             this.field21301.add(var8);
