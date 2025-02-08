@@ -12,7 +12,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 import static com.mentalfrostbyte.jello.util.game.player.MovementUtil.isInWater;
 
-public class MinibloxSpeed extends Module {
+public class BoostSpeed extends Module {
     private final BooleanSetting autoJump;
     private final BooleanSetting assumeSprinting;
     private final BooleanSetting ignoreSneaking;
@@ -22,16 +22,16 @@ public class MinibloxSpeed extends Module {
     private final NumberSetting<Double> boostSpeed;
     private final NumberSetting<Double> normalSpeed;
 
-    public MinibloxSpeed() {
-        super(ModuleCategory.MOVEMENT, "Miniblox", "Speed for Miniblox");
+    public BoostSpeed() {
+        super(ModuleCategory.MOVEMENT, "Boost", "Boost Speed");
         this.registerSetting(this.autoJump = new BooleanSetting("Auto Jump", "Automatically jumps for you.", true));
         this.registerSetting(new SubOptionSetting(
-                "Ignore Slowdowns",
-                "Ignore slowdowns like sneaking, not sprinting, or being in water",
-                true,
-                this.assumeSprinting = new BooleanSetting("Assume Sprinting", "Assume you are sprinting (broken with TargetStrafe)", false),
-                this.ignoreSneaking = new BooleanSetting("Ignore Sneaking", "Ignore sneaking", true),
-                this.ignoreInWater = new BooleanSetting("Ignore In Water", "Ignore being in water", true)
+                    "Ignore Slowdowns",
+                    "Ignore slowdowns like sneaking, not sprinting, or being in water",
+                    true,
+                    this.assumeSprinting = new BooleanSetting("Assume Sprinting", "Assume you are sprinting (broken with TargetStrafe)", false),
+                    this.ignoreSneaking = new BooleanSetting("Ignore Sneaking", "Ignore sneaking", true),
+                    this.ignoreInWater = new BooleanSetting("Ignore In Water", "Ignore being in water", true)
                 )
         );
         this.registerSetting(this.boostAfterTicks = new NumberSetting<>("Boost After Ticks", "Boost after ticks since last boost", 15f, Integer.class, 1f, 40f, 1f));
@@ -54,8 +54,6 @@ public class MinibloxSpeed extends Module {
     public void onMove(EventMove event) {
         double calculatedSpeed = MovementUtil.getSpeed();
 
-        // vector probably doesn't take these into account, but the getSpeed function does,
-        // so we have to account for it here, since we want the fastest speed possible
         if (!mc.player.isSprinting() && assumeSprinting.currentValue) {
             calculatedSpeed += 0.15;
         }
