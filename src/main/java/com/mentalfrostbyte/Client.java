@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.logger.Logger;
@@ -76,6 +77,7 @@ public class Client {
     public void start() {
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
+        CloudConfigs.start();
 
         try {
             if (!this.file.exists()) {
