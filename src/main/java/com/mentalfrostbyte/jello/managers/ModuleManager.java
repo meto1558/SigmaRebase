@@ -116,7 +116,7 @@ public class ModuleManager {
         this.register(new Projectiles());
         this.register(new NoServerInfo());
         this.register(new Breadcrumbs());
-
+        this.register(new Freecam());
 
 
 
