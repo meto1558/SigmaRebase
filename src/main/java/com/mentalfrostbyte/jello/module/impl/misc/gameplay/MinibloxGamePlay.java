@@ -95,7 +95,7 @@ public class MinibloxGamePlay extends Module {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {
                 String text = chatPacket.getChatComponent().getString().replaceAll("§.", "");
-                if (chatPacket.getType() != ChatType.SYSTEM && !oldTranslationLayerCompat.currentValue) {
+                if (oldTranslationLayerCompat.currentValue && chatPacket.getType() != ChatType.SYSTEM) {
                     return;
                 }
 
