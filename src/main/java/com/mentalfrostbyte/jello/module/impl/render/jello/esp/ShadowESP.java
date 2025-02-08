@@ -20,7 +20,10 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -28,14 +31,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.TextureImpl;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class ShadowESP extends Module {
     public static Class2191 field23794 = Class2191.field14327;
-
- //   public Vector3f bufferloader = new IRenderTypeBuffer.Impl(mc.getRenderTypeBuffers().bufferSource, new BufferBuilder(256));
-    // WAS THIS IN REMAP vvv
-    //     public Class7735 field23795 = Class7733.method25596(mc.getRenderTypeBuffers().field33890, new BufferBuilder(256));
+   public IRenderTypeBuffer.Impl field23795 = IRenderTypeBuffer.getImpl(mc.getRenderTypeBuffers().fixedBuffers, new BufferBuilder(256));
 
     public ShadowESP() {
         super(ModuleCategory.RENDER, "Shadow", "Draws a line arround entities");
@@ -63,7 +64,7 @@ public class ShadowESP extends Module {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderUtil.method11478();
                 this.method16613();
-//                this.bufferloader.finish();
+                this.field23795.finish();
             }
         }
     }
@@ -137,7 +138,7 @@ public class ShadowESP extends Module {
                 boolean var21 = var10.getFlag(0);
                 var10.setFire(0);
                 var10.setFlag(0, false);
-//                this.method16608(var10, var12, var14, var16, mc.timer.renderPartialTicks, var18, this.bufferloader);
+                this.method16608(var10, var12, var14, var16, mc.timer.renderPartialTicks, var18, this.field23795);
                 var10.setFire(var20);
                 var10.setFlag(0, var21);
                 mc.gameSettings.entityShadows = var19;
@@ -145,12 +146,12 @@ public class ShadowESP extends Module {
             }
         }
 
-//        this.bufferloader.finish(RenderType.getEntitySolid(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
-//        this.bufferloader.finish(RenderType.getEntityCutout(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
-//        this.bufferloader.finish(RenderType.getEntityCutoutNoCull(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
-//        this.bufferloader.finish(RenderType.getEntitySmoothCutout(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
-//        this.bufferloader.finish(RenderType.getLines());
-//        this.bufferloader.finish();
+        this.field23795.finish(RenderType.getEntitySolid(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
+        this.field23795.finish(RenderType.getEntityCutout(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
+        this.field23795.finish(RenderType.getEntityCutoutNoCull(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
+        this.field23795.finish(RenderType.getEntitySmoothCutout(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
+        this.field23795.finish(RenderType.getLines());
+        this.field23795.finish();
         if (field23794 == Class2191.field14329) {
             GL11.glPolygonMode(1032, 6914);
             GL11.glDisable(10754);
@@ -223,9 +224,8 @@ public class ShadowESP extends Module {
         GL11.glEnable(3553);
         GL11.glEnable(2903);
         RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
-       // TextureImpl.method36180();
+        TextureImpl.unbind();
         TextureManager var10000 = mc.getTextureManager();
-        mc.getTextureManager();
         var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         mc.gameRenderer.lightmapTexture.enableLightmap();
         GL11.glLightModelfv(2899, new float[] { 0.4F, 0.4F, 0.4F, 1.0F });

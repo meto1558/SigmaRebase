@@ -10,20 +10,19 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
+import com.mentalfrostbyte.jello.module.impl.render.Freecam;
 import com.mentalfrostbyte.jello.module.impl.render.NameProtect;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class8781;
+import com.mentalfrostbyte.jello.module.impl.render.jello.nametags.Class7070;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
-import com.mentalfrostbyte.jello.module.impl.render.jello.nametags.Class7070;
-
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.client.gui.screen.inventory.FurnaceScreen;
 import net.minecraft.client.renderer.texture.Texture;
@@ -43,6 +42,7 @@ import net.minecraft.network.play.server.SWindowPropertyPacket;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.TextureImpl;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.awt.*;
@@ -100,7 +100,7 @@ public class NameTags extends Module {
 
             for (Entity var7 : BlockUtil.method34549(MovementUtil2.method17680())) {
                 if (var7 != mc.player
-                        //       && var7 != Freecam.field23814
+                               && var7 != Freecam.field23814
                         && var7 != Blink.clientPlayerEntity
                         && !var7.isInvisible()
                         && !Client.getInstance().combatManager.isTargetABot(var7)) {
@@ -222,7 +222,7 @@ public class NameTags extends Module {
                         entity,
                         scale,
                         null);
-                // entity.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
+                entity.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
             }
 
             for (Entry var11 : this.field24000.entrySet()) {
@@ -271,7 +271,7 @@ public class NameTags extends Module {
                                         var12,
                                         var8,
                                         this.field24007.get(var14));
-                                //    var12.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
+                                var12.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
                             }
                         }
                     }
@@ -280,9 +280,8 @@ public class NameTags extends Module {
 
             GL11.glDisable(2896);
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
-            //    TextureImpl.method36180();
+            TextureImpl.unbind();
             TextureManager var10000 = mc.getTextureManager();
-            mc.getTextureManager();
             var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
     }
@@ -463,12 +462,12 @@ public class NameTags extends Module {
     }
 
 
-@EventTarget
-public void method16934(EventRenderNameTag var1) {
-    if (this.isEnabled()
-            && var1.getEntity() instanceof PlayerEntity) {
-        var1.setCancelled(true);
+    @EventTarget
+    public void method16934(EventRenderNameTag var1) {
+        if (this.isEnabled()
+                && var1.getEntity() instanceof PlayerEntity) {
+            var1.setCancelled(true);
+        }
     }
-}
 }
 
