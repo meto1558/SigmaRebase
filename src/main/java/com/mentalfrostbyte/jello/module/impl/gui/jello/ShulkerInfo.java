@@ -178,7 +178,7 @@ public class ShulkerInfo extends Module {
     }
 
     @EventTarget
-    public void method16675(EventRenderShulker var1) {
+    public void onRenderShulker(EventRenderShulker event) {
         if (this.isEnabled()) {
             if (mc.currentScreen instanceof ContainerScreen) {
                 ContainerScreen var4 = (ContainerScreen) mc.currentScreen;
