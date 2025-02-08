@@ -31,7 +31,7 @@ public class BoxOutlineESP extends Module {
     }
 
     @EventTarget
-    public void method16506(EventRender3D var1) {
+    public void onRender(EventRender3D event) {
         if (this.isEnabled()) {
             if (mc.player != null && mc.world != null) {
                 this.method16509();

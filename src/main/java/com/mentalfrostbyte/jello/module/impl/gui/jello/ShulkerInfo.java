@@ -37,6 +37,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.TextureImpl;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
@@ -116,10 +117,8 @@ public class ShulkerInfo extends Module {
             }
 
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
-         //   TextureImpl.method36180();
-            TextureManager var10000 = mc.getTextureManager();
-            mc.getTextureManager();
-            var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            TextureImpl.unbind();
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
     }
 
