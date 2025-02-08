@@ -1,75 +1,78 @@
 package com.mentalfrostbyte.jello.command.impl;
 
-import java.util.Map.Entry;
-
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.KeyboardHolder;
 import com.mentalfrostbyte.jello.managers.CommandManager;
-import com.mentalfrostbyte.jello.managers.util.command.*;
+import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
+import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
+import com.mentalfrostbyte.jello.managers.util.command.CommandException;
+import com.mentalfrostbyte.jello.managers.util.command.CommandType;
 import com.mentalfrostbyte.jello.module.Module;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.text.StringTextComponent;
 
+import java.util.Map.Entry;
+
 public class Bind extends Command {
     public Bind() {
         super("bind", "Bind a module to a key");
-        this.registerSubCommands(new String[]{"module"});
-        this.registerSubCommands(new String[]{"key/none"});
+        this.registerSubCommands("module");
+        this.registerSubCommands("key/none");
     }
 
     @Override
-    public void run(String var1, ChatCommandArguments[] var2, ChatCommandExecutor var3) throws CommandException {
-        Object var6 = null;
-        if (var2.length == 0) {
+    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
+        Module module;
+        if (args.length == 0) {
             CommandManager.runRunnable(() -> mc.displayGuiScreen(new KeyboardHolder(new StringTextComponent("GuiKeybinds"))));
         }
 
-        if (var2.length < 1) {
+        if (args.length < 1) {
             throw new CommandException();
         } else {
-            if (var2.length != 1) {
-                if (var2.length != 2) {
+            if (args.length != 1) {
+                if (args.length != 2) {
                     throw new CommandException("Too many arguments");
                 } else {
-                    var6 = this.method18330(var2[0].getArguments());
-                    if (var6 == null || var2[0].getCommandType() != CommandType.TEXT) {
-                        throw new CommandException("Module " + var2[0].getArguments() + " not found");
+                    module = this.method18330(args[0].getArguments());
+                    if (module == null || args[0].getCommandType() != CommandType.TEXT) {
+                        throw new CommandException("Module " + args[0].getArguments() + " not found");
                     }
 
-                    int var14 = this.method18329(var2[1].getArguments().toLowerCase());
+                    int var14 = this.method18329(args[1].getArguments().toLowerCase());
                     if (var14 == -2) {
-                        throw new CommandException("Key " + var2[1].getArguments() + " not found");
+                        throw new CommandException("Key " + args[1].getArguments() + " not found");
                     }
 
                     if (var14 != -1) {
-                        Client.getInstance().moduleManager.getMacOSTouchBar().method13725(var14, (Module)var6);
-                        var3.send("Key " + var2[1].getArguments() + " was set for module " + ((Module)var6).getFormattedName());
+                        Client.getInstance().moduleManager.getMacOSTouchBar().method13725(var14, (Module) module);
+                        executor.send("Key " + args[1].getArguments() + " was set for module " + ((Module) module).getFormattedName());
                     } else {
-                        Client.getInstance().moduleManager.getMacOSTouchBar().method13727(var6);
-                        var3.send("Keybind was reset for module " + ((Module)var6).getFormattedName());
+                        Client.getInstance().moduleManager.getMacOSTouchBar().method13727(module);
+                        executor.send("Keybind was reset for module " + ((Module) module).getFormattedName());
                     }
                 }
             } else {
-                var6 = this.method18330(var2[0].getArguments());
-                if (var6 == null || var2[0].getCommandType() != CommandType.TEXT) {
-                    throw new CommandException("Module " + var2[0].getArguments() + " not found");
+                module = this.method18330(args[0].getArguments());
+                if (module == null || args[0].getCommandType() != CommandType.TEXT) {
+                    throw new CommandException("Module " + args[0].getArguments() + " not found");
                 }
 
                 String var7 = "key.keyboard.";
-                int var8 = Client.getInstance().moduleManager.getMacOSTouchBar().method13729((Module)var6);
+                int var8 = Client.getInstance().moduleManager.getMacOSTouchBar().method13729((Module) module);
                 String var9 = null;
 
                 for (Entry var11 : InputMappings.Input.REGISTRY.entrySet()) {
-                    if (((String)var11.getKey()).startsWith(var7) && ((InputMappings.Input) var11.getValue()).getKeyCode() == var8) {
-                        var9 = ((String)var11.getKey()).substring(var7.length());
+                    if (((String) var11.getKey()).startsWith(var7) && ((InputMappings.Input) var11.getValue()).getKeyCode() == var8) {
+                        var9 = ((String) var11.getKey()).substring(var7.length());
                     }
                 }
 
                 if (var9 != null) {
-                    var3.send(((Module)var6).getFormattedName() + " is bound to : " + var9);
+                    executor.send(((Module) module).getFormattedName() + " is bound to : " + var9);
                 } else {
-                    var3.send("§c[Error] " + ((Module)var6).getFormattedName() + " is bound to an unknown key");
+                    executor.send("§c[Error] " + ((Module) module).getFormattedName() + " is bound to an unknown key");
                 }
             }
         }
@@ -80,8 +83,8 @@ public class Bind extends Command {
             String var4 = "key.keyboard.";
 
             for (Entry var6 : InputMappings.Input.REGISTRY.entrySet()) {
-                if (((String)var6.getKey()).startsWith(var4)) {
-                    String var7 = ((String)var6.getKey()).substring(var4.length());
+                if (((String) var6.getKey()).startsWith(var4)) {
+                    String var7 = ((String) var6.getKey()).substring(var4.length());
                     var7 = var7.replace("keypad.", "");
                     var7 = var7.replace(".", "_");
                     if (var1.equals(var7)) {

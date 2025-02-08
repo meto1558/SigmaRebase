@@ -17,14 +17,14 @@ public class EntityDesync extends Command {
     }
 
     @Override
-    public void run(String var1, ChatCommandArguments[] var2, ChatCommandExecutor var3) throws CommandException {
-        if (var2.length != 0) {
-            if (var2.length <= 1) {
-                if (var2[0].getCommandType() != CommandType.TEXT) {
+    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
+        if (args.length != 0) {
+            if (args.length <= 1) {
+                if (args[0].getCommandType() != CommandType.TEXT) {
                     throw new CommandException();
                 } else {
-                    if (!var2[0].getArguments().startsWith("d")) {
-                        if (!var2[0].getArguments().startsWith("m") && !var2[0].getArguments().startsWith("r")) {
+                    if (!args[0].getArguments().startsWith("d")) {
+                        if (!args[0].getArguments().startsWith("m") && !args[0].getArguments().startsWith("r")) {
                             throw new CommandException();
                         }
 
@@ -34,7 +34,7 @@ public class EntityDesync extends Command {
 
                         mc.player.startRiding(this.entityToRide);
                         this.entityToRide.addedToChunk = true;
-                        var3.send("Remounted entity " + this.entityToRide.getType().getName().getUnformattedComponentText());
+                        executor.send("Remounted entity " + this.entityToRide.getType().getName().getUnformattedComponentText());
                         this.entityToRide = null;
                     } else {
                         Entity var6 = mc.player.getRidingEntity();
@@ -45,7 +45,7 @@ public class EntityDesync extends Command {
                         this.entityToRide = mc.player.getRidingEntity();
                         this.entityToRide.addedToChunk = true;
                         mc.player.stopRiding();
-                        var3.send("Dismounted entity " + this.entityToRide.getType().getName().getUnformattedComponentText());
+                        executor.send("Dismounted entity " + this.entityToRide.getType().getName().getUnformattedComponentText());
                     }
                 }
             } else {
