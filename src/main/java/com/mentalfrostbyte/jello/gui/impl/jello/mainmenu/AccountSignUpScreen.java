@@ -52,7 +52,7 @@ public class AccountSignUpScreen extends Element {
                 )
         );
         this.addToList(this.loadingBox = new LoadingIndicator(this, "loading", 530, 314, 30, 30));
-        this.loadingBox.method13296(false);
+        this.loadingBox.setHovered(false);
         this.loadingBox.method13294(true);
         int var9 = 50;
         int var10 = 320;
@@ -88,7 +88,7 @@ public class AccountSignUpScreen extends Element {
     public void method13126() {
         new Thread(
                 () -> {
-                    this.loadingBox.method13296(true);
+                    this.loadingBox.setHovered(true);
                     this.registerButton.setEnabled(false);
                     Client.getInstance().networkManager.resetLicense();
                     Client.getInstance().networkManager.signup(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText());
@@ -102,7 +102,7 @@ public class AccountSignUpScreen extends Element {
                         var5.method13423();
                     }
 
-                    this.loadingBox.method13296(false);
+                    this.loadingBox.setHovered(false);
                     this.registerButton.setEnabled(true);
                 }
         ).start();

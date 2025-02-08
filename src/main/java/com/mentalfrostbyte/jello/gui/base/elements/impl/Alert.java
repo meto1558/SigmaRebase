@@ -41,7 +41,7 @@ public class Alert extends Element {
         super(screen, iconName, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
         this.field21283 = var3;
         this.alertName = name;
-        this.method13296(false);
+        this.setHovered(false);
         this.method13292(false);
         this.method13243();
         TextField var8 = null;
@@ -158,8 +158,8 @@ public class Alert extends Element {
     }
 
     @Override
-    public void method13296(boolean var1) {
-        if (var1) {
+    public void setHovered(boolean hovered) {
+        if (hovered) {
             for (CustomGuiScreen var5 : this.field21279.getChildren()) {
                 if (var5 instanceof TextField) {
                     ((TextField) var5).setTypedText("");
@@ -168,8 +168,8 @@ public class Alert extends Element {
             }
         }
 
-        this.field21282.changeDirection(!var1 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
-        super.method13296(var1);
+        this.field21282.changeDirection(!hovered ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+        super.setHovered(hovered);
     }
 
     public CustomGuiScreen method13598() {
@@ -287,7 +287,7 @@ public class Alert extends Element {
             this.method13605();
         }
 
-        this.method13296(var1);
+        this.setHovered(var1);
         if (var1) {
             this.setEnabled(true);
         }

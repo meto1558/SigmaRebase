@@ -73,7 +73,7 @@ public class ClassicAltScreen extends Screen {
         this.addToList(
                 this.altScreenGroup = new ClassicAltScreenGroup(this, "toolbar", (Minecraft.getInstance().getMainWindow().getWidth() - var9) / 2 + 16, this.getHeightA() - 94)
         );
-        this.altScreenGroup.method13296(false);
+        this.altScreenGroup.setHovered(false);
     }
 
     private void method13395(com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var1) {
@@ -91,7 +91,7 @@ public class ClassicAltScreen extends Screen {
                 }
 
                 var5.method13580(true);
-                this.altScreenGroup.method13296(true);
+                this.altScreenGroup.setHovered(true);
                 if (var6 != null && var6.equals(var5)) {
                     this.method13398(var5);
                 }
@@ -110,7 +110,7 @@ public class ClassicAltScreen extends Screen {
         Account var3 = this.method13406();
         if (var3 != null) {
             this.accountManager.removeAccount(var3.field21249);
-            this.altScreenGroup.method13296(false);
+            this.altScreenGroup.setHovered(false);
             this.method13402();
         }
     }

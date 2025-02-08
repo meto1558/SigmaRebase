@@ -64,7 +64,7 @@ public class LoginScreen extends Element {
                 )
         );
         this.addToList(this.loadingThingy = new LoadingIndicator(this, "loading", 511, 260, 30, 30));
-        this.loadingThingy.method13296(false);
+        this.loadingThingy.setHovered(false);
         this.loadingThingy.method13294(true);
         int var9 = 50;
         int var10 = 300;
@@ -94,7 +94,7 @@ public class LoginScreen extends Element {
 
     public void method13688() {
         new Thread(() -> {
-            this.loadingThingy.method13296(true);
+            this.loadingThingy.setHovered(true);
             this.loginButton.setEnabled(false);
 
             String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText());
@@ -106,7 +106,7 @@ public class LoginScreen extends Element {
                 this.callUIHandlers();
             }
 
-            this.loadingThingy.method13296(false);
+            this.loadingThingy.setHovered(false);
             this.loginButton.setEnabled(true);
         }).start();
     }

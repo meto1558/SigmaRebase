@@ -29,7 +29,7 @@ public class Account extends AnimatedIconPanel {
         super(var1, var2, var3, var4, var5, var6, false);
         this.field21249 = var7;
         this.addToList(this.field21253 = new LoadingIndicator(this, "loading", var5 - 50, 35, 30, 30));
-        this.field21253.method13296(false);
+        this.field21253.setHovered(false);
     }
 
     public void method13580(boolean var1) {
@@ -194,6 +194,6 @@ public class Account extends AnimatedIconPanel {
     }
 
     public void method13586(boolean var1) {
-        this.field21253.method13296(var1);
+        this.field21253.setHovered(var1);
     }
 }

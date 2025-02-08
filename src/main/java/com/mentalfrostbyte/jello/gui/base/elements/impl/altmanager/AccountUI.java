@@ -29,7 +29,7 @@ public class AccountUI extends AnimatedIconPanel {
         super(var1, var2, var3, var4, var5, var6, false);
         this.selectedAccount = var7;
         this.addToList(this.loadingIndicator = new LoadingIndicator(this, "loading", var5 - 50, 35, 30, 30));
-        this.loadingIndicator.method13296(false);
+        this.loadingIndicator.setHovered(false);
     }
 
     public void method13166(boolean var1) {
@@ -177,6 +177,6 @@ public class AccountUI extends AnimatedIconPanel {
     }
 
     public void method13174(boolean notInThread) {
-        this.loadingIndicator.method13296(notInThread);
+        this.loadingIndicator.setHovered(notInThread);
     }
 }

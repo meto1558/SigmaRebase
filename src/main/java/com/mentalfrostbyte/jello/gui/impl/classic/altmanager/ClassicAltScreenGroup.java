@@ -63,10 +63,10 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
    }
 
    @Override
-   public void method13296(boolean var1) {
-      this.field21144.method13296(var1);
-      this.field21146.method13296(var1);
-      this.field21142.method13296(var1);
+   public void setHovered(boolean hovered) {
+      this.field21144.setHovered(hovered);
+      this.field21146.setHovered(hovered);
+      this.field21142.setHovered(hovered);
    }
 
    public boolean method13469() {

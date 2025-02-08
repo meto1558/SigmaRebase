@@ -41,7 +41,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public int field20901 = 0;
     public int field20902 = 0;
     public boolean field20903;
-    public boolean field20904;
+    public boolean hovered;
     public boolean field20905;
     public boolean field20906;
     public boolean field20907;
@@ -98,7 +98,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.textColor = textColor;
         this.font = font;
         this.field20903 = true;
-        this.field20904 = true;
+        this.hovered = true;
         this.listening = true;
         this.field20911 = false;
     }
@@ -774,11 +774,11 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public boolean isHovered() {
-        return this.field20904;
+        return this.hovered;
     }
 
-    public void method13296(boolean var1) {
-        this.field20904 = var1;
+    public void setHovered(boolean hovered) {
+        this.hovered = hovered;
     }
 
     public boolean method13297() {
@@ -813,16 +813,16 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this.typedText;
     }
 
-    public void setTypedText(String var1) {
-        this.typedText = var1;
+    public void setTypedText(String typedText) {
+        this.typedText = typedText;
     }
 
     public TrueTypeFont getFont() {
         return this.font;
     }
 
-    public void setFont(TrueTypeFont var1) {
-        this.font = var1;
+    public void setFont(TrueTypeFont font) {
+        this.font = font;
     }
 
     public ColorHelper getTextColor() {

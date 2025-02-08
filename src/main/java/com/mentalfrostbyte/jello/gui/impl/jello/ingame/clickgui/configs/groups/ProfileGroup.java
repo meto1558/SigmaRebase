@@ -70,7 +70,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.buttonList.addToList(var13 = new ConfigButton(this.buttonList, "rename", 0, 0, this.field21270 / 2, var6, var11, "Rename"));
       ConfigButton deleteButton;
       this.buttonList.addToList(deleteButton = new ConfigButton(this.buttonList, "remove", this.field21270 / 2, 0, this.field21270 / 2, var6, var12, "Delete"));
-      this.buttonList.method13296(false);
+      this.buttonList.setHovered(false);
       ColorHelper var15 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
       this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.profileName));
       this.profileName.method13156(false);
@@ -189,7 +189,7 @@ public class ProfileGroup extends AnimatedIconPanel {
          var5 = MathHelper.calculateBackwardTransition(this.field21265.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
-      this.buttonList.method13296(this.field21265.calcPercent() == 1.0F);
+      this.buttonList.setHovered(this.field21265.calcPercent() == 1.0F);
       this.buttonList.setWidthA(Math.max(0, (int)((float)this.field21270 * var5)));
       this.buttonList.method13284((int)((float)this.field21270 * (1.0F - var5)));
       RenderUtil.method11415(this);
