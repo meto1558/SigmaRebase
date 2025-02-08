@@ -31,7 +31,7 @@ public class NetworkManager {
                 String username = licenseData.keySet().iterator().next();
                 premium = licenseData.get(username);
 
-                this.loadLicense(licenseContent);
+                this.loadLicense(username);
             } catch (IOException ignored) {
             }
         } else {
