@@ -133,7 +133,7 @@ public class AccountManager {
         JSONArray jsonArray = new JSONArray();
 
         for (Account account : this.accounts) {
-            jsonArray.put(account.method34232());
+            jsonArray.put(account.toJSON());
         }
 
         JSONObject jsonObject = new JSONObject();
