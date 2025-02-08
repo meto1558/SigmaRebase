@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello;
 
-
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
@@ -25,7 +24,6 @@ import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.client.gui.screen.inventory.FurnaceScreen;
-import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -42,6 +40,7 @@ import net.minecraft.network.play.server.SWindowPropertyPacket;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.awt.*;
@@ -53,11 +52,11 @@ public class NameTags extends Module {
     public static final HashMap<String, Texture> field24003 = new HashMap<>();
 
     static {
-//        field24003.put("Tomygaims", (Texture) Resources.tomyPNG);
-//        field24003.put("Andro24", (Texture) Resources.androPNG);
-//        field24003.put("Gretorm", (Texture) Resources.lpPNG);
-//        field24003.put("Flyinqq", (Texture) Resources.codyPNG);
-//        field24003.put("cxbot", (Texture) Resources.cxPNG);
+        field24003.put("Tomygaims", Resources.tomyPNG);
+        field24003.put("Andro24", Resources.androPNG);
+        field24003.put("Gretorm", Resources.lpPNG);
+        field24003.put("Flyinqq", Resources.codyPNG);
+        field24003.put("cxbot", Resources.cxPNG);
     }
 
     public int field24008 = MovementUtil2.applyAlpha(MovementUtil2
@@ -414,12 +413,19 @@ public class NameTags extends Module {
             } else {
                 int var22 = Color.getHSBColor((float) (System.currentTimeMillis() % 10000L) / 10000.0F, 0.5F, 1.0F)
                         .getRGB();
-                RenderUtil.drawImage((float) (-var21 - 10 - 31), -25.0F, (float) (var12.getHeight() + 27),
-                        (float) (var12.getHeight() + 27), field24003.get(var13),
-                        MovementUtil2.applyAlpha(var22, 0.7F));
+
+                RenderUtil.drawImage(
+                        (float) (-var21 - 10 - 31),
+                        -25.0F, (float) (var12.getHeight() + 27),
+                        (float) (var12.getHeight() + 27),
+                        field24003.get(var13),
+                        MovementUtil2.applyAlpha(var22, 0.7f)
+                );
+
                 RenderUtil.drawImage((float) (-var21 - 10 - 31 + var12.getHeight() + 27), -25.0F, 14.0F,
                         (float) (var12.getHeight() + 27), Resources.shadowRightPNG,
                         MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+
                 RenderUtil.drawRoundedRect((float) (-var21 - 10 - 31), -25.0F, (float) (var21 * 2 + 20 + 31 + 27),
                         (float) (var12.getHeight() + 27), 20.0F, 0.5F);
                 GL11.glTranslatef(27.0F, 0.0F, 0.0F);

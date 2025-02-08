@@ -6,15 +6,12 @@ import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
-import org.newdawn.slick.opengl.TextureImpl;
-import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.Color;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -30,7 +27,10 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 
 import java.awt.*;
 import java.nio.ByteBuffer;
@@ -49,7 +49,6 @@ public class RenderUtil {
     private static final Stack<IntBuffer> buffer = new Stack<>();
     public static boolean field18461 = false;
 
-
     public static void endScissor() {
         if (buffer.isEmpty()) {
             GL11.glDisable(GL_SCISSOR_TEST);
@@ -59,25 +58,30 @@ public class RenderUtil {
         }
     }
 
-
     public static void drawBlurredBackground(int var0, int var1, int var2, int var3) {
         drawBlurredBackground(var0, var1, var2, var3, false);
     }
+
     public static void method11436(float var0, float var1, float var2, int var3) {
         method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
     }
+
     public static void method11445(float var0, float var1, float var2, float var3, float var4, int var5) {
         method11446(var0, var1, var2, var3, var4, var4, var5);
     }
+
     public static float method11417() {
         return (float) mc.mainWindow.getGuiScaleFactor();
     }
+
     public static void method11425(double var0, double var2, double var4, double var6, int var8) {
-        drawRect((float)var0, (float)var2, (float)var4, (float)var6, var8);
+        drawRect((float) var0, (float) var2, (float) var4, (float) var6, var8);
     }
+
     public static void renderBackgroundBox(float var0, float var1, float var2, float var3, int var4) {
         drawRect(var0, var1, var0 + var2, var1 + var3, var4);
     }
+
     public static void method11450(float var0, float var1, float var2, float var3, Texture var4, int var5,
                                    boolean var6) {
         drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(),
@@ -90,10 +94,10 @@ public class RenderUtil {
 
     public static void renderWireframeBox(BoundingBox boxIn, float width, int color) {
         if (boxIn != null) {
-            float var5 = (float)(color >> 24 & 0xFF) / 255.0F;
-            float var6 = (float)(color >> 16 & 0xFF) / 255.0F;
-            float var7 = (float)(color >> 8 & 0xFF) / 255.0F;
-            float var8 = (float)(color & 0xFF) / 255.0F;
+            float var5 = (float) (color >> 24 & 0xFF) / 255.0F;
+            float var6 = (float) (color >> 16 & 0xFF) / 255.0F;
+            float var7 = (float) (color >> 8 & 0xFF) / 255.0F;
+            float var8 = (float) (color & 0xFF) / 255.0F;
             GL11.glColor4f(var6, var7, var8, var5);
             GL11.glDisable(3553);
             GL11.glDisable(2896);
@@ -130,6 +134,7 @@ public class RenderUtil {
             GL11.glDisable(3042);
         }
     }
+
     public static void method11476() {
         GL11.glPushMatrix();
         resetDepthBuffer();
@@ -142,12 +147,14 @@ public class RenderUtil {
         GL11.glClear(1024);
         field18461 = true;
     }
+
     public static void method11477(Class2329 var0) {
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(true);
         GL11.glStencilMask(0);
         GL11.glStencilFunc(var0 != Class2329.field15940 ? 517 : 514, 1, 1);
     }
+
     public static void method11478() {
         GL11.glStencilMask(-1);
         GL11.glDisable(2960);
@@ -165,6 +172,7 @@ public class RenderUtil {
             var2 = var9;
         }
     }
+
     public static void method11479(ItemStack var0, int var1, int var2, int var3, int var4) {
         if (var0 != null) {
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
@@ -176,13 +184,14 @@ public class RenderUtil {
                 var0 = new ItemStack(var0.getItem());
             }
         }
-        }
+    }
+
     public static void render3DColoredBox(BoundingBox boxIn, int color) {
         if (boxIn != null) {
-            float var4 = (float)(color >> 24 & 0xFF) / 255.0F;
-            float var5 = (float)(color >> 16 & 0xFF) / 255.0F;
-            float var6 = (float)(color >> 8 & 0xFF) / 255.0F;
-            float var7 = (float)(color & 0xFF) / 255.0F;
+            float var4 = (float) (color >> 24 & 0xFF) / 255.0F;
+            float var5 = (float) (color >> 16 & 0xFF) / 255.0F;
+            float var6 = (float) (color >> 8 & 0xFF) / 255.0F;
+            float var7 = (float) (color & 0xFF) / 255.0F;
             GL11.glColor4f(var5, var6, var7, var4);
             GL11.glEnable(3042);
             GL11.glDisable(3553);
@@ -272,6 +281,7 @@ public class RenderUtil {
     public static float getScaleFactor() {
         return (float) mc.getMainWindow().getGuiScaleFactor();
     }
+
     /**
      * Transforms 2D coordinates using the current OpenGL model view matrix and applies scaling.
      * This method is typically used for converting screen coordinates to scaled OpenGL coordinates.
@@ -279,8 +289,8 @@ public class RenderUtil {
      * @param x The x-coordinate to transform.
      * @param y The y-coordinate to transform.
      * @return A float array containing two elements:
-     *         [0] The transformed and scaled x-coordinate.
-     *         [1] The transformed and scaled y-coordinate.
+     * [0] The transformed and scaled x-coordinate.
+     * [1] The transformed and scaled y-coordinate.
      */
     public static float[] screenCoordinatesToOpenGLCoordinates(int x, int y) {
         FloatBuffer var4 = BufferUtils.createFloatBuffer(16);
@@ -292,6 +302,7 @@ public class RenderUtil {
         var6 /= var7;
         return new float[]{(float) Math.round(var5 * getScaleFactor()), (float) Math.round(var6 * getScaleFactor())};
     }
+
     public static void method11430(double var0, double var2, double var4, double var6, double var8, int var10, int var11) {
         method11425(var0 + var8, var2 + var8, var4 - var8, var6 - var8, var10);
         method11425(var0 + var8, var2, var4 - var8, var2 + var8, var11);
@@ -356,23 +367,24 @@ public class RenderUtil {
             GL11.glScissor(x, adjustedY, width2, height2);
         }
     }
+
     public static void drawRect(float var0, float var1, float var2, float var3, int var4) {
         if (var0 < var2) {
-            int var7 = (int)var0;
+            int var7 = (int) var0;
             var0 = var2;
-            var2 = (float)var7;
+            var2 = (float) var7;
         }
 
         if (var1 < var3) {
-            int var13 = (int)var1;
+            int var13 = (int) var1;
             var1 = var3;
-            var3 = (float)var13;
+            var3 = (float) var13;
         }
 
-        float var14 = (float)(var4 >> 24 & 0xFF) / 255.0F;
-        float var8 = (float)(var4 >> 16 & 0xFF) / 255.0F;
-        float var9 = (float)(var4 >> 8 & 0xFF) / 255.0F;
-        float var10 = (float)(var4 & 0xFF) / 255.0F;
+        float var14 = (float) (var4 >> 24 & 0xFF) / 255.0F;
+        float var8 = (float) (var4 >> 16 & 0xFF) / 255.0F;
+        float var9 = (float) (var4 >> 8 & 0xFF) / 255.0F;
+        float var10 = (float) (var4 & 0xFF) / 255.0F;
         Tessellator var11 = Tessellator.getInstance();
         BufferBuilder var12 = var11.getBuffer();
 
@@ -390,10 +402,10 @@ public class RenderUtil {
         RenderSystem.color4f(var8, var9, var10, var14);
 
         var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos((double)var0, (double)var3, 0.0).endVertex();
-        var12.pos((double)var2, (double)var3, 0.0).endVertex();
-        var12.pos((double)var2, (double)var1, 0.0).endVertex();
-        var12.pos((double)var0, (double)var1, 0.0).endVertex();
+        var12.pos((double) var0, (double) var3, 0.0).endVertex();
+        var12.pos((double) var2, (double) var3, 0.0).endVertex();
+        var12.pos((double) var2, (double) var1, 0.0).endVertex();
+        var12.pos((double) var0, (double) var1, 0.0).endVertex();
 
         var11.draw();
 
@@ -848,11 +860,12 @@ public class RenderUtil {
         GL11.glPixelStorei(3315, 0);
         GL11.glPixelStorei(3316, 0);
         GL11.glPixelStorei(3317, 4);
-        int var15 = GL11.glGenTextures();
+
         float var16 = var7 / var7 * 1.0F;
         float var17 = var8 / var8 * 1.0F;
         float var18 = var5 / var7 * 1.0F;
         float var19 = var6 / var8 * 1.0F;
+
         GL11.glBegin(7);
         GL11.glTexCoord2f(var18, var19);
         GL11.glVertex2f(var0, var1);
@@ -1053,8 +1066,6 @@ public class RenderUtil {
         float var10 = (float) (var6 >> 16 & 0xFF) / 255.0F;
         float var11 = (float) (var6 >> 8 & 0xFF) / 255.0F;
         float var12 = (float) (var6 & 0xFF) / 255.0F;
-        Tessellator var13 = Tessellator.getInstance();
-        BufferBuilder var14 = var13.getBuffer();
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -1100,15 +1111,16 @@ public class RenderUtil {
         RenderSystem.enableAlphaTest();
         RenderSystem.enableTexture();
     }
+
     /**
      * Renders a quad with the specified parameters.
      *
-     * @param x1 The x-coordinate of the first vertex.
-     * @param y1 The y-coordinate of the first vertex.
-     * @param x2 The x-coordinate of the second vertex.
-     * @param y2 The y-coordinate of the second vertex.
+     * @param x1     The x-coordinate of the first vertex.
+     * @param y1     The y-coordinate of the first vertex.
+     * @param x2     The x-coordinate of the second vertex.
+     * @param y2     The y-coordinate of the second vertex.
      * @param color3 The x-coordinate of the fourth vertex.
-     * @param color The color of the quad in integer format.
+     * @param color  The color of the quad in integer format.
      */
     public static void drawQuad(int x1, int y1, int x2, int y2, int color, int color2, int color3, int color4) {
         float a1 = (float) (color >> 24 & 0xFF) / 255.0F;
@@ -1145,21 +1157,19 @@ public class RenderUtil {
         RenderSystem.enableAlphaTest();
         RenderSystem.enableTexture();
     }
+
     /**
      * Renders a category box with the specified parameters.
      *
-     * @param x The x-coordinate of the top-left corner of the box.
-     * @param y The y-coordinate of the top-left corner of the box.
-     * @param size The size of the box.
-     * @param color The color of the box in integer format.
+     * @param x            The x-coordinate of the top-left corner of the box.
+     * @param y            The y-coordinate of the top-left corner of the box.
+     * @param size         The size of the box.
+     * @param color        The color of the box in integer format.
      * @param outlineColor The color of the box outline in integer format.
      */
     public static void renderCategoryBox(float x, float y, float size, int color, int outlineColor) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        // (unused)
-        /*Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();*/
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -1199,14 +1209,10 @@ public class RenderUtil {
     }
 
     public static void resetDepthBuffer() {
-        // Retrieve the current framebuffer instance
         Framebuffer currentFramebuffer = Minecraft.getInstance().getFramebuffer();
 
-        // Check if the framebuffer exists and has a valid depth buffer
         if (currentFramebuffer != null && currentFramebuffer.depthBuffer > -1) {
-            // Recreate the depth buffer
             recreateDepthBuffer(currentFramebuffer);
-            // Set the depth buffer to an invalid state
             currentFramebuffer.depthBuffer = -1;
         }
     }
@@ -1297,7 +1303,6 @@ public class RenderUtil {
             GL11.glPixelStorei(GL11.GL_UNPACK_SKIP_PIXELS, 0);
             GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 4);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-            int var18 = GL11.glGenTextures();
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, (int) var8, (int) var9, 0, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, var4);
             float var19 = var8 / var8;
             float var20 = var9 / var9;
@@ -1349,6 +1354,7 @@ public class RenderUtil {
             RenderHelper.setupGui3DDiffuseLighting();
         }
     }
+
     public static double[] worldToScreen(double x, double y, double z) {
         FloatBuffer screenCoords = BufferUtils.createFloatBuffer(3);
         IntBuffer viewport = BufferUtils.createIntBuffer(16);
@@ -1366,7 +1372,7 @@ public class RenderUtil {
         // Return the screen coordinates if successful, otherwise return null
         return !isSuccessful
                 ? null
-                : new double[] {
+                : new double[]{
                 (double) (screenCoords.get(0) / GuiManager.scaleFactor),
                 (double) (((float) mc.getFramebuffer().framebufferHeight - screenCoords.get(1)) / GuiManager.scaleFactor),
                 (double) screenCoords.get(2)
@@ -1380,9 +1386,6 @@ public class RenderUtil {
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
         GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, GL11.GL_RGB, GL11.GL_BYTE, var5);
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
-    }
-
-    public static void drawImage(float v, float v1, float v2, float v3, net.minecraft.client.renderer.texture.Texture texture, int i) {
     }
 }
 
