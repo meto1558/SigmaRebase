@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.others.holders;
 
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.MainMenuHolder;

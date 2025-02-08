@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.network.auth.Encryptor;
 import com.mentalfrostbyte.jello.util.client.network.auth.PremiumChecker;
-import com.mentalfrostbyte.jello.util.client.SigmaIRC;
+import com.mentalfrostbyte.jello.util.game.player.tracker.SigmaIRC;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;

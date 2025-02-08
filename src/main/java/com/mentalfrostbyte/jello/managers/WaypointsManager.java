@@ -20,8 +20,8 @@ import java.util.Map.Entry;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.Class7101;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint;
+import com.mentalfrostbyte.jello.gui.unmapped.Class7101;
+import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class2531;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class7927;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
@@ -47,7 +47,7 @@ public class WaypointsManager {
     private Minecraft field36365 = Minecraft.getInstance();
     private List<ChunkPos> field36366 = new ArrayList<ChunkPos>();
     private List<ChunkPos> field36367 = new ArrayList<ChunkPos>();
-    private List<Waypoint> field36368 = new ArrayList<Waypoint>();
+    private List<Class8351> field36368 = new ArrayList<Class8351>();
     private boolean field36369 = false;
     private int field36370 = 10;
     private String field36371 = null;
@@ -72,7 +72,7 @@ public class WaypointsManager {
         ((Buffer) this.field36376).flip();
     }
 
-    public List<Waypoint> getWaypoints() {
+    public List<Class8351> method29989() {
         if (!this.field36369) {
             this.method29992();
         }
@@ -80,7 +80,7 @@ public class WaypointsManager {
         return this.field36368;
     }
 
-    public void method29990(Waypoint var1) {
+    public void method29990(Class8351 var1) {
         this.field36368.add(var1);
         this.method29991();
     }
@@ -90,7 +90,7 @@ public class WaypointsManager {
             File var3 = new File(this.field36371 + "/waypoints.json");
             JSONArray var4 = new JSONArray();
 
-            for (Waypoint var6 : this.field36368) {
+            for (Class8351 var6 : this.field36368) {
                 var4.put(var6.method29263());
             }
 
@@ -115,7 +115,7 @@ public class WaypointsManager {
             }
 
             for (Object var6 : var4.getJSONArray("waypoints")) {
-                this.field36368.add(new Waypoint((JSONObject) var6));
+                this.field36368.add(new Class8351((JSONObject) var6));
             }
 
             this.field36369 = true;
@@ -124,7 +124,7 @@ public class WaypointsManager {
         }
     }
 
-    public void method29993(Waypoint var1) {
+    public void method29993(Class8351 var1) {
         this.field36368.remove(var1);
     }
 

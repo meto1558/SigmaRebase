@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.ChunkPos;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import net.minecraft.network.play.server.SChunkDataPacket;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.client.render.classicgui;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;

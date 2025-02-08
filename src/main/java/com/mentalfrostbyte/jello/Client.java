@@ -8,10 +8,10 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializer;
+import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
-import com.mentalfrostbyte.jello.util.client.logger.ILogger;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.logger.Logger;
 import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.client.logger.ClientLogger;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
@@ -67,7 +67,7 @@ public class Client {
     public NotificationManager notificationManager;
     public MusicManager musicManager;
     public PlayerStateTracker playerTracker;
-    private ILogger ILogger;
+    private Logger logger;
 
     public static boolean dontRenderHand = false;
     private boolean field28968 = true;
@@ -75,8 +75,8 @@ public class Client {
     public BlurEngine blurEngine;
 
     public void start() {
-        this.ILogger = new ClientLogger(System.out, System.out, System.err);
-        this.ILogger.info("Initializing...");
+        this.logger = new ClientLogger(System.out, System.out, System.err);
+        this.logger.info("Initializing...");
 
         try {
             if (!this.file.exists()) {
@@ -120,11 +120,11 @@ public class Client {
         this.blurEngine = new BlurEngine();
         blurEngine.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
-        this.ILogger.info("Initialized.");
+        this.logger.info("Initialized.");
     }
 
     public void shutdown() {
-        this.ILogger.info("Shutting down...");
+        this.logger.info("Shutting down...");
 
         try {
             if (this.guiManager != null) {
@@ -137,11 +137,11 @@ public class Client {
 
             FileUtil.save(this.config, new File(this.file + "/config.json"));
         } catch (IOException var4) {
-            this.ILogger.error("Unable to shutdown correctly. Config may be corrupt?");
+            this.logger.error("Unable to shutdown correctly. Config may be corrupt?");
             var4.printStackTrace();
         }
 
-        this.ILogger.info("Done.");
+        this.logger.info("Done.");
     }
 
     public void endTick() {
@@ -229,7 +229,7 @@ public class Client {
         DiscordRPC updatePresence = DiscordRPC.INSTANCE;
         String id = "693493612754763907";
         DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
-        eventHandlers.ready = e -> ILogger.info("Discord RPC Ready!");
+        eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
         updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
         discordRichPresence = new DiscordRichPresence();
         discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
@@ -251,7 +251,7 @@ public class Client {
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         }
 
-        if (this.moduleManager == null && ModuleSettingInitializer.thisThread != null) {
+        if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
             this.moduleManager.method14659(this.config);
@@ -263,7 +263,7 @@ public class Client {
         try {
             FileUtil.save(this.config, new File(this.file + "/config.json"));
         } catch (IOException e) {
-            ILogger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -271,8 +271,8 @@ public class Client {
         return this.config;
     }
 
-    public ILogger getLogger() {
-        return this.ILogger;
+    public Logger getLogger() {
+        return this.logger;
     }
 
     public boolean method19930() {

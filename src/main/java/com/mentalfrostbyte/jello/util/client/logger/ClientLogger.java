@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import com.mentalfrostbyte.jello.Client;
 import org.apache.commons.io.IOUtils;
 
-public class ClientLogger implements ILogger {
+public class ClientLogger implements Logger {
    public OutputStream infoStream;
    public OutputStream warningStream;
    public OutputStream errorStream;

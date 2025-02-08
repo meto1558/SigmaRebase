@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.others;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.NormalImage;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.FadedImage;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.ImageQ;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.FadedImageButton;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -33,12 +33,12 @@ public class SwitchScreen extends Screen {
         int var6 = 61;
         int var7 = (this.getWidthA() - var3) / 2;
         int var8 = (this.getHeightA() - var5) / 2 + 14;
-        FadedImage var9 = null;
-        FadedImage var10 = null;
-        FadedImage var11 = null;
-        this.addToList(var9 = new FadedImage(this, "pb", var7, var8, var3, var5, Resources.noaddonsPNG));
-        this.addToList(var11 = new FadedImage(this, "pb2", var7, var5 + var8 + 9, var4, var6, Resources.sigmaLigmaPNG));
-        this.addToList(var10 = new FadedImage(this, "pb3", var7 + var4 + 9, var5 + var8 + 9, var4, var6, Resources.jelloPNG));
+        FadedImageButton var9 = null;
+        FadedImageButton var10 = null;
+        FadedImageButton var11 = null;
+        this.addToList(var9 = new FadedImageButton(this, "pb", var7, var8, var3, var5, Resources.noaddonsPNG));
+        this.addToList(var11 = new FadedImageButton(this, "pb2", var7, var5 + var8 + 9, var4, var6, Resources.sigmaLigmaPNG));
+        this.addToList(var10 = new FadedImageButton(this, "pb3", var7 + var4 + 9, var5 + var8 + 9, var4, var6, Resources.jelloPNG));
         var9.doThis((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.NOADDONS);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
@@ -52,12 +52,12 @@ public class SwitchScreen extends Screen {
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
         CustomGuiScreen var12 = new CustomGuiScreen(this, "socialbtns", (this.getWidthA() - 174) / 2, this.getHeightA() - 70, 174, 34);
-        NormalImage var13;
-        var12.addToList(var13 = new NormalImage(var12, "youtube", 0, 0, 65, 34, Resources.youtubePNG));
-        NormalImage var14;
-        var12.addToList(var14 = new NormalImage(var12, "reddit", 85, 0, 36, 34, Resources.redditPNG));
-        NormalImage var15;
-        var12.addToList(var15 = new NormalImage(var12, "guilded", 142, 0, 32, 34, Resources.guildedPNG));
+        ImageQ var13;
+        var12.addToList(var13 = new ImageQ(var12, "youtube", 0, 0, 65, 34, Resources.youtubePNG));
+        ImageQ var14;
+        var12.addToList(var14 = new ImageQ(var12, "reddit", 85, 0, 36, 34, Resources.redditPNG));
+        ImageQ var15;
+        var12.addToList(var15 = new ImageQ(var12, "guilded", 142, 0, 32, 34, Resources.guildedPNG));
         var13.doThis((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://www.youtube.com/@sigmaclient2950"));

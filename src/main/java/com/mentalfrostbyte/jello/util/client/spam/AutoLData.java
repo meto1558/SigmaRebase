@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.client.spam;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;

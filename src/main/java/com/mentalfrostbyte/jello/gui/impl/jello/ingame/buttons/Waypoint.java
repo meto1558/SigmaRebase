@@ -1,11 +1,11 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons;
 
-import com.mentalfrostbyte.jello.util.client.render.theme.WaypointColors;
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.WaypointColors;
+import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.gui.unmapped.Button;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.lwjgl.opengl.GL11;

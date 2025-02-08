@@ -4,26 +4,26 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Label;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
+import com.mentalfrostbyte.jello.gui.unmapped.Text;
+import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
 import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 
-public class AccountSignUpScreen extends Element {
-    private Label stringPanel;
+public class AccountSignUpScreen extends UIBase {
+    private Text stringPanel;
     private TextField usernameInputBox;
     private TextField emailInputBox;
     private TextField passwordInputBox;
     private TextField captchaBox;
-    private TextButton registerButton;
-    private TextButton loginButton;
+    private UIButton registerButton;
+    private UIButton loginButton;
     private LoadingIndicator loadingBox;
     public static int widthy = 390;
     public static int height = 590;
@@ -31,7 +31,7 @@ public class AccountSignUpScreen extends Element {
     public AccountSignUpScreen(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
         super(var1, var2, var3, var4, var5, var6, false);
         this.addToList(
-                this.stringPanel = new Label(
+                this.stringPanel = new Text(
                         this,
                         "Register",
                         228,
@@ -44,12 +44,12 @@ public class AccountSignUpScreen extends Element {
                 )
         );
         this.addToList(
-                this.registerButton = new TextButton(
+                this.registerButton = new UIButton(
                         this, "RegisterButton", 468, 291, ResourceRegistry.JelloLightFont25.getWidth("Register"), 70, ColorHelper.field27961, "Register", ResourceRegistry.JelloLightFont25
                 )
         );
         this.addToList(
-                this.loginButton = new TextButton(
+                this.loginButton = new UIButton(
                         this, "LoginButton", 98, 333, ResourceRegistry.JelloLightFont14.getWidth("Login"), 14, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont14
                 )
         );

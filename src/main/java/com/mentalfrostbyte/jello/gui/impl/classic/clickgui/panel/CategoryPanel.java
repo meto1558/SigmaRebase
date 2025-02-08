@@ -4,14 +4,14 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.ModuleSettingGroup;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Setting;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Checkbox;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class CategoryPanel extends Element {
+public class CategoryPanel extends UIBase {
    public Module module;
 
    public CategoryPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Module var7) {

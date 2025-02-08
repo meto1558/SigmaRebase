@@ -2,23 +2,16 @@ package com.mentalfrostbyte.jello.gui.impl.jello.altmanager;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
-import com.mentalfrostbyte.jello.gui.base.notifications.AlertComponentType;
-import com.mentalfrostbyte.jello.gui.base.notifications.AlertComponent;
-import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.elements.Account;
-import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.elements.Info;
-import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.elements.Player;
-import com.mentalfrostbyte.jello.gui.impl.jello.buttons.Dropdown;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.impl.others.panels.AlertPanel;
+import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
+import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.sorting.AccountCompareType;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -39,7 +32,7 @@ public class AltManagerScreen extends Screen {
    private float field21006;
    private float field21007 = 0.75F;
    private boolean field21008 = true;
-   public TextButton field21009;
+   public UIButton field21009;
    private ScrollableContentPanel field21010;
    private ScrollableContentPanel field21011;
    private AlertPanel loginDialog;
@@ -47,12 +40,12 @@ public class AltManagerScreen extends Screen {
    private float field21014 = 0.65F;
    private float field21015 = 1.0F - this.field21014;
    private int titleOffset = 30;
-   private Player field21017;
-   private Info field21018;
+   private Class4298 field21017;
+   private Class4296 field21018;
    public AccountManager accountManager = Client.getInstance().accountManager;
    private Texture field21020;
    private float field21021;
-   private TextButton field21022;
+   private UIButton field21022;
    private AccountCompareType field21023 = AccountCompareType.DateAdded;
    private String field21024 = "";
    private boolean field21025 = false;
@@ -106,7 +99,7 @@ public class AltManagerScreen extends Screen {
       this.field21010.method13515(false);
       this.field21011
          .addToList(
-            this.field21017 = new Player(
+            this.field21017 = new Class4298(
                this.field21011,
                "",
                (int)(
@@ -123,7 +116,7 @@ public class AltManagerScreen extends Screen {
          );
       this.field21011
          .addToList(
-            this.field21018 = new Info(
+            this.field21018 = new Class4296(
                this.field21011,
                "info",
                (int)(
@@ -178,7 +171,7 @@ public class AltManagerScreen extends Screen {
       );
       this.field21026.setFont(ResourceRegistry.JelloLightFont18);
       this.field21026.method13151(var1 -> this.method13372(false));
-      this.addToList(this.field21022 = new TextButton(this, "btnt", this.getWidthA() - 90, 43, 70, 30, ColorHelper.field27961, "Add +", ResourceRegistry.JelloLightFont25));
+      this.addToList(this.field21022 = new UIButton(this, "btnt", this.getWidthA() - 90, 43, 70, 30, ColorHelper.field27961, "Add +", ResourceRegistry.JelloLightFont25));
       this.field21010.method13242();
       this.field21022.doThis((var1, var2) -> {
          if (this.method13369()) {
@@ -187,11 +180,11 @@ public class AltManagerScreen extends Screen {
       });
    }
 
-   private void method13360(com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var1, boolean var2) {
-      Account var5;
+   private void method13360(Account var1, boolean var2) {
+      AccountUI var5;
       this.field21010
          .addToList(
-            var5 = new Account(
+            var5 = new AccountUI(
                this.field21010,
                var1.getEmail(),
                this.titleOffset,
@@ -232,7 +225,7 @@ public class AltManagerScreen extends Screen {
             for (CustomGuiScreen var7 : this.field21010.getChildren()) {
                if (!(var7 instanceof VerticalScrollBar)) {
                   for (CustomGuiScreen var9 : var7.getChildren()) {
-                     ((Account)var9).method13166(false);
+                     ((AccountUI)var9).method13166(false);
                   }
                }
             }
@@ -247,7 +240,7 @@ public class AltManagerScreen extends Screen {
       }
    }
 
-   private void loginToAccount(Account account) {
+   private void loginToAccount(AccountUI account) {
       account.method13174(true);
       new Thread(() -> {
          if (!this.accountManager.login(account.selectedAccount)) {
@@ -265,16 +258,16 @@ public class AltManagerScreen extends Screen {
    }
 
    private void getLoginDialog() {
-      AlertComponent header = new AlertComponent(AlertComponentType.HEADER, "Add Alt", 50);
-      AlertComponent firstline1 = new AlertComponent(AlertComponentType.FIRST_LINE, "Login with your minecraft", 15);
-      AlertComponent firstline2 = new AlertComponent(AlertComponentType.FIRST_LINE, "account here!", 25);
-      AlertComponent emailInput = new AlertComponent(AlertComponentType.SECOND_LINE, "Email", 50);
-      AlertComponent passwordInput = new AlertComponent(AlertComponentType.SECOND_LINE, "Password", 50);
-      AlertComponent button = new AlertComponent(AlertComponentType.BUTTON, "Add alt", 50);
+      MiniAlert header = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
+      MiniAlert firstline1 = new MiniAlert(AlertType.FIRST_LINE, "Login with your minecraft", 15);
+      MiniAlert firstline2 = new MiniAlert(AlertType.FIRST_LINE, "account here!", 25);
+      MiniAlert emailInput = new MiniAlert(AlertType.SECOND_LINE, "Email", 50);
+      MiniAlert passwordInput = new MiniAlert(AlertType.SECOND_LINE, "Password", 50);
+      MiniAlert button = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
       this.addToList(this.loginDialog = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, emailInput, passwordInput, button));
       this.loginDialog.onPress(var1 -> {
          if (!this.loginDialog.getInputMap().get("Email").contains(":")) {
-            com.mentalfrostbyte.jello.managers.util.account.microsoft.Account account = new com.mentalfrostbyte.jello.managers.util.account.microsoft.Account(this.loginDialog.getInputMap().get("Email"), this.loginDialog.getInputMap().get("Password"));
+            Account account = new Account(this.loginDialog.getInputMap().get("Email"), this.loginDialog.getInputMap().get("Password"));
             if (!this.accountManager.containsAccount(account)) {
                this.accountManager.updateAccount(account);
             }
@@ -286,7 +279,7 @@ public class AltManagerScreen extends Screen {
             for (String email : emails) {
                String[] splitted = email.split(":");
                if (splitted.length == 2) {
-                  com.mentalfrostbyte.jello.managers.util.account.microsoft.Account account = new com.mentalfrostbyte.jello.managers.util.account.microsoft.Account(splitted[0], splitted[1]);
+                  Account account = new Account(splitted[0], splitted[1]);
                   if (!this.accountManager.containsAccount(account)) {
                      this.accountManager.updateAccount(account);
                   }
@@ -299,10 +292,10 @@ public class AltManagerScreen extends Screen {
    }
 
    private void deleteAlert() {
-      AlertComponent title = new AlertComponent(AlertComponentType.HEADER, "Delete?", 50);
-      AlertComponent firstLine = new AlertComponent(AlertComponentType.FIRST_LINE, "Are you sure you want", 15);
-      AlertComponent secondLine = new AlertComponent(AlertComponentType.FIRST_LINE, "to delete this alt?", 40);
-      AlertComponent button = new AlertComponent(AlertComponentType.BUTTON, "Delete", 50);
+      MiniAlert title = new MiniAlert(AlertType.HEADER, "Delete?", 50);
+      MiniAlert firstLine = new MiniAlert(AlertType.FIRST_LINE, "Are you sure you want", 15);
+      MiniAlert secondLine = new MiniAlert(AlertType.FIRST_LINE, "to delete this alt?", 40);
+      MiniAlert button = new MiniAlert(AlertType.BUTTON, "Delete", 50);
       this.addToList(this.deleteAlert = new AlertPanel(this, "delete", true, "Delete", title, firstLine, secondLine, button));
    }
 
@@ -342,8 +335,8 @@ public class AltManagerScreen extends Screen {
       for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var7 : var5.getChildren()) {
-               if (var7 instanceof Account) {
-                  Account var8 = (Account)var7;
+               if (var7 instanceof AccountUI) {
+                  AccountUI var8 = (AccountUI)var7;
                   if (var7.getYA() <= Minecraft.getInstance().getMainWindow().getHeight() && this.field21010.method13513() == 0) {
                      if (var3 > 0.2F) {
                         var8.field20805.changeDirection(Animation.Direction.FORWARDS);
@@ -368,7 +361,7 @@ public class AltManagerScreen extends Screen {
       for (CustomGuiScreen var5 : this.field21010.getChildren()) {
          if (!(var5 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var7 : var5.getChildren()) {
-               Account var8 = (Account)var7;
+               AccountUI var8 = (AccountUI)var7;
                var8.method13172(false);
             }
          }
@@ -457,7 +450,7 @@ public class AltManagerScreen extends Screen {
    }
 
    public void method13372(boolean var1) {
-      List<com.mentalfrostbyte.jello.managers.util.account.microsoft.Account> var5 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), this.field21023, this.field21024, this.field21026.getTypedText());
+      List<Account> var5 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), this.field21023, this.field21024, this.field21026.getTypedText());
       this.runThisOnDimensionUpdate(new Class1428(this, this, var5, var1));
    }
 
@@ -489,7 +482,7 @@ public class AltManagerScreen extends Screen {
    }
 
    // $VF: synthetic method
-   public static void method13386(AltManagerScreen instance, com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var1, boolean var2) {
+   public static void method13386(AltManagerScreen instance, Account var1, boolean var2) {
       instance.method13360(var1, var2);
    }
 }

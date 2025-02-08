@@ -5,9 +5,10 @@ import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.AddAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.DirectLoginScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.EditAltScreen;
-import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.elements.AltManagerButton;
-import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.elements.Account;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
+import com.mentalfrostbyte.jello.gui.unmapped.Class4349;
+import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 
@@ -42,7 +43,7 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
       this.field21143
          .doThis(
             (var1x, var2x) -> {
-               com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var5 = Client.getInstance()
+               Account var5 = Client.getInstance()
                   .accountManager
                   .getAccounts()
                   .get(new Random().nextInt(Client.getInstance().accountManager.getAccounts().size()));
@@ -53,7 +54,7 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
       this.field21142.doThis((var1x, var2x) -> var10.method13396());
       this.field21144.doThis((var1x, var2x) -> var10.method13397());
       this.field21146.doThis((var1x, var2x) -> {
-         Account var5 = var10.method13406();
+         Class4349 var5 = var10.method13406();
          if (var5 != null) {
             Client.getInstance().guiManager.handleScreen(new EditAltScreen(var5.field21249));
          }

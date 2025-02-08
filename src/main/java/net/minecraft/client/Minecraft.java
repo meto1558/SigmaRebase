@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientMode;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;

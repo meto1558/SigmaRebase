@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
-import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.SettingPanel;
+import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Class4345;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Exit;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.CategoryPanel;
 import com.mentalfrostbyte.jello.module.Module;
@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
 public class ModuleSettingGroup extends ClickGuiPanel {
-   public SettingPanel field21181;
+   public Class4345 field21181;
    public int field21182 = 0;
 
    public ModuleSettingGroup(CustomGuiScreen var1, String var2, int var3, int var4, ModuleCategory[] var5) {
@@ -52,7 +52,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
    public void method13486(Module var1) {
       this.runThisOnDimensionUpdate(() -> {
          if (this.field21181 == null) {
-            this.addToList(this.field21181 = new SettingPanel(this, "settings", 5, 70, this.getWidthA() - 10, this.getHeightA() - 75, var1));
+            this.addToList(this.field21181 = new Class4345(this, "settings", 5, 70, this.getWidthA() - 10, this.getHeightA() - 75, var1));
             this.field21181.method13292(true);
          }
       });

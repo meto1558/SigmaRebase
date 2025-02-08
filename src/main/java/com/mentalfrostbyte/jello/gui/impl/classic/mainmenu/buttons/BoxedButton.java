@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.opengl.GL11;
 
-public class BoxedButton extends Element {
+public class BoxedButton extends UIBase {
    public Animation field20630 = new Animation(300, 300, Animation.Direction.BACKWARDS);
    public Texture field20631;
 

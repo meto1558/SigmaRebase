@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
-import com.mentalfrostbyte.jello.util.system.StringUtil;
+import com.mentalfrostbyte.jello.gui.impl.others.Class8906;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONArray;
@@ -36,12 +36,12 @@ public class FriendManager {
             var4.method30236();
             if (this.method26997(this.mc.pointedEntity)) {
                 this.method27005(this.mc.pointedEntity.getName().getUnformattedComponentText());
-                StringUtil.method32487(
+                Class8906.method32487(
                         var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is no longer your friend."
                 );
             } else {
                 this.method27001(this.mc.pointedEntity.getName().getUnformattedComponentText());
-                StringUtil.method32487(var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is now your friend.");
+                Class8906.method32487(var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is now your friend.");
             }
 
             this.method27009();

@@ -2,13 +2,9 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.Class4259;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.map.Class4340;
+import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -18,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapPanel extends Element {
+public class MapPanel extends UIBase {
    private List<Button> field20612 = new ArrayList<Button>();
    public int field20613;
    public Class4259 field20614;
@@ -31,7 +27,7 @@ public class MapPanel extends Element {
       this.field20616 = 260;
       this.addToList(this.field20615 = new Class4340(this, "waypointList", 0, 65, this.field20616, this.heightA - 65));
 
-      for (Waypoint var10 : Client.getInstance().waypointsManager.getWaypoints()) {
+      for (Class8351 var10 : Client.getInstance().waypointsManager.method29989()) {
          this.field20615.method13519(var10.field35889, new Vector3i(var10.field35890, 64, var10.field35891), var10.field35892);
       }
 
@@ -128,8 +124,4 @@ public class MapPanel extends Element {
          var7.method36764(this, var1, var2, var3);
       }
    }
-
-    public static interface Class9514 {
-       void method36764(MapPanel var1, int var2, int var3, Vector3m var4);
-    }
 }

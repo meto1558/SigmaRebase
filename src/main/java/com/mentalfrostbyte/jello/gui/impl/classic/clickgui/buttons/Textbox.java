@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
 import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.SmallImage;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.gui.unmapped.PNGIconButton;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Textbox extends SmallImage {
+public class Textbox extends PNGIconButton {
    private String[] field21384;
    private int field21385;
 
