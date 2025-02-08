@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Alert extends Element {
-    public CustomGuiScreen field21279;
+    public CustomGuiScreen screen;
     public String alertName;
     public Texture field21281;
     private Animation field21282 = new Animation(285, 100);
@@ -36,6 +36,8 @@ public class Alert extends Element {
     public int field21285 = 0;
     private Map<String, String> inputMap;
     private final List<Class9448> field21287 = new ArrayList<>();
+
+    public List<Button> buttons = new ArrayList<>();
 
     public Alert(CustomGuiScreen screen, String iconName, boolean var3, String name, AlertComponent... var5) {
         super(screen, iconName, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
@@ -53,7 +55,7 @@ public class Alert extends Element {
 
         this.field21285 -= 10;
         this.addToList(
-                this.field21279 = new CustomGuiScreen(
+                this.screen = new CustomGuiScreen(
                         this, "modalContent", (this.widthA - this.field21284) / 2, (this.heightA - this.field21285) / 2, this.field21284, this.field21285
                 )
         );
@@ -66,10 +68,10 @@ public class Alert extends Element {
                 if (var15.componentType != ComponentType.SECOND_LINE) {
                     if (var15.componentType != ComponentType.BUTTON) {
                         if (var15.componentType == ComponentType.HEADER) {
-                            this.field21279
+                            this.screen
                                     .addToList(
                                             new Text(
-                                                    this.field21279,
+                                                    this.screen,
                                                     "Item" + var17,
                                                     0,
                                                     var18,
@@ -87,22 +89,18 @@ public class Alert extends Element {
                                     );
                         }
                     } else {
-                        Button var16;
-                        this.field21279
-                                .addToList(
-                                        var16 = new Button(
-                                                this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, ColorHelper.field27961, var15.field44772
-                                        )
-                                );
-                        var16.field20586 = 4;
-                        var16.doThis((var1x, var2x) -> this.method13601());
+                        Button button;
+                        this.screen.addToList(button = new Button(this.screen, "Item" + var17, 0, var18, this.field21284, var15.field44773, ColorHelper.field27961, var15.field44772));
+                        this.buttons.add(button);
+                        button.field20586 = 4;
+                        button.doThis((var1x, var2x) -> this.method13601());
                     }
                 } else {
                     TextField var22;
-                    this.field21279
+                    this.screen
                             .addToList(
                                     var22 = new TextField(
-                                            this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, TextField.field20741, "", var15.field44772
+                                            this.screen, "Item" + var17, 0, var18, this.field21284, var15.field44773, TextField.field20741, "", var15.field44772
                                     )
                             );
                     if (!var15.field44772.contains("Password")) {
@@ -115,10 +113,10 @@ public class Alert extends Element {
                     }
                 }
             } else {
-                this.field21279
+                this.screen
                         .addToList(
                                 new Text(
-                                        this.field21279,
+                                        this.screen,
                                         "Item" + var17,
                                         0,
                                         var18,
@@ -160,7 +158,7 @@ public class Alert extends Element {
     @Override
     public void setHovered(boolean hovered) {
         if (hovered) {
-            for (CustomGuiScreen var5 : this.field21279.getChildren()) {
+            for (CustomGuiScreen var5 : this.screen.getChildren()) {
                 if (var5 instanceof TextField) {
                     ((TextField) var5).setTypedText("");
                     ((TextField) var5).method13146();
@@ -172,14 +170,10 @@ public class Alert extends Element {
         super.setHovered(hovered);
     }
 
-    public CustomGuiScreen method13598() {
-        return this.field21279;
-    }
-
     private Map<String, String> method13599() {
         HashMap var3 = new HashMap();
 
-        for (CustomGuiScreen var5 : this.field21279.getChildren()) {
+        for (CustomGuiScreen var5 : this.screen.getChildren()) {
             AnimatedIconPanel var6 = (AnimatedIconPanel) var5;
             if (var6 instanceof TextField) {
                 TextField var7 = (TextField) var6;
