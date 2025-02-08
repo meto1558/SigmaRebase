@@ -158,7 +158,6 @@ public class BlockFlyAACMode extends Module {
         boolean var4 = false;
         if (var3 != null && var3.getType() == RayTraceResult.Type.BLOCK) {
             if (this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                BlockFly var10000 = (BlockFly) this.access();
                 if (!BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())) {
                     return false;
                 }

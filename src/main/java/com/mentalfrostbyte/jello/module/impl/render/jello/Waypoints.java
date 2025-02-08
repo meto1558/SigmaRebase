@@ -164,7 +164,6 @@ public class Waypoints extends Module {
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
             TextureImpl.unbind();
             TextureManager var10000 = mc.getTextureManager();
-            mc.getTextureManager();
             var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
     }

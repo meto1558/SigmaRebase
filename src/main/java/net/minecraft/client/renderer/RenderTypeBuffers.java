@@ -8,7 +8,7 @@ import net.minecraft.util.Util;
 public class RenderTypeBuffers
 {
     private final RegionRenderCacheBuilder fixedBuilder = new RegionRenderCacheBuilder();
-    private final SortedMap<RenderType, BufferBuilder> fixedBuffers = Util.make(new Object2ObjectLinkedOpenHashMap<>(), (p_228485_1_) ->
+    public final SortedMap<RenderType, BufferBuilder> fixedBuffers = Util.make(new Object2ObjectLinkedOpenHashMap<>(), (p_228485_1_) ->
     {
         p_228485_1_.put(Atlases.getSolidBlockType(), this.fixedBuilder.getBuilder(RenderType.getSolid()));
         p_228485_1_.put(Atlases.getCutoutBlockType(), this.fixedBuilder.getBuilder(RenderType.getCutout()));
