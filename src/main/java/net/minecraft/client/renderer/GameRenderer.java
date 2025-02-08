@@ -785,6 +785,9 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
         }
 
         this.hurtCameraEffect(matrixstack, partialTicks);
+        if (this.mc.player == null) {
+            return; // Prevents the crash if the player is not yet initialized
+        }
 
         if (this.mc.gameSettings.viewBobbing) {
             this.applyBobbing(matrixstack, partialTicks);
