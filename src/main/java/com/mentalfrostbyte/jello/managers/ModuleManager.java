@@ -72,7 +72,7 @@ public class ModuleManager {
 
 
 
-            
+
         }
 
         if (clientMode == ClientMode.CLASSIC) {
