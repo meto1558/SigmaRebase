@@ -1,27 +1,27 @@
-package com.mentalfrostbyte.jello.gui.base.elements.impl;
+package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.newdawn.slick.TrueTypeFont;
 
-public class TextButton extends Element {
-   public Animation lineAnimation;
+public class UIButton extends UIBase {
+   private static String[] field20602;
+   public Animation field20711 = new Animation(190, 190);
 
-   public TextButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
+   public UIButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
       super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
       int var12 = (int)(210.0 * Math.sqrt((double)((float)var5 / 242.0F)));
-      this.lineAnimation = new Animation(var12, var12);
+      this.field20711 = new Animation(var12, var12);
    }
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      this.lineAnimation.changeDirection(!this.method13298() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+      this.field20711.changeDirection(!this.method13298() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
    }
 
    @Override
@@ -42,7 +42,7 @@ public class TextButton extends Element {
             );
          int var7 = this.getFont().getWidth(this.getTypedText());
          float var8 = 18;
-         float var9 = (float)Math.pow((double)this.lineAnimation.calcPercent(), 3.0);
+         float var9 = (float)Math.pow((double)this.field20711.calcPercent(), 3.0);
          RenderUtil.drawString(
             this.getFont(),
             (float)var5,
