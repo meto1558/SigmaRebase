@@ -44,6 +44,7 @@ public class NetworkManager {
     public String session;
     public String token;
 
+
     public static boolean premium = false;
     public static boolean field25696 = false;
 

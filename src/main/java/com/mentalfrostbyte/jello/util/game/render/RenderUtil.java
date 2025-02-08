@@ -137,6 +137,18 @@ public class RenderUtil {
             var2 = var9;
         }
     }
+    public static void method11479(ItemStack var0, int var1, int var2, int var3, int var4) {
+        if (var0 != null) {
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            GL11.glPushMatrix();
+            GL11.glTranslatef((float) var1, (float) var2, 0.0F);
+            GL11.glScalef((float) var3 / 16.0F, (float) var4 / 16.0F, 0.0F);
+            ItemRenderer var7 = mc.getItemRenderer();
+            if (var0.count == 0) {
+                var0 = new ItemStack(var0.getItem());
+            }
+        }
+        }
     public static void render3DColoredBox(BoundingBox boxIn, int color) {
         if (boxIn != null) {
             float var4 = (float)(color >> 24 & 0xFF) / 255.0F;
@@ -1340,6 +1352,9 @@ public class RenderUtil {
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
         GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, GL11.GL_RGB, GL11.GL_BYTE, var5);
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
+    }
+
+    public static void drawImage(float v, float v1, float v2, float v3, net.minecraft.client.renderer.texture.Texture texture, int i) {
     }
 }
 

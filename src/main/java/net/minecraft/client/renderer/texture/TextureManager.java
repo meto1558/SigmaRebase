@@ -41,6 +41,7 @@ public class TextureManager implements IFutureReloadListener, ITickable, AutoClo
     private Texture boundTexture;
     private ResourceLocation boundTextureLocation;
 
+
     public TextureManager(IResourceManager resourceManager)
     {
         this.resourceManager = resourceManager;

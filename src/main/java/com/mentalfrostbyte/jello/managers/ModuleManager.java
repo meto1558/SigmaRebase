@@ -14,6 +14,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
 
+
 import com.mentalfrostbyte.jello.module.impl.world.*;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.*;
@@ -65,6 +66,9 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.InfoHUD());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.ShulkerInfo());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.TabGUI());
+            this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.NameTags());
+
+
 
 
 
