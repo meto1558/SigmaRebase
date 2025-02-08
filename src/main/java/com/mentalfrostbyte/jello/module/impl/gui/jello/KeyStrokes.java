@@ -80,13 +80,24 @@ public class KeyStrokes extends Module {
                             keyName = "L";
                         }
 
-                        RenderUtil.drawRoundedRect(
-                                (float) (this.xBase + topLeftKey.x),
-                                (float) (this.yBase + topLeftKey.y),
-                                (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
-                                (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * topLeftOpacityMul)
-                        );
+                        if (keystroke.getKeyBinding().isKeyDown()) {
+                            RenderUtil.drawRoundedRect(
+                                    (float) (this.xBase + topLeftKey.x),
+                                    (float) (this.yBase + topLeftKey.y),
+                                    (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
+                                    (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
+                                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * topLeftOpacityMul)
+                            );
+                        } else {
+                            RenderUtil.drawRoundedRect(
+                                    (float) (this.xBase + topLeftKey.x),
+                                    (float) (this.yBase + topLeftKey.y),
+                                    (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
+                                    (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
+                                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * topLeftOpacityMul)
+                            );
+                        }
+
                         RenderUtil.drawRoundedRect(
                                 (float) (this.xBase + topLeftKey.x),
                                 (float) (this.yBase + topLeftKey.y),
