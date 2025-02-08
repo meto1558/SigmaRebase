@@ -38,7 +38,7 @@ public class MinibloxGamePlay extends Module {
                 )
         );
         registerSetting(this.oldTranslationLayerCompat = new BooleanSetting(
-                "Archived Translation Layer Compatibility (7GrandDadPGN's Translation Layer)",
+                "7GrandDad Translation Layer Compatibility",
                 "Tries to be compatible with the archived Miniblox Translation Layer by 7GrandDadPGN",
                 false
         ));
@@ -95,7 +95,7 @@ public class MinibloxGamePlay extends Module {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {
                 String text = chatPacket.getChatComponent().getString().replaceAll("§.", "");
-                if (!oldTranslationLayerCompat.currentValue && chatPacket.getType() != ChatType.SYSTEM) {
+                if (chatPacket.getType() != ChatType.SYSTEM && !oldTranslationLayerCompat.currentValue) {
                     return;
                 }
 
