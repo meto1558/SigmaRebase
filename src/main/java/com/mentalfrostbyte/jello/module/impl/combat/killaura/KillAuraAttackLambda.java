@@ -46,7 +46,7 @@ public class KillAuraAttackLambda implements Runnable {
             mc.particles.addParticleEmitter(entity, ParticleTypes.CRIT);
         }
 
-        if (JelloPortal.getVersion().newerThanOrEqualTo(ProtocolVersion.v1_9)) {
+        if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             mc.player.swingArm(Hand.MAIN_HAND);
             Objects.requireNonNull(mc.playerController).attackEntity(mc.player, entity);
         } else {
@@ -100,8 +100,6 @@ public class KillAuraAttackLambda implements Runnable {
                     if (properTrace || walls) {
                         handleAnimationAndAttack(mc, entity, isOnePointEight);
                         mc.player.resetCooldown();
-
-                        Objects.requireNonNull(mc.getConnection()).getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
                     } else {
                         KillAura.currentTarget = null;
                         KillAura.targetEntities = null;
@@ -111,7 +109,6 @@ public class KillAuraAttackLambda implements Runnable {
                     handleAnimationAndAttack(mc, entity, isOnePointEight);
                     mc.player.resetCooldown();
 
-                    Objects.requireNonNull(mc.getConnection()).getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
                 }
             }
 
