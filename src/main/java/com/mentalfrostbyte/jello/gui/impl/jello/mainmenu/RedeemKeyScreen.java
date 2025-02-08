@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
@@ -39,7 +39,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
         this.addToList(this.captchaField = new TextField(this, "captcha", 195, 290, 75, 35, TextField.field20742, "", "Captcha"));
         this.captchaField.setFont(ResourceRegistry.JelloLightFont18);
         redeemButton.doThis((var2x, var3x) -> new Thread(() -> {
-            this.premiumLicense = Client.getInstance().networkManager.redeemPremium(redeemBox.getTypedText());
+            this.premiumLicense = Client.getInstance().networkManager.redeemPremium(redeemBox.getText());
             if (this.premiumLicense == null) {
                 this.premiumLicense = "";
             }

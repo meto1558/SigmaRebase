@@ -82,13 +82,13 @@ public class Slider extends Element {
                 (float) (var6 / 2),
                 RenderUtil2.applyAlpha(RenderUtil2.adjustColorTowardsWhite(this.textColor.getPrimaryColor(), 0.8F), partialTicks * partialTicks * partialTicks)
         );
-        if (this.getTypedText() != null) {
+        if (this.getText() != null) {
             int var11 = Math.max(0, 9 - this.field20734.getXA());
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont14,
-                    (float) (var8 - ResourceRegistry.JelloLightFont14.getWidth(this.getTypedText()) - 10 - var11),
+                    (float) (var8 - ResourceRegistry.JelloLightFont14.getWidth(this.getText()) - 10 - var11),
                     (float) (var9 - 5),
-                    this.getTypedText(),
+                    this.getText(),
                     RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * this.field20735.calcPercent() * partialTicks)
             );
         }

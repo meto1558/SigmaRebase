@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.elements;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.ThumbnailButton;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
@@ -39,7 +39,7 @@ public class SearchBox extends AnimatedIconPanel {
             new Thread(
                     () -> {
                         this.field20842 = new ArrayList<>();
-                        YoutubeJPGThumbnail[] var3 = ThumbnailUtil.search(this.searchBox.getTypedText());
+                        YoutubeJPGThumbnail[] var3 = ThumbnailUtil.search(this.searchBox.getText());
 
                         for (YoutubeJPGThumbnail var7 : var3) {
                             this.field20842.add(new YoutubeVideoData(var7.videoID, var7.title, var7.fullUrl));

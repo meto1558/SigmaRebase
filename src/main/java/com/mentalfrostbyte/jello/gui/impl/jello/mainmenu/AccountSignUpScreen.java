@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
@@ -13,7 +13,6 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 
 public class AccountSignUpScreen extends Element {
     private Text stringPanel;
@@ -53,7 +52,7 @@ public class AccountSignUpScreen extends Element {
                 )
         );
         this.addToList(this.loadingBox = new LoadingIndicator(this, "loading", 530, 314, 30, 30));
-        this.loadingBox.method13296(false);
+        this.loadingBox.setHovered(false);
         this.loadingBox.method13294(true);
         int var9 = 50;
         int var10 = 320;
@@ -89,21 +88,21 @@ public class AccountSignUpScreen extends Element {
     public void method13126() {
         new Thread(
                 () -> {
-                    this.loadingBox.method13296(true);
+                    this.loadingBox.setHovered(true);
                     this.registerButton.setEnabled(false);
                     Client.getInstance().networkManager.resetLicense();
-                    Client.getInstance().networkManager.signup(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText());
-                    String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText());
+                    Client.getInstance().networkManager.signup(this.usernameInputBox.getText(), this.passwordInputBox.getText(), this.emailInputBox.getText());
+                    String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getText(), this.passwordInputBox.getText());
                     RegisterScreen var5 = (RegisterScreen) this.getParent();
                     if (s != null) {
                         var5.method13424("Error", s);
-                        this.captchaBox.setTypedText("");
+                        this.captchaBox.setText("");
                     } else {
                         var5.method13424("Success", "You can now login.");
                         var5.method13423();
                     }
 
-                    this.loadingBox.method13296(false);
+                    this.loadingBox.setHovered(false);
                     this.registerButton.setEnabled(true);
                 }
         ).start();

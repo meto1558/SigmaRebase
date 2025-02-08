@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
 import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
@@ -103,16 +103,16 @@ public class MainMenuScreen extends Screen {
         this.addToList(this.mainMenuScreen = new JelloMainMenu(this, "main", 0, 0, this.widthA, this.heightA));
         this.addToList(this.changelogScreen = new ChangelogScreen(this, "changelog", 0, 0, this.widthA, this.heightA));
         this.addToList(this.redeemKeyScreen = new RedeemKeyScreen(this, "redeem", 0, 0, this.widthA, this.heightA));
-        this.changelogScreen.method13296(false);
+        this.changelogScreen.setHovered(false);
         this.changelogScreen.method13294(true);
-        this.redeemKeyScreen.method13296(false);
+        this.redeemKeyScreen.setHovered(false);
         this.redeemKeyScreen.method13294(true);
     }
 
     public void goOut() {
         this.field20972.changeDirection(Animation.Direction.BACKWARDS);
-        this.changelogScreen.method13296(false);
-        this.redeemKeyScreen.method13296(false);
+        this.changelogScreen.setHovered(false);
+        this.redeemKeyScreen.setHovered(false);
         this.redeemKeyScreen.method13292(false);
         this.redeemKeyScreen.method13294(true);
     }
@@ -124,12 +124,12 @@ public class MainMenuScreen extends Screen {
 
     public void animateIn() {
         this.field20972.changeDirection(Animation.Direction.FORWARDS);
-        this.changelogScreen.method13296(true);
+        this.changelogScreen.setHovered(true);
     }
 
     public void animateNext() {
         this.field20972.changeDirection(Animation.Direction.FORWARDS);
-        this.redeemKeyScreen.method13296(true);
+        this.redeemKeyScreen.setHovered(true);
         this.redeemKeyScreen.method13292(true);
         this.redeemKeyScreen.method13294(false);
     }
@@ -152,7 +152,7 @@ public class MainMenuScreen extends Screen {
 
         float scaleOffset = 0.07F * transitionProgress;
         this.mainMenuScreen.method13279(1.0F - scaleOffset, 1.0F - scaleOffset);
-        this.mainMenuScreen.method13296(this.field20972.calcPercent() == 0.0F);
+        this.mainMenuScreen.setHovered(this.field20972.calcPercent() == 0.0F);
         long elapsedTime = System.nanoTime() - currentTime;
         field20982 = Math.min(10.0F, Math.max(0.0F, (float) elapsedTime / 1.810361E7F / 2.0F));
         currentTime = System.nanoTime();

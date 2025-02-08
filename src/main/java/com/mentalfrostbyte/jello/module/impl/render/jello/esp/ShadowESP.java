@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello.esp;
 
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
@@ -225,8 +225,7 @@ public class ShadowESP extends Module {
         GL11.glEnable(2903);
         RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
         TextureImpl.unbind();
-        TextureManager var10000 = mc.getTextureManager();
-        var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+        mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         mc.gameRenderer.lightmapTexture.enableLightmap();
         GL11.glLightModelfv(2899, new float[] { 0.4F, 0.4F, 0.4F, 1.0F });
         field23794 = Class2191.field14327;

@@ -26,7 +26,7 @@ public class TextButton extends Element {
 
     @Override
     public void draw(float partialTicks) {
-        if (this.getTypedText() != null) {
+        if (this.getText() != null) {
             int var4 = this.textColor.getPrimaryColor();
             int var5 = this.getXA()
                     + (
@@ -40,14 +40,14 @@ public class TextButton extends Element {
                             ? 0
                             : (this.textColor.method19413() != FontSizeAdjust.HEIGHT_NEGATE ? this.getHeightA() / 2 : this.getHeightA())
             );
-            int var7 = this.getFont().getWidth(this.getTypedText());
+            int var7 = this.getFont().getWidth(this.getText());
             float var8 = 18;
             float var9 = (float) Math.pow((double) this.lineAnim.calcPercent(), 3.0);
             RenderUtil.drawString(
                     this.getFont(),
                     (float) var5,
                     (float) var6,
-                    this.getTypedText(),
+                    this.getText(),
                     RenderUtil2.applyAlpha(var4, partialTicks * RenderUtil2.getAlpha(var4)),
                     this.textColor.method19411(),
                     this.textColor.method19413()

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;

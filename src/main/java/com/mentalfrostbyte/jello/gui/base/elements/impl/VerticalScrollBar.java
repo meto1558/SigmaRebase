@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.VerticalScrollBarButton;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
@@ -77,7 +77,7 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
         float var8 = var6 / var5;
         boolean var9 = var8 < 1.0F && var5 > 0.0F && this.field20794 >= 0.0F;
         this.setEnabled(var9);
-        this.method13296(var9);
+        this.setHovered(var9);
     }
 
     @Override

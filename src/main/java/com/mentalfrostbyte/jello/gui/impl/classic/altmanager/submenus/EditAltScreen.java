@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;
@@ -39,15 +39,15 @@ public class EditAltScreen extends Screen {
       this.field21028.method13155(true);
       this.field21028.method13147("*");
       this.field21029.doThis((var2, var3) -> {
-         if (this.field21027.getTypedText().length() > 0) {
-            if (!this.field21027.getTypedText().equals(var1.getEmail())) {
-               var1.setName(this.field21027.getTypedText());
+         if (this.field21027.getText().length() > 0) {
+            if (!this.field21027.getText().equals(var1.getEmail())) {
+               var1.setName(this.field21027.getText());
             }
 
-            var1.setEmail(this.field21027.getTypedText());
+            var1.setEmail(this.field21027.getText());
          }
 
-         var1.setPassword(this.field21028.getTypedText());
+         var1.setPassword(this.field21028.getText());
          this.field21032 = "Edited!";
       });
       this.field21030.doThis((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));

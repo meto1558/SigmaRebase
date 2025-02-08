@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.util.client.spam;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.mentalfrostbyte.jello.Client.RELEASE_TARGET;
+import static com.mentalfrostbyte.Client.RELEASE_TARGET;
 
 public final class AutoLData {
     public static ArrayList<String> SIGMEME_QUOTES = new ArrayList<>(

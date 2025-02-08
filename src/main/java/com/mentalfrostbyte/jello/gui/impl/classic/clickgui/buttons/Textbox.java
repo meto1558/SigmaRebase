@@ -42,7 +42,7 @@ public class Textbox extends SmallImage {
    private void method13719() {
       if (this.field21385 >= 0 && this.field21385 < this.field21384.length) {
          this.setFont(ResourceRegistry.JelloLightFont20);
-         this.setTypedText(this.field21384[this.field21385]);
+         this.setText(this.field21384[this.field21385]);
       } else {
          throw new RuntimeException("Invalid index for TypeButton");
       }
@@ -76,7 +76,7 @@ public class Textbox extends SmallImage {
       var1 %= this.field21384.length;
       if (var1 != this.field21385) {
          this.field21385 = var1;
-         this.setTypedText(this.field21384[var1]);
+         this.setText(this.field21384[var1]);
          if (var2) {
             this.callUIHandlers();
          }

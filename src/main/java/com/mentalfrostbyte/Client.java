@@ -1,14 +1,14 @@
-package com.mentalfrostbyte.jello;
+package com.mentalfrostbyte;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import com.mentalfrostbyte.emulator.Emulator;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.logger.Logger;
@@ -77,19 +77,12 @@ public class Client {
     public void start() {
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
+        CloudConfigs.start();
 
         try {
             if (!this.file.exists()) {
                 this.file.mkdirs();
             }
-
-            new Thread(() -> {
-                try {
-                    Emulator.start();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
 
             this.config = FileUtil.readFile(new File(this.file + "/config.json"));
         } catch (IOException var8) {
@@ -183,15 +176,15 @@ public class Client {
         }
     }
 
-    public void addTexture(Texture var1) {
-        textureList.add(var1);
+    public void addTexture(Texture texture) {
+        textureList.add(texture);
     }
 
     public void renderVisuals() {
         if (!textureList.isEmpty()) {
             try {
-                for (Texture var4 : textureList) {
-                    var4.release();
+                for (Texture texture : textureList) {
+                    texture.release();
                 }
 
                 textureList.clear();
@@ -200,8 +193,8 @@ public class Client {
         }
 
         if (getInstance().clientMode != ClientMode.NOADDONS) {
-            double var5 = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
-            GL11.glScaled(var5, var5, 1.0);
+            double scaleFactor = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+            GL11.glScaled(scaleFactor, scaleFactor, 1.0);
             GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, 1.0);
             RenderSystem.disableDepthTest();
             RenderSystem.pushMatrix();
@@ -254,7 +247,7 @@ public class Client {
         if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
-            this.moduleManager.method14659(this.config);
+            this.moduleManager.loadProfileFromJSON(this.config);
             this.moduleManager.saveCurrentConfigToJSON(this.config);
         }
     }

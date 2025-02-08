@@ -61,7 +61,7 @@ public class WaypointPanel extends Element {
                         ResourceRegistry.JelloLightFont25
                 )
         );
-        var8.doThis((var1x, var2x) -> this.method13132(this.field20729.getTypedText(), this.method13130(), this.field20730.field21296));
+        var8.doThis((var1x, var2x) -> this.method13132(this.field20729.getText(), this.method13130(), this.field20730.field21296));
         this.addToList(this.field20729 = new TextField(this, "Name", 20, 7, this.widthA - 40, 60, TextField.field20741, "My waypoint", "My waypoint"));
         this.field20729.method13148();
         this.field20729.method13156(false);
@@ -84,8 +84,8 @@ public class WaypointPanel extends Element {
     }
 
     public Vector3i method13130() {
-        if (this.field20728.getTypedText() != null && this.field20728.getTypedText().contains(" ")) {
-            String[] var3 = this.field20728.getTypedText().split(" ");
+        if (this.field20728.getText() != null && this.field20728.getText().contains(" ")) {
+            String[] var3 = this.field20728.getText().split(" ");
             if (var3.length == 2 && var3[0].matches("-?\\d+") && var3[1].matches("-?\\d+")) {
                 int var4 = Integer.valueOf(var3[0]);
                 int var5 = Integer.valueOf(var3[1]);

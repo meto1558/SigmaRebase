@@ -1,6 +1,6 @@
 package net.minecraft.client;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.misc.FakeForge;
 
 public class ClientBrandRetriever

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello.minimap;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.MiniMap;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;

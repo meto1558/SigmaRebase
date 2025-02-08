@@ -90,12 +90,12 @@ public class MainMenuButton extends SmallImage {
                 this.getTexture(),
                 RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4), partialTicks)
         );
-        if (this.getTypedText() != null) {
+        if (this.getText() != null) {
             RenderUtil.drawString(
                     this.getFont(),
                     (float) (var8 + var6 / 2),
                     (float) (var9 + var7 / 2),
-                    this.getTypedText(),
+                    this.getText(),
                     RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()
@@ -106,7 +106,7 @@ public class MainMenuButton extends SmallImage {
         float var13 = 0.8F + var5 * 0.2F;
         if (var5 > 0.0F) {
             GL11.glPushMatrix();
-            String var14 = this.getTypedText() != null ? this.getTypedText() : this.name;
+            String var14 = this.getText() != null ? this.getText() : this.name;
             GL11.glTranslatef(
                     (float) (this.getXA() + this.getWidthA() / 2 - font.getWidth(var14) / 2), (float) (this.getYA() + this.getHeightA() - 40), 0.0F
             );

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
@@ -70,7 +70,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.buttonList.addToList(var13 = new ConfigButton(this.buttonList, "rename", 0, 0, this.field21270 / 2, var6, var11, "Rename"));
       ConfigButton deleteButton;
       this.buttonList.addToList(deleteButton = new ConfigButton(this.buttonList, "remove", this.field21270 / 2, 0, this.field21270 / 2, var6, var12, "Delete"));
-      this.buttonList.method13296(false);
+      this.buttonList.setHovered(false);
       ColorHelper var15 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
       this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.profileName));
       this.profileName.method13156(false);
@@ -80,11 +80,11 @@ public class ProfileGroup extends AnimatedIconPanel {
          if (this.profileName.method13297() && var3x == 257) {
             this.profileName.setEnabled(false);
             this.profileName.method13145(false);
-            if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getTypedText())) {
+            if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getText())) {
                return;
             }
 
-            config.profileName = this.profileName.getTypedText();
+            config.profileName = this.profileName.getText();
 
             try {
                System.out.println("Saving and replacing old configs with new names.");
@@ -103,7 +103,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       deleteButton.doThis((var1x, var2x) -> {
          this.animation.changeDirection(Animation.Direction.FORWARDS);
           try {
-             boolean profileDeleted = Files.deleteIfExists(new File(Client.getInstance().file + "/profiles/" + this.profileName.getTypedText() + ".profile").toPath());
+             boolean profileDeleted = Files.deleteIfExists(new File(Client.getInstance().file + "/profiles/" + this.profileName.getText() + ".profile").toPath());
 
              if (!profileDeleted) {
                 File profilesFolder = new File(Client.getInstance().file + "/profiles/");
@@ -115,7 +115,7 @@ public class ProfileGroup extends AnimatedIconPanel {
                 }
              }
           } catch (IOException e) {
-              System.out.println("Failed to delete " + this.profileName.getTypedText() + " - " + e.getMessage());
+              System.out.println("Failed to delete " + this.profileName.getText() + " - " + e.getMessage());
           }
 
       });
@@ -155,7 +155,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       if (!this.profileName.method13297() && this.profileName.isVisible()) {
          this.profileName.setEnabled(false);
          this.profileName.method13145(false);
-         this.currentConfig.profileName = this.profileName.getTypedText();
+         this.currentConfig.profileName = this.profileName.getText();
 
          try {
             System.out.println("Saving and replacing old configs with new names.");
@@ -189,7 +189,7 @@ public class ProfileGroup extends AnimatedIconPanel {
          var5 = MathHelper.calculateBackwardTransition(this.field21265.calcPercent(), 0.0F, 1.0F, 1.0F);
       }
 
-      this.buttonList.method13296(this.field21265.calcPercent() == 1.0F);
+      this.buttonList.setHovered(this.field21265.calcPercent() == 1.0F);
       this.buttonList.setWidthA(Math.max(0, (int)((float)this.field21270 * var5)));
       this.buttonList.method13284((int)((float)this.field21270 * (1.0F - var5)));
       RenderUtil.method11415(this);

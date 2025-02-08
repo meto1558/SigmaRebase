@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.system.network;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.util.Util;

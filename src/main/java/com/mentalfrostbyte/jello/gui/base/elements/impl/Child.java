@@ -55,7 +55,7 @@ public class Child extends Element {
                 (float) this.xA, (float) this.yA + 3.0F * this.field20691, (float) this.widthA, (float) this.heightA, 8.0F, -986896
         );
         TrueTypeFont var4 = ResourceRegistry.JelloLightFont20;
-        if (this.typedText.contains("Lock")) {
+        if (this.text.contains("Lock")) {
             RenderUtil.drawCircle(
                     (float) (this.xA + 14),
                     (float) (this.yA + 11) + 3.0F * this.field20691,
@@ -64,20 +64,20 @@ public class Child extends Element {
             );
         }
 
-        if (!this.typedText.equals("Return")) {
-            if (!this.typedText.equals("Back")) {
-                if (!this.typedText.equals("Meta")) {
-                    if (!this.typedText.equals("Menu")) {
-                        if (!this.typedText.equals("Space")) {
+        if (!this.text.equals("Return")) {
+            if (!this.text.equals("Back")) {
+                if (!this.text.equals("Meta")) {
+                    if (!this.text.equals("Menu")) {
+                        if (!this.text.equals("Space")) {
                             if (this.field20693) {
                                 var4 = ResourceRegistry.RegularFont20;
                             }
 
                             RenderUtil.drawString(
                                     var4,
-                                    (float) (this.xA + (this.widthA - var4.getWidth(this.typedText)) / 2),
+                                    (float) (this.xA + (this.widthA - var4.getWidth(this.text)) / 2),
                                     (float) (this.yA + 19) + 3.0F * this.field20691,
-                                    this.typedText,
+                                    this.text,
                                     RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F + (!this.field20693 ? 0.0F : 0.2F))
                             );
                         }

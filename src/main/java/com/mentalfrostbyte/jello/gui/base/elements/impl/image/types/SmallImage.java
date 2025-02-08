@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl.image.types;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -62,12 +62,12 @@ public class SmallImage extends Button {
                         (float) (this.textColor.getPrimaryColor() >> 24 & 0xFF) / 255.0F * partialTicks
                 )
         );
-        if (this.getTypedText() != null) {
+        if (this.getText() != null) {
             RenderUtil.drawString(
                     this.getFont(),
                     (float) (this.getXA() + this.getWidthA() / 2),
                     (float) (this.getYA() + this.getHeightA() / 2),
-                    this.getTypedText(),
+                    this.getText(),
                     RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()

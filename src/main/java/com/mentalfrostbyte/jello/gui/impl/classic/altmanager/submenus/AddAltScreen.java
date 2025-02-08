@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;
@@ -47,7 +47,7 @@ public class AddAltScreen extends Screen {
       this.field21118.doThis((var1, var2) -> {
          this.field21122 = "§bLogging in...";
          new Thread(() -> {
-            Account var3x = new Account(this.field21116.getTypedText(), this.field21117.getTypedText());
+            Account var3x = new Account(this.field21116.getText(), this.field21117.getText());
             if (!this.field21121.updateSelectedEmail(var3x)) {
                this.field21122 = "§cAlt failed!";
             } else {
@@ -68,8 +68,8 @@ public class AddAltScreen extends Screen {
          if (var5x != "" && var5x.contains(":")) {
             String[] var6x = var5x.split(":");
             if (var6x.length == 2) {
-               this.field21116.setTypedText(var6x[0].replace("\n", ""));
-               this.field21117.setTypedText(var6x[1].replace("\n", ""));
+               this.field21116.setText(var6x[0].replace("\n", ""));
+               this.field21117.setText(var6x[1].replace("\n", ""));
             }
          }
       });

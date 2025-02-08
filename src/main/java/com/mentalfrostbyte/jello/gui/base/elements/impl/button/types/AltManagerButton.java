@@ -16,7 +16,7 @@ public class AltManagerButton extends AnimatedIconPanel {
 
     public AltManagerButton(CustomGuiScreen screen, String id, int x, int y, int width, int height, String text, int color) {
         super(screen, id, x, y, width, height, false);
-        this.setTypedText(text);
+        this.setText(text);
         this.doThis((sc, i) -> Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F)));
         this.color = color;
     }
@@ -43,7 +43,7 @@ public class AltManagerButton extends AnimatedIconPanel {
                 ResourceRegistry.DefaultClientFont,
                 (float) (this.getXA() + this.getWidthA() / 2),
                 (float) (this.getYA() + this.getHeightA() / 2),
-                this.typedText,
+                this.text,
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.isHovered() ? 0.5F : 1.0F),
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2

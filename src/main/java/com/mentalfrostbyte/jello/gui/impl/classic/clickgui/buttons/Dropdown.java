@@ -140,13 +140,13 @@ public class Dropdown extends Element {
          }
       }
 
-      if (this.getTypedText() != null) {
+      if (this.getText() != null) {
          RenderUtil.method11415(this);
          RenderUtil.drawString(
             this.getFont(),
             (float)(this.getXA() + 7),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2),
-            this.getTypedText(),
+            this.getText(),
             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
          );
          RenderUtil.endScissor();
@@ -201,7 +201,7 @@ public class Dropdown extends Element {
    }
 
    @Override
-   public String getTypedText() {
+   public String getText() {
       return this.method13667().size() <= 0 ? null : this.method13667().get(this.method13671());
    }
 

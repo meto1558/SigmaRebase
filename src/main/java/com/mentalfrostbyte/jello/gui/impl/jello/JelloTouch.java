@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Bound;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.KeybindTypes;
@@ -26,7 +26,7 @@ import totalcross.json.JSONObject;
 
 import java.util.*;
 
-import static com.mentalfrostbyte.jello.Client.RELEASE_TARGET;
+import static com.mentalfrostbyte.Client.RELEASE_TARGET;
 
 public class JelloTouch {
     public JTouchBar touchBar;
@@ -116,13 +116,13 @@ public class JelloTouch {
         return obj;
     }
 
-    public void method13732(JSONObject var1) throws JSONException {
-        if (var1.has("keybinds")) {
-            JSONArray var4 = var1.getJSONArray("keybinds");
+    public void method13732(JSONObject pKeybinds) throws JSONException {
+        if (pKeybinds.has("keybinds")) {
+            JSONArray keybindsArr = pKeybinds.getJSONArray("keybinds");
 
-            for (int var5 = 0; var5 < var4.length(); var5++) {
-                JSONObject var6 = var4.getJSONObject(var5);
-                Bound var7 = new Bound(var6);
+            for (int i = 0; i < keybindsArr.length(); i++) {
+                JSONObject boundJson = keybindsArr.getJSONObject(i);
+                Bound var7 = new Bound(boundJson);
                 if (var7.hasTarget()) {
                     this.boundables.add(var7);
                 }

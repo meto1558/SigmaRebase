@@ -100,12 +100,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.mewebstudio</groupId>
-            <artifactId>captcha</artifactId>
-            <version>0.1.3</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.viaversion</groupId>
             <artifactId>viarewind</artifactId>
             <version>4.0.6-SNAPSHOT</version>

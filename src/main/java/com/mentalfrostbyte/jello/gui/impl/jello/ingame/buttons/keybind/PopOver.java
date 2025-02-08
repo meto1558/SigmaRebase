@@ -150,7 +150,7 @@ public class PopOver extends Element {
                 ResourceRegistry.JelloLightFont25,
                 (float) (this.xA + 25),
                 (float) (this.yA + 20),
-                this.typedText + " Key",
+                this.text + " Key",
                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
         );
         RenderUtil.drawRoundedRect(

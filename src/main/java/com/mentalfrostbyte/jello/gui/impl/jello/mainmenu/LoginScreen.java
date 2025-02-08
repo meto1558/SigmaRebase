@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
@@ -18,7 +18,6 @@ import net.minecraft.util.Util;
 public class LoginScreen extends Element {
     private TextField inputUsername;
     private TextField inputPassword;
-    private TextField captcha;
     private TextButton loginButton;
     private TextButton registerButton;
     private TextButton forgotButton;
@@ -65,7 +64,7 @@ public class LoginScreen extends Element {
                 )
         );
         this.addToList(this.loadingThingy = new LoadingIndicator(this, "loading", 511, 260, 30, 30));
-        this.loadingThingy.method13296(false);
+        this.loadingThingy.setHovered(false);
         this.loadingThingy.method13294(true);
         int var9 = 50;
         int var10 = 300;
@@ -76,9 +75,6 @@ public class LoginScreen extends Element {
         this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.method13155(true);
-        this.addToList(this.captcha = new TextField(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
-        this.captcha.setFont(ResourceRegistry.JelloLightFont20);
-        this.captcha.setEnabled(false);
         this.loginButton.doThis((var1x, var2x) -> this.method13688());
         this.registerButton.doThis((var1x, var2x) -> {
             RegisterScreen var5x = (RegisterScreen) this.getParent();
@@ -98,20 +94,19 @@ public class LoginScreen extends Element {
 
     public void method13688() {
         new Thread(() -> {
-            this.loadingThingy.method13296(true);
+            this.loadingThingy.setHovered(true);
             this.loginButton.setEnabled(false);
 
-            String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText(), this.inputPassword.getTypedText());
+            String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getText(), this.inputPassword.getText());
             RegisterScreen reg = (RegisterScreen) this.getParent();
 
             if (account != null) {
                 reg.method13424("Error", account);
-                this.captcha.setTypedText("");
             } else {
                 this.callUIHandlers();
             }
 
-            this.loadingThingy.method13296(false);
+            this.loadingThingy.setHovered(false);
             this.loginButton.setEnabled(true);
         }).start();
     }

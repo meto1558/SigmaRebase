@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.combined;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IGuiEventListener;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
@@ -41,7 +41,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public int field20901 = 0;
     public int field20902 = 0;
     public boolean field20903;
-    public boolean field20904;
+    public boolean hovered;
     public boolean field20905;
     public boolean field20906;
     public boolean field20907;
@@ -49,7 +49,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public boolean field20909;
     public boolean listening;
     public boolean field20911;
-    public String typedText;
+    public String text;
     public TrueTypeFont font;
     public ColorHelper textColor;
     private final ArrayList<Runnable> runOnDimensionUpdate = new ArrayList<Runnable>();
@@ -70,8 +70,8 @@ public class CustomGuiScreen implements IGuiEventListener {
         this(parent, name, xA, yA, widthA, heightA, textColor, null);
     }
 
-    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText) {
-        this(parent, name, xA, yA, widthA, heightA, textColor, typedText, ResourceRegistry.JelloLightFont25);
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String text) {
+        this(parent, name, xA, yA, widthA, heightA, textColor, text, ResourceRegistry.JelloLightFont25);
     }
 
     /**
@@ -84,21 +84,21 @@ public class CustomGuiScreen implements IGuiEventListener {
      * @param widthA    The width of the screen.
      * @param heightA   The height of the screen.
      * @param textColor The color of the text.
-     * @param typedText The initial typed text (can be null).
+     * @param text The initial typed text (can be null).
      * @param font      The TrueTypeFont to be used for rendering text.
      */
-    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText, TrueTypeFont font) {
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String text, TrueTypeFont font) {
         this.name = name;
         this.parent = parent;
         this.xA = xA;
         this.yA = yA;
         this.widthA = widthA;
         this.heightA = heightA;
-        this.typedText = typedText;
+        this.text = text;
         this.textColor = textColor;
         this.font = font;
         this.field20903 = true;
-        this.field20904 = true;
+        this.hovered = true;
         this.listening = true;
         this.field20911 = false;
     }
@@ -774,11 +774,11 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public boolean isHovered() {
-        return this.field20904;
+        return this.hovered;
     }
 
-    public void method13296(boolean var1) {
-        this.field20904 = var1;
+    public void setHovered(boolean hovered) {
+        this.hovered = hovered;
     }
 
     public boolean method13297() {
@@ -809,20 +809,20 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this.field20911;
     }
 
-    public String getTypedText() {
-        return this.typedText;
+    public String getText() {
+        return this.text;
     }
 
-    public void setTypedText(String var1) {
-        this.typedText = var1;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public TrueTypeFont getFont() {
         return this.font;
     }
 
-    public void setFont(TrueTypeFont var1) {
-        this.font = var1;
+    public void setFont(TrueTypeFont font) {
+        this.font = font;
     }
 
     public ColorHelper getTextColor() {

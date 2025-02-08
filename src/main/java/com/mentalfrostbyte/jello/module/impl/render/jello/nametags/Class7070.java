@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello.nametags;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.AirItem;

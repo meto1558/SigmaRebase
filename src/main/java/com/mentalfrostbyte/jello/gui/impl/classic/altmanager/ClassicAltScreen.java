@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Account;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
@@ -73,7 +73,7 @@ public class ClassicAltScreen extends Screen {
         this.addToList(
                 this.altScreenGroup = new ClassicAltScreenGroup(this, "toolbar", (Minecraft.getInstance().getMainWindow().getWidth() - var9) / 2 + 16, this.getHeightA() - 94)
         );
-        this.altScreenGroup.method13296(false);
+        this.altScreenGroup.setHovered(false);
     }
 
     private void method13395(com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var1) {
@@ -91,7 +91,7 @@ public class ClassicAltScreen extends Screen {
                 }
 
                 var5.method13580(true);
-                this.altScreenGroup.method13296(true);
+                this.altScreenGroup.setHovered(true);
                 if (var6 != null && var6.equals(var5)) {
                     this.method13398(var5);
                 }
@@ -110,7 +110,7 @@ public class ClassicAltScreen extends Screen {
         Account var3 = this.method13406();
         if (var3 != null) {
             this.accountManager.removeAccount(var3.field21249);
-            this.altScreenGroup.method13296(false);
+            this.altScreenGroup.setHovered(false);
             this.method13402();
         }
     }
@@ -207,7 +207,7 @@ public class ClassicAltScreen extends Screen {
     }
 
     public void method13403() {
-        List<com.mentalfrostbyte.jello.managers.util.account.microsoft.Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getTypedText());
+        List<com.mentalfrostbyte.jello.managers.util.account.microsoft.Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getText());
         int var5 = 0;
         if (this.altList != null) {
             var5 = this.altList.method13513();

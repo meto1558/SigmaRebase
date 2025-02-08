@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render.classic.esp;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -31,7 +31,7 @@ public class BoxOutlineESP extends Module {
     }
 
     @EventTarget
-    public void method16506(EventRender3D var1) {
+    public void onRender(EventRender3D event) {
         if (this.isEnabled()) {
             if (mc.player != null && mc.world != null) {
                 this.method16509();

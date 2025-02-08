@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;
@@ -47,7 +47,7 @@ public class DirectLoginScreen extends Screen {
       this.loginButton.doThis((var1, var2) -> {
          this.status = "§bLogging in...";
          new Thread(() -> {
-            Account account = new Account(this.emailOrUsername.getTypedText(), this.password.getTypedText());
+            Account account = new Account(this.emailOrUsername.getText(), this.password.getText());
             if (!this.accountManager.login(account)) {
                this.status = "§cLogin failed!";
             } else {
@@ -67,8 +67,8 @@ public class DirectLoginScreen extends Screen {
 
          if (var5x.contains(":")) {
             String[] var6x = var5x.split(":");
-            this.emailOrUsername.setTypedText(var6x[0]);
-            this.password.setTypedText(var6x[1]);
+            this.emailOrUsername.setText(var6x[0]);
+            this.password.setText(var6x[1]);
          } else this.status = "§cPlease copy a valid username:password format to clipboard";
       });
    }

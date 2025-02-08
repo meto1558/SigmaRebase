@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.render;
 
 import com.google.gson.JsonSyntaxException;
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.GuiManager;

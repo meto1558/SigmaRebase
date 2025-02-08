@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.OnlineProfileListener;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.module.Module;

@@ -3,7 +3,7 @@ package net.minecraft.client;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
@@ -250,7 +250,7 @@ import org.apache.logging.log4j.Logger;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONException;
 
-import static com.mentalfrostbyte.jello.Client.RELEASE_TARGET;
+import static com.mentalfrostbyte.Client.RELEASE_TARGET;
 
 public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperInfo, IWindowEventListener {
     private static Minecraft instance;

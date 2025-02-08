@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
@@ -163,8 +163,7 @@ public class Waypoints extends Module {
 
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
             TextureImpl.unbind();
-            TextureManager var10000 = mc.getTextureManager();
-            var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
     }
 

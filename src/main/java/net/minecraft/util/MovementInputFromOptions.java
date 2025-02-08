@@ -1,7 +1,5 @@
 package net.minecraft.util;
 
-import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import net.minecraft.client.GameSettings;
 
 public class MovementInputFromOptions extends MovementInput

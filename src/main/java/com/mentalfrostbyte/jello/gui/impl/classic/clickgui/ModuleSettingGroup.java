@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Class4345;

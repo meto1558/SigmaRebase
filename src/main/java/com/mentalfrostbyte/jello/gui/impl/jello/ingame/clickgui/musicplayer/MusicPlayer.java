@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.ChangingButton;
@@ -179,7 +179,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         }
 
         var1.setEnabled(true);
-        this.field20849 = var1.getTypedText();
+        this.field20849 = var1.getText();
         this.field20852 = var1;
         this.searchBox.setEnabled(false);
         this.field20852.field21207 = 65;
@@ -258,7 +258,7 @@ public class MusicPlayer extends AnimatedIconPanel {
             } else {
                 int var12 = newHeight - this.sizeWidthThingy - (this.parent == null ? 0 : this.parent.method13271());
                 int var14 = 200;
-                if (var12 + this.getWidthA() > this.parent.getWidthA() + var14 && newHeight - this.field20878 > 70) {
+                if (var12 + this.getWidthA() > this.parent.getWidthA() + var14 && newHeight - this.mouseX > 70) {
                     int var15 = var12 - this.getXA() - var14;
                     this.setXA((int) ((float) this.getXA() + (float) var15 * 0.5F));
                     this.field20871 = (float) this.getXA();

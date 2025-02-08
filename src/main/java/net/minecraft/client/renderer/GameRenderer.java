@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.google.gson.JsonSyntaxException;
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderShulker;

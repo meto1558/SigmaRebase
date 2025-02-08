@@ -33,9 +33,9 @@ public class Image extends Element {
 
       RenderUtil.drawString(
               Resources.regular25,
-         (float)(this.xA + (this.getWidthA() - Resources.regular25.getWidth(this.typedText)) / 2),
+         (float)(this.xA + (this.getWidthA() - Resources.regular25.getWidth(this.text)) / 2),
          (float)(this.yA + this.getHeightA() - 50),
-         this.typedText,
+         this.text,
          !this.method13298() ? -14869219 : -319475
       );
       super.draw(partialTicks);

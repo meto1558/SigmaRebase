@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.client.render;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import org.newdawn.slick.TrueTypeFont;
 

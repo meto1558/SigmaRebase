@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.BanListener;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
@@ -133,7 +133,7 @@ public class AccountManager {
         JSONArray jsonArray = new JSONArray();
 
         for (Account account : this.accounts) {
-            jsonArray.put(account.method34232());
+            jsonArray.put(account.toJSON());
         }
 
         JSONObject jsonObject = new JSONObject();

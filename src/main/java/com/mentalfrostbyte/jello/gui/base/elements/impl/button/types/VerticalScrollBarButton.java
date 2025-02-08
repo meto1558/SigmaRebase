@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl.button.types;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;

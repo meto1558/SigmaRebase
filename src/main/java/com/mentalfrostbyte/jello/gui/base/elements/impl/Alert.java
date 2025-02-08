@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
 import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
@@ -26,8 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mentalfrostbyte.jello.managers.util.account.microsoft.Account.cookieLogin;
+
 public class Alert extends Element {
-    public CustomGuiScreen field21279;
+    public CustomGuiScreen screen;
     public String alertName;
     public Texture field21281;
     private Animation field21282 = new Animation(285, 100);
@@ -37,11 +39,13 @@ public class Alert extends Element {
     private Map<String, String> inputMap;
     private final List<Class9448> field21287 = new ArrayList<>();
 
+    public List<Button> buttons = new ArrayList<>();
+
     public Alert(CustomGuiScreen screen, String iconName, boolean var3, String name, AlertComponent... var5) {
         super(screen, iconName, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
         this.field21283 = var3;
         this.alertName = name;
-        this.method13296(false);
+        this.setHovered(false);
         this.method13292(false);
         this.method13243();
         TextField var8 = null;
@@ -53,60 +57,64 @@ public class Alert extends Element {
 
         this.field21285 -= 10;
         this.addToList(
-                this.field21279 = new CustomGuiScreen(
+                this.screen = new CustomGuiScreen(
                         this, "modalContent", (this.widthA - this.field21284) / 2, (this.heightA - this.field21285) / 2, this.field21284, this.field21285
                 )
         );
         int var17 = 0;
         int var18 = 0;
 
-        for (AlertComponent var15 : var5) {
+        for (AlertComponent component : var5) {
             var17++;
-            if (var15.componentType != ComponentType.FIRST_LINE) {
-                if (var15.componentType != ComponentType.SECOND_LINE) {
-                    if (var15.componentType != ComponentType.BUTTON) {
-                        if (var15.componentType == ComponentType.HEADER) {
-                            this.field21279
+            if (component.componentType != ComponentType.FIRST_LINE) {
+                if (component.componentType != ComponentType.SECOND_LINE) {
+                    if (component.componentType != ComponentType.BUTTON) {
+                        if (component.componentType == ComponentType.HEADER) {
+                            this.screen
                                     .addToList(
                                             new Text(
-                                                    this.field21279,
+                                                    this.screen,
                                                     "Item" + var17,
                                                     0,
                                                     var18,
                                                     this.field21284,
-                                                    var15.field44773,
+                                                    component.field44773,
                                                     new ColorHelper(
                                                             ClientColors.DEEP_TEAL.getColor(),
                                                             ClientColors.DEEP_TEAL.getColor(),
                                                             ClientColors.DEEP_TEAL.getColor(),
                                                             ClientColors.DEEP_TEAL.getColor()
                                                     ),
-                                                    var15.field44772,
+                                                    component.text,
                                                     ResourceRegistry.JelloLightFont36
                                             )
                                     );
                         }
                     } else {
-                        Button var16;
-                        this.field21279
-                                .addToList(
-                                        var16 = new Button(
-                                                this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, ColorHelper.field27961, var15.field44772
-                                        )
-                                );
-                        var16.field20586 = 4;
-                        var16.doThis((var1x, var2x) -> this.method13601());
+                        Button button;
+                        this.screen.addToList(button = new Button(this.screen, "Item" + var17, 0, var18, this.field21284, component.field44773, ColorHelper.field27961, component.text));
+                        this.buttons.add(button);
+                        button.field20586 = 4;
+                        button.doThis((var1x, var2x) -> {
+                            if (button.text.equals("Cookie alt")) {
+                                //implement that shit here
+                                this.inputMap = this.method13599();
+                                this.method13603(false);
+                            } else {
+                                this.onButtonClick();
+                            }
+                        });
                     }
                 } else {
                     TextField var22;
-                    this.field21279
+                    this.screen
                             .addToList(
                                     var22 = new TextField(
-                                            this.field21279, "Item" + var17, 0, var18, this.field21284, var15.field44773, TextField.field20741, "", var15.field44772
+                                            this.screen, "Item" + var17, 0, var18, this.field21284, component.field44773, TextField.field20741, "", component.text
                                     )
                             );
-                    if (!var15.field44772.contains("Password")) {
-                        if (var15.field44772.contains("Email")) {
+                    if (!component.text.contains("Password")) {
+                        if (component.text.contains("Email")) {
                             var8 = var22;
                         }
                     } else {
@@ -115,42 +123,42 @@ public class Alert extends Element {
                     }
                 }
             } else {
-                this.field21279
+                this.screen
                         .addToList(
                                 new Text(
-                                        this.field21279,
+                                        this.screen,
                                         "Item" + var17,
                                         0,
                                         var18,
                                         this.field21284,
-                                        var15.field44773,
+                                        component.field44773,
                                         new ColorHelper(
                                                 ClientColors.MID_GREY.getColor(), ClientColors.MID_GREY.getColor(), ClientColors.MID_GREY.getColor(), ClientColors.MID_GREY.getColor()
                                         ),
-                                        var15.field44772,
+                                        component.text,
                                         ResourceRegistry.JelloLightFont20
                                 )
                         );
             }
 
-            var18 += var15.field44773 + 10;
+            var18 += component.field44773 + 10;
         }
 
         if (var8 != null && var9 != null) {
             TextField var20 = var9;
             var8.method13151(var2x -> {
-                String var5x = var2x.getTypedText();
+                String var5x = var2x.getText();
                 if (var5x != null && var5x.contains(":")) {
                     String[] var6 = var5x.split(":");
                     if (var6.length <= 2) {
                         if (var6.length > 0) {
-                            var2x.setTypedText(var6[0].replace("\n", ""));
+                            var2x.setText(var6[0].replace("\n", ""));
                             if (var6.length == 2) {
-                                var20.setTypedText(var6[1].replace("\n", ""));
+                                var20.setText(var6[1].replace("\n", ""));
                             }
                         }
                     } else {
-                        this.method13601();
+                        this.onButtonClick();
                     }
                 }
             });
@@ -158,32 +166,28 @@ public class Alert extends Element {
     }
 
     @Override
-    public void method13296(boolean var1) {
-        if (var1) {
-            for (CustomGuiScreen var5 : this.field21279.getChildren()) {
+    public void setHovered(boolean hovered) {
+        if (hovered) {
+            for (CustomGuiScreen var5 : this.screen.getChildren()) {
                 if (var5 instanceof TextField) {
-                    ((TextField) var5).setTypedText("");
+                    ((TextField) var5).setText("");
                     ((TextField) var5).method13146();
                 }
             }
         }
 
-        this.field21282.changeDirection(!var1 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
-        super.method13296(var1);
-    }
-
-    public CustomGuiScreen method13598() {
-        return this.field21279;
+        this.field21282.changeDirection(!hovered ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+        super.setHovered(hovered);
     }
 
     private Map<String, String> method13599() {
         HashMap var3 = new HashMap();
 
-        for (CustomGuiScreen var5 : this.field21279.getChildren()) {
+        for (CustomGuiScreen var5 : this.screen.getChildren()) {
             AnimatedIconPanel var6 = (AnimatedIconPanel) var5;
             if (var6 instanceof TextField) {
                 TextField var7 = (TextField) var6;
-                var3.put(var7.method13153(), var7.getTypedText());
+                var3.put(var7.method13153(), var7.getText());
             }
         }
 
@@ -194,7 +198,7 @@ public class Alert extends Element {
         return this.inputMap;
     }
 
-    public void method13601() {
+    public void onButtonClick() {
         this.inputMap = this.method13599();
         this.method13603(false);
         this.callUIHandlers();
@@ -287,7 +291,7 @@ public class Alert extends Element {
             this.method13605();
         }
 
-        this.method13296(var1);
+        this.setHovered(var1);
         if (var1) {
             this.setEnabled(true);
         }
