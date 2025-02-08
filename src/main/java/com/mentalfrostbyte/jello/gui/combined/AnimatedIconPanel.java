@@ -13,8 +13,8 @@ import java.util.List;
 public class AnimatedIconPanel extends CustomGuiScreen implements INestedGuiEventHandler {
     public boolean field20876;
     public boolean field20877;
-    public int field20878;
-    public int field20879;
+    public int mouseX;
+    public int mouseY;
     public int sizeWidthThingy;
     public int sizeHeightThingy;
     public boolean field20882 = true;
@@ -70,10 +70,10 @@ public class AnimatedIconPanel extends CustomGuiScreen implements INestedGuiEven
         if (!super.onClick(mouseX, mouseY, mouseButton)) {
             if (this.method13214()) {
                 this.timerUtil.start();
-                this.field20878 = mouseX;
-                this.field20879 = mouseY;
-                this.sizeWidthThingy = this.field20878 - this.method13271();
-                this.sizeHeightThingy = this.field20879 - this.method13272();
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
+                this.sizeWidthThingy = this.mouseX - this.method13271();
+                this.sizeHeightThingy = this.mouseY - this.method13272();
             }
 
             return false;
@@ -100,7 +100,7 @@ public class AnimatedIconPanel extends CustomGuiScreen implements INestedGuiEven
             boolean var6 = this.field20884 && this.timerUtil.getElapsedTime() >= (long) this.field20888;
             boolean var7 = this.field20885
                     && this.field20909
-                    && (Math.abs(this.field20878 - newHeight) > this.field20889 || Math.abs(this.field20879 - newWidth) > this.field20889);
+                    && (Math.abs(this.mouseX - newHeight) > this.field20889 || Math.abs(this.mouseY - newWidth) > this.field20889);
             boolean var8 = this.field20886 && this.field20909;
             if (var6 || var7 || var8) {
                 this.method13217(true);
