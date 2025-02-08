@@ -103,35 +103,34 @@ public class MovementUtil2 {
             return Color.WHITE;
         }
     }
+
     public static List<String> method17700(String uuid) throws Exception {
-        ArrayList<String> var3 = new ArrayList<>();
-        String var4;
-        System.out.println("https://api.mojang.com/user/profiles/" + uuid.replaceAll("-", "") + "/names");
-        CloseableHttpClient var5 = HttpClients.createDefault();
-        HttpGet var6 = new HttpGet("https://api.mojang.com/user/profiles/" + uuid.replaceAll("-", "") + "/names");
-        CloseableHttpResponse var7 = var5.execute(var6);
-        int var8 = var7.getStatusLine().getStatusCode();
-        if (var8 == 204) {
-            ArrayList<String> var15 = new ArrayList<>();
-            var15.add("Unknown Name");
-            return var15;
-        } else {
-            try {
-                var4 = EntityUtils.toString(var7.getEntity());
-            } finally {
-                var7.close();
+        ArrayList<String> names = new ArrayList<>();
+        String apiUrl = "https://api.ashcon.app/mojang/v2/user/" + uuid;
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(apiUrl);
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+                int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode == 404) {
+                    names.add("Unknown owner");
+                    return names;
+                }
+
+                String responseBody = EntityUtils.toString(response.getEntity());
+                JSONObject json = new JSONObject(responseBody);
+                if (!json.has("username")) {
+                    names.add("Unknown owner");
+                    return names;
+                }
+
+                String username = json.getString("username");
+                names.add(username);
+                return names;
             }
-
-            JSONArray var9 = new JSONArray(var4);
-
-            for (int var10 = 0; var10 < var9.length(); var10++) {
-                JSONObject var11 = new JSONObject(var9.get(var10).toString());
-                var3.add(var11.getString("name"));
-            }
-
-            return var3;
         }
     }
+
     public static int method17690(int var0, int var1, float var2) {
         int var5 = var0 >> 24 & 0xFF;
         int var6 = var0 >> 16 & 0xFF;

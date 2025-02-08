@@ -15,9 +15,9 @@ import com.mentalfrostbyte.jello.module.impl.render.NameProtect;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class8781;
 import com.mentalfrostbyte.jello.module.impl.render.jello.nametags.Class7070;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
@@ -42,7 +42,6 @@ import net.minecraft.network.play.server.SWindowPropertyPacket;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.TextureImpl;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.awt.*;
@@ -100,7 +99,7 @@ public class NameTags extends Module {
 
             for (Entity var7 : BlockUtil.method34549(MovementUtil2.method17680())) {
                 if (var7 != mc.player
-                               && var7 != Freecam.field23814
+                        && var7 != Freecam.field23814
                         && var7 != Blink.clientPlayerEntity
                         && !var7.isInvisible()
                         && !Client.getInstance().combatManager.isTargetABot(var7)) {
@@ -236,42 +235,42 @@ public class NameTags extends Module {
             }
 
             if (this.getBooleanValueFromSettingName("Mob Owners")) {
-                for (Entity var12 : mc.world.getAllEntities()) {
-                    if (var12 == mc.player && (var12 instanceof TameableEntity || var12 instanceof HorseEntity)) {
-                        UUID var14 = !(var12 instanceof TameableEntity) ? ((HorseEntity) var12).getOwnerUniqueId()
-                                : ((TameableEntity) var12).getOwnerId();
-                        if (var14 != null) {
-                            if (!this.field24007.containsKey(var14)) {
-                                this.field24007.put(var14, null);
+                for (Entity entity : mc.world.getAllEntities()) {
+                    if (entity instanceof TameableEntity || entity instanceof HorseEntity) {
+                        UUID uuid = (entity instanceof TameableEntity)
+                                ? ((TameableEntity) entity).getOwnerId()
+                                : ((HorseEntity) entity).getOwnerUniqueId();
+                        if (uuid != null) {
+                            if (!this.field24007.containsKey(uuid)) {
+                                this.field24007.put(uuid, null);
+
                                 new Thread(() -> {
                                     try {
-                                        List var4x = MovementUtil2.method17700(var14.toString());
+                                        List<String> var4x = MovementUtil2.method17700(uuid.toString());
                                         if (var4x == null || var4x.isEmpty()) {
                                             return;
                                         }
-
-                                        this.field24007.put(var14, (String) var4x.get(var4x.size() - 1));
-                                    } catch (Exception var5) {
-                                        var5.printStackTrace();
+                                        this.field24007.put(uuid, var4x.get(var4x.size() - 1));
+                                    } catch (Exception ignored) {
                                     }
                                 }).start();
                             }
 
-                            if (this.field24007.get(var14) != null) {
+                            if (this.field24007.get(uuid) != null) {
                                 float var8 = 1.0F;
                                 if (this.getBooleanValueFromSettingName("Magnify")) {
                                     var8 = (float) Math.max(1.0,
-                                            Math.sqrt(PositionUtil.calculateDistanceSquared(var12) / 30.0));
+                                            Math.sqrt(PositionUtil.calculateDistanceSquared(entity) / 30.0));
                                 }
 
                                 this.drawNametag(
-                                        PositionUtil.getEntityPosition(var12).x,
-                                        PositionUtil.getEntityPosition(var12).y + (double) var12.getHeight(),
-                                        PositionUtil.getEntityPosition(var12).z,
-                                        var12,
+                                        PositionUtil.getEntityPosition(entity).x,
+                                        PositionUtil.getEntityPosition(entity).y + (double) entity.getHeight(),
+                                        PositionUtil.getEntityPosition(entity).z,
+                                        entity,
                                         var8,
-                                        this.field24007.get(var14));
-                                var12.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
+                                        this.field24007.get(uuid));
+                                entity.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
                             }
                         }
                     }
@@ -280,9 +279,7 @@ public class NameTags extends Module {
 
             GL11.glDisable(2896);
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
-            TextureImpl.unbind();
-            TextureManager var10000 = mc.getTextureManager();
-            var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
     }
 
@@ -463,10 +460,10 @@ public class NameTags extends Module {
 
 
     @EventTarget
-    public void method16934(EventRenderNameTag var1) {
+    public void method16934(EventRenderNameTag event) {
         if (this.isEnabled()
-                && var1.getEntity() instanceof PlayerEntity) {
-            var1.setCancelled(true);
+                && event.getEntity() instanceof PlayerEntity) {
+            event.setCancelled(true);
         }
     }
 }
