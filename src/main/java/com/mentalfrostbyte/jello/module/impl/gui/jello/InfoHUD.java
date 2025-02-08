@@ -5,14 +5,22 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.IngameMenuScreen;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AirItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -31,21 +39,21 @@ public class InfoHUD extends Module {
     public void onRender2D(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                if (!(mc.currentScreen instanceof ChatScreen)) {
+                if (!(mc.currentScreen instanceof ChatScreen || mc.currentScreen instanceof IngameMenuScreen)) {
                     float yawDifference = mc.player.rotationYaw % 360.0F - this.previousYaw % 360.0F;
                     this.previousYaw += yawDifference / (float) Minecraft.getFps() * 1.5F;
-                    int yOffset = 14;
+                    int xOffset = 14;
 
                     if (this.getBooleanValueFromSettingName("Show Player")) {
-                        yOffset += this.renderPlayerModel(0, mc.mainWindow.getHeight() - 23, 114);
+                        xOffset += this.renderPlayerModel(0, mc.mainWindow.getHeight() - 20, 114);
                     }
 
                     if (this.getBooleanValueFromSettingName("Show Armor")) {
-                        yOffset += this.renderArmorStatus(yOffset, mc.mainWindow.getHeight() - 14) + 10;
+                        xOffset += this.renderArmorStatus(xOffset, mc.mainWindow.getHeight() - 14) + 10;
                     }
 
                     if (!this.getStringSettingValueByName("Cords").equals("None")) {
-                        yOffset += this.renderCoordinates(yOffset, 42) + 10;
+                        xOffset += this.renderCoordinates(xOffset, 42) + 10;
                     }
                 }
             }
@@ -103,6 +111,55 @@ public class InfoHUD extends Module {
     }
 
     public int renderPlayerModel(int x, int y, int height) {
+        drawEntityOnScreen(x + height / 2, y, height / 2, mc.player);
         return height - 24;
+    }
+
+    private void drawEntityOnScreen(int posX, int posY, int scale, LivingEntity livingEntity) {
+        float fixedYaw = livingEntity.rotationYaw;
+        float fixedPitch = livingEntity.rotationPitch;
+
+        RenderSystem.pushMatrix();
+        RenderSystem.translatef((float) posX, (float) posY, 1050.0F);
+        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
+
+        MatrixStack matrixstack = new MatrixStack();
+        matrixstack.translate(0.0D, 0.0D, 1000.0D);
+        matrixstack.scale((float) scale, (float) scale, (float) scale);
+
+        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
+        matrixstack.rotate(quaternion);
+
+        float f2 = livingEntity.renderYawOffset;
+        float f3 = livingEntity.rotationYaw;
+        float f4 = livingEntity.rotationPitch;
+        float f5 = livingEntity.prevRotationYawHead;
+        float f6 = livingEntity.rotationYawHead;
+
+        livingEntity.renderYawOffset = f2;
+        livingEntity.rotationYaw = fixedYaw;
+        livingEntity.rotationPitch = fixedPitch;
+        livingEntity.rotationYawHead = f6;
+        livingEntity.prevRotationYawHead = f5;
+
+        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getRenderManager();
+        entityrenderermanager.setCameraOrientation(new Quaternion(0, 0, 0, 1)); // Set no camera rotation
+        entityrenderermanager.setRenderShadow(false);
+
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+        RenderSystem.runAsFancy(() -> {
+            entityrenderermanager.renderEntityStatic(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
+        });
+
+        irendertypebuffer$impl.finish();
+        entityrenderermanager.setRenderShadow(true);
+
+        livingEntity.renderYawOffset = f2;
+        livingEntity.rotationYaw = f3;
+        livingEntity.rotationPitch = f4;
+        livingEntity.prevRotationYawHead = f5;
+        livingEntity.rotationYawHead = f6;
+
+        RenderSystem.popMatrix();
     }
 }
