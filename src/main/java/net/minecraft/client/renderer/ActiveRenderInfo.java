@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer;
 
+import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.jello.module.impl.render.CameraNoClip;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -100,8 +102,7 @@ public class ActiveRenderInfo
             {
                 double d0 = raytraceresult.getHitVec().distanceTo(this.pos);
 
-                if (d0 < startingDistance)
-                {
+                if (d0 < startingDistance && !Client.getInstance().moduleManager.getModuleByClass(CameraNoClip.class).isEnabled()) {
                     startingDistance = d0;
                 }
             }
