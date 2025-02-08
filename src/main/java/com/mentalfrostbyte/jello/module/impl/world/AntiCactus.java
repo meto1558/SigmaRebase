@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.module.impl.render;
+package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.module.Module;
