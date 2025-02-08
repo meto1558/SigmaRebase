@@ -4,14 +4,10 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.datafixers.util.Pair;
-
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,9 +16,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.network.play.server.SEntityEquipmentPacket;
 import net.minecraft.network.play.server.SRespawnPacket;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 import team.sdhq.eventBus.annotations.EventTarget;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Murderer extends Module {
     public String murdererSkinName = "IBreakerman";
@@ -47,11 +52,11 @@ public class Murderer extends Module {
 
                     if (!this.murdererSkinName.equalsIgnoreCase(entity.getName().getString())) {
                         if (this.getBooleanValueFromSettingName("Chat Message")) {
-                            mc.player.sendChatMessage("Murderer is " + entity.getName() + ", detected by Jello client");
+                            //mc.player.sendChatMessage("Murderer is " + entity.getName() + ", detected by Jello client");
                         }
 
                         this.murdererSkinName = entity.getName().getUnformattedComponentText();
-                        //this.murdererSkinHead =
+                        new Thread(() -> loadMurdererSkinHead(entity.getUniqueID().toString().replaceAll("-", ""))).start();
                         this.initialisedTexture = true;
                         this.foundMurderer = true;
                     }
@@ -87,6 +92,45 @@ public class Murderer extends Module {
                     );
                 }
             }
+        }
+    }
+
+    public void loadMurdererSkinHead(String playerUUID) {
+        if (this.murdererSkinHead != null && playerUUID.equals(this.murdererSkinName)) {
+            return;
+        }
+
+        String skinUrl = "https://crafatar.com/avatars/" + playerUUID + "?size=48";
+
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(skinUrl).openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+            connection.setDoInput(true);
+            connection.connect();
+
+            BufferedImage bufferedImage = ImageIO.read(connection.getInputStream());
+
+            if (bufferedImage != null) {
+                InputStream inputStream = new ByteArrayInputStream(convertBufferedImageToBytes(bufferedImage));
+
+                if (GL11.glGetError() == GL11.GL_NO_ERROR) {
+                    this.murdererSkinHead = TextureLoader.getTexture("PNG", inputStream, GL11.GL_NEAREST);
+                } else {
+                    throw new IllegalStateException("No OpenGL context is current.");
+                }
+            }
+        } catch (Exception e) {
+            this.murdererSkinHead = null;
+            e.printStackTrace();
+        }
+    }
+
+    private byte[] convertBufferedImageToBytes(BufferedImage image) {
+        try (java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream()) {
+            ImageIO.write(image, "png", baos);
+            return baos.toByteArray();
+        } catch (Exception e) {
+            return new byte[0];
         }
     }
 }

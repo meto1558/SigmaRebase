@@ -20,7 +20,7 @@ import java.nio.ByteBuffer;
 
 public class ImageUtil {
 
-    public static String getSkinUrlByID(String uuid) throws Exception {
+    public static String getSkinUrlByID(String uuid) {
         return "https://crafatar.com/skins/" + uuid;
     }
 

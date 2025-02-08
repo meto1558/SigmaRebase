@@ -263,8 +263,7 @@ public class Account {
             this.skinUpdateThread = new Thread(() -> {
                 try {
                     this.skin = ImageIO.read(new URL(ImageUtil.getSkinUrlByID(this.getKnownUUID().replaceAll("-", ""))));
-                } catch (Exception var4) {
-                    var4.printStackTrace();
+                } catch (Exception ex) {
                 }
             });
             this.skinUpdateThread.start();
