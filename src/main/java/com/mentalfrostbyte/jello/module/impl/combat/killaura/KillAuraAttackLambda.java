@@ -16,6 +16,8 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.EntityRayTraceResult;
 
+import java.util.Objects;
+
 public class KillAuraAttackLambda implements Runnable {
     public final float expandAmount;
     public final KillAura killauraModule;
@@ -26,8 +28,8 @@ public class KillAuraAttackLambda implements Runnable {
     }
 
     private void handleAnimationAndAttack(Minecraft mc, Entity entity, boolean isOnePointEight) {
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(12),
-                mc.player.getHeldItem(Hand.MAIN_HAND)) > 0) {
+        if (EnchantmentHelper.getEnchantmentLevel(Objects.requireNonNull(Enchantment.getEnchantmentByID(12)),
+                Objects.requireNonNull(mc.player).getHeldItem(Hand.MAIN_HAND)) > 0) {
             mc.particles.addParticleEmitter(entity, ParticleTypes.ENCHANTED_HIT);
         }
 
@@ -40,33 +42,33 @@ public class KillAuraAttackLambda implements Runnable {
                 && !mc.player.isPotionActive(Effects.BLINDNESS)
                 && !mc.player.isPassenger();
 
-        if (attackable
-                || mc.player.onGround && Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled()) {
+        if (attackable || (mc.player.onGround && Client.getInstance().moduleManager.getModuleByClass(Criticals.class).isEnabled())) {
             mc.particles.addParticleEmitter(entity, ParticleTypes.CRIT);
         }
 
-        mc.playerController.attackEntity(mc.player, entity);
+        if (JelloPortal.getVersion().newerThanOrEqualTo(ProtocolVersion.v1_9)) {
+            mc.player.swingArm(Hand.MAIN_HAND);
+            Objects.requireNonNull(mc.playerController).attackEntity(mc.player, entity);
+        } else {
+            Objects.requireNonNull(mc.playerController).attackEntity(mc.player, entity);
+            mc.player.swingArm(Hand.MAIN_HAND);
+        }
     }
 
     @Override
     public void run() {
-        boolean var3 = (float) Math.round((float) Math.random() * 100.0F) <= this.killauraModule
+        boolean shouldHit = (float) Math.round((float) Math.random() * 100.0F) <= this.killauraModule
                 .getNumberValueBySettingName("Hit Chance");
 
-        float range = Math.max(KillAura.mc.player.getDistance(KillAura.currentTimedEntity.getEntity()),
-                this.killauraModule.getNumberValueBySettingName("Range"));
+        float range = Math.max(Objects.requireNonNull(KillAura.mc.player).getDistance(KillAura.currentTimedEntity.getEntity()), this.killauraModule.getNumberValueBySettingName("Range"));
 
         EntityRayTraceResult rayTraceResult;
         if (!this.killauraModule.getStringSettingValueByName("Attack Mode").equals("Pre")) {
             rayTraceResult = EntityUtil.rayTraceFromPlayer(
-                    KillAura.getRotations(this.killauraModule).yaw, KillAura.getRotations(this.killauraModule).pitch, range,
-                    (double) this.expandAmount);
+                    KillAura.getRotations(this.killauraModule).yaw, KillAura.getRotations(this.killauraModule).pitch, range, this.expandAmount);
         } else {
-            double motionSpeed = Math.sqrt(
-                    KillAura.mc.player.getMotion().x * KillAura.mc.player.getMotion().x
-                            + KillAura.mc.player.getMotion().z * KillAura.mc.player.getMotion().z);
-            rayTraceResult = EntityUtil.rayTraceFromPlayer(KillAura.getRotations2(this.killauraModule).yaw,
-                    KillAura.getRotations2(this.killauraModule).pitch, range, (double) this.expandAmount + motionSpeed);
+            double motionSpeed = Math.sqrt(KillAura.mc.player.getMotion().x * KillAura.mc.player.getMotion().x + KillAura.mc.player.getMotion().z * KillAura.mc.player.getMotion().z);
+            rayTraceResult = EntityUtil.rayTraceFromPlayer(KillAura.getRotations2(this.killauraModule).yaw, KillAura.getRotations2(this.killauraModule).pitch, range, (double) this.expandAmount + motionSpeed);
         }
 
         if (KillAura.currentTarget != null && KillAura.interactAB.isBlocking()
@@ -75,7 +77,7 @@ public class KillAuraAttackLambda implements Runnable {
         }
 
         String mode = this.killauraModule.getStringSettingValueByName("Mode");
-        if (var3 && (rayTraceResult != null || !this.killauraModule.getBooleanValueFromSettingName("Raytrace")
+        if (shouldHit && (rayTraceResult != null || !this.killauraModule.getBooleanValueFromSettingName("Raytrace")
                 || mode.equals("Multi"))) {
             for (TimedEntity timedEnt : KillAura.targetEntities) {
                 Entity entity = timedEnt.getEntity();
@@ -88,24 +90,18 @@ public class KillAuraAttackLambda implements Runnable {
                     return;
                 }
 
-                boolean noSwing = this.killauraModule.getBooleanValueFromSettingName("No swing");
                 Minecraft mc = KillAura.mc;
-
                 boolean raytrace = this.killauraModule.getBooleanValueFromSettingName("Raytrace");
                 boolean walls = this.killauraModule.getBooleanValueFromSettingName("Through walls");
-                boolean properTrace = EntityUtil.rayTraceEntity(mc.player, entity);
+                boolean properTrace = EntityUtil.rayTraceEntity(Objects.requireNonNull(mc.player), entity);
                 boolean isOnePointEight = JelloPortal.getVersion().newerThan(ProtocolVersion.v1_8);
 
                 if (raytrace) {
-                    if (properTrace && !walls || walls) {
+                    if (properTrace || walls) {
                         handleAnimationAndAttack(mc, entity, isOnePointEight);
                         mc.player.resetCooldown();
 
-                        if (!noSwing) {
-                            mc.player.swingArm(Hand.MAIN_HAND);
-                        }
-
-                        mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
+                        Objects.requireNonNull(mc.getConnection()).getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
                     } else {
                         KillAura.currentTarget = null;
                         KillAura.targetEntities = null;
@@ -115,12 +111,7 @@ public class KillAuraAttackLambda implements Runnable {
                     handleAnimationAndAttack(mc, entity, isOnePointEight);
                     mc.player.resetCooldown();
 
-                    if (!noSwing) {
-                        mc.player.swingArm(Hand.MAIN_HAND);
-                    }
-
-                    mc.getConnection().getNetworkManager()
-                            .sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
+                    Objects.requireNonNull(mc.getConnection()).getNetworkManager().sendNoEventPacket(new CUseEntityPacket(entity, mc.player.isSneaking()));
                 }
             }
 
@@ -131,10 +122,8 @@ public class KillAuraAttackLambda implements Runnable {
             KillAura.mc.player.swingArm(Hand.MAIN_HAND);
         }
 
-        if (KillAura.currentTarget != null && KillAura.interactAB.canBlock()
-                && this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
-            KillAura.interactAB.block(KillAura.currentTarget, KillAura.getRotations(this.killauraModule).yaw,
-                    KillAura.getRotations(this.killauraModule).pitch);
+        if (KillAura.currentTarget != null && KillAura.interactAB.canBlock() && this.killauraModule.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
+            KillAura.interactAB.block(KillAura.currentTarget, KillAura.getRotations(this.killauraModule).yaw, KillAura.getRotations(this.killauraModule).pitch);
         }
     }
 }
