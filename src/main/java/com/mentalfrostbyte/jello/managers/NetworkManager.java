@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.network.auth.Account;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SigmaIRC;
 import org.apache.commons.io.FileUtils;
@@ -48,7 +47,7 @@ public class NetworkManager {
         this.sigmaIRC = new SigmaIRC();
     }
 
-    public String newAccount(String username, String password, CaptchaChecker captcha) {
+    public String newAccount(String username, String password) {
         if (username == null || username.isEmpty() || username.isBlank()) {
             return "Unexpected error";
         } else {
@@ -57,11 +56,11 @@ public class NetworkManager {
         }
     }
 
-    public void signup(String username, String password, String email, CaptchaChecker captcha) {
+    public void signup(String username, String password, String email) {
         resetLicense();
     }
 
-    public String redeemPremium(String s, CaptchaChecker captchaChecker) {
+    public String redeemPremium(String s) {
         String username = account.username;
         resetLicense();
         premium = true;
@@ -100,10 +99,6 @@ public class NetworkManager {
         if (file.exists()) {
             file.delete();
         }
-    }
-
-    public CaptchaChecker getCaptcha() {
-        return null;
     }
 
     public void handleLoginResponse(String username) throws IOException {

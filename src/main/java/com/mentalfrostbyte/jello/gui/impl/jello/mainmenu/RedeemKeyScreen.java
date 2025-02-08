@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
-import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -40,12 +39,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
         this.addToList(this.captchaField = new TextField(this, "captcha", 195, 290, 75, 35, TextField.field20742, "", "Captcha"));
         this.captchaField.setFont(ResourceRegistry.JelloLightFont18);
         redeemButton.doThis((var2x, var3x) -> new Thread(() -> {
-            CaptchaChecker captcha = Client.getInstance().networkManager.getCaptcha();
-            if (captcha != null) {
-                captcha.setAnswer(this.captchaField.getTypedText());
-            }
-
-            this.premiumLicense = Client.getInstance().networkManager.redeemPremium(redeemBox.getTypedText(), Client.getInstance().networkManager.getCaptcha());
+            this.premiumLicense = Client.getInstance().networkManager.redeemPremium(redeemBox.getTypedText());
             if (this.premiumLicense == null) {
                 this.premiumLicense = "";
             }
@@ -66,22 +60,6 @@ public class RedeemKeyScreen extends CustomGuiScreen {
             var4 = 1.0F;
         }
 
-        CaptchaChecker captchaChecker = Client.getInstance().networkManager.getCaptcha();
-        if (captchaChecker != null) {
-            this.captchaField.setEnabled(captchaChecker.isActuallyCompleted());
-            if (captchaChecker.getCaptchaImage() != null) {
-                RenderUtil.startScissor((float) (this.xA + 295), (float) (this.yA + 280), 190.0F, 50.0F);
-                RenderUtil.drawImage(
-                        (float) (this.xA + 316),
-                        (float) (this.yA + 280),
-                        190.0F,
-                        190.0F,
-                        captchaChecker.getCaptchaImage(),
-                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
-                );
-                RenderUtil.endScissor();
-            }
-        }
         this.drawBackground((int) (150.0F * (1.0F - var4)));
         this.method13225();
 
