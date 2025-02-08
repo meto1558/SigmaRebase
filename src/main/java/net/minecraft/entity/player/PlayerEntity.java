@@ -2013,8 +2013,7 @@ public abstract class PlayerEntity extends LivingEntity
     }
 
     /**
-     * Plays the {@link #getSplashSound() splash sound}, and the {@link ParticleType#WATER_BUBBLE} and {@link
-     * ParticleType#WATER_SPLASH} particles.
+     * Plays the {@link #getSplashSound() splash sound}
      */
     protected void doWaterSplashEffect()
     {
@@ -2175,9 +2174,6 @@ public abstract class PlayerEntity extends LivingEntity
      * The position being queried is {@code pos.offset(facing.getOpposite()))}.
 
      * @return Whether this player may modify the queried location in the current world
-     * @see ItemStack#canPlaceOn(Block)
-     * @see ItemStack#canEditBlocks()
-     * @see PlayerCapabilities#allowEdit
      */
     public boolean canPlayerEdit(BlockPos pos, Direction facing, ItemStack stack)
     {
@@ -2615,13 +2611,9 @@ public abstract class PlayerEntity extends LivingEntity
         return this.cooldownTracker;
     }
 
-    protected float getSpeedFactor()
-    {
-        // MODIFICATION BEGIN: also use full speed factor if NoSlow is enabled, this is a ClientPlayerEntity, and the Blocks setting is toggled
-        NoSlow noSlow = (NoSlow) Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
-        return !this.abilities.isFlying && !this.isElytraFlying() && !(this instanceof ClientPlayerEntity && noSlow.isEnabled2() && noSlow.blocks.currentValue)
-                ? super.getSpeedFactor() : 1.0F;
-        // MODIFICATION END
+    @Override
+    public float getSpeedFactor() {
+        return !this.abilities.isFlying && !this.isElytraFlying() ? super.getSpeedFactor() : 1.0F;
     }
 
     public float getLuck()

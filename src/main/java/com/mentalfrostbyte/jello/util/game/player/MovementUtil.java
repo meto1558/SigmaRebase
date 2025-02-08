@@ -59,8 +59,7 @@ public class MovementUtil {
             multiplier = (float)((double)multiplier - 0.03000002 * (double)(mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1));
         }
 
-        NoSlow noSlow = (NoSlow)Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
-        if (mc.player.isSneaking() && !noSlow.sneak.currentValue) {
+        if (mc.player.isSneaking()) {
             speed *= 0.25;
         }
 

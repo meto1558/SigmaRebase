@@ -803,16 +803,10 @@ public abstract class Entity implements INameable, ICommandSource
         return blockpos;
     }
 
-    protected float getJumpFactor()
-    {
-        float f = this.world.getBlockState(this.getPosition()).getBlock().getJumpFactor();
-        float f1 = this.world.getBlockState(this.getPositionUnderneath()).getBlock().getJumpFactor();
-        // MODIFICATION BEGIN: full jump factor if NoSlow is enabled & the Blocks setting is toggled
-        NoSlow noSlow = (NoSlow)Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
-        if (this instanceof ClientPlayerEntity && noSlow.isEnabled2() && noSlow.blocks.currentValue)
-            return 1.0F;
-            // MODIFICATION END
-        return (double)f == 1.0D ? f1 : f;
+    public float getJumpFactor() {
+        float var3 = this.world.getBlockState(this.getPosition()).getBlock().getJumpFactor();
+        float var4 = this.world.getBlockState(this.getPositionUnderneath()).getBlock().getJumpFactor();
+        return (double) var3 != 1.0 ? var3 : var4;
     }
 
     protected float getSpeedFactor()
@@ -1352,8 +1346,7 @@ public abstract class Entity implements INameable, ICommandSource
     }
 
     /**
-     * Plays the {@link #getSplashSound() splash sound}, and the {@link ParticleType#WATER_BUBBLE} and {@link
-     * ParticleType#WATER_SPLASH} particles.
+     * Plays the {@link #getSplashSound() splash sound}
      */
     protected void doWaterSplashEffect()
     {
@@ -1837,8 +1830,7 @@ public abstract class Entity implements INameable, ICommandSource
 
     /**
      * Writes this entity, including passengers, to NBT, regardless as to whether or not it is removed or a passenger.
-     * Does <b>not</b> include the entity's type ID, so the NBT is insufficient to recreate the entity using {@link
-     * AnvilChunkLoader#readWorldEntity}. Use {@link #writeUnlessPassenger} for that purpose.
+     * Does <b>not</b> include the entity's type ID, so the NBT is insufficient to recreate the entity
      */
     public CompoundNBT writeWithoutTypeId(CompoundNBT compound)
     {
