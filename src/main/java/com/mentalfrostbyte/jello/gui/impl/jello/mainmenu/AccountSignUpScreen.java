@@ -91,12 +91,12 @@ public class AccountSignUpScreen extends Element {
                     this.loadingBox.setHovered(true);
                     this.registerButton.setEnabled(false);
                     Client.getInstance().networkManager.resetLicense();
-                    Client.getInstance().networkManager.signup(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText(), this.emailInputBox.getTypedText());
-                    String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getTypedText(), this.passwordInputBox.getTypedText());
+                    Client.getInstance().networkManager.signup(this.usernameInputBox.getText(), this.passwordInputBox.getText(), this.emailInputBox.getText());
+                    String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getText(), this.passwordInputBox.getText());
                     RegisterScreen var5 = (RegisterScreen) this.getParent();
                     if (s != null) {
                         var5.method13424("Error", s);
-                        this.captchaBox.setTypedText("");
+                        this.captchaBox.setText("");
                     } else {
                         var5.method13424("Success", "You can now login.");
                         var5.method13423();

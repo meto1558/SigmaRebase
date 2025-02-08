@@ -63,7 +63,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                 NumberSetting numbaSetting = (NumberSetting) setting;
                 Slider var47 = new Slider(panel, setting.getName() + "slider", panel.getWidthA() - 126 - var5, var4 + 6, 126, 24);
                 var47.method13137().setFont(ResourceRegistry.JelloLightFont14);
-                var47.setTypedText(Float.toString((Float) setting.getCurrentValue()));
+                var47.setText(Float.toString((Float) setting.getCurrentValue()));
                 var47.method13140(Slider.method13134(numbaSetting.getMin(), numbaSetting.getMax(), (Float) numbaSetting.getCurrentValue()), false);
                 var47.method13143(-1.0F);
                 int var13 = numbaSetting.getDecimalPlaces();
@@ -71,7 +71,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                         var3x -> {
                             if (Slider.method13135(var47.method13138(), numbaSetting.getMin(), numbaSetting.getMax(), numbaSetting.getStep(), var13)
                                     != (Float) var3x.getCurrentValue()) {
-                                var47.setTypedText(Float.toString((Float) var3x.getCurrentValue()));
+                                var47.setText(Float.toString((Float) var3x.getCurrentValue()));
                                 var47.method13140(Slider.method13134(numbaSetting.getMin(), numbaSetting.getMax(), (Float) var3x.getCurrentValue()), false);
                             }
                         }
@@ -80,7 +80,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                     float var7 = ((Slider) var4x).method13138();
                     float var8x = Slider.method13135(var7, numbaSetting.getMin(), numbaSetting.getMax(), numbaSetting.getStep(), var13);
                     if (var8x != (Float) setting.getCurrentValue()) {
-                        var47.setTypedText(Float.toString(var8x));
+                        var47.setText(Float.toString(var8x));
                         setting.setCurrentValue(var8x);
                     }
                 });
@@ -111,10 +111,10 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                         )
                 );
                 var35.setFont(ResourceRegistry.JelloLightFont18);
-                var35.method13151(var1x -> setting.setCurrentValue(var1x.getTypedText()));
+                var35.method13151(var1x -> setting.setCurrentValue(var1x.getText()));
                 setting.addObserver(var2x -> {
-                    if (var35.getTypedText() != ((InputSetting) setting).getCurrentValue()) {
-                        var35.setTypedText(((InputSetting) setting).getCurrentValue());
+                    if (var35.getText() != ((InputSetting) setting).getCurrentValue()) {
+                        var35.setText(((InputSetting) setting).getCurrentValue());
                     }
                 });
                 var4 += var27 + var5;

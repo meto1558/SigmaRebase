@@ -39,7 +39,7 @@ public class SearchBox extends AnimatedIconPanel {
             new Thread(
                     () -> {
                         this.field20842 = new ArrayList<>();
-                        YoutubeJPGThumbnail[] var3 = ThumbnailUtil.search(this.searchBox.getTypedText());
+                        YoutubeJPGThumbnail[] var3 = ThumbnailUtil.search(this.searchBox.getText());
 
                         for (YoutubeJPGThumbnail var7 : var3) {
                             this.field20842.add(new YoutubeVideoData(var7.videoID, var7.title, var7.fullUrl));

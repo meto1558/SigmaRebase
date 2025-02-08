@@ -80,11 +80,11 @@ public class ProfileGroup extends AnimatedIconPanel {
          if (this.profileName.method13297() && var3x == 257) {
             this.profileName.setEnabled(false);
             this.profileName.method13145(false);
-            if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getTypedText())) {
+            if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getText())) {
                return;
             }
 
-            config.profileName = this.profileName.getTypedText();
+            config.profileName = this.profileName.getText();
 
             try {
                System.out.println("Saving and replacing old configs with new names.");
@@ -103,7 +103,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       deleteButton.doThis((var1x, var2x) -> {
          this.animation.changeDirection(Animation.Direction.FORWARDS);
           try {
-             boolean profileDeleted = Files.deleteIfExists(new File(Client.getInstance().file + "/profiles/" + this.profileName.getTypedText() + ".profile").toPath());
+             boolean profileDeleted = Files.deleteIfExists(new File(Client.getInstance().file + "/profiles/" + this.profileName.getText() + ".profile").toPath());
 
              if (!profileDeleted) {
                 File profilesFolder = new File(Client.getInstance().file + "/profiles/");
@@ -115,7 +115,7 @@ public class ProfileGroup extends AnimatedIconPanel {
                 }
              }
           } catch (IOException e) {
-              System.out.println("Failed to delete " + this.profileName.getTypedText() + " - " + e.getMessage());
+              System.out.println("Failed to delete " + this.profileName.getText() + " - " + e.getMessage());
           }
 
       });
@@ -155,7 +155,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       if (!this.profileName.method13297() && this.profileName.isVisible()) {
          this.profileName.setEnabled(false);
          this.profileName.method13145(false);
-         this.currentConfig.profileName = this.profileName.getTypedText();
+         this.currentConfig.profileName = this.profileName.getText();
 
          try {
             System.out.println("Saving and replacing old configs with new names.");

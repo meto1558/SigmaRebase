@@ -21,8 +21,8 @@ public class Button extends Element {
         super(screen, iconName, x, y, width, var6, var7, false);
     }
 
-    public Button(CustomGuiScreen screen, String iconName, int x, int y, int width, int var6, ColorHelper var7, String var8) {
-        super(screen, iconName, x, y, width, var6, var7, var8, false);
+    public Button(CustomGuiScreen screen, String iconName, int x, int y, int width, int var6, ColorHelper var7, String text) {
+        super(screen, iconName, x, y, width, var6, var7, text, false);
     }
 
     public Button(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper var7, String var8, TrueTypeFont font) {
@@ -69,12 +69,12 @@ public class Button extends Element {
                         ? 0
                         : (this.textColor.method19413() != FontSizeAdjust.HEIGHT_NEGATE ? this.getHeightA() / 2 : this.getHeightA())
         );
-        if (this.getTypedText() != null) {
+        if (this.getText() != null) {
             RenderUtil.drawString(
                     this.getFont(),
                     (float) (this.field20585 + var10),
                     (float) var11,
-                    this.getTypedText(),
+                    this.getText(),
                     RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()

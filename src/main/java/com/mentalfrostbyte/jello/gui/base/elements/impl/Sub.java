@@ -132,7 +132,7 @@ public class Sub extends Element {
    }
 
    @Override
-   public String getTypedText() {
+   public String getText() {
       return this.method13636().size() <= 0 ? null : this.method13636().get(this.method13640());
    }
 

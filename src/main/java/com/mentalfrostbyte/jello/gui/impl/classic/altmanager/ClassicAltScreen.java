@@ -207,7 +207,7 @@ public class ClassicAltScreen extends Screen {
     }
 
     public void method13403() {
-        List<com.mentalfrostbyte.jello.managers.util.account.microsoft.Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getTypedText());
+        List<com.mentalfrostbyte.jello.managers.util.account.microsoft.Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getText());
         int var5 = 0;
         if (this.altList != null) {
             var5 = this.altList.method13513();

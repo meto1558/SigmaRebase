@@ -49,7 +49,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     public boolean field20909;
     public boolean listening;
     public boolean field20911;
-    public String typedText;
+    public String text;
     public TrueTypeFont font;
     public ColorHelper textColor;
     private final ArrayList<Runnable> runOnDimensionUpdate = new ArrayList<Runnable>();
@@ -70,8 +70,8 @@ public class CustomGuiScreen implements IGuiEventListener {
         this(parent, name, xA, yA, widthA, heightA, textColor, null);
     }
 
-    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText) {
-        this(parent, name, xA, yA, widthA, heightA, textColor, typedText, ResourceRegistry.JelloLightFont25);
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String text) {
+        this(parent, name, xA, yA, widthA, heightA, textColor, text, ResourceRegistry.JelloLightFont25);
     }
 
     /**
@@ -84,17 +84,17 @@ public class CustomGuiScreen implements IGuiEventListener {
      * @param widthA    The width of the screen.
      * @param heightA   The height of the screen.
      * @param textColor The color of the text.
-     * @param typedText The initial typed text (can be null).
+     * @param text The initial typed text (can be null).
      * @param font      The TrueTypeFont to be used for rendering text.
      */
-    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String typedText, TrueTypeFont font) {
+    public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String text, TrueTypeFont font) {
         this.name = name;
         this.parent = parent;
         this.xA = xA;
         this.yA = yA;
         this.widthA = widthA;
         this.heightA = heightA;
-        this.typedText = typedText;
+        this.text = text;
         this.textColor = textColor;
         this.font = font;
         this.field20903 = true;
@@ -809,12 +809,12 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this.field20911;
     }
 
-    public String getTypedText() {
-        return this.typedText;
+    public String getText() {
+        return this.text;
     }
 
-    public void setTypedText(String typedText) {
-        this.typedText = typedText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public TrueTypeFont getFont() {

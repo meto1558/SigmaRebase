@@ -183,7 +183,7 @@ public class Dropdown extends Element {
                 20.0F,
                 partialTicks * 0.2F * this.animation.calcPercent()
         );
-        if (this.getTypedText() != null) {
+        if (this.getText() != null) {
             RenderUtil.method11415(this);
             String var4 = "";
 
@@ -197,7 +197,7 @@ public class Dropdown extends Element {
                     this.getFont(),
                     (float) (this.getXA() + 10),
                     (float) (this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2 + 1),
-                    this.getTypedText() + var4,
+                    this.getText() + var4,
                     RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F)
             );
             RenderUtil.endScissor();
@@ -262,7 +262,7 @@ public class Dropdown extends Element {
     }
 
     @Override
-    public String getTypedText() {
+    public String getText() {
         return this.method13651().size() <= 0 ? null : this.method13651().get(this.method13655());
     }
 

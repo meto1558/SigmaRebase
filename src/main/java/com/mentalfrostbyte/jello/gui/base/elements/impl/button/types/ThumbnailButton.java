@@ -110,7 +110,7 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     try {
                         BufferedImage var3 = ImageIO.read(this.videoUrl);
                         if (var3.getHeight() != var3.getWidth()) {
-                            if (this.getTypedText().contains("[NCS Release]")) {
+                            if (this.getText().contains("[NCS Release]")) {
                                 this.field20773 = var3.getSubimage(1, 3, 170, 170);
                             } else {
                                 this.field20773 = var3.getSubimage(70, 0, 180, 180);
@@ -190,9 +190,9 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
             );
             TrueTypeFont var11 = ResourceRegistry.JelloLightFont12;
-            if (this.typedText != null) {
+            if (this.text != null) {
                 RenderUtil.method11415(this);
-                String[] var12 = this.getTypedText().replaceAll("\\(.*\\)", "").replaceAll("\\[.*\\]", "").split(" - ");
+                String[] var12 = this.getText().replaceAll("\\(.*\\)", "").replaceAll("\\[.*\\]", "").split(" - ");
                 if (var12.length > 1) {
                     RenderUtil.drawString(
                             var11,

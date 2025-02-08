@@ -53,7 +53,7 @@ public class ModsPanel extends Element {
          )
       );
       var10.method13151(var2x -> {
-         this.field21307 = var10.getTypedText();
+         this.field21307 = var10.getText();
          this.field21308.method13512(0);
       });
       var10.method13242();
@@ -100,7 +100,7 @@ public class ModsPanel extends Element {
          var21.method13034(10);
          var21.doThis((var2x, var3x) -> {
             for (Module var7 : Client.getInstance().moduleManager.getModuleMap().values()) {
-               if (var7.getName().equals(var21.getTypedText()) && !this.field21311) {
+               if (var7.getName().equals(var21.getText()) && !this.field21311) {
                   this.field21309 = new Class6984(var7);
                   this.field21311 = true;
                   break;
@@ -133,15 +133,15 @@ public class ModsPanel extends Element {
                   Button var13 = (Button)var12;
                   boolean var14 = var13.getHeightA() != 40;
                   if (!var14 || this.field21307 != null && (this.field21307 == null || this.field21307.length() != 0)) {
-                     if (!var14 && this.method13622(this.field21307, var13.getTypedText())) {
-                        var6.put(var13.getTypedText(), var13);
-                     } else if (!var14 && this.method13621(this.field21307, var13.getTypedText())) {
-                        var7.put(var13.getTypedText(), var13);
+                     if (!var14 && this.method13622(this.field21307, var13.getText())) {
+                        var6.put(var13.getText(), var13);
+                     } else if (!var14 && this.method13621(this.field21307, var13.getText())) {
+                        var7.put(var13.getText(), var13);
                      } else {
                         var8.add(var13);
                      }
                   } else {
-                     var5.put(var13.getTypedText(), var13);
+                     var5.put(var13.getText(), var13);
                   }
                }
             }

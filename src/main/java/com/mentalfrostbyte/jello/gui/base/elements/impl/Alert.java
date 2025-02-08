@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mentalfrostbyte.jello.managers.util.account.microsoft.Account.cookieLogin;
+
 public class Alert extends Element {
     public CustomGuiScreen screen;
     public String alertName;
@@ -62,12 +64,12 @@ public class Alert extends Element {
         int var17 = 0;
         int var18 = 0;
 
-        for (AlertComponent var15 : var5) {
+        for (AlertComponent component : var5) {
             var17++;
-            if (var15.componentType != ComponentType.FIRST_LINE) {
-                if (var15.componentType != ComponentType.SECOND_LINE) {
-                    if (var15.componentType != ComponentType.BUTTON) {
-                        if (var15.componentType == ComponentType.HEADER) {
+            if (component.componentType != ComponentType.FIRST_LINE) {
+                if (component.componentType != ComponentType.SECOND_LINE) {
+                    if (component.componentType != ComponentType.BUTTON) {
+                        if (component.componentType == ComponentType.HEADER) {
                             this.screen
                                     .addToList(
                                             new Text(
@@ -76,35 +78,43 @@ public class Alert extends Element {
                                                     0,
                                                     var18,
                                                     this.field21284,
-                                                    var15.field44773,
+                                                    component.field44773,
                                                     new ColorHelper(
                                                             ClientColors.DEEP_TEAL.getColor(),
                                                             ClientColors.DEEP_TEAL.getColor(),
                                                             ClientColors.DEEP_TEAL.getColor(),
                                                             ClientColors.DEEP_TEAL.getColor()
                                                     ),
-                                                    var15.field44772,
+                                                    component.text,
                                                     ResourceRegistry.JelloLightFont36
                                             )
                                     );
                         }
                     } else {
                         Button button;
-                        this.screen.addToList(button = new Button(this.screen, "Item" + var17, 0, var18, this.field21284, var15.field44773, ColorHelper.field27961, var15.field44772));
+                        this.screen.addToList(button = new Button(this.screen, "Item" + var17, 0, var18, this.field21284, component.field44773, ColorHelper.field27961, component.text));
                         this.buttons.add(button);
                         button.field20586 = 4;
-                        button.doThis((var1x, var2x) -> this.method13601());
+                        button.doThis((var1x, var2x) -> {
+                            if (button.text.equals("Cookie alt")) {
+                                //implement that shit here
+                                this.inputMap = this.method13599();
+                                this.method13603(false);
+                            } else {
+                                this.onButtonClick();
+                            }
+                        });
                     }
                 } else {
                     TextField var22;
                     this.screen
                             .addToList(
                                     var22 = new TextField(
-                                            this.screen, "Item" + var17, 0, var18, this.field21284, var15.field44773, TextField.field20741, "", var15.field44772
+                                            this.screen, "Item" + var17, 0, var18, this.field21284, component.field44773, TextField.field20741, "", component.text
                                     )
                             );
-                    if (!var15.field44772.contains("Password")) {
-                        if (var15.field44772.contains("Email")) {
+                    if (!component.text.contains("Password")) {
+                        if (component.text.contains("Email")) {
                             var8 = var22;
                         }
                     } else {
@@ -121,34 +131,34 @@ public class Alert extends Element {
                                         0,
                                         var18,
                                         this.field21284,
-                                        var15.field44773,
+                                        component.field44773,
                                         new ColorHelper(
                                                 ClientColors.MID_GREY.getColor(), ClientColors.MID_GREY.getColor(), ClientColors.MID_GREY.getColor(), ClientColors.MID_GREY.getColor()
                                         ),
-                                        var15.field44772,
+                                        component.text,
                                         ResourceRegistry.JelloLightFont20
                                 )
                         );
             }
 
-            var18 += var15.field44773 + 10;
+            var18 += component.field44773 + 10;
         }
 
         if (var8 != null && var9 != null) {
             TextField var20 = var9;
             var8.method13151(var2x -> {
-                String var5x = var2x.getTypedText();
+                String var5x = var2x.getText();
                 if (var5x != null && var5x.contains(":")) {
                     String[] var6 = var5x.split(":");
                     if (var6.length <= 2) {
                         if (var6.length > 0) {
-                            var2x.setTypedText(var6[0].replace("\n", ""));
+                            var2x.setText(var6[0].replace("\n", ""));
                             if (var6.length == 2) {
-                                var20.setTypedText(var6[1].replace("\n", ""));
+                                var20.setText(var6[1].replace("\n", ""));
                             }
                         }
                     } else {
-                        this.method13601();
+                        this.onButtonClick();
                     }
                 }
             });
@@ -160,7 +170,7 @@ public class Alert extends Element {
         if (hovered) {
             for (CustomGuiScreen var5 : this.screen.getChildren()) {
                 if (var5 instanceof TextField) {
-                    ((TextField) var5).setTypedText("");
+                    ((TextField) var5).setText("");
                     ((TextField) var5).method13146();
                 }
             }
@@ -177,7 +187,7 @@ public class Alert extends Element {
             AnimatedIconPanel var6 = (AnimatedIconPanel) var5;
             if (var6 instanceof TextField) {
                 TextField var7 = (TextField) var6;
-                var3.put(var7.method13153(), var7.getTypedText());
+                var3.put(var7.method13153(), var7.getText());
             }
         }
 
@@ -188,7 +198,7 @@ public class Alert extends Element {
         return this.inputMap;
     }
 
-    public void method13601() {
+    public void onButtonClick() {
         this.inputMap = this.method13599();
         this.method13603(false);
         this.callUIHandlers();

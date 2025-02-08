@@ -20,8 +20,8 @@ public class Element extends AnimatedIconPanel {
         super(screen, typeThingIdk, x, y, width, height, var7, var8);
     }
 
-    public Element(CustomGuiScreen screen, String typeThingIdk, int x, int y, int width, int height, ColorHelper var7, String var8, boolean var9) {
-        super(screen, typeThingIdk, x, y, width, height, var7, var8, var9);
+    public Element(CustomGuiScreen screen, String typeThingIdk, int x, int y, int width, int height, ColorHelper var7, String text, boolean var9) {
+        super(screen, typeThingIdk, x, y, width, height, var7, text, var9);
     }
 
     public Element(CustomGuiScreen screen, String typeThingIdk, int x, int y, int width, int height, ColorHelper var7, String var8, TrueTypeFont font, boolean var10) {

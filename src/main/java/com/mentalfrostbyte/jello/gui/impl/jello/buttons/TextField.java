@@ -70,9 +70,9 @@ public class TextField extends AnimatedIconPanel {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      String text = this.typedText;
+      String text = this.text;
       if (this.censorText) {
-         text = this.typedText.replaceAll(".", this.censorChar);
+         text = this.text.replaceAll(".", this.censorChar);
       }
 
       this.field20744 = this.field20744 + ((!this.field20905 ? 0.0F : 1.0F) - this.field20744) / 2.0F;
@@ -101,9 +101,9 @@ public class TextField extends AnimatedIconPanel {
    @Override
    public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       if (!super.onClick(mouseX, mouseY, mouseButton)) {
-         String var6 = this.typedText;
+         String var6 = this.text;
          if (this.censorText) {
-            var6 = this.typedText.replaceAll(".", this.censorChar);
+            var6 = this.text.replaceAll(".", this.censorChar);
          }
 
          this.field20752 = true;
@@ -121,7 +121,7 @@ public class TextField extends AnimatedIconPanel {
 
    public void method13148() {
       this.method13242();
-      this.maxLen = this.typedText.length();
+      this.maxLen = this.text.length();
       this.field20750 = 0;
       this.field20751 = this.maxLen;
    }
@@ -139,7 +139,7 @@ public class TextField extends AnimatedIconPanel {
          switch (keyCode) {
             case 65:
                if (this.method13149()) {
-                  this.maxLen = this.typedText.length();
+                  this.maxLen = this.text.length();
                   this.field20750 = 0;
                   this.field20751 = this.maxLen;
                }
@@ -148,7 +148,7 @@ public class TextField extends AnimatedIconPanel {
                if (this.method13149() && this.field20750 != this.field20751) {
                   GLFW.glfwSetClipboardString(
                      Minecraft.getInstance().getMainWindow().getHandle(),
-                     this.typedText.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
+                     this.text.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
                   );
                }
                break;
@@ -166,7 +166,7 @@ public class TextField extends AnimatedIconPanel {
 
                   if (var12 != "") {
                      if (this.field20750 != this.field20751) {
-                        this.typedText = Class8906.method32493(this.typedText, var12, this.field20750, this.field20751);
+                        this.text = Class8906.method32493(this.text, var12, this.field20750, this.field20751);
                         if (this.maxLen > this.field20750) {
                            this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                         }
@@ -174,7 +174,7 @@ public class TextField extends AnimatedIconPanel {
                         this.maxLen = this.maxLen + var12.length();
                         this.field20750 = this.maxLen;
                      } else {
-                        this.typedText = Class8906.method32492(this.typedText, var12, this.maxLen);
+                        this.text = Class8906.method32492(this.text, var12, this.maxLen);
                         this.maxLen = this.maxLen + var12.length();
                         this.field20750 = this.maxLen;
                      }
@@ -187,9 +187,9 @@ public class TextField extends AnimatedIconPanel {
                if (this.method13149() && this.field20750 != this.field20751) {
                   GLFW.glfwSetClipboardString(
                      Minecraft.getInstance().getMainWindow().getHandle(),
-                     this.typedText.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
+                     this.text.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
                   );
-                  this.typedText = Class8906.method32493(this.typedText, "", this.field20750, this.field20751);
+                  this.text = Class8906.method32493(this.text, "", this.field20750, this.field20751);
                   if (this.maxLen > this.field20750) {
                      this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                   }
@@ -203,9 +203,9 @@ public class TextField extends AnimatedIconPanel {
                this.method13145(false);
                break;
             case 259:
-               if (this.typedText.length() > 0) {
+               if (this.text.length() > 0) {
                   if (this.field20750 != this.field20751) {
-                     this.typedText = Class8906.method32493(this.typedText, "", this.field20750, this.field20751);
+                     this.text = Class8906.method32493(this.text, "", this.field20750, this.field20751);
                      if (this.maxLen > this.field20750) {
                         this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                      }
@@ -213,18 +213,18 @@ public class TextField extends AnimatedIconPanel {
                      int var11 = -1;
 
                      for (int var14 = Math.max(this.maxLen - 1, 0); var14 >= 0; var14--) {
-                        if ((String.valueOf(this.typedText.charAt(var14)).equalsIgnoreCase(" ") || var14 == 0) && Math.abs(this.maxLen - var14) > 1) {
+                        if ((String.valueOf(this.text.charAt(var14)).equalsIgnoreCase(" ") || var14 == 0) && Math.abs(this.maxLen - var14) > 1) {
                            var11 = var14 + (var14 == 0 ? 0 : 1);
                            break;
                         }
                      }
 
                      if (var11 != -1) {
-                        this.typedText = Class8906.method32493(this.typedText, "", var11, this.maxLen);
+                        this.text = Class8906.method32493(this.text, "", var11, this.maxLen);
                         this.maxLen = var11;
                      }
                   } else {
-                     this.typedText = Class8906.method32493(this.typedText, "", this.maxLen - 1, this.maxLen);
+                     this.text = Class8906.method32493(this.text, "", this.maxLen - 1, this.maxLen);
                      this.maxLen--;
                   }
 
@@ -239,10 +239,10 @@ public class TextField extends AnimatedIconPanel {
                } else {
                   int var10 = -1;
 
-                  for (int var13 = this.maxLen; var13 < this.typedText.length(); var13++) {
+                  for (int var13 = this.maxLen; var13 < this.text.length(); var13++) {
                      try {
-                        if ((String.valueOf(this.typedText.charAt(var13)).equalsIgnoreCase(" ") || var13 == this.typedText.length() - 1)
-                           && (Math.abs(this.maxLen - var13) > 1 || var13 == this.typedText.length() - 1)) {
+                        if ((String.valueOf(this.text.charAt(var13)).equalsIgnoreCase(" ") || var13 == this.text.length() - 1)
+                           && (Math.abs(this.maxLen - var13) > 1 || var13 == this.text.length() - 1)) {
                            var10 = var13 + 1;
                            break;
                         }
@@ -269,7 +269,7 @@ public class TextField extends AnimatedIconPanel {
 
                   for (int var5 = Math.max(this.maxLen - 1, 0); var5 >= 0; var5--) {
                      try {
-                        if ((String.valueOf(this.typedText.charAt(var5)).equalsIgnoreCase(" ") || var5 == 0) && Math.abs(this.maxLen - var5) > 1) {
+                        if ((String.valueOf(this.text.charAt(var5)).equalsIgnoreCase(" ") || var5 == 0) && Math.abs(this.maxLen - var5) > 1) {
                            var4 = var5;
                            break;
                         }
@@ -296,7 +296,7 @@ public class TextField extends AnimatedIconPanel {
                }
                break;
             case 269:
-               this.maxLen = this.typedText.length();
+               this.maxLen = this.text.length();
                if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
                   && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
                   this.field20750 = this.maxLen;
@@ -316,9 +316,9 @@ public class TextField extends AnimatedIconPanel {
       super.charTyped(typed);
       if (this.method13297() && Class8906.method32486(typed)) {
          if (this.field20750 == this.field20751) {
-            this.typedText = Class8906.method32492(this.typedText, Character.toString(typed), this.maxLen);
+            this.text = Class8906.method32492(this.text, Character.toString(typed), this.maxLen);
          } else {
-            this.typedText = Class8906.method32493(this.typedText, Character.toString(typed), this.field20750, this.field20751);
+            this.text = Class8906.method32493(this.text, Character.toString(typed), this.field20750, this.field20751);
          }
 
          this.maxLen++;
@@ -336,9 +336,9 @@ public class TextField extends AnimatedIconPanel {
          this.timer.reset();
       }
 
-      String var6 = this.typedText;
+      String var6 = this.text;
       if (this.censorText) {
-         var6 = this.typedText.replaceAll(".", this.censorChar);
+         var6 = this.text.replaceAll(".", this.censorChar);
       }
 
       RenderUtil.drawBlurredBackground(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);

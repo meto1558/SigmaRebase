@@ -37,8 +37,8 @@ public class AnimatedIconPanel extends CustomGuiScreen implements INestedGuiEven
         this.field20876 = var8;
     }
 
-    public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper colorHelper, String var8, boolean var9) {
-        super(screen, iconName, x, y, width, height, colorHelper, var8);
+    public AnimatedIconPanel(CustomGuiScreen screen, String iconName, int x, int y, int width, int height, ColorHelper colorHelper, String text, boolean var9) {
+        super(screen, iconName, x, y, width, height, colorHelper, text);
         this.field20876 = var9;
     }
 
