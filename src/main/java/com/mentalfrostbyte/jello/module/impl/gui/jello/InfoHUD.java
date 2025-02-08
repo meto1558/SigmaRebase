@@ -25,7 +25,6 @@ import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class InfoHUD extends Module {
-    public float previousYaw = 0.0F;
 
     public InfoHUD() {
         super(ModuleCategory.GUI, "Info HUD", "Shows a bunch of usefull stuff");
@@ -40,8 +39,6 @@ public class InfoHUD extends Module {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.hideGUI) {
                 if (!(mc.currentScreen instanceof ChatScreen || mc.currentScreen instanceof IngameMenuScreen)) {
-                    float yawDifference = mc.player.rotationYaw % 360.0F - this.previousYaw % 360.0F;
-                    this.previousYaw += yawDifference / (float) Minecraft.getFps() * 1.5F;
                     int xOffset = 14;
 
                     if (this.getBooleanValueFromSettingName("Show Player")) {
