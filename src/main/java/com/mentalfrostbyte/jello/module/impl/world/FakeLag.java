@@ -38,8 +38,10 @@ public class FakeLag extends Module {
 
     @Override
     public void onDisable() {
-        for (IPacket<?> packet : this.packets) {
-            mc.getConnection().getNetworkManager().sendPacket(packet);
+        if (!this.packets.isEmpty()) {
+            for (IPacket<?> packet : this.packets) {
+                mc.getConnection().getNetworkManager().sendPacket(packet);
+            }
         }
     }
 
