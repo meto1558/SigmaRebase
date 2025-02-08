@@ -119,7 +119,7 @@ public class TabGUI extends Module {
                         this.method16594(170, this.field23769, this.method16593(this.field23782), 1.0F);
                     }
 
-                    var1.setYOffset(this.field23771 + 10 + 100);
+                    var1.setYOffset(this.field23771 + 10 + 99);
                 }
             }
         }
