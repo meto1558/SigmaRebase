@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.gui.jello.minimap.Class8444;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.minimap.MinimapChunkHandler;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -28,7 +28,7 @@ import java.util.List;
 public class MiniMap extends Module {
     private static float field23708 = 64.0F;
     public ByteBuffer field23704 = null;
-    public List<Class8444> field23716 = new ArrayList<>();
+    public List<MinimapChunkHandler> field23716 = new ArrayList<>();
     private int field23707;
     private final int field23715 = 10;
     private double field23717;
@@ -76,47 +76,47 @@ public class MiniMap extends Module {
             }
 
             if (this.field23707 >= 1) {
-                List<Chunk> var4 = new ArrayList<>();
+                List<Chunk> chunks = new ArrayList<>();
 
                 for (int var5 = -this.field23715 / 2; var5 < this.field23715 / 2; var5++) {
                     for (int var6 = -this.field23715 / 2; var6 < this.field23715 / 2; var6++) {
-                        var4.add(mc.world.getChunk(mc.player.chunkCoordX + var5, mc.player.chunkCoordZ + var6));
+                        chunks.add(mc.world.getChunk(mc.player.chunkCoordX + var5, mc.player.chunkCoordZ + var6));
                     }
                 }
 
                 Iterator var11 = this.field23716.iterator();
 
                 while (var11.hasNext()) {
-                    Class8444 var12 = (Class8444) var11.next();
-                    int var7 = var12.field36184.getPos()
+                    MinimapChunkHandler var12 = (MinimapChunkHandler) var11.next();
+                    int var7 = var12.chunk.getPos()
                             .getChessboardDistance(new ChunkPos(mc.player.chunkCoordX, mc.player.chunkCoordZ));
                     if (var7 > 7) {
                         var11.remove();
                     }
                 }
 
-                for (Chunk var15 : var4) {
-                    if (var15 == null) {
+                for (Chunk chunk : chunks) {
+                    if (chunk == null) {
                         return;
                     }
 
                     boolean var8 = false;
 
-                    for (Class8444 var10 : this.field23716) {
-                        if (var10.method29698(var15)) {
+                    for (MinimapChunkHandler var10 : this.field23716) {
+                        if (var10.matchesChunk(chunk)) {
                             var8 = true;
                             break;
                         }
                     }
 
                     if (!var8) {
-                        this.field23716.add(new Class8444(var15));
+                        this.field23716.add(new MinimapChunkHandler(chunk));
                         break;
                     }
                 }
 
-                for (Class8444 var16 : this.field23716) {
-                    var16.method29696();
+                for (MinimapChunkHandler var16 : this.field23716) {
+                    var16.checkAndUpdateBuffer();
                 }
 
                 this.field23717 = (mc.player.getPosX() - (double) (mc.player.chunkCoordX * 16)) / 16.0;
@@ -230,17 +230,17 @@ public class MiniMap extends Module {
         for (Chunk var9 : var4) {
             ByteBuffer var10 = BufferUtils.createByteBuffer(768);
             method16503(var10);
-            Class8444 var11 = null;
+            MinimapChunkHandler var11 = null;
 
-            for (Class8444 var13 : this.field23716) {
-                if (var13.method29698(var9)) {
+            for (MinimapChunkHandler var13 : this.field23716) {
+                if (var13.matchesChunk(var9)) {
                     var11 = var13;
                     break;
                 }
             }
 
-            if (var11 != null && var11.field36185 != null) {
-                var10 = var11.field36185;
+            if (var11 != null && var11.chunkBuffer != null) {
+                var10 = var11.chunkBuffer;
             }
 
             int var18 = var16.position();

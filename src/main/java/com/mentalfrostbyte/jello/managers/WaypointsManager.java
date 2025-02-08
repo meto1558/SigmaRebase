@@ -400,7 +400,7 @@ public class WaypointsManager {
         for (int var8 = 0; var8 < 16; var8++) {
             for (int var9 = 0; var9 < 16; var9++) {
                 BlockPos var10 = new BlockPos(var6 + var8, 64, var7 + var9);
-                int var11 = this.method30006(
+                int var11 = this.getWaypointHeight(
                         new BlockPos(var10.getX(), var1.getHeightmap(Heightmap.Type.WORLD_SURFACE).getHeight(var8, var9) - 1, var10.getZ()), var2
                 );
                 var5.put((byte) (var11 >> 16 & 0xFF));
@@ -413,7 +413,7 @@ public class WaypointsManager {
         return var5;
     }
 
-    public int method30006(BlockPos var1, boolean var2) {
+    public int getWaypointHeight(BlockPos var1, boolean var2) {
         if (this.field36365.world.getBlockState(var1).getBlock() == Blocks.AIR) {
             var1 = var1.down();
         }
