@@ -4,15 +4,16 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
 import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Dropdown;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.*;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.AccountUI;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Head;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Info;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.sorting.AccountCompareType;
@@ -41,8 +42,8 @@ public class AltManagerScreen extends Screen {
    public TextButton field21009;
    private ScrollableContentPanel field21010;
    private ScrollableContentPanel field21011;
-   private AlertPanel loginDialog;
-   private AlertPanel deleteAlert;
+   private Alert loginDialog;
+   private Alert deleteAlert;
    private float field21014 = 0.65F;
    private float field21015 = 1.0F - this.field21014;
    private int titleOffset = 30;
@@ -270,7 +271,7 @@ public class AltManagerScreen extends Screen {
       AlertComponent emailInput = new AlertComponent(ComponentType.SECOND_LINE, "Email", 50);
       AlertComponent passwordInput = new AlertComponent(ComponentType.SECOND_LINE, "Password", 50);
       AlertComponent button = new AlertComponent(ComponentType.BUTTON, "Add alt", 50);
-      this.addToList(this.loginDialog = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, emailInput, passwordInput, button));
+      this.addToList(this.loginDialog = new Alert(this, "Testt", true, "Add Alt", header, firstline1, firstline2, emailInput, passwordInput, button));
       this.loginDialog.onPress(var1 -> {
          if (!this.loginDialog.getInputMap().get("Email").contains(":")) {
             Account account = new Account(this.loginDialog.getInputMap().get("Email"), this.loginDialog.getInputMap().get("Password"));
@@ -302,7 +303,7 @@ public class AltManagerScreen extends Screen {
       AlertComponent firstLine = new AlertComponent(ComponentType.FIRST_LINE, "Are you sure you want", 15);
       AlertComponent secondLine = new AlertComponent(ComponentType.FIRST_LINE, "to delete this alt?", 40);
       AlertComponent button = new AlertComponent(ComponentType.BUTTON, "Delete", 50);
-      this.addToList(this.deleteAlert = new AlertPanel(this, "delete", true, "Delete", title, firstLine, secondLine, button));
+      this.addToList(this.deleteAlert = new Alert(this, "delete", true, "Delete", title, firstLine, secondLine, button));
    }
 
    @Override

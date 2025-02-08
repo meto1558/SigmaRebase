@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.ContentSize;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.ContentSize;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;

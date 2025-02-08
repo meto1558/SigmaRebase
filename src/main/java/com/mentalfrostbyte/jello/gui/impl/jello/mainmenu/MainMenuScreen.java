@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.impl.LoadingScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -76,7 +76,7 @@ public class MainMenuScreen extends Screen {
     public static String currentTitle;
     public static String currentMessage;
     public static float field20982;
-    public AlertPanel alertPanel;
+    public Alert alert;
 
     public MainMenuScreen() {
         super("Main Screen");
@@ -296,26 +296,26 @@ public class MainMenuScreen extends Screen {
     }
 
     public void logout() {
-        if (this.alertPanel == null) {
+        if (this.alert == null) {
             this.runThisOnDimensionUpdate(() -> {
                 ArrayList<AlertComponent> alert = new ArrayList<>();
                 alert.add(new AlertComponent(ComponentType.HEADER, "Logout", 45));
                 alert.add(new AlertComponent(ComponentType.FIRST_LINE, "Are you sure?", 35));
                 alert.add(new AlertComponent(ComponentType.BUTTON, "Yes", 55));
-                this.showAlert(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new AlertComponent[0])));
-                this.alertPanel.method13604(var1 -> new Thread(() -> {
+                this.showAlert(this.alert = new Alert(this, "music", true, "Dependencies.", alert.toArray(new AlertComponent[0])));
+                this.alert.method13604(var1 -> new Thread(() -> {
                     try {
                         Thread.sleep(114L);
                         this.runThisOnDimensionUpdate(() -> {
-                            this.method13236(this.alertPanel);
-                            this.alertPanel = null;
+                            this.method13236(this.alert);
+                            this.alert = null;
                         });
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
                 }).start());
-                this.alertPanel.onPress(var -> Client.getInstance().networkManager.resetLicense());
-                this.alertPanel.method13603(true);
+                this.alert.onPress(var -> Client.getInstance().networkManager.resetLicense());
+                this.alert.method13603(true);
             });
         }
     }

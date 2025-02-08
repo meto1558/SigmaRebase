@@ -4,7 +4,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
-import com.mentalfrostbyte.jello.gui.unmapped.Class6984;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;

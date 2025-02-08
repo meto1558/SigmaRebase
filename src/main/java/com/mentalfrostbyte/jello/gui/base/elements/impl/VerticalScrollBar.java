@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.VerticalScrollBarButton;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class4293;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.Resources;

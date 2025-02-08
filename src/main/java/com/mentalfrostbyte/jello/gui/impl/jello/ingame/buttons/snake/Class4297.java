@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.snake;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.system.render.ScreenDimension;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;

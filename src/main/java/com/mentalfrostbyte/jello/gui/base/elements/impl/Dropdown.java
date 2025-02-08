@@ -4,8 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4362;
-import com.mentalfrostbyte.jello.gui.unmapped.Class7262;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.dropdown.Class7262;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -27,7 +26,7 @@ public class Dropdown extends Element {
     public int selectedIdx;
     public boolean field21328;
     private Animation animation = new Animation(220, 220);
-    private Map<Integer, Class4362> field21331 = new HashMap<Integer, Class4362>();
+    private Map<Integer, Sub> field21331 = new HashMap<Integer, Sub>();
 
     public Dropdown(CustomGuiScreen var1, String typeThingIdk, int x, int y, int width, int height, List<String> values, int selectedIdx) {
         super(var1, typeThingIdk, x, y, width, height, field21325, false);
@@ -37,7 +36,7 @@ public class Dropdown extends Element {
     }
 
     public void method13643(List<String> var1, int var2) {
-        Class4362 var5 = new Class4362(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
+        Sub var5 = new Sub(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
         this.field21331.put(var2, var5);
         var5.setEnabled(false);
         var5.onPress(var2x -> {
@@ -48,10 +47,10 @@ public class Dropdown extends Element {
         this.addToList(var5);
     }
 
-    public Class4362 method13645(int var1) {
+    public Sub method13645(int var1) {
         for (Entry var5 : this.field21331.entrySet()) {
             if ((Integer) var5.getKey() == var1) {
-                return (Class4362) var5.getValue();
+                return (Sub) var5.getValue();
             }
         }
 
@@ -112,10 +111,10 @@ public class Dropdown extends Element {
         int var3 = this.method13648();
 
         for (Entry var5 : this.field21331.entrySet()) {
-            if (((Class4362) var5.getValue()).isVisible()) {
+            if (((Sub) var5.getValue()).isVisible()) {
                 var3 = Math.max(
                         var3,
-                        (((Class4362) var5.getValue()).values.size() - 1) * ((Class4362) var5.getValue()).getHeightA() + ((Class4362) var5.getValue()).getYA()
+                        (((Sub) var5.getValue()).values.size() - 1) * ((Sub) var5.getValue()).getHeightA() + ((Sub) var5.getValue()).getYA()
                 );
             }
         }
@@ -150,11 +149,11 @@ public class Dropdown extends Element {
                 && this.animation.calcPercent() == 1.0F
                 && newHeight - this.method13271() < this.getWidthA()) {
             for (Entry var9 : this.field21331.entrySet()) {
-                ((Class4362) var9.getValue()).setEnabled((Integer) var9.getKey() == var5);
+                ((Sub) var9.getValue()).setEnabled((Integer) var9.getKey() == var5);
             }
         } else if (!this.method13114(newHeight, newWidth) || this.animation.getDirection() == Animation.Direction.BACKWARDS) {
             for (Entry var7 : this.field21331.entrySet()) {
-                ((Class4362) var7.getValue()).setEnabled(false);
+                ((Sub) var7.getValue()).setEnabled(false);
             }
         }
     }
@@ -190,7 +189,7 @@ public class Dropdown extends Element {
 
             for (Entry var6 : this.field21331.entrySet()) {
                 if (this.selectedIdx == (Integer) var6.getKey()) {
-                    var4 = " (" + ((Class4362) var6.getValue()).values.get(((Class4362) var6.getValue()).field21324) + ")";
+                    var4 = " (" + ((Sub) var6.getValue()).values.get(((Sub) var6.getValue()).field21324) + ")";
                 }
             }
 
@@ -270,7 +269,7 @@ public class Dropdown extends Element {
     @Override
     public boolean method13114(int var1, int var2) {
         for (Entry var6 : this.field21331.entrySet()) {
-            if (((Class4362) var6.getValue()).isVisible() && ((Class4362) var6.getValue()).method13114(var1, var2)) {
+            if (((Sub) var6.getValue()).isVisible() && ((Sub) var6.getValue()).method13114(var1, var2)) {
                 return true;
             }
         }

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;

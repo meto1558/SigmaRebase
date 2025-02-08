@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Class6984;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;

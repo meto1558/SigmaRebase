@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.gui.unmapped.JelloTouch;
+import com.mentalfrostbyte.jello.gui.impl.jello.JelloTouch;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;

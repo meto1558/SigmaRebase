@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl.button.types;
 
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Class4277;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Slider;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
@@ -9,10 +9,10 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 
 public class SliderButton extends Button {
-    private Class4277 field20600;
+    private Slider field20600;
     private Animation field20601 = new Animation(125, 125);
 
-    public SliderButton(Class4277 var1, int var2) {
+    public SliderButton(Slider var1, int var2) {
         super(var1, "sliderButton", 0, 0, var2, var2, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()));
         this.field20601.changeDirection(Animation.Direction.BACKWARDS);
         this.method13215(true);

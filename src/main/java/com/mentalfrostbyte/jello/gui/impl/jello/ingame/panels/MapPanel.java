@@ -2,11 +2,12 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.MapFrame;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.maps.MapFrame;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class9514;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.WaypointList;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;

@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
 import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
@@ -31,7 +31,7 @@ public class RegisterScreen extends Screen {
     private Texture field21087;
     private LoginScreen field21088;
     private AccountSignUpScreen field21089;
-    private AlertPanel field21090;
+    private Alert field21090;
     private TextButton field21091;
     private boolean field21092 = false;
     private Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
@@ -104,7 +104,7 @@ public class RegisterScreen extends Screen {
                 }
 
                 var5.add(new AlertComponent(ComponentType.BUTTON, "Ok", 55));
-                this.showAlert(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new AlertComponent[0])));
+                this.showAlert(this.field21090 = new Alert(this, "modal", true, "", var5.toArray(new AlertComponent[0])));
                 this.field21090.method13604(var1xx -> new Thread(() -> this.runThisOnDimensionUpdate(() -> {
                     this.method13236(this.field21090);
                     this.field21090 = null;

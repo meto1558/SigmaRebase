@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.base.elements;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IHandler;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import org.newdawn.slick.TrueTypeFont;

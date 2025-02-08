@@ -1,8 +1,7 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl.image.types;
 
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.unmapped.Class2188;
-import com.mentalfrostbyte.jello.gui.unmapped.Class2311;
+import com.mentalfrostbyte.jello.gui.combined.Class2188;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -179,5 +178,10 @@ public class AnimatedImage {
 
     public void method23124(int var1) {
         this.field31352 = var1;
+    }
+
+    public enum Class2311 {
+        field15840,
+        field15841;
     }
 }

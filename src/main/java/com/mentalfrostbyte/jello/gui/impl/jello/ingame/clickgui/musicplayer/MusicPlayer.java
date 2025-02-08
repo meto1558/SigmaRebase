@@ -3,21 +3,19 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.ChangingButton;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.SpectrumButton;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.SmallImage;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.elements.*;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.ChangingButton;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.SearchBox;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.VolumeSlider;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.MusicManager;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons.Songs;
 import com.mentalfrostbyte.jello.managers.MusicVideoManager;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
@@ -115,7 +113,7 @@ public class MusicPlayer extends AnimatedIconPanel {
                     videoMap.put(video.videoId, video);
                 }
 
-                this.runThisOnDimensionUpdate(new Songs(this, video, color, player));
+                this.runThisOnDimensionUpdate(new MusicInitializer(this, video, color, player));
             }));
             threads.get(threads.size() - 1).start();
         }

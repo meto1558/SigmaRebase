@@ -4,14 +4,15 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
 import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.SmallImage;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.PanelGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.SettingGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.MusicPlayer;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze;
@@ -43,7 +44,7 @@ public class ClickGuiScreen extends Screen {
     public BrainFreezeOverlay brainFreeze;
     public ConfigScreen configButton;
     public SettingGroup settingGroup;
-    public AlertPanel dependenciesAlert;
+    public Alert dependenciesAlert;
     public PanelGroup panelGroup = null;
 
     public ClickGuiScreen() {
@@ -114,7 +115,7 @@ public class ClickGuiScreen extends Screen {
                 }
 
                 alerts.add(new AlertComponent(ComponentType.BUTTON, "Download", 55));
-                this.showAlert(this.dependenciesAlert = new AlertPanel(this, "music", true, "Dependencies.", alerts.toArray(new AlertComponent[0])));
+                this.showAlert(this.dependenciesAlert = new Alert(this, "music", true, "Dependencies.", alerts.toArray(new AlertComponent[0])));
 
                 this.dependenciesAlert.onPress(thread -> {
                     if (!Client.getInstance().musicManager.hasPython()) {

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.unmapped.Waypoint2;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

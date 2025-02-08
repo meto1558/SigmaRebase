@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.managers.AnimationManager;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons.Particle;
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
