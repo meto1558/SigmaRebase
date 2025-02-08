@@ -61,6 +61,7 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Coords());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.RearView());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MiniMap());
             this.register(new KeyStrokes());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.ESP());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.InfoHUD());
@@ -71,8 +72,7 @@ public class ModuleManager {
 
 
 
-
-
+            
         }
 
         if (clientMode == ClientMode.CLASSIC) {

@@ -64,7 +64,7 @@ public class Chunk implements IChunk
     private final ChunkSection[] sections = new ChunkSection[16];
     private BiomeContainer blockBiomeArray;
     private final Map<BlockPos, CompoundNBT> deferredTileEntities = Maps.newHashMap();
-    private boolean loaded;
+    public boolean loaded;
     private final World world;
     private final Map<Heightmap.Type, Heightmap> heightMap = Maps.newEnumMap(Heightmap.Type.class);
     private final UpgradeData upgradeData;

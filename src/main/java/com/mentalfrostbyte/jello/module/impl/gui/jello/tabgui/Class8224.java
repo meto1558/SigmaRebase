@@ -1,10 +1,9 @@
-package com.mentalfrostbyte.jello.module.impl.gui.jello.TabGui;
+package com.mentalfrostbyte.jello.module.impl.gui.jello.tabgui;
 
 import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.TabGUI;
 
 public class Class8224 {
-    private static String[] field35321;
     public boolean field35322;
     public Animation field35323;
     public final TabGUI field35324;
