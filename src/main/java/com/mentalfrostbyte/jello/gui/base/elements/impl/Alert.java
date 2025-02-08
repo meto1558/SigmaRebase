@@ -9,7 +9,6 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.FilePickerScreen;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
@@ -123,8 +122,6 @@ public class Alert extends Element {
 
                                 this.inputMap = this.method13599();
                                 this.method13603(false);
-
-                                this.removeChildren(new FilePickerScreen());
                             } else {
                                 this.onButtonClick();
                             }
