@@ -78,7 +78,7 @@ public class LightTexture implements AutoCloseable
             RenderSystem.matrixMode(5890);
             RenderSystem.loadIdentity();
             float f = 0.00390625F;
-            RenderSystem.scalef(0.00390625F, 0.00390625F, 0.00390625F);
+            RenderSystem.scalef(f, f, f);
             RenderSystem.translatef(8.0F, 8.0F, 8.0F);
             RenderSystem.matrixMode(5888);
             this.client.getTextureManager().bindTexture(this.resourceLocation);

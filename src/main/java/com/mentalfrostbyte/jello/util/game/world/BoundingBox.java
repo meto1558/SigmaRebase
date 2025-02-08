@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.world;
 
+import net.minecraft.util.math.AxisAlignedBB;
+
 public class BoundingBox {
     public final double minX;
     public final double minY;
@@ -15,6 +17,15 @@ public class BoundingBox {
         this.maxX = x2;
         this.maxY = y2;
         this.maxZ = z2;
+    }
+
+    public BoundingBox(AxisAlignedBB axisAlignedBB) {
+        this.minX = axisAlignedBB.minX;
+        this.minY = axisAlignedBB.minY;
+        this.minZ = axisAlignedBB.minZ;
+        this.maxX = axisAlignedBB.maxX;
+        this.maxY = axisAlignedBB.maxY;
+        this.maxZ = axisAlignedBB.maxZ;
     }
 
     public BoundingBox expand(double amount) {

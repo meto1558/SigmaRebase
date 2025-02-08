@@ -45,9 +45,9 @@ public enum ProjectileThingy {
         if (!this.item.equals(Items.BOW)) {
             return this.posY;
         } else {
-            return !(this.posY * BowItem.getArrowVelocity(Projectiles.getMinecraft().player.getItemInUseCount()) > 0.0F)
+            return !(this.posY * BowItem.getArrowVelocity(Projectiles.mc.player.getItemInUseCount()) > 0.0F)
                     ? BowItem.getArrowVelocity(20)
-                    : BowItem.getArrowVelocity(Projectiles.getMinecraft().player.getItemInUseCount());
+                    : BowItem.getArrowVelocity(Projectiles.mc.player.getItemInUseCount());
         }
     }
 
@@ -75,21 +75,21 @@ public enum ProjectileThingy {
 
     public List<Class9110> method9086() {
         ArrayList var3 = new ArrayList();
-        float var4 = (float)Math.toRadians((double) Projectiles.getMinecraft().player.rotationYaw);
-        float var5 = (float)Math.toRadians((double) Projectiles.getMinecraft().player.rotationPitch);
-        double var6 = Projectiles.getMinecraft().player.lastTickPosX
-                + (Projectiles.getMinecraft().player.getPosX() - Projectiles.getMinecraft().player.lastTickPosX)
-                * (double) Projectiles.getMinecraft().timer.renderPartialTicks;
-        double var8 = Projectiles.getMinecraft().player.lastTickPosY
-                + (Projectiles.getMinecraft().player.getPosY() - Projectiles.getMinecraft().player.lastTickPosY)
-                * (double) Projectiles.getMinecraft().timer.renderPartialTicks;
-        double var10 = Projectiles.getMinecraft().player.lastTickPosZ
-                + (Projectiles.getMinecraft().player.getPosZ() - Projectiles.getMinecraft().player.lastTickPosZ)
-                * (double) Projectiles.getMinecraft().timer.renderPartialTicks;
+        float var4 = (float)Math.toRadians((double) Projectiles.mc.player.rotationYaw);
+        float var5 = (float)Math.toRadians((double) Projectiles.mc.player.rotationPitch);
+        double var6 = Projectiles.mc.player.lastTickPosX
+                + (Projectiles.mc.player.getPosX() - Projectiles.mc.player.lastTickPosX)
+                * (double) Projectiles.mc.timer.renderPartialTicks;
+        double var8 = Projectiles.mc.player.lastTickPosY
+                + (Projectiles.mc.player.getPosY() - Projectiles.mc.player.lastTickPosY)
+                * (double) Projectiles.mc.timer.renderPartialTicks;
+        double var10 = Projectiles.mc.player.lastTickPosZ
+                + (Projectiles.mc.player.getPosZ() - Projectiles.mc.player.lastTickPosZ)
+                * (double) Projectiles.mc.timer.renderPartialTicks;
         this.traceX = var6;
-        this.traceY = var8 + (double) Projectiles.getMinecraft().player.getEyeHeight() - 0.1F;
+        this.traceY = var8 + (double) Projectiles.mc.player.getEyeHeight() - 0.1F;
         this.traceZ = var10;
-        float var12 = Math.min(20.0F, (float)(72000 - Projectiles.getMinecraft().player.getItemInUseCount()) + Projectiles.getMinecraft().getRenderPartialTicks()) / 20.0F;
+        float var12 = Math.min(20.0F, (float)(72000 - Projectiles.mc.player.getItemInUseCount()) + Projectiles.mc.getRenderPartialTicks()) / 20.0F;
         this.traceXOffset = -MathHelper.sin(var4) * MathHelper.cos(var5) * this.posY * var12;
         this.traceYOffset = -MathHelper.sin(var5) * this.posY * var12;
         this.traceZOffset = MathHelper.cos(var4) * MathHelper.cos(var5) * this.posY * var12;
@@ -111,10 +111,10 @@ public enum ProjectileThingy {
                     this.traceY + (double)var15,
                     this.traceZ + (double)var15
             );
-            List<Entity> entities = Projectiles.getMinecraft()
+            List<Entity> entities = Projectiles.mc
                     .world
                     .getEntitiesInAABBexcluding(
-                            Projectiles.getMinecraft().player,
+                            Projectiles.mc.player,
                             var16.offset((double)this.traceXOffset, (double)this.traceYOffset, (double)this.traceZOffset).grow(1.0, 1.0, 1.0),
                             EntityPredicates.NOT_SPECTATING.and(new Class167(this, var15, var13, var14))
                     );
@@ -125,9 +125,9 @@ public enum ProjectileThingy {
                 break;
             }
 
-            BlockRayTraceResult var18 = Projectiles.getMinecraft()
+            BlockRayTraceResult var18 = Projectiles.mc
                     .world
-                    .rayTraceBlocks(new RayTraceContext(var13, var14, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, Projectiles.getMinecraft().player));
+                    .rayTraceBlocks(new RayTraceContext(var13, var14, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, Projectiles.mc.player));
             if (var18 != null && var18.getType() != RayTraceResult.Type.MISS) {
                 this.rayTraceResult = var18;
                 this.traceX = this.rayTraceResult.getHitVec().x;

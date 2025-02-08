@@ -157,6 +157,8 @@ public class ModuleManager {
         this.register(new GamePlay());
         this.register(new AntiLevitation());
         this.register(new NoteblockPlayer());
+        this.register(new PacketEssentials());
+        this.register(new PacketDumper());
 
 
 

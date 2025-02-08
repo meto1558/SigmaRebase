@@ -15,40 +15,37 @@ public class PacketEssentials extends Module {
     }
 
     @EventTarget
-    public void onReceivePacket(EventReceivePacket var1) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (!(var1.getPacket() instanceof SSpawnObjectPacket)) {
-                if (!(var1.getPacket() instanceof SSpawnMobPacket)) {
-                    if (!(var1.getPacket() instanceof SSpawnParticlePacket)) {
-                        if (!(var1.getPacket() instanceof SUpdateBossInfoPacket)) {
-                            if (!(var1.getPacket() instanceof SScoreboardObjectivePacket)) {
-                                if (var1.getPacket() instanceof SEntityMetadataPacket) {
-                                    var1.setCancelled(true);
+            if (!(event.getPacket() instanceof SSpawnObjectPacket sSpawnObjectPacket)) {
+                if (!(event.getPacket() instanceof SSpawnMobPacket sSpawnMobPacket)) {
+                    if (!(event.getPacket() instanceof SSpawnParticlePacket)) {
+                        if (!(event.getPacket() instanceof SUpdateBossInfoPacket)) {
+                            if (!(event.getPacket() instanceof SScoreboardObjectivePacket)) {
+                                if (event.getPacket() instanceof SEntityMetadataPacket) {
+                                    event.setCancelled(true);
                                 }
                             } else {
-                                var1.setCancelled(true);
+                                event.setCancelled(true);
                             }
                         } else {
-                            var1.setCancelled(true);
+                            event.setCancelled(true);
                         }
                     } else {
-                        SSpawnParticlePacket var4 = (SSpawnParticlePacket) var1.getPacket();
-                        var1.setCancelled(true);
+                        event.setCancelled(true);
                     }
                 } else {
-                    SSpawnMobPacket var5 = (SSpawnMobPacket) var1.getPacket();
-                    if (var5.getEntityType() == 1) {
-                        var1.setCancelled(true);
+                    if (sSpawnMobPacket.getEntityType() == 1) {
+                        event.setCancelled(true);
                     }
                 }
             } else {
-                SSpawnObjectPacket var6 = (SSpawnObjectPacket) var1.getPacket();
-                if (var6.getType() == EntityType.ARMOR_STAND) {
-                    var1.setCancelled(true);
+                if (sSpawnObjectPacket.getType() == EntityType.ARMOR_STAND) {
+                    event.setCancelled(true);
                 }
 
-                if (var6.getType() == EntityType.GIANT) {
-                    var1.setCancelled(true);
+                if (sSpawnObjectPacket.getType() == EntityType.GIANT) {
+                    event.setCancelled(true);
                 }
             }
         }

@@ -32,11 +32,6 @@ public class Projectiles extends Module {
         this.setAvailableOnClassic(false);
     }
 
-    // $VF: synthetic method
-    public static Minecraft getMinecraft() {
-        return mc;
-    }
-
     @EventTarget
     public void method16523(EventRender3D var1) {
         if (this.isEnabled()) {
