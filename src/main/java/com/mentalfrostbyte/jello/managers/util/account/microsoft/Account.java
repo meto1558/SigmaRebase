@@ -382,6 +382,6 @@ public class Account {
         if (this.getPassword().isEmpty())
             return true;
         Pattern var3 = Pattern.compile("[a-zA-Z0-9_]{2,16}");
-        return !var3.matcher(this.getEmail()).matches();
+        return var3.matcher(this.getEmail()).matches();
     }
 }
