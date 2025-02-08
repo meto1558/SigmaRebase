@@ -1,6 +1,7 @@
-package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
+package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.MainMenuScreen;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
