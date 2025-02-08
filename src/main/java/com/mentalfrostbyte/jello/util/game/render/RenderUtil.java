@@ -60,6 +60,12 @@ public class RenderUtil {
     public static void drawPortalBackground(int var0, int var1, int var2, int var3) {
         drawPortalBackground(var0, var1, var2, var3, false);
     }
+    public static void method11436(float var0, float var1, float var2, int var3) {
+        method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
+    }
+    public static void method11445(float var0, float var1, float var2, float var3, float var4, int var5) {
+        method11446(var0, var1, var2, var3, var4, var4, var5);
+    }
     public static float method11417() {
         return (float) mc.mainWindow.getGuiScaleFactor();
     }
@@ -119,6 +125,16 @@ public class RenderUtil {
             GL11.glEnable(2896);
             GL11.glDisable(2848);
             GL11.glDisable(3042);
+        }
+    }
+    public static void method11446(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
+        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+        float var9 = 0.0F;
+        if (var2 > var3) {
+            var9 = var3;
+            var3 = var2;
+            var2 = var9;
         }
     }
     public static void render3DColoredBox(BoundingBox boxIn, int color) {
