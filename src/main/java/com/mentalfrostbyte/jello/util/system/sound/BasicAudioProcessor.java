@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.system.sound;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 
 public class BasicAudioProcessor implements AudioProcessor {
     @Override

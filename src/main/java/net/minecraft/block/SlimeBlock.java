@@ -1,8 +1,5 @@
 package net.minecraft.block;
 
-import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.combined.impl;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;

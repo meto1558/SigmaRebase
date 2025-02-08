@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Bound;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.KeybindTypes;
@@ -26,7 +26,7 @@ import totalcross.json.JSONObject;
 
 import java.util.*;
 
-import static com.mentalfrostbyte.jello.Client.RELEASE_TARGET;
+import static com.mentalfrostbyte.Client.RELEASE_TARGET;
 
 public class JelloTouch {
     public JTouchBar touchBar;

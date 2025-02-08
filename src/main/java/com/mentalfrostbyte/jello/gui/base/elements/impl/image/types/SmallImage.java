@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl.image.types;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.Resources;

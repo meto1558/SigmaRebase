@@ -1,6 +1,6 @@
 package team.sdhq.eventBus;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HigherPriority;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;

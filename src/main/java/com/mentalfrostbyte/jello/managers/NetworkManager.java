@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.network.auth.Account;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SigmaIRC;
 import org.apache.commons.io.FileUtils;

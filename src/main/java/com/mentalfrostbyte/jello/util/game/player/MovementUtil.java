@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
-import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.Attributes;

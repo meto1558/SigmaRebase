@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello;
+package com.mentalfrostbyte;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;

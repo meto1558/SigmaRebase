@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;

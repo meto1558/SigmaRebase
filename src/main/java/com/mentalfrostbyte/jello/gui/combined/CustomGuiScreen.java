@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.combined;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IGuiEventListener;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;

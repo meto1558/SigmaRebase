@@ -1,9 +1,6 @@
 package net.minecraft.block;
 
-import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.BoatEntity;

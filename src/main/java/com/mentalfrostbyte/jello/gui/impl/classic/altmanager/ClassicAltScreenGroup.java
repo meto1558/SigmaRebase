@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.AddAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.DirectLoginScreen;

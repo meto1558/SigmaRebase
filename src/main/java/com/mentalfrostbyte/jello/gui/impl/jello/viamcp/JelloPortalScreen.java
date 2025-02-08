@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.viamcp;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;

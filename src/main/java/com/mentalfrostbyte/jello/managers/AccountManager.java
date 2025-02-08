@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.BanListener;
 import com.mentalfrostbyte.jello.util.system.FileUtil;

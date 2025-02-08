@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
-import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
@@ -379,8 +379,9 @@ public class Account {
      * @return if the input email is a valid email
      */
     public boolean isEmailAValidEmailFormat() {
+        if (this.getPassword().isEmpty())
+            return false;
         Pattern var3 = Pattern.compile("[a-zA-Z0-9_]{2,16}");
-        boolean validEmail = var3.matcher(this.getEmail()).matches();
-        return validEmail && this.getPassword().isEmpty();
+        return var3.matcher(this.getEmail()).matches();
     }
 }
