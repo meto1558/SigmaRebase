@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import com.google.gson.JsonSyntaxException;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderShulker;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
@@ -474,8 +475,10 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
             }
 
             this.lightmapTexture.disableLightmap();
+            EventRenderFire renderFire = new EventRenderFire();
+            EventBus.call(renderFire);
 
-            if (this.mc.gameSettings.getPointOfView().func_243192_a() && !flag) {
+            if (this.mc.gameSettings.getPointOfView().func_243192_a() && !flag && !renderFire.cancelled) {
                 OverlayRenderer.renderOverlays(this.mc, p_renderHand_1_);
                 this.hurtCameraEffect(p_renderHand_1_, p_renderHand_3_);
             }
