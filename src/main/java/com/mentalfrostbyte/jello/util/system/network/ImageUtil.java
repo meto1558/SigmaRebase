@@ -21,42 +21,64 @@ import java.nio.ByteBuffer;
 public class ImageUtil {
 
     public static String getSkinUrlByID(String uuid) throws Exception {
-        String skinURL = "";
-        URL profileURL = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
-        BufferedReader var5 = new BufferedReader(new InputStreamReader(profileURL.openStream()));
-        String var6 = "";
+        // Build the URL for the latest Minecraft profile endpoint
+        URL profileURL = new URL("https://api.mojang.com/user/profiles/" + uuid + "/names");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(profileURL.openStream()));
+        StringBuilder stringBuilder = new StringBuilder();
 
-        String var7;
-        while ((var7 = var5.readLine()) != null) {
-            var6 = var6 + var7;
+        // Read the response content
+        String line;
+        while ((line = reader.readLine()) != null) {
+            stringBuilder.append(line);
         }
 
-        String var8 = "";
-        JSONObject var9 = new JSONObject(var6);
+        // The profile response is a JSON array of names
+        String response = stringBuilder.toString();
 
-        for (Object var12 : var9.getJSONArray("properties")) {
-            JSONObject var13 = (JSONObject)var12;
-            if (var13.has("value") && var13.has("name")) {
-                var8 = var13.getString("value");
-            }
+        // We now fetch the profile with the most recent name and the skin texture
+        URL profileTextureURL = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
+        BufferedReader profileReader = new BufferedReader(new InputStreamReader(profileTextureURL.openStream()));
+        StringBuilder profileStringBuilder = new StringBuilder();
+
+        // Read the profile details
+        String profileLine;
+        while ((profileLine = profileReader.readLine()) != null) {
+            profileStringBuilder.append(profileLine);
         }
 
-        if (Base64.isBase64(var8)) {
-            String var14 = new String(Base64.decodeBase64(var8));
-            JSONObject var15 = new JSONObject(var14);
-            if (var15.has("textures")) {
-                JSONObject var16 = var15.getJSONObject("textures");
-                if (var16.has("SKIN")) {
-                    skinURL = var16.getJSONObject("SKIN").getString("url");
+        // Parse the profile JSON response
+        String profileJson = profileStringBuilder.toString();
+        JSONObject profile = new JSONObject(profileJson);
+
+        String skinUrl = "";
+
+        // Loop through the 'properties' section to find the skin texture
+        for (Object property : profile.getJSONArray("properties")) {
+            JSONObject propertyObj = (JSONObject) property;
+            if ("textures".equals(propertyObj.getString("name"))) {
+                String value = propertyObj.getString("value");
+
+                // Decode the Base64 value to get the texture data
+                if (Base64.isBase64(value)) {
+                    String decoded = new String(Base64.decodeBase64(value));
+                    JSONObject textureJson = new JSONObject(decoded);
+
+                    // Fetch the skin URL
+                    if (textureJson.has("textures")) {
+                        JSONObject textures = textureJson.getJSONObject("textures");
+                        if (textures.has("SKIN")) {
+                            skinUrl = textures.getJSONObject("SKIN").getString("url");
+                        }
+                    }
                 }
             }
-
-            System.out.println(skinURL);
-            return skinURL;
-        } else {
-            return skinURL;
         }
+
+        // Return the skin URL
+        System.out.println(skinUrl);
+        return skinUrl;
     }
+
 
     public static BufferedImage applyBlur(BufferedImage image, int amount) {
         if (image != null) {

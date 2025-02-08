@@ -259,7 +259,6 @@ public class Account {
     }
 
     public void updateSkin() {
-        // new Date(); // Imma just leave this here
         if (!this.getKnownUUID().contains("steve") && this.skinUpdateThread == null) {
             this.skinUpdateThread = new Thread(() -> {
                 try {
