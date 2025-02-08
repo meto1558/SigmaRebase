@@ -2663,7 +2663,7 @@ public abstract class Entity implements INameable, ICommandSource
      * Returns true if the flag is active for the entity. Known flags: 0: burning; 1: sneaking; 2: unused; 3: sprinting;
      * 4: swimming; 5: invisible; 6: glowing; 7: elytra flying
      */
-    protected boolean getFlag(int flag)
+    public boolean getFlag(int flag)
     {
         return (this.dataManager.get(FLAGS) & 1 << flag) != 0;
     }

@@ -13,7 +13,7 @@ public class ESP extends ModuleWithModuleSettings {
         super(ModuleCategory.RENDER,
                 "ESP",
                 "See entities anywhere anytime",
-             //   new ShadowESP(),
+                new ShadowESP(),
                 new SimsESP(),
 //                new BoxOutlineESP(),
 //                new SkeletonESP(),

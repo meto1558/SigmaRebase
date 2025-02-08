@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.render.jello.esp.esputils.Class2329;
 import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -46,6 +47,8 @@ public class RenderUtil {
     public static boolean stencilOpInProgress = false;
 
     private static final Stack<IntBuffer> buffer = new Stack<>();
+    public static boolean field18461 = false;
+
 
     public static void endScissor() {
         if (buffer.isEmpty()) {
@@ -127,6 +130,31 @@ public class RenderUtil {
             GL11.glDisable(3042);
         }
     }
+    public static void method11476() {
+        GL11.glPushMatrix();
+        resetDepthBuffer();
+        GL11.glEnable(2960);
+        GL11.glColorMask(false, false, false, false);
+        GL11.glDepthMask(false);
+        GL11.glStencilFunc(512, 1, 1);
+        GL11.glStencilOp(7681, 7680, 7680);
+        GL11.glStencilMask(1);
+        GL11.glClear(1024);
+        field18461 = true;
+    }
+    public static void method11477(Class2329 var0) {
+        GL11.glColorMask(true, true, true, true);
+        GL11.glDepthMask(true);
+        GL11.glStencilMask(0);
+        GL11.glStencilFunc(var0 != Class2329.field15940 ? 517 : 514, 1, 1);
+    }
+    public static void method11478() {
+        GL11.glStencilMask(-1);
+        GL11.glDisable(2960);
+        GL11.glPopMatrix();
+        field18461 = false;
+    }
+
     public static void method11446(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);

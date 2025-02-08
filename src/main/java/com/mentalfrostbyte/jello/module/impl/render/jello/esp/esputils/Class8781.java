@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.module.impl.render.jello.esp;
+package com.mentalfrostbyte.jello.module.impl.render.jello.esp.esputils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;

@@ -32,6 +32,7 @@ public class RenderTypeBuffers
             put(p_228485_1_, p_228488_1_);
         });
     });
+
     private final IRenderTypeBuffer.Impl bufferSource = IRenderTypeBuffer.getImpl(this.fixedBuffers, new BufferBuilder(256));
     private final IRenderTypeBuffer.Impl crumblingBufferSource = IRenderTypeBuffer.getImpl(new BufferBuilder(256));
     private final OutlineLayerBuffer outlineBufferSource = new OutlineLayerBuffer(this.bufferSource);
