@@ -9,42 +9,42 @@ import java.util.List;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import org.apache.commons.io.IOUtils;
 import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 public class ProfileManager {
-    private final List<Configuration> savedConfigs = new ArrayList<>();
-    private Configuration currentConfigs;
+    private final List<Profile> savedConfigs = new ArrayList<>();
+    private Profile currentConfigs;
 
     private static final String configFolder = "/profiles/";
     private static final String configFileExtension = ".profile";
 
-    public void saveConfig(Configuration config) {
+    public void saveConfig(Profile config) {
         try {
             this.savedConfigs.add(0, config);
-            File configItself = new File(Client.getInstance().file + configFolder + config.getName + configFileExtension);
+            File configItself = new File(Client.getInstance().file + configFolder + config.profileName + configFileExtension);
             if (!configItself.exists()) {
                 configItself.createNewFile();
             }
-            IOUtils.write(config.method22985(new JSONObject()).toString(0), Files.newOutputStream(configItself.toPath()));
+            IOUtils.write(config.saveToJson(new JSONObject()).toString(0), Files.newOutputStream(configItself.toPath()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void listOnly(Configuration config) {
+    public void listOnly(Profile config) {
         this.savedConfigs.add(config);
     }
 
-    public void removeConfig(Configuration config) {
+    public void removeConfig(Profile config) {
         this.savedConfigs.remove(config);
     }
 
-    public boolean checkConfig(Configuration config) {
-        if (Client.getInstance().clientMode == ClientMode.CLASSIC && config.getName.equals("Classic")) {
+    public boolean checkConfig(Profile config) {
+        if (Client.getInstance().clientMode == ClientMode.CLASSIC && config.profileName.equals("Classic")) {
             return false;
         } else if (this.savedConfigs.size() <= 1) {
             return false;
@@ -59,8 +59,8 @@ public class ProfileManager {
     }
 
     public boolean removeConfig(String configName) {
-        for (Configuration var5 : this.savedConfigs) {
-            if (var5.getName.equals(configName) && this.checkConfig(var5)) {
+        for (Profile var5 : this.savedConfigs) {
+            if (var5.profileName.equals(configName) && this.checkConfig(var5)) {
                 return true;
             }
         }
@@ -68,9 +68,9 @@ public class ProfileManager {
         return false;
     }
 
-    public Configuration getConfigByName(String var1) {
-        for (Configuration var5 : this.savedConfigs) {
-            if (var5.getName.toLowerCase().equals(var1.toLowerCase())) {
+    public Profile getConfigByName(String var1) {
+        for (Profile var5 : this.savedConfigs) {
+            if (var5.profileName.toLowerCase().equals(var1.toLowerCase())) {
                 return var5;
             }
         }
@@ -89,11 +89,11 @@ public class ProfileManager {
         for (File config : configsFound) {
             try {
                 JSONObject object = new JSONObject(IOUtils.toString(Files.newInputStream(config.toPath())));
-                Configuration configuration = new Configuration().method22984(object);
-                configuration.getName = config.getName().substring(0, config.getName().length() - ".profile".length());
-                this.savedConfigs.add(configuration);
-                if (configuration.getName.equalsIgnoreCase(name)) {
-                    this.currentConfigs = configuration;
+                Profile profile = new Profile().loadFromJson(object);
+                profile.profileName = config.getName().substring(0, config.getName().length() - ".profile".length());
+                this.savedConfigs.add(profile);
+                if (profile.profileName.equalsIgnoreCase(name)) {
+                    this.currentConfigs = profile;
                 }
             } catch (JSONException2 var12) {
                 System.err.println("Unable to load profile from " + config.getName());
@@ -105,15 +105,15 @@ public class ProfileManager {
                 name = "Default";
             }
 
-            this.savedConfigs.add(this.currentConfigs = new Configuration(name, new JSONObject()));
+            this.savedConfigs.add(this.currentConfigs = new Profile(name, new JSONObject()));
         }
 
-        Client.getInstance().moduleManager.load(this.currentConfigs.serializedConfigData);
+        Client.getInstance().moduleManager.load(this.currentConfigs.moduleConfig);
     }
 
     public boolean getConfigByCaseInsensitiveName(String name) {
-        for (Configuration config : this.savedConfigs) {
-            if (config.getName.toLowerCase().equals(name.toLowerCase())) {
+        for (Profile config : this.savedConfigs) {
+            if (config.profileName.toLowerCase().equals(name.toLowerCase())) {
                 return true;
             }
         }
@@ -122,7 +122,7 @@ public class ProfileManager {
     }
 
     public void saveAndReplaceConfigs() throws IOException {
-        this.currentConfigs.serializedConfigData = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
+        this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
         File configFolderFolder = new File(Client.getInstance().file + configFolder);
         if (!configFolderFolder.exists()) {
             configFolderFolder.mkdirs();
@@ -130,44 +130,42 @@ public class ProfileManager {
 
         File[] configs = configFolderFolder.listFiles((var0, var1) -> var1.toLowerCase().endsWith(configFileExtension));
 
-        // Delete each old config file
         for (File configItself : configs) {
             configItself.delete();
         }
 
-        // Create new config files for each saved configuration
-        for (Configuration savedConfig : this.savedConfigs) {
-            File configItself = new File(Client.getInstance().file + configFolder + savedConfig.getName + configFileExtension);
+        for (Profile savedConfig : this.savedConfigs) {
+            File configItself = new File(Client.getInstance().file + configFolder + savedConfig.profileName + configFileExtension);
             if (!configItself.exists()) {
                 configItself.createNewFile();
             }
 
-            IOUtils.write(savedConfig.method22985(new JSONObject()).toString(0), Files.newOutputStream(configItself.toPath()));
+            IOUtils.write(savedConfig.saveToJson(new JSONObject()).toString(0), Files.newOutputStream(configItself.toPath()));
         }
     }
 
-    public Configuration getCurrentConfig() {
+    public Profile getCurrentConfig() {
         return this.currentConfigs;
     }
 
-    public void loadConfig(Configuration var1) {
+    public void loadConfig(Profile config) {
         Client.getInstance().saveClientData();
         ModuleSettingInitializr.field8343 = new HashMap<>();
         if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
-            this.currentConfigs.serializedConfigData = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
-            this.currentConfigs = var1;
-            Client.getInstance().getConfig().put("profile", var1.getName);
-            Client.getInstance().moduleManager.load(var1.serializedConfigData);
+            this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
+            this.currentConfigs = config;
+            Client.getInstance().getConfig().put("profile", config.profileName);
+            Client.getInstance().moduleManager.load(config.moduleConfig);
             Client.getInstance().saveClientData();
         } else {
-            this.currentConfigs.serializedConfigData = var1.method22986();
+            this.currentConfigs.moduleConfig = config.getDefaultConfig();
             Client.getInstance().getConfig().put("profile", "Classic");
-            Client.getInstance().moduleManager.load(var1.serializedConfigData);
+            Client.getInstance().moduleManager.load(config.moduleConfig);
             Client.getInstance().saveClientData();
         }
     }
 
-    public List<Configuration> getAllConfigs() {
+    public List<Profile> getAllConfigs() {
         return this.savedConfigs;
     }
 }

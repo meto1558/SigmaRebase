@@ -11,7 +11,7 @@ import java.util.Arrays;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.*;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import org.apache.commons.io.IOUtils;
 import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
@@ -50,12 +50,12 @@ public class Config extends Command {
                            "§l" + Client.getInstance().moduleManager.getConfigurationManager().getAllConfigs().size()
                                  + " " + this.getConfigOrProfileName() + " :");
 
-                     for (Configuration config : Client.getInstance().moduleManager.getConfigurationManager()
+                     for (Profile config : Client.getInstance().moduleManager.getConfigurationManager()
                            .getAllConfigs()) {
                         boolean isCurrentConfig = Client.getInstance().moduleManager.getConfigurationManager()
                               .getCurrentConfig() == config;
                         if (Client.getInstance().clientMode != ClientMode.CLASSIC || !isCurrentConfig) {
-                           user.send((!isCurrentConfig ? "" : "§n") + config.getName);
+                           user.send((!isCurrentConfig ? "" : "§n") + config.profileName);
                         }
                      }
                   } else if (args.length != 1) {
@@ -71,20 +71,20 @@ public class Config extends Command {
                } else if (args.length != 1) {
                   String name = args[1].getArguments().toLowerCase();
                   String ogName = args[1].getArguments();
-                  Configuration currentConfig = Client.getInstance().moduleManager.getConfigurationManager()
+                  Profile currentConfig = Client.getInstance().moduleManager.getConfigurationManager()
                         .getCurrentConfig();
-                  currentConfig.serializedConfigData = Client.getInstance().moduleManager
+                  currentConfig.moduleConfig = Client.getInstance().moduleManager
                         .saveCurrentConfigToJSON(new JSONObject());
                   Client.getInstance().moduleManager.getConfigurationManager().removeConfig(name);
                   Client.getInstance().moduleManager.getConfigurationManager()
-                        .saveConfig(new Configuration(name, currentConfig.serializedConfigData));
+                        .saveConfig(new Profile(name, currentConfig.moduleConfig));
                   user.send("Saved " + this.getConfigOrProfileName());
                } else {
                   user.send("Usage : .config save <name>");
                }
             } else if (args.length != 1) {
                String name = args[1].getArguments().toLowerCase();
-               Configuration config = Client.getInstance().moduleManager.getConfigurationManager()
+               Profile config = Client.getInstance().moduleManager.getConfigurationManager()
                      .getConfigByName(name);
                if (config == null) {
                   user.send(this.getConfigOrProfileName() + " not found!");

@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
 import totalcross.json.JSONObject;
 
@@ -24,8 +24,8 @@ public class Panic extends Command {
             int configCount = profileManager.getAllConfigs().size();
 
             for (int var8 = 0; var8 < configCount; var8++) {
-               Configuration var9 = profileManager.getAllConfigs().get(var8);
-               if (var9.getName.equals("Panic")) {
+               Profile var9 = profileManager.getAllConfigs().get(var8);
+               if (var9.profileName.equals("Panic")) {
                   profileManager.checkConfig(var9);
                   var8--;
                   configCount--;
@@ -33,7 +33,7 @@ public class Panic extends Command {
             }
          }
 
-         Configuration panicConfig = new Configuration("Panic", new JSONObject());
+         Profile panicConfig = new Profile("Panic", new JSONObject());
          profileManager.saveConfig(panicConfig);
          profileManager.loadConfig(panicConfig);
          var3.send("All modules disabled.");
