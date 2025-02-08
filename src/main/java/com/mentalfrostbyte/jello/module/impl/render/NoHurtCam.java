@@ -13,7 +13,6 @@ public class NoHurtCam extends Module {
     @EventTarget
     public void Render2DEvent(EventRender2D event) {
         if (this.isEnabled()) {
-
             mc.player.hurtTime = 0;
         }
     }

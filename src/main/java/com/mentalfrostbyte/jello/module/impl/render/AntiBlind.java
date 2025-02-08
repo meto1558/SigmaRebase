@@ -14,13 +14,12 @@ public class AntiBlind extends Module {
 
     @EventTarget
     public void onRender2D(EventRender2D event) {
-        if (this.isEnabled() && mc.player != null) {
-            PlayerEntity player = mc.player;
-            if (player.isPotionActive(Effects.BLINDNESS)) {
-                player.removePotionEffect(Effects.BLINDNESS);
+        if (mc.player != null) {
+            if (mc.player.isPotionActive(Effects.BLINDNESS)) {
+                mc.player.removePotionEffect(Effects.BLINDNESS);
             }
-            if (player.isPotionActive(Effects.NAUSEA)) {
-                player.removePotionEffect(Effects.NAUSEA);
+            if (mc.player.isPotionActive(Effects.NAUSEA)) {
+                mc.player.removePotionEffect(Effects.NAUSEA);
             }
         }
     }

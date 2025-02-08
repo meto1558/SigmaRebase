@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.EventReplaceText;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
@@ -9,7 +8,6 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import team.sdhq.eventBus.annotations.EventTarget;
-
 
 public class Streaming extends Module {
     public Streaming() {
@@ -29,10 +27,6 @@ public class Streaming extends Module {
                 event.setText(event.setText().replaceAll(this.getStringSettingValueByName("Server name").toUpperCase(), "sigmaclient"));
             }
         }
-    }
-
-    @EventTarget
-    public void renderNameTag(EventRenderNameTag event) {
     }
 
     @EventTarget

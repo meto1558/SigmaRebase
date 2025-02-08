@@ -36,7 +36,7 @@ public class DVDSimulator extends Module {
 
     @EventTarget
     public void onRender(EventRender2DOffset event) throws IOException {
-        if (this.isEnabled() && mc.player != null && mc.world != null) {
+        if (mc.player != null && mc.world != null) {
             int windowHeight = mc.getMainWindow().getHeight();
             int windowWidth = mc.getMainWindow().getWidth();
             float speed = 2;
