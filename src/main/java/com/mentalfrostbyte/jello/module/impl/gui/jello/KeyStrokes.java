@@ -44,7 +44,7 @@ public class KeyStrokes extends Module {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    this.yBase = event.getyOffset();
+                    this.yBase = event.getYOffset();
                     if (Client.getInstance().guiManager.getGuiBlur()) {
                         for (Keystroke keystroke : Keystroke.values()) {
                             KeyPosition topLeftKey = keystroke.getTopLeftPosition();

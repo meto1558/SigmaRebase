@@ -52,7 +52,7 @@ public class Coords extends Module {
             String coordinatesText = String.format("%.0f %.0f %.0f", mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
 
             float textX = 85;
-            int textY = event.getyOffset();
+            int textY = event.getYOffset();
             float maxTextWidth = 150;
             float textWidth = (float) ResourceRegistry.JelloLightFont18.getWidth(coordinatesText);
             float scaleFactor = Math.min(1.0F, maxTextWidth / textWidth);

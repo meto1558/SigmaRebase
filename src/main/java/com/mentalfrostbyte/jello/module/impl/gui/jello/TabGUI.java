@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -86,7 +87,7 @@ public class TabGUI extends Module {
 
     @EventTarget
     @HighestPriority
-    public void method16591(EventRender var1) {
+    public void method16591(EventRender2DOffset var1) {
         if (this.isEnabled() && mc.player != null && mc.world != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
@@ -95,7 +96,7 @@ public class TabGUI extends Module {
                     boolean var5 = (float) this.method16592() - this.field23787 < 0.0F;
                     this.field23787 = this.field23787
                             + Math.min(var4, var4 * 0.14F * this.field23780) * (float) (!var5 ? 1 : -1);
-                    this.field23769 = var1.method13960();
+                    this.field23769 = var1.getYOffset();
                     this.method16600(this.field23768, this.field23769, this.field23770, this.field23771,
                             this.field23763, null, this.field23764, 1.0F);
                     RenderUtil.startScissor((float) this.field23768, (float) this.field23769, (float) this.field23770,
@@ -119,7 +120,7 @@ public class TabGUI extends Module {
                         this.method16594(170, this.field23769, this.method16593(this.field23782), 1.0F);
                     }
 
-                    var1.method13962(this.field23771 + 10);
+                    var1.setYOffset(this.field23771 + 10);
                 }
             }
         }
