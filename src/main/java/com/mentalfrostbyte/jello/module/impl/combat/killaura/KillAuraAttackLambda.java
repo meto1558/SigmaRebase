@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.util.client.JelloPortal;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;

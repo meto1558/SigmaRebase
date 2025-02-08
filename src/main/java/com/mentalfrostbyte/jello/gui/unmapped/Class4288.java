@@ -2,14 +2,14 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class Class4288 extends AnimatedIconPanelWrap {
+public class Class4288 extends AnimatedIconPanel {
    private final ScrollableContentPanel field20780;
    public final VerticalScrollBar field20781;
 

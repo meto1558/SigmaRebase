@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
 
-public class AltManagerButton extends AnimatedIconPanelWrap {
+public class AltManagerButton extends AnimatedIconPanel {
    public int color;
 
    public AltManagerButton(CustomGuiScreen screen, String id, int x, int y, int width, int height, String text, int color) {

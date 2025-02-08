@@ -1,9 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.network.auth.Encryptor;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -12,7 +13,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
 import org.newdawn.slick.opengl.Texture;
 
-public class TextButtonWithImage extends UIBase {
+public class TextButtonWithImage extends Element {
     public float field21334 = 0.0F;
     public int field21337;
     public int field21338;

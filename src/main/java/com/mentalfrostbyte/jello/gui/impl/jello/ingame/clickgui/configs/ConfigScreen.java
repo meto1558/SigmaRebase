@@ -1,18 +1,20 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups.ConfigGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups.ProfileGroup;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -22,7 +24,7 @@ import totalcross.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigScreen extends UIBase {
+public class ConfigScreen extends Element {
     private List<Button> field21297 = new ArrayList<Button>();
     public final Animation field21298;
     public ScrollableContentPanel profileScrollView;
@@ -34,9 +36,9 @@ public class ConfigScreen extends UIBase {
         this.field21298 = new Animation(300, 100);
         this.method13292(true);
         this.setListening(false);
-        UIButton addButton;
+        TextButton addButton;
         this.addToList(
-                addButton = new UIButton(
+                addButton = new TextButton(
                         this, "addButton", this.widthA - 55, 0, ResourceRegistry.JelloLightFont25.getWidth("Add"), 69, ColorHelper.field27961, "+", ResourceRegistry.JelloLightFont25
                 )
         );

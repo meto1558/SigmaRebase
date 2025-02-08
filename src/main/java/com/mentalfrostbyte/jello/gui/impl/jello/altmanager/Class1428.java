@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.altmanager;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import net.minecraft.client.Minecraft;

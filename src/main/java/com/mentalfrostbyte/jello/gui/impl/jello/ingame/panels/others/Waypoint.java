@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.MapsScreen;
 
 public class Waypoint implements Runnable {

@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.module.impl.render.jello.esp.esputils.Class2191
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.esputils.Class2329;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -21,8 +21,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

@@ -2,10 +2,11 @@ package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -29,7 +30,7 @@ public class RegisterScreen extends Screen {
     private LoginScreen field21088;
     private AccountSignUpScreen field21089;
     private AlertPanel field21090;
-    private UIButton field21091;
+    private TextButton field21091;
     private boolean field21092 = false;
     private Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
 
@@ -59,7 +60,7 @@ public class RegisterScreen extends Screen {
         );
         this.method13423();
         this.addToList(
-                this.field21091 = new UIButton(
+                this.field21091 = new TextButton(
                         this,
                         "continue",
                         this.widthA / 2 - 120,
@@ -92,16 +93,16 @@ public class RegisterScreen extends Screen {
     public void method13424(String var1, String var2) {
         if (this.field21090 == null) {
             this.runThisOnDimensionUpdate(() -> {
-                ArrayList<MiniAlert> var5 = new ArrayList();
-                var5.add(new MiniAlert(AlertType.HEADER, var1, 45));
+                ArrayList<AlertComponent> var5 = new ArrayList();
+                var5.add(new AlertComponent(AlertComponent.ComponentType.HEADER, var1, 45));
                 String[] var6 = RenderUtil2.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
 
                 for (int var7 = 0; var7 < var6.length; var7++) {
-                    var5.add(new MiniAlert(AlertType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
+                    var5.add(new AlertComponent(AlertComponent.ComponentType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
                 }
 
-                var5.add(new MiniAlert(AlertType.BUTTON, "Ok", 55));
-                this.showAlert(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new MiniAlert[0])));
+                var5.add(new AlertComponent(AlertComponent.ComponentType.BUTTON, "Ok", 55));
+                this.showAlert(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new AlertComponent[0])));
                 this.field21090.method13604(var1xx -> new Thread(() -> this.runThisOnDimensionUpdate(() -> {
                     this.method13236(this.field21090);
                     this.field21090 = null;

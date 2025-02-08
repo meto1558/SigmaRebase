@@ -1,19 +1,21 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.buttons.SliderButton;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Class4277 extends UIBase {
+public class Class4277 extends Element {
    private static String[] field20602;
    private float field20732;
    private float field20733;
-   private Class4246 field20734;
+   private SliderButton field20734;
    private Animation field20735;
 
    public static float method13134(float var0, float var1, float var2) {
@@ -47,7 +49,7 @@ public class Class4277 extends UIBase {
    }
 
    private void method13136() {
-      this.addToList(this.field20734 = new Class4246(this, this.getHeightA()));
+      this.addToList(this.field20734 = new SliderButton(this, this.getHeightA()));
       this.field20732 = -1.0F;
       this.field20735 = new Animation(114, 114, Animation.Direction.BACKWARDS);
    }
@@ -105,7 +107,7 @@ public class Class4277 extends UIBase {
       }
    }
 
-   public Class4246 method13137() {
+   public SliderButton method13137() {
       return this.field20734;
    }
 

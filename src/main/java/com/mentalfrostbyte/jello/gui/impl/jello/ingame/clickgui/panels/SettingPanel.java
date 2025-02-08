@@ -1,16 +1,16 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Textbox;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -40,7 +40,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
         switch (Class8666.field39049[setting.getSettingType().ordinal()]) {
             case 1:
                 Text var37 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
-                UICheckBox var45 = new UICheckBox(panel, setting.getName() + "checkbox", panel.getWidthA() - 24 - var5, var4 + 6, 24, 24);
+                Checkbox var45 = new Checkbox(panel, setting.getName() + "checkbox", panel.getWidthA() - 24 - var5, var4 + 6, 24, 24);
                 this.field21223.put(var37, setting);
                 var45.method13705((Boolean) setting.getCurrentValue(), false);
                 setting.addObserver(var1x -> {
@@ -48,7 +48,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                         var45.method13705((Boolean) var1x.getCurrentValue(), false);
                     }
                 });
-                var45.onPress(var1x -> setting.setCurrentValue(((UICheckBox) var1x).method13703()));
+                var45.onPress(var1x -> setting.setCurrentValue(((Checkbox) var1x).method13703()));
                 var45.setSize((var1x, var2x) -> var1x.setXA(var2x.getWidthA() - 24 - var5));
                 panel.addToList(var37);
                 panel.addToList(var45);

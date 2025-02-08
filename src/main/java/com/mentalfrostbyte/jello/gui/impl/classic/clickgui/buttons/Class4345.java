@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4277;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;

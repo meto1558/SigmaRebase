@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedImage;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.AnimatedImage;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2188;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 

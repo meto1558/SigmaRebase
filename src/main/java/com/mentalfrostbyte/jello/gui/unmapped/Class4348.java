@@ -1,9 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Ban;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -27,7 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
 
-public class Class4348 extends AnimatedIconPanelWrap {
+public class Class4348 extends AnimatedIconPanel {
    public Ban field21243 = null;
    public ServerData field21244 = null;
    public Texture field21245 = null;

@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ClassicMainScreen extends Screen {
-    public final AnimatedIconPanelWrap field21094;
-    public final AnimatedIconPanelWrap field21095;
+    public final AnimatedIconPanel field21094;
+    public final AnimatedIconPanel field21095;
     private Animation field21100;
     private final Animation field21101 = new Animation(800, 800);
     private final ParticleOverlay particleOverlay;

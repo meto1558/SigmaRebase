@@ -2,9 +2,13 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -20,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AlertPanel extends UIBase {
+public class AlertPanel extends Element {
    public CustomGuiScreen field21279;
    public String alertName;
    public Texture field21281;
@@ -31,7 +35,7 @@ public class AlertPanel extends UIBase {
    private Map<String, String> inputMap;
    private final List<Class9448> field21287 = new ArrayList<>();
 
-   public AlertPanel(CustomGuiScreen screen, String iconName, boolean var3, String name, MiniAlert... var5) {
+   public AlertPanel(CustomGuiScreen screen, String iconName, boolean var3, String name, AlertComponent... var5) {
       super(screen, iconName, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
       this.field21283 = var3;
       this.alertName = name;
@@ -41,7 +45,7 @@ public class AlertPanel extends UIBase {
       TextField var8 = null;
       TextField var9 = null;
 
-      for (MiniAlert var13 : var5) {
+      for (AlertComponent var13 : var5) {
          this.field21285 = this.field21285 + var13.field44773 + 10;
       }
 
@@ -54,12 +58,12 @@ public class AlertPanel extends UIBase {
       int var17 = 0;
       int var18 = 0;
 
-      for (MiniAlert var15 : var5) {
+      for (AlertComponent var15 : var5) {
          var17++;
-         if (var15.alertType != AlertType.FIRST_LINE) {
-            if (var15.alertType != AlertType.SECOND_LINE) {
-               if (var15.alertType != AlertType.BUTTON) {
-                  if (var15.alertType == AlertType.HEADER) {
+         if (var15.componentType != AlertComponent.ComponentType.FIRST_LINE) {
+            if (var15.componentType != AlertComponent.ComponentType.SECOND_LINE) {
+               if (var15.componentType != AlertComponent.ComponentType.BUTTON) {
+                  if (var15.componentType == AlertComponent.ComponentType.HEADER) {
                      this.field21279
                         .addToList(
                            new Text(
@@ -174,7 +178,7 @@ public class AlertPanel extends UIBase {
       HashMap var3 = new HashMap();
 
       for (CustomGuiScreen var5 : this.field21279.getChildren()) {
-         AnimatedIconPanelWrap var6 = (AnimatedIconPanelWrap)var5;
+         AnimatedIconPanel var6 = (AnimatedIconPanel)var5;
          if (var6 instanceof TextField) {
             TextField var7 = (TextField)var6;
             var3.put(var7.method13153(), var7.getTypedText());

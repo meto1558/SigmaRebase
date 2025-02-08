@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
 import net.minecraft.client.Minecraft;
 
 public class CustomGuiScreenWidthSetter implements IWidthSetter {

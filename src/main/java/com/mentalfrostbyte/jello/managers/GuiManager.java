@@ -14,11 +14,11 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.buttons.JelloOpti
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.JelloOptions;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.CreditsScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.MainMenuScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.holders.NoAddonHolder;
+import com.mentalfrostbyte.jello.gui.impl.combined.holders.NoAddonHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
+import com.mentalfrostbyte.jello.gui.impl.combined.SwitchScreen;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;

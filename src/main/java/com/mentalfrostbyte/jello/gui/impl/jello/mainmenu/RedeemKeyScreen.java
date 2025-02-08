@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
 import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -23,9 +23,9 @@ public class RedeemKeyScreen extends CustomGuiScreen {
         this.setListening(false);
         TextField redeemBox;
         this.addToList(redeemBox = new TextField(this, "redeemBox", 100, 200, 350, 50, TextField.field20742, "", "Premium Code"));
-        UIButton redeemButton;
+        TextButton redeemButton;
         this.addToList(
-                redeemButton = new UIButton(
+                redeemButton = new TextButton(
                         this,
                         "redeembtn",
                         100,

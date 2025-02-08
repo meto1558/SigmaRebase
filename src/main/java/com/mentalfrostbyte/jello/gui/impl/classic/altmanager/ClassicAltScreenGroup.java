@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.AddAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.DirectLoginScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.EditAltScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4349;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 

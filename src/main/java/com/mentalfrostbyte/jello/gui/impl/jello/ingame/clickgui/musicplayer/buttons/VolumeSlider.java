@@ -1,17 +1,17 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.unmapped.Class6649;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VolumeSlider extends UIBase {
+public class VolumeSlider extends Element {
    private static String[] field21371;
    private float volume = 1.0F;
    private boolean field21373 = false;

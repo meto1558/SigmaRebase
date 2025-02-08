@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializer;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.logger.Logger;
@@ -251,7 +251,7 @@ public class Client {
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         }
 
-        if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {
+        if (this.moduleManager == null && ModuleSettingInitializer.thisThread != null) {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
             this.moduleManager.method14659(this.config);

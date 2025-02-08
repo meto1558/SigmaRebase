@@ -1,8 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -18,8 +19,8 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.butt
 import com.mentalfrostbyte.jello.managers.MusicVideoManager;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
@@ -30,7 +31,7 @@ import org.newdawn.slick.util.BufferedImageUtil;
 import java.io.IOException;
 import java.util.*;
 
-public class MusicPlayer extends AnimatedIconPanelWrap {
+public class MusicPlayer extends AnimatedIconPanel {
     private int width = 250;
     private int height = 40;
     private int field20847 = 64;
@@ -120,25 +121,25 @@ public class MusicPlayer extends AnimatedIconPanelWrap {
         int var15 = (this.getWidthA() - this.width - 38) / 2;
         this.musicControls
                 .addToList(
-                        this.play = new PNGIconButton(
+                        this.play = new SmallImage(
                                 this.musicControls, "play", var15, 27, 38, 38, Resources.playPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
         this.musicControls
                 .addToList(
-                        this.pause = new PNGIconButton(
+                        this.pause = new SmallImage(
                                 this.musicControls, "pause", var15, 27, 38, 38, Resources.pausePNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
         this.musicControls
                 .addToList(
-                        this.forwards = new PNGIconButton(
+                        this.forwards = new SmallImage(
                                 this.musicControls, "forwards", var15 + 114, 23, 46, 46, Resources.forwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
         this.musicControls
                 .addToList(
-                        this.backwards = new PNGIconButton(
+                        this.backwards = new SmallImage(
                                 this.musicControls, "backwards", var15 - 114, 23, 46, 46, Resources.backwardsPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), null
                         )
                 );
