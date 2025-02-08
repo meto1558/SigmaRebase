@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
+import com.mentalfrostbyte.jello.gui.unmapped.Waypoint2;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Waypoints extends Module {
-    public HashMap<UUID, Class8351> field23572 = new HashMap<>();
+    public HashMap<UUID, Waypoint2> field23572 = new HashMap<>();
 
     public Waypoints() {
         super(ModuleCategory.RENDER, "Waypoints", "Renders waypoints you added in Jello maps");
@@ -74,7 +74,7 @@ public class Waypoints extends Module {
                         this.field23572
                                 .put(
                                         var9.getUniqueID(),
-                                        new Class8351(
+                                        new Waypoint2(
                                                 var9.getName().getUnformattedComponentText() + " Unspawn",
                                                 (int) var9.getPosX(),
                                                 (int) var9.getPosY(),
@@ -95,8 +95,8 @@ public class Waypoints extends Module {
         this.field23572.clear();
     }
 
-    public List<Class8351> method16276(List<Class8351> var1) {
-        List<Class8351> var4 = new ArrayList<>(var1);
+    public List<Waypoint2> method16276(List<Waypoint2> var1) {
+        List<Waypoint2> var4 = new ArrayList<>(var1);
         if (this.getBooleanValueFromSettingName("Unspawn Positions")) {
             var4.addAll(this.field23572.values());
         }
@@ -113,7 +113,7 @@ public class Waypoints extends Module {
     @EventTarget
     public void method16277(EventRender3D var1) {
         if (this.isEnabled()) {
-            for (Class8351 var5 : this.method16276(Client.getInstance().waypointsManager.method29989())) {
+            for (Waypoint2 var5 : this.method16276(Client.getInstance().waypointsManager.getWaypoints())) {
                 BlockPos var6 = new BlockPos(
                         var5.field35890 - (var5.field35890 <= 0 ? 1 : 0), var5.field35893,
                         var5.field35891 - (var5.field35891 <= 0 ? 1 : 0));

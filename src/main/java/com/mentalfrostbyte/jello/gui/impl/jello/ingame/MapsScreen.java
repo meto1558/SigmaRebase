@@ -43,8 +43,8 @@ public class MapsScreen extends Screen {
 
    private void method13389(WaypointPanel var1) {
       var1.method13131((var1x, var2, var3, var4) -> {
-         this.field21036.field20615.method13519(var2, var3, var4);
-         Client.getInstance().waypointsManager.method29990(new Class8351(var2, var3.getX(), var3.getZ(), var4));
+         this.field21036.waypointList.addWaypoint(var2, var3, var4);
+         Client.getInstance().waypointsManager.method29990(new Waypoint2(var2, var3.getX(), var3.getZ(), var4));
          this.method13390();
       });
    }

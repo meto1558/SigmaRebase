@@ -36,7 +36,7 @@ public class WaypointList extends ScrollableContentPanel {
         boolean var3 = false;
     }
 
-    public void method13519(String var1, Vector3i var2, int var3) {
+    public void addWaypoint(String var1, Vector3i var2, int var3) {
         String var6 = "waypoint x" + var2.getX() + " z" + var2.getZ();
         if (this.buttonList.method13221(var6) == null) {
             Waypoint var7 = new Waypoint(
@@ -53,7 +53,7 @@ public class WaypointList extends ScrollableContentPanel {
                     var3x -> {
                         Client.getInstance()
                                 .waypointsManager
-                                .method29993(new Class8351(var7.field21291, var7.field21292.getX(), var7.field21292.getZ(), var7.field21293));
+                                .method29993(new Waypoint2(var7.field21291, var7.field21292.getX(), var7.field21292.getZ(), var7.field21293));
                         this.buttonList.method13237(var7);
                         this.field21209.remove(var3x);
                     }
@@ -99,16 +99,16 @@ public class WaypointList extends ScrollableContentPanel {
             }
 
             if (!var11.method13216() && this.field21211.getDirection() == Animation.Direction.FORWARDS) {
-                Client.getInstance().waypointsManager.method29989().clear();
+                Client.getInstance().waypointsManager.getWaypoints().clear();
 
                 for (Waypoint var9 : this.field21209) {
                     Client.getInstance()
                             .waypointsManager
-                            .method29989()
-                            .add(new Class8351(var9.field21291, var9.field21292.getX(), var9.field21292.getZ(), var9.field21293));
+                            .getWaypoints()
+                            .add(new Waypoint2(var9.field21291, var9.field21292.getX(), var9.field21292.getZ(), var9.field21293));
                 }
 
-                Collections.reverse(Client.getInstance().waypointsManager.method29989());
+                Collections.reverse(Client.getInstance().waypointsManager.getWaypoints());
                 Client.getInstance().waypointsManager.method29991();
             }
 

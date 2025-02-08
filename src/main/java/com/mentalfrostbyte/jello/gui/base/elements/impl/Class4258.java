@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4372;
+import com.mentalfrostbyte.jello.gui.unmapped.BlockButton;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import net.minecraft.block.Blocks;
@@ -62,8 +62,8 @@ public class Class4258 extends Element {
                         var9 = var8.toString();
                     }
 
-                    Class4372 var10;
-                    this.field20642.addToList(var10 = new Class4372(this, "btn" + var9, 0, 0, 40, 40, var13.getDefaultInstance()));
+                    BlockButton var10;
+                    this.field20642.addToList(var10 = new BlockButton(this, "btn" + var9, 0, 0, 40, 40, var13.getDefaultInstance()));
                     var10.method13702(this.field20641.contains(var9), false);
                     var10.onPress(var3 -> {
                         int var6 = this.field20641.size();

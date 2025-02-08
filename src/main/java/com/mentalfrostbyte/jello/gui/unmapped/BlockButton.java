@@ -5,11 +5,11 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.item.ItemStack;
 
-public class Class4372 extends Element {
+public class BlockButton extends Element {
    public ItemStack field21366;
    public boolean field21367;
 
-   public Class4372(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ItemStack var7) {
+   public BlockButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ItemStack var7) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field21366 = var7;
    }

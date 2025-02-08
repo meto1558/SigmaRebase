@@ -22,17 +22,17 @@ public class MapPanel extends Element {
    private List<Button> field20612 = new ArrayList<Button>();
    public int field20613;
    public MapFrame field20614;
-   public WaypointList field20615;
+   public WaypointList waypointList;
    public int field20616;
    private final List<Class9514> field20617 = new ArrayList<Class9514>();
 
    public MapPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field20616 = 260;
-      this.addToList(this.field20615 = new WaypointList(this, "waypointList", 0, 65, this.field20616, this.heightA - 65));
+      this.addToList(this.waypointList = new WaypointList(this, "waypointList", 0, 65, this.field20616, this.heightA - 65));
 
-      for (Class8351 var10 : Client.getInstance().waypointsManager.method29989()) {
-         this.field20615.method13519(var10.field35889, new Vector3i(var10.field35890, 64, var10.field35891), var10.field35892);
+      for (Waypoint2 var10 : Client.getInstance().waypointsManager.getWaypoints()) {
+         this.waypointList.addWaypoint(var10.field35889, new Vector3i(var10.field35890, 64, var10.field35891), var10.field35892);
       }
 
       this.addToList(this.field20614 = new MapFrame(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));
@@ -86,7 +86,7 @@ public class MapPanel extends Element {
       RenderUtil.configureStencilTest();
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
-      this.field20615.draw(partialTicks);
+      this.waypointList.draw(partialTicks);
       GL11.glPopMatrix();
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);

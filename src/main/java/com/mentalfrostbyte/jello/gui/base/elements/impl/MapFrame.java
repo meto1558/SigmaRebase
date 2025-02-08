@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Chunk;
-import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
+import com.mentalfrostbyte.jello.gui.unmapped.Waypoint2;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class9693;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -155,7 +155,7 @@ public class MapFrame extends Element {
         );
         GL11.glPopMatrix();
 
-        for (Class8351 var16 : Client.getInstance().waypointsManager.method29989()) {
+        for (Waypoint2 var16 : Client.getInstance().waypointsManager.getWaypoints()) {
             float var17 = (float) (this.chunkPos.x * 16) - this.field20651 * 16.0F;
             float var18 = (float) (this.chunkPos.z * 16) - this.field20650 * 16.0F;
             float var19 = (float) var16.field35890 - var17 + 1.0F;

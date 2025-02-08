@@ -345,8 +345,8 @@ public class ModuleManager {
     }
 
     public void method14660(JSONObject var1) {
-        var1.put("profile", this.profile.getCurrentConfig().getName);
-        this.profile.getCurrentConfig().serializedConfigData = this.saveCurrentConfigToJSON(new JSONObject());
+        var1.put("profile", this.profile.getCurrentConfig().profileName);
+        this.profile.getCurrentConfig().moduleConfig = this.saveCurrentConfigToJSON(new JSONObject());
 
         try {
             this.profile.saveAndReplaceConfigs();
