@@ -52,7 +52,7 @@ public class ShulkerInfo extends Module {
     }
 
     @EventTarget
-    public void method16669(EventMouse var1) {
+    public void onMouse(EventMouse var1) {
         this.field23842 = this.field23842 - var1.method13980();
     }
 
@@ -64,7 +64,7 @@ public class ShulkerInfo extends Module {
     }
 
     @EventTarget
-    public void method16671(EventRender3D var1) {
+    public void onRender3D(EventRender3D event) {
         if (this.isEnabled()) {
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
 
