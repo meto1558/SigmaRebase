@@ -40,8 +40,8 @@ public class MinibloxGamePlay extends Module {
                 )
         );
         registerSetting(this.oldTranslationLayerCompat = new BooleanSetting(
-                "7GrandDad Translation Layer Compatibility",
-                "Tries to be compatible with the archived Miniblox Translation Layer by 7GrandDadPGN",
+                "Compatibility",
+                "Makes GamePlay compatible with the archived Miniblox Translation Layer by 7GrandDadPGN",
                 false
         ));
         registerSetting(
