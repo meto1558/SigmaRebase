@@ -18,7 +18,6 @@ import net.minecraft.util.Util;
 public class LoginScreen extends Element {
     private TextField inputUsername;
     private TextField inputPassword;
-    private TextField captcha;
     private TextButton loginButton;
     private TextButton registerButton;
     private TextButton forgotButton;
@@ -76,9 +75,6 @@ public class LoginScreen extends Element {
         this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.method13155(true);
-        this.addToList(this.captcha = new TextField(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
-        this.captcha.setFont(ResourceRegistry.JelloLightFont20);
-        this.captcha.setEnabled(false);
         this.loginButton.doThis((var1x, var2x) -> this.method13688());
         this.registerButton.doThis((var1x, var2x) -> {
             RegisterScreen var5x = (RegisterScreen) this.getParent();
@@ -106,7 +102,6 @@ public class LoginScreen extends Element {
 
             if (account != null) {
                 reg.method13424("Error", account);
-                this.captcha.setTypedText("");
             } else {
                 this.callUIHandlers();
             }
