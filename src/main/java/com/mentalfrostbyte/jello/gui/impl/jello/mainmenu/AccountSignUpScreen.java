@@ -1,29 +1,29 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.Text;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Text;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 
-public class AccountSignUpScreen extends UIBase {
+public class AccountSignUpScreen extends Element {
     private Text stringPanel;
     private TextField usernameInputBox;
     private TextField emailInputBox;
     private TextField passwordInputBox;
     private TextField captchaBox;
-    private UIButton registerButton;
-    private UIButton loginButton;
+    private TextButton registerButton;
+    private TextButton loginButton;
     private LoadingIndicator loadingBox;
     public static int widthy = 390;
     public static int height = 590;
@@ -44,12 +44,12 @@ public class AccountSignUpScreen extends UIBase {
                 )
         );
         this.addToList(
-                this.registerButton = new UIButton(
+                this.registerButton = new TextButton(
                         this, "RegisterButton", 468, 291, ResourceRegistry.JelloLightFont25.getWidth("Register"), 70, ColorHelper.field27961, "Register", ResourceRegistry.JelloLightFont25
                 )
         );
         this.addToList(
-                this.loginButton = new UIButton(
+                this.loginButton = new TextButton(
                         this, "LoginButton", 98, 333, ResourceRegistry.JelloLightFont14.getWidth("Login"), 14, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont14
                 )
         );

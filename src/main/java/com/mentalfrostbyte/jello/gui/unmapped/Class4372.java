@@ -1,10 +1,11 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.item.ItemStack;
 
-public class Class4372 extends UIBase {
+public class Class4372 extends Element {
    public ItemStack field21366;
    public boolean field21367;
 

@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4299;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.BirdGroup;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 public class BirdGameScreen extends Screen {
    public Minecraft field21044 = Minecraft.getInstance();
    public TimerUtil field21045 = new TimerUtil();
-   public Class4299 field21046;
+   public BirdGroup field21046;
    public Animation field21047;
    public int field21048 = 0;
    public int field21049 = 14;
@@ -30,7 +30,7 @@ public class BirdGameScreen extends Screen {
       int var5 = 14;
       int var6 = var3 * var5;
       int var7 = var4 * var5;
-      this.addToList(this.field21046 = new Class4299(this, "bird", (this.widthA - var6) / 2, (this.getHeightA() - var7) / 2 + 30, var3, 27, var5));
+      this.addToList(this.field21046 = new BirdGroup(this, "bird", (this.widthA - var6) / 2, (this.getHeightA() - var7) / 2 + 30, var3, 27, var5));
    }
 
    @Override

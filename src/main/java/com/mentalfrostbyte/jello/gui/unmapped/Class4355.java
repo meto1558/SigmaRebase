@@ -1,15 +1,16 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 
-public class Class4355 extends UIBase {
+public class Class4355 extends Element {
    public int field21288;
    public final Animation field21289;
    public final Animation field21290;

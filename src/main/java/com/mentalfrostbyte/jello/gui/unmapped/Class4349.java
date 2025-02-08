@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 
 import java.awt.image.BufferedImage;
 
-public class Class4349 extends AnimatedIconPanelWrap {
+public class Class4349 extends AnimatedIconPanel {
    public Account field21249 = null;
    private BufferedImage field21250;
    private Texture field21251;

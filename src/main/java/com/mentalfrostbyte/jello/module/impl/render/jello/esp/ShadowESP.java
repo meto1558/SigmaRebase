@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2191;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;

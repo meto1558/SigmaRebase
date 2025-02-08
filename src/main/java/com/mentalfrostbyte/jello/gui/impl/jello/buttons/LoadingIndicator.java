@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.lwjgl.opengl.GL11;
 
-public class LoadingIndicator extends AnimatedIconPanelWrap {
+public class LoadingIndicator extends AnimatedIconPanel {
    private static String[] field20736;
    public TimerUtil field20769 = new TimerUtil();
    public float field20770 = 0.0F;

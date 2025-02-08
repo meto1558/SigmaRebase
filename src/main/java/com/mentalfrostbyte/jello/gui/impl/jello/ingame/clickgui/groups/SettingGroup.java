@@ -1,17 +1,18 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups;
 
-import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels.SettingPanel;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 
-public class SettingGroup extends UIBase {
+public class SettingGroup extends Element {
    public Animation animation1;
    public Animation animation;
    public int y;

@@ -1,10 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.MapFrame;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class9514;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -14,10 +18,10 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapPanel extends UIBase {
+public class MapPanel extends Element {
    private List<Button> field20612 = new ArrayList<Button>();
    public int field20613;
-   public Class4259 field20614;
+   public MapFrame field20614;
    public Class4340 field20615;
    public int field20616;
    private final List<Class9514> field20617 = new ArrayList<Class9514>();
@@ -31,7 +35,7 @@ public class MapPanel extends UIBase {
          this.field20615.method13519(var10.field35889, new Vector3i(var10.field35890, 64, var10.field35891), var10.field35892);
       }
 
-      this.addToList(this.field20614 = new Class4259(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));
+      this.addToList(this.field20614 = new MapFrame(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));
       this.setListening(false);
    }
 

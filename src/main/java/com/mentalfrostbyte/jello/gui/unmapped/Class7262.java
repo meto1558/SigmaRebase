@@ -1,7 +1,8 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 
 public class Class7262 implements Class7261 {
    private static String[] field31150;

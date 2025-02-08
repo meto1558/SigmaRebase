@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4330;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Change;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.changelog.Class576;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -41,7 +41,7 @@ public class ChangelogScreen extends CustomGuiScreen {
       if (this.scrollPanel != null) {
          if (this.isHovered() && this.isVisible()) {
             for (CustomGuiScreen var9 : this.scrollPanel.getButton().getChildren()) {
-               Class4330 var10 = (Class4330)var9;
+               Change var10 = (Change)var9;
                var10.animation2.changeDirection(Animation.Direction.FORWARDS);
                if ((double)var10.animation2.calcPercent() < 0.5) {
                   break;
@@ -49,7 +49,7 @@ public class ChangelogScreen extends CustomGuiScreen {
             }
          } else {
             for (CustomGuiScreen var6 : this.scrollPanel.getButton().getChildren()) {
-               Class4330 var7 = (Class4330)var6;
+               Change var7 = (Change)var6;
                var7.animation2.changeDirection(Animation.Direction.BACKWARDS);
             }
          }

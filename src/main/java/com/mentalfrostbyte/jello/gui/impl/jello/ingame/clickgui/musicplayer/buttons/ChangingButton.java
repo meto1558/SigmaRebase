@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.util.system.sound.AudioRepeatMode;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class ChangingButton extends UIBase {
+public class ChangingButton extends Element {
    public AudioRepeatMode repeatMode;
 
    public ChangingButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, AudioRepeatMode var7) {

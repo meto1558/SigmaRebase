@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.ModsPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;

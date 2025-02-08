@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Slider extends UIBase {
+public class Slider extends Element {
    private static String[] field21362;
    private float field21363;
    public boolean field21364 = false;

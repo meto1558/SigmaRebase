@@ -1,13 +1,17 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class6601;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class9342;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -21,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Class4375 extends UIBase {
+public class Class4375 extends Element {
    private final int field21376;
    private final Animation field21377;
    private boolean field21378 = false;
@@ -42,9 +46,9 @@ public class Class4375 extends UIBase {
       this.method13292(true);
       this.setListening(false);
       this.method13712();
-      UIButton var9;
+      TextButton var9;
       this.addToList(
-         var9 = new UIButton(
+         var9 = new TextButton(
             this,
             "addButton",
             this.widthA - 70,

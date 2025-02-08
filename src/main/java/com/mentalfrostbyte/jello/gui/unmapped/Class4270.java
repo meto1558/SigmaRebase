@@ -1,11 +1,13 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Class4268;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Keys;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
-public class Class4270 extends UIBase {
+public class Class4270 extends Element {
    public int field20696;
 
    public Class4270(CustomGuiScreen var1, String var2, int var3, int var4) {
