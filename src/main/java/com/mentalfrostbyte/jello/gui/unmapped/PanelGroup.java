@@ -42,7 +42,7 @@ public class PanelGroup extends AnimatedIconPanel {
 
    private void method13505() {
       this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
-      this.modListView.setSize(new CustomGuiScreenWidthSetter());
+      this.modListView.setSize(new ModListViewSize());
       this.modListView.setSize((var0, var1) -> {
          var0.setYA(60);
          var0.setHeightA(var1.getHeightA() - 60);

@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.gui.unmapped;
+package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class UIEntity extends AbstractClientPlayerEntity {
-   public UIEntity(ClientWorld var1, GameProfile var2) {
+public class UIClientPlayerEntity extends AbstractClientPlayerEntity {
+   public UIClientPlayerEntity(ClientWorld var1, GameProfile var2) {
       super(var1, var2);
    }
 

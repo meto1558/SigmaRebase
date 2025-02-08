@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
+import com.mentalfrostbyte.jello.gui.base.elements.impl.UIClientPlayerEntity;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
@@ -29,7 +30,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.UUID;
 
-public class Class4298 extends AnimatedIconPanel {
+public class Head extends AnimatedIconPanel {
     public static ColorHelper field20821 = new ColorHelper(
             ClientColors.DEEP_TEAL.getColor(),
             ClientColors.DEEP_TEAL.getColor(),
@@ -44,9 +45,9 @@ public class Class4298 extends AnimatedIconPanel {
     private static ClientWorld clientWorld;
     public Account account;
     private DynamicTexture field20827;
-    private UIEntity entity;
+    private UIClientPlayerEntity entity;
 
-    public Class4298(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String skinName) {
+    public Head(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String skinName) {
         super(var1, var2, var3, var4, var5, var6, field20821, false);
         this.skin = skinName;
     }
@@ -81,7 +82,7 @@ public class Class4298 extends AnimatedIconPanel {
 
             GameProfile prof = new GameProfile(uid, this.account.getKnownName());
             if (this.entity == null || !this.entity.getDisplayName().getString().equals(this.account.getKnownName())) {
-                this.entity = new UIEntity(clientWorld, new GameProfile(uid, this.account.getKnownName()));
+                this.entity = new UIClientPlayerEntity(clientWorld, new GameProfile(uid, this.account.getKnownName()));
                 this.entity.playerInfo = new NetworkPlayerInfo(new SPlayerListItemPacket.AddPlayerData(prof, 0, GameType.CREATIVE, this.entity.getDisplayName()));
             }
 

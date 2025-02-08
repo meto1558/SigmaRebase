@@ -53,7 +53,7 @@ public class MusicPlayer extends AnimatedIconPanel {
     private Texture texture;
     private CustomGuiScreen field20865;
     public SearchBox searchBox;
-    public Class4359 field20867;
+    public ProgressBar field20867;
     public static List<MusicVideoManager> videos = new ArrayList<>();
     public static long time = 0L;
     public float field20871 = 0.0F;
@@ -149,7 +149,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         ChangingButton repeat;
         this.musicControls.addToList(repeat = new ChangingButton(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeatMode()));
         repeat.onPress(var2x -> this.musicManager.setRepeat(repeat.getRepeatMode()));
-        this.addToList(this.field20867 = new Class4359(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
+        this.addToList(this.field20867 = new ProgressBar(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
         this.field20867.method13292(true);
         this.field20867.setListening(false);
         this.field20865.method13292(true);

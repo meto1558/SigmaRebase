@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Class4270;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;

@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 
-public class Class4355 extends Element {
+public class Waypoint extends Element {
    public int field21288;
    public final Animation field21289;
    public final Animation field21290;
@@ -19,7 +19,7 @@ public class Class4355 extends Element {
    public int field21293;
    public int field21294;
 
-   public Class4355(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String var7, Vector3i var8, int var9) {
+   public Waypoint(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String var7, Vector3i var8, int var9) {
       super(var1, var2, var3, var4, var5, var6, true);
       this.field21288 = var4;
       this.field21289 = new Animation(114, 114);

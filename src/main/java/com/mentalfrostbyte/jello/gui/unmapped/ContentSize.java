@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 
-public class SubPanel implements IWidthSetter {
+public class ContentSize implements IWidthSetter {
 
     @Override
     public void setWidth(CustomGuiScreen forScreen, CustomGuiScreen fromWidthOfThisScreen) {

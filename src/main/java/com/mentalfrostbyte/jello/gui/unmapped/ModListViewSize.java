@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import net.minecraft.client.Minecraft;
 
-public class CustomGuiScreenWidthSetter implements IWidthSetter {
+public class ModListViewSize implements IWidthSetter {
    @Override
    public void setWidth(CustomGuiScreen forScreen, CustomGuiScreen fromWidthOfThisScreen) {
       forScreen.setXA(0);

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Class7101;
+import com.mentalfrostbyte.jello.gui.unmapped.Chunk;
 import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class9693;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -28,7 +28,7 @@ public class MapFrame extends Element {
     public float field20651 = 0.0F;
     public int field20652;
     public int field20653;
-    public Class7101 field20654;
+    public Chunk field20654;
     public int field20655;
     public float field20656;
     public float field20657;

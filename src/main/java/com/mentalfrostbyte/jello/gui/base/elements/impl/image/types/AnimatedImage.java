@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl.image.types;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2188;
 import com.mentalfrostbyte.jello.gui.unmapped.Class2311;
-import com.mentalfrostbyte.jello.gui.unmapped.Class8593;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -70,7 +69,7 @@ public class AnimatedImage {
         }
 
         int var5 = 0;
-        switch (Class8593.field38673[this.field31349.ordinal()]) {
+        switch (this.field31349.ordinal()) {
             case 1:
                 this.field31340 = Math.round((float) (this.field31341 - 1) * this.field31353.calcPercent());
                 break;

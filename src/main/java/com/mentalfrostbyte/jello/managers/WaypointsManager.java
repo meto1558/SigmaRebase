@@ -20,7 +20,7 @@ import java.util.Map.Entry;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.unmapped.Class7101;
+import com.mentalfrostbyte.jello.gui.unmapped.Chunk;
 import com.mentalfrostbyte.jello.gui.unmapped.Class8351;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class2531;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class7927;
@@ -34,7 +34,6 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.Heightmap;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -183,7 +182,7 @@ public class WaypointsManager {
                     int var24 = 0;
 
                     for (int var25 = 0; var25 < this.field36365.world.getChunkProvider().array.chunks.length(); var25++) {
-                        Chunk var17 = this.field36365.world.getChunkProvider().array.chunks.get(var25);
+                        net.minecraft.world.chunk.Chunk var17 = this.field36365.world.getChunkProvider().array.chunks.get(var25);
                         if (var17 != null) {
                             boolean var18 = this.field36366.contains(var17.getPos());
                             boolean var19 = this.field36367.contains(var17.getPos());
@@ -307,12 +306,12 @@ public class WaypointsManager {
         return var1 + "/" + var2.field33957 + "c" + var2.field33958 + ".jmap";
     }
 
-    public String method30002(String var1, Chunk var2) throws FileNotFoundException {
+    public String method30002(String var1, net.minecraft.world.chunk.Chunk var2) throws FileNotFoundException {
         Class2531 var5 = Class7927.method26605(var2.getPos());
         return var1 + "/" + var5.field16734 + "c" + var5.field16735 + ".jmap";
     }
 
-    public Class7101 method30003(ChunkPos var1, int var2) {
+    public Chunk method30003(ChunkPos var1, int var2) {
         List<ChunkPos> var5 = new ArrayList<>();
 
         for (int var6 = -var2 / 2; var6 < var2 / 2; var6++) {
@@ -384,16 +383,16 @@ public class WaypointsManager {
 
         ((Buffer) var21).position(16 * var2 * 16 * var2 * 3);
         ((Buffer) var21).flip();
-        return new Class7101(var21, 16 * var2, 16 * var2);
+        return new Chunk(var21, 16 * var2, 16 * var2);
     }
 
-    private boolean method30004(Chunk var1) {
-        Chunk var4 = this.field36365.world.getChunk(var1.getPos().x, var1.getPos().z + 1);
-        Chunk var5 = this.field36365.world.getChunk(var1.getPos().x, var1.getPos().z - 1);
+    private boolean method30004(net.minecraft.world.chunk.Chunk var1) {
+        net.minecraft.world.chunk.Chunk var4 = this.field36365.world.getChunk(var1.getPos().x, var1.getPos().z + 1);
+        net.minecraft.world.chunk.Chunk var5 = this.field36365.world.getChunk(var1.getPos().x, var1.getPos().z - 1);
         return var4 != null && !var4.isEmpty() && var5 != null && !var5.isEmpty();
     }
 
-    public ByteBuffer method30005(Chunk var1, boolean var2) {
+    public ByteBuffer method30005(net.minecraft.world.chunk.Chunk var1, boolean var2) {
         ByteBuffer var5 = BufferUtils.createByteBuffer(768);
         int var6 = var1.getPos().x * 16;
         int var7 = var1.getPos().z * 16;

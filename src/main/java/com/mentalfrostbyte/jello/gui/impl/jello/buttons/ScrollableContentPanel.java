@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.SubPanel;
+import com.mentalfrostbyte.jello.gui.unmapped.ContentSize;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -39,9 +39,9 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
       this.method13511();
    }
 
-   private final void method13511() {
+   private void method13511() {
       this.getChildren().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
-      this.buttonList.setSize(new SubPanel());
+      this.buttonList.setSize(new ContentSize());
       this.getChildren().add(this.scrollBar = new VerticalScrollBar(this, 11));
       this.scrollBar.method13292(true);
    }

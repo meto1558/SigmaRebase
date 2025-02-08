@@ -46,8 +46,8 @@ public class AltManagerScreen extends Screen {
    private float field21014 = 0.65F;
    private float field21015 = 1.0F - this.field21014;
    private int titleOffset = 30;
-   private Class4298 field21017;
-   private Class4296 field21018;
+   private Head field21017;
+   private Info field21018;
    public AccountManager accountManager = Client.getInstance().accountManager;
    private Texture field21020;
    private float field21021;
@@ -105,7 +105,7 @@ public class AltManagerScreen extends Screen {
       this.field21010.method13515(false);
       this.field21011
          .addToList(
-            this.field21017 = new Class4298(
+            this.field21017 = new Head(
                this.field21011,
                "",
                (int)(
@@ -122,7 +122,7 @@ public class AltManagerScreen extends Screen {
          );
       this.field21011
          .addToList(
-            this.field21018 = new Class4296(
+            this.field21018 = new Info(
                this.field21011,
                "info",
                (int)(

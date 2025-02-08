@@ -79,7 +79,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
                         }
                     }
             );
-            var13.setSize(new CustomGuiScreenWidthSetter());
+            var13.setSize(new ModListViewSize());
             var3++;
         }
 

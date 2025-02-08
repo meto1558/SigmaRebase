@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.gui.unmapped;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.managers.util.account.microsoft.Ban;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -28,15 +27,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
 
-public class Class4348 extends AnimatedIconPanel {
-    public Ban field21243 = null;
+public class Ban extends AnimatedIconPanel {
+    public com.mentalfrostbyte.jello.managers.util.account.microsoft.Ban field21243 = null;
     public ServerData field21244 = null;
     public Texture field21245 = null;
     public Texture field21246 = null;
     private BufferedImage field21247;
     private Animation field21248;
 
-    public Class4348(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Ban var7) {
+    public Ban(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, com.mentalfrostbyte.jello.managers.util.account.microsoft.Ban var7) {
         super(var1, var2, var3, var4, var5, var6, false);
         this.field21243 = var7;
         this.field21244 = var7.getServer();

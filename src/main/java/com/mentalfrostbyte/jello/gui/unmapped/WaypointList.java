@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Class4340 extends ScrollableContentPanel {
-    private List<Class4355> field21209 = new ArrayList<Class4355>();
+public class WaypointList extends ScrollableContentPanel {
+    private List<Waypoint> field21209 = new ArrayList<Waypoint>();
     public final int field21210 = 70;
     public Animation field21211 = new Animation(300, 300);
     public boolean field21212;
-    public Class4355 field21213;
+    public Waypoint field21213;
 
-    public Class4340(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
+    public WaypointList(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
         super(var1, var2, var3, var4, var5, var6);
         this.field21211.changeDirection(Animation.Direction.BACKWARDS);
         this.field20883 = true;
@@ -32,7 +32,6 @@ public class Class4340 extends ScrollableContentPanel {
         this.method13511();
     }
 
-    //   @Override
     public void method13511() {
         boolean var3 = false;
     }
@@ -40,7 +39,7 @@ public class Class4340 extends ScrollableContentPanel {
     public void method13519(String var1, Vector3i var2, int var3) {
         String var6 = "waypoint x" + var2.getX() + " z" + var2.getZ();
         if (this.buttonList.method13221(var6) == null) {
-            Class4355 var7 = new Class4355(
+            Waypoint var7 = new Waypoint(
                     this, var6, this.xA, this.getChildren().get(0).getChildren().size() * this.field21210, this.widthA, this.field21210, var1, var2, var3
             );
             var7.field21288 = var7.getYA();
@@ -73,7 +72,7 @@ public class Class4340 extends ScrollableContentPanel {
             this.field21212 = false;
         }
 
-        for (Class4355 var7 : this.field21209) {
+        for (Waypoint var7 : this.field21209) {
             if (!var7.method13216() && var7.field21290.getDirection() == Animation.Direction.BACKWARDS) {
                 var7.field21288 = var5 + 5;
             } else {
@@ -83,7 +82,7 @@ public class Class4340 extends ScrollableContentPanel {
             var5 += var7.getHeightA();
         }
 
-        for (Class4355 var11 : this.field21209) {
+        for (Waypoint var11 : this.field21209) {
             if (var11.method13216()) {
                 this.field21211.changeDirection(Animation.Direction.FORWARDS);
                 if (newHeight > this.method13271() + 10
@@ -102,7 +101,7 @@ public class Class4340 extends ScrollableContentPanel {
             if (!var11.method13216() && this.field21211.getDirection() == Animation.Direction.FORWARDS) {
                 Client.getInstance().waypointsManager.method29989().clear();
 
-                for (Class4355 var9 : this.field21209) {
+                for (Waypoint var9 : this.field21209) {
                     Client.getInstance()
                             .waypointsManager
                             .method29989()
@@ -121,7 +120,7 @@ public class Class4340 extends ScrollableContentPanel {
     public void draw(float partialTicks) {
         float var4 = Math.min(1.0F, 0.21F * (60.0F / (float) Minecraft.getFps()));
 
-        for (Class4355 var6 : this.field21209) {
+        for (Waypoint var6 : this.field21209) {
             if (!var6.method13216()) {
                 float var7 = (float) (var6.getYA() - var6.field21288) * var4;
                 if (Math.round(var7) == 0 && var7 > 0.0F) {

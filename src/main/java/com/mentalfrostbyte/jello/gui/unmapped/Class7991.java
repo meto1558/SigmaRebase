@@ -5,9 +5,9 @@ import java.util.function.IntSupplier;
 public class Class7991 implements IntSupplier {
     private int field34347;
     private int field34348;
-    public final Class4298 field34349;
+    public final Head field34349;
 
-    public Class7991(Class4298 var1) {
+    public Class7991(Head var1) {
         this.field34349 = var1;
         this.field34347 = 0;
         this.field34348 = 1;

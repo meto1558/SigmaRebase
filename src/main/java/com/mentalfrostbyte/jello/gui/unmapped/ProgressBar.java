@@ -9,11 +9,11 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class Class4359 extends Element {
+public class ProgressBar extends Element {
     private final MusicManager musicManager = Client.getInstance().musicManager;
     public float field21315 = -1.0F;
 
-    public Class4359(CustomGuiScreen parentScreen, String var2, int var3, int var4, int var5, int var6) {
+    public ProgressBar(CustomGuiScreen parentScreen, String var2, int var3, int var4, int var5, int var6) {
         super(parentScreen, var2, var3, var4, var5, var6, false);
         this.method13247((var1x, var2x) -> {
             int var5x = (int) this.musicManager.getDuration();
