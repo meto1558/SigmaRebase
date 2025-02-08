@@ -1,15 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
+import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -23,13 +21,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Class4375 extends Element {
+public class Class4375 extends UIBase {
    private final int field21376;
    private final Animation field21377;
    private boolean field21378 = false;
    private final List<Class6601> field21379 = new ArrayList<Class6601>();
+   private final List<Class9342> field21380 = new ArrayList<Class9342>();
 
-    public Class4375(CustomGuiScreen var1, String var2, int var3, int var4, int var5, String var6) {
+   public Class4375(CustomGuiScreen var1, String var2, int var3, int var4, int var5, String var6) {
       super(var1, var2, var3 - 125, var4, 250, 330, ColorHelper.field27961, var6, false);
       if (this.yA + this.heightA <= Minecraft.getInstance().getMainWindow().getHeight()) {
          this.yA += 10;
@@ -43,9 +42,9 @@ public class Class4375 extends Element {
       this.method13292(true);
       this.setListening(false);
       this.method13712();
-      TextButton var9;
+      UIButton var9;
       this.addToList(
-         var9 = new TextButton(
+         var9 = new UIButton(
             this,
             "addButton",
             this.widthA - 70,

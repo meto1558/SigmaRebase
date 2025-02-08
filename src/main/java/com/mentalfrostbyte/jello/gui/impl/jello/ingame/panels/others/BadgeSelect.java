@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.util.client.render.theme.WaypointColors;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.WaypointColors;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.Waypoint;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 
-public class BadgeSelect extends Element {
+public class BadgeSelect extends UIBase {
    public int field21296;
 
    public BadgeSelect(CustomGuiScreen var1, String var2, int var3, int var4) {

@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.LoadingIndicator;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.unmapped.Text;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
+import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
 import com.mentalfrostbyte.jello.util.client.network.auth.CaptchaChecker;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -17,13 +17,13 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.util.Util;
 
-public class LoginScreen extends Element {
+public class LoginScreen extends UIBase {
     private TextField inputUsername;
     private TextField inputPassword;
     private TextField captcha;
-    private TextButton loginButton;
-    private TextButton registerButton;
-    private TextButton forgotButton;
+    private UIButton loginButton;
+    private UIButton registerButton;
+    private UIButton forgotButton;
     private LoadingIndicator loadingThingy;
     public static int widthy = 334;
     public static int heighty = 571;
@@ -44,17 +44,17 @@ public class LoginScreen extends Element {
                 )
         );
         this.addToList(
-                this.loginButton = new TextButton(
+                this.loginButton = new UIButton(
                         this, "LoginButton", 468, 238, ResourceRegistry.JelloLightFont25.getWidth("Login"), 70, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont25
                 )
         );
         this.addToList(
-                this.registerButton = new TextButton(
+                this.registerButton = new UIButton(
                         this, "RegisterButton", 88, 250, ResourceRegistry.JelloLightFont14.getWidth("Register"), 14, ColorHelper.field27961, "Register", ResourceRegistry.JelloLightFont14
                 )
         );
         this.addToList(
-                this.forgotButton = new TextButton(
+                this.forgotButton = new UIButton(
                         this,
                         "ForgotButton",
                         60,

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello.TabGui;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.Animation;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.TabGUI;
 
 public class Class8224 {

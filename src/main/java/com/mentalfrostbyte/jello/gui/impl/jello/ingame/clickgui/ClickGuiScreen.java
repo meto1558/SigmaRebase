@@ -2,8 +2,6 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.SettingGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
@@ -12,7 +10,7 @@ import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -71,8 +69,8 @@ public class ClickGuiScreen extends Screen {
 
         this.addToList(this.musicPlayer = new MusicPlayer(this, "musicPlayer"));
         this.musicPlayer.method13215(true);
-        SmallImage moreButton;
-        this.addToList(moreButton = new SmallImage(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
+        PNGIconButton moreButton;
+        this.addToList(moreButton = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
 
         moreButton.getTextColor().setPrimaryColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
@@ -98,20 +96,20 @@ public class ClickGuiScreen extends Screen {
             return true;
         } else if (this.dependenciesAlert == null) {
             this.runThisOnDimensionUpdate(() -> {
-                List<AlertComponent> alerts = new ArrayList<>();
-                alerts.add(new AlertComponent(AlertComponent.ComponentType.HEADER, "Music", 40));
-                alerts.add(new AlertComponent(AlertComponent.ComponentType.FIRST_LINE, "Jello Music requires:", 20));
+                List<MiniAlert> alerts = new ArrayList<>();
+                alerts.add(new MiniAlert(AlertType.HEADER, "Music", 40));
+                alerts.add(new MiniAlert(AlertType.FIRST_LINE, "Jello Music requires:", 20));
 
                 if (!Client.getInstance().musicManager.hasPython()) {
-                    alerts.add(new AlertComponent(AlertComponent.ComponentType.FIRST_LINE, "- Python 3.12.5", 30));
+                    alerts.add(new MiniAlert(AlertType.FIRST_LINE, "- Python 3.12.5", 30));
                 }
 
                 if (!Client.getInstance().musicManager.hasVCRedist()) {
-                    alerts.add(new AlertComponent(AlertComponent.ComponentType.FIRST_LINE, "- Visual C++ 2010 x86", 30));
+                    alerts.add(new MiniAlert(AlertType.FIRST_LINE, "- Visual C++ 2010 x86", 30));
                 }
 
-                alerts.add(new AlertComponent(AlertComponent.ComponentType.BUTTON, "Download", 55));
-                this.showAlert(this.dependenciesAlert = new AlertPanel(this, "music", true, "Dependencies.", alerts.toArray(new AlertComponent[0])));
+                alerts.add(new MiniAlert(AlertType.BUTTON, "Download", 55));
+                this.showAlert(this.dependenciesAlert = new AlertPanel(this, "music", true, "Dependencies.", alerts.toArray(new MiniAlert[0])));
 
                 this.dependenciesAlert.onPress(thread -> {
                     if (!Client.getInstance().musicManager.hasPython()) {

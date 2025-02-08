@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
 import net.minecraft.client.Minecraft;
 
-public class BlurOverlay extends AnimatedIconPanel {
+public class BlurOverlay extends AnimatedIconPanelWrap {
     public final ClickGuiScreen field21278;
 
    public BlurOverlay(ClickGuiScreen var1, CustomGuiScreen var2, String var3) {

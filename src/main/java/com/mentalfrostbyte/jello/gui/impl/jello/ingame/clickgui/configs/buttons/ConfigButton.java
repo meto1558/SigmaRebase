@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.buttons;
 
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.Button;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 
 public class ConfigButton extends Button {
    private static String[] field20593;

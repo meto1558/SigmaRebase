@@ -1,26 +1,23 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.LoadingIndicator;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
+import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class ConfigGroup extends Element {
+public class ConfigGroup extends UIBase {
    public Animation field20703 = new Animation(300, 200, Animation.Direction.BACKWARDS);
    private final int field20704;
    private ScrollableContentPanel field20705;
@@ -29,17 +26,17 @@ public class ConfigGroup extends Element {
 
    public ConfigGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, 0, ColorHelper.field27961, false);
-      TextButton blankButton;
+      UIButton blankButton;
       this.addToList(
-         blankButton = new TextButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
+         blankButton = new UIButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
       );
       blankButton.doThis((var1x, var2x) -> {
          ConfigScreen var5x = (ConfigScreen)this.getParent();
          var5x.method13612();
       });
-      TextButton var10;
+      UIButton var10;
       this.addToList(
-         var10 = new TextButton(
+         var10 = new UIButton(
             this,
             "dupeButton",
             var5 - 25 - ResourceRegistry.JelloLightFont20.getWidth("Duplicate"),

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.util.game.player.tracker;
 import com.google.gson.JsonArray;
 import com.mentalfrostbyte.jello.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializer;
+import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
@@ -25,7 +25,7 @@ public class SigmaIRC {
 
     public SigmaIRC() {
         EventBus.register(this);
-        ModuleSettingInitializer.field8342 = ModuleSettingInitializer.field8342 | Client.getInstance().networkManager.field38425 != null;
+        ModuleSettingInitializr.field8342 = ModuleSettingInitializr.field8342 | Client.getInstance().networkManager.field38425 != null;
     }
 
     public static Minecraft method29522(SigmaIRC var0) {

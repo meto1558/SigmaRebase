@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.gui.base;
 
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import totalcross.json.JSONObject;
 import net.minecraft.client.Minecraft;
 

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
-import com.mentalfrostbyte.jello.util.client.JelloPortal;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;

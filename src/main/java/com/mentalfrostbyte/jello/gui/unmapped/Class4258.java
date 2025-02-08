@@ -1,8 +1,7 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
@@ -17,7 +16,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class Class4258 extends Element {
+public class Class4258 extends UIBase {
    private final List<String> field20641 = new ArrayList<String>();
    private ScrollableContentPanel field20642;
    private final TextField field20643;

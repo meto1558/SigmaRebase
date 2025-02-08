@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
 
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class Class4284 extends AnimatedIconPanel {
+public class Class4284 extends AnimatedIconPanelWrap {
    private static String[] field20767;
    public final int field20768;
 

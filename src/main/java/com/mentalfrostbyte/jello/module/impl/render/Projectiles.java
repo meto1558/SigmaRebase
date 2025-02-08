@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9110;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.FloatVector4;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.ProjectileThingy;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;

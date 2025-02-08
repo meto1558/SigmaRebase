@@ -1,17 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
-import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.Element;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.Button;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextButton;
-import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.Class9073;
+import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.TextField;
+import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.BadgeSelect;
-import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -24,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WaypointPanel extends Element {
+public class WaypointPanel extends UIBase {
    private List<Button> field20723 = new ArrayList<Button>();
    private final Date field20724;
    private boolean field20725 = false;
@@ -48,9 +45,9 @@ public class WaypointPanel extends Element {
       this.field20724 = new Date();
       this.method13292(true);
       this.setListening(false);
-      TextButton var8;
+      UIButton var8;
       this.addToList(
-         var8 = new TextButton(
+         var8 = new UIButton(
             this,
             "addButton",
             this.widthA - 66,

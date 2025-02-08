@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
-import com.mentalfrostbyte.jello.util.system.StringUtil;
+import com.mentalfrostbyte.jello.gui.impl.others.Class8906;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -161,9 +161,9 @@ public class HypixelStep extends Module {
 
     private void sendBlinkingStatusMessage() {
         if (isBlinking) {
-            StringUtil.method32487("Blinking is now enabled.");
+            Class8906.method32487("Blinking is now enabled.");
         } else {
-            StringUtil.method32487("Blinking is now disabled.");
+            Class8906.method32487("Blinking is now disabled.");
         }
     }
 
