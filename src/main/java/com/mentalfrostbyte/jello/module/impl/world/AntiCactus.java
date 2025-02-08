@@ -16,7 +16,7 @@ public class AntiCactus extends Module {
     }
 
     @EventTarget
-    private void EventBlockCollision(EventBlockCollision event) {
+    public void EventBlockCollision(EventBlockCollision event) {
         if (this.isEnabled()) {
             if (mc.world.getBlockState(event.getBlockPos()).getBlock() instanceof CactusBlock) {
                 event.setBoxelShape(VoxelShapes.create(0.0, 0.0, 0.0, 1.0, !this.getBooleanValueFromSettingName("Above") ? 0.9375 : 0.999, 1.0));
