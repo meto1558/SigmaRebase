@@ -144,15 +144,16 @@ public class MinibloxGamePlay extends Module {
 //                        }
 //                    }
 
-                    if (text.toLowerCase().contains("was slain by " + playerName)
-                            || (text.toLowerCase().contains("has been eliminated by") && text.toLowerCase().endsWith(playerName + "!"))
-                            || text.toLowerCase().contains("burned to death while fighting " + playerName)
-                            || text.toLowerCase().contains("was shot by " + playerName)
-                            || text.toLowerCase().contains("burnt to a crisp while fighting " + playerName)
-                            || text.toLowerCase().contains("couldn't fly while escaping " + playerName)
-                            || text.toLowerCase().contains("thought they could survive in the void while escaping " + playerName)
-                            || text.toLowerCase().contains("fell to their death while escaping " + playerName)
-                            || text.toLowerCase().contains("died in the void while escaping " + playerName)) {
+                    String lowerCaseText = text.toLowerCase();
+                    if (lowerCaseText.contains("was slain by " + playerName)
+                            || (lowerCaseText.contains("has been eliminated by") && lowerCaseText.endsWith(playerName + "!"))
+                            || lowerCaseText.contains("burned to death while fighting " + playerName)
+                            || lowerCaseText.contains("was shot by " + playerName)
+                            || lowerCaseText.contains("burnt to a crisp while fighting " + playerName)
+                            || lowerCaseText.contains("couldn't fly while escaping " + playerName)
+                            || lowerCaseText.contains("thought they could survive in the void while escaping " + playerName)
+                            || lowerCaseText.contains("fell to their death while escaping " + playerName)
+                            || lowerCaseText.contains("died in the void while escaping " + playerName)) {
                         this.parentModule.processAutoLMessage(text);
                     }
                 }
