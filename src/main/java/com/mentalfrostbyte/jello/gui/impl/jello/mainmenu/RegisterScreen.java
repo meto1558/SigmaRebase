@@ -33,7 +33,7 @@ public class RegisterScreen extends Screen {
     private AccountSignUpScreen field21089;
     private Alert field21090;
     private TextButton field21091;
-    private boolean field21092 = false;
+    private boolean loggedIn = false;
     private Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
 
     public RegisterScreen() {
@@ -76,7 +76,7 @@ public class RegisterScreen extends Screen {
         );
         this.field21091.setEnabled(false);
         this.field21088.onPress(var1 -> {
-            this.field21092 = true;
+            this.loggedIn = true;
             this.field21091.setEnabled(true);
         });
         this.field21091.doThis((var0, var1) -> Minecraft.getInstance().displayGuiScreen(new MainMenuHolder()));
@@ -118,13 +118,13 @@ public class RegisterScreen extends Screen {
     public void draw(float partialTicks) {
         Resources.cancelIconPNG.bind();
         this.field21085 = Math.max(0.0F, Math.min(this.field21085 + 0.075F, 1.0F));
-        if (this.field21092) {
+        if (this.loggedIn) {
             this.field21093.changeDirection(Animation.Direction.FORWARDS);
         }
 
         this.method13425();
         float var4 = (float) Math.sin((double) QuadraticEasing.easeOutQuad(this.field21085, 0.0F, 1.0F, 1.0F) * Math.PI / 2.0);
-        if (this.field21092) {
+        if (this.loggedIn) {
             var4 = 1.0F
                     - (float) Math.sin((Math.PI / 2) + (double) QuadraticEasing.easeInOutQuad(1.0F - this.field21093.calcPercent(), 0.0F, 1.0F, 1.0F) * (Math.PI / 2)) * 0.2F;
         }
@@ -148,12 +148,12 @@ public class RegisterScreen extends Screen {
             );
         }
 
-        if (this.field21092 && this.field21093.calcPercent() == 1.0F) {
+        if (this.loggedIn && this.field21093.calcPercent() == 1.0F) {
             this.field21088.setEnabled(false);
         }
 
-        if (this.field21092) {
-            String username = Client.getInstance().networkManager.encryptor.username;
+        if (this.loggedIn && Client.getInstance().networkManager.account != null) {
+            String username = Client.getInstance().networkManager.account.username;
             String welcomeBackSign = "Welcome back";
             int var8 = 100;
             int var9 = 10;

@@ -6,10 +6,10 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 
 public class PremiumChecker implements Runnable
 {
-    private final boolean field8286;
+    private final boolean premium;
     
-    public PremiumChecker(final boolean field8286) {
-        this.field8286 = field8286;
+    public PremiumChecker(final boolean premium) {
+        this.premium = premium;
     }
     
     @Override
@@ -24,7 +24,7 @@ public class PremiumChecker implements Runnable
                     break;
                 }
             }
-            NetworkManager.premium = this.field8286;
+            NetworkManager.premium = this.premium;
             break;
         }
     }

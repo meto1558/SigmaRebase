@@ -85,18 +85,18 @@ public class AccountSignUpScreen extends Element {
         RenderUtil.drawImage((float) (this.xA + var4), (float) (this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
         int var5 = 305;
         int var6 = 316;
-        CaptchaChecker var7 = Client.getInstance().networkManager.getCaptcha();
-        if (var7 != null) {
-            this.captchaBox.setEnabled(var7.isActuallyCompleted());
-            if (var7.isActuallyCompleted()) {
+        CaptchaChecker captcha = Client.getInstance().networkManager.getCaptcha();
+        if (captcha != null) {
+            this.captchaBox.setEnabled(captcha.isActuallyCompleted());
+            if (captcha.isActuallyCompleted()) {
                 RenderUtil.drawRoundedRect2(
                         (float) (this.xA + var6), (float) (this.yA + var5), 114.0F, 40.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
                 );
             }
 
-            if (var7.getCaptchaImage() != null) {
+            if (captcha.getCaptchaImage() != null) {
                 RenderUtil.startScissor((float) (this.xA + var6), (float) (this.yA + var5), 190.0F, 50.0F);
-                RenderUtil.drawImage((float) (this.xA + var6), (float) (this.yA + var5), 190.0F, 190.0F, var7.getCaptchaImage());
+                RenderUtil.drawImage((float) (this.xA + var6), (float) (this.yA + var5), 190.0F, 190.0F, captcha.getCaptchaImage());
                 RenderUtil.endScissor();
             }
         }

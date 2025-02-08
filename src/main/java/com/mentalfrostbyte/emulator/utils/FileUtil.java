@@ -23,14 +23,4 @@ public class FileUtil {
         return outputStream.toString();
     }
 
-    public static String readInputStream(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, length);
-        }
-        return byteArrayOutputStream.toString("UTF-8");  // Convert the byte array to a string
-    }
-
 }
