@@ -7,6 +7,8 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -29,6 +31,8 @@ import java.util.Objects;
 public class MinibloxClickTP extends Module {
     private final List<Vector3d> positions = new ArrayList<>();
     private final TimerUtil timer = new TimerUtil();
+    private final BooleanSetting doFunnyMoves;
+    private final NumberSetting<Integer> funnyMovements;
     private double targetX;
     private double targetZ;
     private boolean teleporting;
@@ -38,6 +42,18 @@ public class MinibloxClickTP extends Module {
 
     public MinibloxClickTP() {
         super(ModuleCategory.MOVEMENT, "Miniblox", "Click TP for Miniblox");
+        this.registerSetting(this.doFunnyMoves = new BooleanSetting(
+                "Funny movement packets",
+                "In hopes that Miniblox will lagback us where we teleported to",
+                true
+        ));
+        this.registerSetting(this.funnyMovements = new NumberSetting<>(
+                "Funny movements",
+                "Number of funny movements to make",
+                6,
+                Integer.class,
+                1, 300, 1
+        ));
     }
 
     @Override
@@ -74,20 +90,21 @@ public class MinibloxClickTP extends Module {
 
         this.positions.add(new Vector3d(targetX, targetY, targetZ));
         mc.player.setPosition(targetX, targetY, targetZ);
-        for (int i = 0; i < 6; i++) {
-            Vector3d pos = new Vector3d(targetX + (i * i % 2 == 0 ? 0.2 : -0.2),
-                    targetY + (i * 1.12),
-                    targetZ + (i * (i % 2 == 0 ? 0.3 : -0.3)));
-            this.positions.add(pos);
-            Objects.requireNonNull(mc.getConnection()).sendPacket(
-                    new CPlayerPacket.PositionPacket(
-                            pos.x,
-                            pos.y,
-                            pos.z,
-                            false
-                    )
-            );
-        }
+        if (this.doFunnyMoves.currentValue)
+            for (int i = 0; i < this.funnyMovements.currentValue; i++) {
+                Vector3d pos = new Vector3d(targetX + (i * i % 2 == 0 ? 0.2 : -0.2),
+                        targetY + (i * 1.12),
+                        targetZ + (i * (i % 2 == 0 ? 0.3 : -0.3)));
+                this.positions.add(pos);
+                Objects.requireNonNull(mc.getConnection()).sendPacket(
+                        new CPlayerPacket.PositionPacket(
+                                pos.x,
+                                pos.y,
+                                pos.z,
+                                false
+                        )
+                );
+            }
         teleporting = true;
         mc.player.setPosition(targetX, targetY, targetZ);
         mc.player.setMotion(mc.player.getMotion().x, 0.42f, mc.player.getMotion().z);
