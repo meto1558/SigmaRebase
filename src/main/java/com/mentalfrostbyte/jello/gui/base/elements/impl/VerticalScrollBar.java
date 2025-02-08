@@ -1,13 +1,13 @@
-package com.mentalfrostbyte.jello.gui.impl.others.buttons;
+package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
 import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4288;
 import com.mentalfrostbyte.jello.gui.unmapped.Class4293;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import totalcross.json.CJsonUtils;
 import totalcross.json.JSONObject;
 
-public class VerticalScrollBar extends AnimatedIconPanelWrap implements Class4293 {
+public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
    public int field20793;
    public float field20794;
    public boolean field20795;

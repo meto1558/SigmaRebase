@@ -1,10 +1,10 @@
-package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
+package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.impl.others.Class8906;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.util.system.StringUtil;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -18,7 +18,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextField extends AnimatedIconPanelWrap {
+public class TextField extends AnimatedIconPanel {
    public static final ColorHelper field20741 = new ColorHelper(
       -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
    );
@@ -78,7 +78,7 @@ public class TextField extends AnimatedIconPanelWrap {
       this.field20744 = this.field20744 + ((!this.field20905 ? 0.0F : 1.0F) - this.field20744) / 2.0F;
       if (this.field20905) {
          if (this.field20752) {
-            this.maxLen = Class8906.getStringLen(text, this.font, (float)this.method13271(), newHeight, this.field20746);
+            this.maxLen = StringUtil.getStringLen(text, this.font, (float)this.method13271(), newHeight, this.field20746);
          }
       } else {
          this.maxLen = 0;
@@ -107,7 +107,7 @@ public class TextField extends AnimatedIconPanelWrap {
          }
 
          this.field20752 = true;
-         this.maxLen = Class8906.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
+         this.maxLen = StringUtil.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
          if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
             && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
             this.field20750 = this.maxLen;
@@ -166,7 +166,7 @@ public class TextField extends AnimatedIconPanelWrap {
 
                   if (var12 != "") {
                      if (this.field20750 != this.field20751) {
-                        this.typedText = Class8906.method32493(this.typedText, var12, this.field20750, this.field20751);
+                        this.typedText = StringUtil.method32493(this.typedText, var12, this.field20750, this.field20751);
                         if (this.maxLen > this.field20750) {
                            this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                         }
@@ -174,7 +174,7 @@ public class TextField extends AnimatedIconPanelWrap {
                         this.maxLen = this.maxLen + var12.length();
                         this.field20750 = this.maxLen;
                      } else {
-                        this.typedText = Class8906.method32492(this.typedText, var12, this.maxLen);
+                        this.typedText = StringUtil.method32492(this.typedText, var12, this.maxLen);
                         this.maxLen = this.maxLen + var12.length();
                         this.field20750 = this.maxLen;
                      }
@@ -189,7 +189,7 @@ public class TextField extends AnimatedIconPanelWrap {
                      Minecraft.getInstance().getMainWindow().getHandle(),
                      this.typedText.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
                   );
-                  this.typedText = Class8906.method32493(this.typedText, "", this.field20750, this.field20751);
+                  this.typedText = StringUtil.method32493(this.typedText, "", this.field20750, this.field20751);
                   if (this.maxLen > this.field20750) {
                      this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                   }
@@ -205,7 +205,7 @@ public class TextField extends AnimatedIconPanelWrap {
             case 259:
                if (this.typedText.length() > 0) {
                   if (this.field20750 != this.field20751) {
-                     this.typedText = Class8906.method32493(this.typedText, "", this.field20750, this.field20751);
+                     this.typedText = StringUtil.method32493(this.typedText, "", this.field20750, this.field20751);
                      if (this.maxLen > this.field20750) {
                         this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                      }
@@ -220,11 +220,11 @@ public class TextField extends AnimatedIconPanelWrap {
                      }
 
                      if (var11 != -1) {
-                        this.typedText = Class8906.method32493(this.typedText, "", var11, this.maxLen);
+                        this.typedText = StringUtil.method32493(this.typedText, "", var11, this.maxLen);
                         this.maxLen = var11;
                      }
                   } else {
-                     this.typedText = Class8906.method32493(this.typedText, "", this.maxLen - 1, this.maxLen);
+                     this.typedText = StringUtil.method32493(this.typedText, "", this.maxLen - 1, this.maxLen);
                      this.maxLen--;
                   }
 
@@ -314,11 +314,11 @@ public class TextField extends AnimatedIconPanelWrap {
    @Override
    public void charTyped(char typed) {
       super.charTyped(typed);
-      if (this.method13297() && Class8906.method32486(typed)) {
+      if (this.method13297() && StringUtil.method32486(typed)) {
          if (this.field20750 == this.field20751) {
-            this.typedText = Class8906.method32492(this.typedText, Character.toString(typed), this.maxLen);
+            this.typedText = StringUtil.method32492(this.typedText, Character.toString(typed), this.maxLen);
          } else {
-            this.typedText = Class8906.method32493(this.typedText, Character.toString(typed), this.field20750, this.field20751);
+            this.typedText = StringUtil.method32493(this.typedText, Character.toString(typed), this.field20750, this.field20751);
          }
 
          this.maxLen++;

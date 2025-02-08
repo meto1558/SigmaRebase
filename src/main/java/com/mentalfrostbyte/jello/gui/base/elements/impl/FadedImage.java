@@ -1,11 +1,10 @@
-package com.mentalfrostbyte.jello.gui.impl.others.buttons;
+package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.SwitchScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Button;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.impl.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.combined.LoadingScreen;
+import com.mentalfrostbyte.jello.gui.impl.combined.SwitchScreen;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -13,12 +12,12 @@ import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
-public class FadedImageButton extends Button {
+public class FadedImage extends Button {
     private final Texture field20590;
     private final Animation field20592 = new Animation(150, 190, Animation.Direction.BACKWARDS);
     private boolean field20591;
 
-    public FadedImageButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
+    public FadedImage(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
         super(var1, var2, var3, var4, var5, var6);
         this.field20590 = var7;
     }
