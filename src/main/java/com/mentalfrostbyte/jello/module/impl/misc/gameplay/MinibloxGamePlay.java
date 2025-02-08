@@ -13,6 +13,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.*;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
+import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -22,6 +23,7 @@ public class MinibloxGamePlay extends Module {
     private final ModeSetting autoVoteMode;
     private final BooleanSetting autoVote;
     private final BooleanSetting autoBuy;
+    private final BooleanSetting oldTranslationLayerCompat;
     private GamePlay parentModule;
 //    private final ModeSetting kitPvPKit;
 
@@ -35,6 +37,11 @@ public class MinibloxGamePlay extends Module {
                         true
                 )
         );
+        registerSetting(this.oldTranslationLayerCompat = new BooleanSetting(
+                "Archived Translation Layer Compatibility (7GrandDadPGN's Translation Layer)",
+                "Tries to be compatible with the archived Miniblox Translation Layer by 7GrandDadPGN",
+                false
+        ));
         registerSetting(
                 this.autoVoteMode = new ModeSetting(
                         "Mode",
@@ -88,9 +95,9 @@ public class MinibloxGamePlay extends Module {
             IPacket<?> packet = event.getPacket();
             if (packet instanceof SChatPacket chatPacket) {
                 String text = chatPacket.getChatComponent().getString().replaceAll("§.", "");
-//                if (chatPacket.getType() != ChatType.SYSTEM && chatPacket.getType() != ChatType.GAME_INFO) {
-//                    return;
-//                }
+                if (!oldTranslationLayerCompat.currentValue && chatPacket.getType() != ChatType.SYSTEM) {
+                    return;
+                }
 
                 String playerName = mc.player.getName().getString().toLowerCase();
 
