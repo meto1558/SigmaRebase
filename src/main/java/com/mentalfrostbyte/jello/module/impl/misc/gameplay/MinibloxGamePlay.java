@@ -24,6 +24,8 @@ public class MinibloxGamePlay extends Module {
     private final BooleanSetting autoVote;
     private final BooleanSetting autoBuy;
     private final BooleanSetting oldTranslationLayerCompat;
+    private final InputSetting username;
+    private final BooleanSetting useCustomUsername;
     private GamePlay parentModule;
 //    private final ModeSetting kitPvPKit;
 
@@ -42,6 +44,20 @@ public class MinibloxGamePlay extends Module {
                 "Tries to be compatible with the archived Miniblox Translation Layer by 7GrandDadPGN",
                 false
         ));
+        registerSetting(
+                this.useCustomUsername = new BooleanSetting(
+                        "Use custom username",
+                        "Check this custom username instead of your session/Minecraft account's username?",
+                        false
+                )
+        );
+        registerSetting(
+                this.username = new InputSetting(
+                        "Username (if custom username enabled)",
+                        "Your Miniblox username",
+                        ""
+                )
+        );
         registerSetting(
                 this.autoVoteMode = new ModeSetting(
                         "Mode",
@@ -99,7 +115,9 @@ public class MinibloxGamePlay extends Module {
                     return;
                 }
 
-                String playerName = mc.player.getName().getString().toLowerCase();
+                String playerName =
+                        (useCustomUsername.currentValue ? username.currentValue : mc.player.getName().getString())
+                                .toLowerCase();
 
                 if (autoVote.currentValue && text.equals("Poll started: Choose a gamemode")) {
                     switch (autoVoteMode.currentValue) {
