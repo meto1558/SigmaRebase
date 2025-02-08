@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello.esp;
 
-
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
