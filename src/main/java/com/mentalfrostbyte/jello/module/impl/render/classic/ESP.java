@@ -10,10 +10,8 @@ public class ESP extends ModuleWithModuleSettings {
         super(ModuleCategory.RENDER,
                 "ESP",
                 "See entities anywhere anytime",
-                new FillESP(),
                 new TwoDESP(),
                 new BoxOutlineESP(),
-                new SkeletonESP(),
                 new VanillaESP());
         this.registerSetting(new BooleanSetting("Show Players", "Draws a line arround players", true));
         this.registerSetting(new BooleanSetting("Show Mobs", "Draws a line arround hostile creatures", false));
