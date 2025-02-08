@@ -306,24 +306,24 @@ public class ModuleManager {
         return json;
     }
 
-    public void method14659(JSONObject var1) {
-        String var4 = null;
+    public void loadProfileFromJSON(JSONObject json) {
+        String profileName = null;
 
         try {
-            var4 = var1.getString("profile");
+            profileName = json.getString("profile");
         } catch (JSONException ignored) {
         }
 
         if (Client.getInstance().clientMode == ClientMode.CLASSIC) {
-            var4 = "Classic";
+            profileName = "Classic";
         }
 
         this.profile = new ProfileManager();
         this.jelloTouch = new JelloTouch();
 
         try {
-            this.profile.loadProfile(var4);
-            this.jelloTouch.method13732(var1);
+            this.profile.loadProfile(profileName);
+            this.jelloTouch.method13732(json);
         } catch (IOException var6) {
             Client.getInstance().getLogger().warn("Could not load profiles!");
             var6.printStackTrace();

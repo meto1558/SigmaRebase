@@ -174,15 +174,15 @@ public class Client {
         }
     }
 
-    public void addTexture(Texture var1) {
-        textureList.add(var1);
+    public void addTexture(Texture texture) {
+        textureList.add(texture);
     }
 
     public void renderVisuals() {
         if (!textureList.isEmpty()) {
             try {
-                for (Texture var4 : textureList) {
-                    var4.release();
+                for (Texture texture : textureList) {
+                    texture.release();
                 }
 
                 textureList.clear();
@@ -191,8 +191,8 @@ public class Client {
         }
 
         if (getInstance().clientMode != ClientMode.NOADDONS) {
-            double var5 = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
-            GL11.glScaled(var5, var5, 1.0);
+            double scaleFactor = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+            GL11.glScaled(scaleFactor, scaleFactor, 1.0);
             GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, 1.0);
             RenderSystem.disableDepthTest();
             RenderSystem.pushMatrix();
@@ -245,7 +245,7 @@ public class Client {
         if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
-            this.moduleManager.method14659(this.config);
+            this.moduleManager.loadProfileFromJSON(this.config);
             this.moduleManager.saveCurrentConfigToJSON(this.config);
         }
     }

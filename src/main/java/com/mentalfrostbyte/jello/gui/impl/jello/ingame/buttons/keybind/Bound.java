@@ -10,8 +10,8 @@ public class Bound {
    private int key = -1;
    private Object target;
 
-   public Bound(JSONObject var1) {
-      this.loadFromJSON(var1);
+   public Bound(JSONObject json) {
+      this.loadFromJSON(json);
    }
 
    public Bound(int key, Module target) {
@@ -35,15 +35,15 @@ public class Bound {
                String var4 = from.getString("type");
                switch (var4) {
                   case "mod":
-                     for (Module var7 : Client.getInstance().moduleManager.getModuleMap().values()) {
-                        if (from.getString("target").equals(var7.getName())) {
-                           this.target = var7;
+                     for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
+                        if (from.getString("target").equals(module.getName())) {
+                           this.target = module;
                         }
                      }
                   case "screen":
-                     Class var8 = Client.getInstance().guiManager.method33477(from.getString("target"));
-                     if (var8 != null) {
-                        this.target = var8;
+                     Class screen = Client.getInstance().guiManager.method33477(from.getString("target"));
+                     if (screen != null) {
+                        this.target = screen;
                      }
                }
             }
@@ -77,8 +77,8 @@ public class Bound {
       return this.key;
    }
 
-   public void setKey(int var1) {
-      this.key = var1;
+   public void setKey(int key) {
+      this.key = key;
    }
 
    public KeybindTypes getKeybindTypes() {
@@ -100,9 +100,8 @@ public class Bound {
    @Override
    public boolean equals(Object to) {
       if (to != this) {
-         if (to instanceof Bound) {
-            Bound other = (Bound)to;
-            return this.getTarget().equals(other.getTarget());
+         if (to instanceof Bound other) {
+             return this.getTarget().equals(other.getTarget());
          } else {
             return false;
          }
