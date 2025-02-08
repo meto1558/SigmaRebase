@@ -21,64 +21,8 @@ import java.nio.ByteBuffer;
 public class ImageUtil {
 
     public static String getSkinUrlByID(String uuid) throws Exception {
-        // Build the URL for the latest Minecraft profile endpoint
-        URL profileURL = new URL("https://api.mojang.com/user/profiles/" + uuid + "/names");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(profileURL.openStream()));
-        StringBuilder stringBuilder = new StringBuilder();
-
-        // Read the response content
-        String line;
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-
-        // The profile response is a JSON array of names
-        String response = stringBuilder.toString();
-
-        // We now fetch the profile with the most recent name and the skin texture
-        URL profileTextureURL = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
-        BufferedReader profileReader = new BufferedReader(new InputStreamReader(profileTextureURL.openStream()));
-        StringBuilder profileStringBuilder = new StringBuilder();
-
-        // Read the profile details
-        String profileLine;
-        while ((profileLine = profileReader.readLine()) != null) {
-            profileStringBuilder.append(profileLine);
-        }
-
-        // Parse the profile JSON response
-        String profileJson = profileStringBuilder.toString();
-        JSONObject profile = new JSONObject(profileJson);
-
-        String skinUrl = "";
-
-        // Loop through the 'properties' section to find the skin texture
-        for (Object property : profile.getJSONArray("properties")) {
-            JSONObject propertyObj = (JSONObject) property;
-            if ("textures".equals(propertyObj.getString("name"))) {
-                String value = propertyObj.getString("value");
-
-                // Decode the Base64 value to get the texture data
-                if (Base64.isBase64(value)) {
-                    String decoded = new String(Base64.decodeBase64(value));
-                    JSONObject textureJson = new JSONObject(decoded);
-
-                    // Fetch the skin URL
-                    if (textureJson.has("textures")) {
-                        JSONObject textures = textureJson.getJSONObject("textures");
-                        if (textures.has("SKIN")) {
-                            skinUrl = textures.getJSONObject("SKIN").getString("url");
-                        }
-                    }
-                }
-            }
-        }
-
-        // Return the skin URL
-        System.out.println(skinUrl);
-        return skinUrl;
+        return "https://crafatar.com/skins/" + uuid;
     }
-
 
     public static BufferedImage applyBlur(BufferedImage image, int amount) {
         if (image != null) {
