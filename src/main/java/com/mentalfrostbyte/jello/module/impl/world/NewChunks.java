@@ -25,7 +25,7 @@ public class NewChunks extends Module {
     }
 
     @EventTarget
-    private void onReceivePacket(EventReceivePacket event) {
+    public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (event.getPacket() instanceof SChunkDataPacket) {
                 SChunkDataPacket packet = (SChunkDataPacket) event.getPacket();
@@ -38,7 +38,7 @@ public class NewChunks extends Module {
     }
 
     @EventTarget
-    private void onRender3D(EventRender3D event) {
+    public void onRender3D(EventRender3D event) {
         if (this.isEnabled()) {
             for (Iterator<ChunkPos> iterator = this.updatedChunks.iterator(); iterator.hasNext(); iterator.remove()) {
                 ChunkPos chunkPos = iterator.next();
