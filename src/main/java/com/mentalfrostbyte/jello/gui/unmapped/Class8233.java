@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.mentalfrostbyte.jello.Client;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class6353;
 import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
 import com.mentalfrostbyte.jello.module.Module;
 import org.apache.commons.io.IOUtils;

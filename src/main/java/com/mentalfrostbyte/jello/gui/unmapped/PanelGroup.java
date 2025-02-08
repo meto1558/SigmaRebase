@@ -1,9 +1,10 @@
 package com.mentalfrostbyte.jello.gui.unmapped;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class9476;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -41,7 +42,7 @@ public class PanelGroup extends AnimatedIconPanel {
 
    private void method13505() {
       this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
-      this.modListView.setSize(new CustomGuiScreenWidthSetter());
+      this.modListView.setSize(new ModListViewSize());
       this.modListView.setSize((var0, var1) -> {
          var0.setYA(60);
          var0.setHeightA(var1.getHeightA() - 60);

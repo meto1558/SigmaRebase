@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons;
 
 import java.awt.Color;
+import java.util.Random;
 
-import com.mentalfrostbyte.jello.gui.unmapped.Class2421;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import org.lwjgl.opengl.GL11;
 
@@ -17,7 +17,7 @@ public class Particle {
    private float field45028;
    private boolean field45029;
    private float field45030 = 1.0F;
-   private Class2421 random = new Class2421();
+   private Random random = new Random();
    private float field45032 = 1.0F;
    public float field45033;
    public Color field45034 = new Color(1.0F, 1.0F, 1.0F, 0.5F);

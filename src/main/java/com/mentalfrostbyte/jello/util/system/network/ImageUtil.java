@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.system.network;
 
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.codec.binary.Base64;
 import org.lwjgl.BufferUtils;

@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4277;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Class4277;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
@@ -35,7 +35,7 @@ public class Class4345 extends ScrollableContentPanel {
     }
 
     private int renderModuleSettings(CustomGuiScreen screen, Setting setting, int x, int y, int value) {
-        com.mentalfrostbyte.jello.gui.unmapped.Text name = new com.mentalfrostbyte.jello.gui.unmapped.Text(screen, setting.getName() + "lbl", x, y, 0, 0, com.mentalfrostbyte.jello.gui.unmapped.Text.defaultColorHelper, setting.getName(), this.settingsNameFont);
+        com.mentalfrostbyte.jello.gui.base.elements.impl.Text name = new com.mentalfrostbyte.jello.gui.base.elements.impl.Text(screen, setting.getName() + "lbl", x, y, 0, 0, com.mentalfrostbyte.jello.gui.base.elements.impl.Text.defaultColorHelper, setting.getName(), this.settingsNameFont);
         com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Text description = new com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Text(screen, setting.getName() + "desc", x + 195, y + 4, 330, 18, setting);
         screen.addToList(name);
         screen.addToList(description);
@@ -144,8 +144,8 @@ public class Class4345 extends ScrollableContentPanel {
     }
 
     private void method13511() {
-        com.mentalfrostbyte.jello.gui.unmapped.Text var3 = new com.mentalfrostbyte.jello.gui.unmapped.Text(
-                this, "settingsname", 12, 2, this.widthA, 20, com.mentalfrostbyte.jello.gui.unmapped.Text.defaultColorHelper, this.module.getFormattedName() + " Settings", this.settingsNameFont
+        com.mentalfrostbyte.jello.gui.base.elements.impl.Text var3 = new com.mentalfrostbyte.jello.gui.base.elements.impl.Text(
+                this, "settingsname", 12, 2, this.widthA, 20, com.mentalfrostbyte.jello.gui.base.elements.impl.Text.defaultColorHelper, this.module.getFormattedName() + " Settings", this.settingsNameFont
         );
         this.addToList(var3);
         int var6 = 35;
@@ -176,7 +176,7 @@ public class Class4345 extends ScrollableContentPanel {
             moduleWithModuleSettings.calledOnEnable();
         }
 
-        this.addToList(new com.mentalfrostbyte.jello.gui.unmapped.Text(this, "lbl", 5, 200, 0, 33, com.mentalfrostbyte.jello.gui.unmapped.Text.defaultColorHelper, this.typedText));
+        this.addToList(new com.mentalfrostbyte.jello.gui.base.elements.impl.Text(this, "lbl", 5, 200, 0, 33, com.mentalfrostbyte.jello.gui.base.elements.impl.Text.defaultColorHelper, this.typedText));
     }
 
     public void method13556() {

@@ -1,18 +1,22 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.LoginButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.PremiumButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Text;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.viamcp.protocolinfo.ProtocolInfo;
 import net.minecraft.client.Minecraft;
@@ -31,12 +35,12 @@ public class JelloMainMenu extends CustomGuiScreen {
     private final Button realmsButton;
     private final Button optionsButton;
     private final Button altManagerButton;
-    private final GetPremiumButton premiumButton;
+    private final PremiumButton premiumButton;
     private final Text field21129;
     private final Text field21130;
-    private final TextButtonWithImage loginButton;
-    private final UIButton changelogButton;
-    private final UIButton field21133;
+    private final LoginButton loginButton;
+    private final TextButton changelogButton;
+    private final TextButton field21133;
     public int field21134 = 0;
 
     public JelloMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
@@ -141,12 +145,12 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.field21130.field20779 = true;
         this.field21129.field20779 = true;
         this.addToList(
-                this.changelogButton = new UIButton(
+                this.changelogButton = new TextButton(
                         this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
                 )
         );
         this.addToList(
-                this.field21133 = new UIButton(
+                this.field21133 = new TextButton(
                         this, "quit", 30, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
                 )
         );
@@ -161,11 +165,11 @@ public class JelloMainMenu extends CustomGuiScreen {
                 }
             }).start();
         });
-        this.addToList(this.loginButton = new TextButtonWithImage(this, "Account", 0, var19, 0, var18, "Log in"));
-        this.addToList(this.premiumButton = new GetPremiumButton(this, "pre", 0, 0, 240, 100));
+        this.addToList(this.loginButton = new LoginButton(this, "Account", 0, var19, 0, var18, "Log in"));
+        this.addToList(this.premiumButton = new PremiumButton(this, "pre", 0, 0, 240, 100));
         this.premiumButton.method13247((var1x, var2x) -> {
             if (Client.getInstance().networkManager.encryptor != null) {
-                ((MainMenuScreen)this.getParent()).animateNext();
+                ((MainMenuScreen) this.getParent()).animateNext();
             } else {
                 this.displayScreen(new RegisterScreen());
             }
@@ -178,7 +182,7 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.realmsButton.doThis((var1x, var2x) -> this.method13443());
         this.loginButton.doThis((var1x, var2x) -> {
             if (Client.getInstance().networkManager.encryptor != null) {
-                ((MainMenuScreen)this.getParent()).logout();
+                ((MainMenuScreen) this.getParent()).logout();
             } else {
                 this.displayScreen(new RegisterScreen());
             }

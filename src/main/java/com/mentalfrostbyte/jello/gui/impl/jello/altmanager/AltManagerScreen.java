@@ -1,17 +1,23 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.altmanager;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
+import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Dropdown;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
-import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.sorting.AccountCompareType;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathUtils;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -32,7 +38,7 @@ public class AltManagerScreen extends Screen {
    private float field21006;
    private float field21007 = 0.75F;
    private boolean field21008 = true;
-   public UIButton field21009;
+   public TextButton field21009;
    private ScrollableContentPanel field21010;
    private ScrollableContentPanel field21011;
    private AlertPanel loginDialog;
@@ -40,12 +46,12 @@ public class AltManagerScreen extends Screen {
    private float field21014 = 0.65F;
    private float field21015 = 1.0F - this.field21014;
    private int titleOffset = 30;
-   private Class4298 field21017;
-   private Class4296 field21018;
+   private Head field21017;
+   private Info field21018;
    public AccountManager accountManager = Client.getInstance().accountManager;
    private Texture field21020;
    private float field21021;
-   private UIButton field21022;
+   private TextButton field21022;
    private AccountCompareType field21023 = AccountCompareType.DateAdded;
    private String field21024 = "";
    private boolean field21025 = false;
@@ -99,7 +105,7 @@ public class AltManagerScreen extends Screen {
       this.field21010.method13515(false);
       this.field21011
          .addToList(
-            this.field21017 = new Class4298(
+            this.field21017 = new Head(
                this.field21011,
                "",
                (int)(
@@ -116,7 +122,7 @@ public class AltManagerScreen extends Screen {
          );
       this.field21011
          .addToList(
-            this.field21018 = new Class4296(
+            this.field21018 = new Info(
                this.field21011,
                "info",
                (int)(
@@ -171,7 +177,7 @@ public class AltManagerScreen extends Screen {
       );
       this.field21026.setFont(ResourceRegistry.JelloLightFont18);
       this.field21026.method13151(var1 -> this.method13372(false));
-      this.addToList(this.field21022 = new UIButton(this, "btnt", this.getWidthA() - 90, 43, 70, 30, ColorHelper.field27961, "Add +", ResourceRegistry.JelloLightFont25));
+      this.addToList(this.field21022 = new TextButton(this, "btnt", this.getWidthA() - 90, 43, 70, 30, ColorHelper.field27961, "Add +", ResourceRegistry.JelloLightFont25));
       this.field21010.method13242();
       this.field21022.doThis((var1, var2) -> {
          if (this.method13369()) {
@@ -258,12 +264,12 @@ public class AltManagerScreen extends Screen {
    }
 
    private void getLoginDialog() {
-      MiniAlert header = new MiniAlert(AlertType.HEADER, "Add Alt", 50);
-      MiniAlert firstline1 = new MiniAlert(AlertType.FIRST_LINE, "Login with your minecraft", 15);
-      MiniAlert firstline2 = new MiniAlert(AlertType.FIRST_LINE, "account here!", 25);
-      MiniAlert emailInput = new MiniAlert(AlertType.SECOND_LINE, "Email", 50);
-      MiniAlert passwordInput = new MiniAlert(AlertType.SECOND_LINE, "Password", 50);
-      MiniAlert button = new MiniAlert(AlertType.BUTTON, "Add alt", 50);
+      AlertComponent header = new AlertComponent(ComponentType.HEADER, "Add Alt", 50);
+      AlertComponent firstline1 = new AlertComponent(ComponentType.FIRST_LINE, "Login with your minecraft", 15);
+      AlertComponent firstline2 = new AlertComponent(ComponentType.FIRST_LINE, "account here!", 25);
+      AlertComponent emailInput = new AlertComponent(ComponentType.SECOND_LINE, "Email", 50);
+      AlertComponent passwordInput = new AlertComponent(ComponentType.SECOND_LINE, "Password", 50);
+      AlertComponent button = new AlertComponent(ComponentType.BUTTON, "Add alt", 50);
       this.addToList(this.loginDialog = new AlertPanel(this, "Testt", true, "Add Alt", header, firstline1, firstline2, emailInput, passwordInput, button));
       this.loginDialog.onPress(var1 -> {
          if (!this.loginDialog.getInputMap().get("Email").contains(":")) {
@@ -292,10 +298,10 @@ public class AltManagerScreen extends Screen {
    }
 
    private void deleteAlert() {
-      MiniAlert title = new MiniAlert(AlertType.HEADER, "Delete?", 50);
-      MiniAlert firstLine = new MiniAlert(AlertType.FIRST_LINE, "Are you sure you want", 15);
-      MiniAlert secondLine = new MiniAlert(AlertType.FIRST_LINE, "to delete this alt?", 40);
-      MiniAlert button = new MiniAlert(AlertType.BUTTON, "Delete", 50);
+      AlertComponent title = new AlertComponent(ComponentType.HEADER, "Delete?", 50);
+      AlertComponent firstLine = new AlertComponent(ComponentType.FIRST_LINE, "Are you sure you want", 15);
+      AlertComponent secondLine = new AlertComponent(ComponentType.FIRST_LINE, "to delete this alt?", 40);
+      AlertComponent button = new AlertComponent(ComponentType.BUTTON, "Delete", 50);
       this.addToList(this.deleteAlert = new AlertPanel(this, "delete", true, "Delete", title, firstLine, secondLine, button));
    }
 

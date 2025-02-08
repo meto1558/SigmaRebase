@@ -1,20 +1,20 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.buttons;
 
 import com.mentalfrostbyte.jello.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.unmapped.YoutubeVideoThumbnail;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.MusicManager;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeJPGThumbnail;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.network.youtube.ThumbnailUtil;
 
 import java.util.ArrayList;
 
-public class SearchBox extends AnimatedIconPanelWrap {
+public class SearchBox extends AnimatedIconPanel {
     public ScrollableContentPanel field20840;
     public TextField searchBox;
     private ArrayList<YoutubeVideoData> field20842;
