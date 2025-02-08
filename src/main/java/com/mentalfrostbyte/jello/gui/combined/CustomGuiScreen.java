@@ -446,11 +446,11 @@ public class CustomGuiScreen implements IGuiEventListener {
         if (this.field20917) {
             this.field20918.add(var1);
         } else {
-            this.method13236(var1);
+            this.removeChildren(var1);
         }
     }
 
-    public void method13236(CustomGuiScreen guiIn) {
+    public void removeChildren(CustomGuiScreen guiIn) {
         this.children.remove(guiIn);
         if (this.field20919 != null && this.field20919.equals(guiIn)) {
             this.field20919 = null;

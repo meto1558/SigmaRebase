@@ -25,12 +25,12 @@ public class Class1428 implements Runnable {
       int var3 = 0;
       if (AltManagerScreen.method13382(this.field7664) != null) {
          var3 = AltManagerScreen.method13382(this.field7664).method13513();
-         this.field7661.method13236(AltManagerScreen.method13382(this.field7664));
+         this.field7661.removeChildren(AltManagerScreen.method13382(this.field7664));
       }
 
       CustomGuiScreen var4 = this.field7661.method13221("alts");
       if (var4 != null) {
-         this.field7661.method13236(var4);
+         this.field7661.removeChildren(var4);
       }
 
       this.field7661

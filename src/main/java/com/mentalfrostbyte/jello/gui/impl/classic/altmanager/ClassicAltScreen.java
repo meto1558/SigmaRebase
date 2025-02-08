@@ -211,12 +211,12 @@ public class ClassicAltScreen extends Screen {
         int var5 = 0;
         if (this.altList != null) {
             var5 = this.altList.method13513();
-            this.method13236(this.altList);
+            this.removeChildren(this.altList);
         }
 
         CustomGuiScreen var6 = this.method13221("alts");
         if (var6 != null) {
-            this.method13236(var6);
+            this.removeChildren(var6);
         }
 
         int var7 = Minecraft.getInstance().getMainWindow().getWidth() - 200;

@@ -129,7 +129,7 @@ public class ClickGuiScreen extends Screen {
 
                 this.dependenciesAlert.method13604(thread -> new Thread(() -> {
                     this.runThisOnDimensionUpdate(() -> {
-                        this.method13236(this.dependenciesAlert);
+                        this.removeChildren(this.dependenciesAlert);
                         this.dependenciesAlert = null;
                     });
                 }).start());
@@ -164,7 +164,7 @@ public class ClickGuiScreen extends Screen {
         }
 
         if (this.configButton != null && this.configButton.method13614()) {
-            this.method13236(this.configButton);
+            this.removeChildren(this.configButton);
             this.configButton = null;
         }
 
@@ -174,7 +174,7 @@ public class ClickGuiScreen extends Screen {
 
         if (this.settingGroup != null && this.settingGroup.field20671 && this.settingGroup.animation1.calcPercent() == 0.0F) {
             this.runThisOnDimensionUpdate(() -> {
-                this.method13236(this.settingGroup);
+                this.removeChildren(this.settingGroup);
                 this.settingGroup = null;
             });
         }

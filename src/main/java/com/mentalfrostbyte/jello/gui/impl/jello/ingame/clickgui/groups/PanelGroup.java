@@ -37,7 +37,7 @@ public class PanelGroup extends AnimatedIconPanel {
 
     public void method13504() {
         this.runThisOnDimensionUpdate(() -> {
-            this.method13236(this.modListView);
+            this.removeChildren(this.modListView);
             this.addToList(this.modListView = new ModListView(this, "modListView", 0, 60, this.getWidthA(), this.getHeightA() - 60, this.category));
         });
     }

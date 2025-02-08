@@ -39,7 +39,7 @@ public class Picker extends Element {
     public void method13069(String var1) {
         this.runThisOnDimensionUpdate(() -> {
             if (this.field20642 != null) {
-                this.method13236(this.field20642);
+                this.removeChildren(this.field20642);
             }
 
             this.addToList(this.field20642 = new ScrollableContentPanel(this, "scrollview", 0, 40, this.widthA, this.heightA - 40));

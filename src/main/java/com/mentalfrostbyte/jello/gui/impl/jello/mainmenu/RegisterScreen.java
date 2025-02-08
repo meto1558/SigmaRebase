@@ -106,7 +106,7 @@ public class RegisterScreen extends Screen {
                 var5.add(new AlertComponent(ComponentType.BUTTON, "Ok", 55));
                 this.showAlert(this.field21090 = new Alert(this, "modal", true, "", var5.toArray(new AlertComponent[0])));
                 this.field21090.method13604(var1xx -> new Thread(() -> this.runThisOnDimensionUpdate(() -> {
-                    this.method13236(this.field21090);
+                    this.removeChildren(this.field21090);
                     this.field21090 = null;
                 })).start());
                 this.field21090.method13603(true);

@@ -30,7 +30,7 @@ public class ClassicClickGui extends Screen {
     public void method13418(String var1, ModuleCategory... var2) {
         this.runThisOnDimensionUpdate(() -> {
             if (this.category != null) {
-                this.method13236(this.category);
+                this.removeChildren(this.category);
             }
 
             this.addToList(this.category = new ModuleSettingGroup(this, var1, this.getWidthA() / 2, this.getHeightA() / 2, var2));
@@ -39,7 +39,7 @@ public class ClassicClickGui extends Screen {
 
     private void method13419() {
         if (this.category != null) {
-            this.method13236(this.category);
+            this.removeChildren(this.category);
         }
 
         this.addToList(this.category = new CategoryHolder(this, "Sigma", this.getWidthA() / 2, this.getHeightA() / 2));

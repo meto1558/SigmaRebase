@@ -47,7 +47,7 @@ public class SearchBox extends AnimatedIconPanel {
 
                         this.runThisOnDimensionUpdate(
                                 () -> {
-                                    this.method13236(this.field20840);
+                                    this.removeChildren(this.field20840);
                                     this.addToList(
                                             this.field20840 = new ScrollableContentPanel(this, "albumView", 0, 0, this.widthA, this.heightA, ColorHelper.field27961, "View")
                                     );

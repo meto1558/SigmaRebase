@@ -80,7 +80,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
       super.updatePanelDimensions(newHeight, newWidth);
       if (this.field21181 != null && this.field21181.method13557()) {
          this.runThisOnDimensionUpdate(() -> {
-            this.method13236(this.field21181);
+            this.removeChildren(this.field21181);
             this.field21181 = null;
          });
       }

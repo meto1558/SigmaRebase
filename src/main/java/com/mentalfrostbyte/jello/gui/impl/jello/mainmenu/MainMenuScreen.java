@@ -308,7 +308,7 @@ public class MainMenuScreen extends Screen {
                     try {
                         Thread.sleep(114L);
                         this.runThisOnDimensionUpdate(() -> {
-                            this.method13236(this.alert);
+                            this.removeChildren(this.alert);
                             this.alert = null;
                         });
                     } catch (InterruptedException ex) {
