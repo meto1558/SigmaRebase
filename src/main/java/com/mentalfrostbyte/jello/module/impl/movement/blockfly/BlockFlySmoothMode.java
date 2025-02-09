@@ -134,10 +134,8 @@ public class BlockFlySmoothMode extends Module {
                             this.blockFly.switchToValidHotbarItem();
                         }
 
-                        mc.player.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(
-                                this.hand,
-                                rayTraceResult
-                        ));
+
+
                         new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
                         mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
                         this.blockCache = null;
