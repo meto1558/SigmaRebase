@@ -760,10 +760,10 @@ public class KillAura extends Module {
 
         final float factor = Math.min(Math.max(mc.player.getDistance(target), 0.0F), 3.0F) / 3.0F * (float) (1.0F + Math.sin(randomAngle) * 2.0F) / 2.0F;
 
-        targetYaw = normalizeAngle(targetYaw);
-        targetPitch = Math.max(-90.0F, Math.min(90.0F, targetPitch));
 
-        {
+        targetPitch = MathHelper.clamp(targetPitch, -90.0F, 90.0F);
+
+                {
             final float radius = 10.0F * factor;
 
             float x = radius * (float) Math.cos(randomAngle);
