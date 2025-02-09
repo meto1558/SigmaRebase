@@ -132,7 +132,6 @@ public class MinibloxDisabler extends Module {
                 mc.getConnection().sendPacket(posPacket);
             }
             event.cancelled = true;
-            return;
             // this disabler probably performs worse with this, since if the server accepts our pos,
             // and we'll probably be far away
 //            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
