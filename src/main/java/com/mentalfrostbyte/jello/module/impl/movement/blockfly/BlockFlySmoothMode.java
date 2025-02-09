@@ -137,12 +137,13 @@ public class BlockFlySmoothMode extends Module {
 
 
                         new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
-                       // mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
+                       mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
                         this.blockCache = null;
                         if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
                             mc.player.swingArm(this.hand);
                         } else {
                             mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
+                            
                         }
 
                         if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
