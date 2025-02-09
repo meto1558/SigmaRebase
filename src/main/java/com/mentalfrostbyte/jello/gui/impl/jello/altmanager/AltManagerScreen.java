@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.AccountUI;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Head;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Info;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
@@ -20,6 +19,7 @@ import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.sorting.AccountCompareType;
+import com.mentalfrostbyte.jello.util.client.network.microsoft.MicrosoftUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -36,6 +36,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import totalcross.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -277,8 +279,7 @@ public class AltManagerScreen extends Screen {
         AlertComponent emailInput = new AlertComponent(ComponentType.SECOND_LINE, "Email", 50);
         AlertComponent passwordInput = new AlertComponent(ComponentType.SECOND_LINE, "Password", 50);
         AlertComponent button = new AlertComponent(ComponentType.BUTTON, "Add alt", 50);
-        AlertComponent button2 = new AlertComponent(ComponentType.BUTTON, "Cookie alt", 50);
-        this.addToList(this.loginDialog = new Alert(this, "Testt", true, "Add Alt", header, firstline1, firstline2, emailInput, passwordInput, button, button2));
+        this.addToList(this.loginDialog = new Alert(this, "Testt", true, "Add Alt", header, firstline1, firstline2, emailInput, passwordInput, button));
 
         this.loginDialog.onPress(element -> {
             if (!this.loginDialog.getInputMap().get("Email").contains(":")) {

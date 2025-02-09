@@ -98,17 +98,6 @@ public class AccountManager {
             return false;
         }
     }
-    /**
-     * Logs into the account
-     */
-    public void cookieLogin() throws MicrosoftAuthenticationException, ExecutionException, InterruptedException {
-        Session session = Minecraft.getInstance().getSession();
-        Session newSession = Account.cookieLogin().get();
-        session.username = newSession.getUsername();
-        session.playerID = newSession.getPlayerID();
-        session.token = newSession.getToken();
-        this.email = "microsoft-account-lol";
-    }
 
     // What
     public boolean updateSelectedEmail(Account account) {
