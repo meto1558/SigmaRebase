@@ -179,36 +179,7 @@ public class BlockFlyNCPMode extends Module {
     @LowerPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && this.parent.getValidItemCount() != 0) {
-            if (!event.isPre()) {
-                this.parent.method16736();
-                if (this.field23923 != null) {
-                    BlockRayTraceResult rayTraceResult = new BlockRayTraceResult(
-                            method16814(this.field23923.position, this.field23923.direction), this.field23923.direction, this.field23923.position, false
-                    );
-                    int prevSlot = mc.player.inventory.currentItem;
-                    int newSlot = parent.getValidHotbarItemSlot();
-
-                    if (newSlot != -1 && !access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                        mc.getConnection().sendPacket(new CHeldItemChangePacket(newSlot));
-                        mc.player.inventory.currentItem = newSlot;
-                    }
-
-                    mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
-
-                    if (!access().getBooleanValueFromSettingName("NoSwing")) {
-                        mc.player.swingArm(this.hand);
-                    } else {
-                        mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
-                    }
-
-                    if ((access().getStringSettingValueByName("ItemSpoof").equals("Spoof")
-                            || access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof"))
-                            && newSlot != -1) {
-                        mc.getConnection().sendPacket(new CHeldItemChangePacket(prevSlot));
-                        mc.player.inventory.currentItem = prevSlot;
-                    }
-                }
-            } else {
+            if (event.isPre()) {
                 this.field23925++;
                 event.setMoving(true);
                 this.hand = Hand.MAIN_HAND;
@@ -290,6 +261,35 @@ public class BlockFlyNCPMode extends Module {
 
                 if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
                     this.field23925 = 0;
+                }
+
+                this.parent.method16736();
+                if (this.field23923 != null) {
+                    BlockRayTraceResult rayTraceResult = new BlockRayTraceResult(
+                            method16814(this.field23923.position, this.field23923.direction), this.field23923.direction, this.field23923.position, false
+                    );
+                    int prevSlot = mc.player.inventory.currentItem;
+                    int newSlot = parent.getValidHotbarItemSlot();
+
+                    if (newSlot != -1 && !access().getStringSettingValueByName("ItemSpoof").equals("None")) {
+                        mc.getConnection().sendPacket(new CHeldItemChangePacket(newSlot));
+                        mc.player.inventory.currentItem = newSlot;
+                    }
+
+                    mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
+
+                    if (!access().getBooleanValueFromSettingName("NoSwing")) {
+                        mc.player.swingArm(this.hand);
+                    } else {
+                        mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
+                    }
+
+                    if ((access().getStringSettingValueByName("ItemSpoof").equals("Spoof")
+                            || access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof"))
+                            && newSlot != -1) {
+                        mc.getConnection().sendPacket(new CHeldItemChangePacket(prevSlot));
+                        mc.player.inventory.currentItem = prevSlot;
+                    }
                 }
             }
         }
