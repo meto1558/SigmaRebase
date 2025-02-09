@@ -26,8 +26,8 @@ public class Fly extends ModuleWithModuleSettings {
                 new AGCFly(),
                 new HorizonFly(),
                 new SpartanFly(),
-//                new CubecraftFly(),
-//                new Cubecraft2Fly(),
+                new CubecraftFly(),
+                new Cubecraft2Fly(),
                 new OmegaCraftTestFly()
         );
     }
