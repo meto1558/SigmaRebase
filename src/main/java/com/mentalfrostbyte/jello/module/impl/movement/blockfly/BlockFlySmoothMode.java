@@ -155,12 +155,13 @@ public class BlockFlySmoothMode extends Module {
                 this.rotationStabilityCounter++;
                 this.someOtherField--;
                 event.setMoving(true);
+                this.hand = Hand.MAIN_HAND;
                 if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.hand).isEmpty()
                                 || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
                 )) {
-                    this.hand = Hand.MAIN_HAND;
+
                 }
 
                 double x = event.getX();
@@ -211,7 +212,7 @@ public class BlockFlySmoothMode extends Module {
                     Rots.rotating = true;
                     Rots.prevYaw = this.yaw;
                     Rots.prevPitch = this.pitch;
-                    Rots.prevPitch = MathHelper.clamp(this.pitch, -90.0F, 90.0F);
+                    //Rots.prevPitch = MathHelper.clamp(this.pitch, -90.0F, 90.0F);
                     event.setYaw(this.yaw);
                     event.setPitch(this.pitch);
                     Rots.yaw = this.yaw;
