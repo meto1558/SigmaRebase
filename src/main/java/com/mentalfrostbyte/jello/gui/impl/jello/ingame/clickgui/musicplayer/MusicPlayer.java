@@ -65,7 +65,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         super(parent, var2, 875, 55, 800, 600, false);
         this.parent = parent;
 
-        if (videos.size() != 8) {
+        if (videos.size() != 9) {
             videos.clear();
             videos.add(new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
             videos.add(new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
@@ -75,6 +75,8 @@ public class MusicPlayer extends AnimatedIconPanel {
             videos.add(new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
             videos.add(new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
             videos.add(new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
+            videos.add(new MusicVideoManager("EDM", "PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5", YoutubeContentType.PLAYLIST));
+
         }
 
         time = System.nanoTime();
