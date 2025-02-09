@@ -75,6 +75,12 @@ public class MovementUtil2 {
         float var8 = (float) var0.getBlue() * var2 + (float) var1.getBlue() * var5;
         return new Color(var6 / 255.0F, var7 / 255.0F, var8 / 255.0F);
     }
+    public static long method17762() {
+        long var2 = System.currentTimeMillis() / 720000L;
+        var2 <<= 1;
+        var2 = var2 % 2L != 0L ? var2 >> 2 : var2 << 1;
+        return var2 % 3L != 0L ? var2 * 2L : var2 / 2L;
+    }
     public static Color method17682(Color... var0) {
         if (var0 != null) {
             if (var0.length > 0) {

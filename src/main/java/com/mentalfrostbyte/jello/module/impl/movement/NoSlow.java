@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.item.SwordItem;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
@@ -16,7 +17,7 @@ public class NoSlow extends Module {
 
     public NoSlow() {
         super(ModuleCategory.MOVEMENT, "NoSlow", "Stops slowdown when using an item");
-        this.registerSetting(new ModeSetting("Mode", "NoSlow mode", 0, "Vanilla", "NCP"));
+        this.registerSetting(new ModeSetting("Mode", "NoSlow mode", 0, "Vanilla", "NCP", "Blink"));
     }
 
     @EventTarget
@@ -48,6 +49,10 @@ public class NoSlow extends Module {
     private boolean isModeNCP() {
         return this.getStringSettingValueByName("Mode").equals("NCP");
     }
+    private boolean isModeBlink() {
+        return this.getStringSettingValueByName("Mode").equals("Blink");
+    }
+
 
     private void handlePreEvent(boolean isSwordEquipped, boolean auraEnabled) {
         if (!isModeNCP()) {
@@ -59,6 +64,11 @@ public class NoSlow extends Module {
                 MovementUtil2.unblock();
             }
             isBlocking = false;
+            if (isModeBlink()) {
+                if (mc.player.getHeldItemMainhand().isFood() && !mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                    Client.getInstance().moduleManager.getModuleByClass(Blink.class).toggle();
+                }
+            }
         }
     }
 }
