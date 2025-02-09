@@ -786,7 +786,7 @@ public class KillAura extends Module {
         currentRotations.pitch = MathHelper.clamp(currentRotations.pitch, -90.0F, 90.0F);
         secondaryRotations.yaw = (float) (targetYaw + advancedCalculationZ);
         secondaryRotations.pitch = (float) (targetPitch + advancedCalculationY);
-        secondaryRotations.pitch = MathHelper.clamp(secondaryRotations.pitch, -90.0F, 90.0F);//i have no clue how melod did this so i am adding this for safety because rots code is abismal
+
     }
 
     // simple because i didnt bother making better one.
