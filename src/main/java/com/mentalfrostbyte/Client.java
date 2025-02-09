@@ -234,14 +234,12 @@ public class Client {
 
     public void setupClient(ClientMode mode) {
         this.clientMode = mode;
-        if (mode != ClientMode.CLASSIC) {
-            if (mode == ClientMode.JELLO) {
-                this.initRPC();
-                GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
-            }
-        } else {
+        if (mode == ClientMode.CLASSIC) {
             getInstance().guiManager.method33452();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
+        } else if (mode == ClientMode.JELLO) {
+            this.initRPC();
+            GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
         }
 
         if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {

@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.LoginButton;
@@ -39,6 +40,7 @@ public class JelloMainMenu extends CustomGuiScreen {
     private final Text field21129;
     private final Text field21130;
     private final LoginButton loginButton;
+    private final TextButton switchButton;
     private final TextButton changelogButton;
     private final TextButton field21133;
     public int field21134 = 0;
@@ -145,6 +147,11 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.field21130.field20779 = true;
         this.field21129.field20779 = true;
         this.addToList(
+                this.switchButton = new TextButton(
+                        this, "switch", 220, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Switch", ResourceRegistry.JelloLightFont20
+                )
+        );
+        this.addToList(
                 this.changelogButton = new TextButton(
                         this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
                 )
@@ -175,6 +182,9 @@ public class JelloMainMenu extends CustomGuiScreen {
             }
         });
         this.changelogButton.doThis((var1x, var2x) -> ((MainMenuScreen) this.getParent()).animateIn());
+        this.switchButton.doThis((var1x, var2x) -> {
+            this.displayScreen(new SwitchScreen());
+        });
         this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
         this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
         this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
