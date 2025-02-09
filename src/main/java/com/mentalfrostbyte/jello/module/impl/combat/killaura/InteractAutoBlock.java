@@ -62,8 +62,8 @@ public class InteractAutoBlock {
                         .getConnection()
                         .sendPacket(new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, var6.getHitVec(),
                                 this.mc.player.isSneaking()));
-                this.mc.getConnection().sendPacket(
-                        new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, this.mc.player.isSneaking()));
+               // this.mc.getConnection().sendPacket(
+                //      new CUseEntityPacket(var6.getEntity(), Hand.MAIN_HAND, this.mc.player.isSneaking())); stop sending dupe packets please Sigma
             }
         }
 

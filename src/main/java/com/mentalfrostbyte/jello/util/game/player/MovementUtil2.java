@@ -359,7 +359,7 @@ public class MovementUtil2 {
 
 
     public static void block() {
-        //mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND)); //i think it shouldnt do this since attack is already sending this packet
+        mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
         mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.OFF_HAND));
     }
     public static void unblock() {
