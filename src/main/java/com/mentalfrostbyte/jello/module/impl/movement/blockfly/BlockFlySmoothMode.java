@@ -155,12 +155,12 @@ public class BlockFlySmoothMode extends Module {
                 this.someOtherField--;
                 event.setMoving(true);
                 this.hand = Hand.MAIN_HAND;
-                if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
+                if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.hand).isEmpty()
                                 || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
                 )) {
-                    this.hand = Hand.OFF_HAND;
+                    this.hand = Hand.MAIN_HAND;
                 }
 
                 double x = event.getX();
