@@ -359,8 +359,8 @@ public class MovementUtil2 {
 
 
     public static void block() {
-        //mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND)); this is restarted
-        mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.OFF_HAND));
+        mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
+        //mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.OFF_HAND)); correction this is retarded
     }
     public static void unblock() {
         mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.RELEASE_USE_ITEM, new BlockPos(0, 0, 0), Direction.DOWN));
