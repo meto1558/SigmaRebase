@@ -17,7 +17,9 @@ public class Phase extends ModuleWithModuleSettings {
                 new NCPPhase(),
                 new NoClipPhase(),
                 new UnfullPhase(),
+                new VClipPhase(),
                 new VanillaPhase()
+
         );
     }
 
