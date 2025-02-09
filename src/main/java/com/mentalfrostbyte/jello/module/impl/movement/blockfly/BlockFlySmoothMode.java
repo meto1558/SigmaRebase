@@ -140,10 +140,10 @@ public class BlockFlySmoothMode extends Module {
                        mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
                         this.blockCache = null;
                         if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
-                            mc.player.swingArm(this.hand);
-                        } else {
                             mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
-                            
+                        } else {
+                            mc.player.swingArm(this.hand);
+
                         }
 
                         if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
@@ -155,7 +155,6 @@ public class BlockFlySmoothMode extends Module {
                 this.rotationStabilityCounter++;
                 this.someOtherField--;
                 event.setMoving(true);
-                this.hand = Hand.MAIN_HAND;
                 if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.hand).isEmpty()
