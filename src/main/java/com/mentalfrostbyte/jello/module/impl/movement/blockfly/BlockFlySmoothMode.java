@@ -137,7 +137,7 @@ public class BlockFlySmoothMode extends Module {
 
 
                         new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
-                        mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
+                       // mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
                         this.blockCache = null;
                         if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
                             mc.player.swingArm(this.hand);
@@ -211,6 +211,7 @@ public class BlockFlySmoothMode extends Module {
                     Rots.rotating = true;
                     Rots.prevYaw = this.yaw;
                     Rots.prevPitch = this.pitch;
+                    Rots.prevPitch = MathHelper.clamp(this.pitch, -90.0F, 90.0F);
                     event.setYaw(this.yaw);
                     event.setPitch(this.pitch);
                     Rots.yaw = this.yaw;
