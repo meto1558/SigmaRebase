@@ -36,9 +36,7 @@ public class CubecraftFly extends Module {
     public void onEnable() {
         this.field23845 = 0;
         if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
-            if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
-                this.field23846 = false;
-            }
+            this.field23846 = false;
         } else {
             mc.gameSettings.keyBindSneak.pressed = false;
             this.field23846 = true;
