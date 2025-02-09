@@ -30,6 +30,7 @@ public class TargetStrafe extends Module {
         this.registerSetting(new NumberSetting<Float>("Radius", "Radius of the circle", 2.0F, Float.class, 1.0F, 6.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Only speed", "Use target strafe only when speed is enabled", true));
         this.registerSetting(new BooleanSetting("Hold Spacebar", "Use target strafe only when spacebar is held down", true));
+        this.registerSetting(new BooleanSetting("Anti Scaffold", "Prevents strafing when scaffolding", true));
         this.registerSetting(new ModeSetting("AntiVoid", "The way you will avoid the void", 0, "Smart", "Halt", "Command", "None").addObserver(var1 -> this.field23496 = false));
     }
 
@@ -48,6 +49,9 @@ public class TargetStrafe extends Module {
     public void method16151(EventMove var1) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Hold Spacebar") && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                return;
+            }
+            if (this.getBooleanValueFromSettingName("Anti Scaffold") && Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
                 return;
             }
             Entity var4 = null;
