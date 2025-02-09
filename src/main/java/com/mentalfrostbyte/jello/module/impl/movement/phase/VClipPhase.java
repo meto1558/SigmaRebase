@@ -8,15 +8,19 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 public class VClipPhase extends Module {
 
+    private long lastMessageTime = 0;
+
     public VClipPhase() {
         super(ModuleCategory.MOVEMENT, "VClip", "Vclip phase (click shift)");
     }
 
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
-        if (this.isEnabled()) {
-            if (isEnabled() && mc.gameSettings.keyBindSneak.isKeyDown()) {
+        if (this.isEnabled() && mc.gameSettings.keyBindSneak.isKeyDown()) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastMessageTime >= 1000) {
                 ChatUtil.sendChatMessage(".vclip -4");
+                lastMessageTime = currentTime;
             }
         }
     }
