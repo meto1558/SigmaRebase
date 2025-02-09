@@ -25,13 +25,6 @@ public class RotationHelper {
 
     public static float calculate(float current, float var1, float max) {
         float wrapped = MathHelper.wrapDegrees(var1 - current);
-        if (wrapped > max) {
-            wrapped = max;
-        }
-
-        if (wrapped < -max) {
-            wrapped = -max;
-        }
 
         return current + wrapped;
     }
