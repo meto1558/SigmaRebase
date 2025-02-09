@@ -114,44 +114,7 @@ public class BlockFlySmoothMode extends Module {
     @LowerPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
-            if (!event.isPre()) {
-                if (this.yaw != 999.0F) {
-                    this.blockFly.method16736();
-                    if (this.blockCache != null) {
-                        BlockRayTraceResult rayTraceResult = BlockUtil.rayTrace(this.yaw, this.pitch, 5.0F, event);
-                        if (rayTraceResult.getType() == RayTraceResult.Type.MISS) {
-                            return;
-                        }
-
-                        if (rayTraceResult.getFace() == Direction.UP
-                                && (double) rayTraceResult.getPos().getY() <= mc.player.getPosY() - 1.0
-                                && mc.player.isOnGround()) {
-                            return;
-                        }
-
-                        int currentItem = mc.player.inventory.currentItem;
-                        if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                            this.blockFly.switchToValidHotbarItem();
-                        }
-
-
-
-                        //new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
-                       mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
-                        this.blockCache = null;
-                        if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
-                            mc.player.swingArm(this.hand);
-                        } else {
-                            mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
-
-                        }
-
-                        if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
-                            mc.player.inventory.currentItem = currentItem;
-                        }
-                    }
-                }
-            } else {
+            if (event.isPre()) {
                 this.rotationStabilityCounter++;
                 this.someOtherField--;
                 event.setMoving(true);
@@ -226,6 +189,43 @@ public class BlockFlySmoothMode extends Module {
 
                 if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
                     this.rotationStabilityCounter = 0;
+                }
+
+                if (this.yaw != 999.0F) {
+                    this.blockFly.method16736();
+                    if (this.blockCache != null) {
+                        BlockRayTraceResult rayTraceResult = BlockUtil.rayTrace(this.yaw, this.pitch, 5.0F, event);
+                        if (rayTraceResult.getType() == RayTraceResult.Type.MISS) {
+                            return;
+                        }
+
+                        if (rayTraceResult.getFace() == Direction.UP
+                                && (double) rayTraceResult.getPos().getY() <= mc.player.getPosY() - 1.0
+                                && mc.player.isOnGround()) {
+                            return;
+                        }
+
+                        int currentItem = mc.player.inventory.currentItem;
+                        if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
+                            this.blockFly.switchToValidHotbarItem();
+                        }
+
+
+
+                        //new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
+                        mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
+                        this.blockCache = null;
+                        if (!this.access().getBooleanValueFromSettingName("NoSwing")) {
+                            mc.player.swingArm(this.hand);
+                        } else {
+                            mc.getConnection().sendPacket(new CAnimateHandPacket(this.hand));
+
+                        }
+
+                        if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
+                            mc.player.inventory.currentItem = currentItem;
+                        }
+                    }
                 }
             }
         }
