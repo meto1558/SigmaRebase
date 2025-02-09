@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.minecraft.network.play.client.CChatMessagePacket;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.StringTextComponent;
 
-public class Class8906 {
+import static com.mentalfrostbyte.jello.module.Module.mc;
+
+public class ChatUtil {
    private static Pattern field40303;
    private static Matcher field40304;
    private static final String field40305 = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$";
@@ -20,6 +23,9 @@ public class Class8906 {
 
    public static void method32487(String var0) {
       Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(new StringTextComponent(var0));
+   }
+   public static void sendChatMessage(String text) {
+      mc.getConnection().sendPacket(new CChatMessagePacket(text));
    }
 
    public static boolean method32488(String var0) {

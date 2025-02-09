@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.impl.others.Class8906;
+import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -78,7 +78,7 @@ public class TextField extends AnimatedIconPanel {
       this.field20744 = this.field20744 + ((!this.field20905 ? 0.0F : 1.0F) - this.field20744) / 2.0F;
       if (this.field20905) {
          if (this.field20752) {
-            this.maxLen = Class8906.getStringLen(text, this.font, (float)this.method13271(), newHeight, this.field20746);
+            this.maxLen = ChatUtil.getStringLen(text, this.font, (float)this.method13271(), newHeight, this.field20746);
          }
       } else {
          this.maxLen = 0;
@@ -107,7 +107,7 @@ public class TextField extends AnimatedIconPanel {
          }
 
          this.field20752 = true;
-         this.maxLen = Class8906.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
+         this.maxLen = ChatUtil.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
          if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
             && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
             this.field20750 = this.maxLen;
@@ -166,7 +166,7 @@ public class TextField extends AnimatedIconPanel {
 
                   if (var12 != "") {
                      if (this.field20750 != this.field20751) {
-                        this.text = Class8906.method32493(this.text, var12, this.field20750, this.field20751);
+                        this.text = ChatUtil.method32493(this.text, var12, this.field20750, this.field20751);
                         if (this.maxLen > this.field20750) {
                            this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                         }
@@ -174,7 +174,7 @@ public class TextField extends AnimatedIconPanel {
                         this.maxLen = this.maxLen + var12.length();
                         this.field20750 = this.maxLen;
                      } else {
-                        this.text = Class8906.method32492(this.text, var12, this.maxLen);
+                        this.text = ChatUtil.method32492(this.text, var12, this.maxLen);
                         this.maxLen = this.maxLen + var12.length();
                         this.field20750 = this.maxLen;
                      }
@@ -189,7 +189,7 @@ public class TextField extends AnimatedIconPanel {
                      Minecraft.getInstance().getMainWindow().getHandle(),
                      this.text.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
                   );
-                  this.text = Class8906.method32493(this.text, "", this.field20750, this.field20751);
+                  this.text = ChatUtil.method32493(this.text, "", this.field20750, this.field20751);
                   if (this.maxLen > this.field20750) {
                      this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                   }
@@ -205,7 +205,7 @@ public class TextField extends AnimatedIconPanel {
             case 259:
                if (this.text.length() > 0) {
                   if (this.field20750 != this.field20751) {
-                     this.text = Class8906.method32493(this.text, "", this.field20750, this.field20751);
+                     this.text = ChatUtil.method32493(this.text, "", this.field20750, this.field20751);
                      if (this.maxLen > this.field20750) {
                         this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
                      }
@@ -220,11 +220,11 @@ public class TextField extends AnimatedIconPanel {
                      }
 
                      if (var11 != -1) {
-                        this.text = Class8906.method32493(this.text, "", var11, this.maxLen);
+                        this.text = ChatUtil.method32493(this.text, "", var11, this.maxLen);
                         this.maxLen = var11;
                      }
                   } else {
-                     this.text = Class8906.method32493(this.text, "", this.maxLen - 1, this.maxLen);
+                     this.text = ChatUtil.method32493(this.text, "", this.maxLen - 1, this.maxLen);
                      this.maxLen--;
                   }
 
@@ -314,11 +314,11 @@ public class TextField extends AnimatedIconPanel {
    @Override
    public void charTyped(char typed) {
       super.charTyped(typed);
-      if (this.method13297() && Class8906.method32486(typed)) {
+      if (this.method13297() && ChatUtil.method32486(typed)) {
          if (this.field20750 == this.field20751) {
-            this.text = Class8906.method32492(this.text, Character.toString(typed), this.maxLen);
+            this.text = ChatUtil.method32492(this.text, Character.toString(typed), this.maxLen);
          } else {
-            this.text = Class8906.method32493(this.text, Character.toString(typed), this.field20750, this.field20751);
+            this.text = ChatUtil.method32493(this.text, Character.toString(typed), this.field20750, this.field20751);
          }
 
          this.maxLen++;
