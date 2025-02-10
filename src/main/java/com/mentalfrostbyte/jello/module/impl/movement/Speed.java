@@ -23,21 +23,21 @@ public class Speed extends ModuleWithModuleSettings {
                 new HypixelSpeed(),
                 new HypixelNewSpeed(),
                 new AACSpeed(),
-//                new OldAACSpeed(),
-//                new ViperMCSpeed(),
+                new OldAACSpeed(),
+                new ViperMCSpeed(),
                 new SlowHopSpeed(),
                 new NCPSpeed(),
                 new LegitSpeed(),
-//                new CubecraftSpeed(),
-//                new YPortSpeed(),
+                new CubecraftSpeed(),
+                new YPortSpeed(),
                 new MinemenSpeed(),
                 new BoostSpeed(),
                 new VerusSpeed(), //AUTHOR - alarmingly_good (on discord)
-                new VulcanSpeed()
-//                new InvadedSpeed(),
-//                new MineplexSpeed(),
-//                new GommeSpeed(),
-//                new TestSpeed()
+                new VulcanSpeed(),
+                new InvadedSpeed(),
+                new MineplexSpeed(),
+                new GommeSpeed(),
+                new TestSpeed()
         );
         this.registerSetting(new BooleanSetting("Lag back checker", "Disable speed when you get lag back", true));
         tickCounter = 0;
