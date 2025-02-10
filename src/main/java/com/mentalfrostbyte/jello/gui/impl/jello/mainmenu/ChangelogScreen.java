@@ -101,16 +101,16 @@ public class ChangelogScreen extends CustomGuiScreen {
                   {
                       "title": "5.1.0 (1.16.4) Update",
                       "changes": [
-                          "Added TP AntiVoid",
-                          "Added VClip Fly",
-                          "Fixed NoServerInfo",
-                          "Added Search module",
-                          "Added Projectiles module",
-                          "Added Breadcrumbs module",
-                          "Added AntiCactus module",
-                          "Added NewChunks module",
-                          "Added InfoHUD module",
-                          "Reimplemented JelloPortal fixes",
+                          "Added Verus speeds - by @alarmingly_good",
+                          "Added Vulcan AntiKB and Speed",
+                          "Added Verus NoFall",
+                          "Added Switch button to Jello",
+                          "Added Cloud configs",
+                          "Added MiniBlox bypasses",
+                          "Fixed JelloPortal",
+                          "Fixed many rotation flags",
+                          "Fixed music player issues",
+                          "Fixed visual bugs + render modules"
                       ]
                   },
                   {
