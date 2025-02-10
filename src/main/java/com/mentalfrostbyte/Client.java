@@ -10,6 +10,7 @@ import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.logger.Logger;
@@ -68,6 +69,8 @@ public class Client {
     public NotificationManager notificationManager;
     public MusicManager musicManager;
     public PlayerStateTracker playerTracker;
+    public MinerTracker minerTracker;
+
     private Logger logger;
 
     public static boolean dontRenderHand = false;
@@ -113,6 +116,8 @@ public class Client {
         this.waypointsManager.init();
         this.blurEngine = new BlurEngine();
         blurEngine.init();
+        this.minerTracker = new MinerTracker();
+        minerTracker.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
         this.logger.info("Initialized.");
     }
