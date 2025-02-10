@@ -31,7 +31,8 @@ public class Speed extends ModuleWithModuleSettings {
 //                new CubecraftSpeed(),
 //                new YPortSpeed(),
                 new MinemenSpeed(),
-                new BoostSpeed()
+                new BoostSpeed(),
+                new VulcanSpeed()
 //                new InvadedSpeed(),
 //                new MineplexSpeed(),
 //                new GommeSpeed(),
