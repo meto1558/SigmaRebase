@@ -62,7 +62,7 @@ public class NoFall extends Module {
                     double var13 = (double) ((int) (var11 + event.getY())) - var11 - event.getY() + var9;
                     double var15 = 0.02;
                     double var17 = -0.05;
-                    // TODO: is this correct?
+
                     if (event.getY() > -0.5 + (double) (MovementUtil.getJumpBoost())) {
                         var15 = 0.0;
                     }
