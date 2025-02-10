@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.*;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import net.minecraft.block.*;
@@ -67,7 +67,7 @@ public class Nuker extends Module {
                         this.targetPos = this.blocksToDestroy.get(0);
                     }
 
-                    float[] rotations = RotationHelper.rotationToPos(
+                    float[] rotations = RotationUtil.rotationToPos(
                             (double) this.targetPos.getX(), (double) this.targetPos.getZ(), (double) this.targetPos.getY()
                     );
                     event.setYaw(rotations[0]);
@@ -76,7 +76,7 @@ public class Nuker extends Module {
                     EventBus.call(keyPress);
                 } else {
                     this.targetPos = this.blocksToDestroy.get(0);
-                    float[] var6 = RotationHelper.rotationToPos(
+                    float[] var6 = RotationUtil.rotationToPos(
                             (double) this.targetPos.getX() + 0.5, (double) this.targetPos.getZ(), (double) this.targetPos.getY() + 0.5
                     );
                     event.setYaw(var6[0]);

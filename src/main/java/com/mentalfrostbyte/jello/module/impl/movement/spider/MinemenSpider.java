@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.spider;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import com.mentalfrostbyte.jello.module.Module;
@@ -48,7 +48,7 @@ public class MinemenSpider extends Module {
                 event.setY(0.6);
             }
 
-            NewMovementUtil.setMotion(event, 0.689 + (double) NewMovementUtil.getSpeedBoost() * 0.06);
+            MovementUtil.setMotion(event, 0.689 + (double) MovementUtil.getSpeedBoost() * 0.06);
         }
 
         if (BlockUtil.isAboveBounds(mc.player, 0.001F) && this.getBooleanValueFromSettingName("SneakVClip")) {
@@ -82,18 +82,18 @@ public class MinemenSpider extends Module {
                     && !mc.gameSettings.keyBindSneak.isKeyDown()
                     && mc.world.getCollisionShapes(mc.player, mc.player.boundingBox.offset(0.0, 0.01, 0.0)).count() > 0L) {
                 event.setY(1.0E-14);
-                NewMovementUtil.setMotion(event, 0.689 + (double) NewMovementUtil.getSpeedBoost() * 0.06);
+                MovementUtil.setMotion(event, 0.689 + (double) MovementUtil.getSpeedBoost() * 0.06);
             }
 
             if (this.field23813) {
                 mc.timer.timerSpeed = 1.0F;
                 this.field23813 = false;
                 event.setY(1.0E-14);
-                NewMovementUtil.setMotion(event, 0.28);
+                MovementUtil.setMotion(event, 0.28);
             }
         }
 
-        PlayerUtil.setPlayerYMotion(event.getY());
+        MovementUtil.setPlayerYMotion(event.getY());
     }
 
     @EventTarget

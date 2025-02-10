@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class Strafe extends Module {
@@ -17,16 +17,16 @@ public class Strafe extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            lastSpeed = NewMovementUtil.getSmartSpeed();
-            float strafeDirection = NewMovementUtil.getDirectionArray()[1];
-            float forwardDirection = NewMovementUtil.getDirectionArray()[2];
-            float playerAngle = NewMovementUtil.getYaw();
+            lastSpeed = MovementUtil.getSmartSpeed();
+            float strafeDirection = MovementUtil.getDirectionArray()[1];
+            float forwardDirection = MovementUtil.getDirectionArray()[2];
+            float playerAngle = MovementUtil.getYaw();
 
             double cosAngle = Math.cos(Math.toRadians(playerAngle));
             double sinAngle = Math.sin(Math.toRadians(playerAngle));
 
             double movementMagnitude = Math.sqrt(event.getX() * event.getX() + event.getZ() * event.getZ());
-            if (!NewMovementUtil.isMoving()) {
+            if (!MovementUtil.isMoving()) {
                 movementMagnitude = 0.0;
             }
             float smoothingFactor = 0.2F;
@@ -35,7 +35,7 @@ public class Strafe extends Module {
                 currentSpeed = movementMagnitude;
 
                 if (movementMagnitude != 0.0) {
-                    movementMagnitude = Math.max(movementMagnitude, NewMovementUtil.getSmartSpeed());
+                    movementMagnitude = Math.max(movementMagnitude, MovementUtil.getSmartSpeed());
                 }
 
                 event.setX(event.getX() * (1.0F - smoothingFactor) + movementMagnitude * cosAngle * smoothingFactor);

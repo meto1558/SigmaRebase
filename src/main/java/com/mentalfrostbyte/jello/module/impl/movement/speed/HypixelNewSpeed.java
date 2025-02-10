@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.module.impl.world.disabler.HypixelPredictionDisabler;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.potion.Effects;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -32,12 +32,12 @@ public class HypixelNewSpeed extends Module {
             if (Client.getInstance().moduleManager.getModuleByClass(Disabler.class).isEnabled() && HypixelPredictionDisabler.watchDogDisabled) {
             } else if (mc.player.isOnGround()) {
                 if (mc.player.isOnGround()) {
-                    if (NewMovementUtil.isMoving()) {
+                    if (MovementUtil.isMoving()) {
                         mc.player.jump();
                     }
 
                     if (mc.player.isPotionActive(Effects.SPEED)) {
-                        NewMovementUtil.moveInDirection(
+                        MovementUtil.moveInDirection(
                                 0.46F
                                         + (
                                         ((float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1.0F) * (float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier()
@@ -47,15 +47,15 @@ public class HypixelNewSpeed extends Module {
                                 )
                         );
                     } else {
-                        NewMovementUtil.moveInDirection(0.467F);
+                        MovementUtil.moveInDirection(0.467F);
                     }
                 } else if (!mc.player.collidedHorizontally && !mc.player.isPotionActive(Effects.JUMP_BOOST) && mc.player.hurtTime == 0) {
                     double baseVelocityY = mc.player.getMotion().y;
                     switch (fallTicks) {
                         case 1:
-                            NewMovementUtil.moveInDirection(0.33F);
+                            MovementUtil.moveInDirection(0.33F);
                             if (mc.player.isPotionActive(Effects.SPEED)) {
-                                NewMovementUtil.moveInDirection(0.36F);
+                                MovementUtil.moveInDirection(0.36F);
                             }
 
                             event.setY(baseVelocityY + 0.057);
@@ -74,12 +74,12 @@ public class HypixelNewSpeed extends Module {
                             break;
                     }
                 }
-                if (NewMovementUtil.isMoving()) {
+                if (MovementUtil.isMoving()) {
                     mc.player.jump();
                 }
 
                 if (mc.player.isPotionActive(Effects.SPEED)) {
-                    NewMovementUtil.moveInDirection(
+                    MovementUtil.moveInDirection(
                             0.46F
                                     + (
                                     ((float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1.0F) * (float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier()
@@ -89,7 +89,7 @@ public class HypixelNewSpeed extends Module {
                             )
                     );
                 } else {
-                    NewMovementUtil.moveInDirection(0.465F);
+                    MovementUtil.moveInDirection(0.465F);
                 }
             }
         }

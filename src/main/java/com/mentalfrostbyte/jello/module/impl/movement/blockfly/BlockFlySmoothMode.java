@@ -15,9 +15,8 @@ import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -83,10 +82,10 @@ public class BlockFlySmoothMode extends Module {
             ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
-        NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed() * 0.9);
+        MovementUtil.moveInDirection(MovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
-            PlayerUtil.setPlayerYMotion(-0.0789);
+            MovementUtil.setPlayerYMotion(-0.0789);
         }
     }
 
@@ -170,19 +169,19 @@ public class BlockFlySmoothMode extends Module {
                 }
 
                 if (this.yaw != 999.0F) {
-                    Rots.rotating = true;
-                    Rots.prevYaw = this.yaw;
-                    Rots.prevPitch = this.pitch;
+                    RotationManager.rotating = true;
+                    RotationManager.prevYaw = this.yaw;
+                    RotationManager.prevPitch = this.pitch;
                     //Rots.prevPitch = MathHelper.clamp(this.pitch, -90.0F, 90.0F);
                     event.setYaw(this.yaw);
                     event.setPitch(this.pitch);
-                    Rots.yaw = this.yaw;
-                    Rots.pitch = this.pitch;
+                    RotationManager.yaw = this.yaw;
+                    RotationManager.pitch = this.pitch;
 
                     mc.player.rotationYawHead = event.getYaw();
                     mc.player.renderYawOffset = event.getYaw();
                 } else {
-                    Rots.rotating = false;
+                    RotationManager.rotating = false;
                 }
 
                 if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
@@ -253,7 +252,7 @@ public class BlockFlySmoothMode extends Module {
 
             switch (this.getStringSettingValueByName("Speed Mode")) {
                 case "Jump":
-                    if (mc.player.isOnGround() && NewMovementUtil.isMoving() && !mc.player.isSneaking()) {
+                    if (mc.player.isOnGround() && MovementUtil.isMoving() && !mc.player.isSneaking()) {
                         this.called = false;
                         mc.player.jump();
                         ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).callHypixelSpeedMethod();
@@ -265,14 +264,14 @@ public class BlockFlySmoothMode extends Module {
                     break;
                 case "Constant": {
                     double speed = this.constantSpeed.currentValue;
-                    if (!NewMovementUtil.isMoving())
+                    if (!MovementUtil.isMoving())
                         speed = 0;
-                    NewMovementUtil.setMotion(event, speed);
+                    MovementUtil.setMotion(event, speed);
                     break;
                 }
                 case "AAC":
                     if (this.rotationStabilityCounter == 0 && mc.player.isOnGround()) {
-                        NewMovementUtil.setMotion(event, NewMovementUtil.getSmartSpeed() * 0.82);
+                        MovementUtil.setMotion(event, MovementUtil.getSmartSpeed() * 0.82);
                     }
                     break;
                 case "Cubecraft":
@@ -281,7 +280,7 @@ public class BlockFlySmoothMode extends Module {
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.timer.timerSpeed = 1.0F;
                     } else if (mc.player.isOnGround()) {
-                        if (NewMovementUtil.isMoving() && !mc.player.isSneaking()) {
+                        if (MovementUtil.isMoving() && !mc.player.isSneaking()) {
                             event.setY(1.00000000000001);
                         }
                     } else if (this.offGroundTicks == 1) {
@@ -309,15 +308,15 @@ public class BlockFlySmoothMode extends Module {
                         event.setY(-1.023456987345906);
                     }
 
-                    if (!NewMovementUtil.isMoving()) {
+                    if (!MovementUtil.isMoving()) {
                         speed = 0.0;
                     }
 
                     if (mc.player.fallDistance < 1.0F) {
-                        NewMovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
+                        MovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
                     }
 
-                    PlayerUtil.setPlayerYMotion(event.getY());
+                    MovementUtil.setPlayerYMotion(event.getY());
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {
@@ -356,7 +355,7 @@ public class BlockFlySmoothMode extends Module {
     public void onJump(EventJump event) {
         if (this.isEnabled() && this.called) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!NewMovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!MovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 event.setCancelled(true);
             }
         }
@@ -372,7 +371,7 @@ public class BlockFlySmoothMode extends Module {
                         mc.player.lastTickPosY = this.posY;
                         mc.player.chasingPosY = this.posY;
                         mc.player.prevPosY = this.posY;
-                        if (NewMovementUtil.isMoving()) {
+                        if (MovementUtil.isMoving()) {
                             mc.player.cameraYaw = 0.099999994F;
                         }
                     }

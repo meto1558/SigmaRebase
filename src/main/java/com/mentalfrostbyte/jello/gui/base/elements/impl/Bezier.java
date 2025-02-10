@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.BezierButton;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector2d;
@@ -79,7 +79,7 @@ public class Bezier extends Element {
       var11.add(new Vector2d((double)var7, (double)var8));
       var11.add(new Vector2d((double)var9, (double)var10));
       var11.add(new Vector2d(1.0, 1.0));
-      MathUtils var12 = new MathUtils((double)(1.0F / var6 * 2.0F));
+      MathUtil var12 = new MathUtil((double)(1.0F / var6 * 2.0F));
       double var13 = var12.method30789(var11, Math.min(0.8F, this.field20611.calcPercent()) * 1.25F);
       RenderUtil.drawCircle(
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),

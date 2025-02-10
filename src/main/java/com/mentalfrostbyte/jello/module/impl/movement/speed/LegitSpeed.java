@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -22,7 +22,7 @@ public class LegitSpeed extends Module {
 
     @EventTarget
     public void onMotion(EventUpdateWalkingPlayer event) {
-        if (NewMovementUtil.isMoving()) {
+        if (MovementUtil.isMoving()) {
             if (getBooleanValueFromSettingName("Sprint")) {
                 mc.gameSettings.keyBindSprint.setPressed(true);
             }

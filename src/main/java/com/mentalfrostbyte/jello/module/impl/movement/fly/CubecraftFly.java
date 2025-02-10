@@ -12,7 +12,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -54,8 +55,8 @@ public class CubecraftFly extends Module {
 
     @Override
     public void onDisable() {
-        PlayerUtil.setPlayerYMotion(-0.078);
-        NewMovementUtil.moveInDirection(0.2);
+        MovementUtil.setPlayerYMotion(-0.078);
+        MovementUtil.moveInDirection(0.2);
         mc.timer.timerSpeed = 1.0F;
         if (this.field23846) {
             mc.gameSettings.keyBindSneak.pressed = true;
@@ -89,16 +90,16 @@ public class CubecraftFly extends Module {
             if (mc.player.onGround) {
                 this.field23847 = this.field23848 = false;
             }
-        } else if (PlayerUtil.isCubecraft()) {
+        } else if (ServerUtil.onCubeCraft()) {
             if (this.field23845 > 0) {
                 var1.setY(0.0);
-                NewMovementUtil.setMotion(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
                 this.field23845++;
             } else {
                 if (this.field23845 != 0) {
                     if (this.field23847) {
                         var1.setY(0.0);
-                        NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
+                        MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
                         if (this.field23845 != -4) {
                             if (this.field23845 != -1) {
                                 /*
@@ -117,7 +118,7 @@ public class CubecraftFly extends Module {
                                  */
                             } else {
                                 if (!this.field23848) {
-                                    PlayerUtil.method17749(false);
+                                    MovementUtil.sendRandomizedPlayerPositionPackets(false);
                                     this.field23848 = true;
                                 }
 
@@ -150,7 +151,7 @@ public class CubecraftFly extends Module {
                     Client.getInstance().notificationManager
                             .send(new Notification("Cubecraft Fly", "Please start on the ground."));
                 } else {
-                    NewMovementUtil.setMotion(var1, 0.0);
+                    MovementUtil.setMotion(var1, 0.0);
                     var1.setY(0.0);
                     long var14 = PlayerUtil.method17762() % 90L;
                     double var15 = 0.016 + (double) var14 / 10000.0;
@@ -163,10 +164,10 @@ public class CubecraftFly extends Module {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var16, var10 + 3.0, var12, false));
                 }
 
-                PlayerUtil.setPlayerYMotion(var1.getY());
+                MovementUtil.setPlayerYMotion(var1.getY());
             }
         } else {
-            NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
+            MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
             var1.setY(0.0);
             if (mc.player.ticksExisted % 2 == 0) {
                 double var4 = mc.player.getPosX();
@@ -179,7 +180,7 @@ public class CubecraftFly extends Module {
 
     @EventTarget
     public void method16689(EventUpdateWalkingPlayer var1) {
-        if (var1.isPre() && PlayerUtil.isCubecraft()) {
+        if (var1.isPre() && ServerUtil.onCubeCraft()) {
             var1.setMoving(true);
             if (/*
                  * JelloPortal.getCurrentVersionApplied() ==
@@ -196,7 +197,7 @@ public class CubecraftFly extends Module {
 
     @EventTarget
     public void method16690(EventReceivePacket var1) {
-        if (mc.world != null && mc.getConnection() != null && PlayerUtil.isCubecraft()) {
+        if (mc.world != null && mc.getConnection() != null && ServerUtil.onCubeCraft()) {
             IPacket var4 = var1.getPacket();
             if (!(var4 instanceof SPlayerPositionLookPacket)) {
                 if (var4 instanceof SEntityVelocityPacket) {

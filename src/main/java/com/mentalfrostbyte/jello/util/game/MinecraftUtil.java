@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.util.game;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.util.text.StringTextComponent;
 
 public interface MinecraftUtil {
@@ -16,4 +17,7 @@ public interface MinecraftUtil {
         mc.ingameGUI.getChatGUI().printChatMessage(textComp);
     }
 
+    static void sendChatMessage(String text) {
+        mc.getConnection().sendPacket(new CChatMessagePacket(text));
+    }
 }

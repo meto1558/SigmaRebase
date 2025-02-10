@@ -9,8 +9,8 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -51,11 +51,11 @@ public class NoFall extends Module {
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
             if (event.getY() < -0.5
-                    && (double) mc.player.fallDistance > 2.0 + (double) NewMovementUtil.getJumpBoost() * 0.5
+                    && (double) mc.player.fallDistance > 2.0 + (double) MovementUtil.getJumpBoost() * 0.5
                     && !mc.player.isOnGround()
                     && this.getStringSettingValueByName("Mode").equals("Hypixel")
-                && PlayerUtil.isHypixel()) {
-                double[] var4 = PlayerUtil.method17747();
+                && ServerUtil.isHypixel()) {
+                double[] var4 = MovementUtil.getVerticalOffsets();
                 double var6 = Double.MAX_VALUE;
 
                 for (double var9 : var4) {
@@ -64,7 +64,7 @@ public class NoFall extends Module {
                     double var15 = 0.02;
                     double var17 = -0.05;
 
-                    if (event.getY() > -0.5 + (double) (NewMovementUtil.getJumpBoost())) {
+                    if (event.getY() > -0.5 + (double) (MovementUtil.getJumpBoost())) {
                         var15 = 0.0;
                     }
 
@@ -162,9 +162,8 @@ public class NoFall extends Module {
                         }
                         break;
                     case "Hypixel":
-                        if (packet.isPre() && mc.player.getMotion().y < 0.0 && !mc.player.isOnGround() && PlayerUtil.isHypixel()) {
-
-                            for (double var10 : PlayerUtil.method17747()) {
+                        if (packet.isPre() && mc.player.getMotion().y < 0.0 && !mc.player.isOnGround() && ServerUtil.isHypixel()) {
+                            for (double var10 : MovementUtil.getVerticalOffsets()) {
                                 if ((double) ((int) packet.getY()) - packet.getY() + var10 == 0.0) {
                                     packet.setGround(true);
                                     break;

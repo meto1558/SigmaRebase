@@ -11,9 +11,8 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
@@ -66,17 +65,17 @@ public class NCPSpeed extends Module {
                         this.field23607++;
                         double var4 = this.field23609;
                         if (this.field23607 > 1) {
-                            var4 = Math.max(NewMovementUtil.getDumberSpeed(), this.field23609 - (0.004 - NewMovementUtil.getDumberSpeed() * 0.003) - Math.random() * 1.0E-10);
+                            var4 = Math.max(MovementUtil.getDumberSpeed(), this.field23609 - (0.004 - MovementUtil.getDumberSpeed() * 0.003) - Math.random() * 1.0E-10);
                         }
 
-                        NewMovementUtil.setMotion(var1, var4);
+                        MovementUtil.setMotion(var1, var4);
                         if (var1.getY() >= -0.008744698139753596 && var1.getY() <= -0.008724698139753597) {
                             var1.setY(0.001);
                         } else if (var1.getY() >= -0.07743000150680542 && var1.getY() <= -0.07741000150680542) {
                             var1.setY(var1.getY() - 0.01);
                         }
                     }
-                } else if (this.field23608 > 1 && (this.getBooleanValueFromSettingName("Auto Jump") && NewMovementUtil.isMoving() || mc.gameSettings.keyBindJump.isKeyDown())) {
+                } else if (this.field23608 > 1 && (this.getBooleanValueFromSettingName("Auto Jump") && MovementUtil.isMoving() || mc.gameSettings.keyBindJump.isKeyDown())) {
                     this.field23607 = 0;
                     mc.player.jump();
                     var1.setX(mc.player.getMotion().x);
@@ -98,13 +97,13 @@ public class NCPSpeed extends Module {
             }
 
             if (!mc.gameSettings.keyBindJump.isKeyDown() || !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
-                double strafeSpeed = 0.56 + (double) NewMovementUtil.getSpeedBoost() * 0.1;
-                event.setY(0.407 + (double) NewMovementUtil.getJumpBoost() * 0.1 + Math.random() * 1.0E-5);
+                double strafeSpeed = 0.56 + (double) MovementUtil.getSpeedBoost() * 0.1;
+                event.setY(0.407 + (double) MovementUtil.getJumpBoost() * 0.1 + Math.random() * 1.0E-5);
                 if (Speed.tickCounter< 2) {
                     strafeSpeed /= 2.5;
                 }
 
-                strafeSpeed = Math.max(NewMovementUtil.getDumberSpeed(), strafeSpeed);
+                strafeSpeed = Math.max(MovementUtil.getDumberSpeed(), strafeSpeed);
                 event.setStrafeSpeed(strafeSpeed);
                 this.field23609 = strafeSpeed;
             }

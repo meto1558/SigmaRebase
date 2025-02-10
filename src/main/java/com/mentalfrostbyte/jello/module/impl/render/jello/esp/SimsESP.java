@@ -5,7 +5,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.client.Minecraft;
@@ -100,7 +100,7 @@ public class SimsESP extends Module {
     @EventTarget
     public void method16213(EventRender3D var1) {
         if (this.isEnabled()) {
-            for (Entity var5 : BlockUtil.method34549(PlayerUtil.method17680())) {
+            for (Entity var5 : BlockUtil.method34549(CombatUtil.getAllPlayersInWorld())) {
                 if (var5 != mc.player && !Client.getInstance().combatManager.isTargetABot(var5)) {
                     method16216(
                             var5.lastTickPosX + (var5.getPosX() - var5.lastTickPosX) * (double) Minecraft.getInstance().timer.renderPartialTicks,

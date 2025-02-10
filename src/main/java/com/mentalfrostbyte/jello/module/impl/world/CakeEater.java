@@ -9,8 +9,8 @@ import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.fly.MineplexFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.block.CakeBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -50,7 +50,7 @@ public class CakeEater extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
+        RotationManager.rotating = false;
         field23588 = null;
     }
 
@@ -102,27 +102,27 @@ public class CakeEater extends Module {
                 List<BlockPos> var8 = this.method16321(!this.getBooleanValueFromSettingName("Mineplex") ? mc.playerController.getBlockReachDistance() : 6.0F);
                 if (var8.isEmpty()) {
                     field23588 = null;
-                    Rots.rotating = false;
+                    RotationManager.rotating = false;
                 } else {
                     Collections.sort(var8, new Class3593(this));
                     field23588 = var8.get(0);
                     if (!this.getBooleanValueFromSettingName("Mineplex")) {
-                        float[] rots = RotationHelper.method34144(
+                        float[] rots = RotationUtil.method34144(
                                 (double) field23588.getX() + 0.5, (double) field23588.getZ() + 0.5, field23588.getY()
                         );
 
-                        Rots.rotating = true;
-                        Rots.prevYaw = rots[0];
-                        Rots.prevPitch = rots[1];
+                        RotationManager.rotating = true;
+                        RotationManager.prevYaw = rots[0];
+                        RotationManager.prevPitch = rots[1];
                         event.setYaw(rots[0]);
                         event.setPitch(rots[1]);
-                        Rots.yaw = rots[0];
-                        Rots.pitch = rots[1];
+                        RotationManager.yaw = rots[0];
+                        RotationManager.pitch = rots[1];
 
                         mc.player.rotationYawHead = event.getYaw();
                         mc.player.renderYawOffset = event.getYaw();
                     } else {
-                        Rots.rotating = true;
+                        RotationManager.rotating = true;
                     }
                 }
             }

@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -31,7 +31,7 @@ public class HorizonFly extends Module {
 
     @Override
     public void onDisable() {
-        NewMovementUtil.moveInDirection(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
@@ -48,18 +48,18 @@ public class HorizonFly extends Module {
                 if (this.field23497 != -1) {
                     if (this.field23497 != 0) {
                         if (this.field23497 >= 1) {
-                            NewMovementUtil.setMotion(event, var4 + 5.0E-4);
+                            MovementUtil.setMotion(event, var4 + 5.0E-4);
                         }
                     } else {
-                        NewMovementUtil.setMotion(event, var4 + 0.0015);
+                        MovementUtil.setMotion(event, var4 + 0.0015);
                     }
                 } else {
-                    event.setY(NewMovementUtil.getJumpValue());
+                    event.setY(MovementUtil.getJumpValue());
                     mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
-                    NewMovementUtil.setMotion(event, 0.125);
+                    MovementUtil.setMotion(event, 0.125);
                 }
             } else {
-                NewMovementUtil.setMotion(event, 0.0);
+                MovementUtil.setMotion(event, 0.0);
             }
         }
     }

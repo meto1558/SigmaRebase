@@ -11,9 +11,9 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -43,7 +43,7 @@ public class BowAimbot extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
+        RotationManager.rotating = false;
         this.field23754.clear();
     }
 
@@ -57,19 +57,19 @@ public class BowAimbot extends Module {
             }
 
             if (!this.field23754.isEmpty() && this.getBooleanValueFromSettingName("Silent")) {
-                float[] rots = RotationHelper.method34146((LivingEntity) this.field23754.get(0));
-                Rots.rotating = true;
-                Rots.prevYaw = rots[0];
-                Rots.prevPitch = rots[1];
+                float[] rots = RotationUtil.method34146((LivingEntity) this.field23754.get(0));
+                RotationManager.rotating = true;
+                RotationManager.prevYaw = rots[0];
+                RotationManager.prevPitch = rots[1];
                 event.setYaw(rots[0]);
                 event.setPitch(rots[1]);
-                Rots.yaw = rots[0];
-                Rots.pitch = rots[1];
+                RotationManager.yaw = rots[0];
+                RotationManager.pitch = rots[1];
 
                 mc.player.rotationYawHead = event.getYaw();
                 mc.player.renderYawOffset = event.getYaw();
             } else {
-                Rots.rotating = false;
+                RotationManager.rotating = false;
             }
         }
     }
@@ -78,7 +78,7 @@ public class BowAimbot extends Module {
     public void method16570(EventRender3D var1) {
         if (this.isEnabled() && !this.getBooleanValueFromSettingName("Silent")) {
             if (!this.field23754.isEmpty()) {
-                float[] var4 = RotationHelper.method34146((LivingEntity) this.field23754.get(0));
+                float[] var4 = RotationUtil.method34146((LivingEntity) this.field23754.get(0));
                 mc.player.rotationYaw = var4[0];
                 mc.player.rotationPitch = var4[1];
             }
@@ -86,7 +86,7 @@ public class BowAimbot extends Module {
     }
 
     public List<Entity> validEntity(float var1) {
-        List var4 = PlayerUtil.method17708();
+        List var4 = PlayerUtil.getAllEntitiesInWorld();
         Iterator var5 = var4.iterator();
 
         while (var5.hasNext()) {
@@ -117,7 +117,7 @@ public class BowAimbot extends Module {
                 var5.remove();
             } else if (var6.isInvulnerable()) {
                 var5.remove();
-            } else if (var6 instanceof PlayerEntity && TeamUtil.method31662((PlayerEntity) var6) && !this.getBooleanValueFromSettingName("Teams")) {
+            } else if (var6 instanceof PlayerEntity && CombatUtil.arePlayersOnSameTeam((PlayerEntity) var6) && !this.getBooleanValueFromSettingName("Teams")) {
                 var5.remove();
             }
         }

@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.PathFinder;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;
@@ -12,7 +13,6 @@ import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -242,7 +242,7 @@ public class InfiniteAura extends Module {
                                             iter.remove();
                                         } else if (!var8.isInvulnerable()) {
                                             if (var8 instanceof PlayerEntity
-                                                    && TeamUtil.method31662((PlayerEntity) var8)
+                                                    && CombatUtil.arePlayersOnSameTeam((PlayerEntity) var8)
                                                     && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                                                 iter.remove();
                                             }

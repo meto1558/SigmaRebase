@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.module.impl.combat.aimbot.BasicAimbot;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.CandCAimbot;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.SmoothAimbot;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -54,7 +54,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                                         
                                     } else if (!entity.isInvulnerable()) {
                                         if (entity instanceof PlayerEntity
-                                                && TeamUtil.method31662((PlayerEntity) entity)
+                                                && CombatUtil.arePlayersOnSameTeam((PlayerEntity) entity)
                                                 && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                                             
                                         } else if (target == null || mc.player.getDistance(entity) < mc.player.getDistance(target)) {

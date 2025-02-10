@@ -5,8 +5,8 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -41,17 +41,17 @@ public class AACAntiKB extends Module {
                 if (ticks < 7) {
                     ticks++;
                     if (ticks > 1) {
-                        float var4 = NewMovementUtil.getDirectionArray()[1];
-                        float var5 = NewMovementUtil.getDirectionArray()[2];
-                        float var6 = NewMovementUtil.getDirectionArray()[0];
+                        float var4 = MovementUtil.getDirectionArray()[1];
+                        float var5 = MovementUtil.getDirectionArray()[2];
+                        float var6 = MovementUtil.getDirectionArray()[0];
                         double var7 = Math.cos(Math.toRadians(var6));
                         double var9 = Math.sin(Math.toRadians(var6));
                         double var11 = (double) ((float) (7 - ticks) * this.getNumberValueBySettingName("Strength")) * 0.04 * (double) this.field23909 * 0.2;
                         double var13 = ((double) var4 * var7 + (double) var5 * var9) * var11;
                         double var15 = ((double) var4 * var9 - (double) var5 * var7) * var11;
                         float var17 = (float) (Math.atan2(var13, var15) * 180.0 / Math.PI) - 90.0F;
-                        float var18 = RotationHelper.angleDiff(this.field23908, var17);
-                        if (var18 > 100.0F && NewMovementUtil.isMoving()) {
+                        float var18 = RotationUtil.angleDiff(this.field23908, var17);
+                        if (var18 > 100.0F && MovementUtil.isMoving()) {
                             var1.setX(var1.getX() + var13);
                             var1.setZ(var1.getZ() + var15);
                         } else {

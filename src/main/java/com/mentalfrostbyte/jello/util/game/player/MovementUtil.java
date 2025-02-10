@@ -2,15 +2,17 @@ package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.MathHelper;
 
-public class NewMovementUtil implements MinecraftUtil {
+public class MovementUtil implements MinecraftUtil {
 
     public static void stop() {
         mc.player.setMotion(0, mc.player.getMotion().y, 0);
@@ -218,7 +220,7 @@ public class NewMovementUtil implements MinecraftUtil {
     }
 
     public static float setMotion(double speed, float currentYaw, float targetYaw, float maxYawChange) {
-        float yawDifference = RotationHelper.angleDiff(targetYaw, currentYaw);
+        float yawDifference = RotationUtil.angleDiff(targetYaw, currentYaw);
         if (!(yawDifference > maxYawChange)) {
             targetYaw = currentYaw;
         } else {
@@ -231,7 +233,7 @@ public class NewMovementUtil implements MinecraftUtil {
     }
 
     public static float setMotion(EventMove event, double speed, float currentYaw, float targetYaw, float maxYawChange) {
-        float yawDifference = RotationHelper.angleDiff(targetYaw, currentYaw);
+        float yawDifference = RotationUtil.angleDiff(targetYaw, currentYaw);
         if (!(yawDifference > maxYawChange)) {
             targetYaw = currentYaw;
         } else {
@@ -330,5 +332,30 @@ public class NewMovementUtil implements MinecraftUtil {
     public static float[] getDirectionArray() {
         MovementInput input = mc.player.movementInput;
         return getDirectionArray(input.moveForward, input.moveStrafe);
+    }
+
+    public static void sendRandomizedPlayerPositionPackets(boolean isRandomized) {
+        double playerX = Module.mc.player.getPosX();
+        double playerY = Module.mc.player.getPosY();
+        double playerZ = Module.mc.player.getPosZ();
+        int jumpBoostHeight = 49 + getJumpBoost() * 17;
+
+        for (int i = 0; i < jumpBoostHeight; i++) {
+            double randomOffset = !isRandomized ? 0.0 : com.mentalfrostbyte.jello.util.system.math.MathHelper.generateRandomSmallValue();
+            Module.mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(playerX + randomOffset, playerY + 0.06248 + com.mentalfrostbyte.jello.util.system.math.MathHelper.generateRandomSmallValue(), playerZ + randomOffset, false));
+            if (ServerUtil.isHypixel()) {
+                Module.mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(playerX + randomOffset, playerY + 0.05 + com.mentalfrostbyte.jello.util.system.math.MathHelper.generateRandomSmallValue(), playerZ + randomOffset, false));
+            }
+        }
+    }
+
+    public static double setPlayerYMotion(double var0) {
+        Module.mc.player.setMotion(Module.mc.player.getMotion().x, var0, Module.mc.player.getMotion().z);
+        return var0;
+    }
+
+    public static double[] getVerticalOffsets() {
+        return new double[]{0.0, 0.0625, 0.125, 0.25, 0.3125, 0.5, 0.625, 0.75, 0.8125, 0.875, 0.9375, 1.0, 1.0625,
+                1.125, 1.25, 1.3125, 1.375};
     }
 }

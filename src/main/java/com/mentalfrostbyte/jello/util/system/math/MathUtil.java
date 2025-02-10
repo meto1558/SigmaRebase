@@ -2,23 +2,18 @@ package com.mentalfrostbyte.jello.util.system.math;
 
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector2d;
 
-import javax.sound.sampled.AudioFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MathUtils {
+public class MathUtil {
     private final double field38710;
 
-    public MathUtils(double var1) {
+    public MathUtil(double var1) {
         if (!(var1 <= 0.0) && !(var1 >= 1.0)) {
             this.field38710 = var1;
         } else {
             throw new AssertionError("Smoothness must be between 0 and 1 (both non-inclusive)");
         }
-    }
-
-    public MathUtils() {
-        this(0.1F);
     }
 
     public static float lerp(float var0, double... var1) {
@@ -27,8 +22,8 @@ public class MathUtils {
         var4.add(new Vector2d(var1[0], var1[1]));
         var4.add(new Vector2d(var1[2], var1[3]));
         var4.add(new Vector2d(1.0, 1.0));
-        MathUtils var5 = new MathUtils(0.0055555557F);
-        return (float) var5.method30789(var4, var0);
+        MathUtil mathUtil = new MathUtil(0.0055555557F);
+        return (float) mathUtil.method30789(var4, var0);
     }
 
     public Vector2d method30787(Vector2d var1, Vector2d var2, Vector2d var3, double var4) {
@@ -108,49 +103,4 @@ public class MathUtils {
         }
     }
 
-    public static float[] convertToPCMFloatArray(byte[] audioBytes, AudioFormat audioFormat) {
-        float[] pcmValues = new float[audioBytes.length / audioFormat.getFrameSize()];
-
-        for (int i = 0; i < audioBytes.length; i += audioFormat.getFrameSize()) {
-            int sample = !audioFormat.isBigEndian() ? bytesToIntLE(audioBytes, i, audioFormat.getFrameSize()) : bytesToIntBE(audioBytes, i, audioFormat.getFrameSize());
-            pcmValues[i / audioFormat.getFrameSize()] = (float) sample / 32768.0F;
-        }
-
-        return pcmValues;
-    }
-
-    public static double[] calculateAmplitudes(float[] realPart, float[] imaginaryPart) {
-        double[] amplitudes = new double[realPart.length / 2];
-
-        for (int i = 0; i < amplitudes.length; i++) {
-            // Calculate magnitude using the Pythagorean theorem
-            amplitudes[i] = Math.sqrt(realPart[i] * realPart[i] + imaginaryPart[i] * imaginaryPart[i]);
-        }
-
-        return amplitudes;
-    }
-
-    public static int bytesToIntLE(byte[] byteArray, int startIndex, int length) {
-        int result = 0;
-
-        for (int i = 0; i < length; i++) {
-            // Extract the byte and shift it to its correct position
-            int currentByte = byteArray[startIndex + i] & 0xFF;
-            result += currentByte << (8 * i);
-        }
-
-        return result;
-    }
-
-    public static int bytesToIntBE(byte[] byteArray, int startIndex, int length) {
-        int result = 0;
-
-        for (int i = 0; i < length; i++) {
-            // Extract the byte and shift it to its correct position
-            int currentByte = byteArray[startIndex + i] & 0xFF;
-            result += currentByte << (8 * (length - i - 1));
-        }
-
-        return result;
-    }
 }

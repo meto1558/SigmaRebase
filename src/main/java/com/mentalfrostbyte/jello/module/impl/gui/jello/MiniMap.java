@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.module.impl.gui.jello.minimap.MinimapChunkHandl
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.ChunkPos;
@@ -178,7 +178,7 @@ public class MiniMap extends Module {
                             RenderUtil.endScissor();
                             GL11.glPopMatrix();
                             GL11.glPushMatrix();
-                            int direction = (int) NewMovementUtil.getDirection();
+                            int direction = (int) MovementUtil.getDirection();
                             GL11.glTranslatef((float) (field23711 + field23710 / 2 + 1),
                                     (float) (field23712 + field23709 / 2 + 3), 0.0F);
                             GL11.glRotatef((float) (270 + direction) - mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);

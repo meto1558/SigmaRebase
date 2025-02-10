@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.other.Pair;
 import com.mentalfrostbyte.jello.module.Module;
@@ -30,9 +30,9 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
@@ -202,7 +202,7 @@ public class KillAura extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
+        RotationManager.rotating = false;
         currentTarget = null;
         currentTimedEntity = null;
         targetEntities = null;
@@ -223,8 +223,8 @@ public class KillAura extends Module {
     public void onTick(EventPlayerTick event) {
 
         if (currentTarget == null) {
-            Rots.rotating = false;
-        } else Rots.rotating = true;
+            RotationManager.rotating = false;
+        } else RotationManager.rotating = true;
 
         if (mc.player == null || mc.world == null) {
             return;
@@ -285,7 +285,7 @@ public class KillAura extends Module {
         }
 
         if (currentTarget == null) {
-            Rots.rotating = false;
+            RotationManager.rotating = false;
         }
 
         if (!isEnabled() || mc.player == null) {
@@ -307,7 +307,7 @@ public class KillAura extends Module {
 
         if (currentTarget != null
                 && interactAB.isBlocking()
-                && NewMovementUtil.isMoving()
+                && MovementUtil.isMoving()
                 && getStringSettingValueByName("Autoblock Mode").equals("NCP")) {
             interactAB.doUnblock();
         }
@@ -352,12 +352,12 @@ public class KillAura extends Module {
         }
 
         if (currentTarget != null) {
-            Rots.prevYaw = currentRotations.yaw;
-            Rots.prevPitch = currentRotations.pitch;
+            RotationManager.prevYaw = currentRotations.yaw;
+            RotationManager.prevPitch = currentRotations.pitch;
             event.setYaw(currentRotations.yaw);
             event.setPitch(currentRotations.pitch);
-            Rots.yaw = currentRotations.yaw;
-            Rots.pitch = currentRotations.pitch;
+            RotationManager.yaw = currentRotations.yaw;
+            RotationManager.pitch = currentRotations.pitch;
 
             mc.player.rotationYawHead = event.getYaw();
             mc.player.renderYawOffset = event.getYaw();
@@ -554,7 +554,7 @@ public class KillAura extends Module {
             if (interactAB.method36820(attackDelay)) {
                 blockDelay = 1;
                 shouldSetGround = avoidFallDamage;
-                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : NewMovementUtil.getJumpValue() / 10.0;
+                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : MovementUtil.getJumpValue() / 10.0;
                 positionOffset = new double[]{event.getX(), event.getY() + yOffset, event.getZ()};
             }
         } else if (blockDelay == 1) {
@@ -626,7 +626,7 @@ public class KillAura extends Module {
 
     private void processTargets(List<TimedEntity> targets, String mode, float range) {
         if (rotationProgress == -1.0F) {
-            float targetYaw = RotationHelper.getRotationsToVector(PlayerUtil.method17751(targets.get(0).getEntity())).yaw;
+            float targetYaw = RotationUtil.getRotationsToVector(PlayerUtil.method17751(targets.get(0).getEntity())).yaw;
             float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
             rotationSpeed = yawDifference * 1.95F / 50.0F;
             rotationProgress++;
@@ -644,7 +644,7 @@ public class KillAura extends Module {
                 }
                 currentTimedEntity = targets.get(targetIndex);
             } else if (currentTimedEntity == null || currentTimedEntity.getEntity() != targets.get(0).getEntity()) {
-                float targetYaw = RotationHelper.getRotationsToVector(PlayerUtil.method17751(targets.get(0).getEntity())).yaw;
+                float targetYaw = RotationUtil.getRotationsToVector(PlayerUtil.method17751(targets.get(0).getEntity())).yaw;
                 float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 rotationProgress++;
@@ -661,7 +661,7 @@ public class KillAura extends Module {
             if (shouldSwitch && !targets.isEmpty()) {
                 targetIndex = (targetIndex + 1) % targets.size();
                 TimedEntity nextTarget = targets.get(targetIndex);
-                float targetYaw = RotationHelper.getRotationsToVector(PlayerUtil.method17751(nextTarget.getEntity())).yaw;
+                float targetYaw = RotationUtil.getRotationsToVector(PlayerUtil.method17751(nextTarget.getEntity())).yaw;
                 float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 randomOffset = Math.random();
@@ -678,7 +678,7 @@ public class KillAura extends Module {
     }
 
     private float getYawDifference(float targetYaw, float currentYaw) {
-        return RotationHelper.getShortestYawDifference(targetYaw, currentYaw);
+        return RotationUtil.getShortestYawDifference(targetYaw, currentYaw);
     }
 
     private ExpirationTimer createExpirationTimer() {
@@ -693,12 +693,12 @@ public class KillAura extends Module {
         }
 
         Entity targ = currentTimedEntity.getEntity();
-        Rotation newRots = RotationHelper.getRotations(targ, !getBooleanValueFromSettingName("Through walls"));
+        Rotation newRots = RotationUtil.getRotations(targ, !getBooleanValueFromSettingName("Through walls"));
         if (newRots == null) {
             System.out.println("[KillAura] newRots is null??? on line 612");
             return;
         }
-        float yawDifference = RotationHelper.getShortestAngleDifference(currentRotations.yaw, newRots.yaw);
+        float yawDifference = RotationUtil.getShortestAngleDifference(currentRotations.yaw, newRots.yaw);
         float pitchDifference = newRots.pitch - currentRotations.pitch;
         String rotationMode = getStringSettingValueByName("Rotation Mode");
         float range = getNumberValueBySettingName("Range");

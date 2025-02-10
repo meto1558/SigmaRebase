@@ -59,7 +59,7 @@ public class BoxOutlineESP extends Module {
             mc.world.entitiesById
                     .forEach(
                             (var1, var2) -> {
-                                boolean var5 = PlayerUtil.method17744(var2) == PlayerUtil.Class2258.field14690
+                                boolean var5 = PlayerUtil.getEntityCategory(var2) == PlayerUtil.EntityTypeCategory.PLAYER
                                         && this.access().getBooleanValueFromSettingName("Show Players");
                                 boolean var6 = !var2.isInvisible()
                                         || this.access().getBooleanValueFromSettingName("Show Invisibles");
@@ -93,11 +93,11 @@ public class BoxOutlineESP extends Module {
     private void method16508(boolean var1) {
         for (Entity var5 : mc.world.getAllEntities()) {
             if (!Client.getInstance().combatManager.isTargetABot(var5)) {
-                boolean var6 = PlayerUtil.method17744(var5) == PlayerUtil.Class2258.field14690
+                boolean var6 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.PLAYER
                         && this.access().getBooleanValueFromSettingName("Show Players");
-                boolean var7 = PlayerUtil.method17744(var5) == PlayerUtil.Class2258.field14689
+                boolean var7 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.MONSTER
                         && this.access().getBooleanValueFromSettingName("Show Mobs");
-                boolean var8 = PlayerUtil.method17744(var5) == PlayerUtil.Class2258.field14691
+                boolean var8 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.NON_PLAYER
                         && this.access().getBooleanValueFromSettingName("Show Passives");
                 boolean var9 = !var5.isInvisible() || this.access().getBooleanValueFromSettingName("Show Invisibles");
                 if ((var7 || var6 || var8) && var9 && var5 != mc.player) {

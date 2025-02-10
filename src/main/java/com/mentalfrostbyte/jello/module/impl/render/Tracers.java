@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import net.minecraft.client.Minecraft;
@@ -37,7 +37,7 @@ public class Tracers extends Module {
             GL11.glDepthMask(false);
             GL11.glShadeModel(7425);
 
-            for (Entity entity : PlayerUtil.method17680()) {
+            for (Entity entity : CombatUtil.getAllPlayersInWorld()) {
                 if (entity != mc.player && entity.isAlive() && entity.boundingBox.getAverageEdgeLength() > 0.8
                         && entity.ticksExisted > 30 && !Client.getInstance().combatManager.isTargetABot(entity)) {
                     this.method16522(entity);

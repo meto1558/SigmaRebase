@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -32,9 +32,9 @@ public class BoxedButton extends Element {
 
    @Override
    public void draw(float partialTicks) {
-      float var4 = MathUtils.lerp(this.field20630.calcPercent(), 0.68, 2.32, 0.06, 0.48);
+      float var4 = MathUtil.lerp(this.field20630.calcPercent(), 0.68, 2.32, 0.06, 0.48);
       if (this.field20630.getDirection() == Animation.Direction.BACKWARDS) {
-         var4 = MathUtils.lerp(this.field20630.calcPercent(), 0.81, 0.38, 0.32, -1.53);
+         var4 = MathUtil.lerp(this.field20630.calcPercent(), 0.81, 0.38, 0.32, -1.53);
       }
 
       this.drawBackground((int)(-25.0F * var4));

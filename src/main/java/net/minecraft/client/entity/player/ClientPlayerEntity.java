@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActio
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
@@ -341,8 +341,8 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
     @Override
     public Vector3d getLook(float partialTicks) {
         return this.getVectorForRotation(
-                Rots.rotating ? Rots.pitch : this.rotationPitch,
-                Rots.rotating ? Rots.yaw : this.rotationYaw
+                RotationManager.rotating ? RotationManager.pitch : this.rotationPitch,
+                RotationManager.rotating ? RotationManager.yaw : this.rotationYaw
         );
     }
 

@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
@@ -53,11 +53,11 @@ public class MainMenuButton extends SmallImage {
     }
 
     public float method13030() {
-        return MathUtils.lerp(this.field20578.calcPercent(), 0.24, 0.88, 0.3, 1.0);
+        return MathUtil.lerp(this.field20578.calcPercent(), 0.24, 0.88, 0.3, 1.0);
     }
 
     public float method13031() {
-        return MathUtils.lerp(this.field20578.calcPercent(), 0.45, 0.02, 0.59, 0.28);
+        return MathUtil.lerp(this.field20578.calcPercent(), 0.45, 0.02, 0.59, 0.28);
     }
 
     @Override

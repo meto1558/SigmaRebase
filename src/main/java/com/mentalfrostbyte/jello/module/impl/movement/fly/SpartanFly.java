@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
@@ -111,13 +111,13 @@ public class SpartanFly extends Module {
                                 ? (!this.field23571 ? mc.player.getPositionVec().y : mc.player.getPositionVec().y - 1.0)
                                 : (!this.field23571 ? mc.player.getPositionVec().y + 1.0
                                         : mc.player.getPositionVec().y);
-                        NewMovementUtil.setMotion(var1, 0.35);
+                        MovementUtil.setMotion(var1, 0.35);
                     }
                 }
             } else {
                 mc.player.jump();
                 var1.setY(mc.player.getMotion().y);
-                NewMovementUtil.setMotion(var1, 0.35);
+                MovementUtil.setMotion(var1, 0.35);
                 this.field23569 = !mc.gameSettings.keyBindJump.isKeyDown()
                         ? (!this.field23571 ? mc.player.getPositionVec().y : mc.player.getPositionVec().y - 1.0)
                         : (!this.field23571 ? mc.player.getPositionVec().y + 1.0 : mc.player.getPositionVec().y);

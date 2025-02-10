@@ -13,8 +13,8 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -73,7 +73,7 @@ public class AntiVoid extends Module {
                     this.fallDistanceAccumulated = 0.0;
                 }
             } else {
-                NewMovementUtil.setMotion(event, 0.0);
+                MovementUtil.setMotion(event, 0.0);
                 event.setY(0.0);
                 this.disableTimer--;
             }
@@ -85,7 +85,7 @@ public class AntiVoid extends Module {
 
             if (this.speedBoostTimer > 0) {
                 this.speedBoostTimer--;
-                NewMovementUtil.setMotion(event, 0.1);
+                MovementUtil.setMotion(event, 0.1);
             }
         }
     }
@@ -126,7 +126,7 @@ public class AntiVoid extends Module {
         double posY = mc.player.getPositionVec().getY();
         double posZ = mc.player.getPositionVec().getZ();
 
-        if (mode.equals("Cubecraft") && !PlayerUtil.isCubecraft()) {
+        if (mode.equals("Cubecraft") && !ServerUtil.onCubeCraft()) {
             mode = "Motion";
         }
 
@@ -136,7 +136,7 @@ public class AntiVoid extends Module {
                 break;
             case "Motion":
                 event.setY(0.1);
-                PlayerUtil.setPlayerYMotion(event.getY());
+                MovementUtil.setPlayerYMotion(event.getY());
                 break;
             case "TP":
                 mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);

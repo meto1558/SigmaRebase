@@ -17,7 +17,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 
 import java.io.File;
@@ -181,10 +181,10 @@ public class ProfileGroup extends AnimatedIconPanel {
          var4.runThisOnDimensionUpdate(() -> var4.method13615());
       }
 
-      float var8 = MathUtils.lerp(this.animation.calcPercent(), 0.1, 0.81, 0.14, 1.0);
+      float var8 = MathUtil.lerp(this.animation.calcPercent(), 0.1, 0.81, 0.14, 1.0);
       this.setHeightA(Math.round((1.0F - var8) * (float)this.field21271));
       partialTicks *= 1.0F - this.animation.calcPercent();
-      float var5 = MathUtils.lerp(this.field21265.calcPercent(), 0.28, 1.26, 0.33, 1.04);
+      float var5 = MathUtil.lerp(this.field21265.calcPercent(), 0.28, 1.26, 0.33, 1.04);
       if (this.field21265.getDirection().equals(Animation.Direction.BACKWARDS)) {
          var5 = MathHelper.calculateBackwardTransition(this.field21265.calcPercent(), 0.0F, 1.0F, 1.0F);
       }

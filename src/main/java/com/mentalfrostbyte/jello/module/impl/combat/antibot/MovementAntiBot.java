@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +40,7 @@ public class MovementAntiBot extends AntiBotBase {
          this.field31116.clear();
       }
 
-      for (PlayerEntity var5 : PlayerUtil.getPlayers()) {
+      for (PlayerEntity var5 : CombatUtil.getPlayers()) {
          if (var5 != mc.player) {
             if (var5 == null
                || !BlockUtil.isAboveBounds(var5, 0.01F)

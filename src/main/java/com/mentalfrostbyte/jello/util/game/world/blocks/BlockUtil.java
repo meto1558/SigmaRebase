@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.util.game.world.blocks;
 import com.google.common.collect.ImmutableList;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,8 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
-
-import static com.mentalfrostbyte.jello.module.Module.mc;
 
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();
@@ -268,8 +266,8 @@ public class BlockUtil {
 
 
     public static RayTraceResult method34569(float var0, float var1, float var2, float var3) {
-        double var6 = Math.cos((double) NewMovementUtil.getYaw() * Math.PI / 180.0) * (double) var3;
-        double var8 = Math.sin((double) NewMovementUtil.getYaw() * Math.PI / 180.0) * (double) var3;
+        double var6 = Math.cos((double) MovementUtil.getYaw() * Math.PI / 180.0) * (double) var3;
+        double var8 = Math.sin((double) MovementUtil.getYaw() * Math.PI / 180.0) * (double) var3;
         Vector3d var10 = new Vector3d(
                 mc.player.getPosX() + var6,
                 mc.player.getPosY() + (double) mc.player.getEyeHeight(),
@@ -376,7 +374,7 @@ public class BlockUtil {
     }
 
     public static float[] getRotationsToBlock() {
-        BlockRayTraceResult var2 = method34566(NewMovementUtil.getYaw() - 270.0F);
+        BlockRayTraceResult var2 = method34566(MovementUtil.getYaw() - 270.0F);
         if (var2.getType() != RayTraceResult.Type.MISS) {
             double var3 = var2.getHitVec().x - (double) var2.getPos().getX();
             double var5 = var2.getHitVec().z - (double) var2.getPos().getZ();

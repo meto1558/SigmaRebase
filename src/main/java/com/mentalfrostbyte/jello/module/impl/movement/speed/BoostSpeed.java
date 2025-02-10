@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.SubOptionSetting;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class BoostSpeed extends Module {
@@ -50,7 +50,7 @@ public class BoostSpeed extends Module {
 
     @EventTarget
     public void onMove(EventMove event) {
-        double calculatedSpeed = NewMovementUtil.getSmartSpeed();
+        double calculatedSpeed = MovementUtil.getSmartSpeed();
 
         if (!mc.player.isSprinting() && assumeSprinting.currentValue) {
             calculatedSpeed += 0.15;
@@ -71,6 +71,6 @@ public class BoostSpeed extends Module {
             ticksSinceBoost++;
         }
 
-        NewMovementUtil.setMotion(event, calculatedSpeed);
+        MovementUtil.setMotion(event, calculatedSpeed);
     }
 }

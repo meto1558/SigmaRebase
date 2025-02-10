@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters;
 
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.InteractAutoBlock;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.entity.Entity;
 
 import java.util.Comparator;
@@ -12,8 +12,8 @@ public record AngleSorter(InteractAutoBlock interactAB) implements Comparator<Ti
         Entity var5 = var1.getEntity();
         Entity var6 = var2.getEntity();
         assert this.interactAB.mc.player != null;
-        float var7 = RotationHelper.angleDiff(RotationHelper.method34147(var5).yaw, this.interactAB.mc.player.rotationYaw);
-        float var8 = RotationHelper.angleDiff(RotationHelper.method34147(var6).yaw, this.interactAB.mc.player.rotationYaw);
+        float var7 = RotationUtil.angleDiff(RotationUtil.method34147(var5).yaw, this.interactAB.mc.player.rotationYaw);
+        float var8 = RotationUtil.angleDiff(RotationUtil.method34147(var6).yaw, this.interactAB.mc.player.rotationYaw);
         if (!(var7 - var8 < 0.0F)) {
             if (var7 - var8 != 0.0F) {
                 return 1;

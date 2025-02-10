@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -64,7 +64,7 @@ public class AGCFly extends Module {
 
     @Override
     public void onDisable() {
-        NewMovementUtil.moveInDirection(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
@@ -78,14 +78,14 @@ public class AGCFly extends Module {
                 if (this.preUpdates == -1) {
                     var1.setY(this.field23903 != 3 ? 0.001 : 0.095);
                     if (this.field23903 != 3) {
-                        NewMovementUtil.setMotion(var1, 0.32);
+                        MovementUtil.setMotion(var1, 0.32);
                     }
 
                     mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                 }
             } else {
                 var1.setY(0.0);
-                NewMovementUtil.setMotion(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }

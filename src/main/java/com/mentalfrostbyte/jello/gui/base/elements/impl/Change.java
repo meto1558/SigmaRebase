@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import org.lwjgl.opengl.GL11;
 import totalcross.json.JSONArray;
 import totalcross.json.JSONException;
@@ -52,7 +52,7 @@ public class Change extends CustomGuiScreen {
 
     @Override
     public void draw(float partialTicks) {
-        float var4 = MathUtils.lerp(this.animation2.calcPercent(), 0.17, 1.0, 0.51, 1.0);
+        float var4 = MathUtil.lerp(this.animation2.calcPercent(), 0.17, 1.0, 0.51, 1.0);
         this.drawBackground((int) ((1.0F - var4) * 100.0F));
         this.method13225();
         partialTicks *= this.animation2.calcPercent();

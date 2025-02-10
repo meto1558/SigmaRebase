@@ -1,10 +1,9 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.List;
@@ -117,8 +116,8 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
 
             float f7 = MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch);
 
-            if (entityIn.equals(Minecraft.getInstance().player) && Rots.rotating)
-                f7 = MathHelper.lerp(partialTicks, Rots.prevPitch, Rots.pitch);
+            if (entityIn.equals(Minecraft.getInstance().player) && RotationManager.rotating)
+                f7 = MathHelper.lerp(partialTicks, RotationManager.prevPitch, RotationManager.pitch);
 
             EventRenderEntity eventRenderEntity = new EventRenderEntity(f, f1, f2, f7, partialTicks, entityIn);
             EventBus.call(eventRenderEntity);

@@ -1,6 +1,6 @@
-package com.mentalfrostbyte.jello.util.game.player.combat;
+package com.mentalfrostbyte.jello.managers;
 
-public class Rots {
+public class RotationManager {
     public static float yaw, pitch, prevPitch, prevYaw;
     public static boolean rotating = false;
 }

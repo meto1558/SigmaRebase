@@ -18,6 +18,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -96,7 +97,7 @@ public class NameTags extends Module {
 
             this.entities.clear();
 
-            for (Entity var7 : BlockUtil.method34549(PlayerUtil.method17680())) {
+            for (Entity var7 : BlockUtil.method34549(CombatUtil.getAllPlayersInWorld())) {
                 if (var7 != mc.player
                         && var7 != Freecam.field23814
                         && var7 != Blink.clientPlayerEntity

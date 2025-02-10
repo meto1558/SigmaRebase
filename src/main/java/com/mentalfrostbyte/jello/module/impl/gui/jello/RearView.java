@@ -12,9 +12,9 @@ import com.mentalfrostbyte.jello.managers.GuiManager;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -72,7 +72,7 @@ public class RearView extends Module {
     }
 
     public boolean isEntityWithinViewAngle(LivingEntity targetEntity) {
-        float rotations = RotationHelper.calculateEntityRotations(targetEntity, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ())[0];
+        float rotations = RotationUtil.calculateEntityRotations(targetEntity, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ())[0];
         return this.calculateAngleDifference(mc.player.rotationYaw, rotations) <= 90.0F;
     }
 
@@ -102,9 +102,9 @@ public class RearView extends Module {
                             return;
                         }
                     } else if (this.animation.getDirection() != Animation.Direction.FORWARDS) {
-                        positionY = (int) ((float) positionY * MathUtils.lerp(this.animation.calcPercent(), 0.49, 0.59, 0.16, 1.04));
+                        positionY = (int) ((float) positionY * MathUtil.lerp(this.animation.calcPercent(), 0.49, 0.59, 0.16, 1.04));
                     } else {
-                        positionY = (int) ((float) positionY * MathUtils.lerp(this.animation.calcPercent(), 0.3, 0.88, 0.47, 1.0));
+                        positionY = (int) ((float) positionY * MathUtil.lerp(this.animation.calcPercent(), 0.3, 0.88, 0.47, 1.0));
                     }
 
                     RenderUtil.drawRoundedRect((float) (mc.getMainWindow().getWidth() - offset - rearViewWidth), (float) (mc.getMainWindow().getHeight() + positionY), (float) rearViewWidth, (float) (rearViewHeight - 1), 14.0F, this.animation.calcPercent());

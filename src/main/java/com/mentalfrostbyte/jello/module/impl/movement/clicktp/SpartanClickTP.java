@@ -7,8 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -32,9 +31,9 @@ public class SpartanClickTP extends Module {
 
     @Override
     public void onDisable() {
-        PlayerUtil.setPlayerYMotion(-0.08);
-        double var3 = NewMovementUtil.getSmartSpeed();
-        NewMovementUtil.moveInDirection(var3);
+        MovementUtil.setPlayerYMotion(-0.08);
+        double var3 = MovementUtil.getSmartSpeed();
+        MovementUtil.moveInDirection(var3);
         mc.timer.timerSpeed = 1.0F;
     }
 
@@ -78,9 +77,9 @@ public class SpartanClickTP extends Module {
                     if (!this.access().getBooleanValueFromSettingName("Auto Disable")) {
                         this.field23464 = -1;
                         this.field23465 = null;
-                        PlayerUtil.setPlayerYMotion(-0.08);
-                        double var5 = NewMovementUtil.getSmartSpeed();
-                        NewMovementUtil.moveInDirection(var5);
+                        MovementUtil.setPlayerYMotion(-0.08);
+                        double var5 = MovementUtil.getSmartSpeed();
+                        MovementUtil.moveInDirection(var5);
                         mc.timer.timerSpeed = 1.0F;
                     } else {
                         this.access().toggle();

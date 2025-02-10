@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -38,7 +38,7 @@ public class LibreCraftFly extends Module {
 
     @Override
     public void onDisable() {
-        NewMovementUtil.moveInDirection(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
@@ -73,16 +73,16 @@ public class LibreCraftFly extends Module {
                     if (this.field23910 == 0) {
                         var1.setY(0.0);
                         mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
-                        NewMovementUtil.setMotion(var1, 0.35);
+                        MovementUtil.setMotion(var1, 0.35);
                     }
                 } else {
                     var1.setY(0.299);
                     mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
-                    NewMovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
+                    MovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
                 }
             } else {
                 var1.setY(0.0);
-                NewMovementUtil.setMotion(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }

@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -46,7 +46,7 @@ public class VeltPvPFly extends Module {
 
     @Override
     public void onDisable() {
-        NewMovementUtil.moveInDirection(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
@@ -81,27 +81,27 @@ public class VeltPvPFly extends Module {
                 if (this.field23419 != -1) {
                     if (this.field23419 == 0) {
                         if (!mc.gameSettings.keyBindJump.isKeyDown() && var1.getY() > 0.0) {
-                            var1.setY(-NewMovementUtil.getJumpValue());
+                            var1.setY(-MovementUtil.getJumpValue());
                         }
 
                         mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
-                        NewMovementUtil.setMotion(var1, var4 - 0.1);
+                        MovementUtil.setMotion(var1, var4 - 0.1);
                     }
                 } else {
                     if (!mc.gameSettings.keyBindJump.isKeyDown()) {
-                        var1.setY(!this.field23423 ? NewMovementUtil.getJumpValue() : -var4 / 2.0);
+                        var1.setY(!this.field23423 ? MovementUtil.getJumpValue() : -var4 / 2.0);
                     } else {
-                        var1.setY(!this.field23423 ? var4 / 2.0 : NewMovementUtil.getJumpValue());
+                        var1.setY(!this.field23423 ? var4 / 2.0 : MovementUtil.getJumpValue());
                         this.field23422 = this.field23421;
                         this.field23421 = !this.field23423 ? mc.player.getPosY() + var1.getY() : this.field23421;
                     }
 
                     mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
-                    NewMovementUtil.setMotion(var1, var4);
+                    MovementUtil.setMotion(var1, var4);
                 }
             } else {
                 var1.setY(0.0);
-                NewMovementUtil.setMotion(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }

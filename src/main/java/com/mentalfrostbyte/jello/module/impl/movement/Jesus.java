@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -121,7 +121,7 @@ public class Jesus extends Module {
                     }
                 }
             } else {
-                if (isWalkingOnLiquid() && var1.getY() != -0.0784000015258789 && var1.getY() != NewMovementUtil.getJumpValue()) {
+                if (isWalkingOnLiquid() && var1.getY() != -0.0784000015258789 && var1.getY() != MovementUtil.getJumpValue()) {
                     var1.setY(-0.078);
                 }
 
@@ -136,7 +136,7 @@ public class Jesus extends Module {
                             }
 
                             if (this.field24016 > 0) {
-                                NewMovementUtil.setMotion(var1, 0.25 + (double) NewMovementUtil.getSmartSpeed() * 0.05);
+                                MovementUtil.setMotion(var1, 0.25 + (double) MovementUtil.getSmartSpeed() * 0.05);
                                 this.field24016++;
                             }
 
@@ -149,7 +149,7 @@ public class Jesus extends Module {
                     } else if (isWalkingOnLiquid() && this.liquidTicks % 2 == 0) {
                         this.field24016++;
                         double var12 = this.method16954((double)this.field24016);
-                        NewMovementUtil.setMotion(var1, 0.25);
+                        MovementUtil.setMotion(var1, 0.25);
                         if (var12 != -999.0) {
                             var1.setY(var12);
                         }

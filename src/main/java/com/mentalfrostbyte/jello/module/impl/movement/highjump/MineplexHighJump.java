@@ -10,8 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -52,7 +51,7 @@ public class MineplexHighJump extends Module {
 
          if (!mc.player.isOnGround() && this.field24023) {
             this.field24024 = Math.max(this.field24024, 0.499);
-            NewMovementUtil.setMotion(var1, this.field24024);
+            MovementUtil.setMotion(var1, this.field24024);
             this.field24024 -= 0.007;
             double var4 = 0.5;
             if (this.getNumberValueBySettingName("Motion") > 3.0F) {
@@ -62,7 +61,7 @@ public class MineplexHighJump extends Module {
             if (Math.abs(var1.getY()) < var4 && Math.abs(this.field24025) < var4) {
                this.field24025 -= 0.04000000000001;
                var1.setY(this.field24025);
-               PlayerUtil.setPlayerYMotion(var1.getY());
+               MovementUtil.setPlayerYMotion(var1.getY());
             } else {
                this.field24025 = var1.getY();
             }
@@ -76,7 +75,7 @@ public class MineplexHighJump extends Module {
          if (mc.player.isOnGround()) {
             if (this.field24023) {
                this.field24023 = !this.field24023;
-               NewMovementUtil.moveInDirection(0.0);
+               MovementUtil.moveInDirection(0.0);
                if (this.getBooleanValueFromSettingName("Disable")) {
                   this.access().toggle();
                }
@@ -132,7 +131,7 @@ public class MineplexHighJump extends Module {
          mc.player.lastTickPosY = this.field24026;
          mc.player.chasingPosY = this.field24026;
          mc.player.prevPosY = this.field24026;
-         if (NewMovementUtil.isMoving()) {
+         if (MovementUtil.isMoving()) {
             mc.player.cameraYaw = 0.099999994F;
          }
       }

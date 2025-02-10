@@ -10,14 +10,8 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.play.client.CChatMessagePacket;
-import net.minecraft.network.play.client.CPlayerDiggingPacket;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.client.CPlayerTryUseItemPacket;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -41,14 +35,14 @@ public class PlayerUtil {
     public static final float[] field24952 = new float[4];
 
     public static Vector3d method17751(Entity entity) {
-        return method17752(entity.getBoundingBox());
+        return getBoundingBoxCenter(entity.getBoundingBox());
     }
 
     public static boolean method17686() {
         return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
     }
 
-    public static Vector3d method17752(AxisAlignedBB var0) {
+    public static Vector3d getBoundingBoxCenter(AxisAlignedBB var0) {
         double var3 = var0.getCenter().x;
         double var5 = var0.minY;
         double var7 = var0.getCenter().z;
@@ -131,126 +125,55 @@ public class PlayerUtil {
         return null;
     }
 
-    public static boolean method17761() {
-        double var2 = 1.0E-7;
+    public static boolean isCollidingWithSurroundingBlocks() {
+        double buffer = 1.0E-7;
         return mc.world
-                .getCollisionShapes(mc.player, mc.player.getBoundingBox().expand(var2, 0.0, var2).expand(-var2, 0.0, -var2))
+                .getCollisionShapes(mc.player, mc.player.getBoundingBox().expand(buffer, 0.0, buffer).expand(-buffer, 0.0, -buffer))
                 .findAny().isPresent();
     }
 
-    public static List<PlayerEntity> method17680() {
-        ArrayList<PlayerEntity> var2 = new ArrayList<>();
-        mc.world.entitiesById.forEach((var1, var2x) -> {
-            if (var2x instanceof PlayerEntity) {
-                var2.add((PlayerEntity) var2x);
-            }
-        });
-        return var2;
+    public static List<Entity> getAllEntitiesInWorld() {
+        List<Entity> entities = new ArrayList<>();
+        mc.world.entitiesById.forEach((id, entity) -> entities.add(entity));
+        return entities;
     }
 
-    public static List<Entity> method17708() {
-        ArrayList var2 = new ArrayList();
-        mc.world.entitiesById.forEach((var1, var2x) -> var2.add(var2x));
-        return var2;
-    }
-
-    public static Class2258 method17744(Entity var0) {
-        if (var0 instanceof LivingEntity) {
-            if (!(var0 instanceof PlayerEntity)) {
-                return !(var0 instanceof MobEntity) && !(var0 instanceof MonsterEntity) && !(var0 instanceof SlimeEntity) && !(var0 instanceof FlyingEntity)
-                        ? Class2258.field14691
-                        : Class2258.field14689;
+    public static EntityTypeCategory getEntityCategory(Entity entity) {
+        if (entity instanceof LivingEntity) {
+            if (!(entity instanceof PlayerEntity)) {
+                return !(entity instanceof MobEntity) && !(entity instanceof MonsterEntity) && !(entity instanceof SlimeEntity) && !(entity instanceof FlyingEntity)
+                        ? EntityTypeCategory.NON_PLAYER
+                        : EntityTypeCategory.MONSTER;
             } else {
-                return Class2258.field14690;
+                return EntityTypeCategory.PLAYER;
             }
         } else {
-            return Class2258.field14692;
+            return EntityTypeCategory.AIRBORNE;
         }
     }
 
-    public static double method17754(Vector3d vec) {
-        double var3 = mc.player.getPosX() - vec.x;
-        double var5 = mc.player.getPosY() + (double) mc.player.getEyeHeight() - vec.y;
-        double var7 = mc.player.getPosZ() - vec.z;
-        return Math.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
+    public static double getDistanceTo(Vector3d position) {
+        double deltaX = mc.player.getPosX() - position.x;
+        double deltaY = mc.player.getPosY() + (double) mc.player.getEyeHeight() - position.y;
+        double deltaZ = mc.player.getPosZ() - position.z;
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
     }
 
-    public static double method17755(AxisAlignedBB var0) {
-        Vector3d var3 = method17752(var0);
-        return method17754(var3);
+    public static double getDistanceToBoundingBox(AxisAlignedBB boundingBox) {
+        Vector3d position = getBoundingBoxCenter(boundingBox);
+        return getDistanceTo(position);
     }
 
-    public static boolean isCubecraft() {
-        return mc.getIntegratedServer() == null && mc.getCurrentServerData() != null && mc.getCurrentServerData().serverIP.toLowerCase().contains("cubecraft.net");
-    }
-
-    public static List<PlayerEntity> getPlayers() {
-        ArrayList<PlayerEntity> players = new ArrayList<>();
-        mc.world.entitiesById.forEach((entityId, entity) -> {
-            if (entity instanceof PlayerEntity) {
-                players.add((PlayerEntity) entity);
-            }
-        });
-        return players;
-    }
-
-    /**
-     * Sends a chat message as the player
-     *
-     * @param text
-     */
-    public static void sendChatMessage(String text) {
-        mc.getConnection().sendPacket(new CChatMessagePacket(text));
-    }
-
-    public static boolean isHypixel() {
-        return mc.getIntegratedServer() == null
-                && mc.getCurrentServerData() != null
-                && mc.getCurrentServerData().serverIP.toLowerCase().contains("hypixel.net");
-    }
-
-    public static double setPlayerYMotion(double var0) {
-        mc.player.setMotion(mc.player.getMotion().x, var0, mc.player.getMotion().z);
-        return var0;
-    }
-
-    public static boolean method17729() {
-        AxisAlignedBB var2 = mc.player.getBoundingBox().offset(0.0, -1.0, 0.0);
+    public static boolean isPlayerInCollision() {
+        AxisAlignedBB playerBox = mc.player.getBoundingBox().offset(0.0, -1.0, 0.0);
         if (mc.player.getRidingEntity() != null) {
-            double var4 = mc.player.getRidingEntity().prevPosX - mc.player.getRidingEntity().getPosX();
-            double var6 = mc.player.getRidingEntity().prevPosZ - mc.player.getRidingEntity().getPosZ();
-            var2 = mc.player.getRidingEntity().getBoundingBox().expand(Math.abs(var4), 1.0, Math.abs(var6));
+            double deltaX = mc.player.getRidingEntity().prevPosX - mc.player.getRidingEntity().getPosX();
+            double deltaZ = mc.player.getRidingEntity().prevPosZ - mc.player.getRidingEntity().getPosZ();
+            playerBox = mc.player.getRidingEntity().getBoundingBox().expand(Math.abs(deltaX), 1.0, Math.abs(deltaZ));
         }
 
-        Stream<VoxelShape> var3 = mc.world.getCollisionShapes(mc.player, var2);
-        return var3.findAny().isPresent();
-    }
-
-    public static void block() {
-        mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
-    }
-
-    public static void unblock() {
-        mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.RELEASE_USE_ITEM, new BlockPos(0, 0, 0), Direction.DOWN));
-    }
-
-    public static double method17750() {
-        return Math.random() * 1.0E-8;
-    }
-
-    public static void method17749(boolean var0) {
-        double var3 = mc.player.getPosX();
-        double var5 = mc.player.getPosY();
-        double var7 = mc.player.getPosZ();
-        int var9 = 49 + NewMovementUtil.getJumpBoost() * 17;
-
-        for (int var10 = 0; var10 < var9; var10++) {
-            double var11 = !var0 ? 0.0 : method17750();
-            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3 + var11, var5 + 0.06248 + method17750(), var7 + var11, false));
-            if (isHypixel()) {
-                mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3 + var11, var5 + 0.05 + method17750(), var7 + var11, false));
-            }
-        }
+        Stream<VoxelShape> collisionShapes = mc.world.getCollisionShapes(mc.player, playerBox);
+        return collisionShapes.findAny().isPresent();
     }
 
     public static boolean inLiquid(Entity entity) {
@@ -259,18 +182,12 @@ public class PlayerUtil {
         return world.containsAnyLiquid(boundingBox);
     }
 
-    // magic numbers used in hypixel fly
-    public static double[] method17747() {
-        return new double[]{0.0, 0.0625, 0.125, 0.25, 0.3125, 0.5, 0.625, 0.75, 0.8125, 0.875, 0.9375, 1.0, 1.0625,
-                1.125, 1.25, 1.3125, 1.375};
-    }
-
-    public static boolean method17763(Entity entity) {
+    public static boolean isEntityAboveGround(Entity entity) {
         if (!(entity.getPosY() < 1.0)) {
             if (!entity.isOnGround()) {
-                AxisAlignedBB var3 = entity.getBoundingBox();
-                var3 = var3.expand(0.0, -entity.getPosY(), 0.0);
-                return mc.world.getCollisionShapes(mc.player, var3).count() == 0L;
+                AxisAlignedBB entityBoundingBox = entity.getBoundingBox();
+                entityBoundingBox = entityBoundingBox.expand(0.0, -entity.getPosY(), 0.0);
+                return mc.world.getCollisionShapes(mc.player, entityBoundingBox).count() == 0L;
             } else {
                 return false;
             }
@@ -279,11 +196,10 @@ public class PlayerUtil {
         }
     }
 
-    public enum Class2258 {
-        field14689,
-        field14690,
-        field14691,
-        field14692;
-
+    public enum EntityTypeCategory {
+        MONSTER,
+        PLAYER,
+        NON_PLAYER,
+        AIRBORNE
     }
 }

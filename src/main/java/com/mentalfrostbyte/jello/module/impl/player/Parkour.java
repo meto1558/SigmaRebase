@@ -15,7 +15,7 @@ public class Parkour extends Module {
     public void EventWalkingUpdate(EventPlayerTick event) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround()) {
-                if (!PlayerUtil.method17729()) {
+                if (!PlayerUtil.isPlayerInCollision()) {
                     mc.player.jump();
                 }
             }

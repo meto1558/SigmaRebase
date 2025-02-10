@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -46,7 +46,7 @@ public class MineplexFly extends Module {
     @Override
     public void onEnable() {
         this.boostTicks = -1;
-        this.speed = NewMovementUtil.getSmartSpeed();
+        this.speed = MovementUtil.getSmartSpeed();
         this.field23669 = 0;
         this.failed = false;
         this.currentItem = -1;
@@ -56,8 +56,8 @@ public class MineplexFly extends Module {
 
     @Override
     public void onDisable() {
-        double speed = NewMovementUtil.getSmartSpeed() * 0.5;
-        NewMovementUtil.moveInDirection(speed);
+        double speed = MovementUtil.getSmartSpeed() * 0.5;
+        MovementUtil.moveInDirection(speed);
         if (this.currentItem != -1) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
             this.currentItem = mc.player.inventory.currentItem;
@@ -79,7 +79,7 @@ public class MineplexFly extends Module {
             this.posY = this.boostTicks = this.currentItem = -1;
             this.field23669 = 0;
             this.failed = false;
-            this.speed = NewMovementUtil.getSmartSpeed();
+            this.speed = MovementUtil.getSmartSpeed();
         }
     }
 
@@ -104,7 +104,7 @@ public class MineplexFly extends Module {
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             if (this.failed) {
-                NewMovementUtil.setMotion(var1, 0.01);
+                MovementUtil.setMotion(var1, 0.01);
             } else {
                 float offsetRotationYaw = mc.player.rotationYaw + 90.0F;
                 if (!mc.player.isOnGround()/* && !MultiUtilities.isAboveBounds(mc.player, 0.001F)*/) {
@@ -134,11 +134,11 @@ public class MineplexFly extends Module {
                             this.speed = 0.35;
                         }
 
-                        NewMovementUtil.setMotion(var1, this.speed);
+                        MovementUtil.setMotion(var1, this.speed);
                     }
                 } else {
                     if (this.field23669 > 0) {
-                        NewMovementUtil.setMotion(var1, 0.0);
+                        MovementUtil.setMotion(var1, 0.0);
                         this.access().toggle();
                         return;
                     }
@@ -161,7 +161,7 @@ public class MineplexFly extends Module {
                     CPlayerTryUseItemOnBlockPacket usePacket = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, rayTraceResult);
                     mc.getConnection().sendPacket(usePacket);
                     if (!(this.speed < (double) this.getNumberValueBySettingName("Boost"))) {
-                        NewMovementUtil.setMotion(var1, 0.0);
+                        MovementUtil.setMotion(var1, 0.0);
                         mc.player.jump();
                         this.moveY = 0.4299999;
                         this.field23669 = 0;
@@ -252,7 +252,7 @@ public class MineplexFly extends Module {
             mc.player.lastTickPosY = this.posY;
             mc.player.chasingPosY = this.posY;
             mc.player.prevPosY = this.posY;
-            if (NewMovementUtil.isMoving()) {
+            if (MovementUtil.isMoving()) {
                 mc.player.cameraYaw = 0.099999994F;
             }
         }

@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.system.other.Pair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -10,9 +11,8 @@ import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
@@ -67,12 +67,12 @@ public class InteractAutoBlock {
             }
         }
 
-        PlayerUtil.block();
+        CombatUtil.block();
         this.setBlocking(true);
     }
 
     public void doUnblock() {
-        PlayerUtil.unblock();
+        CombatUtil.unblock();
         this.setBlocking(false);
     }
 
@@ -207,7 +207,7 @@ public class InteractAutoBlock {
             } else if (ent.isInvulnerable()) {
                 entities.remove();
             } else if (!(ent instanceof PlayerEntity)
-                    || !TeamUtil.method31662((PlayerEntity) ent)
+                    || !CombatUtil.arePlayersOnSameTeam((PlayerEntity) ent)
                     || !Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                 Vector3d var10 = PlayerUtil.method17751(ent);
                 if (!(this.mc.player.getDistance(ent) < 40.0F)) {
@@ -234,14 +234,14 @@ public class InteractAutoBlock {
                     }
                 }
 
-                if (!(PlayerUtil.method17754(var10) > 8.0)) {
+                if (!(PlayerUtil.getDistanceTo(var10) > 8.0)) {
                     boolean var26 = true;
                     if (this.parent.getBooleanValueFromSettingName("Smart Reach")) {
                         List<Pair<Vector3d, Long>> var27 = this.field44349.get(ent);
                         if (var27 != null) {
                             for (Pair<Vector3d, Long> var30 : var27) {
                                 AxisAlignedBB var21 = getAxisAlignedBBThing(var30);
-                                double var22 = PlayerUtil.method17755(var21);
+                                double var22 = PlayerUtil.getDistanceToBoundingBox(var21);
                                 if (var22 < (double) var1) {
                                     var26 = false;
                                 }
@@ -249,10 +249,10 @@ public class InteractAutoBlock {
                         }
                     }
 
-                    if (var26 && PlayerUtil.method17754(var10) > (double) var1) {
+                    if (var26 && PlayerUtil.getDistanceTo(var10) > (double) var1) {
                         entities.remove();
                     } else if (!this.parent.getBooleanValueFromSettingName("Through walls")) {
-                        Rotation rotation = RotationHelper.getRotations(ent, true);
+                        Rotation rotation = RotationUtil.getRotations(ent, true);
                         if (rotation == null) {
                             entities.remove();
                         }

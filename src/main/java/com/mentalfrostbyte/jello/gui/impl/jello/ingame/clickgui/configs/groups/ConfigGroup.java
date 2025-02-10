@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.managers.ProfileManager;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -110,9 +110,9 @@ public class ConfigGroup extends Element {
 
    @Override
    public void draw(float partialTicks) {
-      float var4 = MathUtils.lerp(this.field20703.calcPercent(), 0.1, 0.81, 0.14, 1.0);
+      float var4 = MathUtil.lerp(this.field20703.calcPercent(), 0.1, 0.81, 0.14, 1.0);
       if (this.field20703.getDirection() == Animation.Direction.BACKWARDS) {
-         var4 = MathUtils.lerp(this.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16);
+         var4 = MathUtil.lerp(this.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16);
       }
 
       this.setHeightA((int)((float)this.field20704 * var4));

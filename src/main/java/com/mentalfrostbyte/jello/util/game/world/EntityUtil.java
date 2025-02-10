@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.StreamSupport;
 
-import static com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper.getLookVector;
+import static com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil.getLookVector;
 
 public class EntityUtil {
     private static Minecraft mc = Minecraft.getInstance();

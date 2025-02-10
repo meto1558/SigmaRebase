@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.image.Image;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.FadedImage;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -102,7 +102,7 @@ public class SwitchScreen extends Screen {
                     (float) (Minecraft.getInstance().getMainWindow().getHeight() + var4),
                     LoadingScreen.back
             );
-            float var7 = MathUtils.lerp(field21069.calcPercent(), 0.16, 0.71, 0.0, 0.99);
+            float var7 = MathUtil.lerp(field21069.calcPercent(), 0.16, 0.71, 0.0, 0.99);
             int var8 = (Minecraft.getInstance().getMainWindow().getWidth() - 455) / 2;
             int var9 = (int) ((float) ((Minecraft.getInstance().getMainWindow().getHeight() - 78) / 2 - 14) - 116.0F * var7);
             RenderUtil.drawRoundedRect2(

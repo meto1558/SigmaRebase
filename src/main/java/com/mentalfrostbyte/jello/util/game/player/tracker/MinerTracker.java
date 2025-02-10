@@ -16,8 +16,8 @@ import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9510;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -153,11 +153,11 @@ public class MinerTracker {
                     var7 = this.field39613.size() - 1;
                     var8 = this.field39613.get(var7);
                     var9 = var8.field44279;
-                    float var18 = RotationHelper.method34145(this.mc.player.getPositionVec(),
+                    float var18 = RotationUtil.method34145(this.mc.player.getPositionVec(),
                             var8.field44271.method33972())[0];
-                    float var19 = RotationHelper.method34145(new Vector3d(0.0, 0.0, 0.0),
+                    float var19 = RotationUtil.method34145(new Vector3d(0.0, 0.0, 0.0),
                             this.mc.player.getMotion().normalize())[0];
-                    float var20 = Math.abs(RotationHelper.getShortestYawDifference(var19, var18));
+                    float var20 = Math.abs(RotationUtil.getShortestYawDifference(var19, var18));
                     if (!this.mc.player.onGround && var20 > 60.0F
                             || !this.mc.player.onGround && var20 > 45.0F && this.mc.player.getMotion().length() > 0.24
                             || var20 > 110.0F) {
@@ -171,7 +171,7 @@ public class MinerTracker {
                     mc.player.setMotion(this.mc.player.getMotion().x * 0.5, mc.player.getMotion().y, this.mc.player.getMotion().z * 0.5);
                 }
 
-                float var43 = RotationHelper.method34145(this.mc.player.getPositionVec(), var8.field44271.method33972())[0];
+                float var43 = RotationUtil.method34145(this.mc.player.getPositionVec(), var8.field44271.method33972())[0];
                 this.yaw = var43;
                 double var21 = Math.cos(Math.toRadians((double) (this.mc.player.rotationYaw - var43)));
                 double var23 = Math.sin(Math.toRadians((double) (this.mc.player.rotationYaw - var43)));
@@ -241,7 +241,7 @@ public class MinerTracker {
                 this.mc.player.rotationYaw = var37;
                 if (var36 && !this.mc.player.onGround
                         && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
-                    NewMovementUtil.stop();
+                    MovementUtil.stop();
                 } else {
                     if (Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()
                             && !BlockUtil.isAboveBounds(this.mc.player, 5.0F)) {

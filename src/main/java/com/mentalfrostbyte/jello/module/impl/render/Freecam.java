@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.entity.player.RemoteClientPlayerEntity;
@@ -86,7 +86,7 @@ public class Freecam extends Module {
             mc.player.lastTickPosZ = var9;
             mc.player.chasingPosZ = var9;
             mc.player.prevPosZ = var9;
-            if (NewMovementUtil.isMoving()) {
+            if (MovementUtil.isMoving()) {
                 mc.player.cameraYaw = 0.099999994F;
             }
         }
@@ -249,7 +249,7 @@ public class Freecam extends Module {
             var1.setPitch(this.field23822);
             mc.player.lastReportedYaw = this.field23821;
             mc.player.lastReportedPitch = this.field23822;
-            float[] var4 = NewMovementUtil.getDirectionArray(this.field23825, this.field23824);
+            float[] var4 = MovementUtil.getDirectionArray(this.field23825, this.field23824);
             float var5 = var4[1];
             float var6 = var4[2];
             float var7 = var4[0];

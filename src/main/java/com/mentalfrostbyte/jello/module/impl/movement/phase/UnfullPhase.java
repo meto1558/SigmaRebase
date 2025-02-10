@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -23,7 +23,7 @@ public class UnfullPhase extends Module {
     public void onWalkingUpdate(EventPlayerTick event) {
         if (this.isEnabled()) {
             if ((int) mc.player.getPosY() == currentYPosition && !mc.player.isJumping) {
-                PlayerUtil.setPlayerYMotion(-2.0);
+                MovementUtil.setPlayerYMotion(-2.0);
             }
 
             if (mc.player.getPosY() > (double) currentYPosition && mc.player.isJumping && !mc.player.isSneaking()) {

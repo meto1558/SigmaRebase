@@ -5,8 +5,7 @@ import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.longjump.NCPLongJump;
 import com.mentalfrostbyte.jello.module.impl.movement.longjump.CubecraftLongJump;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 
 public class LongJump extends ModuleWithModuleSettings {
     public LongJump() {
@@ -27,7 +26,7 @@ public class LongJump extends ModuleWithModuleSettings {
         if (var1 < 0 || var1 >= var4.length) {
             return mc.player.getMotion().y;
         } else {
-            return NewMovementUtil.isMoving() && !mc.player.collidedHorizontally ? var4[var1] : var5[var1];
+            return MovementUtil.isMoving() && !mc.player.collidedHorizontally ? var4[var1] : var5[var1];
         }
     }
 

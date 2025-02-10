@@ -9,8 +9,8 @@ import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -58,7 +58,7 @@ public class AutoMLG extends PremiumModule {
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             if (preTicks > 0 && !mc.player.isOnGround()) {
-                NewMovementUtil.setMotion(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }
@@ -69,7 +69,7 @@ public class AutoMLG extends PremiumModule {
         if (this.isEnabled() && mc.playerController.gameIsSurvivalOrAdventure()) {
             if (var1.isPre() && preTicks >= 0) {
                 preTicks++;
-                float[] var4 = RotationHelper.rotationToPos(
+                float[] var4 = RotationUtil.rotationToPos(
                         (double) this.field23650.getX() + 0.5, (double) this.field23650.getZ() + 0.5, (double) this.field23650.getY() + 0.5
                 );
                 var1.setYaw(var4[0]);
@@ -98,7 +98,7 @@ public class AutoMLG extends PremiumModule {
                 BlockPos var5 = this.method16425();
                 if (var5 != null) {
                     if (var1.isPre() && preTicks == -1) {
-                        float[] var6 = RotationHelper.rotationToPos((double) var5.getX() + 0.5, (double) var5.getZ() + 0.5, (double) var5.getY() + 0.5);
+                        float[] var6 = RotationUtil.rotationToPos((double) var5.getX() + 0.5, (double) var5.getZ() + 0.5, (double) var5.getY() + 0.5);
                         var1.setYaw(var6[0]);
                         var1.setPitch(var6[1]);
                         if (var7 != mc.player.inventory.currentItem) {

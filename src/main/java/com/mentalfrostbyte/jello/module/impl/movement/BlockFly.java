@@ -15,9 +15,8 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
@@ -311,12 +310,12 @@ public class BlockFly extends ModuleWithModuleSettings {
 
         if (this.getValidItemCount() != 0 && (!mc.player.collidedVertically
                 || this.getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla"))) {
-            if (!NewMovementUtil.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
+            if (!MovementUtil.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
                 String var4 = this.getStringSettingValueByName("Tower Mode");
                 switch (var4) {
                     case "NCP":
                         if (var1.getY() > 0.0) {
-                            if (NewMovementUtil.getJumpBoost() == 0) {
+                            if (MovementUtil.getJumpBoost() == 0) {
                                 if (var1.getY() > 0.247 && var1.getY() < 0.249) {
                                     var1.setY(
                                             (double) ((int) (mc.player.getPosY() + var1.getY())) - mc.player.getPosY());
@@ -333,12 +332,12 @@ public class BlockFly extends ModuleWithModuleSettings {
                         if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())
                                 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                             if (mc.gameSettings.keyBindJump.isPressed()) {
-                                if (!NewMovementUtil.isMoving()) {
-                                    NewMovementUtil.moveInDirection(0.0);
-                                    NewMovementUtil.setMotion(var1, 0.0);
+                                if (!MovementUtil.isMoving()) {
+                                    MovementUtil.moveInDirection(0.0);
+                                    MovementUtil.setMotion(var1, 0.0);
                                 }
 
-                                var1.setY(NewMovementUtil.getJumpValue());
+                                var1.setY(MovementUtil.getJumpValue());
                             } else {
                                 var1.setY(-1.0E-5);
                             }
@@ -347,9 +346,9 @@ public class BlockFly extends ModuleWithModuleSettings {
                     case "AAC":
                         if (var1.getY() > 0.247 && var1.getY() < 0.249) {
                             var1.setY((double) ((int) (mc.player.getPosY() + var1.getY())) - mc.player.getPosY());
-                            if (mc.gameSettings.keyBindJump.isPressed() && !NewMovementUtil.isMoving()) {
-                                NewMovementUtil.moveInDirection(0.0);
-                                NewMovementUtil.setMotion(var1, 0.0);
+                            if (mc.gameSettings.keyBindJump.isPressed() && !MovementUtil.isMoving()) {
+                                MovementUtil.moveInDirection(0.0);
+                                MovementUtil.setMotion(var1, 0.0);
                             }
                         } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())
                                 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
@@ -364,7 +363,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                             mc.player
                                     .setPosition(mc.player.getPosX(), mc.player.getPosY() + 1.0, mc.player.getPosZ());
                             var1.setY(0.0);
-                            NewMovementUtil.setMotion(var1, 0.0);
+                            MovementUtil.setMotion(var1, 0.0);
                             mc.timer.timerSpeed = 0.8038576F;
                         }
                 }
@@ -377,17 +376,17 @@ public class BlockFly extends ModuleWithModuleSettings {
                     && BlockUtil.isAboveBounds(mc.player, 0.001F)
                     && mc.gameSettings.keyBindJump.isPressed()) {
                 mc.player.jumpTicks = 20;
-                var1.setY(NewMovementUtil.getJumpValue());
+                var1.setY(MovementUtil.getJumpValue());
             }
-        } else if (!NewMovementUtil.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
+        } else if (!MovementUtil.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
             mc.player.jumpTicks = 0;
             mc.player.jump();
-            NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
-            NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed());
+            MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
+            MovementUtil.moveInDirection(MovementUtil.getSmartSpeed());
         }
 
         if (!this.getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")) {
-            PlayerUtil.setPlayerYMotion(var1.getY());
+            MovementUtil.setPlayerYMotion(var1.getY());
         }
     }
 
@@ -407,7 +406,7 @@ public class BlockFly extends ModuleWithModuleSettings {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
+        RotationManager.rotating = false;
         this.animation.changeDirection(Animation.Direction.BACKWARDS);
         super.onDisable();
     }

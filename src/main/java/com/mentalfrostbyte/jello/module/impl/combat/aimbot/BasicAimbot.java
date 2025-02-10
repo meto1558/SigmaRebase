@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Aimbot;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -20,7 +20,7 @@ public class BasicAimbot extends Module {
       if (this.isEnabled()) {
          Entity range = ((Aimbot)this.access()).getTarget(this.getNumberValueBySettingName("Range"));
          if (range != null) {
-            float[] rotation = RotationHelper.doBasicRotation(range);
+            float[] rotation = RotationUtil.doBasicRotation(range);
             mc.player.rotationYaw = rotation[0];
             mc.player.rotationPitch = rotation[1];
          }

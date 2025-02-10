@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -133,7 +133,7 @@ public class Auto32k extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
+        RotationManager.rotating = false;
         super.onDisable();
     }
 
@@ -234,13 +234,13 @@ public class Auto32k extends Module {
                             if (this.field23873 == 1) {
                                 float yaw = BlockUtil.method34543(this.field23870.up(), Direction.UP)[0];
                                 float pitch = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
-                                Rots.rotating = true;
-                                Rots.prevYaw = yaw;
-                                Rots.prevPitch = pitch;
+                                RotationManager.rotating = true;
+                                RotationManager.prevYaw = yaw;
+                                RotationManager.prevPitch = pitch;
                                 event.setYaw(yaw);
                                 event.setPitch(pitch);
-                                Rots.yaw = yaw;
-                                Rots.pitch = pitch;
+                                RotationManager.yaw = yaw;
+                                RotationManager.pitch = pitch;
 
                                 mc.player.rotationYawHead = event.getYaw();
                                 mc.player.renderYawOffset = event.getYaw();
@@ -268,20 +268,20 @@ public class Auto32k extends Module {
                         } else {
                             float yaw = BlockUtil.method34543(this.field23870, Direction.UP)[0];
                             float pitch = BlockUtil.method34543(this.field23870, Direction.UP)[1];
-                            Rots.rotating = true;
-                            Rots.prevYaw = yaw;
-                            Rots.prevPitch = pitch;
+                            RotationManager.rotating = true;
+                            RotationManager.prevYaw = yaw;
+                            RotationManager.prevPitch = pitch;
                             event.setYaw(yaw);
                             event.setPitch(pitch);
-                            Rots.yaw = yaw;
-                            Rots.pitch = pitch;
+                            RotationManager.yaw = yaw;
+                            RotationManager.pitch = pitch;
 
                             mc.player.rotationYawHead = event.getYaw();
                             mc.player.renderYawOffset = event.getYaw();
                             this.field23873++;
                         }
                     } else {
-                        Rots.rotating = false;
+                        RotationManager.rotating = false;
                     }
                 }
             }

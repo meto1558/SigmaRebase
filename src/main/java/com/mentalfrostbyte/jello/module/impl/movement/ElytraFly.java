@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.item.Items;
@@ -53,22 +53,22 @@ public class ElytraFly extends Module {
     @EventTarget
     public void method16221(EventMove var1) {
         if (this.isEnabled()) {
-            double var4 = NewMovementUtil.getSmartSpeed();
+            double var4 = MovementUtil.getSmartSpeed();
             boolean var6 = PlayerUtil.method17686();
             if (!this.getBooleanValueFromSettingName("NCP") && mc.player.isSneaking()) {
                 var4 *= 2.5;
             }
 
-            NewMovementUtil.setMotion(var1, 0.0);
+            MovementUtil.setMotion(var1, 0.0);
             if (!mc.player.isElytraFlying()) {
                 this.field23528 = 0;
             } else {
                 if (this.field23528 > 0) {
                     if (this.field23528 > 7) {
-                        NewMovementUtil.setMotion(var1, var4 * 6.3F);
+                        MovementUtil.setMotion(var1, var4 * 6.3F);
                     }
 
-                    PlayerUtil.setPlayerYMotion(-0.071);
+                    MovementUtil.setPlayerYMotion(-0.071);
                     var1.setY(-1.0001E-4F);
                 }
 
@@ -76,7 +76,7 @@ public class ElytraFly extends Module {
             }
 
             if (this.field23530 > 1.0001E-4F && mc.player.isJumping) {
-                NewMovementUtil.setMotion(var1, var4 * 6.3F);
+                MovementUtil.setMotion(var1, var4 * 6.3F);
                 var1.setY(this.field23530);
             }
 
@@ -153,7 +153,7 @@ public class ElytraFly extends Module {
     @Override
     public void onEnable() {
         if (mc.player.onGround) {
-            PlayerUtil.setPlayerYMotion(0.3994F);
+            MovementUtil.setPlayerYMotion(0.3994F);
         }
     }
 

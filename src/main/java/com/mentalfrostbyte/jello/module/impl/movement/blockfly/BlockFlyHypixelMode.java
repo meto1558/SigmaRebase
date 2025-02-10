@@ -19,9 +19,8 @@ import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -129,10 +128,10 @@ public class BlockFlyHypixelMode extends Module {
             ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
-        NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed() * 0.9);
+        MovementUtil.moveInDirection(MovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
-            PlayerUtil.setPlayerYMotion(-0.0789);
+            MovementUtil.setPlayerYMotion(-0.0789);
         }
     }
 
@@ -263,26 +262,26 @@ public class BlockFlyHypixelMode extends Module {
 
                             this.yaw = var13[0];
                             this.pitch = var13[1];
-                            Rots.rotating = true;
-                            Rots.prevPitch = this.pitch;
-                            Rots.prevYaw = this.yaw;
+                            RotationManager.rotating = true;
+                            RotationManager.prevPitch = this.pitch;
+                            RotationManager.prevYaw = this.yaw;
                             event.setYaw(this.yaw);
                             event.setPitch(this.pitch);
-                            Rots.pitch = this.pitch;
-                            Rots.yaw = this.yaw;
+                            RotationManager.pitch = this.pitch;
+                            RotationManager.yaw = this.yaw;
 
                             mc.player.rotationYawHead = this.yaw;
                             mc.player.renderYawOffset = this.yaw;
                         }
                     } else {
                         if (this.getBooleanValueFromSettingName("KeepRotations") && this.pitch != 999.0F) {
-                            Rots.rotating = true;
-                            Rots.prevPitch = 90.0F;
-                            Rots.prevYaw = mc.player.rotationYaw + 1.0F;
+                            RotationManager.rotating = true;
+                            RotationManager.prevPitch = 90.0F;
+                            RotationManager.prevYaw = mc.player.rotationYaw + 1.0F;
                             event.setPitch(90.0F);
                             event.setYaw(mc.player.rotationYaw + 1.0F);
-                            Rots.pitch = 90.0F;
-                            Rots.yaw = mc.player.rotationYaw + 1.0F;
+                            RotationManager.pitch = 90.0F;
+                            RotationManager.yaw = mc.player.rotationYaw + 1.0F;
 
                             mc.player.rotationYawHead = mc.player.rotationYaw + 1.0F;
                             mc.player.renderYawOffset = mc.player.rotationYaw + 1.0F;
@@ -324,7 +323,7 @@ public class BlockFlyHypixelMode extends Module {
             String var4 = this.getStringSettingValueByName("Speed Mode");
             switch (var4) {
                 case "Jump":
-                    if (mc.player.isOnGround() && NewMovementUtil.isMoving() && !mc.player.isSneaking() && !this.field23474) {
+                    if (mc.player.isOnGround() && MovementUtil.isMoving() && !mc.player.isSneaking() && !this.field23474) {
                         this.field23475 = false;
                         mc.player.jump();
                         ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).callHypixelSpeedMethod();
@@ -336,14 +335,14 @@ public class BlockFlyHypixelMode extends Module {
                     break;
                 case "Constant": {
                     double speed = this.constantSpeed.currentValue;
-                    if (!NewMovementUtil.isMoving())
+                    if (!MovementUtil.isMoving())
                         speed = 0;
-                    NewMovementUtil.setMotion(event, speed);
+                    MovementUtil.setMotion(event, speed);
                     break;
                 }
                 case "AAC":
                     if (this.rotationStabilityCounter == 0 && mc.player.isOnGround()) {
-                        NewMovementUtil.setMotion(event, NewMovementUtil.getSmartSpeed() * 0.82);
+                        MovementUtil.setMotion(event, MovementUtil.getSmartSpeed() * 0.82);
                     }
                     break;
                 case "Cubecraft":
@@ -352,7 +351,7 @@ public class BlockFlyHypixelMode extends Module {
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.timer.timerSpeed = 1.0F;
                     } else if (mc.player.isOnGround()) {
-                        if (NewMovementUtil.isMoving() && !mc.player.isSneaking() && !this.field23474) {
+                        if (MovementUtil.isMoving() && !mc.player.isSneaking() && !this.field23474) {
                             event.setY(1.00000000000001);
                         }
                     } else if (this.offGroundTicks == 1) {
@@ -380,15 +379,15 @@ public class BlockFlyHypixelMode extends Module {
                         event.setY(-1.023456987345906);
                     }
 
-                    if (!NewMovementUtil.isMoving()) {
+                    if (!MovementUtil.isMoving()) {
                         speed = 0.0;
                     }
 
                     if (mc.player.fallDistance < 1.0F) {
-                        NewMovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
+                        MovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
                     }
 
-                    PlayerUtil.setPlayerYMotion(event.getY());
+                    MovementUtil.setPlayerYMotion(event.getY());
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {
@@ -427,7 +426,7 @@ public class BlockFlyHypixelMode extends Module {
     public void method16114(EventJump var1) {
         if (this.isEnabled() && this.field23475) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!NewMovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!MovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 var1.setCancelled(true);
             }
         }
@@ -443,7 +442,7 @@ public class BlockFlyHypixelMode extends Module {
                         mc.player.lastTickPosY = this.field23476;
                         mc.player.chasingPosY = this.field23476;
                         mc.player.prevPosY = this.field23476;
-                        if (NewMovementUtil.isMoving()) {
+                        if (MovementUtil.isMoving()) {
                             mc.player.cameraYaw = 0.099999994F;
                         }
                     }

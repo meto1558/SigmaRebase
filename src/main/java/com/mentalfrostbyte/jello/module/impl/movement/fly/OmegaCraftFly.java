@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
@@ -41,7 +41,7 @@ public class OmegaCraftFly extends Module {
 
     @Override
     public void onDisable() {
-        NewMovementUtil.moveInDirection(0.2);
+        MovementUtil.moveInDirection(0.2);
         if (mc.player.getMotion().y > 0.03) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0784, mc.player.getMotion().z);
         }
@@ -95,7 +95,7 @@ public class OmegaCraftFly extends Module {
                 double speed = !mc.gameSettings.keyBindSneak.isKeyDown()
                         ? 0.405/* + (double) MovementUtil.method37078() * 0.02*/
                         : 0.25;
-                NewMovementUtil.setMotion(event, speed);
+                MovementUtil.setMotion(event, speed);
                 this.field23700 = 0;
             }
         } else {
@@ -107,7 +107,7 @@ public class OmegaCraftFly extends Module {
             }
 
             double var6 = !mc.gameSettings.keyBindSneak.isKeyDown() ? 0.6 : 0.25;
-            NewMovementUtil.setMotion(event, var6);
+            MovementUtil.setMotion(event, var6);
         }
 
         mc.player.setMotion(event.getX(), event.getY(), event.getZ());

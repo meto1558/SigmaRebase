@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
@@ -32,9 +32,9 @@ public class FadedImage extends Button {
     @Override
     public void draw(float partialTicks) {
         this.field20592.changeDirection(!this.field20591 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
-        float var4 = MathUtils.lerp(this.field20592.calcPercent(), 0.07, 0.73, 0.63, 1.01);
+        float var4 = MathUtil.lerp(this.field20592.calcPercent(), 0.07, 0.73, 0.63, 1.01);
         if (this.field20592.getDirection() == Animation.Direction.BACKWARDS) {
-            var4 = MathUtils.lerp(this.field20592.calcPercent(), 0.71, 0.18, 0.95, 0.57);
+            var4 = MathUtil.lerp(this.field20592.calcPercent(), 0.71, 0.18, 0.95, 0.57);
         }
 
         RenderUtil.startScissor((float) this.getXA(), (float) this.getYA() - var4 * 3.0F, (float) this.getWidthA(), (float) this.getHeightA());

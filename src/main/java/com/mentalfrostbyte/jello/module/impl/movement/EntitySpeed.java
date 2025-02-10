@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRideable;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.passive.horse.HorseEntity;
@@ -56,7 +56,7 @@ public class EntitySpeed extends Module {
                 var1.setX(0.0);
                 var1.setZ(0.0);
             } else {
-                float var7 = NewMovementUtil.getYaw();
+                float var7 = MovementUtil.getYaw();
                 double var8 = Math.cos(Math.toRadians(var7));
                 double var10 = Math.sin(Math.toRadians(var7));
                 this.field23546 = 2.75F;

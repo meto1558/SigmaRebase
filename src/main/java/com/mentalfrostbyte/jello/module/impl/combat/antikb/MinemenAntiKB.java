@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -49,7 +49,7 @@ public class MinemenAntiKB extends Module {
                     this.field23853 = false;
                 }
             } else {
-                var1.setY(NewMovementUtil.getJumpValue());
+                var1.setY(MovementUtil.getJumpValue());
                 this.field23853 = false;
             }
         }

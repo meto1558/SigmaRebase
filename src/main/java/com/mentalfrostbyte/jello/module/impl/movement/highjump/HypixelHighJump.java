@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.highjump;
 
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 
 public class HypixelHighJump extends Module {
    private int field23405;
@@ -44,7 +43,7 @@ public class HypixelHighJump extends Module {
          if (this.field23405 >= 0) {
             this.field23405++;
             var1.setY(0.0);
-            NewMovementUtil.setMotion(var1, 0.0);
+            MovementUtil.setMotion(var1, 0.0);
             var1.setY((double)this.getNumberValueBySettingName("Motion"));
             this.field23406 = true;
             this.field23407 = mc.player.getPosY();
@@ -55,7 +54,7 @@ public class HypixelHighJump extends Module {
             this.field23406 = !this.field23406;
          }
 
-         PlayerUtil.setPlayerYMotion(var1.getY());
+         MovementUtil.setPlayerYMotion(var1.getY());
       }
    }
 

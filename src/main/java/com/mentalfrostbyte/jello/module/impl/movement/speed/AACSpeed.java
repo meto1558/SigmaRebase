@@ -8,8 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -35,13 +34,13 @@ public class AACSpeed extends Module {
         this.field23398 = -1;
         this.field23399 = 0;
         this.field23403 = mc.player.getPosY();
-        this.direction = NewMovementUtil.getDirection();
+        this.direction = MovementUtil.getDirection();
         this.field23400 = 0;
     }
 
     @Override
     public void onDisable() {
-        NewMovementUtil.setMotion(0.27, NewMovementUtil.getDirection(), this.direction, 45.0F);
+        MovementUtil.setMotion(0.27, MovementUtil.getDirection(), this.direction, 45.0F);
     }
 
     @EventTarget
@@ -65,7 +64,7 @@ public class AACSpeed extends Module {
                     this.field23398 = -1;
                 }
 
-                if (NewMovementUtil.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
+                if (MovementUtil.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
                     mc.player.jump();
                     event.setY(mc.player.getMotion().y);
                 }
@@ -96,7 +95,7 @@ public class AACSpeed extends Module {
                     mc.player.getMotion().y = this.field23402;
             }
 
-            if (!NewMovementUtil.isMoving()) {
+            if (!MovementUtil.isMoving()) {
                 this.field23401 = 0.0;
             }
 
@@ -105,10 +104,10 @@ public class AACSpeed extends Module {
             }
 
             if (this.field23398 >= 0) {
-                this.direction = NewMovementUtil.setMotion(event, this.field23401, NewMovementUtil.getDirection(), this.direction, 45.0F);
+                this.direction = MovementUtil.setMotion(event, this.field23401, MovementUtil.getDirection(), this.direction, 45.0F);
             }
 
-            PlayerUtil.setPlayerYMotion(event.getY());
+            MovementUtil.setPlayerYMotion(event.getY());
         }
     }
 
@@ -145,7 +144,7 @@ public class AACSpeed extends Module {
     public void method16011(EventJump var1) {
         this.field23398 = 0;
         this.field23400 = 0;
-        this.direction = NewMovementUtil.getDirection();
+        this.direction = MovementUtil.getDirection();
         String var4 = this.getStringSettingValueByName("Mode");
         switch (var4) {
             case "Basic":

@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlyAACMode;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.Items;
@@ -43,7 +43,7 @@ public class AutoSprint extends Module {
                 && !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2()) {
             ModifiableAttributeInstance getAttribute = mc.player.getAttribute(Attributes.MOVEMENT_SPEED);
             float BlockFly = (float) (
-                    (getAttribute.getBaseValue() + 0.03F + (double) (0.015F * (float) NewMovementUtil.getSpeedBoost())) / (double) mc.player.abilities.getWalkSpeed() + 1.0
+                    (getAttribute.getBaseValue() + 0.03F + (double) (0.015F * (float) MovementUtil.getSpeedBoost())) / (double) mc.player.abilities.getWalkSpeed() + 1.0
             )
                     / 2.0F;
             event.fovModifier = BlockFly;
