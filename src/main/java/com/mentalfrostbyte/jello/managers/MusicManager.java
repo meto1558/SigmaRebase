@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
@@ -192,7 +193,7 @@ public class MusicManager {
     }
 
     @EventTarget
-    public void method24297(EventRender2D event) {
+    public void method24297(EventRender2DCustom event) {
         if (this.playing && !this.visualizerData.isEmpty() && this.spectrum) {
             this.renderSpectrum();
         }
@@ -202,96 +203,96 @@ public class MusicManager {
         if (!this.visualizerData.isEmpty()) {
             if (this.notificationImage != null) {
                 if (!this.amplitudes.isEmpty()) {
-                    float var3 = 114.0F;
-                    float var4 = (float) Math.ceil((float) mc.mainWindow.getWidth() / var3);
+                    float maxWidth = 114.0F;
+                    float width = (float) Math.ceil((float) mc.getMainWindow().getWidth() / maxWidth);
 
-                    for (int var5 = 0; (float) var5 < var3; var5++) {
-                        float var6 = 1.0F - (float) (var5 + 1) / var3;
-                        float var7 = (float) mc.mainWindow.getHeight() / 1080.0F;
-                        float var8 = ((float) (Math.sqrt(this.amplitudes.get(var5)) / 12.0) - 5.0F) * var7;
-                        RenderUtil.renderBackgroundBox(
-                                (float) var5 * var4,
-                                (float) mc.mainWindow.getHeight() - var8,
-                                var4,
-                                var8,
-                                RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.2F * var6));
+                    for (int i = 0; (float) i < maxWidth; i++) {
+                        float alphaValue = 1.0F - (float) (i + 1) / maxWidth;
+                        float heightRatio = (float) mc.getMainWindow().getHeight() / 1080.0F;
+                        float height = ((float) (Math.sqrt(this.amplitudes.get(i)) / 12.0) - 5.0F) * heightRatio;
+                        RenderUtil.drawRoundedRect2(
+                                (float) i * width,
+                                (float) mc.getMainWindow().getHeight() - height,
+                                width,
+                                height,
+                                RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.2F * alphaValue)
+                        );
                     }
 
-                    RenderUtil.method11476();
+                    RenderUtil.initStencilBuffer();
 
-                    for (int var13 = 0; (float) var13 < var3; var13++) {
-                        float var14 = (float) mc.mainWindow.getHeight() / 1080.0F;
-                        float var15 = ((float) (Math.sqrt(this.amplitudes.get(var13)) / 12.0) - 5.0F) * var14;
-                        RenderUtil.renderBackgroundBox((float) var13 * var4,
-                                (float) mc.mainWindow.getHeight() - var15, var4, var15,
-                                ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                    for (int i = 0; (float) i < maxWidth; i++) {
+                        float heightRatio = (float) mc.getMainWindow().getHeight() / 1080.0F;
+                        float height = ((float) (Math.sqrt(this.amplitudes.get(i)) / 12.0) - 5.0F) * heightRatio;
+                        RenderUtil.drawRoundedRect2((float) i * width, (float) mc.getMainWindow().getHeight() - height, width, height, ClientColors.LIGHT_GREYISH_BLUE.getColor());
                     }
 
-                    RenderUtil.method11477(Class2329.field15940);
+                    RenderUtil.configureStencilTest();
                     if (this.notificationImage != null && this.songThumbnail != null) {
-                        RenderUtil.drawImage(0.0F, 0.0F, (float) mc.mainWindow.getWidth(),
-                                (float) mc.mainWindow.getHeight(), this.songThumbnail, 0.4F);
+                        RenderUtil.drawImage(0.0F, 0.0F, (float) mc.getMainWindow().getWidth(), (float) mc.getMainWindow().getHeight(), this.songThumbnail, 0.4F);
                     }
 
-                    RenderUtil.method11478();
+                    RenderUtil.restorePreviousStencilBuffer();
                     double var9 = 0.0;
                     float var16 = 4750;
 
-                    for (int var17 = 0; var17 < 3; var17++) {
-                        var9 = Math.max(var9, Math.sqrt(this.amplitudes.get(var17)) - 1000.0);
+                    for (int i = 0; i < 3; i++) {
+                        var9 = Math.max(var9, Math.sqrt(this.amplitudes.get(i)) - 1000.0);
                     }
 
-                    float var18 = 1.0F
-                            + (float) Math.round((float) (var9 / (double) (var16 - 1000)) * 0.14F * 75.0F) / 75.0F;
+                    float scale = 1.0F + (float) Math.round((float) (var9 / (double) (var16 - 1000)) * 0.14F * 75.0F) / 75.0F;
                     GL11.glPushMatrix();
-                    GL11.glTranslated(60.0, mc.mainWindow.getHeight() - 55, 0.0);
-                    GL11.glScalef(var18, var18, 0.0F);
-                    GL11.glTranslated(-60.0, -(mc.mainWindow.getHeight() - 55), 0.0);
-                    RenderUtil.drawImage(10.0F, (float) (mc.mainWindow.getHeight() - 110), 100.0F, 100.0F,
-                            this.notificationImage);
-                    RenderUtil.drawRoundedRect(10.0F, (float) (mc.mainWindow.getHeight() - 110), 100.0F, 100.0F,
-                            14.0F, 0.3F);
+                    GL11.glTranslated(60.0, mc.getMainWindow().getHeight() - 55, 0.0);
+                    GL11.glScalef(scale, scale, 0.0F);
+                    GL11.glTranslated(-60.0, -(mc.getMainWindow().getHeight() - 55), 0.0);
+                    RenderUtil.drawImage(10.0F, (float) (mc.getMainWindow().getHeight() - 110), 100.0F, 100.0F, this.notificationImage);
+                    RenderUtil.drawRoundedRect(10.0F, (float) (mc.getMainWindow().getHeight() - 110), 100.0F, 100.0F, 14.0F, 0.3F);
                     GL11.glPopMatrix();
-                    String[] var11 = this.songTitle.split(" - ");
-                    int var12 = 30;
-                    if (var11.length <= 1) {
+                    String[] titleSplit = this.songTitle.split(" - ");
+                    if (titleSplit.length <= 1) {
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18_1,
                                 130.0F,
-                                (float) (mc.mainWindow.getHeight() - 70),
-                                var11[0],
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
+                                (float) (mc.getMainWindow().getHeight() - 70),
+                                titleSplit[0],
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+                        );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
                                 130.0F,
-                                (float) (mc.mainWindow.getHeight() - 70),
-                                var11[0],
-                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F));
+                                (float) (mc.getMainWindow().getHeight() - 70),
+                                titleSplit[0],
+                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
+                        );
                     } else {
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloMediumFont20_1,
                                 130.0F,
-                                (float) (mc.mainWindow.getHeight() - 81),
-                                var11[0],
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F));
+                                (float) (mc.getMainWindow().getHeight() - 81),
+                                titleSplit[0],
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
+                        );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18_1,
                                 130.0F,
-                                (float) (mc.mainWindow.getHeight() - 56),
-                                var11[1],
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
+                                (float) (mc.getMainWindow().getHeight() - 56),
+                                titleSplit[1],
+                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+                        );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
                                 130.0F,
-                                (float) (mc.mainWindow.getHeight() - 56),
-                                var11[1],
-                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F));
+                                (float) (mc.getMainWindow().getHeight() - 56),
+                                titleSplit[1],
+                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
+                        );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloMediumFont20,
                                 130.0F,
-                                (float) (mc.mainWindow.getHeight() - 81),
-                                var11[0],
-                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+                                (float) (mc.getMainWindow().getHeight() - 81),
+                                titleSplit[0],
+                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F)
+                        );
                     }
                 }
             }
