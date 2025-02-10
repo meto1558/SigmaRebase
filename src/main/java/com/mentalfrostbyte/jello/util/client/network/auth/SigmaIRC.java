@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.game.player.tracker;
+package com.mentalfrostbyte.jello.util.client.network.auth;
 
 import com.google.gson.JsonArray;
 import com.mentalfrostbyte.Client;
