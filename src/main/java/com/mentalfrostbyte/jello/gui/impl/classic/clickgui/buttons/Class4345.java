@@ -53,25 +53,25 @@ public class Class4345 extends ScrollableContentPanel {
                 y += 18 + value;
                 break;
             case NUMBER:
-                NumberSetting var25 = (NumberSetting) setting;
+                NumberSetting sett = (NumberSetting) setting;
                 com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider var13 = new com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider(screen, setting.getName() + "slider", x, y + 31, 240, 4);
                 var13.setText(Float.toString((Float) setting.getCurrentValue()));
                 name.setText(setting.getName() + ": " + (Float) setting.getCurrentValue());
-                var13.method13699(Slider.method13134(var25.getMin(), var25.getMax(), (Float) var25.getCurrentValue()), false);
-                int var14 = var25.getDecimalPlaces();
-                var25.addObserver(
+                var13.method13699(Slider.method13134(sett.getMin(), sett.getMax(), (Float) sett.getCurrentValue()), false);
+                int decimalPlacs = sett.getDecimalPlaces();
+                sett.addObserver(
                         var5x -> {
-                            if (com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13694(var13.method13697(), var25.getMin(), var25.getMax(), var25.getStep(), var14)
+                            if (com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13694(var13.method13697(), sett.getMin(), sett.getMax(), sett.getStep(), decimalPlacs)
                                     != (Float) var5x.getCurrentValue()) {
                                 var13.setText(Float.toString((Float) var5x.getCurrentValue()));
-                                var13.method13699(com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13693(var25.getMin(), var25.getMax(), (Float) var5x.getCurrentValue()), false);
+                                var13.method13699(com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13693(sett.getMin(), sett.getMax(), (Float) var5x.getCurrentValue()), false);
                                 name.setText(setting.getName() + ": " + (Float) setting.getCurrentValue());
                             }
                         }
                 );
                 var13.onPress(var5x -> {
                     float var8x = ((com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider) var5x).method13697();
-                    float var9x = com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13694(var8x, var25.getMin(), var25.getMax(), var25.getStep(), var14);
+                    float var9x = com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13694(var8x, sett.getMin(), sett.getMax(), sett.getStep(), decimalPlacs);
                     if (var9x != (Float) setting.getCurrentValue()) {
                         var13.setText(Float.toString(var9x));
                         setting.setCurrentValue(var9x);

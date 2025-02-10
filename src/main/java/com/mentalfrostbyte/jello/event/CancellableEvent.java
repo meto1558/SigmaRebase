@@ -6,8 +6,8 @@ public class CancellableEvent extends Event {
 
     public boolean cancelled;
 
-    public boolean setCancelled(boolean var1) {
-        return this.cancelled = var1;
+    public boolean setCancelled(boolean cancelled) {
+        return this.cancelled = cancelled;
     }
 
     public boolean isCancelled() {
