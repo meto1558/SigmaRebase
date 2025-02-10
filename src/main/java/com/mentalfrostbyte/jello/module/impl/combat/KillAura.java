@@ -29,7 +29,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
@@ -626,7 +626,7 @@ public class KillAura extends Module {
 
     private void processTargets(List<TimedEntity> targets, String mode, float range) {
         if (rotationProgress == -1.0F) {
-            float targetYaw = RotationHelper.getRotationsToVector(MovementUtil2.method17751(targets.get(0).getEntity())).yaw;
+            float targetYaw = RotationHelper.getRotationsToVector(PlayerUtil.method17751(targets.get(0).getEntity())).yaw;
             float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
             rotationSpeed = yawDifference * 1.95F / 50.0F;
             rotationProgress++;
@@ -644,7 +644,7 @@ public class KillAura extends Module {
                 }
                 currentTimedEntity = targets.get(targetIndex);
             } else if (currentTimedEntity == null || currentTimedEntity.getEntity() != targets.get(0).getEntity()) {
-                float targetYaw = RotationHelper.getRotationsToVector(MovementUtil2.method17751(targets.get(0).getEntity())).yaw;
+                float targetYaw = RotationHelper.getRotationsToVector(PlayerUtil.method17751(targets.get(0).getEntity())).yaw;
                 float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 rotationProgress++;
@@ -661,7 +661,7 @@ public class KillAura extends Module {
             if (shouldSwitch && !targets.isEmpty()) {
                 targetIndex = (targetIndex + 1) % targets.size();
                 TimedEntity nextTarget = targets.get(targetIndex);
-                float targetYaw = RotationHelper.getRotationsToVector(MovementUtil2.method17751(nextTarget.getEntity())).yaw;
+                float targetYaw = RotationHelper.getRotationsToVector(PlayerUtil.method17751(nextTarget.getEntity())).yaw;
                 float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
                 rotationSpeed = yawDifference * 1.95F / 50.0F;
                 randomOffset = Math.random();

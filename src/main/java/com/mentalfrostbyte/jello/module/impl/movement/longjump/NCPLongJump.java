@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.module.impl.player.NoFall;
 
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.math.BlockPos;
@@ -99,7 +99,7 @@ public class NCPLongJump extends Module {
                         }
                     }
 
-                    if (mc.player.collidedHorizontally || !MovementUtil2.isMoving()) {
+                    if (mc.player.collidedHorizontally || !NewMovementUtil.isMoving()) {
                         this.field23480 = var5;
                     }
 
@@ -112,7 +112,7 @@ public class NCPLongJump extends Module {
                                 break;
                             case "High":
                                 var1.setY(((LongJump) this.access()).method16731(this.field23478));
-                                if (MovementUtil2.isHypixel()
+                                if (PlayerUtil.isHypixel()
                                         && Client.getInstance().moduleManager.getModuleByClass(NoFall.class).isEnabled()
                                         && (this.field23478 == 8 || this.field23478 == 21)) {
                                     double var9 = mc.player.getPosY() + var1.getY();
@@ -135,7 +135,7 @@ public class NCPLongJump extends Module {
                 }
             }
 
-            MovementUtil2.setPlayerYMotion(var1.getY());
+            PlayerUtil.setPlayerYMotion(var1.getY());
         }
     }
 
@@ -154,7 +154,7 @@ public class NCPLongJump extends Module {
                 }
 
                 if (this.getStringSettingValueByName("Speed Mode").equals("Hypixel") && (double) this.getNumberValueBySettingName("Boost") > 1.75) {
-                    MovementUtil2.method17749(true);
+                    PlayerUtil.method17749(true);
                 }
 
                 mc.getConnection()

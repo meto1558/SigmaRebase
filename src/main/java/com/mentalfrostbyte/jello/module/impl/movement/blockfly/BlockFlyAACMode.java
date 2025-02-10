@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.AACSpeed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
@@ -273,7 +273,7 @@ public class BlockFlyAACMode extends Module {
     public void method16211(EventJump var1) {
         if (this.isEnabled()) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!MovementUtil2.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!NewMovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 var1.setCancelled(true);
             }
         }

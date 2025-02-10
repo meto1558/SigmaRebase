@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
@@ -86,7 +86,7 @@ public class BlockFlySmoothMode extends Module {
         NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
-            MovementUtil2.setPlayerYMotion(-0.0789);
+            PlayerUtil.setPlayerYMotion(-0.0789);
         }
     }
 
@@ -253,7 +253,7 @@ public class BlockFlySmoothMode extends Module {
 
             switch (this.getStringSettingValueByName("Speed Mode")) {
                 case "Jump":
-                    if (mc.player.isOnGround() && MovementUtil2.isMoving() && !mc.player.isSneaking()) {
+                    if (mc.player.isOnGround() && NewMovementUtil.isMoving() && !mc.player.isSneaking()) {
                         this.called = false;
                         mc.player.jump();
                         ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).callHypixelSpeedMethod();
@@ -281,7 +281,7 @@ public class BlockFlySmoothMode extends Module {
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.timer.timerSpeed = 1.0F;
                     } else if (mc.player.isOnGround()) {
-                        if (MovementUtil2.isMoving() && !mc.player.isSneaking()) {
+                        if (NewMovementUtil.isMoving() && !mc.player.isSneaking()) {
                             event.setY(1.00000000000001);
                         }
                     } else if (this.offGroundTicks == 1) {
@@ -309,7 +309,7 @@ public class BlockFlySmoothMode extends Module {
                         event.setY(-1.023456987345906);
                     }
 
-                    if (!MovementUtil2.isMoving()) {
+                    if (!NewMovementUtil.isMoving()) {
                         speed = 0.0;
                     }
 
@@ -317,7 +317,7 @@ public class BlockFlySmoothMode extends Module {
                         NewMovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
                     }
 
-                    MovementUtil2.setPlayerYMotion(event.getY());
+                    PlayerUtil.setPlayerYMotion(event.getY());
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {
@@ -356,7 +356,7 @@ public class BlockFlySmoothMode extends Module {
     public void onJump(EventJump event) {
         if (this.isEnabled() && this.called) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!MovementUtil2.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!NewMovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 event.setCancelled(true);
             }
         }

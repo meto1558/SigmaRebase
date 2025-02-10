@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.client.gui.screen.ChatScreen;
 import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
@@ -77,7 +77,7 @@ public class GamePlay extends ModuleWithModuleSettings {
                     updateTimedMessage(null);
                     Client.getInstance().notificationManager.send(new Notification("Auto Join", "Auto join was canceled.", 2500));
                 } else if (timedMessage.hasExpired()) {
-                    MovementUtil2.sendChatMessage(timedMessage.getMessage());
+                    PlayerUtil.sendChatMessage(timedMessage.getMessage());
                     updateTimedMessage(null);
                 } else if ((int) (timedMessage.getRemainingTime() / 1000L) + 1 < seconds) {
                     seconds = (int) (timedMessage.getRemainingTime() / 1000L) + 1;
@@ -120,7 +120,7 @@ public class GamePlay extends ModuleWithModuleSettings {
                 if (timer.getElapsedTime() > var5 && !autoLMessages.isEmpty()) {
                     timer.reset();
                     String message = autoLMessages.get(0);
-                    MovementUtil2.sendChatMessage(message);
+                    PlayerUtil.sendChatMessage(message);
                     autoLMessages.remove(0);
                 }
             }

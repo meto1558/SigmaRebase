@@ -17,7 +17,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -96,7 +96,7 @@ public class NameTags extends Module {
 
             this.entities.clear();
 
-            for (Entity var7 : BlockUtil.method34549(MovementUtil2.method17680())) {
+            for (Entity var7 : BlockUtil.method34549(PlayerUtil.method17680())) {
                 if (var7 != mc.player
                         && var7 != Freecam.field23814
                         && var7 != Blink.clientPlayerEntity
@@ -245,7 +245,7 @@ public class NameTags extends Module {
 
                                 new Thread(() -> {
                                     try {
-                                        List<String> var4x = MovementUtil2.getMobOwners(uuid.toString());
+                                        List<String> var4x = PlayerUtil.getMobOwners(uuid.toString());
                                         if (var4x == null || var4x.isEmpty()) {
                                             return;
                                         }

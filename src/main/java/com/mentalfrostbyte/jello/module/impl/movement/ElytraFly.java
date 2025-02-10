@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.entity.Entity;
@@ -54,7 +54,7 @@ public class ElytraFly extends Module {
     public void method16221(EventMove var1) {
         if (this.isEnabled()) {
             double var4 = NewMovementUtil.getSmartSpeed();
-            boolean var6 = MovementUtil2.method17686();
+            boolean var6 = PlayerUtil.method17686();
             if (!this.getBooleanValueFromSettingName("NCP") && mc.player.isSneaking()) {
                 var4 *= 2.5;
             }
@@ -68,7 +68,7 @@ public class ElytraFly extends Module {
                         NewMovementUtil.setMotion(var1, var4 * 6.3F);
                     }
 
-                    MovementUtil2.setPlayerYMotion(-0.071);
+                    PlayerUtil.setPlayerYMotion(-0.071);
                     var1.setY(-1.0001E-4F);
                 }
 
@@ -153,7 +153,7 @@ public class ElytraFly extends Module {
     @Override
     public void onEnable() {
         if (mc.player.onGround) {
-            MovementUtil2.setPlayerYMotion(0.3994F);
+            PlayerUtil.setPlayerYMotion(0.3994F);
         }
     }
 

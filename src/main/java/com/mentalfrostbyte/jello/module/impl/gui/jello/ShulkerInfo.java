@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -69,7 +69,7 @@ public class ShulkerInfo extends Module {
         if (this.isEnabled()) {
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
 
-            for (Entity var5 : MovementUtil2.getEntitesInWorld()) {
+            for (Entity var5 : PlayerUtil.getEntitesInWorld()) {
                 if (var5 instanceof ItemEntity) {
                     ItemEntity var6 = (ItemEntity) var5;
                     if (!(var6.getItem().getItem() instanceof BlockItem)

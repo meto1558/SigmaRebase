@@ -18,7 +18,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
@@ -130,7 +130,7 @@ public class BlockFlyNCPMode extends Module {
         NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23926 == 0) {
-            MovementUtil2.setPlayerYMotion(-0.0789);
+            PlayerUtil.setPlayerYMotion(-0.0789);
         }
     }
 
@@ -321,7 +321,7 @@ public class BlockFlyNCPMode extends Module {
             String var4 = this.getStringSettingValueByName("Speed Mode");
             switch (var4) {
                 case "Jump":
-                    if (mc.player.isOnGround() && MovementUtil2.isMoving() && !mc.player.isSneaking() && !this.field23929) {
+                    if (mc.player.isOnGround() && NewMovementUtil.isMoving() && !mc.player.isSneaking() && !this.field23929) {
                         this.field23930 = false;
                         mc.player.jump();
                         ((Speed) Client.getInstance().moduleManager.getModuleByClass(Speed.class)).callHypixelSpeedMethod();
@@ -342,7 +342,7 @@ public class BlockFlyNCPMode extends Module {
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
                         mc.timer.timerSpeed = 1.0F;
                     } else if (mc.player.isOnGround()) {
-                        if (MovementUtil2.isMoving() && !mc.player.isSneaking() && !this.field23929) {
+                        if (NewMovementUtil.isMoving() && !mc.player.isSneaking() && !this.field23929) {
                             var1.setY(1.01);
                         }
                     } else if (this.field23926 == 1) {
@@ -370,7 +370,7 @@ public class BlockFlyNCPMode extends Module {
                         var1.setY(-1.023456987345906);
                     }
 
-                    if (!MovementUtil2.isMoving()) {
+                    if (!NewMovementUtil.isMoving()) {
                         var6 = 0.0;
                     }
 
@@ -378,7 +378,7 @@ public class BlockFlyNCPMode extends Module {
                         NewMovementUtil.setMotion(var1, var6, var8, var8, 360.0F);
                     }
 
-                    MovementUtil2.setPlayerYMotion(var1.getY());
+                    PlayerUtil.setPlayerYMotion(var1.getY());
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {
@@ -397,6 +397,7 @@ public class BlockFlyNCPMode extends Module {
                         var1.setX(var1.getX() * 0.85);
                         var1.setZ(var1.getZ() * 0.85);
                     }
+                    break;
             }
 
             this.parent.onMove(var1);
@@ -417,7 +418,7 @@ public class BlockFlyNCPMode extends Module {
     public void method16811(EventJump var1) {
         if (this.isEnabled() && this.field23930) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                    && (!MovementUtil2.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
+                    && (!NewMovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
                 var1.setCancelled(true);
             }
         }

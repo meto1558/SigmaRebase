@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -126,7 +126,7 @@ public class AntiVoid extends Module {
         double posY = mc.player.getPositionVec().getY();
         double posZ = mc.player.getPositionVec().getZ();
 
-        if (mode.equals("Cubecraft") && !MovementUtil2.isCubecraft()) {
+        if (mode.equals("Cubecraft") && !PlayerUtil.isCubecraft()) {
             mode = "Motion";
         }
 
@@ -136,7 +136,7 @@ public class AntiVoid extends Module {
                 break;
             case "Motion":
                 event.setY(0.1);
-                MovementUtil2.setPlayerYMotion(event.getY());
+                PlayerUtil.setPlayerYMotion(event.getY());
                 break;
             case "TP":
                 mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);

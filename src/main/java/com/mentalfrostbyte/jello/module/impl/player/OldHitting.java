@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.*;
@@ -105,7 +105,7 @@ public class OldHitting extends Module {
                 if (field23408 && !this.field23409) {
                     this.field23409 = !this.field23409;
                     if (!auraEnabled) {
-                        MovementUtil2.block();
+                        PlayerUtil.block();
                     }
                 } else if (!field23408 && this.field23409) {
                     this.field23409 = !this.field23409;

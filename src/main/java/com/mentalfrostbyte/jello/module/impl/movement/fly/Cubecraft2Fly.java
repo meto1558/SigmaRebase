@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
@@ -41,7 +41,7 @@ public class Cubecraft2Fly extends PremiumModule {
             this.field23699 = true;
         }
 
-        if (MovementUtil2.isCubecraft()/*
+        if (PlayerUtil.isCubecraft()/*
                                          * && JelloPortal.getCurrentVersionApplied() ==
                                          * ViaVerList._1_8_x.getVersionNumber()
                                          */) {
@@ -56,17 +56,17 @@ public class Cubecraft2Fly extends PremiumModule {
     @Override
     public void onDisable() {
         NewMovementUtil.moveInDirection(0.2);
-        MovementUtil2.setPlayerYMotion(-0.0789);
+        PlayerUtil.setPlayerYMotion(-0.0789);
         if (BlockUtil.isAboveBounds(mc.player, 0.001F)) {
             NewMovementUtil.moveInDirection(0.0);
-            MovementUtil2.setPlayerYMotion(-0.0789);
+            PlayerUtil.setPlayerYMotion(-0.0789);
         } else {
             double var3 = mc.player.getPosX();
             double var5 = mc.player.getPosY();
             double var7 = mc.player.getPosZ();
             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3, -150.0, var7, false));
             NewMovementUtil.moveInDirection(0.0);
-            MovementUtil2.setPlayerYMotion(0.0);
+            PlayerUtil.setPlayerYMotion(0.0);
             this.field23696 = -3;
             this.field23697.reset();
             this.field23697.start();
@@ -113,7 +113,7 @@ public class Cubecraft2Fly extends PremiumModule {
                         : (!this.field23699 ? 2.8 : 3.7));
             }
 
-            MovementUtil2.setPlayerYMotion(var1.getY());
+            PlayerUtil.setPlayerYMotion(var1.getY());
         } else {
             if (this.field23696 < 0) {
                 if (this.field23696 != -3) {

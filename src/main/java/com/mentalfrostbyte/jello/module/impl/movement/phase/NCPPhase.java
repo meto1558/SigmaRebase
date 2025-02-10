@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
@@ -49,20 +49,20 @@ public class NCPPhase extends PremiumModule {
                 double var4 = mc.player.getPosX();
                 double var6 = mc.player.getPosY();
                 double var8 = mc.player.getPosZ();
-                if (!MovementUtil2.method17686()) {
-                    if (BlockUtil.isAboveBounds(mc.player, 0.001F) && !MovementUtil2.method17761()) {
+                if (!PlayerUtil.method17686()) {
+                    if (BlockUtil.isAboveBounds(mc.player, 0.001F) && !PlayerUtil.method17761()) {
                         mc.player.setPosition(var4, var6 - 1.0, var8);
                         event.setY(var6 - 1.0);
                         event.setMoving(true);
                         event.setYaw(event.getYaw() + 10.0F);
-                        MovementUtil2.setPlayerYMotion(0.0);
+                        PlayerUtil.setPlayerYMotion(0.0);
                     } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())) {
                         mc.player.setPosition(var4, var6 - 0.3, var8);
                     }
                 }
             }
 
-            if (this.field23652 > 0 && this.field23651 && MovementUtil2.method17761()) {
+            if (this.field23652 > 0 && this.field23651 && PlayerUtil.method17761()) {
                 this.field23653++;
                 float var10 = (float) Math.sin(this.field23653) * 5.0F;
                 float var11 = (float) Math.cos(this.field23653) * 5.0F;
@@ -91,7 +91,7 @@ public class NCPPhase extends PremiumModule {
 
             if (this.field23652 >= 0) {
                 if (this.field23652 != 0) {
-                    if (!MovementUtil2.method17761()) {
+                    if (!PlayerUtil.method17761()) {
                         this.field23651 = false;
                         NewMovementUtil.setMotion(var1, 0.0);
                         return;

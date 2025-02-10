@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.impl.combat.bowaimbot.BowRangeSorter;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
@@ -86,7 +86,7 @@ public class BowAimbot extends Module {
     }
 
     public List<Entity> validEntity(float var1) {
-        List var4 = MovementUtil2.method17708();
+        List var4 = PlayerUtil.method17708();
         Iterator var5 = var4.iterator();
 
         while (var5.hasNext()) {

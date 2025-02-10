@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -1393,8 +1393,8 @@ public class RenderUtil {
     }
 
     public static boolean projectToScreen(float x, float y, float z, FloatBuffer modelMatrix, FloatBuffer projectionMatrix, IntBuffer viewport, FloatBuffer screenCoords) {
-        float[] inVector = MovementUtil2.field24951;
-        float[] outVector = MovementUtil2.field24952;
+        float[] inVector = PlayerUtil.field24951;
+        float[] outVector = PlayerUtil.field24952;
 
         // Load input coordinates into the vector
         inVector[0] = x;
@@ -1403,8 +1403,8 @@ public class RenderUtil {
         inVector[3] = 1.0F;
 
         // Apply the model and projection transformations
-        MovementUtil2.transformVector(modelMatrix, inVector, outVector);
-        MovementUtil2.transformVector(projectionMatrix, outVector, inVector);
+        PlayerUtil.transformVector(modelMatrix, inVector, outVector);
+        PlayerUtil.transformVector(projectionMatrix, outVector, inVector);
 
         // Perform perspective division if the w-component is non-zero
         if ((double) inVector[3] != 0.0) {

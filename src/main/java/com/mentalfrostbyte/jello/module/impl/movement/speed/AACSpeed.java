@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -65,7 +65,7 @@ public class AACSpeed extends Module {
                     this.field23398 = -1;
                 }
 
-                if (MovementUtil2.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
+                if (NewMovementUtil.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
                     mc.player.jump();
                     event.setY(mc.player.getMotion().y);
                 }
@@ -96,7 +96,7 @@ public class AACSpeed extends Module {
                     mc.player.getMotion().y = this.field23402;
             }
 
-            if (!MovementUtil2.isMoving()) {
+            if (!NewMovementUtil.isMoving()) {
                 this.field23401 = 0.0;
             }
 
@@ -108,7 +108,7 @@ public class AACSpeed extends Module {
                 this.direction = NewMovementUtil.setMotion(event, this.field23401, NewMovementUtil.getDirection(), this.direction, 45.0F);
             }
 
-            MovementUtil2.setPlayerYMotion(event.getY());
+            PlayerUtil.setPlayerYMotion(event.getY());
         }
     }
 

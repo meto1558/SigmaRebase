@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
@@ -54,7 +54,7 @@ public class HypixelFly extends Module {
                     this.grounded = true;
                     break;
                 case "Fast":
-                    MovementUtil2.method17749(false);
+                    PlayerUtil.method17749(false);
                     this.grounded = true;
                     break;
                 case "NoDmg", "Funcraft":
@@ -81,7 +81,7 @@ public class HypixelFly extends Module {
     @EventTarget
     @HighestPriority
     public void onReceive(EventReceivePacket event) {
-        if (mc.getConnection() != null && MovementUtil2.isHypixel()) {
+        if (mc.getConnection() != null && PlayerUtil.isHypixel()) {
             IPacket pack = event.getPacket();
             if (this.isEnabled()) {
                 if (pack instanceof SPlayerPositionLookPacket) {
@@ -94,7 +94,7 @@ public class HypixelFly extends Module {
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (event.isPre()) {
-            for (double var7 : MovementUtil2.method17747()) {
+            for (double var7 : PlayerUtil.method17747()) {
                 if ((double) ((int) event.getY()) - event.getY() + var7 == 0.0) {
                     event.setGround(true);
                     break;
@@ -160,7 +160,7 @@ public class HypixelFly extends Module {
             double var10 = curMode.equals("Basic") ? NewMovementUtil.getDumberSpeed() : NewMovementUtil.getDumberSpeed() - 0.008;
             if (this.flySpeed < var10) {
                 this.flySpeed = var10;
-            } else if (!MovementUtil2.isMoving()) {
+            } else if (!NewMovementUtil.isMoving()) {
                 this.flySpeed = var10;
             }
 
@@ -168,7 +168,7 @@ public class HypixelFly extends Module {
             if (!mc.player.isOnGround() || !BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.field23563++;
                 event.setY(0.0);
-                MovementUtil2.setPlayerYMotion(0.0);
+                PlayerUtil.setPlayerYMotion(0.0);
                 if (this.field23563 % 5 < 4) {
                     double var12 = mc.player.getPosX();
                     double var14 = mc.player.getPosY();

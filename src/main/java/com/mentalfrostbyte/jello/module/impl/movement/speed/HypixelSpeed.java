@@ -18,7 +18,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -55,7 +55,7 @@ public class HypixelSpeed extends Module {
     @Override
     public void onDisable() {
         if (this.field23418 == Class2094.field13641 && mc.player.getMotion().y > 0.0 && this.field23414 == 0) {
-            MovementUtil2.setPlayerYMotion(-NewMovementUtil.getJumpValue() - 1.0E-5 - 0.0625);
+            PlayerUtil.setPlayerYMotion(-NewMovementUtil.getJumpValue() - 1.0E-5 - 0.0625);
         }
 
         if (Math.abs((double) mc.timer.timerSpeed - 1.4123) < 0.001
@@ -99,7 +99,7 @@ public class HypixelSpeed extends Module {
                 }
 
                 if (this.field23414 >= 0 && Step.updateTicksBeforeStep >= 2) {
-                    if ((var1.getY() > 0.0 || this.getBooleanValueFromSettingName("AutoJump") && MovementUtil2.isMoving()) && !MovementUtil2.inLiquid(mc.player)) {
+                    if ((var1.getY() > 0.0 || this.getBooleanValueFromSettingName("AutoJump") && NewMovementUtil.isMoving()) && !PlayerUtil.inLiquid(mc.player)) {
                         mc.player.jump();
                         var1.setY(NewMovementUtil.getJumpValue());
                         NewMovementUtil.setMotion(var1, 0.644348756324588 + Math.random() * 1.0E-6 + (double) NewMovementUtil.getSpeedBoost() * 0.13);
@@ -109,7 +109,7 @@ public class HypixelSpeed extends Module {
 
                         this.field23414 = 0;
                         this.field23418 = Class2094.field13640;
-                    } else if (MovementUtil2.isMoving() && this.getBooleanValueFromSettingName("GroundSpeed") && !MovementUtil2.inLiquid(mc.player)) {
+                    } else if (NewMovementUtil.isMoving() && this.getBooleanValueFromSettingName("GroundSpeed") && !PlayerUtil.inLiquid(mc.player)) {
                         mc.player.stepHeight = 0.5F;
                         mc.player.jump();
                         var1.setY(0.399 + (double) NewMovementUtil.getJumpBoost() * 0.1 + 1.0E-14);
@@ -173,7 +173,7 @@ public class HypixelSpeed extends Module {
                         }
                 }
 
-                if (this.field23415 < var4 || mc.player.collidedHorizontally || !MovementUtil2.isMoving() || MovementUtil2.inLiquid(mc.player)) {
+                if (this.field23415 < var4 || mc.player.collidedHorizontally || !NewMovementUtil.isMoving() || PlayerUtil.inLiquid(mc.player)) {
                     this.field23415 = var4;
                 }
 

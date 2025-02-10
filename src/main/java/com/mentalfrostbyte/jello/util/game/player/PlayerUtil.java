@@ -35,11 +35,7 @@ import java.util.stream.Stream;
 
 import static com.mentalfrostbyte.jello.module.Module.mc;
 
-public class MovementUtil2 {
-
-    public static boolean isMoving() {
-        return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
-    }
+public class PlayerUtil {
 
     public static final float[] field24951 = new float[4];
     public static final float[] field24952 = new float[4];

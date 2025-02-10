@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import net.minecraft.item.SwordItem;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -36,7 +36,7 @@ public class NoSlow extends Module {
 
         if (!event.isPre()) {
             if (isSwordEquipped && mc.gameSettings.keyBindUseItem.isKeyDown() && !isBlocking && !auraEnabled && isModeNCP()) {
-                MovementUtil2.block();
+                PlayerUtil.block();
                 isBlocking = true;
             } else if (!isSwordEquipped && isBlocking) {
                 isBlocking = false;
@@ -61,7 +61,7 @@ public class NoSlow extends Module {
             }
         } else if (isBlocking && mc.gameSettings.keyBindUseItem.isKeyDown() && !auraEnabled) {
             if (isSwordEquipped) {
-                MovementUtil2.unblock();
+                PlayerUtil.unblock();
             }
             isBlocking = false;
             if (isModeBlink()) {

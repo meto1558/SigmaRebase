@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
@@ -93,13 +93,13 @@ public class MinemenSpider extends Module {
             }
         }
 
-        MovementUtil2.setPlayerYMotion(event.getY());
+        PlayerUtil.setPlayerYMotion(event.getY());
     }
 
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
-            SimpleEntryPair var4 = MovementUtil2.findCollisionDirection(1.0E-4);
+            SimpleEntryPair var4 = PlayerUtil.findCollisionDirection(1.0E-4);
             if (this.getBooleanValueFromSettingName("Ceiling")
                     && !mc.player.onGround
                     && mc.world.getCollisionShapes(mc.player, mc.player.boundingBox.offset(0.0, 1.0E-6, 0.0)).count() > 0L) {

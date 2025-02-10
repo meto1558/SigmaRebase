@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.util.math.MathHelper;
@@ -116,7 +116,7 @@ public class SpiderStep extends Module {
                     NewMovementUtil.setMotion(var1, 0.25);
                 }
 
-                if (!MovementUtil2.isMoving()) {
+                if (!NewMovementUtil.isMoving()) {
                     NewMovementUtil.setMotion(var1, 0.0);
                 }
 

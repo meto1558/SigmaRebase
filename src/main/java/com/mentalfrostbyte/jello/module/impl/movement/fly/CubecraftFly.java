@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
@@ -54,7 +54,7 @@ public class CubecraftFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil2.setPlayerYMotion(-0.078);
+        PlayerUtil.setPlayerYMotion(-0.078);
         NewMovementUtil.moveInDirection(0.2);
         mc.timer.timerSpeed = 1.0F;
         if (this.field23846) {
@@ -89,7 +89,7 @@ public class CubecraftFly extends Module {
             if (mc.player.onGround) {
                 this.field23847 = this.field23848 = false;
             }
-        } else if (MovementUtil2.isCubecraft()) {
+        } else if (PlayerUtil.isCubecraft()) {
             if (this.field23845 > 0) {
                 var1.setY(0.0);
                 NewMovementUtil.setMotion(var1, 0.0);
@@ -117,7 +117,7 @@ public class CubecraftFly extends Module {
                                  */
                             } else {
                                 if (!this.field23848) {
-                                    MovementUtil2.method17749(false);
+                                    PlayerUtil.method17749(false);
                                     this.field23848 = true;
                                 }
 
@@ -152,7 +152,7 @@ public class CubecraftFly extends Module {
                 } else {
                     NewMovementUtil.setMotion(var1, 0.0);
                     var1.setY(0.0);
-                    long var14 = MovementUtil2.method17762() % 90L;
+                    long var14 = PlayerUtil.method17762() % 90L;
                     double var15 = 0.016 + (double) var14 / 10000.0;
                     double var16 = mc.player.getPosX();
                     double var10 = mc.player.getPosY() + 0.022;
@@ -163,7 +163,7 @@ public class CubecraftFly extends Module {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var16, var10 + 3.0, var12, false));
                 }
 
-                MovementUtil2.setPlayerYMotion(var1.getY());
+                PlayerUtil.setPlayerYMotion(var1.getY());
             }
         } else {
             NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
@@ -179,7 +179,7 @@ public class CubecraftFly extends Module {
 
     @EventTarget
     public void method16689(EventUpdateWalkingPlayer var1) {
-        if (var1.isPre() && MovementUtil2.isCubecraft()) {
+        if (var1.isPre() && PlayerUtil.isCubecraft()) {
             var1.setMoving(true);
             if (/*
                  * JelloPortal.getCurrentVersionApplied() ==
@@ -196,7 +196,7 @@ public class CubecraftFly extends Module {
 
     @EventTarget
     public void method16690(EventReceivePacket var1) {
-        if (mc.world != null && mc.getConnection() != null && MovementUtil2.isCubecraft()) {
+        if (mc.world != null && mc.getConnection() != null && PlayerUtil.isCubecraft()) {
             IPacket var4 = var1.getPacket();
             if (!(var4 instanceof SPlayerPositionLookPacket)) {
                 if (var4 instanceof SEntityVelocityPacket) {
