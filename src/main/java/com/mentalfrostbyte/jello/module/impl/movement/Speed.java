@@ -32,6 +32,7 @@ public class Speed extends ModuleWithModuleSettings {
 //                new YPortSpeed(),
                 new MinemenSpeed(),
                 new BoostSpeed(),
+                new VerusSpeed(), //AUTHOR - alarmingly_good (on discord)
                 new VulcanSpeed()
 //                new InvadedSpeed(),
 //                new MineplexSpeed(),
