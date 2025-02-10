@@ -29,10 +29,7 @@ import com.tagtraum.jipes.math.FFTFactory;
 import net.sourceforge.jaad.aac.Decoder;
 import net.sourceforge.jaad.aac.SampleBuffer;
 import net.sourceforge.jaad.mp4.MP4Container;
-import net.sourceforge.jaad.mp4.api.Frame;
-import net.sourceforge.jaad.mp4.api.Movie;
-import net.sourceforge.jaad.mp4.api.Track;
-import net.sourceforge.jaad.mp4.api.VideoTrack;
+import net.sourceforge.jaad.mp4.api.*;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
@@ -350,20 +347,23 @@ public class MusicManager {
 
             this.audioThread = new Thread(
                     () -> {
-                        Object var3;
+                        byte[] pcmBufferData;
                         if (this.currentVideoIndex < 0 || this.currentVideoIndex >= this.videoManager.videoList.size()) {
                             this.currentVideoIndex = 0;
                         }
 
                         for (int var4 = this.currentVideoIndex; var4 < this.videoManager.videoList.size(); var4++) {
-                            URL var5 = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(var4).videoId);
-                            Client.getInstance().getLogger().setThreadName(var5.toString());
+                            URL songUrl = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(var4).videoId);
+                            Client.getInstance().getLogger().setThreadName(songUrl.toString());
                             this.currentVideoIndex2 = var4;
                             this.currentVideo = this.videoManager.videoList.get(var4);
                             this.visualizerData.clear();
 
                             while (!this.playing) {
-
+                                try {
+                                    Thread.sleep(300L);
+                                }
+                                catch (final InterruptedException ex) {}
                                 this.visualizerData.clear();
                                 if (Thread.interrupted()) {
                                     if (this.sourceDataLine != null) {
@@ -374,8 +374,8 @@ public class MusicManager {
                             }
 
                             try {
-                                System.out.println(var5);
-                                URL url = this.resolveAudioStream(var5);
+                                System.out.println(songUrl);
+                                URL url = this.resolveAudioStream(songUrl);
                                 Client.getInstance().getLogger().setThreadName(url == null ? "No stream" : url.toString());
                                 if (url != null) {
                                     URLConnection urlConnection = url.openConnection();
@@ -394,9 +394,9 @@ public class MusicManager {
                                         Client.getInstance().getLogger().setThreadName("No content");
                                     }
 
-                                    VideoTrack var13 = (VideoTrack) movie.getTracks().get(1);
-                                    AudioFormat var14 = new AudioFormat((float) var13.getHeight(),
-                                            var13.getDepth(), var13.getWidth(), true, true);
+                                    AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
+                                    AudioFormat var14 = new AudioFormat((float) var13.getSampleRate(),
+                                            var13.getSampleSize(), var13.getChannelCount(), true, true);
                                     this.sourceDataLine = AudioSystem.getSourceDataLine(var14);
                                     this.sourceDataLine.open();
                                     this.sourceDataLine.start();
@@ -421,8 +421,8 @@ public class MusicManager {
 
                                         Frame var18 = var13.readNextFrame();
                                         var15.decodeFrame(var18.getData(), var16);
-                                        var3 = var16.getData();
-                                        this.sourceDataLine.write((byte[]) var3, 0, ((byte[]) var3).length);
+                                        pcmBufferData = var16.getData();
+                                        this.sourceDataLine.write((byte[]) pcmBufferData, 0, ((byte[]) pcmBufferData).length);
                                         float[] var29 = method24305(var16.getData(), var14);
                                         FFTFactory.JavaFFT var19 = new FFTFactory.JavaFFT(var29.length);
                                         float[][] var20 = var19.transform(var29);
