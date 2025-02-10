@@ -183,10 +183,12 @@ public class MovementUtil implements MinecraftUtil {
         double posY = mc.player.getPosY();
         double posZ = mc.player.getPosZ();
 
-        double moveX = forward * speed * Math.cos(Math.toRadians(yaw + 90.0F)) +
-                strafe * speed * Math.sin(Math.toRadians(yaw + 90.0F));
-        double moveZ = forward * speed * Math.sin(Math.toRadians(yaw + 90.0F)) -
-                strafe * speed * Math.cos(Math.toRadians(yaw + 90.0F));
+        double cos = Math.cos(Math.toRadians(yaw + 90.0F));
+        double sin = Math.sin(Math.toRadians(yaw + 90.0F));
+        double moveX = forward * speed * cos +
+                strafe * speed * sin;
+        double moveZ = forward * speed * sin -
+                strafe * speed * cos;
 
         mc.player.setPosition(posX + moveX, posY, posZ + moveZ);
     }
