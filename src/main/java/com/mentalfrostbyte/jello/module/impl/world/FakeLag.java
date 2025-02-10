@@ -13,9 +13,10 @@ import net.minecraft.network.play.client.*;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FakeLag extends Module {
-    public final ArrayList<IPacket<?>> packets = new ArrayList<>();
+    public final List<IPacket<?>> packets = new ArrayList<>();
     public final TimerUtil timerUtil = new TimerUtil();
     public boolean isLagging;
 
@@ -38,7 +39,7 @@ public class FakeLag extends Module {
 
     @Override
     public void onDisable() {
-        if (!this.packets.isEmpty()) {
+        if (!this.packets.isEmpty() && mc.world != null) {
             for (IPacket<?> packet : this.packets) {
                 mc.getConnection().getNetworkManager().sendPacket(packet);
             }
