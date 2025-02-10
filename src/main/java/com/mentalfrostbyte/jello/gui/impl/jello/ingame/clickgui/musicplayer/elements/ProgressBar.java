@@ -23,7 +23,7 @@ public class ProgressBar extends Element {
         this.method13249((var1x, var2x) -> {
             if (this.method13298() && this.method13297()) {
                 int var5x = (int) Math.min((double) ((int) (this.field21315 * (float) this.musicManager.getDurationInt())), this.musicManager.method24322());
-                this.musicManager.method24329((double) var5x);
+                this.musicManager.doesExecutableExist((double) var5x);
             }
         });
     }
