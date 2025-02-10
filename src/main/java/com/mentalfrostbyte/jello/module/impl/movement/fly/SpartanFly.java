@@ -9,7 +9,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
@@ -124,9 +123,7 @@ public class SpartanFly extends Module {
                         : (!this.field23571 ? mc.player.getPositionVec().y + 1.0 : mc.player.getPositionVec().y);
             }
 
-            MovementUtil.setPlayerXMotion(var1.getX());
-            MovementUtil.setPlayerYMotion(var1.getY());
-            MovementUtil.setPlayerZMotion(var1.getZ());
+            mc.player.setMotion(var1.getX(), var1.getY(), var1.getZ());
         }
     }
 

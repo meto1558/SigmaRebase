@@ -9,7 +9,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -74,7 +73,7 @@ public class NoFall extends Module {
                         if (mc.world.getCollisionShapes(mc.player, var19).count() != 0L) {
                             var13 -= 1.0E-5;
                             event.setY(event.getY() + var13);
-                            MovementUtil.setPlayerYMotion(event.getY());
+                            mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
                             var6 = Double.MAX_VALUE;
                             break;
                         }
@@ -87,7 +86,7 @@ public class NoFall extends Module {
 
                 if (Math.abs(var6) < 0.1) {
                     event.setY(event.getY() + var6);
-                    MovementUtil.setPlayerYMotion(event.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
                 }
             }
         }

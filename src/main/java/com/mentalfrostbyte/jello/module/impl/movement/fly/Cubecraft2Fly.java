@@ -11,7 +11,6 @@ import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -56,17 +55,17 @@ public class Cubecraft2Fly extends PremiumModule {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.2);
+        NewMovementUtil.moveInDirection(0.2);
         MovementUtil2.setPlayerYMotion(-0.0789);
         if (BlockUtil.isAboveBounds(mc.player, 0.001F)) {
-            MovementUtil.strafe(0.0);
+            NewMovementUtil.moveInDirection(0.0);
             MovementUtil2.setPlayerYMotion(-0.0789);
         } else {
             double var3 = mc.player.getPosX();
             double var5 = mc.player.getPosY();
             double var7 = mc.player.getPosZ();
             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3, -150.0, var7, false));
-            MovementUtil.strafe(0.0);
+            NewMovementUtil.moveInDirection(0.0);
             MovementUtil2.setPlayerYMotion(0.0);
             this.field23696 = -3;
             this.field23697.reset();

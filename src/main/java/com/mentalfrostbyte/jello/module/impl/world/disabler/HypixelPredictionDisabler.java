@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.InvManager;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.network.play.client.CClientStatusPacket;
@@ -140,7 +139,7 @@ public class HypixelPredictionDisabler extends Module {
                 if (airTicks % 2 == 0) {
                     event.setZ(event.getZ() + 0.095);
                 }
-                MovementUtil.setPlayerYMotion(0.0);
+                mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
             }
         }
     }

@@ -127,7 +127,7 @@ public class BlockFlyNCPMode extends Module {
             ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getSmartSpeed() * 0.9);
+        NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23926 == 0) {
             MovementUtil2.setPlayerYMotion(-0.0789);

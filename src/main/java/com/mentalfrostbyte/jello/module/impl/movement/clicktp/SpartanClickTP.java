@@ -34,7 +34,7 @@ public class SpartanClickTP extends Module {
     public void onDisable() {
         MovementUtil2.setPlayerYMotion(-0.08);
         double var3 = NewMovementUtil.getSmartSpeed();
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var3);
+        NewMovementUtil.moveInDirection(var3);
         mc.timer.timerSpeed = 1.0F;
     }
 
@@ -80,7 +80,7 @@ public class SpartanClickTP extends Module {
                         this.field23465 = null;
                         MovementUtil2.setPlayerYMotion(-0.08);
                         double var5 = NewMovementUtil.getSmartSpeed();
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var5);
+                        NewMovementUtil.moveInDirection(var5);
                         mc.timer.timerSpeed = 1.0F;
                     } else {
                         this.access().toggle();

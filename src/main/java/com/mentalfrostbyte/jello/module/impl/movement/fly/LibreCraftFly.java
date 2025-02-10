@@ -11,7 +11,6 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 
@@ -39,9 +38,9 @@ public class LibreCraftFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        NewMovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -73,12 +72,12 @@ public class LibreCraftFly extends Module {
                 if (this.field23910 != -1) {
                     if (this.field23910 == 0) {
                         var1.setY(0.0);
-                        MovementUtil.setPlayerYMotion(var1.getY());
+                        mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                         NewMovementUtil.setMotion(var1, 0.35);
                     }
                 } else {
                     var1.setY(0.299);
-                    MovementUtil.setPlayerYMotion(var1.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                     NewMovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
                 }
             } else {

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.event.impl.player.movement;
 
 import com.mentalfrostbyte.jello.event.CancellableEvent;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class EventJump extends CancellableEvent {
@@ -25,7 +25,7 @@ public class EventJump extends CancellableEvent {
     }
 
     public void setStrafeSpeed(double speed) {
-        float[] var3 = MovementUtil.getDirection();
+        float[] var3 = NewMovementUtil.getDirectionArray();
         float forward = var3[1];
         float strafe = var3[2];
         float yaw = var3[0];

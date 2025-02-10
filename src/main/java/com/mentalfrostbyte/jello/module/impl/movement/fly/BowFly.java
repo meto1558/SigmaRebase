@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
@@ -8,7 +9,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 //import com.mentalfrostbyte.jello.module.impl.item.InvManager;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
@@ -52,9 +52,9 @@ public class BowFly extends Module {
             var1.getVector().y = 0.0;
             double var6 = var1.getVector().length();
             var1.getVector().y = var4;
-            float var8 = MovementUtil.getDirection()[1];
-            float var9 = MovementUtil.getDirection()[2];
-            float var10 = MovementUtil.getDirection()[0];
+            float var8 = NewMovementUtil.getDirectionArray()[1];
+            float var9 = NewMovementUtil.getDirectionArray()[2];
+            float var10 = NewMovementUtil.getDirectionArray()[0];
             System.out.println(var6);
             if ((var8 != 0.0F || var9 != 0.0F) && !(var1.getVector().y < -0.5)) {
                 double var11 = Math.cos(Math.toRadians(var10));

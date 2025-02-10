@@ -76,7 +76,7 @@ public class MineplexHighJump extends Module {
          if (mc.player.isOnGround()) {
             if (this.field24023) {
                this.field24023 = !this.field24023;
-               com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
+               NewMovementUtil.moveInDirection(0.0);
                if (this.getBooleanValueFromSettingName("Disable")) {
                   this.access().toggle();
                }

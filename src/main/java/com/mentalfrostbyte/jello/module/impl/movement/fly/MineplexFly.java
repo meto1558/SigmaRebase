@@ -16,7 +16,6 @@ import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 //import com.mentalfrostbyte.jello.util.MultiUtilities;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 //import mapped.*;
 //import net.minecraft.inventory.container.ClickType;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
@@ -58,7 +57,7 @@ public class MineplexFly extends Module {
     @Override
     public void onDisable() {
         double speed = NewMovementUtil.getSmartSpeed() * 0.5;
-        MovementUtil.strafe(speed);
+        NewMovementUtil.moveInDirection(speed);
         if (this.currentItem != -1) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
             this.currentItem = mc.player.inventory.currentItem;

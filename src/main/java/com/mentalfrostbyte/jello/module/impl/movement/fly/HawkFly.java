@@ -10,7 +10,6 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 
 public class HawkFly extends Module {
@@ -33,9 +32,9 @@ public class HawkFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        NewMovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -53,9 +52,7 @@ public class HawkFly extends Module {
                 NewMovementUtil.setMotion(var1, var4);
             }
 
-            MovementUtil.setPlayerYMotion(var1.getY());
-            MovementUtil.setPlayerXMotion(var1.getX());
-            MovementUtil.setPlayerZMotion(var1.getZ());
+            mc.player.setMotion(var1.getX(), var1.getY(), var1.getZ());
         }
     }
 

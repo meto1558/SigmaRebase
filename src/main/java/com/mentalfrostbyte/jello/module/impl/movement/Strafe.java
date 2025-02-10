@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -19,8 +18,8 @@ public class Strafe extends Module {
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
             lastSpeed = NewMovementUtil.getSmartSpeed();
-            float strafeDirection = MovementUtil.getDirection()[1];
-            float forwardDirection = MovementUtil.getDirection()[2];
+            float strafeDirection = NewMovementUtil.getDirectionArray()[1];
+            float forwardDirection = NewMovementUtil.getDirectionArray()[2];
             float playerAngle = NewMovementUtil.getYaw();
 
             double cosAngle = Math.cos(Math.toRadians(playerAngle));

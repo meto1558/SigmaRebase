@@ -72,7 +72,7 @@ public class HypixelFly extends Module {
     @Override
     public void onDisable() {
         double var3 = NewMovementUtil.getSmartSpeed();
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var3 * 0.7);
+        NewMovementUtil.moveInDirection(var3 * 0.7);
         this.duration = 1.0F;
         mc.timer.timerSpeed = 1.0F;
         this.field23563 = -1;

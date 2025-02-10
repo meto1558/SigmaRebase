@@ -8,12 +8,12 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -47,9 +47,9 @@ public class ViperMCFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        NewMovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -82,27 +82,27 @@ public class ViperMCFly extends Module {
                 if (this.field23594 != -1) {
                     if (this.field23594 == 0) {
                         if (!mc.gameSettings.keyBindJump.isKeyDown() && var1.getY() > 0.0) {
-//                            var1.setY(-MovementUtil.getJumpValue());
+                            var1.setY(-NewMovementUtil.getJumpValue());
                         }
 
-                        MovementUtil.setPlayerYMotion(var1.getY());
+                        mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                         NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
                     }
                 } else {
                     if (mc.gameSettings.keyBindJump.isKeyDown()) {
-//                        var1.setY(!this.field23598 ? var4 / 2.0 : MovementUtil.getJumpValue());
+                        var1.setY(!this.field23598 ? var4 / 2.0 : NewMovementUtil.getJumpValue());
                         this.field23597 = this.field23596;
                         this.field23596 = !this.field23598 ? mc.player.getPosY() + var1.getY() : this.field23596;
                     } else {
-                        var1.setY(this.field23598 /*&& !MultiUtilities.isAboveBounds(mc.player, 0.01F)*/ ? -var4 / 2.0
-                                : /*MovementUtil.getJumpValue()*/-69420);
+                        var1.setY(this.field23598 && !BlockUtil.isAboveBounds(mc.player, 0.01F) ? -var4 / 2.0
+                                : NewMovementUtil.getJumpValue());
                         this.field23597 = this.field23596;
-                        this.field23596 = this.field23598 /*&& !MultiUtilities.isAboveBounds(mc.player, 0.01F)*/
+                        this.field23596 = this.field23598 && !BlockUtil.isAboveBounds(mc.player, 0.01F)
                                 ? mc.player.getPosY() + var1.getY()
                                 : this.field23596;
                     }
 
-                    MovementUtil.setPlayerYMotion(var1.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                     NewMovementUtil.setMotion(var1, var4);
                 }
             } else {

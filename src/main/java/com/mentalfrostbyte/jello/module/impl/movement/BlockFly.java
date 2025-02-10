@@ -334,7 +334,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                                 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                             if (mc.gameSettings.keyBindJump.isPressed()) {
                                 if (!MovementUtil2.isMoving()) {
-                                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
+                                    NewMovementUtil.moveInDirection(0.0);
                                     NewMovementUtil.setMotion(var1, 0.0);
                                 }
 
@@ -348,7 +348,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                         if (var1.getY() > 0.247 && var1.getY() < 0.249) {
                             var1.setY((double) ((int) (mc.player.getPosY() + var1.getY())) - mc.player.getPosY());
                             if (mc.gameSettings.keyBindJump.isPressed() && !MovementUtil2.isMoving()) {
-                                com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
+                                NewMovementUtil.moveInDirection(0.0);
                                 NewMovementUtil.setMotion(var1, 0.0);
                             }
                         } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())
@@ -383,7 +383,7 @@ public class BlockFly extends ModuleWithModuleSettings {
             mc.player.jumpTicks = 0;
             mc.player.jump();
             NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getSmartSpeed());
+            NewMovementUtil.moveInDirection(NewMovementUtil.getSmartSpeed());
         }
 
         if (!this.getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")) {

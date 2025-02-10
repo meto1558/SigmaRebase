@@ -7,7 +7,6 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
@@ -45,9 +44,9 @@ public class ACRFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        NewMovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -81,7 +80,7 @@ public class ACRFly extends Module {
                         var1.setY(!this.getBooleanValueFromSettingName("Offset") ? 0.0 : -0.01);
                     }
 
-                    MovementUtil.setPlayerYMotion(var1.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                     NewMovementUtil.setMotion(var1, 0.35);
                 }
             } else {
@@ -95,7 +94,7 @@ public class ACRFly extends Module {
                 }
 
                 var1.setY(var4);
-                MovementUtil.setPlayerYMotion(var1.getY());
+                mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                 NewMovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
             }
         }

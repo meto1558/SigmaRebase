@@ -122,9 +122,9 @@ public class VClipFly extends Module {
 
     @Override
     public void onDisable() {
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setPlayerYMotion(-0.08);
+        mc.player.setMotion(mc.player.getMotion().x, -0.08, mc.player.getMotion().z);
         double plrSpeed = NewMovementUtil.getSmartSpeed();
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(plrSpeed);
+        NewMovementUtil.moveInDirection(plrSpeed);
         if (this.sneakCancelled) {
             mc.gameSettings.keyBindSneak.setPressed(true);
         }

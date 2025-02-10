@@ -11,7 +11,6 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -56,7 +55,7 @@ public class CubecraftFly extends Module {
     @Override
     public void onDisable() {
         MovementUtil2.setPlayerYMotion(-0.078);
-        MovementUtil.strafe(0.2);
+        NewMovementUtil.moveInDirection(0.2);
         mc.timer.timerSpeed = 1.0F;
         if (this.field23846) {
             mc.gameSettings.keyBindSneak.pressed = true;

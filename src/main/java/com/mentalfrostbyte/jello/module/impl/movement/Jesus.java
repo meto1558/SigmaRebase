@@ -156,7 +156,7 @@ public class Jesus extends Module {
                     }
                 }
 
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setPlayerYMotion(var1.getY());
+                mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
             }
         }
     }

@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import net.minecraft.network.IPacket;
@@ -34,7 +33,7 @@ public class AACAntiKB extends Module {
             if (this.noStrength()) {
                 if (ticks == 0 && !mc.player.isOnGround() && mc.player.hurtTime > 0 && mc.player.fallDistance < 2.0F) {
                     mc.player.addVelocity(0.0, -1.0, 0.0);
-                    MovementUtil.setPlayerYMotion(mc.player.getMotion().getY());
+                    mc.player.setMotion(mc.player.getMotion().x, mc.player.getMotion().getY(), mc.player.getMotion().z);
                     mc.player.setOnGround(true);
                     ticks = 20;
                 }
@@ -42,9 +41,9 @@ public class AACAntiKB extends Module {
                 if (ticks < 7) {
                     ticks++;
                     if (ticks > 1) {
-                        float var4 = MovementUtil.getDirection()[1];
-                        float var5 = MovementUtil.getDirection()[2];
-                        float var6 = MovementUtil.getDirection()[0];
+                        float var4 = NewMovementUtil.getDirectionArray()[1];
+                        float var5 = NewMovementUtil.getDirectionArray()[2];
+                        float var6 = NewMovementUtil.getDirectionArray()[0];
                         double var7 = Math.cos(Math.toRadians(var6));
                         double var9 = Math.sin(Math.toRadians(var6));
                         double var11 = (double) ((float) (7 - ticks) * this.getNumberValueBySettingName("Strength")) * 0.04 * (double) this.field23909 * 0.2;
@@ -60,8 +59,7 @@ public class AACAntiKB extends Module {
                             var1.setZ(var1.getZ() * 0.8);
                         }
 
-                        MovementUtil.setPlayerXMotion(var1.getX());
-                        MovementUtil.setPlayerZMotion(var1.getZ());
+                        mc.player.setMotion(var1.getX(), mc.player.getMotion().y, var1.getZ());
                     }
                 }
             }

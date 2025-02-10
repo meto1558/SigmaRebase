@@ -36,7 +36,7 @@ public class NCPLongJump extends Module {
     public void onDisable() {
         this.field23479 = false;
       //  mc.timer.timerSpeed = 1.0F;
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getDumberSpeed() * 0.7);
+        NewMovementUtil.moveInDirection(NewMovementUtil.getDumberSpeed() * 0.7);
     }
 
     @Override

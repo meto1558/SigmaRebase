@@ -1,11 +1,13 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.MathHelper;
 
 public class NewMovementUtil implements MinecraftUtil {
@@ -194,7 +196,7 @@ public class NewMovementUtil implements MinecraftUtil {
      * @param motionSpeed The desired motion speed.
      */
     public static void setMotion(EventMove moveEvent, double motionSpeed) {
-        float[] strafe = getDirection();
+        float[] strafe = getDirectionArray();
         float forward = strafe[1];
         float side = strafe[2];
         float yaw = strafe[0];
@@ -276,5 +278,57 @@ public class NewMovementUtil implements MinecraftUtil {
         }
 
         return baseSpeed;
+    }
+
+    public static void moveInDirection(double speed) {
+        float[] adjusted = getDirectionArray();
+        float forward = adjusted[1];
+        float side = adjusted[2];
+        float yaw = adjusted[0];
+
+        if (forward == 0.0F && side == 0.0F) {
+            stop();
+        }
+
+        double cos = Math.cos(Math.toRadians(yaw));
+        double sin = Math.sin(Math.toRadians(yaw));
+        double x = (forward * cos + side * sin) * speed;
+        double z = (forward * sin - side * cos) * speed;
+
+        mc.player.setMotion(x, mc.player.getMotion().y, z);
+    }
+
+    public static float[] getDirectionArray(float forward, float strafe) {
+        float yaw = mc.player.rotationYaw + 90.0F;
+        if (Client.getInstance().minerTracker.getAdjustedYaw() != -999.0f) {
+            yaw = Client.getInstance().minerTracker.getAdjustedYaw() + 90.0f;
+        }
+
+        if (forward != 0.0F) {
+            if (!(strafe >= 1.0F)) {
+                if (strafe <= -1.0F) {
+                    yaw += (float) (!(forward > 0.0F) ? -45 : 45);
+                    strafe = 0.0F;
+                }
+            } else {
+                yaw += (float) (!(forward > 0.0F) ? 45 : -45);
+                strafe = 0.0F;
+            }
+
+            if (!(forward > 0.0F)) {
+                if (forward < 0.0F) {
+                    forward = -1.0F;
+                }
+            } else {
+                forward = 1.0F;
+            }
+        }
+
+        return new float[]{yaw, forward, strafe};
+    }
+
+    public static float[] getDirectionArray() {
+        MovementInput input = mc.player.movementInput;
+        return getDirectionArray(input.moveForward, input.moveStrafe);
     }
 }
