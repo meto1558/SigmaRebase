@@ -13,8 +13,7 @@ public class Criticals extends ModuleWithModuleSettings {
                 new MinisCriticals(),
                 new PacketCriticals(),
                 new NoGroundCriticals(),
-                // TODO: uncomment this once we add the player state tracker
-                //new HoverCriticals(),
+                new HoverCriticals(),
                 new MinemenCriticals(),
                 new AAC4Criticals()
         );

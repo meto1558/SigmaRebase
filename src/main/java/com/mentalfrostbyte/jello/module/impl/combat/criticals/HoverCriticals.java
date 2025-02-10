@@ -25,7 +25,7 @@ public class HoverCriticals extends Module {
     }
 
     @EventTarget
-    public void method16921(ReceivePacketEvent var1) {
+    public void method16921(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.getPacket();
             if (var4 instanceof SPlayerPositionLookPacket) {
@@ -36,7 +36,7 @@ public class HoverCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    public void onUpdate(EventUpdate var1) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
             boolean var4 = mc.objectMouseOver != null && mc.objectMouseOver.getType() == RayTraceResult.Type.BLOCK;
             boolean var5 = mc.playerController.getIsHittingBlock() || mc.gameSettings.keyBindAttack.isKeyDown() && var4;
@@ -46,7 +46,7 @@ public class HoverCriticals extends Module {
                     this.field23997 = 1.0E-11;
                 }
 
-                var1.method13908(true);
+                var1.setMoving(true);
                 var1.setY(var1.getY() + this.field23997);
                 var1.setGround(false);
             } else {
