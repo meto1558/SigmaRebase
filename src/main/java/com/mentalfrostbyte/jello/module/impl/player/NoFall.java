@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
@@ -52,8 +53,8 @@ public class NoFall extends Module {
                     && (double) mc.player.fallDistance > 2.0 + (double) MovementUtil.getJumpBoost() * 0.5
                     && !mc.player.isOnGround()
                     && this.getStringSettingValueByName("Mode").equals("Hypixel")
-                /*&& MultiUtilities.isHypixel()*/) {
-                double[] var4 = /*MultiUtilities.method17747()*/new double[0]; // TODO
+                && MovementUtil2.isHypixel()) {
+                double[] var4 = MovementUtil2.method17747();
                 double var6 = Double.MAX_VALUE;
 
                 for (double var9 : var4) {
@@ -140,9 +141,6 @@ public class NoFall extends Module {
         if (this.isEnabled() && mc.player != null) {
             if (!(mc.player.getPosY() < 2.0)) {
                 String mode = this.getStringSettingValueByName("Mode");
-                if (mode.equals("Hypixel")) {
-                    mode = "OldHypixel";
-                }
 
                 switch (mode) {
                     case "OldHypixel":
@@ -163,22 +161,22 @@ public class NoFall extends Module {
                         }
                         break;
                     case "Hypixel":
-                        if (packet.isPre() && mc.player.getMotion().y < 0.0 && !mc.player.isOnGround()/* && MultiUtilities.isHypixel()*/) {
-//                            TODO
-//                            for (double var10 : MovementUtil.method17747()) {
-//                                if ((double) ((int) packet.getY()) - packet.getY() + var10 == 0.0) {
-//                                    packet.setGround(true);
-//                                    break;
-//                                }
-//                            }
+                        if (packet.isPre() && mc.player.getMotion().y < 0.0 && !mc.player.isOnGround() && MovementUtil2.isHypixel()) {
+
+                            for (double var10 : MovementUtil2.method17747()) {
+                                if ((double) ((int) packet.getY()) - packet.getY() + var10 == 0.0) {
+                                    packet.setGround(true);
+                                    break;
+                                }
+                            }
                         }
                         break;
                     case "Hypixel2":
                         if (packet.isPre()) {
-//                            if (MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)) {
-//                                this.field23509 = 0.0;
-//                                return;
-//                            }
+                            if (MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)) {
+                                this.field23509 = 0.0;
+                                return;
+                            }
 
                             if (mc.player.getMotion().y < -0.1 && mc.player.fallDistance > 3.0F) {
                                 this.field23509++;
@@ -233,7 +231,7 @@ public class NoFall extends Module {
                                 this.field23508 = true;
                             }
 
-                            if (this.field23508 /*&& Client.getInstance().playerTracker.getgroundTicks() == 0*/ && mc.player.isOnGround()) {
+                            if (this.field23508 && Client.getInstance().playerTracker.getgroundTicks() == 0 && mc.player.isOnGround()) {
                                 packet.setY(packet.getY() - 11.0);
                                 this.field23508 = false;
                             }
