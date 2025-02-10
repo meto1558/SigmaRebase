@@ -8,7 +8,6 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 public class Strafe extends Module {
     private double currentSpeed;
-    private double lastSpeed;
 
     public Strafe() {
         super(ModuleCategory.MOVEMENT, "Strafe", "Strafe in mid air");
@@ -16,33 +15,14 @@ public class Strafe extends Module {
 
     @EventTarget
     public void onMove(EventMove event) {
-        if (this.isEnabled()) {
-            lastSpeed = MovementUtil.getSmartSpeed();
-            float strafeDirection = MovementUtil.getDirectionArray()[1];
-            float forwardDirection = MovementUtil.getDirectionArray()[2];
-            float playerAngle = MovementUtil.getYaw();
-
-            double cosAngle = Math.cos(Math.toRadians(playerAngle));
-            double sinAngle = Math.sin(Math.toRadians(playerAngle));
-
-            double movementMagnitude = Math.sqrt(event.getX() * event.getX() + event.getZ() * event.getZ());
-            if (!MovementUtil.isMoving()) {
-                movementMagnitude = 0.0;
-            }
-            float smoothingFactor = 0.2F;
-
-            if (!(movementMagnitude > currentSpeed + 0.1F)) {
-                currentSpeed = movementMagnitude;
-
-                if (movementMagnitude != 0.0) {
-                    movementMagnitude = Math.max(movementMagnitude, MovementUtil.getSmartSpeed());
-                }
-
-                event.setX(event.getX() * (1.0F - smoothingFactor) + movementMagnitude * cosAngle * smoothingFactor);
-                event.setZ(event.getZ() * (1.0F - smoothingFactor) + movementMagnitude * sinAngle * smoothingFactor);
-            } else {
-                currentSpeed = movementMagnitude;
-            }
+        if (!this.isEnabled()) return;
+        double movementMagnitude = Math.sqrt(event.getX() * event.getX() + event.getZ() * event.getZ());
+        if (!MovementUtil.isMoving()) {
+            movementMagnitude = 0.0;
         }
+        if (!(movementMagnitude > currentSpeed + 0.1F)) {
+            MovementUtil.setMotion(event, MovementUtil.getSpeed());
+        }
+        currentSpeed = movementMagnitude;
     }
 }
