@@ -119,7 +119,7 @@ public class ClickGuiScreen extends Screen {
 
                 this.dependenciesAlert.onPress(thread -> {
                     if (!Client.getInstance().musicManager.hasPython()) {
-                        Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/python-3.12.5-macos11.pkg");
+                        Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/");
                     }
 
                     if (!Client.getInstance().musicManager.hasVCRedist()) {
