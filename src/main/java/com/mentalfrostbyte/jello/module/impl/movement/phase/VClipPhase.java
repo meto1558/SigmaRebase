@@ -1,27 +1,48 @@
 package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
+
+import java.util.Collections;
+import java.util.Objects;
 
 public class VClipPhase extends Module {
 
-    private long lastMessageTime = 0;
+    private final NumberSetting<Double> blocksToClip;
 
     public VClipPhase() {
         super(ModuleCategory.MOVEMENT, "VClip", "Vclip phase (click shift)");
+        registerSetting(this.blocksToClip = new NumberSetting<>(
+                "Blocks to clip",
+                "yes",
+                -4,
+                Double.class,
+                -1e2f,
+                1e2f,
+                0.02f
+        ));
     }
 
     @EventTarget
-    public void EventUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventUpdateWalkingPlayer __) {
         if (this.isEnabled() && mc.gameSettings.keyBindSneak.isKeyDown()) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - lastMessageTime >= 1000) {
-                ChatUtil.sendChatMessage(".vclip -4");
-                lastMessageTime = currentTime;
-            }
+            assert mc.player != null;
+            Objects.requireNonNull(mc.getConnection())
+                    .handlePlayerPosLook(
+                            new SPlayerPositionLookPacket(
+                                    mc.player.getPosX(),
+                                    mc.player.getPosY() + blocksToClip.currentValue,
+                                    mc.player.getPosZ(),
+                                    mc.player.rotationYaw,
+                                    mc.player.rotationPitch,
+                                    Collections.emptySet(),
+                                    (int) (2.147483647E9 * Math.random())
+                            )
+                    );
         }
     }
 }
