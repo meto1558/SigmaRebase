@@ -82,6 +82,8 @@ public class KillAura extends Module {
     private double[] positionOffset;
     float randomAngle = 0;
 
+    private KillAuraAttackLambda attackLambda;
+
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
         this.registerSetting(
@@ -204,6 +206,7 @@ public class KillAura extends Module {
         currentTimedEntity = null;
         targetEntities = null;
         isAuraActive = false;
+        attackLambda = null;
         super.onDisable();
     }
 
@@ -360,23 +363,25 @@ public class KillAura extends Module {
         }
 
         boolean canAttack = interactAB.method36821(attackDelay);
-        float attackCooldownThreshold = (mc.player.getCooldownPeriod() < 1.26 && getBooleanValueFromSettingName("Cooldown"))
-                ? mc.player.getCooledAttackStrength(0.0F)
-                : 1.0F;
 
-        boolean shouldAttack = attackCooldown == 0 && canAttack && attackCooldownThreshold >= 1.0F;
+        boolean shouldAttack = canAttack;
+        if (getBooleanValueFromSettingName("Cooldown")) {
+            shouldAttack = mc.player.getCooledAttackStrength(0.5F) >= 1.0;
+        }
 
         if (canAttack) {
             interactAB.setupDelay();
         }
 
         if (shouldAttack) {
-            KillAuraAttackLambda attack = new KillAuraAttackLambda(this, hitboxExpand);
+            if (attackLambda == null)
+                attackLambda = new KillAuraAttackLambda(this, hitboxExpand);
+
             boolean isPre = getStringSettingValueByName("Attack Mode").equals("Pre");
             if (!isPre) {
-                event.attackPost(attack);
+                event.attackPost(attackLambda);
             } else {
-                attack.run();
+                attackLambda.run();
             }
             attackDelay = 0;
         }

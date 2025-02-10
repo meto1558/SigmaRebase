@@ -34,7 +34,7 @@ import java.util.*;
 public class InteractAutoBlock {
     private float[] clicks;
     public final int field44345 = 3;
-    private Module parent;
+    private final Module parent;
     public Minecraft mc = Minecraft.getInstance();
     public boolean blocking;
     public HashMap<Entity, List<Pair<Vector3d, Long>>> field44349 = new HashMap<>();
@@ -137,8 +137,8 @@ public class InteractAutoBlock {
         }
     }
 
-    public boolean method36821(int var1) {
-        return var1 >= (int) this.clicks[0];
+    public boolean method36821(int cps) {
+        return cps >= (int) this.clicks[0];
     }
 
     public void setupDelay() {

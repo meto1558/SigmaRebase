@@ -94,12 +94,11 @@ public class KillAuraAttackLambda implements Runnable {
                 boolean raytrace = this.killauraModule.getBooleanValueFromSettingName("Raytrace");
                 boolean walls = this.killauraModule.getBooleanValueFromSettingName("Through walls");
                 boolean properTrace = EntityUtil.rayTraceEntity(Objects.requireNonNull(mc.player), entity);
-                boolean isOnePointEight = JelloPortal.getVersion().newerThan(ProtocolVersion.v1_8);
+                boolean isOnePointEight = JelloPortal.getVersion().olderThanOrEqualTo(ProtocolVersion.v1_8);
 
                 if (raytrace) {
                     if (properTrace || walls) {
                         handleAnimationAndAttack(mc, entity, isOnePointEight);
-                        mc.player.resetCooldown();
                     } else {
                         KillAura.currentTarget = null;
                         KillAura.targetEntities = null;
@@ -107,8 +106,6 @@ public class KillAuraAttackLambda implements Runnable {
                     }
                 } else {
                     handleAnimationAndAttack(mc, entity, isOnePointEight);
-                    mc.player.resetCooldown();
-
                 }
             }
 
