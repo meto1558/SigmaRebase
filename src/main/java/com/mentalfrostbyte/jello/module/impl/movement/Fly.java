@@ -28,7 +28,8 @@ public class Fly extends ModuleWithModuleSettings {
                 new SpartanFly(),
                 new CubecraftFly(),
                 new Cubecraft2Fly(),
-                new OmegaCraftTestFly()
+                new OmegaCraftTestFly(),
+                new VerusGlideFly() //AUTHOR - alarmingly_good (on discord)
         );
     }
 }

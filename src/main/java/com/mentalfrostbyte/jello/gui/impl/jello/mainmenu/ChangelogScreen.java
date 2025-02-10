@@ -101,6 +101,7 @@ public class ChangelogScreen extends CustomGuiScreen {
                   {
                       "title": "5.1.0 (1.16.4) Update",
                       "changes": [
+                          "Added Verus glide flight - by @alarmingly_good",
                           "Added Verus speeds - by @alarmingly_good",
                           "Added Vulcan AntiKB and Speed",
                           "Added Verus NoFall",
