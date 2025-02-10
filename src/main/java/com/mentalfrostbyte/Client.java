@@ -111,13 +111,13 @@ public class Client {
         this.accountManager = new AccountManager();
         this.accountManager.registerEvents();
         this.playerTracker = new PlayerStateTracker();
-        EventBus.register(this.playerTracker);
+        this.playerTracker.init();
         this.waypointsManager = new WaypointsManager();
         this.waypointsManager.init();
         this.blurEngine = new BlurEngine();
-        blurEngine.init();
+        this.blurEngine.init();
         this.minerTracker = new MinerTracker();
-        minerTracker.init();
+        this.minerTracker.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
         this.logger.info("Initialized.");
     }

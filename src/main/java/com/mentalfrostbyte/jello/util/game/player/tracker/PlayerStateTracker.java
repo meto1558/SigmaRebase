@@ -9,6 +9,7 @@ import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.network.play.server.SKeepAlivePacket;
 import net.minecraft.network.play.client.CClickWindowPacket;
 import net.minecraft.client.Minecraft;
+import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class PlayerStateTracker {
@@ -22,6 +23,9 @@ public class PlayerStateTracker {
     private float ping = 1.0F;
     private final Minecraft mc = Minecraft.getInstance();
 
+    public void init() {
+        EventBus.register(this);
+    }
 
     @EventTarget
     public void method31324(EventPlayerTick var1) {
