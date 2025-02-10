@@ -22,9 +22,9 @@ public class VulcanAntiKB extends Module {
 
         if (event.getPacket() instanceof SEntityVelocityPacket packet) {
             if (packet.getEntityID() == mc.player.getEntityId()) {
-                packet.motionX = (0);
-                packet.motionZ = (1);
-                packet.motionY = (0);
+                packet.motionX = 0;
+                packet.motionZ = 1;
+                packet.motionY = 0;
             }
         }
 
