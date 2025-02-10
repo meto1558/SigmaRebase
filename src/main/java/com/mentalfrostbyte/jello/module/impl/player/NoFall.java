@@ -2,17 +2,19 @@ package com.mentalfrostbyte.jello.module.impl.player;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import net.minecraft.network.play.server.SPlayerPositionLookPacket;
-import team.sdhq.eventBus.annotations.EventTarget;
+import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import team.sdhq.eventBus.annotations.priority.LowerPriority;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import net.minecraft.network.play.client.CPlayerPacket;
+import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
+import team.sdhq.eventBus.annotations.EventTarget;
+import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 public class NoFall extends Module {
     private boolean field23507 = false;
@@ -24,8 +26,7 @@ public class NoFall extends Module {
     public NoFall() {
         super(ModuleCategory.PLAYER, "NoFall", "Avoid you from getting fall damages");
         this.registerSetting(
-                new ModeSetting("Mode", "Nofall mode", 0, "Vanilla", "Cancel", "Hypixel", "Hypixel2", "AAC", "NCPSpigot", "OldHypixel", "Vanilla Legit")
-//                        .setPremiumModes("Hypixel", "Hypixel2")
+                new ModeSetting("Mode", "Nofall mode", 0, "Vanilla", "Cancel", "Hypixel", "Hypixel2", "AAC", "NCPSpigot", "OldHypixel", "Vanilla Legit", "Verus")
         );
     }
 
@@ -51,7 +52,7 @@ public class NoFall extends Module {
                     && (double) mc.player.fallDistance > 2.0 + (double) MovementUtil.getJumpBoost() * 0.5
                     && !mc.player.isOnGround()
                     && this.getStringSettingValueByName("Mode").equals("Hypixel")
-                    /*&& MultiUtilities.isHypixel()*/) {
+                /*&& MultiUtilities.isHypixel()*/) {
                 double[] var4 = /*MultiUtilities.method17747()*/new double[0]; // TODO
                 double var6 = Double.MAX_VALUE;
 
@@ -94,8 +95,8 @@ public class NoFall extends Module {
     public void onSendPacket(EventSendPacket event) {
         if (
                 !this.isEnabled() ||
-                !this.getStringSettingValueByName("Mode").equals("Cancel") ||
-                event.cancelled
+                        !this.getStringSettingValueByName("Mode").equals("Cancel") ||
+                        event.cancelled
         ) return;
         if (event.getPacket() instanceof CPlayerPacket) {
             if (mc.player.fallDistance > 3f) {
@@ -106,6 +107,7 @@ public class NoFall extends Module {
             falling = false;
         }
     }
+
     @EventTarget
     @SuppressWarnings("unused")
     public void onReceivePacket(EventReceivePacket event) {
@@ -123,21 +125,32 @@ public class NoFall extends Module {
     }
 
     @EventTarget
+    public void onTick(EventPlayerTick eventPlayerTick) {
+        if (getStringSettingValueByName("Mode").equals("Verus")) {
+            if (mc.player.fallDistance > 3.35) {
+                mc.player.onGround = true;
+                mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
+                mc.player.fallDistance = 0;
+            }
+        }
+    }
+
+    @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer packet) {
         if (this.isEnabled() && mc.player != null) {
             if (!(mc.player.getPosY() < 2.0)) {
-                String var4 = this.getStringSettingValueByName("Mode");
-                if (var4.equals("Hypixel")) {
-                    var4 = "OldHypixel";
+                String mode = this.getStringSettingValueByName("Mode");
+                if (mode.equals("Hypixel")) {
+                    mode = "OldHypixel";
                 }
 
-                switch (var4) {
+                switch (mode) {
                     case "OldHypixel":
                         if (packet.isPre()) {
-//                            if (MultiUtilities.isAboveBounds(mc.player, 1.0E-4F)) {
-//                                this.field23509 = 0.0;
-//                                return;
-//                            }
+                            if (MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)) {
+                                this.field23509 = 0.0;
+                                return;
+                            }
 
                             if (mc.player.getMotion().y < -0.1) {
                                 this.field23509 = this.field23509 - mc.player.getMotion().y;
