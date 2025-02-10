@@ -9,6 +9,7 @@ import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.logger.Logger;
@@ -154,6 +155,7 @@ public class Client {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(2896);
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        Resources.gingerbreadIconPNG.bind();
         EventBus.call(new EventRender2DCustom());
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableCull();
@@ -248,6 +250,8 @@ public class Client {
             this.moduleManager.loadProfileFromJSON(this.config);
             this.moduleManager.saveCurrentConfigToJSON(this.config);
         }
+
+        System.gc();
     }
 
     public void saveClientData() {
