@@ -129,7 +129,8 @@ public class NoFall extends Module {
     @EventTarget
     public void onTick(EventPlayerTick eventPlayerTick) {
         if (getStringSettingValueByName("Mode").equals("Verus")) {
-            if (mc.player.fallDistance > 3.35) {
+            // thanks @alarmingly_good
+            if (!mc.player.onGround && mc.player.getMotion().y < 0 && mc.player.fallDistance > 2) {
                 mc.player.onGround = true;
                 mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
                 mc.player.fallDistance = 0;
