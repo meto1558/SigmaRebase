@@ -17,7 +17,8 @@ public class AntiKnockback extends ModuleWithModuleSettings {
                 new DelayAntiKB(),
                 new SpartanAntiKB(),
                 new MinemenAntiKB(),
-                new GommeAntiKB()
+                new GommeAntiKB(),
+                new VulcanAntiKB()
         );
     }
 
