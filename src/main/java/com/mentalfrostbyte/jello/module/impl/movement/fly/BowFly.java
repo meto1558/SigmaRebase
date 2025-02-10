@@ -52,9 +52,9 @@ public class BowFly extends Module {
             var1.getVector().y = 0.0;
             double var6 = var1.getVector().length();
             var1.getVector().y = var4;
-            float var8 = MovementUtil.lenientStrafe()[1];
-            float var9 = MovementUtil.lenientStrafe()[2];
-            float var10 = MovementUtil.lenientStrafe()[0];
+            float var8 = MovementUtil.getDirection()[1];
+            float var9 = MovementUtil.getDirection()[2];
+            float var10 = MovementUtil.getDirection()[0];
             System.out.println(var6);
             if ((var8 != 0.0F || var9 != 0.0F) && !(var1.getVector().y < -0.5)) {
                 double var11 = Math.cos(Math.toRadians(var10));

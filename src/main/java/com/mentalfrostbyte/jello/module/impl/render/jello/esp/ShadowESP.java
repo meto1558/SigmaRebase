@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -65,7 +64,7 @@ public class ShadowESP extends Module {
     }
 
     public void method16606() {
-        int color = MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F);
+        int color = RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F);
         mc.world.entitiesById
                 .forEach(
                         (i, entity) -> {

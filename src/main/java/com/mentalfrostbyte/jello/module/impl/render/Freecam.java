@@ -250,7 +250,7 @@ public class Freecam extends Module {
             var1.setPitch(this.field23822);
             mc.player.lastReportedYaw = this.field23821;
             mc.player.lastReportedPitch = this.field23822;
-            float[] var4 = MovementUtil.getAdjustedStrafe(this.field23825, this.field23824);
+            float[] var4 = MovementUtil.getDirection(this.field23825, this.field23824);
             float var5 = var4[1];
             float var6 = var4[2];
             float var7 = var4[0];

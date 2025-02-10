@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -32,7 +33,7 @@ public class SpartanClickTP extends Module {
     @Override
     public void onDisable() {
         MovementUtil2.setPlayerYMotion(-0.08);
-        double var3 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
+        double var3 = NewMovementUtil.getSmartSpeed();
         com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var3);
         mc.timer.timerSpeed = 1.0F;
     }
@@ -78,7 +79,7 @@ public class SpartanClickTP extends Module {
                         this.field23464 = -1;
                         this.field23465 = null;
                         MovementUtil2.setPlayerYMotion(-0.08);
-                        double var5 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
+                        double var5 = NewMovementUtil.getSmartSpeed();
                         com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var5);
                         mc.timer.timerSpeed = 1.0F;
                     } else {

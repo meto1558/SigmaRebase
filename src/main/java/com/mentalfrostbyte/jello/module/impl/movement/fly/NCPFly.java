@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -45,21 +46,21 @@ public class NCPFly extends Module {
                     if (this.field23919 != 0) {
                         if (this.field23919 == 1) {
                             var1.setY(-1.0E-7);
-                            MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
+                            NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
                             MovementUtil.setPlayerYMotion(var1.getY());
                         }
                     } else {
                         var1.setY(-1.0E-7);
-                        MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
+                        NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
                         MovementUtil.setPlayerYMotion(var1.getY());
                     }
                 } else {
                     var1.setY(0.0);
                     MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
+                    NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
                 }
             } else {
-                MovementUtil.setSpeed(var1, 0.0);
+                NewMovementUtil.setMotion(var1, 0.0);
             }
         }
     }

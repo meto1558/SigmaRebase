@@ -16,8 +16,10 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.*;
@@ -314,7 +316,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                 switch (var4) {
                     case "NCP":
                         if (var1.getY() > 0.0) {
-                            if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() == 0) {
+                            if (NewMovementUtil.getJumpBoost() == 0) {
                                 if (var1.getY() > 0.247 && var1.getY() < 0.249) {
                                     var1.setY(
                                             (double) ((int) (mc.player.getPosY() + var1.getY())) - mc.player.getPosY());
@@ -329,14 +331,14 @@ public class BlockFly extends ModuleWithModuleSettings {
                         }
 
                         if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())
-                                && MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+                                && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                             if (mc.gameSettings.keyBindJump.isPressed()) {
                                 if (!MovementUtil2.isMoving()) {
                                     com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
-                                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.0);
+                                    NewMovementUtil.setMotion(var1, 0.0);
                                 }
 
-                                var1.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
+                                var1.setY(NewMovementUtil.getJumpValue());
                             } else {
                                 var1.setY(-1.0E-5);
                             }
@@ -347,41 +349,41 @@ public class BlockFly extends ModuleWithModuleSettings {
                             var1.setY((double) ((int) (mc.player.getPosY() + var1.getY())) - mc.player.getPosY());
                             if (mc.gameSettings.keyBindJump.isPressed() && !MovementUtil2.isMoving()) {
                                 com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
-                                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.0);
+                                NewMovementUtil.setMotion(var1, 0.0);
                             }
                         } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())
-                                && MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+                                && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                             var1.setY(-1.0E-10);
                         }
                         break;
                     case "Vanilla":
                         if (mc.gameSettings.keyBindJump.isPressed()
-                                && MovementUtil2.isAboveBounds(mc.player, 0.001F)
+                                && BlockUtil.isAboveBounds(mc.player, 0.001F)
                                 && mc.world.getCollisionShapes(mc.player, mc.player.getBoundingBox().offset(0.0, 1.0, 0.0))
                                 .count() == 0L) {
                             mc.player
                                     .setPosition(mc.player.getPosX(), mc.player.getPosY() + 1.0, mc.player.getPosZ());
                             var1.setY(0.0);
-                            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.0);
+                            NewMovementUtil.setMotion(var1, 0.0);
                             mc.timer.timerSpeed = 0.8038576F;
                         }
                 }
             }
         } else if (!this.getStringSettingValueByName("Tower Mode").equals("AAC")
-                || !MovementUtil2.isAboveBounds(mc.player, 0.001F)
+                || !BlockUtil.isAboveBounds(mc.player, 0.001F)
                 || !mc.gameSettings.keyBindJump.isPressed()) {
             if (!this.getStringSettingValueByName("Tower Mode").equals("NCP")
                     && !this.getStringSettingValueByName("Tower Mode").equals("Vanilla")
-                    && MovementUtil2.isAboveBounds(mc.player, 0.001F)
+                    && BlockUtil.isAboveBounds(mc.player, 0.001F)
                     && mc.gameSettings.keyBindJump.isPressed()) {
                 mc.player.jumpTicks = 20;
-                var1.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
+                var1.setY(NewMovementUtil.getJumpValue());
             }
         } else if (!MovementUtil2.isMoving() || this.getBooleanValueFromSettingName("Tower while moving")) {
             mc.player.jumpTicks = 0;
             mc.player.jump();
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed());
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed());
+            NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
+            com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getSmartSpeed());
         }
 
         if (!this.getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")) {
@@ -440,13 +442,13 @@ public class BlockFly extends ModuleWithModuleSettings {
                 (float) (x + 10),
                 (float) (y + 5),
                 this.blockCount + " Blocks",
-                MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha * 0.3F));
+                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha * 0.3F));
         RenderUtil.drawString(
                 Resources.medium17,
                 (float) (x + 10),
                 (float) (y + 4),
                 this.blockCount + " Blocks",
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha * 0.8F));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha * 0.8F));
         GL11.glAlphaFunc(519, 0.0F);
     }
 
@@ -459,13 +461,13 @@ public class BlockFly extends ModuleWithModuleSettings {
         int var9 = 32;
         var1 -= var8 / 2;
         GL11.glPushMatrix();
-        RenderUtil.method11465(var1, var2, var8, var9, MovementUtil2.applyAlpha(-15461356, 0.8F * var3));
+        RenderUtil.method11465(var1, var2, var8, var9, RenderUtil.applyAlpha(-15461356, 0.8F * var3));
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont18, (float) (var1 + 10), (float) (var2 + 4), this.blockCount + "",
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14, (float) (var1 + 10 + var7), (float) (var2 + 8), "Blocks",
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * var3));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * var3));
         var1 += 11 + var8 / 2;
         var2 += var9;
         GL11.glPushMatrix();
@@ -473,7 +475,7 @@ public class BlockFly extends ModuleWithModuleSettings {
         GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
         GL11.glTranslatef((float) (-var1), (float) (-var2), 0.0F);
         RenderUtil.drawImage((float) var1, (float) var2, 9.0F, 23.0F, Resources.selectPNG,
-                MovementUtil2.applyAlpha(-15461356, 0.8F * var3));
+                RenderUtil.applyAlpha(-15461356, 0.8F * var3));
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }

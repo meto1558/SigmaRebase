@@ -10,8 +10,8 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.other.Pair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -554,7 +554,7 @@ public class KillAura extends Module {
             if (interactAB.method36820(attackDelay)) {
                 blockDelay = 1;
                 shouldSetGround = avoidFallDamage;
-                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : MovementUtil.getJumpValue() / 10.0;
+                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : NewMovementUtil.getJumpValue() / 10.0;
                 positionOffset = new double[]{event.getX(), event.getY() + yOffset, event.getZ()};
             }
         } else if (blockDelay == 1) {
@@ -566,7 +566,7 @@ public class KillAura extends Module {
             }
         }
 
-        boolean isOnGroundOrAboveBounds = !Jesus.isWalkingOnLiquid() && (Objects.requireNonNull(mc.player).isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F));
+        boolean isOnGroundOrAboveBounds = !Jesus.isWalkingOnLiquid() && (Objects.requireNonNull(mc.player).isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F));
         if (!isOnGroundOrAboveBounds) {
             groundTicks = 0;
             blockDelay = 0;
@@ -678,7 +678,7 @@ public class KillAura extends Module {
     }
 
     private float getYawDifference(float targetYaw, float currentYaw) {
-        return MovementUtil2.method17756(targetYaw, currentYaw);
+        return RotationHelper.getShortestYawDifference(targetYaw, currentYaw);
     }
 
     private ExpirationTimer createExpirationTimer() {

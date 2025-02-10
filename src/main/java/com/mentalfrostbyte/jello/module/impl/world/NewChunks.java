@@ -4,7 +4,6 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.ChunkPos;
@@ -57,9 +56,9 @@ public class NewChunks extends Module {
                     GL11.glDisable(GL11.GL_DEPTH_TEST);
                     BoundingBox box = new BoundingBox(x, y, z, x + 16.0, y + 16.0, z + 16.0);
                     RenderUtil.render3DColoredBox(box,
-                            MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                            RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                     RenderUtil.renderWireframeBox(box,
-                            MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                            RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                     GL11.glColor3f(1.0F, 1.0F, 1.0F);
                     GL11.glEnable(GL11.GL_DEPTH_TEST);
 

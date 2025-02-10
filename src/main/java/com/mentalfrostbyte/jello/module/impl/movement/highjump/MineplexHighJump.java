@@ -52,7 +52,7 @@ public class MineplexHighJump extends Module {
 
          if (!mc.player.isOnGround() && this.field24023) {
             this.field24024 = Math.max(this.field24024, 0.499);
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field24024);
+            NewMovementUtil.setMotion(var1, this.field24024);
             this.field24024 -= 0.007;
             double var4 = 0.5;
             if (this.getNumberValueBySettingName("Motion") > 3.0F) {

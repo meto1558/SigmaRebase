@@ -47,7 +47,7 @@ public class MineplexFly extends Module {
     @Override
     public void onEnable() {
         this.boostTicks = -1;
-        this.speed = MovementUtil.getSpeed();
+        this.speed = NewMovementUtil.getSmartSpeed();
         this.field23669 = 0;
         this.failed = false;
         this.currentItem = -1;
@@ -57,7 +57,7 @@ public class MineplexFly extends Module {
 
     @Override
     public void onDisable() {
-        double speed = MovementUtil.getSpeed() * 0.5;
+        double speed = NewMovementUtil.getSmartSpeed() * 0.5;
         MovementUtil.strafe(speed);
         if (this.currentItem != -1) {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
@@ -80,7 +80,7 @@ public class MineplexFly extends Module {
             this.posY = this.boostTicks = this.currentItem = -1;
             this.field23669 = 0;
             this.failed = false;
-            this.speed = MovementUtil.getSpeed();
+            this.speed = NewMovementUtil.getSmartSpeed();
         }
     }
 
@@ -105,7 +105,7 @@ public class MineplexFly extends Module {
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             if (this.failed) {
-                MovementUtil.setSpeed(var1, 0.01);
+                NewMovementUtil.setMotion(var1, 0.01);
             } else {
                 float offsetRotationYaw = mc.player.rotationYaw + 90.0F;
                 if (!mc.player.isOnGround()/* && !MultiUtilities.isAboveBounds(mc.player, 0.001F)*/) {
@@ -135,11 +135,11 @@ public class MineplexFly extends Module {
                             this.speed = 0.35;
                         }
 
-                        MovementUtil.setSpeed(var1, this.speed);
+                        NewMovementUtil.setMotion(var1, this.speed);
                     }
                 } else {
                     if (this.field23669 > 0) {
-                        MovementUtil.setSpeed(var1, 0.0);
+                        NewMovementUtil.setMotion(var1, 0.0);
                         this.access().toggle();
                         return;
                     }
@@ -162,7 +162,7 @@ public class MineplexFly extends Module {
                     CPlayerTryUseItemOnBlockPacket usePacket = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, rayTraceResult);
                     mc.getConnection().sendPacket(usePacket);
                     if (!(this.speed < (double) this.getNumberValueBySettingName("Boost"))) {
-                        MovementUtil.setSpeed(var1, 0.0);
+                        NewMovementUtil.setMotion(var1, 0.0);
                         mc.player.jump();
                         this.moveY = 0.4299999;
                         this.field23669 = 0;

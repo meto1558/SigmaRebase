@@ -9,7 +9,8 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -46,7 +47,7 @@ public class VanillaFly extends Module {
     @Override
     public void onDisable() {
         com.mentalfrostbyte.jello.util.game.player.MovementUtil.setPlayerYMotion(-0.08);
-        double plrSpeed = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
+        double plrSpeed = NewMovementUtil.getSmartSpeed();
         com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(plrSpeed);
         if (this.sneakCancelled) {
             mc.gameSettings.keyBindSneak.setPressed(true);
@@ -78,7 +79,7 @@ public class VanillaFly extends Module {
         if (this.isEnabled()) {
             if (!mc.player.isOnGround() && this.getBooleanValueFromSettingName("Kick bypass")) {
                 if (this.ticksInAir > 0 && this.ticksInAir % 30 == 0
-                        && !MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+                        && !BlockUtil.isAboveBounds(mc.player, 0.01F)) {
 
                     if (!JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
                         event.setY(event.getY() - 0.04);
@@ -129,7 +130,7 @@ public class VanillaFly extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            if (!MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+            if (!BlockUtil.isAboveBounds(mc.player, 0.01F)) {
                 this.ticksInAir++;
             } else {
                 this.ticksInAir = 0;
@@ -147,7 +148,7 @@ public class VanillaFly extends Module {
                 verticalSpeed = -speed / 2.0;
             }
 
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, speed);
+            NewMovementUtil.setMotion(event, speed);
             event.setY(verticalSpeed);
             com.mentalfrostbyte.jello.util.game.player.MovementUtil.setPlayerYMotion(event.getY());
         }

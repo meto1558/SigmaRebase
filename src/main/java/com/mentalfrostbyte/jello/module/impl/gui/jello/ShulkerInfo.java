@@ -98,13 +98,13 @@ public class ShulkerInfo extends Module {
                                 new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
-                                MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
+                                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(
                                 new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
                                 3.0F,
-                                MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F));
+                                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F));
                         GL11.glDisable(3042);
                         if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
                             mc.gameSettings.keyBindUseItem.pressed = false;
@@ -232,17 +232,17 @@ public class ShulkerInfo extends Module {
                     (float) var2,
                     (float) var13,
                     (float) var12,
-                    MovementUtil2.applyAlpha(MovementUtil2.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
+                    RenderUtil.applyAlpha(RenderUtil.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                             ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.7F));
             RenderUtil.drawRoundedRect((float) var1, (float) var2, (float) var13, (float) var12, 10.0F, 0.5F);
         } else {
             RenderUtil.method11467(var1, var2, var13, var12,
-                    MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.94F));
+                    RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.94F));
         }
 
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont25, (float) (var1 + var8), (float) (var2 + var8 - 3), var4,
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
         RenderSystem.enableLighting();
 
         for (int var14 = 0; var14 < var3.size(); var14++) {
@@ -252,7 +252,7 @@ public class ShulkerInfo extends Module {
             RenderSystem.disableLighting();
             if (var14 == this.field23841 && var5) {
                 RenderUtil.renderBackgroundBox((float) var17, (float) var16, (float) var10, (float) var10,
-                        MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
+                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
             }
 
             RenderUtil.renderItem(var15, var17, var16, var10, var10);
@@ -267,7 +267,7 @@ public class ShulkerInfo extends Module {
                         (float) (40 + var19),
                         40.0F,
                         Resources.shadowPNG,
-                        MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F),
+                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F),
                         false);
                 RenderUtil.drawString(ResourceRegistry.JelloLightFont20, (float) (var17 + var18), (float) (var16 + 13),
                         "" + var15.getCount(), ClientColors.LIGHT_GREYISH_BLUE.getColor());
@@ -297,7 +297,7 @@ public class ShulkerInfo extends Module {
                         (float) (var25 + var10),
                         (float) var29 + 9.0F * RenderUtil.method11417(),
                         10.0F * RenderUtil.method11417() * (float) var33 + 7.0F * RenderUtil.method11417(),
-                        MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F));
+                        RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F));
                 GL11.glPushMatrix();
                 GL11.glScalef(RenderUtil.method11417(), RenderUtil.method11417(), 0.0F);
                 var25 = (int) ((float) var25 * (1.0F / RenderUtil.method11417()));

@@ -13,6 +13,8 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
@@ -91,13 +93,13 @@ public class CubecraftFly extends Module {
         } else if (MovementUtil2.isCubecraft()) {
             if (this.field23845 > 0) {
                 var1.setY(0.0);
-                MovementUtil.setSpeed(var1, 0.0);
+                NewMovementUtil.setMotion(var1, 0.0);
                 this.field23845++;
             } else {
                 if (this.field23845 != 0) {
                     if (this.field23847) {
                         var1.setY(0.0);
-                        MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
+                        NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
                         if (this.field23845 != -4) {
                             if (this.field23845 != -1) {
                                 /*
@@ -143,13 +145,13 @@ public class CubecraftFly extends Module {
                      * 
                      * this.field23845 = 1;
                      */
-                } else if (!MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+                } else if (!BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                     var1.setY(0.0);
                     this.field23845 = -2;
                     Client.getInstance().notificationManager
                             .send(new Notification("Cubecraft Fly", "Please start on the ground."));
                 } else {
-                    MovementUtil.setSpeed(var1, 0.0);
+                    NewMovementUtil.setMotion(var1, 0.0);
                     var1.setY(0.0);
                     long var14 = MovementUtil2.method17762() % 90L;
                     double var15 = 0.016 + (double) var14 / 10000.0;
@@ -165,7 +167,7 @@ public class CubecraftFly extends Module {
                 MovementUtil2.setPlayerYMotion(var1.getY());
             }
         } else {
-            MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
+            NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed());
             var1.setY(0.0);
             if (mc.player.ticksExisted % 2 == 0) {
                 double var4 = mc.player.getPosX();
@@ -183,7 +185,7 @@ public class CubecraftFly extends Module {
             if (/*
                  * JelloPortal.getCurrentVersionApplied() ==
                  * ViaVerList._1_8_x.getVersionNumber() &&
-                 */this.field23845 == 0 && MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+                 */this.field23845 == 0 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 var1.setCancelled(true);
             }
 

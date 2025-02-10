@@ -18,10 +18,10 @@ public class Strafe extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            lastSpeed = MovementUtil.getSpeed();
-            float strafeDirection = MovementUtil.lenientStrafe()[1];
-            float forwardDirection = MovementUtil.lenientStrafe()[2];
-            float playerAngle = MovementUtil.method37086();
+            lastSpeed = NewMovementUtil.getSmartSpeed();
+            float strafeDirection = MovementUtil.getDirection()[1];
+            float forwardDirection = MovementUtil.getDirection()[2];
+            float playerAngle = NewMovementUtil.getYaw();
 
             double cosAngle = Math.cos(Math.toRadians(playerAngle));
             double sinAngle = Math.sin(Math.toRadians(playerAngle));
@@ -36,7 +36,7 @@ public class Strafe extends Module {
                 currentSpeed = movementMagnitude;
 
                 if (movementMagnitude != 0.0) {
-                    movementMagnitude = Math.max(movementMagnitude, MovementUtil.getSpeed());
+                    movementMagnitude = Math.max(movementMagnitude, NewMovementUtil.getSmartSpeed());
                 }
 
                 event.setX(event.getX() * (1.0F - smoothingFactor) + movementMagnitude * cosAngle * smoothingFactor);

@@ -11,7 +11,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanListSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -226,7 +225,7 @@ public class Search extends Module {
     }
 
     public void renderChunkRegions() {
-        int color = MovementUtil2.applyAlpha(this.renderColorSetting.currentValue, 0.14F);
+        int color = RenderUtil.applyAlpha(this.renderColorSetting.currentValue, 0.14F);
         GL11.glPushMatrix();
         GL11.glDisable(2929);
 

@@ -10,7 +10,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -120,13 +121,13 @@ public class Jesus extends Module {
                     }
                 }
             } else {
-                if (isWalkingOnLiquid() && var1.getY() != -0.0784000015258789 && var1.getY() != com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue()) {
+                if (isWalkingOnLiquid() && var1.getY() != -0.0784000015258789 && var1.getY() != NewMovementUtil.getJumpValue()) {
                     var1.setY(-0.078);
                 }
 
                 if (this.getStringSettingValueByName("Mode").equals("Dolphin")) {
                     if (this.field24016 > 0) {
-                        if (MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+                        if (BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                             this.field24016 = 0;
                         } else {
                             if (mc.player.isSneaking() || mc.player.collidedVertically) {
@@ -135,7 +136,7 @@ public class Jesus extends Module {
                             }
 
                             if (this.field24016 > 0) {
-                                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.25 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.05);
+                                NewMovementUtil.setMotion(var1, 0.25 + (double) NewMovementUtil.getSmartSpeed() * 0.05);
                                 this.field24016++;
                             }
 
@@ -148,7 +149,7 @@ public class Jesus extends Module {
                     } else if (isWalkingOnLiquid() && this.liquidTicks % 2 == 0) {
                         this.field24016++;
                         double var12 = this.method16954((double)this.field24016);
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, 0.25);
+                        NewMovementUtil.setMotion(var1, 0.25);
                         if (var12 != -999.0) {
                             var1.setY(var12);
                         }
@@ -184,11 +185,7 @@ public class Jesus extends Module {
 
     @Override
     public boolean isEnabled2() {
-        return this.isEnabled() && isWalkingOnLiquid() && !this.method16950();
-    }
-
-    public boolean method16950() {
-        return com.mentalfrostbyte.jello.util.game.player.MovementUtil.isInWater();
+        return this.isEnabled() && isWalkingOnLiquid() && (mc.player != null && !mc.player.isInWater());
     }
 
     public boolean isOnLiquid(AxisAlignedBB on) {

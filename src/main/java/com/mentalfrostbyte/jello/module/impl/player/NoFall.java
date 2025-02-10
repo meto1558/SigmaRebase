@@ -11,6 +11,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -50,7 +52,7 @@ public class NoFall extends Module {
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
             if (event.getY() < -0.5
-                    && (double) mc.player.fallDistance > 2.0 + (double) MovementUtil.getJumpBoost() * 0.5
+                    && (double) mc.player.fallDistance > 2.0 + (double) NewMovementUtil.getJumpBoost() * 0.5
                     && !mc.player.isOnGround()
                     && this.getStringSettingValueByName("Mode").equals("Hypixel")
                 && MovementUtil2.isHypixel()) {
@@ -63,7 +65,7 @@ public class NoFall extends Module {
                     double var15 = 0.02;
                     double var17 = -0.05;
 
-                    if (event.getY() > -0.5 + (double) (MovementUtil.getJumpBoost())) {
+                    if (event.getY() > -0.5 + (double) (NewMovementUtil.getJumpBoost())) {
                         var15 = 0.0;
                     }
 
@@ -145,7 +147,7 @@ public class NoFall extends Module {
                 switch (mode) {
                     case "OldHypixel":
                         if (packet.isPre()) {
-                            if (MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)) {
+                            if (BlockUtil.isAboveBounds(mc.player, 1.0E-4F)) {
                                 this.field23509 = 0.0;
                                 return;
                             }
@@ -173,7 +175,7 @@ public class NoFall extends Module {
                         break;
                     case "Hypixel2":
                         if (packet.isPre()) {
-                            if (MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)) {
+                            if (BlockUtil.isAboveBounds(mc.player, 1.0E-4F)) {
                                 this.field23509 = 0.0;
                                 return;
                             }

@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -48,18 +49,18 @@ public class HorizonFly extends Module {
                 if (this.field23497 != -1) {
                     if (this.field23497 != 0) {
                         if (this.field23497 >= 1) {
-                            MovementUtil.setSpeed(var1, var4 + 5.0E-4);
+                            NewMovementUtil.setMotion(var1, var4 + 5.0E-4);
                         }
                     } else {
-                        MovementUtil.setSpeed(var1, var4 + 0.0015);
+                        NewMovementUtil.setMotion(var1, var4 + 0.0015);
                     }
                 } else {
 //                    var1.setY(MovementUtil.getJumpValue());
                     MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, 0.125);
+                    NewMovementUtil.setMotion(var1, 0.125);
                 }
             } else {
-                MovementUtil.setSpeed(var1, 0.0);
+                NewMovementUtil.setMotion(var1, 0.0);
             }
         }
     }

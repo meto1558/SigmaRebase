@@ -59,7 +59,7 @@ public class NameTags extends Module {
         field24003.put("cxbot", Resources.cxPNG);
     }
 
-    public int field24008 = MovementUtil2.applyAlpha(MovementUtil2
+    public int field24008 = RenderUtil.applyAlpha(RenderUtil
             .method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.5F);
     public final HashMap<BlockPos, Class7070> field24000 = new HashMap<>();
     public BlockPos field24001;
@@ -245,7 +245,7 @@ public class NameTags extends Module {
 
                                 new Thread(() -> {
                                     try {
-                                        List<String> var4x = MovementUtil2.method17700(uuid.toString());
+                                        List<String> var4x = MovementUtil2.getMobOwners(uuid.toString());
                                         if (var4x == null || var4x.isEmpty()) {
                                             return;
                                         }
@@ -340,7 +340,7 @@ public class NameTags extends Module {
         if (var16 == null) {
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont20, (float) (var13 + 15), (float) (var13 + 40), "Empty",
-                    MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+                    RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
         }
 
         ItemStack var20 = var2.method21987();
@@ -353,10 +353,10 @@ public class NameTags extends Module {
         }
 
         RenderUtil.drawRect(0.0F, (float) var18 - 12.0F, Math.min((float) var17 * var12, (float) var17),
-                (float) var18 - 6.0F, MovementUtil2.applyAlpha(-106750, 0.3F));
+                (float) var18 - 6.0F, RenderUtil.applyAlpha(-106750, 0.3F));
         RenderUtil.drawRect(
                 0.0F, (float) var18 - 6.0F, Math.min((float) var17 * var11, (float) var17), (float) var18,
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F));
         GL11.glPopMatrix();
         GL11.glPopMatrix();
         GL11.glEnable(3553);
@@ -397,13 +397,13 @@ public class NameTags extends Module {
             int var19 = this.field24008;
             if (!Client.getInstance().friendManager.method26997(var7)) {
                 if (Client.getInstance().friendManager.isFriend(var7)) {
-                    var19 = MovementUtil2.applyAlpha(-6750208, 0.5F);
+                    var19 = RenderUtil.applyAlpha(-6750208, 0.5F);
                 }
             } else {
-                var19 = MovementUtil2.applyAlpha(-16171506, 0.5F);
+                var19 = RenderUtil.applyAlpha(-16171506, 0.5F);
             }
 
-            int var20 = MovementUtil2
+            int var20 = RenderUtil
                     .applyAlpha(!(var7 instanceof PlayerEntity) ? ClientColors.LIGHT_GREYISH_BLUE.getColor()
                             : new Color(Class8781.method31663((PlayerEntity) var7)).getRGB(), 0.5F);
             int var21 = var12.getWidth(var13) / 2;
@@ -419,12 +419,12 @@ public class NameTags extends Module {
                         -25.0F, (float) (var12.getHeight() + 27),
                         (float) (var12.getHeight() + 27),
                         field24003.get(var13),
-                        MovementUtil2.applyAlpha(var22, 0.7f)
+                        RenderUtil.applyAlpha(var22, 0.7f)
                 );
 
                 RenderUtil.drawImage((float) (-var21 - 10 - 31 + var12.getHeight() + 27), -25.0F, 14.0F,
                         (float) (var12.getHeight() + 27), Resources.shadowRightPNG,
-                        MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
 
                 RenderUtil.drawRoundedRect((float) (-var21 - 10 - 31), -25.0F, (float) (var21 * 2 + 20 + 31 + 27),
                         (float) (var12.getHeight() + 27), 20.0F, 0.5F);

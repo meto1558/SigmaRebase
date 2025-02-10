@@ -19,7 +19,6 @@ import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
@@ -130,7 +129,7 @@ public class BlockFlyHypixelMode extends Module {
             ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.9);
+        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
             MovementUtil2.setPlayerYMotion(-0.0789);
@@ -304,7 +303,7 @@ public class BlockFlyHypixelMode extends Module {
     @HigherPriority
     public void method16112(EventMove event) {
         if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
-            if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+            if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.01F)) {
                 this.field23476 = mc.player.getPosY();
             }
 
@@ -339,12 +338,12 @@ public class BlockFlyHypixelMode extends Module {
                     double speed = this.constantSpeed.currentValue;
                     if (!NewMovementUtil.isMoving())
                         speed = 0;
-                    MovementUtil.setSpeed(event, speed);
+                    NewMovementUtil.setMotion(event, speed);
                     break;
                 }
                 case "AAC":
                     if (this.rotationStabilityCounter == 0 && mc.player.isOnGround()) {
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.82);
+                        NewMovementUtil.setMotion(event, NewMovementUtil.getSmartSpeed() * 0.82);
                     }
                     break;
                 case "Cubecraft":
@@ -386,7 +385,7 @@ public class BlockFlyHypixelMode extends Module {
                     }
 
                     if (mc.player.fallDistance < 1.0F) {
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, speed, newYaw, newYaw, 360.0F);
+                        NewMovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
                     }
 
                     MovementUtil2.setPlayerYMotion(event.getY());

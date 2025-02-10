@@ -7,10 +7,8 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.SubOptionSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
-
-import static com.mentalfrostbyte.jello.util.game.player.MovementUtil.isInWater;
 
 public class BoostSpeed extends Module {
     private final BooleanSetting autoJump;
@@ -52,7 +50,7 @@ public class BoostSpeed extends Module {
 
     @EventTarget
     public void onMove(EventMove event) {
-        double calculatedSpeed = MovementUtil.getSpeed();
+        double calculatedSpeed = NewMovementUtil.getSmartSpeed();
 
         if (!mc.player.isSprinting() && assumeSprinting.currentValue) {
             calculatedSpeed += 0.15;
@@ -62,7 +60,7 @@ public class BoostSpeed extends Module {
             calculatedSpeed *= 1.25;
         }
 
-        if (isInWater() && ignoreInWater.currentValue) {
+        if (mc.player.isInWater() && ignoreInWater.currentValue) {
             calculatedSpeed *= 1.3;
         }
         if (mc.player.isOnGround() && ticksSinceBoost >= boostAfterTicks.currentValue) {
@@ -73,6 +71,6 @@ public class BoostSpeed extends Module {
             ticksSinceBoost++;
         }
 
-        MovementUtil.setSpeed(event, calculatedSpeed);
+        NewMovementUtil.setMotion(event, calculatedSpeed);
     }
 }

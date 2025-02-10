@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -73,16 +74,16 @@ public class LibreCraftFly extends Module {
                     if (this.field23910 == 0) {
                         var1.setY(0.0);
                         MovementUtil.setPlayerYMotion(var1.getY());
-                        MovementUtil.setSpeed(var1, 0.35);
+                        NewMovementUtil.setMotion(var1, 0.35);
                     }
                 } else {
                     var1.setY(0.299);
                     MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, this.getNumberValueBySettingName("Speed"));
+                    NewMovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
                 }
             } else {
                 var1.setY(0.0);
-                MovementUtil.setSpeed(var1, 0.0);
+                NewMovementUtil.setMotion(var1, 0.0);
             }
         }
     }

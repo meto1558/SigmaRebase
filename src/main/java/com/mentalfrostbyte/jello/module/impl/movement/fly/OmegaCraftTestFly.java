@@ -4,6 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -42,16 +43,16 @@ public class OmegaCraftTestFly extends Module {
             if (this.field23854 <= 1) {
                 if (this.field23854 != -1) {
                     if (this.field23854 == 0) {
-                        MovementUtil.setSpeed(var1, 0.1);
+                        NewMovementUtil.setMotion(var1, 0.1);
                     }
                 } else {
 
                     MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, 1.0);
+                    NewMovementUtil.setMotion(var1, 1.0);
                 }
             } else {
                 var1.setY(0.0);
-                MovementUtil.setSpeed(var1, 0.0);
+                NewMovementUtil.setMotion(var1, 0.0);
             }
         }
     }

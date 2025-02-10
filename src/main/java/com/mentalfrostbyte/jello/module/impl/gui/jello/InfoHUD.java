@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -80,7 +79,7 @@ public class InfoHUD extends Module {
                 (float) x,
                 (float) (mc.mainWindow.getHeight() - yOffset),
                 coordinates,
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
         return Math.max(ResourceRegistry.JelloLightFont20.getWidth(direction),
                 ResourceRegistry.JelloMediumFont20.getWidth(coordinates));
     }
@@ -98,13 +97,13 @@ public class InfoHUD extends Module {
                 float durability = 1.0F - (float) armorPiece.getDamage() / (float) armorPiece.getMaxDamage();
                 if (durability != 1.0F) {
                     RenderUtil.renderBackgroundBox((float) (x + 2), (float) (armorY + 28), 28.0F, 5.0F,
-                            MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
+                            RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
                     RenderUtil.renderBackgroundBox(
                             (float) (x + 2),
                             (float) (armorY + 28),
                             28.0F * durability,
                             3.0F,
-                            MovementUtil2.applyAlpha(durability > 0.2 ? ClientColors.DARK_SLATE_GREY.getColor()
+                            RenderUtil.applyAlpha(durability > 0.2 ? ClientColors.DARK_SLATE_GREY.getColor()
                                     : ClientColors.PALE_YELLOW.getColor(), 0.9F));
                 }
             }

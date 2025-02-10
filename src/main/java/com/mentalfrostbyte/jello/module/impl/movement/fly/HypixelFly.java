@@ -12,6 +12,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.MathHelper;
@@ -42,7 +43,7 @@ public class HypixelFly extends Module {
         String var3 = this.getStringSettingValueByName("Mode");
         this.duration = 1.0F;
         this.field23563 = -1;
-        if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+        if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F)) {
             this.duration = this.getNumberValueBySettingName("Timer Boost");
         }
 
@@ -70,7 +71,7 @@ public class HypixelFly extends Module {
 
     @Override
     public void onDisable() {
-        double var3 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
+        double var3 = NewMovementUtil.getSmartSpeed();
         com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(var3 * 0.7);
         this.duration = 1.0F;
         mc.timer.timerSpeed = 1.0F;
@@ -128,20 +129,20 @@ public class HypixelFly extends Module {
                     this.grounded = !this.grounded;
                     break;
                 case "Fast":
-                    event.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
-                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, var28);
+                    event.setY(NewMovementUtil.getJumpValue());
+                    NewMovementUtil.setMotion(event, var28);
                     this.grounded = !this.grounded;
-                    this.flySpeed = 0.51 + (double) this.getNumberValueBySettingName("Speed") + 0.015 * (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost();
+                    this.flySpeed = 0.51 + (double) this.getNumberValueBySettingName("Speed") + 0.015 * (double) NewMovementUtil.getSpeedBoost();
                     break;
                 case "NoDmg":
-                    event.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
-                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, var28);
+                    event.setY(NewMovementUtil.getJumpValue());
+                    NewMovementUtil.setMotion(event, var28);
                     this.grounded = !this.grounded;
                     this.flySpeed = var28 * 0.987;
                     break;
                 case "Funcraft":
-                    event.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
-                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, var28);
+                    event.setY(NewMovementUtil.getJumpValue());
+                    NewMovementUtil.setMotion(event, var28);
                     this.grounded = !this.grounded;
                     this.flySpeed = 0.51 + (double) this.getNumberValueBySettingName("Speed");
             }
@@ -156,15 +157,15 @@ public class HypixelFly extends Module {
                 this.flySpeed = 0.0;
             }
 
-            double var10 = curMode.equals("Basic") ? com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37076() : com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37076() - 0.008;
+            double var10 = curMode.equals("Basic") ? NewMovementUtil.getDumberSpeed() : NewMovementUtil.getDumberSpeed() - 0.008;
             if (this.flySpeed < var10) {
                 this.flySpeed = var10;
             } else if (!MovementUtil2.isMoving()) {
                 this.flySpeed = var10;
             }
 
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, this.flySpeed);
-            if (!mc.player.isOnGround() || !MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+            NewMovementUtil.setMotion(event, this.flySpeed);
+            if (!mc.player.isOnGround() || !BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.field23563++;
                 event.setY(0.0);
                 MovementUtil2.setPlayerYMotion(0.0);
@@ -181,7 +182,7 @@ public class HypixelFly extends Module {
             boolean var21 = var19 < 1.0E-4;
             if (this.getBooleanValueFromSettingName("No Collision") && this.flySpeed > var10) {
                 List<Vector3d> var22 = new ArrayList();
-                float var23 = MathHelper.wrapDegrees(com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37086());
+                float var23 = MathHelper.wrapDegrees(NewMovementUtil.getYaw());
                 if (var23 > 0.0F && var23 < 90.0F) {
                     var22.add(new Vector3d(1.0, 0.0, 0.0));
                     var22.add(new Vector3d(0.0, 0.0, 1.0));

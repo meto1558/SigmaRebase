@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
@@ -95,7 +96,7 @@ public class OmegaCraftFly extends Module {
                 double speed = !mc.gameSettings.keyBindSneak.isKeyDown()
                         ? 0.405/* + (double) MovementUtil.method37078() * 0.02*/
                         : 0.25;
-                MovementUtil.setSpeed(event, speed);
+                NewMovementUtil.setMotion(event, speed);
                 this.field23700 = 0;
             }
         } else {
@@ -107,7 +108,7 @@ public class OmegaCraftFly extends Module {
             }
 
             double var6 = !mc.gameSettings.keyBindSneak.isKeyDown() ? 0.6 : 0.25;
-            MovementUtil.setSpeed(event, var6);
+            NewMovementUtil.setMotion(event, var6);
         }
 
         MovementUtil.setPlayerXMotion(event.getX());

@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
@@ -45,11 +46,11 @@ public class HawkFly extends Module {
             double var4 = 0.125;
             if (this.field23424 != -1) {
                 if (this.field23424 == 0) {
-                    MovementUtil.setSpeed(var1, 0.18);
+                    NewMovementUtil.setMotion(var1, 0.18);
                 }
             } else {
                 var1.setY(0.015);
-                MovementUtil.setSpeed(var1, var4);
+                NewMovementUtil.setMotion(var1, var4);
             }
 
             MovementUtil.setPlayerYMotion(var1.getY());

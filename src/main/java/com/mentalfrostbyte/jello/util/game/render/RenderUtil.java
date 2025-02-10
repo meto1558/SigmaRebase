@@ -1367,7 +1367,7 @@ public class RenderUtil {
         GL11.glGetIntegerv(GL11.GL_VIEWPORT, viewport);
 
         // Project the world coordinates to screen coordinates
-        boolean isSuccessful = MovementUtil2.projectToScreen((float) x, (float) y, (float) z, modelViewMatrix, projectionMatrix, viewport, screenCoords);
+        boolean isSuccessful = projectToScreen((float) x, (float) y, (float) z, modelViewMatrix, projectionMatrix, viewport, screenCoords);
 
         // Return the screen coordinates if successful, otherwise return null
         return !isSuccessful
@@ -1386,6 +1386,115 @@ public class RenderUtil {
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
         GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, GL11.GL_RGB, GL11.GL_BYTE, var5);
         return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
+    }
+
+    public static int applyAlpha(int color, float alpha) {
+        return (int)(alpha * 255.0F) << 24 | color & 16777215;
+    }
+
+    public static boolean projectToScreen(float x, float y, float z, FloatBuffer modelMatrix, FloatBuffer projectionMatrix, IntBuffer viewport, FloatBuffer screenCoords) {
+        float[] inVector = MovementUtil2.field24951;
+        float[] outVector = MovementUtil2.field24952;
+
+        // Load input coordinates into the vector
+        inVector[0] = x;
+        inVector[1] = y;
+        inVector[2] = z;
+        inVector[3] = 1.0F;
+
+        // Apply the model and projection transformations
+        MovementUtil2.transformVector(modelMatrix, inVector, outVector);
+        MovementUtil2.transformVector(projectionMatrix, outVector, inVector);
+
+        // Perform perspective division if the w-component is non-zero
+        if ((double) inVector[3] != 0.0) {
+            inVector[3] = 1.0F / inVector[3] * 0.5F;
+            inVector[0] = inVector[0] * inVector[3] + 0.5F;
+            inVector[1] = inVector[1] * inVector[3] + 0.5F;
+            inVector[2] = inVector[2] * inVector[3] + 0.5F;
+
+            // Map to screen coordinates using the viewport
+            screenCoords.put(0, inVector[0] * (float) viewport.get(viewport.position() + 2) + (float) viewport.get(viewport.position() + 0));
+            screenCoords.put(1, inVector[1] * (float) viewport.get(viewport.position() + 3) + (float) viewport.get(viewport.position() + 1));
+            screenCoords.put(2, inVector[2]);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static float[] method17709(int var0) {
+        float var3 = (float) (var0 >> 24 & 0xFF) / 255.0F;
+        float var4 = (float) (var0 >> 16 & 0xFF) / 255.0F;
+        float var5 = (float) (var0 >> 8 & 0xFF) / 255.0F;
+        float var6 = (float) (var0 & 0xFF) / 255.0F;
+        return new float[] { var4, var5, var6, var3 };
+    }
+
+    public static int method17691(int var0, float var1) {
+        int var4 = var0 >> 24 & 0xFF;
+        int var5 = var0 >> 16 & 0xFF;
+        int var6 = var0 >> 8 & 0xFF;
+        int var7 = var0 & 0xFF;
+        int var8 = (int)((float)var5 * (1.0F - var1));
+        int var9 = (int)((float)var6 * (1.0F - var1));
+        int var10 = (int)((float)var7 * (1.0F - var1));
+        return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
+    }
+
+    public static int method17690(int var0, int var1, float var2) {
+        int var5 = var0 >> 24 & 0xFF;
+        int var6 = var0 >> 16 & 0xFF;
+        int var7 = var0 >> 8 & 0xFF;
+        int var8 = var0 & 0xFF;
+        int var9 = var1 >> 24 & 0xFF;
+        int var10 = var1 >> 16 & 0xFF;
+        int var11 = var1 >> 8 & 0xFF;
+        int var12 = var1 & 0xFF;
+        float var13 = 1.0F - var2;
+        float var14 = (float) var5 * var2 + (float) var9 * var13;
+        float var15 = (float) var6 * var2 + (float) var10 * var13;
+        float var16 = (float) var7 * var2 + (float) var11 * var13;
+        float var17 = (float) var8 * var2 + (float) var12 * var13;
+        return (int) var14 << 24 | ((int) var15 & 0xFF) << 16 | ((int) var16 & 0xFF) << 8 | (int) var17 & 0xFF;
+    }
+
+    public static java.awt.Color method17682(java.awt.Color... var0) {
+        if (var0 != null) {
+            if (var0.length > 0) {
+                float var3 = 1.0F / (float) var0.length;
+                float var4 = 0.0F;
+                float var5 = 0.0F;
+                float var6 = 0.0F;
+                float var7 = 0.0F;
+
+                for (java.awt.Color var11 : var0) {
+                    if (var11 == null) {
+                        var11 = java.awt.Color.BLACK;
+                    }
+
+                    var4 += (float) var11.getRed() * var3;
+                    var5 += (float) var11.getGreen() * var3;
+                    var6 += (float) var11.getBlue() * var3;
+                    var7 += (float) var11.getAlpha() * var3;
+                }
+
+                return new java.awt.Color(var4 / 255.0F, var5 / 255.0F, var6 / 255.0F, var7 / 255.0F);
+            } else {
+                return java.awt.Color.WHITE;
+            }
+        } else {
+            return java.awt.Color.WHITE;
+        }
+    }
+
+    public static java.awt.Color method17681(java.awt.Color var0, java.awt.Color var1, float var2) {
+        float var5 = 1.0F - var2;
+        float var6 = (float) var0.getRed() * var2 + (float) var1.getRed() * var5;
+        float var7 = (float) var0.getGreen() * var2 + (float) var1.getGreen() * var5;
+        float var8 = (float) var0.getBlue() * var2 + (float) var1.getBlue() * var5;
+        return new java.awt.Color(var6 / 255.0F, var7 / 255.0F, var8 / 255.0F);
     }
 }
 

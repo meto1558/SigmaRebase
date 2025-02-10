@@ -317,6 +317,22 @@ public class RotationHelper {
         return MathHelper.wrapDegrees(-(currentAngle - targetAngle));
     }
 
+    public static float getShortestYawDifference(float yaw1, float yaw2) {
+        yaw1 %= 360.0F;
+        yaw2 %= 360.0F;
+
+        if (yaw1 < 0.0F) {
+            yaw1 += 360.0F;
+        }
+
+        if (yaw2 < 0.0F) {
+            yaw2 += 360.0F;
+        }
+
+        float difference = yaw2 - yaw1;
+        return (difference > 180.0F) ? difference - 360.0F : (difference < -180.0F ? difference + 360.0F : difference);
+    }
+
     private double method34153(double var1, double var3) {
         return var1 + Math.random() * (var3 - var1);
     }

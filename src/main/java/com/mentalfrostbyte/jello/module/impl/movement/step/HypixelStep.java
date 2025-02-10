@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -49,7 +49,7 @@ public class HypixelStep extends Module {
     public void onStep(EventStep var1) {
         if (this.isEnabled() && !var1.isCancelled()) {
             double var4 = var1.getHeight();
-            if (MovementUtil2.isAboveBounds(mc.player, 1.0E-4F) && !com.mentalfrostbyte.jello.util.game.player.MovementUtil.isInWater()) {
+            if (BlockUtil.isAboveBounds(mc.player, 1.0E-4F) && !mc.player.isInWater()) {
                 if (var4 >= 0.625) {
                     double var6 = mc.player.getPosX();
                     double var8 = mc.player.getPosY();

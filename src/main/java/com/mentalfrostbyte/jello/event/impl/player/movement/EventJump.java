@@ -25,7 +25,7 @@ public class EventJump extends CancellableEvent {
     }
 
     public void setStrafeSpeed(double speed) {
-        float[] var3 = MovementUtil.lenientStrafe();
+        float[] var3 = MovementUtil.getDirection();
         float forward = var3[1];
         float strafe = var3[2];
         float yaw = var3[0];

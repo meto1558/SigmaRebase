@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.vector.Vector3d;
 import org.lwjgl.opengl.GL11;
@@ -68,8 +68,8 @@ public class Breadcrumbs extends Module {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glColor4fv(MovementUtil2
-                .method17709(MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.5F)));
+        GL11.glColor4fv(RenderUtil
+                .method17709(RenderUtil.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.5F)));
         GL11.glBegin(GL11.GL_LINE_STRIP);
 
         for (Vector3d breadcrumb : this.breadcrumbsPath) {
@@ -78,7 +78,7 @@ public class Breadcrumbs extends Module {
             double fadeFactor = !this.getBooleanValueFromSettingName("Fade Out") ? 0.6F
                     : 1.0 - Math.min(1.0, distance / 14.0);
             if (!(distance > 24.0)) {
-                GL11.glColor4fv(MovementUtil2.method17709(MovementUtil2
+                GL11.glColor4fv(RenderUtil.method17709(RenderUtil
                         .applyAlpha(this.parseSettingValueToIntBySettingName("Color"), (float) fadeFactor)));
                 GL11.glVertex3d(adjustedBreadcrumb.x, adjustedBreadcrumb.y, adjustedBreadcrumb.z);
             }

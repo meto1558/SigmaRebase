@@ -127,7 +127,7 @@ public class BlockFlyNCPMode extends Module {
             ((BlockFly) this.access()).lastSpoofedSlot = -1;
         }
 
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.9);
+        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23926 == 0) {
             MovementUtil2.setPlayerYMotion(-0.0789);
@@ -300,7 +300,7 @@ public class BlockFlyNCPMode extends Module {
     @HigherPriority
     public void method16809(EventMove var1) {
         if (this.isEnabled() && this.parent.getValidItemCount() != 0) {
-            if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+            if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.01F)) {
                 this.field23931 = mc.player.getPosY();
             }
 
@@ -333,7 +333,7 @@ public class BlockFlyNCPMode extends Module {
                     break;
                 case "AAC":
                     if (this.field23925 == 0 && mc.player.isOnGround()) {
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.82);
+                        NewMovementUtil.setMotion(var1, NewMovementUtil.getSmartSpeed() * 0.82);
                     }
                     break;
                 case "Cubecraft":
@@ -375,7 +375,7 @@ public class BlockFlyNCPMode extends Module {
                     }
 
                     if (mc.player.fallDistance < 1.0F) {
-                        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, var6, var8, var8, 360.0F);
+                        NewMovementUtil.setMotion(var1, var6, var8, var8, 360.0F);
                     }
 
                     MovementUtil2.setPlayerYMotion(var1.getY());

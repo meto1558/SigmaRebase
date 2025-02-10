@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -161,7 +160,7 @@ public class MinibloxClickTP extends Module {
             for (Vector3d position : this.positions) {
                 BoundingBox bb = getRenderBoundingBox(position);
                 RenderUtil.render3DColoredBox(bb,
-                        MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
+                        RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
             }
 
             GL11.glPushMatrix();

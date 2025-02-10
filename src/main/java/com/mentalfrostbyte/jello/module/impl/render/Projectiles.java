@@ -7,7 +7,6 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9110;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.FloatVector4;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.ProjectileThingy;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -118,9 +117,9 @@ public class Projectiles extends Module {
                             BoundingBox var37 = new BoundingBox(var31 - var47, var41, var44 - var47, var31 + var47, var41 + var35,
                                     var44 + var47);
                             RenderUtil.render3DColoredBox(var37,
-                                    MovementUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                                    RenderUtil.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                             RenderUtil.renderWireframeBox(var37,
-                                    MovementUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                                    RenderUtil.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                         }
 
                     } else {
@@ -144,9 +143,9 @@ public class Projectiles extends Module {
                         GL11.glTranslatef(-0.5F, 0.0F, -0.5F);
                         BoundingBox box = new BoundingBox(0.0, 0.0, 0.0, 1.0, 0.0, 1.0);
                         RenderUtil.render3DColoredBox(box,
-                                MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(box,
-                                MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         GL11.glPopMatrix();
                     }
 

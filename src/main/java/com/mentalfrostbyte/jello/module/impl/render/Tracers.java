@@ -9,6 +9,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -60,9 +61,9 @@ public class Tracers extends Module {
                 .rotateYaw(-((float) Math.toRadians(Minecraft.getInstance().player.rotationYaw)));
         int color = this.parseSettingValueToIntBySettingName("Color");
         GL11.glBegin(1);
-        GL11.glColor4fv(MovementUtil2.method17709(MovementUtil2.applyAlpha(color, 0.45F)));
+        GL11.glColor4fv(RenderUtil.method17709(RenderUtil.applyAlpha(color, 0.45F)));
         GL11.glVertex3d(offset.x, offset.y, offset.z);
-        GL11.glColor4fv(MovementUtil2.method17709(MovementUtil2.applyAlpha(color, 0.0F)));
+        GL11.glColor4fv(RenderUtil.method17709(RenderUtil.applyAlpha(color, 0.0F)));
         GL11.glVertex3d(x, y, z);
         GL11.glEnd();
     }

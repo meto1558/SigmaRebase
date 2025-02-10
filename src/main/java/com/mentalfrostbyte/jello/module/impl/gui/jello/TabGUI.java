@@ -13,7 +13,6 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
@@ -35,10 +34,10 @@ public class TabGUI extends Module {
     public HashMap<Module, Float> field23774 = new HashMap<Module, Float>();
     public boolean field23781 = false;
     public ArrayList<Class8224> field23789 = new ArrayList<Class8224>();
-    public int field23790 = MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0625F);
-    public int field23791 = MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F);
+    public int field23790 = RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0625F);
+    public int field23791 = RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F);
     public List<ModuleCategory> field23792 = this.method16597();
-    public int field23793 = MovementUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.05F);
+    public int field23793 = RenderUtil.applyAlpha(ClientColors.MID_GREY.getColor(), 0.05F);
     public final Color[] field23763 = new Color[3];
     public final Color[] field23764 = new Color[3];
     public final Color[] field23765 = new Color[3];
@@ -294,9 +293,9 @@ public class TabGUI extends Module {
             Class8224 var12 = (Class8224) var16.next();
             if (var12.field35322 == var6) {
                 float var13 = var12.field35323.calcPercent();
-                int var14 = MovementUtil2.applyAlpha(-5658199, (1.0F - var13 * (0.5F + var13 * 0.5F)) * 0.8F);
+                int var14 = RenderUtil.applyAlpha(-5658199, (1.0F - var13 * (0.5F + var13 * 0.5F)) * 0.8F);
                 if (Client.getInstance().guiManager.getHqIngameBlur()) {
-                    var14 = MovementUtil2.applyAlpha(-1, (1.0F - var13) * 0.14F);
+                    var14 = RenderUtil.applyAlpha(-1, (1.0F - var13) * 0.14F);
                 }
 
                 RenderUtil.method11436(
@@ -394,12 +393,12 @@ public class TabGUI extends Module {
     public void method16600(int var1, int var2, int var3, int var4, Color[] var5, Color[] var6, Color[] var7,
             float var8) {
         boolean var11 = Client.getInstance().guiManager.getHqIngameBlur();
-        int var14 = MovementUtil2.method17682(var5).getRGB();
-        int var15 = MovementUtil2.method17682(var7).getRGB();
+        int var14 = RenderUtil.method17682(var5).getRGB();
+        int var15 = RenderUtil.method17682(var7).getRGB();
         if (var6 != null) {
-            int var16 = MovementUtil2.method17682(var6).getRGB();
-            var14 = MovementUtil2.method17690(var14, var16, 0.75F);
-            var15 = MovementUtil2.method17690(var15, var16, 0.75F);
+            int var16 = RenderUtil.method17682(var6).getRGB();
+            var14 = RenderUtil.method17690(var14, var16, 0.75F);
+            var15 = RenderUtil.method17690(var15, var16, 0.75F);
         }
 
         if (!var11) {
@@ -442,7 +441,7 @@ public class TabGUI extends Module {
     public Color method16602(int var1, int var2, Color var3) {
         Color var6 = RenderUtil.getColorFromScreen(var1, var2, var3);
         if (var3 != null) {
-            var6 = MovementUtil2.method17681(var6, var3, 0.08F * this.field23780);
+            var6 = RenderUtil.method17681(var6, var3, 0.08F * this.field23780);
         }
 
         return var6;

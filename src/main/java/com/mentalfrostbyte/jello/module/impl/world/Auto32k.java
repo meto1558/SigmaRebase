@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
@@ -148,7 +147,7 @@ public class Auto32k extends Module {
                 double var7 = (double) var4.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
                 double var9 = (double) var4.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
                 RenderUtil.render3DColoredBox(
-                        new BoundingBox(var5, var7 + 1.625, var9, var5 + 1.0, var7 + 3.0, var9 + 1.0), MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.3F)
+                        new BoundingBox(var5, var7 + 1.625, var9, var5 + 1.0, var7 + 3.0, var9 + 1.0), RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.3F)
                 );
                 GL11.glColor3f(1.0F, 1.0F, 1.0F);
                 GL11.glBlendFunc(770, 771);
@@ -162,7 +161,7 @@ public class Auto32k extends Module {
                 boolean var12 = true;
                 if (var12) {
                     GL11.glPushMatrix();
-                    int var13 = MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.5F);
+                    int var13 = RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.5F);
                     float var14 = (float) (var13 >> 24 & 0xFF) / 255.0F;
                     float var15 = (float) (var13 >> 16 & 0xFF) / 255.0F;
                     float var16 = (float) (var13 >> 8 & 0xFF) / 255.0F;
@@ -175,7 +174,7 @@ public class Auto32k extends Module {
                     GL11.glPopMatrix();
                 }
 
-                int var22 = MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F);
+                int var22 = RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F);
                 float var23 = (float) (var22 >> 24 & 0xFF) / 255.0F;
                 float var24 = (float) (var22 >> 16 & 0xFF) / 255.0F;
                 float var25 = (float) (var22 >> 8 & 0xFF) / 255.0F;

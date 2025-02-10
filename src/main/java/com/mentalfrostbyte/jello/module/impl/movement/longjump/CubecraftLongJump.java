@@ -5,6 +5,8 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -19,7 +21,7 @@ public class CubecraftLongJump extends Module {
 
     @Override
     public void onDisable() {
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed() * 0.8);
+        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(NewMovementUtil.getSmartSpeed() * 0.8);
      //   mc.timer.timerSpeed = 1.0F;
     }
 
@@ -32,7 +34,7 @@ public class CubecraftLongJump extends Module {
     @EventTarget
     public void method16174(EventPlayerTick var1) {
         if (this.isEnabled() && mc.player != null) {
-            if (!MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+            if (!BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.field23501++;
                 this.field23502 -= 0.005;
                 if (this.field23502 < 0.26 || this.field23501 > 6) {
@@ -53,7 +55,7 @@ public class CubecraftLongJump extends Module {
                 double var4 = mc.player.getPosX();
                 double var6 = mc.player.getPosY();
                 double var8 = mc.player.getPosZ();
-                int var10 = 49 + com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() * 17;
+                int var10 = 49 + NewMovementUtil.getJumpBoost() * 17;
 
                 for (int var11 = 0; var11 < var10; var11++) {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var4, var6 + 0.06248, var8, false));
@@ -61,7 +63,7 @@ public class CubecraftLongJump extends Module {
                 }
 
                 mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var4, var6, var8, true));
-                MovementUtil2.setPlayerYMotion(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
+                MovementUtil2.setPlayerYMotion(NewMovementUtil.getJumpValue());
                 this.field23501 = 0;
                 this.field23502 = this.getNumberValueBySettingName("Boost") / 2.0F;
                 com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(this.field23502);

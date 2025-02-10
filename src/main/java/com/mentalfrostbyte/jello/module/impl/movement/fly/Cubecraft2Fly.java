@@ -13,6 +13,8 @@ import com.mentalfrostbyte.jello.module.PremiumModule;
 
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -56,7 +58,7 @@ public class Cubecraft2Fly extends PremiumModule {
     public void onDisable() {
         MovementUtil.strafe(0.2);
         MovementUtil2.setPlayerYMotion(-0.0789);
-        if (MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+        if (BlockUtil.isAboveBounds(mc.player, 0.001F)) {
             MovementUtil.strafe(0.0);
             MovementUtil2.setPlayerYMotion(-0.0789);
         } else {
@@ -100,15 +102,15 @@ public class Cubecraft2Fly extends PremiumModule {
             if (this.field23696 != 1) {
                 if (this.field23696 != 2) {
                     var1.setY(0.0);
-                    MovementUtil.setSpeed(var1, 0.0);
+                    NewMovementUtil.setMotion(var1, 0.0);
                 } else {
                     var1.setY(-9.999999999E-5);
-                    MovementUtil.setSpeed(var1, 0.28);
+                    NewMovementUtil.setMotion(var1, 0.28);
                 }
             } else {
                 var1.setY(!mc.gameSettings.keyBindJump.isKeyDown() ? (!this.field23699 ? 1.0E-4 : -0.99)
                         : (!this.field23699 ? 0.99 : 1.0E-4));
-                MovementUtil.setSpeed(var1, !mc.gameSettings.keyBindJump.isKeyDown() ? (!this.field23699 ? 3.7 : 2.8)
+                NewMovementUtil.setMotion(var1, !mc.gameSettings.keyBindJump.isKeyDown() ? (!this.field23699 ? 3.7 : 2.8)
                         : (!this.field23699 ? 2.8 : 3.7));
             }
 
@@ -120,12 +122,12 @@ public class Cubecraft2Fly extends PremiumModule {
                         if (this.field23696 == -1) {
                             this.field23696++;
                             var1.setY(-0.4);
-                            MovementUtil.setSpeed(var1, 0.0);
+                            NewMovementUtil.setMotion(var1, 0.0);
                         }
                     } else {
                         var1.setY(0.4);
                         this.field23696++;
-                        MovementUtil.setSpeed(var1, 0.0);
+                        NewMovementUtil.setMotion(var1, 0.0);
                     }
                 } else {
                     if (this.field23697.getElapsedTime() > 1000L) {
@@ -135,7 +137,7 @@ public class Cubecraft2Fly extends PremiumModule {
                     }
 
                     var1.setY(0.0);
-                    MovementUtil.setSpeed(var1, 0.0);
+                    NewMovementUtil.setMotion(var1, 0.0);
                 }
             }
         }

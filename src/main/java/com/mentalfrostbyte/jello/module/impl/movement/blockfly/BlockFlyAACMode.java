@@ -127,7 +127,7 @@ public class BlockFlyAACMode extends Module {
                 } else {
                     this.field23524 = 0;
                     mc.player.jump();
-                    var1.setY(0.419998 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpBoost() * 0.1);
+                    var1.setY(0.419998 + (double) NewMovementUtil.getJumpBoost() * 0.1);
                     if (this.field23525 < 3) {
                         this.field23525++;
                     }
@@ -139,7 +139,7 @@ public class BlockFlyAACMode extends Module {
 
                 this.field23526 = AACSpeed.method16016(this.field23524, this.field23525, () -> this.field23525 = 0);
                 if (this.field23524 >= 0) {
-                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field23526);
+                    NewMovementUtil.setMotion(var1, this.field23526);
                 }
             }
         }

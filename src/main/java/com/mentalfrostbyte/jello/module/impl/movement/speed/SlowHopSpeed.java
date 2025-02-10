@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
@@ -20,20 +21,20 @@ public class SlowHopSpeed extends Module {
 
     @Override
     public void onEnable() {
-        this.speed = MovementUtil.getSpeed();
+        this.speed = NewMovementUtil.getSmartSpeed();
         this.onGroundTicks = 2;
     }
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(MovementUtil.getSpeed());
+        MovementUtil.strafe(NewMovementUtil.getSmartSpeed());
     }
 
     @EventTarget
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             boolean autoJump = this.getBooleanValueFromSettingName("AutoJump");
-            double var5 = MovementUtil.getSpeed();
+            double var5 = NewMovementUtil.getSmartSpeed();
             if (!mc.player.isOnGround()) {
                 this.onGroundTicks++;
                 this.speed = 0.36 - (double) this.onGroundTicks / 250.0;
@@ -41,7 +42,7 @@ public class SlowHopSpeed extends Module {
                     this.speed = var5;
                 }
 
-                MovementUtil.setSpeed(var1, this.speed);
+                NewMovementUtil.setMotion(var1, this.speed);
             } else {
                 this.onGroundTicks = 0;
                 mc.player.jump();
@@ -53,7 +54,7 @@ public class SlowHopSpeed extends Module {
     @EventTarget
     public void onJump(EventJump var1) {
         if (this.isEnabled()) {
-             var1.setY(0.407 + 0.1 * (double) MovementUtil.getJumpBoost());
+             var1.setY(0.407 + 0.1 * (double) NewMovementUtil.getJumpBoost());
             this.onGroundTicks = 0;
              var1.setStrafeSpeed(1.8);
         }

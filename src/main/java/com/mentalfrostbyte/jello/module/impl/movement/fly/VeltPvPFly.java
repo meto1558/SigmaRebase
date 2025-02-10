@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
@@ -85,7 +86,7 @@ public class VeltPvPFly extends Module {
                         }
 
                         MovementUtil.setPlayerYMotion(var1.getY());
-                        MovementUtil.setSpeed(var1, var4 - 0.1);
+                        NewMovementUtil.setMotion(var1, var4 - 0.1);
                     }
                 } else {
                     if (!mc.gameSettings.keyBindJump.isKeyDown()) {
@@ -97,11 +98,11 @@ public class VeltPvPFly extends Module {
                     }
 
                     MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, var4);
+                    NewMovementUtil.setMotion(var1, var4);
                 }
             } else {
                 var1.setY(0.0);
-                MovementUtil.setSpeed(var1, 0.0);
+                NewMovementUtil.setMotion(var1, 0.0);
             }
         }
     }

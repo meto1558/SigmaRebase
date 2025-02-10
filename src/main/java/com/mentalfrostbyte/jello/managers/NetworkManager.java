@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.network.auth.Account;
-import com.mentalfrostbyte.jello.util.game.player.tracker.SigmaIRC;
+import com.mentalfrostbyte.jello.util.client.network.auth.SigmaIRC;
 import org.apache.commons.io.FileUtils;
 import team.sdhq.eventBus.EventBus;
 

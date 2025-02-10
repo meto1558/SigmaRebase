@@ -14,6 +14,8 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -38,7 +40,7 @@ public class AntiVoid extends Module {
         this.fallDistanceAccumulated = 0.0;
         this.speedBoostTimer = 0;
         this.disableTimer = 0;
-        if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+        if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F)) {
             this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
         }
     }
@@ -46,7 +48,7 @@ public class AntiVoid extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+            if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
             }
 
@@ -71,7 +73,7 @@ public class AntiVoid extends Module {
                     this.fallDistanceAccumulated = 0.0;
                 }
             } else {
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.0);
+                NewMovementUtil.setMotion(event, 0.0);
                 event.setY(0.0);
                 this.disableTimer--;
             }
@@ -83,7 +85,7 @@ public class AntiVoid extends Module {
 
             if (this.speedBoostTimer > 0) {
                 this.speedBoostTimer--;
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.1);
+                NewMovementUtil.setMotion(event, 0.1);
             }
         }
     }

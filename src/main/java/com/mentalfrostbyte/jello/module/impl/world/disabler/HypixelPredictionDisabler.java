@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.module.impl.item.InvManager;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.network.play.client.CCloseWindowPacket;
@@ -70,7 +71,7 @@ public class HypixelPredictionDisabler extends Module {
         if (motion.currentValue && !watchDogDisabled) {
             airTicks = HypixelDisabler.mc.player.isOnGround() ? 0 : ++airTicks;
             if (stuckOnAir && airTicks >= 9) {
-                MovementUtil.stopMoving();
+                NewMovementUtil.stop();
             }
         }
         if (inventoryMove.currentValue) {
