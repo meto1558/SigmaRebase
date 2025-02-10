@@ -136,7 +136,7 @@ public class AntiVoid extends Module {
                 break;
             case "Motion":
                 event.setY(0.1);
-                MovementUtil.setPlayerYMotion(event.getY());
+                mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
                 break;
             case "TP":
                 mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);

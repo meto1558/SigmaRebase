@@ -386,7 +386,7 @@ public class BlockFly extends ModuleWithModuleSettings {
         }
 
         if (!this.getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")) {
-            MovementUtil.setPlayerYMotion(var1.getY());
+            mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
         }
     }
 

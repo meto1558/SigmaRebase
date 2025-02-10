@@ -55,7 +55,7 @@ public class HypixelSpeed extends Module {
     @Override
     public void onDisable() {
         if (this.field23418 == Class2094.field13641 && mc.player.getMotion().y > 0.0 && this.field23414 == 0) {
-            MovementUtil.setPlayerYMotion(-MovementUtil.getJumpValue() - 1.0E-5 - 0.0625);
+            mc.player.setMotion(mc.player.getMotion().x, -MovementUtil.getJumpValue() - 1.0E-5 - 0.0625, mc.player.getMotion().z);
         }
 
         if (Math.abs((double) mc.timer.timerSpeed - 1.4123) < 0.001

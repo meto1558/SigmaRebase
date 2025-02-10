@@ -54,7 +54,6 @@ public class ElytraFly extends Module {
     public void method16221(EventMove var1) {
         if (this.isEnabled()) {
             double var4 = MovementUtil.getSmartSpeed();
-            boolean var6 = PlayerUtil.method17686();
             if (!this.getBooleanValueFromSettingName("NCP") && mc.player.isSneaking()) {
                 var4 *= 2.5;
             }
@@ -68,7 +67,7 @@ public class ElytraFly extends Module {
                         MovementUtil.setMotion(var1, var4 * 6.3F);
                     }
 
-                    MovementUtil.setPlayerYMotion(-0.071);
+                    mc.player.setMotion(mc.player.getMotion().x, -0.071, mc.player.getMotion().z);
                     var1.setY(-1.0001E-4F);
                 }
 
@@ -123,7 +122,7 @@ public class ElytraFly extends Module {
                     this.field23533 = var4;
                 }
             } else {
-                int var5 = InvManagerUtil.method25843(Items.FIREWORK_ROCKET);
+                int var5 = InvManagerUtil.getSlotWithMaxItemCount(Items.FIREWORK_ROCKET);
                 if (var5 >= 0) {
                     if (var5 != mc.player.inventory.currentItem) {
                         mc.getConnection().sendPacket(new CHeldItemChangePacket(var5));
@@ -153,7 +152,7 @@ public class ElytraFly extends Module {
     @Override
     public void onEnable() {
         if (mc.player.onGround) {
-            MovementUtil.setPlayerYMotion(0.3994F);
+            mc.player.setMotion(mc.player.getMotion().x, 0.3994F, mc.player.getMotion().z);
         }
     }
 

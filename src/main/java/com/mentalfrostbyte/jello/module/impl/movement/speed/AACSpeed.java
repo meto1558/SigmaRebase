@@ -107,7 +107,7 @@ public class AACSpeed extends Module {
                 this.direction = MovementUtil.setMotion(event, this.field23401, MovementUtil.getDirection(), this.direction, 45.0F);
             }
 
-            MovementUtil.setPlayerYMotion(event.getY());
+            mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
         }
     }
 

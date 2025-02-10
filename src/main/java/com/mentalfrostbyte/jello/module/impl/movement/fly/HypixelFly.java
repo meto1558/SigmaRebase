@@ -168,7 +168,7 @@ public class HypixelFly extends Module {
             if (!mc.player.isOnGround() || !BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.field23563++;
                 event.setY(0.0);
-                MovementUtil.setPlayerYMotion(0.0);
+                mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
                 if (this.field23563 % 5 < 4) {
                     double var12 = mc.player.getPosX();
                     double var14 = mc.player.getPosY();

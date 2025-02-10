@@ -129,7 +129,7 @@ public class BlockFlyNCPMode extends Module {
         MovementUtil.moveInDirection(MovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.field23926 == 0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -377,7 +377,7 @@ public class BlockFlyNCPMode extends Module {
                         MovementUtil.setMotion(var1, var6, var8, var8, 360.0F);
                     }
 
-                    MovementUtil.setPlayerYMotion(var1.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {

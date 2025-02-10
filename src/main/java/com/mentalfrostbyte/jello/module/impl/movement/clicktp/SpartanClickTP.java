@@ -31,7 +31,7 @@ public class SpartanClickTP extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.setPlayerYMotion(-0.08);
+        mc.player.setMotion(mc.player.getMotion().x, -0.08, mc.player.getMotion().z);
         double var3 = MovementUtil.getSmartSpeed();
         MovementUtil.moveInDirection(var3);
         mc.timer.timerSpeed = 1.0F;
@@ -77,7 +77,7 @@ public class SpartanClickTP extends Module {
                     if (!this.access().getBooleanValueFromSettingName("Auto Disable")) {
                         this.field23464 = -1;
                         this.field23465 = null;
-                        MovementUtil.setPlayerYMotion(-0.08);
+                        mc.player.setMotion(mc.player.getMotion().x, -0.08, mc.player.getMotion().z);
                         double var5 = MovementUtil.getSmartSpeed();
                         MovementUtil.moveInDirection(var5);
                         mc.timer.timerSpeed = 1.0F;

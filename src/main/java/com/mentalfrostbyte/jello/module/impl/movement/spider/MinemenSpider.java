@@ -93,7 +93,7 @@ public class MinemenSpider extends Module {
             }
         }
 
-        MovementUtil.setPlayerYMotion(event.getY());
+        mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
     }
 
     @EventTarget

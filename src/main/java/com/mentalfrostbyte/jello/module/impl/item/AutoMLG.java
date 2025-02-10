@@ -142,7 +142,7 @@ public class AutoMLG extends PremiumModule {
                             mc.getConnection().sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
                         }
 
-                        InvManagerUtil.moveItemToHotbar(var5, 6);
+                        InvManagerUtil.clickSlot(var5, 6);
                         mc.getConnection().sendPacket(new CCloseWindowPacket(-1));
                         return 6;
                     }

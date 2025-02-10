@@ -49,13 +49,13 @@ public class NCPPhase extends PremiumModule {
                 double var4 = mc.player.getPosX();
                 double var6 = mc.player.getPosY();
                 double var8 = mc.player.getPosZ();
-                if (!PlayerUtil.method17686()) {
+                if (!MovementUtil.isMoving()) {
                     if (BlockUtil.isAboveBounds(mc.player, 0.001F) && !PlayerUtil.isCollidingWithSurroundingBlocks()) {
                         mc.player.setPosition(var4, var6 - 1.0, var8);
                         event.setY(var6 - 1.0);
                         event.setMoving(true);
                         event.setYaw(event.getYaw() + 10.0F);
-                        MovementUtil.setPlayerYMotion(0.0);
+                        mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
                     } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())) {
                         mc.player.setPosition(var4, var6 - 0.3, var8);
                     }

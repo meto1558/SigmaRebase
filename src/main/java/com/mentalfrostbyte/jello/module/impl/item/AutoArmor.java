@@ -130,18 +130,18 @@ public class AutoArmor extends Module {
                         )) {
                             this.method16617(var1);
                             if (!(AutoArmor.mc.player.inventory.getStackInSlot(36 + type.getIndex()).getItem() instanceof AirItem)) {
-                                InvManagerUtil.click(8 - type.getIndex(), 0, true);
+                                InvManagerUtil.clickSlot(8 - type.getIndex(), 0, true);
                             }
                             Item var11 = mc.player.inventory.getStackInSlot(36 + armorItem.getEquipmentSlot().getIndex()).getItem();
                             if (!(var11 instanceof ElytraItem)) {
                                 if (!(var11 instanceof AirItem)) {
-                                    InvManagerUtil.method25871(8 - armorItem.getEquipmentSlot().getIndex());
+                                    InvManagerUtil.clickSlot(8 - armorItem.getEquipmentSlot().getIndex());
                                 }
                             } else {
-                                InvManagerUtil.click(8 - type.getIndex(), 0, true);
+                                InvManagerUtil.clickSlot(8 - type.getIndex(), 0, true);
                             }
 
-                            InvManagerUtil.fixedClick(mc.player.container.windowId, slot, 0, ClickType.QUICK_MOVE, mc.player, true);
+                            InvManagerUtil.clickSlot(mc.player.container.windowId, slot, 0, ClickType.QUICK_MOVE, mc.player, true);
                             this.timer.reset();
                             field23798 = true;
                             if (Client.getInstance().moduleManager.getModuleByClass(AutoArmor.class).getNumberValueBySettingName("Delay") > 0.0F) {

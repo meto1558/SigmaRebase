@@ -21,7 +21,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import totalcross.json.JSONObject;
 
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,10 +37,6 @@ public class PlayerUtil {
         return getBoundingBoxCenter(entity.getBoundingBox());
     }
 
-    public static boolean method17686() {
-        return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
-    }
-
     public static Vector3d getBoundingBoxCenter(AxisAlignedBB var0) {
         double var3 = var0.getCenter().x;
         double var5 = var0.minY;
@@ -53,13 +48,6 @@ public class PlayerUtil {
         double var17 = Math.max(var3 - var11 / 2.0, Math.min(var3 + var11 / 2.0, mc.player.getPosX()));
         double var19 = Math.max(var7 - var13 / 2.0, Math.min(var7 + var13 / 2.0, mc.player.getPosZ()));
         return new Vector3d(var17, var15, var19);
-    }
-
-    public static long method17762() {
-        long var2 = System.currentTimeMillis() / 720000L;
-        var2 <<= 1;
-        var2 = var2 % 2L != 0L ? var2 >> 2 : var2 << 1;
-        return var2 % 3L != 0L ? var2 * 2L : var2 / 2L;
     }
 
     public static List<String> getMobOwners(String uuid) throws Exception {
@@ -93,15 +81,6 @@ public class PlayerUtil {
         ArrayList<Entity> entities = new ArrayList<>();
         mc.world.entitiesById.forEach((entity1, entity2) -> entities.add(entity2));
         return entities;
-    }
-
-    public static void transformVector(FloatBuffer matrixBuffer, float[] inputVector, float[] outputVector) {
-        for (int i = 0; i < 4; i++) {
-            outputVector[i] = inputVector[0] * matrixBuffer.get(matrixBuffer.position() + i)
-                    + inputVector[1] * matrixBuffer.get(matrixBuffer.position() + 4 + i)
-                    + inputVector[2] * matrixBuffer.get(matrixBuffer.position() + 8 + i)
-                    + inputVector[3] * matrixBuffer.get(matrixBuffer.position() + 12 + i);
-        }
     }
 
     public static SimpleEntryPair<Direction, Vector3d> findCollisionDirection(double var0) {

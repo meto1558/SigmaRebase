@@ -140,7 +140,7 @@ public class ChestStealer extends Module {
                 this.field23621 = false;
                 this.field23623.stop();
                 this.field23623.reset();
-                if (mc.currentScreen == null && InvManagerUtil.method25875()) {
+                if (mc.currentScreen == null && InvManagerUtil.hasAllSlotsFilled()) {
                     this.field23624.reset();
                 }
             } else {
@@ -149,7 +149,7 @@ public class ChestStealer extends Module {
                 }
 
                 if (!((float) Client.getInstance().playerTracker.getMode() < this.getNumberValueBySettingName("Delay") * 20.0F)) {
-                    if (InvManagerUtil.method25875()) {
+                    if (InvManagerUtil.hasAllSlotsFilled()) {
                         if (this.getBooleanValueFromSettingName("Close")) {
                             mc.player.closeScreen();
                         }
@@ -175,9 +175,9 @@ public class ChestStealer extends Module {
                                         }
 
                                         if (!this.getBooleanValueFromSettingName("Fix ViaVersion")) {
-                                            InvManagerUtil.method25869(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player);
+                                            InvManagerUtil.clickSlot(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player);
                                         } else {
-                                            InvManagerUtil.fixedClick(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player, true);
+                                            InvManagerUtil.clickSlot(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player, true);
                                         }
 
                                         this.field23623.reset();
@@ -339,7 +339,7 @@ public class ChestStealer extends Module {
                         return true;
                     }
                 } else {
-                    return InvManagerUtil.method25874(itemStack);
+                    return InvManagerUtil.hasNegativePotionEffects(itemStack);
                 }
             } else {
                 return !InvManager.method16444(itemStack);

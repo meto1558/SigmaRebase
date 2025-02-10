@@ -216,7 +216,7 @@ public class InvManager extends PremiumModule {
                 if (this.fakingInventory && (long) Client.getInstance().playerTracker.getMode() >= delayValue) {
                     this.fakingInventory = !this.fakingInventory;
                     this.sendOpenInventoryPacket(this.field23659);
-                    InvManagerUtil.fixedClick(mc.player.container.windowId, 45, 0, ClickType.PICKUP, mc.player, true);
+                    InvManagerUtil.clickSlot(mc.player.container.windowId, 45, 0, ClickType.PICKUP, mc.player, true);
                     this.timer.reset();
                 } else {
                     if (mc.currentScreen == null || mc.currentScreen instanceof InventoryScreen || mc.currentScreen instanceof ChatScreen) {
@@ -253,7 +253,7 @@ public class InvManager extends PremiumModule {
                                     ItemStack var9 = mc.player.container.getSlot(var8).getStack();
                                     if (this.method16434(var9, var8)) {
                                         this.sendOpenInventoryPacket(mode.equals("FakeInv"));
-                                        InvManagerUtil.method25871(var8);
+                                        InvManagerUtil.clickSlot(var8);
                                         this.timer.reset();
                                         if (delayValue > 0L) {
                                             break;
@@ -279,7 +279,7 @@ public class InvManager extends PremiumModule {
                 ItemStack var6 = mc.player.container.getSlot(var5).getStack();
                 if (method16431(var6) && calculateItemDamageBonus(var6) > 0.0F && (var6.getItem() instanceof SwordItem || !this.getBooleanValueFromSettingName("Sword"))) {
                     this.sendOpenInventoryPacket(var2);
-                    InvManagerUtil.moveItemToHotbar(var5, hotbarSlot - 36);
+                    InvManagerUtil.clickSlot(var5, hotbarSlot - 36);
                     this.timer.reset();
                     break;
                 }
@@ -337,7 +337,7 @@ public class InvManager extends PremiumModule {
                 return method16437(Items.WATER_BUCKET) > 1;
             } else if (var5 == Items.BUCKET && Client.getInstance().moduleManager.getModuleByClass(AutoMLG.class).isEnabled()) {
                 return method16437(Items.BUCKET) > 1;
-            } else if (var5 instanceof PotionItem && InvManagerUtil.method25874(var1)) {
+            } else if (var5 instanceof PotionItem && InvManagerUtil.hasNegativePotionEffects(var1)) {
                 return true;
             } else if (var5 == Items.ENCHANTED_GOLDEN_APPLE) {
                 return false;
@@ -409,7 +409,7 @@ public class InvManager extends PremiumModule {
                     if (mc.player.container.getSlot(field23655).getHasStack()) {
                         if (!method16442(mc.player.container.getSlot(field23655).getStack())) {
                             this.sendOpenInventoryPacket(var2);
-                            InvManagerUtil.moveItemToHotbar(var5, field23655 - 36);
+                            InvManagerUtil.clickSlot(var5, field23655 - 36);
                             this.timer.reset();
                             if (this.getNumberValueBySettingName("Delay") > 0.0F) {
                                 return;
@@ -417,7 +417,7 @@ public class InvManager extends PremiumModule {
                         }
                     } else {
                         this.sendOpenInventoryPacket(var2);
-                        InvManagerUtil.moveItemToHotbar(var5, field23655 - 36);
+                        InvManagerUtil.clickSlot(var5, field23655 - 36);
                         this.timer.reset();
                         if (this.getNumberValueBySettingName("Delay") > 0.0F) {
                             return;
@@ -436,7 +436,7 @@ public class InvManager extends PremiumModule {
                     if (mc.player.container.getSlot(field23657).getHasStack()) {
                         if (!isHoe(mc.player.container.getSlot(field23657).getStack())) {
                             this.sendOpenInventoryPacket(var2);
-                            InvManagerUtil.moveItemToHotbar(var5, field23657 - 36);
+                            InvManagerUtil.clickSlot(var5, field23657 - 36);
                             this.timer.reset();
                             if (this.getNumberValueBySettingName("Delay") > 0.0F) {
                                 return;
@@ -444,7 +444,7 @@ public class InvManager extends PremiumModule {
                         }
                     } else {
                         this.sendOpenInventoryPacket(var2);
-                        InvManagerUtil.moveItemToHotbar(var5, field23657 - 36);
+                        InvManagerUtil.clickSlot(var5, field23657 - 36);
                         this.timer.reset();
                         if (this.getNumberValueBySettingName("Delay") > 0.0F) {
                             return;
@@ -463,7 +463,7 @@ public class InvManager extends PremiumModule {
                     if (mc.player.container.getSlot(field23656).getHasStack()) {
                         if (!method16444(mc.player.container.getSlot(field23656).getStack())) {
                             this.sendOpenInventoryPacket(var2);
-                            InvManagerUtil.moveItemToHotbar(var5, field23656 - 36);
+                            InvManagerUtil.clickSlot(var5, field23656 - 36);
                             this.timer.reset();
                             if (this.getNumberValueBySettingName("Delay") > 0.0F) {
                                 return;
@@ -471,7 +471,7 @@ public class InvManager extends PremiumModule {
                         }
                     } else {
                         this.sendOpenInventoryPacket(var2);
-                        InvManagerUtil.moveItemToHotbar(var5, field23656 - 36);
+                        InvManagerUtil.clickSlot(var5, field23656 - 36);
                         this.timer.reset();
                         if (this.getNumberValueBySettingName("Delay") > 0.0F) {
                             return;
@@ -489,7 +489,7 @@ public class InvManager extends PremiumModule {
                 if (var5.getItem() instanceof ShieldItem) {
                     this.sendOpenInventoryPacket(fakeInvSetting);
                     this.timer.reset();
-                    InvManagerUtil.fixedClick(mc.player.container.windowId, hotbarSlot, 0, ClickType.PICKUP, mc.player, true);
+                    InvManagerUtil.clickSlot(mc.player.container.windowId, hotbarSlot, 0, ClickType.PICKUP, mc.player, true);
                     this.fakingInventory = true;
                     return;
                 }

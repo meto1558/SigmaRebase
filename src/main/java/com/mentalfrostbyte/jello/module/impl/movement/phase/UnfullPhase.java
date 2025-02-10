@@ -23,7 +23,7 @@ public class UnfullPhase extends Module {
     public void onWalkingUpdate(EventPlayerTick event) {
         if (this.isEnabled()) {
             if ((int) mc.player.getPosY() == currentYPosition && !mc.player.isJumping) {
-                MovementUtil.setPlayerYMotion(-2.0);
+                mc.player.setMotion(mc.player.getMotion().x, -2.0, mc.player.getMotion().z);
             }
 
             if (mc.player.getPosY() > (double) currentYPosition && mc.player.isJumping && !mc.player.isSneaking()) {

@@ -60,7 +60,7 @@ public class Auto32k extends Module {
             }
         }
 
-        this.field23872 = InvManagerUtil.method25843(
+        this.field23872 = InvManagerUtil.getSlotWithMaxItemCount(
                 Items.SHULKER_BOX,
                 Items.WHITE_SHULKER_BOX,
                 Items.ORANGE_SHULKER_BOX,
@@ -80,7 +80,7 @@ public class Auto32k extends Module {
                 Items.BLACK_SHULKER_BOX
 
         );
-        this.field23871 = InvManagerUtil.method25843(Items.HOPPER);
+        this.field23871 = InvManagerUtil.getSlotWithMaxItemCount(Items.HOPPER);
         if (this.field23871 == -1) {
             this.field23871 = InvManagerUtil.findItemSlot(Items.HOPPER);
             if (this.field23871 != -1) {
@@ -93,7 +93,7 @@ public class Auto32k extends Module {
         }
 
         if (this.field23872 == -1) {
-            this.field23872 = InvManagerUtil.method25823(
+            this.field23872 = InvManagerUtil.findItemInContainer(
                     Items.SHULKER_BOX,
                     Items.WHITE_SHULKER_BOX,
                     Items.ORANGE_SHULKER_BOX,

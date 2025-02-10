@@ -1403,8 +1403,8 @@ public class RenderUtil {
         inVector[3] = 1.0F;
 
         // Apply the model and projection transformations
-        PlayerUtil.transformVector(modelMatrix, inVector, outVector);
-        PlayerUtil.transformVector(projectionMatrix, outVector, inVector);
+        transformVector(modelMatrix, inVector, outVector);
+        transformVector(projectionMatrix, outVector, inVector);
 
         // Perform perspective division if the w-component is non-zero
         if ((double) inVector[3] != 0.0) {
@@ -1495,6 +1495,15 @@ public class RenderUtil {
         float var7 = (float) var0.getGreen() * var2 + (float) var1.getGreen() * var5;
         float var8 = (float) var0.getBlue() * var2 + (float) var1.getBlue() * var5;
         return new java.awt.Color(var6 / 255.0F, var7 / 255.0F, var8 / 255.0F);
+    }
+
+    public static void transformVector(FloatBuffer matrixBuffer, float[] inputVector, float[] outputVector) {
+        for (int i = 0; i < 4; i++) {
+            outputVector[i] = inputVector[0] * matrixBuffer.get(matrixBuffer.position() + i)
+                    + inputVector[1] * matrixBuffer.get(matrixBuffer.position() + 4 + i)
+                    + inputVector[2] * matrixBuffer.get(matrixBuffer.position() + 8 + i)
+                    + inputVector[3] * matrixBuffer.get(matrixBuffer.position() + 12 + i);
+        }
     }
 }
 

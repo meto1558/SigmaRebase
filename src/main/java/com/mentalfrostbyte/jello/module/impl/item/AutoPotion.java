@@ -136,7 +136,7 @@ public class AutoPotion extends Module {
                             int var14 = Effect.getId(var13.getPotion());
                             int var15 = var13.getAmplifier();
                             int var16 = var13.getDuration();
-                            if (var14 == var1 && InvManagerUtil.method25859(var9)) {
+                            if (var14 == var1 && InvManagerUtil.isPotionItem(var9)) {
                                 if (var15 <= var4) {
                                     if (var15 == var4 && var16 > var5) {
                                         var6 = var8;
@@ -180,7 +180,7 @@ public class AutoPotion extends Module {
         if (var6 != -1) {
             if (var6 < 36) {
                 if (Client.getInstance().playerTracker.getMode() > 2) {
-                    InvManagerUtil.moveItemToHotbar(var6, var2);
+                    InvManagerUtil.clickSlot(var6, var2);
                 }
             } else {
                 this.field23808 = 0;

@@ -131,7 +131,7 @@ public class BlockFlyHypixelMode extends Module {
         MovementUtil.moveInDirection(MovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -387,7 +387,7 @@ public class BlockFlyHypixelMode extends Module {
                         MovementUtil.setMotion(event, speed, newYaw, newYaw, 360.0F);
                     }
 
-                    MovementUtil.setPlayerYMotion(event.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
                     break;
                 case "Slow":
                     if (mc.player.isOnGround()) {

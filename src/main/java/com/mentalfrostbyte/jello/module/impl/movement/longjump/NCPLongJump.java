@@ -135,7 +135,7 @@ public class NCPLongJump extends Module {
                 }
             }
 
-            MovementUtil.setPlayerYMotion(var1.getY());
+            mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
         }
     }
 

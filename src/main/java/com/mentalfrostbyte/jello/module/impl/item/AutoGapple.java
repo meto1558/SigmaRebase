@@ -47,7 +47,7 @@ public class AutoGapple extends ModuleWithModuleSettings {
                 ItemStack stack = mc.player.container.getSlot(slotIndex).getStack();
                 if (!checkForFireResistance) {
                     if (stack.getItem() == Items.GOLDEN_APPLE || stack.getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
-                        InvManagerUtil.moveItemToHotbar(slotIndex, 4);
+                        InvManagerUtil.clickSlot(slotIndex, 4);
                         return -1;
                     }
                 } else {
@@ -55,7 +55,7 @@ public class AutoGapple extends ModuleWithModuleSettings {
                     if (effects != null) {
                         for (EffectInstance effect : effects) {
                             if (effect.getPotion() == Effects.FIRE_RESISTANCE) {
-                                InvManagerUtil.moveItemToHotbar(slotIndex, 4);
+                                InvManagerUtil.clickSlot(slotIndex, 4);
                                 return -1;
                             }
                         }

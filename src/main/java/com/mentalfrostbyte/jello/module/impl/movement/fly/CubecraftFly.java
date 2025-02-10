@@ -11,7 +11,6 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -19,6 +18,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
+import net.minecraft.util.math.MathHelper;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HigherPriority;
 
@@ -55,7 +55,7 @@ public class CubecraftFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.setPlayerYMotion(-0.078);
+        mc.player.setMotion(mc.player.getMotion().x, -0.078, mc.player.getMotion().z);
         MovementUtil.moveInDirection(0.2);
         mc.timer.timerSpeed = 1.0F;
         if (this.field23846) {
@@ -153,7 +153,7 @@ public class CubecraftFly extends Module {
                 } else {
                     MovementUtil.setMotion(var1, 0.0);
                     var1.setY(0.0);
-                    long var14 = PlayerUtil.method17762() % 90L;
+                    long var14 = MathHelper.calculateTimeBasedValue() % 90L;
                     double var15 = 0.016 + (double) var14 / 10000.0;
                     double var16 = mc.player.getPosX();
                     double var10 = mc.player.getPosY() + 0.022;
@@ -164,7 +164,7 @@ public class CubecraftFly extends Module {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var16, var10 + 3.0, var12, false));
                 }
 
-                MovementUtil.setPlayerYMotion(var1.getY());
+                mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
             }
         } else {
             MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());

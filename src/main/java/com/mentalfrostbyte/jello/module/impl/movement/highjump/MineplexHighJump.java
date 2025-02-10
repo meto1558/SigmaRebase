@@ -61,7 +61,7 @@ public class MineplexHighJump extends Module {
             if (Math.abs(var1.getY()) < var4 && Math.abs(this.field24025) < var4) {
                this.field24025 -= 0.04000000000001;
                var1.setY(this.field24025);
-               MovementUtil.setPlayerYMotion(var1.getY());
+               mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
             } else {
                this.field24025 = var1.getY();
             }
