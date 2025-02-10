@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -252,7 +253,7 @@ public class MineplexFly extends Module {
             mc.player.lastTickPosY = this.posY;
             mc.player.chasingPosY = this.posY;
             mc.player.prevPosY = this.posY;
-            if (MovementUtil.isMoving()) {
+            if (NewMovementUtil.isMoving()) {
                 mc.player.cameraYaw = 0.099999994F;
             }
         }

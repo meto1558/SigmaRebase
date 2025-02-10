@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.system.other.Pair;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -306,7 +307,7 @@ public class KillAura extends Module {
 
         if (currentTarget != null
                 && interactAB.isBlocking()
-                && MovementUtil.isMoving()
+                && NewMovementUtil.isMoving()
                 && getStringSettingValueByName("Autoblock Mode").equals("NCP")) {
             interactAB.doUnblock();
         }

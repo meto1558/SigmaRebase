@@ -21,6 +21,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -336,7 +337,7 @@ public class BlockFlyHypixelMode extends Module {
                     break;
                 case "Constant": {
                     double speed = this.constantSpeed.currentValue;
-                    if (!MovementUtil.isMoving())
+                    if (!NewMovementUtil.isMoving())
                         speed = 0;
                     MovementUtil.setSpeed(event, speed);
                     break;
@@ -443,7 +444,7 @@ public class BlockFlyHypixelMode extends Module {
                         mc.player.lastTickPosY = this.field23476;
                         mc.player.chasingPosY = this.field23476;
                         mc.player.prevPosY = this.field23476;
-                        if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
+                        if (NewMovementUtil.isMoving()) {
                             mc.player.cameraYaw = 0.099999994F;
                         }
                     }

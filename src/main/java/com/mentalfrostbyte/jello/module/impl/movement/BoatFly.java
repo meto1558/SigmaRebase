@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -26,7 +27,7 @@ public class BoatFly extends PremiumModule {
                 float var5 = this.getNumberValueBySettingName("Speed");
                 double var6 = Math.cos(Math.toRadians(var4)) * (double) var5;
                 double var8 = Math.sin(Math.toRadians(var4)) * (double) var5;
-                if (!MovementUtil.isMoving()) {
+                if (!NewMovementUtil.isMoving()) {
                     var6 = 0.0;
                     var8 = 0.0;
                 }

@@ -25,7 +25,7 @@ public class VulcanSpeed extends Module {
 
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.keyCode, true);
 
-        if (mc.player.onGround && MovementUtil.isMoving()) {
+        if (mc.player.onGround && NewMovementUtil.isMoving()) {
             mc.player.jump();
             NewMovementUtil.strafe(0.43);
         }

@@ -313,19 +313,6 @@ public class MovementUtil {
         return mc.player.isInWater();
     }
 
-    /**
-     * Checks if the player is currently moving based on keyboard input.
-     *
-     * @return true if any movement key is pressed, false otherwise.
-     */
-    public static boolean isMoving() {
-        boolean forward = mc.gameSettings.keyBindForward.isKeyDown();
-        boolean left = mc.gameSettings.keyBindLeft.isKeyDown();
-        boolean right = mc.gameSettings.keyBindRight.isKeyDown();
-        boolean back = mc.gameSettings.keyBindBack.isKeyDown();
-        return forward || left || right || back;
-    }
-
     public static float[] getAdjustedStrafe2(float var0, float var1) {
         float var4 = mc.player.rotationYaw + 90.0F;
         if (var0 == 0.0F) {

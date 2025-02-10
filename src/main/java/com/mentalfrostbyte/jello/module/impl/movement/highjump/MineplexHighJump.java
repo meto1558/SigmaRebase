@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -131,7 +132,7 @@ public class MineplexHighJump extends Module {
          mc.player.lastTickPosY = this.field24026;
          mc.player.chasingPosY = this.field24026;
          mc.player.prevPosY = this.field24026;
-         if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
+         if (NewMovementUtil.isMoving()) {
             mc.player.cameraYaw = 0.099999994F;
          }
       }

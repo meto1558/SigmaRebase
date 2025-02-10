@@ -16,6 +16,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.AACSpeed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -147,7 +148,7 @@ public class BlockFlyAACMode extends Module {
     @EventTarget
     public void onFOV(EventGetFovModifier var1) {
         if (this.isEnabled() && mc.world != null && mc.player != null) {
-            if (this.getBooleanValueFromSettingName("Haphe (AACAP)") && com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving() && !mc.player.isSprinting()) {
+            if (this.getBooleanValueFromSettingName("Haphe (AACAP)") && NewMovementUtil.isMoving() && !mc.player.isSprinting()) {
                 var1.fovModifier *= 1.14F;
             }
         }
@@ -216,20 +217,12 @@ public class BlockFlyAACMode extends Module {
         return Class9291.method35030(var1, var2, (int) mc.playerController.getBlockReachDistance());
     }
 
-//    @EventTarget
-//    public void method16209(Render2DEvent var1) {
-//        if (this.isEnabled()) {
-//            if (!this.getBooleanValueFromSettingName("Haphe (AACAP)")) {
-//            }
-//        }
-//    }
-
     @EventTarget
     @LowestPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (!event.isPre()) {
-                if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving() && mc.player.isOnGround() && this.getBooleanValueFromSettingName("Haphe (AACAP)") && !mc.player.isJumping) {
+                if (NewMovementUtil.isMoving() && mc.player.isOnGround() && this.getBooleanValueFromSettingName("Haphe (AACAP)") && !mc.player.isJumping) {
                     mc.player.jump();
                 }
 

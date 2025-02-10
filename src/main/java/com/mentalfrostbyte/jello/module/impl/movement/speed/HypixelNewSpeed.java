@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.module.impl.world.disabler.HypixelPredictionDisabler;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.potion.Effects;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -32,7 +33,7 @@ public class HypixelNewSpeed extends Module {
             if (Client.getInstance().moduleManager.getModuleByClass(Disabler.class).isEnabled() && HypixelPredictionDisabler.watchDogDisabled) {
             } else if (mc.player.isOnGround()) {
                 if (mc.player.isOnGround()) {
-                    if (MovementUtil.isMoving()) {
+                    if (NewMovementUtil.isMoving()) {
                         mc.player.jump();
                     }
 
@@ -72,7 +73,7 @@ public class HypixelNewSpeed extends Module {
                             MovementUtil.setPlayerYMotion(event.getY());
                     }
                 }
-                if (MovementUtil.isMoving()) {
+                if (NewMovementUtil.isMoving()) {
                     mc.player.jump();
                 }
 

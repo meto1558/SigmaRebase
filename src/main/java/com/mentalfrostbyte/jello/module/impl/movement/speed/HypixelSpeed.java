@@ -19,6 +19,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.world.Timer;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -220,7 +221,7 @@ public class HypixelSpeed extends Module {
             mc.player.lastTickPosY = this.field23416;
             mc.player.chasingPosY = this.field23416;
             mc.player.prevPosY = this.field23416;
-            if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
+            if (NewMovementUtil.isMoving()) {
                 mc.player.cameraYaw = 0.099999994F;
             }
         }

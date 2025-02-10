@@ -4,6 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class Strafe extends Module {
@@ -26,7 +27,7 @@ public class Strafe extends Module {
             double sinAngle = Math.sin(Math.toRadians(playerAngle));
 
             double movementMagnitude = Math.sqrt(event.getX() * event.getX() + event.getZ() * event.getZ());
-            if (!MovementUtil.isMoving()) {
+            if (!NewMovementUtil.isMoving()) {
                 movementMagnitude = 0.0;
             }
             float smoothingFactor = 0.2F;

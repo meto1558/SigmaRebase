@@ -19,6 +19,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -432,7 +433,7 @@ public class BlockFlyNCPMode extends Module {
                         mc.player.lastTickPosY = this.field23931;
                         mc.player.chasingPosY = this.field23931;
                         mc.player.prevPosY = this.field23931;
-                        if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
+                        if (NewMovementUtil.isMoving()) {
                             mc.player.cameraYaw = 0.099999994F;
                         }
                     }

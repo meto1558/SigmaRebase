@@ -75,4 +75,12 @@ public class NewMovementUtil implements MinecraftUtil {
         );
     }
 
+    public static boolean isMoving() {
+        boolean forward = mc.gameSettings.keyBindForward.isKeyDown();
+        boolean left = mc.gameSettings.keyBindLeft.isKeyDown();
+        boolean right = mc.gameSettings.keyBindRight.isKeyDown();
+        boolean back = mc.gameSettings.keyBindBack.isKeyDown();
+        return forward || left || right || back;
+    }
+
 }

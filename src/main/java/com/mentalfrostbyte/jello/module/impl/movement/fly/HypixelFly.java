@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.MathHelper;
@@ -204,7 +205,7 @@ public class HypixelFly extends Module {
                 }
 
                 event.setVector(allowedMovement);
-                if (!var21 && mc.player.getPosY() % 1.0 > 0.1F && com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
+                if (!var21 && mc.player.getPosY() % 1.0 > 0.1F && NewMovementUtil.isMoving()) {
                     for (Vector3d var25 : var22) {
                         var25.x = var25.x * this.flySpeed;
                         var25.z = var25.z * this.flySpeed;

@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.NewMovementUtil;
 import net.minecraft.network.play.server.SKeepAlivePacket;
 import net.minecraft.network.play.client.CClickWindowPacket;
 import net.minecraft.client.Minecraft;
@@ -36,7 +37,7 @@ public class PlayerStateTracker {
             this.focusGameTicks = 0;
         }
 
-        if (!MovementUtil.isMoving()) {
+        if (!NewMovementUtil.isMoving()) {
             this.moveTicks = 0;
             this.alive = true;
         }
