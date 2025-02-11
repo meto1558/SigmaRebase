@@ -11,8 +11,6 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class VulcanAntiKB extends Module {
     public VulcanAntiKB() {
         super(ModuleCategory.COMBAT, "Vulcan", "Tries to reduce your knockback.");
-        this.registerSetting(new NumberSetting<>("Horizontal", "Horizontal velocity multiplier", 0, Integer.class, 0, 100, 1));
-        this.registerSetting(new NumberSetting<>("Vertical", "Vertical velocity multiplier", 0, Integer.class, 0, 100, 1));
     }
 
     @EventTarget
