@@ -61,6 +61,7 @@ public class Client {
     public ModuleManager moduleManager;
     public NetworkManager networkManager;
     public CombatManager combatManager;
+    public ViaManager viaManager;
     public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
@@ -101,6 +102,8 @@ public class Client {
         this.combatManager.init();
         this.commandManager = new CommandManager();
         this.commandManager.init();
+        this.viaManager = new ViaManager();
+        this.viaManager.init();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();

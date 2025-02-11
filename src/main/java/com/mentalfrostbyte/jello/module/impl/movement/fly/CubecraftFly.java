@@ -91,7 +91,7 @@ public class CubecraftFly extends Module {
             if (mc.player.onGround) {
                 this.field23847 = this.field23848 = false;
             }
-        } else if (ServerUtil.onCubeCraft()) {
+        } else if (ServerUtil.isCubecraft()) {
             if (this.field23845 > 0) {
                 var1.setY(0.0);
                 MovementUtil.setMotion(var1, 0.0);
@@ -176,7 +176,7 @@ public class CubecraftFly extends Module {
 
     @EventTarget
     public void method16689(EventUpdateWalkingPlayer event) {
-        if (event.isPre() && ServerUtil.onCubeCraft()) {
+        if (event.isPre() && ServerUtil.isCubecraft()) {
             event.setMoving(true);
             if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8) && this.field23845 == 0 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 event.cancelled = true;
@@ -190,7 +190,7 @@ public class CubecraftFly extends Module {
 
     @EventTarget
     public void method16690(EventReceivePacket var1) {
-        if (mc.world != null && mc.getConnection() != null && ServerUtil.onCubeCraft()) {
+        if (mc.world != null && mc.getConnection() != null && ServerUtil.isCubecraft()) {
             IPacket packet = var1.getPacket();
             if (!(packet instanceof SPlayerPositionLookPacket)) {
                 if (packet instanceof SEntityVelocityPacket var5) {

@@ -6,6 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.player.EventHandAnimation;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.managers.ViaManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
@@ -31,6 +32,7 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OldHitting extends Module {
     public static boolean field23408 = false;
@@ -44,19 +46,19 @@ public class OldHitting extends Module {
 
     @EventTarget
     @HigherPriority
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
-            if (var1.isPre()) {
+            if (event.isPre()) {
                 boolean var4 = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;
-                boolean auraEnabled = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled();
+                boolean var5 = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2();
                 boolean var6 = true;
                 if (!mc.player.isSneaking()
                         && mc.objectMouseOver.getType() == RayTraceResult.Type.BLOCK
-                        && !auraEnabled) {
-                    BlockRayTraceResult var7 = (BlockRayTraceResult) mc.objectMouseOver;
-                    BlockPos var8 = var7.getPos();
-                    Block var9 = mc.world.getBlockState(var8).getBlock();
-                    ArrayList var10 = new ArrayList<Block>(
+                        && !Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2()) {
+                    BlockRayTraceResult blockRayTrace = (BlockRayTraceResult) mc.objectMouseOver;
+                    BlockPos blockPos = blockRayTrace.getPos();
+                    Block block = mc.world.getBlockState(blockPos).getBlock();
+                    List<Block> blocks = new ArrayList<>(
                             Arrays.asList(
                                     Blocks.CHEST,
                                     Blocks.ENDER_CHEST,
@@ -78,33 +80,27 @@ public class OldHitting extends Module {
                                     Blocks.COMPARATOR
                             )
                     );
-                    if (var10.contains(var9)
-                            || var9 instanceof WoodButtonBlock
-                            || var9 instanceof StoneButtonBlock
-                            || var9 instanceof FenceGateBlock
-                            || var9 instanceof DoorBlock && var9 != Blocks.IRON_DOOR) {
+                    if (blocks.contains(block)
+                            || block instanceof WoodButtonBlock
+                            || block instanceof StoneButtonBlock
+                            || block instanceof FenceGateBlock
+                            || block instanceof DoorBlock && block != Blocks.IRON_DOOR) {
                         var6 = false;
                     }
                 }
 
-                //MY DUMB "FIX" - MARK
-                boolean isAutoBlockNone = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).getStringSettingValueByName("Autoblock Mode").equals("None");
-                field23408 = mc.gameSettings.keyBindUseItem.isKeyDown() && var4 && var6 && var6 || (auraEnabled && KillAura.currentTarget != null && !isAutoBlockNone);
-
-                /*
+                field23408 = mc.gameSettings.keyBindUseItem.isKeyDown() && var4 && var6 && var6 || var5;
                 if (!field23408) {
-                    if (ViaVersionLoader.entites.contains(mc.player)) {
-                        ViaVersionLoader.entites.remove(mc.player);
+                    if (ViaManager.entities.contains(mc.player)) {
+                        ViaManager.entities.remove(mc.player);
                     }
-                } else if (!ViaVersionLoader.entites.contains(mc.player)) {
-                    ViaVersionLoader.entites.add(mc.player);
+                } else if (!ViaManager.entities.contains(mc.player)) {
+                    ViaManager.entities.add(mc.player);
                 }
-
-                 */
 
                 if (field23408 && !this.field23409) {
                     this.field23409 = !this.field23409;
-                    if (!auraEnabled) {
+                    if (!var5) {
                         CombatUtil.block();
                     }
                 } else if (!field23408 && this.field23409) {

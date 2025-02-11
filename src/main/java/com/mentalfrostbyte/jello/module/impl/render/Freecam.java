@@ -12,7 +12,6 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -30,7 +29,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class Freecam extends Module {
-    public static PlayerEntity field23814;
+    public static PlayerEntity player;
     public float field23824;
     public float field23825;
     public boolean field23826;
@@ -57,7 +56,7 @@ public class Freecam extends Module {
     @EventTarget
     public void onRenderEntity(EventRenderEntity event) {
         if (this.isEnabled()) {
-            if (event.getEntity() instanceof ClientPlayerEntity && event.getEntity() != field23814) {
+            if (event.getEntity() instanceof ClientPlayerEntity && event.getEntity() != player) {
                 event.cancelled = true;
             }
         }
@@ -66,13 +65,13 @@ public class Freecam extends Module {
     @EventTarget
     public void method16640(EventRender2D var1) {
         if (this.isEnabled()) {
-            if (field23814 == null) {
+            if (player == null) {
                 this.onEnable();
             }
 
             mc.player.lastReportedPitch = mc.player.rotationPitch;
             AxisAlignedBB var4 = mc.player.boundingBox;
-            field23814.setPosition((var4.minX + var4.maxX) / 2.0, var4.minY, (var4.minZ + var4.maxZ) / 2.0);
+            player.setPosition((var4.minX + var4.maxX) / 2.0, var4.minY, (var4.minZ + var4.maxZ) / 2.0);
             double var5 = this.field23818 + (this.field23815 - this.field23818) * (double) var1.partialTicks;
             double var7 = this.field23819 + (this.field23816 - this.field23819) * (double) var1.partialTicks;
             double var9 = this.field23820 + (this.field23817 - this.field23820) * (double) var1.partialTicks;
@@ -97,8 +96,8 @@ public class Freecam extends Module {
     @EventTarget
     public void method16641(EventRender3D var1) {
         if (this.isEnabled()) {
-            field23814.resetPositionToBB();
-            field23814.boundingBox = new AxisAlignedBB(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            player.resetPositionToBB();
+            player.boundingBox = new AxisAlignedBB(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         }
     }
 
@@ -111,16 +110,16 @@ public class Freecam extends Module {
         this.field23822 = mc.player.rotationPitch;
         String var3 = mc.player.getName().getString();
         GameProfile var4 = new GameProfile(mc.player.getGameProfile().getId(), var3);
-        field23814 = new RemoteClientPlayerEntity(mc.world, var4);
-        field23814.inventory = mc.player.inventory;
-        field23814.setPositionAndRotation(this.field23815, this.field23816, this.field23817, this.field23821, this.field23822);
-        field23814.noClip = true;
-        field23814.entityCollisionReduction = mc.player.entityCollisionReduction;
-        field23814.rotationYawHead = this.field23821;
-        field23814.prevRotationYawHead = this.field23821;
-        field23814.renderYawOffset = this.field23821;
-        field23814.prevRenderYawOffset = this.field23821;
-        mc.world.addEntity(this.field23823 = (int) (Math.random() * -10000.0), field23814);
+        player = new RemoteClientPlayerEntity(mc.world, var4);
+        player.inventory = mc.player.inventory;
+        player.setPositionAndRotation(this.field23815, this.field23816, this.field23817, this.field23821, this.field23822);
+        player.noClip = true;
+        player.entityCollisionReduction = mc.player.entityCollisionReduction;
+        player.rotationYawHead = this.field23821;
+        player.prevRotationYawHead = this.field23821;
+        player.renderYawOffset = this.field23821;
+        player.prevRenderYawOffset = this.field23821;
+        mc.world.addEntity(this.field23823 = (int) (Math.random() * -10000.0), player);
         this.field23826 = mc.gameSettings.keyBindForward.isKeyDown();
         this.field23827 = mc.gameSettings.keyBindBack.isKeyDown();
         this.field23828 = mc.gameSettings.keyBindLeft.isKeyDown();
@@ -147,11 +146,11 @@ public class Freecam extends Module {
         mc.gameSettings.keyBindSneak.pressed = this.field23831;
         mc.world.removeEntityFromWorld(this.field23823);
         mc.player.resetPositionToBB();
-        if (field23814 != null) {
-            mc.player.entityCollisionReduction = field23814.entityCollisionReduction;
+        if (player != null) {
+            mc.player.entityCollisionReduction = player.entityCollisionReduction;
         }
 
-        field23814 = null;
+        player = null;
     }
 
     @EventTarget
@@ -291,7 +290,7 @@ public class Freecam extends Module {
                     mc.player
                             .setBoundingBox(new AxisAlignedBB(var5 - (double) var11, var7, var9 - (double) var11, var5 + (double) var11, var7 + (double) var12, var9 + (double) var11));
                     var1.cancelled = true;
-                    field23814.setMotion(0.0, 0.0, 0.0);
+                    player.setMotion(0.0, 0.0, 0.0);
                 }
             }
         }
@@ -301,7 +300,7 @@ public class Freecam extends Module {
     public void method16648(EventSendPacket var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof CAnimateHandPacket) {
-                field23814.swingArm(Hand.MAIN_HAND);
+                player.swingArm(Hand.MAIN_HAND);
             }
 
             if (var1.getPacket() instanceof CUseEntityPacket) {

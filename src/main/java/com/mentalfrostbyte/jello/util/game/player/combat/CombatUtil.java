@@ -41,6 +41,7 @@ public class CombatUtil implements MinecraftUtil {
 
     public static void block() {
         mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));
+        mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.OFF_HAND));
     }
 
     public static void unblock() {
