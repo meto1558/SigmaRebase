@@ -32,13 +32,7 @@ public class RotationManager implements MinecraftUtil {
     @EventTarget
     @HighestPriority
     public void onTick(EventRunTick event) {
-        if (this.rotations == null && mc.player != null) {
-            this.rotations = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
-        }
 
-        if (!killAura.isEnabled() || !blockFly.isEnabled()) {
-            this.rotations = null;
-        }
     }
 
     public void setRotations(Rotation rotations) {
@@ -51,15 +45,8 @@ public class RotationManager implements MinecraftUtil {
 
     public void setRotations(Rotation rotations, EventRotation event) {
         this.rotations = rotations;
-
-        this.rotations.lastYaw = event.yaw;
-        this.rotations.lastPitch = event.pitch;
-
         event.yaw = rotations.yaw;
         event.pitch = rotations.pitch;
-
-        this.rotations.yaw = event.yaw;
-        this.rotations.pitch = event.pitch;
     }
 
     public void setRotations(float[] rotations, EventRotation event) {
@@ -99,6 +86,6 @@ public class RotationManager implements MinecraftUtil {
     }
 
     public boolean shouldRotate() {
-        return (killAura.enabled && target != null) || rotations != null;
+        return rotations != null;
     }
 }

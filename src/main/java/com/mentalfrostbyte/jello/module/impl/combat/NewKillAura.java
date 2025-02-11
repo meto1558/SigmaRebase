@@ -72,6 +72,7 @@ public class NewKillAura extends Module {
         super.onDisable();
 
         Client.getInstance().rotationManager.target = null;
+        Client.getInstance().rotationManager.rotations = null;
     }
 
     private long calculateAttackDelay() {
@@ -82,17 +83,8 @@ public class NewKillAura extends Module {
     @EventTarget
     @HighestPriority
     public void onRots(EventRotation event) {
-        if (Client.getInstance().rotationManager.shouldRotate()) {
-            Client.getInstance().rotationManager.rotations = RotationUtil.getRotations(Client.getInstance().rotationManager.target, true);
-
-            Client.getInstance().rotationManager.rotations.lastYaw = event.yaw;
-            Client.getInstance().rotationManager.rotations.lastPitch = event.pitch;
-
-            event.yaw = Client.getInstance().rotationManager.rotations.yaw;
-            event.pitch = Client.getInstance().rotationManager.rotations.pitch;
-
-            Client.getInstance().rotationManager.rotations.yaw = event.yaw;
-            Client.getInstance().rotationManager.rotations.pitch = event.pitch;
+        if (Client.getInstance().rotationManager.target != null) {
+            Client.getInstance().rotationManager.setRotations(RotationUtil.getRotations(Client.getInstance().rotationManager.target, true), event);
         }
     }
 
