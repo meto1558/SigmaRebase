@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Class9510 {
     private static String[] field44270;
-    public Class9110 field44271;
+    public TraceThing field44271;
     public int field44272;
     public int field44273 = 0;
     public Float field44274;
@@ -20,35 +20,35 @@ public class Class9510 {
     public Set<Long> field44283 = new HashSet<Long>();
     public Set<Long> field44284 = new HashSet<Long>();
 
-    public Class9510(Class9110 var1, int var2, Float var3) {
+    public Class9510(TraceThing var1, int var2, Float var3) {
         this.field44271 = var1;
         this.field44272 = var2;
         this.field44274 = var3;
     }
 
-    public Class9510(Class9110 var1) {
+    public Class9510(TraceThing var1) {
         this.field44271 = var1;
     }
 
-    public Class9510(Class9110 var1, int var2) {
+    public Class9510(TraceThing var1, int var2) {
         this.field44271 = var1;
         this.field44276 += var2;
     }
 
-    public Class9510(Class9110 var1, int var2, Class2317 var3) {
+    public Class9510(TraceThing var1, int var2, Class2317 var3) {
         this.field44271 = var1;
         this.field44276 += var2;
         this.field44279 = var3;
     }
 
-    public Class9510(Class9110 var1, int var2, Class2317 var3, Class2285 var4) {
+    public Class9510(TraceThing var1, int var2, Class2317 var3, Class2285 var4) {
         this.field44271 = var1;
         this.field44276 += var2;
         this.field44279 = var3;
         this.field44280 = var4;
     }
 
-    public Class9510 method36727(Class9110 var1, boolean var2) {
+    public Class9510 method36727(TraceThing var1, boolean var2) {
         long var5 = var1.method33979().toLong();
         if (var2) {
             long var7 = var1.method33979().up().toLong();
@@ -63,14 +63,14 @@ public class Class9510 {
         return this;
     }
 
-    public Class9510 method36728(Class9110 var1) {
+    public Class9510 method36728(TraceThing var1) {
         long var4 = var1.method33979().toLong();
         this.field44283.remove(var4);
         this.field44284.add(var4);
         return this;
     }
 
-    public Class9510 method36729(Class9110 var1) {
+    public Class9510 method36729(TraceThing var1) {
         this.field44282.add(var1.method33979().toLong());
         return this;
     }

@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 
-public class Class9110 {
+public class TraceThing {
     private double x;
     private double y;
     private double z;
@@ -27,16 +27,16 @@ public class Class9110 {
             new ProjectileDirection(0.0, 1.0, 0.0)
     };
 
-    public Class9110(double var1, double var3, double var5, Class9510 var7) {
+    public TraceThing(double var1, double var3, double var5, Class9510 var7) {
         this.fromXYZ(var1, var3, var5);
         this.field41869 = var7;
     }
 
-    public Class9110(double var1, double var3, double var5) {
+    public TraceThing(double var1, double var3, double var5) {
         this.fromXYZ(var1, var3, var5);
     }
 
-    public Class9110(BlockPos var1) {
+    public TraceThing(BlockPos var1) {
         this.fromXYZ((double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
     }
 
@@ -46,8 +46,8 @@ public class Class9110 {
         this.z = z;
     }
 
-    public Class9110 method33965(double var1, double var3, double var5) {
-        return new Class9110(this.x + var1, this.y + var3, this.z + var5);
+    public TraceThing method33965(double var1, double var3, double var5) {
+        return new TraceThing(this.x + var1, this.y + var3, this.z + var5);
     }
 
     public void setX(float x) {
@@ -91,25 +91,25 @@ public class Class9110 {
         return MathHelper.sqrt(xDist * xDist + yDist * yDist + zDist * zDist);
     }
 
-    public float method33975(Class9110 var1) {
+    public float method33975(TraceThing var1) {
         double var4 = var1.getX() - this.getX();
         double var6 = var1.getY() - this.getY();
         double var8 = var1.getZ() - this.getZ();
         return MathHelper.sqrt(var4 * var4 + var6 * var6 + var8 * var8);
     }
 
-    public double method33976(Class9110 var1) {
+    public double method33976(TraceThing var1) {
         double var4 = var1.getX() - this.getX();
         double var6 = var1.getY() - this.getY();
         double var8 = var1.getZ() - this.getZ();
         return var4 * var4 + var6 * var6 + var8 * var8;
     }
 
-    public Class9110 method33977(float var1, float var2, float var3) {
-        return new Class9110(this.getX() + (double)var1, this.getY() + (double)var2, this.getZ() + (double)var3, this.field41869);
+    public TraceThing method33977(float var1, float var2, float var3) {
+        return new TraceThing(this.getX() + (double)var1, this.getY() + (double)var2, this.getZ() + (double)var3, this.field41869);
     }
 
-    public double method33978(Class9110 var1) {
+    public double method33978(TraceThing var1) {
         double var4 = var1.getX() - this.getX();
         double var6 = var1.getY() - this.getY();
         double var8 = var1.getZ() - this.getZ();

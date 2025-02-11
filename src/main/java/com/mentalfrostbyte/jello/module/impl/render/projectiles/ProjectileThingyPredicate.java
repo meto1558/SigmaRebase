@@ -5,14 +5,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 
-public class Class167 implements Predicate<Entity> {
+public class ProjectileThingyPredicate implements Predicate<Entity> {
     private static String[] field537;
     public final float field538;
     public final Vector3d field539;
     public final Vector3d field540;
-    public final ProjectileThingy field541;
+    public final ProjectileItems field541;
 
-    public Class167(ProjectileThingy var1, float var2, Vector3d var3, Vector3d var4) {
+    public ProjectileThingyPredicate(ProjectileItems var1, float var2, Vector3d var3, Vector3d var4) {
         this.field541 = var1;
         this.field538 = var2;
         this.field539 = var3;

@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class2285;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class2317;
-import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9110;
+import com.mentalfrostbyte.jello.module.impl.render.projectiles.TraceThing;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9510;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -275,7 +275,7 @@ public class MinerTracker {
                     BlockPos var10 = BlockPos.fromLong(var8);
                     if (this.mc.player.getPositionVec().squareDistanceTo((double) var10.getX(), (double) var10.getY(),
                             (double) var10.getZ()) < 9.0
-                            && !Class9110.method33985(var10)
+                            && !TraceThing.method33985(var10)
                             && !this.mc.world.getBlockState(var10).isAir()) {
                         var4.add(var10);
                     }
