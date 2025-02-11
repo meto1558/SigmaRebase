@@ -73,9 +73,9 @@ public class Projectiles extends Module {
                         float var30 = (float) Math.min(1, var22);
                         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.05F * var30);
                         GL11.glVertex3d(
-                                var23.method33969() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var24,
-                                var23.method33970() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var28,
-                                var23.method33971() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var26);
+                                var23.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var24,
+                                var23.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var28,
+                                var23.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var26);
                     }
 
                     GL11.glEnd();
@@ -91,9 +91,9 @@ public class Projectiles extends Module {
                         float var48 = (float) Math.min(1, var38);
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F * var48);
                         GL11.glVertex3d(
-                                var39.method33969() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var40,
-                                var39.method33970() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var46,
-                                var39.method33971() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var43);
+                                var39.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var40,
+                                var39.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var46,
+                                var39.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var43);
                     }
 
                     GL11.glEnd();

@@ -80,10 +80,10 @@ public class Class9510 {
         if (this != var1) {
             if (var1 != null && this.getClass() == var1.getClass()) {
                 Class9510 var4 = (Class9510)var1;
-                if (this.field44271.method33969() != var4.field44271.method33969()) {
+                if (this.field44271.getX() != var4.field44271.getX()) {
                     return false;
                 } else {
-                    return this.field44271.method33970() != var4.field44271.method33970() ? false : this.field44271.method33971() == var4.field44271.method33971();
+                    return this.field44271.getY() != var4.field44271.getY() ? false : this.field44271.getZ() == var4.field44271.getZ();
                 }
             } else {
                 return false;
@@ -95,8 +95,8 @@ public class Class9510 {
 
     @Override
     public int hashCode() {
-        int var3 = (int)((long)this.field44271.method33969() ^ (long)this.field44271.method33969() >>> 32);
-        var3 = 31 * var3 + (int)((long)this.field44271.method33970() ^ (long)this.field44271.method33970() >>> 32);
-        return 31 * var3 + (int)((long)this.field44271.method33971() ^ (long)this.field44271.method33971() >>> 32);
+        int var3 = (int)((long)this.field44271.getX() ^ (long)this.field44271.getX() >>> 32);
+        var3 = 31 * var3 + (int)((long)this.field44271.getY() ^ (long)this.field44271.getY() >>> 32);
+        return 31 * var3 + (int)((long)this.field44271.getZ() ^ (long)this.field44271.getZ() >>> 32);
     }
 }

@@ -13,119 +13,118 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class Class9110 {
-    private static String[] field41864;
-    private double field41865;
-    private double field41866;
-    private double field41867;
-    public static Minecraft field41868 = Minecraft.getInstance();
+    private double x;
+    private double y;
+    private double z;
+    public static Minecraft mc = Minecraft.getInstance();
     public Class9510 field41869;
-    private static Class9485[] field41870 = new Class9485[]{
-            new Class9485(1.0, 0.0, 0.0),
-            new Class9485(-1.0, 0.0, 0.0),
-            new Class9485(0.0, 0.0, 1.0),
-            new Class9485(0.0, 0.0, -1.0),
-            new Class9485(0.0, -1.0, 0.0),
-            new Class9485(0.0, 1.0, 0.0)
+    private static ProjectileDirection[] directions = new ProjectileDirection[]{
+            new ProjectileDirection(1.0, 0.0, 0.0),
+            new ProjectileDirection(-1.0, 0.0, 0.0),
+            new ProjectileDirection(0.0, 0.0, 1.0),
+            new ProjectileDirection(0.0, 0.0, -1.0),
+            new ProjectileDirection(0.0, -1.0, 0.0),
+            new ProjectileDirection(0.0, 1.0, 0.0)
     };
 
     public Class9110(double var1, double var3, double var5, Class9510 var7) {
-        this.method33964(var1, var3, var5);
+        this.fromXYZ(var1, var3, var5);
         this.field41869 = var7;
     }
 
     public Class9110(double var1, double var3, double var5) {
-        this.method33964(var1, var3, var5);
+        this.fromXYZ(var1, var3, var5);
     }
 
     public Class9110(BlockPos var1) {
-        this.method33964((double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
+        this.fromXYZ((double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
     }
 
-    public void method33964(double var1, double var3, double var5) {
-        this.field41865 = var1;
-        this.field41866 = var3;
-        this.field41867 = var5;
+    public void fromXYZ(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public Class9110 method33965(double var1, double var3, double var5) {
-        return new Class9110(this.field41865 + var1, this.field41866 + var3, this.field41867 + var5);
+        return new Class9110(this.x + var1, this.y + var3, this.z + var5);
     }
 
-    public void method33966(float var1) {
-        this.field41865 = (double)var1;
+    public void setX(float x) {
+        this.x = x;
     }
 
-    public void method33967(float var1) {
-        this.field41866 = (double)var1;
+    public void setY(float y) {
+        this.y = y;
     }
 
-    public void method33968(float var1) {
-        this.field41867 = (double)var1;
+    public void setZ(float z) {
+        this.z = z;
     }
 
-    public double method33969() {
-        return this.field41865;
+    public double getX() {
+        return this.x;
     }
 
-    public double method33970() {
-        return this.field41866;
+    public double getY() {
+        return this.y;
     }
 
-    public double method33971() {
-        return this.field41867;
+    public double getZ() {
+        return this.z;
     }
 
-    public Vector3d method33972() {
-        return new Vector3d(this.method33969(), this.method33970(), this.method33971()).add(0.5, 0.0, 0.5);
+    public Vector3d getMiddleXZ() {
+        return new Vector3d(this.getX(), this.getY(), this.getZ()).add(0.5, 0.0, 0.5);
     }
 
-    public double method33973(Vector3d var1) {
-        double var4 = var1.x - this.method33969() - 0.5;
-        double var6 = var1.z - this.method33971() - 0.5;
-        return (double) MathHelper.sqrt(var4 * var4 + var6 * var6);
+    public double getXZDistance(Vector3d vec) {
+        double xDist = vec.x - this.getX() - 0.5;
+        double zDist = vec.z - this.getZ() - 0.5;
+        return MathHelper.sqrt(xDist * xDist + zDist * zDist);
     }
 
-    public float method33974(Entity var1) {
-        double var4 = var1.getPosX() - this.method33969();
-        double var6 = var1.getPosY() - this.method33970();
-        double var8 = var1.getPosZ() - this.method33971();
-        return MathHelper.sqrt(var4 * var4 + var6 * var6 + var8 * var8);
+    public float getDistance(Entity e) {
+        double xDist = e.getPosX() - this.getX();
+        double yDist = e.getPosY() - this.getY();
+        double zDist = e.getPosZ() - this.getZ();
+        return MathHelper.sqrt(xDist * xDist + yDist * yDist + zDist * zDist);
     }
 
     public float method33975(Class9110 var1) {
-        double var4 = var1.method33969() - this.method33969();
-        double var6 = var1.method33970() - this.method33970();
-        double var8 = var1.method33971() - this.method33971();
+        double var4 = var1.getX() - this.getX();
+        double var6 = var1.getY() - this.getY();
+        double var8 = var1.getZ() - this.getZ();
         return MathHelper.sqrt(var4 * var4 + var6 * var6 + var8 * var8);
     }
 
     public double method33976(Class9110 var1) {
-        double var4 = var1.method33969() - this.method33969();
-        double var6 = var1.method33970() - this.method33970();
-        double var8 = var1.method33971() - this.method33971();
+        double var4 = var1.getX() - this.getX();
+        double var6 = var1.getY() - this.getY();
+        double var8 = var1.getZ() - this.getZ();
         return var4 * var4 + var6 * var6 + var8 * var8;
     }
 
     public Class9110 method33977(float var1, float var2, float var3) {
-        return new Class9110(this.method33969() + (double)var1, this.method33970() + (double)var2, this.method33971() + (double)var3, this.field41869);
+        return new Class9110(this.getX() + (double)var1, this.getY() + (double)var2, this.getZ() + (double)var3, this.field41869);
     }
 
     public double method33978(Class9110 var1) {
-        double var4 = var1.method33969() - this.method33969();
-        double var6 = var1.method33970() - this.method33970();
-        double var8 = var1.method33971() - this.method33971();
+        double var4 = var1.getX() - this.getX();
+        double var6 = var1.getY() - this.getY();
+        double var8 = var1.getZ() - this.getZ();
         return Math.abs(var4) + Math.abs(var8) + Math.abs(var6);
     }
 
     public BlockPos method33979() {
-        return new BlockPos(this.method33969(), this.method33970(), this.method33971());
+        return new BlockPos(this.getX(), this.getY(), this.getZ());
     }
 
     public boolean method33980() {
-        if (field41868.world.getBlockState(this.method33979()).getBlock() == Blocks.LAVA) {
+        if (mc.world.getBlockState(this.method33979()).getBlock() == Blocks.LAVA) {
             return false;
-        } else if (field41868.world.getBlockState(this.method33979()).getFluidState().isEmpty()) {
-            return field41868.world.getBlockState(this.method33979().down()).getBlock() instanceof FenceBlock
+        } else if (mc.world.getBlockState(this.method33979()).getFluidState().isEmpty()) {
+            return mc.world.getBlockState(this.method33979().down()).getBlock() instanceof FenceBlock
                     ? false
                     : this.method33988(this.method33979()) && this.method33988(this.method33979().up());
         } else {
@@ -146,8 +145,8 @@ public class Class9110 {
     }
 
     public static boolean method33984(BlockPos var0) {
-        for (Class9485 var6 : field41870) {
-            BlockState var7 = field41868.world.getBlockState(var0.add(var6.field44096, var6.field44097, var6.field44098));
+        for (ProjectileDirection var6 : directions) {
+            BlockState var7 = mc.world.getBlockState(var0.add(var6.x, var6.y, var6.z));
             if (var7.getBlock() == Blocks.WATER || var7.getBlock() == Blocks.LAVA) {
                 return true;
             }
@@ -157,8 +156,8 @@ public class Class9110 {
     }
 
     public static boolean method33985(BlockPos var0) {
-        for (Class9485 var6 : field41870) {
-            BlockState var7 = field41868.world.getBlockState(var0.add(var6.field44096, var6.field44097, var6.field44098));
+        for (ProjectileDirection var6 : directions) {
+            BlockState var7 = mc.world.getBlockState(var0.add(var6.x, var6.y, var6.z));
             if (var7.isAir()) {
                 return false;
             }
@@ -168,33 +167,33 @@ public class Class9110 {
     }
 
     public boolean method33986() {
-        for (Class9485 var6 : field41870) {
-            BlockState var7 = field41868.world.getBlockState(this.method33979().add(var6.field44096, var6.field44097, var6.field44098));
+        for (ProjectileDirection var6 : directions) {
+            BlockState var7 = mc.world.getBlockState(this.method33979().add(var6.x, var6.y, var6.z));
             if (var7.getBlock() == Blocks.WATER || var7.getBlock() == Blocks.LAVA) {
                 return true;
             }
         }
 
-        for (Class9485 var11 : field41870) {
-            BlockState var12 = field41868.world.getBlockState(this.method33979().add(var11.field44096, var11.field44097 + 1.0, var11.field44098));
+        for (ProjectileDirection var11 : directions) {
+            BlockState var12 = mc.world.getBlockState(this.method33979().add(var11.x, var11.y + 1.0, var11.z));
             if (var12.getBlock() == Blocks.WATER || var12.getBlock() == Blocks.LAVA) {
                 return true;
             }
         }
 
-        return field41868.world.getBlockState(this.method33979().up(2)).getBlock() instanceof FallingBlock
+        return mc.world.getBlockState(this.method33979().up(2)).getBlock() instanceof FallingBlock
                 && !this.field41869.field44283.contains(this.method33979().up(2).toLong());
     }
 
     public boolean method33987() {
         return this.method33986()
-                || field41868.world.getBlockState(this.method33979()).getBlock() == Blocks.BEDROCK
-                || field41868.world.getBlockState(this.method33979().up()).getBlock() == Blocks.BEDROCK;
+                || mc.world.getBlockState(this.method33979()).getBlock() == Blocks.BEDROCK
+                || mc.world.getBlockState(this.method33979().up()).getBlock() == Blocks.BEDROCK;
     }
 
     public boolean method33988(BlockPos var1) {
         return !this.field41869.field44283.contains(var1.toLong())
-                ? Minecraft.getInstance().world.getBlockState(var1).getCollisionShape(field41868.world, var1).isEmpty()
+                ? Minecraft.getInstance().world.getBlockState(var1).getCollisionShape(mc.world, var1).isEmpty()
                 : true;
     }
 
@@ -204,7 +203,7 @@ public class Class9110 {
 
     public boolean method33990(BlockPos var1) {
         if (!this.field41869.field44283.contains(this.method33979().toLong())) {
-            VoxelShape var4 = Minecraft.getInstance().world.getBlockState(var1).getCollisionShape(field41868.world, var1);
+            VoxelShape var4 = Minecraft.getInstance().world.getBlockState(var1).getCollisionShape(mc.world, var1);
             if (var4.isEmpty()) {
                 return false;
             } else {
