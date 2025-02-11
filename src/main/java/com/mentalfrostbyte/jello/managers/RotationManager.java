@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.EventRunTick;
 import com.mentalfrostbyte.jello.event.impl.player.rotation.*;
 import com.mentalfrostbyte.jello.module.impl.combat.NewKillAura;
+import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
@@ -18,20 +19,25 @@ public class RotationManager implements MinecraftUtil {
 
     // MODULES THAT USE ROTATIONS
     private NewKillAura killAura;
+    private BlockFly blockFly;
 
     public Rotation rotations;
 
     public void init() {
         EventBus.register(this);
         killAura = (NewKillAura) Client.getInstance().moduleManager.getModuleByClass(NewKillAura.class);
+        blockFly = (BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class);
     }
-
 
     @EventTarget
     @HighestPriority
     public void onTick(EventRunTick event) {
-        if (!shouldRotate() && this.rotations == null && mc.player != null) {
+        if (this.rotations == null && mc.player != null) {
             this.rotations = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
+        }
+
+        if (!killAura.isEnabled() || !blockFly.isEnabled()) {
+            this.rotations = null;
         }
     }
 
