@@ -90,6 +90,8 @@ public class BlockFlySmoothMode extends Module {
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
+
+        Client.getInstance().rotationManager.rotations = null;
     }
 
     @EventTarget
@@ -218,6 +220,8 @@ public class BlockFlySmoothMode extends Module {
             if (event.state == CancellableEvent.EventState.PRE) {
                 if (this.yaw != 999.0F) {
                     Client.getInstance().rotationManager.setRotations(new Rotation(this.yaw, this.pitch), event);
+                } else {
+                    Client.getInstance().rotationManager.rotations = null;
                 }
 
                 if (mc.player.rotationYaw != event.yaw && mc.player.rotationPitch != event.pitch) {
