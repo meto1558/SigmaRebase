@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
@@ -12,6 +13,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -55,7 +57,7 @@ public class Freecam extends Module {
     @EventTarget
     public void onRenderEntity(EventRenderEntity event) {
         if (this.isEnabled()) {
-            if (event.method13953() instanceof ClientPlayerEntity && event.method13953() != field23814) {
+            if (event.getEntity() instanceof ClientPlayerEntity && event.getEntity() != field23814) {
                 event.cancelled = true;
             }
         }
@@ -243,10 +245,10 @@ public class Freecam extends Module {
     }
 
     @EventTarget
-    public void method16646(EventUpdateWalkingPlayer var1) {
-        if (this.isEnabled() && var1.isPre()) {
-            var1.setYaw(this.field23821 % 360.0F);
-            var1.setPitch(this.field23822);
+    public void method16646(EventRotation var1) {
+        if (this.isEnabled() && var1.state == CancellableEvent.EventState.PRE) {
+            var1.yaw = this.field23821 % 360.0F;
+            var1.pitch = this.field23822;
             mc.player.lastReportedYaw = this.field23821;
             mc.player.lastReportedPitch = this.field23822;
             float[] var4 = MovementUtil.getDirectionArray(this.field23825, this.field23824);
