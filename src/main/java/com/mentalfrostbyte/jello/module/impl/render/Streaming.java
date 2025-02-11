@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
+import com.mentalfrostbyte.jello.event.impl.game.network.EventGetLocationSkin;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.EventReplaceText;
 import com.mentalfrostbyte.jello.module.Module;
@@ -29,12 +30,9 @@ public class Streaming extends Module {
     }
 
     @EventTarget
-    public void EventRenderEntity(EventRenderEntity event) {
-        if (this.isEnabled()) {
-            if (this.getBooleanValueFromSettingName("Hide skins")) {
-                event.cancelled = false;
-            }
+    public void onGetLocationSkin(EventGetLocationSkin event) {
+        if (this.getBooleanValueFromSettingName("Hide skins")) {
+            event.cancelled = true;
         }
-        // will fix later
     }
 }
