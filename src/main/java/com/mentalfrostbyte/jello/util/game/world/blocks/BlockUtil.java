@@ -424,7 +424,7 @@ public class BlockUtil {
                 var0.getBoundingBox().maxY,
                 var0.getBoundingBox().maxZ
         );
-        Stream<VoxelShape> var5 = Module.mc.world.getCollisionShapes(Module.mc.player, var4);
+        Stream<VoxelShape> var5 = mc.world.getCollisionShapes(mc.player, var4);
         return var5.findAny().isPresent();
     }
 
