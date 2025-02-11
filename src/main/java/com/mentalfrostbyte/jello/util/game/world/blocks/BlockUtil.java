@@ -190,13 +190,13 @@ public class BlockUtil {
         return mc.world.rayTraceBlocks(new RayTraceContext(var5, var9, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, var10));
     }
 
-    public static BlockRayTraceResult rayTrace(float var0, float var1, float var2, EventUpdateWalkingPlayer var3) {
+    public static BlockRayTraceResult rayTrace(float yaw, float pitch, float var2, EventUpdateWalkingPlayer var3) {
         Vector3d var6 = new Vector3d(var3.getX(), (double) mc.player.getEyeHeight() + var3.getY(), var3.getZ());
-        var0 = (float) Math.toRadians((double) var0);
-        var1 = (float) Math.toRadians((double) var1);
-        float var7 = -MathHelper.sin(var0) * MathHelper.cos(var1);
-        float var8 = -MathHelper.sin(var1);
-        float var9 = MathHelper.cos(var0) * MathHelper.cos(var1);
+        yaw = (float) Math.toRadians((double) yaw);
+        pitch = (float) Math.toRadians((double) pitch);
+        float var7 = -MathHelper.sin(yaw) * MathHelper.cos(pitch);
+        float var8 = -MathHelper.sin(pitch);
+        float var9 = MathHelper.cos(yaw) * MathHelper.cos(pitch);
         if (var2 == 0.0F) {
             var2 = mc.playerController.getBlockReachDistance();
         }
