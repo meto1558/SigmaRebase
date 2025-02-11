@@ -70,6 +70,7 @@ public class Client {
     public MusicManager musicManager;
     public PlayerStateTracker playerTracker;
     public MinerTracker minerTracker;
+    public RotationManager rotationManager;
 
     private Logger logger;
 
@@ -100,6 +101,8 @@ public class Client {
         this.combatManager.init();
         this.commandManager = new CommandManager();
         this.commandManager.init();
+        this.rotationManager = new RotationManager();
+        this.rotationManager.init();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();
