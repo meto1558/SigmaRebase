@@ -10,6 +10,7 @@ import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.NotNull;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
@@ -41,17 +42,17 @@ public class RotationManager implements MinecraftUtil {
         this.rotations = rotations;
     }
 
-    public void setRotations(float[] rotations) {
+    public void setRotations(float @NotNull [] rotations) {
         setRotations(new Rotation(rotations[0], rotations[1]));
     }
 
-    public void setRotations(Rotation rotations, EventRotation event) {
+    public void setRotations(@NotNull Rotation rotations, @NotNull EventRotation event) {
         this.rotations = rotations;
         event.yaw = rotations.yaw;
         event.pitch = rotations.pitch;
     }
 
-    public void setRotations(float[] rotations, EventRotation event) {
+    public void setRotations(float @NotNull [] rotations, EventRotation event) {
         setRotations(new Rotation(rotations[0], rotations[1]), event);
     }
 
@@ -66,7 +67,7 @@ public class RotationManager implements MinecraftUtil {
 
     @EventTarget
     @HighestPriority
-    public void onYawOffset(EventRotationYawOffset event) {
+    public void onYawOffset(@NotNull EventRotationYawOffset event) {
         if (event.entity.equals(mc.player) && shouldRotate()) {
 			assert rotations != null;
 			event.f = MathHelper.interpolateAngle(event.partialTicks, rotations.lastYaw, rotations.yaw);
@@ -75,17 +76,19 @@ public class RotationManager implements MinecraftUtil {
 
     @EventTarget
     @HighestPriority
-    public void onYawHead(EventRotationYawHead event) {
+    public void onYawHead(@NotNull EventRotationYawHead event) {
         if (event.entity.equals(mc.player) && shouldRotate()) {
-            event.f1 = MathHelper.interpolateAngle(event.partialTicks, rotations.lastYaw, rotations.yaw);
+			assert rotations != null;
+			event.f1 = MathHelper.interpolateAngle(event.partialTicks, rotations.lastYaw, rotations.yaw);
         }
     }
 
     @EventTarget
     @HighestPriority
-    public void onPitch(EventRotationPitchHead event) {
+    public void onPitch(@NotNull EventRotationPitchHead event) {
         if (event.entity.equals(mc.player) && shouldRotate()) {
-            event.f7 = MathHelper.interpolateAngle(event.partialTicks, rotations.lastPitch, rotations.pitch);
+			assert rotations != null;
+			event.f7 = MathHelper.interpolateAngle(event.partialTicks, rotations.lastPitch, rotations.pitch);
         }
     }
 
