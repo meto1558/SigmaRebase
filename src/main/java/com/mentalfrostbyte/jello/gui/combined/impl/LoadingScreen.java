@@ -82,26 +82,26 @@ public class LoadingScreen extends LoadingGui {
         }
     }
 
-    public static void xd(float var0, float var1) {
+    public static void xd(float bgOpacity, float var1) {
         GL11.glEnable(3008);
         GL11.glEnable(3042);
-        RenderUtil.drawImage(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), background, var0);
+        RenderUtil.drawImage(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), background, bgOpacity);
         RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), RenderUtil2.applyAlpha(0, 0.75F));
         int var4 = 455;
         int var5 = 78;
         int var6 = (Minecraft.getInstance().getMainWindow().getWidth() - var4) / 2;
-        int var7 = Math.round((float)((Minecraft.getInstance().getMainWindow().getHeight() - var5) / 2) - 14.0F * var0);
-        float var8 = 0.75F + var0 * var0 * var0 * var0 * 0.25F;
+        int var7 = Math.round((float)((Minecraft.getInstance().getMainWindow().getHeight() - var5) / 2) - 14.0F * bgOpacity);
+        float var8 = 0.75F + bgOpacity * bgOpacity * bgOpacity * bgOpacity * 0.25F;
         GL11.glPushMatrix();
         GL11.glTranslatef((float)(Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
         GL11.glScalef(var8, var8, 0.0F);
         GL11.glTranslatef((float)(-Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(-Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
-        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var0));
+        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), bgOpacity));
         float var9 = Math.min(1.0F, var1 * 1.02F);
         float var11 = 80;
-        if (var0 == 1.0F) {
+        if (bgOpacity == 1.0F) {
             RenderUtil.drawRoundedRect(
-                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * var0)
+                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * bgOpacity)
             );
             RenderUtil.drawRoundedRect(
                     (float)(var6 + 1),
@@ -109,7 +109,7 @@ public class LoadingScreen extends LoadingGui {
                     (float)(var4 - 2),
                     18.0F,
                     9.0F,
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F * var0)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F * bgOpacity)
             );
         }
 
@@ -119,7 +119,7 @@ public class LoadingScreen extends LoadingGui {
                 (float)((int)((float)(var4 - 4) * var9)),
                 16.0F,
                 8.0F,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * var0)
+                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * bgOpacity)
         );
         GL11.glPopMatrix();
     }

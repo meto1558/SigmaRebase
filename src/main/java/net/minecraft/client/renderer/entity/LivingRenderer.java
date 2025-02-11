@@ -238,7 +238,7 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                 this.renderEntity = null;
             }
 
-            eventRenderEntity.setState(EventRenderEntity.RenderState.field13214);
+            eventRenderEntity.setState(EventRenderEntity.RenderState.COMPLETE);
             EventBus.call(eventRenderEntity);
             matrixStackIn.pop();
             super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
