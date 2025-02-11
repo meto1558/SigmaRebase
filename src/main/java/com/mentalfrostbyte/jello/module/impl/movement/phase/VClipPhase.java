@@ -13,6 +13,7 @@ import java.util.Objects;
 public class VClipPhase extends Module {
 
     private final NumberSetting<Double> blocksToClip;
+    private long lastClipTime = 0;
 
     public VClipPhase() {
         super(ModuleCategory.MOVEMENT, "VClip", "Vclip phase (click shift)");
@@ -29,7 +30,9 @@ public class VClipPhase extends Module {
 
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer __) {
-        if (this.isEnabled() && mc.gameSettings.keyBindSneak.isKeyDown()) {
+        long currentTime = System.currentTimeMillis();
+        if (this.isEnabled() && mc.gameSettings.keyBindSneak.isKeyDown() && currentTime - lastClipTime >= 500) {
+            lastClipTime = currentTime;
             assert mc.player != null;
             Objects.requireNonNull(mc.getConnection())
                     .handlePlayerPosLook(
