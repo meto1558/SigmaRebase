@@ -196,7 +196,7 @@ public abstract class Entity implements INameable, ICommandSource
     private final double[] pistonDeltas = new double[] {0.0D, 0.0D, 0.0D};
     private long pistonDeltasGameTime;
     private EntitySize size;
-    private float eyeHeight;
+    public float eyeHeight;
 
     public Entity(EntityType<?> entityTypeIn, World worldIn)
     {

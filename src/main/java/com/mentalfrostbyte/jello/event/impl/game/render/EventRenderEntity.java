@@ -5,21 +5,21 @@ import net.minecraft.entity.LivingEntity;
 
 public class EventRenderEntity extends CancellableEvent {
 
-    private float interpolatedYawOffset;
-    private float interpolatedHeadYaw;
+    private float yawOffset;
+    private float headYaw;
     private float yaw;
-    private float lerpedPitch;
+    private float pitch;
     private final float partialTicks;
     private final LivingEntity entity;
     private boolean field21533 = true;
     private boolean field21534 = true;
     private RenderState state;
 
-    public EventRenderEntity(float interpolatedYawOffset, float interpolatedHeadYaw, float yaw, float lerpedPitch, float partialTicks, LivingEntity entity) {
-        this.interpolatedYawOffset = interpolatedYawOffset;
-        this.interpolatedHeadYaw = interpolatedHeadYaw;
+    public EventRenderEntity(float yawOffset, float headYaw, float yaw, float pitch, float partialTicks, LivingEntity entity) {
+        this.yawOffset = yawOffset;
+        this.headYaw = headYaw;
         this.yaw = yaw;
-        this.lerpedPitch = lerpedPitch;
+        this.pitch = pitch;
         this.partialTicks = partialTicks;
         this.entity = entity;
         this.state = RenderState.DEFAULT;
@@ -33,40 +33,40 @@ public class EventRenderEntity extends CancellableEvent {
         return this.state;
     }
 
-    public float getInterpolatedYawOffset() {
-        return this.interpolatedYawOffset;
+    public float getYawOffset() {
+        return this.yawOffset;
     }
 
-    public float getInterpolatedHeadYaw() {
-        return this.interpolatedHeadYaw;
+    public float getHeadYaw() {
+        return this.headYaw;
     }
 
     public float getYaw() {
         return this.yaw;
     }
 
-    public float getLerpedPitch() {
-        return this.lerpedPitch;
+    public float getPitch() {
+        return this.pitch;
     }
 
     public float getPartialTicks() {
         return this.partialTicks;
     }
 
-    public void setInterpolatedYawOffset(float interpolatedYawOffset) {
-        this.interpolatedYawOffset = interpolatedYawOffset;
+    public void setYawOffset(float yawOffset) {
+        this.yawOffset = yawOffset;
     }
 
-    public void setInterpolatedHeadYaw(float interpolatedHeadYaw) {
-        this.interpolatedHeadYaw = interpolatedHeadYaw;
+    public void setHeadYaw(float headYaw) {
+        this.headYaw = headYaw;
     }
 
     public void setYaw(float yaw) {
         this.yaw = yaw;
     }
 
-    public void setLerpedPitch(float lerpedPitch) {
-        this.lerpedPitch = lerpedPitch;
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
     }
 
     public LivingEntity getEntity() {

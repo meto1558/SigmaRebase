@@ -1,14 +1,8 @@
 package net.minecraft.block;
 
-import java.util.function.ToIntFunction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.trees.AcaciaTree;
-import net.minecraft.block.trees.BirchTree;
-import net.minecraft.block.trees.DarkOakTree;
-import net.minecraft.block.trees.JungleTree;
-import net.minecraft.block.trees.OakTree;
-import net.minecraft.block.trees.SpruceTree;
+import net.minecraft.block.trees.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.DyeColor;
@@ -25,8 +19,9 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.gen.feature.Features;
 
-public class Blocks
-{
+import java.util.function.ToIntFunction;
+
+public class Blocks {
     public static final Block AIR = register("air", new AirBlock(AbstractBlock.Properties.create(Material.AIR).doesNotBlockMovement().noDrops().setAir()));
     public static final Block STONE = register("stone", new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
     public static final Block GRANITE = register("granite", new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.DIRT).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
@@ -311,10 +306,10 @@ public class Blocks
     public static final Block CHAIN = register("chain", new ChainBlock(AbstractBlock.Properties.create(Material.IRON, MaterialColor.AIR).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.CHAIN).notSolid()));
     public static final Block GLASS_PANE = register("glass_pane", new PaneBlock(AbstractBlock.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).notSolid()));
     public static final Block MELON = register("melon", new MelonBlock(AbstractBlock.Properties.create(Material.GOURD, MaterialColor.LIME).hardnessAndResistance(1.0F).sound(SoundType.WOOD)));
-    public static final Block ATTACHED_PUMPKIN_STEM = register("attached_pumpkin_stem", new AttachedStemBlock((StemGrownBlock)PUMPKIN, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
-    public static final Block ATTACHED_MELON_STEM = register("attached_melon_stem", new AttachedStemBlock((StemGrownBlock)MELON, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
-    public static final Block PUMPKIN_STEM = register("pumpkin_stem", new StemBlock((StemGrownBlock)PUMPKIN, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.STEM)));
-    public static final Block MELON_STEM = register("melon_stem", new StemBlock((StemGrownBlock)MELON, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.STEM)));
+    public static final Block ATTACHED_PUMPKIN_STEM = register("attached_pumpkin_stem", new AttachedStemBlock((StemGrownBlock) PUMPKIN, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
+    public static final Block ATTACHED_MELON_STEM = register("attached_melon_stem", new AttachedStemBlock((StemGrownBlock) MELON, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
+    public static final Block PUMPKIN_STEM = register("pumpkin_stem", new StemBlock((StemGrownBlock) PUMPKIN, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.STEM)));
+    public static final Block MELON_STEM = register("melon_stem", new StemBlock((StemGrownBlock) MELON, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.STEM)));
     public static final Block VINE = register("vine", new VineBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.2F).sound(SoundType.VINE)));
     public static final Block OAK_FENCE_GATE = register("oak_fence_gate", new FenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, OAK_PLANKS.getMaterialColor()).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final Block BRICK_STAIRS = register("brick_stairs", new StairsBlock(BRICKS.getDefaultState(), AbstractBlock.Properties.from(BRICKS)));
@@ -353,7 +348,7 @@ public class Blocks
         return 7;
     })));
     public static final Block TRIPWIRE_HOOK = register("tripwire_hook", new TripWireHookBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement()));
-    public static final Block TRIPWIRE = register("tripwire", new TripWireBlock((TripWireHookBlock)TRIPWIRE_HOOK, AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement()));
+    public static final Block TRIPWIRE = register("tripwire", new TripWireBlock((TripWireHookBlock) TRIPWIRE_HOOK, AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement()));
     public static final Block EMERALD_BLOCK = register("emerald_block", new Block(AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL)));
     public static final Block SPRUCE_STAIRS = register("spruce_stairs", new StairsBlock(SPRUCE_PLANKS.getDefaultState(), AbstractBlock.Properties.from(SPRUCE_PLANKS)));
     public static final Block BIRCH_STAIRS = register("birch_stairs", new StairsBlock(BIRCH_PLANKS.getDefaultState(), AbstractBlock.Properties.from(BIRCH_PLANKS)));
@@ -582,7 +577,7 @@ public class Blocks
         return 14;
     }).sound(SoundType.WOOD).notSolid()));
     public static final Block CHORUS_PLANT = register("chorus_plant", new ChorusPlantBlock(AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).hardnessAndResistance(0.4F).sound(SoundType.WOOD).notSolid()));
-    public static final Block CHORUS_FLOWER = register("chorus_flower", new ChorusFlowerBlock((ChorusPlantBlock)CHORUS_PLANT, AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).tickRandomly().hardnessAndResistance(0.4F).sound(SoundType.WOOD).notSolid()));
+    public static final Block CHORUS_FLOWER = register("chorus_flower", new ChorusFlowerBlock((ChorusPlantBlock) CHORUS_PLANT, AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).tickRandomly().hardnessAndResistance(0.4F).sound(SoundType.WOOD).notSolid()));
     public static final Block PURPUR_BLOCK = register("purpur_block", new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.MAGENTA).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
     public static final Block PURPUR_PILLAR = register("purpur_pillar", new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.MAGENTA).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
     public static final Block PURPUR_STAIRS = register("purpur_stairs", new StairsBlock(PURPUR_BLOCK.getDefaultState(), AbstractBlock.Properties.from(PURPUR_BLOCK)));
@@ -611,7 +606,7 @@ public class Blocks
     public static final Block BONE_BLOCK = register("bone_block", new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.SAND).setRequiresTool().hardnessAndResistance(2.0F).sound(SoundType.BONE)));
     public static final Block STRUCTURE_VOID = register("structure_void", new StructureVoidBlock(AbstractBlock.Properties.create(Material.STRUCTURE_VOID).doesNotBlockMovement().noDrops()));
     public static final Block OBSERVER = register("observer", new ObserverBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.0F).setRequiresTool().setOpaque(Blocks::isntSolid)));
-    public static final Block SHULKER_BOX = register("shulker_box", createShulkerBoxFromColorAndProperties((DyeColor)null, AbstractBlock.Properties.create(Material.SHULKER)));
+    public static final Block SHULKER_BOX = register("shulker_box", createShulkerBoxFromColorAndProperties((DyeColor) null, AbstractBlock.Properties.create(Material.SHULKER)));
     public static final Block WHITE_SHULKER_BOX = register("white_shulker_box", createShulkerBoxFromColorAndProperties(DyeColor.WHITE, AbstractBlock.Properties.create(Material.SHULKER, MaterialColor.SNOW)));
     public static final Block ORANGE_SHULKER_BOX = register("orange_shulker_box", createShulkerBoxFromColorAndProperties(DyeColor.ORANGE, AbstractBlock.Properties.create(Material.SHULKER, MaterialColor.ADOBE)));
     public static final Block MAGENTA_SHULKER_BOX = register("magenta_shulker_box", createShulkerBoxFromColorAndProperties(DyeColor.MAGENTA, AbstractBlock.Properties.create(Material.SHULKER, MaterialColor.MAGENTA)));
@@ -893,93 +888,78 @@ public class Blocks
     public static final Block CRACKED_NETHER_BRICKS = register("cracked_nether_bricks", new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F).sound(SoundType.NETHER_BRICK)));
     public static final Block QUARTZ_BRICKS = register("quartz_bricks", new Block(AbstractBlock.Properties.from(QUARTZ_BLOCK)));
 
-    private static ToIntFunction<BlockState> getLightValueLit(int lightValue)
-    {
+    private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
         return (state) ->
         {
             return state.get(BlockStateProperties.LIT) ? lightValue : 0;
         };
     }
 
-    private static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity)
-    {
-        return (boolean)false;
+    private static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+        return (boolean) false;
     }
 
-    private static Boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity)
-    {
-        return (boolean)true;
+    private static Boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+        return (boolean) true;
     }
 
-    private static Boolean allowsSpawnOnLeaves(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity)
-    {
+    private static Boolean allowsSpawnOnLeaves(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
         return entity == EntityType.OCELOT || entity == EntityType.PARROT;
     }
 
-    private static BedBlock createBedFromColor(DyeColor color)
-    {
+    private static BedBlock createBedFromColor(DyeColor color) {
         return new BedBlock(color, AbstractBlock.Properties.create(Material.WOOL, (state) ->
         {
             return state.get(BedBlock.PART) == BedPart.FOOT ? color.getMapColor() : MaterialColor.WOOL;
         }).sound(SoundType.WOOD).hardnessAndResistance(0.2F).notSolid());
     }
 
-    private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor)
-    {
+    private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor) {
         return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) ->
         {
             return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor;
         }).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
     }
 
-    private static Block createRotatableNetherBlock(MaterialColor materialColor)
-    {
+    private static Block createRotatableNetherBlock(MaterialColor materialColor) {
         return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.NETHER_WOOD, (state) ->
         {
             return materialColor;
         }).hardnessAndResistance(2.0F).sound(SoundType.HYPHAE));
     }
 
-    private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos)
-    {
+    private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos) {
         return true;
     }
 
-    private static boolean isntSolid(BlockState state, IBlockReader reader, BlockPos pos)
-    {
+    private static boolean isntSolid(BlockState state, IBlockReader reader, BlockPos pos) {
         return false;
     }
 
-    private static StainedGlassBlock createStainedGlassFromColor(DyeColor color)
-    {
+    private static StainedGlassBlock createStainedGlassFromColor(DyeColor color) {
         return new StainedGlassBlock(color, AbstractBlock.Properties.create(Material.GLASS, color).hardnessAndResistance(0.3F).sound(SoundType.GLASS).notSolid().setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid));
     }
 
-    private static LeavesBlock createLeavesBlock()
-    {
+    private static LeavesBlock createLeavesBlock() {
         return new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid().setAllowsSpawn(Blocks::allowsSpawnOnLeaves).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid));
     }
 
-    private static ShulkerBoxBlock createShulkerBoxFromColorAndProperties(DyeColor color, AbstractBlock.Properties properties)
-    {
+    private static ShulkerBoxBlock createShulkerBoxFromColorAndProperties(DyeColor color, AbstractBlock.Properties properties) {
         AbstractBlock.IPositionPredicate abstractblock$ipositionpredicate = (state, reader, pos) ->
         {
             TileEntity tileentity = reader.getTileEntity(pos);
 
-            if (!(tileentity instanceof ShulkerBoxTileEntity))
-            {
+            if (!(tileentity instanceof ShulkerBoxTileEntity)) {
                 return true;
-            }
-            else {
-                ShulkerBoxTileEntity shulkerboxtileentity = (ShulkerBoxTileEntity)tileentity;
+            } else {
+                ShulkerBoxTileEntity shulkerboxtileentity = (ShulkerBoxTileEntity) tileentity;
                 return shulkerboxtileentity.func_235676_l_();
             }
         };
         return new ShulkerBoxBlock(color, properties.hardnessAndResistance(2.0F).variableOpacity().notSolid().setSuffocates(abstractblock$ipositionpredicate).setBlocksVision(abstractblock$ipositionpredicate));
     }
 
-    private static PistonBlock createPiston(boolean sticky)
-    {
+    private static PistonBlock createPiston(boolean sticky) {
         AbstractBlock.IPositionPredicate abstractblock$ipositionpredicate = (state, reader, pos) ->
         {
             return !state.get(PistonBlock.EXTENDED);
@@ -987,22 +967,17 @@ public class Blocks
         return new PistonBlock(sticky, AbstractBlock.Properties.create(Material.PISTON).hardnessAndResistance(1.5F).setOpaque(Blocks::isntSolid).setSuffocates(abstractblock$ipositionpredicate).setBlocksVision(abstractblock$ipositionpredicate));
     }
 
-    private static Block register(String key, Block blockIn)
-    {
+    private static Block register(String key, Block blockIn) {
         return Registry.register(Registry.BLOCK, key, blockIn);
     }
 
-    public static void cacheBlockStates()
-    {
+    public static void cacheBlockStates() {
         Block.BLOCK_STATE_IDS.forEach(AbstractBlock.AbstractBlockState::cacheState);
     }
 
-    static
-    {
-        for (Block block : Registry.BLOCK)
-        {
-            for (BlockState blockstate : block.getStateContainer().getValidStates())
-            {
+    static {
+        for (Block block : Registry.BLOCK) {
+            for (BlockState blockstate : block.getStateContainer().getValidStates()) {
                 Block.BLOCK_STATE_IDS.add(blockstate);
             }
 

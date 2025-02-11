@@ -41,7 +41,7 @@ public class Cubecraft2Fly extends PremiumModule {
             this.field23699 = true;
         }
 
-        if (ServerUtil.onCubeCraft()/*
+        if (ServerUtil.isCubecraft()/*
                                          * && JelloPortal.getCurrentVersionApplied() ==
                                          * ViaVerList._1_8_x.getVersionNumber()
                                          */) {

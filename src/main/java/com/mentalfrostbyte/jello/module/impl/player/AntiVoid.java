@@ -126,7 +126,7 @@ public class AntiVoid extends Module {
         double posY = mc.player.getPositionVec().getY();
         double posZ = mc.player.getPositionVec().getZ();
 
-        if (mode.equals("Cubecraft") && !ServerUtil.onCubeCraft()) {
+        if (mode.equals("Cubecraft") && !ServerUtil.isCubecraft()) {
             mode = "Motion";
         }
 

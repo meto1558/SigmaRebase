@@ -99,7 +99,7 @@ public class NameTags extends Module {
 
             for (Entity var7 : BlockUtil.method34549(CombatUtil.getAllPlayersInWorld())) {
                 if (var7 != mc.player
-                        && var7 != Freecam.field23814
+                        && var7 != Freecam.player
                         && var7 != Blink.clientPlayerEntity
                         && !var7.isInvisible()
                         && !Client.getInstance().combatManager.isTargetABot(var7)) {
