@@ -19,6 +19,7 @@ import com.mentalfrostbyte.jello.util.client.Class9140;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mojang.datafixers.util.Pair;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.Block;
@@ -354,13 +355,18 @@ public class ViaManager implements MinecraftUtil {
     @HighestPriority
     public void onRenderEntity(EventRenderEntity event) {
         if (event.getEntity() == mc.player || event.getEntity() == Freecam.player || event.getEntity() == Blink.clientPlayerEntity) {
-            float postYaw = Client.getInstance().rotationManager.rotations.lastYaw;
-            float yaw = Client.getInstance().rotationManager.rotations.yaw;
-            float postPitch = Client.getInstance().rotationManager.rotations.lastPitch;
-            float pitch = Client.getInstance().rotationManager.rotations.pitch;
+            Rotation rotations = Objects.requireNonNullElse(
+                    Client.getInstance().rotationManager.rotations,
+                    Rotation.of(event)
+            );
+            float postYaw = rotations.lastYaw;
+            float yaw = rotations.yaw;
+            float postPitch = rotations.lastPitch;
+            float pitch = rotations.pitch;
 
             if (event.getPartialTicks() != 1.0F) {
-                if (Client.getInstance().rotationManager.rotations.lastYaw - mc.player.rotationYawHead == 0.0F) {
+				assert mc.player != null;
+				if (rotations.lastYaw - mc.player.rotationYawHead == 0.0F) {
                     if (field31499) {
                         event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), yaw, event.getEntity().renderYawOffset));
                         event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), yaw, event.getEntity().rotationYawHead));
