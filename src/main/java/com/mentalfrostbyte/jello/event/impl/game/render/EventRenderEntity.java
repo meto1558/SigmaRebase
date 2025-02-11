@@ -92,6 +92,6 @@ public class EventRenderEntity extends CancellableEvent {
     public enum RenderState {
         DEFAULT,
         field13213,
-        field13214
+        COMPLETE
     }
 }
