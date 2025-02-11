@@ -73,7 +73,7 @@ public class MinemenSpider extends Module {
                 mc.gameSettings.keyBindSneak.pressed = false;
                 mc.player.onGround = false;
                 mc.timer.timerSpeed = 0.08F;
-                event.setCancelled(true);
+                event.cancelled = true;
                 this.field23813 = true;
                 event.setY(1.0E-14);
             }
@@ -113,7 +113,7 @@ public class MinemenSpider extends Module {
                     .count()
                     > 0L) {
                 if (!BlockUtil.isAboveBounds(mc.player, 1.0E-4F)) {
-                    event.setGround(true);
+                    event.setOnGround(true);
                 }
 
                 double var7 = 4.88E-7;
@@ -138,7 +138,7 @@ public class MinemenSpider extends Module {
             if (event.getVoxelShape() != null
                     && !event.getVoxelShape().isEmpty()
                     && event.getVoxelShape().getBoundingBox().minY > mc.player.boundingBox.minY + 1.0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }

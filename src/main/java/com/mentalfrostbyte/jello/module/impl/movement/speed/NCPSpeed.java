@@ -93,7 +93,7 @@ public class NCPSpeed extends Module {
     public void onJump(EventJump event) {
         if (this.isEnabled() && !Jesus.isWalkingOnLiquid()) {
             if (this.field23607 != 0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
 
             if (!mc.gameSettings.keyBindJump.isKeyDown() || !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {

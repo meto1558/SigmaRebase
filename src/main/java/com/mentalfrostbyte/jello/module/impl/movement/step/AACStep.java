@@ -18,10 +18,10 @@ public class AACStep extends Module {
     @EventTarget
     @LowerPriority
     public void onStep(EventStep var1) {
-        if (this.isEnabled() && !var1.isCancelled()) {
+        if (this.isEnabled() && !var1.cancelled) {
             double var4 = var1.getHeight();
             if (!BlockUtil.isAboveBounds(mc.player, 1.0E-4F)) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             } else {
                 if (!mc.player.isInWater() && var4 >= 0.625) {
                     double var6 = mc.player.getPosX();

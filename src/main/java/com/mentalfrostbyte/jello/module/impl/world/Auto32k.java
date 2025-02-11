@@ -294,7 +294,7 @@ public class Auto32k extends Module {
             if (var1.getPacket() instanceof SOpenWindowPacket) {
                 this.field23876 = (SOpenWindowPacket) var1.getPacket();
                 if (this.isEnabled() && this.field23876.getTitle() == ContainerType.HOPPER) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
 
                 this.field23874 = this.field23876.getWindowId();
@@ -307,7 +307,7 @@ public class Auto32k extends Module {
                 ItemStack var6 = var4.getStack();
                 int var7 = var4.getWindowId();
                 if (this.field23874 == var7 && var5 == 0 && var6.getItem() != Items.AIR && !this.field23877) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     mc.getConnection().sendPacket(new CClickWindowPacket(var7, var5, 1, ClickType.QUICK_MOVE, var6, this.field23875++));
                     int var8 = -1;
 
@@ -340,7 +340,7 @@ public class Auto32k extends Module {
     public void method16722(EventSendPacket var1) {
         if (this.isEnabled()) {
             if (var1.getPacket() instanceof CCloseWindowPacket) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             }
 
             if (var1.getPacket() instanceof CUseEntityPacket) {

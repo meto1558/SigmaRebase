@@ -83,7 +83,7 @@ public class JumpSpider extends Module {
                         this.isJumping = !this.isJumping;
                     }
 
-                    event.setGround(true);
+                    event.setOnGround(true);
                     switch (mode) {
                         case "AGC":
                             movementOffset = 4.85E-7;
@@ -114,7 +114,7 @@ public class JumpSpider extends Module {
             if (event.getVoxelShape() != null
                     && !event.getVoxelShape().isEmpty()
                     && event.getVoxelShape().getBoundingBox().minY > mc.player.boundingBox.minY + 1.0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }

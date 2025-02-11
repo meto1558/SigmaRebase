@@ -26,7 +26,7 @@ public class VeltPvPDisabler extends Module {
             if (this.tickCounter >= 20) {
                 this.tickCounter = 0;
                 event.setY(motionY);
-                event.setGround(false);
+                event.setOnGround(false);
             }
         }
     }

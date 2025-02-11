@@ -250,7 +250,7 @@ public class KillAura extends Module {
             if (!this.getStringSettingValueByName("Autoblock Mode").equals("None")
                     && (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem || this.currentItemIndex != mc.player.inventory.currentItem)
                     && currentTarget != null) {
-                event.setCancelled(true);
+                event.cancelled = true;
             } else if (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem) {
                 this.swingDelay = 2;
             }
@@ -576,7 +576,7 @@ public class KillAura extends Module {
                 isAuraActive = yOffset > 0.001;
 
                 event.setY(mc.player.getPosY() + yOffset);
-                event.setGround(shouldSetGround);
+                event.setOnGround(shouldSetGround);
             }
         }
     }

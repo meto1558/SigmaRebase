@@ -93,7 +93,7 @@ public class AntiVoid extends Module {
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre() && this.disableTimer != 0) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 

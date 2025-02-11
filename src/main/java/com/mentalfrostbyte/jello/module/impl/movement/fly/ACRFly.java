@@ -113,7 +113,7 @@ public class ACRFly extends Module {
             }
 
             if (this.getBooleanValueFromSettingName("NoFall")) {
-                var1.setGround(true);
+                var1.setOnGround(true);
             }
 
             var1.setMoving(true);

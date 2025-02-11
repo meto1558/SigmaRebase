@@ -39,7 +39,7 @@ public class FullBlockPhase extends Module {
     @EventTarget
     public void EventPushBlock(EventPushBlock event) {
         if (this.isEnabled()) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 }

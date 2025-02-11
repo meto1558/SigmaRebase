@@ -6,14 +6,15 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
@@ -67,7 +68,7 @@ public class CubecraftFly extends Module {
     public void method16686(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23846 = true;
             }
         }
@@ -77,7 +78,7 @@ public class CubecraftFly extends Module {
     public void method16687(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23846 = false;
             }
         }
@@ -102,20 +103,17 @@ public class CubecraftFly extends Module {
                         MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
                         if (this.field23845 != -4) {
                             if (this.field23845 != -1) {
-                                /*
-                                  if (JelloPortal.getCurrentVersionApplied() >
-                                 * ViaVerList._1_8_x.getVersionNumber()) {
-                                 * if (mc.gameSettings.keyBindJump.isKeyDown() && !this.field23846) {
-                                 * var1.setY(0.0625);
-                                 * MovementUtil.setSpeed(var1, 0.0);
-                                 * this.field23845 = 1;
-                                 * } else if (this.field23846 && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                                 * var1.setY(-0.225);
-                                 * MovementUtil.setSpeed(var1, 0.0);
-                                 * this.field23845 = 1;
-                                 * }
-                                 * }
-                                 */
+                                if (JelloPortal.getVersion().newerThan(ProtocolVersion.v1_8)) {
+                                    if (mc.gameSettings.keyBindJump.isKeyDown() && !this.field23846) {
+                                        var1.setY(0.0625);
+                                        MovementUtil.setMotion(var1, 0.0);
+                                        this.field23845 = 1;
+                                    } else if (this.field23846 && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                                        var1.setY(-0.225);
+                                        MovementUtil.setMotion(var1, 0.0);
+                                        this.field23845 = 1;
+                                    }
+                                }
                             } else {
                                 if (!this.field23848) {
                                     MovementUtil.sendRandomizedPlayerPositionPackets(false);
@@ -128,23 +126,22 @@ public class CubecraftFly extends Module {
                             var1.setY(0.0625);
                         }
                     }
-                    /*
-                     * } else if (JelloPortal.getCurrentVersionApplied() !=
-                     * ViaVerList._1_8_x.getVersionNumber()) {
-                     * if (!MultiUtilities.isAboveBounds(mc.player, 0.001F)) {
-                     * var1.setY(0.0);
-                     * MovementUtil.setSpeed(var1, 0.0);
-                     * if (mc.player.fallDistance > 4.0F) {
-                     * mc.getConnection().sendPacket(new CPlayerPacket(true));
-                     * this.field23848 = true;
-                     * }
-                     * } else {
-                     * var1.setY(MovementUtil.method37080());
-                     * MovementUtil.setSpeed(var1, 0.615);
-                     * }
-                     * 
-                     * this.field23845 = 1;
-                     */
+
+                } else if (JelloPortal.getVersion() != ProtocolVersion.v1_8) {
+                    if (!BlockUtil.isAboveBounds(mc.player, 0.001F)) {
+                        var1.setY(0.0);
+                        MovementUtil.setMotion(var1, 0.0);
+                        if (mc.player.fallDistance > 4.0F) {
+                            mc.getConnection().sendPacket(new CPlayerPacket(true));
+                            this.field23848 = true;
+                        }
+                    } else {
+                        var1.setY(MovementUtil.getJumpValue());
+                        MovementUtil.setMotion(var1, 0.615);
+                    }
+
+                    this.field23845 = 1;
+
                 } else if (!BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                     var1.setY(0.0);
                     this.field23845 = -2;
@@ -154,7 +151,6 @@ public class CubecraftFly extends Module {
                     MovementUtil.setMotion(var1, 0.0);
                     var1.setY(0.0);
                     long var14 = MathHelper.calculateTimeBasedValue() % 90L;
-                    double var15 = 0.016 + (double) var14 / 10000.0;
                     double var16 = mc.player.getPosX();
                     double var10 = mc.player.getPosY() + 0.022;
                     double var12 = mc.player.getPosZ();
@@ -179,18 +175,15 @@ public class CubecraftFly extends Module {
     }
 
     @EventTarget
-    public void method16689(EventUpdateWalkingPlayer var1) {
-        if (var1.isPre() && ServerUtil.onCubeCraft()) {
-            var1.setMoving(true);
-            if (/*
-                 * JelloPortal.getCurrentVersionApplied() ==
-                 * ViaVerList._1_8_x.getVersionNumber() &&
-                 */this.field23845 == 0 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
-                var1.setCancelled(true);
+    public void method16689(EventUpdateWalkingPlayer event) {
+        if (event.isPre() && ServerUtil.onCubeCraft()) {
+            event.setMoving(true);
+            if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8) && this.field23845 == 0 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
+                event.cancelled = true;
             }
 
             if (this.field23845 >= 2) {
-                var1.setY(275.0);
+                event.setY(275.0);
             }
         }
     }
@@ -198,33 +191,29 @@ public class CubecraftFly extends Module {
     @EventTarget
     public void method16690(EventReceivePacket var1) {
         if (mc.world != null && mc.getConnection() != null && ServerUtil.onCubeCraft()) {
-            IPacket var4 = var1.getPacket();
-            if (!(var4 instanceof SPlayerPositionLookPacket)) {
-                if (var4 instanceof SEntityVelocityPacket) {
-                    SEntityVelocityPacket var5 = (SEntityVelocityPacket) var4;
+            IPacket packet = var1.getPacket();
+            if (!(packet instanceof SPlayerPositionLookPacket)) {
+                if (packet instanceof SEntityVelocityPacket var5) {
                     if (var5.getEntityID() == mc.player.getEntityId()) {
                         this.field23845 = -4;
                     }
                 }
             } else {
-                SPlayerPositionLookPacket var20 = (SPlayerPositionLookPacket) var4;
-                /*
-                 * if (JelloPortal.getCurrentVersionApplied() !=
-                 * ViaVerList._1_8_x.getVersionNumber()) {
-                 * float[] var6 = MovementUtil.lenientStrafe();
-                 * float var7 = var6[1];
-                 * float var8 = var6[2];
-                 * float var9 = var6[0];
-                 * double var10 = Math.cos(Math.toRadians(var9));
-                 * double var12 = Math.sin(Math.toRadians(var9));
-                 * double var14 = MovementUtil.getSpeed();
-                 * double var16 = ((double) var7 * var10 + (double) var8 * var12) * var14;
-                 * double var18 = ((double) var7 * var12 - (double) var8 * var10) * var14;
-                 * this.field23849 = var20.y;
-                 * var20.x += var16;
-                 * var20.z += var18;
-                 * }
-                 */
+                SPlayerPositionLookPacket var20 = (SPlayerPositionLookPacket) packet;
+                if (!JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+                    float[] var6 = MovementUtil.getDirectionArray();
+                    float var7 = var6[1];
+                    float var8 = var6[2];
+                    float var9 = var6[0];
+                    double var10 = Math.cos(Math.toRadians(var9));
+                    double var12 = Math.sin(Math.toRadians(var9));
+                    double var14 = MovementUtil.getSpeed();
+                    double var16 = ((double) var7 * var10 + (double) var8 * var12) * var14;
+                    double var18 = ((double) var7 * var12 - (double) var8 * var10) * var14;
+                    this.field23849 = var20.y;
+                    var20.x += var16;
+                    var20.z += var18;
+                }
 
                 this.field23847 = true;
                 this.field23845 = -1;

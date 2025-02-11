@@ -81,7 +81,7 @@ public class BlockFlyAACMode extends Module {
     public void method16202(EventSendPacket var1) {
         if (this.isEnabled() && mc.player != null) {
             if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             }
         }
     }
@@ -273,7 +273,7 @@ public class BlockFlyAACMode extends Module {
         if (this.isEnabled()) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
                     && (!MovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             }
         }
     }

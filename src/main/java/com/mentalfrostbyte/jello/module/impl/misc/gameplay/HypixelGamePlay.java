@@ -147,7 +147,7 @@ public class HypixelGamePlay extends Module {
                     String teamPrefixSuffixCombined = teamsPacket.getPrefix().getString() + teamsPacket.getSuffix().getString();
                     String[] splitPrefixSuffix = teamPrefixSuffixCombined.split(" ");
                     if (splitPrefixSuffix != null && splitPrefixSuffix.length > 1 && StringUtils.countMatches(splitPrefixSuffix[0], "/") == 2) {
-                        event.setCancelled(true);
+                        event.cancelled = true;
                     }
                 }
             }

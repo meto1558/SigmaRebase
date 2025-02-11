@@ -37,19 +37,19 @@ public class NoGroundCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16034(EventStep var1) {
-        if (this.isEnabled() && !(var1.getHeight() < 0.625)) {
+    public void method16034(EventStep event) {
+        if (this.isEnabled() && !(event.getHeight() < 0.625)) {
             if (this.field23410 == 0 && this.field23411) {
-                var1.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }
 
     @EventTarget
-    public void method16035(EventJump var1) {
+    public void method16035(EventJump event) {
         if (this.isEnabled()) {
             if (this.field23410 == 1) {
-                var1.setCancelled(true);
+                event.cancelled = true;
                 this.field23412 = true;
             }
         }
@@ -106,12 +106,12 @@ public class NoGroundCriticals extends Module {
                 }
 
                 var1.setY(var1.getY() + var4);
-                var1.setGround(var6);
+                var1.setOnGround(var6);
             } else {
                 this.field23410 = this.getBooleanValueFromSettingName("Avoid Fall Damage") && !this.field23411 ? 3 : 0;
                 if (this.getBooleanValueFromSettingName("Avoid Fall Damage") && this.field23411 && !this.field23413 && mc.player.getMotion().y < -0.1) {
                     this.field23413 = !this.field23413;
-                    var1.setGround(true);
+                    var1.setOnGround(true);
                 }
             }
         }

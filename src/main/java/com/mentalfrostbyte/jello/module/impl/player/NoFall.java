@@ -158,7 +158,7 @@ public class NoFall extends Module {
 
                             if (this.field23509 > 3.0) {
                                 this.field23509 = 1.0E-14;
-                                packet.setGround(true);
+                                packet.setOnGround(true);
                             }
                         }
                         break;
@@ -166,7 +166,7 @@ public class NoFall extends Module {
                         if (packet.isPre() && mc.player.getMotion().y < 0.0 && !mc.player.isOnGround() && ServerUtil.isHypixel()) {
                             for (double var10 : MovementUtil.getVerticalOffsets()) {
                                 if ((double) ((int) packet.getY()) - packet.getY() + var10 == 0.0) {
-                                    packet.setGround(true);
+                                    packet.setOnGround(true);
                                     break;
                                 }
                             }
@@ -204,12 +204,12 @@ public class NoFall extends Module {
                         break;
                     case "Vanilla":
                         if (mc.player.getMotion().y < -0.1) {
-                            packet.setGround(true);
+                            packet.setOnGround(true);
                         }
                         break;
                     case "Vanilla Legit":
                         if (mc.player.getMotion().y < -0.1) {
-                            packet.setGround(true);
+                            packet.setOnGround(true);
                         }
 
                         if (mc.player.fallDistance > 3.0F) {

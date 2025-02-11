@@ -16,7 +16,7 @@ public class ChatCleaner extends Module {
         if (isEnabled()) {
             if (event.getPacket() instanceof SChatPacket packet) {
                 if (isSpam(cleanChatMessage(packet.getChatComponent().getString()))) {
-                    event.setCancelled(true);
+                    event.cancelled = true;
                 }
             }
         }

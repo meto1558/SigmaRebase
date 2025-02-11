@@ -102,13 +102,13 @@ public class AGCFly extends Module {
                         double var4 = this.method16785();
                         var1.setY(var4 - 1.0E-4);
                         var1.setMoving(true);
-                        var1.setGround(true);
+                        var1.setOnGround(true);
                     }
                 }
             } else {
                 double var6 = this.method16785();
                 var1.setY(var6 - 1.0E-4);
-                var1.setGround(true);
+                var1.setOnGround(true);
                 var1.setMoving(true);
                 this.field23903 = !this.down
                         ? (!mc.gameSettings.keyBindJump.isKeyDown() ? 1 : 3)

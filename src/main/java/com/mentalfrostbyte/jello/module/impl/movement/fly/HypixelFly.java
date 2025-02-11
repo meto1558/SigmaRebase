@@ -96,7 +96,7 @@ public class HypixelFly extends Module {
         if (event.isPre()) {
             for (double var7 : MovementUtil.getVerticalOffsets()) {
                 if ((double) ((int) event.getY()) - event.getY() + var7 == 0.0) {
-                    event.setGround(true);
+                    event.setOnGround(true);
                     break;
                 }
             }

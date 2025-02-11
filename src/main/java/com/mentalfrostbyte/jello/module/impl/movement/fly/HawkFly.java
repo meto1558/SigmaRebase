@@ -65,7 +65,7 @@ public class HawkFly extends Module {
             }
 
             var1.setMoving(true);
-            var1.setGround(false);
+            var1.setOnGround(false);
         }
     }
 

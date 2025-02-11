@@ -48,7 +48,7 @@ public class HoverCriticals extends Module {
 
                 var1.setMoving(true);
                 var1.setY(var1.getY() + this.field23997);
-                var1.setGround(false);
+                var1.setOnGround(false);
             } else {
                 this.field23997 = 1.0E-11;
             }

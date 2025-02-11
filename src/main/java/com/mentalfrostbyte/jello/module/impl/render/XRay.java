@@ -36,7 +36,7 @@ public class XRay extends Module {
         if (this.isEnabled()) {
             AbstractBlock.AbstractBlockState blockState = event.getBlockState();
             if (!(blockState.getBlock() instanceof OreBlock) && blockState.getBlock() != Blocks.NETHERITE_BLOCK) {
-                event.setCancelled(true);
+                event.cancelled = true;
             } else {
                 event.method13972(true);
             }

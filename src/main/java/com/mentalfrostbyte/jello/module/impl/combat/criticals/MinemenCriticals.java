@@ -35,7 +35,7 @@ public class MinemenCriticals extends Module {
                             var1.setY(var1.getY() - 1.0E-14);
                         }
 
-                        var1.setGround(false);
+                        var1.setOnGround(false);
                     }
 
                     this.airTicks++;
@@ -45,7 +45,7 @@ public class MinemenCriticals extends Module {
                 if (mc.playerController.getIsHittingBlock() && mc.player.isOnGround()) {
                     this.airTicks = 0;
                     var1.setY(mc.player.getPosY());
-                    var1.setGround(true);
+                    var1.setOnGround(true);
                 }
             }
         }

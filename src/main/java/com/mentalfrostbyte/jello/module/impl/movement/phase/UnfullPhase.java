@@ -54,7 +54,7 @@ public class UnfullPhase extends Module {
     @EventTarget
     public void onPushBlock(EventPushBlock event) {
         if (this.isEnabled()) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 

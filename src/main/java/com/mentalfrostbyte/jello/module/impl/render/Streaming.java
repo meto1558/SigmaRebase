@@ -32,7 +32,7 @@ public class Streaming extends Module {
     public void EventRenderEntity(EventRenderEntity event) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Hide skins")) {
-                event.setCancelled(false);
+                event.cancelled = false;
             }
         }
         // will fix later

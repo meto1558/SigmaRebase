@@ -27,7 +27,7 @@ public class Phase extends ModuleWithModuleSettings {
     public void RenderFireEvent(EventRenderFire event) {
         if (this.isEnabled()) {
             event.setFireHeight(0.0F);
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 }

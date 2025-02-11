@@ -43,7 +43,7 @@ public class BlockUtils {
             return true;
         }
 
-        if (!event.isCancelled()) {
+        if (!event.cancelled) {
             BlockPos blockpos = blockPosIn.offset(facingIn);
             BlockState blockstate = blockReaderIn.getBlockState(blockpos);
 

@@ -35,11 +35,11 @@ public class SpiderStep extends Module {
     @EventTarget
     @LowerPriority
     public void onStep(EventStep event) {
-        if (this.isEnabled() && !event.isCancelled()) {
+        if (this.isEnabled() && !event.cancelled) {
             double var4 = event.getHeight();
             Step.StepEnum var6 = ((Step) this.access()).method16748(event);
             if (var6 == Step.StepEnum.NORMAL_BLOCK) {
-                event.setCancelled(true);
+                event.cancelled = true;
             } else if (var6 != Step.StepEnum.STAIRS) {
                 if (!mc.player.isInWater() && var4 >= 0.625) {
                     this.field23760 = var4;
@@ -68,11 +68,11 @@ public class SpiderStep extends Module {
                     if (var4.isEnabled() && var4.getStringSettingValueByName("Type").equals("NoGround")) {
                         var1.setY(var1.getY() + 1.0E-14);
                     } else {
-                        var1.setGround(true);
+                        var1.setOnGround(true);
                     }
                 }
             } else {
-                var1.setGround(false);
+                var1.setOnGround(false);
             }
         }
     }

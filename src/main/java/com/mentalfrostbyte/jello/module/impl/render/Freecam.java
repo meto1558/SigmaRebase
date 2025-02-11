@@ -56,7 +56,7 @@ public class Freecam extends Module {
     public void onRenderEntity(EventRenderEntity event) {
         if (this.isEnabled()) {
             if (event.method13953() instanceof ClientPlayerEntity && event.method13953() != field23814) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }
@@ -155,7 +155,7 @@ public class Freecam extends Module {
     @EventTarget
     public void method16642(EventPushBlock var1) {
         if (this.isEnabled()) {
-            var1.setCancelled(true);
+            var1.cancelled = true;
         }
     }
 
@@ -168,27 +168,27 @@ public class Freecam extends Module {
                         if (var1.getKey() != mc.gameSettings.keyBindBack.keyCode.getKeyCode()) {
                             if (var1.getKey() != mc.gameSettings.keyBindLeft.keyCode.getKeyCode()) {
                                 if (var1.getKey() == mc.gameSettings.keyBindRight.keyCode.getKeyCode()) {
-                                    var1.setCancelled(true);
+                                    var1.cancelled = true;
                                     this.field23829 = true;
                                 }
                             } else {
-                                var1.setCancelled(true);
+                                var1.cancelled = true;
                                 this.field23828 = true;
                             }
                         } else {
-                            var1.setCancelled(true);
+                            var1.cancelled = true;
                             this.field23827 = true;
                         }
                     } else {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                         this.field23826 = true;
                     }
                 } else {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     this.field23830 = true;
                 }
             } else {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23831 = true;
             }
 
@@ -206,27 +206,27 @@ public class Freecam extends Module {
                         if (var1.getMouseButton() != mc.gameSettings.keyBindBack.keyCode.getKeyCode()) {
                             if (var1.getMouseButton() != mc.gameSettings.keyBindLeft.keyCode.getKeyCode()) {
                                 if (var1.getMouseButton() == mc.gameSettings.keyBindRight.keyCode.getKeyCode()) {
-                                    var1.setCancelled(true);
+                                    var1.cancelled = true;
                                     this.field23829 = false;
                                 }
                             } else {
-                                var1.setCancelled(true);
+                                var1.cancelled = true;
                                 this.field23828 = false;
                             }
                         } else {
-                            var1.setCancelled(true);
+                            var1.cancelled = true;
                             this.field23827 = false;
                         }
                     } else {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                         this.field23826 = false;
                     }
                 } else {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     this.field23830 = false;
                 }
             } else {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23831 = false;
             }
 
@@ -238,7 +238,7 @@ public class Freecam extends Module {
     @EventTarget
     public void method16645(EventJump var1) {
         if (this.isEnabled()) {
-            var1.setCancelled(true);
+            var1.cancelled = true;
         }
     }
 
@@ -288,7 +288,7 @@ public class Freecam extends Module {
                     float var12 = PlayerEntity.STANDING_SIZE.height;
                     mc.player
                             .setBoundingBox(new AxisAlignedBB(var5 - (double) var11, var7, var9 - (double) var11, var5 + (double) var11, var7 + (double) var12, var9 + (double) var11));
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     field23814.setMotion(0.0, 0.0, 0.0);
                 }
             }
@@ -305,7 +305,7 @@ public class Freecam extends Module {
             if (var1.getPacket() instanceof CUseEntityPacket) {
                 CUseEntityPacket var4 = (CUseEntityPacket) var1.getPacket();
                 if (var4.getEntityFromWorld(mc.world) == null) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
             }
         }
@@ -314,7 +314,7 @@ public class Freecam extends Module {
     @EventTarget
     public void method16649(EventRenderFire var1) {
         if (this.isEnabled()) {
-            var1.setCancelled(true);
+            var1.cancelled = true;
         }
     }
 

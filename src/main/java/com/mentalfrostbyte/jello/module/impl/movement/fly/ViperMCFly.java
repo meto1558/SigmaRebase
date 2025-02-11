@@ -130,7 +130,7 @@ public class ViperMCFly extends Module {
                 this.field23595 += 2;
             }
 
-            var1.setGround(true);
+            var1.setOnGround(true);
             var1.setMoving(true);
         }
     }

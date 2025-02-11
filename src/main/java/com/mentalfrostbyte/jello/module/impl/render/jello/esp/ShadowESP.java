@@ -183,7 +183,7 @@ public class ShadowESP extends Module {
     @EventTarget
     public void onNametagRender(EventRenderNameTag event) {
         if (currentRenderMode != RenderState.DEFAULT && event.getEntity() instanceof PlayerEntity) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 

@@ -31,11 +31,11 @@ public class MinemenAntiKB extends Module {
             if (BlockUtil.isAboveBounds(mc.player, 1.0E-5F)) {
                 this.aboveBounds = true;
                 var1.setY(var1.getY() - 5.0E-7);
-                var1.setGround(false);
+                var1.setOnGround(false);
             } else {
                 if (this.aboveBounds && mc.player.getMotion().y < 0.0) {
                     this.aboveBounds = false;
-                    var1.setGround(true);
+                    var1.setOnGround(true);
                 }
             }
         }

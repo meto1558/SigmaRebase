@@ -55,7 +55,7 @@ public class Blink extends Module {
                 || event.getPacket() instanceof CAnimateHandPacket
                 || event.getPacket() instanceof CPlayerTryUseItemPacket)) {
             this.packets.add(event.getPacket());
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 

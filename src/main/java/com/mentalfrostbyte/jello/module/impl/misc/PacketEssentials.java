@@ -23,29 +23,29 @@ public class PacketEssentials extends Module {
                         if (!(event.getPacket() instanceof SUpdateBossInfoPacket)) {
                             if (!(event.getPacket() instanceof SScoreboardObjectivePacket)) {
                                 if (event.getPacket() instanceof SEntityMetadataPacket) {
-                                    event.setCancelled(true);
+                                    event.cancelled = true;
                                 }
                             } else {
-                                event.setCancelled(true);
+                                event.cancelled = true;
                             }
                         } else {
-                            event.setCancelled(true);
+                            event.cancelled = true;
                         }
                     } else {
-                        event.setCancelled(true);
+                        event.cancelled = true;
                     }
                 } else {
                     if (sSpawnMobPacket.getEntityType() == 1) {
-                        event.setCancelled(true);
+                        event.cancelled = true;
                     }
                 }
             } else {
                 if (sSpawnObjectPacket.getType() == EntityType.ARMOR_STAND) {
-                    event.setCancelled(true);
+                    event.cancelled = true;
                 }
 
                 if (sSpawnObjectPacket.getType() == EntityType.GIANT) {
-                    event.setCancelled(true);
+                    event.cancelled = true;
                 }
             }
         }

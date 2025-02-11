@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CombatManager {
-    private static String[] field35945;
     public AntiBotBase antiBot;
     public List<Entity> bots = new CopyOnWriteArrayList<Entity>();
 

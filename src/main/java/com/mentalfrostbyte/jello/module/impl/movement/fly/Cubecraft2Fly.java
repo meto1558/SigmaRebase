@@ -77,7 +77,7 @@ public class Cubecraft2Fly extends PremiumModule {
     public void method16483(EventKeyPress var1) {
         if (this.isEnabled()) {
             if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23699 = true;
             }
         }
@@ -87,7 +87,7 @@ public class Cubecraft2Fly extends PremiumModule {
     public void method16484(EventMouseHover var1) {
         if (this.isEnabled()) {
             if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23699 = false;
             }
         }
@@ -145,19 +145,19 @@ public class Cubecraft2Fly extends PremiumModule {
     @EventTarget
     public void method16486(EventUpdateWalkingPlayer var1) {
         if (this.field23696 == -3) {
-            var1.setCancelled(true);
+            var1.cancelled = true;
         }
 
         if (this.isEnabled() && var1.isPre()) {
             var1.setMoving(true);
-            var1.setGround(true);
+            var1.setOnGround(true);
             if (this.field23696 != 3) {
                 if (this.field23696 > 3) {
                     if (this.field23698.isEnabled() && this.field23698.getElapsedTime() > 2000L) {
                         var1.setY(-150.0);
                         this.field23698.reset();
                     } else {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                     }
                 }
             } else {

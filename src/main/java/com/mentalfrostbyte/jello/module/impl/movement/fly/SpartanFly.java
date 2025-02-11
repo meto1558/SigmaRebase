@@ -65,7 +65,7 @@ public class SpartanFly extends Module {
         if (this.isEnabled() && var1.isPre() && this.getBooleanValueFromSettingName("Ground Spoof")) {
             if (this.field23570) {
                 this.field23570 = !this.field23570;
-                var1.setGround(true);
+                var1.setOnGround(true);
             }
         }
     }

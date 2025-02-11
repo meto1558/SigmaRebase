@@ -121,7 +121,7 @@ public class CommandManager {
                 }
 
                 if (var5.startsWith(".")) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     this.method30236();
                     String[] var6 = var5.substring(".".length()).split(" ");
                     Command var7 = this.getCommandByName(var6[0]);
@@ -154,7 +154,7 @@ public class CommandManager {
 
             if (var1.getPacket() instanceof CTabCompletePacket var11) {
                 if (var11.getCommand().startsWith(".")) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
             }
         }

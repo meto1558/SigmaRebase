@@ -57,15 +57,15 @@ public class PacketCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16924(EventSendPacket var1) {
+    public void method16924(EventSendPacket event) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof CPlayerPacket) {
+            if (event.getPacket() instanceof CPlayerPacket) {
                 if (!this.timer.isEnabled()) {
                     this.timer.start();
                 }
 
                 if (this.field23999 && mc.player.isOnGround()) {
-                    var1.setCancelled(true);
+                    event.cancelled = true;
                     this.field23999 = false;
                 }
             }

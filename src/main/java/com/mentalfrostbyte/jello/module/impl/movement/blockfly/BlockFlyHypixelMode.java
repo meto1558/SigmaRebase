@@ -161,7 +161,7 @@ public class BlockFlyHypixelMode extends Module {
     public void onKeyPress(EventKeyPress var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Downwards")) {
             if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23474 = true;
             }
         }
@@ -171,7 +171,7 @@ public class BlockFlyHypixelMode extends Module {
     public void onHover(EventMouseHover var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Downwards")) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
                 this.field23474 = false;
             }
         }
@@ -417,7 +417,7 @@ public class BlockFlyHypixelMode extends Module {
     public void method16113(EventSendPacket var1) {
         if (this.isEnabled() && mc.player != null) {
             if (var1.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             }
         }
     }
@@ -427,7 +427,7 @@ public class BlockFlyHypixelMode extends Module {
         if (this.isEnabled() && this.field23475) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
                     && (!MovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             }
         }
     }

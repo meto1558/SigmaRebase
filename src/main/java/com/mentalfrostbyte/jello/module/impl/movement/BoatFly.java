@@ -44,7 +44,7 @@ public class BoatFly extends PremiumModule {
             if (mc.player.getRidingEntity() != null) {
                 if (!mc.player.getRidingEntity().onGround) {
                     if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                         this.field23643 = true;
                     }
                 }
@@ -62,7 +62,7 @@ public class BoatFly extends PremiumModule {
             if (mc.player.getRidingEntity() != null) {
                 if (!mc.player.getRidingEntity().onGround) {
                     if (var1.method13980() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                         this.field23643 = false;
                     }
                 }

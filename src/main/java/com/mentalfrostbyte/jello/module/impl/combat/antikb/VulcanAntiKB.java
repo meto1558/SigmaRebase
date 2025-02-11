@@ -27,7 +27,7 @@ public class VulcanAntiKB extends Module {
         }
 
         if (event.getPacket() instanceof CConfirmTransactionPacket) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 }

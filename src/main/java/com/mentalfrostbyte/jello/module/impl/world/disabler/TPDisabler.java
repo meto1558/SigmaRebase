@@ -59,7 +59,7 @@ public class TPDisabler extends Module {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(mc.player.getPosX(), PosY, mc.player.getPosX(), onGround));
                 } else {
                     event.setY(PosY);
-                    event.setGround(onGround);
+                    event.setOnGround(onGround);
                 }
             }
         }

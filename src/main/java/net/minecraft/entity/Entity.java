@@ -630,7 +630,7 @@ public abstract class Entity implements INameable, ICommandSource
                 && Minecraft.getInstance().player.getRidingEntity().getEntityId() == this.getEntityId()) {
             EventMoveRideable event = new EventMoveRideable(pos.x, pos.y, pos.z);
             EventBus.call(event);
-            if (event.isCancelled()) {
+            if (event.cancelled) {
                 return;
             }
 

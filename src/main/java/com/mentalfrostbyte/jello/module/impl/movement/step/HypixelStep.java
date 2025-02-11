@@ -47,7 +47,7 @@ public class HypixelStep extends Module {
     @EventTarget
     @LowerPriority
     public void onStep(EventStep var1) {
-        if (this.isEnabled() && !var1.isCancelled()) {
+        if (this.isEnabled() && !var1.cancelled) {
             double var4 = var1.getHeight();
             if (BlockUtil.isAboveBounds(mc.player, 1.0E-4F) && !mc.player.isInWater()) {
                 if (var4 >= 0.625) {
@@ -102,7 +102,7 @@ public class HypixelStep extends Module {
                     mc.timer.timerSpeed = this.field23992;
                 }
             } else {
-                var1.setCancelled(true);
+                var1.cancelled = true;
             }
         }
     }
@@ -130,7 +130,7 @@ public class HypixelStep extends Module {
     public void onSendPacket(EventSendPacket var1) {
         if (var1.getPacket() instanceof CPlayerPacket && !this.field23993.isEmpty()) {
             this.field23993.add(var1.getPacket());
-            var1.setCancelled(true);
+            var1.cancelled = true;
             if (this.field23994 == 0) {
                 for (IPacket var5 : this.field23993) {
                     mc.getConnection().getNetworkManager().sendNoEventPacket(var5);
@@ -143,7 +143,7 @@ public class HypixelStep extends Module {
 
     @EventTarget
     public void stepUpEvent(EventStep var1) {
-        if (this.isEnabled() && !var1.isCancelled()) {
+        if (this.isEnabled() && !var1.cancelled) {
             double var4 = var1.getHeight();
             if (var4 > 0) {
                 isBlinking = true;

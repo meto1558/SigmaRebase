@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 //import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 //import com.mentalfrostbyte.jello.settings.BooleanSetting;
 //import com.mentalfrostbyte.jello.settings.ModeSetting;
+import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -20,10 +21,9 @@ public class MinisCriticals extends Module {
     }
 
     @EventTarget
-    public void onJump(EventJump var1) {
+    public void onJump(EventJump event) {
         if (this.isEnabled()) {
-            // TODO: uncomment if statement when KillAura is ported
-            if (true/*KillAura.field23937*/) {
+            if (KillAura.isAuraActive) {
                 mc.getConnection()
                         .sendPacket(new CPlayerPacket.PositionPacket(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), true));
             }
@@ -31,11 +31,10 @@ public class MinisCriticals extends Module {
     }
 
     @EventTarget
-    public void onStep(EventStep var1) {
+    public void onStep(EventStep event) {
         if (this.isEnabled()) {
-            // TODO: uncomment if statement too when KillAura is ported
-            if (false/*KillAura.field23937*/) {
-                var1.setCancelled(true);
+            if (KillAura.isAuraActive) {
+                event.cancelled = true;
             }
         }
     }

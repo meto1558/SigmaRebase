@@ -346,7 +346,7 @@ public class BlockFlySmoothMode extends Module {
     public void onPacket(EventSendPacket event) {
         if (this.isEnabled() && mc.player != null) {
             if (event.getPacket() instanceof CHeldItemChangePacket && ((BlockFly) this.access()).lastSpoofedSlot >= 0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }
@@ -356,7 +356,7 @@ public class BlockFlySmoothMode extends Module {
         if (this.isEnabled() && this.called) {
             if (this.access().getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
                     && (!MovementUtil.isMoving() || this.access().getBooleanValueFromSettingName("Tower while moving"))) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }

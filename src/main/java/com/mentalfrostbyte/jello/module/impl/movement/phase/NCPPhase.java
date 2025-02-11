@@ -115,7 +115,7 @@ public class NCPPhase extends PremiumModule {
     @EventTarget
     public void method16428(EventPushBlock var1) {
         if (this.isEnabled()) {
-            var1.setCancelled(true);
+            var1.cancelled = true;
         }
     }
 

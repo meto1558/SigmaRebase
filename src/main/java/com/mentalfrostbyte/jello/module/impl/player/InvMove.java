@@ -41,7 +41,7 @@ public class InvMove extends Module {
             if (this.field23757 && var1.getPacket() instanceof CEntityActionPacket && this.getBooleanValueFromSettingName("AACP")) {
                 CEntityActionPacket var4 = (CEntityActionPacket) var1.getPacket();
                 if (var4.getAction() == CEntityActionPacket.Action.START_SPRINTING) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
             }
         }

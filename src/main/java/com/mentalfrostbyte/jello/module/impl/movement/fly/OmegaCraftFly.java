@@ -72,11 +72,11 @@ public class OmegaCraftFly extends Module {
             var1.setMoving(true);
             if (this.field23700 != 0) {
                 if (this.field23700 == 1) {
-                    var1.setGround(false);
+                    var1.setOnGround(false);
                     var1.setY(var1.getY() + 0.03);
                 }
             } else {
-                var1.setGround(true);
+                var1.setOnGround(true);
             }
         }
     }
