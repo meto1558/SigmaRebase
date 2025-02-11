@@ -136,6 +136,8 @@ public class BlockFlyHypixelMode extends Module {
         if (this.getStringSettingValueByName("Speed Mode").equals("Cubecraft") && this.offGroundTicks == 0) {
             mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
+
+        Client.getInstance().rotationManager.rotations = null;
     }
 
     @EventTarget
@@ -290,7 +292,9 @@ public class BlockFlyHypixelMode extends Module {
                         }
                     } else {
                         if (this.getBooleanValueFromSettingName("KeepRotations") && this.pitch != 999.0F) {
-                            Client.getInstance().rotationManager.setRotations(new Rotation(90.0F, mc.player.rotationYaw + 1.0F), event);
+                            Client.getInstance().rotationManager.setRotations(new Rotation(mc.player.rotationYaw + 1.0F, 90), event);
+                        } else {
+                            Client.getInstance().rotationManager.rotations = null;
                         }
                     }
 
