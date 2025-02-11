@@ -127,10 +127,10 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                 return;
             }
 
-            f = eventRenderEntity.method13944();
-            f1 = eventRenderEntity.method13945();
-            f2 = eventRenderEntity.method13946();
-            f7 = eventRenderEntity.method13947();
+            f = eventRenderEntity.getInterpolatedYawOffset();
+            f1 = eventRenderEntity.getInterpolatedHeadYaw();
+            f2 = eventRenderEntity.getYaw();
+            f7 = eventRenderEntity.getLerpedPitch();
 
             if (entityIn.getPose() == Pose.SLEEPING)
             {

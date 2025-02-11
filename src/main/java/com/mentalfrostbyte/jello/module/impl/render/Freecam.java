@@ -55,7 +55,7 @@ public class Freecam extends Module {
     @EventTarget
     public void onRenderEntity(EventRenderEntity event) {
         if (this.isEnabled()) {
-            if (event.method13953() instanceof ClientPlayerEntity && event.method13953() != field23814) {
+            if (event.getEntity() instanceof ClientPlayerEntity && event.getEntity() != field23814) {
                 event.setCancelled(true);
             }
         }
