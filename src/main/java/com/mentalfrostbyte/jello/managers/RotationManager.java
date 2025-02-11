@@ -14,6 +14,8 @@ import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
+import javax.annotation.Nullable;
+
 public class RotationManager implements MinecraftUtil {
     public Entity target;
 
@@ -21,7 +23,7 @@ public class RotationManager implements MinecraftUtil {
     private NewKillAura killAura;
     private BlockFly blockFly;
 
-    public Rotation rotations;
+    public @Nullable Rotation rotations;
 
     public void init() {
         EventBus.register(this);
@@ -35,7 +37,7 @@ public class RotationManager implements MinecraftUtil {
 
     }
 
-    public void setRotations(Rotation rotations) {
+    public void setRotations(@Nullable Rotation rotations) {
         this.rotations = rotations;
     }
 
@@ -57,7 +59,8 @@ public class RotationManager implements MinecraftUtil {
     @HighestPriority
     public void onLook(EventRotationLook event) {
         if (shouldRotate()) {
-            event.rotationVector = RotationUtil.getVectorForRotation(rotations.pitch, rotations.yaw);
+			assert rotations != null;
+			event.rotationVector = RotationUtil.getVectorForRotation(rotations.pitch, rotations.yaw);
         }
     }
 
@@ -65,7 +68,8 @@ public class RotationManager implements MinecraftUtil {
     @HighestPriority
     public void onYawOffset(EventRotationYawOffset event) {
         if (event.entity.equals(mc.player) && shouldRotate()) {
-            event.f = MathHelper.interpolateAngle(event.partialTicks, rotations.lastYaw, rotations.yaw);
+			assert rotations != null;
+			event.f = MathHelper.interpolateAngle(event.partialTicks, rotations.lastYaw, rotations.yaw);
         }
     }
 
