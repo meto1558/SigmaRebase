@@ -31,6 +31,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HigherPriority;
+import team.sdhq.eventBus.annotations.priority.HighestPriority;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 public class BlockFlySmoothMode extends Module {
@@ -211,8 +212,8 @@ public class BlockFlySmoothMode extends Module {
     }
 
     @EventTarget
-    @LowerPriority
-    public void onMove(EventRotation event) {
+    @HighestPriority
+    public void onRots(EventRotation event) {
         if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
             if (event.state == CancellableEvent.EventState.PRE) {
                 if (this.yaw != 999.0F) {
