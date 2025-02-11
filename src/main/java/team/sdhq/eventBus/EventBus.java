@@ -7,6 +7,7 @@ import team.sdhq.eventBus.annotations.priority.HighestPriority;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -78,6 +79,9 @@ public final class EventBus {
                     m.invoke(instance, e);
                 } catch (IllegalAccessException ex) {
                     Client.getInstance().getLogger().error("!!! PRIVATE EVENT LISTENER: " + instance.getClass().getName() + "#" + m.getName());
+                } catch (InvocationTargetException ex) {
+                    Client.getInstance().getLogger().error("Exception from listener: " + instance.getClass().getName() + "#" + m.getName());
+//                    throw new RuntimeException(ex.getCause());
                 } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
