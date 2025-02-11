@@ -17,7 +17,7 @@ import net.minecraft.world.GameType;
 public class SPlayerListItemPacket implements IPacket<IClientPlayNetHandler>
 {
     private SPlayerListItemPacket.Action action;
-    private final List<SPlayerListItemPacket.AddPlayerData> players = Lists.newArrayList();
+    public List<SPlayerListItemPacket.AddPlayerData> players = Lists.newArrayList();
 
     public SPlayerListItemPacket()
     {
@@ -234,7 +234,7 @@ public class SPlayerListItemPacket implements IPacket<IClientPlayNetHandler>
         private final int ping;
         private final GameType gamemode;
         private final GameProfile profile;
-        private final ITextComponent displayName;
+        public ITextComponent displayName;
 
         public AddPlayerData(GameProfile profileIn, int latencyIn, @Nullable GameType gameModeIn, @Nullable ITextComponent displayNameIn)
         {

@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-
 import com.mentalfrostbyte.jello.event.impl.game.EventReplaceText;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
@@ -30,10 +29,9 @@ public class NameProtect extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket receivePacketEvent) {
         if (this.isEnabled()) {
-            IPacket packet = receivePacketEvent.getPacket();
+            IPacket<?> packet = receivePacketEvent.getPacket();
 
-            if (packet instanceof SUpdateScorePacket) {
-                SUpdateScorePacket scorePacket = (SUpdateScorePacket) packet;
+            if (packet instanceof SUpdateScorePacket scorePacket) {
                 if (scorePacket.getAction() == ServerScoreboard.Action.CHANGE) {
                     String originalUsername = scorePacket.getPlayerName();
                     String replacementUsername = this.getStringSettingValueByName("Username");
@@ -44,12 +42,7 @@ public class NameProtect extends Module {
                 }
             }
 
-            if (packet instanceof SChatPacket) {
-                SChatPacket chatPacket = (SChatPacket) packet;
-            }
-
-            if (packet instanceof SPlayerListItemPacket) {
-                SPlayerListItemPacket playerListPacket = (SPlayerListItemPacket) packet;
+            if (packet instanceof SPlayerListItemPacket playerListPacket) {
                 List<SPlayerListItemPacket.AddPlayerData> playerEntries = playerListPacket.getEntries();
 
                 for (SPlayerListItemPacket.AddPlayerData playerData : playerEntries) {
@@ -58,16 +51,15 @@ public class NameProtect extends Module {
                         String replacementUsername = this.getStringSettingValueByName("Username");
                         if (displayName.contains(mc.getSession().getUsername())) {
                             displayName = displayName.replaceAll(mc.getSession().getUsername(), replacementUsername);
-                          //  playerData.displayName = new StringTextComponent(displayName);
+                            playerData.displayName = new StringTextComponent(displayName);
                         }
                     }
                 }
 
-               // playerListPacket.players = playerEntries;
+                playerListPacket.players = playerEntries;
             }
 
-            if (packet instanceof SUpdateBossInfoPacket) {
-                SUpdateBossInfoPacket bossInfoPacket = (SUpdateBossInfoPacket) packet;
+            if (packet instanceof SUpdateBossInfoPacket bossInfoPacket) {
                 if (bossInfoPacket.getName() == null) {
                     return;
                 }
@@ -80,8 +72,7 @@ public class NameProtect extends Module {
                 }
             }
 
-            if (packet instanceof STitlePacket) {
-                STitlePacket titlePacket = (STitlePacket) packet;
+            if (packet instanceof STitlePacket titlePacket) {
                 if (titlePacket.getMessage() == null) {
                     return;
                 }

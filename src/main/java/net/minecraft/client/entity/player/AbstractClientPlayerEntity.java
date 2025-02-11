@@ -1,6 +1,7 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.hash.Hashing;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventGetLocationSkin;
 import com.mentalfrostbyte.jello.event.impl.player.EventGetFovModifier;
 import com.mojang.authlib.GameProfile;
 import java.io.File;
@@ -106,6 +107,13 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
      */
     public ResourceLocation getLocationSkin()
     {
+        EventGetLocationSkin eventGetLocationSkin = new EventGetLocationSkin();
+        EventBus.call(eventGetLocationSkin);
+
+        if (eventGetLocationSkin.cancelled) {
+            return DefaultPlayerSkin.getDefaultSkin(this.getUniqueID());
+        }
+
         NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
         return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUniqueID()) : networkplayerinfo.getLocationSkin();
     }
