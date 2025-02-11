@@ -26,6 +26,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import team.sdhq.eventBus.annotations.EventTarget;
+import team.sdhq.eventBus.annotations.priority.HighestPriority;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 import java.util.Iterator;
@@ -67,7 +68,7 @@ public class AutoMLG extends PremiumModule {
     }
 
     @EventTarget
-    @LowerPriority
+    @HighestPriority
     public void onUpdate(EventRotation event) {
         if (this.isEnabled() && mc.playerController.gameIsSurvivalOrAdventure()) {
             if (event.state == CancellableEvent.EventState.PRE && preTicks >= 0) {

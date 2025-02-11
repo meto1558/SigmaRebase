@@ -21,6 +21,7 @@ import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
 import team.sdhq.eventBus.annotations.EventTarget;
+import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +49,7 @@ public class BowAimbot extends Module {
     }
 
     @EventTarget
+    @HighestPriority
     public void onRotation(EventRotation event) {
         if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
             if (!(mc.player.getActiveItemStack().getItem() instanceof BowItem)) {

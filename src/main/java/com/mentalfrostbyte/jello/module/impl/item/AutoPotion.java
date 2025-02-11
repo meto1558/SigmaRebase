@@ -23,6 +23,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Hand;
 import team.sdhq.eventBus.annotations.EventTarget;
+import team.sdhq.eventBus.annotations.priority.HighestPriority;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
 
 import java.util.ArrayList;
@@ -51,8 +52,8 @@ public class AutoPotion extends Module {
     }
 
     @EventTarget
-    @LowestPriority
-    public void method16629(EventRotation event) {
+    @HighestPriority
+    public void onRots(EventRotation event) {
         if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
             if (this.getBooleanValueFromSettingName("In fight") || KillAura.currentTimedEntity == null && KillAura.currentTarget == null) {
                 int var4 = this.method16631();
