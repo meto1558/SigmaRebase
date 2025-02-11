@@ -202,7 +202,6 @@ public class KillAura extends Module {
 
     @Override
     public void onDisable() {
-        RotationManager.rotating = false;
         currentTarget = null;
         currentTimedEntity = null;
         targetEntities = null;
@@ -221,11 +220,6 @@ public class KillAura extends Module {
 
     @EventTarget
     public void onTick(EventPlayerTick event) {
-
-        if (currentTarget == null) {
-            RotationManager.rotating = false;
-        } else RotationManager.rotating = true;
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -282,10 +276,6 @@ public class KillAura extends Module {
                 mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.START_SPRINTING));
 
             }
-        }
-
-        if (currentTarget == null) {
-            RotationManager.rotating = false;
         }
 
         if (!isEnabled() || mc.player == null) {
@@ -346,6 +336,7 @@ public class KillAura extends Module {
 
         setRotation();
 
+        /*
         if (event.getYaw() - mc.player.rotationYaw != 0.0F) {
             currentRotations.yaw = event.getYaw();
             currentRotations.pitch = event.getPitch();
@@ -362,6 +353,8 @@ public class KillAura extends Module {
             mc.player.rotationYawHead = event.getYaw();
             mc.player.renderYawOffset = event.getYaw();
         }
+
+         */
 
         boolean canAttack = interactAB.method36821(attackDelay);
 

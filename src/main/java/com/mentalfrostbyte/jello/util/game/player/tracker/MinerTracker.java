@@ -1,12 +1,14 @@
 package com.mentalfrostbyte.jello.util.game.player.tracker;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class2285;
@@ -261,8 +263,8 @@ public class MinerTracker {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
-        if (event.isPre()) {
+    public void onUpdate(EventRotation event) {
+        if (event.state == CancellableEvent.EventState.PRE) {
             if (this.method31743()) {
                 ArrayList var4 = new ArrayList();
                 int var5 = this.field39613.size() - 1;
@@ -296,23 +298,23 @@ public class MinerTracker {
 
                     Direction var13 = BlockUtil.method34580(this.field39616);
                     float[] var11 = BlockUtil.method34542(this.field39616, var13);
-                    event.setYaw(var11[0]);
-                    event.setPitch(var11[1]);
+                    event.yaw = var11[0];
+                    event.pitch = var11[1];
                     this.mc.player.swingArm(Hand.MAIN_HAND);
                     this.mc.playerController.onPlayerDamageBlock(this.field39616, BlockUtil.method34580(this.field39616));
                 } else {
                     this.field39616 = (BlockPos) var4.get(0);
                     Direction var14 = BlockUtil.method34580(this.field39616);
                     float[] var15 = BlockUtil.method34542(this.field39616, var14);
-                    event.setYaw(var15[0]);
-                    event.setPitch(var15[1]);
+                    event.yaw = var15[0];
+                    event.pitch = var15[1];
                     EventKeyPress var12 = new EventKeyPress(0, false, this.field39616);
                     EventBus.call(var12);
                 }
 
                 if (var6.field44279 != Class2317.field15876) {
-                    this.pitch = event.getPitch();
-                    this.yaw = event.getYaw();
+                    this.pitch = event.pitch;
+                    this.yaw = event.yaw;
                 }
             }
         }

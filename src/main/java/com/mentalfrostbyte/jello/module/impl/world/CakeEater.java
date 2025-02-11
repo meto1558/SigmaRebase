@@ -1,8 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -11,6 +13,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.fly.MineplexFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.managers.RotationManager;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import net.minecraft.block.CakeBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -50,7 +53,6 @@ public class CakeEater extends Module {
 
     @Override
     public void onDisable() {
-        RotationManager.rotating = false;
         field23588 = null;
     }
 
@@ -68,7 +70,7 @@ public class CakeEater extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16320(EventUpdateWalkingPlayer event) {
+    public void onRots(EventRotation event) {
         if (this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Fly.class);
             if (var4.getModWithTypeSetToName() instanceof MineplexFly) {
@@ -78,7 +80,7 @@ public class CakeEater extends Module {
                 }
             }
 
-            if (!event.isPre()) {
+            if (event.state == CancellableEvent.EventState.POST) {
                 if (field23588 != null) {
                     if (this.getBooleanValueFromSettingName("No Swing") && !this.getBooleanValueFromSettingName("Mineplex")) {
                         mc.getConnection().sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
@@ -102,7 +104,6 @@ public class CakeEater extends Module {
                 List<BlockPos> var8 = this.method16321(!this.getBooleanValueFromSettingName("Mineplex") ? mc.playerController.getBlockReachDistance() : 6.0F);
                 if (var8.isEmpty()) {
                     field23588 = null;
-                    RotationManager.rotating = false;
                 } else {
                     Collections.sort(var8, new Class3593(this));
                     field23588 = var8.get(0);
@@ -111,18 +112,7 @@ public class CakeEater extends Module {
                                 (double) field23588.getX() + 0.5, (double) field23588.getZ() + 0.5, field23588.getY()
                         );
 
-                        RotationManager.rotating = true;
-                        RotationManager.prevYaw = rots[0];
-                        RotationManager.prevPitch = rots[1];
-                        event.setYaw(rots[0]);
-                        event.setPitch(rots[1]);
-                        RotationManager.yaw = rots[0];
-                        RotationManager.pitch = rots[1];
-
-                        mc.player.rotationYawHead = event.getYaw();
-                        mc.player.renderYawOffset = event.getYaw();
-                    } else {
-                        RotationManager.rotating = true;
+                        Client.getInstance().rotationManager.setRotations(new Rotation(rots[0], rots[1]), event);
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
@@ -9,6 +10,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -21,6 +23,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.managers.RotationManager;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -177,6 +180,8 @@ public class BlockFlyHypixelMode extends Module {
         }
     }
 
+    private double x, y, z;
+
     @EventTarget
     @LowerPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
@@ -217,18 +222,18 @@ public class BlockFlyHypixelMode extends Module {
                         this.hand = Hand.OFF_HAND;
                     }
 
-                    double var5 = event.getX();
-                    double var7 = event.getZ();
-                    double var9 = event.getY();
+                    x = event.getX();
+                    y = event.getY();
+                    z = event.getZ();
                     if (mc.player.getMotion().y < 0.0
                             && mc.player.fallDistance > 1.0F
                             && BlockUtil.rayTrace(0.0F, 90.0F, 3.0F).getType() == RayTraceResult.Type.MISS) {
-                        var9 += Math.min(mc.player.getMotion().y * 2.0, 4.0);
+                        y += Math.min(mc.player.getMotion().y * 2.0, 4.0);
                     } else if (this.field23474 && this.getBooleanValueFromSettingName("Downwards")) {
-                        var9--;
+                        y--;
                     } else if ((this.getStringSettingValueByName("Speed Mode").equals("Jump") || this.getStringSettingValueByName("Speed Mode").equals("Cubecraft"))
                             && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                        var9 = this.field23476;
+                        y = this.field23476;
                     }
 
                     if (!BlockUtil.isValidBlockPosition(
@@ -238,59 +243,58 @@ public class BlockFlyHypixelMode extends Module {
                                     mc.player.getPositionVec().getZ()
                             )
                     )) {
-                        var5 = mc.player.getPositionVec().getX();
-                        var7 = mc.player.getPositionVec().getZ();
+                        x = mc.player.getPositionVec().getX();
+                        z = mc.player.getPositionVec().getZ();
                     }
 
-                    BlockPos var11 = new BlockPos(var5, var9 - 1.0, var7);
+                    BlockPos var11 = new BlockPos(x, y - 1.0, z);
                     if (!BlockUtil.isValidBlockPosition(var11) && this.blockFly.canPlaceItem(this.hand)) {
                         BlockCache var12 = BlockUtil.findValidBlockCache(var11, !this.field23474 && this.getBooleanValueFromSettingName("Downwards"));
                         this.blockCache = var12;
-                        if (var12 != null) {
-                            float[] var13 = BlockUtil.method34542(this.blockCache.position, this.blockCache.direction);
-                            if ((double) var12.position.getY() - mc.player.getPosY() < 0.0) {
+                    } else {
+                        this.blockCache = null;
+                    }
+                }
+            }
+        }
+    }
+
+    @EventTarget
+    @LowerPriority
+    public void onRots(EventRotation event) {
+        if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
+            ModuleWithModuleSettings fly = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Fly.class);
+            if (!fly.isEnabled() || !fly.getStringSettingValueByName("Type").equalsIgnoreCase("Hypixel") || !fly.getModWithTypeSetToName().getStringSettingValueByName("Bypass").equals("Blink")) {
+                if (event.state == CancellableEvent.EventState.PRE  ) {
+                    BlockPos var11 = new BlockPos(x, y - 1.0, z);
+                    if (!BlockUtil.isValidBlockPosition(var11) && this.blockFly.canPlaceItem(this.hand)) {
+                        BlockCache cache = BlockUtil.findValidBlockCache(var11, !this.field23474 && this.getBooleanValueFromSettingName("Downwards"));
+                        this.blockCache = cache;
+                        if (cache != null) {
+                            float[] rots = BlockUtil.method34542(this.blockCache.position, this.blockCache.direction);
+                            if ((double) cache.position.getY() - mc.player.getPosY() < 0.0) {
                                 double var14 = mc.player.getPosX()
-                                        - ((double) var12.position.getX() + 0.5 + (double) var12.direction.getXOffset() / 2.0);
+                                        - ((double) cache.position.getX() + 0.5 + (double) cache.direction.getXOffset() / 2.0);
                                 double var16 = mc.player.getPosZ()
-                                        - ((double) var12.position.getZ() + 0.5 + (double) var12.direction.getZOffset() / 2.0);
+                                        - ((double) cache.position.getZ() + 0.5 + (double) cache.direction.getZOffset() / 2.0);
                                 double var18 = Math.sqrt(var14 * var14 + var16 * var16);
                                 if (var18 < 2.0) {
-                                    var13[0] = mc.player.rotationYaw + 1.0F;
-                                    var13[1] = 90.0F;
+                                    rots[0] = mc.player.rotationYaw + 1.0F;
+                                    rots[1] = 90.0F;
                                 }
                             }
 
-                            this.yaw = var13[0];
-                            this.pitch = var13[1];
-                            RotationManager.rotating = true;
-                            RotationManager.prevPitch = this.pitch;
-                            RotationManager.prevYaw = this.yaw;
-                            event.setYaw(this.yaw);
-                            event.setPitch(this.pitch);
-                            RotationManager.pitch = this.pitch;
-                            RotationManager.yaw = this.yaw;
-
-                            mc.player.rotationYawHead = this.yaw;
-                            mc.player.renderYawOffset = this.yaw;
+                            this.yaw = rots[0];
+                            this.pitch = rots[1];
+                            Client.getInstance().rotationManager.setRotations(new Rotation(this.yaw, this.pitch), event);
                         }
                     } else {
                         if (this.getBooleanValueFromSettingName("KeepRotations") && this.pitch != 999.0F) {
-                            RotationManager.rotating = true;
-                            RotationManager.prevPitch = 90.0F;
-                            RotationManager.prevYaw = mc.player.rotationYaw + 1.0F;
-                            event.setPitch(90.0F);
-                            event.setYaw(mc.player.rotationYaw + 1.0F);
-                            RotationManager.pitch = 90.0F;
-                            RotationManager.yaw = mc.player.rotationYaw + 1.0F;
-
-                            mc.player.rotationYawHead = mc.player.rotationYaw + 1.0F;
-                            mc.player.renderYawOffset = mc.player.rotationYaw + 1.0F;
+                            Client.getInstance().rotationManager.setRotations(new Rotation(90.0F, mc.player.rotationYaw + 1.0F), event);
                         }
-
-                        this.blockCache = null;
                     }
 
-                    if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
+                    if (mc.player.rotationYaw != event.yaw && mc.player.rotationPitch != event.pitch) {
                         this.rotationStabilityCounter = 0;
                     }
                 }

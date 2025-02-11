@@ -2,7 +2,9 @@ package com.mentalfrostbyte.jello.module.impl.item;
 
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
@@ -12,6 +14,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -49,8 +52,8 @@ public class AutoPotion extends Module {
 
     @EventTarget
     @LowestPriority
-    public void method16629(EventUpdateWalkingPlayer var1) {
-        if (this.isEnabled() && var1.isPre()) {
+    public void method16629(EventRotation event) {
+        if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
             if (this.getBooleanValueFromSettingName("In fight") || KillAura.currentTimedEntity == null && KillAura.currentTarget == null) {
                 int var4 = this.method16631();
                 this.field23808++;
@@ -81,12 +84,12 @@ public class AutoPotion extends Module {
                             if (var5[var6] != -1) {
                                 if (var5[var6] != 6 && var5[var6] != 10) {
                                     if (this.field23808 > 60) {
-                                        this.method16634(var1, var4, var5[var6]);
+                                        this.method16634(event, var4, var5[var6]);
                                     }
                                 } else if (this.field23808 > 18
                                         && !mc.player.isPotionActive(Effect.get(var5[var6]))
                                         && mc.player.getHealth() < this.getNumberValueBySettingName("Health") * 2.0F) {
-                                    this.method16634(var1, var4, var5[var6]);
+                                    this.method16634(event, var4, var5[var6]);
                                 }
                             }
                         }
@@ -175,7 +178,7 @@ public class AutoPotion extends Module {
         return var5;
     }
 
-    public void method16634(EventUpdateWalkingPlayer var1, int var2, int var3) {
+    public void method16634(EventRotation event, int var2, int var3) {
         int var6 = this.method16632(var3);
         if (var6 != -1) {
             if (var6 < 36) {
@@ -192,8 +195,7 @@ public class AutoPotion extends Module {
                 mc.playerController.syncCurrentPlayItem();
                 if (!this.getBooleanValueFromSettingName("Instant")) {
                     this.field23811 = 1;
-                    var1.setYaw(var9[0]);
-                    var1.setPitch(var9[1]);
+                    Client.getInstance().rotationManager.setRotations(new Rotation(var9[0], var9[1]), event);
                 } else {
                     mc.getConnection().sendPacket(new CPlayerPacket.RotationPacket(var9[0], var9[1], !var8 && mc.player.isOnGround()));
                     mc.getConnection().sendPacket(new CPlayerTryUseItemPacket(Hand.MAIN_HAND));

@@ -4216,4 +4216,12 @@ public abstract class LivingEntity extends Entity
             return super.getRenderBoundingBox();
         }
     }
+
+    public int getHurtTime() {
+        return hurtTime;
+    }
+
+    public int getTicksExisted() {
+        return ticksExisted;
+    }
 }

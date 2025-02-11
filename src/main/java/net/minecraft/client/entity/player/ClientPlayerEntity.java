@@ -1,13 +1,15 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.collect.Lists;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.managers.RotationManager;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotationLook;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
@@ -213,6 +215,8 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             super.tick();
 
             if (this.isPassenger()) {
+                EventRotation eventRotation = new EventRotation(this.rotationYaw, this.rotationPitch);
+
                 this.connection.sendPacket(new CPlayerPacket.RotationPacket(this.rotationYaw, this.rotationPitch, this.onGround));
                 this.connection.sendPacket(new CInputPacket(this.moveStrafing, this.moveForward, this.movementInput.jump, this.movementInput.sneaking));
                 Entity entity = this.getLowestRidingEntity();
@@ -246,12 +250,14 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
     protected void onUpdateWalkingPlayer() {
         // MODIFICATION START: Sends out `EventUpdate`s
         AxisAlignedBB bounds = this.getBoundingBox();
-        EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
+        EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.onGround);
         EventBus.call(event);
-        // MODIFICATION END
-        // MODIFICATION START: Make the event cancellable
+
+        EventRotation rotationEvent = new EventRotation(this.rotationYaw, this.rotationPitch);
+        rotationEvent.state = CancellableEvent.EventState.PRE;
+        EventBus.call(rotationEvent);
+
         if (event.cancelled) return;
-        // MODIFICATION END
         boolean flag = this.isSprinting();
 
         if (flag != this.serverSprintState) {
@@ -273,8 +279,8 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             double d4 = event.getX() - this.lastReportedPosX;
             double d0 = event.getY() - this.lastReportedPosY;
             double d1 = event.getZ() - this.lastReportedPosZ;
-            double d2 = (double) (event.getYaw() - this.lastReportedYaw);
-            double d3 = (double) (event.getPitch() - this.lastReportedPitch);
+            double d2 = rotationEvent.yaw - this.lastReportedYaw;
+            double d3 = rotationEvent.pitch - this.lastReportedPitch;
             // MODIFICATION END
             ++this.positionUpdateTicks;
             boolean flag1 = d4 * d4 + d0 * d0 + d1 * d1 > 9.0E-4D || this.positionUpdateTicks >= 20;
@@ -283,24 +289,24 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             if (this.isPassenger()) {
                 Vector3d vector3d = this.getMotion();
                 // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0D, vector3d.z, event.getYaw(), event.getPitch(), event.onGround()));
+                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0D, vector3d.z, rotationEvent.yaw, rotationEvent.pitch, event.isOnGround()));
                 // MODIFICATION END
                 flag1 = false;
             } else if (flag1 && flag2) {
                 // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(event.getX(), event.getY(), event.getZ(), event.getYaw(), event.getPitch(), event.onGround()));
+                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(event.getX(), event.getY(), event.getZ(), rotationEvent.yaw, rotationEvent.pitch, event.isOnGround()));
                 // MODIFICATION END
             } else if (flag1) {
                 // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.PositionPacket(event.getX(), event.getY(), event.getZ(), event.onGround()));
+                this.connection.sendPacket(new CPlayerPacket.PositionPacket(event.getX(), event.getY(), event.getZ(), event.isOnGround()));
                 // MODIFICATION END
             } else if (flag2) {
                 // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.RotationPacket(event.getYaw(), event.getPitch(), event.onGround()));
+                this.connection.sendPacket(new CPlayerPacket.RotationPacket(rotationEvent.yaw, rotationEvent.pitch, event.isOnGround()));
                 // MODIFICATION END
-            } else if (this.prevOnGround != event.onGround()) {
+            } else if (this.prevOnGround != event.isOnGround()) {
                 // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket(event.onGround()));
+                this.connection.sendPacket(new CPlayerPacket(event.isOnGround()));
                 // MODIFICATION END
             }
 
@@ -315,13 +321,13 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
 
             if (flag2) {
                 // MODIFICATION BEGIN: use spoofed values
-                this.lastReportedYaw = event.getYaw();
-                this.lastReportedPitch = event.getPitch();
+                this.lastReportedYaw = rotationEvent.yaw;
+                this.lastReportedPitch = rotationEvent.pitch;
                 // MODIFICATION END
             }
 
             // MODIFICATION BEGIN: use spoofed values
-            this.prevOnGround = event.onGround();
+            this.prevOnGround = event.isOnGround();
             // MODIFICATION END
             this.autoJumpEnabled = this.mc.gameSettings.autoJump;
         }
@@ -329,21 +335,19 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
         for (Runnable runnable : event.getRunnableList()) {
             runnable.run();
         }
+
         event.postUpdate();
         EventBus.call(event);
-    }
 
-    @Override
-    public Vector3d getLookVec() {
-        return this.getLook(1.0f);
+        rotationEvent.state = CancellableEvent.EventState.POST;
+        EventBus.call(rotationEvent);
     }
 
     @Override
     public Vector3d getLook(float partialTicks) {
-        return this.getVectorForRotation(
-                RotationManager.rotating ? RotationManager.pitch : this.rotationPitch,
-                RotationManager.rotating ? RotationManager.yaw : this.rotationYaw
-        );
+        EventRotationLook rotationLookEvent = new EventRotationLook(this.getVectorForRotation(this.rotationPitch, this.rotationYaw), partialTicks);
+        EventBus.call(rotationLookEvent);
+        return rotationLookEvent.rotationVector;
     }
 
     public boolean drop(boolean p_225609_1_) {
@@ -744,7 +748,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             EventSlowDown event = new EventSlowDown(0.2F);
             EventBus.call(event);
 
-            if (!event.isCancelled()) {
+            if (!event.cancelled) {
                 this.movementInput.moveStrafe = this.movementInput.moveStrafe * event.getSlowDown();
                 this.movementInput.moveForward = this.movementInput.moveForward * event.getSlowDown();
                 this.sprintToggleTimer = 0;

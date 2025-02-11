@@ -101,8 +101,6 @@ public class Client {
         this.combatManager.init();
         this.commandManager = new CommandManager();
         this.commandManager.init();
-        this.rotationManager = new RotationManager();
-        this.rotationManager.init();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();
@@ -257,6 +255,11 @@ public class Client {
             this.moduleManager.register(this.clientMode);
             this.moduleManager.loadProfileFromJSON(this.config);
             this.moduleManager.saveCurrentConfigToJSON(this.config);
+        }
+        
+        if (this.rotationManager == null) {
+            this.rotationManager = new RotationManager();
+            this.rotationManager.init();
         }
 
         System.gc();

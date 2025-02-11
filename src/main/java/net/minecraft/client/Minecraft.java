@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
+import com.mentalfrostbyte.jello.event.impl.game.EventRunTick;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
@@ -1361,7 +1363,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private void clickMouse() {
+    public void clickMouse() {
         EventClick eventClick = new EventClick(EventClick.Button.LEFT);
         EventBus.call(eventClick);
 
@@ -1511,6 +1513,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * Runs the current tick.
      */
     public void runTick() {
+        EventRunTick eventRunTick = new EventRunTick();
+        eventRunTick.state = CancellableEvent.EventState.PRE;
+        EventBus.call(eventRunTick);
         if (this.rightClickDelayTimer > 0) {
             --this.rightClickDelayTimer;
         }
@@ -1653,6 +1658,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profiler.endStartSection("keyboard");
         this.keyboardListener.tick();
         this.profiler.endSection();
+
+        eventRunTick.state = CancellableEvent.EventState.POST;
+        EventBus.call(eventRunTick);
     }
 
     private boolean func_244600_aM() {

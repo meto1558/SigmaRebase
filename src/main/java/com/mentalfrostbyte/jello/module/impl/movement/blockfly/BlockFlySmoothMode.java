@@ -1,12 +1,14 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -16,9 +18,9 @@ import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.managers.RotationManager;
-import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
+import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
+import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
 import net.minecraft.util.Direction;
@@ -107,6 +109,8 @@ public class BlockFlySmoothMode extends Module {
         }
     }
 
+    private double x, y, z;
+
     @EventTarget
     @LowerPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
@@ -124,9 +128,9 @@ public class BlockFlySmoothMode extends Module {
 
                 }
 
-                double x = event.getX();
-                double y = event.getZ();
-                double z = event.getY();
+                x = event.getX();
+                y = event.getZ();
+                z = event.getY();
                 if (!mc.player.collidedHorizontally && !mc.gameSettings.keyBindJump.isPressed()) {
                     double[] expandPos = this.getExpandedPosition();
                     x = expandPos[0];
@@ -169,26 +173,6 @@ public class BlockFlySmoothMode extends Module {
                 }
 
                 if (this.yaw != 999.0F) {
-                    RotationManager.rotating = true;
-                    RotationManager.prevYaw = this.yaw;
-                    RotationManager.prevPitch = this.pitch;
-                    //Rots.prevPitch = MathHelper.clamp(this.pitch, -90.0F, 90.0F);
-                    event.setYaw(this.yaw);
-                    event.setPitch(this.pitch);
-                    RotationManager.yaw = this.yaw;
-                    RotationManager.pitch = this.pitch;
-
-                    mc.player.rotationYawHead = event.getYaw();
-                    mc.player.renderYawOffset = event.getYaw();
-                } else {
-                    RotationManager.rotating = false;
-                }
-
-                if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
-                    this.rotationStabilityCounter = 0;
-                }
-
-                if (this.yaw != 999.0F) {
                     this.blockFly.method16736();
                     if (this.blockCache != null) {
                         BlockRayTraceResult rayTraceResult = BlockUtil.rayTrace(this.yaw, this.pitch, 5.0F, event);
@@ -207,8 +191,6 @@ public class BlockFlySmoothMode extends Module {
                             this.blockFly.switchToValidHotbarItem();
                         }
 
-
-
                         //new ItemUseContext(mc.player, Hand.MAIN_HAND, rayTraceResult);
                         mc.playerController.func_217292_a(mc.player, mc.world, this.hand, rayTraceResult);
                         this.blockCache = null;
@@ -223,6 +205,22 @@ public class BlockFlySmoothMode extends Module {
                             mc.player.inventory.currentItem = currentItem;
                         }
                     }
+                }
+            }
+        }
+    }
+
+    @EventTarget
+    @LowerPriority
+    public void onMove(EventRotation event) {
+        if (this.isEnabled() && this.blockFly.getValidItemCount() != 0) {
+            if (event.state == CancellableEvent.EventState.PRE) {
+                if (this.yaw != 999.0F) {
+                    Client.getInstance().rotationManager.setRotations(new Rotation(this.yaw, this.pitch), event);
+                }
+
+                if (mc.player.rotationYaw != event.yaw && mc.player.rotationPitch != event.pitch) {
+                    this.rotationStabilityCounter = 0;
                 }
             }
         }

@@ -6,36 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventUpdateWalkingPlayer extends CancellableEvent {
-    public float prevPitch;
-    public float prevYaw;
-    public float postPitch;
-    public float postYaw;
     public boolean pre;
     private double x;
     private double y;
     private double z;
-    private float pitch;
-    private float yaw;
     private boolean onGround;
     private boolean moving;
     private final List<Runnable> runnables = new ArrayList<>();
 
-    public EventUpdateWalkingPlayer(double x, double y, double z, float pitch, float yaw, boolean onGround) {
+    public EventUpdateWalkingPlayer(double x, double y, double z, boolean onGround) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.pitch = pitch;
-        this.yaw = yaw;
         this.onGround = onGround;
         this.pre = true;
         this.moving = false;
     }
 
     public void postUpdate() {
-        this.postPitch = prevPitch; //lmao
-        this.postYaw = prevYaw;
-        this.prevPitch = this.yaw;
-        this.prevYaw = this.pitch;
         this.pre = false;
     }
 
@@ -69,22 +57,6 @@ public class EventUpdateWalkingPlayer extends CancellableEvent {
 
     public void setZ(double z) {
         this.z = z;
-    }
-
-    public float getPitch() {
-        return this.pitch;
-    }
-
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
-    }
-
-    public float getYaw() {
-        return this.yaw;
-    }
-
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
     }
 
     public boolean isOnGround() {

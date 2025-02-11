@@ -1,10 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
 
+import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -15,6 +17,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
+import team.sdhq.eventBus.annotations.priority.HigherPriority;
 
 public class NCPPhase extends PremiumModule {
     public boolean field23651;
@@ -42,8 +45,11 @@ public class NCPPhase extends PremiumModule {
         }
     }
 
+    private boolean rotate1 = false;
+    private boolean rotate2 = false;
+
     @EventTarget
-    public void method16426(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
             if (mc.gameSettings.keyBindSneak.isKeyDown()) {
                 double var4 = mc.player.getPosX();
@@ -54,7 +60,7 @@ public class NCPPhase extends PremiumModule {
                         mc.player.setPosition(var4, var6 - 1.0, var8);
                         event.setY(var6 - 1.0);
                         event.setMoving(true);
-                        event.setYaw(event.getYaw() + 10.0F);
+                        rotate1 = true;
                         mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
                     } else if (mc.player.getPosY() == (double) ((int) mc.player.getPosY())) {
                         mc.player.setPosition(var4, var6 - 0.3, var8);
@@ -66,13 +72,42 @@ public class NCPPhase extends PremiumModule {
                 this.field23653++;
                 float var10 = (float) Math.sin(this.field23653) * 5.0F;
                 float var11 = (float) Math.cos(this.field23653) * 5.0F;
-                event.setYaw(event.getYaw() + var10);
-                event.setPitch(event.getPitch() + var11);
+
+                rotate2 = true;
             } else if (this.field23652 < 0) {
                 return;
             }
 
             event.setMoving(true);
+        }
+    }
+
+    @EventTarget
+    @HigherPriority
+    public void onRots(EventRotation event) {
+        if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
+            if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+                if (!MovementUtil.isMoving()) {
+                    if (BlockUtil.isAboveBounds(mc.player, 0.001F) && !PlayerUtil.isCollidingWithSurroundingBlocks()) {
+                        if (rotate1) {
+                            rotate2 = false;
+                            event.yaw = event.yaw + 10.0F;
+                        }
+                    }
+                }
+            }
+
+            if (this.field23652 > 0 && this.field23651 && PlayerUtil.isCollidingWithSurroundingBlocks()) {
+                this.field23653++;
+                float var10 = (float) Math.sin(this.field23653) * 5.0F;
+                float var11 = (float) Math.cos(this.field23653) * 5.0F;
+
+                if (rotate2) {
+                    rotate1 = false;
+                    event.yaw = event.yaw + var10;
+                    event.pitch = event.pitch + var11;
+                }
+            }
         }
     }
 
