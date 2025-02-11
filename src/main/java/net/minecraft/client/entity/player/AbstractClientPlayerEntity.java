@@ -185,6 +185,13 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
 
     public String getSkinType()
     {
+        EventGetLocationSkin eventGetLocationSkin = new EventGetLocationSkin();
+        EventBus.call(eventGetLocationSkin);
+
+        if (eventGetLocationSkin.cancelled) {
+            return DefaultPlayerSkin.getSkinType(this.getUniqueID());
+        }
+
         NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
         return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(this.getUniqueID()) : networkplayerinfo.getSkinType();
     }
