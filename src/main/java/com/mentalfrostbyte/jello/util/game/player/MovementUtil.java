@@ -283,6 +283,14 @@ public class MovementUtil implements MinecraftUtil {
 
         return baseSpeed;
     }
+    public static double lowHopSpeed() {
+        double baseSpeed = 0.3973 + (double) getSpeedBoost() * 0.857;
+        if (mc.player.isSneaking()) {
+            baseSpeed *= 0.25;
+        }
+
+        return baseSpeed;
+    }
 
     public static void moveInDirection(double speed) {
         float[] adjusted = getDirectionArray();
