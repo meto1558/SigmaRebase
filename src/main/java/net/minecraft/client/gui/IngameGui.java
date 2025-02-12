@@ -174,6 +174,8 @@ public class IngameGui extends AbstractGui
 
     public void renderIngameGui(MatrixStack matrixStack, float partialTicks)
     {
+        if(this.mc.playerController == null) return;
+
         this.scaledWidth = this.mc.getMainWindow().getScaledWidth();
         this.scaledHeight = this.mc.getMainWindow().getScaledHeight();
         FontRenderer fontrenderer = this.getFontRenderer();

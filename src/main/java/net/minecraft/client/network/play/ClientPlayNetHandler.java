@@ -4,6 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.managers.ModuleManager;
+import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import io.netty.buffer.Unpooled;
@@ -45,17 +49,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
 import net.minecraft.client.gui.recipebook.RecipeBookGui;
 import net.minecraft.client.gui.recipebook.RecipeList;
-import net.minecraft.client.gui.screen.CommandBlockScreen;
-import net.minecraft.client.gui.screen.ConfirmScreen;
-import net.minecraft.client.gui.screen.DeathScreen;
-import net.minecraft.client.gui.screen.DemoScreen;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.gui.screen.DownloadTerrainScreen;
-import net.minecraft.client.gui.screen.MainMenuHolder;
-import net.minecraft.client.gui.screen.MultiplayerScreen;
-import net.minecraft.client.gui.screen.ReadBookScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.WinGameScreen;
+import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.HorseInventoryScreen;
 import net.minecraft.client.gui.toasts.RecipeToast;
@@ -1017,11 +1011,21 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
             else
             {
                 this.client.displayGuiScreen(new DisconnectedScreen(this.guiScreenServer, field_243491_b, reason));
+                if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).isEnabled()) {
+                    ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
+                    if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
+                    MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+                }
             }
         }
         else
         {
             this.client.displayGuiScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuHolder()), field_243491_b, reason));
+            if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).isEnabled()) {
+                ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
+                if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
+                MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+            }
         }
     }
 

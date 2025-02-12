@@ -161,6 +161,7 @@ public class ModuleManager {
         this.register(new PacketEssentials());
         this.register(new PacketDumper());
         this.register(new DebugSpeed());
+        this.register(new AutoReconnect());
 
 
 

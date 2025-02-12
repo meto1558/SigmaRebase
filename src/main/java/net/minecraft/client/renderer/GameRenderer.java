@@ -264,7 +264,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
     public void getMouseOver(float partialTicks) {
         Entity entity = this.mc.getRenderViewEntity();
 
-        if (entity != null && this.mc.world != null) {
+        if (entity != null && this.mc.world != null && this.mc.playerController != null) {
             this.mc.getProfiler().startSection("pick");
             this.mc.pointedEntity = null;
             double d0 = (double) this.mc.playerController.getBlockReachDistance();
@@ -435,7 +435,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
     }
 
     public void renderHand(MatrixStack p_renderHand_1_, ActiveRenderInfo p_renderHand_2_, float p_renderHand_3_, boolean p_renderHand_4_, boolean p_renderHand_5_, boolean p_renderHand_6_) {
-        if (!this.debugView) {
+        if (!this.debugView && this.mc.world != null && this.mc.playerController != null) {
             Shaders.setRenderingFirstPersonHand(true);
             this.resetProjectionMatrix(this.getProjectionMatrix(p_renderHand_2_, p_renderHand_3_, false));
             MatrixStack.Entry matrixstack$entry = p_renderHand_1_.getLast();
