@@ -16,7 +16,7 @@ public class LegitWTap extends Module {
 
     @EventTarget
     public void TickEvent(EventPlayerTick event) {
-        if (this.isEnabled() && !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2()) {
+        if (this.isEnabled() && !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled2()) {
             mc.gameSettings.keyBindSprint.setPressed(true);
             if (mc.player.swingProgressInt != 1) {
                 if (mc.player.swingProgressInt == 0) {
