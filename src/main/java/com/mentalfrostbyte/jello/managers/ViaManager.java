@@ -355,10 +355,9 @@ public class ViaManager implements MinecraftUtil {
     @HighestPriority
     public void onRenderEntity(EventRenderEntity event) {
         if (event.getEntity() == mc.player || event.getEntity() == Freecam.player || event.getEntity() == Blink.clientPlayerEntity) {
-            Rotation rotations = Objects.requireNonNullElse(
-                    Client.getInstance().rotationManager.rotations,
-                    Rotation.of(event)
-            );
+            Rotation rotations = Client.getInstance().rotationManager.rotations;
+            if (rotations == null)
+                return;
             float postYaw = rotations.lastYaw;
             float yaw = rotations.yaw;
             float postPitch = rotations.lastPitch;
