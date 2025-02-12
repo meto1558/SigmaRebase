@@ -480,6 +480,7 @@ public class ClientWorld extends World
 
     public void animateTick(int posX, int posY, int posZ)
     {
+        if (this.mc.playerController == null) return;
         int i = 32;
         Random random = new Random();
         boolean flag = false;

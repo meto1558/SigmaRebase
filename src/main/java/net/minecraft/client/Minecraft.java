@@ -1531,7 +1531,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.tutorial.onMouseHover(this.world, this.objectMouseOver);
         this.profiler.startSection("gameMode");
 
-        if (!this.isGamePaused && this.world != null) {
+        if (!this.isGamePaused && this.world != null && this.playerController != null) {
             this.playerController.tick();
         }
 
