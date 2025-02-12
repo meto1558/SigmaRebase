@@ -137,7 +137,7 @@ public class InteractAutoBlock {
         }
     }
 
-    public boolean method36821(int cps) {
+    public boolean canAttack(int cps) {
         return cps >= (int) this.clicks[0];
     }
 

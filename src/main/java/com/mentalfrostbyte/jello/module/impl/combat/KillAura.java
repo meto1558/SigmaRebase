@@ -32,7 +32,6 @@ import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
@@ -173,6 +172,7 @@ public class KillAura extends Module {
         if (mc.player.isOnGround()) {
             groundTicks = 1;
         }
+        Client.getInstance().rotationManager.setRotations((Rotation)null);
     }
 
     private void initializeRotations() {
@@ -184,6 +184,7 @@ public class KillAura extends Module {
         secondaryRotations = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
         currentRotations = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
         previousRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
+        Client.getInstance().rotationManager.setRotations((Rotation)null);
         rotationProgress = -1.0F;
     }
 
@@ -207,6 +208,7 @@ public class KillAura extends Module {
         targetEntities = null;
         isAuraActive = false;
         attackLambda = null;
+        Client.getInstance().rotationManager.setRotations((Rotation)null);
         super.onDisable();
     }
 
@@ -336,27 +338,19 @@ public class KillAura extends Module {
 
         setRotation();
 
-        /*
-        if (event.getYaw() - mc.player.rotationYaw != 0.0F) {
+
+        /*if (event.getYaw() - mc.player.rotationYaw != 0.0F) {
             currentRotations.yaw = event.getYaw();
             currentRotations.pitch = event.getPitch();
-        }
+        }*/
 
         if (currentTarget != null) {
-            RotationManager.prevYaw = currentRotations.yaw;
-            RotationManager.prevPitch = currentRotations.pitch;
-            event.setYaw(currentRotations.yaw);
-            event.setPitch(currentRotations.pitch);
-            RotationManager.yaw = currentRotations.yaw;
-            RotationManager.pitch = currentRotations.pitch;
-
-            mc.player.rotationYawHead = event.getYaw();
-            mc.player.renderYawOffset = event.getYaw();
+            Client.getInstance().rotationManager.setRotations(currentRotations);
+        } else {
+            Client.getInstance().rotationManager.setRotations((Rotation)null);
         }
 
-         */
-
-        boolean canAttack = interactAB.method36821(attackDelay);
+        boolean canAttack = interactAB.canAttack(attackDelay);
 
         boolean shouldAttack = canAttack;
         if (getBooleanValueFromSettingName("Cooldown")) {
