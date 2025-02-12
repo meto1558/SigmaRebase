@@ -1,8 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.combat.wtap;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -14,7 +16,7 @@ public class LegitWTap extends Module {
 
     @EventTarget
     public void TickEvent(EventPlayerTick event) {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2()) {
             mc.gameSettings.keyBindSprint.setPressed(true);
             if (mc.player.swingProgressInt != 1) {
                 if (mc.player.swingProgressInt == 0) {
