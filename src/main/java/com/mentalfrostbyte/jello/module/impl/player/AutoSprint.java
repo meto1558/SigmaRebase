@@ -23,17 +23,23 @@ public class AutoSprint extends Module {
     public AutoSprint() {
         super(ModuleCategory.PLAYER, "AutoSprint", "Sprints for you");
         this.registerSetting(new BooleanSetting("Keep Sprint", "Keep Sprinting after hitting a player", false));
-        this.registerSetting(new BooleanSetting("Legit","not yet implemented someone can do it ",false));
+        this.registerSetting(new BooleanSetting("Legit", "Legitimate sprint", false));
     }
 
     @EventTarget
     public void TickEvent(EventPlayerTick event) {
         ModuleWithModuleSettings getModule = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class);
         Module BlockFly = getModule.parentModule;
+
         if (BlockFly == null || !BlockFly.isEnabled() || !(BlockFly instanceof BlockFlyAACMode) || BlockFly.getBooleanValueFromSettingName("Haphe (AACAP)")) {
-            mc.player.setSprinting(mc.player.moveForward > 0.0F &&   !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class )).isEnabled2() && !mc.player.collidedHorizontally);
+            if (this.getBooleanValueFromSettingName("Legit")) {
+                mc.gameSettings.keyBindSprint.setPressed(true);
+            } else {
+                mc.player.setSprinting(mc.player.moveForward > 0.0F && !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2() && !mc.player.collidedHorizontally);
+            }
         }
     }
+
 
     @EventTarget
     public void onFOV(EventGetFovModifier event) {
@@ -61,7 +67,7 @@ public class AutoSprint extends Module {
                         mc.player.setMotion(this.trackMotion[0], mc.player.getMotion().y, this.trackMotion[1]);
                     }
 
-                    if (this.sprinting && !mc.player.isSprinting() ) {
+                    if (this.sprinting && !mc.player.isSprinting()) {
                         mc.player.setSprinting(true);
                     }
                 }
@@ -71,15 +77,6 @@ public class AutoSprint extends Module {
                 this.sprinting = mc.player.isSprinting();
             }
         }
+
     }
-    @EventTarget
-    public void Legit(EventPlayerTick event) {
-
-        if (this.isEnabled() && this.getBooleanValueFromSettingName("Legit"))
-            mc.gameSettings.keyBindSprint.setPressed(true);
-
-
-
-        }
-    }
-
+}
