@@ -100,10 +100,10 @@ public class KillAura extends Module {
                 new NumberSetting<>("Block Range", "Block Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.2F));
         this.registerSetting(
                 new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(setting -> interactAB.method36818()));
+                        .addObserver(setting -> interactAB.handleCPSSettingChange()));
         this.registerSetting(
                 new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(setting -> interactAB.method36818()));
+                        .addObserver(setting -> interactAB.handleCPSSettingChange()));
         this.registerSetting(
                 new NumberSetting<>("Hit box expand", "Hit Box expand", 0.05F, Float.class, 0.0F, 1.0F, 0.01F));
         this.registerSetting(new NumberSetting<>("Hit Chance", "Hit Chance", 100.0F, Float.class, 25.0F, 100.0F, 1.0F));

@@ -41,7 +41,7 @@ public class InteractAutoBlock {
 
     public InteractAutoBlock(Module parent) {
         this.parent = parent;
-        this.method36818();
+        this.handleCPSSettingChange();
     }
 
     public boolean isBlocking() {
@@ -83,7 +83,7 @@ public class InteractAutoBlock {
                 && !this.isBlocking();
     }
 
-    public void method36818() {
+    public void handleCPSSettingChange() {
         this.clicks = new float[3];
         float minCPT = 20.0F / this.parent.getNumberValueBySettingName("Min CPS");
         float maxCPT = 20.0F / this.parent.getNumberValueBySettingName("Max CPS");
