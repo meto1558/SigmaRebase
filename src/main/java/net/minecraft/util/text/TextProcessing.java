@@ -119,7 +119,7 @@ public class TextProcessing
     public static boolean func_238340_a_(String p_238340_0_, int p_238340_1_, Style p_238340_2_, Style p_238340_3_, ICharacterConsumer p_238340_4_) {
         EventReplaceText i1 = new EventReplaceText(p_238340_0_);
         EventBus.call(i1);
-        p_238340_0_ = i1.setText();
+        p_238340_0_ = i1.getText();
         int i = p_238340_0_.length();
         Style style = p_238340_2_;
 

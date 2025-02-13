@@ -9,11 +9,11 @@ public class EventReplaceText extends CancellableEvent {
         this.text = var1;
     }
 
-    public String setText() {
+    public String getText() {
         return this.text;
     }
 
-    public void setText(String var1) {
+    public void getText(String var1) {
         this.text = var1;
     }
 }
