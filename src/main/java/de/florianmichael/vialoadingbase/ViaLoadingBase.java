@@ -18,6 +18,7 @@
 
 package de.florianmichael.vialoadingbase;
 
+import com.mentalfrostbyte.Client;
 import com.viaversion.viaversion.ViaManagerImpl;
 import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.platform.providers.ViaProviders;
@@ -27,17 +28,15 @@ import com.viaversion.viaversion.protocol.ProtocolManagerImpl;
 import de.florianmichael.vialoadingbase.model.Platform;
 import de.florianmichael.vialoadingbase.platform.ViaBackwardsPlatformImpl;
 import de.florianmichael.vialoadingbase.platform.ViaRewindPlatformImpl;
-import de.florianmichael.vialoadingbase.platform.ViaVersionPlatformImpl;
 import de.florianmichael.vialoadingbase.platform.viaversion.VLBViaCommandHandler;
-import de.florianmichael.vialoadingbase.platform.viaversion.VLBViaInjector;
 import de.florianmichael.vialoadingbase.platform.viaversion.VLBViaProviders;
+import de.florianmichael.vialoadingbase.platform.ViaVersionPlatformImpl;
+import de.florianmichael.vialoadingbase.platform.viaversion.VLBViaInjector;
 import de.florianmichael.vialoadingbase.util.JLoggerToLog4j;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -91,9 +90,13 @@ public class ViaLoadingBase {
     }
 
     public void reload(final ProtocolVersion protocolVersion) {
+        if(protocolVersion == null) return;
+
         this.targetProtocolVersion = protocolVersion;
 
         if (this.onProtocolReload != null) this.onProtocolReload.accept(targetProtocolVersion);
+
+        Client.getInstance().getLogger().info(String.format("ViaLoadingBase has reloaded to %s (%s)", targetProtocolVersion.getName(), targetProtocolVersion.getVersion()));
     }
 
     public void initPlatform() {
@@ -242,7 +245,8 @@ public class ViaLoadingBase {
                 ViaLoadingBase.LOGGER.severe("Please check your ViaLoadingBaseBuilder arguments!");
                 return;
             }
-            new ViaLoadingBase(platforms, runDirectory, nativeVersion, forceNativeVersionCondition, dumpSupplier, providers, managerBuilderConsumer, onProtocolReload);
+
+            ViaLoadingBase.instance = new ViaLoadingBase(platforms, runDirectory, nativeVersion, forceNativeVersionCondition, dumpSupplier, providers, managerBuilderConsumer, onProtocolReload);
         }
     }
 }
