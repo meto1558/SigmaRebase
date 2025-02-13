@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer.culling;
 
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector4f;
@@ -48,6 +50,7 @@ public class ClippingHelper implements ICamera
 
     public boolean isBoundingBoxInFrustum(AxisAlignedBB aabbIn)
     {
+        double minY = Math.min(aabbIn.minY, -64); //allows -y rendering for 1.17+
         return this.isBoxInFrustum(aabbIn.minX, aabbIn.minY, aabbIn.minZ, aabbIn.maxX, aabbIn.maxY, aabbIn.maxZ);
     }
 
