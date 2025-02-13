@@ -9,12 +9,14 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.util.client.network.microsoft.CookieLoginUtil;
 import com.mentalfrostbyte.jello.util.client.network.microsoft.MicrosoftUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import net.minecraft.client.Minecraft;
@@ -22,6 +24,8 @@ import net.minecraft.util.Session;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -100,7 +104,31 @@ public class Alert extends Element {
                         this.buttons.add(button);
                         button.field20586 = 4;
                         button.doThis((var1x, var2x) -> {
-                            this.onButtonClick();
+                            if (button.text.equals("Cookie alt")) {
+                                File file = FileUtil.getFileFromDialog();
+                                if (file != null) {
+                                    try {
+                                        CookieLoginUtil.LoginData loginData = CookieLoginUtil.loginWithCookie(file);
+                                        if (loginData == null) {
+                                            Client.getInstance().soundManager.play("error");
+                                            this.inputMap = this.method13599();
+                                            this.method13603(false);
+                                            return;
+                                        }
+                                        Session session = Minecraft.getInstance().getSession();
+                                        session.username = loginData.username;
+                                        session.playerID = loginData.uuid;
+                                        session.token = loginData.mcToken;
+                                        Client.getInstance().soundManager.play("connect");
+                                    } catch (Exception e) {
+                                        Client.getInstance().soundManager.play("error");
+                                    }
+                                }
+                                this.inputMap = this.method13599();
+                                this.method13603(false);
+                            } else {
+                                this.onButtonClick();
+                            }
                         });
                     }
                 } else {
