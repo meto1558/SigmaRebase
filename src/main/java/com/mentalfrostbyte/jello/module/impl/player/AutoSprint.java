@@ -33,6 +33,7 @@ public class AutoSprint extends Module {
 
         if (BlockFly == null || !BlockFly.isEnabled() || !(BlockFly instanceof BlockFlyAACMode) || BlockFly.getBooleanValueFromSettingName("Haphe (AACAP)")) {
             if (this.getBooleanValueFromSettingName("Legit")) {
+                if(!((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2())
                 mc.gameSettings.keyBindSprint.setPressed(true);
             } else {
                 mc.player.setSprinting(mc.player.moveForward > 0.0F && !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2() && !mc.player.collidedHorizontally);
