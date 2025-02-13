@@ -143,14 +143,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketThreadUtil;
-import net.minecraft.network.play.client.CClientStatusPacket;
-import net.minecraft.network.play.client.CConfirmTeleportPacket;
-import net.minecraft.network.play.client.CConfirmTransactionPacket;
-import net.minecraft.network.play.client.CCustomPayloadPacket;
-import net.minecraft.network.play.client.CKeepAlivePacket;
-import net.minecraft.network.play.client.CMoveVehiclePacket;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.client.CResourcePackStatusPacket;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SAdvancementInfoPacket;
 import net.minecraft.network.play.server.SAnimateBlockBreakPacket;
 import net.minecraft.network.play.server.SAnimateHandPacket;
@@ -1461,6 +1454,8 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
         if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
             this.sendPacket(new CConfirmTransactionPacket(packetIn.getWindowId(), (short) 0, false));
+            this.sendPacket(new CEntityActionPacket(this.client.player, CEntityActionPacket.Action.START_SPRINTING));
+
             return;
         }
         Container container = null;
