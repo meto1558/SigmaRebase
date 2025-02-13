@@ -10,6 +10,8 @@ import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import io.netty.buffer.Unpooled;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -1457,6 +1459,10 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
     public void handleConfirmTransaction(SConfirmTransactionPacket packetIn)
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
+        if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
+            this.sendPacket(new CConfirmTransactionPacket(packetIn.getWindowId(), (short) 0, false));
+            return;
+        }
         Container container = null;
         PlayerEntity playerentity = this.client.player;
 
