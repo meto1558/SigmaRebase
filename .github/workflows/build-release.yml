@@ -68,4 +68,4 @@ jobs:
           tag_name: v${{ env.VERSION }}
           files: |
             target/*.jar
-            build/sigma-jello-5.1.0.json
+            release/sigma-jello-5.1.0.json
