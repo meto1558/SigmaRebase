@@ -24,17 +24,6 @@
           {
             "action": "allow",
             "features": {
-              "is_demo_user": true
-            }
-          }
-        ],
-        "value": "--demo"
-      },
-      {
-        "rules": [
-          {
-            "action": "allow",
-            "features": {
               "has_custom_resolution": true
             }
           }
@@ -118,7 +107,7 @@
     "component": "java-runtime-beta",
     "majorVersion": 17
   },
-  "id": "sigma-jello-5.1.0.jar",
+  "id": "sigma-jello-5.1.0",
   "libraries": [
     {
       "downloads": {
