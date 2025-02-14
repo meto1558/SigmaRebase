@@ -25,7 +25,6 @@ public class SigmaIRC {
 
     public SigmaIRC() {
         EventBus.register(this);
-        ModuleSettingInitializr.field8342 = ModuleSettingInitializr.field8342 | Client.getInstance().networkManager.field38425 != null;
     }
 
     public static Minecraft method29522(SigmaIRC var0) {

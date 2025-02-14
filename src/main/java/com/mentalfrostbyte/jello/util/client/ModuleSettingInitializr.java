@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ModuleSettingInitializr implements Runnable {
     public static Thread thisThread = new Thread(new ModuleSettingInitializr());
-    public static boolean field8342 = false;
     public static HashMap<Object, Integer> field8343;
 
     static {
@@ -49,10 +48,6 @@ public class ModuleSettingInitializr implements Runnable {
 
                             field8343.put(var10, var10.getRandomAssOffset());
                         }
-                    }
-
-                    if (var4 || !var3) {
-                        field8342 = true;
                     }
                 }
             }
