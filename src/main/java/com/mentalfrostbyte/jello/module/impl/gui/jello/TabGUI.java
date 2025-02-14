@@ -28,7 +28,7 @@ import java.util.List;
 
 public class TabGUI extends Module {
     public static final int field23762 = 3;
-    public static TabGUI field23788;
+    public static TabGUI tabGUIModule;
     public List<ModuleCategory> field23772 = new ArrayList<ModuleCategory>();
     public HashMap<ModuleCategory, Float> field23773 = new HashMap<ModuleCategory, Float>();
     public HashMap<Module, Float> field23774 = new HashMap<Module, Float>();
@@ -44,7 +44,7 @@ public class TabGUI extends Module {
     public final Color[] field23766 = new Color[3];
     public final Color[] field23767 = new Color[3];
     public final int field23768 = 10;
-    public int field23769 = 90;
+    public int yOffset = 90;
     public final int field23770 = 150;
     public int field23771 = 150;
     public int field23775 = 0;
@@ -63,19 +63,19 @@ public class TabGUI extends Module {
     public TabGUI() {
         super(ModuleCategory.GUI, "TabGUI", "Manage mods without opening the ClickGUI");
         this.setAvailableOnClassic(false);
-        field23788 = this;
+        tabGUIModule = this;
     }
 
     @EventTarget
     @HighestPriority
-    public void method16590(EventRender2D var1) {
+    public void onRender2D(EventRender2D event) {
         if (this.isEnabled() && mc.player != null) {
             if (Client.getInstance().guiManager.getHqIngameBlur()) {
                 if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                     if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                        BlurEngine.drawBlur(this.field23768, this.field23769, this.field23770, this.field23771);
+                        BlurEngine.drawBlur(this.field23768, this.yOffset, this.field23770, this.field23771);
                         if (this.field23781) {
-                            BlurEngine.drawBlur(170, this.field23769, this.field23786, this.field23783);
+                            BlurEngine.drawBlur(170, this.yOffset, this.field23786, this.field23783);
                         }
                     }
                 }
@@ -85,7 +85,7 @@ public class TabGUI extends Module {
 
     @EventTarget
     @HighestPriority
-    public void method16591(EventRender2DOffset var1) {
+    public void onRender2DOffset(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null && mc.world != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
@@ -94,31 +94,31 @@ public class TabGUI extends Module {
                     boolean var5 = (float) this.method16592() - this.field23787 < 0.0F;
                     this.field23787 = this.field23787
                             + Math.min(var4, var4 * 0.14F * this.field23780) * (float) (!var5 ? 1 : -1);
-                    this.field23769 = var1.getYOffset();
-                    this.method16600(this.field23768, this.field23769, this.field23770, this.field23771,
+                    this.yOffset = event.getYOffset();
+                    this.method16600(this.field23768, this.yOffset, this.field23770, this.field23771,
                             this.field23763, null, this.field23764, 1.0F);
-                    RenderUtil.startScissor((float) this.field23768, (float) this.field23769, (float) this.field23770,
+                    RenderUtil.startScissor((float) this.field23768, (float) this.yOffset, (float) this.field23770,
                             (float) this.field23771);
                     this.method16596(
                             this.field23768,
-                            this.field23769 - Math.round(this.field23787),
+                            this.yOffset - Math.round(this.field23787),
                             this.field23792.size() * this.field23778 + this.field23779,
                             this.field23770,
                             this.field23775,
                             false,
                             1.0F);
-                    this.method16595(this.field23768, this.field23769 - Math.round(this.field23787), this.field23792);
+                    this.method16595(this.field23768, this.yOffset - Math.round(this.field23787), this.field23792);
                     RenderUtil.endScissor();
                     if (this.field23781) {
                         this.field23783 = this.method16593(this.field23782).size() * this.field23778 + this.field23779;
-                        this.method16600(170, this.field23769, this.field23786, this.field23783, this.field23765,
+                        this.method16600(170, this.yOffset, this.field23786, this.field23783, this.field23765,
                                 this.field23767, this.field23766, 1.0F);
-                        this.method16596(170, this.field23769, this.field23783, this.field23786, this.field23784, true,
+                        this.method16596(170, this.yOffset, this.field23783, this.field23786, this.field23784, true,
                                 1.0F);
-                        this.method16594(170, this.field23769, this.method16593(this.field23782), 1.0F);
+                        this.method16594(170, this.yOffset, this.method16593(this.field23782), 1.0F);
                     }
 
-                    var1.setYOffset(this.field23771 + 10 + 99);
+                    event.setYOffset(this.field23771 + 10 + 99);
                 }
             }
         }
@@ -420,17 +420,17 @@ public class TabGUI extends Module {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
                     for (int var4 = 0; var4 < 3; var4++) {
                         this.field23763[var4] = this.method16602(this.field23768 + this.field23770 / 3 * var4,
-                                this.field23769, this.field23763[var4]);
+                                this.yOffset, this.field23763[var4]);
                         this.field23764[var4] = this.method16602(
-                                this.field23768 + this.field23770 / 3 * var4, this.field23769 + this.field23771,
+                                this.field23768 + this.field23770 / 3 * var4, this.yOffset + this.field23771,
                                 this.field23764[var4]);
                         this.field23765[var4] = this.method16602(this.field23768 + this.field23770 + 56 * var4,
-                                this.field23769, this.field23765[var4]);
+                                this.yOffset, this.field23765[var4]);
                         this.field23766[var4] = this.method16602(
-                                this.field23768 + this.field23770 + 56 * var4, this.field23769 + this.field23783,
+                                this.field23768 + this.field23770 + 56 * var4, this.yOffset + this.field23783,
                                 this.field23766[var4]);
                         this.field23767[var4] = this.method16602(
-                                this.field23768 + this.field23770 + 56 * var4, this.field23769 + this.field23783 / 2,
+                                this.field23768 + this.field23770 + 56 * var4, this.yOffset + this.field23783 / 2,
                                 this.field23767[var4]);
                     }
                 }

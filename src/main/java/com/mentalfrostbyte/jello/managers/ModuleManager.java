@@ -69,17 +69,11 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.TabGUI());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.NameTags());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.Waypoints());
-
-
-
-
-
         }
 
         if (clientMode == ClientMode.CLASSIC) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.classic.ESP());
-
         }
         // COMBAT
         this.register(new AutoClicker());
@@ -97,9 +91,6 @@ public class ModuleManager {
         this.register(new BowAimbot());
         this.register(new InfiniteAura());
         this.register(new NewKillAura());
-
-
-
         // RENDER
         this.register(new AntiBlind());
         this.register(new DVDSimulator());
@@ -119,10 +110,6 @@ public class ModuleManager {
         this.register(new Breadcrumbs());
         this.register(new Freecam());
         this.register(new ChestESP());
-
-
-
-
         // WORLD
         this.register(new Weather());
         this.register(new FakeLag());
@@ -138,11 +125,6 @@ public class ModuleManager {
         this.register(new NewChunks());
         this.register(new AntiCactus());
         this.register(new Auto32k());
-
-
-
-
-
         // MISC
         this.register(new GamePlay());
         this.register(new ChatCleaner());
@@ -162,9 +144,6 @@ public class ModuleManager {
         this.register(new PacketDumper());
         this.register(new DebugSpeed());
         this.register(new AutoReconnect());
-
-
-
         // PLAYER
         this.register(new AutoSprint());
         this.register(new NoFall());
@@ -180,14 +159,6 @@ public class ModuleManager {
         this.register(new OldHitting());
         this.register(new InvMove());
         this.register(new FastEat());
-
-
-
-
-
-
-
-
         // ITEM
         this.register(new AutoArmor());
         this.register(new AutoMLG());
@@ -198,11 +169,6 @@ public class ModuleManager {
         this.register(new AutoPotion());
         this.register(new AutoSoup());
         this.register(new AutoGapple());
-
-
-
-
-
         // MOVEMENT
         this.register(new ClickTP());
         this.register(new Speed());
