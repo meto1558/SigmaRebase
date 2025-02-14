@@ -398,7 +398,7 @@ public class RealmsConfigureWorldScreen extends NotifableRealmsScreen
         }
 
         this.fillGradient(p_237796_1_, i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
-        this.font.func_243246_a(p_237796_1_, p_237796_2_, (float)i, (float)j, 16777215);
+        this.font.drawText(p_237796_1_, p_237796_2_, (float)i, (float)j, 16777215);
     }
 
     private void func_237807_c_(MatrixStack p_237807_1_, int p_237807_2_, int p_237807_3_, int p_237807_4_, int p_237807_5_)

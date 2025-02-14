@@ -527,7 +527,7 @@ public class EditBookScreen extends Screen
             IReorderingProcessor ireorderingprocessor = IReorderingProcessor.func_242234_a(IReorderingProcessor.fromString(this.bookTitle, Style.EMPTY), flag ? field_243342_c : field_243343_p);
             int k = this.font.getStringPropertyWidth(field_243340_a);
             this.font.func_243248_b(matrices, field_243340_a, (float)(i + 36 + (114 - k) / 2), 34.0F, 0);
-            int l = this.font.func_243245_a(ireorderingprocessor);
+            int l = this.font.getStringWidth(ireorderingprocessor);
             this.font.func_238422_b_(matrices, ireorderingprocessor, (float)(i + 36 + (114 - l) / 2), 50.0F, 0);
             int i1 = this.font.getStringPropertyWidth(this.field_243339_L);
             this.font.func_243248_b(matrices, this.field_243339_L, (float)(i + 36 + (114 - i1) / 2), 60.0F, 0);

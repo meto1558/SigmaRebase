@@ -108,7 +108,7 @@ public class SpectatorGui extends AbstractGui implements ISpectatorMenuRecipient
             if (i > 3 && p_238530_6_.isEnabled())
             {
                 ITextComponent itextcomponent = this.mc.gameSettings.keyBindsHotbar[p_238530_2_].func_238171_j_();
-                this.mc.fontRenderer.func_243246_a(p_238530_1_, itextcomponent, (float)(p_238530_3_ + 19 - 2 - this.mc.fontRenderer.getStringPropertyWidth(itextcomponent)), p_238530_4_ + 6.0F + 3.0F, 16777215 + (i << 24));
+                this.mc.fontRenderer.drawText(p_238530_1_, itextcomponent, (float)(p_238530_3_ + 19 - 2 - this.mc.fontRenderer.getStringPropertyWidth(itextcomponent)), p_238530_4_ + 6.0F + 3.0F, 16777215 + (i << 24));
             }
         }
     }
@@ -129,7 +129,7 @@ public class SpectatorGui extends AbstractGui implements ISpectatorMenuRecipient
                 RenderSystem.pushMatrix();
                 RenderSystem.enableBlend();
                 RenderSystem.defaultBlendFunc();
-                this.mc.fontRenderer.func_243246_a(p_238527_1_, itextcomponent, (float)j, (float)k, 16777215 + (i << 24));
+                this.mc.fontRenderer.drawText(p_238527_1_, itextcomponent, (float)j, (float)k, 16777215 + (i << 24));
                 RenderSystem.disableBlend();
                 RenderSystem.popMatrix();
             }

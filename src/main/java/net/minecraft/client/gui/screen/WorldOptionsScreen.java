@@ -268,7 +268,7 @@ public class WorldOptionsScreen implements IScreen, IRenderable
     {
         if (this.field_239034_h_.visible)
         {
-            this.field_239031_e_.func_243246_a(matrices, field_243442_e, (float)(this.field_239032_f_ / 2 - 150), 122.0F, -6250336);
+            this.field_239031_e_.drawText(matrices, field_243442_e, (float)(this.field_239032_f_ / 2 - 150), 122.0F, -6250336);
         }
 
         this.field_239033_g_.render(matrices, mouseX, mouseY, delta);

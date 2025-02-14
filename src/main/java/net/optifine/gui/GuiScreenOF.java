@@ -107,6 +107,6 @@ public class GuiScreenOF extends Screen
 
     public static void drawCenteredString(MatrixStack matrixStackIn, FontRenderer fontRendererIn, IReorderingProcessor textIn, int xIn, int yIn, int colorIn)
     {
-        fontRendererIn.func_238407_a_(matrixStackIn, textIn, (float)(xIn - fontRendererIn.func_243245_a(textIn) / 2), (float)yIn, colorIn);
+        fontRendererIn.func_238407_a_(matrixStackIn, textIn, (float)(xIn - fontRendererIn.getStringWidth(textIn) / 2), (float)yIn, colorIn);
     }
 }

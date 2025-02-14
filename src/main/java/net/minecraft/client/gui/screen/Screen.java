@@ -154,7 +154,7 @@ public abstract class Screen extends FocusableGui implements IScreen, IRenderabl
 
             for (IReorderingProcessor ireorderingprocessor : tooltips)
             {
-                int j = this.font.func_243245_a(ireorderingprocessor);
+                int j = this.font.getStringWidth(ireorderingprocessor);
 
                 if (j > i)
                 {

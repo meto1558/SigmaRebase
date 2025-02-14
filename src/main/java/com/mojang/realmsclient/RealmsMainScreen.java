@@ -1067,7 +1067,7 @@ public class RealmsMainScreen extends RealmsScreen
             ITextComponent itextcomponent = i == 0 ? field_243000_E : field_243001_F;
             int i1 = this.font.getStringPropertyWidth(itextcomponent);
             this.fillGradient(p_237581_1_, j1 - 3, p_237581_3_ - 3, j1 + i1 + 3, p_237581_3_ + 8 + 3, -1073741824, -1073741824);
-            this.font.func_243246_a(p_237581_1_, itextcomponent, (float)j1, (float)p_237581_3_, -1);
+            this.font.drawText(p_237581_1_, itextcomponent, (float)j1, (float)p_237581_3_, -1);
         }
     }
 
@@ -1263,7 +1263,7 @@ public class RealmsMainScreen extends RealmsScreen
             {
                 int l = j1 - (i == 0 ? 3 : 0) + i;
                 this.fillGradient(p_237583_1_, i1 - 3, l, i1 + j + 3, j1 + 8 + 3 + i, -1073741824, -1073741824);
-                this.font.func_243246_a(p_237583_1_, itextcomponent1, (float)i1, (float)(j1 + i), 16777215);
+                this.font.drawText(p_237583_1_, itextcomponent1, (float)i1, (float)(j1 + i), 16777215);
                 i += 10;
             }
         }

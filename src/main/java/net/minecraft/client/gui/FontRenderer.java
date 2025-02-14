@@ -83,7 +83,7 @@ public class FontRenderer
         return this.func_238415_a_(p_238407_2_, p_238407_3_, p_238407_4_, p_238407_5_, p_238407_1_.getLast().getMatrix(), true);
     }
 
-    public int func_243246_a(MatrixStack p_243246_1_, ITextComponent p_243246_2_, float p_243246_3_, float p_243246_4_, int p_243246_5_)
+    public int drawText(MatrixStack p_243246_1_, ITextComponent p_243246_2_, float p_243246_3_, float p_243246_4_, int p_243246_5_)
     {
         RenderSystem.enableAlphaTest();
         return this.func_238415_a_(p_243246_2_.func_241878_f(), p_243246_3_, p_243246_4_, p_243246_5_, p_243246_1_.getLast().getMatrix(), true);
@@ -262,7 +262,7 @@ public class FontRenderer
         return MathHelper.ceil(this.field_238402_e_.func_238356_a_(properties));
     }
 
-    public int func_243245_a(IReorderingProcessor processor)
+    public int getStringWidth(IReorderingProcessor processor)
     {
         return MathHelper.ceil(this.field_238402_e_.func_243238_a(processor));
     }

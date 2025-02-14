@@ -275,7 +275,7 @@ public class RealmsPlayerScreen extends RealmsScreen
             int j = p_237903_4_ - 12;
             int k = this.font.getStringPropertyWidth(p_237903_2_);
             this.fillGradient(p_237903_1_, i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
-            this.font.func_243246_a(p_237903_1_, p_237903_2_, (float)i, (float)j, 16777215);
+            this.font.drawText(p_237903_1_, p_237903_2_, (float)i, (float)j, 16777215);
         }
     }
 

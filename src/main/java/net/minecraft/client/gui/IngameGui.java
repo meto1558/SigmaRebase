@@ -353,7 +353,7 @@ public class IngameGui extends AbstractGui
                     int l1 = j1 << 24 & -16777216;
                     int i2 = fontrenderer.getStringPropertyWidth(this.displayedTitle);
                     this.func_238448_a_(matrixStack, fontrenderer, -10, i2, 16777215 | l1);
-                    fontrenderer.func_243246_a(matrixStack, this.displayedTitle, (float)(-i2 / 2), -10.0F, 16777215 | l1);
+                    fontrenderer.drawText(matrixStack, this.displayedTitle, (float)(-i2 / 2), -10.0F, 16777215 | l1);
                     RenderSystem.popMatrix();
 
                     if (this.displayedSubTitle != null)
@@ -362,7 +362,7 @@ public class IngameGui extends AbstractGui
                         RenderSystem.scalef(2.0F, 2.0F, 2.0F);
                         int k2 = fontrenderer.getStringPropertyWidth(this.displayedSubTitle);
                         this.func_238448_a_(matrixStack, fontrenderer, 5, k2, 16777215 | l1);
-                        fontrenderer.func_243246_a(matrixStack, this.displayedSubTitle, (float)(-k2 / 2), 5.0F, 16777215 | l1);
+                        fontrenderer.drawText(matrixStack, this.displayedSubTitle, (float)(-k2 / 2), 5.0F, 16777215 | l1);
                         RenderSystem.popMatrix();
                     }
 
@@ -815,7 +815,7 @@ public class IngameGui extends AbstractGui
                 }
                 else
                 {
-                    this.getFontRenderer().func_243246_a(p_238453_1_, itextcomponent, (float)j, (float)k, 16777215 + (l << 24));
+                    this.getFontRenderer().drawText(p_238453_1_, itextcomponent, (float)j, (float)k, 16777215 + (l << 24));
                 }
 
                 RenderSystem.disableBlend();

@@ -41,7 +41,7 @@ public class BossOverlayGui extends AbstractGui
                 int l = this.client.fontRenderer.getStringPropertyWidth(itextcomponent);
                 int i1 = i / 2 - l / 2;
                 int j1 = j - 9;
-                this.client.fontRenderer.func_243246_a(p_238484_1_, itextcomponent, (float)i1, (float)j1, 16777215);
+                this.client.fontRenderer.drawText(p_238484_1_, itextcomponent, (float)i1, (float)j1, 16777215);
                 j += 10 + 9;
 
                 if (j >= this.client.getMainWindow().getScaledHeight() / 3)
