@@ -16,7 +16,6 @@ import java.util.Map;
 public class NetworkManager {
 
     public Account account;
-    public String field38425;
     public SigmaIRC sigmaIRC;
 
     public static boolean premium = false;
