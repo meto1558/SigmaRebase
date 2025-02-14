@@ -195,7 +195,8 @@ public class MusicManager {
 
     @EventTarget
     public void onRenderChat(EventRenderChat eventRenderChat) {
-        eventRenderChat.addOffset(-45);
+        if (isPlayingSong())
+            eventRenderChat.addOffset(-45);
     }
 
     @EventTarget
