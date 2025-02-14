@@ -39,8 +39,6 @@ public class InfoHUD extends Module {
     @EventTarget
     public void onRenderChat(EventRenderChat eventRenderChat) {
         if (getBooleanValueFromSettingName("Move chat up")) {
-            if (Client.getInstance().musicManager.isPlayingSong())
-                eventRenderChat.addOffset(-45);
             eventRenderChat.addOffset(-40);
         }
     }

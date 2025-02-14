@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
@@ -190,6 +191,11 @@ public class MusicManager {
                 }
             }
         }
+    }
+
+    @EventTarget
+    public void onRenderChat(EventRenderChat eventRenderChat) {
+        eventRenderChat.addOffset(-45);
     }
 
     @EventTarget
