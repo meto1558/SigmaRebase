@@ -36,10 +36,15 @@ public final class MicrosoftUtil {
 
     public static void openWebLink(final URI url) {
         try {
-            final Class<?> desktop = Class.forName("java.awt.Desktop");
-            final Object object = desktop.getMethod("getDesktop").invoke(null);
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win") || os.contains("mac")) {
+                final Class<?> desktop = Class.forName("java.awt.Desktop");
+                final Object object = desktop.getMethod("getDesktop").invoke(null);
 
-            desktop.getMethod("browse", URI.class).invoke(object, url);
+                desktop.getMethod("browse", URI.class).invoke(object, url);
+            } else {
+                new ProcessBuilder("xdg-open", url.toString()).start();
+            }
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
