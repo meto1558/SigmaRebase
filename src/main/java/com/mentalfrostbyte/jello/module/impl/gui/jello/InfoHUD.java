@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -31,18 +32,28 @@ public class InfoHUD extends Module {
         this.registerSetting(new ModeSetting("Cords", "Coordinate display type", 1, "None", "Normal", "Precise"));
         this.registerSetting(new BooleanSetting("Show Player", "Renders a miniature version of your character", true));
         this.registerSetting(new BooleanSetting("Show Armor", "Shows your armor's status", true));
+        this.registerSetting(new BooleanSetting("Move chat up", "Moves the chat gui up", true));
         this.setAvailableOnClassic(false);
+    }
+
+    @EventTarget
+    public void onRenderChat(EventRenderChat eventRenderChat) {
+        if (getBooleanValueFromSettingName("Move chat up")) {
+            if (Client.getInstance().musicManager.isPlayingSong())
+                eventRenderChat.addOffset(-45);
+            eventRenderChat.addOffset(-40);
+        }
     }
 
     @EventTarget
     public void onRender2D(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                if (!(mc.currentScreen instanceof ChatScreen || mc.currentScreen instanceof IngameMenuScreen)) {
+                if (!(mc.currentScreen instanceof IngameMenuScreen)) {
                     int xOffset = 14;
 
                     if (this.getBooleanValueFromSettingName("Show Player")) {
-                        int y = mc.mainWindow.getHeight() - 20;
+                        int y = mc.mainWindow.getHeight() - 22;
                         if (Client.getInstance().musicManager.isPlayingSong())
                             y -= 105;
 
@@ -50,11 +61,18 @@ public class InfoHUD extends Module {
                     }
 
                     if (this.getBooleanValueFromSettingName("Show Armor")) {
-                        xOffset += this.renderArmorStatus(xOffset, mc.mainWindow.getHeight() - 14) + 10;
+                        int y = mc.mainWindow.getHeight() - 14;
+                        if (Client.getInstance().musicManager.isPlayingSong())
+                            y -= 105;
+
+                        xOffset += this.renderArmorStatus(xOffset, y) + 10;
                     }
 
                     if (!this.getStringSettingValueByName("Cords").equals("None")) {
-                        xOffset += this.renderCoordinates(xOffset, 42) + 10;
+                        int y = 42;
+                        if (Client.getInstance().musicManager.isPlayingSong())
+                            y += 105;
+                        xOffset += this.renderCoordinates(xOffset, y) + 10;
                     }
                 }
             }
