@@ -64,14 +64,24 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
      */
     public boolean isSpectator()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
-        return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
+        try {
+            NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
+            return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isCreative()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
-        return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
+        try {
+            NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
+            return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     /**
