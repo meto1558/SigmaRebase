@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
+import com.mentalfrostbyte.jello.module.impl.combat.AutoLog;
 import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mojang.authlib.GameProfile;
@@ -143,14 +144,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketThreadUtil;
-import net.minecraft.network.play.client.CClientStatusPacket;
-import net.minecraft.network.play.client.CConfirmTeleportPacket;
-import net.minecraft.network.play.client.CConfirmTransactionPacket;
-import net.minecraft.network.play.client.CCustomPayloadPacket;
-import net.minecraft.network.play.client.CKeepAlivePacket;
-import net.minecraft.network.play.client.CMoveVehiclePacket;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.client.CResourcePackStatusPacket;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SAdvancementInfoPacket;
 import net.minecraft.network.play.server.SAnimateBlockBreakPacket;
 import net.minecraft.network.play.server.SAnimateHandPacket;
@@ -1017,6 +1011,10 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
                     ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
                     if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
                     MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+                    if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
+                        MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
+                        Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
+                    }
                 }
             }
         }
@@ -1027,6 +1025,10 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
                 ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
                 if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
                 MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+                if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
+                    MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
+                    Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
+                }
             }
         }
     }
@@ -1461,6 +1463,9 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
         if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
             this.sendPacket(new CConfirmTransactionPacket(packetIn.getWindowId(), (short) 0, false));
+
+
+
             return;
         }
         Container container = null;

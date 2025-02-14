@@ -34,7 +34,7 @@ public interface IInventory extends IClearable
      */
     void setInventorySlotContents(int index, ItemStack stack);
 
-default int getInventoryStackLimit()
+    default int getInventoryStackLimit()
     {
         return 64;
     }
@@ -50,20 +50,20 @@ default int getInventoryStackLimit()
      */
     boolean isUsableByPlayer(PlayerEntity player);
 
-default void openInventory(PlayerEntity player)
+    default void openInventory(PlayerEntity player)
     {
     }
 
-default void closeInventory(PlayerEntity player)
+    default void closeInventory(PlayerEntity player)
     {
     }
 
-default boolean isItemValidForSlot(int index, ItemStack stack)
+    default boolean isItemValidForSlot(int index, ItemStack stack)
     {
         return true;
     }
 
-default int count(Item itemIn)
+    default int count(Item itemIn)
     {
         int i = 0;
 
@@ -80,7 +80,7 @@ default int count(Item itemIn)
         return i;
     }
 
-default boolean hasAny(Set<Item> set)
+    default boolean hasAny(Set<Item> set)
     {
         for (int i = 0; i < this.getSizeInventory(); ++i)
         {
@@ -94,4 +94,21 @@ default boolean hasAny(Set<Item> set)
 
         return false;
     }
+
+    default boolean hasAny(Item item)
+    {
+        for (int i = 0; i < this.getSizeInventory(); ++i)
+        {
+            ItemStack itemstack = this.getStackInSlot(i);
+
+            if (itemstack.getItem().equals(item) && itemstack.getCount() > 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
+
+
