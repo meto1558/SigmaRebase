@@ -5,12 +5,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -21,8 +15,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 
-public class PointOfInterestType
-{
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+public class PointOfInterestType {
     private static final Supplier<Set<PointOfInterestType>> WORKSTATIONS = Suppliers.memoize(() ->
     {
         return Registry.VILLAGER_PROFESSION.stream().map(VillagerProfession::getPointOfInterest).collect(Collectors.toSet());
@@ -71,13 +71,11 @@ public class PointOfInterestType
     private final Predicate<PointOfInterestType> predicate;
     private final int validRange;
 
-    private static Set<BlockState> getAllStates(Block blockIn)
-    {
+    private static Set<BlockState> getAllStates(Block blockIn) {
         return ImmutableSet.copyOf(blockIn.getStateContainer().getValidStates());
     }
 
-    private PointOfInterestType(String nameIn, Set<BlockState> blockStatesIn, int maxFreeTicketsIn, Predicate<PointOfInterestType> predicate, int validRange)
-    {
+    private PointOfInterestType(String nameIn, Set<BlockState> blockStatesIn, int maxFreeTicketsIn, Predicate<PointOfInterestType> predicate, int validRange) {
         this.name = nameIn;
         this.blockStates = ImmutableSet.copyOf(blockStatesIn);
         this.maxFreeTickets = maxFreeTicketsIn;
@@ -85,8 +83,7 @@ public class PointOfInterestType
         this.validRange = validRange;
     }
 
-    private PointOfInterestType(String nameIn, Set<BlockState> blockStatesIn, int maxFreeTicketsIn, int validRange)
-    {
+    private PointOfInterestType(String nameIn, Set<BlockState> blockStatesIn, int maxFreeTicketsIn, int validRange) {
         this.name = nameIn;
         this.blockStates = ImmutableSet.copyOf(blockStatesIn);
         this.maxFreeTickets = maxFreeTicketsIn;
@@ -97,52 +94,43 @@ public class PointOfInterestType
         this.validRange = validRange;
     }
 
-    public int getMaxFreeTickets()
-    {
+    public int getMaxFreeTickets() {
         return this.maxFreeTickets;
     }
 
-    public Predicate<PointOfInterestType> getPredicate()
-    {
+    public Predicate<PointOfInterestType> getPredicate() {
         return this.predicate;
     }
 
-    public int getValidRange()
-    {
+    public int getValidRange() {
         return this.validRange;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return this.name;
     }
 
-    private static PointOfInterestType register(String key, Set<BlockState> blockStates, int maxFreeTickets, int validRange)
-    {
+    private static PointOfInterestType register(String key, Set<BlockState> blockStates, int maxFreeTickets, int validRange) {
         return registerBlockStates(Registry.register(Registry.POINT_OF_INTEREST_TYPE, new ResourceLocation(key), new PointOfInterestType(key, blockStates, maxFreeTickets, validRange)));
     }
 
-    private static PointOfInterestType register(String key, Set<BlockState> blockStates, int maxFreeTickets, Predicate<PointOfInterestType> predicate, int validRange)
-    {
+    private static PointOfInterestType register(String key, Set<BlockState> blockStates, int maxFreeTickets, Predicate<PointOfInterestType> predicate, int validRange) {
         return registerBlockStates(Registry.register(Registry.POINT_OF_INTEREST_TYPE, new ResourceLocation(key), new PointOfInterestType(key, blockStates, maxFreeTickets, predicate, validRange)));
     }
 
-    private static PointOfInterestType registerBlockStates(PointOfInterestType poit)
-    {
+    private static PointOfInterestType registerBlockStates(PointOfInterestType poit) {
         poit.blockStates.forEach((state) ->
         {
             PointOfInterestType pointofinteresttype = POIT_BY_BLOCKSTATE.put(state, poit);
 
-            if (pointofinteresttype != null)
-            {
-                throw(IllegalStateException)Util.pauseDevMode(new IllegalStateException(String.format("%s is defined in too many tags", state)));
+            if (pointofinteresttype != null) {
+                throw (IllegalStateException) Util.pauseDevMode(new IllegalStateException(String.format("%s is defined in too many tags", state)));
             }
         });
         return poit;
     }
 
-    public static Optional<PointOfInterestType> forState(BlockState state)
-    {
+    public static Optional<PointOfInterestType> forState(BlockState state) {
         return Optional.ofNullable(POIT_BY_BLOCKSTATE.get(state));
     }
 }

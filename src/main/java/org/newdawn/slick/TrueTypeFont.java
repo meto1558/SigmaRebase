@@ -283,14 +283,14 @@ public class TrueTypeFont implements Font {
      */
     public int getWidth(String whatchars) {
         int totalwidth = 0;
-        IntObject intObject = null;
-        int currentChar = 0;
+        IntObject intObject;
+        char currentChar;
         for (int i = 0; i < whatchars.length(); i++) {
             currentChar = whatchars.charAt(i);
             if (currentChar < 256) {
                 intObject = charArray[currentChar];
             } else {
-                intObject = (IntObject) customChars.get(new Character((char) currentChar));
+                intObject = (IntObject) customChars.get(currentChar);
             }
 
             if (intObject != null)
