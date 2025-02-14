@@ -344,13 +344,13 @@ public class NameTags extends Module {
                     RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
         }
 
-        ItemStack var20 = var2.method21987();
-        if (var20 != null) {
-            RenderUtil.method11479(var20, var13, var13 + 27, 45, 45);
+        ItemStack itemStack = var2.method21987();
+        if (itemStack != null) {
+            RenderUtil.method11479(itemStack, var13, var13 + 27, 45, 45);
             RenderUtil.drawString(ResourceRegistry.JelloLightFont20, (float) (var13 + 51), 40.0F,
-                    var20.getDisplayName().getString(), ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                    itemStack.getDisplayName().getString(), ClientColors.LIGHT_GREYISH_BLUE.getColor());
             RenderUtil.drawString(ResourceRegistry.JelloLightFont14, (float) (var13 + 51), 62.0F,
-                    "Count: " + var20.count, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+                    "Count: " + itemStack.count, ClientColors.LIGHT_GREYISH_BLUE.getColor());
         }
 
         RenderUtil.drawRect(0.0F, (float) var18 - 12.0F, Math.min((float) var17 * var12, (float) var17),
