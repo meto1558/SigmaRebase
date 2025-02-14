@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -54,5 +55,21 @@ public class FileUtil {
         }
 
         return var3;
+    }
+
+    public static File getFileFromDialog() {
+        FileDialog fileDialog = new FileDialog((Frame) null, "Select a .txt file");
+        fileDialog.setMode(FileDialog.LOAD);
+        fileDialog.setFile("*.txt");
+
+        fileDialog.setVisible(true);
+        fileDialog.setAlwaysOnTop(true);
+
+        String fileName = fileDialog.getFile();
+        if (fileName == null) {
+            return null;
+        }
+
+        return new File(fileDialog.getDirectory(), fileName);
     }
 }

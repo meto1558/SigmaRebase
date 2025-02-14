@@ -441,7 +441,7 @@ public class Chunk implements IChunk
 
     public int getTopBlockY(Heightmap.Type heightmapType, int x, int z)
     {
-        return this.heightMap.get(heightmapType).getHeight(x & 15, z & 15) - 1;
+        return Math.max(this.heightMap.get(heightmapType).getHeight(x & 15, z & 15) - 1, -64); // Allow negative Y (I hope i am doing this right)
     }
 
     @Nullable

@@ -6,15 +6,17 @@ import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.util.client.network.microsoft.CookieLoginUtil;
 import com.mentalfrostbyte.jello.util.client.network.microsoft.MicrosoftUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import net.minecraft.client.Minecraft;
@@ -22,9 +24,8 @@ import net.minecraft.util.Session;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,7 +101,57 @@ public class Alert extends Element {
                         this.buttons.add(button);
                         button.field20586 = 4;
                         button.doThis((var1x, var2x) -> {
-                            this.onButtonClick();
+                            switch (button.text) {
+                                case "Cookie login" -> {
+                                    File file = FileUtil.getFileFromDialog();
+                                    if (file != null) {
+                                        try {
+                                            CookieLoginUtil.LoginData loginData = CookieLoginUtil.loginWithCookie(file);
+                                            if (loginData == null) {
+                                                Client.getInstance().soundManager.play("error");
+                                                this.inputMap = this.method13599();
+                                                this.method13603(false);
+                                                return;
+                                            }
+                                            Session session = Minecraft.getInstance().getSession();
+                                            session.username = loginData.username;
+                                            session.playerID = loginData.uuid;
+                                            session.token = loginData.mcToken;
+                                            Client.getInstance().soundManager.play("connect");
+                                        } catch (Exception e) {
+                                            Client.getInstance().soundManager.play("error");
+                                        }
+                                    }
+                                    this.inputMap = this.method13599();
+                                    this.method13603(false);
+                                }
+                                case "Web login" -> {
+                                    ExecutorService executor = Executors.newSingleThreadExecutor();
+                                    MicrosoftUtil.acquireMSAuthCode(executor)
+                                            .thenComposeAsync(msAuthCode -> MicrosoftUtil.acquireMSAccessToken(msAuthCode, executor), executor)
+                                            .thenComposeAsync(msAccessToken -> MicrosoftUtil.acquireXboxAccessToken(msAccessToken, executor), executor)
+                                            .thenComposeAsync(xboxAccessToken -> MicrosoftUtil.acquireXboxXstsToken(xboxAccessToken, executor), executor)
+                                            .thenComposeAsync(xboxXstsData -> MicrosoftUtil.acquireMCAccessToken(xboxXstsData.get("Token"), xboxXstsData.get("uhs"), executor), executor)
+                                            .thenComposeAsync(mcToken -> MicrosoftUtil.login(mcToken, executor), executor)
+                                            .thenAccept(session -> {
+                                                Session mcSession = Minecraft.getInstance().getSession();
+                                                mcSession.username = session.username;
+                                                mcSession.playerID = session.playerID;
+                                                mcSession.token = session.token;
+                                                Client.getInstance().soundManager.play("connect");
+                                                this.inputMap = this.method13599();
+                                                this.method13603(false);
+
+                                            })
+                                            .exceptionally(error -> {
+                                                Client.getInstance().soundManager.play("error");
+                                                this.inputMap = this.method13599();
+                                                this.method13603(false);
+                                                return null;
+                                            });
+                                }
+                                default -> this.onButtonClick();
+                            }
                         });
                     }
                 } else {
@@ -319,6 +370,6 @@ public class Alert extends Element {
     }
 
     public static interface Class9448 {
-       void method36327(Element var1);
+        void method36327(Element var1);
     }
 }

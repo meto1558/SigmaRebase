@@ -416,23 +416,19 @@ public abstract class World implements IWorld, AutoCloseable
         }
     }
 
-    public int getHeight(Heightmap.Type heightmapType, int x, int z)
-    {
+    public int getHeight(Heightmap.Type heightmapType, int x, int z) {
         int i;
 
-        if (x >= -30000000 && z >= -30000000 && x < 30000000 && z < 30000000)
-        {
-            if (this.chunkExists(x >> 4, z >> 4))
-            {
+        if (x >= -30000000 && z >= -30000000 && x < 30000000 && z < 30000000) {
+            if (this.chunkExists(x >> 4, z >> 4)) {
                 i = this.getChunk(x >> 4, z >> 4).getTopBlockY(heightmapType, x & 15, z & 15) + 1;
+                if (i < -64) { // Allow negative Y values (trust)
+                    i = -64;
+                }
+            } else {
+                i = -64; // trying to do 1.17+
             }
-            else
-            {
-                i = 0;
-            }
-        }
-        else
-        {
+        } else {
             i = this.getSeaLevel() + 1;
         }
 

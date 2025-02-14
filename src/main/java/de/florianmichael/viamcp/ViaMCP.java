@@ -29,7 +29,7 @@ import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import java.io.File;
 
 public class ViaMCP {
-    public final static int NATIVE_VERSION = 754; //https://minecraft.fandom.com/wiki/Protocol_version
+    public final static int NATIVE_VERSION = 754;
     public static ViaMCP INSTANCE;
 
     public static void create() {

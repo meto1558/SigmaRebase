@@ -6,7 +6,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.module.impl.combat.AutoLog;
 import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mojang.authlib.GameProfile;
@@ -1011,10 +1010,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
                     ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
                     if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
                     MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
-                    if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
-                        MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
-                        Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
-                    }
                 }
             }
         }
@@ -1025,10 +1020,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
                 ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
                 if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
                 MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
-                if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
-                    MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
-                    Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
-                }
             }
         }
     }
