@@ -23,6 +23,12 @@ jobs:
       - name: Build with Maven
         run: mvn package -DskipTests
 
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-jar
+          path: target/*.jar
+
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -48,6 +54,12 @@ jobs:
         run: |
           git tag v${{ env.VERSION }}
           git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git v${{ env.VERSION }}
+
+      - name: Download built JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: built-jar
+          path: target/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
