@@ -183,6 +183,7 @@ public class RenderUtil {
             if (var0.count == 0) {
                 var0 = new ItemStack(var0.getItem());
             }
+            GL11.glPopMatrix();
         }
     }
 
