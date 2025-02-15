@@ -75,7 +75,7 @@ public class Client {
     private Logger logger;
 
     public static boolean dontRenderHand = false;
-    private boolean field28968 = true;
+    private boolean b1 = true;
 
     public BlurEngine blurEngine;
 
@@ -277,11 +277,11 @@ public class Client {
         return this.logger;
     }
 
-    public boolean method19930() {
-        return this.field28968;
+    public boolean getB1() {
+        return this.b1;
     }
 
-    public void method19931(boolean var1) {
-        this.field28968 = var1;
+    public void setB1(boolean b1) {
+        this.b1 = b1;
     }
 }
