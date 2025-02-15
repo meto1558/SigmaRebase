@@ -183,7 +183,23 @@ public class RenderUtil {
             if (itemStack.count == 0) {
                 itemStack = new ItemStack(itemStack.getItem());
             }
-            GL11.glPopMatrix();
+
+            RenderHelper.setupGuiFlatDiffuseLighting();
+            GL11.glLightModelfv(2899, new float[]{0.4F, 0.4F, 0.4F, 1.0F});
+            RenderSystem.enableColorMaterial();
+            RenderSystem.disableLighting();
+            RenderSystem.enableBlend();
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glDepthFunc(519);
+            itemRenderer.renderItemIntoGUI(itemStack, 0, 0);
+            GL11.glDepthFunc(515);
+            RenderSystem.popMatrix();
+            GL11.glAlphaFunc(519, 0.0F);
+            RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
+            RenderSystem.disableDepthTest();
+            TextureImpl.unbind();
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            RenderHelper.setupGui3DDiffuseLighting();
         }
     }
 
