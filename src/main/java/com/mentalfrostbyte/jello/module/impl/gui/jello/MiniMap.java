@@ -181,7 +181,7 @@ public class MiniMap extends Module {
                             int direction = (int) MovementUtil.getDirection();
                             GL11.glTranslatef((float) (field23711 + field23710 / 2 + 1),
                                     (float) (yOffset + field23709 / 2 + 3), 0.0F);
-                            GL11.glRotatef((float) (270 + direction) - mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
+                            GL11.glRotatef((float) (direction) - mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
                             GL11.glTranslatef((float) (-(field23711 + field23710 / 2 + 1)),
                                     (float) (-(yOffset + field23709 / 2)), 0.0F);
                             RenderUtil.drawString(
