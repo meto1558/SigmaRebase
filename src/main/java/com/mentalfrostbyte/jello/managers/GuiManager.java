@@ -73,11 +73,11 @@ public class GuiManager {
     public double field41347;
     public int[] field41354 = new int[2];
     public boolean field41357;
-    private final List<Integer> field41339 = new ArrayList<Integer>();
-    private final List<Integer> field41340 = new ArrayList<Integer>();
-    private final List<Integer> field41341 = new ArrayList<Integer>();
-    private final List<Integer> field41342 = new ArrayList<Integer>();
-    private final List<Integer> field41343 = new ArrayList<Integer>();
+    private final List<Integer> field41339 = new ArrayList<>();
+    private final List<Integer> field41340 = new ArrayList<>();
+    private final List<Integer> field41341 = new ArrayList<>();
+    private final List<Integer> field41342 = new ArrayList<>();
+    private final List<Integer> field41343 = new ArrayList<>();
     private boolean guiBlur = true;
     private boolean hqIngameBlur = true;
     private Screen screen;
@@ -188,7 +188,7 @@ public class GuiManager {
             this.field41354[1] = Math.max(0, Math.min(Minecraft.getInstance().getMainWindow().getHeight(), (int) Minecraft.getInstance().mouseHelper.getMouseY()));
 
             for (int var4 : this.field41339) {
-                this.method33463(var4);
+                this.onKeyPressed(var4);
             }
 
             for (int var9 : this.field41340) {
@@ -204,7 +204,7 @@ public class GuiManager {
             }
 
             for (int var12 : this.field41343) {
-                this.method33462((char) var12);
+                this.onCharTyped((char) var12);
             }
 
             this.field41339.clear();
@@ -232,13 +232,13 @@ public class GuiManager {
         }
     }
 
-    public void method33462(char var1) {
+    public void onCharTyped(char var1) {
         if (this.screen != null) {
             this.screen.charTyped(var1);
         }
     }
 
-    public void method33463(int var1) {
+    public void onKeyPressed(int var1) {
         if (this.screen != null) {
             this.screen.keyPressed(var1);
         }
