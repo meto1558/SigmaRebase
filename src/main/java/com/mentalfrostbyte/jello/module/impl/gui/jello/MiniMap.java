@@ -139,7 +139,7 @@ public class MiniMap extends Module {
                         int yOffset = event.getYOffset();
                         int field23709 = 150;
                         if (var4 != null) {
-                            String var5 = "^";
+                            String arrow = "^";
                             TrueTypeFont var6 = ResourceRegistry.JelloMediumFont20;
                             float var7 = 1.5F;
                             int field23710 = 150;
@@ -186,19 +186,19 @@ public class MiniMap extends Module {
                                     (float) (-(yOffset + field23709 / 2)), 0.0F);
                             RenderUtil.drawString(
                                     var6, (float) (field23711 + field23710 / 2 - 4),
-                                    (float) (yOffset + field23709 / 2 - 8), var5, 1879048192);
+                                    (float) (yOffset + field23709 / 2 - 8), arrow, 1879048192);
                             GL11.glPopMatrix();
                             GL11.glPushMatrix();
                             GL11.glTranslatef((float) (field23711 + field23710 / 2 + 1),
                                     (float) (yOffset + field23709 / 2), 0.0F);
-                            GL11.glRotatef((float) (270 + direction) - mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
+                            GL11.glRotatef((float) (direction) - mc.player.rotationYaw, 0.0F, 0.0F, 1.0F);
                             GL11.glTranslatef((float) (-(field23711 + field23710 / 2 + 1)),
                                     (float) (-(yOffset + field23709 / 2)), 0.0F);
                             RenderUtil.drawString(
                                     var6,
                                     (float) (field23711 + field23710 / 2 - 4),
                                     (float) (yOffset + field23709 / 2 - 8),
-                                    var5,
+                                    arrow,
                                     ClientColors.LIGHT_GREYISH_BLUE.getColor());
                             GL11.glPopMatrix();
                             RenderUtil.method11464((float) field23711, (float) yOffset,
