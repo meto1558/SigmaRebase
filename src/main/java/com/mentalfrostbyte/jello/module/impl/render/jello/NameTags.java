@@ -302,6 +302,7 @@ public class NameTags extends Module {
         GL11.glTranslated(renderX, renderY + 0.6F - 0.33333334F * (1.0F - partialTicks), renderZ);
         GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getYaw(), 0.0F, -1.0F, 0.0F);
         GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getPitch(), 1.0F, 0.0F, 0.0F);
+        GL11.glPushMatrix();
 
         float scale = 0.008F;
         GL11.glScalef(-scale * partialTicks, -scale * partialTicks, -scale * partialTicks);
