@@ -87,7 +87,7 @@ public class EventUpdateWalkingPlayer extends CancellableEvent {
         this.yaw = yaw;
     }
 
-    public boolean isOnGround() {
+    public boolean onGround() {
         return this.onGround;
     }
 

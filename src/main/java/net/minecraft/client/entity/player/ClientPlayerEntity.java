@@ -744,7 +744,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             EventSlowDown event = new EventSlowDown(0.2F);
             EventBus.call(event);
 
-            if (!event.isCancelled()) {
+            if (!event.cancelled) {
                 this.movementInput.moveStrafe = this.movementInput.moveStrafe * event.getSlowDown();
                 this.movementInput.moveForward = this.movementInput.moveForward * event.getSlowDown();
                 this.sprintToggleTimer = 0;
