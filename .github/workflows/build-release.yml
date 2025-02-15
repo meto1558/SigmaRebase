@@ -48,8 +48,8 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          git tag nightly
-          git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git nightly
+          git tag -f nightly
+          git push --force https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git nightly
 
       - name: Download built JAR
         uses: actions/download-artifact@v4
