@@ -17,7 +17,6 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
@@ -343,7 +342,6 @@ public class BlockFly extends ModuleWithModuleSettings {
 
     @Override
     public void onDisable() {
-        RotationManager.rotating = false;
         this.animation.changeDirection(Animation.Direction.BACKWARDS);
         super.onDisable();
     }

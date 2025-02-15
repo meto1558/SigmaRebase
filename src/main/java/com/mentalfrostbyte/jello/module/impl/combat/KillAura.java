@@ -32,7 +32,6 @@ import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
@@ -202,7 +201,6 @@ public class KillAura extends Module {
 
     @Override
     public void onDisable() {
-        RotationManager.rotating = false;
         currentTarget = null;
         currentTimedEntity = null;
         targetEntities = null;
@@ -221,11 +219,6 @@ public class KillAura extends Module {
 
     @EventTarget
     public void onTick(EventPlayerTick event) {
-
-        if (currentTarget == null) {
-            RotationManager.rotating = false;
-        } else RotationManager.rotating = true;
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -260,7 +253,6 @@ public class KillAura extends Module {
     @EventTarget
     @LowestPriority
     public void onUpdate(EventUpdateWalkingPlayer event) {
-
         if (!event.isPre()) {
             currentItemIndex = mc.player.inventory.currentItem;
             if (currentTarget != null && interactAB.canBlock() && currentRotations != null) {
@@ -282,10 +274,6 @@ public class KillAura extends Module {
                 mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.START_SPRINTING));
 
             }
-        }
-
-        if (currentTarget == null) {
-            RotationManager.rotating = false;
         }
 
         if (!isEnabled() || mc.player == null) {
@@ -352,15 +340,8 @@ public class KillAura extends Module {
         }
 
         if (currentTarget != null) {
-            RotationManager.prevYaw = currentRotations.yaw;
-            RotationManager.prevPitch = currentRotations.pitch;
             event.setYaw(currentRotations.yaw);
             event.setPitch(currentRotations.pitch);
-            RotationManager.yaw = currentRotations.yaw;
-            RotationManager.pitch = currentRotations.pitch;
-
-            mc.player.rotationYawHead = event.getYaw();
-            mc.player.renderYawOffset = event.getYaw();
         }
 
         boolean canAttack = interactAB.canAttack(attackDelay);
@@ -792,7 +773,6 @@ public class KillAura extends Module {
         currentRotations.pitch = MathHelper.clamp(currentRotations.pitch, -90.0F, 90.0F);
         secondaryRotations.yaw = (float) (targetYaw + advancedCalculationZ);
         secondaryRotations.pitch = (float) (targetPitch + advancedCalculationY);
-
     }
 
     // simple because i didnt bother making better one.

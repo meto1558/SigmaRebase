@@ -13,7 +13,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -43,7 +42,6 @@ public class BowAimbot extends Module {
 
     @Override
     public void onDisable() {
-        RotationManager.rotating = false;
         this.field23754.clear();
     }
 
@@ -58,18 +56,8 @@ public class BowAimbot extends Module {
 
             if (!this.field23754.isEmpty() && this.getBooleanValueFromSettingName("Silent")) {
                 float[] rots = RotationUtil.method34146((LivingEntity) this.field23754.get(0));
-                RotationManager.rotating = true;
-                RotationManager.prevYaw = rots[0];
-                RotationManager.prevPitch = rots[1];
                 event.setYaw(rots[0]);
                 event.setPitch(rots[1]);
-                RotationManager.yaw = rots[0];
-                RotationManager.pitch = rots[1];
-
-                mc.player.rotationYawHead = event.getYaw();
-                mc.player.renderYawOffset = event.getYaw();
-            } else {
-                RotationManager.rotating = false;
             }
         }
     }

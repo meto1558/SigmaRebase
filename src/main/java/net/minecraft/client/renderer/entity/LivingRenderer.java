@@ -3,9 +3,6 @@ package net.minecraft.client.renderer.entity;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotationPitchHead;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotationYawHead;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotationYawOffset;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.List;
@@ -86,14 +83,7 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
 
             this.entityModel.isChild = entityIn.isChild();
             float f = MathHelper.interpolateAngle(partialTicks, entityIn.prevRenderYawOffset, entityIn.renderYawOffset);
-            EventRotationYawOffset eventRotationYawOffset = new EventRotationYawOffset(entityIn, f, partialTicks);
-            EventBus.call(eventRotationYawOffset);
-            f = eventRotationYawOffset.f;
-
             float f1 = MathHelper.interpolateAngle(partialTicks, entityIn.prevRotationYawHead, entityIn.rotationYawHead);
-            EventRotationYawHead eventRotationYawHead = new EventRotationYawHead(entityIn, f1, partialTicks);
-            EventBus.call(eventRotationYawHead);
-            f1 = eventRotationYawHead.f1;
 
             float f2 = f1 - f;
 
@@ -125,10 +115,6 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
             }
 
             float f7 = MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch);
-            EventRotationPitchHead eventRotationPitchHead = new EventRotationPitchHead(entityIn, f7, partialTicks);
-            EventBus.call(eventRotationPitchHead);
-            f7 = eventRotationPitchHead.f7;
-
             EventRenderEntity eventRenderEntity = new EventRenderEntity(f, f1, f2, f7, partialTicks, entityIn);
             EventBus.call(eventRenderEntity);
 
@@ -177,8 +163,9 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                 }
             }
 
-            eventRenderEntity.setState(EventRenderEntity.RenderState.field13213);
+            eventRenderEntity.setState(EventRenderEntity.RenderState.MID);
             EventBus.call(eventRenderEntity);
+
             this.entityModel.setLivingAnimations(entityIn, f5, f9, partialTicks);
             this.entityModel.setRotationAngles(entityIn, f5, f9, f8, f2, f7);
 
@@ -238,7 +225,7 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                 this.renderEntity = null;
             }
 
-            eventRenderEntity.setState(EventRenderEntity.RenderState.COMPLETE);
+            eventRenderEntity.setState(EventRenderEntity.RenderState.POST);
             EventBus.call(eventRenderEntity);
             matrixStackIn.pop();
             super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);

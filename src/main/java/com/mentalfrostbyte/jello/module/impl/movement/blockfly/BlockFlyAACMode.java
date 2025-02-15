@@ -18,7 +18,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -255,16 +254,8 @@ public class BlockFlyAACMode extends Module {
                     }
                 }
 
-                RotationManager.rotating = true;
-                RotationManager.prevYaw = this.yaw;
-                RotationManager.prevPitch = this.pitch;
                 event.setYaw(this.yaw);
                 event.setPitch(this.pitch);
-                RotationManager.yaw = this.yaw;
-                RotationManager.pitch = this.pitch;
-
-                mc.player.rotationYawHead = event.getYaw();
-                mc.player.renderYawOffset = event.getYaw();
             }
         }
     }

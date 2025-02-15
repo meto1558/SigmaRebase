@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.module.impl.player.OldHitting;
@@ -337,30 +338,23 @@ public class ViaManager implements MinecraftUtil {
     @HighestPriority
     public void onRenderEntity(EventRenderEntity event) {
         if (event.getEntity() == mc.player || event.getEntity() == Freecam.player || event.getEntity() == Blink.clientPlayerEntity) {
-            Rotation rotations = RotationManager.getRotations();
-			float postYaw = rotations.lastYaw;
-            float yaw = rotations.yaw;
-            float postPitch = rotations.lastPitch;
-            float pitch = rotations.pitch;
-
             if (event.getPartialTicks() != 1.0F) {
-				assert mc.player != null;
-				if (rotations.lastYaw - mc.player.rotationYawHead == 0.0F) {
+                if (EventUpdateWalkingPlayer.prevPitch - mc.player.rotationYawHead == 0.0F) {
                     if (field31499) {
-                        event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), yaw, event.getEntity().renderYawOffset));
-                        event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), yaw, event.getEntity().rotationYawHead));
-                        event.setPitch(MathHelper.lerp(event.getPartialTicks(), postPitch, event.getEntity().rotationPitch));
+                        event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer.postPitch, event.getEntity().renderYawOffset));
+                        event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer.postPitch, event.getEntity().rotationYawHead));
+                        event.setPitch(MathHelper.lerp(event.getPartialTicks(), EventUpdateWalkingPlayer.postYaw, event.getEntity().rotationPitch));
                         event.setYaw(event.getHeadYaw() - event.getYawOffset());
-                        event.getEntity().prevRotationPitch = pitch;
-                        event.getEntity().prevRotationYaw = yaw;
-                        event.getEntity().prevRotationYawHead = yaw;
-                        event.getEntity().prevRenderYawOffset = yaw;
+                        event.getEntity().prevRotationPitch = EventUpdateWalkingPlayer.postYaw;
+                        event.getEntity().prevRotationYaw = EventUpdateWalkingPlayer.postPitch;
+                        event.getEntity().prevRotationYawHead = EventUpdateWalkingPlayer.postPitch;
+                        event.getEntity().prevRenderYawOffset = EventUpdateWalkingPlayer.postPitch;
                         field31499 = !field31499;
                     }
                 } else {
-                    event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), yaw, postYaw));
-                    event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), yaw, postYaw));
-                    event.setPitch(MathHelper.lerp(event.getPartialTicks(), pitch, postPitch));
+                    event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer.postPitch, EventUpdateWalkingPlayer.prevPitch));
+                    event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer.postPitch, EventUpdateWalkingPlayer.prevPitch));
+                    event.setPitch(MathHelper.lerp(event.getPartialTicks(), EventUpdateWalkingPlayer.postYaw, EventUpdateWalkingPlayer.prevYaw));
                     event.setYaw(event.getHeadYaw() - event.getYawOffset());
                     field31499 = true;
                 }

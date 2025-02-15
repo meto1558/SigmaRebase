@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
@@ -12,7 +12,7 @@ public class Parkour extends Module {
     }
 
     @EventTarget
-    public void EventWalkingUpdate(EventPlayerTick event) {
+    public void onMotion(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (mc.player.isOnGround()) {
                 if (!PlayerUtil.isPlayerInCollision()) {

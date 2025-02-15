@@ -20,7 +20,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -231,34 +230,17 @@ public class BlockFlyNCPMode extends Module {
                         float[] var12 = BlockUtil.method34542(this.field23923.position, this.field23923.direction);
                         this.yaw = var12[0];
                         this.pitch = var12[1];
-                        RotationManager.rotating = true;
-                        RotationManager.prevYaw = this.yaw;
-                        RotationManager.prevPitch = this.pitch;
                         event.setYaw(this.yaw);
                         event.setPitch(this.pitch);
-                        RotationManager.yaw = this.yaw;
-                        RotationManager.pitch = this.pitch;
-
-                        mc.player.rotationYawHead = event.getYaw();
-                        mc.player.renderYawOffset = event.getYaw();
                     }
                 } else {
                     if (this.getBooleanValueFromSettingName("KeepRotations") && this.pitch != 999.0F) {
-                        RotationManager.rotating = true;
-                        RotationManager.prevYaw = this.yaw;
-                        RotationManager.prevPitch = this.pitch;
                         event.setYaw(this.yaw);
                         event.setPitch(this.pitch);
-                        RotationManager.yaw = this.yaw;
-                        RotationManager.pitch = this.pitch;
-
-                        mc.player.rotationYawHead = event.getYaw();
-                        mc.player.renderYawOffset = event.getYaw();
                     }
 
                     this.field23923 = null;
                 }
-
 
                 if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
                     this.field23925 = 0;

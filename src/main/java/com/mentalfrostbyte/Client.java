@@ -61,6 +61,7 @@ public class Client {
     public ModuleManager moduleManager;
     public NetworkManager networkManager;
     public CombatManager combatManager;
+    public ViaManager viaManager;
     public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
@@ -70,7 +71,6 @@ public class Client {
     public MusicManager musicManager;
     public PlayerStateTracker playerTracker;
     public MinerTracker minerTracker;
-    public RotationManager rotationManager;
 
     private Logger logger;
 
@@ -99,9 +99,10 @@ public class Client {
         this.guiManager = new GuiManager();
         this.combatManager = new CombatManager();
         this.combatManager.init();
+        this.viaManager = new ViaManager();
+        this.viaManager.init();
         this.commandManager = new CommandManager();
         this.commandManager.init();
-        this.rotationManager = new RotationManager();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();

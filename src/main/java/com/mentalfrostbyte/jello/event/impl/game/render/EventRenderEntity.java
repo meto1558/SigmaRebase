@@ -22,7 +22,7 @@ public class EventRenderEntity extends CancellableEvent {
         this.pitch = pitch;
         this.partialTicks = partialTicks;
         this.entity = entity;
-        this.state = RenderState.DEFAULT;
+        this.state = RenderState.PRE;
     }
 
     public void setState(RenderState state) {
@@ -90,8 +90,8 @@ public class EventRenderEntity extends CancellableEvent {
     }
 
     public enum RenderState {
-        DEFAULT,
-        field13213,
-        COMPLETE
+        PRE,
+        MID,
+        POST
     }
 }

@@ -11,7 +11,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -164,8 +163,8 @@ public class MinibloxDisabler extends Module {
                 mc.player.getPosX(),
                 mc.player.getPosY(),
                 mc.player.getPosZ(),
-                RotationManager.yaw,
-                RotationManager.pitch,
+                mc.player.rotationYaw,
+                mc.player.rotationPitch,
                 spoofGround || mc.player.isOnGround()
         );
         if (posPacket.onGround)

@@ -7,7 +7,8 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActio
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.managers.RotationManager;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
@@ -244,14 +245,10 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
      * called every tick when the player is on foot. Performs all the things that normally happen during movement.
      */
     protected void onUpdateWalkingPlayer() {
-        // MODIFICATION START: Sends out `EventUpdate`s
         AxisAlignedBB bounds = this.getBoundingBox();
         EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
         EventBus.call(event);
-        // MODIFICATION END
-        // MODIFICATION START: Make the event cancellable
         if (event.cancelled) return;
-        // MODIFICATION END
         boolean flag = this.isSprinting();
 
         if (flag != this.serverSprintState) {
@@ -269,81 +266,63 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
         }
 
         if (this.isCurrentViewEntity()) {
-            // MODIFICATION BEGIN: spoofing
-            double d4 = event.getX() - this.lastReportedPosX;
-            double d0 = event.getY() - this.lastReportedPosY;
-            double d1 = event.getZ() - this.lastReportedPosZ;
-            double d2 = (double) (event.getYaw() - this.lastReportedYaw);
-            double d3 = (double) (event.getPitch() - this.lastReportedPitch);
-            // MODIFICATION END
+            double x = event.getX();
+            double y = event.getY();
+            double z = event.getZ();
+
+            float pitch = event.getPitch();
+            float yaw = event.getYaw() % 360.0F;
+
+            boolean onGround = event.isOnGround();
+
+            double newX = x - this.lastReportedPosX;
+            double newY = y - this.lastReportedPosY;
+            double newZ = z - this.lastReportedPosZ;
+
+            double newYaw = (double) (yaw - this.lastReportedYaw % 360.0F);
+            double newPitch = (double) (pitch - this.lastReportedPitch);
+
             ++this.positionUpdateTicks;
-            boolean flag1 = d4 * d4 + d0 * d0 + d1 * d1 > 9.0E-4D || this.positionUpdateTicks >= 20;
-            boolean flag2 = d2 != 0.0D || d3 != 0.0D;
+
+            boolean flag1 = newX * newX + newY * newY + newZ * newZ > 9.0E-4D || this.positionUpdateTicks >= 20;
+            boolean flag2 = newYaw != 0.0D || newPitch != 0.0D;
 
             if (this.isPassenger()) {
                 Vector3d vector3d = this.getMotion();
-                // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0D, vector3d.z, event.getYaw(), event.getPitch(), event.onGround()));
-                // MODIFICATION END
+                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0, vector3d.z, yaw, pitch, onGround));
                 flag1 = false;
             } else if (flag1 && flag2) {
-                // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(event.getX(), event.getY(), event.getZ(), event.getYaw(), event.getPitch(), event.onGround()));
-                // MODIFICATION END
+                this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(x, y, z, yaw, pitch, onGround));
             } else if (flag1) {
-                // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.PositionPacket(event.getX(), event.getY(), event.getZ(), event.onGround()));
-                // MODIFICATION END
+                this.connection.sendPacket(new CPlayerPacket.PositionPacket(x, y, z, onGround));
             } else if (flag2) {
-                // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket.RotationPacket(event.getYaw(), event.getPitch(), event.onGround()));
-                // MODIFICATION END
-            } else if (this.prevOnGround != event.onGround()) {
-                // MODIFICATION BEGIN: use spoofed values
-                this.connection.sendPacket(new CPlayerPacket(event.onGround()));
-                // MODIFICATION END
+                this.connection.sendPacket(new CPlayerPacket.RotationPacket(yaw, pitch, onGround));
+            } else if (this.prevOnGround != this.onGround || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+                this.connection.sendPacket(new CPlayerPacket(onGround));
             }
 
             if (flag1) {
-                // MODIFICATION BEGIN: use spoofed values
                 this.lastReportedPosX = event.getX();
                 this.lastReportedPosY = event.getY();
                 this.lastReportedPosZ = event.getZ();
-                // MODIFICATION END
                 this.positionUpdateTicks = 0;
             }
 
             if (flag2) {
-                // MODIFICATION BEGIN: use spoofed values
                 this.lastReportedYaw = event.getYaw();
                 this.lastReportedPitch = event.getPitch();
-                // MODIFICATION END
             }
 
-            // MODIFICATION BEGIN: use spoofed values
-            this.prevOnGround = event.onGround();
-            // MODIFICATION END
+            this.prevOnGround = event.isOnGround();
             this.autoJumpEnabled = this.mc.gameSettings.autoJump;
         }
 
         for (Runnable runnable : event.getRunnableList()) {
             runnable.run();
         }
+
         event.postUpdate();
         EventBus.call(event);
-    }
-
-    @Override
-    public Vector3d getLookVec() {
-        return this.getLook(1.0f);
-    }
-
-    @Override
-    public Vector3d getLook(float partialTicks) {
-        return this.getVectorForRotation(
-                RotationManager.rotating ? RotationManager.pitch : this.rotationPitch,
-                RotationManager.rotating ? RotationManager.yaw : this.rotationYaw
-        );
     }
 
     public boolean drop(boolean p_225609_1_) {

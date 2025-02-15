@@ -21,7 +21,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CAnimateHandPacket;
@@ -263,29 +262,13 @@ public class BlockFlyHypixelMode extends Module {
 
                             this.yaw = var13[0];
                             this.pitch = var13[1];
-                            RotationManager.rotating = true;
-                            RotationManager.prevPitch = this.pitch;
-                            RotationManager.prevYaw = this.yaw;
                             event.setYaw(this.yaw);
                             event.setPitch(this.pitch);
-                            RotationManager.pitch = this.pitch;
-                            RotationManager.yaw = this.yaw;
-
-                            mc.player.rotationYawHead = this.yaw;
-                            mc.player.renderYawOffset = this.yaw;
                         }
                     } else {
                         if (this.getBooleanValueFromSettingName("KeepRotations") && this.pitch != 999.0F) {
-                            RotationManager.rotating = true;
-                            RotationManager.prevPitch = 90.0F;
-                            RotationManager.prevYaw = mc.player.rotationYaw + 1.0F;
                             event.setPitch(90.0F);
                             event.setYaw(mc.player.rotationYaw + 1.0F);
-                            RotationManager.pitch = 90.0F;
-                            RotationManager.yaw = mc.player.rotationYaw + 1.0F;
-
-                            mc.player.rotationYawHead = mc.player.rotationYaw + 1.0F;
-                            mc.player.renderYawOffset = mc.player.rotationYaw + 1.0F;
                         }
 
                         this.blockCache = null;
