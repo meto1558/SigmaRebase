@@ -15,6 +15,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.AACSpeed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
 import com.mentalfrostbyte.jello.managers.RotationManager;
@@ -158,7 +159,7 @@ public class BlockFlyAACMode extends Module {
         boolean var4 = false;
         if (var3 != null && var3.getType() == RayTraceResult.Type.BLOCK) {
             if (this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                if (!BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())) {
+                if (!InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())) {
                     return false;
                 }
             }

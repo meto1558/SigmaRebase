@@ -298,7 +298,7 @@ public class ChestStealer extends Module {
                     return !InvManager.isHoe(itemStack);
                 } else if (!(item instanceof PotionItem)) {
                     if (item instanceof BlockItem) {
-                        return !BlockFly.shouldPlaceItem(item);
+                        return !InvManagerUtil.shouldPlaceItem(item);
                     } else if (!(item instanceof ArrowItem)
                             && (!(item instanceof BowItem) || !Client.getInstance().moduleManager.getModuleByClass(InvManager.class).getBooleanValueFromSettingName("Archery"))) {
                         if (item == Items.WATER_BUCKET && Client.getInstance().moduleManager.getModuleByClass(AutoMLG.class).isEnabled()) {

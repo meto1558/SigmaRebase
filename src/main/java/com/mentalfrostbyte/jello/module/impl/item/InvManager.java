@@ -5,10 +5,10 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
-import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import net.minecraft.block.Blocks;
@@ -331,7 +331,7 @@ public class InvManager extends PremiumModule {
             }
 
             if (var5 instanceof BlockItem
-                    && (this.method16436() > (int) this.getNumberValueBySettingName("Block Cap") || BlockFly.blocksToNotPlace.contains(((BlockItem) var5).getBlock()))) {
+                    && (this.method16436() > (int) this.getNumberValueBySettingName("Block Cap") || BlockUtil.blocksToNotPlace.contains(((BlockItem) var5).getBlock()))) {
                 return true;
             } else if (var5 == Items.WATER_BUCKET && Client.getInstance().moduleManager.getModuleByClass(AutoMLG.class).isEnabled()) {
                 return method16437(Items.WATER_BUCKET) > 1;
@@ -392,7 +392,7 @@ public class InvManager extends PremiumModule {
             if (mc.player.container.getSlot(var4).getHasStack()) {
                 ItemStack var5 = mc.player.container.getSlot(var4).getStack();
                 Item var6 = var5.getItem();
-                if (var5.getItem() instanceof BlockItem && !BlockFly.blocksToNotPlace.contains(((BlockItem) var6).getBlock())) {
+                if (var5.getItem() instanceof BlockItem && !BlockUtil.blocksToNotPlace.contains(((BlockItem) var6).getBlock())) {
                     var3 += var5.getCount();
                 }
             }

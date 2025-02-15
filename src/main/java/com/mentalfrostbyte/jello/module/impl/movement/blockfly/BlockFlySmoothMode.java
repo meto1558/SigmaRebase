@@ -15,6 +15,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.Speed;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
@@ -116,10 +117,10 @@ public class BlockFlySmoothMode extends Module {
                 this.someOtherField--;
                 event.setMoving(true);
                 this.hand = Hand.MAIN_HAND;
-                if (BlockFly.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())
+                if (InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.hand).isEmpty()
-                                || !BlockFly.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
+                                || !InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
                 )) {
 
                 }

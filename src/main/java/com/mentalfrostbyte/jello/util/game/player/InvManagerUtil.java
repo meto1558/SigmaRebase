@@ -1,8 +1,9 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -363,5 +364,25 @@ public class InvManagerUtil {
 
     public static void clickSlot(int slotId, int mouseButton, boolean type) {
         mc.playerController.windowClick(mc.player.container.windowId, slotId, mouseButton, !type ? ClickType.THROW : ClickType.QUICK_MOVE, mc.player);
+    }
+
+    public static boolean shouldPlaceItem(Item item) {
+        if (!(item instanceof BlockItem)) {
+            return false;
+        } else {
+            Block var3 = ((BlockItem) item).getBlock();
+            return !BlockUtil.blocksToNotPlace.contains(var3)
+                    && !(var3 instanceof AbstractButtonBlock)
+                    && !(var3 instanceof BushBlock)
+                    && !(var3 instanceof TrapDoorBlock)
+                    && !(var3 instanceof AbstractPressurePlateBlock)
+                    && !(var3 instanceof SandBlock)
+                    && !(var3 instanceof OreBlock)
+                    && !(var3 instanceof SkullBlock)
+                    && !(var3 instanceof BedBlock)
+                    && !(var3 instanceof BannerBlock)
+                    && !(var3 instanceof ChestBlock)
+                    && !(var3 instanceof DoorBlock);
+        }
     }
 }

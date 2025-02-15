@@ -15,6 +15,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -24,7 +25,6 @@ import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.container.ClickType;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CClientStatusPacket;
@@ -35,10 +35,8 @@ import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class BlockFly extends ModuleWithModuleSettings {
-    public static List<Block> blocksToNotPlace;
     public int lastSpoofedSlot;
     public Animation animation = new Animation(114, 114, Animation.Direction.BACKWARDS);
     public int blockCount = 0;
@@ -58,67 +56,6 @@ public class BlockFly extends ModuleWithModuleSettings {
         this.registerSetting(
                 new BooleanSetting("Intelligent Block Picker", "Always get the biggest blocks stack.", true));
         this.registerSetting(new BooleanSetting("No Sprint", "Disable sprint.", false));
-        blocksToNotPlace = Arrays.asList(
-                Blocks.AIR,
-                Blocks.WATER,
-                Blocks.LAVA,
-                Blocks.ENCHANTING_TABLE,
-                Blocks.BLACK_CARPET,
-                Blocks.GLASS_PANE,
-                Blocks.IRON_BARS,
-                Blocks.ICE,
-                Blocks.PACKED_ICE,
-                Blocks.CHEST,
-                Blocks.TRAPPED_CHEST,
-                Blocks.TORCH,
-                Blocks.ANVIL,
-                Blocks.TRAPPED_CHEST,
-                Blocks.NOTE_BLOCK,
-                Blocks.JUKEBOX,
-                Blocks.TNT,
-                Blocks.REDSTONE_WIRE,
-                Blocks.LEVER,
-                Blocks.COBBLESTONE_WALL,
-                Blocks.OAK_FENCE,
-                Blocks.TALL_GRASS,
-                Blocks.TRIPWIRE,
-                Blocks.TRIPWIRE_HOOK,
-                Blocks.RAIL,
-                Blocks.LILY_PAD,
-                Blocks.RED_MUSHROOM,
-                Blocks.BROWN_MUSHROOM,
-                Blocks.VINE,
-                Blocks.ACACIA_TRAPDOOR,
-                Blocks.LADDER,
-                Blocks.FURNACE,
-                Blocks.SAND,
-                Blocks.CACTUS,
-                Blocks.DISPENSER,
-                Blocks.DROPPER,
-                Blocks.CRAFTING_TABLE,
-                Blocks.COBWEB,
-                Blocks.PUMPKIN,
-                Blocks.ACACIA_SAPLING);
-    }
-
-    public static boolean shouldPlaceItem(Item item) {
-        if (!(item instanceof BlockItem)) {
-            return false;
-        } else {
-            Block var3 = ((BlockItem) item).getBlock();
-            return !blocksToNotPlace.contains(var3)
-                    && !(var3 instanceof AbstractButtonBlock)
-                    && !(var3 instanceof BushBlock)
-                    && !(var3 instanceof TrapDoorBlock)
-                    && !(var3 instanceof AbstractPressurePlateBlock)
-                    && !(var3 instanceof SandBlock)
-                    && !(var3 instanceof OreBlock)
-                    && !(var3 instanceof SkullBlock)
-                    && !(var3 instanceof BedBlock)
-                    && !(var3 instanceof BannerBlock)
-                    && !(var3 instanceof ChestBlock)
-                    && !(var3 instanceof DoorBlock);
-        }
     }
 
     public boolean isEnabled2() {
@@ -130,7 +67,7 @@ public class BlockFly extends ModuleWithModuleSettings {
             for (int containerSlot = 36; containerSlot < 45; containerSlot++) {
                 int hotbarSlot = containerSlot - 36;
                 if (mc.player.container.getSlot(containerSlot).getHasStack()
-                        && shouldPlaceItem(mc.player.container.getSlot(containerSlot).getStack().getItem())
+                        && InvManagerUtil.shouldPlaceItem(mc.player.container.getSlot(containerSlot).getStack().getItem())
                         && mc.player.container.getSlot(containerSlot).getStack().getCount() != 0) {
                     if (mc.player.inventory.currentItem == hotbarSlot) {
                         return;
@@ -157,7 +94,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                 ItemStack stack = mc.player.container.getSlot(containerSlot).getStack();
                 Item item = stack.getItem();
 
-                if (shouldPlaceItem(item)) {
+                if (InvManagerUtil.shouldPlaceItem(item)) {
                     totalItemCount += stack.getCount();
                 }
             }
@@ -177,7 +114,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                     for (int var6 = 9; var6 < 36; var6++) {
                         if (mc.player.container.getSlot(var6).getHasStack()) {
                             Item var7 = mc.player.container.getSlot(var6).getStack().getItem();
-                            if (shouldPlaceItem(var7)) {
+                            if (InvManagerUtil.shouldPlaceItem(var7)) {
                                 var5 = var6;
                                 break;
                             }
@@ -216,7 +153,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                     for (int var10 = 36; var10 < 45; var10++) {
                         if (mc.player.container.getSlot(var10).getHasStack()) {
                             Item var12 = mc.player.container.getSlot(var10).getStack().getItem();
-                            if (shouldPlaceItem(var12)) {
+                            if (InvManagerUtil.shouldPlaceItem(var12)) {
                                 var4 = var10;
                                 if (mc.player.container.getSlot(var10).getStack().getCount() == mc.player.container
                                         .getSlot(var8).getStack().getCount()) {
@@ -251,7 +188,7 @@ public class BlockFly extends ModuleWithModuleSettings {
                 if (mc.player.container.getSlot(slot).getHasStack()) {
                     Item var6 = mc.player.container.getSlot(slot).getStack().getItem();
                     ItemStack var7 = mc.player.container.getSlot(slot).getStack();
-                    if (shouldPlaceItem(var6) && var7.getCount() > biggestSlotCount) {
+                    if (InvManagerUtil.shouldPlaceItem(var6) && var7.getCount() > biggestSlotCount) {
                         biggestSlotCount = var7.getCount();
                         biggestSlot = slot;
                     }
@@ -268,7 +205,7 @@ public class BlockFly extends ModuleWithModuleSettings {
         for (int slot = 36; slot < 45; slot++) {
             if (mc.player.container.getSlot(slot).getHasStack()) {
                 Item item = mc.player.container.getSlot(slot).getStack().getItem();
-                if (shouldPlaceItem(item)) {
+                if (InvManagerUtil.shouldPlaceItem(item)) {
                     return true;
                 }
             }
@@ -281,7 +218,7 @@ public class BlockFly extends ModuleWithModuleSettings {
         if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
             return this.getValidItemCount() != 0;
         } else
-            return shouldPlaceItem(mc.player.getHeldItem(var1).getItem());
+            return InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(var1).getItem());
     }
 
     public void windowClick(int slot, int mouseButton) {
@@ -293,7 +230,7 @@ public class BlockFly extends ModuleWithModuleSettings {
             for (int containerSlot = 36; containerSlot < 45; containerSlot++) {
                 int hotbarSlot = containerSlot - 36;
                 if (mc.player.container.getSlot(containerSlot).getHasStack()
-                        && shouldPlaceItem(mc.player.container.getSlot(containerSlot).getStack().getItem())
+                        && InvManagerUtil.shouldPlaceItem(mc.player.container.getSlot(containerSlot).getStack().getItem())
                         && mc.player.container.getSlot(containerSlot).getStack().getCount() != 0) {
                     return hotbarSlot;
                 }

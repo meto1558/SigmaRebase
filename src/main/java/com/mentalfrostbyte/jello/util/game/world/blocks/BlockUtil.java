@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -19,14 +20,52 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 import org.apache.commons.lang3.RandomUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class BlockUtil {
     public static Minecraft mc = Minecraft.getInstance();
+    public static List<Block> blocksToNotPlace = Arrays.asList(
+            Blocks.AIR,
+            Blocks.WATER,
+            Blocks.LAVA,
+            Blocks.ENCHANTING_TABLE,
+            Blocks.BLACK_CARPET,
+            Blocks.GLASS_PANE,
+            Blocks.IRON_BARS,
+            Blocks.ICE,
+            Blocks.PACKED_ICE,
+            Blocks.CHEST,
+            Blocks.TRAPPED_CHEST,
+            Blocks.TORCH,
+            Blocks.ANVIL,
+            Blocks.TRAPPED_CHEST,
+            Blocks.NOTE_BLOCK,
+            Blocks.JUKEBOX,
+            Blocks.TNT,
+            Blocks.REDSTONE_WIRE,
+            Blocks.LEVER,
+            Blocks.COBBLESTONE_WALL,
+            Blocks.OAK_FENCE,
+            Blocks.TALL_GRASS,
+            Blocks.TRIPWIRE,
+            Blocks.TRIPWIRE_HOOK,
+            Blocks.RAIL,
+            Blocks.LILY_PAD,
+            Blocks.RED_MUSHROOM,
+            Blocks.BROWN_MUSHROOM,
+            Blocks.VINE,
+            Blocks.ACACIA_TRAPDOOR,
+            Blocks.LADDER,
+            Blocks.FURNACE,
+            Blocks.SAND,
+            Blocks.CACTUS,
+            Blocks.DISPENSER,
+            Blocks.DROPPER,
+            Blocks.CRAFTING_TABLE,
+            Blocks.COBWEB,
+            Blocks.PUMPKIN,
+            Blocks.ACACIA_SAPLING);
 
     public static BlockPos method34564(float var0, float var1, float var2) {
         BlockRayTraceResult var5 = rayTrace(var0, var1, var2);
