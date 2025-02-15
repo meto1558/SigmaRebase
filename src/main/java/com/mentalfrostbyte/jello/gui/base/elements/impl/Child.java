@@ -181,11 +181,11 @@ public class Child extends Element {
     }
 
     @Override
-    public void method13103(int var1) {
+    public void modifierPressed(int var1) {
         if (var1 == this.field20690) {
             this.field20692 = false;
         }
 
-        super.method13103(var1);
+        super.modifierPressed(var1);
     }
 }

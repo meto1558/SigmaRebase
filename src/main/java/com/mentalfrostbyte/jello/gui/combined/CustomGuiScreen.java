@@ -246,10 +246,10 @@ public class CustomGuiScreen implements IGuiEventListener {
         return false;
     }
 
-    public void method13103(int var1) {
+    public void modifierPressed(int var1) {
         for (CustomGuiScreen var5 : this.children) {
             if (var5.isHovered() && var5.isVisible()) {
-                var5.method13103(var1);
+                var5.modifierPressed(var1);
             }
         }
     }

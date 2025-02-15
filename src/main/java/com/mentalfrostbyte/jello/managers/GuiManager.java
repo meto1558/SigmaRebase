@@ -73,11 +73,11 @@ public class GuiManager {
     public double field41347;
     public int[] field41354 = new int[2];
     public boolean field41357;
-    private final List<Integer> field41339 = new ArrayList<>();
-    private final List<Integer> field41340 = new ArrayList<>();
-    private final List<Integer> field41341 = new ArrayList<>();
-    private final List<Integer> field41342 = new ArrayList<>();
-    private final List<Integer> field41343 = new ArrayList<>();
+    private final List<Integer> keysPressed = new ArrayList<>();
+    private final List<Integer> modifiersPressed = new ArrayList<>();
+    private final List<Integer> mouseButtonsPressed = new ArrayList<>();
+    private final List<Integer> mouseButtonsReleased = new ArrayList<>();
+    private final List<Integer> charsTyped = new ArrayList<>();
     private boolean guiBlur = true;
     private boolean hqIngameBlur = true;
     private Screen screen;
@@ -156,29 +156,32 @@ public class GuiManager {
         replacementScreens.put(ClickGuiHolder.class, ClassicClickGui.class);
     }
 
-    public void method33453(int var1, int var2) {
-        if (var2 == 1 || var2 == 2) {
-            this.field41339.add(var1);
-        } else if (var2 == 0) {
-            this.field41340.add(var1);
+    /**
+     * @see net.minecraft.client.KeyboardListener#onKeyEvent
+	 */
+    public void handleKeyEvent(int key, int action) {
+        if (action == 1 || action == 2) {
+            this.keysPressed.add(key);
+        } else if (action == 0) {
+            this.modifiersPressed.add(key);
         }
     }
 
-    public void method33454(int var1, int var2) {
-        this.field41343.add(var1);
+    public void addTypedChar(int codePoint, int modifiers) {
+        this.charsTyped.add(codePoint);
     }
 
     public void method33455(double var1, double var3) {
         this.field41347 += var3;
     }
 
-    public void method33456(int var1, int var2) {
-        if (var2 != 1) {
-            if (var2 == 0) {
-                this.field41342.add(var1);
+    public void onMouseButtonCallback(int button, int action) {
+        if (action != 1) {
+            if (action == 0) {
+                this.mouseButtonsReleased.add(button);
             }
         } else {
-            this.field41341.add(var1);
+            this.mouseButtonsPressed.add(button);
         }
     }
 
@@ -187,31 +190,31 @@ public class GuiManager {
             this.field41354[0] = Math.max(0, Math.min(Minecraft.getInstance().getMainWindow().getWidth(), (int) Minecraft.getInstance().mouseHelper.getMouseX()));
             this.field41354[1] = Math.max(0, Math.min(Minecraft.getInstance().getMainWindow().getHeight(), (int) Minecraft.getInstance().mouseHelper.getMouseY()));
 
-            for (int var4 : this.field41339) {
-                this.onKeyPressed(var4);
+            for (int key : this.keysPressed) {
+                this.onKeyPressed(key);
             }
 
-            for (int var9 : this.field41340) {
-                this.method33461(var9);
+            for (int modifierPresed : this.modifiersPressed) {
+                this.onModifierPressed(modifierPresed);
             }
 
-            for (int var10 : this.field41341) {
-                this.method33466(this.field41354[0], this.field41354[1], var10);
+            for (int var10 : this.mouseButtonsPressed) {
+                this.onMouseClick(this.field41354[0], this.field41354[1], var10);
             }
 
-            for (int var11 : this.field41342) {
-                this.method33467(this.field41354[0], this.field41354[1], var11);
+            for (int var11 : this.mouseButtonsReleased) {
+                this.onMouseClick2(this.field41354[0], this.field41354[1], var11);
             }
 
-            for (int var12 : this.field41343) {
-                this.onCharTyped((char) var12);
+            for (int chr : this.charsTyped) {
+                this.onCharTyped((char) chr);
             }
 
-            this.field41339.clear();
-            this.field41340.clear();
-            this.field41341.clear();
-            this.field41342.clear();
-            this.field41343.clear();
+            this.keysPressed.clear();
+            this.modifiersPressed.clear();
+            this.mouseButtonsPressed.clear();
+            this.mouseButtonsReleased.clear();
+            this.charsTyped.clear();
             if (this.field41347 == 0.0) {
                 this.field41357 = false;
             } else {
@@ -226,21 +229,21 @@ public class GuiManager {
         }
     }
 
-    public void method33461(int var1) {
+    public void onModifierPressed(int modifier) {
         if (this.screen != null) {
-            this.screen.method13103(var1);
+            this.screen.modifierPressed(modifier);
         }
     }
 
-    public void onCharTyped(char var1) {
+    public void onCharTyped(char chr) {
         if (this.screen != null) {
-            this.screen.charTyped(var1);
+            this.screen.charTyped(chr);
         }
     }
 
-    public void onKeyPressed(int var1) {
+    public void onKeyPressed(int key) {
         if (this.screen != null) {
-            this.screen.keyPressed(var1);
+            this.screen.keyPressed(key);
         }
     }
 
@@ -296,15 +299,15 @@ public class GuiManager {
         }
     }
 
-    public void method33466(int var1, int var2, int var3) {
+    public void onMouseClick(int mouseX, int mouseY, int mouseButton) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.onClick(var1, var2, var3);
+            this.screen.onClick(mouseX, mouseY, mouseButton);
         }
     }
 
-    public void method33467(int var1, int var2, int var3) {
+    public void onMouseClick2(int mouseX, int mouseY, int mouseButton) {
         if (this.screen != null && Minecraft.getInstance().loadingGui == null) {
-            this.screen.onClick2(var1, var2, var3);
+            this.screen.onClick2(mouseX, mouseY, mouseButton);
         }
     }
 

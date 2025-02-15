@@ -49,7 +49,7 @@ public class MouseHelper {
      */
     private void mouseButtonCallback(long handle, int button, int action, int mods) {
         if (Client.getInstance().guiManager.getCurrentScreen() != null) {
-            Client.getInstance().guiManager.method33456(button, action);
+            Client.getInstance().guiManager.onMouseButtonCallback(button, action);
         } else {
             if (this.minecraft.currentScreen == null) {
                 if (action != 1 && action != 2) {
