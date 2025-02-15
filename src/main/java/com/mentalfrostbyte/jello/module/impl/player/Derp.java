@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 
@@ -28,8 +26,8 @@ public class Derp extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventRotation event) {
-        if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
+    public void onUpdate(EventUpdateWalkingPlayer event) { // meh
+        if (this.isEnabled() && event.isPre()) {
             if (this.getBooleanValueFromSettingName("Sneak")) {
                 if (this.releaseShift) {
                     mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.RELEASE_SHIFT_KEY));
@@ -49,8 +47,8 @@ public class Derp extends Module {
             String rotationMode = this.getStringSettingValueByName("Rotation Mode");
             switch (rotationMode) {
                 case "Random":
-                    event.yaw = this.random.nextFloat() * 360.0F;
-                    event.pitch = this.random.nextFloat() * 180.0F - 90.0F;
+                    event.setYaw(this.random.nextFloat() * 360.0F);
+                    event.setPitch(this.random.nextFloat() * 180.0F - 90.0F);
                     break;
                 case "Spin":
                     this.spinCounter += 20;
@@ -59,8 +57,7 @@ public class Derp extends Module {
                         this.spinCounter -= 360;
                     }
 
-                    event.yaw = (float) this.spinCounter + this.random.nextFloat();
-                    break;
+                    event.setYaw((float) this.spinCounter + this.random.nextFloat());
             }
         }
     }

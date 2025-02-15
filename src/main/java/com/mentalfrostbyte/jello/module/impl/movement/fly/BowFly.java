@@ -1,17 +1,14 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.CancellableEvent;
-import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
-import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.item.InvManager;
-import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
+import team.sdhq.eventBus.annotations.EventTarget;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.ModuleCategory;
+//import com.mentalfrostbyte.jello.module.impl.item.InvManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
@@ -19,7 +16,6 @@ import net.minecraft.network.play.client.CPlayerTryUseItemPacket;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import team.sdhq.eventBus.annotations.EventTarget;
 
 public class BowFly extends Module {
     public int field23504;
@@ -31,9 +27,9 @@ public class BowFly extends Module {
 
     @Override
     public void onDisable() {
-        if (mc.timer.timerSpeed == 0.1F) {
-            mc.timer.timerSpeed = 1.0F;
-        }
+//        if (mc.timer.timerSpeed == 0.1F) {
+//            mc.timer.timerSpeed = 1.0F;
+//        }
     }
 
     @Override
@@ -75,8 +71,8 @@ public class BowFly extends Module {
     }
 
     @EventTarget
-    public void method16180(EventRotation event) {
-        if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
+    public void method16180(EventUpdateWalkingPlayer var1) {
+        if (this.isEnabled() && var1.isPre()) {
             if (!this.timerUtil.isEnabled()) {
                 this.timerUtil.start();
             }
@@ -84,44 +80,44 @@ public class BowFly extends Module {
             int var4 = this.method16181();
             if (var4 >= 0 || var4 <= 8) {
                 if (mc.player.getHeldItem(Hand.MAIN_HAND).getItem() == Items.BOW) {
-                    if (InvManager.method16437(Items.ARROW) == 0) {
-                        if (this.timerUtil.getElapsedTime() > 5000L) {
-                            Client.getInstance().notificationManager
-                                    .send(new Notification("BowFly", "You have no arrows"));
-                            this.timerUtil.reset();
-                        }
+//                    if (InvManager.method16437(Items.field37797) == 0) {
+//                        if (this.field23505.getElapsedTime() > 5000L) {
+//                            Client.getInstance().notificationManager
+//                                    .send(new Notification("BowFly", "You have no arrows"));
+//                            this.field23505.reset();
+//                        }
+//
+////                        if (mc.timer.timerSpeed == 0.1F) {
+////                            mc.timer.timerSpeed = 1.0F;
+////                        }
+//
+//                        return;
+//                    }
 
-                        if (mc.timer.timerSpeed == 0.1F) {
-                            mc.timer.timerSpeed = 1.0F;
-                        }
-
-                        return;
-                    }
-
-                    float yaw = mc.player.rotationYaw;
-                    float pitch = -90.0F;
+                    float var5 = mc.player.rotationYaw;
+                    float var6 = -90.0F;
                     if (mc.player.moveForward != 0.0F || mc.player.moveStrafing != 0.0F) {
-                        pitch = -80.0F;
+                        var6 = -80.0F;
                     }
 
                     if (mc.player.moveForward < 0.0F) {
-                        yaw -= 180.0F;
+                        var5 -= 180.0F;
                     }
 
                     if (mc.player.getMotion().y < -0.1) {
-                        pitch = 90.0F;
+                        var6 = 90.0F;
                     }
 
-                    event.pitch = pitch;
-                    event.yaw = yaw;
+                    var1.setPitch(var6);
+                    var1.setYaw(var5);
                     if (mc.player.isOnGround() && mc.player.collidedVertically) {
                         mc.player.jump();
                     } else if (!(mc.player.getMotion().y < 0.0)) {
-                        if (mc.timer.timerSpeed == 0.1F) {
-                            mc.timer.timerSpeed = 1.0F;
-                        }
+//                        if (mc.timer.timerSpeed == 0.1F) {
+//                            mc.timer.timerSpeed = 1.0F;
+//                        }
                     } else {
-                        mc.timer.timerSpeed = 0.1F;
+//                        mc.timer.timerSpeed = 0.1F;
                     }
 
                     this.field23504++;
@@ -153,7 +149,7 @@ public class BowFly extends Module {
             if (mc.player.container.getSlot(var5).getHasStack()) {
                 ItemStack var6 = mc.player.container.getSlot(var5).getStack();
                 if (var6.getItem() == Items.BOW) {
-                    InvManagerUtil.clickSlot(var5, 7);
+//                    InvManagerUtil.moveItemToHotbar(var5, 7);
                     return 7;
                 }
             }

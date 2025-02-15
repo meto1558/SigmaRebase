@@ -5,8 +5,8 @@ import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
@@ -46,14 +46,13 @@ public class RotationUtil {
         double var7 = mc.player.getPosY() + (mc.player.getPosY() - mc.player.lastTickPosY) * (double) mc.getRenderPartialTicks();
         return calculateEntityRotations(target, var3, var7, var5);
     }
-
     public static float[] method34144(double var0, double var2, double var4) {
         double var8 = var0 - mc.player.getPosX();
         double var10 = var2 - mc.player.getPosZ();
         double var12 = var4 - mc.player.getPosY() - 1.2;
         double var14 = (double) MathHelper.sqrt(var8 * var8 + var10 * var10);
-        float var16 = (float) (Math.atan2(var10, var8) * 180.0 / Math.PI) - 90.0F;
-        float var17 = (float) (-(Math.atan2(var12, var14) * 180.0 / Math.PI));
+        float var16 = (float)(Math.atan2(var10, var8) * 180.0 / Math.PI) - 90.0F;
+        float var17 = (float)(-(Math.atan2(var12, var14) * 180.0 / Math.PI));
         return new float[]{var16, var17};
     }
 
@@ -70,8 +69,8 @@ public class RotationUtil {
 
         // Calculate horizontal distance and yaw/pitch angles
         double horizontalDistance = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-        float yaw = calculate(mc.player.rotationYaw, (float) (Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F, 360.0F);
-        float pitch = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(deltaY, horizontalDistance) * 180.0 / Math.PI)), 360.0F);
+        float yaw = calculate(mc.player.rotationYaw, (float)(Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F, 360.0F);
+        float pitch = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(deltaY, horizontalDistance) * 180.0 / Math.PI)), 360.0F);
 
         // Return the calculated yaw and pitch
         return new float[]{yaw, pitch};
@@ -79,24 +78,24 @@ public class RotationUtil {
 
     public static float[] method34139(LivingEntity var0, double var1, double var3, double var5) {
         double var9 = var0.getPosX() - var1 + 0.25 - Math.random() * 0.5;
-        double var11 = var0.getPosY() - (double) mc.player.getEyeHeight() - 0.02F + (double) var0.getEyeHeight() - var3 - Math.random();
+        double var11 = var0.getPosY() - (double) mc.player.getEyeHeight() - 0.02F + (double)var0.getEyeHeight() - var3 - Math.random();
         double var13 = var0.getPosZ() - var5 + 0.25 - Math.random() * 0.5;
         double var15 = (double) MathHelper.sqrt(var9 * var9 + var13 * var13);
-        float var17 = calculate(mc.player.rotationYaw, (float) (Math.atan2(var13, var9) * 180.0 / Math.PI) - 90.0F, 360.0F);
-        float var18 = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(var11, var15) * 180.0 / Math.PI)), 360.0F);
+        float var17 = calculate(mc.player.rotationYaw, (float)(Math.atan2(var13, var9) * 180.0 / Math.PI) - 90.0F, 360.0F);
+        float var18 = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(var11, var15) * 180.0 / Math.PI)), 360.0F);
         return new float[]{var17, var18};
     }
 
     public static float[] method34140(LivingEntity var0, double var1, double var3, double var5) {
-        double var9 = Math.sin((double) (System.currentTimeMillis() - 500L) / 521.0) * 0.2;
-        double var11 = Math.sin((double) System.currentTimeMillis() / 300.0) * 0.65;
-        double var13 = Math.cos(((double) System.currentTimeMillis() - 150.0) / 705.0) * 0.2;
+        double var9 = Math.sin((double)(System.currentTimeMillis() - 500L) / 521.0) * 0.2;
+        double var11 = Math.sin((double)System.currentTimeMillis() / 300.0) * 0.65;
+        double var13 = Math.cos(((double)System.currentTimeMillis() - 150.0) / 705.0) * 0.2;
         double var15 = var0.getPosX() - var1 + var9;
-        double var17 = var0.getPosY() - var3 - (double) mc.player.getEyeHeight() + (double) var0.getEyeHeight() - 0.02F - 0.6F - var11;
+        double var17 = var0.getPosY() - var3 - (double) mc.player.getEyeHeight() + (double)var0.getEyeHeight() - 0.02F - 0.6F - var11;
         double var19 = var0.getPosZ() - var5 + var13;
         double var21 = (double) MathHelper.sqrt(var15 * var15 + var19 * var19);
-        float var23 = calculate(mc.player.rotationYaw, (float) (Math.atan2(var19, var15) * 180.0 / Math.PI) - 90.0F, 360.0F);
-        float var24 = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(var17, var21) * 180.0 / Math.PI)), 360.0F);
+        float var23 = calculate(mc.player.rotationYaw, (float)(Math.atan2(var19, var15) * 180.0 / Math.PI) - 90.0F, 360.0F);
+        float var24 = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(var17, var21) * 180.0 / Math.PI)), 360.0F);
         return new float[]{var23, var24};
     }
 
@@ -107,22 +106,22 @@ public class RotationUtil {
         float var7 = MathHelper.sin(var5);
         float var8 = MathHelper.cos(var4);
         float var9 = MathHelper.sin(var4);
-        return new Vector3d((double) (var7 * var8), (double) (-var9), (double) (var6 * var8));
+        return new Vector3d((double)(var7 * var8), (double)(-var9), (double)(var6 * var8));
     }
 
     public static float[] method34141(LivingEntity var0, double var1, double var3, double var5, float var7) {
         Entity var10 = EntityUtil.getEntityFromRayTrace(field42013, field42014, var7, 0.0);
         if (var10 == null) {
             if (field42015 <= new Date().getTime() - 500L) {
-                double var11 = Math.sin((double) (System.currentTimeMillis() - 500L) / 521.0) * 0.2;
-                double var13 = Math.sin((double) System.currentTimeMillis() / 421.0) * 0.65;
-                double var15 = Math.cos(((double) System.currentTimeMillis() - 150.0) / 7051.0) * 0.2;
+                double var11 = Math.sin((double)(System.currentTimeMillis() - 500L) / 521.0) * 0.2;
+                double var13 = Math.sin((double)System.currentTimeMillis() / 421.0) * 0.65;
+                double var15 = Math.cos(((double)System.currentTimeMillis() - 150.0) / 7051.0) * 0.2;
                 double var17 = var0.getPosX() - var1 + var11;
-                double var19 = var0.getPosY() - var3 - (double) mc.player.getEyeHeight() + (double) var0.getEyeHeight() - 0.02F - 0.6F - var13;
+                double var19 = var0.getPosY() - var3 - (double) mc.player.getEyeHeight() + (double)var0.getEyeHeight() - 0.02F - 0.6F - var13;
                 double var21 = var0.getPosZ() - var5 + var15;
                 double var23 = (double) MathHelper.sqrt(var17 * var17 + var21 * var21);
-                field42013 = calculate(mc.player.rotationYaw, (float) (Math.atan2(var21, var17) * 180.0 / Math.PI) - 90.0F, 360.0F);
-                field42014 = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(var19, var23) * 180.0 / Math.PI)), 360.0F);
+                field42013 = calculate(mc.player.rotationYaw, (float)(Math.atan2(var21, var17) * 180.0 / Math.PI) - 90.0F, 360.0F);
+                field42014 = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(var19, var23) * 180.0 / Math.PI)), 360.0F);
                 return new float[]{field42013, field42014};
             } else {
                 return new float[]{field42013, field42014};
@@ -137,7 +136,7 @@ public class RotationUtil {
         float var4 = Math.abs(var0 - var1) % 360.0F;
         float var5 = !(var4 > 180.0F) ? var4 : 360.0F - var4;
         int var6 = var0 - var1 >= 0.0F && var0 - var1 <= 180.0F || var0 - var1 <= -180.0F && var0 - var1 >= -360.0F ? -1 : 1;
-        return var5 * (float) var6;
+        return var5 * (float)var6;
     }
 
     public static float angleDiff(float var0, float var1) {
@@ -154,8 +153,8 @@ public class RotationUtil {
         double dY = y - mc.player.getPosZ();
         double adjustedDZ = z - mc.player.getPosY() - 1.2;
         double var14 = (double) MathHelper.sqrt(dX * dX + dY * dY);
-        float yaw = (float) (Math.atan2(dY, dX) * 180.0 / Math.PI) - 90.0F;
-        float pitch = (float) (-(Math.atan2(adjustedDZ, var14) * 180.0 / Math.PI));
+        float yaw = (float)(Math.atan2(dY, dX) * 180.0 / Math.PI) - 90.0F;
+        float pitch = (float)(-(Math.atan2(adjustedDZ, var14) * 180.0 / Math.PI));
         return new float[]{yaw, pitch};
     }
 
@@ -164,35 +163,35 @@ public class RotationUtil {
         double var6 = var1.z - var0.z;
         double var8 = var1.y - var0.y;
         double var10 = (double) MathHelper.sqrt(var4 * var4 + var6 * var6);
-        float var12 = calculate(0.0F, (float) (Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F, 360.0F);
-        float var13 = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(var8, var10) * 180.0 / Math.PI)), 360.0F);
+        float var12 = calculate(0.0F, (float)(Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F, 360.0F);
+        float var13 = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(var8, var10) * 180.0 / Math.PI)), 360.0F);
         return new float[]{var12, var13};
     }
 
-    public static Rotation method34146(LivingEntity entity) {
-        double playerX = mc.player.getPosX() + (mc.player.getPosX() - mc.player.lastTickPosX) * (double) mc.getRenderPartialTicks();
-        double playerY = mc.player.getPosY() + (mc.player.getPosY() - mc.player.lastTickPosY) * (double) mc.getRenderPartialTicks();
-        double playerZ = mc.player.getPosZ() + (mc.player.getPosZ() - mc.player.lastTickPosZ) * (double) mc.getRenderPartialTicks();
-        double targetX = entity.getPosX() + (entity.getPosX() - entity.lastTickPosX) * (double) mc.getRenderPartialTicks();
-        double targetY = entity.getPosY() + (entity.getPosY() - entity.lastTickPosY) * (double) mc.getRenderPartialTicks();
-        double targetZ = entity.getPosZ() + (entity.getPosZ() - entity.lastTickPosZ) * (double) mc.getRenderPartialTicks();
-        double var15 = (targetX - entity.lastTickPosX) * 0.4;
-        double var17 = (targetZ - entity.lastTickPosZ) * 0.4;
-        double distance = mc.player.getDistance(entity);
-        distance -= distance % 0.8;
+    public static float[] method34146(LivingEntity var0) {
+        double var3 = mc.player.getPosX() + (mc.player.getPosX() - mc.player.lastTickPosX) * (double) mc.getRenderPartialTicks();
+        double var5 = mc.player.getPosZ() + (mc.player.getPosZ() - mc.player.lastTickPosZ) * (double) mc.getRenderPartialTicks();
+        double var7 = mc.player.getPosY() + (mc.player.getPosY() - mc.player.lastTickPosY) * (double) mc.getRenderPartialTicks();
+        double var9 = var0.getPosX() + (var0.getPosX() - var0.lastTickPosX) * (double) mc.getRenderPartialTicks();
+        double var11 = var0.getPosZ() + (var0.getPosZ() - var0.lastTickPosZ) * (double) mc.getRenderPartialTicks();
+        double var13 = var0.getPosY() + (var0.getPosY() - var0.lastTickPosY) * (double) mc.getRenderPartialTicks();
+        double var15 = (var9 - var0.lastTickPosX) * 0.4;
+        double var17 = (var11 - var0.lastTickPosZ) * 0.4;
+        double var19 = (double) mc.player.getDistance(var0);
+        var19 -= var19 % 0.8;
         double var21 = 1.0;
         double var23 = 1.0;
-        boolean targetSprinting = entity.isSprinting();
-        var21 = distance / 0.8 * var15 * (!targetSprinting ? 1.0 : 1.25);
-        var23 = distance / 0.8 * var17 * (!targetSprinting ? 1.0 : 1.25);
-        double var26 = targetX + var21 - playerX;
-        double var28 = targetZ + var23 - playerZ;
-        double var30 = playerY + (double) mc.player.getEyeHeight() - (targetY + (double) entity.getHeight());
-        double var32 = (double) mc.player.getDistance(entity);
-        float var34 = (float) Math.toDegrees(Math.atan2(var28, var26)) - 90.0F;
+        boolean var25 = var0.isSprinting();
+        var21 = var19 / 0.8 * var15 * (!var25 ? 1.0 : 1.25);
+        var23 = var19 / 0.8 * var17 * (!var25 ? 1.0 : 1.25);
+        double var26 = var9 + var21 - var3;
+        double var28 = var11 + var23 - var5;
+        double var30 = var7 + (double) mc.player.getEyeHeight() - (var13 + (double)var0.getHeight());
+        double var32 = (double) mc.player.getDistance(var0);
+        float var34 = (float)Math.toDegrees(Math.atan2(var28, var26)) - 90.0F;
         double var35 = (double) MathHelper.sqrt(var26 * var26 + var28 * var28);
-        float var37 = (float) (-(Math.atan2(var30, var35) * 180.0 / Math.PI)) + (float) var32 * 0.14F;
-        return new Rotation(var34, -var37);
+        float var37 = (float)(-(Math.atan2(var30, var35) * 180.0 / Math.PI)) + (float)var32 * 0.14F;
+        return new float[]{var34, -var37};
     }
 
     public static Rotation method34147(Entity var0) {
@@ -220,11 +219,11 @@ public class RotationUtil {
         Vector3d var4 = getCenteredHitbox(targetIn);
         if (throughWalls && !raytraceVector(var4)) {
             for (int var5 = -1; var5 < 2; var5++) {
-                double var6 = (double) var5;
+                double var6 = (double)var5;
                 if (var5 != -1) {
                     var6 *= targetIn.getBoundingBox().getYSize();
                 } else {
-                    var6 = (double) (targetIn.getEyeHeight() - 0.02F);
+                    var6 = (double)(targetIn.getEyeHeight() - 0.02F);
                 }
 
                 double xPos = targetIn.getPosX();
@@ -234,8 +233,8 @@ public class RotationUtil {
                 double playeryPos = yPos - (double) mc.player.getEyeHeight() - 0.02F - mc.player.getPosY();
                 double playerzPos = zPos - mc.player.getPosZ();
                 double var20 = (double) MathHelper.sqrt(playerxPos * playerxPos + playerzPos * playerzPos);
-                float yaw = calculate(mc.player.rotationYaw, (float) (Math.atan2(playerzPos, playerxPos) * 180.0 / Math.PI) - 90.0F, 360.0F);
-                float pitch = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(playeryPos, var20) * 180.0 / Math.PI)), 360.0F);
+                float yaw = calculate(mc.player.rotationYaw, (float)(Math.atan2(playerzPos, playerxPos) * 180.0 / Math.PI) - 90.0F, 360.0F);
+                float pitch = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(playeryPos, var20) * 180.0 / Math.PI)), 360.0F);
                 boolean position = raytraceVector(new Vector3d(xPos, yPos, zPos));
                 if (position) {
                     return new Rotation(yaw, pitch);
@@ -245,8 +244,8 @@ public class RotationUtil {
                     xPos = targetIn.getPosX() + (targetIn.getPosX() - targetIn.lastTickPosX) * (double) mc.getRenderPartialTicks();
                     zPos = targetIn.getPosZ() + (targetIn.getPosZ() - targetIn.lastTickPosZ) * (double) mc.getRenderPartialTicks();
                     yPos = targetIn.getPosY() + 0.05 + (targetIn.getPosY() - targetIn.lastTickPosY) * (double) mc.getRenderPartialTicks() + var6;
-                    double var26 = targetIn.getBoundingBox().getXSize() / 2.5 * (double) var25;
-                    double var28 = targetIn.getBoundingBox().getZSize() / 2.5 * (double) var25;
+                    double var26 = targetIn.getBoundingBox().getXSize() / 2.5 * (double)var25;
+                    double var28 = targetIn.getBoundingBox().getZSize() / 2.5 * (double)var25;
                     if (!(mc.player.getPosX() < xPos + var26)) {
                         if (mc.player.getPosX() > xPos + var26) {
                             if (!(mc.player.getPosZ() < zPos - var28)) {
@@ -279,8 +278,8 @@ public class RotationUtil {
                     playeryPos = yPos - (double) mc.player.getEyeHeight() - 0.02 - mc.player.getPosY();
                     playerzPos = zPos - mc.player.getPosZ();
                     var20 = (double) MathHelper.sqrt(playerxPos * playerxPos + playerzPos * playerzPos);
-                    yaw = calculate(mc.player.rotationYaw, (float) (Math.atan2(playerzPos, playerxPos) * 180.0 / Math.PI) - 90.0F, 360.0F);
-                    pitch = calculate(mc.player.rotationPitch, (float) (-(Math.atan2(playeryPos, var20) * 180.0 / Math.PI)), 360.0F);
+                    yaw = calculate(mc.player.rotationYaw, (float)(Math.atan2(playerzPos, playerxPos) * 180.0 / Math.PI) - 90.0F, 360.0F);
+                    pitch = calculate(mc.player.rotationPitch, (float)(-(Math.atan2(playeryPos, var20) * 180.0 / Math.PI)), 360.0F);
                     position = raytraceVector(new Vector3d(xPos, yPos, zPos));
                     if (position) {
                         return new Rotation(yaw, pitch);
@@ -311,7 +310,7 @@ public class RotationUtil {
             var11 = Math.toDegrees(-Math.atan(var7 / var9));
         }
 
-        return MathHelper.wrapDegrees(-(var0 - (float) var11));
+        return MathHelper.wrapDegrees(-(var0 - (float)var11));
     }
 
     public static float getShortestAngleDifference(float currentAngle, float targetAngle) {
@@ -341,20 +340,9 @@ public class RotationUtil {
     public static float method34154(float var0, Entity var1, double var2) {
         double var6 = var1.getPosX() - mc.player.getPosX();
         double var8 = var1.getPosZ() - mc.player.getPosZ();
-        double var10 = var2 - 2.2 + (double) var1.getEyeHeight() - mc.player.getPosY();
+        double var10 = var2 - 2.2 + (double)var1.getEyeHeight() - mc.player.getPosY();
         double var12 = (double) MathHelper.sqrt(var6 * var6 + var8 * var8);
         double var14 = -Math.toDegrees(Math.atan(var10 / var12));
-        return -MathHelper.wrapDegrees(var0 - (float) var14) - 2.5F;
-    }
-
-    //From the minecraft source
-    public static Vector3d getVectorForRotation(float pitch, float yaw) {
-        float f = pitch * ((float) Math.PI / 180F);
-        float f1 = -yaw * ((float) Math.PI / 180F);
-        float f2 = MathHelper.cos(f1);
-        float f3 = MathHelper.sin(f1);
-        float f4 = MathHelper.cos(f);
-        float f5 = MathHelper.sin(f);
-        return new Vector3d((double) (f3 * f4), (double) (-f5), (double) (f2 * f4));
+        return -MathHelper.wrapDegrees(var0 - (float)var14) - 2.5F;
     }
 }

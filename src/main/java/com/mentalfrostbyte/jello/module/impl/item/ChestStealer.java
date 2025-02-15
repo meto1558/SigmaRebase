@@ -1,11 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -64,8 +62,8 @@ public class ChestStealer extends Module {
     }
 
     @EventTarget
-    public void onRots(EventRotation event) {
-        if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE) {
+    public void onUpdate(EventUpdateWalkingPlayer var1) {
+        if (this.isEnabled() && var1.isPre()) {
             if (this.getBooleanValueFromSettingName("Aura")) {
                 if (this.field23624.getElapsedTime() > 2000L && this.field23621) {
                     this.field23624.reset();
@@ -91,9 +89,9 @@ public class ChestStealer extends Module {
 
                 boolean var14 = false;
 
-                for (Entry<ChestTileEntity, Boolean> entry : this.chests.entrySet()) {
-                    ChestTileEntity var7 = entry.getKey();
-                    boolean var8 = entry.getValue();
+                for (Entry var6 : this.chests.entrySet()) {
+                    ChestTileEntity var7 = (ChestTileEntity) var6.getKey();
+                    boolean var8 = (Boolean) var6.getValue();
                     float var9 = (float) var7.getPos().getX();
                     float var10 = (float) var7.getPos().getY() + 0.1F;
                     float var11 = (float) var7.getPos().getZ();
@@ -113,8 +111,8 @@ public class ChestStealer extends Module {
                                 && var12.getPos().getZ() == var7.getPos().getZ()) {
                             this.targetChest = var7;
                             float[] var13 = RotationUtil.rotationToPos((double) var9 + 0.5, (double) var11 + 0.5, (double) var10 + 0.35);
-                            event.yaw = var13[0];
-                            event.pitch = var13[1];
+                            var1.setYaw(var13[0]);
+                            var1.setPitch(var13[1]);
                             var14 = true;
                         }
                     }

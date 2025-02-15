@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 //import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
@@ -165,8 +164,8 @@ public class MinibloxDisabler extends Module {
                 mc.player.getPosX(),
                 mc.player.getPosY(),
                 mc.player.getPosZ(),
-                Client.getInstance().rotationManager.rotations.yaw,
-                Client.getInstance().rotationManager.rotations.pitch,
+                RotationManager.yaw,
+                RotationManager.pitch,
                 spoofGround || mc.player.isOnGround()
         );
         if (posPacket.onGround)

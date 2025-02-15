@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.item.autogapple;
 
-import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.item.AutoGapple;
@@ -35,8 +33,8 @@ public class HypixelAutoGapple extends PremiumModule {
     }
 
     @EventTarget
-    public void onUpdate(EventRotation event) {
-        if (this.isEnabled() && event.state == CancellableEvent.EventState.PRE && !(mc.currentScreen instanceof ChestScreen)) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
+        if (this.isEnabled() && event.isPre() && !(mc.currentScreen instanceof ChestScreen)) {
             if (this.gappleCooldown < 20) {
                 this.gappleCooldown++;
             }
@@ -62,7 +60,7 @@ public class HypixelAutoGapple extends PremiumModule {
             if (this.firePotionSlot >= 0 && this.currentTickCounter >= 0) {
                 this.currentTickCounter++;
                 if (this.currentTickCounter == 2) {
-                    event.pitch = event.pitch + 1.0F;
+                    event.setPitch(event.getPitch() + 1.0F);
                 }
 
                 if (this.currentTickCounter != 1) {

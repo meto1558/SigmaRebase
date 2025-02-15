@@ -1,18 +1,17 @@
 package com.mentalfrostbyte.jello.util.game.player.tracker;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class2285;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class2317;
-import com.mentalfrostbyte.jello.module.impl.render.projectiles.TraceThing;
+import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9110;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9510;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -100,11 +99,11 @@ public class MinerTracker {
                 int var7 = this.field39613.size() - 1;
                 Class9510 var8 = this.field39613.get(var7);
                 Class2317 var9 = var8.field44279;
-                double var10 = var8.field44271.getXZDistance(this.mc.player.getPositionVec());
+                double var10 = var8.field44271.method33973(this.mc.player.getPositionVec());
                 double var12 = 0.25;
                 boolean var14 = false;
                 if (this.field39618 != null) {
-                    var14 = var8.field44271.getY() - this.field39618.field44271.getY() != 0.0;
+                    var14 = var8.field44271.method33970() - this.field39618.field44271.method33970() != 0.0;
                     var14 |= var9 == Class2317.field15874 || var9 == Class2317.field15875;
                 }
 
@@ -155,7 +154,7 @@ public class MinerTracker {
                     var8 = this.field39613.get(var7);
                     var9 = var8.field44279;
                     float var18 = RotationUtil.method34145(this.mc.player.getPositionVec(),
-                            var8.field44271.getMiddleXZ())[0];
+                            var8.field44271.method33972())[0];
                     float var19 = RotationUtil.method34145(new Vector3d(0.0, 0.0, 0.0),
                             this.mc.player.getMotion().normalize())[0];
                     float var20 = Math.abs(RotationUtil.getShortestYawDifference(var19, var18));
@@ -168,11 +167,11 @@ public class MinerTracker {
 
                 if (var10 < var12
                         && (var14 || var8.field44281.size() > 0
-                        && this.mc.player.getPosY() > var8.field44271.getY())) {
+                        && this.mc.player.getPosY() > var8.field44271.method33970())) {
                     mc.player.setMotion(this.mc.player.getMotion().x * 0.5, mc.player.getMotion().y, this.mc.player.getMotion().z * 0.5);
                 }
 
-                float var43 = RotationUtil.method34145(this.mc.player.getPositionVec(), var8.field44271.getMiddleXZ())[0];
+                float var43 = RotationUtil.method34145(this.mc.player.getPositionVec(), var8.field44271.method33972())[0];
                 this.yaw = var43;
                 double var21 = Math.cos(Math.toRadians((double) (this.mc.player.rotationYaw - var43)));
                 double var23 = Math.sin(Math.toRadians((double) (this.mc.player.rotationYaw - var43)));
@@ -209,7 +208,7 @@ public class MinerTracker {
                         if (var8.field44280 == Class2285.field15126) {
                             var38 = var10 < 1.14;
                             if (this.field39618 != null) {
-                                var38 &= this.mc.player.getPosY() - var8.field44271.getY() != 0.0;
+                                var38 &= this.mc.player.getPosY() - var8.field44271.method33970() != 0.0;
                             }
                         }
 
@@ -252,7 +251,7 @@ public class MinerTracker {
                     Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).setState(var35);
                     Client.getInstance().moduleManager.getModuleByClass(Fly.class).setState(var36);
                     if (!var17 || !var16) {
-                        if (var8.field44271.getMiddleXZ().distanceTo(this.mc.player.getPositionVec()) > 10.0) {
+                        if (var8.field44271.method33972().distanceTo(this.mc.player.getPositionVec()) > 10.0) {
                             this.method31738();
                         }
                     }
@@ -262,8 +261,8 @@ public class MinerTracker {
     }
 
     @EventTarget
-    public void onUpdate(EventRotation event) {
-        if (event.state == CancellableEvent.EventState.PRE) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
+        if (event.isPre()) {
             if (this.method31743()) {
                 ArrayList var4 = new ArrayList();
                 int var5 = this.field39613.size() - 1;
@@ -275,7 +274,7 @@ public class MinerTracker {
                     BlockPos var10 = BlockPos.fromLong(var8);
                     if (this.mc.player.getPositionVec().squareDistanceTo((double) var10.getX(), (double) var10.getY(),
                             (double) var10.getZ()) < 9.0
-                            && !TraceThing.method33985(var10)
+                            && !Class9110.method33985(var10)
                             && !this.mc.world.getBlockState(var10).isAir()) {
                         var4.add(var10);
                     }
@@ -297,23 +296,23 @@ public class MinerTracker {
 
                     Direction var13 = BlockUtil.method34580(this.field39616);
                     float[] var11 = BlockUtil.method34542(this.field39616, var13);
-                    event.yaw = var11[0];
-                    event.pitch = var11[1];
+                    event.setYaw(var11[0]);
+                    event.setPitch(var11[1]);
                     this.mc.player.swingArm(Hand.MAIN_HAND);
                     this.mc.playerController.onPlayerDamageBlock(this.field39616, BlockUtil.method34580(this.field39616));
                 } else {
                     this.field39616 = (BlockPos) var4.get(0);
                     Direction var14 = BlockUtil.method34580(this.field39616);
                     float[] var15 = BlockUtil.method34542(this.field39616, var14);
-                    event.yaw = var15[0];
-                    event.pitch = var15[1];
+                    event.setYaw(var15[0]);
+                    event.setPitch(var15[1]);
                     EventKeyPress var12 = new EventKeyPress(0, false, this.field39616);
                     EventBus.call(var12);
                 }
 
                 if (var6.field44279 != Class2317.field15876) {
-                    this.pitch = event.pitch;
-                    this.yaw = event.yaw;
+                    this.pitch = event.getPitch();
+                    this.yaw = event.getYaw();
                 }
             }
         }
@@ -357,7 +356,7 @@ public class MinerTracker {
             if (this.field39613 != null) {
                 for (Class9510 var5 : this.field39613) {
                     this.method31753(
-                            var5.field44271.getX(), var5.field44271.getY(), var5.field44271.getZ(),
+                            var5.field44271.method33969(), var5.field44271.method33970(), var5.field44271.method33971(),
                             var5.field44279 + " " + var5.field44273);
                 }
             }

@@ -4,14 +4,12 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.sound.*;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.BlockState;
@@ -92,19 +90,20 @@ public class NoteblockPlayer extends Module {
 
     @Override
     public void onDisable() {
+        RotationManager.rotating = false;
         super.onDisable();
     }
 
     @EventTarget
-    public void method16405(EventRotation event) {
+    public void method16405(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled()) {
             if (this.nbsFile != null) {
                 if (mc.playerController.isInCreativeMode()) {
                     MinecraftUtil.addChatMessage("§cNoteBlockPlayer isn't available in creative mode!");
                     this.setEnabled(false);
                 } else {
-                    if (!this.method16407(this.field23641) && mc.player.ticksExisted % 4 == 0) {
-                        this.method16408(this.field23641, event);
+                    if (!this.method16407(this.field23641, var1) && mc.player.ticksExisted % 4 == 0) {
+                        this.method16408(this.field23641, var1);
                     }
 
                     if (this.method16406(this.field23641)) {
@@ -114,6 +113,8 @@ public class NoteblockPlayer extends Module {
                             }
 
                             this.positions.clear();
+
+                            RotationManager.rotating = true;
 
                             for (Class9616 var5 : this.nbsFile.method9950().values()) {
                                 Class8255 var6 = var5.method37433(this.field23638);
@@ -131,7 +132,15 @@ public class NoteblockPlayer extends Module {
                                                 var9 = BlockUtil.method34542(var8.field28401, Direction.DOWN);
                                             }
 
-                                            Client.getInstance().rotationManager.setRotations(new Rotation(var9[0], var9[1]), event);
+                                            RotationManager.prevYaw = var9[0];
+                                            RotationManager.prevPitch = var9[1];
+                                            var1.setYaw(var9[0]);
+                                            var1.setPitch(var9[1]);
+                                            RotationManager.yaw = var9[0];
+                                            RotationManager.pitch = var9[1];
+
+                                            mc.player.rotationYawHead = var9[0];
+                                            mc.player.renderYawOffset = var9[0];
 
                                             mc.getConnection()
                                                     .sendPacket(new CPlayerDiggingPacket(
@@ -164,15 +173,21 @@ public class NoteblockPlayer extends Module {
         return true;
     }
 
-    public boolean method16407(List<Class6463> var1) {
+    public boolean method16407(List<Class6463> var1, EventUpdateWalkingPlayer event) {
         for (Class6463 var5 : var1) {
             if (var5.field28402 == -1.0F && Math.sqrt(mc.player.getPosition()
                     .distanceSq(var5.field28401)) < (double) mc.playerController.getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
+                RotationManager.rotating = true;
+                RotationManager.prevYaw = var6[0];
+                RotationManager.prevPitch = var6[1];
+                event.setYaw(var6[0]);
+                event.setPitch(var6[1]);
+                RotationManager.yaw = var6[0];
+                RotationManager.pitch = var6[1];
 
-
-                Client.getInstance().rotationManager.setRotations(new Rotation(var6[0], var6[1]));
-
+                mc.player.rotationYawHead = var6[0];
+                mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK,
                         var5.field28401, Direction.UP));
                 mc.player.swingArm(Hand.MAIN_HAND);
@@ -185,14 +200,17 @@ public class NoteblockPlayer extends Module {
         return false;
     }
 
-    public void method164072(List<Class6463> var1, EventRotation event) {
+    public void method16407(List<Class6463> var1) {
         for (Class6463 var5 : var1) {
             if (var5.field28402 == -1.0F && Math.sqrt(mc.player.getPosition()
                     .distanceSq(var5.field28401)) < (double) mc.playerController.getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
-
-                Client.getInstance().rotationManager.setRotations(new Rotation(var6[0], var6[1]), event);
+                RotationManager.rotating = true;
+                RotationManager.prevYaw = var6[0];
+                RotationManager.prevPitch = var6[1];
                 mc.getConnection().sendPacket(new CPlayerPacket.RotationPacket(var6[0], var6[1], mc.player.isOnGround()));
+                RotationManager.yaw = var6[0];
+                RotationManager.pitch = var6[1];
 
                 mc.player.rotationYawHead = var6[0];
                 mc.player.renderYawOffset = var6[0];
@@ -214,9 +232,15 @@ public class NoteblockPlayer extends Module {
                     .getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
                 mc.player.swingArm(Hand.MAIN_HAND);
-                Client.getInstance().rotationManager.setRotations(new Rotation(var6[0], var6[1]));
+                RotationManager.rotating = true;
+                RotationManager.prevYaw = var6[0];
+                RotationManager.prevPitch = var6[1];
                 mc.getConnection().sendPacket(new CPlayerPacket.RotationPacket(var6[0], var6[1], mc.player.isOnGround()));
+                RotationManager.yaw = var6[0];
+                RotationManager.pitch = var6[1];
 
+                mc.player.rotationYawHead = var6[0];
+                mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                         BlockUtil.rayTrace(var6[0], var6[1], mc.playerController.getBlockReachDistance() + 1.0F)));
                 this.positions.clear();
@@ -228,18 +252,25 @@ public class NoteblockPlayer extends Module {
 
     }
 
-    public void method16408(List<Class6463> var1, EventRotation event) {
+    public void method16408(List<Class6463> var1, EventUpdateWalkingPlayer event) {
         for (Class6463 var5 : var1) {
             if (this.method16411(var5.field28402, var5.instrument)
                     && Math.sqrt(mc.player.getPosition().distanceSq(var5.field28401)) < (double) mc.playerController
                     .getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
                 mc.player.swingArm(Hand.MAIN_HAND);
-                Client.getInstance().rotationManager.setRotations(new Rotation(var6[0], var6[1]), event);
+                RotationManager.rotating = true;
+                RotationManager.prevYaw = var6[0];
+                RotationManager.prevPitch = var6[1];
+                event.setYaw(var6[0]);
+                event.setPitch(var6[1]);
+                RotationManager.yaw = var6[0];
+                RotationManager.pitch = var6[1];
 
+                mc.player.rotationYawHead = var6[0];
+                mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                         BlockUtil.rayTrace(var6[0], var6[1], mc.playerController.getBlockReachDistance() + 1.0F)));
-
                 this.positions.clear();
                 this.positions.add(var5.field28401);
 

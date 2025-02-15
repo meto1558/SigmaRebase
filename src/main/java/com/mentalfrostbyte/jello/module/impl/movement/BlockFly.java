@@ -406,6 +406,7 @@ public class BlockFly extends ModuleWithModuleSettings {
 
     @Override
     public void onDisable() {
+        RotationManager.rotating = false;
         this.animation.changeDirection(Animation.Direction.BACKWARDS);
         super.onDisable();
     }

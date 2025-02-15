@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.blockfly;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventGetFovModifier;
@@ -9,7 +8,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.util.client.Class9291;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -18,7 +16,6 @@ import com.mentalfrostbyte.jello.module.impl.movement.SafeWalk;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.AACSpeed;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.PositionFacing;
 import com.mentalfrostbyte.jello.managers.RotationManager;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -221,9 +218,9 @@ public class BlockFlyAACMode extends Module {
 
     @EventTarget
     @LowestPriority
-    public void onUpdate(EventRotation event) {
+    public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
-            if (event.state == CancellableEvent.EventState.POST) {
+            if (!event.isPre()) {
                 if (MovementUtil.isMoving() && mc.player.isOnGround() && this.getBooleanValueFromSettingName("Haphe (AACAP)") && !mc.player.isJumping) {
                     mc.player.jump();
                 }
@@ -240,24 +237,33 @@ public class BlockFlyAACMode extends Module {
                     this.method16207();
                 }
             } else {
-                double posY = mc.player.getPosY();
+                double var4 = mc.player.getPosY();
                 if (!mc.player.isJumping && this.getBooleanValueFromSettingName("Haphe (AACAP)")) {
-                    posY = this.field23522;
+                    var4 = this.field23522;
                 }
 
-                BlockPos var6 = new BlockPos(mc.player.getPosX(), (double) Math.round(posY - 1.0), mc.player.getPosZ());
-                List<PositionFacing> positionFacings = this.method16208(Blocks.STONE, var6);
-                if (!positionFacings.isEmpty()) {
-                    PositionFacing facing = positionFacings.get(positionFacings.size() - 1);
-                    BlockRayTraceResult ray = BlockUtil.rayTrace(this.yaw, this.pitch, 5.0F);
-                    if (!ray.getPos().equals(facing.blockPos()) || !ray.getFace().equals(facing.direction())) {
-                        float[] rots = BlockUtil.method34543(facing.blockPos(), facing.direction());
-                        this.yaw = rots[0];
-                        this.pitch = rots[1];
+                BlockPos var6 = new BlockPos(mc.player.getPosX(), (double) Math.round(var4 - 1.0), mc.player.getPosZ());
+                List var7 = this.method16208(Blocks.STONE, var6);
+                if (!var7.isEmpty()) {
+                    PositionFacing var8 = (PositionFacing) var7.get(var7.size() - 1);
+                    BlockRayTraceResult var9 = BlockUtil.rayTrace(this.yaw, this.pitch, 5.0F);
+                    if (!var9.getPos().equals(var8.blockPos()) || !var9.getFace().equals(var8.direction())) {
+                        float[] var10 = BlockUtil.method34543(var8.blockPos(), var8.direction());
+                        this.yaw = var10[0];
+                        this.pitch = var10[1];
                     }
                 }
 
-                Client.getInstance().rotationManager.setRotations(new Rotation(this.yaw, this.pitch), event);
+                RotationManager.rotating = true;
+                RotationManager.prevYaw = this.yaw;
+                RotationManager.prevPitch = this.pitch;
+                event.setYaw(this.yaw);
+                event.setPitch(this.pitch);
+                RotationManager.yaw = this.yaw;
+                RotationManager.pitch = this.pitch;
+
+                mc.player.rotationYawHead = event.getYaw();
+                mc.player.renderYawOffset = event.getYaw();
             }
         }
     }

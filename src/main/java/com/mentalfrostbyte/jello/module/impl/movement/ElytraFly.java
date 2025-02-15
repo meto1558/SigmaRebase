@@ -4,7 +4,6 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.event.impl.player.rotation.EventRotation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -115,7 +114,7 @@ public class ElytraFly extends Module {
     }
 
     @EventTarget
-    public void method16223(EventRotation event) {
+    public void method16223(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled()) {
             int var4 = 65;
             if (this.field23533 != var4 - 1) {
@@ -137,7 +136,7 @@ public class ElytraFly extends Module {
             }
 
             if (this.field23533 > 0) {
-                event.pitch = -90.0F;
+                var1.setPitch(-90.0F);
             }
 
             if (!mc.player.isJumping) {

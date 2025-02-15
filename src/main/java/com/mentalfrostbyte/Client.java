@@ -61,7 +61,6 @@ public class Client {
     public ModuleManager moduleManager;
     public NetworkManager networkManager;
     public CombatManager combatManager;
-    public ViaManager viaManager;
     public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
@@ -76,13 +75,12 @@ public class Client {
     private Logger logger;
 
     public static boolean dontRenderHand = false;
-    private boolean b1 = true;
+    private boolean field28968 = true;
 
     public BlurEngine blurEngine;
 
     public void start() {
         this.logger = new ClientLogger(System.out, System.out, System.err);
-        System.setProperty("java.awt.headless", "false");
         this.logger.info("Initializing...");
         CloudConfigs.start();
 
@@ -103,8 +101,8 @@ public class Client {
         this.combatManager.init();
         this.commandManager = new CommandManager();
         this.commandManager.init();
-        this.viaManager = new ViaManager();
-        this.viaManager.init();
+        this.rotationManager = new RotationManager();
+        this.rotationManager.init();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();
@@ -260,11 +258,6 @@ public class Client {
             this.moduleManager.loadProfileFromJSON(this.config);
             this.moduleManager.saveCurrentConfigToJSON(this.config);
         }
-        
-        if (this.rotationManager == null) {
-            this.rotationManager = new RotationManager();
-            this.rotationManager.init();
-        }
 
         System.gc();
     }
@@ -285,11 +278,11 @@ public class Client {
         return this.logger;
     }
 
-    public boolean getB1() {
-        return this.b1;
+    public boolean method19930() {
+        return this.field28968;
     }
 
-    public void setB1(boolean b1) {
-        this.b1 = b1;
+    public void method19931(boolean var1) {
+        this.field28968 = var1;
     }
 }
