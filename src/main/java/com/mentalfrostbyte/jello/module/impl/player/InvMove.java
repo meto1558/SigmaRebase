@@ -78,7 +78,7 @@ public class InvMove extends Module {
                     }
                 }
 
-                if (Client.getInstance().guiManager.method33480() != null && Client.getInstance().guiManager.method33480().method13227()) {
+                if (Client.getInstance().guiManager.getScreen() != null && Client.getInstance().guiManager.getScreen().method13227()) {
                     for (KeyBinding var14 : Minecraft.getInstance().gameSettings.keyBindings) {
                         var14.setPressed(false);
                     }

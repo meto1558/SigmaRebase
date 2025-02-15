@@ -244,7 +244,7 @@ public class Client {
     public void setupClient(ClientMode mode) {
         this.clientMode = mode;
         if (mode == ClientMode.CLASSIC) {
-            getInstance().guiManager.method33452();
+            getInstance().guiManager.useClassicReplacementScreens();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         } else if (mode == ClientMode.JELLO) {
             this.initRPC();

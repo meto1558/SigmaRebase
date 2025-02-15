@@ -109,7 +109,7 @@ public class GuiManager {
             return false;
         }
     }
-    public Screen method33480() {
+    public Screen getScreen() {
         return this.screen;
     }
 
@@ -134,23 +134,23 @@ public class GuiManager {
         }
     }
 
-    public static void method33475() {
+    public static void unusedHIDPIThing() {
         Minecraft.getInstance();
         if (Minecraft.IS_RUNNING_ON_MAC) {
             try {
-                JSONObject var2 = FileUtil.readFile(new File(Client.getInstance().file + "/config.json"));
-                if (var2.has("hidpicocoa")) {
-                    hidpiCocoa = var2.getBoolean("hidpicocoa");
+                JSONObject config = FileUtil.readFile(new File(Client.getInstance().file + "/config.json"));
+                if (config.has("hidpicocoa")) {
+                    hidpiCocoa = config.getBoolean("hidpicocoa");
                 }
 
-                GLFW.glfwWindowHint(143361, hidpiCocoa ? 1 : 0);
+                GLFW.glfwWindowHint(GLFW.GLFW_COCOA_RETINA_FRAMEBUFFER, hidpiCocoa ? 1 : 0);
             } catch (IOException var3) {
                 var3.printStackTrace();
             }
         }
     }
 
-    public void method33452() {
+    public void useClassicReplacementScreens() {
         replacementScreens.clear();
         replacementScreens.put(MainMenuHolder.class, ClassicMainScreen.class);
         replacementScreens.put(ClickGuiHolder.class, ClassicClickGui.class);
