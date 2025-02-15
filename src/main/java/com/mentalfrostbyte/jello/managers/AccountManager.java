@@ -4,7 +4,6 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.BanListener;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
-import com.mojang.realmsclient.RealmsMainScreen;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
@@ -16,7 +15,6 @@ import totalcross.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class AccountManager {
     public ArrayList<Account> accounts = new ArrayList<Account>();
@@ -86,7 +84,6 @@ public class AccountManager {
      */
     public boolean login(Account account) {
         try {
-            RealmsMainScreen.field_224000_H = null; // ?????
             Session session = Minecraft.getInstance().getSession();
             Session newSession = account.login();
             session.username = newSession.getUsername();

@@ -64,10 +64,7 @@ public class WorkingScreen extends Screen implements IProgressUpdate
     {
         if (this.doneWorking)
         {
-            if (!this.minecraft.isConnectedToRealms())
-            {
-                this.minecraft.displayGuiScreen((Screen)null);
-            }
+            this.minecraft.displayGuiScreen((Screen)null);
         }
         else
         {

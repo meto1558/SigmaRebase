@@ -238,8 +238,6 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.realms.DisconnectedRealmsScreen;
-import net.minecraft.realms.RealmsScreen;
 import net.minecraft.resources.IPackNameDecorator;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreCriteria;
@@ -1000,21 +998,14 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
 
         if (this.guiScreenServer != null)
         {
-            if (this.guiScreenServer instanceof RealmsScreen)
-            {
-                this.client.displayGuiScreen(new DisconnectedRealmsScreen(this.guiScreenServer, field_243491_b, reason));
-            }
-            else
-            {
-                this.client.displayGuiScreen(new DisconnectedScreen(this.guiScreenServer, field_243491_b, reason));
-                if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).isEnabled()) {
-                    ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
-                    if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
-                    MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
-                    if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
-                        MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
-                        Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
-                    }
+            this.client.displayGuiScreen(new DisconnectedScreen(this.guiScreenServer, field_243491_b, reason));
+            if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).isEnabled()) {
+                ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
+                if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
+                MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+                if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
+                    MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
+                    Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
                 }
             }
         }

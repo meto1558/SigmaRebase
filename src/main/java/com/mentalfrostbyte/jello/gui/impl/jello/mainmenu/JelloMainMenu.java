@@ -23,7 +23,6 @@ import de.florianmichael.viamcp.protocolinfo.ProtocolInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
-import net.minecraft.realms.RealmsBridgeScreen;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
@@ -205,8 +204,6 @@ public class JelloMainMenu extends CustomGuiScreen {
     }
 
     public void method13443() {
-        RealmsBridgeScreen var3 = new RealmsBridgeScreen();
-        var3.func_231394_a_(Minecraft.getInstance().currentScreen);
         this.playClickSound();
     }
 

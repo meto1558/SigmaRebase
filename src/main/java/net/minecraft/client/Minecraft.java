@@ -364,10 +364,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     @Nullable
     public LoadingGui loadingGui;
 
-    /**
-     * True if the player is connected to a realms server
-     */
-    private boolean connectedToRealms;
     private Thread thread;
     private volatile boolean running = true;
     @Nullable
@@ -563,8 +559,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             stringbuilder.append(" - ");
             if (this.integratedServer != null && !this.integratedServer.getPublic()) {
                 stringbuilder.append(I18n.format("title.singleplayer"));
-            } else if (this.isConnectedToRealms()) {
-                stringbuilder.append(I18n.format("title.multiplayer.realms"));
             } else if (this.integratedServer != null || this.currentServerData != null && this.currentServerData.isOnLAN()) {
                 stringbuilder.append(I18n.format("title.multiplayer.lan"));
             } else {
@@ -2572,20 +2566,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      */
     public FrameTimer getFrameTimer() {
         return this.frameTimer;
-    }
-
-    /**
-     * Return true if the player is connected to a realms server
-     */
-    public boolean isConnectedToRealms() {
-        return this.connectedToRealms;
-    }
-
-    /**
-     * Set if the player is connected to a realms server
-     */
-    public void setConnectedToRealms(boolean isConnected) {
-        this.connectedToRealms = isConnected;
     }
 
     public DataFixer getDataFixer() {
