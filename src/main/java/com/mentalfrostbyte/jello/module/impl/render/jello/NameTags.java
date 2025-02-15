@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.module.impl.render.Freecam;
 import com.mentalfrostbyte.jello.module.impl.render.NameProtect;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class8781;
-import com.mentalfrostbyte.jello.module.impl.render.jello.nametags.Class7070;
+import com.mentalfrostbyte.jello.module.impl.render.jello.nametags.FurnaceTracker;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -60,12 +60,12 @@ public class NameTags extends Module {
         field24003.put("cxbot", Resources.cxPNG);
     }
 
-    public int field24008 = RenderUtil.applyAlpha(RenderUtil
+    public int backgroundColor = RenderUtil.applyAlpha(RenderUtil
             .method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.5F);
-    public final HashMap<BlockPos, Class7070> field24000 = new HashMap<>();
-    public BlockPos field24001;
+    public final HashMap<BlockPos, FurnaceTracker> furnaceTrackers = new HashMap<>();
+    public BlockPos currentBlockPos;
     public final List<Entity> entities = new ArrayList<>();
-    public boolean field24006 = false;
+    public boolean trackFurnaces = false;
     public final HashMap<UUID, String> field24007 = new HashMap<>();
 
     public NameTags() {
@@ -79,19 +79,21 @@ public class NameTags extends Module {
     @EventTarget
     public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
-            this.field24006 = this.getBooleanValueFromSettingName("Furnaces");
-            if (!this.field24006) {
-                this.field24000.clear();
+            this.trackFurnaces = this.getBooleanValueFromSettingName("Furnaces");
+            if (!this.trackFurnaces) {
+                this.furnaceTrackers.clear();
             } else {
-                Iterator<Entry<BlockPos, Class7070>> var4 = this.field24000.entrySet().iterator();
+                Iterator<Entry<BlockPos, FurnaceTracker>> iterator = this.furnaceTrackers.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Entry<BlockPos, FurnaceTracker> entry = iterator.next();
 
-                while (var4.hasNext()) {
-                    Entry<BlockPos, Class7070> var5 = var4.next();
-                    if (!(mc.world.getBlockState(var5.getKey()).getBlock() instanceof FurnaceBlock)) {
-                        var4.remove();
+                    // Remove furnace tracker if the block at its position is no longer a furnace
+                    if (!(mc.world.getBlockState(entry.getKey()).getBlock() instanceof FurnaceBlock)) {
+                        iterator.remove();
                     }
 
-                    var5.getValue().method21984();
+                    // Update the smelting progress for the furnace
+                    entry.getValue().updateSmelting();
                 }
             }
 
@@ -115,23 +117,21 @@ public class NameTags extends Module {
             if (event.getPacket() instanceof CPlayerTryUseItemOnBlockPacket) {
                 CPlayerTryUseItemOnBlockPacket var4 = (CPlayerTryUseItemOnBlockPacket) event.getPacket();
                 if (mc.world.getBlockState(var4.func_218794_c().getPos()).getBlock() instanceof FurnaceBlock) {
-                    this.field24001 = var4.func_218794_c().getPos();
+                    this.currentBlockPos = var4.func_218794_c().getPos();
                 }
             }
 
-            if (event.getPacket() instanceof CClickWindowPacket) {
-                CClickWindowPacket var7 = (CClickWindowPacket) event.getPacket();
-                Class7070 var5 = this.method16929(var7.getWindowId());
+            if (event.getPacket() instanceof CClickWindowPacket clickWindowPacket) {
+                FurnaceTracker var5 = this.getFurnaceTrackerByWindowId(clickWindowPacket.getWindowId());
                 if (var5 == null) {
                     return;
                 }
 
-                if (mc.currentScreen instanceof FurnaceScreen) {
-                    FurnaceScreen var6 = (FurnaceScreen) mc.currentScreen;
-                    var5.field30453 = var6.getContainer().getSlot(0).getStack();
-                    var5.field30454 = new ItemStack(var6.getContainer().getSlot(1).getStack().getItem());
-                    var5.field30454.count = var6.getContainer().getSlot(1).getStack().count;
-                    var5.field30455 = var6.getContainer().getSlot(2).getStack();
+                if (mc.currentScreen instanceof FurnaceScreen furnace) {
+                    var5.inputStack = furnace.getContainer().getSlot(0).getStack();
+                    var5.fuelStack = new ItemStack(furnace.getContainer().getSlot(1).getStack().getItem());
+                    var5.fuelStack.count = furnace.getContainer().getSlot(1).getStack().count;
+                    var5.outputStack = furnace.getContainer().getSlot(2).getStack();
                 }
             }
         }
@@ -140,65 +140,61 @@ public class NameTags extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.getPacket() instanceof SOpenWindowPacket) {
-                SOpenWindowPacket sOpenWindowPacket = (SOpenWindowPacket) event.getPacket();
+            if (event.getPacket() instanceof SOpenWindowPacket sOpenWindowPacket) {
                 if (sOpenWindowPacket.getContainerType() != ContainerType.FURNACE) {
                     return;
                 }
 
-                this.field24000.put(this.field24001, new Class7070(sOpenWindowPacket.getWindowId()));
+                this.furnaceTrackers.put(this.currentBlockPos, new FurnaceTracker(sOpenWindowPacket.getWindowId()));
             }
 
-            if (event.getPacket() instanceof SSetSlotPacket) {
-                SSetSlotPacket sSetSlotPacket = (SSetSlotPacket) event.getPacket();
-                Class7070 var5 = this.method16929(sSetSlotPacket.getWindowId());
+            if (event.getPacket() instanceof SSetSlotPacket sSetSlotPacket) {
+                FurnaceTracker var5 = this.getFurnaceTrackerByWindowId(sSetSlotPacket.getWindowId());
                 if (var5 == null) {
                     return;
                 }
 
                 if (sSetSlotPacket.getSlot() == 0) {
-                    var5.field30453 = new ItemStack(sSetSlotPacket.getStack().getItem());
-                    var5.field30453.count = sSetSlotPacket.getStack().count;
+                    var5.inputStack = new ItemStack(sSetSlotPacket.getStack().getItem());
+                    var5.inputStack.count = sSetSlotPacket.getStack().count;
                 } else if (sSetSlotPacket.getSlot() == 1) {
-                    var5.field30454 = new ItemStack(sSetSlotPacket.getStack().getItem());
-                    var5.field30454.count = sSetSlotPacket.getStack().count;
+                    var5.fuelStack = new ItemStack(sSetSlotPacket.getStack().getItem());
+                    var5.fuelStack.count = sSetSlotPacket.getStack().count;
                 } else if (sSetSlotPacket.getSlot() == 2) {
-                    var5.field30455 = new ItemStack(sSetSlotPacket.getStack().getItem());
-                    var5.field30455.count = sSetSlotPacket.getStack().count;
+                    var5.outputStack = new ItemStack(sSetSlotPacket.getStack().getItem());
+                    var5.outputStack.count = sSetSlotPacket.getStack().count;
                 }
             }
 
-            if (event.getPacket() instanceof SWindowPropertyPacket) {
-                SWindowPropertyPacket sWindowPropertyPacket = (SWindowPropertyPacket) event.getPacket();
-                Class7070 var8 = this.method16929(sWindowPropertyPacket.getWindowId());
+            if (event.getPacket() instanceof SWindowPropertyPacket sWindowPropertyPacket) {
+                FurnaceTracker var8 = this.getFurnaceTrackerByWindowId(sWindowPropertyPacket.getWindowId());
                 if (var8 == null) {
                     return;
                 }
 
                 switch (sWindowPropertyPacket.getProperty()) {
                     case 0:
-                        var8.field30452 = sWindowPropertyPacket.getValue();
+                        var8.smeltDelay = sWindowPropertyPacket.getValue();
                         break;
                     case 1:
-                        var8.field30451 = sWindowPropertyPacket.getValue();
+                        var8.cooldown = sWindowPropertyPacket.getValue();
                         break;
                     case 2:
-                        var8.field30450 = (float) sWindowPropertyPacket.getValue();
+                        var8.smeltTime = (float) sWindowPropertyPacket.getValue();
                         break;
                     case 3:
-                        var8.field30449 = (float) sWindowPropertyPacket.getValue();
+                        var8.smeltProgress = (float) sWindowPropertyPacket.getValue();
                 }
             }
         }
     }
 
-    public Class7070 method16929(int var1) {
-        for (Entry<BlockPos, Class7070> var5 : this.field24000.entrySet()) {
-            if (var5.getValue().field30448 == var1) {
-                return var5.getValue();
+    public FurnaceTracker getFurnaceTrackerByWindowId(int windowId) {
+        for (Entry<BlockPos, FurnaceTracker> entry : this.furnaceTrackers.entrySet()) {
+            if (entry.getValue().windowId == windowId) {
+                return entry.getValue();
             }
         }
-
         return null;
     }
 
@@ -224,14 +220,14 @@ public class NameTags extends Module {
                 entity.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
             }
 
-            for (Entry var11 : this.field24000.entrySet()) {
-                float var13 = 1.0F;
+            for (Entry<BlockPos, FurnaceTracker> entry : this.furnaceTrackers.entrySet()) {
+                float scale = 1.0F;
                 if (shouldMagnify) {
-                    var13 = (float) Math.max(0.8F,
-                            Math.sqrt(PositionUtil.calculateDistanceSquared((BlockPos) var11.getKey()) / 30.0));
+                    scale = (float) Math.max(0.8F,
+                            Math.sqrt(PositionUtil.calculateDistanceSquared(entry.getKey()) / 30.0));
                 }
 
-                this.method16932((BlockPos) var11.getKey(), (Class7070) var11.getValue(), var13);
+                this.drawFurnaceNametag(entry.getKey(), entry.getValue(), scale);
             }
 
             if (this.getBooleanValueFromSettingName("Mob Owners")) {
@@ -257,9 +253,9 @@ public class NameTags extends Module {
                             }
 
                             if (this.field24007.get(uuid) != null) {
-                                float var8 = 1.0F;
+                                float scale = 1.0F;
                                 if (this.getBooleanValueFromSettingName("Magnify")) {
-                                    var8 = (float) Math.max(1.0,
+                                    scale = (float) Math.max(1.0,
                                             Math.sqrt(PositionUtil.calculateDistanceSquared(entity) / 30.0));
                                 }
 
@@ -268,7 +264,7 @@ public class NameTags extends Module {
                                         PositionUtil.getEntityPosition(entity).y + (double) entity.getHeight(),
                                         PositionUtil.getEntityPosition(entity).z,
                                         entity,
-                                        var8,
+                                        scale,
                                         this.field24007.get(uuid));
                                 entity.getDataManager().set(Entity.CUSTOM_NAME_VISIBLE, false);
                             }
@@ -283,89 +279,78 @@ public class NameTags extends Module {
         }
     }
 
-    public void method16931(float var1, float var2, float var3, float var4) {
-        GL11.glColor4f(var1 / 255.0F, var2 / 255.0F, var3 / 255.0F, var4);
-        GL11.glTranslatef(0.0F, 0.0F, 0.3F);
-        GL11.glNormal3f(0.0F, 0.0F, 1.0F);
-        GL11.glRotated(-37.0, 1.0, 0.0, 0.0);
-        GL11.glBegin(6);
-        GL11.glVertex2f(0.0F, 0.0F);
-        GL11.glVertex2f(0.0F, 0.5F);
-        GL11.glVertex2f(0.5F, 0.5F);
-        GL11.glVertex2f(0.5F, 0.0F);
-        GL11.glEnd();
-    }
+    public void drawFurnaceNametag(BlockPos furnacePos, FurnaceTracker furnace, float partialTicks) {
+        TrueTypeFont font = ResourceRegistry.JelloLightFont25;
 
-    public void method16932(BlockPos var1, Class7070 var2, float var3) {
-        TrueTypeFont var6 = ResourceRegistry.JelloLightFont25;
-        String var7 = "None";
-        if (var2.field30453 != null) {
-            var7 = var2.field30453.count + " " + var2.field30453.getDisplayName();
-        }
+        float renderX = (float) ((double) furnacePos.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() + 0.5);
+        float renderY = (float) ((double) furnacePos.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() + 1.0);
+        float renderZ = (float) ((double) furnacePos.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() + 0.5);
 
-        float var8 = (float) ((double) var1.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() + 0.5);
-        float var9 = (float) ((double) var1.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() + 1.0);
-        float var10 = (float) ((double) var1.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() + 0.5);
         GL11.glBlendFunc(770, 771);
-        GL11.glEnable(3042);
-        GL11.glEnable(2848);
-        GL11.glDisable(3553);
-        GL11.glDisable(2929);
-        GL11.glDisable(2896);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDepthMask(false);
-        float var11 = Math.min(var2.field30450 / var2.field30449, 1.0F);
-        float var12 = Math.min((float) var2.field30452 / (float) var2.field30451, 1.0F);
-        int var13 = 14;
+
+        float smeltingProgress = Math.min(furnace.smeltTime / furnace.smeltProgress, 1.0F);
+        float cooldownProgress = Math.min((float) furnace.smeltDelay / (float) furnace.cooldown, 1.0F);
+        int padding = 14;
         GL11.glPushMatrix();
-        GL11.glAlphaFunc(519, 0.0F);
-        GL11.glTranslated(var8, var9 + 0.6F - 0.33333334F * (1.0F - var3), var10);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
+        GL11.glTranslated(renderX, renderY + 0.6F - 0.33333334F * (1.0F - partialTicks), renderZ);
         GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getYaw(), 0.0F, -1.0F, 0.0F);
         GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getPitch(), 1.0F, 0.0F, 0.0F);
-        GL11.glPushMatrix();
-        float var14 = 0.008F;
-        GL11.glScalef(-var14 * var3, -var14 * var3, -var14 * var3);
-        int var15 = 0;
-        ItemStack var16 = var2.method21987();
-        if (var16 != null) {
-            var15 = Math.max(ResourceRegistry.JelloLightFont20.getWidth(var16.getDisplayName().getString()), 50);
+
+        float scale = 0.008F;
+        GL11.glScalef(-scale * partialTicks, -scale * partialTicks, -scale * partialTicks);
+
+        int nameplateWidth;
+        ItemStack outputItem = furnace.refreshOutput();
+        if (outputItem != null) {
+            nameplateWidth = Math.max(ResourceRegistry.JelloLightFont20.getWidth(outputItem.getDisplayName().getString()), 50);
         } else {
-            var15 = 37;
+            nameplateWidth = 37;
         }
 
-        int var17 = 51 + var15 + var13 * 2;
-        int var18 = 85 + var13 * 2;
-        GL11.glTranslated(-var17 / 2, -var18 / 2, 0.0);
-        RenderUtil.drawRect(0.0F, 0.0F, (float) var17, (float) var18, this.field24008);
-        RenderUtil.drawRoundedRect(0.0F, 0.0F, (float) var17, (float) var18, 20.0F, 0.5F);
-        RenderUtil.drawString(var6, var13, (float) (var13 - 5), "Furnace", ClientColors.LIGHT_GREYISH_BLUE.getColor());
-        if (var16 == null) {
+        int boxWidth = 51 + nameplateWidth + padding * 2;
+        int boxHeight = 85 + padding * 2;
+
+        GL11.glTranslated(-boxWidth / 2, -boxHeight / 2, 0.0);
+
+        RenderUtil.drawRect(0.0F, 0.0F, (float) boxWidth, (float) boxHeight, this.backgroundColor);
+        RenderUtil.drawRoundedRect(0.0F, 0.0F, (float) boxWidth, (float) boxHeight, 20.0F, 0.5F);
+
+        RenderUtil.drawString(font, padding, (float) (padding - 5), "Furnace", ClientColors.LIGHT_GREYISH_BLUE.getColor());
+        if (outputItem == null) {
             RenderUtil.drawString(
-                    ResourceRegistry.JelloLightFont20, (float) (var13 + 15), (float) (var13 + 40), "Empty",
+                    ResourceRegistry.JelloLightFont20, (float) (padding + 15), (float) (padding + 40), "Empty",
                     RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
         }
 
-        ItemStack itemStack = var2.method21987();
+        ItemStack itemStack = furnace.refreshOutput();
         if (itemStack != null) {
-            RenderUtil.method11479(itemStack, var13, var13 + 27, 45, 45);
-            RenderUtil.drawString(ResourceRegistry.JelloLightFont20, (float) (var13 + 51), 40.0F,
+            RenderUtil.drawItem(itemStack, padding, padding + 27, 45, 45);
+            RenderUtil.drawString(ResourceRegistry.JelloLightFont20, (float) (padding + 51), 40.0F,
                     itemStack.getDisplayName().getString(), ClientColors.LIGHT_GREYISH_BLUE.getColor());
-            RenderUtil.drawString(ResourceRegistry.JelloLightFont14, (float) (var13 + 51), 62.0F,
+            RenderUtil.drawString(ResourceRegistry.JelloLightFont14, (float) (padding + 51), 62.0F,
                     "Count: " + itemStack.count, ClientColors.LIGHT_GREYISH_BLUE.getColor());
         }
 
-        RenderUtil.drawRect(0.0F, (float) var18 - 12.0F, Math.min((float) var17 * var12, (float) var17),
-                (float) var18 - 6.0F, RenderUtil.applyAlpha(-106750, 0.3F));
+        RenderUtil.drawRect(0.0F, (float) boxHeight - 12.0F, Math.min((float) boxWidth * cooldownProgress, (float) boxWidth),
+                (float) boxHeight - 6.0F, RenderUtil.applyAlpha(-106750, 0.3F));
         RenderUtil.drawRect(
-                0.0F, (float) var18 - 6.0F, Math.min((float) var17 * var11, (float) var17), (float) var18,
+                0.0F, (float) boxHeight - 6.0F, Math.min((float) boxWidth * smeltingProgress, (float) boxWidth), (float) boxHeight,
                 RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F));
         GL11.glPopMatrix();
         GL11.glPopMatrix();
-        GL11.glEnable(3553);
-        GL11.glEnable(2929);
-        GL11.glEnable(2896);
-        GL11.glDisable(2848);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GL11.glDepthMask(true);
-        GL11.glDisable(3042);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     public void drawNametag(double x, double y, double z, Entity var7, float var8, String var9) {
@@ -395,7 +380,7 @@ public class NameTags extends Module {
             GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getYaw(), 0.0F, -1.0F, 0.0F);
             GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getPitch(), 1.0F, 0.0F, 0.0F);
             GL11.glScalef(-0.009F * var8, -0.009F * var8, -0.009F * var8);
-            int var19 = this.field24008;
+            int var19 = this.backgroundColor;
             if (!Client.getInstance().friendManager.method26997(var7)) {
                 if (Client.getInstance().friendManager.isFriend(var7)) {
                     var19 = RenderUtil.applyAlpha(-6750208, 0.5F);
