@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.CancellableEvent;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;

@@ -102,7 +102,6 @@ public class Client {
         this.commandManager = new CommandManager();
         this.commandManager.init();
         this.rotationManager = new RotationManager();
-        this.rotationManager.init();
         this.friendManager = new FriendManager();
         this.friendManager.init();
         this.musicManager = new MusicManager();
