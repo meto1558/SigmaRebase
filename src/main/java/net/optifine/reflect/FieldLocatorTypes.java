@@ -5,19 +5,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import net.optifine.Log;
 
-public class FieldLocatorTypes implements IFieldLocator
-{
+public class FieldLocatorTypes implements IFieldLocator {
     private Field field = null;
 
-    public FieldLocatorTypes(Class cls, Class[] preTypes, Class type, Class[] postTypes, String errorName)
-    {
+    public FieldLocatorTypes(Class cls, Class[] preTypes, Class type, Class[] postTypes, String errorName) {
         Field[] afield = cls.getDeclaredFields();
         List<Class> list = new ArrayList<>();
 
-        for (int i = 0; i < afield.length; ++i)
-        {
+        for (int i = 0; i < afield.length; ++i) {
             Field field = afield[i];
             list.add(field.getType());
         }
@@ -28,28 +24,17 @@ public class FieldLocatorTypes implements IFieldLocator
         list1.addAll(Arrays.asList(postTypes));
         int l = Collections.indexOfSubList(list, list1);
 
-        if (l < 0)
-        {
-            Log.log("(Reflector) Field not found: " + errorName);
-        }
-        else
-        {
+        if (!(l < 0)) {
             int j = Collections.indexOfSubList(list.subList(l + 1, list.size()), list1);
 
-            if (j >= 0)
-            {
-                Log.log("(Reflector) More than one match found for field: " + errorName);
-            }
-            else
-            {
+            if (!(j >= 0)) {
                 int k = l + preTypes.length;
                 this.field = afield[k];
             }
         }
     }
 
-    public Field getField()
-    {
+    public Field getField() {
         return this.field;
     }
 }
