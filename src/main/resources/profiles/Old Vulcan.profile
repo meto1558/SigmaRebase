@@ -1,5 +1,5 @@
 {
-  "name": "Vulcan",
+  "name": "Old Vulcan",
   "modConfig": {
     "mods": [
       {

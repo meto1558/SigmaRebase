@@ -1,5 +1,5 @@
 {
-  "name": "Mineland",
+  "name": "Old NoRules",
   "modConfig": {
     "mods": [
       {
@@ -63,7 +63,7 @@
         "allowed": true,
         "name": "AntiBlind",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -160,7 +160,7 @@
         "allowed": true,
         "name": "AntiVanish",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -176,7 +176,7 @@
           },
           {
             "name": "Mode",
-            "value": "Motion"
+            "value": "Hypixel"
           }
         ],
         "enabled": true
@@ -259,7 +259,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Hypixel"
+            "value": "Basic"
           },
           {
             "name": "Health",
@@ -275,7 +275,7 @@
             }
           ]
         },
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -340,7 +340,7 @@
             "value": true
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -385,10 +385,10 @@
         "options": [
           {
             "name": "Keep Sprint",
-            "value": false
+            "value": true
           }
         ],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -399,7 +399,7 @@
             "value": "Basic"
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -441,7 +441,7 @@
           },
           {
             "name": "Tower while moving",
-            "value": true
+            "value": false
           },
           {
             "name": "Show Block Amount",
@@ -498,7 +498,7 @@
             },
             {
               "name": "Extend",
-              "value": 0
+              "value": 5.5
             },
             {
               "name": "Downwards",
@@ -605,7 +605,7 @@
         "allowed": true,
         "name": "ChatCleaner",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -677,14 +677,14 @@
           },
           {
             "name": "Delay",
-            "value": 0.2
+            "value": 0.15
           },
           {
             "name": "First Item",
-            "value": 0.2
+            "value": 0
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -692,7 +692,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Basic"
+            "value": "Spartan"
           },
           {
             "name": "Sneak",
@@ -704,7 +704,7 @@
           },
           {
             "name": "Maximum range",
-            "value": 100
+            "value": 101
           }
         ],
         "sub-options": {
@@ -731,18 +731,18 @@
         "options": [
           {
             "name": "Type",
-            "value": "Packet"
+            "value": "Minis"
           }
         ],
         "sub-options": {
           "Packet": [
             {
               "name": "HurtTime",
-              "value": 20
+              "value": 15
             },
             {
               "name": "Mode",
-              "value": "Hypixel"
+              "value": "Basic"
             }
           ],
           "Minis": [
@@ -806,7 +806,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Ghostly"
+            "value": "TP"
           }
         ],
         "sub-options": {
@@ -819,7 +819,7 @@
           "PingSpoof": [
             {
               "name": "Lag",
-              "value": 2000
+              "value": 1005.9
             },
             {
               "name": "Inv Bypass",
@@ -831,15 +831,15 @@
           "TP": [
             {
               "name": "Delay",
-              "value": 5
+              "value": 20
             },
             {
               "name": "Mode",
-              "value": "MaxInfinity"
+              "value": "Basic1"
             },
             {
               "name": "OnGround",
-              "value": true
+              "value": false
             },
             {
               "name": "More Packets",
@@ -847,11 +847,11 @@
             },
             {
               "name": "Ping spoof",
-              "value": true
+              "value": false
             }
           ]
         },
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -919,7 +919,7 @@
         "allowed": true,
         "name": "FPSBooster",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1018,7 +1018,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "NCPSpigot"
+            "value": "LibreCraft"
           }
         ],
         "sub-options": {
@@ -1037,7 +1037,7 @@
             },
             {
               "name": "Timer Boost",
-              "value": 2.5
+              "value": 1.7
             },
             {
               "name": "Timer Duration",
@@ -1051,7 +1051,7 @@
             },
             {
               "name": "Fake",
-              "value": true
+              "value": false
             }
           ],
           "NCPSpigot": [],
@@ -1068,7 +1068,7 @@
           "Vanilla": [
             {
               "name": "Speed",
-              "value": 6.19
+              "value": 3.04
             },
             {
               "name": "Kick bypass",
@@ -1110,7 +1110,7 @@
           "LibreCraft": [
             {
               "name": "Speed",
-              "value": 0.3
+              "value": 4.2
             }
           ]
         },
@@ -1142,7 +1142,7 @@
         "allowed": true,
         "name": "GameIdler",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1226,11 +1226,11 @@
         "options": [
           {
             "name": "Range",
-            "value": 4
+            "value": 116
           },
           {
             "name": "CPS",
-            "value": 8
+            "value": 20
           },
           {
             "name": "Targets",
@@ -1284,7 +1284,7 @@
           },
           {
             "name": "Block Cap",
-            "value": 150
+            "value": 150.6
           },
           {
             "name": "Clean Type",
@@ -1360,7 +1360,7 @@
             "value": true
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1394,23 +1394,23 @@
           },
           {
             "name": "Range",
-            "value": 4.33
+            "value": 8
           },
           {
             "name": "Block Range",
-            "value": 4.2
+            "value": 8
           },
           {
             "name": "Min CPS",
-            "value": 9
+            "value": 19
           },
           {
             "name": "Max CPS",
-            "value": 12
+            "value": 20
           },
           {
             "name": "Hit box expand",
-            "value": 0
+            "value": 0.62
           },
           {
             "name": "Hit Chance",
@@ -1418,7 +1418,7 @@
           },
           {
             "name": "Interact autoblock",
-            "value": false
+            "value": true
           },
           {
             "name": "Players",
@@ -1426,11 +1426,11 @@
           },
           {
             "name": "Animals",
-            "value": false
+            "value": true
           },
           {
             "name": "Monsters",
-            "value": false
+            "value": true
           },
           {
             "name": "Invisible",
@@ -1442,11 +1442,11 @@
           },
           {
             "name": "Cooldown",
-            "value": false
+            "value": true
           },
           {
             "name": "No swing",
-            "value": false
+            "value": true
           },
           {
             "name": "Disable on death",
@@ -1474,7 +1474,7 @@
             "value": -65794
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1520,7 +1520,7 @@
             },
             {
               "name": "Duration",
-              "value": 10
+              "value": 11
             },
             {
               "name": "Glide Mode",
@@ -1564,7 +1564,7 @@
         "options": [
           {
             "name": "Username",
-            "value": "Me"
+            "value": "fUCKalL"
           }
         ],
         "enabled": false
@@ -1586,7 +1586,7 @@
             "value": true
           }
         ],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1600,7 +1600,7 @@
         "options": [
           {
             "name": "Mode",
-            "value": "NCPSpigot"
+            "value": "Vanilla"
           }
         ],
         "enabled": true
@@ -1609,7 +1609,7 @@
         "allowed": true,
         "name": "NoHurtCam",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1617,7 +1617,7 @@
         "options": [
           {
             "name": "Mode",
-            "value": "NCP"
+            "value": "Vanilla"
           }
         ],
         "enabled": true
@@ -1640,11 +1640,11 @@
         "options": [
           {
             "name": "Range",
-            "value": 10
+            "value": 6
           },
           {
             "name": "Mode",
-            "value": "Bed"
+            "value": "All"
           },
           {
             "name": "NoSwing",
@@ -1668,7 +1668,7 @@
         "options": [
           {
             "name": "Animation",
-            "value": "Leaked"
+            "value": "Ninja"
           }
         ],
         "enabled": true
@@ -1685,7 +1685,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Vanilla"
+            "value": "FullBlock"
           }
         ],
         "sub-options": {
@@ -1695,7 +1695,7 @@
           "NCP": [
             {
               "name": "Hypixel",
-              "value": false
+              "value": true
             }
           ],
           "FullBlock": []
@@ -1790,7 +1790,7 @@
         "options": [
           {
             "name": "Mode",
-            "value": "Flying Enabled"
+            "value": "Infinity"
           }
         ],
         "enabled": false
@@ -1828,7 +1828,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "NCP"
+            "value": "AAC"
           },
           {
             "name": "Lag back checker",
@@ -1915,7 +1915,7 @@
           "YPort": [
             {
               "name": "Mode",
-              "value": "NCP"
+              "value": "OldNCP"
             },
             {
               "name": "OnGround",
@@ -1997,7 +1997,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Spider"
+            "value": "NCP"
           }
         ],
         "sub-options": {
@@ -2037,7 +2037,7 @@
         "allowed": true,
         "name": "TabGUI",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -2049,7 +2049,7 @@
           },
           {
             "name": "Radius",
-            "value": 1.98
+            "value": 2
           },
           {
             "name": "Only speed",
@@ -2060,7 +2060,7 @@
             "value": "Smart"
           }
         ],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -2074,7 +2074,7 @@
         "options": [
           {
             "name": "Timer",
-            "value": 1.8
+            "value": 2
           }
         ],
         "enabled": false
@@ -2114,7 +2114,7 @@
         "sub-options": {
           "Normal": []
         },
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,

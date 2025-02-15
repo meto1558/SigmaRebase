@@ -40,11 +40,11 @@ public class CloudConfigs {
             String response = "";
 
             if (uri.contains("/profiles.php?v=")) {
-                response = "[\"Intave\", \"BlocksMC\", \"LibreCraft\", \"Mineland\", \"Minemenclub\", \"NoRules\", \"Vulcan\", \"Old Hypixel\"]";
+                response = "[\"Intave\", \"BlocksMC\", \"Old LibreCraft\", \"Old Mineland\", \"Old Minemenclub\", \"Old NoRules\", \"Old Vulcan\", \"Old Hypixel\"]";
                 exchange.sendResponseHeaders(202, response.length());
             } else {
                 if (uri.contains("/profiles/") && uri.contains(".profile")) {
-                    String[] servers = {"Intave", "BlocksMC", "LibreCraft", "Mineland", "Minemenclub", "NoRules", "Vulcan", "Old Hypixel"};
+                    String[] servers = {"Intave", "BlocksMC", "Old LibreCraft", "Old Mineland", "Old Minemenclub", "Old NoRules", "Old Vulcan", "Old Hypixel"};
 
                     for (String server : servers) {
                         if (uri.contains(server)) {

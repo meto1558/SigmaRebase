@@ -1,5 +1,5 @@
 {
-  "name": "Minemenclub",
+  "name": "Old Mineland",
   "modConfig": {
     "mods": [
       {
@@ -27,7 +27,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "C&C"
+            "value": "Basic"
           },
           {
             "name": "Players",
@@ -35,7 +35,7 @@
           },
           {
             "name": "Animals/Monsters",
-            "value": true
+            "value": false
           },
           {
             "name": "Invisible",
@@ -46,14 +46,14 @@
           "Basic": [
             {
               "name": "Range",
-              "value": 2.8
+              "value": 4
             }
           ],
           "C&C": [],
           "Smooth": [
             {
               "name": "Range",
-              "value": 3.05
+              "value": 4
             }
           ]
         },
@@ -63,7 +63,7 @@
         "allowed": true,
         "name": "AntiBlind",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -93,7 +93,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Delay"
+            "value": "Basic"
           }
         ],
         "sub-options": {
@@ -136,15 +136,15 @@
           "Delay": [
             {
               "name": "Delay",
-              "value": 20
+              "value": 7
             },
             {
               "name": "H-Multiplier",
-              "value": 1
+              "value": 0
             },
             {
               "name": "V-Multiplier",
-              "value": 1
+              "value": 0
             }
           ]
         },
@@ -160,7 +160,7 @@
         "allowed": true,
         "name": "AntiVanish",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -172,14 +172,14 @@
           },
           {
             "name": "Fall Distance",
-            "value": 4.8
+            "value": 8
           },
           {
             "name": "Mode",
-            "value": "Hypixel"
+            "value": "Motion"
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -208,7 +208,7 @@
             "value": "Ignore"
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -259,7 +259,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Basic"
+            "value": "Hypixel"
           },
           {
             "name": "Health",
@@ -275,7 +275,7 @@
             }
           ]
         },
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -283,7 +283,7 @@
         "options": [
           {
             "name": "Min Health",
-            "value": 2.55
+            "value": 2.5
           },
           {
             "name": "No Totems",
@@ -313,7 +313,7 @@
         "options": [
           {
             "name": "Health",
-            "value": 7.2
+            "value": 6
           },
           {
             "name": "Predict",
@@ -337,7 +337,7 @@
           },
           {
             "name": "In fight",
-            "value": false
+            "value": true
           }
         ],
         "enabled": false
@@ -385,10 +385,10 @@
         "options": [
           {
             "name": "Keep Sprint",
-            "value": true
+            "value": false
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -441,7 +441,7 @@
           },
           {
             "name": "Tower while moving",
-            "value": false
+            "value": true
           },
           {
             "name": "Show Block Amount",
@@ -490,7 +490,7 @@
           "NCP": [
             {
               "name": "Speed Mode",
-              "value": "Jump"
+              "value": "None"
             },
             {
               "name": "KeepRotations",
@@ -562,7 +562,7 @@
         "allowed": true,
         "name": "BrainFreeze",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -599,13 +599,13 @@
         "allowed": true,
         "name": "CameraNoClip",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "ChatCleaner",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -653,7 +653,7 @@
           "Outline": [],
           "Box": []
         },
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -704,7 +704,7 @@
           },
           {
             "name": "Maximum range",
-            "value": 101
+            "value": 100
           }
         ],
         "sub-options": {
@@ -731,14 +731,14 @@
         "options": [
           {
             "name": "Type",
-            "value": "Minis"
+            "value": "Packet"
           }
         ],
         "sub-options": {
           "Packet": [
             {
               "name": "HurtTime",
-              "value": 7
+              "value": 20
             },
             {
               "name": "Mode",
@@ -752,7 +752,7 @@
             },
             {
               "name": "Avoid Fall Damage",
-              "value": true
+              "value": false
             }
           ],
           "AAC 4": [
@@ -773,13 +773,13 @@
             }
           ]
         },
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "DVD Simulator",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -806,7 +806,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Hypixel"
+            "value": "Ghostly"
           }
         ],
         "sub-options": {
@@ -819,7 +819,7 @@
           "PingSpoof": [
             {
               "name": "Lag",
-              "value": 1005.9
+              "value": 2000
             },
             {
               "name": "Inv Bypass",
@@ -831,15 +831,15 @@
           "TP": [
             {
               "name": "Delay",
-              "value": 20
+              "value": 5
             },
             {
               "name": "Mode",
-              "value": "Basic1"
+              "value": "MaxInfinity"
             },
             {
               "name": "OnGround",
-              "value": false
+              "value": true
             },
             {
               "name": "More Packets",
@@ -847,11 +847,11 @@
             },
             {
               "name": "Ping spoof",
-              "value": false
+              "value": true
             }
           ]
         },
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1018,18 +1018,18 @@
         "options": [
           {
             "name": "Type",
-            "value": "Horizon"
+            "value": "NCPSpigot"
           }
         ],
         "sub-options": {
           "Hypixel": [
             {
               "name": "Mode",
-              "value": "NoDmg"
+              "value": "Basic"
             },
             {
               "name": "Speed",
-              "value": 0.1
+              "value": 1
             },
             {
               "name": "No Collision",
@@ -1037,11 +1037,11 @@
             },
             {
               "name": "Timer Boost",
-              "value": 1.2
+              "value": 2.5
             },
             {
               "name": "Timer Duration",
-              "value": 0.51
+              "value": 0.3
             }
           ],
           "Mineplex": [
@@ -1051,7 +1051,7 @@
             },
             {
               "name": "Fake",
-              "value": false
+              "value": true
             }
           ],
           "NCPSpigot": [],
@@ -1068,7 +1068,7 @@
           "Vanilla": [
             {
               "name": "Speed",
-              "value": 0.28
+              "value": 6.19
             },
             {
               "name": "Kick bypass",
@@ -1078,7 +1078,7 @@
           "VeltPvP": [
             {
               "name": "Speed",
-              "value": 0.5
+              "value": 4
             }
           ],
           "Bow": [],
@@ -1136,13 +1136,13 @@
             "value": "Normal"
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "GameIdler",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1158,7 +1158,7 @@
           },
           {
             "name": "AutoL Mode",
-            "value": "Sigmeme"
+            "value": "Basic"
           },
           {
             "name": "First character",
@@ -1166,11 +1166,11 @@
           },
           {
             "name": "AutoGG",
-            "value": false
+            "value": true
           },
           {
             "name": "Auto Join",
-            "value": false
+            "value": true
           },
           {
             "name": "Auto Join delay",
@@ -1193,7 +1193,7 @@
           "Cubecraft": [],
           "Jartex": []
         },
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1201,20 +1201,20 @@
         "options": [
           {
             "name": "Type",
-            "value": "Hypixel"
+            "value": "Vanilla"
           }
         ],
         "sub-options": {
           "Hypixel": [
             {
               "name": "Motion",
-              "value": 0.73
+              "value": 0.75
             }
           ],
           "Vanilla": [
             {
               "name": "Motion",
-              "value": 2.93
+              "value": 0.75
             }
           ]
         },
@@ -1265,7 +1265,7 @@
         "options": [
           {
             "name": "Range",
-            "value": 3.98
+            "value": 4
           }
         ],
         "enabled": false
@@ -1334,7 +1334,7 @@
             "value": true
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1378,7 +1378,7 @@
           },
           {
             "name": "Autoblock Mode",
-            "value": "None"
+            "value": "NCP"
           },
           {
             "name": "Sort Mode",
@@ -1390,23 +1390,23 @@
           },
           {
             "name": "Rotation Mode",
-            "value": "LockView"
+            "value": "NCP"
           },
           {
             "name": "Range",
-            "value": 3
+            "value": 4.33
           },
           {
             "name": "Block Range",
-            "value": 2.8
+            "value": 4.2
           },
           {
             "name": "Min CPS",
-            "value": 4
+            "value": 9
           },
           {
             "name": "Max CPS",
-            "value": 6
+            "value": 12
           },
           {
             "name": "Hit box expand",
@@ -1418,7 +1418,7 @@
           },
           {
             "name": "Interact autoblock",
-            "value": true
+            "value": false
           },
           {
             "name": "Players",
@@ -1454,11 +1454,11 @@
           },
           {
             "name": "Through walls",
-            "value": false
+            "value": true
           },
           {
             "name": "Smart Reach",
-            "value": false
+            "value": true
           },
           {
             "name": "Silent",
@@ -1502,25 +1502,25 @@
           "Redesky": [
             {
               "name": "Boost",
-              "value": 0.29
+              "value": 1
             },
             {
               "name": "Heigh",
-              "value": 0.41
+              "value": 1
             },
             {
               "name": "NoFall",
-              "value": false
+              "value": true
             }
           ],
           "NCP": [
             {
               "name": "Boost",
-              "value": 1.47
+              "value": 3
             },
             {
               "name": "Duration",
-              "value": 7
+              "value": 10
             },
             {
               "name": "Glide Mode",
@@ -1528,7 +1528,7 @@
             },
             {
               "name": "Speed Mode",
-              "value": "Hypixel"
+              "value": "Basic"
             }
           ],
           "Cubecraft": [
@@ -1544,13 +1544,13 @@
         "allowed": true,
         "name": "LowFire",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
         "name": "MiniMap",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1586,7 +1586,7 @@
             "value": true
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1603,13 +1603,13 @@
             "value": "NCPSpigot"
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "NoHurtCam",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
@@ -1620,13 +1620,13 @@
             "value": "NCP"
           }
         ],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "NoViewReset",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -1640,11 +1640,11 @@
         "options": [
           {
             "name": "Range",
-            "value": 6
+            "value": 10
           },
           {
             "name": "Mode",
-            "value": "All"
+            "value": "Bed"
           },
           {
             "name": "NoSwing",
@@ -1668,7 +1668,7 @@
         "options": [
           {
             "name": "Animation",
-            "value": "Tap2"
+            "value": "Leaked"
           }
         ],
         "enabled": true
@@ -1685,7 +1685,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "FullBlock"
+            "value": "Vanilla"
           }
         ],
         "sub-options": {
@@ -1695,7 +1695,7 @@
           "NCP": [
             {
               "name": "Hypixel",
-              "value": true
+              "value": false
             }
           ],
           "FullBlock": []
@@ -1828,7 +1828,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "Minemen"
+            "value": "NCP"
           },
           {
             "name": "Lag back checker",
@@ -1886,7 +1886,7 @@
           "Vanilla": [
             {
               "name": "Speed",
-              "value": 1
+              "value": 4
             }
           ],
           "Legit": [
@@ -1915,7 +1915,7 @@
           "YPort": [
             {
               "name": "Mode",
-              "value": "OldNCP"
+              "value": "NCP"
             },
             {
               "name": "OnGround",
@@ -1997,7 +1997,7 @@
         "options": [
           {
             "name": "Type",
-            "value": "NCP"
+            "value": "Spider"
           }
         ],
         "sub-options": {
@@ -2017,27 +2017,27 @@
           "NCP": [
             {
               "name": "Maximum heigh",
-              "value": 1
+              "value": 2
             },
             {
               "name": "Timer",
-              "value": 0.12
+              "value": 0.1
             }
           ]
         },
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "Strafe",
         "options": [],
-        "enabled": false
+        "enabled": true
       },
       {
         "allowed": true,
         "name": "TabGUI",
         "options": [],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
@@ -2049,15 +2049,15 @@
           },
           {
             "name": "Radius",
-            "value": 2.96
+            "value": 1.98
           },
           {
             "name": "Only speed",
-            "value": false
+            "value": true
           },
           {
             "name": "AntiVoid",
-            "value": "None"
+            "value": "Smart"
           }
         ],
         "enabled": true
@@ -2074,7 +2074,7 @@
         "options": [
           {
             "name": "Timer",
-            "value": 1
+            "value": 1.8
           }
         ],
         "enabled": false
@@ -2144,7 +2144,7 @@
             "value": true
           }
         ],
-        "enabled": true
+        "enabled": false
       },
       {
         "allowed": true,
