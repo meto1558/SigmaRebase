@@ -22,7 +22,7 @@ public class AutoSprint extends Module {
 
     public AutoSprint() {
         super(ModuleCategory.PLAYER, "AutoSprint", "Sprints for you");
-        this.registerSetting(new BooleanSetting("Keep Sprint", "Keep Sprinting after hitting a player", false));
+        this.registerSetting(new BooleanSetting("Keep Sprint FOV", "Keep the sprint fov while in combat", false));
         this.registerSetting(new BooleanSetting("Legit", "Legitimate sprint", false));
     }
 
@@ -59,7 +59,7 @@ public class AutoSprint extends Module {
 
     @EventTarget
     public void RayTraceEvent(EventRayTraceResult event) {
-        if (this.isEnabled() && this.getBooleanValueFromSettingName("Keep Sprint")) {
+        if (this.isEnabled() && this.getBooleanValueFromSettingName("Keep Sprint FOV")) {
             if (!event.isHovering()) {
                 if (this.trackMotion.length == 2) {
                     double MotionX = this.trackMotion[0] - mc.player.getMotion().x;

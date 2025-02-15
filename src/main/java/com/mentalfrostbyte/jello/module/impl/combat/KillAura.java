@@ -5,7 +5,9 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.event.impl.player.EventKeepSprint;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventSprint;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
@@ -84,6 +86,9 @@ public class KillAura extends Module {
 
     private KillAuraAttackLambda attackLambda;
 
+    private BooleanSetting keepSprint = new BooleanSetting("Keep sprint", "Keep Sprinting after hitting a player", false);
+    private BooleanSetting sprintFix = new BooleanSetting("Sprint fix", "Fix sprint flags on strict anticheats", true);
+
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
         this.registerSetting(
@@ -121,6 +126,10 @@ public class KillAura extends Module {
         this.registerSetting(new BooleanSetting("Silent", "Silent rotations", true));
         this.registerSetting(new BooleanSetting("ESP", "ESP on targets", true));
         this.registerSetting(new ColorSetting("ESP Color", "The render color", ClientColors.LIGHT_GREYISH_BLUE.getColor()));
+        this.registerSetting(keepSprint);
+        this.registerSetting(sprintFix);
+        keepSprint.addObserver(setting -> sprintFix.currentValue = false);
+        sprintFix.addObserver(setting -> keepSprint.currentValue = false);
     }
 
     public static Rotation getRotations2(KillAura killaura) {
@@ -155,7 +164,6 @@ public class KillAura extends Module {
     }
 
     private void resetState() {
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -175,7 +183,6 @@ public class KillAura extends Module {
     }
 
     private void initializeRotations() {
-
         if (mc.player == null || mc.world == null) {
             return;
         }
@@ -187,7 +194,6 @@ public class KillAura extends Module {
     }
 
     private boolean isHoldingSword() {
-
         if (mc.player == null || mc.world == null) {
             return false;
         }
@@ -207,6 +213,20 @@ public class KillAura extends Module {
         isAuraActive = false;
         attackLambda = null;
         super.onDisable();
+    }
+
+    @EventTarget
+    public void onKeepSprint(EventKeepSprint event) {
+        if (keepSprint.getCurrentValue()) {
+            event.greater = false;
+        }
+    }
+
+    @EventTarget
+    public void onSprint(EventSprint event) {
+        if (sprintFix.getCurrentValue() && currentTarget != null) {
+            event.cancelled = true;
+        }
     }
 
     @EventTarget

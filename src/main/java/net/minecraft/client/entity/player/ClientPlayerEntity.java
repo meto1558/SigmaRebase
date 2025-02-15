@@ -3,6 +3,7 @@ package net.minecraft.client.entity.player;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventSprint;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
@@ -745,11 +746,17 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             this.setPlayerOffsetMotion(this.getPosX() + (double) this.getWidth() * 0.35D, this.getPosZ() + (double) this.getWidth() * 0.35D);
         }
 
-        if (flag1) {
-            this.sprintToggleTimer = 0;
-        }
-
         boolean flag4 = (float) this.getFoodStats().getFoodLevel() > 6.0F || this.abilities.allowFlying;
+
+        EventSprint eventSprint = new EventSprint();
+        EventBus.call(eventSprint);
+
+        float moveForward = this.movementInput.moveForward;
+
+        if (eventSprint.cancelled) {
+            moveForward = this.movementInput.moveForward;
+            this.movementInput.moveForward = 0;
+        }
 
         if ((this.onGround || this.canSwim()) && !flag1 && !flag2 && this.isUsingSwimmingAnimation() && !this.isSprinting() && flag4 && !this.isHandActive() && !this.isPotionActive(Effects.BLINDNESS)) {
             if (this.sprintToggleTimer <= 0 && !this.mc.gameSettings.keyBindSprint.isKeyDown()) {
@@ -777,6 +784,10 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
         }
 
         boolean flag7 = false;
+
+        if (eventSprint.cancelled) {
+            this.movementInput.moveForward = moveForward;
+        }
 
         if (this.abilities.allowFlying) {
             if (this.mc.playerController.isSpectatorMode()) {
