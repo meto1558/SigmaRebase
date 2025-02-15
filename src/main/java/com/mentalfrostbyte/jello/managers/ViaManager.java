@@ -328,25 +328,7 @@ public class ViaManager implements MinecraftUtil {
                 field31498 = false;
             }
         }
-
-        if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
-            if (Math.abs(event.getX()) < 0.005) {
-                event.setX(0.0);
-                mc.player.setMotion(event.getX(), mc.player.getMotion().y, mc.player.getMotion().z);
-            }
-
-            if (Math.abs(event.getY()) < 0.005) {
-                event.setY(0.0);
-                mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().x);
-            }
-
-            if (Math.abs(event.getZ()) < 0.005) {
-                event.setZ(0.0);
-                mc.player.setMotion(mc.player.getMotion().x, mc.player.getMotion().y, event.getZ());
-            }
-        }
     }
-
     public boolean isOlderThan_v1_12_2() {
         return JelloPortal.getVersion().olderThanOrEqualTo(ProtocolVersion.v1_12_2);
     }
