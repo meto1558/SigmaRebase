@@ -173,15 +173,15 @@ public class RenderUtil {
         }
     }
 
-    public static void method11479(ItemStack var0, int var1, int var2, int var3, int var4) {
-        if (var0 != null) {
+    public static void drawItem(ItemStack itemStack, int posX, int posY, int width, int height) {
+        if (itemStack != null) {
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) var1, (float) var2, 0.0F);
-            GL11.glScalef((float) var3 / 16.0F, (float) var4 / 16.0F, 0.0F);
-            ItemRenderer var7 = mc.getItemRenderer();
-            if (var0.count == 0) {
-                var0 = new ItemStack(var0.getItem());
+            GL11.glTranslatef((float) posX, (float) posY, 0.0F);
+            GL11.glScalef((float) width / 16.0F, (float) height / 16.0F, 0.0F);
+            ItemRenderer itemRenderer = mc.getItemRenderer();
+            if (itemStack.count == 0) {
+                itemStack = new ItemStack(itemStack.getItem());
             }
             GL11.glPopMatrix();
         }
