@@ -32,12 +32,6 @@ public class RotationManager implements MinecraftUtil {
         blockFly = (BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class);
     }
 
-    @EventTarget
-    @HighestPriority
-    public void onTick(EventRunTick event) {
-
-    }
-
     public void setRotations(@Nullable Rotation rotations) {
         this.rotations = rotations;
     }

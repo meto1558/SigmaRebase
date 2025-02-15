@@ -216,6 +216,8 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
 
             if (this.isPassenger()) {
                 EventRotation eventRotation = new EventRotation(this.rotationYaw, this.rotationPitch);
+                eventRotation.state = CancellableEvent.EventState.PRE;
+                EventBus.call(eventRotation);
 
                 this.connection.sendPacket(new CPlayerPacket.RotationPacket(this.rotationYaw, this.rotationPitch, this.onGround));
                 this.connection.sendPacket(new CInputPacket(this.moveStrafing, this.moveForward, this.movementInput.jump, this.movementInput.sneaking));
@@ -224,6 +226,9 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
                 if (entity != this && entity.canPassengerSteer()) {
                     this.connection.sendPacket(new CMoveVehiclePacket(entity));
                 }
+
+                eventRotation.state = CancellableEvent.EventState.POST;
+                EventBus.call(eventRotation);
             } else {
                 this.onUpdateWalkingPlayer();
             }
