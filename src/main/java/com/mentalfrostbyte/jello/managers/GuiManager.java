@@ -187,24 +187,24 @@ public class GuiManager {
             this.field41354[0] = Math.max(0, Math.min(Minecraft.getInstance().getMainWindow().getWidth(), (int) Minecraft.getInstance().mouseHelper.getMouseX()));
             this.field41354[1] = Math.max(0, Math.min(Minecraft.getInstance().getMainWindow().getHeight(), (int) Minecraft.getInstance().mouseHelper.getMouseY()));
 
-            for (Integer var4 : this.field41339) {
+            for (int var4 : this.field41339) {
                 this.method33463(var4);
             }
 
-            for (Integer var9 : this.field41340) {
+            for (int var9 : this.field41340) {
                 this.method33461(var9);
             }
 
-            for (Integer var10 : this.field41341) {
+            for (int var10 : this.field41341) {
                 this.method33466(this.field41354[0], this.field41354[1], var10);
             }
 
-            for (Integer var11 : this.field41342) {
+            for (int var11 : this.field41342) {
                 this.method33467(this.field41354[0], this.field41354[1], var11);
             }
 
-            for (Integer var12 : this.field41343) {
-                this.method33462((char) var12.intValue());
+            for (int var12 : this.field41343) {
+                this.method33462((char) var12);
             }
 
             this.field41339.clear();
