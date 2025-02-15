@@ -248,9 +248,9 @@ public class MainMenuScreen extends Screen {
             }
 
 
-            if (foregroundOpacity > 0.0F && Client.getInstance().getB1()) {
+            if (foregroundOpacity > 0.0F && Client.getInstance().isLoading()) {
                 LoadingScreen.xd(backgroundOpacity, 1.0F);
-                Client.getInstance().setB1(false);
+                Client.getInstance().setLoading(false);
             }
 
             field20982 *= 0.7F;

@@ -75,7 +75,7 @@ public class Client {
     private Logger logger;
 
     public static boolean dontRenderHand = false;
-    private boolean b1 = true;
+    private boolean loading = true;
 
     public BlurEngine blurEngine;
 
@@ -277,11 +277,11 @@ public class Client {
         return this.logger;
     }
 
-    public boolean getB1() {
-        return this.b1;
+    public boolean isLoading() {
+        return this.loading;
     }
 
-    public void setB1(boolean b1) {
-        this.b1 = b1;
+    public void setLoading(boolean loading) {
+        this.loading = loading;
     }
 }
