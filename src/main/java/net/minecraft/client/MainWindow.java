@@ -170,8 +170,10 @@ public final class MainWindow implements AutoCloseable {
     public void setWindowIcon(InputStream iconStream16X, InputStream iconStream32X) {
         RenderSystem.assertThread(RenderSystem::isInInitPhase);
         // MODIFICATION BEGIN: hotfix for Wayland when you have the window icon
-        if (GLFW.glfwGetPlatform() == GLFW.GLFW_PLATFORM_WAYLAND)
+        String sessionType = System.getenv("XDG_SESSION_TYPE");
+        if ("wayland".equalsIgnoreCase(sessionType)) {
             return;
+        }
         // MODIFICATION END
 
         try (MemoryStack memorystack = MemoryStack.stackPush()) {
@@ -186,7 +188,7 @@ public final class MainWindow implements AutoCloseable {
             IntBuffer intbuffer = memorystack.mallocInt(1);
             IntBuffer intbuffer1 = memorystack.mallocInt(1);
             IntBuffer intbuffer2 = memorystack.mallocInt(1);
-            Buffer buffer = GLFWImage.malloc(2, memorystack);
+            Buffer buffer = GLFWImage.mallocStack(2, memorystack);
             ByteBuffer bytebuffer = this.loadIcon(iconStream16X, intbuffer, intbuffer1, intbuffer2);
 
             if (bytebuffer == null) {

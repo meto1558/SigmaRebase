@@ -54,18 +54,6 @@
         </profile>
     </profiles>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.lwjgl</groupId>
-                <artifactId>lwjgl-bom</artifactId>
-                <version>3.3.6</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <repositories>
         <repository>
             <id>jitpack.io</id>
@@ -324,86 +312,92 @@
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-openal</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-openal</artifactId>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-jemalloc</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-jemalloc</artifactId>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-stb</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-stb</artifactId>
-            <version>3.3.6</version>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-tinyfd</artifactId>
-            <version>3.3.6</version>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-tinyfd</artifactId>
             <classifier>${lwjgl.natives}</classifier>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>

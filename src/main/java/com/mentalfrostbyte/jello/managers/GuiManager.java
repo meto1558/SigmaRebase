@@ -86,7 +86,7 @@ public class GuiManager {
         // https://www.glfw.org/docs/3.4/group__shapes.html
         // convert the shape parameters to hex and prepend a few `0`s because the site adds those.
         arrowCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
-        pointingHandCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_POINTING_HAND_CURSOR);
+        pointingHandCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_HAND_CURSOR);
         iBeamCursor = GLFW.glfwCreateStandardCursor(GLFW.GLFW_IBEAM_CURSOR);
         GLFW.glfwSetCursor(Minecraft.getInstance().getMainWindow().getHandle(), arrowCursor);
         scaleFactor = (float) (Minecraft.getInstance().getMainWindow().getFramebufferHeight() / Minecraft.getInstance().getMainWindow().getHeight());
