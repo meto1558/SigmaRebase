@@ -3,7 +3,7 @@ name: Build and Release JAR
 on:
   push:
     branches:
-      - main
+      - pojav
 
 jobs:
   build:
