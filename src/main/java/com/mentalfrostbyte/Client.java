@@ -18,7 +18,6 @@ import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.client.logger.ClientLogger;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
-import com.mentalfrostbyte.jello.util.system.other.OSUtil;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -230,19 +229,17 @@ public class Client {
     }
 
     private void initRPC() {
-        if (!OSUtil.hasAndroidFS()) { //FIX FOR POJAV CRASHING
-            DiscordRPC updatePresence = DiscordRPC.INSTANCE;
-            String id = "693493612754763907";
-            DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
-            eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
-            updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
-            discordRichPresence = new DiscordRichPresence();
-            discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
-            discordRichPresence.state = "Playing Minecraft";
-            discordRichPresence.details = "Jello for Sigma";
-            discordRichPresence.largeImageKey = "jello";
-            updatePresence.Discord_UpdatePresence(discordRichPresence);
-        }
+        DiscordRPC updatePresence = DiscordRPC.INSTANCE;
+        String id = "693493612754763907";
+        DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
+        eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
+        updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
+        discordRichPresence = new DiscordRichPresence();
+        discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
+        discordRichPresence.state = "Playing Minecraft";
+        discordRichPresence.details = "Jello for Sigma";
+        discordRichPresence.largeImageKey = "jello";
+        updatePresence.Discord_UpdatePresence(discordRichPresence);
     }
 
     public void setupClient(ClientMode mode) {
