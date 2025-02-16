@@ -1,6 +1,8 @@
 package net.minecraft.client.gui.screen;
 
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.util.text.ITextComponent;
@@ -21,7 +23,7 @@ public class DownloadTerrainScreen extends Screen {
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if (Minecraft.getInstance().world != null && Minecraft.getInstance().player != null) {
+        if (Minecraft.getInstance().world != null && Minecraft.getInstance().player != null && JelloPortal.getVersion().newerThanOrEqualTo(ProtocolVersion.v1_20_2)) {
             Minecraft.getInstance().displayGuiScreen(null);
             return;
         }
