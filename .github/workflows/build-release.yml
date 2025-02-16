@@ -48,8 +48,8 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          git tag -f nightly
-          git push --force https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git nightly
+          git tag -f pojav
+          git push --force https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git pojav
 
       - name: Download built JAR
         uses: actions/download-artifact@v4
@@ -61,7 +61,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GH_PAT }}
-          tag_name: nightly
+          tag_name: pojav
           prerelease: true
           files: |
             target/*.jar
