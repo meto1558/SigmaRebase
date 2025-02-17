@@ -247,7 +247,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
      */
     protected void onUpdateWalkingPlayer() {
         AxisAlignedBB bounds = this.getBoundingBox();
-        EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationPitch, this.rotationYaw, this.onGround);
+        EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationYaw, this.rotationPitch, this.onGround);
         EventBus.call(event);
         if (event.cancelled) return;
         boolean flag = this.isSprinting();
@@ -271,8 +271,8 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             double y = event.getY();
             double z = event.getZ();
 
-            float pitch = event.getPitch();
-            float yaw = event.getYaw() % 360.0F;
+            float pitch = event.getYaw();
+            float yaw = event.getPitch() % 360.0F;
 
             boolean onGround = event.isOnGround();
 

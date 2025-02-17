@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
-import com.mentalfrostbyte.jello.module.impl.movement.blockfly.BlockFlyAACMode;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -28,17 +27,8 @@ public class AutoSprint extends Module {
 
     @EventTarget
     public void TickEvent(EventPlayerTick event) {
-        ModuleWithModuleSettings getModule = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class);
-        Module BlockFly = getModule.parentModule;
+        mc.gameSettings.keyBindSprint.pressed = true;
 
-        if (BlockFly == null || !BlockFly.isEnabled() || !(BlockFly instanceof BlockFlyAACMode) || BlockFly.getBooleanValueFromSettingName("Haphe (AACAP)")) {
-            if (this.getBooleanValueFromSettingName("Legit")) {
-                if(!((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2())
-                mc.gameSettings.keyBindSprint.setPressed(true);
-            } else {
-                mc.player.setSprinting(mc.player.moveForward > 0.0F && !((BlockFly) Client.getInstance().moduleManager.getModuleByClass(BlockFly.class)).isEnabled2() && !mc.player.collidedHorizontally);
-            }
-        }
     }
 
 
