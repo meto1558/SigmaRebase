@@ -271,8 +271,8 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
             double y = event.getY();
             double z = event.getZ();
 
-            float pitch = event.getYaw();
-            float yaw = event.getPitch() % 360.0F;
+            float pitch = event.getPitch();
+            float yaw = event.getYaw() % 360.0F;
 
             boolean onGround = event.isOnGround();
 
