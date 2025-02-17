@@ -24,6 +24,7 @@ public class SwitchScreen extends Screen {
     public static float field21070;
     public static float field21071;
 
+
     public SwitchScreen() {
         super("Switch");
         this.setListening(false);
