@@ -56,10 +56,10 @@ public class PlayerController
     protected final ClientPlayNetHandler connection;
     private BlockPos currentBlock = new BlockPos(-1, -1, -1);
     private ItemStack currentItemHittingBlock = ItemStack.EMPTY;
-    public float curBlockDamageMP;
+    public static float curBlockDamageMP;
     private float stepSoundTickCounter;
     private int blockHitDelay;
-    private boolean isHittingBlock;
+    public static boolean isHittingBlock;
     private GameType currentGameType = GameType.SURVIVAL;
     private GameType field_239166_k_ = GameType.NOT_SET;
     private final Object2ObjectLinkedOpenHashMap<Pair<BlockPos, CPlayerDiggingPacket.Action>, Vector3d> unacknowledgedDiggingPackets = new Object2ObjectLinkedOpenHashMap<>();
