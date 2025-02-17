@@ -70,8 +70,8 @@ public class Nuker extends Module {
                     float[] rotations = RotationUtil.rotationToPos(
                             (double) this.targetPos.getX(), (double) this.targetPos.getZ(), (double) this.targetPos.getY()
                     );
-                    event.setPitch(rotations[0]);
-                    event.setYaw(rotations[1]);
+                    event.setYaw(rotations[0]);
+                    event.setPitch(rotations[1]);
                     EventKeyPress keyPress = new EventKeyPress(0, false, this.targetPos);
                     EventBus.call(keyPress);
                 } else {
@@ -79,8 +79,8 @@ public class Nuker extends Module {
                     float[] var6 = RotationUtil.rotationToPos(
                             (double) this.targetPos.getX() + 0.5, (double) this.targetPos.getZ(), (double) this.targetPos.getY() + 0.5
                     );
-                    event.setPitch(var6[0]);
-                    event.setYaw(var6[1]);
+                    event.setYaw(var6[0]);
+                    event.setPitch(var6[1]);
                     EventKeyPress keyPress = new EventKeyPress(0, false, this.targetPos);
                     EventBus.call(keyPress);
                 }
