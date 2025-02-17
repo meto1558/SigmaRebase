@@ -67,7 +67,7 @@ public class ActiveMods extends Module {
         this.activeModules.clear();
 
         for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (module.getCategoryBasedOnMode() != ModuleCategory.GUI) {
+            if (module.getCategory() != ModuleCategory.GUI) {
                 this.activeModules.add(module);
                 this.animations.put(module, new Animation(150, 150, Animation.Direction.BACKWARDS));
 
@@ -83,6 +83,7 @@ public class ActiveMods extends Module {
 
     @EventTarget
     public void onGUI(EventRenderGUI event) {
+        if (!this.isEnabled()) return;
         if (mc.player != null) {
             if (!event.isRendering) {
                 GlStateManager.translatef(0.0F, (float) (-this.totalHeight), 0.0F);
