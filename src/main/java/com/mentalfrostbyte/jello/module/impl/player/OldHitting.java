@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -41,6 +42,9 @@ public class OldHitting extends Module {
     public OldHitting() {
         super(ModuleCategory.PLAYER, "OldHitting", "Reverts to 1.7/1.8 hitting");
         this.registerSetting(new ModeSetting("Animation", "Animation mode", 0, "Vanilla", "Tap", "Tap2", "Slide", "Slide2", "Scale", "Leaked", "Ninja", "Down", "Tomy"));
+        this.registerSetting(new NumberSetting<Float>("XPos", "Default X position of the main hand", 0, Float.class, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("YPos", "Default Y position of the main hand", 0, Float.class, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("ZPos", "Default Z position of the main hand", 0, Float.class, -1, 1, 0.01F));
         this.setAvailableOnClassic(true);
     }
 
@@ -132,6 +136,8 @@ public class OldHitting extends Module {
     public void method16022(EventHandAnimation event) {
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             float var4 = event.method13924();
+            event.getMatrix().translate(getNumberValueBySettingName("XPos"), getNumberValueBySettingName("YPos"), getNumberValueBySettingName("ZPos"));
+
             if (event.method13926() && event.getHand() == HandSide.LEFT && event.getItemStack().getItem() instanceof ShieldItem) {
                 event.renderBlocking(false);
             } else if (event.getHand() != HandSide.LEFT || !field23408) {
