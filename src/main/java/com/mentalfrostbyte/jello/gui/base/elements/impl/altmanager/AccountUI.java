@@ -18,6 +18,7 @@ public class AccountUI extends AnimatedIconPanel {
 //   private Texture field20800;
     private LoadingIndicator loadingIndicator;
     private boolean field20802 = false;
+
     private Animation field20803 = new Animation(814, 114, Animation.Direction.BACKWARDS);
     private float field20804 = 0.0F;
     public Animation field20805 = new Animation(800, 300, Animation.Direction.BACKWARDS);
