@@ -5,9 +5,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.LivingDeathEvent;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRelative;
+import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
@@ -3251,6 +3253,11 @@ public abstract class LivingEntity extends Entity
                     {
                         this.jump();
                         this.jumpTicks = 10;
+
+                        if(Client.getInstance().moduleManager.getModuleByClass(AutoSprint.class).enabled &&
+                                Client.getInstance().moduleManager.getModuleByClass(AutoSprint.class).getBooleanValueFromSettingName("NoJumpDelay")){
+                            jumpTicks = 0;
+                        }
                     }
                 }
                 else
