@@ -72,8 +72,8 @@ public class AutoMLG extends PremiumModule {
                 float[] var4 = RotationUtil.rotationToPos(
                         (double) this.field23650.getX() + 0.5, (double) this.field23650.getZ() + 0.5, (double) this.field23650.getY() + 0.5
                 );
-                var1.setPitch(var4[0]);
-                var1.setYaw(var4[1]);
+                var1.setYaw(var4[0]);
+                var1.setPitch(var4[1]);
             }
 
             if (preTicks == (!this.getBooleanValueFromSettingName("Cubecraft") ? 3 : 5)) {
@@ -99,8 +99,8 @@ public class AutoMLG extends PremiumModule {
                 if (var5 != null) {
                     if (var1.isPre() && preTicks == -1) {
                         float[] var6 = RotationUtil.rotationToPos((double) var5.getX() + 0.5, (double) var5.getZ() + 0.5, (double) var5.getY() + 0.5);
-                        var1.setPitch(var6[0]);
-                        var1.setYaw(var6[1]);
+                        var1.setYaw(var6[0]);
+                        var1.setPitch(var6[1]);
                         if (var7 != mc.player.inventory.currentItem) {
                             this.field23648 = mc.player.inventory.currentItem;
                             mc.player.inventory.currentItem = var7;
