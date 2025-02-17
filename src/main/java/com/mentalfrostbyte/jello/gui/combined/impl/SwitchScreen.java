@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SwitchScreen extends Screen {
-    public static Animation field21069 = new Animation(300, 200, Animation.Direction.BACKWARDS);
+    public static Animation field21069 = new Animation(1050, 200, Animation.Direction.BACKWARDS);
     public static float field21070;
     public static float field21071;
 
