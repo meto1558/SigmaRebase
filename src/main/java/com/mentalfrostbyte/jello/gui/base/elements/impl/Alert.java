@@ -9,6 +9,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
+import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.network.microsoft.CookieLoginUtil;
 import com.mentalfrostbyte.jello.util.client.network.microsoft.MicrosoftUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -106,17 +107,18 @@ public class Alert extends Element {
                                     File file = FileUtil.getFileFromDialog();
                                     if (file != null) {
                                         try {
-                                            CookieLoginUtil.LoginData loginData = CookieLoginUtil.loginWithCookie(file);
-                                            if (loginData == null) {
+                                            CookieLoginUtil.LoginData session = CookieLoginUtil.loginWithCookie(file);
+                                            if (session == null) {
                                                 Client.getInstance().soundManager.play("error");
                                                 this.inputMap = this.method13599();
                                                 this.method13603(false);
                                                 return;
                                             }
-                                            Session session = Minecraft.getInstance().getSession();
-                                            session.username = loginData.username;
-                                            session.playerID = loginData.uuid;
-                                            session.token = loginData.mcToken;
+
+                                            Account account = new Account(session.username, session.playerID, session.token);
+                                            if (!Client.getInstance().accountManager.containsAccount(account)) {
+                                                Client.getInstance().accountManager.updateAccount(account);
+                                            }
                                             Client.getInstance().soundManager.play("connect");
                                         } catch (Exception e) {
                                             Client.getInstance().soundManager.play("error");
@@ -134,21 +136,19 @@ public class Alert extends Element {
                                             .thenComposeAsync(xboxXstsData -> MicrosoftUtil.acquireMCAccessToken(xboxXstsData.get("Token"), xboxXstsData.get("uhs"), executor), executor)
                                             .thenComposeAsync(mcToken -> MicrosoftUtil.login(mcToken, executor), executor)
                                             .thenAccept(session -> {
-                                                Session mcSession = Minecraft.getInstance().getSession();
-                                                mcSession.username = session.username;
-                                                mcSession.playerID = session.playerID;
-                                                mcSession.token = session.token;
+                                                Account account = new Account(session.username, session.playerID, session.token);
+                                                if (!Client.getInstance().accountManager.containsAccount(account)) {
+                                                    Client.getInstance().accountManager.updateAccount(account);
+                                                }
                                                 Client.getInstance().soundManager.play("connect");
-                                                this.inputMap = this.method13599();
-                                                this.method13603(false);
-
                                             })
                                             .exceptionally(error -> {
                                                 Client.getInstance().soundManager.play("error");
-                                                this.inputMap = this.method13599();
-                                                this.method13603(false);
                                                 return null;
                                             });
+
+                                    this.inputMap = this.method13599();
+                                    this.method13603(false);
                                 }
                                 default -> this.onButtonClick();
                             }
