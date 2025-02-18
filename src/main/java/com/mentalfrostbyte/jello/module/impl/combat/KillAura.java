@@ -359,23 +359,23 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void method16821(EventUpdateWalkingPlayer var1) {
+    public void method16821(EventUpdateWalkingPlayer event) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
         if (mc.player != null) {
-            if (!var1.isPre()) {
+            if (!event.isPre()) {
                 this.blockDelay = mc.player.inventory.currentItem;
                 if (targetEntity != null && autoBlock.canAutoBlock() && this.currentRotation != null) {
                     autoBlock.performAutoBlock(targetEntity, this.currentRotation.yaw, this.currentRotation.pitch);
                 }
             } else {
-                eventUpdateYaw = var1.getPitch();
-                eventUpdatePitch = var1.getYaw();
+                eventUpdateYaw = event.getPitch();
+                eventUpdatePitch = event.getYaw();
 
                 if (targetEntity != null && !this.targets.isEmpty()) {
-                    var1.setYaw(RotationCore.currentYaw);
-                    var1.setPitch(RotationCore.currentPitch);
+                    event.setYaw(RotationCore.currentYaw);
+                    event.setPitch(RotationCore.currentPitch);
                 }
             }
         }
