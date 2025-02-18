@@ -44,10 +44,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.*;
 import java.util.Map.Entry;
 
 @SuppressWarnings({"unused", "cast"})
@@ -57,6 +55,10 @@ public class KillAura extends Module {
     public static TimedEntity targetData;
     public static Rotation rotation = new Rotation(0.0F, 0.0F);
     public static int attackCooldown;
+    private final ModeSetting rotationMode;
+    private final NumberSetting<Float> rotationSpeed;
+    private final BooleanSetting useRotationSpeed;
+    private final BooleanSetting hitEvent;
     float[] kaROT;
     public HashMap<Entity, Animation> entityAnimation = new HashMap<>();
     public static InteractAutoBlock autoBlock;
@@ -84,25 +86,33 @@ public class KillAura extends Module {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
         this.registerSetting(new ModeSetting("Autoblock Mode", "Autoblock Mode", 0, "None", "NCP", "Basic1", "Basic2", "Basic3", "Vanilla"));
-        this.registerSetting(new NumberSetting<Integer>("Unblock Rate", "Unlock Ticks for Vanilla AutoBlock mode.", 0, Integer.class, 0, 2, 1) {
+        this.registerSetting(new NumberSetting<>("Unblock Rate", "Unlock Ticks for Vanilla AutoBlock mode.", 0, Integer.class, 0, 2, 1) {
             @Override
             public boolean isHidden() {
                 return !getStringSettingValueByName("Autoblock Mode").equals("Vanilla");
             }
         });
         this.registerSetting(new ModeSetting("Sort Mode", "Sort Mode", 0, "Range", "Health", "Angle", "Armor", "Prev Range"));
-        this.registerSetting(new ModeSetting("Rotation Mode", "The way you will look at entities", 0, "NCP", "AAC", "Smooth", "LockView", "Test", "Test2", "None"));
-        this.registerSetting(new NumberSetting<Float>("Rotation Speed", "Max rotation change per tick.", 0.0F, Float.class, 6.0F, 360, 6F));
+        this.registerSetting(this.rotationMode = new ModeSetting("Rotation Mode",
+                "The way you will look at entities",
+                0,
+                "NCP",
+                "AAC", "Smooth",
+                "LockView", "Test",
+                "Test2", "None")
+        );
+        this.registerSetting(this.useRotationSpeed = new BooleanSetting("Use Rotation Speed", "Max rotation change per tick.", true));
+        this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, Float.class, 6.0F, 360, 6F));
         this.registerSetting(new BooleanSetting("Movement Fix", "Fix the XZ motion depending on your yaw.", false));
-        this.registerSetting(new NumberSetting<Float>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
         this.registerSetting(
-                new NumberSetting<Float>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> this.autoBlock.initializeCpsTimings())
+                new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> this.autoBlock.initializeCpsTimings())
         );
         this.registerSetting(
-                new NumberSetting<Float>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> this.autoBlock.initializeCpsTimings())
+                new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> this.autoBlock.initializeCpsTimings())
         );
         this.registerSetting(new BooleanSetting("Interact autoblock", "Send interact packet when blocking", true));
-        this.registerSetting(new BooleanSetting("HitEvent", "Change the hit event (vanilla autoblock?legit)", true));
+        this.registerSetting(this.hitEvent = new BooleanSetting("HitEvent", "Change the hit event (vanilla autoblock?legit)", true));
         this.registerSetting(new BooleanSetting("Players", "Hit players", true));
         this.registerSetting(new BooleanSetting("Animals", "Hit animals", false));
         this.registerSetting(new BooleanSetting("Monsters", "Hit monsters", false));
@@ -277,15 +287,19 @@ public class KillAura extends Module {
                      */
 
                 this.updateRotation();
-                if (eventUpdateYaw - mc.player.rotationYaw != 0.0F && (getStringSettingValueByName("Rotation Mode").equals("Test1") || getStringSettingValueByName("Rotation Mode").equals("Test")) && mc.player.ticksExisted % 50 == 0) {
+                if (eventUpdateYaw - mc.player.rotationYaw != 0.0F && (rotationMode.currentValue.equals("Test1") || rotationMode.currentValue.equals("Test")) && mc.player.ticksExisted % 50 == 0) {
                     this.currentRotation.yaw = eventUpdateYaw;
                     this.currentRotation.pitch = eventUpdatePitch;
                 }
-                float hSpeed = getNumberValueBySettingName("Rotation Speed");
-                float vSpeed = getNumberValueBySettingName("Rotation Speed");
+                float hSpeed = rotationSpeed.currentValue;
+                float vSpeed = rotationSpeed.currentValue;
                 //TODO TODO TODO TODO TODO
 
-                Rotation limit = RotationUtils.limitAngleChange(new Rotation(lastRotation.yaw, lastRotation.pitch), new Rotation(currentRotation.yaw, currentRotation.pitch), hSpeed, vSpeed);
+                Rotation lastCopy = new Rotation(lastRotation.yaw, lastRotation.pitch);
+                Rotation currentCopy = new Rotation(currentRotation.yaw, currentRotation.pitch);
+                Rotation limit = !useRotationSpeed.currentValue
+                        ? currentCopy
+                        : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
                 this.kaROT = new float[]{limit.yaw, limit.pitch};
                 float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
 
@@ -295,7 +309,7 @@ public class KillAura extends Module {
                 RotationCore.currentYaw = currentRotation.yaw;
                 RotationCore.currentPitch = currentRotation.pitch;
 
-                if (!getBooleanValueFromSettingName("HitEvent")) {
+                if (this.hitEvent.currentValue) {
                     boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
                     float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
                     boolean var8 = attackCooldown == 0 && var6 && var7 >= 1.0F;
@@ -325,7 +339,7 @@ public class KillAura extends Module {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (getBooleanValueFromSettingName("HitEvent")) {
+        if (this.hitEvent.currentValue) {
             boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
             float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
             boolean var8 = attackCooldown == 0 && var6 && var7 >= 1.0F;
@@ -372,7 +386,7 @@ public class KillAura extends Module {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (targetData != null && !this.getBooleanValueFromSettingName("Silent") && !this.getStringSettingValueByName("Rotation Mode").equals("None")) {
+        if (targetData != null && !this.getBooleanValueFromSettingName("Silent") && !this.rotationMode.currentValue.equals("None")) {
             float var4 = MathHelper.wrapAngleTo180_float(this.lastRotation.yaw + (this.currentRotation.yaw - this.lastRotation.yaw) * mc.getRenderPartialTicks());
             float var5 = MathHelper.wrapAngleTo180_float(this.lastRotation.pitch + (this.currentRotation.pitch - this.lastRotation.pitch) * mc.getRenderPartialTicks());
             mc.player.rotationYaw = var4;
@@ -592,7 +606,7 @@ public class KillAura extends Module {
                     this.targetYaw = var9 * 1.95F / 50.0F;
                     this.yawDifference = Math.random();
                     targetData = new TimedEntity(
-                            this.targets.get(this.attackDelay).getEntity(), new ExpirationTimer(!this.getStringSettingValueByName("Rotation Mode").equals("NCP") ? 500L : 270L)
+                            this.targets.get(this.attackDelay).getEntity(), new ExpirationTimer(!this.rotationMode.currentValue.equals("NCP") ? 500L : 270L)
                     );
                 }
 
@@ -627,14 +641,14 @@ public class KillAura extends Module {
 
     private void updateRotation() {
         Entity entity = targetData.getEntity();
-        if (getStringSettingValueByName("Rotation Mode").equals("Smooth") && mc.player.getBoundingBox().grow(0.3).intersects(entity.getBoundingBox())) {
+        if (rotationMode.currentValue.equals("Smooth") && mc.player.getBoundingBox().grow(0.3).intersects(entity.getBoundingBox())) {
             return;
         }
         Rotation advancedRotation = RotationUtils.getAdvancedRotation(entity, !this.getBooleanValueFromSettingName("Through walls"));
 
         float targetYawDifference = RotationUtils.wrapAngleDifference(this.currentRotation.yaw, advancedRotation.yaw);
         float targetPitchDifference = advancedRotation.pitch - this.currentRotation.pitch;
-        String var7 = this.getStringSettingValueByName("Rotation Mode");
+        String var7 = this.rotationMode.currentValue;
         switch (var7) {
             case "Test":
                 this.lastRotation.yaw = this.currentRotation.yaw;
@@ -740,10 +754,10 @@ public class KillAura extends Module {
             case "LockView":
                 this.lastRotation.yaw = this.currentRotation.yaw;
                 this.lastRotation.pitch = this.currentRotation.pitch;
-                EntityRayTraceResult var40 = RotationUtils.hoveringTarget(
+                EntityRayTraceResult lvHoveringTarget = RotationUtils.hoveringTarget(
                         entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
                 );
-                if (var40 == null || var40.getEntity() != entity) {
+                if (lvHoveringTarget == null || lvHoveringTarget.getEntity() != entity) {
                     this.currentRotation = advancedRotation;
                 }
                 break;
