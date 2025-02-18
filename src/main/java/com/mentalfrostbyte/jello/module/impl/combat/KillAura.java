@@ -235,13 +235,13 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onMoveRelative(EventMoveRelative var1) {
+    public void onMoveRelative(EventMoveRelative event) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
         if (getBooleanValueFromSettingName("Movement Fix")) {
             if (targetEntity != null && !this.targets.isEmpty())
-                var1.setYaw(RotationCore.currentYaw);
+                event.setYaw(currentRotation.yaw);
         }
     }
 
@@ -305,9 +305,6 @@ public class KillAura extends Module {
 
                 currentRotation.yaw = RotationUtils.gcdFix(kaROT, oldRots)[0];
                 currentRotation.pitch = RotationUtils.gcdFix(kaROT, oldRots)[1];
-
-                RotationCore.currentYaw = currentRotation.yaw;
-                RotationCore.currentPitch = currentRotation.pitch;
 
                 if (this.hitEvent.currentValue) {
                     boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
@@ -374,8 +371,8 @@ public class KillAura extends Module {
                 eventUpdatePitch = event.getYaw();
 
                 if (targetEntity != null && !this.targets.isEmpty()) {
-                    event.setYaw(RotationCore.currentYaw);
-                    event.setPitch(RotationCore.currentPitch);
+                    event.setYaw(currentRotation.yaw);
+                    event.setPitch(currentRotation.pitch);
                 }
             }
         }
