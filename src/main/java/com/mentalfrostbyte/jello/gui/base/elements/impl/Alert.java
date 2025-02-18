@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.network.microsoft.CookieLoginUtil;
@@ -119,12 +120,16 @@ public class Alert extends Element {
                                             if (!Client.getInstance().accountManager.containsAccount(account)) {
                                                 Client.getInstance().accountManager.updateAccount(account);
                                             }
+
+                                            this.inputMap = this.method13599();
+                                            this.method13603(false);
+                                            AltManagerScreen.instance.updateAccountList(false);
                                         } catch (Exception e) {
                                             Client.getInstance().soundManager.play("error");
+                                            this.inputMap = this.method13599();
+                                            this.method13603(false);
                                         }
                                     }
-                                    this.inputMap = this.method13599();
-                                    this.method13603(false);
                                 }
                                 case "Web login" -> {
                                     ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -139,14 +144,17 @@ public class Alert extends Element {
                                                 if (!Client.getInstance().accountManager.containsAccount(account)) {
                                                     Client.getInstance().accountManager.updateAccount(account);
                                                 }
+
+                                                this.inputMap = this.method13599();
+                                                this.method13603(false);
+                                                AltManagerScreen.instance.updateAccountList(false);
                                             })
                                             .exceptionally(error -> {
                                                 Client.getInstance().soundManager.play("error");
+                                                this.inputMap = this.method13599();
+                                                this.method13603(false);
                                                 return null;
                                             });
-
-                                    this.inputMap = this.method13599();
-                                    this.method13603(false);
                                 }
                                 default -> this.onButtonClick();
                             }
