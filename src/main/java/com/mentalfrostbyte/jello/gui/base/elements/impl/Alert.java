@@ -119,7 +119,6 @@ public class Alert extends Element {
                                             if (!Client.getInstance().accountManager.containsAccount(account)) {
                                                 Client.getInstance().accountManager.updateAccount(account);
                                             }
-                                            Client.getInstance().soundManager.play("connect");
                                         } catch (Exception e) {
                                             Client.getInstance().soundManager.play("error");
                                         }
@@ -140,7 +139,6 @@ public class Alert extends Element {
                                                 if (!Client.getInstance().accountManager.containsAccount(account)) {
                                                     Client.getInstance().accountManager.updateAccount(account);
                                                 }
-                                                Client.getInstance().soundManager.play("connect");
                                             })
                                             .exceptionally(error -> {
                                                 Client.getInstance().soundManager.play("error");
