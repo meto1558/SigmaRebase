@@ -34,6 +34,7 @@ import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class AltManagerScreen extends Screen {
     private int field21005;
@@ -53,8 +54,11 @@ public class AltManagerScreen extends Screen {
     private String accountFilter = "";
     private final TextField searchBox;
 
+    public static AltManagerScreen instance;
+
     public AltManagerScreen() {
         super("Alt Manager");
+        instance = this;
         this.setListening(false);
         List<String> sortingOptions = new ArrayList<>();
         sortingOptions.add("Alphabetical");
