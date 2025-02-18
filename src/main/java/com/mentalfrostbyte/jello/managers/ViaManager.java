@@ -200,7 +200,29 @@ public class ViaManager implements MinecraftUtil {
     @EventTarget
     @HighestPriority
     public void onReceivePacket(EventReceivePacket event) {
+        if (!Client.getInstance().moduleManager.getModuleByClass(OldHitting.class).isEnabled() && !JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+            if (!entities.isEmpty()) {
+                entities.clear();
+            }
+        } else if (event.getPacket() instanceof SEntityEquipmentPacket packet) {
+            for (Pair<EquipmentSlotType, ItemStack> pair : packet.func_241790_c_()) {
+                if (pair.getFirst() == EquipmentSlotType.OFFHAND && pair.getSecond() != null && (Client.getInstance().moduleManager.getModuleByClass(OldHitting.class).isEnabled() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8))) {
+                    if (!(pair.getSecond().getItem() instanceof ShieldItem)) {
+                        Entity entity = mc.world.getEntityByID(packet.getEntityID());
+                        if (entities.contains(entity)) {
+                            entities.remove(entity);
+                        }
+                    } else {
+                        Entity entity = mc.world.getEntityByID(packet.getEntityID());
+                        if (!entities.contains(entity) && !ServerUtil.isMineplex()) {
+                            entities.add(entity);
+                        }
 
+                        event.cancelled = true;
+                    }
+                }
+            }
+        }
 
         if (isOlderThan_v1_12_2()) {
             //Class8920.method32597(event, field31495);
