@@ -16,9 +16,6 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.*;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
-import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
-import com.mentalfrostbyte.jello.module.impl.movement.Speed;
-import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -30,12 +27,10 @@ import com.mentalfrostbyte.jello.util.client.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.client.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
-import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -147,9 +142,6 @@ public class KillAura extends Module {
         var0.attackDelay = var1;
     }
 
-    public static Minecraft getMC() {
-        return mc;
-    }
 
     @Override
     public void initialize() {
@@ -241,7 +233,7 @@ public class KillAura extends Module {
 
         if (getBooleanValueFromSettingName("Movement Fix")) {
             if (targetEntity != null && !this.targets.isEmpty())
-                event.setYaw(currentRotation.yaw);
+                event.setYaw(RotationCore.currentYaw);
         }
     }
 
@@ -306,6 +298,9 @@ public class KillAura extends Module {
                 currentRotation.yaw = RotationUtils.gcdFix(kaROT, oldRots)[0];
                 currentRotation.pitch = RotationUtils.gcdFix(kaROT, oldRots)[1];
 
+                RotationCore.currentYaw = currentRotation.yaw;
+                RotationCore.currentPitch = currentRotation.pitch;
+
                 if (this.hitEvent.currentValue) {
                     boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
                     float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
@@ -367,12 +362,12 @@ public class KillAura extends Module {
                     autoBlock.performAutoBlock(targetEntity, this.currentRotation.yaw, this.currentRotation.pitch);
                 }
             } else {
-                eventUpdateYaw = event.getPitch();
-                eventUpdatePitch = event.getYaw();
+                eventUpdateYaw = event.getYaw();
+                eventUpdatePitch = event.getPitch();
 
                 if (targetEntity != null && !this.targets.isEmpty()) {
-                    event.setYaw(currentRotation.yaw);
-                    event.setPitch(currentRotation.pitch);
+                    event.setYaw(RotationCore.currentYaw);
+                    event.setPitch(RotationCore.currentPitch);
                 }
             }
         }
@@ -399,23 +394,16 @@ public class KillAura extends Module {
                 if (mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
                     if (mc.player.getHeldItemMainhand() != null &&
                             mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) {
+
                         if (getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
-                            if (getNumberValueBySettingName("Unblock Rate") == 0) {
+                            int value = (int) getNumberValueBySettingName("Unblock Rate");
+
+                            if (mc.player.ticksExisted % (value == 0 ? 0 : value + 1) == 0) {
                                 var1.setUseItem(true);
                             }
-
-                            if (getNumberValueBySettingName("Unblock Rate") == 1) {
-                                if (mc.player.ticksExisted % 2 == 0) {
-                                    var1.setUseItem(true);
-                                }
-                            }
-
-                            if (getNumberValueBySettingName("Unblock Rate") == 2) {
-                                if (!(mc.player.ticksExisted % 3 == 0)) {
-                                    var1.setUseItem(true);
-                                }
-                            }
                         }
+
+
                     }
                 }
             }
@@ -468,48 +456,6 @@ public class KillAura extends Module {
         return this.isEnabled() && this.isAutoblockActive();
     }
 
-    public void handleCriticals(EventUpdateWalkingPlayer var1, String var2, boolean var3) {
-        double var6 = !var2.equals("Hypixel") ? 0.0 : 1.0E-14;
-        boolean var8 = true;
-        if (this.animationTimer == 0 && this.targetSwitchDelay >= 1 && Step.updateTicksBeforeStep > 1) {
-            if (autoBlock.shouldAttack(this.attackTimer)) {
-                this.animationTimer = 1;
-                var8 = var3;
-                var6 = !var2.equals("Cubecraft") ? 0.0626 : MovementUtil.getJumpValue() / 10.0;
-                this.previusROP = new double[]{var1.getX(), var1.getY() + var6, var1.getZ()};
-            }
-        } else if (this.animationTimer == 1) {
-            this.animationTimer = 0;
-            var8 = false;
-            if (var2.equals("Hypixel") && this.previusROP != null && mc.player.getMotion().y < 0.0) {
-                mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(this.previusROP[0], this.previusROP[1], this.previusROP[2], false));
-                this.previusROP = null;
-            }
-        }
-
-        boolean var9 = !Jesus.isWalkingOnLiquid() && (mc.player.onGround || BlockUtil.isAboveBounds(mc.player, 0.001F));
-        if (!var9) {
-            this.targetSwitchDelay = 0;
-            this.animationTimer = 0;
-        } else {
-            this.targetSwitchDelay++;
-            if ((
-                    !Client.getInstance().moduleManager.getModuleByClass(Speed.class).isEnabled()
-                            || Client.getInstance().moduleManager.getModuleByClass(Speed.class).getStringSettingValueByName("Type").equalsIgnoreCase("Cubecraft")
-                            || Client.getInstance().moduleManager.getModuleByClass(Speed.class).getStringSettingValueByName("Type").equalsIgnoreCase("Vanilla")
-            )
-                    && mc.player.collidedVertically
-                    && var9
-                    && !mc.player.isJumping
-                    && !mc.player.isInWater()
-                    && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                isActive = var6 > 0.001;
-
-                var1.setY(mc.player.getPosY() + var6);
-                var1.setOnGround(var8);
-            }
-        }
-    }
 
     private Entity getClosestTargetInBlockRange(List<TimedEntity> var1) {
         var1 = autoBlock.sortTargets(var1);
@@ -638,18 +584,18 @@ public class KillAura extends Module {
 
     private void updateRotation() {
         Entity entity = targetData.getEntity();
-        if (rotationMode.currentValue.equals("Smooth") && mc.player.getBoundingBox().grow(0.3).intersects(entity.getBoundingBox())) {
-            return;
-        }
+
         Rotation advancedRotation = RotationUtils.getAdvancedRotation(entity, !this.getBooleanValueFromSettingName("Through walls"));
 
         float targetYawDifference = RotationUtils.wrapAngleDifference(this.currentRotation.yaw, advancedRotation.yaw);
         float targetPitchDifference = advancedRotation.pitch - this.currentRotation.pitch;
-        String var7 = this.rotationMode.currentValue;
-        switch (var7) {
+
+        lastRotation.yaw = currentRotation.yaw;
+        lastRotation.pitch = currentRotation.pitch;
+
+        switch (rotationMode.currentValue) {
             case "Test":
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
+
                 if (Math.abs(targetYawDifference) > 80.0F) {
                     float var9 = (float) this.randomize(-10.2, 10.2);
                     float var30 = targetYawDifference * targetYawDifference * 1.13F / 2.0F + var9;
@@ -697,8 +643,6 @@ public class KillAura extends Module {
                 }
                 break;
             case "NCP":
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
                 this.currentRotation.yaw = (float) (RotationHelper.doBasicRotation(entity)[0] + (float) (Math.random() - 0.5) * 4.0);
                 this.currentRotation.pitch = (float) (RotationHelper.doBasicRotation(entity)[1] + 3 + (float) (Math.random() - 0.5) * 4.0);
                 break;
@@ -716,8 +660,6 @@ public class KillAura extends Module {
 
                 float var38 = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
                 float var39 = advancedRotation.pitch - rotation.pitch;
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
                 this.currentRotation.yaw = rotation.yaw + var36 * var38;
                 this.currentRotation.pitch = (rotation.pitch + var37 * var39) % 90.0F;
                 if (var29 == 0.0F || var29 >= 1.0F || (double) var35 > 0.1 && this.targetYaw < 4.0F) {
@@ -737,20 +679,14 @@ public class KillAura extends Module {
                 Vector3d entityPosition = RotationUtils.getEntityPosition(targetEntity);
 
                 boolean bool = mc.objectMouseOver != null && mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY;
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
                 this.currentRotation.yaw = (float) ((float) ((double) this.currentRotation.yaw + (double) (targetYawDifference * 2.3F) / (bool ? 10 : 3)) + (float) (Math.random() - 0.5) * 5.0);
                 this.currentRotation.pitch = (float) ((float) ((double) this.currentRotation.pitch + (double) (targetPitchDifference * 2.3F) / (bool ? 14 : 4)) + (float) (Math.random() - 0.5) * 5.0) + 3;
                 break;
             case "None":
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
                 this.currentRotation.yaw = mc.player.rotationYaw;
                 this.currentRotation.pitch = mc.player.rotationPitch;
                 break;
             case "LockView":
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
                 EntityRayTraceResult lvHoveringTarget = RotationUtils.hoveringTarget(
                         entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
                 );
@@ -763,8 +699,6 @@ public class KillAura extends Module {
                         entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
                 );
                 if (rayTraceResult != null && rayTraceResult.getEntity() == entity) {
-                    this.lastRotation.yaw = this.currentRotation.yaw;
-                    this.lastRotation.pitch = this.currentRotation.pitch;
                     this.currentRotation.yaw = (float) ((double) this.currentRotation.yaw + (Math.random() - 0.5) * 2.0 + (double) (targetYawDifference / 10.0F)) + RandomUtil.nextFloat(-4, 4);
                     this.currentRotation.pitch = (float) ((double) this.currentRotation.pitch + (Math.random() - 0.5) * 2.0 + (double) (targetPitchDifference / 10.0F)) + RandomUtil.nextFloat(-4, 4);
                     this.targetPitch = 0.0F;
