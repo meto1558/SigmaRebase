@@ -29,15 +29,17 @@ public class VerusSpeed extends Module {
         switch (getStringSettingValueByName("Mode")) {
             case "Basic" -> {
                 if (!mc.player.onGround) {
-                    speed *= 0.9800000190734863D;
+                    speed *= 0.9999999999999999D;
                     airTicks++;
                 } else {
                     airTicks = 0;
                     if (mc.player.isPotionActive(Effects.SPEED)) {
-                        speed = 0.46D;
+                        speed = 0.498D;
                     } else {
-                        speed = 0.34D;
+                        speed = 0.37D;
                     }
+                    if (!mc.player.isSprinting())
+                        speed *= 0.78D;
 
                     mc.player.jump();
                 }
