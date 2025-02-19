@@ -48,7 +48,7 @@ public class VerusSpeed extends Module {
     @Override
     public void onEnable() {
         super.onEnable();
-        damageTimer.setElapsedTime((long)(damageBoostTime.currentValue * 1000L));
+        damageTimer.setElapsedTime((long)(damageBoostTime.currentValue * 1000L) + 3000L);
     }
 
     @Override
