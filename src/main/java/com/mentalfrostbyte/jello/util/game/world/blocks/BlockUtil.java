@@ -2,7 +2,6 @@ package com.mentalfrostbyte.jello.util.game.world.blocks;
 
 import com.google.common.collect.ImmutableList;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import net.minecraft.block.Block;
@@ -435,35 +434,35 @@ public class BlockUtil {
         }
     }
 
-    public static List<BlockPos> method34561(float var0) {
-        ArrayList<BlockPos> var3 = new ArrayList<>();
+    public static List<BlockPos> getBlockPositionsInRange(float range) {
+        ArrayList<BlockPos> positions = new ArrayList<>();
 
-        for (float var4 = -var0; var4 <= var0; var4++) {
-            for (float var5 = -var0; var5 <= var0; var5++) {
-                for (float var6 = -var0; var6 <= var0; var6++) {
-                    BlockPos var7 = new BlockPos(
-                            mc.player.getPosX() + (double) var5,
-                            mc.player.getPosY() + (double) var4,
-                            mc.player.getPosZ() + (double) var6
+        for (float y = -range; y <= range; y++) {
+            for (float x = -range; x <= range; x++) {
+                for (float z = -range; z <= range; z++) {
+                    BlockPos pos = new BlockPos(
+                            mc.player.getPosX() + (double) x,
+                            mc.player.getPosY() + (double) y,
+                            mc.player.getPosZ() + (double) z
                     );
-                    var3.add(var7);
+                    positions.add(pos);
                 }
             }
         }
 
-        return var3;
+        return positions;
     }
 
-    public static boolean isAboveBounds(Entity var0, float var1) {
-        AxisAlignedBB var4 = new AxisAlignedBB(
-                var0.getBoundingBox().minX,
-                var0.getBoundingBox().minY - (double) var1,
-                var0.getBoundingBox().minZ,
-                var0.getBoundingBox().maxX,
-                var0.getBoundingBox().maxY,
-                var0.getBoundingBox().maxZ
+    public static boolean isAboveBounds(Entity entity, float yBounds) {
+        AxisAlignedBB bounds = new AxisAlignedBB(
+                entity.getBoundingBox().minX,
+                entity.getBoundingBox().minY - (double) yBounds,
+                entity.getBoundingBox().minZ,
+                entity.getBoundingBox().maxX,
+                entity.getBoundingBox().maxY,
+                entity.getBoundingBox().maxZ
         );
-        Stream<VoxelShape> var5 = mc.world.getCollisionShapes(mc.player, var4);
+        Stream<VoxelShape> var5 = mc.world.getCollisionShapes(mc.player, bounds);
         return var5.findAny().isPresent();
     }
 

@@ -329,7 +329,7 @@ public class NoteblockPlayer extends Module {
             this.field23638 = 0;
             this.field23641.clear();
 
-            for (BlockPos var4 : BlockUtil.method34561(mc.playerController.getBlockReachDistance())) {
+            for (BlockPos var4 : BlockUtil.getBlockPositionsInRange(mc.playerController.getBlockReachDistance())) {
                 BlockState var5 = mc.world.getBlockState(var4);
                 if (var5.getBlock() instanceof NoteBlock) {
                     Class6463 var6 = new Class6463(var4);
