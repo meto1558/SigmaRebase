@@ -47,7 +47,7 @@ public class Auto32k extends Module {
     public void onEnable() {
         this.field23870 = null;
 
-        for (BlockPos var4 : BlockUtil.method34545(BlockUtil.method34561(mc.playerController.getBlockReachDistance()))) {
+        for (BlockPos var4 : BlockUtil.method34545(BlockUtil.getBlockPositionsInRange(mc.playerController.getBlockReachDistance()))) {
             if (!(BlockUtil.method34550(mc.player, var4) < 2.0F)
                     && BlockUtil.method34535(mc.player, var4)
                     && (double) var4.getY() >= mc.player.getPosY() - 2.0
