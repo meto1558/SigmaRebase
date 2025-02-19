@@ -104,6 +104,9 @@ public class VerusSpeed extends Module {
                     mc.player.jump();
                 }
 
+                if (!mc.player.isSprinting())
+                    speed *= 0.78D;
+
                 mc.player.setMotion(mc.player.getMotion().x, Math.max(mc.player.getMotion().y, -0.09800000190734863), mc.player.getMotion().z);
 
                 if (mc.player.hurtTime > 0 && dmgBoost)
