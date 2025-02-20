@@ -266,8 +266,8 @@ public class NoteblockPlayer extends Module {
     public void onPacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (this.field23641 != null) {
-                if (var1.getPacket() instanceof SPlaySoundEffectPacket) {
-                    SPlaySoundEffectPacket var4 = (SPlaySoundEffectPacket) var1.getPacket();
+                if (var1.packet instanceof SPlaySoundEffectPacket) {
+                    SPlaySoundEffectPacket var4 = (SPlaySoundEffectPacket) var1.packet;
 
                     for (int var5 = 0; var5 < this.field23641.size(); var5++) {
                         Class6463 var6 = this.field23641.get(var5);
@@ -279,8 +279,8 @@ public class NoteblockPlayer extends Module {
                     }
                 }
 
-                if (var1.getPacket() instanceof SPlaySoundPacket) {
-                    SPlaySoundPacket var7 = (SPlaySoundPacket) var1.getPacket();
+                if (var1.packet instanceof SPlaySoundPacket) {
+                    SPlaySoundPacket var7 = (SPlaySoundPacket) var1.packet;
 
                     for (int var8 = 0; var8 < this.field23641.size(); var8++) {
                         Class6463 var9 = this.field23641.get(var8);
