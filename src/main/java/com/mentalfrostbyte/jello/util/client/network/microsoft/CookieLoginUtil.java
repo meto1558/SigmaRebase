@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -74,20 +75,7 @@ public class CookieLoginUtil {
 
     public static String postExternal(final String url, final String post, final boolean json) {
         try {
-            final HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
-            connection.addRequestProperty("User-Agent", USER_AGENT);
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-
-            final byte[] out = post.getBytes(StandardCharsets.UTF_8);
-            final int length = out.length;
-            connection.setFixedLengthStreamingMode(length);
-            connection.addRequestProperty("Content-Type", json ? "application/json" : "application/x-www-form-urlencoded; charset=UTF-8");
-            connection.addRequestProperty("Accept", "application/json");
-            connection.connect();
-            try (final OutputStream os = connection.getOutputStream()) {
-                os.write(out);
-            }
+            final HttpsURLConnection connection = postConnection(url, post, json);
 
             final int responseCode = connection.getResponseCode();
 
@@ -113,6 +101,24 @@ public class CookieLoginUtil {
         } catch (final Exception e) {
             return null;
         }
+    }
+
+    private static @NotNull HttpsURLConnection postConnection(String url, String post, boolean json) throws IOException {
+        final HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
+        connection.addRequestProperty("User-Agent", USER_AGENT);
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+
+        final byte[] out = post.getBytes(StandardCharsets.UTF_8);
+        final int length = out.length;
+        connection.setFixedLengthStreamingMode(length);
+        connection.addRequestProperty("Content-Type", json ? "application/json" : "application/x-www-form-urlencoded; charset=UTF-8");
+        connection.addRequestProperty("Accept", "application/json");
+        connection.connect();
+        try (final OutputStream os = connection.getOutputStream()) {
+            os.write(out);
+        }
+        return connection;
     }
 
     public static class LoginData {
