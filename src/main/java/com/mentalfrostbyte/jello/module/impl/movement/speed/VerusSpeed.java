@@ -9,9 +9,12 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import team.sdhq.eventBus.annotations.EventTarget;
+
+import java.util.Objects;
 
 /**
  * @author alarmingly_good (on discord)
@@ -82,10 +85,11 @@ public class VerusSpeed extends Module {
                     airTicks++;
                 } else {
                     airTicks = 0;
+                    speed = 0.377D;
                     if (mc.player.isPotionActive(Effects.SPEED)) {
-                        speed = 0.498D;
-                    } else {
-                        speed = 0.377D;
+                        EffectInstance speedEffect = Objects.requireNonNull(mc.player.getActivePotionEffect(Effects.SPEED));
+                        System.out.println("moveStrafing: " + mc.player.moveStrafing);
+                        speed += speedEffect.getAmplifier() * mc.player.moveStrafing == 0 ? 0.122 : 0.121;
                     }
 
                     if (!mc.player.isSprinting())
