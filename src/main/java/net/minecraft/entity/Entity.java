@@ -1,5 +1,7 @@
 package net.minecraft.entity;
 
+import baritone.api.BaritoneAPI;
+import baritone.api.event.events.RotationMoveEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -1428,16 +1430,30 @@ public abstract class Entity implements INameable, ICommandSource
         return !this.firstUpdate && this.eyesFluidLevel.getDouble(FluidTags.LAVA) > 0.0D;
     }
 
-    public void moveRelative(float p_213309_1_, Vector3d relative) {
+    float yawRestore;
+    float pitchRestore;
+
+    public void moveRelative(float p_213309_1_, Vector3d relative)
+    {
+        this.yawRestore = this.rotationYaw;
         float yaw = this.rotationYaw;
         EventMoveRelative eventMoveFlying = new EventMoveRelative(yaw);
 
         if(this instanceof ClientPlayerEntity){
             EventBus.call(eventMoveFlying);
         }
-
-        Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, eventMoveFlying.getYaw());
+        this.pitchRestore = this.rotationPitch;
+        if (!ClientPlayerEntity.class.isInstance(this) || BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this) == null) {
+            return;
+        }
+        RotationMoveEvent motionUpdateRotationEvent = new RotationMoveEvent(RotationMoveEvent.Type.MOTION_UPDATE, this.rotationYaw, this.rotationPitch);
+        BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this).getGameEventHandler().onPlayerRotationMove(motionUpdateRotationEvent);
+        this.rotationYaw = motionUpdateRotationEvent.getYaw();
+        this.rotationPitch = motionUpdateRotationEvent.getPitch();
+        Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
         this.setMotion(this.getMotion().add(vector3d));
+        this.rotationYaw = this.yawRestore;
+        this.rotationPitch = this.pitchRestore;
     }
 
     public final Vector3d getLookCustom(float partialTicks, float yaw, float pitch)
