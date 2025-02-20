@@ -88,7 +88,6 @@ public class VerusSpeed extends Module {
                     speed = 0.377D;
                     if (mc.player.isPotionActive(Effects.SPEED)) {
                         EffectInstance speedEffect = Objects.requireNonNull(mc.player.getActivePotionEffect(Effects.SPEED));
-                        System.out.println("moveStrafing: " + mc.player.moveStrafing);
                         speed += speedEffect.getAmplifier() * mc.player.moveStrafing == 0 ? 0.122 : 0.121;
                     }
 
