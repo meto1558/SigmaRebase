@@ -37,7 +37,7 @@ public class VanillaNoFall extends Module {
         if (!this.isEnabled()) return;
 		assert mc.player != null;
 		if (mc.player.getPosY() < 2.0) return;
-        if (mc.player.getMotion().y < -0.1 && mc.player.fallDistance >= 3) {
+        if (mc.player.getMotion().y < -0.1 && mc.player.fallDistance >= 2.21) {
             switch (this.mode.currentValue) {
 				case "Packet":
 					Objects.requireNonNull(mc.getConnection()).sendPacket(new CPlayerPacket(true));
