@@ -270,8 +270,8 @@ public class Auto32k extends Module {
     @EventTarget
     public void method16721(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SOpenWindowPacket) {
-                this.field23876 = (SOpenWindowPacket) var1.getPacket();
+            if (var1.packet instanceof SOpenWindowPacket) {
+                this.field23876 = (SOpenWindowPacket) var1.packet;
                 if (this.isEnabled() && this.field23876.getTitle() == ContainerType.HOPPER) {
                     var1.cancelled = true;
                 }
@@ -280,8 +280,8 @@ public class Auto32k extends Module {
                 this.field23877 = false;
             }
 
-            if (var1.getPacket() instanceof SSetSlotPacket) {
-                SSetSlotPacket var4 = (SSetSlotPacket) var1.getPacket();
+            if (var1.packet instanceof SSetSlotPacket) {
+                SSetSlotPacket var4 = (SSetSlotPacket) var1.packet;
                 int var5 = var4.getSlot();
                 ItemStack var6 = var4.getStack();
                 int var7 = var4.getWindowId();
@@ -309,7 +309,7 @@ public class Auto32k extends Module {
                 }
             }
 
-            if (var1.getPacket() instanceof SCloseWindowPacket) {
+            if (var1.packet instanceof SCloseWindowPacket) {
                 this.setEnabled(false);
             }
         }
@@ -318,17 +318,17 @@ public class Auto32k extends Module {
     @EventTarget
     public void method16722(EventSendPacket var1) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof CCloseWindowPacket) {
+            if (var1.packet instanceof CCloseWindowPacket) {
                 var1.cancelled = true;
             }
 
-            if (var1.getPacket() instanceof CUseEntityPacket) {
+            if (var1.packet instanceof CUseEntityPacket) {
                 float var4 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[0];
                 float var5 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
             }
 
-            if (var1.getPacket() instanceof CPlayerPacket) {
-                CPlayerPacket var6 = (CPlayerPacket) var1.getPacket();
+            if (var1.packet instanceof CPlayerPacket) {
+                CPlayerPacket var6 = (CPlayerPacket) var1.packet;
                 var6.onGround = false;
             }
         }
