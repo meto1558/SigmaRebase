@@ -178,6 +178,17 @@
     {
       "downloads": {
         "artifact": {
+          "path": "com/github/4meav/baritone/36145a94c1/Baritone-36145a94c1.jar",
+          "sha1": "b58e4763e2d245ccccbc9c31b9da146a285a4cc5",
+          "size": 691620,
+          "url": "https://jitpack.io/com/github/4meav/Baritone/36145a94c1/Baritone-36145a94c1.jar"
+        }
+      },
+      "name": "com.github.4meav:baritone:36145a94c1"
+    },
+    {
+      "downloads": {
+        "artifact": {
           "path": "com/mentalfrostbyte/java-discord-rpc/2.0.1-all/java-discord-rpc-2.0.1-all.jar",
           "sha1": "d5d6adb11d48813b368d6265c34bfa8f936b97d7",
           "size": 1706638,
