@@ -1,12 +1,11 @@
-
-
-
 package com.mentalfrostbyte.jello.util;
+
 import net.minecraft.network.IPacket;
 import org.reflections.Reflections;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
 public class PacketCollectorUtil {
     public static String[] getPacketClasses(String type) {
         String[] packages = {
@@ -31,12 +30,8 @@ public class PacketCollectorUtil {
     private static Stream<Class<? extends IPacket>> getFilteredPackets(String type, Set<Class<? extends IPacket>> allPackets) {
         Stream<Class<? extends IPacket>> filteredPackets = allPackets.stream();
         switch (type) {
-            case "Incoming" -> {
-                filteredPackets = filteredPackets.filter(packet -> packet.getSimpleName().matches("^S[A-Za-z]+Packet$"));
-            }
-            case "Outgoing" -> {
-                filteredPackets = filteredPackets.filter(packet -> packet.getSimpleName().matches("^C[A-Za-z]+Packet$"));
-            }
+            case "Incoming" -> filteredPackets = filteredPackets.filter(packet -> packet.getSimpleName().matches("^S[A-Za-z]+Packet$"));
+            case "Outgoing" -> filteredPackets = filteredPackets.filter(packet -> packet.getSimpleName().matches("^C[A-Za-z]+Packet$"));
         }
         return filteredPackets;
     }
