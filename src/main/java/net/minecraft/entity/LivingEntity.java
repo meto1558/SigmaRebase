@@ -2529,14 +2529,14 @@ public abstract class LivingEntity extends Entity
         if (this.isSprinting()) {
             float f1 = eventMoveFlying.getYaw() * ((float)Math.PI / 180F);
             // MODIFICATION START: Adjust our motion if the jump event was modified
-            Vector3d motion = this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F));
+            Vector3d motion = this.getMotion();
             if (eventJump != null && eventJump.modified)
                 motion = eventJump.getVector();
 
             if (this instanceof ClientPlayerEntity && BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this) != null) {
                 f1 = this.jumpRotationEvent.getYaw() * ((float) Math.PI / 180F);
             }
-            motion = motion.add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F));
+            motion = motion.add((-MathHelper.sin(f1) * 0.2F), 0.0D, (MathHelper.cos(f1) * 0.2F));
             this.setMotion(motion);
             // MODIFICATION END
         }
