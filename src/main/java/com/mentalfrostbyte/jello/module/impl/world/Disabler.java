@@ -17,7 +17,8 @@ public class Disabler extends ModuleWithModuleSettings {
                 new ViperDisabler(),
                 new VeltPvPDisabler(),
                 new GhostlyDisabler(),
-                new MinibloxDisabler()
+                new MinibloxDisabler(),
+                new CustomDisabler()
         );
     }
 }
