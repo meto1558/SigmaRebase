@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.util;
-
 import net.minecraft.network.IPacket;
-import org.reflections.Reflections;
-
+import  org.reflections.Reflections;
 import java.util.Set;
 import java.util.stream.Stream;
 
