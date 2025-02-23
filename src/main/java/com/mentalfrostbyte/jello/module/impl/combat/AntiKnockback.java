@@ -19,7 +19,8 @@ public class AntiKnockback extends ModuleWithModuleSettings {
                 new MinemenAntiKB(),
                 new GommeAntiKB(),
                 new VulcanAntiKB(),
-                new LegitAntiKB()
+                new LegitAntiKB(),
+                new GrimAntiKB()
         );
     }
 
