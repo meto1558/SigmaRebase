@@ -62,12 +62,14 @@ public class GuiManager {
         replacementScreens.put(SpotlightHolder.class, SpotlightScreen.class);
         replacementScreens.put(JelloOptionsHolder.class, JelloOptions.class);
         replacementScreens.put(CreditsHolder.class, CreditsScreen.class);
+        replacementScreens.put(BaritoneSettingsHolder.class, BaritoneSettingsScreen.class);
         screenToScreenName.put(ClickGuiHolder.class, "Click GUI");
         screenToScreenName.put(KeyboardHolder.class, "Keybind Manager");
         screenToScreenName.put(MapsHolder.class, "Jello Maps");
         screenToScreenName.put(SnakeHolder.class, "Snake");
         screenToScreenName.put(BirdHolder.class, "Bird");
         screenToScreenName.put(SpotlightHolder.class, "Spotlight");
+        screenToScreenName.put(BaritoneSettingsHolder.class, "Baritone Settings");
     }
 
     public double field41347;
