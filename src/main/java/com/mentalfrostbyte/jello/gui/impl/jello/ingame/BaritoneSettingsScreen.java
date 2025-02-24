@@ -12,6 +12,8 @@ import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import net.minecraft.client.Minecraft;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BaritoneSettingsScreen extends Screen {
     public Animation animation;
@@ -85,7 +87,24 @@ public class BaritoneSettingsScreen extends Screen {
 
     public static String getVersionFromJar() {
         try {
-            return BaritoneAPI.class.getProtectionDomain().getCodeSource().getLocation().getPath().endsWith(".jar") ? new File(BaritoneAPI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName().replaceAll("Baritone-(.*)\\.jar", "$1") : "Development";
+            String version = BaritoneAPI.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            if (version.endsWith(".jar")) {
+                String file = new File(version).getName();
+                Matcher matcher = Pattern.compile("([a-z])([A-Z])").matcher(file.replaceAll("Baritone-(.*)\\.jar", "$1"));
+                StringBuffer result = new StringBuffer();
+                while (matcher.find()) {
+                    matcher.appendReplacement(result, matcher.group(1) + " " + matcher.group(2));
+                }
+                matcher.appendTail(result);
+                String[] words = result.toString().split(" ");
+                StringBuilder finalResult = new StringBuilder();
+                for (String word : words) {
+                    finalResult.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1)).append(" ");
+                }
+                return finalResult.toString().trim();
+            } else {
+                return "Development";
+            }
         } catch (Exception ignored) {
             return "Unknown";
         }
