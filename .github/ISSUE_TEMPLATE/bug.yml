@@ -8,7 +8,7 @@ body:
   - type: input
     attributes:
       label: Sigma Rebase Build/Version
-      description: Which version of LiquidBounce does this bug affect?
+      description: Which version of Sigma Rebase does this bug affect?
       placeholder: A release build OR a commit hash for nightly, e.g. 1.0.0 (release), fb19c7a (nightly).
     validations:
       required: true
