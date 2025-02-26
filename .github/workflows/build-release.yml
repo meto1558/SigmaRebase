@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - pojav
+    paths:
+      - src
+      - release
 
 jobs:
   build:
