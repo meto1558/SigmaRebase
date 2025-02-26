@@ -1,3 +1,4 @@
+// test
 package com.mentalfrostbyte;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
