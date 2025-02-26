@@ -1,13 +1,11 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
@@ -17,6 +15,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import com.mentalfrostbyte.jello.util.system.sound.AudioRepeatMode;
 import com.mentalfrostbyte.jello.util.system.sound.BasicAudioProcessor;
@@ -26,12 +25,18 @@ import com.sapher.youtubedl.YoutubeDLException;
 import com.sapher.youtubedl.YoutubeDLRequest;
 import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinReg;
 import com.tagtraum.jipes.math.FFTFactory;
 import net.sourceforge.jaad.aac.Decoder;
 import net.sourceforge.jaad.aac.SampleBuffer;
 import net.sourceforge.jaad.mp4.MP4Container;
 import net.sourceforge.jaad.mp4.api.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
@@ -67,7 +72,7 @@ public class MusicManager {
     private Texture notificationImage;
     private BufferedImage thumbnailImage;
     private Texture songThumbnail;
-    private boolean isThumbnailProcessing = false;
+    private boolean processing = false;
     private transient volatile Thread audioThread = null;
     private int currentVideoIndex2;
     private long totalDuration = 0L;
@@ -80,58 +85,14 @@ public class MusicManager {
     private boolean field32169 = false;
     private double field32170 = 0.0;
 
-    private static float[] method24305(byte[] var0, AudioFormat var1) {
-        float[] var4 = new float[var0.length / var1.getFrameSize()];
-
-        for (int var5 = 0; var5 < var0.length; var5 += var1.getFrameSize()) {
-            int var6 = !var1.isBigEndian() ? method24307(var0, var5, var1.getFrameSize())
-                    : method24308(var0, var5, var1.getFrameSize());
-            var4[var5 / var1.getFrameSize()] = (float) var6 / 32768.0F;
-        }
-
-        return var4;
-    }
-
-    private static double[] method24306(float[] var0, float[] var1) {
-        double[] var4 = new double[var0.length / 2];
-
-        for (int var5 = 0; var5 < var4.length; var5++) {
-            var4[var5] = Math.sqrt(var0[var5] * var0[var5] + var1[var5] * var1[var5]);
-        }
-
-        return var4;
-    }
-
-    private static int method24307(byte[] var0, int var1, int var2) {
-        int var5 = 0;
-
-        for (int var6 = 0; var6 < var2; var6++) {
-            int var7 = var0[var1 + var6] & 255;
-            var5 += var7 << 8 * var6;
-        }
-
-        return var5;
-    }
-
-    private static int method24308(byte[] var0, int var1, int var2) {
-        int var5 = 0;
-
-        for (int var6 = 0; var6 < var2; var6++) {
-            int var7 = var0[var1 + var6] & 255;
-            var5 += var7 << 8 * (var2 - var6 - 1);
-        }
-
-        return var5;
-    }
-
     public void init() {
         EventBus.register(this);
         try {
-            this.method24295();
+            this.loadSettings();
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        if (!this.method24330()) {
+        if (!this.doesYTDLPExist()) {
             this.setupDownloadThread();
         }
 
@@ -139,34 +100,34 @@ public class MusicManager {
     }
 
     public void saveMusicSettings() {
-        JSONObject var3 = new JSONObject();
-        var3.put("volume", this.volume);
-        var3.put("spectrum", this.spectrum);
-        var3.put("repeat", this.repeatMode.type);
-        Client.getInstance().getConfig().put("music", var3);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("volume", this.volume);
+        jsonObject.put("spectrum", this.spectrum);
+        jsonObject.put("repeat", this.repeatMode.type);
+        Client.getInstance().getConfig().put("music", jsonObject);
     }
 
-    private void method24295() throws JSONException {
+    private void loadSettings() throws JSONException {
         if (Client.getInstance().getConfig().has("music")) {
-            JSONObject var3 = Client.getInstance().getConfig().getJSONObject("music");
-            if (var3 != null) {
-                if (var3.has("volume")) {
-                    this.volume = Math.max(0, Math.min(100, var3.getInt("volume")));
+            JSONObject jsonObject = Client.getInstance().getConfig().getJSONObject("music");
+            if (jsonObject != null) {
+                if (jsonObject.has("volume")) {
+                    this.volume = Math.max(0, Math.min(100, jsonObject.getInt("volume")));
                 }
 
-                if (var3.has("spectrum")) {
-                    this.spectrum = var3.getBoolean("spectrum");
+                if (jsonObject.has("spectrum")) {
+                    this.spectrum = jsonObject.getBoolean("spectrum");
                 }
 
-                if (var3.has("repeat")) {
-                    this.repeatMode = AudioRepeatMode.parseRepeat(var3.getInt("repeat"));
+                if (jsonObject.has("repeat")) {
+                    this.repeatMode = AudioRepeatMode.parseRepeat(jsonObject.getInt("repeat"));
                 }
             }
         }
     }
 
     @EventTarget
-    public void method24296(EventRender2DOffset event) {
+    public void onRender2D(EventRender2DOffset event) {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
             if (this.playing && this.visualizerData.size() != 0) {
                 double[] var4 = this.visualizerData.get(0);
@@ -178,15 +139,14 @@ public class MusicManager {
                     }
                 }
 
-                float var10 = 60.0F / (float) Minecraft.getFps();
+                float fps = 60.0F / (float) Minecraft.getFps();
 
-                for (int var6 = 0; var6 < var4.length; var6++) {
-                    double var7 = this.amplitudes.get(var6) - var4[var6];
-                    boolean var9 = !(this.amplitudes.get(var6) < Double.MAX_VALUE);
-                    this.amplitudes.set(var6, Math.min(2.256E7,
-                            Math.max(0.0, this.amplitudes.get(var6) - var7 * (double) Math.min(0.335F * var10, 1.0F))));
+                for (int i = 0; i < var4.length; i++) {
+                    double var7 = this.amplitudes.get(i) - var4[i];
+                    boolean var9 = !(this.amplitudes.get(i) < Double.MAX_VALUE);
+                    this.amplitudes.set(i, Math.min(2.256E7, Math.max(0.0, this.amplitudes.get(i) - var7 * (double) Math.min(0.335F * fps, 1.0F))));
                     if (var9) {
-                        this.amplitudes.set(var6, 0.0);
+                        this.amplitudes.set(i, 0.0);
                     }
                 }
             }
@@ -200,8 +160,8 @@ public class MusicManager {
     }
 
     @EventTarget
-    public void method24297(EventRender2DCustom event) {
-        if (this.playing && !this.visualizerData.isEmpty() && this.spectrum) {
+    public void onRender2D(EventRender2DCustom event) {
+        if (this.playing && this.visualizerData.size() != 0 && this.spectrum) {
             this.renderSpectrum();
         }
     }
@@ -314,8 +274,7 @@ public class MusicManager {
         }
 
         try {
-            if (this.isThumbnailProcessing && this.thumbnailImage != null && this.scaledThumbnail != null && this.currentVideo == null
-                    && !mc.isGamePaused()) {
+            if (this.processing && this.thumbnailImage != null && this.scaledThumbnail != null && this.currentVideo == null && !mc.isGamePaused()) {
                 if (this.songThumbnail != null) {
                     this.songThumbnail.release();
                 }
@@ -328,13 +287,13 @@ public class MusicManager {
                 this.notificationImage = BufferedImageUtil.getTexture("picture", this.scaledThumbnail);
                 Client.getInstance().notificationManager
                         .send(new Notification("Now Playing", this.songTitle, 7000, this.notificationImage));
-                this.isThumbnailProcessing = false;
+                this.processing = false;
             }
-        } catch (IOException var5) {
-            var5.printStackTrace();
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
 
-        if (!this.isThumbnailProcessing) {
+        if (!this.processing) {
             this.startProcessingVideoThumbnail();
         }
     }
@@ -360,44 +319,48 @@ public class MusicManager {
                             this.currentVideoIndex = 0;
                         }
 
-                        for (int var4 = this.currentVideoIndex; var4 < this.videoManager.videoList.size(); var4++) {
-                            URL songUrl = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(var4).videoId);
+                        for (int index = this.currentVideoIndex; index < this.videoManager.videoList.size(); index++) {
+                            URL songUrl = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(index).videoId);
                             Client.getInstance().getLogger().setThreadName(songUrl.toString());
-                            this.currentVideoIndex2 = var4;
-                            this.currentVideo = this.videoManager.videoList.get(var4);
+                            this.currentVideoIndex2 = index;
+                            this.currentVideo = this.videoManager.videoList.get(index);
                             this.visualizerData.clear();
 
                             while (!this.playing) {
                                 try {
                                     Thread.sleep(300L);
+                                } catch (final InterruptedException ex) {
                                 }
-                                catch (final InterruptedException ex) {}
+
+                                double[] var6 = new double[0];
                                 this.visualizerData.clear();
                                 if (Thread.interrupted()) {
                                     if (this.sourceDataLine != null) {
                                         this.sourceDataLine.close();
                                     }
+
                                     return;
                                 }
                             }
 
                             try {
-                                System.out.println(songUrl);
                                 URL url = this.resolveAudioStream(songUrl);
                                 Client.getInstance().getLogger().setThreadName(url == null ? "No stream" : url.toString());
                                 if (url != null) {
-                                    URLConnection urlConnection = url.openConnection();
-                                    urlConnection.setConnectTimeout(14000);
-                                    urlConnection.setReadTimeout(14000);
-                                    urlConnection.setUseCaches(true);
-                                    urlConnection.setDoOutput(true);
-                                    urlConnection.setRequestProperty("Connection", "Keep-Alive");
+                                    URLConnection connection = url.openConnection();
+                                    connection.setConnectTimeout(14000);
+                                    connection.setReadTimeout(14000);
+                                    connection.setUseCaches(true);
+                                    connection.setDoOutput(true);
+                                    connection.setRequestProperty("Connection", "Keep-Alive");
 
-                                    InputStream iS = urlConnection.getInputStream();
+                                    InputStream iS = connection.getInputStream();
                                     MusicStream mS = new MusicStream(iS, new BasicAudioProcessor());
+
                                     MP4Container container = new MP4Container(mS);
                                     Movie movie = container.getMovie();
                                     List<Track> tracks = movie.getTracks();
+
                                     if (tracks.isEmpty()) {
                                         Client.getInstance().getLogger().setThreadName("No content");
                                     }
@@ -409,6 +372,7 @@ public class MusicManager {
                                     this.sourceDataLine.open();
                                     this.sourceDataLine.start();
                                     this.duration = (long) movie.getDuration();
+
                                     if (this.duration > 1300L) {
                                         mS.close();
                                         Client.getInstance().notificationManager
@@ -420,6 +384,8 @@ public class MusicManager {
 
                                     while (var13.hasMoreFrames()) {
                                         while (!this.playing) {
+                                            Thread.sleep(300L);
+                                            double[] var17 = new double[0];
                                             this.visualizerData.clear();
                                             if (Thread.interrupted()) {
                                                 this.sourceDataLine.close();
@@ -430,13 +396,17 @@ public class MusicManager {
                                         Frame var18 = var13.readNextFrame();
                                         var15.decodeFrame(var18.getData(), var16);
                                         pcmBufferData = var16.getData();
+
                                         this.sourceDataLine.write((byte[]) pcmBufferData, 0, ((byte[]) pcmBufferData).length);
-                                        float[] var29 = method24305(var16.getData(), var14);
+                                        float[] var29 = MathHelper.convertToPCMFloatArray(var16.getData(), var14);
+
                                         FFTFactory.JavaFFT var19 = new FFTFactory.JavaFFT(var29.length);
+
                                         float[][] var20 = var19.transform(var29);
                                         float[] var21 = var20[0];
                                         float[] var22 = var20[1];
-                                        this.visualizerData.add(method24306(var21, var22));
+
+                                        this.visualizerData.add(MathHelper.calculateAmplitudes(var21, var22));
                                         if (this.visualizerData.size() > 18) {
                                             this.visualizerData.remove(0);
                                         }
@@ -468,27 +438,31 @@ public class MusicManager {
 
                                     this.sourceDataLine.close();
                                     mS.close();
+                                } else {
+                                    Thread.sleep(1000L);
                                 }
-                            } catch (IOException var24) {
-                                if (var24.getMessage() != null && var24.getMessage().contains("403")) {
+                            } catch (IOException exc) {
+                                if (exc.getMessage() != null && exc.getMessage().contains("403")) {
                                     System.out.println("installing");
                                     this.download();
                                 }
-                            } catch (LineUnavailableException var25) {
-                                var25.printStackTrace();
+                            } catch (LineUnavailableException exc) {
+                                exc.printStackTrace();
+                            } catch (InterruptedException exc) {
+                                exc.printStackTrace();
+                                break;
                             }
 
                             if (this.repeatMode == AudioRepeatMode.LOOP_CURRENT) {
-                                var4--;
-                            } else if (this.repeatMode == AudioRepeatMode.REPEAT
-                                    && var4 == this.videoManager.videoList.size() - 1) {
-                                var4 = -1;
+                                index--;
+                            } else if (this.repeatMode == AudioRepeatMode.REPEAT && index == this.videoManager.videoList.size() - 1) {
+                                index = -1;
                             } else if (this.repeatMode == AudioRepeatMode.NO_REPEAT) {
                                 return;
                             }
 
-                            if (var4 >= this.videoManager.videoList.size()) {
-                                var4 = 0;
+                            if (index >= this.videoManager.videoList.size()) {
+                                index = 0;
                             }
                         }
                     });
@@ -496,8 +470,8 @@ public class MusicManager {
         }
     }
 
-    public void setRepeat(AudioRepeatMode var1) {
-        this.repeatMode = var1;
+    public void setRepeat(AudioRepeatMode repeatMode) {
+        this.repeatMode = repeatMode;
         this.saveMusicSettings();
     }
 
@@ -505,23 +479,23 @@ public class MusicManager {
         return this.repeatMode;
     }
 
-    public void processVideoThumbnail(YoutubeVideoData var1) {
+    public void processVideoThumbnail(YoutubeVideoData videoData) {
         try {
-            this.isThumbnailProcessing = true;
-            BufferedImage var4 = ImageIO.read(new URL(var1.fullUrl));
-            this.thumbnailImage = ImageUtil.applyBlur(var4, 15);
+            this.processing = true;
+            BufferedImage buffImage = ImageIO.read(new URL(videoData.fullUrl));
+            this.thumbnailImage = ImageUtil.applyBlur(buffImage, 15);
             this.thumbnailImage = this.thumbnailImage
                     .getSubimage(0, (int) ((float) this.thumbnailImage.getHeight() * 0.75F), this.thumbnailImage.getWidth(),
                             (int) ((float) this.thumbnailImage.getHeight() * 0.2F));
-            this.songTitle = var1.title;
-            if (var4.getHeight() != var4.getWidth()) {
+            this.songTitle = videoData.title;
+            if (buffImage.getHeight() != buffImage.getWidth()) {
                 if (this.songTitle.contains("[NCS Release]")) {
-                    this.scaledThumbnail = var4.getSubimage(1, 3, 170, 170);
+                    this.scaledThumbnail = buffImage.getSubimage(1, 3, 170, 170);
                 } else {
-                    this.scaledThumbnail = var4.getSubimage(70, 0, 180, 180);
+                    this.scaledThumbnail = buffImage.getSubimage(70, 0, 180, 180);
                 }
             } else {
-                this.scaledThumbnail = var4;
+                this.scaledThumbnail = buffImage;
             }
 
             this.currentVideo = null;
@@ -530,12 +504,12 @@ public class MusicManager {
         }
     }
 
-    public void setPlaying(boolean var1) {
-        if (!var1 && this.sourceDataLine != null) {
+    public void setPlaying(boolean playing) {
+        if (!playing && this.sourceDataLine != null) {
             this.sourceDataLine.flush();
         }
 
-        this.playing = var1;
+        this.playing = playing;
     }
 
     public void setVolume(int var1) {
@@ -574,20 +548,20 @@ public class MusicManager {
         }
     }
 
-    public void playSong(MusicVideoManager var1, YoutubeVideoData var2) {
-        if (var1 == null) {
-            var1 = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
-            var1.videoList.add(var2);
+    public void playSong(MusicVideoManager vidManager, YoutubeVideoData videoData) {
+        if (vidManager == null) {
+            vidManager = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
+            vidManager.videoList.add(videoData);
         }
 
-        this.videoManager = var1;
+        this.videoManager = vidManager;
         this.playing = true;
         this.totalDuration = 0L;
         this.field32170 = 0.0;
 
-        for (int var5 = 0; var5 < var1.videoList.size(); var5++) {
-            if (var1.videoList.get(var5) == var2) {
-                this.currentVideoIndex = var5;
+        for (int i = 0; i < vidManager.videoList.size(); i++) {
+            if (vidManager.videoList.get(i) == videoData) {
+                this.currentVideoIndex = i;
             }
         }
 
@@ -606,57 +580,36 @@ public class MusicManager {
         return this.field32170;
     }
 
-    public URL resolveAudioStream(URL var1) {
-        String var4 = var1.toString();
-        String var5 = System.getProperty("user.home");
-        YoutubeDLRequest request = new YoutubeDLRequest(var4, var5);
+    public URL resolveAudioStream(URL songURL) {
+        String songURLString = songURL.toString();
+        String userHomeDir = System.getProperty("user.home");
+        YoutubeDLRequest request = new YoutubeDLRequest(songURLString, userHomeDir);
         request.setOption("get-url");
-        request.setOption("no-check-certificate");
-        request.setOption("rm-cache-dir");
-        request.setOption("retries", "10");
-        request.setOption("format", "18");
+        request.setOption("no-check-certificate", " ");
+        request.setOption("rm-cache-dir", " ");
+        request.setOption("retries", 10);
+        request.setOption("format", 18);
 
         try {
             YoutubeDL.setExecutablePath(this.prepareYtDlpExecutable());
-            YoutubeDLResponse var7 = YoutubeDL.execute(request);
-            String var8 = var7.getOut();
-            return new URL(var8);
-        } catch (YoutubeDLException var9) {
-            Client.getInstance().notificationManager.send(
-                    new Notification("Failed to Play Song", "Check the logs for more details."));
-
-            this.stopYtDlp();
-
-            return null;
-        } catch (MalformedURLException var10) {
-            MinecraftUtil.addChatMessage("URL Error: " + var10.toString());
-            var10.printStackTrace();
-
-            Client.getInstance().notificationManager.send(
-                    new Notification("Failed to Play Song", "Invalid URL encountered."));
-
-            this.stopYtDlp();
-
-            return null;
-        }
-    }
-
-    private void stopYtDlp() {
-        try {
-            String fileName = Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-                    : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                    : "yt-dlp_macos";
-
-            File ytDlpFile = new File(Client.getInstance().file + "/music/" + fileName);
-
-            if (ytDlpFile.exists()) {
-                ProcessBuilder pb = new ProcessBuilder("taskkill", "/F", "/IM", ytDlpFile.getName());
-                pb.start();
+            YoutubeDLResponse response = YoutubeDL.execute(request);
+            String responseString = response.getOut();
+            return new URL(responseString);
+        } catch (YoutubeDLException exception) {
+            if (exception.getMessage() != null
+                    && exception.getMessage().contains("ERROR: This video contains content from")
+                    && exception.getMessage().contains("who has blocked it in your country on copyright grounds")) {
+                Client.getInstance().notificationManager.send(new Notification("Now Playing", "Not available in your region."));
+            } else {
+                exception.printStackTrace();
+                this.download();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (MalformedURLException exception) {
+            MinecraftUtil.addChatMessage("URL E " + exception.toString());
+            exception.printStackTrace();
         }
 
+        return null;
     }
 
     public String getSongTitle() {
@@ -689,23 +642,19 @@ public class MusicManager {
         }
     }
 
-    public void doesExecutableExist(double var1) {
-        this.field32168 = var1;
+    public void setDuration(double duration) {
+        this.field32168 = duration;
         this.totalDuration = (long) this.field32168;
         this.field32169 = true;
     }
 
-    public boolean method24330() {
-        File var3 = new File(Client.getInstance().file + "/music/yt-dlp");
+    public boolean doesYTDLPExist() {
+        File targetFile = new File(Client.getInstance().file + "/music/yt-dlp");
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            var3 = new File(Client.getInstance().file + "/music/yt-dlp.exe");
-        } else if (Util.getOSType() == Util.OS.LINUX) {
-            var3 = new File(Client.getInstance().file + "/music/yt-dlp_linux");
-        } else if (Util.getOSType() == Util.OS.OSX) {
-            var3 = new File(Client.getInstance().file + "/music/yt-dlp_macos");
+            targetFile = new File(Client.getInstance().file + "/music/yt-dlp.exe");
         }
 
-        return var3.exists();
+        return targetFile.exists();
     }
 
     public void setupDownloadThread() {
@@ -715,103 +664,149 @@ public class MusicManager {
 
     public void download() {
         if (!this.finished) {
-            if (Util.getOSType() == Util.OS.WINDOWS || Util.getOSType() == Util.OS.OSX
-                    || Util.getOSType() == Util.OS.LINUX) {
-                File musicDir = new File(Client.getInstance().file + "/music/");
-                musicDir.mkdirs();
+            File musicDir = new File(Client.getInstance().file + "/music/");
+            musicDir.mkdirs();
+            Client.getInstance().getLogger().setThreadName("Updating dependencies");
+            if (Util.getOSType() == Util.OS.WINDOWS) {
+                try {
+                    File targetFile = new File(Client.getInstance().file + "/music/yt-dlp.exe");
+                    CloseableHttpClient client = HttpClients.createDefault();
+                    CloseableHttpResponse response = client.execute(new HttpGet("https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"));
+                    Throwable throwable = null;
 
-                String fileName = Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-                        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                        : "yt-dlp_macos";
-
-                File targetFile = new File(Client.getInstance().file + "/music/" + fileName);
-
-                String urlString = "https://github.com/yt-dlp/yt-dlp/releases/download/2025.01.26/" + fileName;
-                try (BufferedInputStream in = new BufferedInputStream(new URL(urlString).openStream());
-                     FileOutputStream fileOutputStream = new FileOutputStream(targetFile)) {
-                    byte[] dataBuffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                        fileOutputStream.write(dataBuffer, 0, bytesRead);
+                    try {
+                        HttpEntity entity = response.getEntity();
+                        if (entity != null) {
+                            try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+                                entity.writeTo(outputStream);
+                            }
+                        }
+                    } catch (Throwable t) {
+                        throwable = t;
+                        throw t;
+                    } finally {
+                        if (response != null) {
+                            if (throwable != null) {
+                                try {
+                                    response.close();
+                                } catch (Throwable t) {
+                                    throwable.addSuppressed(t);
+                                }
+                            } else {
+                                response.close();
+                            }
+                        }
                     }
-                    finished = true;
-                    System.out.println("Finished downloading yt-dlp");
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                    finished = false;
+                } catch (IOException exc) {
+                    exc.printStackTrace();
                 }
             } else {
-                System.out.println("Failed to extract yt-dlp, because your OS is unsupported.");
-                finished = false;
+                try {
+                    File targetFile = new File(Client.getInstance().file + "/music/yt-dlp");
+                    CloseableHttpClient client = HttpClients.createDefault();
+                    CloseableHttpResponse response = client.execute(new HttpGet("https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"));
+                    Throwable throwable = null;
+
+                    try {
+                        HttpEntity entity = response.getEntity();
+                        if (entity != null) {
+                            try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+                                entity.writeTo(outputStream);
+                            }
+                        }
+                    } catch (Throwable t) {
+                        throwable = t;
+                        throw t;
+                    } finally {
+                        if (response != null) {
+                            if (throwable != null) {
+                                try {
+                                    response.close();
+                                } catch (Throwable t) {
+                                    throwable.addSuppressed(t);
+                                }
+                            } else {
+                                response.close();
+                            }
+                        }
+                    }
+                } catch (IOException exc) {
+                    exc.printStackTrace();
+                }
             }
+
+            System.out.println("done");
+            this.finished = true;
         }
     }
 
     public String prepareYtDlpExecutable() {
-        String fileName = Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-                : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                : "yt-dlp_macos";
-        String var3 = Client.getInstance().file.getAbsolutePath() + "/music/" + fileName;
+        String fileName = Client.getInstance().file.getAbsolutePath() + "/music/yt-dlp";
         if (Util.getOSType() != Util.OS.WINDOWS) {
-            File var4 = new File(var3);
-            var4.setExecutable(true);
+            File targetFile = new File(fileName);
+            targetFile.setExecutable(true);
+        } else {
+            fileName = fileName + ".exe";
         }
 
-        return var3;
+        return fileName;
     }
 
     public boolean hasPython() {
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            return true;
-        } else {
-            File var3 = new File("/usr/local/bin/python");
-            if (var3.exists()) {
-                Process var4;
-
-                try {
-                    var4 = new ProcessBuilder("/usr/local/bin/python", "-V").start();
-                    InputStream var5 = var4.getErrorStream();
-                    InputStreamReader var6 = new InputStreamReader(var5);
-                    BufferedReader bufferedReader = new BufferedReader(var6);
-
-                    String version;
-                    try {
-                        while ((version = bufferedReader.readLine()) != null) {
-                            if (version.contains("3.12.5")) {
-                                return true;
-                            }
-                        }
-                    } catch (IOException ignored) {
-                    }
-                } catch (IOException ignored) {
-                }
-            }
-
-            return false;
+            return true; // Windows yt-dlp doesn't require Python
         }
+
+        String[][] commands = {{"python3", "-V"}, {"python", "-V"}};
+
+        for (String[] cmd : commands) {
+            try {
+                Process process = new ProcessBuilder(cmd).start();
+
+                // Read both stdout and stderr
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+                String version;
+                while ((version = inputReader.readLine()) != null || (version = errorReader.readLine()) != null) {
+                    if (version.contains("Python")) {
+                        return true;
+                    }
+                }
+            } catch (IOException ignored) {
+                Client.getInstance().getLogger().warn("No Python version found!");
+            }
+        }
+
+        return false;
     }
 
     public boolean hasVCRedist() {
         if (Util.getOSType() != Util.OS.WINDOWS) {
-            return true;
-        } else {
-            boolean var3 = false;
-
-            try {
-                var3 = Advapi32Util.registryGetIntValue(
-                        WinReg.HKEY_LOCAL_MACHINE,
-                        "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed") == 1;
-            } catch (RuntimeException ignored) {
-            }
-
-            try {
-                var3 = var3
-                        || Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE,
-                        "SOFTWARE\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed") == 1;
-            } catch (RuntimeException ignored) {
-            }
-
-            return var3;
+            return true; // Not on Windows, VC Redist is not on Linux/mac.
         }
+
+        String[] redistKeys = {
+                "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86",
+                "SOFTWARE\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86",
+                "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86",
+                "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86",
+                "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+                "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1", // VC++ 2015-2019
+                "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1"
+        };
+
+        for (String key : redistKeys) {
+            try {
+                if (Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, key, "Installed") == 1) {
+                    return true;
+                }
+            } catch (Win32Exception ignored) {
+                Client.getInstance().getLogger().warn("No VCRedist was found on your computer.");
+            }
+        }
+
+        return false;
     }
 }
