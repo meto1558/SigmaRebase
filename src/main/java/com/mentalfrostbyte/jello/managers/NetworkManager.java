@@ -18,7 +18,7 @@ public class NetworkManager {
     public Account account;
     public SigmaIRC sigmaIRC;
 
-    public static boolean premium = false;
+    public static boolean premium = true;
 
     public NetworkManager() {
         File license = new File("jello/jello.lic");
