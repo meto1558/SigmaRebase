@@ -35,7 +35,6 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Client {
-    //test
 
     private static final Minecraft mc = Minecraft.getInstance();
     public static int currentVersionIndex = 28;

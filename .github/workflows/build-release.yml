@@ -28,13 +28,18 @@ jobs:
 
       - name: Compute SHA1 and file size
         run: |
-          JAR_FILE=$(ls target/*.jar | head -n 1)
+          JAR_FILE=$(ls target/*.jar | head -n 1)  # Ensure JAR_FILE is set correctly
+          if [[ -z "$JAR_FILE" ]]; then
+            echo "Error: No JAR file found in target/"
+            exit 1
+          fi
           SHA1=$(sha1sum "$JAR_FILE" | awk '{print $1}')
           SIZE=$(stat -c%s "$JAR_FILE")
+          JAR_NAME=$(basename "$JAR_FILE")
 
-          echo "JAR_FILE=$JAR_FILE" >> $GITHUB_ENV
           echo "SHA1=$SHA1" >> $GITHUB_ENV
           echo "SIZE=$SIZE" >> $GITHUB_ENV
+          echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
 
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v4
@@ -75,11 +80,11 @@ jobs:
       - name: Update sigma-jello-5.1.0.json
         run: |
           JSON_FILE="release/sigma-jello-5.1.0.json"
-          URL="https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/nightly/$(basename $JAR_FILE)"
+          URL="https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/nightly/$JAR_NAME"
 
-          jq --arg sha1 "$SHA1" --arg size "$SIZE" --arg url "$URL" \
-          '.downloads.client = { "sha1": $sha1, "size": ($size | tonumber), "url": $url }' \
-          $JSON_FILE > temp.json && mv temp.json $JSON_FILE
+          jq --arg sha1 "$SHA1" --argjson size "$SIZE" --arg url "$URL" \
+          '.downloads.client = { "sha1": $sha1, "size": $size, "url": $url }' \
+          "$JSON_FILE" > temp.json && mv temp.json "$JSON_FILE"
 
       - name: Commit and push changes
         run: |
