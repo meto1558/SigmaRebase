@@ -112,6 +112,17 @@
     {
       "downloads": {
         "artifact": {
+          "path": "org/javassist/javassist/3.28.0-GA/javassist-3.28.0-GA.jar",
+          "sha1": "9a958811a88381bb159cc2f5ed79c34a45c4af7a",
+          "size": 851531,
+          "url": "https://repo1.maven.org/maven2/org/javassist/javassist/3.28.0-GA/javassist-3.28.0-GA.jar"
+        }
+      },
+      "name": "org.javassist:javassist:3.28.0-GA"
+    },
+    {
+      "downloads": {
+        "artifact": {
           "path": "org/slf4j/slf4j-simple/1.7.32/slf4j-simple-1.7.32.jar",
           "sha1": "321ffafb5123a91a71737dbff38ebe273e771e5b",
           "size": 15257,
