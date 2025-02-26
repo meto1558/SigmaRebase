@@ -80,7 +80,7 @@ jobs:
       - name: Update sigma-jello-5.1.0.json
         run: |
           JSON_FILE="release/sigma-jello-5.1.0.json"
-          URL="https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/nightly/$JAR_NAME"
+          URL="https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/nightly/sigma-jello-5.1.0.jar"
 
           jq --arg sha1 "$SHA1" --argjson size "$SIZE" --arg url "$URL" \
           '.downloads.client = { "sha1": $sha1, "size": $size, "url": $url }' \
