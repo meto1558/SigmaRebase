@@ -200,10 +200,10 @@
     {
       "downloads": {
         "artifact": {
-            "path": "org/reflections/reflections/0.10.2/reflections-0.10.2.jar",
-            "sha1": "b638d7ca0e0fe0146b60a0e7ba232ad852a73b31",
-            "size": 130398,
-            "url": "https://repo1.maven.org/maven2/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          "path": "org/reflections/reflections/0.10.2/reflections-0.10.2.jar",
+          "sha1": "b638d7ca0e0fe0146b60a0e7ba232ad852a73b31",
+          "size": 130398,
+          "url": "https://repo1.maven.org/maven2/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
         }
       },
       "name": "org.reflections:reflections:0.10.2"
@@ -1464,5 +1464,12 @@
   "minimumLauncherVersion": 21,
   "releaseTime": "2020-10-29T15:49:37+00:00",
   "time": "2020-10-29T15:49:37+00:00",
-  "type": "release"
+  "type": "release",
+  "downloads": {
+    "client": {
+      "sha1": "49f307792747003712102167b09e78a1a3b2be07",
+      "size": 34088739,
+      "url": "https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/pojav-nightly/sigma-jello-5.1.0.jar"
+    }
+  }
 }
