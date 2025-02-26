@@ -19,10 +19,10 @@ body:
       description: What OS has this bug? (if applicable, e.g. something works on Linux but not on Windows)
       multiple: true
       options:
-        - macOS (how dare you use OSX-KVM to test your cross platform software instead of buying an expensive Mac that will be thrown into the trash)
-        - Linux (only good OS in 2025, refers to one of the Linux distros, not the kernel)
-        - "Windows 10 (last acceptable version of Windows, the last good version of Windows is 7, but that's old)"
-        - Windows 11 (1st unacceptable version of Windows)
+        - macOS
+        - Linux (distro)
+        - Windows 10
+        - Windows 11
 
   - type: textarea
     attributes:
