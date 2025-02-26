@@ -5,8 +5,8 @@ on:
     branches:
       - pojav
     paths:
-      - src
-      - release
+      - "src/**"
+      - "release/**"
 
 jobs:
   build:
