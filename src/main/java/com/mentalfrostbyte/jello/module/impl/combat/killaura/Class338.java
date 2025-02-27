@@ -8,12 +8,10 @@ import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.util.Hand;
 
 public class Class338 implements Runnable {
-    public final float field1477;
     public final KillAura killauraMod;
 
-    public Class338(KillAura var1, float var2) {
+    public Class338(KillAura var1) {
         this.killauraMod = var1;
-        this.field1477 = var2;
     }
 
     @Override
