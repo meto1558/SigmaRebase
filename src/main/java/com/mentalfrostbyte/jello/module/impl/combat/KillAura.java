@@ -269,7 +269,6 @@ public class KillAura extends Module {
 
             if (this.targets != null && !this.targets.isEmpty()) {
                 this.attackTimer++;
-                float var4 = 0.07f;
                     /*
                     ModuleWithModuleSettings var5 = (ModuleWithModuleSettings) Client.getInstance().getModuleManager().getModuleByClass(Criticals.class);
                     if (var5.isEnabled() && var5.getStringSettingValueByName("Type").equalsIgnoreCase("Minis")) {
@@ -300,22 +299,10 @@ public class KillAura extends Module {
 
                 RotationCore.currentYaw = currentRotation.yaw;
                 RotationCore.currentPitch = currentRotation.pitch;
+                mc.gameRenderer.getMouseOver(1.0F); // might fix issue with slow raytrace update
 
-                if (this.hitEvent.currentValue) {
-                    boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
-                    float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
-                    boolean var8 = attackCooldown == 0 && var6 && var7 >= 1.0F;
-                    if (var6) {
-                        autoBlock.updateCpsTimings();
-                    }
-
-                    if (var8) {
-                        Class338 var9 = new Class338(this, var4);
-                        var9.run();
-
-
-                        this.attackTimer = 0;
-                    }
+                if (!this.hitEvent.currentValue) {
+                    doAttack();
                 }
 
                 if (attackCooldown > 0) {
@@ -325,28 +312,19 @@ public class KillAura extends Module {
         }
     }
 
+
     @EventTarget
     @HighestPriority
     public void method16821(EventPlace var1) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (this.hitEvent.currentValue) {
-            boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
-            float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
-            boolean var8 = attackCooldown == 0 && var6 && var7 >= 1.0F;
-            if (var6) {
-                autoBlock.updateCpsTimings();
-            }
-
-            if (var8) {
-                Class338 var9 = new Class338(this, 0.07f);
-                var9.run();
-
-
-                this.attackTimer = 0;
+        if (this.targets != null && !this.targets.isEmpty()) {
+            if (this.hitEvent.currentValue) {
+                doAttack();
             }
         }
+
     }
 
     @EventTarget
@@ -736,6 +714,24 @@ public class KillAura extends Module {
                     rotation.pitch = this.currentRotation.pitch;
                 }
         }
+    }
+
+    public void doAttack(){
+        boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
+        float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
+        boolean var8 = attackCooldown == 0 && var6 && var7 >= 1.0F;
+        if (var6) {
+            autoBlock.updateCpsTimings();
+        }
+
+        if (var8) {
+            Class338 var9 = new Class338(this);
+            var9.run();
+
+
+            this.attackTimer = 0;
+        }
+
     }
 
     private double randomize(double var1, double var3) {
