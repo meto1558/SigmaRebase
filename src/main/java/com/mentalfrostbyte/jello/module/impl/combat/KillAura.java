@@ -28,7 +28,6 @@ import com.mentalfrostbyte.jello.util.client.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.system.math.MathUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.Hand;
@@ -54,7 +53,7 @@ public class KillAura extends Module {
     private final NumberSetting<Float> rotationSpeed;
     private final BooleanSetting useRotationSpeed;
     private final BooleanSetting hitEvent;
-    float[] kaROT;
+    float[] limitedRotation;
     public HashMap<Entity, Animation> entityAnimation = new HashMap<>();
     public static InteractAutoBlock autoBlock;
     private int attackTimer;
@@ -63,7 +62,6 @@ public class KillAura extends Module {
     private int targetSwitchDelay;
     private int attackDelay;
     private int blockDelay;
-    private int field23944;
     private int animationProgress;
     private int currentSlot;
     private int blockCooldown;
@@ -75,7 +73,6 @@ public class KillAura extends Module {
     private float targetPitch;
     private float smoothYaw;
     private boolean isBlocking;
-    private double[] previusROP;
 
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
@@ -126,7 +123,7 @@ public class KillAura extends Module {
         return var0.currentRotation;
     }
 
-    public static InteractAutoBlock method16844(KillAura var0) {
+    public static InteractAutoBlock getInteractAutoblock(KillAura var0) {
         return autoBlock;
     }
 
@@ -134,11 +131,11 @@ public class KillAura extends Module {
         return var0.targets;
     }
 
-    public static int method16846(KillAura var0) {
+    public static int getAttackDelay(KillAura var0) {
         return var0.attackDelay;
     }
 
-    public static void method16847(KillAura var0, int var1) {
+    public static void setAttackDelya(KillAura var0, int var1) {
         var0.attackDelay = var1;
     }
 
@@ -291,11 +288,11 @@ public class KillAura extends Module {
                 Rotation limit = !useRotationSpeed.currentValue
                         ? currentCopy
                         : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
-                this.kaROT = new float[]{limit.yaw, limit.pitch};
+                this.limitedRotation = new float[]{limit.yaw, limit.pitch};
                 float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
 
-                currentRotation.yaw = RotationUtils.gcdFix(kaROT, oldRots)[0];
-                currentRotation.pitch = RotationUtils.gcdFix(kaROT, oldRots)[1];
+                currentRotation.yaw = RotationUtils.gcdFix(limitedRotation, oldRots)[0];
+                currentRotation.pitch = RotationUtils.gcdFix(limitedRotation, oldRots)[1];
 
                 RotationCore.currentYaw = currentRotation.yaw;
                 RotationCore.currentPitch = currentRotation.pitch;
@@ -717,16 +714,16 @@ public class KillAura extends Module {
     }
 
     public void doAttack(){
-        boolean var6 = autoBlock.hasReachedCpsTiming(this.attackTimer);
-        float var7 = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
-        boolean var8 = attackCooldown == 0 && var6 && var7 >= 1.0F;
-        if (var6) {
+        boolean reachedCPS = autoBlock.hasReachedCpsTiming(this.attackTimer);
+        float cooldown = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
+        boolean shouldAttack = attackCooldown == 0 && reachedCPS && cooldown >= 1.0F;
+        if (reachedCPS) {
             autoBlock.updateCpsTimings();
         }
 
-        if (var8) {
-            Class338 var9 = new Class338(this);
-            var9.run();
+        if (shouldAttack) {
+            AttackRunnable attackRunnable = new AttackRunnable(this);
+            attackRunnable.run();
 
 
             this.attackTimer = 0;

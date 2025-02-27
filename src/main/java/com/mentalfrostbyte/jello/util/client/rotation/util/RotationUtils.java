@@ -45,7 +45,7 @@ public class RotationUtils {
         boolean nigger = Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()
                 && (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Grim")
                 || Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Clutch"));
-        float f = (float) ((nigger ? 0 : 0.6126761)  * 0.6F + 0.2F);
+        float f = (float) ((nigger ? 0 : mc.gameSettings.mouseSensitivity)  * 0.6F + 0.2F);
         float f5 = f * f * f;
 
         float gcd = f * f * f * (nigger ? 8.0F : Client.getInstance().moduleManager.getModuleByClass(AutoSprint.class).getBooleanValueFromSettingName("VulcanGCD") ? 1.2F : 8.0F);
