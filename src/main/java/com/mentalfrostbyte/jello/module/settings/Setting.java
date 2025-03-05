@@ -6,12 +6,14 @@ import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 public abstract class Setting<T> {
     public final SettingType settingType;
     public final String name;
     public final String description;
     private final List<SettingObserver> observers = new ArrayList<>();
+    private BooleanSupplier hidden = () -> false;
     @NotNull
     public T currentValue;
     @NotNull
@@ -32,8 +34,14 @@ public abstract class Setting<T> {
         return jsonObject;
     }
 
+    @SuppressWarnings("unchecked")
+    public <I extends Setting<?>> I hide(BooleanSupplier hidden) {
+        this.hidden = hidden;
+        return (I) this;
+    }
+
     public boolean isHidden() {
-        return false;
+        return hidden.getAsBoolean();
     }
 
     public void resetToDefault() {
