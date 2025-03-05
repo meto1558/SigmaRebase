@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.util.client.network.auth;
 import com.google.gson.JsonArray;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
@@ -43,7 +42,7 @@ public class SigmaIRC {
             List<AbstractClientPlayerEntity> var4 = this.mc.world.getPlayers();
 
             var4.removeIf(var6 -> this.field36053.contains(var6.getUniqueID())
-                    || Client.getInstance().combatManager.isTargetABot(var6)
+                    || Client.getInstance().combatManager.isBot(var6)
                     || var6.getName().getUnformattedComponentText().isEmpty());
 
             if (!var4.isEmpty()) {

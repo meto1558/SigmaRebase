@@ -23,6 +23,6 @@ public class ProjectileThingyPredicate implements Predicate<Entity> {
         AxisAlignedBB var4 = var1.getBoundingBox().expand((double) this.field538, (double) this.field538,
                 (double) this.field538);
         boolean var5 = var4.intersects(this.field539, this.field540);
-        return var1 != null && var1.canBeCollidedWith() && var5 && !Client.getInstance().combatManager.isTargetABot(var1);
+        return var1 != null && var1.canBeCollidedWith() && var5 && !Client.getInstance().combatManager.isBot(var1);
     }
 }

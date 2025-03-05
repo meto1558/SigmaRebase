@@ -32,7 +32,7 @@ public class Aimbot extends ModuleWithModuleSettings {
 
         for (Entity entity : entities) {
             if (entity != mc.player) {
-                if (!Client.getInstance().friendManager.method26997(entity)) {
+                if (!Client.getInstance().friendManager.isFriendPure(entity)) {
                     if (entity instanceof LivingEntity) {
                         if (((LivingEntity) entity).getHealth() != 0.0F) {
                             if (!(mc.player.getDistance(entity) > maxDistance)) {
@@ -41,7 +41,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                                         continue;
                                     if (!this.getBooleanValueFromSettingName("Players") && entity instanceof PlayerEntity) {
                                         
-                                    } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(entity)) {
+                                    } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isBot(entity)) {
                                         
                                     } else if (!this.getBooleanValueFromSettingName("Invisible") && entity.isInvisible()) {
                                         

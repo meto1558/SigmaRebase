@@ -104,7 +104,7 @@ public class NameTags extends Module {
                         && var7 != Freecam.player
                         && var7 != Blink.clientPlayerEntity
                         && !var7.isInvisible()
-                        && !Client.getInstance().combatManager.isTargetABot(var7)) {
+                        && !Client.getInstance().combatManager.isBot(var7)) {
                     this.entities.add(var7);
                 }
             }
@@ -382,7 +382,7 @@ public class NameTags extends Module {
             GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getPitch(), 1.0F, 0.0F, 0.0F);
             GL11.glScalef(-0.009F * var8, -0.009F * var8, -0.009F * var8);
             int var19 = this.backgroundColor;
-            if (!Client.getInstance().friendManager.method26997(var7)) {
+            if (!Client.getInstance().friendManager.isFriendPure(var7)) {
                 if (Client.getInstance().friendManager.isFriend(var7)) {
                     var19 = RenderUtil.applyAlpha(-6750208, 0.5F);
                 }

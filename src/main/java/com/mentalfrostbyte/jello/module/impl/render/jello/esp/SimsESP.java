@@ -101,7 +101,7 @@ public class SimsESP extends Module {
     public void method16213(EventRender3D var1) {
         if (this.isEnabled()) {
             for (Entity var5 : BlockUtil.method34549(CombatUtil.getAllPlayersInWorld())) {
-                if (var5 != mc.player && !Client.getInstance().combatManager.isTargetABot(var5)) {
+                if (var5 != mc.player && !Client.getInstance().combatManager.isBot(var5)) {
                     method16216(
                             var5.lastTickPosX + (var5.getPosX() - var5.lastTickPosX) * (double) Minecraft.getInstance().timer.renderPartialTicks,
                             var5.lastTickPosY + (double) var5.getHeight() + (var5.getPosY() - var5.lastTickPosY) * (double) Minecraft.getInstance().timer.renderPartialTicks,

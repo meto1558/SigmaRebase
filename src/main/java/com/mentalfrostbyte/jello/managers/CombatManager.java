@@ -21,7 +21,7 @@ public class CombatManager {
         EventBus.register(this);
     }
 
-    public boolean isTargetABot(Entity var1) {
+    public boolean isBot(Entity var1) {
         return this.bots.contains(var1);
     }
 
