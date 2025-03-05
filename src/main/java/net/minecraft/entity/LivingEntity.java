@@ -4248,4 +4248,8 @@ public abstract class LivingEntity extends Entity
             return super.getRenderBoundingBox();
         }
     }
+
+    public int getTicksExisted() {
+        return ticksExisted;
+    }
 }
