@@ -144,10 +144,20 @@ public class NewAura extends Module {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (target != null && (mc.player.canEntityBeSeen(target) && throughWalls.currentValue)) {
-            if (attackCounter.hasElapsed(calculateAttackDelay(), true) && target.getDistance(mc.player) <= attackRange.currentValue) {
-                mc.player.swingArm(Hand.MAIN_HAND);
-                mc.playerController.attackEntity(mc.player, target);
+        if (target != null && (mc.player.canEntityBeSeen(target) && throughWalls.currentValue && target.getDistance(mc.player) <= attackRange.currentValue)) {
+            switch (clickMode.currentValue) {
+                case "CPS" -> {
+                    if (attackCounter.hasElapsed(calculateAttackDelay(), true)) {
+                        mc.player.swingArm(Hand.MAIN_HAND);
+                        mc.playerController.attackEntity(mc.player, target);
+                    }
+                }
+                case "1.9" -> {
+                    if (mc.player.getCooledAttackStrength(0) >= 1) {
+                        mc.player.swingArm(Hand.MAIN_HAND);
+                        mc.playerController.attackEntity(mc.player, target);
+                    }
+                }
             }
         }
     }
