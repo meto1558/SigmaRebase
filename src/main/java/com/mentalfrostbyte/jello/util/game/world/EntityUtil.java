@@ -16,6 +16,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -25,6 +26,22 @@ import static com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil.get
 
 public class EntityUtil {
     private static Minecraft mc = Minecraft.getInstance();
+
+    public static Comparator<LivingEntity> sortEntities(String mode) {
+        switch (mode) {
+            case "Health":
+                return Comparator.comparingDouble(LivingEntity::getHealth);
+
+            case "Armor":
+                return Comparator.comparingDouble(LivingEntity::getTotalArmorValue);
+
+            case "Ticks":
+                return Comparator.comparingDouble(LivingEntity::getTicksExisted);
+
+            default:
+                return Comparator.comparingDouble(e -> e.getDistance(mc.player));
+        }
+    }
 
     public static void swing(Entity target, boolean swing) {
         if (target == null) {
