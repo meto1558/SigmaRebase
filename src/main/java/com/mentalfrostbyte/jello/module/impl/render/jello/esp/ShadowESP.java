@@ -191,7 +191,7 @@ public class ShadowESP extends Module {
         if (entity instanceof LivingEntity) {
             if (entity instanceof PlayerEntity) {
                 if (!(entity instanceof ClientPlayerEntity)) {
-                    return !entity.isInvisible() && !Client.getInstance().combatManager.isBot(entity);
+                    return !entity.isInvisible() && !Client.getInstance().botManager.isBot(entity);
                 } else {
                     return false;
                 }

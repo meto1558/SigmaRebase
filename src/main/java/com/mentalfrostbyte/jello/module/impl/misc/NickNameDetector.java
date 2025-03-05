@@ -18,7 +18,7 @@ public class NickNameDetector extends Module {
     public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
             for (Entity entity : CombatUtil.getPlayers()) {
-                if (!Client.getInstance().combatManager.isBot(entity) && entity.ticksExisted > 30 && entity.hasCustomName()) {
+                if (!Client.getInstance().botManager.isBot(entity) && entity.ticksExisted > 30 && entity.hasCustomName()) {
                     MinecraftUtil.addChatMessage(entity.getName().getUnformattedComponentText() + " might have a custom nametag");
                 }
             }

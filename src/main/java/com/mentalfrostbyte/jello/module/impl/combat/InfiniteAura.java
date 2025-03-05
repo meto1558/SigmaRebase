@@ -232,7 +232,7 @@ public class InfiniteAura extends Module {
                                     if (!(var8 instanceof ArmorStandEntity)) {
                                         if (!this.getBooleanValueFromSettingName("Players") && var8 instanceof PlayerEntity) {
                                             iter.remove();
-                                        } else if (var8 instanceof PlayerEntity && Client.getInstance().combatManager.isBot(var8)) {
+                                        } else if (var8 instanceof PlayerEntity && Client.getInstance().botManager.isBot(var8)) {
                                             iter.remove();
                                         } else if (!this.getBooleanValueFromSettingName("Invisible") && var8.isInvisible()) {
                                             iter.remove();

@@ -41,7 +41,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                                         continue;
                                     if (!this.getBooleanValueFromSettingName("Players") && entity instanceof PlayerEntity) {
                                         
-                                    } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isBot(entity)) {
+                                    } else if (entity instanceof PlayerEntity && Client.getInstance().botManager.isBot(entity)) {
                                         
                                     } else if (!this.getBooleanValueFromSettingName("Invisible") && entity.isInvisible()) {
                                         
