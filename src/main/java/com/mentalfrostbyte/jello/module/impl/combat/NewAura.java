@@ -105,6 +105,8 @@ public class NewAura extends Module {
                             && (invisibles.currentValue || !entity.isInvisible())
                             && entity.getName() != null
                             && entity.getDisplayName() != null
+                            && !Client.getInstance().friendManager.isFriend(entity)
+                            && !Client.getInstance().botManager.isBot(entity)
                             && isValid
                             && withinRange;
                 })
