@@ -10,8 +10,6 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
-import com.mentalfrostbyte.jello.util.client.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.client.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
@@ -105,6 +103,8 @@ public class NewAura extends Module {
                             && (invisibles.currentValue || !entity.isInvisible())
                             && entity.getName() != null
                             && entity.getDisplayName() != null
+                            && !Client.getInstance().friendManager.isFriend(entity)
+                            && !Client.getInstance().botManager.isBot(entity)
                             && isValid
                             && withinRange;
                 })
