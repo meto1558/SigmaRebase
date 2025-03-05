@@ -27,19 +27,19 @@ public class AntiBot extends Module {
 
     @Override
     public void onDisable() {
-        Client.getInstance().combatManager.antiBot = null;
-        Client.getInstance().combatManager.bots.clear();
+        Client.getInstance().botManager.antiBot = null;
+        Client.getInstance().botManager.bots.clear();
     }
 
     public void setup() {
-        Client.getInstance().combatManager.bots.clear();
+        Client.getInstance().botManager.bots.clear();
         String mode = this.getStringSettingValueByName("Mode");
         switch (mode) {
             case "Advanced":
-                Client.getInstance().combatManager.antiBot = new MovementAntiBot();
+                Client.getInstance().botManager.antiBot = new MovementAntiBot();
                 break;
             case "Hypixel":
-                Client.getInstance().combatManager.antiBot = new HypixelAntiBot();
+                Client.getInstance().botManager.antiBot = new HypixelAntiBot();
         }
     }
 }

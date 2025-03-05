@@ -61,7 +61,7 @@ public class Client {
     public GuiManager guiManager;
     public ModuleManager moduleManager;
     public NetworkManager networkManager;
-    public CombatManager combatManager;
+    public BotManager botManager;
     public ViaManager viaManager;
     public CommandManager commandManager;
     public SoundManager soundManager;
@@ -99,8 +99,8 @@ public class Client {
         this.networkManager = new NetworkManager();
         this.networkManager.init();
         this.guiManager = new GuiManager();
-        this.combatManager = new CombatManager();
-        this.combatManager.init();
+        this.botManager = new BotManager();
+        this.botManager.init();
         this.viaManager = new ViaManager();
         this.viaManager.init();
         this.commandManager = new CommandManager();

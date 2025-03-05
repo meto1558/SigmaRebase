@@ -104,7 +104,7 @@ public class NameTags extends Module {
                         && var7 != Freecam.player
                         && var7 != Blink.clientPlayerEntity
                         && !var7.isInvisible()
-                        && !Client.getInstance().combatManager.isBot(var7)) {
+                        && !Client.getInstance().botManager.isBot(var7)) {
                     this.entities.add(var7);
                 }
             }

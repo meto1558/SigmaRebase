@@ -13,7 +13,7 @@ import team.sdhq.eventBus.annotations.priority.HighestPriority;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class CombatManager {
+public class BotManager {
     public AntiBotBase antiBot;
     public List<Entity> bots = new CopyOnWriteArrayList<Entity>();
 
@@ -23,10 +23,6 @@ public class CombatManager {
 
     public boolean isBot(Entity var1) {
         return this.bots.contains(var1);
-    }
-
-    public void clearBots() {
-        this.bots.clear();
     }
 
     @EventTarget

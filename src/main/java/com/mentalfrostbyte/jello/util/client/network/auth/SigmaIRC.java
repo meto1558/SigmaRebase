@@ -42,7 +42,7 @@ public class SigmaIRC {
             List<AbstractClientPlayerEntity> var4 = this.mc.world.getPlayers();
 
             var4.removeIf(var6 -> this.field36053.contains(var6.getUniqueID())
-                    || Client.getInstance().combatManager.isBot(var6)
+                    || Client.getInstance().botManager.isBot(var6)
                     || var6.getName().getUnformattedComponentText().isEmpty());
 
             if (!var4.isEmpty()) {
