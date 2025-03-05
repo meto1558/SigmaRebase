@@ -21,18 +21,13 @@ public class AttackRunnable implements Runnable {
                 && !this.killAura.getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
 
             KillAura.getInteractAutoblock(this.killAura).stopAutoBlock();
-
         }
 
-        if(!mc.player.isAlive() || mc.player.isSpectator()){
+        if (!mc.player.isAlive() || mc.player.isSpectator()) {
             return;
         }
 
-
         String mode = this.killAura.getStringSettingValueByName("Mode");
-
-
-
         if ((this.killAura.getBooleanValueFromSettingName("Raytrace") ||
                 !this.killAura.getBooleanValueFromSettingName("Raytrace") ||
                 mode.equals("Multi"))) {
@@ -40,15 +35,14 @@ public class AttackRunnable implements Runnable {
             for (TimedEntity timedEntity : KillAura.getTargets(this.killAura)) {
                 Entity entity = timedEntity.getEntity();
 
-                if(killAura.getBooleanValueFromSettingName("Raytrace")){
+                if (killAura.getBooleanValueFromSettingName("Raytrace")) {
                     mc.clickMouse();
-
-                }else{
+                } else {
                     mc.playerController.attackEntity(mc.player, entity);
 
-                    boolean nigga = killAura.isEnabled() && killAura.getBooleanValueFromSettingName("No swing") && killAura.targetEntity != null;
+                    boolean shouldAttack = killAura.isEnabled() && killAura.getBooleanValueFromSettingName("No swing") && killAura.targetEntity != null;
 
-                    if (nigga) {
+                    if (shouldAttack) {
                         Minecraft.getInstance().getConnection().sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
                     } else {
                         Minecraft.getInstance().player.swingArm(Hand.MAIN_HAND);
