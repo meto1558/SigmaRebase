@@ -1435,25 +1435,28 @@ public abstract class Entity implements INameable, ICommandSource
 
     public void moveRelative(float p_213309_1_, Vector3d relative)
     {
-        this.yawRestore = this.rotationYaw;
-        float yaw = this.rotationYaw;
-        EventMoveRelative eventMoveFlying = new EventMoveRelative(yaw);
 
         if(this instanceof ClientPlayerEntity){
+            this.yawRestore = this.rotationYaw;
+            float yaw = this.rotationYaw;
+            EventMoveRelative eventMoveFlying = new EventMoveRelative(yaw);
             EventBus.call(eventMoveFlying);
+            this.pitchRestore = this.rotationPitch;
+            if (!ClientPlayerEntity.class.isInstance(this) || BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this) == null) {
+                return;
+            }
+            RotationMoveEvent motionUpdateRotationEvent = new RotationMoveEvent(RotationMoveEvent.Type.MOTION_UPDATE, this.rotationYaw, this.rotationPitch);
+            BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this).getGameEventHandler().onPlayerRotationMove(motionUpdateRotationEvent);
+            this.rotationYaw = motionUpdateRotationEvent.getYaw();
+            this.rotationPitch = motionUpdateRotationEvent.getPitch();
+            Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
+            this.setMotion(this.getMotion().add(vector3d));
+            this.rotationYaw = this.yawRestore;
+            this.rotationPitch = this.pitchRestore;
+        } else {
+            Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
+            this.setMotion(this.getMotion().add(vector3d));
         }
-        this.pitchRestore = this.rotationPitch;
-        if (!ClientPlayerEntity.class.isInstance(this) || BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this) == null) {
-            return;
-        }
-        RotationMoveEvent motionUpdateRotationEvent = new RotationMoveEvent(RotationMoveEvent.Type.MOTION_UPDATE, this.rotationYaw, this.rotationPitch);
-        BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this).getGameEventHandler().onPlayerRotationMove(motionUpdateRotationEvent);
-        this.rotationYaw = motionUpdateRotationEvent.getYaw();
-        this.rotationPitch = motionUpdateRotationEvent.getPitch();
-        Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
-        this.setMotion(this.getMotion().add(vector3d));
-        this.rotationYaw = this.yawRestore;
-        this.rotationPitch = this.pitchRestore;
     }
 
     public final Vector3d getLookCustom(float partialTicks, float yaw, float pitch)
