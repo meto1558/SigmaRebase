@@ -81,7 +81,7 @@ public class BowAimbot extends Module {
             Entity var6 = (Entity) var5.next();
             if (var6 == mc.player) {
                 var5.remove();
-            } else if (Client.getInstance().friendManager.method26997(var6)) {
+            } else if (Client.getInstance().friendManager.isFriendPure(var6)) {
                 var5.remove();
             } else if (!(var6 instanceof LivingEntity)) {
                 var5.remove();
@@ -95,7 +95,7 @@ public class BowAimbot extends Module {
                 var5.remove();
             } else if (!this.getBooleanValueFromSettingName("Players") && var6 instanceof PlayerEntity) {
                 var5.remove();
-            } else if (this.getBooleanValueFromSettingName("Anti-Bot") && var6 instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(var6)) {
+            } else if (this.getBooleanValueFromSettingName("Anti-Bot") && var6 instanceof PlayerEntity && Client.getInstance().combatManager.isBot(var6)) {
                 var5.remove();
             } else if (!this.getBooleanValueFromSettingName("Invisible") && var6.isInvisible()) {
                 var5.remove();

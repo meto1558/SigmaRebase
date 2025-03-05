@@ -224,7 +224,7 @@ public class InfiniteAura extends Module {
         while (iter.hasNext()) {
             Entity var8 = iter.next().getEntity();
             if (var8 != mc.player) {
-                if (!Client.getInstance().friendManager.method26997(var8)) {
+                if (!Client.getInstance().friendManager.isFriendPure(var8)) {
                     if (var8 instanceof LivingEntity) {
                         if (((LivingEntity) var8).getHealth() != 0.0F) {
                             if (!(mc.player.getDistance(var8) > range)) {
@@ -232,7 +232,7 @@ public class InfiniteAura extends Module {
                                     if (!(var8 instanceof ArmorStandEntity)) {
                                         if (!this.getBooleanValueFromSettingName("Players") && var8 instanceof PlayerEntity) {
                                             iter.remove();
-                                        } else if (var8 instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(var8)) {
+                                        } else if (var8 instanceof PlayerEntity && Client.getInstance().combatManager.isBot(var8)) {
                                             iter.remove();
                                         } else if (!this.getBooleanValueFromSettingName("Invisible") && var8.isInvisible()) {
                                             iter.remove();

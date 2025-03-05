@@ -18,7 +18,7 @@ public class VanillaESP extends Module {
     public void method16625(EventPlayerTick var1) {
         if (this.isEnabled()) {
             for (Entity var5 : mc.world.getAllEntities()) {
-                if (!Client.getInstance().combatManager.isTargetABot(var5)) {
+                if (!Client.getInstance().combatManager.isBot(var5)) {
                     boolean var6 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.PLAYER && this.access().getBooleanValueFromSettingName("Show Players");
                     boolean var7 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.MONSTER && this.access().getBooleanValueFromSettingName("Show Mobs");
                     boolean var8 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.NON_PLAYER && this.access().getBooleanValueFromSettingName("Show Passives");

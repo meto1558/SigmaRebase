@@ -3,13 +3,10 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
-import com.mentalfrostbyte.jello.util.system.other.Pair;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.Teams;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.sorters.*;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
-import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import net.minecraft.client.Minecraft;
@@ -23,10 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.network.play.client.CUseEntityPacket;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -163,52 +157,50 @@ public class InteractAutoBlock {
             var4.add(new TimedEntity(ent));
         }
 
-        Iterator var24 = var4.iterator();
+        Iterator iterator = var4.iterator();
 
-        while (var24.hasNext()) {
-            TimedEntity targetData = (TimedEntity)var24.next();
+        while (iterator.hasNext()) {
+            TimedEntity targetData = (TimedEntity)iterator.next();
             Entity entity = targetData.getEntity();
             if (entity == this.mc.player || entity == Blink.clientPlayerEntity) {
-                var24.remove();
+                iterator.remove();
             } else if (mc.player.getDistance(entity) > range) {
-                var24.remove();
-            } else if (Client.getInstance().friendManager.method26997(entity)) {
-                var24.remove();
+                iterator.remove();
+            } else if (Client.getInstance().friendManager.isFriendPure(entity)) {
+                iterator.remove();
             } else if (!(entity instanceof LivingEntity)) {
-                var24.remove();
+                iterator.remove();
             } else if (entity instanceof ArmorStandEntity) {
-                var24.remove();
+                iterator.remove();
             } else if (((LivingEntity)entity).getHealth() == 0.0F) {
-                var24.remove();
+                iterator.remove();
             } else if (!this.mc.player.canAttack((LivingEntity)entity)) {
-                var24.remove();
-            } else if (entity instanceof ArmorStandEntity) {
-                var24.remove();
+                iterator.remove();
             } else if (!this.parent.getBooleanValueFromSettingName("Players") && entity instanceof PlayerEntity) {
-                var24.remove();
-            } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(entity)) {
-                var24.remove();
+                iterator.remove();
+            } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isBot(entity)) {
+                iterator.remove();
             } else if (!this.parent.getBooleanValueFromSettingName("Invisible") && entity.isInvisible()) {
-                var24.remove();
+                iterator.remove();
             } else if (!this.parent.getBooleanValueFromSettingName("Animals") && (entity instanceof AnimalEntity || entity instanceof VillagerEntity)) {
-                var24.remove();
+                iterator.remove();
             } else if (!this.parent.getBooleanValueFromSettingName("Monsters") && entity instanceof MonsterEntity) {
-                var24.remove();
+                iterator.remove();
             } else if (this.mc.player.getRidingEntity() != null && this.mc.player.getRidingEntity().equals(entity)) {
-                var24.remove();
+                iterator.remove();
             } else if (entity.isInvulnerable()) {
-                var24.remove();
+                iterator.remove();
             } else if (!(entity instanceof PlayerEntity) || !CombatUtil.arePlayersOnSameTeam((PlayerEntity)entity) || !Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
 
                 if (!this.parent.getBooleanValueFromSettingName("Through walls")) {
                     Rotation var28 = RotationHelper.getRotations(entity, true);
                     if (var28 == null) {
-                        var24.remove();
+                        iterator.remove();
                     }
                 }
 
             } else {
-                var24.remove();
+                iterator.remove();
             }
         }
 

@@ -63,7 +63,7 @@ public class BoxOutlineESP extends Module {
                                         && this.access().getBooleanValueFromSettingName("Show Players");
                                 boolean var6 = !var2.isInvisible()
                                         || this.access().getBooleanValueFromSettingName("Show Invisibles");
-                                if (!Client.getInstance().combatManager.isTargetABot(var2) && var5 && var6
+                                if (!Client.getInstance().combatManager.isBot(var2) && var5 && var6
                                         && var2 != mc.player) {
                                     double var7 = PositionUtil.getRelativePosition(var2).x;
                                     double var9 = PositionUtil.getRelativePosition(var2).y;
@@ -92,7 +92,7 @@ public class BoxOutlineESP extends Module {
 
     private void method16508(boolean var1) {
         for (Entity var5 : mc.world.getAllEntities()) {
-            if (!Client.getInstance().combatManager.isTargetABot(var5)) {
+            if (!Client.getInstance().combatManager.isBot(var5)) {
                 boolean var6 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.PLAYER
                         && this.access().getBooleanValueFromSettingName("Show Players");
                 boolean var7 = PlayerUtil.getEntityCategory(var5) == PlayerUtil.EntityTypeCategory.MONSTER

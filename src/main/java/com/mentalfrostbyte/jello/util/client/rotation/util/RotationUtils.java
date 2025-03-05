@@ -159,9 +159,9 @@ public class RotationUtils {
         float var4 = current - target;
         return !(var4 > 180.0F) ? (!(var4 < -180.0F) ? var4 : var4 + 360.0F) : var4 - 360.0F;
     }
-    public static Rotation getAdvancedRotation(Entity target, boolean noVisible) {
+    public static Rotation getAdvancedRotation(Entity target, boolean raycast) {
         Vector3d entityPosition = getEntityPosition(target);
-        if (noVisible && !isHovering(entityPosition)) {
+        if (raycast && !isHovering(entityPosition)) {
             for (int heightLevel = -1; heightLevel < 2; heightLevel++) {
                 double heightAdjustment = (double)heightLevel;
                 if (heightLevel != -1) {
