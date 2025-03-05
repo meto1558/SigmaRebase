@@ -190,7 +190,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void method16819(EventPlayerTick var1) {
+    public void onTick2(EventPlayerTick var1) {
         if (this.isEnabled()) {
             if (this.targetPitch != -1.0F) {
                 this.targetPitch++;
@@ -207,7 +207,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void method16820(EventStopUseItem var1) {
+    public void onStopUseItem(EventStopUseItem var1) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
@@ -236,7 +236,7 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void m2et125h32od10(EventPlayerTick var1) {
+    public void onTick(EventPlayerTick var1) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
@@ -299,7 +299,7 @@ public class KillAura extends Module {
                 mc.gameRenderer.getMouseOver(1.0F); // might fix issue with slow raytrace update
 
                 if (!this.hitEvent.currentValue) {
-                    doAttack();
+                    attack();
                 }
 
                 if (attackCooldown > 0) {
@@ -318,7 +318,7 @@ public class KillAura extends Module {
 
         if (this.targets != null && !this.targets.isEmpty()) {
             if (this.hitEvent.currentValue) {
-                doAttack();
+                attack();
             }
         }
 
@@ -712,8 +712,9 @@ public class KillAura extends Module {
                 }
         }
     }
+    private final AttackRunnable attackRunnable = new AttackRunnable(this);
 
-    public void doAttack(){
+    public void attack(){
         boolean reachedCPS = autoBlock.hasReachedCpsTiming(this.attackTimer);
         float cooldown = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
         boolean shouldAttack = attackCooldown == 0 && reachedCPS && cooldown >= 1.0F;
@@ -722,13 +723,10 @@ public class KillAura extends Module {
         }
 
         if (shouldAttack) {
-            AttackRunnable attackRunnable = new AttackRunnable(this);
+            //we should NOT be making a new instance of attack runnable every attack
             attackRunnable.run();
-
-
             this.attackTimer = 0;
         }
-
     }
 
     private double randomize(double var1, double var3) {
