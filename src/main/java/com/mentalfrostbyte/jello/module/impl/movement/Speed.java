@@ -65,5 +65,7 @@ public class Speed extends ModuleWithModuleSettings {
             HypixelSpeed hypixelSpeed = (HypixelSpeed) this.parentModule;
             hypixelSpeed.method16044();
         }
+
+        }
     }
-}
+
