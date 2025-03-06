@@ -13,6 +13,7 @@ public class VulcanSpeed extends Module {
     }
 
     private int offGroundTicks;
+    private int jumpCount = 0;
 
     @EventTarget
     public void onEvent(EventUpdateWalkingPlayer event) {
@@ -24,13 +25,26 @@ public class VulcanSpeed extends Module {
 
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.keyCode, true);
 
-        if (mc.player.onGround && MovementUtil.isMoving()) {
+        if (mc.player.onGround && MovementUtil.isMoving() && this.isEnabled()) {
             mc.player.jump();
-            MovementUtil.strafe(0.43);
+            jumpCount++;
+            MovementUtil.strafe(0.48);
+            if (jumpCount % 6 == 0) {
+                mc.timer.timerSpeed = 1.1F; // Boost timer on the 5th jump
+            } else {
+                mc.timer.timerSpeed = 1.05F; // Normal timer speed otherwise
+
+            }
         }
 
         if (offGroundTicks < 4) {
             MovementUtil.strafe();
         }
+    }
+
+    @Override
+    public void onDisable() {
+        mc.timer.timerSpeed = 1.0F;
+        jumpCount = 0;
     }
 }
