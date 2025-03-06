@@ -161,9 +161,9 @@ public class HypixelStep extends Module {
 
     private void sendBlinkingStatusMessage() {
         if (isBlinking) {
-            ChatUtil.method32487("Blinking is now enabled.");
+            ChatUtil.printMessage("Blinking is now enabled.");
         } else {
-            ChatUtil.method32487("Blinking is now disabled.");
+            ChatUtil.printMessage("Blinking is now disabled.");
         }
     }
 

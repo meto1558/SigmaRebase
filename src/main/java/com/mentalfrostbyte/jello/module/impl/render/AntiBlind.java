@@ -3,7 +3,6 @@ package com.mentalfrostbyte.jello.module.impl.render;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effects;
 import team.sdhq.eventBus.annotations.EventTarget;
 

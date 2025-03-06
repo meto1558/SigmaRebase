@@ -73,6 +73,7 @@ public class ModuleManager {
 
         if (clientMode == ClientMode.CLASSIC) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.classic.ESP());
         }
         // COMBAT

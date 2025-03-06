@@ -36,12 +36,12 @@ public class FriendManager {
             var4.method30236();
             if (this.isFriendPure(this.mc.pointedEntity)) {
                 this.method27005(this.mc.pointedEntity.getName().getUnformattedComponentText());
-                ChatUtil.method32487(
+                ChatUtil.printMessage(
                         var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is no longer your friend."
                 );
             } else {
                 this.method27001(this.mc.pointedEntity.getName().getUnformattedComponentText());
-                ChatUtil.method32487(var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is now your friend.");
+                ChatUtil.printMessage(var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is now your friend.");
             }
 
             this.method27009();
