@@ -119,7 +119,7 @@ public class VerusSpeed extends Module {
                     float slipperiness = blockStateUnder().getBlock().getSlipperiness();
 
                     if (slipperiness != 0.6f)
-                        speed += (slipperiness * 0.35);
+                        speed += (slipperiness * 0.3652);
 
                     mc.player.jump();
                 }
