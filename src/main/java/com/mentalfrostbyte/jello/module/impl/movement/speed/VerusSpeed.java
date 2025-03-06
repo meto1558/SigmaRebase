@@ -131,7 +131,7 @@ public class VerusSpeed extends Module {
 
             case "Ground" -> {
                 if (mc.player.onGround) {
-                    speed = 0.23 + (Math.random() / 150d);
+                    speed = MovementUtil.getSmartSpeed() - (MovementUtil.getSpeed() * 0.2);
                     float slipperiness = blockStateUnder().getBlock().getSlipperiness();
 
                     if (slipperiness != 0.6f)

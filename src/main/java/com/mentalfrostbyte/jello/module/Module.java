@@ -230,12 +230,12 @@ public class Module {
                 EventBus.unregister(this);
                 if (!(this instanceof ModuleWithModuleSettings)) {
                     if (Client.getInstance().clientMode == ClientMode.JELLO
-                            && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                            && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                         Client.getInstance().soundManager.play("deactivate");
                     }
 
                     if (Client.getInstance().clientMode == ClientMode.CLASSIC
-                        && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                         Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.6F));
                     }
                 }
@@ -244,12 +244,12 @@ public class Module {
             } else {
                 EventBus.register(this);
                 if (Client.getInstance().clientMode == ClientMode.JELLO
-                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                        && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                     Client.getInstance().soundManager.play("activate");
                 }
 
                 if (Client.getInstance().clientMode == ClientMode.CLASSIC
-                        /*&& Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")*/) {
+                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                     Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.7F));
                 }
 
