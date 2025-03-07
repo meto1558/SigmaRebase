@@ -17,7 +17,7 @@ public class GrimAntiKB extends Module {
                 if (packet.getEntityID() == mc.player.getEntityId()) {
                     event.cancelled = true;
                 }
-            } else if (event.packet instanceof SConfirmTransactionPacket) {
+            } if (event.packet instanceof SConfirmTransactionPacket) {
                 if (mc.player.ticksExisted > 180) {
                     event.cancelled = true;
 

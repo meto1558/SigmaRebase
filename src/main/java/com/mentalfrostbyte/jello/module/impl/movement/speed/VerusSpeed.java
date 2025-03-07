@@ -96,7 +96,7 @@ public class VerusSpeed extends Module {
 
                     float slipperiness = blockStateUnder().getBlock().getSlipperiness();
                     if (slipperiness != 0.6f)
-                        speed += (slipperiness * 0.36);
+                        speed += (slipperiness * 0.3652);
                     mc.player.jump();
                 }
             }
@@ -119,7 +119,7 @@ public class VerusSpeed extends Module {
                     float slipperiness = blockStateUnder().getBlock().getSlipperiness();
 
                     if (slipperiness != 0.6f)
-                        speed += (slipperiness * 0.35);
+                        speed += (slipperiness * 0.3652);
 
                     mc.player.jump();
                 }
@@ -131,7 +131,7 @@ public class VerusSpeed extends Module {
 
             case "Ground" -> {
                 if (mc.player.onGround) {
-                    speed = 0.23 + (Math.random() / 150d);
+                    speed = MovementUtil.getSmartSpeed() - (MovementUtil.getSpeed() * 0.2);
                     float slipperiness = blockStateUnder().getBlock().getSlipperiness();
 
                     if (slipperiness != 0.6f)

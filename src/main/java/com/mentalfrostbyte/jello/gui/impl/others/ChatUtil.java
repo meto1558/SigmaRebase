@@ -21,8 +21,8 @@ public class ChatUtil {
       return var0 != 167 && var0 >= ' ' && var0 != 127;
    }
 
-   public static void method32487(String var0) {
-      Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(new StringTextComponent(var0));
+   public static void printMessage(String message) {
+      Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(new StringTextComponent(message));
    }
    public static void sendChatMessage(String text) {
       mc.getConnection().sendPacket(new CChatMessagePacket(text));

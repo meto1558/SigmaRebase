@@ -18,6 +18,14 @@ public class CustomDisabler  extends Module {
     public CustomDisabler() {
         super(ModuleCategory.EXPLOIT, "Custom", "Customizable disabler ");
 
+        this.registerSetting(
+                new BooleanSetting(
+                        "Log cancelled packets",
+                        "Logs what type of packets were cancelled",
+                        false
+                )
+        );
+
         Arrays.stream(PacketCollectorUtil.getPacketClasses("Outgoing")).sorted()
                 .map(packetClass -> new BooleanSetting(packetClass, "Cancel Outgoing " + packetClass, false))
                 .forEach(this::registerSetting);
@@ -36,35 +44,42 @@ public class CustomDisabler  extends Module {
 
     }
 
+    public void logCancelled(String name, String type) {
+        ChatUtil.printMessage("Cancelling " + type + ": " + name);
+    }
+
     @EventTarget
     public void onRecievePacket(EventReceivePacket event) {
         String packetName = event.getPacket().getClass().getSimpleName();
         if (this.getBooleanValueFromSettingName(packetName)) {
-            ChatUtil.method32487("Cancelling INCOMING packet: " + packetName);
+            logCancelled(packetName, "INCOMING packet");
             event.cancelled = true;
         }
     }
 
     @EventTarget
-    public void onSendPacket(EventSendPacket packet) {
-        String packetName = packet.packet.getClass().getSimpleName();
+    public void onSendPacket(EventSendPacket event) {
+        String packetName = event.packet.getClass().getSimpleName();
         if (this.getBooleanValueFromSettingName(packetName)) {
-            ChatUtil.method32487("Cancelling OUTGOING packet: " + packetName);
-            packet.cancelled = true;
+            logCancelled(packetName, "OUTGOING packet");
+            event.cancelled = true;
         }
 
 
-        if (packet.packet instanceof CPlayerDiggingPacket) {
-            if (this.getBooleanValueFromSettingName(((CPlayerDiggingPacket) packet.packet).getAction().name())) {
-                ChatUtil.method32487("Cancelling CPlayerDiggingPacket action: " + ((CPlayerDiggingPacket) packet.packet).getAction().name());
-                packet.cancelled = true;
+        if (event.packet instanceof CPlayerDiggingPacket diggingPacket) {
+            String actionName = diggingPacket.getAction().name();
+            if (this.getBooleanValueFromSettingName(actionName)) {
+                logCancelled(actionName, "CPlayerDiggingPacket action");
+                ChatUtil.printMessage("Cancelling CPlayerDiggingPacket action: " + actionName);
+                event.cancelled = true;
             }
         }
 
-        if (packet.packet instanceof CEntityActionPacket) {
-            if (this.getBooleanValueFromSettingName(((CEntityActionPacket) packet.packet).getAction().name())) {
-                ChatUtil.method32487("Cancelling CEntityActionPacket action: " + ((CEntityActionPacket) packet.packet).getAction().name());
-                packet.cancelled = true;
+        if (event.packet instanceof CEntityActionPacket entityAction) {
+            String actionName = entityAction.getAction().name();
+            if (this.getBooleanValueFromSettingName(actionName)) {
+                ChatUtil.printMessage("Cancelling CEntityActionPacket action: " + actionName);
+                event.cancelled = true;
             }
         }
     }
