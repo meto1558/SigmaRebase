@@ -47,10 +47,26 @@ public class NewAura extends Module {
 
     public NewAura() {
         super(ModuleCategory.COMBAT, "NewAura", "Attacks entities.");
-        registerSetting(sortMode, clickMode, minCPS, maxCPS, searchRange, attackRange, players, monsters, animals, invisibles, throughWalls, raycast);
-
-        maxCPS.hide(() -> clickMode.currentValue.equals("1.9"));
-        minCPS.hide(() -> clickMode.currentValue.equals("1.9"));
+        registerSetting(
+                sortMode, clickMode,
+                minCPS
+                        .hide(() -> clickMode.currentValue.equals("1.9"))
+                        .addObserver((a) -> {
+                            if (minCPS.currentValue >= maxCPS.currentValue) {
+                                minCPS.setCurrentValue(maxCPS.getCurrentValue());
+                            }
+                        }),
+                maxCPS
+                        .hide(() -> clickMode.currentValue.equals("1.9"))
+                        .addObserver((a) -> {
+                            if (maxCPS.currentValue <= minCPS.currentValue) {
+                                maxCPS.setCurrentValue(minCPS.getCurrentValue());
+                            }
+                        }),
+                searchRange, attackRange,
+                players, monsters, animals, invisibles,
+                throughWalls, raycast
+        );
     }
 
     private final Counter attackCounter = new Counter();
