@@ -20,6 +20,7 @@ public class Speed extends ModuleWithModuleSettings {
                 "Speed",
                 "Vroom vroom",
                 new VanillaSpeed(),
+                new UpdatedNCPSpeed(),
                 new HypixelSpeed(),
                 new HypixelNewSpeed(),
                 new AACSpeed(),
