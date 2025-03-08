@@ -74,8 +74,9 @@ public class VerusSpeed extends Module {
 		return mc.world.getBlockState(under);
     }
 
+    @SuppressWarnings("unused")
     @EventTarget
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventUpdateWalkingPlayer __) {
         boolean dmgBoost = getBooleanValueFromSettingName("Damage boost");
         assert mc.player != null;
         switch (mode.currentValue) {
