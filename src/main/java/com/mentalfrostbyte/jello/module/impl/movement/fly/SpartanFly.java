@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
@@ -17,10 +18,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockRayTraceResult;
 
+import java.util.Objects;
+
 public class SpartanFly extends Module {
-    private double field23569;
-    private boolean field23570;
-    private boolean field23571;
+    private double minY;
+    private boolean spoofGround;
+    private boolean down;
 
     public SpartanFly() {
         super(ModuleCategory.MOVEMENT, "Spartan", "A fly for Spartan anticheat");
@@ -30,13 +33,13 @@ public class SpartanFly extends Module {
 
     @Override
     public void onEnable() {
-        this.field23570 = false;
-        this.field23569 = -10.0;
+        this.spoofGround = false;
+        this.minY = -10.0;
         if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
-            this.field23571 = false;
+            this.down = false;
         } else {
             mc.gameSettings.keyBindSneak.setPressed(false);
-            this.field23571 = true;
+            this.down = true;
         }
     }
 
@@ -45,7 +48,7 @@ public class SpartanFly extends Module {
         if (this.isEnabled()) {
             if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
-                this.field23571 = true;
+                this.down = true;
             }
         }
     }
@@ -55,7 +58,7 @@ public class SpartanFly extends Module {
         if (this.isEnabled()) {
             if (var1.getMouseButton() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
                 var1.cancelled = true;
-                this.field23571 = false;
+                this.down = false;
             }
         }
     }
@@ -63,80 +66,82 @@ public class SpartanFly extends Module {
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre() && this.getBooleanValueFromSettingName("Ground Spoof")) {
-            if (this.field23570) {
-                this.field23570 = !this.field23570;
+            if (this.spoofGround) {
+                this.spoofGround = !this.spoofGround;
                 var1.setOnGround(true);
             }
         }
     }
 
     @EventTarget
-    public void onMove(EventMove var1) {
+    public void onMove(EventMove e) {
         if (this.isEnabled()) {
-            boolean var4 = mc.player.isOnGround() /*|| MultiUtilities.isAboveBounds(mc.player, 0.001F)*/;
-            if (!var4) {
-                if (var1.getY() < 0.0) {
-                    if (this.field23569 != mc.player.getPositionVec().y) {
-                        if (mc.player.getPositionVec().y + var1.getY() < this.field23569) {
-                            this.field23570 = true;
-                            int var5 = this.method16272();
-                            boolean var6 = this.getBooleanValueFromSettingName("Fake Block");
-                            if (var5 >= 0 && var6) {
+			assert mc.player != null;
+			boolean doSpoofing = mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F);
+            if (!doSpoofing) {
+                if (e.getY() < 0.0) {
+                    if (this.minY != mc.player.getPositionVec().y) {
+                        if (mc.player.getPositionVec().y + e.getY() < this.minY) {
+                            this.spoofGround = true;
+                            int var5 = this.getBlockSlot();
+                            boolean fakeBlock = this.getBooleanValueFromSettingName("Fake Block");
+                            if (var5 >= 0 && fakeBlock) {
                                 mc.getConnection().sendPacket(new CHeldItemChangePacket(var5));
                             }
 
-                            if (var6 && (var5 >= 0
+                            if (fakeBlock && (var5 >= 0
                                     || mc.player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof BlockItem)) {
-                                BlockRayTraceResult var7 = new BlockRayTraceResult(
+                                BlockRayTraceResult trace = new BlockRayTraceResult(
                                         mc.player.getPositionVec().add(0.0, -2.0, 0.0),
                                         Direction.UP,
                                         mc.player.getPosition().add(0, -2, 0),
                                         false);
                                 CPlayerTryUseItemOnBlockPacket var8 = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
-                                        var7);
-                                mc.getConnection().sendPacket(var8);
+                                        trace);
+                                Objects.requireNonNull(mc.getConnection()).sendPacket(var8);
                             }
 
-                            if (var5 >= 0 && var6) {
+                            if (var5 >= 0 && fakeBlock) {
                                 mc.getConnection()
                                         .sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
                             }
 
-                            var1.setY(this.field23569 - mc.player.getPositionVec().y);
+                            e.setY(this.minY - mc.player.getPositionVec().y);
                         }
                     } else {
                         mc.player.jump();
-                        var1.setY(mc.player.getMotion().y);
-                        this.field23569 = !mc.gameSettings.keyBindJump.isKeyDown()
-                                ? (!this.field23571 ? mc.player.getPositionVec().y : mc.player.getPositionVec().y - 1.0)
-                                : (!this.field23571 ? mc.player.getPositionVec().y + 1.0
+                        e.setY(mc.player.getMotion().y);
+                        this.minY = !mc.gameSettings.keyBindJump.isKeyDown()
+                                ? (!this.down ? mc.player.getPositionVec().y : mc.player.getPositionVec().y - 1.0)
+                                : (!this.down ? mc.player.getPositionVec().y + 1.0
                                         : mc.player.getPositionVec().y);
-                        MovementUtil.setMotion(var1, 0.35);
+                        MovementUtil.setMotion(e, 0.35);
                     }
                 }
             } else {
                 mc.player.jump();
-                var1.setY(mc.player.getMotion().y);
-                MovementUtil.setMotion(var1, 0.35);
-                this.field23569 = !mc.gameSettings.keyBindJump.isKeyDown()
-                        ? (!this.field23571 ? mc.player.getPositionVec().y : mc.player.getPositionVec().y - 1.0)
-                        : (!this.field23571 ? mc.player.getPositionVec().y + 1.0 : mc.player.getPositionVec().y);
+                e.setY(mc.player.getMotion().y);
+                MovementUtil.setMotion(e, 0.35);
+                this.minY = !mc.gameSettings.keyBindJump.isKeyDown()
+                        ? (!this.down ? mc.player.getPositionVec().y : mc.player.getPositionVec().y - 1.0)
+                        : (!this.down ? mc.player.getPositionVec().y + 1.0 : mc.player.getPositionVec().y);
             }
 
-            mc.player.setMotion(var1.getX(), var1.getY(), var1.getZ());
+            mc.player.setMotion(e.getX(), e.getY(), e.getZ());
         }
     }
 
-    public int method16272() {
-        for (int var3 = 36; var3 < 45; var3++) {
-            if (mc.player.container.getSlot(var3).getHasStack()) {
-                ItemStack var4 = mc.player.container.getSlot(var3).getStack();
-                if (var4.getItem() instanceof BlockItem) {
-                    if (var3 - 36 == mc.player.inventory.currentItem) {
-                        var3 = 34;
+    public int getBlockSlot() {
+        for (int i = 36; i < 45; i++) {
+			assert mc.player != null;
+			if (mc.player.container.getSlot(i).getHasStack()) {
+                ItemStack item = mc.player.container.getSlot(i).getStack();
+                if (item.getItem() instanceof BlockItem) {
+                    if (i - 36 == mc.player.inventory.currentItem) {
+                        i = 34;
                     }
 
-                    return var3 - 36;
+                    return i - 36;
                 }
             }
         }
