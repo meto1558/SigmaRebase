@@ -268,9 +268,4 @@ public class Main
     {
         return str != null && !str.isEmpty();
     }
-
-    static
-    {
-        System.setProperty("java.awt.headless", "true");
-    }
 }

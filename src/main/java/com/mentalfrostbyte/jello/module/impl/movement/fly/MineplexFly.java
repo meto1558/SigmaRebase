@@ -8,16 +8,17 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.client.invmanager.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-//import com.mentalfrostbyte.jello.util.MultiUtilities;
 //import mapped.*;
-//import net.minecraft.inventory.container.ClickType;
+import net.minecraft.inventory.container.ClickType;
 import net.minecraft.network.play.client.CHeldItemChangePacket;
 import net.minecraft.network.play.client.CPlayerTryUseItemOnBlockPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -39,7 +40,7 @@ public class MineplexFly extends Module {
 
     public MineplexFly() {
         super(ModuleCategory.MOVEMENT, "Mineplex", "Mineplex fly/longjump");
-        this.registerSetting(new NumberSetting<Float>("Boost", "Boost value", 4.0F, Float.class, 1.0F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Boost", "Boost value", 4.0F, Float.class, 1.0F, 8.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Fake", "Simulate a real fly", false));
     }
 
@@ -63,7 +64,7 @@ public class MineplexFly extends Module {
             this.currentItem = mc.player.inventory.currentItem;
         }
 
-//        mc.timer.timerSpeed = 1.0F;
+        mc.timer.timerSpeed = 1.0F;
     }
 
     @EventTarget
@@ -87,7 +88,7 @@ public class MineplexFly extends Module {
         return this.isEnabled()
                 && this.currentItem != -1
                 && this.speed < (double) this.getNumberValueBySettingName("Boost")
-                && (mc.player.isOnGround() /*|| MultiUtilities.isAboveBounds(mc.player, 0.001F)*/)
+                && (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F))
                 && !this.failed;
     }
 
@@ -107,7 +108,7 @@ public class MineplexFly extends Module {
                 MovementUtil.setMotion(var1, 0.01);
             } else {
                 float offsetRotationYaw = mc.player.rotationYaw + 90.0F;
-                if (!mc.player.isOnGround()/* && !MultiUtilities.isAboveBounds(mc.player, 0.001F)*/) {
+                if (!mc.player.isOnGround() && !BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                     if (this.boostTicks != -1) {
                         if (this.field23674 /*&& !MultiUtilities.method17686()*/) {
                             this.field23674 = !this.field23674;
@@ -171,7 +172,7 @@ public class MineplexFly extends Module {
                         this.boostTicks++;
                         this.speed += 0.5;
                     } else {
-//                        mc.timer.timerSpeed = Math.min(1.0F, Math.max(0.1F, (float) (1.2 - this.speed * 0.15)));
+                        mc.timer.timerSpeed = Math.min(1.0F, Math.max(0.1F, (float) (1.2 - this.speed * 0.15)));
                         if (this.boostTicks > 2) {
                             this.speed += 0.05;
                         }
@@ -206,7 +207,7 @@ public class MineplexFly extends Module {
             if (var1.packet instanceof CHeldItemChangePacket
                     && this.currentItem != -1
                     && this.speed < (double) this.getNumberValueBySettingName("Boost")
-                    && (mc.player.isOnGround() /*|| MultiUtilities.isAboveBounds(mc.player, 0.001F)*/)
+                    && (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F))
                     && !this.failed) {
                 var1.cancelled = true;
             }
@@ -230,7 +231,7 @@ public class MineplexFly extends Module {
                 }
             }
 
-//            InvManagerUtil.fixedClick(mc.player.container.windowId, 42, 0, ClickType.QUICK_MOVE, mc.player, true);
+            InvManagerUtil.fixedClick(mc.player.container.windowId, 42, 0, ClickType.QUICK_MOVE, mc.player, true);
             if (!mc.player.container.getSlot(42).getStack().isEmpty()) {
                 Client.getInstance().notificationManager
                         .send(new Notification("Mineplex Fly", "Please empty a slot in your inventory"));

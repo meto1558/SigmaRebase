@@ -29,7 +29,7 @@ public class Fly extends ModuleWithModuleSettings {
                 new CubecraftFly(),
                 new Cubecraft2Fly(),
                 new OmegaCraftTestFly(),
-                new VerusGlideFly() //AUTHOR - alarmingly_good (on discord)
+                new VerusFly() //AUTHOR - alarmingly_good (on discord)
         );
     }
 }
