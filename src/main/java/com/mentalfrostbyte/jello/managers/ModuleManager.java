@@ -111,6 +111,7 @@ public class ModuleManager {
         this.register(new Breadcrumbs());
         this.register(new Freecam());
         this.register(new ChestESP());
+        this.register(new Cape());
         // WORLD
         this.register(new Weather());
         this.register(new FakeLag());
