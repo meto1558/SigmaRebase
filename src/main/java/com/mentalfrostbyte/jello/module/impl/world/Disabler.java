@@ -18,6 +18,7 @@ public class Disabler extends ModuleWithModuleSettings {
                 new VeltPvPDisabler(),
                 new GhostlyDisabler(),
                 new MinibloxDisabler(),
+                new MinibloxDesyncDisabler(),
                 new CustomDisabler(),
                 new VerusTimerDisabler()
         );
