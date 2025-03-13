@@ -200,17 +200,6 @@
     {
       "downloads": {
         "artifact": {
-          "path": "org/reflections/reflections/0.10.2/reflections-0.10.2.jar",
-          "sha1": "b638d7ca0e0fe0146b60a0e7ba232ad852a73b31",
-          "size": 130398,
-          "url": "https://repo1.maven.org/maven2/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
-        }
-      },
-      "name": "org.reflections:reflections:0.10.2"
-    },
-    {
-      "downloads": {
-        "artifact": {
           "path": "com/mentalfrostbyte/java-discord-rpc/2.0.1-all/java-discord-rpc-2.0.1-all.jar",
           "sha1": "d5d6adb11d48813b368d6265c34bfa8f936b97d7",
           "size": 1706638,

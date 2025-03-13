@@ -1,20 +1,32 @@
 package com.mentalfrostbyte.jello.util;
+
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ScanResult;
 import net.minecraft.network.IPacket;
-import  org.reflections.Reflections;
+
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PacketCollectorUtil {
+
+    @SuppressWarnings("unchecked")
     public static String[] getPacketClasses(String type) {
         String[] packages = {
                 "net.minecraft.network.play.client",
                 "net.minecraft.network.play.server"
         };
 
-        Set<Class<? extends IPacket>> allPackets = new java.util.HashSet<>();
-        for (String packageName : packages) {
-            Reflections reflections = new Reflections(packageName);
-            allPackets.addAll(reflections.getSubTypesOf(IPacket.class));
+        Set<Class<? extends IPacket>> allPackets = new HashSet<>(Set.of());
+//        for (String packageName : packages) {
+//            Reflections reflections = new Reflections(packageName);
+//            allPackets.addAll(reflections.getSubTypesOf(IPacket.class));
+//        }
+        try (ScanResult scanResult = new ClassGraph().acceptPackages("net.minecraft.network.play", "net.minecraft.network.play.server")
+                .scan()) {
+
+            allPackets.addAll(scanResult.getSubclasses(IPacket.class).loadClasses().stream().map(clazz -> (Class<? extends IPacket>) clazz).collect(Collectors.toSet()));
         }
 
         Stream<Class<? extends IPacket>> filteredPackets = getFilteredPackets(type, allPackets);
