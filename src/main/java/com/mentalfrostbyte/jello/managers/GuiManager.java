@@ -40,6 +40,7 @@ import totalcross.json.JSONObject;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -127,12 +128,14 @@ public class GuiManager {
             return null;
         } else {
             try {
-                return replacementScreens.get(screen.getClass()).newInstance();
-            } catch (InstantiationException | IllegalAccessException var4) {
-                var4.printStackTrace();
+                return replacementScreens.get(screen.getClass()).getConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+					 NoSuchMethodException e) {
+                Client.getInstance().getLogger().error("Error creating replacement screen: " + e.getMessage());
+                e.printStackTrace();
             }
 
-            return null;
+			return null;
         }
     }
 
