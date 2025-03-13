@@ -1,12 +1,13 @@
 name: Build and Release JAR
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - "src/**"
-      - "release/**"
+      - "pom.xml"
 
 jobs:
   build:
@@ -89,7 +90,7 @@ jobs:
       - name: Commit and push changes
         run: |
           git add release/sigma-jello-5.1.0.json
-          git commit -m "Update sigma-jello-5.1.0.json with latest JAR details"
+          git commit -m "deps: update sigma-jello-5.1.0.json with latest JAR details"
           git push
 
       - name: Create and push tag
