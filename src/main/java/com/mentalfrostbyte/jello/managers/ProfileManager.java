@@ -150,7 +150,7 @@ public class ProfileManager {
 
     public void loadConfig(Profile config) {
         Client.getInstance().saveClientData();
-        ModuleSettingInitializr.field8343 = new HashMap<>();
+        ModuleSettingInitializr.modOffsetMap = new HashMap<>();
         if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
             this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
             this.currentConfigs = config;
