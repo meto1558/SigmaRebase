@@ -1,47 +1,35 @@
 package com.mentalfrostbyte.jello.util.client.logger;
 
-import java.io.IOException;
 import java.io.OutputStream;
 
 import com.mentalfrostbyte.Client;
-import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
 
 public class ClientLogger implements Logger {
    public OutputStream infoStream;
    public OutputStream warningStream;
    public OutputStream errorStream;
+   public org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
 
-   public ClientLogger(OutputStream var1, OutputStream var2, OutputStream var3) {
-      this.infoStream = var1;
-      this.warningStream = var2;
-      this.errorStream = var3;
+   public ClientLogger(OutputStream infoStream, OutputStream warningStream, OutputStream errorStream) {
+      this.infoStream = infoStream;
+      this.warningStream = warningStream;
+      this.errorStream = errorStream;
    }
 
    @Override
    public void info(String message) {
-      try {
-         IOUtils.write("Jello: INFO - " + message + "\n", this.infoStream);
-      } catch (IOException var5) {
-         var5.printStackTrace();
-      }
+      logger.info(message);
    }
 
    @Override
    public void warn(String message) {
-      try {
-         IOUtils.write("Jello: WARNING - " + message + "\n", this.warningStream);
-      } catch (IOException var5) {
-         var5.printStackTrace();
-      }
+      logger.warn(message);
    }
 
    @Override
    public void error(String message) {
-      try {
-         IOUtils.write("Jello: ERROR - " + message + "\n", this.errorStream);
-      } catch (IOException var5) {
-         var5.printStackTrace();
-      }
+      logger.error(message);
    }
 
    /**
