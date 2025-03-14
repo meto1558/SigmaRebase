@@ -53,7 +53,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
       this.runThisOnDimensionUpdate(() -> {
          if (this.field21181 == null) {
             this.addToList(this.field21181 = new Class4345(this, "settings", 5, 70, this.getWidthA() - 10, this.getHeightA() - 75, var1));
-            this.field21181.method13292(true);
+            this.field21181.setReAddChildren(true);
          }
       });
    }

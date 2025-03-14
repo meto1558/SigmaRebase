@@ -34,7 +34,7 @@ public class ConfigScreen extends Element {
     public ConfigScreen(CustomGuiScreen var1, String var2, int var3, int var4) {
         super(var1, var2, var3 - 250, var4 - 500, 250, 500, ColorHelper.field27961, false);
         this.field21298 = new Animation(300, 100);
-        this.method13292(true);
+        this.setReAddChildren(true);
         this.setListening(false);
         TextButton addButton;
         this.addToList(
@@ -44,7 +44,7 @@ public class ConfigScreen extends Element {
         );
         addButton.doThis((var1x, var2x) -> this.field21300.method13119(true));
         this.addToList(this.field21300 = new ConfigGroup(this, "profile", 0, 69, this.widthA, 200));
-        this.field21300.method13292(true);
+        this.field21300.setReAddChildren(true);
         this.method13615();
     }
 

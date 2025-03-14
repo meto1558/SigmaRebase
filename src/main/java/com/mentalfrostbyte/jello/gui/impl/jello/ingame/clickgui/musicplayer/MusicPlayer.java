@@ -93,7 +93,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         this.addToList(this.field20865 = new CustomGuiScreen(this, "reShowView", 0, 0, 1, this.getHeightA()));
         SpectrumButton var5;
         this.addToList(var5 = new SpectrumButton(this, "spectrumButton", 15, this.heightA - 140, 40, 40, this.musicManager.isSpectrum()));
-        var5.method13292(true);
+        var5.setReAddChildren(true);
         var5.doThis((var1x, var2x) -> {
             this.musicManager.setSpectrum(!this.musicManager.isSpectrum());
             ((SpectrumButton) var1x).method13099(this.musicManager.isSpectrum());
@@ -150,16 +150,16 @@ public class MusicPlayer extends AnimatedIconPanel {
         this.musicControls.addToList(repeat = new ChangingButton(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeatMode()));
         repeat.onPress(var2x -> this.musicManager.setRepeat(repeat.getRepeatMode()));
         this.addToList(this.field20867 = new ProgressBar(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
-        this.field20867.method13292(true);
+        this.field20867.setReAddChildren(true);
         this.field20867.setListening(false);
-        this.field20865.method13292(true);
+        this.field20865.setReAddChildren(true);
         this.field20865.method13247((var1x, var2x) -> {
             this.field20874 = true;
             this.field20871 = (float) this.getXA();
             this.field20872 = (float) this.getYA();
         });
-        this.pause.setVisible(false);
-        this.play.setVisible(false);
+        this.pause.setSelfVisible(false);
+        this.play.setSelfVisible(false);
         this.play.doThis((var1x, var2x) -> this.musicManager.setPlaying(true));
         this.pause.doThis((var1x, var2x) -> this.musicManager.setPlaying(false));
         this.forwards.doThis((var1x, var2x) -> this.musicManager.playNextSong());
@@ -171,19 +171,19 @@ public class MusicPlayer extends AnimatedIconPanel {
                         this, "search", this.width, 0, this.getWidthA() - this.width, this.getHeightA() - this.field20848, "Search..."
                 )
         );
-        this.searchBox.setVisible(true);
+        this.searchBox.setSelfVisible(true);
         this.searchBox.setListening(false);
     }
 
     private void method13189(ScrollableContentPanel var1) {
         if (this.field20852 != null) {
-            this.field20852.setVisible(false);
+            this.field20852.setSelfVisible(false);
         }
 
-        var1.setVisible(true);
+        var1.setSelfVisible(true);
         this.field20849 = var1.getText();
         this.field20852 = var1;
-        this.searchBox.setVisible(false);
+        this.searchBox.setSelfVisible(false);
         this.field20852.field21207 = 65;
     }
 
@@ -279,11 +279,11 @@ public class MusicPlayer extends AnimatedIconPanel {
                 .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Animation.Direction.FORWARDS : Animation.Direction.BACKWARDS);
         partialTicks *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
         if (this.musicManager.isPlayingSong()) {
-            this.play.setVisible(false);
-            this.pause.setVisible(true);
+            this.play.setSelfVisible(false);
+            this.pause.setSelfVisible(true);
         } else {
-            this.play.setVisible(true);
-            this.pause.setVisible(false);
+            this.play.setSelfVisible(true);
+            this.pause.setSelfVisible(false);
         }
 
         RenderUtil.drawRoundedRect(
@@ -474,7 +474,7 @@ public class MusicPlayer extends AnimatedIconPanel {
     }
 
     private void method13196(float var1) {
-        this.field20852.method13292(false);
+        this.field20852.setReAddChildren(false);
         if (this.field20863 != this.field20852.method13513()) {
             try {
                 if (this.texture != null) {

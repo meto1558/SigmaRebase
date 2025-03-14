@@ -38,7 +38,7 @@ public class Dropdown extends Element {
     public void method13643(List<String> var1, int var2) {
         Sub var5 = new Sub(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
         this.field21331.put(var2, var5);
-        var5.setVisible(false);
+        var5.setSelfVisible(false);
         var5.onPress(var2x -> {
             this.method13656(var2);
             this.method13658(false);
@@ -111,7 +111,7 @@ public class Dropdown extends Element {
         int var3 = this.method13648();
 
         for (Entry var5 : this.field21331.entrySet()) {
-            if (((Sub) var5.getValue()).isVisible()) {
+            if (((Sub) var5.getValue()).isSelfVisible()) {
                 var3 = Math.max(
                         var3,
                         (((Sub) var5.getValue()).values.size() - 1) * ((Sub) var5.getValue()).getHeightA() + ((Sub) var5.getValue()).getYA()
@@ -149,11 +149,11 @@ public class Dropdown extends Element {
                 && this.animation.calcPercent() == 1.0F
                 && newHeight - this.method13271() < this.getWidthA()) {
             for (Entry var9 : this.field21331.entrySet()) {
-                ((Sub) var9.getValue()).setVisible((Integer) var9.getKey() == var5);
+                ((Sub) var9.getValue()).setSelfVisible((Integer) var9.getKey() == var5);
             }
         } else if (!this.method13114(newHeight, newWidth) || this.animation.getDirection() == Animation.Direction.BACKWARDS) {
             for (Entry var7 : this.field21331.entrySet()) {
-                ((Sub) var7.getValue()).setVisible(false);
+                ((Sub) var7.getValue()).setSelfVisible(false);
             }
         }
     }
@@ -269,7 +269,7 @@ public class Dropdown extends Element {
     @Override
     public boolean method13114(int var1, int var2) {
         for (Entry var6 : this.field21331.entrySet()) {
-            if (((Sub) var6.getValue()).isVisible() && ((Sub) var6.getValue()).method13114(var1, var2)) {
+            if (((Sub) var6.getValue()).isSelfVisible() && ((Sub) var6.getValue()).method13114(var1, var2)) {
                 return true;
             }
         }

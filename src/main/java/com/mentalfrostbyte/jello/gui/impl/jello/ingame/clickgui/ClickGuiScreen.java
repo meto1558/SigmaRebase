@@ -68,7 +68,7 @@ public class ClickGuiScreen extends Screen {
 
                 clickGUIPanels.method13507(var2 -> this.runThisOnDimensionUpdate(() -> {
                     this.addToList(this.settingGroup = new SettingGroup(this, "settings", 0, 0, this.widthA, this.heightA, var2));
-                    this.settingGroup.method13292(true);
+                    this.settingGroup.setReAddChildren(true);
                 }));
             }
         }
@@ -81,13 +81,13 @@ public class ClickGuiScreen extends Screen {
         moreButton.getTextColor().setPrimaryColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
 
-        this.musicPlayer.setVisible(true);
+        this.musicPlayer.setSelfVisible(true);
         moreButton.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
             if (this.configButton != null && this.hasChild(this.configButton)) {
                 this.method13234(this.configButton);
             } else {
                 this.addToList(this.configButton = new ConfigScreen(this, "morepopover", this.getWidthA() - 14, this.getHeightA() - 14));
-                this.configButton.method13292(true);
+                this.configButton.setReAddChildren(true);
             }
         }));
 
@@ -150,10 +150,10 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.musicPlayer.setVisible(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
+        this.musicPlayer.setSelfVisible(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
         super.updatePanelDimensions(newHeight, newWidth);
         RenderUtil2.setShaderParamsRounded(Math.min(1.0F, animationProgress.calcPercent() * 4.0F));
-        this.brainFreeze.setVisible(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
+        this.brainFreeze.setSelfVisible(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
         if (this.configButton != null) {
             int newHeightValue = newHeight - this.configButton.method13271();
             int newWidthValue = newWidth - this.configButton.method13272();
@@ -294,10 +294,10 @@ public class ClickGuiScreen extends Screen {
 
         super.draw(partialTicks * Math.min(1.0F, alphaFactor) * fadeAmount);
         if (this.panelGroup != null) {
-            this.panelGroup.method13292(false);
+            this.panelGroup.setReAddChildren(false);
         }
 
-        this.blurOverlay.method13292(false);
+        this.blurOverlay.setReAddChildren(false);
         this.method13234(this.blurOverlay);
     }
 }

@@ -24,7 +24,7 @@ public class SearchBox extends AnimatedIconPanel {
         super(var1, var2, var3, var4, var5, var6, ColorHelper.field27961, var7, false);
         this.addToList(this.field20840 = new ScrollableContentPanel(this, "albumView", 0, 0, var5, var6, ColorHelper.field27961, "View"));
         this.addToList(this.searchBox = new TextField(this, "searchInput", 30, 14, var5 - 60, 70, TextField.field20742, "", "Search..."));
-        this.searchBox.method13292(true);
+        this.searchBox.setReAddChildren(true);
     }
 
     @Override

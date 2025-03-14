@@ -21,7 +21,7 @@ public class BrainFreezeOverlay extends AnimatedIconPanel {
         super(parentScreen, name, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
         this.setFocused(false);
         this.setHovered(false);
-        this.method13292(false);
+        this.setReAddChildren(false);
         this.method13294(true);
         this.setListening(false);
     }

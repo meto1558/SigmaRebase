@@ -136,7 +136,7 @@ public class Dropdown extends Element {
 
       for (CustomGuiScreen var7 : this.getChildren()) {
          if (!var7.getName().equals("dropdownButton")) {
-            var7.setVisible(this.field21345);
+            var7.setSelfVisible(this.field21345);
          }
       }
 

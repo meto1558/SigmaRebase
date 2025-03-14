@@ -40,11 +40,11 @@ public class MainMenuButton extends SmallImage {
         if (!this.field20577) {
             if (this.method13029()) {
                 this.field20578.changeDirection(Animation.Direction.BACKWARDS);
-                this.method13292(false);
+                this.setReAddChildren(false);
             }
         } else {
             this.field20578.changeDirection(Animation.Direction.FORWARDS);
-            this.method13292(true);
+            this.setReAddChildren(true);
         }
     }
 
