@@ -230,7 +230,7 @@ public class JelloMainMenu extends CustomGuiScreen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.premiumButton.setVisible(!Client.getInstance().networkManager.isPremium());
+        this.premiumButton.setSelfVisible(!Client.getInstance().networkManager.isPremium());
         int var5 = 30;
         int var6 = 90;
         this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));

@@ -60,7 +60,7 @@ public class ConfigGroup extends Element {
       this.addToList(this.field20705 = new ScrollableContentPanel(this, "defaultProfiles", 0, 40, var5, var6 - 40));
       onlineProfilesManager = new OnlineProfilesManager(
          var2x -> {
-            this.field20707.setVisible(false);
+            this.field20707.setSelfVisible(false);
             ConfigScreen screen = (ConfigScreen)this.getParent();
 
             for (String var7 : var2x) {
@@ -91,8 +91,8 @@ public class ConfigGroup extends Element {
    }
 
    public void method13118(boolean var1) {
-      this.field20705.setVisible(!var1);
-      this.field20707.setVisible(var1);
+      this.field20705.setSelfVisible(!var1);
+      this.field20707.setSelfVisible(var1);
    }
 
    public void method13119(boolean var1) {

@@ -114,7 +114,7 @@ public class MainMenuScreen extends Screen {
         this.field20972.changeDirection(Animation.Direction.BACKWARDS);
         this.changelogScreen.setHovered(false);
         this.redeemKeyScreen.setHovered(false);
-        this.redeemKeyScreen.method13292(false);
+        this.redeemKeyScreen.setReAddChildren(false);
         this.redeemKeyScreen.method13294(true);
     }
 
@@ -131,7 +131,7 @@ public class MainMenuScreen extends Screen {
     public void animateNext() {
         this.field20972.changeDirection(Animation.Direction.FORWARDS);
         this.redeemKeyScreen.setHovered(true);
-        this.redeemKeyScreen.method13292(true);
+        this.redeemKeyScreen.setReAddChildren(true);
         this.redeemKeyScreen.method13294(false);
     }
 
@@ -233,7 +233,7 @@ public class MainMenuScreen extends Screen {
 
 
             for (CustomGuiScreen object : this.getChildren()) {
-                if (object.isVisible()) {
+                if (object.isSelfVisible()) {
                     GL11.glPushMatrix();
                     if (object instanceof ChangelogScreen) {
                         if (transitionProgress > 0.0F) {

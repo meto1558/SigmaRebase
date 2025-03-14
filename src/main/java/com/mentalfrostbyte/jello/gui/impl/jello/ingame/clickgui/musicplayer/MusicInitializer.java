@@ -54,7 +54,7 @@ public class MusicInitializer implements Runnable {
                             )
                     );
             queue.method13514(true);
-            queue.setVisible(false);
+            queue.setSelfVisible(false);
             queue.setListening(false);
             if (this.thumbnail.videoList != null) {
                 for (int i = 0; i < this.thumbnail.videoList.size(); i++) {

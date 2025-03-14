@@ -74,22 +74,22 @@ public class RegisterScreen extends Screen {
                         ResourceRegistry.JelloLightFont25
                 )
         );
-        this.field21091.setVisible(false);
+        this.field21091.setSelfVisible(false);
         this.field21088.onPress(var1 -> {
             this.loggedIn = true;
-            this.field21091.setVisible(true);
+            this.field21091.setSelfVisible(true);
         });
         this.field21091.doThis((var0, var1) -> Minecraft.getInstance().displayGuiScreen(new MainMenuHolder()));
     }
 
     public void method13422() {
-        this.field21088.setVisible(false);
-        this.field21089.setVisible(true);
+        this.field21088.setSelfVisible(false);
+        this.field21089.setSelfVisible(true);
     }
 
     public void method13423() {
-        this.field21088.setVisible(true);
-        this.field21089.setVisible(false);
+        this.field21088.setSelfVisible(true);
+        this.field21089.setSelfVisible(false);
     }
 
     public void method13424(String var1, String var2) {
@@ -134,7 +134,7 @@ public class RegisterScreen extends Screen {
         this.field21089.method13277(var4);
         this.field21089.method13278(var4);
         Rectangle var5 = RenderUtil.method11413(RenderUtil.method11414(this.field21088), this.field21088.method13273(), this.field21088.method13275());
-        if (this.field21089.isVisible()) {
+        if (this.field21089.isSelfVisible()) {
             var5 = RenderUtil.method11413(RenderUtil.method11414(this.field21089), this.field21089.method13273(), this.field21089.method13275());
         }
 
@@ -149,7 +149,7 @@ public class RegisterScreen extends Screen {
         }
 
         if (this.loggedIn && this.field21093.calcPercent() == 1.0F) {
-            this.field21088.setVisible(false);
+            this.field21088.setSelfVisible(false);
         }
 
         if (this.loggedIn && Client.getInstance().networkManager.account != null) {

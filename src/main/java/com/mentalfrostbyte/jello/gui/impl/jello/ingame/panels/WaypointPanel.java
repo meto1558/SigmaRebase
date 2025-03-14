@@ -45,7 +45,7 @@ public class WaypointPanel extends Element {
         }
 
         this.field20724 = new Date();
-        this.method13292(true);
+        this.setReAddChildren(true);
         this.setListening(false);
         TextButton var8;
         this.addToList(

@@ -75,10 +75,10 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.profileName));
       this.profileName.setRoundedThingy(false);
       this.profileName.setFont(ResourceRegistry.JelloLightFont24);
-      this.profileName.setVisible(false);
-      this.profileName.onType((var2x, var3x) -> {
+      this.profileName.setSelfVisible(false);
+      this.profileName.addKeyPressListener((var2x, var3x) -> {
          if (this.profileName.isFocused() && var3x == 257) {
-            this.profileName.setVisible(false);
+            this.profileName.setSelfVisible(false);
             this.profileName.setFocused(false);
             if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getText())) {
                return;
@@ -121,7 +121,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       });
       var13.doThis((var1x, var2x) -> {
          this.field21265.changeDirection(Animation.Direction.BACKWARDS);
-         this.profileName.setVisible(true);
+         this.profileName.setSelfVisible(true);
          this.profileName.method13148();
       });
       this.buttonList.setWidthA(0);
@@ -152,8 +152,8 @@ public class ProfileGroup extends AnimatedIconPanel {
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
-      if (!this.profileName.isFocused() && this.profileName.isVisible()) {
-         this.profileName.setVisible(false);
+      if (!this.profileName.isFocused() && this.profileName.isSelfVisible()) {
+         this.profileName.setSelfVisible(false);
          this.profileName.setFocused(false);
          this.currentConfig.profileName = this.profileName.getText();
 

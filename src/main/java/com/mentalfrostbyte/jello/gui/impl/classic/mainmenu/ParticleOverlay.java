@@ -21,7 +21,7 @@ public class ParticleOverlay extends AnimatedIconPanel {
       super(var1, var2, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
       this.setFocused(false);
       this.setHovered(false);
-      this.method13292(false);
+      this.setReAddChildren(false);
       this.method13294(true);
    }
 

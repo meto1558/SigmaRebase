@@ -286,7 +286,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                 this.field21224.put(var10, var12);
             }
 
-            var18.addModuleStateListener((parent, module, enabled) -> this.field21224.get(module).setVisible(enabled));
+            var18.addModuleStateListener((parent, module, enabled) -> this.field21224.get(module).setSelfVisible(enabled));
             var18.calledOnEnable();
         }
 
@@ -305,7 +305,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
         for (Entry var6 : this.field21223.entrySet()) {
             Text var7 = (Text) var6.getKey();
             Setting var8 = (Setting) var6.getValue();
-            if (var7.method13298() && var7.method13289()) {
+            if (var7.method13298() && var7.isVisible()) {
                 var4 = true;
                 this.field21226 = var8.getDescription();
                 this.field21227 = var8.getName();

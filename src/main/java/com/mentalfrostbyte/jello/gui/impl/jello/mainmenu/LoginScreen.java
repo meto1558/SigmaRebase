@@ -95,7 +95,7 @@ public class LoginScreen extends Element {
     public void method13688() {
         new Thread(() -> {
             this.loadingThingy.setHovered(true);
-            this.loginButton.setVisible(false);
+            this.loginButton.setSelfVisible(false);
 
             String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getText(), this.inputPassword.getText());
             RegisterScreen reg = (RegisterScreen) this.getParent();
@@ -107,7 +107,7 @@ public class LoginScreen extends Element {
             }
 
             this.loadingThingy.setHovered(false);
-            this.loginButton.setVisible(true);
+            this.loginButton.setSelfVisible(true);
         }).start();
     }
 }

@@ -39,7 +39,7 @@ public class ChangelogScreen extends CustomGuiScreen {
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
       if (this.scrollPanel != null) {
-         if (this.isHovered() && this.isVisible()) {
+         if (this.isHovered() && this.isSelfVisible()) {
             for (CustomGuiScreen var9 : this.scrollPanel.getButton().getChildren()) {
                Change var10 = (Change)var9;
                var10.animation2.changeDirection(Animation.Direction.FORWARDS);

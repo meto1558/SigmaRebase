@@ -60,7 +60,7 @@ public class KeyboardScreen extends Screen {
                   );
                   this.field20956.onPress(var1x -> this.method13329(this.field20957));
                   this.field20956.method13713(var1x -> {
-                     var1x.method13292(false);
+                     var1x.setReAddChildren(false);
                      this.method13331();
                   });
                   this.field20961 = this.field20957.field20696;

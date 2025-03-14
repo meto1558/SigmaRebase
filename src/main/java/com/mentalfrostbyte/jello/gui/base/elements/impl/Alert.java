@@ -52,7 +52,7 @@ public class Alert extends Element {
         this.field21283 = var3;
         this.alertName = name;
         this.setHovered(false);
-        this.method13292(false);
+        this.setReAddChildren(false);
         this.method13243();
         TextField var8 = null;
         TextField var9 = null;
@@ -301,7 +301,7 @@ public class Alert extends Element {
         } else {
             if (this.isFocused()) {
                 this.setFocused(false);
-                this.setVisible(false);
+                this.setSelfVisible(false);
                 this.method13243();
             }
         }
@@ -347,10 +347,10 @@ public class Alert extends Element {
 
         this.setHovered(var1);
         if (var1) {
-            this.setVisible(true);
+            this.setSelfVisible(true);
         }
 
-        this.method13292(var1);
+        this.setReAddChildren(var1);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class PremiumButton extends AnimatedIconPanel {
 
     @Override
     public void draw(float partialTicks) {
-        if (this.isVisible()) {
+        if (this.isSelfVisible()) {
             RenderUtil.drawImage(
                     (float) (this.xA + 30),
                     (float) (this.yA + 30),

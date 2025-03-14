@@ -27,6 +27,6 @@ public class Class1533 implements Runnable {
 
          KeyboardScreen.method13339(this.field8319);
       });
-      this.field8319.field20960.method13292(true);
+      this.field8319.field20960.setReAddChildren(true);
    }
 }
