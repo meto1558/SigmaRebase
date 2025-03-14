@@ -38,7 +38,7 @@ public class Dropdown extends Element {
     public void method13643(List<String> var1, int var2) {
         Sub var5 = new Sub(this, "sub" + var2, this.widthA + 10, this.getHeightA() * (var2 + 1), 200, this.getHeightA(), var1, 0);
         this.field21331.put(var2, var5);
-        var5.setEnabled(false);
+        var5.setVisible(false);
         var5.onPress(var2x -> {
             this.method13656(var2);
             this.method13658(false);
@@ -149,11 +149,11 @@ public class Dropdown extends Element {
                 && this.animation.calcPercent() == 1.0F
                 && newHeight - this.method13271() < this.getWidthA()) {
             for (Entry var9 : this.field21331.entrySet()) {
-                ((Sub) var9.getValue()).setEnabled((Integer) var9.getKey() == var5);
+                ((Sub) var9.getValue()).setVisible((Integer) var9.getKey() == var5);
             }
         } else if (!this.method13114(newHeight, newWidth) || this.animation.getDirection() == Animation.Direction.BACKWARDS) {
             for (Entry var7 : this.field21331.entrySet()) {
-                ((Sub) var7.getValue()).setEnabled(false);
+                ((Sub) var7.getValue()).setVisible(false);
             }
         }
     }

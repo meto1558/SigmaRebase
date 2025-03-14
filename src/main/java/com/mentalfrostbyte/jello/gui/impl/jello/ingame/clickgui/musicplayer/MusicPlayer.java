@@ -158,8 +158,8 @@ public class MusicPlayer extends AnimatedIconPanel {
             this.field20871 = (float) this.getXA();
             this.field20872 = (float) this.getYA();
         });
-        this.pause.setEnabled(false);
-        this.play.setEnabled(false);
+        this.pause.setVisible(false);
+        this.play.setVisible(false);
         this.play.doThis((var1x, var2x) -> this.musicManager.setPlaying(true));
         this.pause.doThis((var1x, var2x) -> this.musicManager.setPlaying(false));
         this.forwards.doThis((var1x, var2x) -> this.musicManager.playNextSong());
@@ -171,19 +171,19 @@ public class MusicPlayer extends AnimatedIconPanel {
                         this, "search", this.width, 0, this.getWidthA() - this.width, this.getHeightA() - this.field20848, "Search..."
                 )
         );
-        this.searchBox.setEnabled(true);
+        this.searchBox.setVisible(true);
         this.searchBox.setListening(false);
     }
 
     private void method13189(ScrollableContentPanel var1) {
         if (this.field20852 != null) {
-            this.field20852.setEnabled(false);
+            this.field20852.setVisible(false);
         }
 
-        var1.setEnabled(true);
+        var1.setVisible(true);
         this.field20849 = var1.getText();
         this.field20852 = var1;
-        this.searchBox.setEnabled(false);
+        this.searchBox.setVisible(false);
         this.field20852.field21207 = 65;
     }
 
@@ -279,11 +279,11 @@ public class MusicPlayer extends AnimatedIconPanel {
                 .changeDirection(this.getXA() + this.getWidthA() > this.parent.getWidthA() && !this.field20874 ? Animation.Direction.FORWARDS : Animation.Direction.BACKWARDS);
         partialTicks *= 0.5F + (1.0F - this.field20873.calcPercent()) * 0.5F;
         if (this.musicManager.isPlayingSong()) {
-            this.play.setEnabled(false);
-            this.pause.setEnabled(true);
+            this.play.setVisible(false);
+            this.pause.setVisible(true);
         } else {
-            this.play.setEnabled(true);
-            this.pause.setEnabled(false);
+            this.play.setVisible(true);
+            this.pause.setVisible(false);
         }
 
         RenderUtil.drawRoundedRect(

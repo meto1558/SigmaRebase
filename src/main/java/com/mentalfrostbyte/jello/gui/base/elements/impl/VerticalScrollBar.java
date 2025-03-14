@@ -76,7 +76,7 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
         float var7 = (float) this.getHeightA();
         float var8 = var6 / var5;
         boolean var9 = var8 < 1.0F && var5 > 0.0F && this.field20794 >= 0.0F;
-        this.setEnabled(var9);
+        this.setVisible(var9);
         this.setHovered(var9);
     }
 

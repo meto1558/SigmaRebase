@@ -70,7 +70,7 @@ public class PopOver extends Element {
         }
 
         this.method13242();
-        this.method13145(true);
+        this.setFocused(true);
         this.clearChildren();
 
         for (Class6984 var10 : KeyboardScreen.method13328()) {

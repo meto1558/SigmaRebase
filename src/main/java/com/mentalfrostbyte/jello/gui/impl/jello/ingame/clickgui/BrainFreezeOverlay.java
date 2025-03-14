@@ -19,7 +19,7 @@ public class BrainFreezeOverlay extends AnimatedIconPanel {
 
     public BrainFreezeOverlay(CustomGuiScreen parentScreen, String name) {
         super(parentScreen, name, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
-        this.method13145(false);
+        this.setFocused(false);
         this.setHovered(false);
         this.method13292(false);
         this.method13294(true);
@@ -27,8 +27,8 @@ public class BrainFreezeOverlay extends AnimatedIconPanel {
     }
 
     @Override
-    public void method13145(boolean var1) {
-        super.method13145(false);
+    public void setFocused(boolean focused) {
+        super.setFocused(false);
     }
 
     @Override

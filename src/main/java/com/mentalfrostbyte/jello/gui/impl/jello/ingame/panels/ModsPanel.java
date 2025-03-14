@@ -151,7 +151,7 @@ public class ModsPanel extends Element {
       int var15 = var5.size() <= 0 ? 0 : 10;
 
       for (Button var20 : var5.values()) {
-         var20.setEnabled(true);
+         var20.setVisible(true);
          var20.setYA(var15);
          var15 += var20.getHeightA();
       }
@@ -161,19 +161,19 @@ public class ModsPanel extends Element {
       }
 
       for (Button var21 : var6.values()) {
-         var21.setEnabled(true);
+         var21.setVisible(true);
          var21.setYA(var15);
          var15 += var21.getHeightA();
       }
 
       for (Button var22 : var7.values()) {
-         var22.setEnabled(true);
+         var22.setVisible(true);
          var22.setYA(var15);
          var15 += var22.getHeightA();
       }
 
       for (Button var23 : var8) {
-         var23.setEnabled(false);
+         var23.setVisible(false);
       }
 
       super.updatePanelDimensions(newHeight, newWidth);

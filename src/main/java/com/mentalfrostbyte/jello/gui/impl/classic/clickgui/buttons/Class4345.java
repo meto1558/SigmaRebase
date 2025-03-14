@@ -172,7 +172,7 @@ public class Class4345 extends ScrollableContentPanel {
                 this.moduleWithSettingGuiMap.put(var11, var13);
             }
 
-            moduleWithModuleSettings.addModuleStateListener((parent, module, enabled) -> this.moduleWithSettingGuiMap.get(module).setEnabled(enabled));
+            moduleWithModuleSettings.addModuleStateListener((parent, module, enabled) -> this.moduleWithSettingGuiMap.get(module).setVisible(enabled));
             moduleWithModuleSettings.calledOnEnable();
         }
 

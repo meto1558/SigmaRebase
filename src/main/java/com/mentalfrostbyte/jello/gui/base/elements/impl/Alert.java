@@ -299,9 +299,9 @@ public class Alert extends Element {
             super.method13224();
             super.draw(var7);
         } else {
-            if (this.method13297()) {
-                this.method13145(false);
-                this.setEnabled(false);
+            if (this.isFocused()) {
+                this.setFocused(false);
+                this.setVisible(false);
                 this.method13243();
             }
         }
@@ -347,7 +347,7 @@ public class Alert extends Element {
 
         this.setHovered(var1);
         if (var1) {
-            this.setEnabled(true);
+            this.setVisible(true);
         }
 
         this.method13292(var1);

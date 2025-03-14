@@ -26,7 +26,7 @@ public class SpotlightDialog extends Element {
 
    @Override
    public void draw(float partialTicks) {
-      this.query.method13145(true);
+      this.query.setFocused(true);
       int var4 = 10;
       RenderUtil.drawRoundedRect(
          (float)(this.xA + var4 / 2),

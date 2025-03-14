@@ -34,8 +34,8 @@ public class SearchBox extends AnimatedIconPanel {
 
     @Override
     public void keyPressed(int keyCode) {
-        if (keyCode == 257 && this.searchBox.method13297()) {
-            this.searchBox.method13145(false);
+        if (keyCode == 257 && this.searchBox.isFocused()) {
+            this.searchBox.setFocused(false);
             new Thread(
                     () -> {
                         this.field20842 = new ArrayList<>();

@@ -67,7 +67,7 @@ public class AccountSignUpScreen extends Element {
         this.passwordInputBox.setCensorText(true);
         this.addToList(this.captchaBox = new TextField(this, "CaptchaBox", 228, var11 + 53 + 135, 80, var9, var12, "", "Captcha"));
         this.captchaBox.setFont(ResourceRegistry.JelloLightFont20);
-        this.captchaBox.setEnabled(false);
+        this.captchaBox.setVisible(false);
         this.registerButton.doThis((var1x, var2x) -> this.method13126());
         this.loginButton.doThis((var1x, var2x) -> {
             RegisterScreen var5x = (RegisterScreen) this.getParent();
@@ -89,7 +89,7 @@ public class AccountSignUpScreen extends Element {
         new Thread(
                 () -> {
                     this.loadingBox.setHovered(true);
-                    this.registerButton.setEnabled(false);
+                    this.registerButton.setVisible(false);
                     Client.getInstance().networkManager.resetLicense();
                     Client.getInstance().networkManager.signup(this.usernameInputBox.getText(), this.passwordInputBox.getText(), this.emailInputBox.getText());
                     String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getText(), this.passwordInputBox.getText());
@@ -103,7 +103,7 @@ public class AccountSignUpScreen extends Element {
                     }
 
                     this.loadingBox.setHovered(false);
-                    this.registerButton.setEnabled(true);
+                    this.registerButton.setVisible(true);
                 }
         ).start();
     }
