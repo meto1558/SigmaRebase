@@ -20,9 +20,10 @@ import java.util.Objects;
  * @author alarmingly_good (on discord)
  */
 public class VerusSpeed extends Module {
-
     private final ModeSetting mode;
-    private final NumberSetting<Long> damageBoostTime;
+    private final NumberSetting<Float> damageBoostTime;
+    private final NumberSetting<Double> timer;
+    private final BooleanSetting doTimer;
     // we should go fast for ~3 seconds or more
     public TimerUtil damageTimer = new TimerUtil();
     public VerusSpeed() {
@@ -46,6 +47,24 @@ public class VerusSpeed extends Module {
                         1L
                 )
         );
+        registerSetting(
+                this.doTimer = new BooleanSetting(
+                        "Timer",
+                        "Use timer (requires Verus Timer disabler to bypass)",
+                        false
+                )
+        );
+        registerSetting(
+                this.timer = new NumberSetting<>(
+                        "Timer Speed",
+                        "Timer speed",
+                        1.0f,
+                        Double.class,
+                        0.1f,
+                        10f,
+                        0.1f
+                )
+        );
     }
 
     @Override
@@ -58,6 +77,7 @@ public class VerusSpeed extends Module {
     public void onDisable() {
         super.onDisable();
         damageTimer.stop();
+        mc.timer.timerSpeed = 1.0f;
     }
 
     private double speed = 0;
@@ -78,6 +98,8 @@ public class VerusSpeed extends Module {
     @EventTarget
     public void onMotion(EventUpdateWalkingPlayer __) {
         boolean dmgBoost = getBooleanValueFromSettingName("Damage boost");
+        if (doTimer.currentValue)
+            mc.timer.timerSpeed = timer.currentValue;
         assert mc.player != null;
         switch (mode.currentValue) {
             case "Basic" -> {
