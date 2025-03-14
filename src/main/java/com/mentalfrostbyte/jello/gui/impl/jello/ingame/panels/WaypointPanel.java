@@ -64,7 +64,7 @@ public class WaypointPanel extends Element {
         var8.doThis((var1x, var2x) -> this.method13132(this.field20729.getText(), this.method13130(), this.field20730.field21296));
         this.addToList(this.field20729 = new TextField(this, "Name", 20, 7, this.widthA - 40, 60, TextField.field20741, "My waypoint", "My waypoint"));
         this.field20729.method13148();
-        this.field20729.method13156(false);
+        this.field20729.setRoundedThingy(false);
         this.addToList(this.field20730 = new BadgeSelect(this, "badgeSelect", 0, 86));
         this.addToList(
                 this.field20728 = new TextField(
@@ -79,7 +79,7 @@ public class WaypointPanel extends Element {
                         var5.getX() + " " + var5.getZ()
                 )
         );
-        this.field20728.method13156(false);
+        this.field20728.setRoundedThingy(false);
         this.field20728.setFont(ResourceRegistry.JelloLightFont18);
     }
 
