@@ -1467,8 +1467,8 @@
   "type": "release",
   "downloads": {
     "client": {
-      "sha1": "b47ffdf8c37c55e81622fbb316a5d28839ce3719",
-      "size": 34095199,
+      "sha1": "c47f6a26803b446a3aa98a153708d55b06cb7d3f",
+      "size": 34141167,
       "url": "https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/pojav-nightly/sigma-jello-5.1.0.jar"
     }
   }
