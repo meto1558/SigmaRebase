@@ -64,11 +64,11 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
-        if (this.isEnabled() && var1.isPre() && this.getBooleanValueFromSettingName("Ground Spoof")) {
+    public void onUpdate(EventUpdateWalkingPlayer e) {
+        if (this.isEnabled() && e.isPre() && this.getBooleanValueFromSettingName("Ground Spoof")) {
             if (this.spoofGround) {
                 this.spoofGround = !this.spoofGround;
-                var1.setOnGround(true);
+                e.setOnGround(true);
             }
         }
     }
@@ -80,7 +80,7 @@ public class SpartanFly extends Module {
 			boolean doSpoofing = mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F);
             if (!doSpoofing) {
                 if (e.getY() < 0.0) {
-                    if (this.minY != mc.player.getPositionVec().y) {
+                    if (this.minY != mc.player.getPosY()) {
                         if (mc.player.getPositionVec().y + e.getY() < this.minY) {
                             this.spoofGround = true;
                             int var5 = this.getBlockSlot();
@@ -96,9 +96,9 @@ public class SpartanFly extends Module {
                                         Direction.UP,
                                         mc.player.getPosition().add(0, -2, 0),
                                         false);
-                                CPlayerTryUseItemOnBlockPacket var8 = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
+                                CPlayerTryUseItemOnBlockPacket packet = new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                                         trace);
-                                Objects.requireNonNull(mc.getConnection()).sendPacket(var8);
+                                Objects.requireNonNull(mc.getConnection()).sendPacket(packet);
                             }
 
                             if (var5 >= 0 && fakeBlock) {
