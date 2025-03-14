@@ -41,10 +41,10 @@ public class VerusSpeed extends Module {
                         "Damage boost time",
                         "How long in seconds to boost after damage?",
                         3,
-                        Long.class,
-                        1L,
-                        10L,
-                        1L
+                        Float.class,
+                        0.05F,
+                        11F,
+                        0.5F
                 )
         );
         registerSetting(
