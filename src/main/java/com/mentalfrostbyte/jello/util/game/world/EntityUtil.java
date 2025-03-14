@@ -25,7 +25,7 @@ import java.util.stream.StreamSupport;
 import static com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil.getLookVector;
 
 public class EntityUtil {
-    private static Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft mc = Minecraft.getInstance();
 
     public static Comparator<LivingEntity> sortEntities(String mode) {
         switch (mode) {
@@ -116,9 +116,9 @@ public class EntityUtil {
         Entity renderViewEntity = mc.getRenderViewEntity();
 
         if (renderViewEntity != null && mc.world != null) {
-            double reachDistance = (double) mc.playerController.getBlockReachDistance();
+            double reachDistance = mc.playerController.getBlockReachDistance();
             if (reachDistanceModifier != 0.0F) {
-                reachDistance = (double) reachDistanceModifier;
+                reachDistance = reachDistanceModifier;
             }
 
             Vector3d lookVector = getLookVector(pitch, yaw);
@@ -128,7 +128,7 @@ public class EntityUtil {
             return traceEntityRay(
                     mc.world, renderViewEntity, playerEyesPos, rayEndPos, searchBox,
                     entity -> entity instanceof LivingEntity || entity instanceof FallingBlockEntity,
-                    (double) (reachDistanceModifier * reachDistanceModifier), boundingBoxExpansion
+					reachDistanceModifier * reachDistanceModifier, boundingBoxExpansion
             );
         } else {
             return null;

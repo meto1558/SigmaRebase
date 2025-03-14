@@ -22,8 +22,8 @@ public class ProgressBar extends Element {
         });
         this.method13249((var1x, var2x) -> {
             if (this.method13298() && this.isFocused()) {
-                int var5x = (int) Math.min((double) ((int) (this.field21315 * (float) this.musicManager.getDurationInt())), this.musicManager.method24322());
-                this.musicManager.setDuration((double) var5x);
+                int var5x = (int) Math.min((int) (this.field21315 * (float) this.musicManager.getDurationInt()), this.musicManager.method24322());
+                this.musicManager.setDuration(var5x);
             }
         });
     }

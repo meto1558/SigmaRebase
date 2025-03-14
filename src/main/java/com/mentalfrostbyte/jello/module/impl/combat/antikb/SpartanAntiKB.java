@@ -32,9 +32,8 @@ public class SpartanAntiKB extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (mc.player != null && event.packet instanceof SEntityVelocityPacket) {
-                SEntityVelocityPacket var4 = (SEntityVelocityPacket) event.packet;
-                if (var4.getEntityID() == mc.player.getEntityId()) {
+            if (mc.player != null && event.packet instanceof SEntityVelocityPacket var4) {
+				if (var4.getEntityID() == mc.player.getEntityId()) {
                     this.ticksSinceKb = 0;
                 }
             }

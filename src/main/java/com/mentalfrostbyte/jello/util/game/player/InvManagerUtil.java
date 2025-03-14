@@ -340,9 +340,8 @@ public class InvManagerUtil {
     }
 
     public static boolean isArmorStrongerThanSlot(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof ArmorItem) {
-            ArmorItem armorItem = (ArmorItem) itemStack.getItem();
-            int protectionValue = getArmorProtectionValue(itemStack);
+        if (itemStack.getItem() instanceof ArmorItem armorItem) {
+			int protectionValue = getArmorProtectionValue(itemStack);
 
             if (!isHead(armorItem)) {
                 if (!isChestplate(armorItem)) {

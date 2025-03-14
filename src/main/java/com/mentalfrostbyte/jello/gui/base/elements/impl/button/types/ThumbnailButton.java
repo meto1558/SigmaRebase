@@ -38,10 +38,10 @@ public class ThumbnailButton extends AnimatedIconPanel {
     public boolean field20774 = false;
     private Texture field20775;
     private Texture field20776;
-    private Animation animation;
+    private final Animation animation;
 
     @Override
-    public void finalize() throws Throwable {
+	protected void finalize() throws Throwable {
         try {
             if (this.field20775 != null) {
                 Client.getInstance().addTexture(this.field20775);
@@ -80,9 +80,8 @@ public class ThumbnailButton extends AnimatedIconPanel {
     public boolean method13157() {
         if (this.getParent() != null && this.getParent().getParent() != null) {
             CustomGuiScreen var3 = this.getParent().getParent();
-            if (var3 instanceof ScrollableContentPanel) {
-                ScrollableContentPanel var4 = (ScrollableContentPanel) var3;
-                int var5 = var4.method13513() + var4.getHeightA() + this.getHeightA();
+            if (var3 instanceof ScrollableContentPanel var4) {
+				int var5 = var4.method13513() + var4.getHeightA() + this.getHeightA();
                 int var6 = var4.method13513() - this.getHeightA();
                 return this.getYA() <= var5 && this.getYA() >= var6;
             }

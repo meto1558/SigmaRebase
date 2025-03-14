@@ -15,14 +15,12 @@ public class NoServerInfo extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.packet instanceof SUpdateBossInfoPacket) {
-                SUpdateBossInfoPacket sUpdateBossInfoPacket = (SUpdateBossInfoPacket) event.packet;
-                event.cancelled = true;
+            if (event.packet instanceof SUpdateBossInfoPacket sUpdateBossInfoPacket) {
+				event.cancelled = true;
             }
 
-            if (event.packet instanceof SScoreboardObjectivePacket) {
-                SScoreboardObjectivePacket sScoreboardObjectivePacket = (SScoreboardObjectivePacket) event.packet;
-                event.cancelled = true;
+            if (event.packet instanceof SScoreboardObjectivePacket sScoreboardObjectivePacket) {
+				event.cancelled = true;
             }
         }
     }

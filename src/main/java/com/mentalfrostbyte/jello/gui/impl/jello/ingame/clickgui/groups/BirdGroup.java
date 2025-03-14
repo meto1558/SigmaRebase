@@ -84,10 +84,10 @@ public class BirdGroup extends AnimatedIconPanel {
         for (Entry var10 : this.field20834.entrySet()) {
             int var11 = (int) ((Long) var10.getKey() - System.currentTimeMillis());
             float var12 = (float) var11 / 12.0F;
-            float var13 = (float) var7 / 12.0F;
+            float var13 = var7 / 12.0F;
             RenderUtil.drawImage(
                     (float) this.xA + var13 + var12,
-                    (float) (this.yA - 320 + (int) ((double) var8 * (Double) var10.getValue()) - var6 / 2),
+					this.yA - 320 + (int) ((double) var8 * (Double) var10.getValue()) - var6 / 2,
                     52.0F,
                     320.0F,
                     this.pipe,
@@ -95,14 +95,14 @@ public class BirdGroup extends AnimatedIconPanel {
             );
             RenderUtil.drawImage(
                     (float) this.xA + var13 + var12,
-                    (float) (this.yA + (int) ((double) var8 * (Double) var10.getValue()) + var6 / 2),
+					this.yA + (int) ((double) var8 * (Double) var10.getValue()) + var6 / 2,
                     52.0F,
                     320.0F,
                     this.pipe2,
                     ClientColors.LIGHT_GREYISH_BLUE.getColor()
             );
             if (var12 > -52.0F && var12 < 0.0F) {
-                float var14 = (float) (var6 - 24) / (float) var8;
+                float var14 = (var6 - 24) / (float) var8;
                 boolean var15 = (double) this.field20835 < (Double) var10.getValue() - (double) (var14 / 2.0F)
                         || (double) this.field20835 > (Double) var10.getValue() + (double) (var14 / 2.0F);
             }
@@ -115,7 +115,7 @@ public class BirdGroup extends AnimatedIconPanel {
         }
 
         RenderUtil.drawImage(
-                (float) this.xA + (float) var7 / 12.0F,
+                (float) this.xA + var7 / 12.0F,
                 (float) this.yA + (float) var8 * (1.0F - this.field20835),
                 40,
                 20,

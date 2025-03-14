@@ -26,9 +26,8 @@ public class NewChunks extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.packet instanceof SChunkDataPacket) {
-                SChunkDataPacket packet = (SChunkDataPacket) event.packet;
-                ChunkPos chunkPos = new ChunkPos(packet.getChunkX(), packet.getChunkZ());
+            if (event.packet instanceof SChunkDataPacket packet) {
+				ChunkPos chunkPos = new ChunkPos(packet.getChunkX(), packet.getChunkZ());
                 if (!packet.isFullChunk()) {
                     this.updatedChunks.add(chunkPos);
                 }

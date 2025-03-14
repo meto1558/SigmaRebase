@@ -496,11 +496,7 @@ public class BlockFly extends Module {
             var1.setPitch(RotationCore.currentPitch);
         }
         if(getBooleanValueFromSettingName("Sprint")){
-            if(MovementUtil.isMoving()){
-                mc.player.setSprinting(true);
-            }else{
-                mc.player.setSprinting(false);
-            }
+			mc.player.setSprinting(MovementUtil.isMoving());
         }
     }
 
@@ -524,7 +520,7 @@ public class BlockFly extends Module {
             }
 
         }
-        placeUp = (mc.player.fallDistance > 1.2 + 1 * 0 || (!MovementUtil.isMoving() &&
+        placeUp = (mc.player.fallDistance > 1.2 + 0 || (!MovementUtil.isMoving() &&
                 mc.gameSettings.keyBindJump.isKeyDown())) && getBooleanValueFromSettingName("SameY") ||
                 !getBooleanValueFromSettingName("SameY");
 
@@ -533,7 +529,7 @@ public class BlockFly extends Module {
             updateCurrentHand();
         }
         if (getBooleanValueFromSettingName("SameY")) {
-            if (mc.player.fallDistance > 1.2 + 1 * 0 || (!MovementUtil.isMoving() && mc.gameSettings.keyBindJump.isKeyDown())) {
+            if (mc.player.fallDistance > 1.2 + 0 || (!MovementUtil.isMoving() && mc.gameSettings.keyBindJump.isKeyDown())) {
                 y = mc.player.getPosY();
             }
         } else {
@@ -649,7 +645,7 @@ public class BlockFly extends Module {
             }
         }
 
-        Rotation limit = RotationUtils.limitAngleChange(new Rotation(BlockFly.mc.player.lastReportedYaw, BlockFly.mc.player.lastReportedPitch), new Rotation(this.rots[0], this.rots[1]), (float)getNumberValueBySettingName("Rotation Speed")  + RandomUtil.nextFloat(0.0f, 16.0f), (float)getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f));
+        Rotation limit = RotationUtils.limitAngleChange(new Rotation(BlockFly.mc.player.lastReportedYaw, BlockFly.mc.player.lastReportedPitch), new Rotation(this.rots[0], this.rots[1]), getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f), getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f));
         this.rots = new float[]{limit.yaw, limit.pitch};
 
         float[] oldRots = { mc.player.lastReportedYaw, mc.player.lastReportedPitch};
@@ -746,11 +742,7 @@ public class BlockFly extends Module {
             if(!mc.player.onGround)
                 var1.setForward(mc.player.ticksExisted % 3 == 0 ? -1 : 0);
 
-            if(mc.gameSettings.keyBindForward.pressed && var1.getForward() != 0) {
-                mc.gameSettings.keyBindLeft.pressed = true;
-            }else{
-                mc.gameSettings.keyBindLeft.pressed = false;
-            }
+			mc.gameSettings.keyBindLeft.pressed = mc.gameSettings.keyBindForward.pressed && var1.getForward() != 0;
 
         }
 

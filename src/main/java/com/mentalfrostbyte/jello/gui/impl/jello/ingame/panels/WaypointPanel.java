@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 public class WaypointPanel extends Element {
-    private List<Button> field20723 = new ArrayList<Button>();
+    private final List<Button> field20723 = new ArrayList<Button>();
     private final Date field20724;
     private boolean field20725 = false;
     private Date field20726;
@@ -154,7 +154,7 @@ public class WaypointPanel extends Element {
         }
     }
 
-    public static interface Class9073 {
+    public interface Class9073 {
        void method33814(WaypointPanel var1, String var2, Vector3i var3, int var4);
     }
 }

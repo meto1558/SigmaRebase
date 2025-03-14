@@ -5,5 +5,5 @@ public enum AccountCompareType {
    Bans,
    DateAdded,
    LastUsed,
-   UseCount;
+   UseCount
 }

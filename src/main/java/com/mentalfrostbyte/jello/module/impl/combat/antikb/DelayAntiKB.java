@@ -28,15 +28,13 @@ public class DelayAntiKB extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.packet instanceof SExplosionPacket) {
-                SExplosionPacket packet = (SExplosionPacket) event.packet;
-                this.packets.add(packet);
+            if (event.packet instanceof SExplosionPacket packet) {
+				this.packets.add(packet);
                 event.cancelled = true;
             }
 
-            if (mc.player != null && event.packet instanceof SEntityVelocityPacket) {
-                SEntityVelocityPacket packet = (SEntityVelocityPacket) event.packet;
-                if (packet.getEntityID() == mc.player.getEntityId()) {
+            if (mc.player != null && event.packet instanceof SEntityVelocityPacket packet) {
+				if (packet.getEntityID() == mc.player.getEntityId()) {
                     this.packets.add(packet);
                     event.cancelled = true;
                     if (this.delay == 0) {
@@ -76,17 +74,15 @@ public class DelayAntiKB extends Module {
     /** handles packets **/
     private void handlePackets() {
         for (IPacket base : this.packets) {
-            if (!(base instanceof SEntityVelocityPacket)) {
-                if (base instanceof SExplosionPacket) {
-                    SExplosionPacket packet = (SExplosionPacket) base;
-                    packet.motionX = packet.motionX * this.getNumberValueBySettingName("H-Multiplier");
+            if (!(base instanceof SEntityVelocityPacket packet)) {
+                if (base instanceof SExplosionPacket packet) {
+					packet.motionX = packet.motionX * this.getNumberValueBySettingName("H-Multiplier");
                     packet.motionZ = packet.motionZ * this.getNumberValueBySettingName("H-Multiplier");
                     packet.motionY = packet.motionY * this.getNumberValueBySettingName("V-Multiplier");
                     mc.getConnection().handleExplosion(packet);
                 }
             } else {
-                SEntityVelocityPacket packet = (SEntityVelocityPacket) base;
-                packet.motionX = (int) ((float) packet.motionX * this.getNumberValueBySettingName("H-Multiplier"));
+				packet.motionX = (int) ((float) packet.motionX * this.getNumberValueBySettingName("H-Multiplier"));
                 packet.motionZ = (int) ((float) packet.motionZ * this.getNumberValueBySettingName("H-Multiplier"));
                 packet.motionY = (int) ((float) packet.motionY * this.getNumberValueBySettingName("V-Multiplier"));
                 mc.getConnection().handleEntityVelocity(packet);

@@ -96,12 +96,10 @@ public class ElytraFly extends Module {
     @EventTarget
     public void method16222(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (mc.player != null && var1.packet instanceof SEntityVelocityPacket) {
-                SEntityVelocityPacket var4 = (SEntityVelocityPacket) var1.packet;
-                Entity var5 = mc.world.getEntityByID(var4.getEntityID());
-                if (var5 instanceof FireworkRocketEntity) {
-                    FireworkRocketEntity var6 = (FireworkRocketEntity) var5;
-                    if (var6.getBoundingBox() != null && var6.getBoostedEntity().getEntityId() == mc.player.getEntityId()) {
+            if (mc.player != null && var1.packet instanceof SEntityVelocityPacket var4) {
+				Entity var5 = mc.world.getEntityByID(var4.getEntityID());
+                if (var5 instanceof FireworkRocketEntity var6) {
+					if (var6.getBoundingBox() != null && var6.getBoostedEntity().getEntityId() == mc.player.getEntityId()) {
                         this.field23529 = this.field23529 + (float) var4.motionX / 8000.0F;
                         this.field23531 = this.field23531 + (float) var4.motionZ / 8000.0F;
                         this.field23530 = this.field23530 + (float) var4.motionY / 8000.0F;

@@ -301,9 +301,8 @@ public class Freecam extends Module {
                 player.swingArm(Hand.MAIN_HAND);
             }
 
-            if (var1.packet instanceof CUseEntityPacket) {
-                CUseEntityPacket var4 = (CUseEntityPacket) var1.packet;
-                if (var4.getEntityFromWorld(mc.world) == null) {
+            if (var1.packet instanceof CUseEntityPacket var4) {
+				if (var4.getEntityFromWorld(mc.world) == null) {
                     var1.cancelled = true;
                 }
             }

@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 
 public class SpectrumButton extends Element {
     private boolean field20682 = true;
-    private Animation field20683 = new Animation(100, 100);
+    private final Animation field20683 = new Animation(100, 100);
 
     public SpectrumButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, boolean var7) {
         super(var1, var2, var3, var4, var5, var6, false);

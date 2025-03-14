@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinerTracker {
-    private Minecraft mc = Minecraft.getInstance();
+    private final Minecraft mc = Minecraft.getInstance();
     private List<Class9510> field39613 = new ArrayList<Class9510>();
     public float yaw = -999.0F;
     public float pitch = -999.0F;
@@ -173,8 +173,8 @@ public class MinerTracker {
 
                 float var43 = RotationUtil.method34145(this.mc.player.getPositionVec(), var8.field44271.getMiddleXZ())[0];
                 this.yaw = var43;
-                double var21 = Math.cos(Math.toRadians((double) (this.mc.player.rotationYaw - var43)));
-                double var23 = Math.sin(Math.toRadians((double) (this.mc.player.rotationYaw - var43)));
+                double var21 = Math.cos(Math.toRadians(this.mc.player.rotationYaw - var43));
+                double var23 = Math.sin(Math.toRadians(this.mc.player.rotationYaw - var43));
                 boolean var25 = Class8627.isAreaAir(var8);
                 this.mc.player.setSprinting(var8.field44281.isEmpty());
                 double var26 = Math.min(1.0 / Math.abs(var21), 1.0 / Math.abs(var23));
@@ -192,8 +192,8 @@ public class MinerTracker {
                     this.mc.player.moveStrafing = 0.0F;
                 }
 
-                double var29 = Math.cos(Math.toRadians((double) (var43 + 90.0F))) * var4;
-                double var31 = Math.sin(Math.toRadians((double) (var43 + 90.0F))) * var4;
+                double var29 = Math.cos(Math.toRadians(var43 + 90.0F)) * var4;
+                double var31 = Math.sin(Math.toRadians(var43 + 90.0F)) * var4;
                 boolean var33 = Class8627.canJump();
                 boolean var34 = this.mc.world
                         .getCollisionShapes(this.mc.player, this.mc.player.getBoundingBox().offset(var29, -1.0, var31))
@@ -272,8 +272,8 @@ public class MinerTracker {
 
                 for (long var8 : var6.field44281) {
                     BlockPos var10 = BlockPos.fromLong(var8);
-                    if (this.mc.player.getPositionVec().squareDistanceTo((double) var10.getX(), (double) var10.getY(),
-                            (double) var10.getZ()) < 9.0
+                    if (this.mc.player.getPositionVec().squareDistanceTo(var10.getX(), var10.getY(),
+							var10.getZ()) < 9.0
                             && !TraceThing.method33985(var10)
                             && !this.mc.world.getBlockState(var10).isAir()) {
                         var4.add(var10);
@@ -424,7 +424,7 @@ public class MinerTracker {
                 (float) (var10.getWidth(var7) / 2 + 10),
                 (float) (var10.getHeight() + 2),
                 RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
-        GL11.glTranslated((double) (-var10.getWidth(var7) / 2), 0.0, 0.0);
+        GL11.glTranslated(-var10.getWidth(var7) / 2, 0.0, 0.0);
         RenderUtil.drawString(var10, 0.0F, 0.0F, var7,
                 RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         GL11.glPopMatrix();

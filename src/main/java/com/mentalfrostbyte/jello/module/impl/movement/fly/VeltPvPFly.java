@@ -76,7 +76,7 @@ public class VeltPvPFly extends Module {
     @LowerPriority
     public void method16047(EventMove var1) {
         if (this.isEnabled()) {
-            double var4 = (double) this.getNumberValueBySettingName("Speed");
+            double var4 = this.getNumberValueBySettingName("Speed");
             if (this.field23419 <= 0) {
                 if (this.field23419 != -1) {
                     if (this.field23419 == 0) {
@@ -136,18 +136,16 @@ public class VeltPvPFly extends Module {
     public void method16049(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (!(var4 instanceof SPlayerPositionLookPacket)) {
-                if (var4 instanceof SChatPacket) {
-                    SChatPacket var5 = (SChatPacket) var4;
-                    String var6 = var5.getChatComponent().getString();
+            if (!(var4 instanceof SPlayerPositionLookPacket var7)) {
+                if (var4 instanceof SChatPacket var5) {
+					String var6 = var5.getChatComponent().getString();
                     if (this.field23420 > 0 && (var6.contains("Now leaving: §") || var6.contains("Now entering: §"))) {
                         this.field23420--;
                         var1.cancelled = true;
                     }
                 }
             } else {
-                SPlayerPositionLookPacket var7 = (SPlayerPositionLookPacket) var4;
-                if (this.field23419 >= 1) {
+				if (this.field23419 >= 1) {
                     this.field23419 = -1;
                 }
 
@@ -161,9 +159,8 @@ public class VeltPvPFly extends Module {
     public void method16050(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof CPlayerPacket) {
-                CPlayerPacket var5 = (CPlayerPacket) var4;
-                if (this.field23419 == -1) {
+            if (var4 instanceof CPlayerPacket var5) {
+				if (this.field23419 == -1) {
                     var5.onGround = true;
                 }
             }

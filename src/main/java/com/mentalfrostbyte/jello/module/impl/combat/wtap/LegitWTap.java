@@ -16,9 +16,8 @@ public class LegitWTap extends Module {
     public void TickEvent(EventPlayerTick event) {
         if (this.isEnabled()
                 && !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled2()
-                && mc.objectMouseOver instanceof EntityRayTraceResult) {
-            EntityRayTraceResult entityRayTrace = (EntityRayTraceResult) mc.objectMouseOver;
-            if (entityRayTrace.getEntity() != null) {
+                && mc.objectMouseOver instanceof EntityRayTraceResult entityRayTrace) {
+			if (entityRayTrace.getEntity() != null) {
                 mc.gameSettings.keyBindSprint.setPressed(true);
 
                 if (mc.player.swingProgressInt != 1) {

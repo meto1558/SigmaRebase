@@ -22,7 +22,7 @@ import java.util.Collections;
 public class ClassicMainScreen extends Screen {
     public final AnimatedIconPanel field21094;
     public final AnimatedIconPanel field21095;
-    private Animation field21100;
+    private final Animation field21100;
     private final Animation field21101 = new Animation(800, 800);
     private final ParticleOverlay particleOverlay;
     private final ClassicMainScreenGroup field21103;

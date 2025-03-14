@@ -9,8 +9,8 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 
 public class SliderButton extends Button {
-    private Slider field20600;
-    private Animation field20601 = new Animation(125, 125);
+    private final Slider field20600;
+    private final Animation field20601 = new Animation(125, 125);
 
     public SliderButton(Slider var1, int var2) {
         super(var1, "sliderButton", 0, 0, var2, var2, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()));

@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Map.Entry;
 
 public class KeyboardScreen extends Screen {
-   private static Minecraft field20953 = Minecraft.getInstance();
+   private static final Minecraft field20953 = Minecraft.getInstance();
    private Texture field20954;
    public Date field20955;
    public PopOver field20956;
@@ -45,9 +45,10 @@ public class KeyboardScreen extends Screen {
                boolean var5 = false;
 
                for (CustomGuiScreen var7 : this.getChildren()) {
-                  if (var7 instanceof PopOver) {
-                     var5 = true;
-                  }
+				   if (var7 instanceof PopOver) {
+					   var5 = true;
+					   break;
+				   }
                }
 
                if (this.field20957.field20696 == this.field20961 && var5) {

@@ -29,9 +29,9 @@ public class MovementHelper implements MinecraftUtil {
             float yawSin = MathHelper.sin(mc.player.rotationYaw * (float) (Math.PI / 180.0));
             float yawCos = MathHelper.cos(mc.player.rotationYaw * (float) (Math.PI / 180.0));
 
-            x += (double) (motionX * yawCos - motionZ * yawSin);
-            y += (double) motionY;
-            z += (double) (motionZ * yawCos + motionX * yawSin);
+            x += motionX * yawCos - motionZ * yawSin;
+            y += motionY;
+            z += motionZ * yawCos + motionX * yawSin;
         }
     }
 

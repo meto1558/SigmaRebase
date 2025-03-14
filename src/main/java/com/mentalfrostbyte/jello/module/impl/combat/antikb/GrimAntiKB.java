@@ -12,9 +12,8 @@ public class GrimAntiKB extends Module {
     @EventTarget
     public void dontletmecodeagain (EventReceivePacket event) {
         if (mc.player != null) {
-            if (event.packet instanceof SEntityVelocityPacket) {
-                SEntityVelocityPacket packet = (SEntityVelocityPacket) event.packet;
-                if (packet.getEntityID() == mc.player.getEntityId()) {
+            if (event.packet instanceof SEntityVelocityPacket packet) {
+				if (packet.getEntityID() == mc.player.getEntityId()) {
                     event.cancelled = true;
                 }
             } if (event.packet instanceof SConfirmTransactionPacket) {

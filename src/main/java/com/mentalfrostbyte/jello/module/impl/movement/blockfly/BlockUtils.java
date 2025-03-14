@@ -43,9 +43,7 @@ public class BlockUtils {
     public static boolean isAir(BlockPos var0) {
         if (var0 != null) {
             Block var3 = mc.world.getBlockState(var0).getBlock();
-            return !var3.getDefaultState().isSolid() && var3.getDefaultState().getMaterial().isReplaceable()
-                    ? false
-                    : !(var3 instanceof SnowBlock) || method34573(mc.world.getBlockState(var0)) != 0;
+            return (var3.getDefaultState().isSolid() || !var3.getDefaultState().getMaterial().isReplaceable()) && (!(var3 instanceof SnowBlock) || method34573(mc.world.getBlockState(var0)) != 0);
         } else {
             return false;
         }
@@ -80,7 +78,7 @@ public class BlockUtils {
                 - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight())
                 + (double)var6;
         double var11 = (double)var0.getZ() + 0.5 - Minecraft.getInstance().player.getPosZ() + (double)var5;
-        double var13 = (double) MathHelper.sqrt(var7 * var7 + var11 * var11);
+        double var13 = MathHelper.sqrt(var7 * var7 + var11 * var11);
         float var15 = (float)(Math.atan2(var11, var7) * 180.0 / Math.PI) - 90.0F;
         float var16 = (float)(-(Math.atan2(var9, var13) * 180.0 / Math.PI));
         return new float[]{
@@ -101,7 +99,7 @@ public class BlockUtils {
         for (float var5 = -var4; var5 < 1.0F; var5++) {
             for (float var6 = -var4; var6 <= var4; var6++) {
                 for (float var7 = -var4; var7 <= var4; var7++) {
-                    BlockPos var8 = var0.add((double)var6, (double)var5, (double)var7);
+                    BlockPos var8 = var0.add(var6, var5, var7);
                     if (mc.player.getPosY() >= (double)var8.getY()) {
                         if(Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getBooleanValueFromSettingName("Place All Attempts")){
                             var3.add(var8);
@@ -139,7 +137,7 @@ public class BlockUtils {
     }
 
     public static float horizontalDistanceToBlockPos(Vector3d var0, BlockPos var1) {
-        return distanceToPointXZ(var0, (double)var1.getX(), (double)var1.getZ());
+        return distanceToPointXZ(var0, var1.getX(), var1.getZ());
     }
 
     private static float computeDistanceToCenter(float var0, float var1) {
@@ -153,7 +151,7 @@ public class BlockUtils {
     }
 
     public static float getDistanceToBlockPos(Vector3d var0, BlockPos var1) {
-        return calculateDistanceToPoint(var0, (double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
+        return calculateDistanceToPoint(var0, var1.getX(), var1.getY(), var1.getZ());
     }
 
     public static float calculateDistanceToPoint(Vector3d var0, double var1, double var3, double var5) {

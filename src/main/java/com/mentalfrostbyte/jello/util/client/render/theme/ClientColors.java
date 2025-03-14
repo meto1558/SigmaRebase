@@ -23,7 +23,7 @@ public enum ClientColors {
 
     private final int color;
 
-    private ClientColors(int color) {
+    ClientColors(int color) {
         this.color = color;
     }
 

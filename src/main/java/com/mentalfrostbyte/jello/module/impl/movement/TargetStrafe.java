@@ -69,10 +69,10 @@ public class TargetStrafe extends Module {
                 String var8 = this.getStringSettingValueByName("Mode");
                 switch (var8) {
                     case "Basic":
-                        this.method16152(var4, var5, (double) var7, var1);
+                        this.method16152(var4, var5, var7, var1);
                         break;
                     case "Ninja":
-                        float var15 = (float) Math.toRadians((double) (var4.getRotationYawHead() - 180.0F));
+                        float var15 = (float) Math.toRadians(var4.getRotationYawHead() - 180.0F);
                         double var16 = var4.getPositionVec().x - (double) (MathHelper.sin(var15) * var7);
                         double var17 = var4.getPositionVec().z + (double) (MathHelper.cos(var15) * var7);
                         var1.setX(var16 - mc.player.getPositionVec().x);
@@ -154,7 +154,7 @@ public class TargetStrafe extends Module {
 
     public boolean method16153(Vector3d var1) {
         if (!(mc.player.getPositionVec().y < 1.0)) {
-            AxisAlignedBB var4 = new AxisAlignedBB(var1.add(-0.15, 0.0, -0.15), var1.add(0.15, (double) mc.player.getHeight(), 0.15));
+            AxisAlignedBB var4 = new AxisAlignedBB(var1.add(-0.15, 0.0, -0.15), var1.add(0.15, mc.player.getHeight(), 0.15));
             var4 = var4.expand(0.0, -mc.player.getPositionVec().y, 0.0);
             return mc.world.getCollisionShapes(mc.player, var4).count() == 0L;
         } else {

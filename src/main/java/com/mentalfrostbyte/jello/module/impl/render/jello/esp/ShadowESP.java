@@ -234,6 +234,6 @@ public class ShadowESP extends Module {
     public enum RenderState {
         DEFAULT,
         PRE_RENDER,
-        OUTLINE;
-    }
+        OUTLINE
+	}
 }

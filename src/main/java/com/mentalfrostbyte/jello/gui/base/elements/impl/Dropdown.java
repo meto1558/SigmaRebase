@@ -25,8 +25,8 @@ public class Dropdown extends Element {
     public List<String> values;
     public int selectedIdx;
     public boolean field21328;
-    private Animation animation = new Animation(220, 220);
-    private Map<Integer, Sub> field21331 = new HashMap<Integer, Sub>();
+    private final Animation animation = new Animation(220, 220);
+    private final Map<Integer, Sub> field21331 = new HashMap<Integer, Sub>();
 
     public Dropdown(CustomGuiScreen var1, String typeThingIdk, int x, int y, int width, int height, List<String> values, int selectedIdx) {
         super(var1, typeThingIdk, x, y, width, height, field21325, false);

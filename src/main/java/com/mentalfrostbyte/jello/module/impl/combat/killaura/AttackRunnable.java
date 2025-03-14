@@ -40,7 +40,7 @@ public class AttackRunnable implements Runnable {
                 } else {
                     mc.playerController.attackEntity(mc.player, entity);
 
-                    boolean shouldAttack = killAura.isEnabled() && killAura.getBooleanValueFromSettingName("No swing") && killAura.targetEntity != null;
+                    boolean shouldAttack = killAura.isEnabled() && killAura.getBooleanValueFromSettingName("No swing") && KillAura.targetEntity != null;
 
                     if (shouldAttack) {
                         Minecraft.getInstance().getConnection().sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));

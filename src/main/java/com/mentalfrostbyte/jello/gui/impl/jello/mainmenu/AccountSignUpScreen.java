@@ -15,14 +15,14 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 public class AccountSignUpScreen extends Element {
-    private Text stringPanel;
-    private TextField usernameInputBox;
-    private TextField emailInputBox;
-    private TextField passwordInputBox;
-    private TextField captchaBox;
-    private TextButton registerButton;
-    private TextButton loginButton;
-    private LoadingIndicator loadingBox;
+    private final Text stringPanel;
+    private final TextField usernameInputBox;
+    private final TextField emailInputBox;
+    private final TextField passwordInputBox;
+    private final TextField captchaBox;
+    private final TextButton registerButton;
+    private final TextButton loginButton;
+    private final LoadingIndicator loadingBox;
     public static int widthy = 390;
     public static int height = 590;
 

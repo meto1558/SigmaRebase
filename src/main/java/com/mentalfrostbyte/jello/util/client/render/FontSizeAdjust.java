@@ -5,5 +5,5 @@ public enum FontSizeAdjust {
    field14489,
    WIDTH_NEGATE,
    HEIGHT_NEGATE,
-   NEGATE_AND_DIVIDE_BY_2;
+   NEGATE_AND_DIVIDE_BY_2
 }

@@ -34,7 +34,7 @@ public class Ban extends AnimatedIconPanel {
     public Texture field21245 = null;
     public Texture field21246 = null;
     private BufferedImage field21247;
-    private Animation field21248;
+    private final Animation field21248;
 
     public Ban(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, com.mentalfrostbyte.jello.managers.util.account.microsoft.Ban var7) {
         super(var1, var2, var3, var4, var5, var6, false);
@@ -44,7 +44,7 @@ public class Ban extends AnimatedIconPanel {
     }
 
     @Override
-    public void finalize() throws Throwable {
+	protected void finalize() throws Throwable {
         try {
             if (this.field21246 != null) {
                 Client.getInstance().addTexture(this.field21246);
@@ -189,7 +189,7 @@ public class Ban extends AnimatedIconPanel {
                 (float) (this.yA + 16),
                 !this.field21244.serverName.equals("Minecraft Server")
                         ? this.field21244.serverName
-                        : this.field21244.serverIP.substring(0, 1).toUpperCase() + this.field21244.serverIP.substring(1, this.field21244.serverIP.length()),
+                        : this.field21244.serverIP.substring(0, 1).toUpperCase() + this.field21244.serverIP.substring(1),
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F)
         );
         int var12 = 94;

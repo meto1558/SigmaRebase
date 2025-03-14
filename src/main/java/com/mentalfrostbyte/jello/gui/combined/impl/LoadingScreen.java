@@ -101,21 +101,21 @@ public class LoadingScreen extends LoadingGui {
         float var11 = 80;
         if (bgOpacity == 1.0F) {
             RenderUtil.drawRoundedRect(
-                    (float)var6, (float)(var7 + var5 + var11), (float)var4, 20.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * bgOpacity)
+                    (float)var6, var7 + var5 + var11, (float)var4, 20.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * bgOpacity)
             );
             RenderUtil.drawRoundedRect(
                     (float)(var6 + 1),
-                    (float)(var7 + var5 + var11 + 1),
+					var7 + var5 + var11 + 1,
                     (float)(var4 - 2),
                     18.0F,
                     9.0F,
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F * bgOpacity)
+                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), bgOpacity)
             );
         }
 
         RenderUtil.drawRoundedRect(
                 (float)(var6 + 2),
-                (float)(var7 + var5 + var11 + 2),
+				var7 + var5 + var11 + 2,
                 (float)((int)((float)(var4 - 4) * var9)),
                 16.0F,
                 8.0F,

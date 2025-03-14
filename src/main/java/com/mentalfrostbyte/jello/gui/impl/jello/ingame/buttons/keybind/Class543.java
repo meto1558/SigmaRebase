@@ -16,9 +16,8 @@ public class Class543 implements Runnable {
    @Override
    public void run() {
       for (CustomGuiScreen var4 : this.field2603.getChildren()) {
-         if (var4 instanceof PopOver) {
-            PopOver var5 = (PopOver)var4;
-            var5.method13712();
+         if (var4 instanceof PopOver var5) {
+			 var5.method13712();
             this.field2604.field20957.method13104();
             var5.setReAddChildren(true);
             var5.method13242();

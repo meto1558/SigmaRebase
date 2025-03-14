@@ -42,7 +42,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
 
    private void method13485(Module var1) {
       int var4 = this.field21182 % 3;
-      int var5 = (int)Math.floor((double)((float)this.field21182 / 3.0F));
+      int var5 = (int)Math.floor((float)this.field21182 / 3.0F);
       int var6 = 170;
       int var7 = 80;
       this.addToList(new CategoryPanel(this, var1.getName(), 40 + var6 * var4, 72 + var7 * var5, var6, var7, var1));
@@ -63,9 +63,8 @@ public class ModuleSettingGroup extends ClickGuiPanel {
       super.draw(partialTicks);
       if (this.field21181 == null) {
          for (CustomGuiScreen var5 : this.getChildren()) {
-            if (var5 instanceof CategoryPanel && this.field21149.calcPercent() == 1.0F && var5.method13114(this.getHeightO(), this.getWidthO())) {
-               CategoryPanel var6 = (CategoryPanel)var5;
-               RenderUtil.drawString(Resources.regular17, 20.0F, (float)(this.getHeightA() - 26), var6.module.getDescription(), -14540254);
+            if (var5 instanceof CategoryPanel var6 && this.field21149.calcPercent() == 1.0F && var5.method13114(this.getHeightO(), this.getWidthO())) {
+				RenderUtil.drawString(Resources.regular17, 20.0F, (float)(this.getHeightA() - 26), var6.module.getDescription(), -14540254);
                RenderUtil.startScissor(5.0F, (float)(this.getHeightA() - 27), 12.0F, 24.0F);
                RenderUtil.drawImage(5.0F, (float)(this.getHeightA() - 27), 24.0F, 24.0F, Resources.xmark);
                RenderUtil.endScissor();

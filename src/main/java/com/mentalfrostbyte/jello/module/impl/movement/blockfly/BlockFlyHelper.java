@@ -68,7 +68,7 @@ public class BlockFlyHelper {
     }
 
     public static class BlockCache {
-        private BlockPos position;
+        private final BlockPos position;
         private Direction facing;
 
         public BlockCache(BlockPos position, Direction facing) {

@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigScreen extends Element {
-    private List<Button> field21297 = new ArrayList<Button>();
+    private final List<Button> field21297 = new ArrayList<Button>();
     public final Animation field21298;
     public ScrollableContentPanel profileScrollView;
     public ConfigGroup field21300;
-    private List<ProfileGroup> field21301 = new ArrayList<ProfileGroup>();
+    private final List<ProfileGroup> field21301 = new ArrayList<ProfileGroup>();
 
     public ConfigScreen(CustomGuiScreen var1, String var2, int var3, int var4) {
         super(var1, var2, var3 - 250, var4 - 500, 250, 500, ColorHelper.field27961, false);

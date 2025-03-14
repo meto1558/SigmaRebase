@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import java.util.Date;
 
 public class MapsScreen extends Screen {
-   private static Minecraft field21033 = Minecraft.getInstance();
+   private static final Minecraft field21033 = Minecraft.getInstance();
    private Texture field21034;
    public Date field21035;
    public MapPanel field21036;
@@ -53,9 +53,8 @@ public class MapsScreen extends Screen {
       MapsScreen var3 = this;
 
       for (CustomGuiScreen var5 : this.getChildren()) {
-         if (var5 instanceof WaypointPanel) {
-            WaypointPanel var6 = (WaypointPanel)var5;
-            this.runThisOnDimensionUpdate(new Waypoint(this, var3, var5));
+         if (var5 instanceof WaypointPanel var6) {
+			 this.runThisOnDimensionUpdate(new Waypoint(this, var3, var5));
          }
       }
    }

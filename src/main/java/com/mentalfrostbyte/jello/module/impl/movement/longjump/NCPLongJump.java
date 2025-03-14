@@ -150,7 +150,7 @@ public class NCPLongJump extends Module {
                 event.setY(0.599);
                 event.setStrafeSpeed(0.0);
                 if ((double) this.getNumberValueBySettingName("Boost") > 1.5) {
-                    event.setStrafeSpeed(0.28 + (double) this.getNumberValueBySettingName("Boost") * 0.1 + (double) MovementUtil.getSmartSpeed() * 0.05);
+                    event.setStrafeSpeed(0.28 + (double) this.getNumberValueBySettingName("Boost") * 0.1 + MovementUtil.getSmartSpeed() * 0.05);
                 }
 
                 if (this.getStringSettingValueByName("Speed Mode").equals("Hypixel") && (double) this.getNumberValueBySettingName("Boost") > 1.75) {

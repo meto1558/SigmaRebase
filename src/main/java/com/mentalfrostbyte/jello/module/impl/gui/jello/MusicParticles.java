@@ -40,7 +40,7 @@ public class MusicParticles extends Module {
                     maxAmplitude = Math.max(maxAmplitude, Math.sqrt(Client.getInstance().musicManager.amplitudes.get(i)) - 1000.0);
                 }
 
-                float particleCount = 0.7F + (float) (maxAmplitude / (double) (maxThreshold - 1000)) * 8.14F;
+                float particleCount = 0.7F + (float) (maxAmplitude / (maxThreshold - 1000)) * 8.14F;
                 particleCount *= particleIntensity;
                 int particleIndex = 0;
 

@@ -42,7 +42,7 @@ public class Head extends AnimatedIconPanel {
     );
     public String skin = null;
     private AbstractClientPlayerEntity field20823;
-    private Minecraft mc = Minecraft.getInstance();
+    private final Minecraft mc = Minecraft.getInstance();
     private static ClientWorld clientWorld;
     public Account account;
     private DynamicTexture field20827;
@@ -71,8 +71,8 @@ public class Head extends AnimatedIconPanel {
             RenderSystem.rotatef(180.0F, 0.0F, 0.0F, 1.0F);
             float var4 = (float) (this.mc.getMainWindow().getHeight() - this.getWidthO() - this.mc.getMainWindow().getHeight() / 2);
             float var5 = (float) (this.mc.getMainWindow().getWidth() - this.getHeightO() - this.mc.getMainWindow().getWidth() / 2);
-            float var6 = (float) Math.atan((double) (var4 / (float) (this.mc.getMainWindow().getHeight() / 2))) * 20.0F;
-            float var7 = (float) Math.atan((double) (var5 / (float) (this.mc.getMainWindow().getWidth() / 2))) * 20.0F;
+            float var6 = (float) Math.atan(var4 / (float) (this.mc.getMainWindow().getHeight() / 2)) * 20.0F;
+            float var7 = (float) Math.atan(var5 / (float) (this.mc.getMainWindow().getWidth() / 2)) * 20.0F;
             RenderSystem.rotatef(-var6, 1.0F, 0.0F, 0.0F);
             RenderSystem.rotatef(-var7, 0.0F, 1.0F, 0.0F);
             UUID uid = UUID.fromString(this.account.getKnownUUID().equals("steve") ? "123e4567-e89b-12d3-a456-556642440000" : this.account.getKnownUUID());
@@ -89,11 +89,11 @@ public class Head extends AnimatedIconPanel {
 
             this.entity.setUniqueId(uid);
             float var10 = (float) (System.currentTimeMillis() % 1750L) / 278.52115F;
-            var10 = (float) Math.sin((double) var10);
+            var10 = (float) Math.sin(var10);
             float var11 = (float) (System.currentTimeMillis() % 14000L) / 2228.1692F;
-            var11 = (float) Math.sin((double) var11);
+            var11 = (float) Math.sin(var11);
             float var12 = (float) (System.currentTimeMillis() % 30000L) / 4774.648F;
-            var12 = (float) Math.sin((double) var12);
+            var12 = (float) Math.sin(var12);
             new PlayerModel(0.0F, false);
             new PlayerRenderer(this.mc.getRenderManager());
             new MatrixStack();

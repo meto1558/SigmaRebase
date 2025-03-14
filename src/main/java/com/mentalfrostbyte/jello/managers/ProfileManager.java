@@ -70,7 +70,7 @@ public class ProfileManager {
 
     public Profile getConfigByName(String var1) {
         for (Profile var5 : this.savedConfigs) {
-            if (var5.profileName.toLowerCase().equals(var1.toLowerCase())) {
+            if (var5.profileName.equalsIgnoreCase(var1)) {
                 return var5;
             }
         }
@@ -113,7 +113,7 @@ public class ProfileManager {
 
     public boolean getConfigByCaseInsensitiveName(String name) {
         for (Profile config : this.savedConfigs) {
-            if (config.profileName.toLowerCase().equals(name.toLowerCase())) {
+            if (config.profileName.equalsIgnoreCase(name)) {
                 return true;
             }
         }

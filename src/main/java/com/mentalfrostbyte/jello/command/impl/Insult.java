@@ -357,7 +357,7 @@ public class Insult extends Command {
             var2 = commitSelfHarm[method18335(commitSelfHarm.length)];
         } else {
             String var3 = field25708[method18335(field25708.length)];
-            var3 = var3.substring(0, 1).toUpperCase() + var3.substring(1, var3.length());
+            var3 = var3.substring(0, 1).toUpperCase() + var3.substring(1);
             String var4 = method18334();
             String var5 = "a";
             if (var4.startsWith("a") || var4.startsWith("e") || var4.startsWith("i") || var4.startsWith("o") || var4.startsWith("u")) {

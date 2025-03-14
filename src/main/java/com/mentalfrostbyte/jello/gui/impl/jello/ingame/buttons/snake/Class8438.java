@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Class8438 {
    private static String[] field36151;
-   private List<ScreenDimension> field36152 = new ArrayList<ScreenDimension>();
+   private final List<ScreenDimension> field36152 = new ArrayList<ScreenDimension>();
    private Class2097 field36153 = Class2097.field13663;
    private boolean field36154 = false;
    private boolean field36155 = false;
@@ -56,6 +56,6 @@ public class Class8438 {
    }
 
    public boolean method29656(ScreenDimension var1) {
-      return var1 != null ? this.field36152.contains(var1) : true;
+      return var1 == null || this.field36152.contains(var1);
    }
 }

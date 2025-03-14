@@ -84,7 +84,7 @@ public class FurnaceTracker {
                     .isEmpty()) {
                 SimpleReloadableResourceManager resourceManager = new SimpleReloadableResourceManager(ResourcePackType.SERVER_DATA);
 
-                for (IResourcePack pack : Minecraft.getInstance().getResourcePackList().getEnabledPacks().stream().<IResourcePack>map(ResourcePackInfo::getResourcePack).collect(Collectors.toList())) {
+                for (IResourcePack pack : Minecraft.getInstance().getResourcePackList().getEnabledPacks().stream().map(ResourcePackInfo::getResourcePack).collect(Collectors.toList())) {
                     resourceManager.addResourcePack(pack);
                 }
 

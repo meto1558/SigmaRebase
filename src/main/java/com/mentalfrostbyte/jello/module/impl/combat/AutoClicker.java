@@ -39,12 +39,7 @@ public class AutoClicker extends Module {
     @EventTarget
     @HighestPriority
     public void onRender(EventRender3D var1) {
-        if(PlayerController.isHittingBlock || PlayerController.curBlockDamageMP != 0){
-
-            nigga = false;
-        }else{
-            nigga = true;
-        }
+		nigga = !PlayerController.isHittingBlock && PlayerController.curBlockDamageMP == 0;
     }
 
     @EventTarget

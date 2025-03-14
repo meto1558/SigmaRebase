@@ -16,7 +16,7 @@ public class JelloOptions extends Screen {
    private boolean field21111 = true;
    public static Animation field21112 = new Animation(300, 200);
    private Texture field21113;
-   private JelloOptionsGroup field21114;
+   private final JelloOptionsGroup field21114;
    public static net.minecraft.client.gui.screen.Screen field21115 = null;
 
    public JelloOptions() {

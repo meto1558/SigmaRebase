@@ -171,9 +171,8 @@ public class Cubecraft2Fly extends PremiumModule {
     public void method16487(EventReceivePacket var1) {
         if (this.isEnabled() || this.field23696 < 0) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                var5.yaw = mc.player.rotationYaw;
+            if (var4 instanceof SPlayerPositionLookPacket var5) {
+				var5.yaw = mc.player.rotationYaw;
                 var5.pitch = mc.player.rotationPitch;
                 this.field23698.reset();
                 this.field23698.stop();

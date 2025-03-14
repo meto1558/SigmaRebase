@@ -44,9 +44,8 @@ public class CakeEater extends Module {
     @EventTarget
     public void method16319(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (var1.packet instanceof SChatPacket) {
-                SChatPacket var4 = (SChatPacket) var1.packet;
-                if (var4.getChatComponent().getString().equals("§9Game> §r§7You cannot eat your own cake!§r")) {
+            if (var1.packet instanceof SChatPacket var4) {
+				if (var4.getChatComponent().getString().equals("§9Game> §r§7You cannot eat your own cake!§r")) {
                     var1.cancelled = true;
                 }
             }
@@ -58,9 +57,8 @@ public class CakeEater extends Module {
     public void method16320(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Fly.class);
-            if (var4.getModWithTypeSetToName() instanceof MineplexFly) {
-                MineplexFly var5 = (MineplexFly) var4.getModWithTypeSetToName();
-                if (var5.method16456()) {
+            if (var4.getModWithTypeSetToName() instanceof MineplexFly var5) {
+				if (var5.method16456()) {
                     return;
                 }
             }

@@ -116,9 +116,9 @@ public class NBSFileReader {
                         var8 += var10;
                     }
 
-                    NBSFile result = new NBSFile(var15, var4, var11, var25, author, name, var14, file, var8, var29);;
+                    NBSFile result = new NBSFile(var15, var4, var11, var25, author, name, var14, file, var8, var29);
 
-                    return result;
+					return result;
                 }
 
                 var16 += var17;
@@ -154,7 +154,7 @@ public class NBSFileReader {
     }
 
     private static void method29872(int var0, int var1, byte var2, byte var3, HashMap<Integer, Class9616> var4) {
-        Class9616 var7 = (Class9616)var4.get(var0);
+        Class9616 var7 = var4.get(var0);
         if (var7 == null) {
             var7 = new Class9616();
             var4.put(var0, var7);

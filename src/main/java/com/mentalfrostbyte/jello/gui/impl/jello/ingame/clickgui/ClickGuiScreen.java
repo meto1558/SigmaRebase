@@ -246,7 +246,7 @@ public class ClickGuiScreen extends Screen {
 
     public float method13317(float var1, float var2) {
         return animationProgress.getDirection() != Animation.Direction.BACKWARDS
-                ? (float) (Math.pow(2.0, (double) (-10.0F * var1)) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
+                ? (float) (Math.pow(2.0, -10.0F * var1) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
                 : QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F);
     }
 

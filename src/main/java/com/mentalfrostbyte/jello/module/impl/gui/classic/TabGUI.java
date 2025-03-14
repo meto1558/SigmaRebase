@@ -381,6 +381,6 @@ public class TabGUI extends Module {
         LeftArrowKey,
         EnterKey,
         UpArrowKey,
-        DownArrowKey;
-    }
+        DownArrowKey
+	}
 }

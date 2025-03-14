@@ -192,15 +192,14 @@ public class CubecraftFly extends Module {
     public void method16690(EventReceivePacket var1) {
         if (mc.world != null && mc.getConnection() != null && ServerUtil.isCubecraft()) {
             IPacket packet = var1.packet;
-            if (!(packet instanceof SPlayerPositionLookPacket)) {
+            if (!(packet instanceof SPlayerPositionLookPacket var20)) {
                 if (packet instanceof SEntityVelocityPacket var5) {
                     if (var5.getEntityID() == mc.player.getEntityId()) {
                         this.field23845 = -4;
                     }
                 }
             } else {
-                SPlayerPositionLookPacket var20 = (SPlayerPositionLookPacket) packet;
-                if (!JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+				if (!JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
                     float[] var6 = MovementUtil.getDirectionArray();
                     float var7 = var6[1];
                     float var8 = var6[2];

@@ -70,14 +70,13 @@ public class AACAntiKB extends Module {
     public void method16789(EventReceivePacket var1) {
         if (this.isEnabled() && mc.player != null) {
             IPacket packet = var1.packet;
-            if (packet instanceof SEntityVelocityPacket) {
+            if (packet instanceof SEntityVelocityPacket kb) {
                 if (this.noStrength()) {
                     ticks = 0;
                     return;
                 }
 
-                SEntityVelocityPacket kb = (SEntityVelocityPacket) packet;
-                if (kb.getEntityID() == mc.player.getEntityId() && (kb.getMotionX() != 0 || kb.getMotionZ() != 0)) {
+				if (kb.getEntityID() == mc.player.getEntityId() && (kb.getMotionX() != 0 || kb.getMotionZ() != 0)) {
                     this.field23909 = (float) (Math.sqrt(kb.getMotionX() * kb.getMotionX() + kb.getMotionZ() * kb.getMotionZ()) / 1000.0);
                     this.field23908 = (float) (Math.atan2((double) kb.getMotionX() / 1000, (double) kb.getMotionZ() / 1000) * 180.0 / Math.PI) - 90.0F;
                     ticks = 0;

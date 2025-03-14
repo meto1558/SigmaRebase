@@ -114,9 +114,8 @@ public class NameTags extends Module {
     @EventTarget
     public void onSendPacket(EventSendPacket event) {
         if (this.isEnabled()) {
-            if (event.packet instanceof CPlayerTryUseItemOnBlockPacket) {
-                CPlayerTryUseItemOnBlockPacket var4 = (CPlayerTryUseItemOnBlockPacket) event.packet;
-                if (mc.world.getBlockState(var4.func_218794_c().getPos()).getBlock() instanceof FurnaceBlock) {
+            if (event.packet instanceof CPlayerTryUseItemOnBlockPacket var4) {
+				if (mc.world.getBlockState(var4.func_218794_c().getPos()).getBlock() instanceof FurnaceBlock) {
                     this.currentBlockPos = var4.func_218794_c().getPos();
                 }
             }

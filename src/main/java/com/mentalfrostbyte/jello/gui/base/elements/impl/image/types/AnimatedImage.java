@@ -9,21 +9,21 @@ import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import org.newdawn.slick.opengl.Texture;
 
 public class AnimatedImage {
-    private Texture texture;
+    private final Texture texture;
     private int field31340;
-    private int field31341;
-    private int field31342;
-    private int field31343;
+    private final int field31341;
+    private final int field31342;
+    private final int field31343;
     private int field31344;
     private final int field31345;
     private boolean field31346;
     private boolean field31347 = true;
     private Class2311 field31348;
-    private Class2188 field31349;
-    private TimerUtil field31350 = new TimerUtil();
+    private final Class2188 field31349;
+    private final TimerUtil field31350 = new TimerUtil();
     private int field31351;
     private int field31352 = 1;
-    private Animation field31353;
+    private final Animation field31353;
 
     public AnimatedImage(Texture texture, int var2, int var3, int var4, Class2188 var5, int var6, int var7) {
         this.texture = texture;
@@ -182,6 +182,6 @@ public class AnimatedImage {
 
     public enum Class2311 {
         field15840,
-        field15841;
-    }
+        field15841
+	}
 }

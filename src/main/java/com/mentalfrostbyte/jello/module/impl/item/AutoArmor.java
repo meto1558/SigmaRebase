@@ -119,9 +119,8 @@ public class AutoArmor extends Module {
                     if (var9.getItem() instanceof ElytraItem && this.field23799) {
                         mc.player.inventory.getStackInSlot(36 + EquipmentSlotType.CHEST.getIndex());
                     }
-                    if (var9.getItem() instanceof ArmorItem && !this.field23799) {
-                        ArmorItem armorItem = (ArmorItem) var9.getItem();
-                        if (armorItem.getEquipmentSlot() == type
+                    if (var9.getItem() instanceof ArmorItem armorItem && !this.field23799) {
+						if (armorItem.getEquipmentSlot() == type
                                 && InvManagerUtil.isBestArmorPiece(var9)
                                 && InvManagerUtil.getArmorProtectionValue(var9) > 0
                                 && (
@@ -166,9 +165,8 @@ public class AutoArmor extends Module {
             if (mc.player.container.getSlot(var4).getHasStack()) {
                 ItemStack var5 = mc.player.container.getSlot(var4).getStack();
                 Item var6 = var5.getItem();
-                if (var6 instanceof ArmorItem) {
-                    ArmorItem var7 = (ArmorItem) var6;
-                    if (var1 == var7.getEquipmentSlot()) {
+                if (var6 instanceof ArmorItem var7) {
+					if (var1 == var7.getEquipmentSlot()) {
                         return true;
                     }
                 }

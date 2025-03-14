@@ -38,7 +38,7 @@ public class Alert extends Element {
     public CustomGuiScreen screen;
     public String alertName;
     public Texture field21281;
-    private Animation field21282 = new Animation(285, 100);
+    private final Animation field21282 = new Animation(285, 100);
     public boolean field21283;
     public int field21284 = 240;
     public int field21285 = 0;
@@ -224,7 +224,7 @@ public class Alert extends Element {
         if (hovered) {
             for (CustomGuiScreen var5 : this.screen.getChildren()) {
                 if (var5 instanceof TextField) {
-                    ((TextField) var5).setText("");
+                    var5.setText("");
                     ((TextField) var5).method13146();
                 }
             }
@@ -239,9 +239,8 @@ public class Alert extends Element {
 
         for (CustomGuiScreen var5 : this.screen.getChildren()) {
             AnimatedIconPanel var6 = (AnimatedIconPanel) var5;
-            if (var6 instanceof TextField) {
-                TextField var7 = (TextField) var6;
-                var3.put(var7.getPlaceholder(), var7.getText());
+            if (var6 instanceof TextField var7) {
+				var3.put(var7.getPlaceholder(), var7.getText());
             }
         }
 
@@ -265,7 +264,7 @@ public class Alert extends Element {
 
     public float method13602(float var1, float var2) {
         return this.field21282.getDirection() != Animation.Direction.BACKWARDS
-                ? (float) (Math.pow(2.0, (double) (-10.0F * var1)) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
+                ? (float) (Math.pow(2.0, -10.0F * var1) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
                 : 0.5F + QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F) * 0.5F;
     }
 
@@ -354,7 +353,7 @@ public class Alert extends Element {
     }
 
     @Override
-    public void finalize() throws Throwable {
+	protected void finalize() throws Throwable {
         try {
             if (this.field21281 != null) {
                 Client.getInstance().addTexture(this.field21281);
@@ -374,7 +373,7 @@ public class Alert extends Element {
         }
     }
 
-    public static interface Class9448 {
+    public interface Class9448 {
         void method36327(Element var1);
     }
 }

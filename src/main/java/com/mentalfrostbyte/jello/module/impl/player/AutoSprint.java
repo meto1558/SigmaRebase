@@ -28,10 +28,7 @@ public class AutoSprint extends Module {
         mc.gameSettings.keyBindSprint.setPressed(true);
         Client.getInstance().moduleManager.getModuleByClass(BlockFly.class);
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
-            if(this.getBooleanValueFromSettingName("Sprint" ))
-                mc.gameSettings.keyBindSprint.setPressed(true);
-            else
-                mc.gameSettings.keyBindSprint.setPressed(false);
+			mc.gameSettings.keyBindSprint.setPressed(this.getBooleanValueFromSettingName("Sprint"));
 
         }
 

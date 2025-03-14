@@ -43,9 +43,8 @@ public class GommeAntiKB extends Module {
 
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
-        if (event.packet instanceof SEntityVelocityPacket) {
-            SEntityVelocityPacket var4 = (SEntityVelocityPacket) event.packet;
-            if (var4.getEntityID() == mc.player.getEntityId()) {
+        if (event.packet instanceof SEntityVelocityPacket var4) {
+			if (var4.getEntityID() == mc.player.getEntityId()) {
                 this.velocityPackets = 1;
                 this.motionY = (double) var4.getMotionY() / 8000.0;
             }

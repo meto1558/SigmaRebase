@@ -13,13 +13,13 @@ public class AnimationManager {
 
    public AnimationManager() {
       this.fieldTimer.start();
-      this.nextInterval = (long)this.random.nextInt(8000, 10000);
+      this.nextInterval = this.random.nextInt(8000, 10000);
       this.currentValue = this.random.nextFloat();
    }
 
    public void update() {
       if (this.fieldTimer.getElapsedTime() > this.nextInterval) {
-         this.nextInterval = (long)this.random.nextInt(8000, 10000);
+         this.nextInterval = this.random.nextInt(8000, 10000);
          this.isAnimating = true;
          this.targetValue = this.random.nextFloat() + 0.75F;
          boolean shouldInvert = this.random.nextBoolean();

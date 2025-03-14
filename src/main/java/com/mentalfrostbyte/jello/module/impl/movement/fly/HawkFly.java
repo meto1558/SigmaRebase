@@ -73,9 +73,8 @@ public class HawkFly extends Module {
     public void method16054(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.field23424 >= 1) {
+            if (var4 instanceof SPlayerPositionLookPacket var5) {
+				if (this.field23424 >= 1) {
                     this.field23424 = -1;
                 }
 

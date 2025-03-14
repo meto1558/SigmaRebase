@@ -51,7 +51,7 @@ public class SigmaIRC {
                 JsonArray var8 = new JsonArray();
 
                 while (var10.hasNext() && var7++ < 70) {
-                    Entity var9 = (Entity) var10.next();
+                    Entity var9 = var10.next();
                     var8.add(var9.getName().getUnformattedComponentText());
                     this.field36053.add(var9.getUniqueID());
                 }

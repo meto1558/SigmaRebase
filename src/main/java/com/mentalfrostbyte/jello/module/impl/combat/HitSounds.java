@@ -25,17 +25,16 @@ public class HitSounds extends Module {
     @LowerPriority
     public void onReceivePAKAR(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (var1.packet instanceof SPlaySoundPacket) {
-                SPlaySoundPacket sp = (SPlaySoundPacket) var1.packet;
-                if(sp.getSoundName().toString().equalsIgnoreCase("minecraft:entity.player.hurt")){
+            if (var1.packet instanceof SPlaySoundPacket sp) {
+				if(sp.getSoundName().toString().equalsIgnoreCase("minecraft:entity.player.hurt")){
                     if(getBooleanValueFromSettingName("Hypixel")){
                         for(int i = 0; i < 2; i++){
-                            mc.world.playSound((PlayerEntity) mc.player, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1F, (float) (getNumberValueBySettingName("Sound Pitch") + Math.random()));
+                            mc.world.playSound(mc.player, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1F, (float) (getNumberValueBySettingName("Sound Pitch") + Math.random()));
                         }
                     }
                     if(getBooleanValueFromSettingName("Criticals")){
                         for(int i = 0; i < 2; i++){
-                            mc.world.playSound((PlayerEntity) mc.player, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1F, (float) (getNumberValueBySettingName("Sound Pitch") + Math.random()));
+                            mc.world.playSound(mc.player, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1F, (float) (getNumberValueBySettingName("Sound Pitch") + Math.random()));
                         }
                     }
 

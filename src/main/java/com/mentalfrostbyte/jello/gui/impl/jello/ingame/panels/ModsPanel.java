@@ -129,9 +129,8 @@ public class ModsPanel extends Element {
       for (CustomGuiScreen var10 : this.field21308.getChildren()) {
          if (!(var10 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var12 : var10.getChildren()) {
-               if (var12 instanceof Button) {
-                  Button var13 = (Button)var12;
-                  boolean var14 = var13.getHeightA() != 40;
+               if (var12 instanceof Button var13) {
+				   boolean var14 = var13.getHeightA() != 40;
                   if (!var14 || this.field21307 != null && (this.field21307 == null || this.field21307.length() != 0)) {
                      if (!var14 && this.method13622(this.field21307, var13.getText())) {
                         var6.put(var13.getText(), var13);
@@ -180,11 +179,11 @@ public class ModsPanel extends Element {
    }
 
    private boolean method13621(String var1, String var2) {
-      return var1 != null && var1 != "" && var2 != null ? var2.toLowerCase().contains(var1.toLowerCase()) : true;
+      return var1 == null || var1 == "" || var2 == null || var2.toLowerCase().contains(var1.toLowerCase());
    }
 
    private boolean method13622(String var1, String var2) {
-      return var1 != null && var1 != "" && var2 != null ? var2.toLowerCase().startsWith(var1.toLowerCase()) : true;
+      return var1 == null || var1 == "" || var2 == null || var2.toLowerCase().startsWith(var1.toLowerCase());
    }
 
    @Override

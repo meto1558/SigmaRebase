@@ -84,9 +84,8 @@ public class HorizonFly extends Module {
     public void method16160(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.field23497 >= 1) {
+            if (var4 instanceof SPlayerPositionLookPacket var5) {
+				if (this.field23497 >= 1) {
                     this.field23497 = -1;
                 }
 
@@ -101,9 +100,8 @@ public class HorizonFly extends Module {
     public void method16161(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof CPlayerPacket) {
-                CPlayerPacket var5 = (CPlayerPacket) var4;
-                if (this.field23497 == -1) {
+            if (var4 instanceof CPlayerPacket var5) {
+				if (this.field23497 == -1) {
                     var5.onGround = true;
                 }
             }

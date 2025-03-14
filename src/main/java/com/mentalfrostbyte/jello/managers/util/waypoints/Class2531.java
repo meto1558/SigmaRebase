@@ -26,11 +26,10 @@ public class Class2531 implements Serializable {
     @Override
     public boolean equals(Object var1) {
         if (this != var1) {
-            if (!(var1 instanceof Class2531)) {
+            if (!(var1 instanceof Class2531 var4)) {
                 return false;
             } else {
-                Class2531 var4 = (Class2531) var1;
-                return this.field16734 == var4.field16734 && this.field16735 == var4.field16735;
+				return this.field16734 == var4.field16734 && this.field16735 == var4.field16735;
             }
         } else {
             return true;

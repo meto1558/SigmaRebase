@@ -77,9 +77,8 @@ public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
-            } else if (obj instanceof SpeedRamp) {
-                SpeedRamp other = (SpeedRamp) obj;
-                return this.startValue == other.startValue
+            } else if (obj instanceof SpeedRamp other) {
+				return this.startValue == other.startValue
                         && this.middleValue == other.middleValue
                         && this.endValue == other.endValue
                         && this.maxValue == other.maxValue;

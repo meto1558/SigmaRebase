@@ -165,7 +165,7 @@ public class PanelGroup extends AnimatedIconPanel {
         }
     }
 
-    public static interface Class9476 {
+    public interface Class9476 {
        void method36568(Module var1);
     }
 }

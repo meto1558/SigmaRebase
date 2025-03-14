@@ -85,7 +85,7 @@ public class VerticalScrollBarButton extends AnimatedIconPanel {
                     (float) (this.yA + var4),
                     (float) (var5 + var6),
                     (float) (this.yA + this.getHeightA() - var4),
-                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 1.0F * partialTicks)
+                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), partialTicks)
             );
         } else {
             RenderUtil.drawImage((float) var5, (float) this.yA, (float) var6, (float) var4, Resources.verticalScrollBarTopPNG, partialTicks);

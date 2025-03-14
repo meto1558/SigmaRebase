@@ -99,9 +99,7 @@ public class OldHitting extends Module {
                 field23408 = mc.player.getItemInUseCount() > 0 && holdingSword && var6 || killauraEnabled && KillAura.targetEntity != null && getBooleanValueFromSettingName("Always");
                 //JelloPortalFixes.doBlock
                 if (!field23408) {
-                    if (ViaManager.entities.contains(mc.player)) {
-                        ViaManager.entities.remove(mc.player);
-                    }
+					ViaManager.entities.remove(mc.player);
                 } else if (!ViaManager.entities.contains(mc.player)) {
                     ViaManager.entities.add(mc.player);
                 }
@@ -121,10 +119,9 @@ public class OldHitting extends Module {
     public void onPacketReceive(EventReceivePacket event) {
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             if (mc.player != null) {
-                if (event.packet instanceof SEntityEquipmentPacket) {
-                    SEntityEquipmentPacket pack = (SEntityEquipmentPacket) event.packet;
+                if (event.packet instanceof SEntityEquipmentPacket pack) {
 
-                    pack.func_241790_c_().removeIf(pair -> pack.getEntityID() == mc.player.getEntityId()
+					pack.func_241790_c_().removeIf(pair -> pack.getEntityID() == mc.player.getEntityId()
                             && pair.getFirst() == EquipmentSlotType.OFFHAND
                             && pair.getSecond() != null
                             && pair.getSecond().getItem() == Items.SHIELD);
@@ -188,7 +185,7 @@ public class OldHitting extends Module {
 
     private void doTomy(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        var3.translate(0.0, var1 * -0.6F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * var2 * (float) Math.PI);
@@ -203,7 +200,7 @@ public class OldHitting extends Module {
 
     private void doNinja(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.39F, -0.71999997F);
-        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        var3.translate(0.0, var1 * -0.6F, 0.0);
         this.rotate(100.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-50.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * (float) Math.PI);
@@ -218,7 +215,7 @@ public class OldHitting extends Module {
 
     private void doVanilla(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        var3.translate(0.0, var1 * -0.6F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * var2 * (float) Math.PI);
@@ -247,7 +244,7 @@ public class OldHitting extends Module {
 
     private void doTap2(float var1, float swingProgress, MatrixStack matrixStack) {
         matrixStack.translate(0.648F, -0.55F, -0.71999997F);
-        matrixStack.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        matrixStack.translate(0.0, var1 * -0.6F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, matrixStack);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, matrixStack);
         float var6 = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
@@ -259,7 +256,7 @@ public class OldHitting extends Module {
 
     private void doSlide(float var1, float var2, MatrixStack var3) {
         var3.translate(0.648F, -0.55F, -0.71999997F);
-        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        var3.translate(0.0, var1 * -0.6F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
@@ -271,7 +268,7 @@ public class OldHitting extends Module {
 
     private void doSlide2(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        var3.translate(0.0, var1 * -0.6F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * var2 * (float) Math.PI);
@@ -286,7 +283,7 @@ public class OldHitting extends Module {
 
     private void doScale(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, (double) (var1 * -0.2F), 0.0);
+        var3.translate(0.0, var1 * -0.2F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
@@ -308,7 +305,7 @@ public class OldHitting extends Module {
     private void doDown(float var1, float var2, MatrixStack var3) {
         float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, (double) (var6 * -0.2F), 0.0);
+        var3.translate(0.0, var6 * -0.2F, 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         this.rotate(-80.0F, 1.0F, 0.0F, 0.0F, var3);

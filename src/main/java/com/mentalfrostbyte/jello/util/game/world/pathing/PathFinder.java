@@ -10,15 +10,15 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PathFinder {
-   private Vector3d field40284;
-   private Vector3d field40285;
+   private final Vector3d field40284;
+   private final Vector3d field40285;
    private ArrayList<Vector3d> field40286 = new ArrayList<>();
-   private ArrayList<Path> field40287 = new ArrayList<>();
-   private ArrayList<Path> field40288 = new ArrayList<>();
-   private double field40289 = 9.0;
-   private boolean field40290 = true;
-   private static Minecraft field40291 = Minecraft.getInstance();
-   private static Vector3d[] field40292 = new Vector3d[]{
+   private final ArrayList<Path> field40287 = new ArrayList<>();
+   private final ArrayList<Path> field40288 = new ArrayList<>();
+   private final double field40289 = 9.0;
+   private final boolean field40290 = true;
+   private static final Minecraft field40291 = Minecraft.getInstance();
+   private static final Vector3d[] field40292 = new Vector3d[]{
       new Vector3d(1.0, 0.0, 0.0), new Vector3d(-1.0, 0.0, 0.0), new Vector3d(0.0, 0.0, 1.0), new Vector3d(0.0, 0.0, -1.0)
    };
 
@@ -146,7 +146,7 @@ public class PathFinder {
       AxisAlignedBB var6 = field40291.player.getRidingEntity() != null ? field40291.player.getRidingEntity().getBoundingBox() : field40291.player.getBoundingBox();
       AxisAlignedBB var7 = new AxisAlignedBB(
          (double)((float)var0 + 0.5F) - var6.getXSize() / 2.0,
-         (double)var1,
+			  var1,
          (double)((float)var2 + 0.5F) - var6.getZSize() / 2.0,
          (double)((float)var0 + 0.5F) + var6.getXSize() / 2.0,
          (double)var1 + var6.getYSize(),

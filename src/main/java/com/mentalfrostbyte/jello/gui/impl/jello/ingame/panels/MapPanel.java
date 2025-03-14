@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapPanel extends Element {
-   private List<Button> field20612 = new ArrayList<Button>();
+   private final List<Button> field20612 = new ArrayList<Button>();
    public int field20613;
    public MapFrame field20614;
    public WaypointList waypointList;
@@ -96,7 +96,7 @@ public class MapPanel extends Element {
       RenderUtil.restorePreviousStencilBuffer();
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + this.field20616),
-         (float)(this.yA + 0),
+         (float)(this.yA),
          1.0F,
          (float)this.heightA,
               RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F)

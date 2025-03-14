@@ -109,12 +109,12 @@ public class Config extends Command {
 
     public void saveConfigToFile(String configName) {
         JSONObject jsonConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
-        File configFolder = new File(Client.getInstance().file + this.configFolder);
+        File configFolder = new File(Client.getInstance().file + Config.configFolder);
         if (!configFolder.exists()) {
             configFolder.mkdirs();
         }
 
-        File configFile = new File(Client.getInstance().file + this.configFolder + configName + this.configFileExtension);
+        File configFile = new File(Client.getInstance().file + Config.configFolder + configName + configFileExtension);
         if (!configFile.exists()) {
             try {
                 configFile.createNewFile();

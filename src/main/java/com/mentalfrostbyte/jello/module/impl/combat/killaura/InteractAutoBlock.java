@@ -26,7 +26,7 @@ import java.util.*;
 
 public class InteractAutoBlock {
     private float[] cpsTimings;
-    private Module parent;
+    private final Module parent;
     public Minecraft mc = Minecraft.getInstance();
     public boolean blocking;
 
@@ -47,7 +47,7 @@ public class InteractAutoBlock {
         if (this.parent.getBooleanValueFromSettingName("Interact autoblock")) {
             EntityRayTraceResult var6 = EntityUtil.method17714(
                     !this.parent.getBooleanValueFromSettingName("Raytrace") ? var1 : null, var2, var3, var0 -> true,
-                    (double) this.parent.getNumberValueBySettingName("Range"));
+					this.parent.getNumberValueBySettingName("Range"));
             if (var6 != null) {
                 this.mc
                         .getConnection()

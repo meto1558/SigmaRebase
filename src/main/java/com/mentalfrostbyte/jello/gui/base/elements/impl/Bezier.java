@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bezier extends Element {
-   private BezierButton field20608;
-   private BezierButton field20609;
+   private final BezierButton field20608;
+   private final BezierButton field20609;
    public int field20610 = 30;
    private Animation field20611 = new Animation(300, 300);
 
@@ -76,10 +76,10 @@ public class Bezier extends Element {
       );
       ArrayList var11 = new ArrayList();
       var11.add(new Vector2d(0.0, 0.0));
-      var11.add(new Vector2d((double)var7, (double)var8));
-      var11.add(new Vector2d((double)var9, (double)var10));
+      var11.add(new Vector2d(var7, var8));
+      var11.add(new Vector2d(var9, var10));
       var11.add(new Vector2d(1.0, 1.0));
-      MathUtil var12 = new MathUtil((double)(1.0F / var6 * 2.0F));
+      MathUtil var12 = new MathUtil(1.0F / var6 * 2.0F);
       double var13 = var12.method30789(var11, Math.min(0.8F, this.field20611.calcPercent()) * 1.25F);
       RenderUtil.drawCircle(
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),
@@ -91,7 +91,7 @@ public class Bezier extends Element {
       GL11.glPushMatrix();
       GL11.glTranslatef((float)(this.xA + var5), (float)(this.yA + var5), 0.0F);
       GL11.glLineWidth(1.0F);
-      GL11.glColor4d(0.0, 0.0, 0.0, (double)(0.6F * partialTicks));
+      GL11.glColor4d(0.0, 0.0, 0.0, 0.6F * partialTicks);
       GL11.glAlphaFunc(519, 0.0F);
       RenderSystem.enableBlend();
       RenderSystem.disableTexture();

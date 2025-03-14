@@ -127,7 +127,7 @@ public class AACSpeed extends Module {
                     }
 
                     if (!((float)this.field23398 > var5) && this.field23398 >= 0) {
-                        double var6 = Math.cos(Math.toRadians((double)((float)this.field23398 / var5 * 180.0F - 90.0F)));
+                        double var6 = Math.cos(Math.toRadians((float)this.field23398 / var5 * 180.0F - 90.0F));
                         mc.player.setPosition(mc.player.getPosX(), this.field23403 + var6, mc.player.getPosZ());
                         mc.player.cameraYaw = 0.0F;
                     }

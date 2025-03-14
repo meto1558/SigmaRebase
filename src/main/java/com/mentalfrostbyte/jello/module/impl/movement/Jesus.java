@@ -65,7 +65,7 @@ public class Jesus extends Module {
                                     var6 -= 0.8F;
                                 }
 
-                                VoxelShape var7 = VoxelShapes.create(0.0, 0.0, 0.0, 1.0, (double)var6, 1.0);
+                                VoxelShape var7 = VoxelShapes.create(0.0, 0.0, 0.0, 1.0, var6, 1.0);
                                 var1.setBoxelShape(var7);
                             }
                         }
@@ -112,7 +112,7 @@ public class Jesus extends Module {
 
                         boolean onLiquid = this.isOnLiquid(mc.player.getBoundingBox().offset(0.0, var1.getY(), 0.0));
                         if (!onLiquid) { // TODO: is it correct for it to only work when swim up is active & still bob?
-                            double var8 = (double)((int) mc.player.getPosY() + 1);
+                            double var8 = (int) mc.player.getPosY() + 1;
                             double var10 = var8 - mc.player.getPosY();
                             var1.setY(var10);
                             mc.player.setOnGround(true);
@@ -136,11 +136,11 @@ public class Jesus extends Module {
                             }
 
                             if (this.field24016 > 0) {
-                                MovementUtil.setMotion(var1, 0.25 + (double) MovementUtil.getSmartSpeed() * 0.05);
+                                MovementUtil.setMotion(var1, 0.25 + MovementUtil.getSmartSpeed() * 0.05);
                                 this.field24016++;
                             }
 
-                            double var14 = this.method16954((double)this.field24016);
+                            double var14 = this.method16954(this.field24016);
                             if (var14 != -999.0) {
                                 mc.player.lastReportedPosY = 0.0;
                                 var1.setY(var14);
@@ -148,7 +148,7 @@ public class Jesus extends Module {
                         }
                     } else if (isWalkingOnLiquid() && this.liquidTicks % 2 == 0) {
                         this.field24016++;
-                        double var12 = this.method16954((double)this.field24016);
+                        double var12 = this.method16954(this.field24016);
                         MovementUtil.setMotion(var1, 0.25);
                         if (var12 != -999.0) {
                             var1.setY(var12);

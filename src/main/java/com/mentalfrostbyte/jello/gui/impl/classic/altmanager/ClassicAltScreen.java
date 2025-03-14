@@ -30,7 +30,7 @@ import java.util.List;
 public class ClassicAltScreen extends Screen {
     private AltList altList;
     public AccountManager accountManager = Client.getInstance().accountManager;
-    private Input altSearchBox;
+    private final Input altSearchBox;
     private final ClassicAltScreenGroup altScreenGroup;
     private String status = "§7Idle...";
 
@@ -244,9 +244,8 @@ public class ClassicAltScreen extends Screen {
         for (CustomGuiScreen var4 : this.altList.getChildren()) {
             if (!(var4 instanceof VerticalScrollBar)) {
                 for (CustomGuiScreen var6 : var4.getChildren()) {
-                    if (var6 instanceof Account) {
-                        Account var7 = (Account) var6;
-                        if (var7.method13582()) {
+                    if (var6 instanceof Account var7) {
+						if (var7.method13582()) {
                             return var7;
                         }
                     }
