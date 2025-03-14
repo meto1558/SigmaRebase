@@ -73,7 +73,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.buttonList.setHovered(false);
       ColorHelper var15 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
       this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.profileName));
-      this.profileName.method13156(false);
+      this.profileName.setRoundedThingy(false);
       this.profileName.setFont(ResourceRegistry.JelloLightFont24);
       this.profileName.setEnabled(false);
       this.profileName.onType((var2x, var3x) -> {

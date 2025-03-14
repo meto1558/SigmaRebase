@@ -39,9 +39,9 @@ public class TextField extends AnimatedIconPanel {
    private boolean field20753;
    private boolean censorText = false;
    private String censorChar = Character.toString('·');
-   private TimerUtil timer = new TimerUtil();
+   private final TimerUtil timer = new TimerUtil();
    private final List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
-   private boolean field20758 = true;
+   private boolean roundedThingy = true;
 
    public TextField(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, field20741, "", false);
@@ -389,7 +389,7 @@ public class TextField extends AnimatedIconPanel {
          var13
       );
       RenderUtil.endScissor();
-      if (this.field20758) {
+      if (this.roundedThingy) {
          RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)(this.yA + this.heightA - 2),
@@ -424,8 +424,8 @@ public class TextField extends AnimatedIconPanel {
       this.censorText = censorText;
    }
 
-   public void method13156(boolean var1) {
-      this.field20758 = var1;
+   public void setRoundedThingy(boolean roundedThingy) {
+      this.roundedThingy = roundedThingy;
    }
 
     public interface ChangeListener {

@@ -20,7 +20,7 @@ public class SpotlightDialog extends Element {
    public SpotlightDialog(CustomGuiScreen screen, String iconName, int var3, int var4, int width, int height, boolean var7) {
       super(screen, iconName, var3, var4, width, height, var7);
       this.addToList(this.query = new TextField(this, "search", 50, 0, width - 60, height - 2, TextField.field20741, "", "Search..."));
-      this.query.method13156(false);
+      this.query.setRoundedThingy(false);
       this.query.addChangeListener(var1x -> this.field20640 = this.query.getText());
    }
 
