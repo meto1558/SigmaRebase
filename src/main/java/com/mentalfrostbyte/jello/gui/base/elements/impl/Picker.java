@@ -31,7 +31,7 @@ public class Picker extends Element {
         this.field20644 = var7;
         this.addToList(this.field20643 = new TextField(this, "textbox", 0, 0, var5, 32, TextField.field20741, "", "Search...", ResourceRegistry.JelloLightFont14));
         this.field20643.setFont(ResourceRegistry.JelloLightFont18);
-        this.field20643.method13151(var1x -> this.method13069(this.field20643.getText()));
+        this.field20643.addChangeListener(var1x -> this.method13069(this.field20643.getText()));
         this.method13071(var8);
         this.method13069("");
     }

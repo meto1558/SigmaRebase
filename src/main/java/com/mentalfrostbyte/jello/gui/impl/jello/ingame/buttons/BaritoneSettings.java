@@ -29,12 +29,12 @@ public class BaritoneSettings extends AnimatedIconPanel {
 
 
         textField = new TextField(this, "SettingsSearch", this.widthA - 160, 0, 150, 35);
-        textField.method13154("Search...");
+        textField.setPlaceholder("Search...");
 
 
         scrollableContentPanel = new ScrollableContentPanel(this, "SettingsPanel", 0, 45, this.widthA, this.heightA - 60);
 
-        textField.method13151((textField1) -> {
+        textField.addChangeListener((textField1) -> {
             filterSettings(textField1.getText());
         });
 
@@ -67,9 +67,9 @@ public class BaritoneSettings extends AnimatedIconPanel {
 
             } else if (setting.getType() == Integer.class) {
                 TextField textField = new TextField(scrollableContentPanel, setting.getName() + "txt", scrollableContentPanel.getWidthA() - 120, height, 60, 25);
-                textField.method13154(setting.value.toString());
+                textField.setPlaceholder(setting.value.toString());
 
-                textField.method13151((textField1) -> {
+                textField.addChangeListener((textField1) -> {
                     try {
                         setting.value = Integer.parseInt(textField1.getText());
                     } catch (NumberFormatException e) {
@@ -83,9 +83,9 @@ public class BaritoneSettings extends AnimatedIconPanel {
                 height += 40;
             } else if(setting.getType() == Double.class) {
                 TextField textField = new TextField(scrollableContentPanel, setting.getName() + "txt", scrollableContentPanel.getWidthA() - 120, height, 60, 25);
-                textField.method13154(setting.value.toString());
+                textField.setPlaceholder(setting.value.toString());
 
-                textField.method13151((textField1) -> {
+                textField.addChangeListener((textField1) -> {
                     try {
                         setting.value = Double.parseDouble(textField1.getText());
                     } catch (NumberFormatException e) {
@@ -99,9 +99,9 @@ public class BaritoneSettings extends AnimatedIconPanel {
                 height += 40;
             } else if(setting.getType() == Float.class) {
                 TextField textField = new TextField(scrollableContentPanel, setting.getName() + "txt", scrollableContentPanel.getWidthA() - 120, height, 60, 25);
-                textField.method13154(setting.value.toString());
+                textField.setPlaceholder(setting.value.toString());
 
-                textField.method13151((textField1) -> {
+                textField.addChangeListener((textField1) -> {
                     try {
                         setting.value = Float.parseFloat(textField1.getText());
                     } catch (NumberFormatException e) {
@@ -115,9 +115,9 @@ public class BaritoneSettings extends AnimatedIconPanel {
                 height += 40;
             } else if(setting.getType() == Long.class) {
                 TextField textField = new TextField(scrollableContentPanel, setting.getName() + "txt", scrollableContentPanel.getWidthA() - 120, height, 60, 25);
-                textField.method13154(setting.value.toString());
+                textField.setPlaceholder(setting.value.toString());
 
-                textField.method13151((textField1) -> {
+                textField.addChangeListener((textField1) -> {
                     try {
                         setting.value = Long.parseLong(textField1.getText());
                     } catch (NumberFormatException e) {
@@ -131,9 +131,9 @@ public class BaritoneSettings extends AnimatedIconPanel {
                 height += 40;
             } else if(setting.getType() == String.class) {
                 TextField textField = new TextField(scrollableContentPanel, setting.getName() + "txt", scrollableContentPanel.getWidthA() - 120, height, 60, 25);
-                textField.method13154(setting.value.toString());
+                textField.setPlaceholder(setting.value.toString());
 
-                textField.method13151((textField1) -> {
+                textField.addChangeListener((textField1) -> {
                     setting.value = textField1.getText();
                 });
 

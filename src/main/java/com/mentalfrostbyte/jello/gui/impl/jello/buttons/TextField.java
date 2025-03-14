@@ -18,6 +18,9 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_SHIFT;
+
 public class TextField extends AnimatedIconPanel {
    public static final ColorHelper field20741 = new ColorHelper(
       -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
@@ -30,14 +33,14 @@ public class TextField extends AnimatedIconPanel {
    private float field20747;
    private final float field20748 = 2.0F;
    private int maxLen;
-   private int field20750;
-   private int field20751;
+   private int startSelect;
+   private int endSelect;
    private boolean field20752;
    private boolean field20753;
    private boolean censorText = false;
    private String censorChar = Character.toString('·');
    private TimerUtil timer = new TimerUtil();
-   private final List<Class7902> field20757 = new ArrayList<Class7902>();
+   private final List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
    private boolean field20758 = true;
 
    public TextField(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
@@ -82,12 +85,12 @@ public class TextField extends AnimatedIconPanel {
          }
       } else {
          this.maxLen = 0;
-         this.field20750 = 0;
+         this.startSelect = 0;
          this.field20747 = 0.0F;
       }
 
       this.maxLen = Math.min(Math.max(0, this.maxLen), text.length());
-      this.field20751 = this.maxLen;
+      this.endSelect = this.maxLen;
    }
 
    public void method13146() {
@@ -110,7 +113,7 @@ public class TextField extends AnimatedIconPanel {
          this.maxLen = ChatUtil.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
          if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
             && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-            this.field20750 = this.maxLen;
+            this.startSelect = this.maxLen;
          }
 
          return false;
@@ -122,8 +125,8 @@ public class TextField extends AnimatedIconPanel {
    public void method13148() {
       this.method13242();
       this.maxLen = this.text.length();
-      this.field20750 = 0;
-      this.field20751 = this.maxLen;
+      this.startSelect = 0;
+      this.endSelect = this.maxLen;
    }
 
    @Override
@@ -137,79 +140,76 @@ public class TextField extends AnimatedIconPanel {
       super.keyPressed(keyCode);
       if (this.field20905) {
          switch (keyCode) {
-            case 65:
-               if (this.method13149()) {
+            case GLFW.GLFW_KEY_A:
+               if (this.isModifierKeyPressed()) {
                   this.maxLen = this.text.length();
-                  this.field20750 = 0;
-                  this.field20751 = this.maxLen;
+                  this.startSelect = 0;
+                  this.endSelect = this.maxLen;
                }
                break;
-            case 67:
-               if (this.method13149() && this.field20750 != this.field20751) {
+            case GLFW.GLFW_KEY_C:
+               if (this.isModifierKeyPressed() && this.startSelect != this.endSelect) {
                   GLFW.glfwSetClipboardString(
                      Minecraft.getInstance().getMainWindow().getHandle(),
-                     this.text.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
+                     this.text.substring(Math.min(this.startSelect, this.endSelect), Math.max(this.startSelect, this.endSelect))
                   );
                }
                break;
-            case 86:
-               if (this.method13149()) {
-                  String var12 = "";
+            case GLFW.GLFW_KEY_V:
+               if (!this.isModifierKeyPressed()) break;
+               String clip = "";
 
-                  try {
-                     var12 = GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle());
-                     if (var12 == null) {
-                        var12 = "";
-                     }
-                  } catch (Exception var7) {
+               try {
+                  clip = GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle());
+                  if (clip == null) {
+                     clip = "";
                   }
+               } catch (Exception ignored) {
+               }
 
-                  if (var12 != "") {
-                     if (this.field20750 != this.field20751) {
-                        this.text = ChatUtil.method32493(this.text, var12, this.field20750, this.field20751);
-                        if (this.maxLen > this.field20750) {
-                           this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
-                        }
-
-                        this.maxLen = this.maxLen + var12.length();
-                        this.field20750 = this.maxLen;
-                     } else {
-                        this.text = ChatUtil.method32492(this.text, var12, this.maxLen);
-                        this.maxLen = this.maxLen + var12.length();
-                        this.field20750 = this.maxLen;
+               if (!clip.isEmpty()) {
+                  if (this.startSelect != this.endSelect) {
+                     this.text = ChatUtil.method32493(this.text, clip, this.startSelect, this.endSelect);
+                     if (this.maxLen > this.startSelect) {
+                        this.maxLen = this.maxLen - (Math.max(this.startSelect, this.endSelect) - Math.min(this.startSelect, this.endSelect));
                      }
 
-                     this.method13152();
-                  }
+				  } else {
+                     this.text = ChatUtil.paste(this.text, clip, this.maxLen);
+				  }
+				   this.maxLen = this.maxLen + clip.length();
+				   this.startSelect = this.maxLen;
+
+				   this.callChangeListeners();
                }
                break;
-            case 88:
-               if (this.method13149() && this.field20750 != this.field20751) {
+            case GLFW.GLFW_KEY_X:
+               if (this.isModifierKeyPressed() && this.startSelect != this.endSelect) {
                   GLFW.glfwSetClipboardString(
                      Minecraft.getInstance().getMainWindow().getHandle(),
-                     this.text.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
+                     this.text.substring(Math.min(this.startSelect, this.endSelect), Math.max(this.startSelect, this.endSelect))
                   );
-                  this.text = ChatUtil.method32493(this.text, "", this.field20750, this.field20751);
-                  if (this.maxLen > this.field20750) {
-                     this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
+                  this.text = ChatUtil.method32493(this.text, "", this.startSelect, this.endSelect);
+                  if (this.maxLen > this.startSelect) {
+                     this.maxLen = this.maxLen - (Math.max(this.startSelect, this.endSelect) - Math.min(this.startSelect, this.endSelect));
                   }
 
-                  this.field20750 = this.maxLen;
-                  this.field20751 = this.maxLen;
-                  this.method13152();
+                  this.startSelect = this.maxLen;
+                  this.endSelect = this.maxLen;
+                  this.callChangeListeners();
                }
                break;
-            case 256:
+            case GLFW.GLFW_KEY_ESCAPE:
                this.method13145(false);
                break;
-            case 259:
-               if (this.text.length() > 0) {
-                  if (this.field20750 != this.field20751) {
-                     this.text = ChatUtil.method32493(this.text, "", this.field20750, this.field20751);
-                     if (this.maxLen > this.field20750) {
-                        this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
+            case GLFW.GLFW_KEY_BACKSPACE:
+               if (!this.text.isEmpty()) {
+                  if (this.startSelect != this.endSelect) {
+                     this.text = ChatUtil.method32493(this.text, "", this.startSelect, this.endSelect);
+                     if (this.maxLen > this.startSelect) {
+                        this.maxLen = this.maxLen - (Math.max(this.startSelect, this.endSelect) - Math.min(this.startSelect, this.endSelect));
                      }
-                  } else if (this.method13149()) {
+                  } else if (this.isModifierKeyPressed()) {
                      int var11 = -1;
 
                      for (int var14 = Math.max(this.maxLen - 1, 0); var14 >= 0; var14--) {
@@ -228,13 +228,13 @@ public class TextField extends AnimatedIconPanel {
                      this.maxLen--;
                   }
 
-                  this.method13152();
+                  this.callChangeListeners();
                }
 
-               this.field20750 = this.maxLen;
+               this.startSelect = this.maxLen;
                break;
-            case 262:
-               if (!this.method13149()) {
+            case GLFW.GLFW_KEY_RIGHT:
+               if (!this.isModifierKeyPressed()) {
                   this.maxLen++;
                } else {
                   int var10 = -1;
@@ -258,11 +258,11 @@ public class TextField extends AnimatedIconPanel {
 
                if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
                   && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+                  this.startSelect = this.maxLen;
                }
                break;
-            case 263:
-               if (!this.method13149()) {
+            case GLFW.GLFW_KEY_LEFT:
+               if (!this.isModifierKeyPressed()) {
                   this.maxLen--;
                } else {
                   int var4 = -1;
@@ -283,47 +283,48 @@ public class TextField extends AnimatedIconPanel {
                   }
                }
 
-               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
-                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_LEFT_SHIFT)
+                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_RIGHT_SHIFT)) {
+                  this.startSelect = this.maxLen;
                }
                break;
-            case 268:
+            case GLFW.GLFW_KEY_HOME:
                this.maxLen = 0;
-               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
-                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_LEFT_SHIFT)
+                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_RIGHT_SHIFT)) {
+                  this.startSelect = this.maxLen;
                }
                break;
-            case 269:
+            case GLFW.GLFW_KEY_END:
                this.maxLen = this.text.length();
-               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
-                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_LEFT_SHIFT)
+                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_RIGHT_SHIFT)) {
+                  this.startSelect = this.maxLen;
                }
          }
       }
    }
 
-   public boolean method13149() {
-      return InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 341)
-         || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 345)
-         || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 343);
+   public boolean isModifierKeyPressed() {
+      long handle = Minecraft.getInstance().getMainWindow().getHandle();
+      return InputMappings.isKeyDown(handle, GLFW.GLFW_KEY_LEFT_CONTROL)
+         || InputMappings.isKeyDown(handle, GLFW.GLFW_KEY_RIGHT_CONTROL)
+         || InputMappings.isKeyDown(handle, GLFW.GLFW_KEY_LEFT_SUPER);
    }
 
    @Override
    public void charTyped(char typed) {
       super.charTyped(typed);
       if (this.method13297() && ChatUtil.method32486(typed)) {
-         if (this.field20750 == this.field20751) {
-            this.text = ChatUtil.method32492(this.text, Character.toString(typed), this.maxLen);
+         if (this.startSelect == this.endSelect) {
+            this.text = ChatUtil.paste(this.text, Character.toString(typed), this.maxLen);
          } else {
-            this.text = ChatUtil.method32493(this.text, Character.toString(typed), this.field20750, this.field20751);
+            this.text = ChatUtil.method32493(this.text, Character.toString(typed), this.startSelect, this.endSelect);
          }
 
          this.maxLen++;
-         this.field20750 = this.maxLen;
-         this.method13152();
+         this.startSelect = this.maxLen;
+         this.callChangeListeners();
       }
    }
 
@@ -365,10 +366,10 @@ public class TextField extends AnimatedIconPanel {
       }
 
       this.field20746 = this.field20746 + (this.field20747 - this.field20746) / 2.0F;
-      this.field20750 = Math.min(Math.max(0, this.field20750), var6.length());
-      this.field20751 = Math.min(Math.max(0, this.field20751), var6.length());
-      float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20750));
-      float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20751));
+      this.startSelect = Math.min(Math.max(0, this.startSelect), var6.length());
+      this.endSelect = Math.min(Math.max(0, this.endSelect), var6.length());
+      float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.startSelect));
+      float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.endSelect));
       RenderUtil.drawRoundedRect(
          var14,
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
@@ -401,33 +402,33 @@ public class TextField extends AnimatedIconPanel {
       super.draw(partialTicks);
    }
 
-   public final void method13151(Class7902 var1) {
-      this.field20757.add(var1);
+   public final void addChangeListener(ChangeListener listener) {
+      this.changeListeners.add(listener);
    }
 
-   public void method13152() {
-      for (Class7902 var4 : this.field20757) {
-         var4.method26474(this);
+   public void callChangeListeners() {
+      for (ChangeListener listener : this.changeListeners) {
+         listener.onUpdate(this);
       }
    }
 
-   public String method13153() {
+   public String getPlaceholder() {
       return this.placeholder;
    }
 
-   public void method13154(String var1) {
-      this.placeholder = var1;
+   public void setPlaceholder(String placeholder) {
+      this.placeholder = placeholder;
    }
 
-   public void method13155(boolean var1) {
-      this.censorText = var1;
+   public void setCensorText(boolean censorText) {
+      this.censorText = censorText;
    }
 
    public void method13156(boolean var1) {
       this.field20758 = var1;
    }
 
-    public static interface Class7902 {
-       void method26474(TextField var1);
+    public interface ChangeListener {
+       void onUpdate(TextField var1);
     }
 }

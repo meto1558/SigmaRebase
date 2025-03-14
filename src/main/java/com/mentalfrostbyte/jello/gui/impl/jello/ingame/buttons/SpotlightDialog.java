@@ -21,7 +21,7 @@ public class SpotlightDialog extends Element {
       super(screen, iconName, var3, var4, width, height, var7);
       this.addToList(this.query = new TextField(this, "search", 50, 0, width - 60, height - 2, TextField.field20741, "", "Search..."));
       this.query.method13156(false);
-      this.query.method13151(var1x -> this.field20640 = this.query.getText());
+      this.query.addChangeListener(var1x -> this.field20640 = this.query.getText());
    }
 
    @Override

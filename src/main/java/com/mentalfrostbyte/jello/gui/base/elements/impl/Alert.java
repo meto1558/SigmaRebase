@@ -22,7 +22,6 @@ import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Session;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
@@ -174,7 +173,7 @@ public class Alert extends Element {
                         }
                     } else {
                         var9 = var22;
-                        var22.method13155(true);
+                        var22.setCensorText(true);
                     }
                 }
             } else {
@@ -201,7 +200,7 @@ public class Alert extends Element {
 
         if (var8 != null && var9 != null) {
             TextField var20 = var9;
-            var8.method13151(var2x -> {
+            var8.addChangeListener(var2x -> {
                 String var5x = var2x.getText();
                 if (var5x != null && var5x.contains(":")) {
                     String[] var6 = var5x.split(":");
@@ -242,7 +241,7 @@ public class Alert extends Element {
             AnimatedIconPanel var6 = (AnimatedIconPanel) var5;
             if (var6 instanceof TextField) {
                 TextField var7 = (TextField) var6;
-                var3.put(var7.method13153(), var7.getText());
+                var3.put(var7.getPlaceholder(), var7.getText());
             }
         }
 

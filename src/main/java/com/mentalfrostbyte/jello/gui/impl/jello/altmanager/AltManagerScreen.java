@@ -34,7 +34,6 @@ import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class AltManagerScreen extends Screen {
     private int field21005;
@@ -176,7 +175,7 @@ public class AltManagerScreen extends Screen {
                 )
         );
         this.searchBox.setFont(ResourceRegistry.JelloLightFont18);
-        this.searchBox.method13151(var1 -> this.updateAccountList(false));
+        this.searchBox.addChangeListener(var1 -> this.updateAccountList(false));
         TextButton addButton;
         this.addToList(addButton = new TextButton(this, "btnt", this.getWidthA() - 90, 43, 70, 30, ColorHelper.field27961, "Add +", ResourceRegistry.JelloLightFont25));
         this.alts.method13242();

@@ -74,7 +74,7 @@ public class LoginScreen extends Element {
         this.addToList(this.inputPassword = new TextField(this, "Password", 228, var11 + 53, var10, var9, var12, "", "Password"));
         this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.setFont(ResourceRegistry.JelloLightFont20);
-        this.inputPassword.method13155(true);
+        this.inputPassword.setCensorText(true);
         this.loginButton.doThis((var1x, var2x) -> this.method13688());
         this.registerButton.doThis((var1x, var2x) -> {
             RegisterScreen var5x = (RegisterScreen) this.getParent();

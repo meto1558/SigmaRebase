@@ -68,7 +68,7 @@ public class ClassicAltScreen extends Screen {
                 )
         );
         this.altSearchBox.setFont(ResourceRegistry.DefaultClientFont);
-        this.altSearchBox.method13151(var1 -> this.method13402());
+        this.altSearchBox.addChangeListener(var1 -> this.method13402());
         this.method13403();
         this.addToList(
                 this.altScreenGroup = new ClassicAltScreenGroup(this, "toolbar", (Minecraft.getInstance().getMainWindow().getWidth() - var9) / 2 + 16, this.getHeightA() - 94)

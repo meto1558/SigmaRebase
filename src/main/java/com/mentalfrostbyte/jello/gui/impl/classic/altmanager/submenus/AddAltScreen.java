@@ -42,7 +42,7 @@ public class AddAltScreen extends Screen {
       this.addToList(this.field21119 = new AltManagerButton(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
       var4 += 50;
       this.addToList(this.field21120 = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
-      this.field21117.method13155(true);
+      this.field21117.setCensorText(true);
       this.field21117.method13147("*");
       this.field21118.doThis((var1, var2) -> {
          this.field21122 = "§bLogging in...";

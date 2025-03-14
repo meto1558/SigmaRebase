@@ -63,13 +63,13 @@ public class ChatUtil {
       }
    }
 
-   public static String method32492(String var0, String var1, int var2) {
+   public static String paste(String original, String content, int maxLen) {
       try {
-         String var5 = var0.substring(0, var2);
-         String var6 = var0.substring(var2, var0.length());
-         return var5 + var1 + var6;
+         String start = original.substring(0, maxLen);
+         String end = original.substring(maxLen);
+         return start + content + end;
       } catch (Exception var7) {
-         return var0;
+         return original;
       }
    }
 

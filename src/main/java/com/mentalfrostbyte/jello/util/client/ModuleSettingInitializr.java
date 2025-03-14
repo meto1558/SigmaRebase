@@ -21,12 +21,14 @@ public class ModuleSettingInitializr implements Runnable {
     @Override
     public void run() {
         modOffsetMap = new HashMap<>();
-        List<Module> mods = new ArrayList<>(Client.getInstance().moduleManager.getModuleMap().values());
+        List<Module> mods = null;
 
         while (!Thread.currentThread().isInterrupted()) {
             if (Minecraft.getInstance().world == null || Client.getInstance().moduleManager == null) return;
+            if (mods == null)
+                mods = new ArrayList<>(Client.getInstance().moduleManager.getModuleMap().values());
 
-            for (Module mod : mods) {
+			for (Module mod : mods) {
                 if (mod instanceof ModuleWithModuleSettings) {
                     mods.addAll(Arrays.asList(((ModuleWithModuleSettings) mod).moduleArray));
                 }
