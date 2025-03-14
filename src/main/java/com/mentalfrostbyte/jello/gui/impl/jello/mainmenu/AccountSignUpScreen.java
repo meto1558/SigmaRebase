@@ -64,7 +64,7 @@ public class AccountSignUpScreen extends Element {
         this.emailInputBox.setFont(ResourceRegistry.JelloLightFont20);
         this.addToList(this.passwordInputBox = new TextField(this, "Password", 228, var11 + 106, var10, var9, var12, "", "Password"));
         this.passwordInputBox.setFont(ResourceRegistry.JelloLightFont20);
-        this.passwordInputBox.method13155(true);
+        this.passwordInputBox.setCensorText(true);
         this.addToList(this.captchaBox = new TextField(this, "CaptchaBox", 228, var11 + 53 + 135, 80, var9, var12, "", "Captcha"));
         this.captchaBox.setFont(ResourceRegistry.JelloLightFont20);
         this.captchaBox.setEnabled(false);

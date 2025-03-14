@@ -36,7 +36,7 @@ public class EditAltScreen extends Screen {
       this.addToList(this.field21029 = new AltManagerButton(this, "edit", var6, var5, var4, 40, "Edit", ClientColors.MID_GREY.getColor()));
       var5 += 50;
       this.addToList(this.field21030 = new AltManagerButton(this, "back", var6, var5, var4, 40, "Cancel", ClientColors.MID_GREY.getColor()));
-      this.field21028.method13155(true);
+      this.field21028.setCensorText(true);
       this.field21028.method13147("*");
       this.field21029.doThis((var2, var3) -> {
          if (this.field21027.getText().length() > 0) {

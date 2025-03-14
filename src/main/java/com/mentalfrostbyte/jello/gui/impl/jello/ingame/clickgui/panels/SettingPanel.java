@@ -111,7 +111,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                         )
                 );
                 var35.setFont(ResourceRegistry.JelloLightFont18);
-                var35.method13151(var1x -> setting.setCurrentValue(var1x.getText()));
+                var35.addChangeListener(var1x -> setting.setCurrentValue(var1x.getText()));
                 setting.addObserver(var2x -> {
                     if (var35.getText() != ((InputSetting) setting).getCurrentValue()) {
                         var35.setText(((InputSetting) setting).getCurrentValue());

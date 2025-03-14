@@ -42,7 +42,7 @@ public class DirectLoginScreen extends Screen {
       this.addToList(this.backButton = new AltManagerButton(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
       var4 += 50;
       this.addToList(this.importButton = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
-      this.password.method13155(true);
+      this.password.setCensorText(true);
       this.password.method13147("*");
       this.loginButton.doThis((var1, var2) -> {
          this.status = "§bLogging in...";
