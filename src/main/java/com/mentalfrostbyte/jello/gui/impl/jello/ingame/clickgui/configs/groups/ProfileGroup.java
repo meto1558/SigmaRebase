@@ -75,11 +75,11 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.addToList(this.profileName = new TextField(this, "profileName", 16, 8, this.getWidthA() - 60, 50, var15, config.profileName));
       this.profileName.setRoundedThingy(false);
       this.profileName.setFont(ResourceRegistry.JelloLightFont24);
-      this.profileName.setEnabled(false);
+      this.profileName.setVisible(false);
       this.profileName.onType((var2x, var3x) -> {
-         if (this.profileName.method13297() && var3x == 257) {
-            this.profileName.setEnabled(false);
-            this.profileName.method13145(false);
+         if (this.profileName.isFocused() && var3x == 257) {
+            this.profileName.setVisible(false);
+            this.profileName.setFocused(false);
             if (Client.getInstance().moduleManager.getConfigurationManager().getConfigByCaseInsensitiveName(this.profileName.getText())) {
                return;
             }
@@ -121,7 +121,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       });
       var13.doThis((var1x, var2x) -> {
          this.field21265.changeDirection(Animation.Direction.BACKWARDS);
-         this.profileName.setEnabled(true);
+         this.profileName.setVisible(true);
          this.profileName.method13148();
       });
       this.buttonList.setWidthA(0);
@@ -152,9 +152,9 @@ public class ProfileGroup extends AnimatedIconPanel {
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
-      if (!this.profileName.method13297() && this.profileName.isVisible()) {
-         this.profileName.setEnabled(false);
-         this.profileName.method13145(false);
+      if (!this.profileName.isFocused() && this.profileName.isVisible()) {
+         this.profileName.setVisible(false);
+         this.profileName.setFocused(false);
          this.currentConfig.profileName = this.profileName.getText();
 
          try {
@@ -201,7 +201,7 @@ public class ProfileGroup extends AnimatedIconPanel {
          (float)this.heightA,
          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F * this.field21264.calcPercent() + var6)
       );
-      if (!this.profileName.method13297()) {
+      if (!this.profileName.isFocused()) {
          RenderUtil.drawString(
             ResourceRegistry.JelloLightFont24,
             (float)(this.xA + 20) - var5 * (float)this.widthA,

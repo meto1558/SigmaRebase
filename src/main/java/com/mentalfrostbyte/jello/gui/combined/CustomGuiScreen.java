@@ -40,9 +40,9 @@ public class CustomGuiScreen implements IGuiEventListener {
     public float field20900 = 1.0F;
     public int field20901 = 0;
     public int field20902 = 0;
-    public boolean field20903;
+    public boolean visible;
     public boolean hovered;
-    public boolean field20905;
+    public boolean focused;
     public boolean field20906;
     public boolean field20907;
     public boolean field20908;
@@ -97,7 +97,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.text = text;
         this.textColor = textColor;
         this.font = font;
-        this.field20903 = true;
+        this.visible = true;
         this.hovered = true;
         this.listening = true;
         this.field20911 = false;
@@ -195,7 +195,7 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.field20909 = this.field20909 & this.field20908;
 
         for (IWidthSetter var11 : this.method13260()) {
-            if (this.field20903) {
+            if (this.visible) {
                 var11.setWidth(this, this.getParent());
             }
         }
@@ -234,7 +234,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     public boolean method13227() {
         for (CustomGuiScreen var4 : this.getChildren()) {
-            if (var4 instanceof TextField && var4.field20905) {
+            if (var4 instanceof TextField && var4.focused) {
                 return true;
             }
 
@@ -288,10 +288,10 @@ public class CustomGuiScreen implements IGuiEventListener {
                     && var8.getParent().isVisible()
                     && var8.getParent().isHovered();
             if (var6 || !var8.isHovered() || !var8.isVisible() || !var8.method13114(mouseX, mouseY) && !var9) {
-                var8.method13145(false);
+                var8.setFocused(false);
                 if (var8 != null) {
                     for (CustomGuiScreen var12 : var8.getChildren()) {
-                        var12.method13145(false);
+                        var12.setFocused(false);
                     }
                 }
             } else {
@@ -484,7 +484,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public void method13242() {
-        this.method13145(true);
+        this.setFocused(true);
         if (this.parent != null) {
             this.parent.field20919 = this;
             this.parent.method13242();
@@ -746,15 +746,15 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public boolean isVisible() {
-        return this.field20903;
+        return this.visible;
     }
 
-    public void setEnabled(boolean var1) {
-        this.field20903 = var1;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public boolean method13289() {
-        return this.parent == null ? this.field20903 : this.field20903 && this.parent.method13289();
+        return this.parent == null ? this.visible : this.visible && this.parent.method13289();
     }
 
     public boolean method13291() {
@@ -781,12 +781,12 @@ public class CustomGuiScreen implements IGuiEventListener {
         this.hovered = hovered;
     }
 
-    public boolean method13297() {
-        return this.field20905;
+    public boolean isFocused() {
+        return this.focused;
     }
 
-    public void method13145(boolean var1) {
-        this.field20905 = var1;
+    public void setFocused(boolean focused) {
+        this.focused = focused;
     }
 
     public boolean method13298() {

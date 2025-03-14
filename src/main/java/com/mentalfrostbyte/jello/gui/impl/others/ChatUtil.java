@@ -73,12 +73,12 @@ public class ChatUtil {
       }
    }
 
-   public static String method32493(String var0, String var1, int var2, int var3) {
-      var2 = Math.min(Math.max(0, var2), var0.length());
-      var3 = Math.min(Math.max(0, var3), var0.length());
-      String var6 = var0.substring(0, var2 <= var3 ? var2 : var3);
-      String var7 = var0.substring(var2 <= var3 ? var3 : var2, var0.length());
-      return var6 + var1 + var7;
+   public static String cut(String var0, String content, int cutStart, int cutEnd) {
+      cutStart = Math.min(Math.max(0, cutStart), var0.length());
+      cutEnd = Math.min(Math.max(0, cutEnd), var0.length());
+      String start = var0.substring(0, Math.min(cutStart, cutEnd));
+      String end = var0.substring(Math.max(cutStart, cutEnd));
+      return start + content + end;
    }
 
    public static int getStringLen(String text, TrueTypeFont font, float var2, int height, float var4) {

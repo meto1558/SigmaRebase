@@ -286,7 +286,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                 this.field21224.put(var10, var12);
             }
 
-            var18.addModuleStateListener((parent, module, enabled) -> this.field21224.get(module).setEnabled(enabled));
+            var18.addModuleStateListener((parent, module, enabled) -> this.field21224.get(module).setVisible(enabled));
             var18.calledOnEnable();
         }
 

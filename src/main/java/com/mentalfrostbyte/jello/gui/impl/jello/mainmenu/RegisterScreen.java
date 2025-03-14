@@ -74,22 +74,22 @@ public class RegisterScreen extends Screen {
                         ResourceRegistry.JelloLightFont25
                 )
         );
-        this.field21091.setEnabled(false);
+        this.field21091.setVisible(false);
         this.field21088.onPress(var1 -> {
             this.loggedIn = true;
-            this.field21091.setEnabled(true);
+            this.field21091.setVisible(true);
         });
         this.field21091.doThis((var0, var1) -> Minecraft.getInstance().displayGuiScreen(new MainMenuHolder()));
     }
 
     public void method13422() {
-        this.field21088.setEnabled(false);
-        this.field21089.setEnabled(true);
+        this.field21088.setVisible(false);
+        this.field21089.setVisible(true);
     }
 
     public void method13423() {
-        this.field21088.setEnabled(true);
-        this.field21089.setEnabled(false);
+        this.field21088.setVisible(true);
+        this.field21089.setVisible(false);
     }
 
     public void method13424(String var1, String var2) {
@@ -149,7 +149,7 @@ public class RegisterScreen extends Screen {
         }
 
         if (this.loggedIn && this.field21093.calcPercent() == 1.0F) {
-            this.field21088.setEnabled(false);
+            this.field21088.setVisible(false);
         }
 
         if (this.loggedIn && Client.getInstance().networkManager.account != null) {

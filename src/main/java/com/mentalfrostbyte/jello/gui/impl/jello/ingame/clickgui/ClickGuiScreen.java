@@ -81,7 +81,7 @@ public class ClickGuiScreen extends Screen {
         moreButton.getTextColor().setPrimaryColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
 
-        this.musicPlayer.setEnabled(true);
+        this.musicPlayer.setVisible(true);
         moreButton.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
             if (this.configButton != null && this.hasChild(this.configButton)) {
                 this.method13234(this.configButton);
@@ -150,10 +150,10 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
+        this.musicPlayer.setVisible(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
         super.updatePanelDimensions(newHeight, newWidth);
         RenderUtil2.setShaderParamsRounded(Math.min(1.0F, animationProgress.calcPercent() * 4.0F));
-        this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
+        this.brainFreeze.setVisible(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
         if (this.configButton != null) {
             int newHeightValue = newHeight - this.configButton.method13271();
             int newWidthValue = newWidth - this.configButton.method13272();

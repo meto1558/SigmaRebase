@@ -91,7 +91,7 @@ public class Dropdown extends Element {
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
-      if (!this.method13297() && this.method13673()) {
+      if (!this.isFocused() && this.method13673()) {
          this.method13674(false);
       }
 
@@ -136,7 +136,7 @@ public class Dropdown extends Element {
 
       for (CustomGuiScreen var7 : this.getChildren()) {
          if (!var7.getName().equals("dropdownButton")) {
-            var7.setEnabled(this.field21345);
+            var7.setVisible(this.field21345);
          }
       }
 

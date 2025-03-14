@@ -215,7 +215,7 @@ public class AltManagerScreen extends Screen {
                     this.head.handleSelectedAccount(null);
                     this.updateAccountList(false);
                 });
-                this.deleteAlert.method13145(true);
+                this.deleteAlert.setFocused(true);
                 this.deleteAlert.method13603(true);
             } else {
                 if (this.head.account == accountUI.selectedAccount && accountUI.method13168()) {
