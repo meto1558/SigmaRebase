@@ -81,7 +81,6 @@ public class Client {
     public BlurEngine blurEngine;
 
     public void start() {
-        System.setProperty("java.awt.headless", "false");
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
         CloudConfigs.start();
