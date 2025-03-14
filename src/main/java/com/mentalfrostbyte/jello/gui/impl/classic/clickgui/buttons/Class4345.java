@@ -56,7 +56,7 @@ public class Class4345 extends ScrollableContentPanel {
                 NumberSetting sett = (NumberSetting) setting;
                 com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider var13 = new com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider(screen, setting.getName() + "slider", x, y + 31, 240, 4);
                 var13.setText(Float.toString((Float) setting.getCurrentValue()));
-                name.setText(setting.getName() + ": " + (Float) setting.getCurrentValue());
+                name.setText(setting.getName() + ": " + setting.getCurrentValue());
                 var13.method13699(Slider.method13134(sett.getMin(), sett.getMax(), (Float) sett.getCurrentValue()), false);
                 int decimalPlacs = sett.getDecimalPlaces();
                 sett.addObserver(
@@ -65,7 +65,7 @@ public class Class4345 extends ScrollableContentPanel {
                                     != (Float) var5x.getCurrentValue()) {
                                 var13.setText(Float.toString((Float) var5x.getCurrentValue()));
                                 var13.method13699(com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Slider.method13693(sett.getMin(), sett.getMax(), (Float) var5x.getCurrentValue()), false);
-                                name.setText(setting.getName() + ": " + (Float) setting.getCurrentValue());
+                                name.setText(setting.getName() + ": " + setting.getCurrentValue());
                             }
                         }
                 );
@@ -77,7 +77,7 @@ public class Class4345 extends ScrollableContentPanel {
                         setting.setCurrentValue(var9x);
                     }
 
-                    name.setText(setting.getName() + ": " + (Float) setting.getCurrentValue());
+                    name.setText(setting.getName() + ": " + setting.getCurrentValue());
                 });
                 screen.addToList(var13);
                 y += 54;
@@ -156,10 +156,9 @@ public class Class4345 extends ScrollableContentPanel {
             }
         }
 
-        if (this.module instanceof ModuleWithModuleSettings) {
-            ModuleWithModuleSettings moduleWithModuleSettings = (ModuleWithModuleSettings) this.module;
+        if (this.module instanceof ModuleWithModuleSettings moduleWithModuleSettings) {
 
-            for (Module var11 : moduleWithModuleSettings.moduleArray) {
+			for (Module var11 : moduleWithModuleSettings.moduleArray) {
                 int var12 = 10;
                 CustomGuiScreen var13 = new CustomGuiScreen(this, var11.getName() + "SubView", 0, var6, this.widthA, this.heightA - var6);
                 var13.setSize((var0, var1) -> var0.setWidthA(var1.getWidthA()));

@@ -83,7 +83,7 @@ public class Class9510 {
                 if (this.field44271.getX() != var4.field44271.getX()) {
                     return false;
                 } else {
-                    return this.field44271.getY() != var4.field44271.getY() ? false : this.field44271.getZ() == var4.field44271.getZ();
+                    return this.field44271.getY() == var4.field44271.getY() && this.field44271.getZ() == var4.field44271.getZ();
                 }
             } else {
                 return false;

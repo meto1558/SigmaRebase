@@ -38,9 +38,8 @@ public class InvMove extends Module {
     @EventTarget
     public void method16584(EventSendPacket var1) {
         if (this.isEnabled()) {
-            if (this.field23757 && var1.packet instanceof CEntityActionPacket && this.getBooleanValueFromSettingName("AACP")) {
-                CEntityActionPacket var4 = (CEntityActionPacket) var1.packet;
-                if (var4.getAction() == CEntityActionPacket.Action.START_SPRINTING) {
+            if (this.field23757 && var1.packet instanceof CEntityActionPacket var4 && this.getBooleanValueFromSettingName("AACP")) {
+				if (var4.getAction() == CEntityActionPacket.Action.START_SPRINTING) {
                     var1.cancelled = true;
                 }
             }
@@ -71,9 +70,8 @@ public class InvMove extends Module {
                     return;
                 }
 
-                if (mc.currentScreen instanceof CreativeScreen) {
-                    CreativeScreen var9 = (CreativeScreen) mc.currentScreen;
-                    if (var9.getSelectedTabIndex() == 5) {
+                if (mc.currentScreen instanceof CreativeScreen var9) {
+					if (var9.getSelectedTabIndex() == 5) {
                         return;
                     }
                 }

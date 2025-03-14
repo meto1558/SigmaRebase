@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Info extends AnimatedIconPanel {
     private Account field20813 = null;
-    private List<Ban> field20814 = new ArrayList<Ban>();
+    private final List<Ban> field20814 = new ArrayList<Ban>();
     private float field20815 = 0.0F;
 
     public Info(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {

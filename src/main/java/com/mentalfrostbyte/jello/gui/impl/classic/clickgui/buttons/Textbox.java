@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Textbox extends SmallImage {
-   private String[] field21384;
+   private final String[] field21384;
    private int field21385;
 
    public Textbox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10, TrueTypeFont var11) {

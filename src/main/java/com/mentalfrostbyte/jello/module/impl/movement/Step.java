@@ -124,6 +124,6 @@ public class Step extends ModuleWithModuleSettings {
     public enum StepEnum {
         NORMAL_BLOCK,
         STAIRS,
-        HALF_BLOCK;
-    }
+        HALF_BLOCK
+	}
 }

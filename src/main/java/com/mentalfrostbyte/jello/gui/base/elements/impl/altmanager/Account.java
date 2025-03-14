@@ -18,9 +18,9 @@ public class Account extends AnimatedIconPanel {
     private BufferedImage field21250;
     private Texture field21251;
     private float field21252 = 0.0F;
-    private LoadingIndicator field21253;
+    private final LoadingIndicator field21253;
     private boolean field21254 = false;
-    private float field21255 = 0.0F;
+    private final float field21255 = 0.0F;
     private int field21256 = 0;
     private int field21257 = 0;
     private int field21258 = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);

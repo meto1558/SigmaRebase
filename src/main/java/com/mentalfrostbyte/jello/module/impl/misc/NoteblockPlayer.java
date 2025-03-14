@@ -266,10 +266,9 @@ public class NoteblockPlayer extends Module {
     public void onPacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (this.field23641 != null) {
-                if (var1.packet instanceof SPlaySoundEffectPacket) {
-                    SPlaySoundEffectPacket var4 = (SPlaySoundEffectPacket) var1.packet;
+                if (var1.packet instanceof SPlaySoundEffectPacket var4) {
 
-                    for (int var5 = 0; var5 < this.field23641.size(); var5++) {
+					for (int var5 = 0; var5 < this.field23641.size(); var5++) {
                         Class6463 var6 = this.field23641.get(var5);
                         if (var6.field28401
                                 .equals(new BlockPos(var4.getX(), var4.getY(), var4.getZ()))) {
@@ -279,10 +278,9 @@ public class NoteblockPlayer extends Module {
                     }
                 }
 
-                if (var1.packet instanceof SPlaySoundPacket) {
-                    SPlaySoundPacket var7 = (SPlaySoundPacket) var1.packet;
+                if (var1.packet instanceof SPlaySoundPacket var7) {
 
-                    for (int var8 = 0; var8 < this.field23641.size(); var8++) {
+					for (int var8 = 0; var8 < this.field23641.size(); var8++) {
                         Class6463 var9 = this.field23641.get(var8);
                         if (var9.field28401
                                 .equals(new BlockPos(var7.getX(), var7.getY(), var7.getZ()))) {

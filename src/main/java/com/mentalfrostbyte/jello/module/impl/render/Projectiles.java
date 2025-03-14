@@ -86,7 +86,7 @@ public class Projectiles extends Module {
                     GL11.glBegin(3);
 
                     for (int var38 = 0; var38 < traceThings.size(); var38++) {
-                        TraceThing var39 = (TraceThing) traceThings.get(var38);
+                        TraceThing var39 = traceThings.get(var38);
                         double var40 = var11 - (double) ((float) (var38 + 1) / (float) traceThings.size()) * var11;
                         double var43 = var13 - (double) ((float) (var38 + 1) / (float) traceThings.size()) * var13;
                         double var46 = var7 - (double) ((float) (var38 + 1) / (float) traceThings.size()) * var7;

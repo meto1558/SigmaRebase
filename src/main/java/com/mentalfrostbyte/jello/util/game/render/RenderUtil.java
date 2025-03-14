@@ -419,10 +419,10 @@ public class RenderUtil {
         RenderSystem.color4f(var8, var9, var10, var14);
 
         var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos((double) var0, (double) var3, 0.0).endVertex();
-        var12.pos((double) var2, (double) var3, 0.0).endVertex();
-        var12.pos((double) var2, (double) var1, 0.0).endVertex();
-        var12.pos((double) var0, (double) var1, 0.0).endVertex();
+        var12.pos(var0, var3, 0.0).endVertex();
+        var12.pos(var2, var3, 0.0).endVertex();
+        var12.pos(var2, var1, 0.0).endVertex();
+        var12.pos(var0, var1, 0.0).endVertex();
 
         var11.draw();
 
@@ -635,10 +635,10 @@ public class RenderUtil {
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         RenderSystem.color4f(r, g, b, a);
         var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos((double) x, (double) sizedY, 0.0).endVertex();
-        var12.pos((double) sizedX, (double) sizedY, 0.0).endVertex();
-        var12.pos((double) sizedX, (double) y, 0.0).endVertex();
-        var12.pos((double) x, (double) y, 0.0).endVertex();
+        var12.pos(x, sizedY, 0.0).endVertex();
+        var12.pos(sizedX, sizedY, 0.0).endVertex();
+        var12.pos(sizedX, y, 0.0).endVertex();
+        var12.pos(x, y, 0.0).endVertex();
         var11.draw();
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
@@ -878,10 +878,10 @@ public class RenderUtil {
         GL11.glPixelStorei(3316, 0);
         GL11.glPixelStorei(3317, 4);
 
-        float var16 = var7 / var7 * 1.0F;
-        float var17 = var8 / var8 * 1.0F;
-        float var18 = var5 / var7 * 1.0F;
-        float var19 = var6 / var8 * 1.0F;
+        float var16 = 1.0f;
+        float var17 = 1.0f;
+        float var18 = var5 / var7;
+        float var19 = var6 / var8;
 
         GL11.glBegin(7);
         GL11.glTexCoord2f(var18, var19);
@@ -1118,10 +1118,10 @@ public class RenderUtil {
         Tessellator var16 = Tessellator.getInstance();
         BufferBuilder var17 = var16.getBuffer();
         var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var17.pos((double) var2, (double) var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos((double) var0, (double) var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos((double) var0, (double) var3, 0.0).color(var13, var14, var15, var12).endVertex();
-        var17.pos((double) var2, (double) var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var17.pos(var2, var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos(var0, var1, 0.0).color(var9, var10, var11, var8).endVertex();
+        var17.pos(var0, var3, 0.0).color(var13, var14, var15, var12).endVertex();
+        var17.pos(var2, var3, 0.0).color(var13, var14, var15, var12).endVertex();
         var16.draw();
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.disableBlend();
@@ -1164,10 +1164,10 @@ public class RenderUtil {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder var27 = tessellator.getBuffer();
         var27.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var27.pos((double) x2, (double) y1, 0.0).color(r2, g2, b2, a2).endVertex();
-        var27.pos((double) x1, (double) y1, 0.0).color(r1, g1, b1, a1).endVertex();
-        var27.pos((double) x1, (double) y2, 0.0).color(r4, g4, b4, a4).endVertex();
-        var27.pos((double) x2, (double) y2, 0.0).color(r3, g3, b3, a3).endVertex();
+        var27.pos(x2, y1, 0.0).color(r2, g2, b2, a2).endVertex();
+        var27.pos(x1, y1, 0.0).color(r1, g1, b1, a1).endVertex();
+        var27.pos(x1, y2, 0.0).color(r4, g4, b4, a4).endVertex();
+        var27.pos(x2, y2, 0.0).color(r3, g3, b3, a3).endVertex();
         tessellator.draw();
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.disableBlend();
@@ -1321,8 +1321,8 @@ public class RenderUtil {
             GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 4);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, (int) var8, (int) var9, 0, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, var4);
-            float var19 = var8 / var8;
-            float var20 = var9 / var9;
+            float var19 = 1.0f;
+            float var20 = 1.0f;
             float var21 = var6 / var8;
             float var22 = var7 / var9;
             GL11.glBegin(7);
@@ -1431,7 +1431,7 @@ public class RenderUtil {
             inVector[2] = inVector[2] * inVector[3] + 0.5F;
 
             // Map to screen coordinates using the viewport
-            screenCoords.put(0, inVector[0] * (float) viewport.get(viewport.position() + 2) + (float) viewport.get(viewport.position() + 0));
+            screenCoords.put(0, inVector[0] * (float) viewport.get(viewport.position() + 2) + (float) viewport.get(viewport.position()));
             screenCoords.put(1, inVector[1] * (float) viewport.get(viewport.position() + 3) + (float) viewport.get(viewport.position() + 1));
             screenCoords.put(2, inVector[2]);
 

@@ -70,7 +70,7 @@ public enum Keys {
    public int keyCode;
    public int row;
 
-   private Keys(int x, int y, String name, int row, int keyCode) {
+   Keys(int x, int y, String name, int row, int keyCode) {
       this.x = x;
       this.y = y;
       this.enabled = true;
@@ -79,7 +79,7 @@ public enum Keys {
       this.keyCode = keyCode;
    }
 
-   private Keys(int x, int y, String var5, int var6) {
+   Keys(int x, int y, String var5, int var6) {
       this.x = x;
       this.y = y;
       this.enabled = false;

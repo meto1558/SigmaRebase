@@ -178,8 +178,8 @@ public class Dropdown extends Element {
    public <E extends Enum<E>> void method13670(Class<E> var1) {
       this.field21343.clear();
 
-      for (Enum var7 : (Enum[])var1.getEnumConstants()) {
-         String var8 = var7.toString().substring(0, 1).toUpperCase() + var7.toString().substring(1, var7.toString().length()).toLowerCase();
+      for (Enum var7 : var1.getEnumConstants()) {
+         String var8 = var7.toString().substring(0, 1).toUpperCase() + var7.toString().substring(1).toLowerCase();
          this.method13668(var8, var7.ordinal());
       }
    }

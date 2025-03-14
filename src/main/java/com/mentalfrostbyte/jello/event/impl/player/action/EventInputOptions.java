@@ -16,7 +16,7 @@ public class EventInputOptions extends CancellableEvent {
         this.jump = jump;
     }
     public EventInputOptions(boolean useItem) {
-        this.useItem = useItem;
+        EventInputOptions.useItem = useItem;
     }
     public boolean isSneaking(){
         return this.sneak;
@@ -57,6 +57,6 @@ public class EventInputOptions extends CancellableEvent {
 
 
     public void setUseItem(boolean useItem) {
-        this.useItem = useItem;
+        EventInputOptions.useItem = useItem;
     }
 }

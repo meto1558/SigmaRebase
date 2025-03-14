@@ -16,12 +16,12 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.util.Util;
 
 public class LoginScreen extends Element {
-    private TextField inputUsername;
-    private TextField inputPassword;
-    private TextButton loginButton;
-    private TextButton registerButton;
-    private TextButton forgotButton;
-    private LoadingIndicator loadingThingy;
+    private final TextField inputUsername;
+    private final TextField inputPassword;
+    private final TextButton loginButton;
+    private final TextButton registerButton;
+    private final TextButton forgotButton;
+    private final LoadingIndicator loadingThingy;
     public static int widthy = 334;
     public static int heighty = 571;
 

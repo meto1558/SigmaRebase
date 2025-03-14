@@ -15,7 +15,7 @@ import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 public class RedeemKeyScreen extends CustomGuiScreen {
     public String premiumLicense = "";
     public Animation animation = new Animation(380, 200, Animation.Direction.BACKWARDS);
-    private TextField captchaField;
+    private final TextField captchaField;
 
     public RedeemKeyScreen(CustomGuiScreen parent, String var2, int var3, int var4, int var5, int var6) {
         super(parent, var2, var3, var4, var5, var6);

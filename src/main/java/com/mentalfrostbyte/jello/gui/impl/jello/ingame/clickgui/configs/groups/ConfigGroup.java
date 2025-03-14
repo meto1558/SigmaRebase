@@ -24,9 +24,9 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 public class ConfigGroup extends Element {
    public Animation field20703 = new Animation(300, 200, Animation.Direction.BACKWARDS);
    private final int field20704;
-   private ScrollableContentPanel field20705;
+   private final ScrollableContentPanel field20705;
    public static OnlineProfilesManager onlineProfilesManager;
-   private LoadingIndicator field20707;
+   private final LoadingIndicator field20707;
 
    public ConfigGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, 0, ColorHelper.field27961, false);

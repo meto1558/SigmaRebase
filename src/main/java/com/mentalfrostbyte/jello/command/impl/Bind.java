@@ -46,11 +46,11 @@ public class Bind extends Command {
                     }
 
                     if (var14 != -1) {
-                        Client.getInstance().moduleManager.getMacOSTouchBar().method13725(var14, (Module) module);
-                        executor.send("Key " + args[1].getArguments() + " was set for module " + ((Module) module).getFormattedName());
+                        Client.getInstance().moduleManager.getMacOSTouchBar().method13725(var14, module);
+                        executor.send("Key " + args[1].getArguments() + " was set for module " + module.getFormattedName());
                     } else {
                         Client.getInstance().moduleManager.getMacOSTouchBar().method13727(module);
-                        executor.send("Keybind was reset for module " + ((Module) module).getFormattedName());
+                        executor.send("Keybind was reset for module " + module.getFormattedName());
                     }
                 }
             } else {
@@ -60,7 +60,7 @@ public class Bind extends Command {
                 }
 
                 String var7 = "key.keyboard.";
-                int var8 = Client.getInstance().moduleManager.getMacOSTouchBar().method13729((Module) module);
+                int var8 = Client.getInstance().moduleManager.getMacOSTouchBar().method13729(module);
                 String var9 = null;
 
                 for (Entry var11 : InputMappings.Input.REGISTRY.entrySet()) {
@@ -70,9 +70,9 @@ public class Bind extends Command {
                 }
 
                 if (var9 != null) {
-                    executor.send(((Module) module).getFormattedName() + " is bound to : " + var9);
+                    executor.send(module.getFormattedName() + " is bound to : " + var9);
                 } else {
-                    executor.send("§c[Error] " + ((Module) module).getFormattedName() + " is bound to an unknown key");
+                    executor.send("§c[Error] " + module.getFormattedName() + " is bound to an unknown key");
                 }
             }
         }

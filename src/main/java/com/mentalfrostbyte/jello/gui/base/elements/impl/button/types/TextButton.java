@@ -14,7 +14,7 @@ public class TextButton extends Element {
 
     public TextButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, ColorHelper var7, String var8, TrueTypeFont var9) {
         super(var1, var2, var3, var4, var5, var6, var7, var8, var9, false);
-        int var12 = (int) (210.0 * Math.sqrt((double) ((float) var5 / 242.0F)));
+        int var12 = (int) (210.0 * Math.sqrt((float) var5 / 242.0F));
         this.lineAnim = new Animation(var12, var12);
     }
 
@@ -42,7 +42,7 @@ public class TextButton extends Element {
             );
             int var7 = this.getFont().getWidth(this.getText());
             float var8 = 18;
-            float var9 = (float) Math.pow((double) this.lineAnim.calcPercent(), 3.0);
+            float var9 = (float) Math.pow(this.lineAnim.calcPercent(), 3.0);
             RenderUtil.drawString(
                     this.getFont(),
                     (float) var5,

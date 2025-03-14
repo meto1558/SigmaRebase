@@ -209,9 +209,7 @@ public class ViaManager implements MinecraftUtil {
                 if (pair.getFirst() == EquipmentSlotType.OFFHAND && pair.getSecond() != null && (Client.getInstance().moduleManager.getModuleByClass(OldHitting.class).isEnabled() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8))) {
                     if (!(pair.getSecond().getItem() instanceof ShieldItem)) {
                         Entity entity = mc.world.getEntityByID(packet.getEntityID());
-                        if (entities.contains(entity)) {
-                            entities.remove(entity);
-                        }
+						entities.remove(entity);
                     } else {
                         Entity entity = mc.world.getEntityByID(packet.getEntityID());
                         if (!entities.contains(entity) && !ServerUtil.isMineplex()) {
@@ -298,9 +296,9 @@ public class ViaManager implements MinecraftUtil {
                 var7 *= !mc.player.isSprinting() ? 1.0F : (!mc.player.onGround ? 1.3F : 1.5F);
                 MovementHelper.applyMotion(mc.player.moveStrafing, mc.player.moveVertical, mc.player.moveForward, var7);
                 MovementHelper.method34126(MovementHelper.x, MovementHelper.y, MovementHelper.z);
-                MovementHelper.x *= (double) var6;
+                MovementHelper.x *= var6;
                 MovementHelper.y *= 0.8F;
-                MovementHelper.z *= (double) var6;
+                MovementHelper.z *= var6;
                 if (!mc.player.hasNoGravity()) {
                     MovementHelper.y -= 0.02;
                 }

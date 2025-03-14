@@ -6,7 +6,7 @@ public class EventMoveRelative extends CancellableEvent {
     public static float yaw;
 
     public EventMoveRelative(float yaw){
-        this.yaw = yaw;
+        EventMoveRelative.yaw = yaw;
     }
 
 
@@ -15,7 +15,7 @@ public class EventMoveRelative extends CancellableEvent {
     }
 
     public void setYaw(float yaw) {
-        this.yaw = yaw;
+        EventMoveRelative.yaw = yaw;
     }
 
 }

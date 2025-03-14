@@ -22,10 +22,8 @@ public class ChunkRegion {
 
     public int getDistanceFromChunk(ChunkPos var1) {
         return (int)Math.sqrt(
-                (double)(
-                        (var1.x - this.chunkX) * (var1.x - this.chunkX)
-                                + (var1.z - this.chunkZ) * (var1.z - this.chunkZ)
-                )
+				(var1.x - this.chunkX) * (var1.x - this.chunkX)
+						+ (var1.z - this.chunkZ) * (var1.z - this.chunkZ)
         );
     }
 

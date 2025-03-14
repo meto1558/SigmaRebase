@@ -108,8 +108,8 @@ public class MapFrame extends Element {
     public void draw(float partialTicks) {
         Minecraft var4 = Minecraft.getInstance();
         ChunkPos var5 = new ChunkPos(this.chunkPos.x, this.chunkPos.z);
-        var5.x = (int) ((double) var5.x - Math.floor((double) this.field20651));
-        var5.z = (int) ((double) var5.z - Math.floor((double) this.field20650));
+        var5.x = (int) ((double) var5.x - Math.floor(this.field20651));
+        var5.z = (int) ((double) var5.z - Math.floor(this.field20650));
         if (partialTicks != 1.0F) {
             this.field20647.field20687 = true;
         }
@@ -127,8 +127,8 @@ public class MapFrame extends Element {
         int var8 = (this.heightA - var6) / 2;
         float var9 = (float) this.field20649 / ((float) this.field20649 - 1.0F);
         float var10 = (float) var6 / ((float) this.field20649 * 2.0F);
-        double var11 = ((double) this.field20650 - Math.floor((double) this.field20650)) * (double) var10;
-        double var13 = ((double) this.field20651 - Math.floor((double) this.field20651)) * (double) var10;
+        double var11 = ((double) this.field20650 - Math.floor(this.field20650)) * (double) var10;
+        double var13 = ((double) this.field20651 - Math.floor(this.field20651)) * (double) var10;
         TextureManager textureManager = var4.getTextureManager();
         textureManager.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         RenderUtil.drawBlurredBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
@@ -208,7 +208,7 @@ public class MapFrame extends Element {
         }
     }
 
-    public static interface Class8041 {
+    public interface Class8041 {
         void method27609(MapFrame var1, int var2, int var3, Vector3i var4);
     }
 }

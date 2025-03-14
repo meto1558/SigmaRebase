@@ -24,7 +24,7 @@ public class Slider extends Element {
     public static float method13135(float var0, float var1, float var2, float var3, int var4) {
         float var7 = Math.abs(var2 - var1) / var3;
         float var8 = var1 + var0 * var7 * var3;
-        return (float) Math.round((double) var8 * Math.pow(10.0, (double) var4)) / (float) Math.pow(10.0, (double) var4);
+        return (float) Math.round((double) var8 * Math.pow(10.0, var4)) / (float) Math.pow(10.0, var4);
     }
 
     public Slider(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {

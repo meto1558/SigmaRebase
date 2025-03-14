@@ -23,10 +23,10 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 public class SettingPanel extends ScrollableContentPanel implements Class4342 {
-    private Module module;
+    private final Module module;
     private boolean field21220;
     public int field21222 = 200;
-    private HashMap<Text, Setting> field21223 = new HashMap<Text, Setting>();
+    private final HashMap<Text, Setting> field21223 = new HashMap<Text, Setting>();
     public HashMap<Module, CustomGuiScreen> field21224 = new HashMap<Module, CustomGuiScreen>();
     public Animation field21225 = new Animation(114, 114);
     private String field21226 = "";
@@ -259,10 +259,9 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
         }
 
         int var17 = var4;
-        if (this.module instanceof ModuleWithModuleSettings) {
-            ModuleWithModuleSettings var18 = (ModuleWithModuleSettings) this.module;
+        if (this.module instanceof ModuleWithModuleSettings var18) {
 
-            for (Module var10 : var18.moduleArray) {
+			for (Module var10 : var18.moduleArray) {
                 int var11 = 0;
                 CustomGuiScreen var12 = new CustomGuiScreen(this, var10.getName() + "SubView", 0, var17, this.widthA, this.heightA - var4);
                 var12.setSize((var0, var1) -> var0.setWidthA(var1.getWidthA()));
@@ -274,9 +273,8 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                 var4 = Math.max(var4 + var11, var4);
 
                 for (CustomGuiScreen var20 : var12.getChildren()) {
-                    if (var20 instanceof Dropdown) {
-                        Dropdown var15 = (Dropdown) var20;
-                        int var16 = var15.method13649() + var15.getYA() + var15.getHeightA() + 14;
+                    if (var20 instanceof Dropdown var15) {
+						int var16 = var15.method13649() + var15.getYA() + var15.getHeightA() + 14;
                         var11 = Math.max(var11, var16);
                     }
                 }

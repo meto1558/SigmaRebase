@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class WaypointList extends ScrollableContentPanel {
-    private List<Waypoint> field21209 = new ArrayList<Waypoint>();
+    private final List<Waypoint> field21209 = new ArrayList<Waypoint>();
     public final int field21210 = 70;
     public Animation field21211 = new Animation(300, 300);
     public boolean field21212;

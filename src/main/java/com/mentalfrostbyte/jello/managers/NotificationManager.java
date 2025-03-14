@@ -35,7 +35,7 @@ public class NotificationManager {
     }
 
     public float getAnimation(Notification var1) {
-        float var4 = (float) Math.min(var1.time.getElapsedTime(), (long) var1.showTime);
+        float var4 = (float) Math.min(var1.time.getElapsedTime(), var1.showTime);
         if (!(var4 < (float) this.field39922 * 1.4F)) {
             return !(var4 > (float) var1.showTime - (float) this.field39922)
                     ? 1.0F

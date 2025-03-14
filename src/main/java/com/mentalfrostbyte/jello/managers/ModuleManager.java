@@ -255,18 +255,16 @@ public class ModuleManager {
         for (Module module : this.moduleMap.values()) {
             if (module.isEnabled()) {
                 EventBus.register(module);
-                if (module instanceof ModuleWithModuleSettings) {
-                    ModuleWithModuleSettings moduleWithSettings = (ModuleWithModuleSettings) module;
-                    if (moduleWithSettings.parentModule != null) {
+                if (module instanceof ModuleWithModuleSettings moduleWithSettings) {
+					if (moduleWithSettings.parentModule != null) {
                         EventBus.register(moduleWithSettings.parentModule);
                     }
                 }
             } else {
                 EventBus.unregister(module);
-                if (module instanceof ModuleWithModuleSettings) {
-                    ModuleWithModuleSettings moduleWithSettings = (ModuleWithModuleSettings) module;
+                if (module instanceof ModuleWithModuleSettings moduleWithSettings) {
 
-                    for (Module module1 : moduleWithSettings.moduleArray) {
+					for (Module module1 : moduleWithSettings.moduleArray) {
                         EventBus.unregister(module1);
                     }
                 }

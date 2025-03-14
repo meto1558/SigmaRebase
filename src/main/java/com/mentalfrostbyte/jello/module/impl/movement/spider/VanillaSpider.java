@@ -16,7 +16,7 @@ public class VanillaSpider extends Module {
     public void EventMove(EventMove event) {
         if (this.isEnabled()) {
             if (mc.player.collidedHorizontally) {
-                event.setY((double)this.getNumberValueBySettingName("Motion"));
+                event.setY(this.getNumberValueBySettingName("Motion"));
             }
         }
     }

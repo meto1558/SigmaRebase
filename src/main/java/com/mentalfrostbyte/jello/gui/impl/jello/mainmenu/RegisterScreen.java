@@ -28,13 +28,13 @@ public class RegisterScreen extends Screen {
     private boolean field21084 = true;
     private float field21085 = 0.0F;
     private float field21086 = 0.0F;
-    private Texture field21087;
-    private LoginScreen field21088;
-    private AccountSignUpScreen field21089;
+    private final Texture field21087;
+    private final LoginScreen field21088;
+    private final AccountSignUpScreen field21089;
     private Alert field21090;
-    private TextButton field21091;
+    private final TextButton field21091;
     private boolean loggedIn = false;
-    private Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
+    private final Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
 
     public RegisterScreen() {
         super("Credits");

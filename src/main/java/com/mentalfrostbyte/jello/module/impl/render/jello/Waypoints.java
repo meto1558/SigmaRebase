@@ -50,7 +50,7 @@ public class Waypoints extends Module {
     @EventTarget
     public void method16275(EventReceivePacket var1) {
         if (mc.world != null) {
-            if (!(var1.packet instanceof SDestroyEntitiesPacket)) {
+            if (!(var1.packet instanceof SDestroyEntitiesPacket sDestroyEntitiesPacket)) {
                 if (!(var1.packet instanceof SSpawnObjectPacket var11)) {
                     if (!(var1.packet instanceof SSpawnMobPacket var10)) {
                         if (var1.packet instanceof SSpawnPlayerPacket var4) {
@@ -63,9 +63,8 @@ public class Waypoints extends Module {
                     this.field23572.remove(var11.getUniqueId());
                 }
             } else {
-                SDestroyEntitiesPacket sDestroyEntitiesPacket = (SDestroyEntitiesPacket) var1.packet;
 
-                for (int var8 : sDestroyEntitiesPacket.getEntityIDs()) {
+				for (int var8 : sDestroyEntitiesPacket.getEntityIDs()) {
                     Entity var9 = mc.world.getEntityByID(var8);
                     if (var9 != null && var9 instanceof PlayerEntity) {
                         this.field23572.remove(var9.getUniqueID());

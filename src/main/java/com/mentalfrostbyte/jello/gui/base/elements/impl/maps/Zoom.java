@@ -58,7 +58,7 @@ public class Zoom extends Element {
     }
 
     @Override
-    public void finalize() throws Throwable {
+	protected void finalize() throws Throwable {
         try {
             if (this.field20688 != null) {
                 Client.getInstance().addTexture(this.field20688);

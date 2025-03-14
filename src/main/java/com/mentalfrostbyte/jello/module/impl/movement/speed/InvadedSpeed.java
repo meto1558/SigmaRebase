@@ -34,7 +34,7 @@ public class InvadedSpeed extends Module {
                     if (this.field24022 >= 3) {
                         this.field24022 = 0;
                         mc.timer.timerSpeed = 0.25F;
-                        MovementUtil.setMotion(var1, (double) this.getNumberValueBySettingName("Speed"));
+                        MovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
                     }
                 } else {
                     mc.timer.timerSpeed = 2.0F;

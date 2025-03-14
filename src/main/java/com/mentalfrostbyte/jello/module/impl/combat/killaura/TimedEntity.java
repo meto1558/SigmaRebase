@@ -4,8 +4,8 @@ package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 import net.minecraft.entity.Entity;
 
 public class TimedEntity {
-    private Entity entity;
-    private ExpirationTimer expirationTimer;
+    private final Entity entity;
+    private final ExpirationTimer expirationTimer;
 
     public TimedEntity(Entity entity) {
         this.entity = entity;
@@ -32,7 +32,7 @@ public class TimedEntity {
     @Override
     public boolean equals(Object obj) {
         if (obj != this) {
-            return obj instanceof TimedEntity ? ((TimedEntity)obj).getEntity() == this.getEntity() : false;
+            return obj instanceof TimedEntity && ((TimedEntity) obj).getEntity() == this.getEntity();
         } else {
             return true;
         }

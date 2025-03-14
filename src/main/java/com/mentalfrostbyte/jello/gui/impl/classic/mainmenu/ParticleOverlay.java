@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ParticleOverlay extends AnimatedIconPanel {
    private static String[] field21273;
-   private List<Particle> field21274 = new ArrayList<Particle>();
-   private AnimationManager field21275 = new AnimationManager();
+   private final List<Particle> field21274 = new ArrayList<Particle>();
+   private final AnimationManager field21275 = new AnimationManager();
    public RandomIntGenerator field21276 = new RandomIntGenerator();
 
    public ParticleOverlay(CustomGuiScreen var1, String var2) {

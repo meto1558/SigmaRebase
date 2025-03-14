@@ -62,9 +62,8 @@ public class Keyboard extends Element {
 
    public void method13104() {
       for (CustomGuiScreen var4 : this.getChildren()) {
-         if (var4 instanceof Child) {
-            Child var5 = (Child)var4;
-            var5.method13102();
+         if (var4 instanceof Child var5) {
+			 var5.method13102();
          }
       }
    }

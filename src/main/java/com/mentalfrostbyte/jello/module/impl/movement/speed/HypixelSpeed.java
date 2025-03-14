@@ -258,6 +258,6 @@ public class HypixelSpeed extends Module {
 
     public enum Class2094 {
         field13640,
-        field13641;
-    }
+        field13641
+	}
 }

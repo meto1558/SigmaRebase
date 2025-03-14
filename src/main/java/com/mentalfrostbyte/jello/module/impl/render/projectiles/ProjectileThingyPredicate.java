@@ -20,8 +20,8 @@ public class ProjectileThingyPredicate implements Predicate<Entity> {
     }
 
     public boolean apply(Entity var1) {
-        AxisAlignedBB var4 = var1.getBoundingBox().expand((double) this.field538, (double) this.field538,
-                (double) this.field538);
+        AxisAlignedBB var4 = var1.getBoundingBox().expand(this.field538, this.field538,
+				this.field538);
         boolean var5 = var4.intersects(this.field539, this.field540);
         return var1 != null && var1.canBeCollidedWith() && var5 && !Client.getInstance().botManager.isBot(var1);
     }

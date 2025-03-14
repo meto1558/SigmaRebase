@@ -477,11 +477,10 @@ public class Vector2m {
     */
    @Override
    public boolean equals(Object to) {
-      if (!(to instanceof Vector2m)) {
+      if (!(to instanceof Vector2m other)) {
          return false;
       } else {
-         Vector2m other = (Vector2m)to;
-         return other.x == this.x && other.y == this.y;
+		  return other.x == this.x && other.y == this.y;
       }
    }
 
@@ -527,11 +526,10 @@ public class Vector2m {
 
       @Override
       public boolean equals(Object to) {
-         if (!(to instanceof Vector2m)) {
+         if (!(to instanceof Vector2m var4)) {
             return false;
          } else {
-            Vector2m var4 = (Vector2m) to;
-            return (int)var4.x == (int)this.x && (int)var4.y == (int)this.y;
+			 return (int)var4.x == (int)this.x && (int)var4.y == (int)this.y;
          }
       }
 

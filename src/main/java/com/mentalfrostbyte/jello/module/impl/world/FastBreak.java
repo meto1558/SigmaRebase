@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.world.GameType;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -30,10 +31,10 @@ public class FastBreak extends Module {
     public void TickEvent(EventPlayerTick event) {
         if (this.isEnabled()) {
 
-            if (mc.playerController.curBlockDamageMP > 0.7F) {
-                mc.playerController.curBlockDamageMP = 1.0F;
+            if (PlayerController.curBlockDamageMP > 0.7F) {
+                PlayerController.curBlockDamageMP = 1.0F;
             }
-            mc.playerController.curBlockDamageMP = 0F;
+            PlayerController.curBlockDamageMP = 0F;
         }
     }
 

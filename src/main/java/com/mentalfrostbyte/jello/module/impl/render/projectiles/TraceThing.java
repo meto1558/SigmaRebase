@@ -18,7 +18,7 @@ public class TraceThing {
     private double z;
     public static Minecraft mc = Minecraft.getInstance();
     public Class9510 field41869;
-    private static ProjectileDirection[] directions = new ProjectileDirection[]{
+    private static final ProjectileDirection[] directions = new ProjectileDirection[]{
             new ProjectileDirection(1.0, 0.0, 0.0),
             new ProjectileDirection(-1.0, 0.0, 0.0),
             new ProjectileDirection(0.0, 0.0, 1.0),
@@ -37,7 +37,7 @@ public class TraceThing {
     }
 
     public TraceThing(BlockPos var1) {
-        this.fromXYZ((double)var1.getX(), (double)var1.getY(), (double)var1.getZ());
+        this.fromXYZ(var1.getX(), var1.getY(), var1.getZ());
     }
 
     public void fromXYZ(double x, double y, double z) {
@@ -124,9 +124,7 @@ public class TraceThing {
         if (mc.world.getBlockState(this.method33979()).getBlock() == Blocks.LAVA) {
             return false;
         } else if (mc.world.getBlockState(this.method33979()).getFluidState().isEmpty()) {
-            return mc.world.getBlockState(this.method33979().down()).getBlock() instanceof FenceBlock
-                    ? false
-                    : this.method33988(this.method33979()) && this.method33988(this.method33979().up());
+            return !(mc.world.getBlockState(this.method33979().down()).getBlock() instanceof FenceBlock) && this.method33988(this.method33979()) && this.method33988(this.method33979().up());
         } else {
             return false;
         }
@@ -192,9 +190,7 @@ public class TraceThing {
     }
 
     public boolean method33988(BlockPos var1) {
-        return !this.field41869.field44283.contains(var1.toLong())
-                ? Minecraft.getInstance().world.getBlockState(var1).getCollisionShape(mc.world, var1).isEmpty()
-                : true;
+        return this.field41869.field44283.contains(var1.toLong()) || Minecraft.getInstance().world.getBlockState(var1).getCollisionShape(mc.world, var1).isEmpty();
     }
 
     public boolean method33989() {

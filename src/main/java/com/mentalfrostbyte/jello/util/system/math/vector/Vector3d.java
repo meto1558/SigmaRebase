@@ -15,9 +15,9 @@ public class Vector3d {
    }
 
    public Vector3d(BlockPos var1) {
-      this.x = (double)var1.getX();
-      this.y = (double)var1.getY();
-      this.z = (double)var1.getZ();
+      this.x = var1.getX();
+      this.y = var1.getY();
+      this.z = var1.getZ();
    }
 
    public double getX() {

@@ -91,7 +91,7 @@ public class BlockUtil {
         double var4 = (double) var0.getX() + 0.5 - mc.player.getPosX() + (double) var1.getXOffset() / 2.0;
         double var6 = (double) var0.getZ() + 0.5 - mc.player.getPosZ() + (double) var1.getZOffset() / 2.0;
         double var8 = mc.player.getPosY() + (double) mc.player.getEyeHeight() - ((double) var0.getY() + 0.5);
-        double var10 = (double) MathHelper.sqrt(var4 * var4 + var6 * var6);
+        double var10 = MathHelper.sqrt(var4 * var4 + var6 * var6);
         float var12 = (float) (Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F;
         float var13 = (float) (Math.atan2(var8, var10) * 180.0 / Math.PI);
         if (var12 < 0.0F) {
@@ -228,8 +228,8 @@ public class BlockUtil {
         Vector3d var5 = new Vector3d(
                 mc.player.lastReportedPosX, mc.player.lastReportedPosY + (double) mc.player.getEyeHeight(), mc.player.lastReportedPosZ
         );
-        var0 = (float) Math.toRadians((double) var0);
-        var1 = (float) Math.toRadians((double) var1);
+        var0 = (float) Math.toRadians(var0);
+        var1 = (float) Math.toRadians(var1);
         float var6 = -MathHelper.sin(var0) * MathHelper.cos(var1);
         float var7 = -MathHelper.sin(var1);
         float var8 = MathHelper.cos(var0) * MathHelper.cos(var1);
@@ -248,8 +248,8 @@ public class BlockUtil {
 
     public static BlockRayTraceResult rayTrace(float yaw, float pitch, float var2, EventUpdateWalkingPlayer var3) {
         Vector3d var6 = new Vector3d(var3.getX(), (double) mc.player.getEyeHeight() + var3.getY(), var3.getZ());
-        yaw = (float) Math.toRadians((double) yaw);
-        pitch = (float) Math.toRadians((double) pitch);
+        yaw = (float) Math.toRadians(yaw);
+        pitch = (float) Math.toRadians(pitch);
         float var7 = -MathHelper.sin(yaw) * MathHelper.cos(pitch);
         float var8 = -MathHelper.sin(pitch);
         float var9 = MathHelper.cos(yaw) * MathHelper.cos(pitch);
@@ -311,7 +311,7 @@ public class BlockUtil {
                 - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight())
                 + (double) var6;
         double var11 = (double) var0.getZ() + 0.5 - Minecraft.getInstance().player.getPosZ() + (double) var5;
-        double var13 = (double) MathHelper.sqrt(var7 * var7 + var11 * var11);
+        double var13 = MathHelper.sqrt(var7 * var7 + var11 * var11);
         float var15 = (float) (Math.atan2(var11, var7) * 180.0 / Math.PI) - 90.0F;
         float var16 = (float) (-(Math.atan2(var9, var13) * 180.0 / Math.PI));
         return new float[]{
@@ -329,8 +329,8 @@ public class BlockUtil {
                 mc.player.getPosY() + (double) mc.player.getEyeHeight(),
                 mc.player.getPosZ() + var8
         );
-        var0 = (float) Math.toRadians((double) var0);
-        var1 = (float) Math.toRadians((double) var1);
+        var0 = (float) Math.toRadians(var0);
+        var1 = (float) Math.toRadians(var1);
         float var11 = -MathHelper.sin(var0) * MathHelper.cos(var1);
         float var12 = -MathHelper.sin(var1);
         float var13 = MathHelper.cos(var0) * MathHelper.cos(var1);
@@ -353,7 +353,7 @@ public class BlockUtil {
         );
         Vector3d var4 = new Vector3d(
                 (double) var0.getX() + 0.5 + RandomUtils.nextDouble(0.01, 0.04),
-                (double) var0.getY(),
+				var0.getY(),
                 (double) var0.getZ() + 0.5 + RandomUtils.nextDouble(0.01, 0.04)
         );
         return mc.world.rayTraceBlocks(new RayTraceContext(var3, var4, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, mc.getRenderViewEntity()));
@@ -388,7 +388,7 @@ public class BlockUtil {
                 - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight())
                 + (double) var6;
         double var11 = (double) var0.getZ() + 0.5 - Minecraft.getInstance().player.getPosZ() + (double) var5;
-        double var13 = (double) MathHelper.sqrt(var7 * var7 + var11 * var11);
+        double var13 = MathHelper.sqrt(var7 * var7 + var11 * var11);
         float var15 = (float) (Math.atan2(var11, var7) * 180.0 / Math.PI) - 90.0F;
         float var16 = (float) (-(Math.atan2(var9, var13) * 180.0 / Math.PI));
         return new float[]{
@@ -415,7 +415,7 @@ public class BlockUtil {
 
     public static BlockRayTraceResult method34566(float var0) {
         Vector3d var3 = new Vector3d(mc.player.lastReportedPosX, mc.player.lastReportedPosY - 0.8F, mc.player.lastReportedPosZ);
-        var0 = (float) Math.toRadians((double) var0);
+        var0 = (float) Math.toRadians(var0);
         float var4 = 0.0F;
         float var5 = -MathHelper.sin(var0) * MathHelper.cos(var4);
         float var6 = MathHelper.cos(var0) * MathHelper.cos(var4);
@@ -440,7 +440,7 @@ public class BlockUtil {
                     - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight())
                     + var7;
             double var13 = (double) var2.getPos().getZ() - Minecraft.getInstance().player.getPosZ() + var5;
-            double var15 = (double) MathHelper.sqrt(var9 * var9 + var13 * var13);
+            double var15 = MathHelper.sqrt(var9 * var9 + var13 * var13);
             float var17 = (float) (Math.atan2(var13, var9) * 180.0 / Math.PI) - 90.0F;
             float var18 = (float) (-(Math.atan2(var11, var15) * 180.0 / Math.PI));
             return new float[]{

@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import org.lwjgl.opengl.GL11;
 
 public class Particle {
-   private float field45021;
-   private float field45022;
+   private final float field45021;
+   private final float field45022;
    public float field45023;
    public float field45024;
    public float field45025;
@@ -16,8 +16,8 @@ public class Particle {
    private float field45027;
    private float field45028;
    private boolean field45029;
-   private float field45030 = 1.0F;
-   private Random random = new Random();
+   private final float field45030 = 1.0F;
+   private final Random random = new Random();
    private float field45032 = 1.0F;
    public float field45033;
    public Color field45034 = new Color(1.0F, 1.0F, 1.0F, 0.5F);
@@ -44,8 +44,8 @@ public class Particle {
       var0 *= 2.0F;
       var1 *= 2.0F;
       float var6 = 0.19634953F;
-      float var7 = (float)Math.cos((double)var6);
-      float var8 = (float)Math.sin((double)var6);
+      float var7 = (float)Math.cos(var6);
+      float var8 = (float)Math.sin(var6);
       float var9 = var2;
       float var10 = 0.0F;
       GL11.glEnable(3042);

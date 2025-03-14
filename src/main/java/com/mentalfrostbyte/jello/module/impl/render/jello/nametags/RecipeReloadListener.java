@@ -13,6 +13,6 @@ public class RecipeReloadListener implements IFutureReloadListener.IStage {
 
     @Override
     public <T> CompletableFuture<T> markCompleteAwaitingOthers(T backgroundResult) {
-        return CompletableFuture.<T>completedFuture((T)backgroundResult);
+        return CompletableFuture.completedFuture(backgroundResult);
     }
 }

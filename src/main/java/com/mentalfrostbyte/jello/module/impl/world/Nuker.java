@@ -68,7 +68,7 @@ public class Nuker extends Module {
                     }
 
                     float[] rotations = RotationUtil.rotationToPos(
-                            (double) this.targetPos.getX(), (double) this.targetPos.getZ(), (double) this.targetPos.getY()
+							this.targetPos.getX(), this.targetPos.getZ(), this.targetPos.getY()
                     );
                     event.setYaw(rotations[0]);
                     event.setPitch(rotations[1]);
@@ -77,7 +77,7 @@ public class Nuker extends Module {
                 } else {
                     this.targetPos = this.blocksToDestroy.get(0);
                     float[] var6 = RotationUtil.rotationToPos(
-                            (double) this.targetPos.getX() + 0.5, (double) this.targetPos.getZ(), (double) this.targetPos.getY() + 0.5
+                            (double) this.targetPos.getX() + 0.5, this.targetPos.getZ(), (double) this.targetPos.getY() + 0.5
                     );
                     event.setYaw(var6[0]);
                     event.setPitch(var6[1]);

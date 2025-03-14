@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryHolder extends ClickGuiPanel {
-   private List<Button> field21150 = new ArrayList<Button>();
+   private final List<Button> field21150 = new ArrayList<Button>();
    public Image field21152;
    public Image field21153;
    public Image field21154;

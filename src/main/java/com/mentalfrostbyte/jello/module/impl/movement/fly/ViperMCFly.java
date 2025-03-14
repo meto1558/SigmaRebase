@@ -139,18 +139,16 @@ public class ViperMCFly extends Module {
     public void method16333(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (!(var4 instanceof SPlayerPositionLookPacket)) {
-                if (var4 instanceof SChatPacket) {
-                    SChatPacket var5 = (SChatPacket) var4;
-                    String var6 = var5.getChatComponent().getString();
+            if (!(var4 instanceof SPlayerPositionLookPacket var7)) {
+                if (var4 instanceof SChatPacket var5) {
+					String var6 = var5.getChatComponent().getString();
                     if (this.field23595 > 0 && (var6.contains("Now leaving: §") || var6.contains("Now entering: §"))) {
                         this.field23595--;
                         var1.cancelled = true;
                     }
                 }
             } else {
-                SPlayerPositionLookPacket var7 = (SPlayerPositionLookPacket) var4;
-                if (this.field23594 >= 1) {
+				if (this.field23594 >= 1) {
                     this.field23594 = -1;
                 }
 
@@ -166,9 +164,8 @@ public class ViperMCFly extends Module {
     public void method16334(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof CPlayerPacket) {
-                CPlayerPacket var5 = (CPlayerPacket) var4;
-                if (this.field23594 == -1) {
+            if (var4 instanceof CPlayerPacket var5) {
+				if (this.field23594 == -1) {
                     var5.onGround = true;
                 }
             }

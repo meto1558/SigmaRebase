@@ -69,14 +69,12 @@ public class InvManager extends PremiumModule {
     public static float calculateItemDamageBonus(ItemStack itemStack) {
         float dmg = 0.0F;
         Item item = itemStack.getItem();
-        if (item instanceof ToolItem) {
-            ToolItem tool = (ToolItem) item;
-            dmg += (float) tool.getMaxDamage();
+        if (item instanceof ToolItem tool) {
+			dmg += (float) tool.getMaxDamage();
         }
 
-        if (item instanceof SwordItem) {
-            SwordItem sword = (SwordItem) item;
-            dmg += sword.getAttackDamage();
+        if (item instanceof SwordItem sword) {
+			dmg += sword.getAttackDamage();
         }
 
         return dmg + (float) EnchantmentHelper.getEnchantmentLevel(Enchantments.SHARPNESS, itemStack) * 1.25F + (float) EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, itemStack) * 0.01F;
@@ -159,10 +157,9 @@ public class InvManager extends PremiumModule {
 
     public static float method16445(ItemStack var0) {
         Item var3 = var0.getItem();
-        if (var3 instanceof ToolItem) {
+        if (var3 instanceof ToolItem var5) {
             String var4 = var3.getName().getString().toLowerCase();
-            ToolItem var5 = (ToolItem) var3;
-            float var6 = 1.0F;
+			float var6 = 1.0F;
             if (!(var3 instanceof PickaxeItem)) {
                 if (!(var3 instanceof HoeItem)) {
                     if (!(var3 instanceof AxeItem)) {

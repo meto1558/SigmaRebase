@@ -95,7 +95,7 @@ public class ThumbnailUtil {
         String fullUrl;
 
         try {
-            fullUrl = StringEscapeUtils.unescapeHtml4(URLDecoder.decode(url, StandardCharsets.UTF_8.toString())).trim();
+            fullUrl = StringEscapeUtils.unescapeHtml4(URLDecoder.decode(url, StandardCharsets.UTF_8)).trim();
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
             System.out.println(url);
@@ -108,13 +108,9 @@ public class ThumbnailUtil {
     private static String encodeUrlParameter(String url) {
         String fullUrl;
 
-        try {
-            fullUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException var5) {
-            throw new RuntimeException(var5);
-        }
+		fullUrl = URLEncoder.encode(url, StandardCharsets.UTF_8);
 
-        return fullUrl;
+		return fullUrl;
     }
 
     private static String fetchUrlContent(String url) {

@@ -280,9 +280,8 @@ public class Auto32k extends Module {
                 this.field23877 = false;
             }
 
-            if (var1.packet instanceof SSetSlotPacket) {
-                SSetSlotPacket var4 = (SSetSlotPacket) var1.packet;
-                int var5 = var4.getSlot();
+            if (var1.packet instanceof SSetSlotPacket var4) {
+				int var5 = var4.getSlot();
                 ItemStack var6 = var4.getStack();
                 int var7 = var4.getWindowId();
                 if (this.field23874 == var7 && var5 == 0 && var6.getItem() != Items.AIR && !this.field23877) {
@@ -327,9 +326,8 @@ public class Auto32k extends Module {
                 float var5 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
             }
 
-            if (var1.packet instanceof CPlayerPacket) {
-                CPlayerPacket var6 = (CPlayerPacket) var1.packet;
-                var6.onGround = false;
+            if (var1.packet instanceof CPlayerPacket var6) {
+				var6.onGround = false;
             }
         }
     }

@@ -70,9 +70,8 @@ public class ShulkerInfo extends Module {
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
 
             for (Entity var5 : PlayerUtil.getEntitesInWorld()) {
-                if (var5 instanceof ItemEntity) {
-                    ItemEntity var6 = (ItemEntity) var5;
-                    if (!(var6.getItem().getItem() instanceof BlockItem)
+                if (var5 instanceof ItemEntity var6) {
+					if (!(var6.getItem().getItem() instanceof BlockItem)
                             || !(((BlockItem) var6.getItem().getItem()).getBlock() instanceof ShulkerBoxBlock)) {
                         return;
                     }
@@ -179,9 +178,8 @@ public class ShulkerInfo extends Module {
     @EventTarget
     public void onRenderShulker(EventRenderShulker event) {
         if (this.isEnabled()) {
-            if (mc.currentScreen instanceof ContainerScreen) {
-                ContainerScreen var4 = (ContainerScreen) mc.currentScreen;
-                Slot var5 = ((ContainerScreen<?>) var4).hoveredSlot;
+            if (mc.currentScreen instanceof ContainerScreen var4) {
+				Slot var5 = ((ContainerScreen<?>) var4).hoveredSlot;
                 if (var5 != null
                         && var5.getHasStack()
                         && var5.getStack().getItem() instanceof BlockItem

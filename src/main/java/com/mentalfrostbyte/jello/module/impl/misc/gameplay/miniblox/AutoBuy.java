@@ -220,28 +220,22 @@ public class AutoBuy {
          */
         @Override
         public int compareTo(ShopItemMeta o) {
-            if (o.item instanceof ArmorItem && this.item instanceof ArmorItem) {
-                ArmorItem armor1 = (ArmorItem) this.item;
-                ArmorItem armor2 = (ArmorItem) o.item;
-                float reduce1 = armor1.getDamageReduceAmount();
+            if (o.item instanceof ArmorItem armor2 && this.item instanceof ArmorItem armor1) {
+				float reduce1 = armor1.getDamageReduceAmount();
                 float reduce2 = armor2.getDamageReduceAmount();
                 if (reduce1 == reduce2)
                     return 0;
                 return reduce1 < reduce2 ? -1 : 1;
             }
-            if (o.item instanceof SwordItem && this.item instanceof SwordItem) {
-                SwordItem sword1 = (SwordItem) this.item;
-                SwordItem sword2 = (SwordItem) o.item;
-                float damage1 = sword1.getAttackDamage();
+            if (o.item instanceof SwordItem sword2 && this.item instanceof SwordItem sword1) {
+				float damage1 = sword1.getAttackDamage();
                 float damage2 = sword2.getAttackDamage();
                 if (damage1 == damage2)
                     return 0;
                 return damage1 < damage2 ? -1 : 1;
             }
-            if (o.item instanceof ToolItem && this.item instanceof ToolItem) {
-                ToolItem tool1 = (ToolItem) this.item;
-                ToolItem tool2 = (ToolItem) o.item;
-                float tool1Score = getDefaultToolScore(tool1);
+            if (o.item instanceof ToolItem tool2 && this.item instanceof ToolItem tool1) {
+				float tool1Score = getDefaultToolScore(tool1);
                 float tool2Score = getDefaultToolScore(tool2);
                 if (tool1Score == tool2Score)
                     return 0;

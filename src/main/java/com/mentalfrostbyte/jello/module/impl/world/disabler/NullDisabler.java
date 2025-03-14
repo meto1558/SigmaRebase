@@ -18,9 +18,8 @@ public class NullDisabler extends Module {
     public void RecievePacketEvent(EventReceivePacket event) {
         if (this.isEnabled() && mc.getCurrentServerData() != null) {
             if (!(event.packet instanceof SKeepAlivePacket)) {
-                if (event.packet instanceof SConfirmTransactionPacket) {
-                    SConfirmTransactionPacket confirmTransactionPacket = (SConfirmTransactionPacket) event.packet;
-                    if (confirmTransactionPacket.getActionNumber() < 0 || !this.getBooleanValueFromSettingName("Inv Bypass")) {
+                if (event.packet instanceof SConfirmTransactionPacket confirmTransactionPacket) {
+					if (confirmTransactionPacket.getActionNumber() < 0 || !this.getBooleanValueFromSettingName("Inv Bypass")) {
                         event.cancelled = true;
                     }
                 }

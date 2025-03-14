@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.SpotlightDialog;
 import net.minecraft.client.Minecraft;
 
 public class SpotlightScreen extends Screen {
-   private static Minecraft field21107 = Minecraft.getInstance();
+   private static final Minecraft field21107 = Minecraft.getInstance();
    public SpotlightDialog field21108;
 
    public SpotlightScreen() {

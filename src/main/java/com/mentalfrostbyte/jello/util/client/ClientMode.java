@@ -4,5 +4,5 @@ public enum ClientMode {
    INDETERMINATE,
    JELLO,
    CLASSIC,
-   NOADDONS;
+   NOADDONS
 }

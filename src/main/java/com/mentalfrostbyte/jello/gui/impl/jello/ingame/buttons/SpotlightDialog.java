@@ -61,11 +61,11 @@ public class SpotlightDialog extends Element {
          RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
       );
       ArrayList<Module> var5 = this.method13064();
-      if (!var5.isEmpty() && this.method13067(this.field20640, ((Module)var5.get(0)).getName())) {
-         String var6 = ((Module)var5.get(0)).getName();
+      if (!var5.isEmpty() && this.method13067(this.field20640, var5.get(0).getName())) {
+         String var6 = var5.get(0).getName();
          String var7 = this.field20640
-            + ((Module)var5.get(0)).getName().substring(this.field20640.length(), var6.length())
-            + (!((Module)var5.get(0)).isEnabled() ? " - Disabled" : " - Enabled");
+            + var5.get(0).getName().substring(this.field20640.length(), var6.length())
+            + (!var5.get(0).isEnabled() ? " - Disabled" : " - Enabled");
          RenderUtil.drawString(
             this.query.getFont(),
             (float)(this.xA + 54),
@@ -107,10 +107,10 @@ public class SpotlightDialog extends Element {
    }
 
    private boolean method13066(String var1, String var2) {
-      return var1 != null && var1 != "" && var2 != null ? var2.toLowerCase().contains(var1.toLowerCase()) : true;
+      return var1 == null || var1 == "" || var2 == null || var2.toLowerCase().contains(var1.toLowerCase());
    }
 
    private boolean method13067(String var1, String var2) {
-      return var1 != null && var1 != "" && var2 != null ? var2.toLowerCase().startsWith(var1.toLowerCase()) : true;
+      return var1 == null || var1 == "" || var2 == null || var2.toLowerCase().startsWith(var1.toLowerCase());
    }
 }

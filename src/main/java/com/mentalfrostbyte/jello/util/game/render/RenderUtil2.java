@@ -112,13 +112,13 @@ public class RenderUtil2 {
         int var7 = 0;
 
         for (String var11 : var5) {
-            String var12 = var6.get(var7) != null ? (String) var6.get(var7) : "";
+            String var12 = var6.get(var7) != null ? var6.get(var7) : "";
             boolean var13 = var6.get(var7) == null;
             boolean var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
             boolean var15 = var2.getWidth(var11) >= var1;
             if (!var14 && !var15) {
                 var7++;
-                var12 = var6.get(var7) != null ? (String) var6.get(var7) : "";
+                var12 = var6.get(var7) != null ? var6.get(var7) : "";
                 var13 = var6.get(var7) == null;
                 var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
                 var15 = var2.getWidth(var11) >= var1;
@@ -143,10 +143,10 @@ public class RenderUtil2 {
                             }
 
                             var6.put(++var7, var17);
-                            var11 = var11.substring(var11.length() - var16, var11.length());
+                            var11 = var11.substring(var11.length() - var16);
                         }
 
-                        var12 = var6.get(var7) != null ? (String) var6.get(var7) : "";
+                        var12 = var6.get(var7) != null ? var6.get(var7) : "";
                         var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
                         var15 = var2.getWidth(var11) >= var1;
                         var13 = var6.get(var7) == null;
@@ -162,7 +162,7 @@ public class RenderUtil2 {
             }
         }
 
-        return var6.values().toArray(new String[var6.values().size()]);
+        return var6.values().toArray(new String[var6.size()]);
     }
 
     public static void blur() {

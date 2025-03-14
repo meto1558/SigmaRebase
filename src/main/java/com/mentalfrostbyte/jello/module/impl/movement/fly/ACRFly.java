@@ -124,9 +124,8 @@ public class ACRFly extends Module {
     public void method16906(EventReceivePacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket lookPacket = (SPlayerPositionLookPacket) var4;
-                if (this.preUpdates >= 1) {
+            if (var4 instanceof SPlayerPositionLookPacket lookPacket) {
+				if (this.preUpdates >= 1) {
                     this.preUpdates = -1;
                 }
 
@@ -141,9 +140,8 @@ public class ACRFly extends Module {
     public void method16907(EventSendPacket var1) {
         if (this.isEnabled()) {
             IPacket var4 = var1.packet;
-            if (var4 instanceof CPlayerPacket) {
-                CPlayerPacket var5 = (CPlayerPacket) var4;
-                if (this.preUpdates == -1 && this.getBooleanValueFromSettingName("NoFall")) {
+            if (var4 instanceof CPlayerPacket var5) {
+				if (this.preUpdates == -1 && this.getBooleanValueFromSettingName("NoFall")) {
                     var5.onGround = true;
                 }
             }

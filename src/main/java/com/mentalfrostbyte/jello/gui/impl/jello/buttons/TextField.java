@@ -332,7 +332,7 @@ public class TextField extends AnimatedIconPanel {
    public void draw(float partialTicks) {
       this.method13225();
       float var4 = 1000.0F;
-      boolean var5 = !this.focused ? false : (float)this.timer.getElapsedTime() > var4 / 2.0F;
+      boolean var5 = this.focused && (float) this.timer.getElapsedTime() > var4 / 2.0F;
       if ((float)this.timer.getElapsedTime() > var4) {
          this.timer.reset();
       }

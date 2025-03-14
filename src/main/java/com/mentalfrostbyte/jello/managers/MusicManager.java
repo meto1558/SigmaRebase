@@ -397,7 +397,7 @@ public class MusicManager {
                                         var15.decodeFrame(var18.getData(), var16);
                                         pcmBufferData = var16.getData();
 
-                                        this.sourceDataLine.write((byte[]) pcmBufferData, 0, ((byte[]) pcmBufferData).length);
+                                        this.sourceDataLine.write(pcmBufferData, 0, pcmBufferData.length);
                                         float[] var29 = MathHelper.convertToPCMFloatArray(var16.getData(), var14);
 
                                         FFTFactory.JavaFFT var19 = new FFTFactory.JavaFFT(var29.length);
@@ -605,7 +605,7 @@ public class MusicManager {
                 this.download();
             }
         } catch (MalformedURLException exception) {
-            MinecraftUtil.addChatMessage("URL E " + exception.toString());
+            MinecraftUtil.addChatMessage("URL E " + exception);
             exception.printStackTrace();
         }
 

@@ -43,12 +43,12 @@ import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 public class WaypointsManager {
-    private Minecraft field36365 = Minecraft.getInstance();
-    private List<ChunkPos> field36366 = new ArrayList<ChunkPos>();
-    private List<ChunkPos> field36367 = new ArrayList<ChunkPos>();
-    private List<Waypoint2> field36368 = new ArrayList<Waypoint2>();
+    private final Minecraft field36365 = Minecraft.getInstance();
+    private final List<ChunkPos> field36366 = new ArrayList<ChunkPos>();
+    private final List<ChunkPos> field36367 = new ArrayList<ChunkPos>();
+    private final List<Waypoint2> field36368 = new ArrayList<Waypoint2>();
     private boolean field36369 = false;
-    private int field36370 = 10;
+    private final int field36370 = 10;
     private String field36371 = null;
     public HashMap<Long, Class7927> field36372 = new HashMap<Long, Class7927>();
     public int field36373 = 0;
@@ -157,8 +157,8 @@ public class WaypointsManager {
                         while (var6.hasNext()) {
                             Entry var7 = (Entry) var6.next();
                             Class2531 var8 = new Class2531((Long) var7.getKey());
-                            double var9 = (double) (var5.field16734 - var8.field16734);
-                            double var11 = (double) (var5.field16735 - var8.field16735);
+                            double var9 = var5.field16734 - var8.field16734;
+                            double var11 = var5.field16735 - var8.field16735;
                             double var13 = Math.sqrt(var9 * var9 + var11 * var11);
                             if (var13 > 2.0) {
                                 try {
@@ -268,7 +268,7 @@ public class WaypointsManager {
         }
     }
 
-    public void method29997() throws FileNotFoundException, IOException {
+    public void method29997() throws IOException {
         if (this.field36371 != null) {
             String var3 = this.field36371;
 

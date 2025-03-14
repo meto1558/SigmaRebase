@@ -17,7 +17,7 @@ public class Class9291 {
         if (var0.size() <= 0) {
             return false;
         } else {
-            BlockPos blockPos = ((PositionFacing)var0.get(0)).blockPos();
+            BlockPos blockPos = var0.get(0).blockPos();
             PositionFacing[] var4 = new PositionFacing[]{
                     new PositionFacing(blockPos.north(), Direction.SOUTH),
                     new PositionFacing(blockPos.east(), Direction.WEST),
