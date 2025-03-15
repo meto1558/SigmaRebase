@@ -8,7 +8,7 @@ import net.minecraft.network.play.client.CPlayerPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class VerusTimerDisabler extends Module {
-    private long lastPlayerPacketTime = 0;
+    private static long lastPlayerPacketTime = 0;
     private static final long MOVEMENT_THRESHOLD = 100; // 100ms
 
     public VerusTimerDisabler() {
