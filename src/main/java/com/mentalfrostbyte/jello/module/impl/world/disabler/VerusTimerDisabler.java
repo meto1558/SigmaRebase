@@ -16,7 +16,7 @@ public class VerusTimerDisabler extends Module {
     }
 
     @EventTarget
-    public static void onSendPacket(EventSendPacket event) {
+    public void onSendPacket(EventSendPacket event) {
         if (mc.player != null) {
             // Cancel KeepAlivePacket to bypass timer checks
             if (event.packet instanceof CKeepAlivePacket) {
