@@ -24,20 +24,24 @@ public class VanillaPhase extends Module {
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             if (mc.player.collidedHorizontally) {
-                SimpleEntryPair var4 = PlayerUtil.findCollisionDirection(1.0E-4);
+                var var4 = PlayerUtil.findCollisionDirection(1.0E-4);
                 double var5 = !JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8) ? 1.0E-6 : 0.0625;
-                if (((Direction) var4.getKey()).getAxis() != Direction.Axis.X) {
-                    event.setZ(
-                            (double) Math.round((((Vector3d) var4.getValue()).z + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.getKey()).getZOffset() * var5
-                    );
-                } else {
-                    event.setX(
-                            (double) Math.round((((Vector3d) var4.getValue()).x + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.getKey()).getXOffset() * var5
-                    );
-                }
+                setXZ(event, var4, var5);
             }
+        }
+    }
+
+    public static void setXZ(EventUpdateWalkingPlayer e, SimpleEntryPair<Direction, Vector3d> pair, double v) {
+        if (pair.getKey().getAxis() != Direction.Axis.X) {
+            e.setZ(
+                    (double) Math.round((pair.getValue().z + 1.1921022E-8) * 10000.0) / 10000.0
+                            + (double) pair.getKey().getZOffset() * v
+            );
+        } else {
+            e.setX(
+                    (double) Math.round((pair.getValue().x + 1.1921022E-8) * 10000.0) / 10000.0
+                            + (double) pair.getKey().getXOffset() * v
+            );
         }
     }
 

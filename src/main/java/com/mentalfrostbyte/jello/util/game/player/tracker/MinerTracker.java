@@ -325,7 +325,7 @@ public class MinerTracker {
             Class9510 var5 = this.field39613.get(var4);
             if (var5 != null && var5.field44282.contains(event.getBlockPos().toLong())) {
                 VoxelShape var6 = VoxelShapes.create(0.0, 0.0, 0.0, 1.0, 0.1, 1.0);
-                event.setBoxelShape(var6);
+                event.setVoxelShape(var6);
             }
         }
     }

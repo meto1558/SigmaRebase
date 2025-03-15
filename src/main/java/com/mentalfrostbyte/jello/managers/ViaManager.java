@@ -106,7 +106,7 @@ public class ViaManager implements MinecraftUtil {
             Block block = mc.world.getBlockState(event.getBlockPos()).getBlock();
             if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8) && block instanceof GrassPathBlock) {
                 VoxelShape voxelShape = VoxelShapes.create(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
-                event.setBoxelShape(voxelShape);
+                event.setVoxelShape(voxelShape);
             }
 
             if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
