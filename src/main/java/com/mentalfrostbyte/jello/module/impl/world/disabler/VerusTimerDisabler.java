@@ -8,8 +8,7 @@ import net.minecraft.network.play.client.CPlayerPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class VerusTimerDisabler extends Module {
-    private static long lastPlayerPacketTime = 0;
-    private static final long MOVEMENT_THRESHOLD = 100; // 100ms
+    private long lastPlayerPacketTime = 0;
 
     public VerusTimerDisabler() {
         super(ModuleCategory.EXPLOIT, "VerusTimer", "Disable Verus timer checks.");
@@ -26,7 +25,8 @@ public class VerusTimerDisabler extends Module {
             // Cancel CPlayerPacket but allow some interval between cancellations
             if (event.packet instanceof CPlayerPacket) {
                 long currentTime = System.currentTimeMillis();
-                if (currentTime - lastPlayerPacketTime < MOVEMENT_THRESHOLD) {
+                long MOVEMENT_THRESHOLD_MS = 100;
+                if (currentTime - lastPlayerPacketTime < MOVEMENT_THRESHOLD_MS) {
                     event.cancelled = true; // Cancel packet if sent too frequently
                 }
                 lastPlayerPacketTime = currentTime;
