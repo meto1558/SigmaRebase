@@ -4,6 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.movement.ClickTP;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -41,17 +42,7 @@ public class BasicClickTP extends Module {
     public void onClick(EventClick event) {
         if (this.isEnabled() && (mc.player.isSneaking() || !this.access().getBooleanValueFromSettingName("Sneak"))) {
             if (event.getButton() == EventClick.Button.RIGHT) {
-                BlockRayTraceResult trace = BlockUtil.rayTrace(
-                        mc.player.rotationYaw, mc.player.rotationPitch,
-                        this.access().getNumberValueBySettingName("Maximum range"));
-                BlockPos hit = null;
-                if (trace != null) {
-                    hit = trace.getPos();
-                }
-
-                if (hit == null) {
-                    return;
-                }
+                BlockPos hit = ((ClickTP)this.access()).getRotationHit();
 
                 double targetX = (double) hit.getX() + 0.5;
                 double targetY = hit.getY() + 1;
