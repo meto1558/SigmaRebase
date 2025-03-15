@@ -17,7 +17,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 public class SpartanClickTP extends Module {
     private int field23464;
-    private BlockPos field23465;
+    private BlockPos hit;
 
     public SpartanClickTP() {
         super(ModuleCategory.MOVEMENT, "Spartan", "ClickTP for spartan anticheat");
@@ -26,7 +26,7 @@ public class SpartanClickTP extends Module {
     @Override
     public void onEnable() {
         this.field23464 = -1;
-        this.field23465 = null;
+        this.hit = null;
     }
 
     @Override
@@ -41,24 +41,24 @@ public class SpartanClickTP extends Module {
     public void method16104(EventClick var1) {
         if (this.isEnabled() && (mc.player.isSneaking() || !this.access().getBooleanValueFromSettingName("Sneak"))) {
             if (var1.getButton() == EventClick.Button.RIGHT) {
-                BlockRayTraceResult var4 = BlockUtil.rayTrace(
+                BlockRayTraceResult trace = BlockUtil.rayTrace(
                         mc.player.rotationYaw, mc.player.rotationPitch,
                         this.access().getNumberValueBySettingName("Maximum range"));
-                BlockPos var5 = null;
-                if (var4 != null) {
-                    var5 = var4.getPos();
+                BlockPos hit = null;
+                if (trace != null) {
+                    hit = trace.getPos();
                 }
 
-                if (var5 == null) {
+                if (hit == null) {
                     return;
                 }
 
-                this.field23465 = var5;
+                this.hit = hit;
                 mc.getConnection()
                         .sendPacket(
                                 new CPlayerPacket.PositionPacket(
-                                        (double) this.field23465.getX() + 0.5, this.field23465.getY() + 1,
-                                        (double) this.field23465.getZ() + 0.5, true));
+                                        (double) this.hit.getX() + 0.5, this.hit.getY() + 1,
+                                        (double) this.hit.getZ() + 0.5, true));
                 this.field23464 = 0;
             }
         }
@@ -68,14 +68,14 @@ public class SpartanClickTP extends Module {
     public void method16105(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (var1.packet instanceof SPlayerPositionLookPacket var4) {
-				if (var4.x == (double) this.field23465.getX() + 0.5
-                        && var4.y == (double) (this.field23465.getY() + 1)
-                        && var4.z == (double) this.field23465.getZ() + 0.5) {
+				if (var4.x == (double) this.hit.getX() + 0.5
+                        && var4.y == (double) (this.hit.getY() + 1)
+                        && var4.z == (double) this.hit.getZ() + 0.5) {
                     Client.getInstance().notificationManager
                             .send(new Notification("ClickTP", "Successfully teleported"));
                     if (!this.access().getBooleanValueFromSettingName("Auto Disable")) {
                         this.field23464 = -1;
-                        this.field23465 = null;
+                        this.hit = null;
                         mc.player.setMotion(mc.player.getMotion().x, -0.08, mc.player.getMotion().z);
                         double var5 = MovementUtil.getSmartSpeed();
                         MovementUtil.moveInDirection(var5);
@@ -91,7 +91,7 @@ public class SpartanClickTP extends Module {
     @EventTarget
     public void method16106(EventMove var1) {
         if (this.isEnabled()) {
-            if (this.field23464 > -1 && this.field23465 != null) {
+            if (this.field23464 > -1 && this.hit != null) {
                 var1.setY(0.01);
                 this.field23464++;
                 if (this.field23464 >= 20) {
@@ -106,8 +106,8 @@ public class SpartanClickTP extends Module {
                 mc.getConnection()
                         .sendPacket(
                                 new CPlayerPacket.PositionPacket(
-                                        (double) this.field23465.getX() + 0.5, this.field23465.getY() + 1,
-                                        (double) this.field23465.getZ() + 0.5, true));
+                                        (double) this.hit.getX() + 0.5, this.hit.getY() + 1,
+                                        (double) this.hit.getZ() + 0.5, true));
             }
         }
     }

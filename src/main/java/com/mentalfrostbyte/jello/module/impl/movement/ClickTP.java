@@ -17,11 +17,21 @@ import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class ClickTP extends ModuleWithModuleSettings {
+    private final NumberSetting<Float> maxRange;
+
     public ClickTP() {
         super(ModuleCategory.MOVEMENT, "ClickTP", "TP's you when you click", new BasicClickTP(), new MinibloxClickTP(), new SpartanClickTP());
         this.registerSetting(new BooleanSetting("Sneak", "Allows teleport only when sneaking", true));
         this.registerSetting(new BooleanSetting("Auto Disable", "Disable ClickTP after teleporting", true));
-        this.registerSetting(new NumberSetting<>("Maximum range", "Maximum range of the teleport", 100.0F, Float.class, 10.0F, 300.0F, 1.0F));
+        this.registerSetting(this.maxRange = new NumberSetting<>("Maximum range", "Maximum range of the teleport", 100.0F, Float.class, 10.0F, 300.0F, 1.0F));
+    }
+
+    public BlockPos getRotationHit() {
+        BlockRayTraceResult trace = BlockUtil.rayTrace(
+                mc.player.rotationYaw, mc.player.rotationPitch,
+                this.maxRange.currentValue);
+
+		return trace.getPos();
     }
 
     @EventTarget
