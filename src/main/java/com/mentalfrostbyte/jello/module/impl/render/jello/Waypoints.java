@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.movement.ClickTP;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -186,15 +187,8 @@ public class Waypoints extends Module {
 
     private void method16279(int var1) {
         GL11.glColor4fv(RenderUtil.method17709(var1));
-        GL11.glTranslatef(0.0F, 0.0F, 0.3F);
-        GL11.glNormal3f(0.0F, 0.0F, 1.0F);
-        GL11.glRotated(-37.0, 1.0, 0.0, 0.0);
-        GL11.glBegin(6);
-        GL11.glVertex2f(0.0F, 0.4985F);
-        GL11.glVertex2f(-0.3F, 0.0F);
-        GL11.glVertex2f(0.3F, 0.0F);
-        GL11.glEnd();
-    }
+		ClickTP.rotationThingy();
+	}
 
     private void method16280(float var1, float var2, float var3, float var4) {
         GL11.glColor4f(var1 / 255.0F, var2 / 255.0F, var3 / 255.0F, var4);
