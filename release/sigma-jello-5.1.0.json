@@ -1467,8 +1467,8 @@
   "type": "release",
   "downloads": {
     "client": {
-      "sha1": "bfa895afb18dbe1b40238945b756cbdebe300ed8",
-      "size": 34140774,
+      "sha1": "5ce5371ca1c8a79cba5bbd9e14615f616e9db94b",
+      "size": 34143496,
       "url": "https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/nightly/sigma-jello-5.1.0.jar"
     }
   }
