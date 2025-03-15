@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.spider;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.module.impl.movement.phase.VanillaPhase;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
@@ -11,8 +12,6 @@ import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class MinemenSpider extends Module {
@@ -117,18 +116,8 @@ public class MinemenSpider extends Module {
                 }
 
                 double var7 = 4.88E-7;
-                if (((Direction) var4.getKey()).getAxis() != Direction.Axis.X) {
-                    event.setZ(
-                            (double) Math.round((((Vector3d) var4.getValue()).z + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.getKey()).getZOffset() * var7
-                    );
-                } else {
-                    event.setX(
-                            (double) Math.round((((Vector3d) var4.getValue()).x + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.getKey()).getXOffset() * var7
-                    );
-                }
-            }
+				VanillaPhase.setXZ(event, var4, var7);
+			}
         }
     }
 

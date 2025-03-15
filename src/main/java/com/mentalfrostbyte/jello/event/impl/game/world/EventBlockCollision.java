@@ -26,7 +26,7 @@ public class EventBlockCollision extends CancellableEvent {
         this.blockPos = var1;
     }
 
-    public void setBoxelShape(VoxelShape var1) {
+    public void setVoxelShape(VoxelShape var1) {
         if (var1 == null) {
             var1 = VoxelShapes.create(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         }
