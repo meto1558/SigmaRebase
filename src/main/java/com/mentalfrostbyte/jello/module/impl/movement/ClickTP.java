@@ -105,6 +105,10 @@ public class ClickTP extends ModuleWithModuleSettings {
 
     private void method16757(float var1, float var2, float var3) {
         GL11.glColor3f(var1 / 255.0F, var2 / 255.0F, var3 / 255.0F);
+        rotationThingy();
+    }
+
+    public static void rotationThingy() {
         GL11.glTranslatef(0.0F, 0.0F, 0.3F);
         GL11.glNormal3f(0.0F, 0.0F, 1.0F);
         GL11.glRotated(-37.0, 1.0, 0.0, 0.0);
