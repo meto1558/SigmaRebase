@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.util.client.network.youtube;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import org.apache.http.ParseException;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
@@ -34,8 +36,8 @@ public class ThumbnailUtil {
     public static YoutubeJPGThumbnail[] extractYoutubeThumbnails(String htmlContent) {
         if (htmlContent.startsWith("[")) {
             try {
-                JSONArray jsonArray = new JSONArray(htmlContent);
-                htmlContent = jsonArray.getJSONObject(1).getJSONObject("body").getString("content");
+                JsonArray jsonArray = JsonParser.parseString(htmlContent).getAsJsonArray();
+                htmlContent = jsonArray.get(1).getAsJsonObject().getAsJsonObject("body").get("content").getAsString();
             } catch (Exception exception) {
                 throw new RuntimeException(exception);
             }
@@ -62,8 +64,8 @@ public class ThumbnailUtil {
     public static YoutubeJPGThumbnail[] extractYoutubeThumbnailsFromHtml(String htmlContent) {
         if (htmlContent.startsWith("[")) {
             try {
-                JSONArray jsonArray = new JSONArray(htmlContent);
-                htmlContent = jsonArray.getJSONObject(1).getJSONObject("body").getString("content");
+                JsonArray jsonArray = JsonParser.parseString(htmlContent).getAsJsonArray();
+                htmlContent = jsonArray.get(1).getAsJsonObject().getAsJsonObject("body").get("content").getAsString();
             } catch (Exception exception) {
                 throw new RuntimeException(exception);
             }
