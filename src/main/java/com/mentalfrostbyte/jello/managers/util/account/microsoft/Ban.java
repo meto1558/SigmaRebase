@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import totalcross.json.JSONObject;
 import net.minecraft.client.Minecraft;
 
 import java.util.Calendar;
@@ -18,13 +18,13 @@ public class Ban {
         this.date = date;
     }
 
-    public Ban(JSONObject var1) throws JsonParseException {
+    public Ban(JsonObject var1) throws JsonParseException {
         Calendar var4 = Calendar.getInstance();
         long bannedUntil;
-        if (!(var1.get("until") instanceof Integer)) {
-            bannedUntil = (Long) var1.get("until");
+        if (!(var1.get("until").getAsNumber() instanceof Integer)) {
+            bannedUntil = var1.get("until").getAsLong();
         } else {
-            bannedUntil = ((Integer) var1.get("until")).longValue();
+            bannedUntil = ((Integer) var1.get("until").getAsInt()).longValue();
         }
 
         if (bannedUntil == 1L) {
@@ -32,14 +32,14 @@ public class Ban {
         }
 
         var4.setTimeInMillis(bannedUntil);
-        this.serverIP = var1.getString("server");
+        this.serverIP = var1.get("server").getAsString();
         this.date = var4.getTime();
     }
 
-    public JSONObject asJSONObject() {
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("server", this.serverIP);
-        jsonObj.put("until", this.date.getTime());
+    public JsonObject asJSONObject() {
+        JsonObject jsonObj = new JsonObject();
+        jsonObj.addProperty("server", this.serverIP);
+        jsonObj.addProperty("until", this.date.getTime());
         return jsonObj;
     }
 

@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -12,8 +14,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Base64OutputStream;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.newdawn.slick.util.BufferedImageUtil;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -68,49 +68,49 @@ public class Account {
         this(email, password, null, null);
     }
 
-    public Account(JSONObject json) throws IOException {
+    public Account(JsonObject json) throws IOException {
         if (json.has("email")) {
-            this.email = json.getString("email");
+            this.email = json.get("email").getAsString();
         }
 
         if (json.has("password")) {
-            this.password = decodeBase64(json.getString("password"));
+            this.password = decodeBase64(json.get("password").getAsString());
         }
 
         if (json.has("token")) {
-            this.token = decodeBase64(json.getString("token"));
+            this.token = decodeBase64(json.get("token").getAsString());
         }
 
         if (json.has("bans")) {
-            for (Object var5 : json.getJSONArray("bans")) {
-                this.bans.add(new Ban((JSONObject) var5));
+            for (Object var5 : json.getAsJsonArray("bans")) {
+                this.bans.add(new Ban((JsonObject) var5));
             }
         }
 
         if (json.has("knownName")) {
-            this.knownName = json.getString("knownName");
+            this.knownName = json.get("knownName").getAsString();
         }
 
         if (json.has("knownUUID")) {
-            this.knownUUID = json.getString("knownUUID");
+            this.knownUUID = json.get("knownUUID").getAsString();
         }
 
         if (json.has("dateAdded")) {
-            this.dateAdded = json.getLong("dateAdded");
+            this.dateAdded = json.get("dateAdded").getAsLong();
         } else {
             this.dateAdded = System.currentTimeMillis();
         }
 
         if (json.has("lastUsed")) {
-            this.lastUsed = json.getLong("lastUsed");
+            this.lastUsed = json.get("lastUsed").getAsLong();
         }
 
         if (json.has("useCount")) {
-            this.useCount = json.getInt("useCount");
+            this.useCount = json.get("useCount").getAsInt();
         }
 
         if (json.has("skin")) {
-            byte[] var7 = parseBase64Binary(json.getString("skin"));
+            byte[] var7 = parseBase64Binary(json.get("skin").getAsString());
 
             try {
                 this.skin = ImageIO.read(new ByteArrayInputStream(var7));
@@ -269,17 +269,17 @@ public class Account {
         );
     }
 
-    public JSONObject toJSON() {
-        JSONObject obj = new JSONObject();
-        obj.put("bans", this.makeBanJSONArray());
-        obj.put("email", this.email);
-        obj.put("password", encodeBase64(this.password));
-        obj.put("token", encodeBase64(this.token));
-        obj.put("knownName", this.knownName);
-        obj.put("knownUUID", this.knownUUID);
-        obj.put("useCount", this.useCount);
-        obj.put("lastUsed", this.lastUsed);
-        obj.put("dateAdded", this.dateAdded);
+    public JsonObject toJSON() {
+        JsonObject obj = new JsonObject();
+        obj.add("bans", this.makeBanJSONArray());
+        obj.addProperty("email", this.email);
+        obj.addProperty("password", encodeBase64(this.password));
+        obj.addProperty("token", encodeBase64(this.token));
+        obj.addProperty("knownName", this.knownName);
+        obj.addProperty("knownUUID", this.knownUUID);
+        obj.addProperty("useCount", this.useCount);
+        obj.addProperty("lastUsed", this.lastUsed);
+        obj.addProperty("dateAdded", this.dateAdded);
         if (this.skin != null) {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             Base64OutputStream base64OutputStream = new Base64OutputStream(outputStream);
@@ -292,7 +292,7 @@ public class Account {
                 ex.printStackTrace();
             }
 
-            obj.put("skin", skinBase64);
+            obj.addProperty("skin", skinBase64);
         }
 
         return obj;
@@ -302,11 +302,11 @@ public class Account {
         return Base64.decodeBase64(base64String);
     }
 
-    public JSONArray makeBanJSONArray() {
-        JSONArray jsonArray = new JSONArray();
+    public JsonArray makeBanJSONArray() {
+        JsonArray jsonArray = new JsonArray();
 
         for (Ban ban : this.bans) {
-            jsonArray.put(ban.asJSONObject());
+            jsonArray.add(ban.asJSONObject());
         }
 
         return jsonArray;
