@@ -1,17 +1,17 @@
 package jaco.mp3.resources;
 
 public interface Control {
-   void start();
+    void start();
 
-   void stop();
+    void stop();
 
-   boolean isPlaying();
+    boolean isPlaying();
 
-   void pause();
+    void pause();
 
-   boolean isRandomAccess();
+    boolean isRandomAccess();
 
-   double getPosition();
+    double getPosition();
 
-   void setPosition(double var1);
+    void setPosition(double var1);
 }

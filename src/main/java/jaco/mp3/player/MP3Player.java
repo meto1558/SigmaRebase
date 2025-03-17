@@ -5,11 +5,7 @@ import jaco.mp3.resources.Frame;
 import jaco.mp3.resources.SampleBuffer;
 import jaco.mp3.resources.SoundStream;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +23,10 @@ import javax.sound.sampled.FloatControl.Type;
 import javax.swing.JPanel;
 
 public class MP3Player extends JPanel {
+    @Serial
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(MP3Player.class.getName());
-    private static final Random RANDOM = new Random();
-    public static List playlist = new ArrayList();
+    public static List playlist = new ArrayList<>();
     private transient boolean isPaused = false;
     private transient boolean isStopped = true;
     private transient volatile int volume = 50;
@@ -56,11 +52,7 @@ public class MP3Player extends JPanel {
     }
 
     public MP3Player(File... files) {
-        File[] var5 = files;
-        int var4 = files.length;
-
-        for (int var3 = 0; var3 < var4; ++var3) {
-            File file = var5[var3];
+        for (File file : files) {
             this.add(file);
         }
 
@@ -73,11 +65,7 @@ public class MP3Player extends JPanel {
     }
 
     public MP3Player(URL... urls) {
-        URL[] var5 = urls;
-        int var4 = urls.length;
-
-        for (int var3 = 0; var3 < var4; ++var3) {
-            URL url = var5[var3];
+        for (URL url : urls) {
             this.add(url);
         }
 
@@ -115,7 +103,6 @@ public class MP3Player extends JPanel {
         return this;
     }
 
-
     public MP3Player add(InputStream var1) {
         synchronized (this) {
             playlist.add(var1);
@@ -152,7 +139,7 @@ public class MP3Player extends JPanel {
         }
 
         this.stop();
-        if (playlist.size() != 0) {
+        if (!playlist.isEmpty()) {
             synchronized (this) {
                 this.isStopped = false;
             }
@@ -160,7 +147,7 @@ public class MP3Player extends JPanel {
             if (this.playingThread == null) {
                 this.playingThread = new Thread() {
                     public void run() {
-                        Object inputStream = null;
+                        InputStream inputStream = null;
 
                         try {
                             Object playlistObject;
@@ -178,7 +165,7 @@ public class MP3Player extends JPanel {
                                 inputStream = ((URL) playlistObject).openStream();
                             }
 
-                            SoundStream soundStream = new SoundStream((InputStream) inputStream);
+                            SoundStream soundStream = new SoundStream(inputStream);
                             Decoder decoder = new Decoder();
 
                             label307:
@@ -284,12 +271,11 @@ public class MP3Player extends JPanel {
                         } finally {
                             if (inputStream != null) {
                                 try {
-                                    ((InputStream) inputStream).close();
+                                    inputStream.close();
                                 } catch (Exception var24) {
                                     MP3Player.LOGGER.log(Level.WARNING, "error closing the input stream", var24);
                                 }
                             }
-
                         }
 
                         boolean skipForwardAllowed;
@@ -309,7 +295,6 @@ public class MP3Player extends JPanel {
                 };
                 this.playingThread.start();
             }
-
         }
     }
 
@@ -348,7 +333,6 @@ public class MP3Player extends JPanel {
                 LOGGER.log(Level.SEVERE, "join() failed", var2);
             }
         }
-
     }
 
     public boolean isStopped() {
@@ -366,11 +350,10 @@ public class MP3Player extends JPanel {
     }
 
     private void skip(int items) {
-        if (playlist.size() != 0) {
+        if (!playlist.isEmpty()) {
             boolean playAllowed = this.isPlaying();
             if (this.shuffle) {
-                int rand = (new Random()).nextInt(playlist.size());
-                this.playingIndex = rand;
+                this.playingIndex = (new Random()).nextInt(playlist.size());
             } else {
                 this.playingIndex += items;
                 if (this.playingIndex > playlist.size() - 1) {
@@ -394,7 +377,6 @@ public class MP3Player extends JPanel {
             if (playAllowed) {
                 this.play();
             }
-
         }
     }
 
@@ -466,6 +448,7 @@ public class MP3Player extends JPanel {
         return bb;
     }
 
+    @Serial
     private void readObject(ObjectInputStream objectInputStream) throws ClassNotFoundException, IOException {
         objectInputStream.defaultReadObject();
     }

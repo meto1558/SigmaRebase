@@ -38,10 +38,6 @@ final class huffcodetab {
     public static huffcodetab[] ht;
     private static int[] bitbuf;
 
-    static {
-        // $FF: Couldn't be decompiled
-    }
-
     private huffcodetab(String S, int XLEN, int YLEN, int LINBITS, int LINMAX, int REF, int[] TABLE, int[] HLEN, int[][] VAL, int TREELEN) {
         this.tablename0 = S.charAt(0);
         this.tablename1 = S.charAt(1);
@@ -57,22 +53,19 @@ final class huffcodetab {
         this.treelen = TREELEN;
     }
 
-    public static int huffman_decoder(huffcodetab h, int[] x, int[] y, int[] v, int[] w, BitReserve br) {
+    public static void huffman_decoder(huffcodetab h, int[] x, int[] y, int[] v, int[] w, BitReserve br) {
         int dmask = Integer.MIN_VALUE;
         int point = 0;
         int error = 1;
         int level = dmask;
         if (h.val == null) {
-            return 2;
         } else if (h.treelen == 0) {
             x[0] = y[0] = 0;
-            return 0;
         } else {
             do {
                 if (h.val[point][0] == 0) {
                     x[0] = h.val[point][1] >>> 4;
                     y[0] = h.val[point][1] & 15;
-                    error = 0;
                     break;
                 }
 
@@ -89,9 +82,10 @@ final class huffcodetab {
 
                     point += h.val[point][0];
                 }
-
                 level >>>= 1;
-            } while (level != 0 || point < 0);
+            }
+
+            while (level != 0 || point < 0);
 
             if (h.tablename0 != '3' || h.tablename1 != '2' && h.tablename1 != '3') {
                 if (h.linbits != 0 && h.xlen - 1 == x[0]) {
@@ -105,15 +99,12 @@ final class huffcodetab {
                 if (h.linbits != 0 && h.ylen - 1 == y[0]) {
                     y[0] += br.hgetbits(h.linbits);
                 }
-
-                if (y[0] != 0 && br.hget1bit() != 0) {
-                    y[0] = -y[0];
-                }
             } else {
                 v[0] = y[0] >> 3 & 1;
                 w[0] = y[0] >> 2 & 1;
                 x[0] = y[0] >> 1 & 1;
                 y[0] &= 1;
+
                 if (v[0] != 0 && br.hget1bit() != 0) {
                     v[0] = -v[0];
                 }
@@ -125,13 +116,11 @@ final class huffcodetab {
                 if (x[0] != 0 && br.hget1bit() != 0) {
                     x[0] = -x[0];
                 }
-
-                if (y[0] != 0 && br.hget1bit() != 0) {
-                    y[0] = -y[0];
-                }
             }
 
-            return error;
+            if (y[0] != 0 && br.hget1bit() != 0) {
+                y[0] = -y[0];
+            }
         }
     }
 

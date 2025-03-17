@@ -24,7 +24,7 @@ public final class Frame {
     private int h_intensity_stereo_bound;
     private boolean h_copyright;
     private boolean h_original;
-    private double[] h_vbr_time_per_frame = new double[]{-1.0D, 384.0D, 1152.0D, 1152.0D};
+    private final double[] h_vbr_time_per_frame = new double[]{-1.0D, 384.0D, 1152.0D, 1152.0D};
     private boolean h_vbr;
     private int h_vbr_frames;
     private int h_vbr_scale;
@@ -45,7 +45,7 @@ public final class Frame {
     }
 
     public String toString() {
-        StringBuffer buffer = new StringBuffer(200);
+        StringBuilder buffer = new StringBuilder(200);
         buffer.append("Layer ");
         buffer.append(this.layer_string());
         buffer.append(" frame ");
@@ -62,8 +62,7 @@ public final class Frame {
         buffer.append(',');
         buffer.append(' ');
         buffer.append(this.bitrate_string());
-        String s = buffer.toString();
-        return s;
+        return buffer.toString();
     }
 
     void read_header(SoundStream stream, Crc16[] crcp) throws BitstreamException {
@@ -186,6 +185,7 @@ public final class Frame {
             offset = 17;
         }
 
+        int hVbrBytes = tmp[0] << 24 & -16777216 | tmp[1] << 16 & 16711680 | tmp[2] << 8 & '\uff00' | tmp[3] & 255;
         try {
             System.arraycopy(firstframe, offset, tmp, 0, 4);
             if (xing.equals(new String(tmp))) {
@@ -200,13 +200,13 @@ public final class Frame {
                 length = length + flags.length;
                 if ((flags[3] & 1) != 0) {
                     System.arraycopy(firstframe, offset + length, tmp, 0, tmp.length);
-                    this.h_vbr_frames = tmp[0] << 24 & -16777216 | tmp[1] << 16 & 16711680 | tmp[2] << 8 & '\uff00' | tmp[3] & 255;
+                    this.h_vbr_frames = hVbrBytes;
                     length += 4;
                 }
 
                 if ((flags[3] & 2) != 0) {
                     System.arraycopy(firstframe, offset + length, tmp, 0, tmp.length);
-                    this.h_vbr_bytes = tmp[0] << 24 & -16777216 | tmp[1] << 16 & 16711680 | tmp[2] << 8 & '\uff00' | tmp[3] & 255;
+                    this.h_vbr_bytes = hVbrBytes;
                     length += 4;
                 }
 
@@ -217,8 +217,7 @@ public final class Frame {
 
                 if ((flags[3] & 8) != 0) {
                     System.arraycopy(firstframe, offset + length, tmp, 0, tmp.length);
-                    this.h_vbr_scale = tmp[0] << 24 & -16777216 | tmp[1] << 16 & 16711680 | tmp[2] << 8 & '\uff00' | tmp[3] & 255;
-                    length += 4;
+                    this.h_vbr_scale = hVbrBytes;
                 }
             }
         } catch (ArrayIndexOutOfBoundsException var8) {
@@ -238,11 +237,10 @@ public final class Frame {
                 this.h_vbr_toc = new byte[100];
                 int length = 10;
                 System.arraycopy(firstframe, offset + length, tmp, 0, tmp.length);
-                this.h_vbr_bytes = tmp[0] << 24 & -16777216 | tmp[1] << 16 & 16711680 | tmp[2] << 8 & '\uff00' | tmp[3] & 255;
+                this.h_vbr_bytes = hVbrBytes;
                 length = length + 4;
                 System.arraycopy(firstframe, offset + length, tmp, 0, tmp.length);
-                this.h_vbr_frames = tmp[0] << 24 & -16777216 | tmp[1] << 16 & 16711680 | tmp[2] << 8 & '\uff00' | tmp[3] & 255;
-                length += 4;
+                this.h_vbr_frames = hVbrBytes;
             }
 
         } catch (ArrayIndexOutOfBoundsException var7) {
@@ -314,7 +312,7 @@ public final class Frame {
         return this.h_mode_extension;
     }
 
-    public int calculate_framesize() {
+    public void calculate_framesize() {
         if (this.h_layer == 1) {
             this.framesize = 12 * bitrates[this.h_version][0][this.h_bitrate_index] / frequencies[this.h_version][this.h_sample_frequency];
             if (this.h_padding_bit != 0) {
@@ -345,7 +343,6 @@ public final class Frame {
         }
 
         this.framesize -= 4;
-        return this.framesize;
     }
 
     public int max_number_of_frames(int streamsize) {
@@ -387,16 +384,12 @@ public final class Frame {
     }
 
     public String layer_string() {
-        switch (this.h_layer) {
-            case 1:
-                return "I";
-            case 2:
-                return "II";
-            case 3:
-                return "III";
-            default:
-                return null;
-        }
+        return switch (this.h_layer) {
+            case 1 -> "I";
+            case 2 -> "II";
+            case 3 -> "III";
+            default -> null;
+        };
     }
 
     public String bitrate_string() {
@@ -449,31 +442,22 @@ public final class Frame {
     }
 
     public String mode_string() {
-        switch (this.h_mode) {
-            case 0:
-                return "Stereo";
-            case 1:
-                return "Joint stereo";
-            case 2:
-                return "Dual channel";
-            case 3:
-                return "Single channel";
-            default:
-                return null;
-        }
+        return switch (this.h_mode) {
+            case 0 -> "Stereo";
+            case 1 -> "Joint stereo";
+            case 2 -> "Dual channel";
+            case 3 -> "Single channel";
+            default -> null;
+        };
     }
 
     public String version_string() {
-        switch (this.h_version) {
-            case 0:
-                return "MPEG-2 LSF";
-            case 1:
-                return "MPEG-1";
-            case 2:
-                return "MPEG-2.5 LSF";
-            default:
-                return null;
-        }
+        return switch (this.h_version) {
+            case 0 -> "MPEG-2 LSF";
+            case 1 -> "MPEG-1";
+            case 2 -> "MPEG-2.5 LSF";
+            default -> null;
+        };
     }
 
     public int number_of_subbands() {

@@ -10,12 +10,11 @@ public class Decoder implements DecoderErrors {
     private LayerIDecoder l1decoder;
     private int outputFrequency;
     private int outputChannels;
-    private Equalizer equalizer;
-    private Decoder.Params params;
+    private final Equalizer equalizer;
     private boolean initialized;
 
     public Decoder() {
-        this((Decoder.Params) null);
+        this(null);
     }
 
     public Decoder(Decoder.Params params0) {
@@ -24,12 +23,11 @@ public class Decoder implements DecoderErrors {
             params0 = DEFAULT_PARAMS;
         }
 
-        this.params = params0;
-        Equalizer eq = this.params.getInitialEqualizerSettings();
+        Params params = params0;
+        Equalizer eq = params.getInitialEqualizerSettings();
         if (eq != null) {
             this.equalizer.setFrom(eq);
         }
-
     }
 
     public static Decoder.Params getDefaultParams() {
@@ -50,7 +48,6 @@ public class Decoder implements DecoderErrors {
         if (this.filter2 != null) {
             this.filter2.setEQ(factors);
         }
-
     }
 
     public Obuffer decodeFrame(Frame header, SoundStream stream) throws DecoderException {
@@ -91,40 +88,41 @@ public class Decoder implements DecoderErrors {
     }
 
     protected FrameDecoder retrieveDecoder(Frame header, SoundStream stream, int layer) throws DecoderException {
-        FrameDecoder decoder = null;
-        switch (layer) {
-            case 1:
+        FrameDecoder decoder = switch (layer) {
+            case 1 -> {
                 if (this.l1decoder == null) {
                     this.l1decoder = new LayerIDecoder();
                     this.l1decoder.create(stream, header, this.filter1, this.filter2, this.output, 0);
                 }
 
-                decoder = this.l1decoder;
-                break;
-            case 2:
+                yield this.l1decoder;
+            }
+            case 2 -> {
                 if (this.l2decoder == null) {
                     this.l2decoder = new LayerIIDecoder();
                     this.l2decoder.create(stream, header, this.filter1, this.filter2, this.output, 0);
                 }
 
-                decoder = this.l2decoder;
-                break;
-            case 3:
+                yield this.l2decoder;
+            }
+            case 3 -> {
                 if (this.l3decoder == null) {
                     this.l3decoder = new LayerIIIDecoder(stream, header, this.filter1, this.filter2, this.output, 0);
                 }
 
-                decoder = this.l3decoder;
-        }
+                yield this.l3decoder;
+            }
+            default -> null;
+        };
 
         if (decoder == null) {
-            throw this.newDecoderException(513, (Throwable) null);
+            throw this.newDecoderException(DecoderErrors.UNSUPPORTED_LAYER, null);
         } else {
-            return (FrameDecoder) decoder;
+            return decoder;
         }
     }
 
-    private void initialize(Frame header) throws DecoderException {
+    private void initialize(Frame header) {
         float scalefactor = 32700.0F;
         int mode = header.mode();
         int layer = header.layer();
@@ -134,9 +132,9 @@ public class Decoder implements DecoderErrors {
         }
 
         float[] factors = this.equalizer.getBandFactors();
-        this.filter1 = new SynthesisFilter(0, scalefactor, factors);
+        this.filter1 = new SynthesisFilter(0, scalefactor);
         if (channels == 2) {
-            this.filter2 = new SynthesisFilter(1, scalefactor, factors);
+            this.filter2 = new SynthesisFilter(1, scalefactor);
         }
 
         this.outputChannels = channels;
@@ -146,7 +144,7 @@ public class Decoder implements DecoderErrors {
 
     public static class Params implements Cloneable {
         private OutputChannels outputChannels;
-        private Equalizer equalizer;
+        private final Equalizer equalizer;
 
         public Params() {
             this.outputChannels = OutputChannels.BOTH;
