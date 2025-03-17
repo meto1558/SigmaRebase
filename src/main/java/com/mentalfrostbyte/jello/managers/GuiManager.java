@@ -439,10 +439,6 @@ public class GuiManager {
         if (this.screen != null) {
             this.screen.updatePanelDimensions(this.field41354[0], this.field41354[1]);
         }
-
-        if (Client.getInstance().moduleManager != null) {
-            Client.getInstance().moduleManager.getMacOSTouchBar().method13734(null);
-        }
     }
 
     public boolean hasReplacement(net.minecraft.client.gui.screen.Screen screen) {

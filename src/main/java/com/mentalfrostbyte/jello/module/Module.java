@@ -214,8 +214,6 @@ public class Module {
                 this.onEnable();
             }
         }
-
-        Client.getInstance().moduleManager.getMacOSTouchBar().onModuleToggled(this);
     }
 
     public void setEnabledBasic(boolean enabled) {
@@ -260,8 +258,6 @@ public class Module {
                 this.randomAssOffset++;
             }
         }
-
-        Client.getInstance().moduleManager.getMacOSTouchBar().onModuleToggled(this);
     }
 
     public void toggle() {
