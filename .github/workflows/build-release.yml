@@ -13,6 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,11 +45,17 @@ jobs:
           echo "SIZE=$SIZE" >> $GITHUB_ENV
           echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
 
-      - name: Upload JAR as artifact
+      - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: built-jar
           path: target/*.jar
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest
+          path: release/sigma-jello-5.1.0.json
 
   release:
     needs: build
@@ -69,6 +78,15 @@ jobs:
           name: built-jar
           path: target/
 
+      - name: Download JSON artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: manifest
+          path: release/
+
+      - name: Verify JSON file exists
+        run: ls -l release/
+
       - name: Compute SHA1 and file size again
         run: |
           JAR_FILE=$(ls target/*.jar | head -n 1)
@@ -87,23 +105,14 @@ jobs:
           '.downloads.client = { "sha1": $sha1, "size": $size, "url": $url }' \
           "$JSON_FILE" > temp.json && mv temp.json "$JSON_FILE"
 
-      - name: Commit and push changes
-        run: |
-          git add release/sigma-jello-5.1.0.json
-          git commit -m "deps: update sigma-jello-5.1.0.json with latest JAR details"
-          git push
-
       - name: Create and push tag
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          git tag -f pojav-nightly
-          git push --force https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git pojav-nightly
+          git push origin :refs/tags/pojav-nightly
+          git tag -f nightly
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          token: ${{ secrets.GH_PAT }}
           tag_name: pojav-nightly
           prerelease: true
           files: |
