@@ -1,6 +1,8 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -63,13 +65,13 @@ public class PlayerUtil {
                 }
 
                 String responseBody = EntityUtils.toString(response.getEntity());
-                JSONObject json = new JSONObject(responseBody);
+                JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
                 if (!json.has("username")) {
                     names.add("Unknown owner");
                     return names;
                 }
 
-                String username = json.getString("username");
+                String username = json.get("username").getAsString();
                 names.add(username);
                 return names;
             }
