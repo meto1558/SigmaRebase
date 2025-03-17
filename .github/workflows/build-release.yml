@@ -45,11 +45,17 @@ jobs:
           echo "SIZE=$SIZE" >> $GITHUB_ENV
           echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
 
-      - name: Upload JAR as artifact
+      - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: built-jar
           path: target/*.jar
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest
+          path: release/sigma-jello-5.1.0.json
 
   release:
     needs: build
@@ -72,6 +78,12 @@ jobs:
           name: built-jar
           path: target/
 
+      - name: Download built JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: sigma-jello-5.1.0.json
+          path: release/
+
       - name: Compute SHA1 and file size again
         run: |
           JAR_FILE=$(ls target/*.jar | head -n 1)
@@ -92,8 +104,8 @@ jobs:
 
       - name: Create and push tag
         run: |
+          git push origin :refs/tags/nightly
           git tag -f nightly
-          git push origin nightly
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
