@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.command.impl;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
@@ -10,11 +9,7 @@ import com.mentalfrostbyte.jello.managers.util.command.CommandException;
 import com.mentalfrostbyte.jello.managers.util.command.CommandType;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -76,7 +71,7 @@ public class Config extends Command {
                         Profile currentConfig = Client.getInstance().moduleManager.getConfigurationManager()
                                 .getCurrentConfig();
                         currentConfig.moduleConfig = Client.getInstance().moduleManager
-                                .saveCurrentConfigToJSON(new JsonObject());
+                                .loadCurrentConfig(new JsonObject());
                         Client.getInstance().moduleManager.getConfigurationManager().removeConfig(name);
                         Client.getInstance().moduleManager.getConfigurationManager()
                                 .saveConfig(new Profile(name, currentConfig.moduleConfig));

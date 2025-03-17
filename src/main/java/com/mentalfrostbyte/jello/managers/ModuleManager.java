@@ -304,7 +304,7 @@ public class ModuleManager {
         this.jelloTouch.init();
     }
 
-    public JsonObject saveCurrentConfigToJSON(JsonObject obj) {
+    public JsonObject loadCurrentConfig(JsonObject obj) {
         JsonArray array = new JsonArray();
 
         for (Module module : this.moduleMap.values()) {
@@ -317,7 +317,7 @@ public class ModuleManager {
 
     public void method14660(JsonObject var1) {
         var1.addProperty("profile", this.profile.getCurrentConfig().profileName);
-        this.profile.getCurrentConfig().moduleConfig = this.saveCurrentConfigToJSON(new JsonObject());
+        this.profile.getCurrentConfig().moduleConfig = this.loadCurrentConfig(new JsonObject());
 
         try {
             this.profile.saveAndReplaceConfigs();

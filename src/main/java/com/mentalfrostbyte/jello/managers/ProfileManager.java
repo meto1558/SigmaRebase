@@ -139,7 +139,7 @@ public class ProfileManager {
     }
 
     public void saveAndReplaceConfigs() throws IOException {
-        this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JsonObject());
+        this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.loadCurrentConfig(new JsonObject());
         File configFolderFolder = new File(Client.getInstance().file + configFolder);
         if (!configFolderFolder.exists()) {
             configFolderFolder.mkdirs();
@@ -175,7 +175,7 @@ public class ProfileManager {
         Client.getInstance().saveClientData();
         ModuleSettingInitializr.modOffsetMap = new HashMap<>();
         if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
-            this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JsonObject());
+            this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.loadCurrentConfig(new JsonObject());
             this.currentConfigs = config;
             Client.getInstance().getConfig().addProperty("profile", config.profileName);
             Client.getInstance().moduleManager.load(config.moduleConfig);
