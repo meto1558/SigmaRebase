@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
@@ -21,8 +23,6 @@ import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.glfw.GLFWNativeCocoa;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 import java.util.*;
 
@@ -103,25 +103,25 @@ public class JelloTouch {
         }
     }
 
-    public JSONObject getKeybindsJSONObject(JSONObject obj) throws JsonParseException {
-        JSONArray keybinds = new JSONArray();
+    public JsonObject getKeybindsJSONObject(JsonObject obj) throws JsonParseException {
+        JsonArray keybinds = new JsonArray();
 
         for (Bound var6 : this.boundables) {
             if (var6.getKeybind() != -1 && var6.getKeybind() != 0) {
-                keybinds.put(var6.getKeybindData());
+                keybinds.add(var6.getKeybindData());
             }
         }
 
-        obj.put("keybinds", keybinds);
+        obj.add("keybinds", keybinds);
         return obj;
     }
 
-    public void method13732(JSONObject pKeybinds) throws JsonParseException {
+    public void method13732(JsonObject pKeybinds) throws JsonParseException {
         if (pKeybinds.has("keybinds")) {
-            JSONArray keybindsArr = pKeybinds.getJSONArray("keybinds");
+            JsonArray keybindsArr = pKeybinds.getAsJsonArray("keybinds");
 
-            for (int i = 0; i < keybindsArr.length(); i++) {
-                JSONObject boundJson = keybindsArr.getJSONObject(i);
+            for (int i = 0; i < keybindsArr.size(); i++) {
+                JsonObject boundJson = keybindsArr.get(i).getAsJsonObject();
                 Bound var7 = new Bound(boundJson);
                 if (var7.hasTarget()) {
                     this.boundables.add(var7);

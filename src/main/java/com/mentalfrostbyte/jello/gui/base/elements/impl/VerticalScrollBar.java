@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.VerticalScrollBarButton;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
@@ -127,15 +128,15 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
-        config.put("offset", this.field20793);
+    public JsonObject toConfigWithExtra(JsonObject config) {
+        config.addProperty("offset", this.field20793);
         return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         super.loadConfig(config);
-        this.field20793 = CJsonUtils.getIntOrDefault(config, "offset", this.field20793);
+        this.field20793 = config.get("offset").getAsInt();
     }
 
     @Override

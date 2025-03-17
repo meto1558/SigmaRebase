@@ -1,16 +1,16 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.Module;
 import net.minecraft.client.gui.screen.Screen;
-import totalcross.json.JSONObject;
 
 public class Bound {
    private int key = -1;
    private Object target;
 
-   public Bound(JSONObject json) {
+   public Bound(JsonObject json) {
       this.loadFromJSON(json);
    }
 
@@ -24,24 +24,24 @@ public class Bound {
       this.target = target;
    }
 
-   public void loadFromJSON(JSONObject from) {
+   public void loadFromJSON(JsonObject from) {
       if (from.has("target")) {
          try {
             if (from.has("key")) {
-               this.key = from.getInt("key");
+               this.key = from.get("key").getAsInt();
             }
 
             if (from.has("type")) {
-               String var4 = from.getString("type");
+               String var4 = from.get("type").getAsString();
                switch (var4) {
                   case "mod":
                      for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-                        if (from.getString("target").equals(module.getName())) {
+                        if (from.get("target").getAsString().equals(module.getName())) {
                            this.target = module;
                         }
                      }
                   case "screen":
-                     Class screen = Client.getInstance().guiManager.method33477(from.getString("target"));
+                     Class screen = Client.getInstance().guiManager.method33477(from.get("target").getAsString());
                      if (screen != null) {
                         this.target = screen;
                      }
@@ -53,19 +53,19 @@ public class Bound {
       }
    }
 
-   public JSONObject getKeybindData() {
-      JSONObject obj = new JSONObject();
+   public JsonObject getKeybindData() {
+      JsonObject obj = new JsonObject();
        switch (KeybindTypesWrapper.values[this.getKeybindTypes().ordinal()]) {
           case 1:
-             obj.put("type", "mod");
-             obj.put("target", ((Module)this.target).getName());
+             obj.addProperty("type", "mod");
+             obj.addProperty("target", ((Module)this.target).getName());
              break;
           case 2:
-             obj.put("type", "screen");
-             obj.put("target", Client.getInstance().guiManager.getNameForTarget((Class<? extends Screen>)this.target));
+             obj.addProperty("type", "screen");
+             obj.addProperty("target", Client.getInstance().guiManager.getNameForTarget((Class<? extends Screen>)this.target));
        }
 
-       obj.put("key", this.key);
+       obj.addProperty("key", this.key);
        return obj;
    }
 

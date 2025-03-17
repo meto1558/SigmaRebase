@@ -201,16 +201,16 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
                 ColorSetting var30 = (ColorSetting) setting;
                 Text var38 = new Text(panel, setting.getName() + "lbl", var3, var4, this.field21222, 24, Text.defaultColorHelper, setting.getName());
                 ColorPicker var46 = new ColorPicker(
-                        panel, setting.getName() + "color", panel.getWidthA() - 160 - var5 + 10, var4, 160, 114, (Integer) setting.getCurrentValue(), var30.isRainbowEnabled()
+                        panel, setting.getName() + "color", panel.getWidthA() - 160 - var5 + 10, var4, 160, 114, (Integer) setting.getCurrentValue(), var30.isRainbow()
                 );
                 this.field21223.put(var38, setting);
                 setting.addObserver(var3x -> {
                     var46.method13048((Integer) setting.getCurrentValue());
-                    var46.method13046(var30.isRainbowEnabled());
+                    var46.method13046(var30.isRainbow());
                 });
                 var46.onPress(var2x -> {
                     setting.updateCurrentValue(((ColorPicker) var2x).method13049(), false);
-                    var30.setRainbowEnabled(((ColorPicker) var2x).method13047());
+                    var30.setRainbow(((ColorPicker) var2x).method13047());
                 });
                 panel.addToList(var38);
                 panel.addToList(var46);
