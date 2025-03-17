@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
@@ -35,7 +36,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONObject;
 
 import java.awt.Color;
 import java.io.File;
@@ -143,9 +143,9 @@ public class GuiManager {
         Minecraft.getInstance();
         if (Minecraft.IS_RUNNING_ON_MAC) {
             try {
-                JSONObject config = FileUtil.readFile(new File(Client.getInstance().file + "/config.json"));
+                JsonObject config = FileUtil.readFile(new File(Client.getInstance().file + "/config.json"));
                 if (config.has("hidpicocoa")) {
-                    hidpiCocoa = config.getBoolean("hidpicocoa");
+                    hidpiCocoa = config.get("hidpicocoa").getAsBoolean();
                 }
 
                 GLFW.glfwWindowHint(GLFW.GLFW_COCOA_RETINA_FRAMEBUFFER, hidpiCocoa ? 1 : 0);
@@ -316,17 +316,17 @@ public class GuiManager {
         }
     }
 
-    public JSONObject getUIConfig(JSONObject uiConfig) {
+    public JsonObject getUIConfig(JsonObject uiConfig) {
         if (this.screen != null) {
-            JSONObject var4 = this.screen.toConfigWithExtra(new JSONObject());
-            if (var4.length() != 0) {
-                uiConfig.put(this.screen.getName(), var4);
+            JsonObject var4 = this.screen.toConfigWithExtra(new JsonObject());
+            if (var4.size() != 0) {
+                uiConfig.add(this.screen.getName(), var4);
             }
         }
 
-        uiConfig.put("guiBlur", this.guiBlur);
-        uiConfig.put("hqIngameBlur", this.hqIngameBlur);
-        uiConfig.put("hidpicocoa", hidpiCocoa);
+        uiConfig.addProperty("guiBlur", this.guiBlur);
+        uiConfig.addProperty("hqIngameBlur", this.hqIngameBlur);
+        uiConfig.addProperty("hidpicocoa", hidpiCocoa);
         return uiConfig;
     }
 
@@ -354,25 +354,25 @@ public class GuiManager {
         return hidpiCocoa;
     }
 
-    public void loadUIConfig(JSONObject uiConfig) {
+    public void loadUIConfig(JsonObject uiConfig) {
         if (this.screen != null) {
-            JSONObject var4 = null;
+            JsonObject var4 = null;
 
             try {
-                var4 = Client.getInstance().getConfig().getJSONObject(this.screen.getName());
+                var4 = Client.getInstance().getConfig().getAsJsonObject(this.screen.getName());
             } catch (Exception var9) {
-                var4 = new JSONObject();
+                var4 = new JsonObject();
             } finally {
                 this.screen.loadConfig(var4);
             }
         }
 
         if (uiConfig.has("guiBlur")) {
-            this.guiBlur = uiConfig.getBoolean("guiBlur");
+            this.guiBlur = uiConfig.get("guiBlur").getAsBoolean();
         }
 
         if (uiConfig.has("hqIngameBlur")) {
-            this.hqIngameBlur = uiConfig.getBoolean("hqIngameBlur");
+            this.hqIngameBlur = uiConfig.get("hqIngameBlur").getAsBoolean();
         }
     }
 
