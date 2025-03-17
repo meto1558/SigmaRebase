@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
+import com.google.gson.JsonParseException;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 import net.minecraft.client.Minecraft;
 
@@ -18,7 +18,7 @@ public class Ban {
         this.date = date;
     }
 
-    public Ban(JSONObject var1) throws JSONException {
+    public Ban(JSONObject var1) throws JsonParseException {
         Calendar var4 = Calendar.getInstance();
         long bannedUntil;
         if (!(var1.get("until") instanceof Integer)) {

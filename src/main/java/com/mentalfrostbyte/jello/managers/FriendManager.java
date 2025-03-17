@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
@@ -8,7 +9,6 @@ import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONArray;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.Minecraft;
-import totalcross.json.JSONException;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,13 +22,13 @@ public class FriendManager {
         EventBus.register(this);
         try {
             this.loadFromCurrentConfig();
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             throw new RuntimeException(e);
         }
     }
 
     @EventTarget
-    public void method26996(EventKeyPress event) throws JSONException {
+    public void onKeyPress(EventKeyPress event) throws JsonParseException {
         if (event.getKey() == this.mc.gameSettings.keyBindPickBlock.keyCode.getKeyCode()
                 && this.mc.pointedEntity != null
                 && this.mc.pointedEntity.getName() != null) {
@@ -138,7 +138,7 @@ public class FriendManager {
         Client.getInstance().getConfig().put("enemies", this.entityFriends);
     }
 
-    private void loadFromCurrentConfig() throws JSONException {
+    private void loadFromCurrentConfig() throws JsonParseException {
         if (Client.getInstance().getConfig().has("friends")) {
             JSONArray var3 = Client.getInstance().getConfig().getJSONArray("friends");
             if (var3 != null) {

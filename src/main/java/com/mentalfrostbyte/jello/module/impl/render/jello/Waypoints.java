@@ -101,9 +101,9 @@ public class Waypoints extends Module {
         }
 
         var4.sort(
-                (var0, var1x) -> !(mc.player.getDistanceSq(var0.field35890, var0.field35893,
-                        var0.field35891) < mc.player.getDistanceSq(var1x.field35890,
-                        var1x.field35893, var1x.field35891))
+                (var0, var1x) -> !(mc.player.getDistanceSq(var0.x, var0.field35893,
+                        var0.z) < mc.player.getDistanceSq(var1x.x,
+                        var1x.field35893, var1x.z))
                         ? -1
                         : 1);
         return var4;
@@ -114,11 +114,11 @@ public class Waypoints extends Module {
         if (this.isEnabled()) {
             for (Waypoint2 var5 : this.method16276(Client.getInstance().waypointsManager.getWaypoints())) {
                 BlockPos var6 = new BlockPos(
-                        var5.field35890 - (var5.field35890 <= 0 ? 1 : 0), var5.field35893,
-                        var5.field35891 - (var5.field35891 <= 0 ? 1 : 0));
+                        var5.x - (var5.x <= 0 ? 1 : 0), var5.field35893,
+                        var5.z - (var5.z <= 0 ? 1 : 0));
                 double var7 = Math.sqrt(PositionUtil.calculateDistanceSquared(var6));
                 if (!(var7 > 300.0)) {
-                    if (mc.world.getChunk(var6) != null && var5.field35894) {
+                    if (mc.world.getChunk(var6) != null && var5.config) {
                         int var9 = var6.getX() % 16;
                         int var10 = var6.getZ() % 16;
                         if (var10 < 0) {
@@ -142,21 +142,21 @@ public class Waypoints extends Module {
 
                     float var13 = (float) ((double) var5.field35893
                             - Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getPos().getY());
-                    float var14 = (float) ((double) var5.field35890
+                    float var14 = (float) ((double) var5.x
                             - Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getPos().getX());
-                    float var15 = (float) ((double) var5.field35891
+                    float var15 = (float) ((double) var5.z
                             - Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getPos().getZ());
-                    if (var5.field35890 < 0) {
+                    if (var5.x < 0) {
                         var14--;
                     }
 
-                    if (var5.field35891 < 0) {
+                    if (var5.z < 0) {
                         var15--;
                     }
 
                     float var12 = 1.0F;
                     var12 = (float) Math.max(1.0, Math.sqrt(PositionUtil.calculateDistanceSquared(var6) / 30.0));
-                    this.method16283(var14, var13, var15, var5.field35889, var5.field35892, var12);
+                    this.method16283(var14, var13, var15, var5.name, var5.color, var12);
                 }
             }
 

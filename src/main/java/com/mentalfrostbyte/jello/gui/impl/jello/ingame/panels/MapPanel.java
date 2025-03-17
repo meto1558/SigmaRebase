@@ -33,7 +33,7 @@ public class MapPanel extends Element {
       this.addToList(this.waypointList = new WaypointList(this, "waypointList", 0, 65, this.field20616, this.heightA - 65));
 
       for (Waypoint2 var10 : Client.getInstance().waypointsManager.getWaypoints()) {
-         this.waypointList.addWaypoint(var10.field35889, new Vector3i(var10.field35890, 64, var10.field35891), var10.field35892);
+         this.waypointList.addWaypoint(var10.name, new Vector3i(var10.x, 64, var10.z), var10.color);
       }
 
       this.addToList(this.field20614 = new MapFrame(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));

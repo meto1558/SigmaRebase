@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
+import com.google.gson.JsonParseException;
+
 /**
  * A JSONTokener takes a source string and extracts characters and tokens from
  * it. It is used by the JSONObject and JSONArray constructors to parse
@@ -65,7 +67,7 @@ public class JSONTokener {
      * Construct a JSONTokener from an InputStream.
      * @param inputStream The source.
      */
-  /*    public JSONTokener(InputStream inputStream) throws JSONException {
+  /*    public JSONTokener(InputStream inputStream) throws JsonParseException {
         this(new InputStreamReader(inputStream));
     }
    */
@@ -86,9 +88,9 @@ public class JSONTokener {
      * so that you can test for a digit or letter before attempting to parse
      * the next number or identifier.
      */
-    public void back() throws JSONException {
+    public void back() throws JsonParseException {
         if (this.usePrevious || this.index <= 0) {
-            throw new JSONException("Stepping back two steps is not supported");
+            throw new JsonParseException("Stepping back two steps is not supported");
         }
         this.index -= 1;
         this.character -= 1;
@@ -126,7 +128,7 @@ public class JSONTokener {
      *
      * @return true if not yet at the end of the source.
      */
-    public boolean more() throws JSONException {
+    public boolean more() throws JsonParseException {
         this.next();
         if (this.end()) {
             return false;
@@ -140,7 +142,7 @@ public class JSONTokener {
      *
      * @return The next character, or 0 if past the end of the source string.
      */
-    public char next() throws JSONException {
+    public char next() throws JsonParseException {
         int c;
         if (this.usePrevious) {
             this.usePrevious = false;
@@ -173,9 +175,9 @@ public class JSONTokener {
      *
      * @param c The character to match.
      * @return The character.
-     * @throws JSONException if the character does not match.
+     * @throws JsonParseException if the character does not match.
      */
-    public char next(char c) throws JSONException {
+    public char next(char c) throws JsonParseException {
         char n = this.next();
         if (n != c) {
             throw this.syntaxError("Expected '" + c + "' and instead saw '" + n + "'");
@@ -188,10 +190,10 @@ public class JSONTokener {
      *
      * @param n The number of characters to take.
      * @return A string of n characters.
-     * @throws JSONException Substring bounds error if there are not
+     * @throws JsonParseException Substring bounds error if there are not
      *                       n characters remaining in the source string.
      */
-    public String next(int n) throws JSONException {
+    public String next(int n) throws JsonParseException {
         if (n == 0) {
             return "";
         }
@@ -213,9 +215,9 @@ public class JSONTokener {
      * Get the next char in the string, skipping whitespace.
      *
      * @return A character, or 0 if there are no more characters.
-     * @throws JSONException
+     * @throws JsonParseException
      */
-    public char nextClean() throws JSONException {
+    public char nextClean() throws JsonParseException {
         for (; ; ) {
             char c = this.next();
             if (c == 0 || c > ' ') {
@@ -234,9 +236,9 @@ public class JSONTokener {
      *              <code>"</code>&nbsp;<small>(double quote)</small> or
      *              <code>'</code>&nbsp;<small>(single quote)</small>.
      * @return A String.
-     * @throws JSONException Unterminated string.
+     * @throws JsonParseException Unterminated string.
      */
-    public String nextString(char quote) throws JSONException {
+    public String nextString(char quote) throws JsonParseException {
         char c;
         StringBuilder sb = new StringBuilder();
         for (; ; ) {
@@ -293,7 +295,7 @@ public class JSONTokener {
      * @param delimiter A delimiter character.
      * @return A string.
      */
-    public String nextTo(char delimiter) throws JSONException {
+    public String nextTo(char delimiter) throws JsonParseException {
         StringBuilder sb = new StringBuilder();
         for (; ; ) {
             char c = this.next();
@@ -314,7 +316,7 @@ public class JSONTokener {
      * @param delimiters A set of delimiter characters.
      * @return A string, trimmed.
      */
-    public String nextTo(String delimiters) throws JSONException {
+    public String nextTo(String delimiters) throws JsonParseException {
         char c;
         StringBuilder sb = new StringBuilder();
         for (; ; ) {
@@ -334,9 +336,9 @@ public class JSONTokener {
      * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
      *
      * @return An object.
-     * @throws JSONException If syntax error.
+     * @throws JsonParseException If syntax error.
      */
-    public Object nextValue() throws JSONException {
+    public Object nextValue() throws JsonParseException {
         char c = this.nextClean();
         String string;
 
@@ -383,7 +385,7 @@ public class JSONTokener {
      * @return The requested character, or zero if the requested character
      * is not found.
      */
-    public char skipTo(char to) throws JSONException {
+    public char skipTo(char to) throws JsonParseException {
         char c;
         try {
             long startIndex = this.index;
@@ -401,20 +403,20 @@ public class JSONTokener {
                 }
             } while (c != to);
         } catch (Exception exception) {
-            throw new JSONException2(exception);
+            throw new JsonParseException(exception);
         }
         this.back();
         return c;
     }
 
     /**
-     * Make a JSONException to signal a syntax error.
+     * Make a JsonParseException to signal a syntax error.
      *
      * @param message The error message.
-     * @return A JSONException object, suitable for throwing
+     * @return A JsonParseException object, suitable for throwing
      */
-    public JSONException syntaxError(String message) {
-        return new JSONException(message + this.toString());
+    public JsonParseException syntaxError(String message) {
+        return new JsonParseException(message + this.toString());
     }
 
     /**

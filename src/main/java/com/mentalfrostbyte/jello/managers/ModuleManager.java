@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.gui.impl.jello.JelloTouch;
@@ -214,7 +215,7 @@ public class ModuleManager {
 
         try {
             array = CJsonUtils.getJSONArrayOrNull(json, "mods");
-        } catch (JSONException2 ignored) {
+        } catch (JsonParseException ignored) {
         }
 
         for (Module modulesFound : this.moduleMap.values()) {
@@ -226,14 +227,14 @@ public class ModuleManager {
                 JSONObject moduleObject = null;
                 try {
                     moduleObject = array.getJSONObject(var15);
-                } catch (JSONException e) {
+                } catch (JsonParseException e) {
                     throw new RuntimeException(e);
                 }
                 String moduleName = null;
 
                 try {
                     moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
-                } catch (JSONException2 var13) {
+                } catch (JsonParseException var13) {
                     Client.getInstance().getLogger().warn("Invalid name in mod list config");
                 }
 
@@ -241,7 +242,7 @@ public class ModuleManager {
                     if (module.getName().equals(moduleName)) {
                         try {
                             module.initialize(moduleObject);
-                        } catch (JSONException2 | JSONException var12) {
+                        } catch (JsonParseException var12) {
                             Client.getInstance().getLogger().warn("Could not initialize mod " + module.getName() + " from config. All settings for this mod have been erased.");
                         }
                         break;
@@ -256,7 +257,7 @@ public class ModuleManager {
             if (module.isEnabled()) {
                 EventBus.register(module);
                 if (module instanceof ModuleWithModuleSettings moduleWithSettings) {
-					if (moduleWithSettings.parentModule != null) {
+                    if (moduleWithSettings.parentModule != null) {
                         EventBus.register(moduleWithSettings.parentModule);
                     }
                 }
@@ -264,7 +265,7 @@ public class ModuleManager {
                 EventBus.unregister(module);
                 if (module instanceof ModuleWithModuleSettings moduleWithSettings) {
 
-					for (Module module1 : moduleWithSettings.moduleArray) {
+                    for (Module module1 : moduleWithSettings.moduleArray) {
                         EventBus.unregister(module1);
                     }
                 }
@@ -281,7 +282,7 @@ public class ModuleManager {
 
         try {
             profileName = json.getString("profile");
-        } catch (JSONException ignored) {
+        } catch (JsonParseException ignored) {
         }
 
         if (Client.getInstance().clientMode == ClientMode.CLASSIC) {

@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
@@ -34,7 +35,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import java.awt.Color;
@@ -400,7 +400,7 @@ public class GuiManager {
         }
     }
 
-    public void onResize() throws JSONException {
+    public void onResize() throws JsonParseException {
         if (this.screen != null) {
             this.getUIConfig(Client.getInstance().getConfig());
 
@@ -425,7 +425,7 @@ public class GuiManager {
         return this.screen;
     }
 
-    public void handleCurrentScreen() throws JSONException {
+    public void handleCurrentScreen() throws JsonParseException {
         this.handleScreen(handleScreen(Minecraft.getInstance().currentScreen));
     }
 

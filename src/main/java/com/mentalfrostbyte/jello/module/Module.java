@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
@@ -23,7 +24,7 @@ public class Module {
     public ModuleCategory category;
     public boolean enabled;
     public boolean allowed;
-//    public boolean hiddenFromActiveMods;
+    //    public boolean hiddenFromActiveMods;
     private boolean availableOnClassic = true;
     private Module someMod = null;
 
@@ -44,6 +45,7 @@ public class Module {
             throw new IllegalArgumentException("Attempted to add an option with the same name");
         }
     }
+
     public void registerSetting(Setting... settings) {
         for (Setting setting : settings) {
             registerSetting(setting);
@@ -103,7 +105,7 @@ public class Module {
         }
     }
 
-    public JSONObject initialize(JSONObject config) throws JSONException {
+    public JSONObject initialize(JSONObject config) throws JsonParseException {
         JSONArray options = CJsonUtils.getJSONArrayOrNull(config, "options");
 
         this.enabled = config.getBoolean("enabled");
@@ -119,7 +121,7 @@ public class Module {
                     if (setting.getName().equals(optName)) {
                         try {
                             setting.loadCurrentValueFromJSONObject(settingCfg);
-                        } catch (JSONException2 jsonException2) {
+                        } catch (JsonParseException jsonException) {
                             System.err.println("Could not initialize settings of " + this.getName() + "." + setting.getName() + " from config.");
                         }
                         break;
@@ -235,7 +237,7 @@ public class Module {
                     }
 
                     if (Client.getInstance().clientMode == ClientMode.CLASSIC
-                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                            && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                         Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.6F));
                     }
                 }

@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
@@ -39,7 +40,6 @@ import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONArray;
 import org.lwjgl.BufferUtils;
-import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 public class WaypointsManager {
@@ -98,7 +98,7 @@ public class WaypointsManager {
 
             try {
                 FileUtil.save(var8, var3);
-            } catch (IOException | JSONException2 var7) {
+            } catch (IOException | JsonParseException var7) {
                 Client.getInstance().getLogger().error(var7.getMessage());
             }
         }

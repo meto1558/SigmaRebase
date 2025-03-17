@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import org.apache.commons.io.IOUtils;
-import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 public class ProfileManager {
@@ -95,7 +95,7 @@ public class ProfileManager {
                 if (profile.profileName.equalsIgnoreCase(name)) {
                     this.currentConfigs = profile;
                 }
-            } catch (JSONException2 var12) {
+            } catch (JsonParseException var12) {
                 System.err.println("Unable to load profile from " + config.getName());
             }
         }

@@ -147,7 +147,7 @@ public class MusicPlayer extends AnimatedIconPanel {
                 );
         this.musicControls.addToList(this.volumeSlider = new VolumeSlider(this.musicControls, "volume", this.getWidthA() - this.width - 19, 14, 4, 40));
         ChangingButton repeat;
-        this.musicControls.addToList(repeat = new ChangingButton(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeatMode()));
+        this.musicControls.addToList(repeat = new ChangingButton(this.musicControls, "repeat", 14, 34, 27, 20, this.musicManager.getRepeat()));
         repeat.onPress(var2x -> this.musicManager.setRepeat(repeat.getRepeatMode()));
         this.addToList(this.field20867 = new ProgressBar(this, "progress", this.width, this.getHeightA() - 5, this.getWidthA() - this.width, 5));
         this.field20867.setReAddChildren(true);

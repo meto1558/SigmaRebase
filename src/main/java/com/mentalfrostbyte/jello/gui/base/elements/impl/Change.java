@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -9,13 +10,12 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import org.lwjgl.opengl.GL11;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 public class Change extends CustomGuiScreen {
     public Animation animation2 = new Animation(370, 150, Animation.Direction.BACKWARDS);
 
-    public Change(CustomGuiScreen var1, String var2, JSONObject var3) throws JSONException {
+    public Change(CustomGuiScreen var1, String var2, JSONObject var3) throws JsonParseException {
         super(var1, var2);
         this.setWidthA(this.getParent().getWidthA());
         int var6 = 0;

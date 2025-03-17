@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
 import totalcross.json.CJsonUtils;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
@@ -13,7 +13,7 @@ public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
     }
 
     @Override
-    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) throws JSONException {
+    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) throws JsonParseException {
         this.currentValue = new SpeedRamp(CJsonUtils.getJSONArrayOrNull(jsonObject, "value"));
         return jsonObject;
     }
@@ -57,7 +57,7 @@ public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
             this.maxValue = max;
         }
 
-        public SpeedRamp(JSONArray jsonArray) throws JSONException {
+        public SpeedRamp(JSONArray jsonArray) throws JsonParseException {
             this.startValue = Float.parseFloat(jsonArray.getString(0));
             this.middleValue = Float.parseFloat(jsonArray.getString(1));
             this.endValue = Float.parseFloat(jsonArray.getString(2));

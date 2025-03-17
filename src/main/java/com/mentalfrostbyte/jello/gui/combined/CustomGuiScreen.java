@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.combined;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
 import com.mentalfrostbyte.jello.gui.base.interfaces.IGuiEventListener;
@@ -13,7 +14,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import org.lwjgl.opengl.GL11;
 import totalcross.json.CJsonUtils;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
@@ -551,7 +551,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                     JSONObject childJson = null;
                     try {
                         childJson = children.getJSONObject(i);
-                    } catch (JSONException e) {
+                    } catch (JsonParseException e) {
                         throw new RuntimeException(e);
                     }
                     String id = CJsonUtils.getStringOrDefault(childJson, "id", null);

@@ -157,8 +157,8 @@ public class MapFrame extends Element {
         for (Waypoint2 var16 : Client.getInstance().waypointsManager.getWaypoints()) {
             float var17 = (float) (this.chunkPos.x * 16) - this.field20651 * 16.0F;
             float var18 = (float) (this.chunkPos.z * 16) - this.field20650 * 16.0F;
-            float var19 = (float) var16.field35890 - var17 + 1.0F;
-            float var20 = (float) var16.field35891 - var18 + 1.0F;
+            float var19 = (float) var16.x - var17 + 1.0F;
+            float var20 = (float) var16.z - var18 + 1.0F;
             float var21 = (float) var6 / ((float) (this.field20649 - 1) * 2.0F);
             RenderUtil.drawImage(
                     (float) (this.xA + Math.round(var19 * var21 / 16.0F) + this.widthA / 2 - 16),
@@ -166,7 +166,7 @@ public class MapFrame extends Element {
                     32.0F,
                     46.0F,
                     Resources.waypointPNG,
-                    var16.field35892
+                    var16.color
             );
         }
 

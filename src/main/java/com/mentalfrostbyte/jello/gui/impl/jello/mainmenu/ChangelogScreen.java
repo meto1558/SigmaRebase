@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
@@ -13,7 +14,6 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 
 public class ChangelogScreen extends CustomGuiScreen {
    public Animation animation = new Animation(380, 200, Animation.Direction.BACKWARDS);
@@ -88,7 +88,7 @@ public class ChangelogScreen extends CustomGuiScreen {
          String jsonString = getChanges();
          try {
             cachedChangelog = new JSONArray(jsonString);
-         } catch (JSONException e) {
+         } catch (JsonParseException e) {
             throw new RuntimeException(e);
          }
          return cachedChangelog;

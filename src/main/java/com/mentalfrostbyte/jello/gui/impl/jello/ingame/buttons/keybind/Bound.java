@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.Module;
 import net.minecraft.client.gui.screen.Screen;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 public class Bound {
@@ -47,7 +47,7 @@ public class Bound {
                      }
                }
             }
-         } catch (JSONException e) {
+         } catch (JsonParseException e) {
             throw new RuntimeException(e);
          }
       }

@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
 import totalcross.json.CJsonUtils;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class BooleanListSetting extends Setting<List<String>> {
       jsonObject.put("name", this.getName());
        try {
            jsonObject.put("value", new JSONArray(this.currentValue.toArray()));
-       } catch (JSONException e) {
+       } catch (JsonParseException e) {
            throw new RuntimeException(e);
        }
        return jsonObject;
@@ -38,7 +38,7 @@ public class BooleanListSetting extends Setting<List<String>> {
          for (int i = 0; i < jsonArray.length(); i++) {
              try {
                  this.currentValue.add(jsonArray.getString(i));
-             } catch (JSONException e) {
+             } catch (JsonParseException e) {
                  throw new RuntimeException(e);
              }
          }
