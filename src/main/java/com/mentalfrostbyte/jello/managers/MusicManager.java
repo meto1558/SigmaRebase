@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
@@ -98,27 +99,27 @@ public class MusicManager {
     }
 
     public void saveMusicSettings() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("volume", this.volume);
-        jsonObject.put("spectrum", this.spectrum);
-        jsonObject.put("repeat", this.repeat.type);
-        Client.getInstance().getConfig().put("music", jsonObject);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("volume", this.volume);
+        jsonObject.addProperty("spectrum", this.spectrum);
+        jsonObject.addProperty("repeat", this.repeat.type);
+        Client.getInstance().getConfig().add("music", jsonObject);
     }
 
     private void loadSettings() throws JsonParseException {
         if (Client.getInstance().getConfig().has("music")) {
-            JSONObject jsonObject = Client.getInstance().getConfig().getJSONObject("music");
+            JsonObject jsonObject = Client.getInstance().getConfig().getAsJsonObject("music");
             if (jsonObject != null) {
                 if (jsonObject.has("volume")) {
-                    this.volume = Math.max(0, Math.min(100, jsonObject.getInt("volume")));
+                    this.volume = Math.max(0, Math.min(100, jsonObject.get("volume").getAsInt()));
                 }
 
                 if (jsonObject.has("spectrum")) {
-                    this.spectrum = jsonObject.getBoolean("spectrum");
+                    this.spectrum = jsonObject.get("spectrum").getAsBoolean();
                 }
 
                 if (jsonObject.has("repeat")) {
-                    this.repeat = AudioRepeatMode.parseRepeat(jsonObject.getInt("repeat"));
+                    this.repeat = AudioRepeatMode.parseRepeat(jsonObject.get("repeat").getAsInt());
                 }
             }
         }

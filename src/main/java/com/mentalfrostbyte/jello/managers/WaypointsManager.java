@@ -17,6 +17,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
@@ -85,14 +87,14 @@ public class WaypointsManager {
     public void method29991() {
         if (this.field36371 != null) {
             File var3 = new File(this.field36371 + "/waypoints.json");
-            JSONArray var4 = new JSONArray();
+            JsonArray var4 = new JsonArray();
 
             for (Waypoint2 var6 : this.field36368) {
-                var4.put(var6.method29263());
+                var4.add(var6.method29263());
             }
 
-            JSONObject var8 = new JSONObject();
-            var8.put("waypoints", var4);
+            JsonObject var8 = new JsonObject();
+            var8.add("waypoints", var4);
 
             try {
                 FileUtil.save(var8, var3);
@@ -106,13 +108,13 @@ public class WaypointsManager {
         File var3 = new File(this.field36371 + "/waypoints.json");
 
         try {
-            JSONObject var4 = FileUtil.readFile(var3);
+            JsonObject var4 = FileUtil.readFile(var3);
             if (!var4.has("waypoints")) {
-                var4.put("waypoints", new JSONArray());
+                var4.add("waypoints", new JsonArray());
             }
 
-            for (Object var6 : var4.getJSONArray("waypoints")) {
-                this.field36368.add(new Waypoint2((JSONObject) var6));
+            for (Object var6 : var4.getAsJsonArray("waypoints")) {
+                this.field36368.add(new Waypoint2((JsonObject) var6));
             }
 
             this.field36369 = true;
