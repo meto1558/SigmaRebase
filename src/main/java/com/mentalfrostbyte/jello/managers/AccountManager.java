@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
@@ -109,14 +111,14 @@ public class AccountManager {
     }
 
     public void saveAlts() {
-        JSONArray jsonArray = new JSONArray();
+        JsonArray jsonArray = new JsonArray();
 
         for (Account account : this.accounts) {
-            jsonArray.put(account.toJSON());
+            jsonArray.add(account.toJSON());
         }
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("alts", jsonArray);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("alts", jsonArray);
 
         try {
             FileUtil.save(jsonObject, new File(Client.getInstance().file + "/alts.json"));
@@ -127,13 +129,13 @@ public class AccountManager {
 
     private void loadAltsFromFile() {
         try {
-            JSONObject jsonObject = FileUtil.readFile(this.altsFile);
+            JsonObject jsonObject = FileUtil.readFile(this.altsFile);
             if (!jsonObject.has("alts")) {
-                jsonObject.put("alts", new JSONArray());
+                jsonObject.add("alts", new JsonArray());
             }
 
-            for (Object obj : jsonObject.getJSONArray("alts")) {
-                this.accounts.add(new Account((JSONObject) obj));
+            for (Object obj : jsonObject.getAsJsonArray("alts")) {
+                this.accounts.add(new Account((JsonObject) obj));
             }
         } catch (IOException e) {
             Client.getInstance().getLogger().error(e.getMessage());
