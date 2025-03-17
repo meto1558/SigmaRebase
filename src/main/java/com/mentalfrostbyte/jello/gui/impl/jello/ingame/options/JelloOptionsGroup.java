@@ -53,7 +53,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
       );
       String var5 = "Click GUI is currently bound to: "
-         + RenderUtil.getKeyName(Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGuiHolder.class))
+         + RenderUtil.getKeyName(Client.getInstance().moduleManager.getKeyManager().getKeybindFor(ClickGuiHolder.class))
          + " Key";
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
