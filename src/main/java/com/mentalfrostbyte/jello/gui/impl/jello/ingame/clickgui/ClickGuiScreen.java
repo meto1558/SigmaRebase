@@ -234,7 +234,7 @@ public class ClickGuiScreen extends Screen {
     @Override
     public void keyPressed(int keyCode) {
         super.keyPressed(keyCode);
-        int keyBindForClickGui = Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGuiHolder.class);
+        int keyBindForClickGui = Client.getInstance().moduleManager.getKeyManager().getKeybindFor(ClickGuiHolder.class);
         if (keyCode == 256 || keyCode == keyBindForClickGui && this.settingGroup == null && !this.method13227()) {
             if (animationCompleted) {
                 animationStarted = !animationStarted;

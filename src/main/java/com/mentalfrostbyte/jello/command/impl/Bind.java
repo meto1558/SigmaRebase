@@ -46,10 +46,10 @@ public class Bind extends Command {
                     }
 
                     if (var14 != -1) {
-                        Client.getInstance().moduleManager.getMacOSTouchBar().method13725(var14, module);
+                        Client.getInstance().moduleManager.getKeyManager().method13725(var14, module);
                         executor.send("Key " + args[1].getArguments() + " was set for module " + module.getFormattedName());
                     } else {
-                        Client.getInstance().moduleManager.getMacOSTouchBar().method13727(module);
+                        Client.getInstance().moduleManager.getKeyManager().method13727(module);
                         executor.send("Keybind was reset for module " + module.getFormattedName());
                     }
                 }
@@ -60,7 +60,7 @@ public class Bind extends Command {
                 }
 
                 String var7 = "key.keyboard.";
-                int var8 = Client.getInstance().moduleManager.getMacOSTouchBar().method13729(module);
+                int var8 = Client.getInstance().moduleManager.getKeyManager().method13729(module);
                 String var9 = null;
 
                 for (Entry var11 : InputMappings.Input.REGISTRY.entrySet()) {

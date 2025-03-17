@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.gui.impl.jello.JelloTouch;
+import com.mentalfrostbyte.jello.gui.impl.jello.KeyManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
@@ -31,7 +31,7 @@ public class ModuleManager {
 
     private final Map<Class<? extends Module>, Module> moduleMap = new LinkedHashMap<>();
     private ProfileManager profile;
-    private JelloTouch jelloTouch;
+    private KeyManager keyManager;
     private List<Module> modules;
 
     private void createModules() {
@@ -202,8 +202,8 @@ public class ModuleManager {
         return moduleMap;
     }
 
-    public JelloTouch getMacOSTouchBar() {
-        return jelloTouch;
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 
     public Module getModuleByClass(Class<? extends Module> module) {
@@ -290,18 +290,16 @@ public class ModuleManager {
         }
 
         this.profile = new ProfileManager();
-        this.jelloTouch = new JelloTouch();
+        this.keyManager = new KeyManager();
 
         try {
             this.profile.loadProfile(profileName);
-            this.jelloTouch.method13732(json);
+            this.keyManager.method13732(json);
         } catch (IOException var6) {
             Client.getInstance().getLogger().warn("Could not load profiles!");
             var6.printStackTrace();
             throw new RuntimeException("sorry m8");
         }
-
-        this.jelloTouch.init();
     }
 
     public JsonObject loadCurrentConfig(JsonObject obj) {
@@ -321,7 +319,7 @@ public class ModuleManager {
 
         try {
             this.profile.saveAndReplaceConfigs();
-            this.jelloTouch.getKeybindsJSONObject(var1);
+            this.keyManager.getKeybindsJSONObject(var1);
         } catch (IOException var5) {
             var5.printStackTrace();
             Client.getInstance().getLogger().warn("Unable to save mod profiles...");
