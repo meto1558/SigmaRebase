@@ -166,7 +166,6 @@ public class PlayerController implements IPlayerControllerMP
             if (this.currentGameType.isCreative())
             {
                 BlockState blockstate = this.mc.world.getBlockState(loc);
-                this.mc.getTutorial().onHitBlock(this.mc.world, loc, blockstate, 1.0F);
                 this.sendDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK, loc, face);
                 this.onPlayerDestroyBlock(loc);
                 this.blockHitDelay = 5;
@@ -179,7 +178,6 @@ public class PlayerController implements IPlayerControllerMP
                 }
 
                 BlockState blockstate1 = this.mc.world.getBlockState(loc);
-                this.mc.getTutorial().onHitBlock(this.mc.world, loc, blockstate1, 0.0F);
                 this.sendDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK, loc, face);
                 boolean flag = !blockstate1.isAir();
 
@@ -215,7 +213,6 @@ public class PlayerController implements IPlayerControllerMP
         if (this.isHittingBlock)
         {
             BlockState blockstate = this.mc.world.getBlockState(this.currentBlock);
-            this.mc.getTutorial().onHitBlock(this.mc.world, this.currentBlock, blockstate, -1.0F);
             this.sendDiggingPacket(CPlayerDiggingPacket.Action.ABORT_DESTROY_BLOCK, this.currentBlock, Direction.DOWN);
             this.isHittingBlock = false;
             this.curBlockDamageMP = 0.0F;
@@ -237,7 +234,6 @@ public class PlayerController implements IPlayerControllerMP
         {
             this.blockHitDelay = 5;
             BlockState blockstate1 = this.mc.world.getBlockState(posBlock);
-            this.mc.getTutorial().onHitBlock(this.mc.world, posBlock, blockstate1, 1.0F);
             this.sendDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK, posBlock, directionFacing);
             this.onPlayerDestroyBlock(posBlock);
             return true;
@@ -262,7 +258,6 @@ public class PlayerController implements IPlayerControllerMP
                 }
 
                 ++this.stepSoundTickCounter;
-                this.mc.getTutorial().onHitBlock(this.mc.world, posBlock, blockstate, MathHelper.clamp(this.curBlockDamageMP, 0.0F, 1.0F));
 
                 if (this.curBlockDamageMP >= 1.0F)
                 {

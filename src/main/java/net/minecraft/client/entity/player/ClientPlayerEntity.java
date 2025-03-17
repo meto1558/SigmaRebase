@@ -741,7 +741,6 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
         boolean flag2 = this.isUsingSwimmingAnimation();
         this.isCrouching = !this.abilities.isFlying && !this.isSwimming() && this.isPoseClear(Pose.CROUCHING) && (this.isSneaking() || !this.isSleeping() && !this.isPoseClear(Pose.STANDING));
         this.movementInput.tickMovement(this.isForcedDown());
-        this.mc.getTutorial().handleMovement(this.movementInput);
 
         if (this.isHandActive() && !this.isPassenger()) {
             EventSlowDown event = new EventSlowDown(0.2F);

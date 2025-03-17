@@ -322,8 +322,6 @@ public class MouseHelper {
                 i = -1;
             }
 
-            this.minecraft.getTutorial().onMouseMove(d2, d3);
-
             if (this.minecraft.player != null) {
                 this.minecraft.player.rotateTowards(d2, d3 * (double) i);
             }
