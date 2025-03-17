@@ -3,6 +3,7 @@ package com.mentalfrostbyte;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
@@ -27,7 +28,6 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class Client {
     public FriendManager friendManager;
     public SlotChangeTracker slotChangeTracker;
 
-    private JSONObject config;
+    private JsonObject config;
 
     public GuiManager guiManager;
     public ModuleManager moduleManager;
@@ -272,7 +272,7 @@ public class Client {
         }
     }
 
-    public JSONObject getConfig() {
+    public JsonObject getConfig() {
         return this.config;
     }
 
