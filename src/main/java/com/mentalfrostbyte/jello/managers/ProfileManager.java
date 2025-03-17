@@ -1,13 +1,16 @@
 package com.mentalfrostbyte.jello.managers;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
@@ -24,13 +27,23 @@ public class ProfileManager {
     public void saveConfig(Profile config) {
         try {
             this.savedConfigs.add(0, config);
+
             File configItself = new File(Client.getInstance().file + configFolder + config.profileName + configFileExtension);
-            if (!configItself.exists()) {
-                configItself.createNewFile();
+
+            if (configItself.getParentFile() != null) {
+                configItself.getParentFile().mkdirs();
             }
-            IOUtils.write(config.saveToJson(new JSONObject()).toString(0), Files.newOutputStream(configItself.toPath()));
+
+            JsonObject jsonConfig = config.saveToJson(new JsonObject());
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String prettyJson = gson.toJson(new com.google.gson.JsonParser().parse(jsonConfig.toString()));
+
+            Files.write(configItself.toPath(), prettyJson.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to save config: " + config.profileName, e);
         }
     }
 
@@ -87,9 +100,12 @@ public class ProfileManager {
 
         for (File config : configsFound) {
             try {
-                JSONObject object = new JSONObject(IOUtils.toString(Files.newInputStream(config.toPath())));
+                String jsonContent = IOUtils.toString(Files.newInputStream(config.toPath()), StandardCharsets.UTF_8);
+                JsonObject object = JsonParser.parseString(jsonContent).getAsJsonObject();
+
                 Profile profile = new Profile().loadFromJson(object);
                 profile.profileName = config.getName().substring(0, config.getName().length() - ".profile".length());
+
                 this.savedConfigs.add(profile);
                 if (profile.profileName.equalsIgnoreCase(name)) {
                     this.currentConfigs = profile;
@@ -99,14 +115,16 @@ public class ProfileManager {
             }
         }
 
+        // If no profiles were loaded or the current config is null, create a default one
         if (this.savedConfigs.isEmpty() || this.currentConfigs == null) {
             if (name == null || name.isEmpty()) {
                 name = "Default";
             }
 
-            this.savedConfigs.add(this.currentConfigs = new Profile(name, new JSONObject()));
+            this.savedConfigs.add(this.currentConfigs = new Profile(name, new JsonObject()));
         }
 
+        // Load module configurations for the current profile
         Client.getInstance().moduleManager.load(this.currentConfigs.moduleConfig);
     }
 
@@ -121,7 +139,7 @@ public class ProfileManager {
     }
 
     public void saveAndReplaceConfigs() throws IOException {
-        this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
+        this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JsonObject());
         File configFolderFolder = new File(Client.getInstance().file + configFolder);
         if (!configFolderFolder.exists()) {
             configFolderFolder.mkdirs();
@@ -133,13 +151,19 @@ public class ProfileManager {
             configItself.delete();
         }
 
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         for (Profile savedConfig : this.savedConfigs) {
             File configItself = new File(Client.getInstance().file + configFolder + savedConfig.profileName + configFileExtension);
             if (!configItself.exists()) {
                 configItself.createNewFile();
             }
 
-            IOUtils.write(savedConfig.saveToJson(new JSONObject()).toString(0), Files.newOutputStream(configItself.toPath()));
+            String json = gson.toJson(savedConfig.saveToJson(new JsonObject()));
+
+            try (FileOutputStream outputStream = new FileOutputStream(configItself)) {
+                IOUtils.write(json, outputStream, "UTF-8");
+            }
         }
     }
 
@@ -151,14 +175,14 @@ public class ProfileManager {
         Client.getInstance().saveClientData();
         ModuleSettingInitializr.modOffsetMap = new HashMap<>();
         if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
-            this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
+            this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JsonObject());
             this.currentConfigs = config;
-            Client.getInstance().getConfig().put("profile", config.profileName);
+            Client.getInstance().getConfig().addProperty("profile", config.profileName);
             Client.getInstance().moduleManager.load(config.moduleConfig);
             Client.getInstance().saveClientData();
         } else {
             this.currentConfigs.moduleConfig = config.getDefaultConfig();
-            Client.getInstance().getConfig().put("profile", "Classic");
+            Client.getInstance().getConfig().addProperty("profile", "Classic");
             Client.getInstance().moduleManager.load(config.moduleConfig);
             Client.getInstance().saveClientData();
         }

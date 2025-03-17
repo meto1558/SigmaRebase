@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
@@ -14,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FriendManager {
     public List<String> pureTextFriends = new CopyOnWriteArrayList<>();
-    public List<String> entityFriends = new CopyOnWriteArrayList<>();
+    public List<String> enemies = new CopyOnWriteArrayList<>();
     private final Minecraft mc = Minecraft.getInstance();
 
     public void init() {
@@ -43,7 +44,7 @@ public class FriendManager {
                 ChatUtil.printMessage(var4.getPrefix() + " " + this.mc.pointedEntity.getName().getUnformattedComponentText() + " is now your friend.");
             }
 
-            this.method27009();
+            this.saveFriends();
         }
     }
 
@@ -56,11 +57,11 @@ public class FriendManager {
     }
 
     public boolean isFriend(Entity name) {
-        return this.entityFriends.contains(name.getName().getUnformattedComponentText().toLowerCase());
+        return this.enemies.contains(name.getName().getUnformattedComponentText().toLowerCase());
     }
 
     public boolean isFriend(String var1) {
-        return this.entityFriends.contains(var1.toLowerCase());
+        return this.enemies.contains(var1.toLowerCase());
     }
 
     public boolean method27001(String var1) {
@@ -68,7 +69,7 @@ public class FriendManager {
             return false;
         } else {
             this.pureTextFriends.add(var1.toLowerCase());
-            this.method27009();
+            this.saveFriends();
             return true;
         }
     }
@@ -77,8 +78,8 @@ public class FriendManager {
         if (this.isFriend(var1)) {
             return false;
         } else {
-            this.entityFriends.add(var1.toLowerCase());
-            this.method27010();
+            this.enemies.add(var1.toLowerCase());
+            this.saveEnemies();
             return true;
         }
     }
@@ -88,22 +89,22 @@ public class FriendManager {
     }
 
     public List<String> method27004() {
-        return this.entityFriends;
+        return this.enemies;
     }
 
     public boolean method27005(String var1) {
         boolean var4 = this.pureTextFriends.remove(var1.toLowerCase());
         if (var4) {
-            this.method27009();
+            this.saveFriends();
         }
 
         return var4;
     }
 
     public boolean method27006(String var1) {
-        boolean var4 = this.entityFriends.remove(var1.toLowerCase());
+        boolean var4 = this.enemies.remove(var1.toLowerCase());
         if (var4) {
-            this.method27010();
+            this.saveEnemies();
         }
 
         return var4;
@@ -112,7 +113,7 @@ public class FriendManager {
     public boolean method27007() {
         if (!this.pureTextFriends.isEmpty()) {
             this.pureTextFriends.clear();
-            this.method27009();
+            this.saveFriends();
             return true;
         } else {
             return false;
@@ -120,35 +121,48 @@ public class FriendManager {
     }
 
     public boolean method27008() {
-        if (!this.entityFriends.isEmpty()) {
-            this.entityFriends.clear();
-            this.method27010();
+        if (!this.enemies.isEmpty()) {
+            this.enemies.clear();
+            this.saveEnemies();
             return true;
         } else {
             return false;
         }
     }
 
-    public void method27009() {
-        Client.getInstance().getConfig().put("friends", this.pureTextFriends);
+    public void saveFriends() {
+        JsonArray friendsArray = new JsonArray();
+        for (String friend : this.pureTextFriends) {
+            friendsArray.add(friend);
+        }
+
+        Client.getInstance().getConfig().add("friends", friendsArray);
     }
 
-    public void method27010() {
-        Client.getInstance().getConfig().put("enemies", this.entityFriends);
+    public void saveEnemies() {
+        JsonArray enemiesArray = new JsonArray();
+        for (String enemy : this.enemies) {
+            enemiesArray.add(enemy);
+        }
+
+        Client.getInstance().getConfig().add("enemies", enemiesArray);
     }
 
     private void loadFromCurrentConfig() throws JsonParseException {
+        this.pureTextFriends.clear();
+        this.enemies.clear();
+
         if (Client.getInstance().getConfig().has("friends")) {
-            JSONArray var3 = Client.getInstance().getConfig().getJSONArray("friends");
+            JsonArray var3 = Client.getInstance().getConfig().getAsJsonArray("friends");
             if (var3 != null) {
-                var3.forEach(var1 -> this.pureTextFriends.add((String) var1));
+                var3.forEach(var1 -> this.pureTextFriends.add(var1.getAsString()));
             }
         }
 
         if (Client.getInstance().getConfig().has("enemies")) {
-            JSONArray var4 = Client.getInstance().getConfig().getJSONArray("enemies");
+            JsonArray var4 = Client.getInstance().getConfig().getAsJsonArray("enemies");
             if (var4 != null) {
-                var4.forEach(var1 -> this.entityFriends.add((String) var1));
+                var4.forEach(var1 -> this.enemies.add(var1.getAsString()));
             }
         }
     }

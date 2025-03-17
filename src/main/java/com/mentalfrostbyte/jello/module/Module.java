@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.module;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods;
@@ -9,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -105,17 +106,17 @@ public class Module {
         }
     }
 
-    public JSONObject initialize(JSONObject config) throws JsonParseException {
-        JSONArray options = CJsonUtils.getJSONArrayOrNull(config, "options");
+    public JsonObject initialize(JsonObject config) throws JsonParseException {
+        JsonArray options = config.getAsJsonArray("options");
 
-        this.enabled = config.getBoolean("enabled");
+        this.enabled = config.get("enabled").getAsBoolean();
 
-        this.allowed = config.getBoolean("allowed");
+        this.allowed = config.get("allowed").getAsBoolean();
 
         if (options != null) {
-            for (int i = 0; i < options.length(); i++) {
-                JSONObject settingCfg = options.getJSONObject(i);
-                String optName = CJsonUtils.getStringOrDefault(settingCfg, "name", null);
+            for (int i = 0; i < options.size(); i++) {
+                JsonObject settingCfg = options.get(i).getAsJsonObject();
+                String optName = settingCfg.get("name").getAsString();
 
                 for (Setting<?> setting : this.settingMap.values()) {
                     if (setting.getName().equals(optName)) {
@@ -137,18 +138,19 @@ public class Module {
         return config;
     }
 
-    public JSONObject buildUpModuleData(JSONObject obj) {
+    public JsonObject buildUpModuleData(JsonObject obj) {
+        System.out.println(getName());
         try {
-            obj.put("name", this.getName());
-            obj.put("enabled", this.enabled);
-            obj.put("allowed", this.isAllowed());
-            JSONArray jsonArray = new JSONArray();
+            obj.addProperty("name", this.getName());
+            obj.addProperty("enabled", this.enabled);
+            obj.addProperty("allowed", this.isAllowed());
+            JsonArray jsonArray = new JsonArray();
 
             for (Setting<?> s : this.settingMap.values()) {
-                jsonArray.put(s.buildUpSettingData(new JSONObject()));
+                jsonArray.add(s.buildUpSettingData(new JsonObject()));
             }
 
-            obj.put("options", jsonArray);
+            obj.add("options", jsonArray);
             return obj;
         } catch (Exception e) {
             throw new RuntimeException(e);
