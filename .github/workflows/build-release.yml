@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-        contents: write
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -78,11 +78,14 @@ jobs:
           name: built-jar
           path: target/
 
-      - name: Download built JAR
+      - name: Download JSON artifact
         uses: actions/download-artifact@v4
         with:
-          name: sigma-jello-5.1.0.json
+          name: manifest
           path: release/
+
+      - name: Verify JSON file exists
+        run: ls -l release/
 
       - name: Compute SHA1 and file size again
         run: |
