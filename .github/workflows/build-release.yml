@@ -45,11 +45,17 @@ jobs:
           echo "SIZE=$SIZE" >> $GITHUB_ENV
           echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
 
-      - name: Upload JAR as artifact
+      - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: built-jar
           path: target/*.jar
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest
+          path: release/sigma-jello-5.1.0.json
 
   release:
     needs: build
@@ -71,6 +77,12 @@ jobs:
         with:
           name: built-jar
           path: target/
+
+      - name: Download built JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: sigma-jello-5.1.0.json
+          path: release/
 
       - name: Compute SHA1 and file size again
         run: |
