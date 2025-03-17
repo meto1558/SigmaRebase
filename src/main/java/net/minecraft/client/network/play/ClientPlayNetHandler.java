@@ -1479,7 +1479,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         PlayerEntity playerentity = this.client.player;
         ItemStack itemstack = packetIn.getStack();
         int i = packetIn.getSlot();
-        this.client.getTutorial().handleSetSlot(itemstack);
 
         if (packetIn.getWindowId() == -1)
         {

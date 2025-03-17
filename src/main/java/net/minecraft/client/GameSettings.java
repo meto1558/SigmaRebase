@@ -35,7 +35,6 @@ import net.minecraft.client.settings.PointOfView;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.client.settings.ToggleableKeyBinding;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.client.tutorial.TutorialSteps;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.ChatVisibility;
 import net.minecraft.entity.player.PlayerModelPart;
@@ -110,7 +109,6 @@ public class GameSettings
     private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
     public boolean useNativeTransport = true;
     public AttackIndicatorStatus attackIndicator = AttackIndicatorStatus.CROSSHAIR;
-    public TutorialSteps tutorialStep = TutorialSteps.MOVEMENT;
     public boolean field_244601_E = false;
     public int biomeBlendRadius = 2;
     public double mouseWheelSensitivity = 1.0D;
@@ -558,11 +556,6 @@ public class GameSettings
                         this.updateRenderClouds();
                     }
 
-                    if ("tutorialStep".equals(s))
-                    {
-                        this.tutorialStep = TutorialSteps.byName(s1);
-                    }
-
                     if ("ao".equals(s))
                     {
                         if ("true".equals(s1))
@@ -951,7 +944,6 @@ public class GameSettings
                 printwriter.println("mainHand:" + (this.mainHand == HandSide.LEFT ? "left" : "right"));
                 printwriter.println("attackIndicator:" + this.attackIndicator.getId());
                 printwriter.println("narrator:" + this.narrator.getId());
-                printwriter.println("tutorialStep:" + this.tutorialStep.getName());
                 printwriter.println("mouseWheelSensitivity:" + this.mouseWheelSensitivity);
                 printwriter.println("rawMouseInput:" + AbstractOption.RAW_MOUSE_INPUT.get(this));
                 printwriter.println("glDebugVerbosity:" + this.glDebugVerbosity);

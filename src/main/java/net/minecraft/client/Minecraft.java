@@ -101,7 +101,6 @@ import net.minecraft.client.gui.social.FilterManager;
 import net.minecraft.client.gui.social.SocialInteractionsScreen;
 import net.minecraft.client.gui.toasts.SystemToast;
 import net.minecraft.client.gui.toasts.ToastGui;
-import net.minecraft.client.gui.toasts.TutorialToast;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.login.ClientLoginNetHandler;
@@ -148,7 +147,6 @@ import net.minecraft.client.settings.GraphicsFanciness;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.client.tutorial.Tutorial;
 import net.minecraft.client.util.IMutableSearchTree;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.SearchTree;
@@ -333,7 +331,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final PotionSpriteUploader potionSprites;
     private final ToastGui toastGui;
     private final MinecraftGame game = new MinecraftGame(this);
-    private final Tutorial tutorial;
     private final FilterManager field_244597_aC;
     public static byte[] memoryReserve = new byte[10485760];
     @Nullable
@@ -385,8 +382,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final Queue<Runnable> queueChunkTracking = Queues.newConcurrentLinkedQueue();
     @Nullable
     private CompletableFuture<Void> futureRefreshResources;
-    @Nullable
-    private TutorialToast field_244598_aV;
     private IProfiler profiler = EmptyProfiler.INSTANCE;
     private int gameTime;
     private final TimeTracker gameTimeTracker = new TimeTracker(Util.nanoTimeSupplier, () ->
@@ -433,7 +428,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         KeybindTextComponent.func_240696_a_(KeyBinding::getDisplayString);
         this.dataFixer = DataFixesManager.getDataFixer();
         this.toastGui = new ToastGui(this);
-        this.tutorial = new Tutorial(this);
         this.thread = Thread.currentThread();
         this.gameSettings = new GameSettings(this, this.gameDir);
         this.creativeSettings = new CreativeSettings(this.gameDir, this.dataFixer);
@@ -1528,7 +1522,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         this.profiler.endSection();
         this.gameRenderer.getMouseOver(1.0F);
-        this.tutorial.onMouseHover(this.world, this.objectMouseOver);
         this.profiler.startSection("gameMode");
 
         if (!this.isGamePaused && this.world != null && this.playerController != null) {
@@ -1622,15 +1615,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         if (this.world != null) {
             if (!this.isGamePaused) {
                 if (!this.gameSettings.field_244601_E && this.func_244600_aM()) {
-                    ITextComponent itextcomponent = new TranslationTextComponent("tutorial.socialInteractions.title");
-                    ITextComponent itextcomponent1 = new TranslationTextComponent("tutorial.socialInteractions.description", Tutorial.createKeybindComponent("socialInteractions"));
-                    this.field_244598_aV = new TutorialToast(TutorialToast.Icons.SOCIAL_INTERACTIONS, itextcomponent, itextcomponent1, true);
-                    this.tutorial.func_244698_a(this.field_244598_aV, 160);
                     this.gameSettings.field_244601_E = true;
                     this.gameSettings.saveOptions();
                 }
-
-                this.tutorial.tick();
 
                 try {
                     this.world.tick(() ->
@@ -1710,11 +1697,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 this.player.sendStatusMessage(field_244596_I, true);
                 NarratorChatListener.INSTANCE.say(field_244596_I.getString());
             } else {
-                if (this.field_244598_aV != null) {
-                    this.tutorial.func_244697_a(this.field_244598_aV);
-                    this.field_244598_aV = null;
-                }
-
                 this.displayGuiScreen(new SocialInteractionsScreen());
             }
         }
@@ -1723,7 +1705,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             if (this.playerController.isRidingHorse()) {
                 this.player.sendHorseInventory();
             } else {
-                this.tutorial.openInventory();
                 this.displayGuiScreen(new InventoryScreen(this.player));
             }
         }
@@ -2636,10 +2617,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
     public ToastGui getToastGui() {
         return this.toastGui;
-    }
-
-    public Tutorial getTutorial() {
-        return this.tutorial;
     }
 
     public boolean isGameFocused() {
