@@ -22,7 +22,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

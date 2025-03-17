@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.managers.util.command.CommandType;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import org.apache.commons.io.IOUtils;
-import totalcross.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;

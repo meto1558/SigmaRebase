@@ -3,9 +3,6 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
     public SpeedRampSetting(String name, String description, float start, float middle, float end, float max) {

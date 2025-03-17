@@ -38,9 +38,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
-import totalcross.json.JSONArray;
 import org.lwjgl.BufferUtils;
-import totalcross.json.JSONObject;
 
 public class WaypointsManager {
     private final Minecraft field36365 = Minecraft.getInstance();

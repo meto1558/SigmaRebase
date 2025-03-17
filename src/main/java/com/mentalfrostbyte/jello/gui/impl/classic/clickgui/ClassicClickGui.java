@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
-import totalcross.json.JSONObject;
 
 public class ClassicClickGui extends Screen {
     private static final Minecraft field21078 = Minecraft.getInstance();

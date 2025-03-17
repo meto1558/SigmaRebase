@@ -9,8 +9,6 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;

@@ -2,8 +2,6 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONObject;
 
 public class TextBoxSetting extends Setting<Integer> {
     private final String[] options;

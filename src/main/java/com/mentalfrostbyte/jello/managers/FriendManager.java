@@ -6,7 +6,6 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
-import totalcross.json.JSONArray;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.Minecraft;
 

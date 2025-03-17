@@ -3,9 +3,6 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;

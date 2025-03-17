@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import com.google.gson.JsonParseException;
 import org.apache.commons.lang3.StringUtils;
-import totalcross.json.JSONObject;
 
 public class YoutubeUtil {
     public static String method34955(int var0) {

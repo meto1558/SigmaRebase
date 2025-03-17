@@ -26,7 +26,6 @@ import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

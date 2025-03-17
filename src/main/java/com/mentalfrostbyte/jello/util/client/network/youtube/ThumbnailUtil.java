@@ -1,7 +1,6 @@
 package com.mentalfrostbyte.jello.util.client.network.youtube;
 
 import org.apache.http.ParseException;
-import totalcross.json.JSONArray;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,7 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
