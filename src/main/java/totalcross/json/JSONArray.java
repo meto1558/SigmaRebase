@@ -23,6 +23,8 @@ package totalcross.json;
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
+import com.google.gson.JsonParseException;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -93,10 +95,10 @@ public class JSONArray implements Iterable<Object> {
     *
     * @param x
     *            A JSONTokener
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is a syntax error.
     */
-   public JSONArray(JSONTokener x) throws JSONException {
+   public JSONArray(JSONTokener x) throws JsonParseException {
       this();
       if (x.nextClean() != '[') {
          throw x.syntaxError("A JSONArray text must start with '['");
@@ -134,10 +136,10 @@ public class JSONArray implements Iterable<Object> {
     *            A string that begins with <code>[</code>&nbsp;<small>(left
     *            bracket)</small> and ends with <code>]</code>
     *            &nbsp;<small>(right bracket)</small>.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is a syntax error.
     */
-   public JSONArray(String source) throws JSONException {
+   public JSONArray(String source) throws JsonParseException {
       this(new JSONTokener(source));
    }
 
@@ -160,10 +162,10 @@ public class JSONArray implements Iterable<Object> {
    /**
     * Construct a JSONArray from an array
     *
-    * @throws JSONException
+    * @throws JsonParseException
     *             If not an array.
     */
-   public JSONArray(Object array) throws JSONException {
+   public JSONArray(Object array) throws JsonParseException {
       this();
       if (array.getClass().isArray()) {
          int length = Array.getLength(array);
@@ -171,7 +173,7 @@ public class JSONArray implements Iterable<Object> {
             this.put(JSONObject.wrap(Array.get(array, i)));
          }
       } else {
-         throw new JSONException("JSONArray initial value should be a string or collection or array.");
+         throw new JsonParseException("JSONArray initial value should be a string or collection or array.");
       }
    }
 
@@ -186,13 +188,13 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return An object value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is no value for the index.
     */
-   public Object get(int index) throws JSONException {
+   public Object get(int index) throws JsonParseException {
       Object object = this.opt(index);
       if (object == null) {
-         throw new JSONException("JSONArray[" + index + "] not found.");
+         throw new JsonParseException("JSONArray[" + index + "] not found.");
       }
       return object;
    }
@@ -204,11 +206,11 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return The truth.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is no value for the index or if the value is not
     *             convertible to boolean.
     */
-   public boolean getBoolean(int index) throws JSONException {
+   public boolean getBoolean(int index) throws JsonParseException {
       Object object = this.get(index);
       if (object.equals(Boolean.FALSE) || (object instanceof String && ((String) object).equalsIgnoreCase("false"))) {
          return false;
@@ -216,7 +218,7 @@ public class JSONArray implements Iterable<Object> {
               || (object instanceof String && ((String) object).equalsIgnoreCase("true"))) {
          return true;
       }
-      throw new JSONException("JSONArray[" + index + "] is not a boolean.");
+      throw new JsonParseException("JSONArray[" + index + "] is not a boolean.");
    }
 
    /**
@@ -225,16 +227,16 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return The value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the key is not found or if the value cannot be converted
     *             to a number.
     */
-   public double getDouble(int index) throws JSONException {
+   public double getDouble(int index) throws JsonParseException {
       Object object = this.get(index);
       try {
          return object instanceof Number ? ((Number) object).doubleValue() : Double.parseDouble((String) object);
       } catch (Exception e) {
-         throw new JSONException("JSONArray[" + index + "] is not a number.", e);
+         throw new JsonParseException("JSONArray[" + index + "] is not a number.", e);
       }
    }
 
@@ -244,15 +246,15 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return The value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the key is not found or if the value is not a number.
     */
-   public int getInt(int index) throws JSONException {
+   public int getInt(int index) throws JsonParseException {
       Object object = this.get(index);
       try {
          return object instanceof Number ? ((Number) object).intValue() : Integer.parseInt((String) object);
       } catch (Exception e) {
-         throw new JSONException("JSONArray[" + index + "] is not a number.", e);
+         throw new JsonParseException("JSONArray[" + index + "] is not a number.", e);
       }
    }
 
@@ -262,16 +264,16 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return A JSONArray value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is no value for the index. or if the value is not a
     *             JSONArray
     */
-   public JSONArray getJSONArray(int index) throws JSONException {
+   public JSONArray getJSONArray(int index) throws JsonParseException {
       Object object = this.get(index);
       if (object instanceof JSONArray) {
          return (JSONArray) object;
       }
-      throw new JSONException("JSONArray[" + index + "] is not a JSONArray.");
+      throw new JsonParseException("JSONArray[" + index + "] is not a JSONArray.");
    }
 
    /**
@@ -280,16 +282,16 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            subscript
     * @return A JSONObject value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is no value for the index or if the value is not a
     *             JSONObject
     */
-   public JSONObject getJSONObject(int index) throws JSONException {
+   public JSONObject getJSONObject(int index) throws JsonParseException {
       Object object = this.get(index);
       if (object instanceof JSONObject) {
          return (JSONObject) object;
       }
-      throw new JSONException("JSONArray[" + index + "] is not a JSONObject.");
+      throw new JsonParseException("JSONArray[" + index + "] is not a JSONObject.");
    }
 
    /**
@@ -298,16 +300,16 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return The value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the key is not found or if the value cannot be converted
     *             to a number.
     */
-   public long getLong(int index) throws JSONException {
+   public long getLong(int index) throws JsonParseException {
       Object object = this.get(index);
       try {
          return object instanceof Number ? ((Number) object).longValue() : Long.parseLong((String) object);
       } catch (Exception e) {
-         throw new JSONException("JSONArray[" + index + "] is not a number.", e);
+         throw new JsonParseException("JSONArray[" + index + "] is not a number.", e);
       }
    }
 
@@ -317,15 +319,15 @@ public class JSONArray implements Iterable<Object> {
     * @param index
     *            The index must be between 0 and length() - 1.
     * @return A string value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If there is no string value for the index.
     */
-   public String getString(int index) throws JSONException {
+   public String getString(int index) throws JsonParseException {
       Object object = this.get(index);
       if (object instanceof String) {
          return (String) object;
       }
-      throw new JSONException("JSONArray[" + index + "] not a string.");
+      throw new JsonParseException("JSONArray[" + index + "] not a string.");
    }
 
    /**
@@ -347,10 +349,10 @@ public class JSONArray implements Iterable<Object> {
     * @param separator
     *            A string that will be inserted between the elements.
     * @return a string.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the array contains an invalid number.
     */
-   public String join(String separator) throws JSONException {
+   public String join(String separator) throws JsonParseException {
       int len = this.length();
       StringBuilder sb = new StringBuilder();
 
@@ -596,11 +598,11 @@ public class JSONArray implements Iterable<Object> {
     *
     * @param value
     *            A double value.
-    * @throws JSONException
+    * @throws JsonParseException
     *             if the value is not finite.
     * @return this.
     */
-   public JSONArray put(double value) throws JSONException {
+   public JSONArray put(double value) throws JsonParseException {
       Double d = new Double(value);
       JSONObject.testValidity(d);
       this.put(d);
@@ -668,10 +670,10 @@ public class JSONArray implements Iterable<Object> {
     * @param value
     *            A boolean value.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative.
     */
-   public JSONArray put(int index, boolean value) throws JSONException {
+   public JSONArray put(int index, boolean value) throws JsonParseException {
       this.put(index, value ? Boolean.TRUE : Boolean.FALSE);
       return this;
    }
@@ -685,10 +687,10 @@ public class JSONArray implements Iterable<Object> {
     * @param value
     *            A Collection value.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative or if the value is not finite.
     */
-   public JSONArray put(int index, Collection<Object> value) throws JSONException {
+   public JSONArray put(int index, Collection<Object> value) throws JsonParseException {
       this.put(index, new JSONArray(value));
       return this;
    }
@@ -703,10 +705,10 @@ public class JSONArray implements Iterable<Object> {
     * @param value
     *            A double value.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative or if the value is not finite.
     */
-   public JSONArray put(int index, double value) throws JSONException {
+   public JSONArray put(int index, double value) throws JsonParseException {
       this.put(index, new Double(value));
       return this;
    }
@@ -721,10 +723,10 @@ public class JSONArray implements Iterable<Object> {
     * @param value
     *            An int value.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative.
     */
-   public JSONArray put(int index, int value) throws JSONException {
+   public JSONArray put(int index, int value) throws JsonParseException {
       this.put(index, new Integer(value));
       return this;
    }
@@ -739,10 +741,10 @@ public class JSONArray implements Iterable<Object> {
     * @param value
     *            A long value.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative.
     */
-   public JSONArray put(int index, long value) throws JSONException {
+   public JSONArray put(int index, long value) throws JsonParseException {
       this.put(index, new Long(value));
       return this;
    }
@@ -756,11 +758,11 @@ public class JSONArray implements Iterable<Object> {
     * @param value
     *            The Map value.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative or if the the value is an invalid
     *             number.
     */
-   public JSONArray put(int index, Map<String, Object> value) throws JSONException {
+   public JSONArray put(int index, Map<String, Object> value) throws JsonParseException {
       this.put(index, new JSONObject(value));
       return this;
    }
@@ -777,7 +779,7 @@ public class JSONArray implements Iterable<Object> {
     *            Boolean, Double, Integer, JSONArray, JSONObject, Long, or
     *            String, or the JSONObject.NULL object.
     * @return this.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If the index is negative or if the the value is an invalid
     *             number.
     */
@@ -785,7 +787,7 @@ public class JSONArray implements Iterable<Object> {
        try {
            JSONObject.testValidity(value);
            System.out.println("JSONArray[" + index + "] not found.");
-       } catch (JSONException ignored) {
+       } catch (JsonParseException ignored) {
        }
       if (index < 0) {
       }
@@ -819,7 +821,7 @@ public class JSONArray implements Iterable<Object> {
     * @param other The other JSONArray
     * @return true if they are equal
     */
-   public boolean similar(Object other) throws JSONException {
+   public boolean similar(Object other) throws JsonParseException {
       if (!(other instanceof JSONArray)) {
          return false;
       }
@@ -854,10 +856,10 @@ public class JSONArray implements Iterable<Object> {
     *            paired with the values.
     * @return A JSONObject, or null if there are no names or if this JSONArray
     *         has no values.
-    * @throws JSONException
+    * @throws JsonParseException
     *             If any of the names are null.
     */
-   public JSONObject toJSONObject(JSONArray names) throws JSONException {
+   public JSONObject toJSONObject(JSONArray names) throws JsonParseException {
       if (names == null || names.length() == 0 || this.length() == 0) {
          return null;
       }
@@ -898,9 +900,9 @@ public class JSONArray implements Iterable<Object> {
     *         object, beginning with <code>[</code>&nbsp;<small>(left
     *         bracket)</small> and ending with <code>]</code>
     *         &nbsp;<small>(right bracket)</small>.
-    * @throws JSONException
+    * @throws JsonParseException
     */
-   public String toString(int indentFactor) throws JSONException {
+   public String toString(int indentFactor) throws JsonParseException {
       StringBuffer sw = new StringBuffer();
       //synchronized (sw.getBuffer()) {
       return this.write(sw, indentFactor, 0).toString();
@@ -914,9 +916,9 @@ public class JSONArray implements Iterable<Object> {
     * Warning: This method assumes that the data structure is acyclical.
     *
     * @return The writer.
-    * @throws JSONException
+    * @throws JsonParseException
     */
-   public StringBuffer write(StringBuffer writer) throws JSONException {
+   public StringBuffer write(StringBuffer writer) throws JsonParseException {
       return this.write(writer, 0, 0);
    }
 
@@ -931,9 +933,9 @@ public class JSONArray implements Iterable<Object> {
     * @param indent
     *            The indention of the top level.
     * @return The writer.
-    * @throws JSONException
+    * @throws JsonParseException
     */
-   StringBuffer write(StringBuffer writer, int indentFactor, int indent) throws JSONException {
+   StringBuffer write(StringBuffer writer, int indentFactor, int indent) throws JsonParseException {
       try {
          boolean commanate = false;
          int length = this.length();
@@ -963,7 +965,7 @@ public class JSONArray implements Iterable<Object> {
          writer.append(']');
          return writer;
       } catch (IOException e) {
-         throw new JSONException2(e);
+         throw new JsonParseException(e);
       }
    }
 }

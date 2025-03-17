@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers.util.profile;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
@@ -22,7 +23,7 @@ public class Profile {
         this.moduleConfig = profile.moduleConfig;
     }
 
-    public Profile loadFromJson(JSONObject jsonObject) throws JSONException {
+    public Profile loadFromJson(JSONObject jsonObject) throws JsonParseException {
         this.moduleConfig = jsonObject.getJSONObject("modConfig");
         this.profileName = jsonObject.getString("name");
         return this;
@@ -42,12 +43,12 @@ public class Profile {
         return new Profile(newName, this.moduleConfig);
     }
 
-    public void disableNonGuiModules() throws JSONException {
+    public void disableNonGuiModules() throws JsonParseException {
         JSONArray modulesArray = null;
 
         try {
             modulesArray = CJsonUtils.getJSONArrayOrNull(this.moduleConfig, "mods");
-        } catch (JSONException2 ignored) {
+        } catch (JsonParseException ignored) {
         }
 
         if (modulesArray != null) {
@@ -57,7 +58,7 @@ public class Profile {
 
                 try {
                     moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
-                } catch (JSONException2 e) {
+                } catch (JsonParseException e) {
                     System.out.println("Invalid name in mod list config");
                 }
 
@@ -75,7 +76,7 @@ public class Profile {
 
         try {
             modulesArray = CJsonUtils.getJSONArrayOrNull(this.moduleConfig, "mods");
-        } catch (JSONException2 ignored) {
+        } catch (JsonParseException ignored) {
         }
 
         boolean updated = false;
@@ -92,7 +93,7 @@ public class Profile {
 
                         updated = true;
                     }
-                } catch (JSONException e) {
+                } catch (JsonParseException e) {
                     System.out.println("Invalid name in mod list config");
                 }
 
@@ -109,7 +110,7 @@ public class Profile {
 
         try {
             modulesArray = CJsonUtils.getJSONArrayOrNull(this.moduleConfig, "mods");
-        } catch (JSONException2 ignored) {
+        } catch (JsonParseException ignored) {
         }
 
         if (modulesArray != null) {
@@ -118,7 +119,7 @@ public class Profile {
 
                 try {
                     moduleObject = modulesArray.getJSONObject(i);
-                } catch (JSONException e) {
+                } catch (JsonParseException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -126,7 +127,7 @@ public class Profile {
 
                 try {
                     moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
-                } catch (JSONException2 e) {
+                } catch (JsonParseException e) {
                     System.out.println("Invalid name in mod list config");
                 }
 

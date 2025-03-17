@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import team.sdhq.eventBus.EventBus;
@@ -20,6 +21,7 @@ public class ModuleWithModuleSettings extends Module {
     public ModuleWithModuleSettings(ModuleCategory category, String type, String description, Module... modules) {
         this(category, type, description, "Type", modules);
     }
+
     public ModuleWithModuleSettings(ModuleCategory category, String type, String description, String customModeName, Module... modules) {
         super(category, type, description);
         this.moduleArray = modules;
@@ -90,7 +92,7 @@ public class ModuleWithModuleSettings extends Module {
     }
 
     @Override
-    public JSONObject initialize(JSONObject config) throws JSONException {
+    public JSONObject initialize(JSONObject config) throws JsonParseException {
         JSONObject var4 = CJsonUtils.getJSONObjectOrNull(config, "sub-options");
         if (var4 != null) {
             for (Module var8 : this.moduleArray) {
@@ -104,9 +106,7 @@ public class ModuleWithModuleSettings extends Module {
                             if (var14.getName().equals(var12)) {
                                 try {
                                     var14.loadCurrentValueFromJSONObject(var11);
-                                } catch (JSONException2 var16) {
-                                    System.err.println("Could not initialize settings of " + var8.getName() + "." + var14.getName() + " from config.");
-                                } catch (JSONException e) {
+                                } catch (JsonParseException e) {
                                     throw new RuntimeException(e);
                                 }
                                 break;

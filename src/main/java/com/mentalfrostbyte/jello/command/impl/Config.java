@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.command.impl;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
@@ -9,7 +10,6 @@ import com.mentalfrostbyte.jello.managers.util.command.CommandType;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import org.apache.commons.io.IOUtils;
-import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 import java.io.File;
@@ -125,7 +125,7 @@ public class Config extends Command {
 
         try {
             IOUtils.write(jsonConfig.toString(0), new FileOutputStream(configFile));
-        } catch (IOException | JSONException2 e) {
+        } catch (IOException | JsonParseException e) {
             throw new RuntimeException(e);
         }
     }

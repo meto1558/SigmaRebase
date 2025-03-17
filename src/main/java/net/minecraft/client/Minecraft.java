@@ -8,6 +8,7 @@ import baritone.api.event.events.type.EventState;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventInputOptions;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
@@ -254,7 +255,6 @@ import net.minecraft.world.storage.ServerWorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONException;
 
 import static com.mentalfrostbyte.Client.RELEASE_TARGET;
 
@@ -886,7 +886,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.currentScreen = guiScreenIn;
         try {
             Client.getInstance().guiManager.handleCurrentScreen();
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             throw new RuntimeException(e);
         }
 
@@ -1126,7 +1126,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.currentScreen.resize(this, this.mainWindow.getScaledWidth(), this.mainWindow.getScaledHeight());
             try {
                 Client.getInstance().guiManager.onResize();
-            } catch (JSONException e) {
+            } catch (JsonParseException e) {
                 throw new RuntimeException(e);
             }
         }

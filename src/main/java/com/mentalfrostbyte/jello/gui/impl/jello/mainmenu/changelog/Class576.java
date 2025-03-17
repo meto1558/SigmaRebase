@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.changelog;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.ChangelogScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.Change;
 import net.minecraft.util.Util;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 public class Class576 implements Runnable {
@@ -32,7 +32,7 @@ public class Class576 implements Runnable {
             var6.setYA(var3);
             var3 += var6.getHeightA();
          }
-      } catch (JSONException e) {
+      } catch (JsonParseException e) {
          throw new RuntimeException(e);
       }
    }

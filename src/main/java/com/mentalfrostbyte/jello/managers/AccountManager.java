@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.BanListener;
@@ -9,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 import team.sdhq.eventBus.EventBus;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 import java.io.File;
@@ -122,7 +122,7 @@ public class AccountManager {
 
         try {
             FileUtil.save(jsonObject, new File(Client.getInstance().file + "/alts.json"));
-        } catch (IOException | JSONException2 var6) {
+        } catch (IOException | JsonParseException var6) {
             Client.getInstance().getLogger().error(var6.getMessage());
         }
     }

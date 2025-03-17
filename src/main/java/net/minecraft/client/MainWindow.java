@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -39,7 +40,6 @@ import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 import org.lwjgl.util.tinyfd.TinyFileDialogs;
-import totalcross.json.JSONException;
 
 public final class MainWindow implements AutoCloseable {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -323,7 +323,7 @@ public final class MainWindow implements AutoCloseable {
         this.height = windowHeightIn;
         try {
             Client.getInstance().guiManager.onResize();
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             throw new RuntimeException(e);
         }
     }

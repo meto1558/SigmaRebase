@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
@@ -12,7 +13,6 @@ import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
@@ -44,7 +44,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.util.BufferedImageUtil;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import javax.imageio.ImageIO;
@@ -79,7 +78,7 @@ public class MusicManager {
     private int currentVideoIndex;
     private YoutubeVideoData currentVideo;
     private boolean spectrum = true;
-    private AudioRepeatMode repeatMode = AudioRepeatMode.REPEAT;
+    private AudioRepeatMode repeat = AudioRepeatMode.REPEAT;
     private boolean finished = false;
     private double field32168;
     private boolean field32169 = false;
@@ -89,7 +88,7 @@ public class MusicManager {
         EventBus.register(this);
         try {
             this.loadSettings();
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             throw new RuntimeException(e);
         }
         if (!this.doesYTDLPExist()) {
@@ -103,11 +102,11 @@ public class MusicManager {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("volume", this.volume);
         jsonObject.put("spectrum", this.spectrum);
-        jsonObject.put("repeat", this.repeatMode.type);
+        jsonObject.put("repeat", this.repeat.type);
         Client.getInstance().getConfig().put("music", jsonObject);
     }
 
-    private void loadSettings() throws JSONException {
+    private void loadSettings() throws JsonParseException {
         if (Client.getInstance().getConfig().has("music")) {
             JSONObject jsonObject = Client.getInstance().getConfig().getJSONObject("music");
             if (jsonObject != null) {
@@ -120,7 +119,7 @@ public class MusicManager {
                 }
 
                 if (jsonObject.has("repeat")) {
-                    this.repeatMode = AudioRepeatMode.parseRepeat(jsonObject.getInt("repeat"));
+                    this.repeat = AudioRepeatMode.parseRepeat(jsonObject.getInt("repeat"));
                 }
             }
         }
@@ -129,7 +128,7 @@ public class MusicManager {
     @EventTarget
     public void onRender2D(EventRender2DOffset event) {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
-            if (this.playing && this.visualizerData.size() != 0) {
+            if (this.playing && !this.visualizerData.isEmpty()) {
                 double[] var4 = this.visualizerData.get(0);
                 if (this.amplitudes.isEmpty()) {
                     for (double v : var4) {
@@ -161,7 +160,7 @@ public class MusicManager {
 
     @EventTarget
     public void onRender2D(EventRender2DCustom event) {
-        if (this.playing && this.visualizerData.size() != 0 && this.spectrum) {
+        if (this.playing && !this.visualizerData.isEmpty() && this.spectrum) {
             this.renderSpectrum();
         }
     }
@@ -290,7 +289,7 @@ public class MusicManager {
                 this.processing = false;
             }
         } catch (IOException exc) {
-            exc.printStackTrace();
+            throw new RuntimeException(exc);
         }
 
         if (!this.processing) {
@@ -329,7 +328,7 @@ public class MusicManager {
                             while (!this.playing) {
                                 try {
                                     Thread.sleep(300L);
-                                } catch (final InterruptedException ex) {
+                                } catch (final InterruptedException ignored) {
                                 }
 
                                 double[] var6 = new double[0];
@@ -385,7 +384,6 @@ public class MusicManager {
                                     while (var13.hasMoreFrames()) {
                                         while (!this.playing) {
                                             Thread.sleep(300L);
-                                            double[] var17 = new double[0];
                                             this.visualizerData.clear();
                                             if (Thread.interrupted()) {
                                                 this.sourceDataLine.close();
@@ -423,8 +421,8 @@ public class MusicManager {
                                         }
 
                                         if (!var13.hasMoreFrames()
-                                                && (this.repeatMode == AudioRepeatMode.LOOP_CURRENT
-                                                || this.repeatMode == AudioRepeatMode.REPEAT
+                                                && (this.repeat == AudioRepeatMode.LOOP_CURRENT
+                                                || this.repeat == AudioRepeatMode.REPEAT
                                                 && this.videoManager.videoList.size() == 1)) {
                                             var13.seek(0.0);
                                             this.totalDuration = 0L;
@@ -446,18 +444,15 @@ public class MusicManager {
                                     System.out.println("installing");
                                     this.download();
                                 }
-                            } catch (LineUnavailableException exc) {
-                                exc.printStackTrace();
-                            } catch (InterruptedException exc) {
-                                exc.printStackTrace();
-                                break;
+                            } catch (LineUnavailableException | InterruptedException exc) {
+                                throw new RuntimeException(exc);
                             }
 
-                            if (this.repeatMode == AudioRepeatMode.LOOP_CURRENT) {
+                            if (this.repeat == AudioRepeatMode.LOOP_CURRENT) {
                                 index--;
-                            } else if (this.repeatMode == AudioRepeatMode.REPEAT && index == this.videoManager.videoList.size() - 1) {
+                            } else if (this.repeat == AudioRepeatMode.REPEAT && index == this.videoManager.videoList.size() - 1) {
                                 index = -1;
-                            } else if (this.repeatMode == AudioRepeatMode.NO_REPEAT) {
+                            } else if (this.repeat == AudioRepeatMode.NO_REPEAT) {
                                 return;
                             }
 
@@ -471,12 +466,12 @@ public class MusicManager {
     }
 
     public void setRepeat(AudioRepeatMode repeatMode) {
-        this.repeatMode = repeatMode;
+        this.repeat = repeatMode;
         this.saveMusicSettings();
     }
 
-    public AudioRepeatMode getRepeatMode() {
-        return this.repeatMode;
+    public AudioRepeatMode getRepeat() {
+        return this.repeat;
     }
 
     public void processVideoThumbnail(YoutubeVideoData videoData) {
@@ -500,7 +495,7 @@ public class MusicManager {
 
             this.currentVideo = null;
         } catch (IOException | NumberFormatException var5) {
-            var5.printStackTrace();
+            throw new RuntimeException(var5);
         }
     }
 
@@ -605,7 +600,6 @@ public class MusicManager {
                 this.download();
             }
         } catch (MalformedURLException exception) {
-            MinecraftUtil.addChatMessage("URL E " + exception);
             exception.printStackTrace();
         }
 

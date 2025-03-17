@@ -11,8 +11,8 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.stream.Collectors;
 
+import com.google.gson.JsonParseException;
 import org.apache.commons.lang3.StringUtils;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 public class YoutubeUtil {
@@ -37,7 +37,7 @@ public class YoutubeUtil {
         return var3.toString();
     }
 
-    public static JSONObject method34958(String var0) throws JSONException {
+    public static JSONObject method34958(String var0) throws JsonParseException {
         return new JSONObject(var0);
     }
 

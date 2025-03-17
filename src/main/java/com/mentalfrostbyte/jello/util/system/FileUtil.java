@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.util.system;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import org.apache.commons.io.IOUtils;
-import totalcross.json.JSONException2;
 import totalcross.json.JSONObject;
 
 import java.awt.*;
@@ -33,7 +33,7 @@ public class FileUtil {
             if (!var5.isEmpty()) {
                 try {
                     var3 = new JSONObject(var5);
-                } catch (JSONException2 var7) {
+                } catch (JsonParseException var7) {
                     if (Client.getInstance().getLogger() != null) {
                         Client.getInstance().getLogger().warn("Error when reading json from config. Continuing, but no preferences will be loaded.");
                     }

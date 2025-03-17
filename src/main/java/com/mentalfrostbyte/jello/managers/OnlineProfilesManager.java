@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.OnlineProfileListener;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
@@ -10,7 +11,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import java.io.IOException;
@@ -89,7 +89,7 @@ public class OnlineProfilesManager {
                     newProfile.updateModuleConfig(moduleConfig, module);
                 }
             }
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             throw new RuntimeException("Failed to parse profile configuration", e);
         }
         return newProfile;

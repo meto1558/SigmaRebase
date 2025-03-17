@@ -13,18 +13,15 @@ import org.apache.commons.codec.binary.Base64OutputStream;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.newdawn.slick.util.BufferedImageUtil;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
 public class Account {
@@ -71,7 +68,7 @@ public class Account {
         this(email, password, null, null);
     }
 
-    public Account(JSONObject json) throws JSONException {
+    public Account(JSONObject json) throws IOException {
         if (json.has("email")) {
             this.email = json.getString("email");
         }
@@ -118,7 +115,7 @@ public class Account {
             try {
                 this.skin = ImageIO.read(new ByteArrayInputStream(var7));
             } catch (IOException var6) {
-                var6.printStackTrace();
+                throw new IOException(var6);
             }
         }
     }

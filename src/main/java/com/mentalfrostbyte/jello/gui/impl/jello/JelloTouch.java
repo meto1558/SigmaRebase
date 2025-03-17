@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello;
 
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Bound;
@@ -21,7 +22,6 @@ import org.lwjgl.glfw.GLFWNativeCocoa;
 import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
 import totalcross.json.JSONObject;
 
 import java.util.*;
@@ -103,7 +103,7 @@ public class JelloTouch {
         }
     }
 
-    public JSONObject getKeybindsJSONObject(JSONObject obj) throws JSONException {
+    public JSONObject getKeybindsJSONObject(JSONObject obj) throws JsonParseException {
         JSONArray keybinds = new JSONArray();
 
         for (Bound var6 : this.boundables) {
@@ -116,7 +116,7 @@ public class JelloTouch {
         return obj;
     }
 
-    public void method13732(JSONObject pKeybinds) throws JSONException {
+    public void method13732(JSONObject pKeybinds) throws JsonParseException {
         if (pKeybinds.has("keybinds")) {
             JSONArray keybindsArr = pKeybinds.getJSONArray("keybinds");
 
