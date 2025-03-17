@@ -92,8 +92,8 @@ jobs:
 
       - name: Create and push tag
         run: |
-          git tag -f nightly
-          git push origin nightly
+          git push origin :refs/tags/nightly
+          git tag -fa nightly
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
