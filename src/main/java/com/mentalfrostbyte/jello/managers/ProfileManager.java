@@ -13,7 +13,6 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import org.apache.commons.io.IOUtils;
-import totalcross.json.JSONObject;
 
 public class ProfileManager {
     private final List<Profile> savedConfigs = new ArrayList<>();

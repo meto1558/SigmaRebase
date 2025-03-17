@@ -9,8 +9,6 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import org.lwjgl.opengl.GL11;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 public class Change extends CustomGuiScreen {
     public Animation animation2 = new Animation(370, 150, Animation.Direction.BACKWARDS);

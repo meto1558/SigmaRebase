@@ -19,7 +19,6 @@ import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

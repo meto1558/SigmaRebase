@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl.critical;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import net.minecraft.client.Minecraft;
-import totalcross.json.JSONObject;
 
 public abstract class Screen
         extends CustomGuiScreen {
@@ -16,7 +16,7 @@ public abstract class Screen
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         super.loadConfig(config);
         this.setWidthA(Minecraft.getInstance().getMainWindow().getWidth());
         this.setHeightA(Minecraft.getInstance().getMainWindow().getHeight());

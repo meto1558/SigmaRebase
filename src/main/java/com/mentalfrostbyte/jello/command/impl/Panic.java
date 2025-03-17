@@ -7,7 +7,6 @@ import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
-import totalcross.json.JSONObject;
 
 public class Panic extends Command {
     public Panic() {

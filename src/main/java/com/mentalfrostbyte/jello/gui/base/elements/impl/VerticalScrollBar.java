@@ -12,8 +12,6 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONObject;
 
 public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
     public int field20793;

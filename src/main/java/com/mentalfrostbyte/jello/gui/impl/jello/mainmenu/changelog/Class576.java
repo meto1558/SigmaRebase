@@ -4,8 +4,6 @@ import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.ChangelogScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.Change;
 import net.minecraft.util.Util;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 public class Class576 implements Runnable {
    public final JSONArray field2812;
