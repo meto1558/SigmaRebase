@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.settings;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import org.jetbrains.annotations.NotNull;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,11 @@ public abstract class Setting<T> {
         this.description = description;
     }
 
-    public abstract JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) throws JsonParseException;
+    public abstract JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) throws JsonParseException;
 
-    public JSONObject buildUpSettingData(JSONObject jsonObject) {
-        jsonObject.put("name", this.getName());
-        jsonObject.put("value", this.currentValue);
+    public JsonObject buildUpSettingData(JsonObject jsonObject) {
+        jsonObject.addProperty("name", this.getName());
+        jsonObject.addProperty("value", (String) this.currentValue);
         return jsonObject;
     }
 

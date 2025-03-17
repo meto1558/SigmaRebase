@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
@@ -20,12 +22,12 @@ public abstract class SubOptionSetting2 extends Setting<Boolean> {
     }
 
     @Override
-    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) throws JsonParseException {
-        JSONArray array = CJsonUtils.getJSONArrayOrNull(jsonObject, this.getName());
+    public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) throws JsonParseException {
+        JsonArray array = jsonObject.getAsJsonArray(this.getName());
         if (array != null) {
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject settingObject = array.getJSONObject(i);
-                String settingName = CJsonUtils.getStringOrDefault(settingObject, "name", null);
+            for (int i = 0; i < array.size(); i++) {
+                JsonObject settingObject = array.get(i).getAsJsonObject();
+                String settingName = settingObject.get("name").getAsString();
 
                 for (Setting<?> setting : this.getSubSettings()) {
                     if (setting.getName().equals(settingName)) {
@@ -36,20 +38,20 @@ public abstract class SubOptionSetting2 extends Setting<Boolean> {
             }
         }
 
-        this.currentValue = CJsonUtils.getBooleanOrDefault(jsonObject, "value", this.getDefaultValue());
+        this.currentValue = jsonObject.get("value").getAsBoolean();
         return jsonObject;
     }
 
     @Override
-    public JSONObject buildUpSettingData(JSONObject jsonObject) {
-        JSONArray children = new JSONArray();
+    public JsonObject buildUpSettingData(JsonObject jsonObject) {
+        JsonArray children = new JsonArray();
 
         for (Setting<?> setting : this.getSubSettings()) {
-            children.put(setting.buildUpSettingData(new JSONObject()));
+            children.add(setting.buildUpSettingData(new JsonObject()));
         }
 
-        jsonObject.put("children", children);
-        jsonObject.put("name", this.getName());
+        jsonObject.add("children", children);
+        jsonObject.addProperty("name", this.getName());
         return super.buildUpSettingData(jsonObject);
     }
 

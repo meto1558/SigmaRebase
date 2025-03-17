@@ -1,9 +1,8 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONObject;
 
 public class NumberSetting<T extends Number> extends Setting<Float> {
     private float minValue;
@@ -28,8 +27,8 @@ public class NumberSetting<T extends Number> extends Setting<Float> {
     }
 
     @Override
-    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) {
-        this.currentValue = CJsonUtils.getFloatOrDefault(jsonObject, "value", this.getDefaultValue());
+    public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
+        this.currentValue = jsonObject.get("value").getAsFloat();
         return jsonObject;
     }
 

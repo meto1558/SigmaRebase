@@ -1,10 +1,11 @@
 package com.mentalfrostbyte.jello.module;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,15 +93,15 @@ public class ModuleWithModuleSettings extends Module {
     }
 
     @Override
-    public JSONObject initialize(JSONObject config) throws JsonParseException {
-        JSONObject var4 = CJsonUtils.getJSONObjectOrNull(config, "sub-options");
+    public JsonObject initialize(JsonObject config) throws JsonParseException {
+        JsonObject var4 = config.getAsJsonObject("sub-options");
         if (var4 != null) {
             for (Module var8 : this.moduleArray) {
-                JSONArray var9 = CJsonUtils.getJSONArrayOrNull(var4, var8.getName());
+                JsonArray var9 = var4.getAsJsonArray(var8.getName());
                 if (var9 != null) {
-                    for (int var10 = 0; var10 < var9.length(); var10++) {
-                        JSONObject var11 = var9.getJSONObject(var10);
-                        String var12 = CJsonUtils.getStringOrDefault(var11, "name", null);
+                    for (int var10 = 0; var10 < var9.size(); var10++) {
+                        JsonObject var11 = var9.get(var10).getAsJsonObject();
+                        String var12 = var11.get("name").getAsString();
 
                         for (Setting<?> var14 : var8.settingMap.values()) {
                             if (var14.getName().equals(var12)) {
@@ -117,7 +118,7 @@ public class ModuleWithModuleSettings extends Module {
             }
         }
 
-        JSONObject var18 = super.initialize(config);
+        JsonObject var18 = super.initialize(config);
         if (this.enabled) {
             this.calledOnEnable();
         }
@@ -126,21 +127,21 @@ public class ModuleWithModuleSettings extends Module {
     }
 
     @Override
-    public JSONObject buildUpModuleData(JSONObject obj) {
+    public JsonObject buildUpModuleData(JsonObject obj) {
         try {
-            JSONObject subOptionsObj = new JSONObject();
+            JsonObject subOptionsObj = new JsonObject();
 
             for (Module mod : this.moduleArray) {
-                JSONArray arr = new JSONArray();
+                JsonArray arr = new JsonArray();
 
                 for (Setting<?> setting : mod.settingMap.values()) {
-                    arr.put(setting.buildUpSettingData(new JSONObject()));
+                    arr.add(setting.buildUpSettingData(new JsonObject()));
                 }
 
-                subOptionsObj.put(mod.getName(), arr);
+                subOptionsObj.add(mod.getName(), arr);
             }
 
-            obj.put("sub-options", subOptionsObj);
+            obj.add("sub-options", subOptionsObj);
             return super.buildUpModuleData(obj);
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
 
@@ -12,8 +13,8 @@ public class TextBoxSetting extends Setting<Integer> {
     }
 
     @Override
-    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) {
-        this.currentValue = CJsonUtils.getIntOrDefault(jsonObject, "value", this.getDefaultValue());
+    public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
+        this.currentValue = jsonObject.get("value").getAsInt();
         return jsonObject;
     }
 
