@@ -5,7 +5,7 @@ public class DecoderException extends JavaLayerException implements DecoderError
 
     public DecoderException(String msg, Throwable t) {
         super(msg, t);
-        this.errorcode = 512;
+        this.errorcode = DecoderErrors.UNKNOWN_ERROR;
     }
 
     public DecoderException(int errorcode, Throwable t) {

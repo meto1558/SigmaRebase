@@ -24,14 +24,12 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                 this.subbands[i] = new LayerIIDecoder.SubbandLayer2Stereo(i);
             }
         }
-
     }
 
     protected void readScaleFactorSelection() {
         for (int i = 0; i < this.num_subbands; ++i) {
             ((LayerIIDecoder.SubbandLayer2) this.subbands[i]).read_scalefactor_selection(this.stream, this.crc);
         }
-
     }
 
     static class SubbandLayer2 extends LayerIDecoder.Subband {
@@ -176,7 +174,6 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                 c[0] = table_cd_c[allocation];
                 d[0] = table_cd_d[allocation];
             }
-
         }
 
         public void read_allocation(SoundStream stream, Frame header, Crc16 crc) {
@@ -185,7 +182,6 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
             if (crc != null) {
                 crc.add_bits(this.allocation, length);
             }
-
         }
 
         public void read_scalefactor_selection(SoundStream stream, Crc16 crc) {
@@ -195,7 +191,6 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                     crc.add_bits(this.scfsi, 2);
                 }
             }
-
         }
 
         public void read_scalefactor(SoundStream stream, Frame header) {
@@ -220,7 +215,6 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
 
                 this.prepare_sample_reading(header, this.allocation, 0, this.factor, this.codelength, this.c, this.d);
             }
-
         }
 
         public boolean read_sampledata(SoundStream stream) {
@@ -231,10 +225,7 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                     float[] target = this.samples;
                     float[] source = this.groupingtable[0];
                     int tmp = 0;
-                    int temp = samplecode;
-                    if (samplecode > source.length - 3) {
-                        temp = source.length - 3;
-                    }
+                    int temp = Math.min(samplecode, source.length - 3);
 
                     target[tmp] = source[temp];
                     ++temp;
@@ -299,7 +290,6 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                     crc.add_bits(this.channel2_scfsi, 2);
                 }
             }
-
         }
 
         public void read_scalefactor(SoundStream stream, Frame header) {
@@ -323,7 +313,6 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                         this.channel2_scalefactor2 = this.channel2_scalefactor3 = scalefactors[stream.get_bits(6)];
                 }
             }
-
         }
 
         public boolean read_sampledata(SoundStream stream) {
@@ -399,11 +388,11 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
             int length = this.get_allocationlength(header);
             this.allocation = stream.get_bits(length);
             this.channel2_allocation = stream.get_bits(length);
+
             if (crc != null) {
                 crc.add_bits(this.allocation, length);
                 crc.add_bits(this.channel2_allocation, length);
             }
-
         }
 
         public void read_scalefactor_selection(SoundStream stream, Crc16 crc) {
@@ -420,11 +409,11 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
                     crc.add_bits(this.channel2_scfsi, 2);
                 }
             }
-
         }
 
         public void read_scalefactor(SoundStream stream, Frame header) {
             super.read_scalefactor(stream, header);
+
             if (this.channel2_allocation != 0) {
                 switch (this.channel2_scfsi) {
                     case 0:
@@ -446,11 +435,11 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
 
                 this.prepare_sample_reading(header, this.channel2_allocation, 1, this.channel2_factor, this.channel2_codelength, this.channel2_c, this.channel2_d);
             }
-
         }
 
         public boolean read_sampledata(SoundStream stream) {
             boolean returnvalue = super.read_sampledata(stream);
+
             if (this.channel2_allocation != 0) {
                 if (this.groupingtable[1] != null) {
                     int samplecode = stream.get_bits(this.channel2_codelength[0]);
@@ -478,18 +467,7 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
         public boolean put_next_sample(int channels, SynthesisFilter filter1, SynthesisFilter filter2) {
             boolean returnvalue = super.put_next_sample(channels, filter1, filter2);
             if (this.channel2_allocation != 0 && channels != 1) {
-                float sample = this.channel2_samples[this.samplenumber - 1];
-                if (this.groupingtable[1] == null) {
-                    sample = (sample + this.channel2_d[0]) * this.channel2_c[0];
-                }
-
-                if (this.groupnumber <= 4) {
-                    sample *= this.channel2_scalefactor1;
-                } else if (this.groupnumber <= 8) {
-                    sample *= this.channel2_scalefactor2;
-                } else {
-                    sample *= this.channel2_scalefactor3;
-                }
+                float sample = getSample();
 
                 if (channels == 0) {
                     filter2.input_sample(sample, this.subbandnumber);
@@ -499,6 +477,22 @@ class LayerIIDecoder extends LayerIDecoder implements FrameDecoder {
             }
 
             return returnvalue;
+        }
+
+        private float getSample() {
+            float sample = this.channel2_samples[this.samplenumber - 1];
+            if (this.groupingtable[1] == null) {
+                sample = (sample + this.channel2_d[0]) * this.channel2_c[0];
+            }
+
+            if (this.groupnumber <= 4) {
+                sample *= this.channel2_scalefactor1;
+            } else if (this.groupnumber <= 8) {
+                sample *= this.channel2_scalefactor2;
+            } else {
+                sample *= this.channel2_scalefactor3;
+            }
+            return sample;
         }
     }
 }

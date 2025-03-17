@@ -12,7 +12,7 @@ public final class SoundStream implements BitstreamErrors {
     private static final int BUFFER_INT_SIZE = 433;
     private final int[] framebuffer = new int[433];
     private int framesize;
-    private byte[] frame_bytes = new byte[1732];
+    private final byte[] frame_bytes = new byte[1732];
     private int wordpointer;
     private int bitindex;
     private int syncword;
@@ -49,13 +49,12 @@ public final class SoundStream implements BitstreamErrors {
             in.mark(10);
             size = this.readID3v2Header(in);
             this.header_pos = size;
-        } catch (IOException var14) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 in.reset();
-            } catch (IOException var12) {
+            } catch (IOException ignored) {
             }
-
         }
 
         try {
@@ -63,9 +62,8 @@ public final class SoundStream implements BitstreamErrors {
                 this.rawid3v2 = new byte[size];
                 in.read(this.rawid3v2, 0, this.rawid3v2.length);
             }
-        } catch (IOException var13) {
+        } catch (IOException ignored) {
         }
-
     }
 
     private int readID3v2Header(InputStream in) throws IOException {
@@ -74,8 +72,6 @@ public final class SoundStream implements BitstreamErrors {
         in.read(id3header, 0, 3);
         if (id3header[0] == 73 && id3header[1] == 68 && id3header[2] == 51) {
             in.read(id3header, 0, 3);
-            int majorVersion = id3header[0];
-            int revision = id3header[1];
             in.read(id3header, 0, 4);
             size = (id3header[0] << 21) + (id3header[1] << 14) + (id3header[2] << 7) + id3header[3];
         }
@@ -87,8 +83,7 @@ public final class SoundStream implements BitstreamErrors {
         if (this.rawid3v2 == null) {
             return null;
         } else {
-            ByteArrayInputStream bain = new ByteArrayInputStream(this.rawid3v2);
-            return bain;
+            return new ByteArrayInputStream(this.rawid3v2);
         }
     }
 
@@ -147,7 +142,6 @@ public final class SoundStream implements BitstreamErrors {
                 throw this.newBitstreamException(258);
             }
         }
-
     }
 
     public void closeFrame() {
@@ -158,24 +152,26 @@ public final class SoundStream implements BitstreamErrors {
 
     public boolean isSyncCurrentPosition(int syncmode) throws BitstreamException {
         int read = this.readBytes(this.syncbuf, 0, 4);
-        int headerstring = this.syncbuf[0] << 24 & -16777216 | this.syncbuf[1] << 16 & 16711680 | this.syncbuf[2] << 8 & '\uff00' | this.syncbuf[3] << 0 & 255;
+        int headerstring = this.syncbuf[0] << 24 & -16777216 | this.syncbuf[1] << 16 & 16711680 | this.syncbuf[2] << 8 & '\uff00' | this.syncbuf[3] & 255;
 
         try {
             this.source.unread(this.syncbuf, 0, read);
-        } catch (IOException var5) {
+        } catch (IOException ignored) {
         }
 
         boolean sync = false;
         switch (read) {
             case 0:
                 sync = true;
+                break;
+            case 4:
+                sync = this.isSyncMark(headerstring, syncmode, this.syncword);
+                break;
             case 1:
             case 2:
             case 3:
             default:
                 break;
-            case 4:
-                sync = this.isSyncMark(headerstring, syncmode, this.syncword);
         }
 
         return sync;
@@ -189,11 +185,11 @@ public final class SoundStream implements BitstreamErrors {
         return this.get_bits(n);
     }
 
-    protected BitstreamException newBitstreamException(int errorcode) {
+    BitstreamException newBitstreamException(int errorcode) {
         return new BitstreamException(errorcode, (Throwable) null);
     }
 
-    protected BitstreamException newBitstreamException(int errorcode, Throwable throwable) {
+    private BitstreamException newBitstreamException(int errorcode, Throwable throwable) {
         return new BitstreamException(errorcode, throwable);
     }
 
@@ -202,7 +198,7 @@ public final class SoundStream implements BitstreamErrors {
         if (bytesRead != 3) {
             throw this.newBitstreamException(260, (Throwable) null);
         } else {
-            int headerstring = this.syncbuf[0] << 16 & 16711680 | this.syncbuf[1] << 8 & '\uff00' | this.syncbuf[2] << 0 & 255;
+            int headerstring = this.syncbuf[0] << 16 & 16711680 | this.syncbuf[1] << 8 & '\uff00' | this.syncbuf[2] & 255;
 
             boolean sync;
             do {
@@ -220,7 +216,7 @@ public final class SoundStream implements BitstreamErrors {
     }
 
     public boolean isSyncMark(int headerstring, int syncmode, int word) {
-        boolean sync = false;
+        boolean sync;
         if (syncmode == INITIAL_SYNC) {
             sync = (headerstring & -2097152) == -2097152;
         } else {
@@ -250,7 +246,7 @@ public final class SoundStream implements BitstreamErrors {
         return numread;
     }
 
-    void parse_frame() throws BitstreamException {
+    void parse_frame() {
         int b = 0;
         byte[] byteread = this.frame_bytes;
         int bytesize = this.framesize;
@@ -292,8 +288,6 @@ public final class SoundStream implements BitstreamErrors {
                 this.bitindex = 0;
                 ++this.wordpointer;
             }
-
-            return returnvalue;
         } else {
             int Right = this.framebuffer[this.wordpointer] & '\uffff';
             ++this.wordpointer;
@@ -302,8 +296,9 @@ public final class SoundStream implements BitstreamErrors {
             returnvalue >>>= 48 - sum;
             returnvalue &= this.bitmask[number_of_bits];
             this.bitindex = sum - 32;
-            return returnvalue;
         }
+
+        return returnvalue;
     }
 
     void set_syncword(int syncword0) {

@@ -97,6 +97,7 @@ final class LayerIIIDecoder implements FrameDecoder {
         this.sfBandIndex[6] = new LayerIIIDecoder.SBI(l6, s6);
         this.sfBandIndex[7] = new LayerIIIDecoder.SBI(l7, s7);
         this.sfBandIndex[8] = new LayerIIIDecoder.SBI(l8, s8);
+
         if (reorder_table == null) {
             reorder_table = new int[9][];
 
@@ -121,17 +122,18 @@ final class LayerIIIDecoder implements FrameDecoder {
         this.sfreq = this.header.sample_frequency() + (this.header.version() == 1 ? 3 : (this.header.version() == 2 ? 6 : 0));
         if (this.channels == 2) {
             switch (this.which_channels) {
-                case 0:
-                default:
-                    this.first_channel = 0;
-                    this.last_channel = 1;
-                    break;
                 case 1:
                 case 3:
                     this.first_channel = this.last_channel = 0;
                     break;
                 case 2:
                     this.first_channel = this.last_channel = 1;
+                    break;
+                case 0:
+                default:
+                    this.first_channel = 0;
+                    this.last_channel = 1;
+                    break;
             }
         } else {
             this.first_channel = this.last_channel = 0;
@@ -472,7 +474,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             this.scalefac[ch].l[21] = 0;
             this.scalefac[ch].l[22] = 0;
         }
-
     }
 
     private void get_LSF_scale_data(int ch, int gr) {
@@ -481,6 +482,7 @@ final class LayerIIIDecoder implements FrameDecoder {
         LayerIIIDecoder.gr_info_s gr_info = this.si.ch[ch].gr[gr];
         int scalefac_comp = gr_info.scalefac_compress;
         byte blocktypenumber;
+
         if (gr_info.block_type == 2) {
             if (gr_info.mixed_block_flag == 0) {
                 blocktypenumber = 1;
@@ -500,7 +502,6 @@ final class LayerIIIDecoder implements FrameDecoder {
                 this.new_slen[2] = (scalefac_comp & 15) >>> 2;
                 this.new_slen[3] = scalefac_comp & 3;
                 this.si.ch[ch].gr[gr].preflag = 0;
-                blocknumber = 0;
             } else if (scalefac_comp < 500) {
                 this.new_slen[0] = (scalefac_comp - 400 >>> 2) / 5;
                 this.new_slen[1] = (scalefac_comp - 400 >>> 2) % 5;
@@ -557,7 +558,6 @@ final class LayerIIIDecoder implements FrameDecoder {
                 ++m;
             }
         }
-
     }
 
     private void get_LSF_scale_factors(int ch, int gr) {
@@ -580,9 +580,6 @@ final class LayerIIIDecoder implements FrameDecoder {
                     }
                 }
 
-                for (window = 0; window < 3; ++window) {
-                    this.scalefac[ch].s[window][12] = 0;
-                }
             } else {
                 for (sfb = 0; sfb < 12; ++sfb) {
                     for (window = 0; window < 3; ++window) {
@@ -591,9 +588,9 @@ final class LayerIIIDecoder implements FrameDecoder {
                     }
                 }
 
-                for (window = 0; window < 3; ++window) {
-                    this.scalefac[ch].s[window][12] = 0;
-                }
+            }
+            for (window = 0; window < 3; ++window) {
+                this.scalefac[ch].s[window][12] = 0;
             }
         } else {
             for (sfb = 0; sfb < 21; ++sfb) {
@@ -604,7 +601,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             this.scalefac[ch].l[21] = 0;
             this.scalefac[ch].l[22] = 0;
         }
-
     }
 
     private void huffman_decode(int ch, int gr) {
@@ -615,6 +611,7 @@ final class LayerIIIDecoder implements FrameDecoder {
         int part2_3_end = this.part2_start + this.si.ch[ch].gr[gr].part2_3_length;
         int region1Start;
         int region2Start;
+
         if (this.si.ch[ch].gr[gr].window_switching_flag != 0 && this.si.ch[ch].gr[gr].block_type == 2) {
             region1Start = this.sfreq == 8 ? 72 : 36;
             region2Start = 576;
@@ -669,11 +666,7 @@ final class LayerIIIDecoder implements FrameDecoder {
             this.br.hgetbits(part2_3_end - num_bits);
         }
 
-        if (index < 576) {
-            this.nonzero[ch] = index;
-        } else {
-            this.nonzero[ch] = 576;
-        }
+        this.nonzero[ch] = Math.min(index, 576);
 
         if (index < 0) {
             index = 0;
@@ -683,7 +676,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             this.is_1d[index] = 0;
             ++index;
         }
-
     }
 
     private void i_stereo_k_values(int is_pos, int io_type, int i) {
@@ -697,7 +689,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             this.k[0][i] = 1.0F;
             this.k[1][i] = io[io_type][is_pos >>> 1];
         }
-
     }
 
     private void dequantize_sample(float[][] xr, int ch, int gr) {
@@ -706,7 +697,6 @@ final class LayerIIIDecoder implements FrameDecoder {
         int cb_begin = 0;
         int cb_width = 0;
         int index = 0;
-        float[][] xr_1d = xr;
         int next_cb_boundary;
         if (gr_info.window_switching_flag != 0 && gr_info.block_type == 2) {
             if (gr_info.mixed_block_flag != 0) {
@@ -714,7 +704,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             } else {
                 cb_width = this.sfBandIndex[this.sfreq].s[1];
                 next_cb_boundary = (cb_width << 2) - cb_width;
-                cb_begin = 0;
             }
         } else {
             next_cb_boundary = this.sfBandIndex[this.sfreq].l[1];
@@ -730,21 +719,21 @@ final class LayerIIIDecoder implements FrameDecoder {
             reste = j % 18;
             quotien = (j - reste) / 18;
             if (this.is_1d[j] == 0) {
-                xr_1d[quotien][reste] = 0.0F;
+                xr[quotien][reste] = 0.0F;
             } else {
                 idx = this.is_1d[j];
                 if (idx < t_43.length) {
                     if (this.is_1d[j] > 0) {
-                        xr_1d[quotien][reste] = g_gain * t_43[idx];
+                        xr[quotien][reste] = g_gain * t_43[idx];
                     } else if (-idx < t_43.length) {
-                        xr_1d[quotien][reste] = -g_gain * t_43[-idx];
+                        xr[quotien][reste] = -g_gain * t_43[-idx];
                     } else {
-                        xr_1d[quotien][reste] = -g_gain * (float) Math.pow((double) (-idx), 1.3333333333333333D);
+                        xr[quotien][reste] = -g_gain * (float) Math.pow((double) (-idx), d43);
                     }
                 } else if (this.is_1d[j] > 0) {
-                    xr_1d[quotien][reste] = g_gain * (float) Math.pow((double) idx, 1.3333333333333333D);
+                    xr[quotien][reste] = g_gain * (float) Math.pow((double) idx, d43);
                 } else {
-                    xr_1d[quotien][reste] = -g_gain * (float) Math.pow((double) (-idx), 1.3333333333333333D);
+                    xr[quotien][reste] = -g_gain * (float) Math.pow((double) (-idx), d43);
                 }
             }
         }
@@ -791,7 +780,7 @@ final class LayerIIIDecoder implements FrameDecoder {
                 int t_index = (index - cb_begin) / cb_width;
                 idx = this.scalefac[ch].s[t_index][cb] << gr_info.scalefac_scale;
                 idx += gr_info.subblock_gain[t_index] << 2;
-                xr_1d[quotien][reste] *= two_to_negative_half_pow[idx];
+                xr[quotien][reste] *= two_to_negative_half_pow[idx];
             } else {
                 idx = this.scalefac[ch].l[cb];
                 if (gr_info.preflag != 0) {
@@ -799,7 +788,7 @@ final class LayerIIIDecoder implements FrameDecoder {
                 }
 
                 idx <<= gr_info.scalefac_scale;
-                xr_1d[quotien][reste] *= two_to_negative_half_pow[idx];
+                xr[quotien][reste] *= two_to_negative_half_pow[idx];
             }
 
             ++index;
@@ -816,14 +805,12 @@ final class LayerIIIDecoder implements FrameDecoder {
                 quotien = 0;
             }
 
-            xr_1d[quotien][reste] = 0.0F;
+            xr[quotien][reste] = 0.0F;
         }
-
     }
 
     private void reorder(float[][] xr, int ch, int gr) {
         LayerIIIDecoder.gr_info_s gr_info = this.si.ch[ch].gr[gr];
-        float[][] xr_1d = xr;
         int index;
         int sfb_start3;
         int reste;
@@ -837,7 +824,7 @@ final class LayerIIIDecoder implements FrameDecoder {
                 for (index = 0; index < 36; ++index) {
                     sfb_start3 = index % 18;
                     reste = (index - sfb_start3) / 18;
-                    this.out_1d[index] = xr_1d[reste][sfb_start3];
+                    this.out_1d[index] = xr[reste][sfb_start3];
                 }
 
                 for (int sfb = 3; sfb < 13; ++sfb) {
@@ -851,17 +838,17 @@ final class LayerIIIDecoder implements FrameDecoder {
                         int des_line = sfb_start3 + freq3;
                         reste = src_line % 18;
                         quotien = (src_line - reste) / 18;
-                        this.out_1d[des_line] = xr_1d[quotien][reste];
+                        this.out_1d[des_line] = xr[quotien][reste];
                         src_line += sfb_lines;
                         ++des_line;
                         reste = src_line % 18;
                         quotien = (src_line - reste) / 18;
-                        this.out_1d[des_line] = xr_1d[quotien][reste];
+                        this.out_1d[des_line] = xr[quotien][reste];
                         src_line += sfb_lines;
                         ++des_line;
                         reste = src_line % 18;
                         quotien = (src_line - reste) / 18;
-                        this.out_1d[des_line] = xr_1d[quotien][reste];
+                        this.out_1d[des_line] = xr[quotien][reste];
                         ++freq;
                     }
                 }
@@ -870,17 +857,16 @@ final class LayerIIIDecoder implements FrameDecoder {
                     sfb_start3 = reorder_table[this.sfreq][index];
                     reste = sfb_start3 % 18;
                     quotien = (sfb_start3 - reste) / 18;
-                    this.out_1d[index] = xr_1d[quotien][reste];
+                    this.out_1d[index] = xr[quotien][reste];
                 }
             }
         } else {
             for (index = 0; index < 576; ++index) {
                 sfb_start3 = index % 18;
                 reste = (index - sfb_start3) / 18;
-                this.out_1d[index] = xr_1d[reste][sfb_start3];
+                this.out_1d[index] = xr[reste][sfb_start3];
             }
         }
-
     }
 
     private void stereo(int gr) {
@@ -1106,6 +1092,7 @@ final class LayerIIIDecoder implements FrameDecoder {
                     }
 
                     for (i = 0; this.sfBandIndex[this.sfreq].l[i] <= sb; ++i) {
+
                     }
 
                     sfb = i;
@@ -1179,7 +1166,6 @@ final class LayerIIIDecoder implements FrameDecoder {
                 }
             }
         }
-
     }
 
     private void antialias(int ch, int gr) {
@@ -1202,7 +1188,6 @@ final class LayerIIIDecoder implements FrameDecoder {
                     this.out_1d[src_idx2] = bd * cs[ss] + bu * ca[ss];
                 }
             }
-
         }
     }
 
@@ -1225,8 +1210,8 @@ final class LayerIIIDecoder implements FrameDecoder {
             }
 
             float[][] prvblk = this.prevblck;
-            tsOut[0 + sb18] = this.rawout[0] + prvblk[ch][sb18 + 0];
-            prvblk[ch][sb18 + 0] = this.rawout[18];
+            tsOut[sb18] = this.rawout[0] + prvblk[ch][sb18];
+            prvblk[ch][sb18] = this.rawout[18];
             tsOut[1 + sb18] = this.rawout[1] + prvblk[ch][sb18 + 1];
             prvblk[ch][sb18 + 1] = this.rawout[19];
             tsOut[2 + sb18] = this.rawout[2] + prvblk[ch][sb18 + 2];
@@ -1262,7 +1247,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             tsOut[17 + sb18] = this.rawout[17] + prvblk[ch][sb18 + 17];
             prvblk[ch][sb18 + 17] = this.rawout[35];
         }
-
     }
 
     private void do_downmix() {
@@ -1273,32 +1257,32 @@ final class LayerIIIDecoder implements FrameDecoder {
                 this.lr[0][sb][ss + 2] = (this.lr[0][sb][ss + 2] + this.lr[1][sb][ss + 2]) * 0.5F;
             }
         }
-
     }
 
     public void inv_mdct(float[] in, float[] out, int block_type) {
-        float tmpf_17 = 0.0F;
-        float tmpf_16 = 0.0F;
-        float tmpf_15 = 0.0F;
-        float tmpf_14 = 0.0F;
-        float tmpf_13 = 0.0F;
-        float tmpf_12 = 0.0F;
-        float tmpf_11 = 0.0F;
-        float tmpf_10 = 0.0F;
-        float tmpf_9 = 0.0F;
-        float tmpf_8 = 0.0F;
-        float tmpf_7 = 0.0F;
-        float tmpf_6 = 0.0F;
-        float tmpf_5 = 0.0F;
-        float tmpf_4 = 0.0F;
-        float tmpf_3 = 0.0F;
-        float tmpf_2 = 0.0F;
-        float tmpf_1 = 0.0F;
-        float tmpf_0 = 0.0F;
+        float tmpf_17;
+        float tmpf_16;
+        float tmpf_15;
+        float tmpf_14;
+        float tmpf_13;
+        float tmpf_12;
+        float tmpf_11;
+        float tmpf_10;
+        float tmpf_9;
+        float tmpf_8;
+        float tmpf_7;
+        float tmpf_6;
+        float tmpf_5;
+        float tmpf_4;
+        float tmpf_3;
+        float tmpf_2;
+        float tmpf_1;
+        float tmpf_0;
         float pp1;
         float pp2;
         float sum;
         float save;
+
         if (block_type == 2) {
             out[0] = 0.0F;
             out[1] = 0.0F;
@@ -1343,13 +1327,13 @@ final class LayerIIIDecoder implements FrameDecoder {
                 in[12 + i] += in[9 + i];
                 in[9 + i] += in[6 + i];
                 in[6 + i] += in[3 + i];
-                in[3 + i] += in[0 + i];
+                in[3 + i] += in[i];
                 in[15 + i] += in[9 + i];
                 in[9 + i] += in[3 + i];
                 pp2 = in[12 + i] * 0.5F;
                 pp1 = in[6 + i] * 0.8660254F;
-                sum = in[0 + i] + pp2;
-                tmpf_1 = in[0 + i] - in[12 + i];
+                sum = in[i] + pp2;
+                tmpf_1 = in[i] - in[12 + i];
                 tmpf_0 = sum + pp1;
                 tmpf_2 = sum - pp1;
                 pp2 = in[15 + i] * 0.5F;
@@ -1525,7 +1509,6 @@ final class LayerIIIDecoder implements FrameDecoder {
             out[34] = tmpf_7 * win_bt[34];
             out[35] = tmpf_8 * win_bt[35];
         }
-
     }
 
     private static float[] create_t_43() {
@@ -1533,7 +1516,7 @@ final class LayerIIIDecoder implements FrameDecoder {
         double d43 = 1.3333333333333333D;
 
         for (int i = 0; i < 8192; ++i) {
-            t43[i] = (float) Math.pow((double) i, 1.3333333333333333D);
+            t43[i] = (float) Math.pow((double) i, d43);
         }
 
         return t43;
@@ -1613,9 +1596,6 @@ final class LayerIIIDecoder implements FrameDecoder {
         public int preflag = 0;
         public int scalefac_scale = 0;
         public int count1table_select = 0;
-
-        public gr_info_s() {
-        }
     }
 
     static class temporaire {
@@ -1631,8 +1611,5 @@ final class LayerIIIDecoder implements FrameDecoder {
     static class temporaire2 {
         public int[] l = new int[23];
         public int[][] s = new int[3][13];
-
-        public temporaire2() {
-        }
     }
 }
