@@ -139,7 +139,6 @@ public class Module {
     }
 
     public JsonObject buildUpModuleData(JsonObject obj) {
-        System.out.println(getName());
         try {
             obj.addProperty("name", this.getName());
             obj.addProperty("enabled", this.enabled);
