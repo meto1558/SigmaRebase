@@ -1,8 +1,11 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import org.jetbrains.annotations.NotNull;
 
 public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
     public SpeedRampSetting(String name, String description, float start, float middle, float end, float max) {
@@ -10,16 +13,30 @@ public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
     }
 
     @Override
-    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) throws JsonParseException {
-        this.currentValue = new SpeedRamp(CJsonUtils.getJSONArrayOrNull(jsonObject, "value"));
+    public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) throws JsonParseException {
+        this.currentValue = new SpeedRamp(jsonObject.getAsJsonArray("value"));
         return jsonObject;
     }
 
     @Override
-    public JSONObject buildUpSettingData(JSONObject jsonObject) {
-        jsonObject.put("name", this.getName());
-        jsonObject.put("value", this.getCurrentValue().toJSONArray());
+    public JsonObject buildUpSettingData(JsonObject jsonObject) {
+        jsonObject.addProperty("name", this.getName());
+
+        SpeedRamp currentRamp = this.getCurrentValue();
+
+        JsonArray jsonArray = new JsonArray();
+        jsonArray.add(currentRamp.startValue);
+        jsonArray.add(currentRamp.middleValue);
+        jsonArray.add(currentRamp.endValue);
+        jsonArray.add(currentRamp.maxValue);
+
+        jsonObject.add("value", jsonArray);
         return jsonObject;
+    }
+
+    @Override
+    public @NotNull SpeedRampSetting.SpeedRamp getCurrentValue() {
+        return this.currentValue;
     }
 
     public void updateValues(float start, float middle, float end, float max) {
@@ -54,20 +71,11 @@ public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
             this.maxValue = max;
         }
 
-        public SpeedRamp(JSONArray jsonArray) throws JsonParseException {
-            this.startValue = Float.parseFloat(jsonArray.getString(0));
-            this.middleValue = Float.parseFloat(jsonArray.getString(1));
-            this.endValue = Float.parseFloat(jsonArray.getString(2));
-            this.maxValue = Float.parseFloat(jsonArray.getString(3));
-        }
-
-        public JSONArray toJSONArray() {
-            JSONArray jsonArray = new JSONArray();
-            jsonArray.put(0, Float.toString(this.startValue));
-            jsonArray.put(1, Float.toString(this.middleValue));
-            jsonArray.put(2, Float.toString(this.endValue));
-            jsonArray.put(3, Float.toString(this.maxValue));
-            return jsonArray;
+        public SpeedRamp(JsonArray jsonArray) throws JsonParseException {
+            this.startValue = Float.parseFloat(jsonArray.get(0).getAsString());
+            this.middleValue = Float.parseFloat(jsonArray.get(1).getAsString());
+            this.endValue = Float.parseFloat(jsonArray.get(2).getAsString());
+            this.maxValue = Float.parseFloat(jsonArray.get(3).getAsString());
         }
 
         @Override
