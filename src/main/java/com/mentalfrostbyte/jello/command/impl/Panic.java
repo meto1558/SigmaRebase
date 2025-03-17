@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.command.impl;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
@@ -32,7 +33,7 @@ public class Panic extends Command {
                 }
             }
 
-            Profile panicConfig = new Profile("Panic", new JSONObject());
+            Profile panicConfig = new Profile("Panic", new JsonObject());
             profileManager.saveConfig(panicConfig);
             profileManager.loadConfig(panicConfig);
             executor.send("All modules disabled.");

@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.command.impl;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.command.Command;
@@ -75,7 +76,7 @@ public class Config extends Command {
                         Profile currentConfig = Client.getInstance().moduleManager.getConfigurationManager()
                                 .getCurrentConfig();
                         currentConfig.moduleConfig = Client.getInstance().moduleManager
-                                .saveCurrentConfigToJSON(new JSONObject());
+                                .saveCurrentConfigToJSON(new JsonObject());
                         Client.getInstance().moduleManager.getConfigurationManager().removeConfig(name);
                         Client.getInstance().moduleManager.getConfigurationManager()
                                 .saveConfig(new Profile(name, currentConfig.moduleConfig));
@@ -104,28 +105,5 @@ public class Config extends Command {
 
     public String getConfigOrProfileName() {
         return Client.getInstance().clientMode != ClientMode.CLASSIC ? "Profile" : "Config";
-    }
-
-    public void saveConfigToFile(String configName) {
-        JSONObject jsonConfig = Client.getInstance().moduleManager.saveCurrentConfigToJSON(new JSONObject());
-        File configFolder = new File(Client.getInstance().file + Config.configFolder);
-        if (!configFolder.exists()) {
-            configFolder.mkdirs();
-        }
-
-        File configFile = new File(Client.getInstance().file + Config.configFolder + configName + configFileExtension);
-        if (!configFile.exists()) {
-            try {
-                configFile.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        try {
-            IOUtils.write(jsonConfig.toString(0), new FileOutputStream(configFile));
-        } catch (IOException | JsonParseException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
