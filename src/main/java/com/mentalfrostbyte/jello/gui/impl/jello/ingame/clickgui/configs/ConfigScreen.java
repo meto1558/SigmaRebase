@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
@@ -86,7 +87,7 @@ public class ConfigScreen extends Element {
             var4++;
         }
 
-        var3.saveConfig(new Profile("New Profile " + var4, new JSONObject()));
+        var3.saveConfig(new Profile("New Profile " + var4, new JsonObject()));
         this.runThisOnDimensionUpdate(this::method13615);
         this.field21300.method13119(false);
     }

@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Account;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
@@ -183,13 +184,13 @@ public class ClassicAltScreen extends Screen {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         this.accountManager.saveAlts();
         return config;
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         for (CustomGuiScreen var5 : this.altList.getChildren()) {
             if (!(var5 instanceof VerticalScrollBar)) {
                 for (CustomGuiScreen var7 : var5.getChildren()) {

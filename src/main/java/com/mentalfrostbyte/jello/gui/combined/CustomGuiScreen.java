@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.gui.combined;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.Class7261;
@@ -12,9 +14,6 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import org.newdawn.slick.TrueTypeFont;
 import com.mojang.blaze3d.platform.GlStateManager;
 import org.lwjgl.opengl.GL11;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -501,61 +500,61 @@ public class CustomGuiScreen implements IGuiEventListener {
         }
     }
 
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         if (this.isListening()) {
-            config.put("id", this.getName());
-            config.put("x", this.getXA());
-            config.put("y", this.getYA());
+            config.addProperty("id", this.getName());
+            config.addProperty("x", this.getXA());
+            config.addProperty("y", this.getYA());
             if (this.shouldSaveSize()) {
-                config.put("width", this.getWidthA());
-                config.put("height", this.getHeightA());
+                config.addProperty("width", this.getWidthA());
+                config.addProperty("height", this.getHeightA());
             }
 
-            config.put("index", this.parent == null ? 0 : this.parent.findChild(this));
+            config.addProperty("index", this.parent == null ? 0 : this.parent.findChild(this));
             return this.toConfig(config);
         } else {
             return config;
         }
     }
 
-    public final JSONObject toConfig(JSONObject base) {
-        JSONArray children = new JSONArray();
+    public final JsonObject toConfig(JsonObject base) {
+        JsonArray children = new JsonArray();
 
         for (CustomGuiScreen child : this.children) {
             if (child.isListening()) {
-                JSONObject var7 = child.toConfigWithExtra(new JSONObject());
-                if (var7.length() > 0) {
-                    children.put(var7);
+                JsonObject var7 = child.toConfigWithExtra(new JsonObject());
+                if (var7.size() > 0) {
+                    children.add(var7);
                 }
             }
         }
 
-        base.put("children", children);
+        base.add("children", children);
         return base;
     }
 
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         if (this.isListening()) {
-            this.xA = CJsonUtils.getIntOrDefault(config, "x", this.xA);
-            this.yA = CJsonUtils.getIntOrDefault(config, "y", this.yA);
+            this.xA = config.get("x").getAsInt();
+            this.yA = config.get("y").getAsInt();
             if (this.shouldSaveSize()) {
-                this.widthA = CJsonUtils.getIntOrDefault(config, "width", this.widthA);
-                this.heightA = CJsonUtils.getIntOrDefault(config, "height", this.heightA);
+                this.widthA = config.get("width").getAsInt();
+                this.heightA = config.get("width").getAsInt();
             }
 
-            JSONArray children = CJsonUtils.getJSONArrayOrNull(config, "children");
+            JsonArray children = config.get("children").getAsJsonArray();;
             if (children != null) {
                 List<CustomGuiScreen> childrenArray = new ArrayList<>(this.children);
 
-                for (int i = 0; i < children.length(); i++) {
-                    JSONObject childJson = null;
+                for (int i = 0; i < children.size(); i++) {
+                    JsonObject childJson = null;
                     try {
-                        childJson = children.getJSONObject(i);
+                        childJson = children.get(i).getAsJsonObject();
                     } catch (JsonParseException e) {
                         throw new RuntimeException(e);
                     }
-                    String id = CJsonUtils.getStringOrDefault(childJson, "id", null);
-                    int index = CJsonUtils.getIntOrDefault(childJson, "index", -1);
+                    String id = config.get("id").getAsString();
+                    int index = config.get("index").getAsInt();
 
                     for (CustomGuiScreen child : childrenArray) {
                         if (child.getName().equals(id)) {

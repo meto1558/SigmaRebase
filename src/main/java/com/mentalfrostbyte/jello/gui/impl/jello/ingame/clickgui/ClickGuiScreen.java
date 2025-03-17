@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
 import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
@@ -202,14 +203,14 @@ public class ClickGuiScreen extends Screen {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         RenderUtil2.resetShaders();
         this.method13234(this.blurOverlay);
         return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         super.loadConfig(config);
     }
 

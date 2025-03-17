@@ -1,5 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
@@ -55,13 +56,13 @@ public class ClassicClickGui extends Screen {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         RenderUtil2.resetShaders();
         return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         super.loadConfig(config);
     }
 

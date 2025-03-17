@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.options;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import totalcross.json.JSONObject;
 
 public class Waypoint2 {
     public String name;
@@ -28,32 +28,32 @@ public class Waypoint2 {
         this.config = false;
     }
 
-    public Waypoint2(JSONObject var1) throws JsonParseException {
+    public Waypoint2(JsonObject var1) throws JsonParseException {
         if (var1.has("name")) {
-            this.name = var1.getString("name");
+            this.name = var1.get("name").getAsString();
         }
 
         if (var1.has("color")) {
-            this.color = var1.getInt("color");
+            this.color = var1.get("color").getAsInt();
         }
 
         if (var1.has("x")) {
-            this.x = var1.getInt("x");
+            this.x = var1.get("x").getAsInt();
         }
 
         if (var1.has("z")) {
-            this.z = var1.getInt("z");
+            this.z = var1.get("z").getAsInt();
         }
 
         this.config = true;
     }
 
-    public JSONObject method29263() {
-        JSONObject var3 = new JSONObject();
-        var3.put("name", this.name);
-        var3.put("color", this.color);
-        var3.put("x", this.x);
-        var3.put("z", this.z);
+    public JsonObject method29263() {
+        JsonObject var3 = new JsonObject();
+        var3.addProperty("name", this.name);
+        var3.addProperty("color", this.color);
+        var3.addProperty("x", this.x);
+        var3.addProperty("z", this.z);
         return var3;
     }
 

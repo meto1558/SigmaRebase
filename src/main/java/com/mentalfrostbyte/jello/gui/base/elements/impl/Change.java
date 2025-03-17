@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.gui.base.elements.impl;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
@@ -13,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 public class Change extends CustomGuiScreen {
     public Animation animation2 = new Animation(370, 150, Animation.Direction.BACKWARDS);
 
-    public Change(CustomGuiScreen var1, String var2, JSONObject var3) throws JsonParseException {
+    public Change(CustomGuiScreen var1, String var2, JsonObject var3) throws JsonParseException {
         super(var1, var2);
         this.setWidthA(this.getParent().getWidthA());
         int var6 = 0;
@@ -21,13 +23,13 @@ public class Change extends CustomGuiScreen {
             GL11.glTexEnvi(8960, 8704, 260);
         }
 
-        String var7 = var3.getString("title");
-        JSONArray var8 = var3.getJSONArray("changes");
+        String var7 = var3.get("title").getAsString();
+        JsonArray var8 = var3.getAsJsonArray("changes");
         this.addToList(new Text(this, "title", 0, var6, 0, 0, ColorHelper.field27961, var7, ResourceRegistry.JelloMediumFont40));
         var6 += 55;
 
-        for (int var9 = 0; var9 < var8.length(); var9++) {
-            String var10 = " - " + var8.getString(var9);
+        for (int var9 = 0; var9 < var8.size(); var9++) {
+            String var10 = " - " + var8.get(var9).getAsString();
             this.addToList(
                     new Text(
                             this,
