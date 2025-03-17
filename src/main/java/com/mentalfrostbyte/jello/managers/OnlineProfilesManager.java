@@ -1,6 +1,9 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.interfaces.OnlineProfileListener;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
@@ -40,11 +43,11 @@ public class OnlineProfilesManager {
             if (entity != null) {
                 try (InputStream inputStream = entity.getContent()) {
                     String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-                    JSONArray jsonArray = new JSONArray(content);
+                    JsonArray jsonArray = JsonParser.parseString(content).getAsJsonArray();
                     List<String> profileNames = new ArrayList<>();
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        profileNames.add(jsonArray.getString(i));
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        profileNames.add(jsonArray.get(i).getAsString());
                     }
                     return profileNames;
                 }
@@ -59,7 +62,7 @@ public class OnlineProfilesManager {
         return URLEncoder.encode(input, StandardCharsets.UTF_8);
     }
 
-    public JSONObject fetchProfileConfig(String profileName) {
+    public JsonObject fetchProfileConfig(String profileName) {
         try {
             HttpGet request = new HttpGet("http://localhost/profiles/" + encode(profileName) + ".profile?v=" + Client.RELEASE_TARGET);
             CloseableHttpResponse response = HttpClients.createDefault().execute(request);
@@ -67,22 +70,22 @@ public class OnlineProfilesManager {
             if (entity != null) {
                 try (InputStream inputStream = entity.getContent()) {
                     String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-                    return new JSONObject(content);
+                    return JsonParser.parseString(content).getAsJsonObject();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new JSONObject();
+        return new JsonObject();
     }
 
     public Profile createProfileFromOnlineConfig(Profile baseProfile, String profileName) {
         Profile newProfile = new Profile(profileName, baseProfile);
         try {
             newProfile.disableNonGuiModules();
-            Profile settingsProfile = new Profile("settings", fetchProfileConfig(profileName).getJSONObject("modConfig"));
+            Profile settingsProfile = new Profile("settings", fetchProfileConfig(profileName).getAsJsonObject("modConfig"));
             for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-                JSONObject moduleConfig = settingsProfile.getModuleConfig(module);
+                JsonObject moduleConfig = settingsProfile.getModuleConfig(module);
                 if (moduleConfig != null) {
                     newProfile.updateModuleConfig(moduleConfig, module);
                 }

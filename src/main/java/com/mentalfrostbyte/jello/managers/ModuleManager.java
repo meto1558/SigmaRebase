@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
@@ -15,10 +17,8 @@ import com.mentalfrostbyte.jello.module.impl.movement.*;
 import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
 
-
 import com.mentalfrostbyte.jello.module.impl.world.*;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -210,11 +210,11 @@ public class ModuleManager {
         return this.moduleMap.get(module);
     }
 
-    public JSONObject load(JSONObject json) {
-        JSONArray array = null;
+    public JsonObject load(JsonObject json) {
+        JsonArray array = null;
 
         try {
-            array = CJsonUtils.getJSONArrayOrNull(json, "mods");
+            array = json.getAsJsonArray("mods");
         } catch (JsonParseException ignored) {
         }
 
@@ -223,17 +223,17 @@ public class ModuleManager {
         }
 
         if (array != null) {
-            for (int var15 = 0; var15 < array.length(); var15++) {
-                JSONObject moduleObject = null;
+            for (int var15 = 0; var15 < array.size(); var15++) {
+                JsonObject moduleObject;
                 try {
-                    moduleObject = array.getJSONObject(var15);
+                    moduleObject = array.get(var15).getAsJsonObject();
                 } catch (JsonParseException e) {
                     throw new RuntimeException(e);
                 }
                 String moduleName = null;
 
                 try {
-                    moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
+                    moduleName = moduleObject.get("name").getAsString();
                 } catch (JsonParseException var13) {
                     Client.getInstance().getLogger().warn("Invalid name in mod list config");
                 }
@@ -277,11 +277,11 @@ public class ModuleManager {
         return json;
     }
 
-    public void loadProfileFromJSON(JSONObject json) {
+    public void loadProfileFromJSON(JsonObject json) {
         String profileName = null;
 
         try {
-            profileName = json.getString("profile");
+            profileName = json.get("profile").getAsString();
         } catch (JsonParseException ignored) {
         }
 
@@ -304,20 +304,20 @@ public class ModuleManager {
         this.jelloTouch.init();
     }
 
-    public JSONObject saveCurrentConfigToJSON(JSONObject obj) {
-        JSONArray array = new JSONArray();
+    public JsonObject saveCurrentConfigToJSON(JsonObject obj) {
+        JsonArray array = new JsonArray();
 
         for (Module module : this.moduleMap.values()) {
-            array.put(module.buildUpModuleData(new JSONObject()));
+            array.add(module.buildUpModuleData(new JsonObject()));
         }
 
-        obj.put("mods", array);
+        obj.add("mods", array);
         return obj;
     }
 
-    public void method14660(JSONObject var1) {
-        var1.put("profile", this.profile.getCurrentConfig().profileName);
-        this.profile.getCurrentConfig().moduleConfig = this.saveCurrentConfigToJSON(new JSONObject());
+    public void method14660(JsonObject var1) {
+        var1.addProperty("profile", this.profile.getCurrentConfig().profileName);
+        this.profile.getCurrentConfig().moduleConfig = this.saveCurrentConfigToJSON(new JsonObject());
 
         try {
             this.profile.saveAndReplaceConfigs();

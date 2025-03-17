@@ -1,19 +1,20 @@
 package com.mentalfrostbyte.jello.managers.util.profile;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
-import totalcross.json.*;
 
 public class Profile {
-    public JSONObject moduleConfig;
+    public JsonObject moduleConfig;
     public String profileName;
 
     public Profile() {
     }
 
-    public Profile(String profileName, JSONObject moduleConfig) {
+    public Profile(String profileName, JsonObject moduleConfig) {
         this.profileName = profileName;
         this.moduleConfig = moduleConfig;
     }
@@ -23,19 +24,19 @@ public class Profile {
         this.moduleConfig = profile.moduleConfig;
     }
 
-    public Profile loadFromJson(JSONObject jsonObject) throws JsonParseException {
-        this.moduleConfig = jsonObject.getJSONObject("modConfig");
-        this.profileName = jsonObject.getString("name");
+    public Profile loadFromJson(JsonObject jsonObject) throws JsonParseException {
+        this.moduleConfig = jsonObject.getAsJsonObject("modConfig");
+        this.profileName = jsonObject.get("name").getAsString();
         return this;
     }
 
-    public JSONObject saveToJson(JSONObject jsonObject) {
-        jsonObject.put("modConfig", this.moduleConfig);
-        jsonObject.put("name", this.profileName);
+    public JsonObject saveToJson(JsonObject jsonObject) {
+        jsonObject.add("modConfig", this.moduleConfig);
+        jsonObject.addProperty("name", this.profileName);
         return jsonObject;
     }
 
-    public JSONObject getDefaultConfig() {
+    public JsonObject getDefaultConfig() {
         return null;
     }
 
@@ -44,51 +45,51 @@ public class Profile {
     }
 
     public void disableNonGuiModules() throws JsonParseException {
-        JSONArray modulesArray = null;
+        JsonArray modulesArray = null;
 
         try {
-            modulesArray = CJsonUtils.getJSONArrayOrNull(this.moduleConfig, "mods");
+            modulesArray = this.moduleConfig.getAsJsonArray("mods");
         } catch (JsonParseException ignored) {
         }
 
         if (modulesArray != null) {
-            for (int i = 0; i < modulesArray.length(); i++) {
-                JSONObject moduleObject = modulesArray.getJSONObject(i);
+            for (int i = 0; i < modulesArray.size(); i++) {
+                JsonObject moduleObject = modulesArray.get(i).getAsJsonObject();
                 String moduleName = null;
 
                 try {
-                    moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
+                    moduleName = moduleObject.getAsJsonObject("name").getAsString();
                 } catch (JsonParseException e) {
                     System.out.println("Invalid name in mod list config");
                 }
 
                 for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
                     if (module.getName().equals(moduleName) && module.getCategoryBasedOnMode() != ModuleCategory.GUI && module.getCategoryBasedOnMode() != ModuleCategory.RENDER) {
-                        moduleObject.put("enabled", "false");
+                        moduleObject.addProperty("enabled", "false");
                     }
                 }
             }
         }
     }
 
-    public void updateModuleConfig(JSONObject newConfig, Module module) {
-        JSONArray modulesArray = null;
+    public void updateModuleConfig(JsonObject newConfig, Module module) {
+        JsonArray modulesArray = null;
 
         try {
-            modulesArray = CJsonUtils.getJSONArrayOrNull(this.moduleConfig, "mods");
+            modulesArray = this.moduleConfig.getAsJsonArray("mods");
         } catch (JsonParseException ignored) {
         }
 
         boolean updated = false;
         if (modulesArray != null) {
-            for (int i = 0; i < modulesArray.length(); i++) {
+            for (int i = 0; i < modulesArray.size(); i++) {
                 try {
-                    JSONObject moduleObject = modulesArray.getJSONObject(i);
-                    String moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
+                    JsonObject moduleObject = modulesArray.get(i).getAsJsonObject();
+                    String moduleName = moduleObject.get("name").getAsString();
 
                     if (module.getName().equals(moduleName)) {
                         if (module.getCategoryBasedOnMode() != ModuleCategory.GUI && module.getCategoryBasedOnMode() != ModuleCategory.RENDER) {
-                            modulesArray.put(i, newConfig);
+                            modulesArray.add(newConfig);
                         }
 
                         updated = true;
@@ -101,24 +102,25 @@ public class Profile {
         }
 
         if (!updated) {
-            modulesArray.put(newConfig);
+            assert modulesArray != null;
+            modulesArray.add(newConfig);
         }
     }
 
-    public JSONObject getModuleConfig(Module module) {
-        JSONArray modulesArray = null;
+    public JsonObject getModuleConfig(Module module) {
+        JsonArray modulesArray = null;
 
         try {
-            modulesArray = CJsonUtils.getJSONArrayOrNull(this.moduleConfig, "mods");
+            modulesArray = this.moduleConfig.getAsJsonArray("mods");
         } catch (JsonParseException ignored) {
         }
 
         if (modulesArray != null) {
-            for (int i = 0; i < modulesArray.length(); i++) {
-                JSONObject moduleObject;
+            for (int i = 0; i < modulesArray.size(); i++) {
+                JsonObject moduleObject;
 
                 try {
-                    moduleObject = modulesArray.getJSONObject(i);
+                    moduleObject = modulesArray.get(i).getAsJsonObject();
                 } catch (JsonParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -126,7 +128,7 @@ public class Profile {
                 String moduleName = null;
 
                 try {
-                    moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
+                    moduleName = moduleObject.get("name").getAsString();
                 } catch (JsonParseException e) {
                     System.out.println("Invalid name in mod list config");
                 }
