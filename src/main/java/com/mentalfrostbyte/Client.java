@@ -258,7 +258,7 @@ public class Client {
             this.moduleManager = new ModuleManager();
             this.moduleManager.register(this.clientMode);
             this.moduleManager.loadProfileFromJSON(this.config);
-            this.moduleManager.saveCurrentConfigToJSON(this.config);
+            this.moduleManager.loadCurrentConfig(this.config);
         }
 
         System.gc();
