@@ -45,7 +45,8 @@ public class NewAura extends Module {
     private final BooleanSetting invisibles = new BooleanSetting("Invisibles", "Should aura target invisible entities?", false);
     private final BooleanSetting throughWalls = new BooleanSetting("Through walls", "Should aura attack entities through walls?", false);
     private final BooleanSetting raycast = new BooleanSetting("Raycast", "Should aura raycast a line to each target?", true);
-    private final BooleanSetting keepSprint = new BooleanSetting("Keep sprint", "Should aura keep sprinting while attacking?", true);
+    private final BooleanSetting keepSprint = new BooleanSetting("Keep sprint", "Should aura keep sprinting while attacking?", false);
+    private final BooleanSetting sprintFix = new BooleanSetting("Sprint fix", "Should sprint be fixed? (disables Keep sprint)", true);
 
     public NewAura() {
         super(ModuleCategory.COMBAT, "NewAura", "Attacks entities.");
@@ -67,7 +68,7 @@ public class NewAura extends Module {
                         }),
                 searchRange, attackRange,
                 players, monsters, animals, invisibles,
-                throughWalls, raycast
+                throughWalls, raycast, keepSprint, sprintFix
         );
     }
 
@@ -100,8 +101,12 @@ public class NewAura extends Module {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (target != null && !target.isAlive()) {
+        if (target != null && (!target.isAlive() || target.getDistance(mc.player) > searchRange.getCurrentValue())) {
             target = null;
+        }
+
+        if (sprintFix.getCurrentValue() && target != null) {
+            mc.player.setSprinting(false);
         }
 
         targets = PlayerUtil.getAllEntitiesInWorld().stream()
