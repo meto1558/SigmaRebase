@@ -405,9 +405,8 @@ public class MovementUtil implements MinecraftUtil {
                     closestStrafe = predictedStrafe;
                 }
             }
-            boolean skaf = Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("SideHit");
 
-            event.setForward(skaf ? -1 : closestForward);
+            event.setForward(closestForward);
             event.setStrafe(closestStrafe);
         }
     }

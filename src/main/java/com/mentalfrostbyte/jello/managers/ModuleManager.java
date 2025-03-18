@@ -175,6 +175,7 @@ public class ModuleManager {
         this.register(new AutoSoup());
         this.register(new AutoGapple());
         // MOVEMENT
+        this.register(new CorrectMovement());
         this.register(new ClickTP());
         this.register(new Speed());
         this.register(new FastLadder());

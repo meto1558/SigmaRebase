@@ -8,20 +8,22 @@ public class EventInputOptions extends CancellableEvent {
     boolean jump;
     public static boolean useItem;
 
-
-    public EventInputOptions(float strafe, float forward,boolean sneak, boolean jump) {
+    public EventInputOptions(float strafe, float forward, boolean sneak, boolean jump) {
         this.strafe = strafe;
         this.forward = forward;
         this.sneak = sneak;
         this.jump = jump;
     }
+
     public EventInputOptions(boolean useItem) {
         EventInputOptions.useItem = useItem;
     }
-    public boolean isSneaking(){
+
+    public boolean isSneaking() {
         return this.sneak;
     }
-    public void setSneaking(boolean sneaking){
+
+    public void setSneaking(boolean sneaking) {
         this.sneak = sneaking;
     }
 
@@ -49,12 +51,9 @@ public class EventInputOptions extends CancellableEvent {
         this.jump = jump;
     }
 
-
-
     public static boolean isUseItem() {
         return useItem;
     }
-
 
     public void setUseItem(boolean useItem) {
         EventInputOptions.useItem = useItem;
