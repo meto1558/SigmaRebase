@@ -19,7 +19,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class CubecraftSpeed extends Module {
     private int field23618;
     private double field23619;
-    private double field23620;
+    private double yPos;
 
     public CubecraftSpeed() {
         super(ModuleCategory.MOVEMENT, "Cubecraft", "Speed for Cubecraft");
@@ -31,7 +31,7 @@ public class CubecraftSpeed extends Module {
     @Override
     public void onEnable() {
         this.field23618 = 0;
-        this.field23620 = -1.0;
+        this.yPos = -1.0;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class CubecraftSpeed extends Module {
                             this.field23618 = 0;
                         }
 
-                        this.field23620 = mc.player.getPosY();
+                        this.yPos = mc.player.getPosY();
                         if (!Client.getInstance().moduleManager.getModuleByClass(Timer.class).isEnabled()) {
                             mc.timer.timerSpeed = 1.0F;
                         }
@@ -136,16 +136,16 @@ public class CubecraftSpeed extends Module {
     }
 
     @EventTarget
-    public void method16362(EventRender2D var1) {
-        if (this.isEnabled() && !(this.field23620 < 0.0) && this.getStringSettingValueByName("Mode").equals("YPort")) {
+    public void onRender2D(EventRender2D event) {
+        if (this.isEnabled() && !(this.yPos < 0.0) && this.getStringSettingValueByName("Mode").equals("YPort")) {
             if (mc.player.onGround && BlockUtil.isAboveBounds(mc.player, 0.001F)) {
-                this.field23620 = mc.player.getPosY();
+                yPos = mc.player.getPosY();
             }
 
-            mc.player.positionVec.y = this.field23620;
-            mc.player.lastTickPosY = this.field23620;
-            mc.player.chasingPosY = this.field23620;
-            mc.player.prevPosY = this.field23620;
+            mc.player.positionVec.y = this.yPos;
+            mc.player.lastTickPosY = this.yPos;
+            mc.player.chasingPosY = this.yPos;
+            mc.player.prevPosY = this.yPos;
             if (MovementUtil.isMoving()) {
                 mc.player.cameraYaw = 0.099999994F;
             }
@@ -153,9 +153,9 @@ public class CubecraftSpeed extends Module {
     }
 
     @EventTarget
-    public void method16363(EventJump event) {
+    public void onJump(EventJump event) {
         if (this.isEnabled()) {
-            event.setY(0.4);
+            event.vector.y = 0.4;
             this.field23619 = 0.6 + (double) MovementUtil.getSpeedBoost() * 0.1;
             this.field23618 = 0;
             event.setStrafeSpeed(this.field23619);

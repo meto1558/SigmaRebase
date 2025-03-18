@@ -80,7 +80,7 @@ public class TestSpeed extends Module {
             if (!mc.gameSettings.keyBindJump.isKeyDown() || !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
                 this.field23916 = MovementUtil.getDirectionArray()[0];
                 this.field23918 = 0;
-                event.setStrafeSpeed(event.getVector().length() * 1.05F);
+                event.setStrafeSpeed(event.vector.length() * 1.05F);
             }
         }
     }

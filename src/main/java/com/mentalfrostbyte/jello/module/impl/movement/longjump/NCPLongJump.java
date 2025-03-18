@@ -145,9 +145,9 @@ public class NCPLongJump extends Module {
             this.jumpEventTriggered = true;
             this.strafeSpeed = MovementUtil.getDumberSpeed();
             event.setStrafeSpeed(this.strafeSpeed);
-            event.setY(0.425 + (double) MovementUtil.getJumpBoost() * 0.1);
+            event.vector.y = 0.425 + (double) MovementUtil.getJumpBoost() * 0.1;
             if (this.getStringSettingValueByName("Glide Mode").equals("High") && MovementUtil.getJumpBoost() == 0) {
-                event.setY(0.599);
+                event.vector.y = 0.599;
                 event.setStrafeSpeed(0.0);
                 if ((double) this.getNumberValueBySettingName("Boost") > 1.5) {
                     event.setStrafeSpeed(0.28 + (double) this.getNumberValueBySettingName("Boost") * 0.1 + MovementUtil.getSmartSpeed() * 0.05);
@@ -174,10 +174,4 @@ public class NCPLongJump extends Module {
             }
         }
     }
-
-//    @EventTarget
-//    public void method16124(EventSafeWalk var1) {
-//        if (!this.isEnabled() || !this.getStringSettingValueByName("Glide Mode").equals("High")) {
-//        }
-//    }
 }

@@ -98,7 +98,7 @@ public class NCPSpeed extends Module {
 
             if (!mc.gameSettings.keyBindJump.isKeyDown() || !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
                 double strafeSpeed = 0.56 + (double) MovementUtil.getSpeedBoost() * 0.1;
-                event.setY(0.407 + (double) MovementUtil.getJumpBoost() * 0.1 + Math.random() * 1.0E-5);
+                event.vector.y = 0.407 + (double) MovementUtil.getJumpBoost() * 0.1 + Math.random() * 1.0E-5;
                 if (Speed.tickCounter< 2) {
                     strafeSpeed /= 2.5;
                 }

@@ -6,6 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveButton;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.module.Module;
@@ -678,16 +679,6 @@ public class BlockFly extends Module {
         }
     }
 
-    @EventTarget
-    @HighestPriority
-    public void m3ethod1210(EventMoveRelative var1) {
-        if (getBooleanValueFromSettingName("Movement Fix")) {
-            var1.setYaw(RotationCore.currentYaw);
-        }
-
-
-    }
-
     public BlockPos expand(BlockPos now, double max) {
         double dist = 0.0;
         double forward = mc.player.movementInput.moveForward;
@@ -707,7 +698,7 @@ public class BlockFly extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onInput(EventInputOptions event) {
+    public void onInput(EventMoveButton event) {
         if (getStringSettingValueByName("Mode").equals("Grim")) {
             float current = mc.player.rotationYaw;
             float currentWrapped = MathHelper.wrapAngleTo180_float(current);
@@ -716,20 +707,13 @@ public class BlockFly extends Module {
             BlockPos downPos = new BlockPos(mc.player.getPositionVector().add(0.0, -0.5, 0.0));
             boolean underAir = mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
             if (underAir && diagonal) {
-                //event.setSneaking(true);
+                //event.sneak = true;
             }
-        }
-
-        if (getStringSettingValueByName("Mode").equals("SideHit")) {
-            if (!mc.player.onGround)
-                event.setForward(mc.player.ticksExisted % 3 == 0 ? -1 : 0);
-
-            mc.gameSettings.keyBindLeft.pressed = mc.gameSettings.keyBindForward.pressed && event.getForward() != 0;
         }
 
         if (getBooleanValueFromSettingName("AutoJump")) {
             if (MovementUtil.isMoving()) {
-                event.setJumping(true);
+                event.jump = true;
             }
         }
     }

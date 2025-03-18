@@ -47,7 +47,7 @@ public class MinibloxHighJump extends Module {
     @EventTarget
     public void onJump(EventJump event) {
         if (!this.isEnabled()) return;
-        event.setY(motion.currentValue);
+        event.vector.y = motion.currentValue;
         isJumping = true;
     }
 }
