@@ -10,7 +10,6 @@ import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.action.EventInputOptions;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
