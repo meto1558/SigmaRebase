@@ -2073,39 +2073,25 @@ public abstract class LivingEntity extends Entity {
     /**
      * Causes this entity to do an upwards motion (jumping).
      */
-    protected void jump() {
-        // noinspection ConstantConditions
-        if (ClientPlayerEntity.class.isInstance(this)) {
-            IBaritone baritone = BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this);
-            if (baritone != null) {
-                this.jumpRotationEvent = new RotationMoveEvent(RotationMoveEvent.Type.JUMP, this.rotationYaw, this.rotationPitch);
-                baritone.getGameEventHandler().onPlayerRotationMove(this.jumpRotationEvent);
-            }
-        }
-
+    protected void jump()
+    {
         float f = this.getJumpUpwardsMotion();
 
-        if (this.isPotionActive(Effects.JUMP_BOOST)) {
-            f += 0.1F * (float) (this.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1);
+        if (this.isPotionActive(Effects.JUMP_BOOST))
+        {
+            f += 0.1F * (float)(this.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1);
         }
 
         Vector3d vector3d = this.getMotion();
-        this.setMotion(vector3d.x, (double) f, vector3d.z);
-        EventJump eventJump = new EventJump(this.getMotion(), this.rotationYaw);
-        if (this instanceof ClientPlayerEntity) {
-            EventBus.call(eventJump);
+        this.setMotion(vector3d.x, (double)f, vector3d.z);
+
+        if (this.isSprinting())
+        {
+            float f1 = this.rotationYaw * ((float)Math.PI / 180F);
+            this.setMotion(this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F)));
         }
 
-        if (!eventJump.cancelled) {
-            this.setMotion(eventJump.getVector());
-            if (this.isSprinting() && !eventJump.isModified()) {
-                float motion = eventJump.yaw * (float) (Math.PI / 180.0);
-                this.setMotion(this.getMotion().add((double) (-MathHelper.sin(motion) * 0.2F), 0.0,
-                        (double) (MathHelper.cos(motion) * 0.2F)));
-            }
-
-            this.isAirBorne = true;
-        }
+        this.isAirBorne = true;
     }
 
     protected void handleFluidSneak() {
