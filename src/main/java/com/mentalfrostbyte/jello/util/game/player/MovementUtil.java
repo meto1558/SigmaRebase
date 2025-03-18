@@ -380,8 +380,8 @@ public class MovementUtil implements MinecraftUtil {
     }
 
     public static void silentStrafe(final EventMoveInput event, float yaw) {
-        final float forward = event.getForward();
-        final float strafe = event.getStrafe();
+        final float forward = event.forward;
+        final float strafe = event.strafe;
 
         final double angle = MathHelper.wrapDegrees(Math.toDegrees(direction(mc.player.rotationYaw, forward, strafe)));
 
@@ -405,8 +405,8 @@ public class MovementUtil implements MinecraftUtil {
                 }
             }
 
-            event.setForward(closestForward);
-            event.setStrafe(closestStrafe);
+            event.forward = closestForward;
+            event.strafe = closestStrafe;
         }
     }
 

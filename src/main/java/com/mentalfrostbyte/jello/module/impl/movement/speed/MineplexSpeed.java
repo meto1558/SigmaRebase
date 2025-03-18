@@ -143,7 +143,7 @@ public class MineplexSpeed extends Module {
             }
 
             event.setStrafeSpeed(0.0);
-            event.setY(0.4199998);
+            event.vector.y = 0.4199998;
             if (mc.player.inventory.currentItem != this.field23554) {
                 mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
                 this.field23554 = mc.player.inventory.currentItem;

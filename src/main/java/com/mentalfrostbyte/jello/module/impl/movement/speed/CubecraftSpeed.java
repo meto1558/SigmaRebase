@@ -155,7 +155,7 @@ public class CubecraftSpeed extends Module {
     @EventTarget
     public void method16363(EventJump event) {
         if (this.isEnabled()) {
-            event.setY(0.4);
+            event.vector.y = 0.4;
             this.field23619 = 0.6 + (double) MovementUtil.getSpeedBoost() * 0.1;
             this.field23618 = 0;
             event.setStrafeSpeed(this.field23619);

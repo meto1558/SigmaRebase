@@ -53,7 +53,7 @@ public class SlowHopSpeed extends Module {
     @EventTarget
     public void onJump(EventJump var1) {
         if (this.isEnabled()) {
-             var1.setY(0.407 + 0.1 * (double) MovementUtil.getJumpBoost());
+             var1.vector.y = 0.407 + 0.1 * (double) MovementUtil.getJumpBoost();
             this.onGroundTicks = 0;
              var1.setStrafeSpeed(1.8);
         }

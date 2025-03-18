@@ -83,7 +83,7 @@ public class OldAACSpeed extends Module {
 
             this.field23535 = MovementUtil.getDirectionArray()[0];
             var1.setStrafeSpeed(this.field23534);
-            var1.setY(0.4 + (double) MovementUtil.getJumpBoost() * 0.1);
+            var1.vector.y = 0.4 + (double) MovementUtil.getJumpBoost() * 0.1;
             this.field23536 = 0;
         }
     }
