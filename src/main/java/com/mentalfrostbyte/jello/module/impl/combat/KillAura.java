@@ -47,31 +47,33 @@ public class KillAura extends Module {
     public static boolean isActive = false;
     public static Entity targetEntity;
     public static TimedEntity targetData;
-    public static Rotation rotation = new Rotation(0.0F, 0.0F);
+    private Rotation rotation = new Rotation(0.0F, 0.0F);
     public static int attackCooldown;
     private final ModeSetting rotationMode;
     private final NumberSetting<Float> rotationSpeed;
     private final BooleanSetting useRotationSpeed;
     private final BooleanSetting hitEvent;
-    float[] limitedRotation;
     public HashMap<Entity, Animation> entityAnimation = new HashMap<>();
-    public static InteractAutoBlock autoBlock;
+    private static InteractAutoBlock autoBlock;
     private int attackTimer;
     private int animationTimer;
     private float eventUpdateYaw, eventUpdatePitch;
-    private int targetSwitchDelay;
     private int attackDelay;
     private int blockDelay;
     private int animationProgress;
     private int currentSlot;
     private int blockCooldown;
+
     private List<TimedEntity> targets;
+
     private Rotation currentRotation;
     private Rotation lastRotation;
+
     private double yawDifference;
     private float targetYaw;
     private float targetPitch;
     private float smoothYaw;
+
     private boolean isBlocking;
 
     public KillAura() {
@@ -165,9 +167,6 @@ public class KillAura extends Module {
         this.isBlocking = false;
         this.currentSlot = -1;
         this.entityAnimation.clear();
-        if (mc.player.onGround) {
-            this.targetSwitchDelay = 1;
-        }
 
         super.onEnable();
     }
@@ -288,7 +287,8 @@ public class KillAura extends Module {
                 Rotation limit = !useRotationSpeed.currentValue
                         ? currentCopy
                         : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
-                this.limitedRotation = new float[]{limit.yaw, limit.pitch};
+                
+                float[] limitedRotation = new float[]{limit.yaw, limit.pitch};
                 float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
 
                 currentRotation.yaw = RotationUtils.gcdFix(limitedRotation, oldRots)[0];
