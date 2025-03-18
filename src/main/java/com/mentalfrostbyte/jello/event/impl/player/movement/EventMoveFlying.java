@@ -3,9 +3,10 @@ package com.mentalfrostbyte.jello.event.impl.player.movement;
 import team.sdhq.eventBus.Event;
 
 public class EventMoveFlying extends Event {
-    private float yaw, strafe, forward, friction;
+    private float yaw;
+    private double strafe, forward, friction;
 
-    public EventMoveFlying(float yaw, float strafe, float forward, float friction) {
+    public EventMoveFlying(float yaw, double strafe, double forward, double friction) {
         this.yaw = yaw;
         this.strafe = strafe;
         this.forward = forward;
@@ -20,27 +21,27 @@ public class EventMoveFlying extends Event {
         this.yaw = yaw;
     }
 
-    public float getStrafe() {
+    public double getStrafe() {
         return strafe;
     }
 
-    public void setStrafe(float strafe) {
+    public void setStrafe(double strafe) {
         this.strafe = strafe;
     }
 
-    public float getForward() {
+    public double getForward() {
         return forward;
     }
 
-    public void setForward(float forward) {
+    public void setForward(double forward) {
         this.forward = forward;
     }
 
-    public float getFriction() {
+    public double getFriction() {
         return friction;
     }
 
-    public void setFriction(float friction) {
+    public void setFriction(double friction) {
         this.friction = friction;
     }
 }
