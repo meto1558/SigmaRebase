@@ -30,6 +30,6 @@ public class CorrectMovement extends Module {
     @EventTarget
     @HighestPriority
     public void onStrafe(EventMoveFlying event) {
-        event.setYaw(RotationCore.currentYaw);
+        event.yaw = RotationCore.currentYaw;
     }
 }
