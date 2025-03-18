@@ -18,6 +18,7 @@ import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.combined.impl.LoadingScreen;
+import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -213,17 +214,7 @@ import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.SkullTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.FrameTimer;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Session;
-import net.minecraft.util.SharedConstants;
-import net.minecraft.util.Timer;
-import net.minecraft.util.Unit;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.concurrent.RecursiveEventLoop;
 import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.datafix.codec.DatapackCodec;
@@ -1529,6 +1520,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
 
         this.profiler.endStartSection("textures");
+
+        if (player != null) {
+            RotationCore.currentYaw = player.rotationYaw;
+            RotationCore.currentPitch = player.rotationPitch;
+        }
 
         if (this.world != null) {
             this.textureManager.tick();
