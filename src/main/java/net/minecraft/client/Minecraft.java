@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
@@ -1736,11 +1737,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
         }
 
-        EventInputOptions eventInputOptions = new EventInputOptions(this.gameSettings.keyBindUseItem.isKeyDown());
+        EventUseItem eventInputOptions = new EventUseItem(this.gameSettings.keyBindUseItem.isKeyDown());
         EventBus.call(eventInputOptions);
 
         if (this.player.isHandActive()) {
-            if (!eventInputOptions.isUseItem()) {
+            if (!eventInputOptions.useItem) {
                 EventStopUseItem var6 = new EventStopUseItem();
                 EventBus.call(var6);
                 if (!var6.cancelled) {
@@ -1773,7 +1774,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
         }
 
-        if (eventInputOptions.isUseItem() && this.rightClickDelayTimer == 0 && !this.player.isHandActive()) {
+        if (eventInputOptions.useItem && this.rightClickDelayTimer == 0 && !this.player.isHandActive()) {
             this.rightClickMouse();
         }
 
