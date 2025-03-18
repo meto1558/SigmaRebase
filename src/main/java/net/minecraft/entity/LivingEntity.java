@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.LivingDeathEvent;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
@@ -2068,6 +2069,9 @@ public abstract class LivingEntity extends Entity {
      */
     protected void jump()
     {
+        final EventJump jumpEvent = new EventJump(this.rotationYaw);
+        EventBus.call(jumpEvent);
+
         float f = this.getJumpUpwardsMotion();
 
         if (this.isPotionActive(Effects.JUMP_BOOST))
@@ -2080,7 +2084,7 @@ public abstract class LivingEntity extends Entity {
 
         if (this.isSprinting())
         {
-            float f1 = this.rotationYaw * ((float)Math.PI / 180F);
+            float f1 = jumpEvent.getYaw() * ((float)Math.PI / 180F);
             this.setMotion(this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F)));
         }
 
