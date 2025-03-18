@@ -568,13 +568,17 @@ public abstract class PlayerEntity extends LivingEntity {
         super.onDeath(cause);
         this.recenterBoundingBox();
 
-        if (!this.isSpectator()) {
+        if (!this.isSpectator())
+        {
             this.spawnDrops(cause);
         }
 
-        if (cause != null) {
-            this.setMotion((double) (-MathHelper.cos((this.attackedAtYaw + eventMoveFlying.getYaw()) * ((float) Math.PI / 180F)) * 0.1F), (double) 0.1F, (double) (-MathHelper.sin((this.attackedAtYaw + eventMoveFlying.getYaw()) * ((float) Math.PI / 180F)) * 0.1F));
-        } else {
+        if (cause != null)
+        {
+            this.setMotion((double)(-MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * ((float)Math.PI / 180F)) * 0.1F), (double)0.1F, (double)(-MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * ((float)Math.PI / 180F)) * 0.1F));
+        }
+        else
+        {
             this.setMotion(0.0D, 0.1D, 0.0D);
         }
 
@@ -1151,11 +1155,10 @@ public abstract class PlayerEntity extends LivingEntity {
                         EventKeepSprint eventKeepSprint = new EventKeepSprint(i > 0);
                         EventBus.call(eventKeepSprint);
                         if (eventKeepSprint.greater) {
-                            EventMoveRelative eventMoveFlying = new EventMoveRelative(rotationYaw);
                             if (targetEntity instanceof LivingEntity) {
-                                ((LivingEntity) targetEntity).applyKnockback((float) i * 0.5F, (double) MathHelper.sin(eventMoveFlying.getYaw() * ((float) Math.PI / 180F)), (double) (-MathHelper.cos(eventMoveFlying.getYaw() * ((float) Math.PI / 180F))));
+                                ((LivingEntity) targetEntity).applyKnockback((float) i * 0.5F, (double) MathHelper.sin(rotationYaw * ((float) Math.PI / 180F)), (double) (-MathHelper.cos(rotationYaw* ((float) Math.PI / 180F))));
                             } else {
-                                targetEntity.addVelocity((double) (-MathHelper.sin(eventMoveFlying.getYaw() * ((float) Math.PI / 180F)) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(eventMoveFlying.getYaw() * ((float) Math.PI / 180F)) * (float) i * 0.5F));
+                                targetEntity.addVelocity((double) (-MathHelper.sin(rotationYaw * ((float) Math.PI / 180F)) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(rotationYaw * ((float) Math.PI / 180F)) * (float) i * 0.5F));
                             }
 
                             this.setMotion(this.getMotion().mul(0.6D, 1.0D, 0.6D));
