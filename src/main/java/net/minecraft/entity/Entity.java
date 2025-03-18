@@ -5,6 +5,7 @@ import baritone.api.event.events.RotationMoveEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveFlying;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRideable;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
@@ -1211,13 +1212,42 @@ public abstract class Entity implements INameable, ICommandSource {
         return !this.firstUpdate && this.eyesFluidLevel.getDouble(FluidTags.LAVA) > 0.0D;
     }
 
-    float yawRestore;
-    float pitchRestore;
-
     public void moveRelative(float p_213309_1_, Vector3d relative)
     {
-        Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
-        this.setMotion(this.getMotion().add(vector3d));
+        if (this instanceof ClientPlayerEntity) {
+            EventMoveFlying event = new EventMoveFlying(this.rotationYaw, relative.x, relative.z, relative.y);
+            EventBus.call(event);
+
+            final float yaw = event.getYaw();
+
+            relative.x = event.getStrafe();
+            relative.y = event.getFriction();
+            relative.z = event.getForward();
+
+            double move = relative.x * relative.x + relative.z * relative.z;
+
+            if (move >= 1.0E-4F) {
+                move = MathHelper.sqrt(move);
+
+                if (move < 1.0F) {
+                    move = 1.0F;
+                }
+
+                move = relative.y / move;
+
+                relative.x = relative.x * move;
+                relative.z = relative.z * move;
+
+                float xAdd = MathHelper.sin(yaw * (float) Math.PI / 180.0F);
+                float zAdd = MathHelper.cos(yaw * (float) Math.PI / 180.0F);
+
+                Vector3d newMotion = new Vector3d(relative.x * zAdd - relative.z * xAdd, getMotion().y, relative.z * zAdd + relative.x * xAdd);
+                setMotion(newMotion);
+            }
+        } else {
+            Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
+            this.setMotion(this.getMotion().add(vector3d));
+        }
     }
 
     public final Vector3d getLookCustom(float partialTicks, float yaw, float pitch) {
