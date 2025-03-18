@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
@@ -348,7 +349,7 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void meth2od10(EventInputOptions var1) {
+    public void meth2od10(EventUseItem event) {
         if (targetEntity != null) {
             if (mc.objectMouseOver != null) {
                 if (mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
@@ -359,11 +360,9 @@ public class KillAura extends Module {
                             int value = (int) getNumberValueBySettingName("Unblock Rate");
 
                             if (mc.player.ticksExisted % (value == 0 ? 0 : value + 1) == 0) {
-                                var1.setUseItem(true);
+                                event.useItem = true;
                             }
                         }
-
-
                     }
                 }
             }

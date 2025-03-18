@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -43,7 +44,7 @@ public class AutoClicker extends Module {
 
     @EventTarget
     @HighestPriority
-    public void meth2od10(EventInputOptions var1) {
+    public void meth2od10(EventUseItem event) {
         if (!mc.gameSettings.keyBindAttack.pressed) {
             return;
         }
@@ -60,7 +61,7 @@ public class AutoClicker extends Module {
                 }
 
                 if(mc.player.ticksExisted % getNumberValueBySettingName("Auto Block Ticks") == 0){
-                    var1.setUseItem(true);
+                    event.useItem = true;
                 }
             }
         }

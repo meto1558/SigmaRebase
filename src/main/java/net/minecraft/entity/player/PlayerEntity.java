@@ -565,9 +565,6 @@ public abstract class PlayerEntity extends LivingEntity {
      * Called when the mob's health reaches 0.
      */
     public void onDeath(DamageSource cause) {
-        EventMoveRelative eventMoveFlying = new EventMoveRelative(rotationYaw);
-
-
         super.onDeath(cause);
         this.recenterBoundingBox();
 
