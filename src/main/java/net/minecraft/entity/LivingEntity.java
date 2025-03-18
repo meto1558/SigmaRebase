@@ -2069,7 +2069,7 @@ public abstract class LivingEntity extends Entity {
      */
     protected void jump()
     {
-        final EventJump jumpEvent = new EventJump(this.rotationYaw);
+        final EventJump jumpEvent = new EventJump(this.getMotion(), this.rotationYaw);
         EventBus.call(jumpEvent);
 
         float f = this.getJumpUpwardsMotion();
@@ -2079,12 +2079,12 @@ public abstract class LivingEntity extends Entity {
             f += 0.1F * (float)(this.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1);
         }
 
-        Vector3d vector3d = this.getMotion();
+        Vector3d vector3d = jumpEvent.vector;
         this.setMotion(vector3d.x, (double)f, vector3d.z);
 
         if (this.isSprinting())
         {
-            float f1 = jumpEvent.getYaw() * ((float)Math.PI / 180F);
+            float f1 = jumpEvent.yaw * ((float)Math.PI / 180F);
             this.setMotion(this.getMotion().add((double)(-MathHelper.sin(f1) * 0.2F), 0.0D, (double)(MathHelper.cos(f1) * 0.2F)));
         }
 
