@@ -160,7 +160,10 @@ public class NewAura extends Module {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (target != null && (mc.player.canEntityBeSeen(target) && throughWalls.currentValue && target.getDistance(mc.player) <= attackRange.currentValue)) {
+        if (target != null && target.getDistance(mc.player) <= attackRange.currentValue) {
+            if (throughWalls.currentValue && !mc.player.canEntityBeSeen(target)) {
+                return;
+            }
             switch (clickMode.currentValue) {
                 case "CPS" -> {
                     if (attackCounter.hasElapsed(calculateAttackDelay(), true)) {
