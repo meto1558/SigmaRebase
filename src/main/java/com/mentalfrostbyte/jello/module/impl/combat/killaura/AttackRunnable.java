@@ -1,13 +1,13 @@
 package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.util.Hand;
 
-public class AttackRunnable implements Runnable {
-    Minecraft mc = Minecraft.getInstance();
+public class AttackRunnable implements Runnable, MinecraftUtil {
     public final KillAura killAura;
 
     public AttackRunnable(KillAura killaura) {
@@ -17,10 +17,10 @@ public class AttackRunnable implements Runnable {
     @Override
     public void run() {
         if (KillAura.targetEntity != null
-                && KillAura.getInteractAutoblock(this.killAura).isBlocking()
+                && KillAura.autoBlock.isBlocking()
                 && !this.killAura.getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
 
-            KillAura.getInteractAutoblock(this.killAura).stopAutoBlock();
+            KillAura.autoBlock.stopAutoBlock();
         }
 
         if (!mc.player.isAlive() || mc.player.isSpectator()) {
@@ -40,12 +40,12 @@ public class AttackRunnable implements Runnable {
                 } else {
                     mc.playerController.attackEntity(mc.player, entity);
 
-                    boolean shouldAttack = killAura.isEnabled() && killAura.getBooleanValueFromSettingName("No swing") && KillAura.targetEntity != null;
+                    boolean packetSwing = killAura.isEnabled() && killAura.getBooleanValueFromSettingName("No swing") && KillAura.targetEntity != null;
 
-                    if (shouldAttack) {
-                        Minecraft.getInstance().getConnection().sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
+                    if (packetSwing) {
+                        mc.getConnection().sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
                     } else {
-                        Minecraft.getInstance().player.swingArm(Hand.MAIN_HAND);
+                        mc.player.swingArm(Hand.MAIN_HAND);
                     }
                 }
             }
@@ -55,8 +55,8 @@ public class AttackRunnable implements Runnable {
             }
         }
 
-        if (KillAura.targetEntity != null && KillAura.getInteractAutoblock(this.killAura).canAutoBlock() && this.killAura.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
-            KillAura.getInteractAutoblock(this.killAura)
+        if (KillAura.targetEntity != null && KillAura.autoBlock.canAutoBlock() && this.killAura.getStringSettingValueByName("Autoblock Mode").equals("Basic1")) {
+            KillAura.autoBlock
                     .performAutoBlock(KillAura.targetEntity, KillAura.getCurrentRotation(this.killAura).yaw, KillAura.getCurrentRotation(this.killAura).pitch);
         }
     }
