@@ -24,7 +24,7 @@ public class CorrectMovement extends Module {
     @EventTarget
     @HighestPriority
     public void onJump(EventJump event) {
-        event.yaw = (RotationCore.currentYaw);
+        event.setYaw(RotationCore.currentYaw);
     }
 
     @EventTarget
