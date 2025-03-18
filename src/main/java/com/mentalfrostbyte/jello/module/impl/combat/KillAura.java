@@ -223,18 +223,6 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onMoveRelative(EventMoveRelative event) {
-        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
-            return;
-
-        if (getBooleanValueFromSettingName("Movement Fix")) {
-            if (targetEntity != null && !this.targets.isEmpty())
-                event.setYaw(RotationCore.currentYaw);
-        }
-    }
-
-    @EventTarget
-    @HighestPriority
     public void onTick(EventPlayerTick var1) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
@@ -287,7 +275,7 @@ public class KillAura extends Module {
                 Rotation limit = !useRotationSpeed.currentValue
                         ? currentCopy
                         : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
-                
+
                 float[] limitedRotation = new float[]{limit.yaw, limit.pitch};
                 float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
 
@@ -321,7 +309,6 @@ public class KillAura extends Module {
                 attack();
             }
         }
-
     }
 
     @EventTarget

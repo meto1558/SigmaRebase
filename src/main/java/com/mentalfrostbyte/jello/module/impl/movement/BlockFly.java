@@ -709,7 +709,7 @@ public class BlockFly extends Module {
 
     @EventTarget
     @HighestPriority
-    public void meth2od10(EventInputOptions var1) {
+    public void onInput(EventInputOptions event) {
         if (getStringSettingValueByName("Mode").equals("Grim")) {
             float current = mc.player.rotationYaw;
             float currentWrapped = MathHelper.wrapAngleTo180_float(current);
@@ -718,28 +718,22 @@ public class BlockFly extends Module {
             BlockPos downPos = new BlockPos(mc.player.getPositionVector().add(0.0, -0.5, 0.0));
             boolean underAir = mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
             if (underAir && diagonal) {
-                //var1.setSneaking(true);
+                //event.setSneaking(true);
             }
         }
 
-        if (getBooleanValueFromSettingName("Movement Fix")) {
-            var1.cancelled = true;
-            MovementUtil.silentStrafe(var1, RotationCore.currentYaw);
-        }
         if (getStringSettingValueByName("Mode").equals("SideHit")) {
             if (!mc.player.onGround)
-                var1.setForward(mc.player.ticksExisted % 3 == 0 ? -1 : 0);
+                event.setForward(mc.player.ticksExisted % 3 == 0 ? -1 : 0);
 
-            mc.gameSettings.keyBindLeft.pressed = mc.gameSettings.keyBindForward.pressed && var1.getForward() != 0;
-
+            mc.gameSettings.keyBindLeft.pressed = mc.gameSettings.keyBindForward.pressed && event.getForward() != 0;
         }
 
         if (getBooleanValueFromSettingName("AutoJump")) {
             if (MovementUtil.isMoving()) {
-                var1.setJumping(true);
+                event.setJumping(true);
             }
         }
-
     }
 
     public void tower(EventMove var1) {

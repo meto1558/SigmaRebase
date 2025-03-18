@@ -5,11 +5,13 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class EventJump extends CancellableEvent {
+    public float yaw;
     public Vector3d vector;
     public boolean modified;
 
-    public EventJump(Vector3d vector) {
+    public EventJump(Vector3d vector, float yaw) {
         this.vector = vector;
+        this.yaw = yaw;
     }
 
     public boolean isModified() {
