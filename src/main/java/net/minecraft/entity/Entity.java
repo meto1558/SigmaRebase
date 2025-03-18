@@ -1212,42 +1212,21 @@ public abstract class Entity implements INameable, ICommandSource {
         return !this.firstUpdate && this.eyesFluidLevel.getDouble(FluidTags.LAVA) > 0.0D;
     }
 
-    public void moveRelative(float p_213309_1_, Vector3d relative)
-    {
-        if (this instanceof ClientPlayerEntity) {
-            EventMoveFlying event = new EventMoveFlying(this.rotationYaw, relative.x, relative.z, relative.y);
-            EventBus.call(event);
+    public void moveRelative(float friction, Vector3d relative) {
+        EventMoveFlying event = new EventMoveFlying(this.rotationYaw, (float) relative.x, (float) relative.z, friction);
+        EventBus.call(event);
 
-            final float yaw = event.getYaw();
-
-            relative.x = event.getStrafe();
-            relative.y = event.getFriction();
-            relative.z = event.getForward();
-
-            double move = relative.x * relative.x + relative.z * relative.z;
-
-            if (move >= 1.0E-4F) {
-                move = MathHelper.sqrt(move);
-
-                if (move < 1.0F) {
-                    move = 1.0F;
-                }
-
-                move = relative.y / move;
-
-                relative.x = relative.x * move;
-                relative.z = relative.z * move;
-
-                float xAdd = MathHelper.sin(yaw * (float) Math.PI / 180.0F);
-                float zAdd = MathHelper.cos(yaw * (float) Math.PI / 180.0F);
-
-                Vector3d newMotion = new Vector3d(relative.x * zAdd - relative.z * xAdd, getMotion().y, relative.z * zAdd + relative.x * xAdd);
-                setMotion(newMotion);
-            }
-        } else {
-            Vector3d vector3d = getAbsoluteMotion(relative, p_213309_1_, this.rotationYaw);
-            this.setMotion(this.getMotion().add(vector3d));
+        if (event.cancelled) {
+            return;
         }
+
+        float yaw = event.yaw;
+        float strafe = event.strafe;
+        float forward = event.forward;
+        friction = event.friction;
+
+        Vector3d vector3d = getAbsoluteMotion(new Vector3d(strafe, relative.y, forward), friction, yaw);
+        this.setMotion(this.getMotion().add(vector3d));
     }
 
     public final Vector3d getLookCustom(float partialTicks, float yaw, float pitch) {
