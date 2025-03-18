@@ -284,14 +284,16 @@ public class Scoreboard
      */
     public void removeTeam(ScorePlayerTeam playerTeam)
     {
-        this.teams.remove(playerTeam.getName());
+        if (playerTeam != null) {
+            this.teams.remove(playerTeam.getName());
 
-        for (String s : playerTeam.getMembershipCollection())
-        {
-            this.teamMemberships.remove(s);
+            for (String s : playerTeam.getMembershipCollection())
+            {
+                this.teamMemberships.remove(s);
+            }
+
+            this.onTeamRemoved(playerTeam);
         }
-
-        this.onTeamRemoved(playerTeam);
     }
 
     public boolean addPlayerToTeam(String p_197901_1_, ScorePlayerTeam p_197901_2_)
