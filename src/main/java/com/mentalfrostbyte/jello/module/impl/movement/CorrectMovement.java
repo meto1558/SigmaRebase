@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-import com.mentalfrostbyte.jello.event.impl.player.action.EventInputOptions;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRelative;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveFlying;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveInput;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
@@ -17,19 +17,19 @@ public class CorrectMovement extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onInput(EventInputOptions event) {
+    public void onInput(EventMoveInput event) {
         MovementUtil.silentStrafe(event, RotationCore.currentYaw);
     }
 
     @EventTarget
     @HighestPriority
-    private void onJump(EventJump event) {
+    public void onJump(EventJump event) {
         event.yaw = (RotationCore.currentYaw);
     }
 
     @EventTarget
     @HighestPriority
-    private void onStrafe(EventMoveRelative event) {
+    public void onStrafe(EventMoveFlying event) {
         event.setYaw(RotationCore.currentYaw);
     }
 }

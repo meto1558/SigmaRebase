@@ -1,7 +1,8 @@
 package net.minecraft.util;
 
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveInput;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveButton;
 import net.minecraft.client.GameSettings;
-import com.mentalfrostbyte.jello.event.impl.player.action.EventInputOptions;
 import team.sdhq.eventBus.EventBus;
 
 public class MovementInputFromOptions extends MovementInput {
@@ -13,40 +14,50 @@ public class MovementInputFromOptions extends MovementInput {
 
 
     public void tickMovement(boolean var1) {
-        EventInputOptions eventInputOptions = new EventInputOptions(1,1, this.gameSettings.keyBindSneak.isKeyDown(), this.gameSettings.keyBindJump.isKeyDown());
-        EventBus.call(eventInputOptions);
         moveForward = 0.0f;
         moveStrafe = 0.0f;
 
-        this.forwardKeyDown = this.gameSettings.keyBindForward.isKeyDown();
-        this.backKeyDown = this.gameSettings.keyBindBack.isKeyDown();
+        final EventMoveButton eventMoveButton = new EventMoveButton(
+                this.gameSettings.keyBindForward.isKeyDown(),
+                this.gameSettings.keyBindBack.isKeyDown(),
+                this.gameSettings.keyBindLeft.isKeyDown(),
+                this.gameSettings.keyBindRight.isKeyDown(),
+                this.gameSettings.keyBindJump.isKeyDown(),
+                this.gameSettings.keyBindSneak.isKeyDown()
+        );
+        EventBus.call(eventMoveButton);
 
-        this.leftKeyDown = this.gameSettings.keyBindLeft.isKeyDown();
-        this.rightKeyDown = this.gameSettings.keyBindRight.isKeyDown();
-
-
-        if (forwardKeyDown) {
-            moveForward+= eventInputOptions.getForward();
+        if (eventMoveButton.isForward()) {
+            ++this.moveForward;
         }
 
-        if (backKeyDown) {
-            moveForward-= eventInputOptions.getForward();
+        if (eventMoveButton.isBack()) {
+            --this.moveForward;
         }
 
-        if (leftKeyDown) {
-            moveStrafe+= eventInputOptions.getStrafe();
+        if (eventMoveButton.isLeft()) {
+            ++this.moveStrafe;
         }
 
-        if (rightKeyDown) {
-            moveStrafe-= eventInputOptions.getStrafe();
+        if (eventMoveButton.isRight()) {
+            --this.moveStrafe;
         }
 
-        this.jump = eventInputOptions.isJumping();
-        this.sneaking = eventInputOptions.isSneaking();
+        this.jump = eventMoveButton.isJump();
+        this.sneaking = eventMoveButton.isSneak();
 
-        if (var1) {
-            this.moveStrafe = (float)((double)this.moveStrafe * 0.3);
-            this.moveForward = (float)((double)this.moveForward * 0.3);
+        final EventMoveInput eventMoveInput = new EventMoveInput(this.moveForward, this.moveStrafe, this.jump, this.sneaking, 0.3F);
+        EventBus.register(eventMoveInput);
+
+        this.moveStrafe = eventMoveInput.getStrafe();
+        this.moveForward = eventMoveInput.getForward();
+
+        this.jump = eventMoveInput.isJumping();
+        this.sneaking = eventMoveInput.isSneaking();
+
+        if (this.sneaking) {
+            this.moveStrafe *= eventMoveInput.getSneakFactor();
+            this.moveForward *= eventMoveInput.getSneakFactor();
         }
     }
 }

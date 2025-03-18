@@ -1,10 +1,9 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.action.EventInputOptions;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveInput;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -380,7 +379,7 @@ public class MovementUtil implements MinecraftUtil {
         return Math.toRadians(rotationYaw);
     }
 
-    public static void silentStrafe(final EventInputOptions event, float yaw) {
+    public static void silentStrafe(final EventMoveInput event, float yaw) {
         final float forward = event.getForward();
         final float strafe = event.getStrafe();
 
