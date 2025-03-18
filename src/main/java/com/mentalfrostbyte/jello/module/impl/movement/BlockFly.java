@@ -57,34 +57,42 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BlockFly extends Module {
-    public Animation animation = new Animation(400, 400, Animation.Direction.BACKWARDS);
-    public static List<Block> BLACKLISTED_BLOCKS;
-    BlockFlyHelper.BlockCache blockPos = null;
-    float[] rots = new float[]{0, 0};
-    public int blockAmmount = 0;
-    public int packetBlockSlot;
-    int sneakAfterTick = 0;
-    int placedBlocks;
-    boolean placeUp;
-    int slot = -1;
-    int itemPrevEnable = -1;
-    double y = 0.0;
-    Vector3d ray = null;
-    public int offGroundTicks;
-    private int damageTicks;
+    //Block amount
+    private final Animation animation = new Animation(400, 400, Animation.Direction.BACKWARDS);
+
+    //Rotations & cache
+    private BlockFlyHelper.BlockCache blockPos = null;
+    private float[] rots = new float[]{0, 0};
+
+    //Placing & blocks
+    private final List<Block> BLACKLISTED_BLOCKS;
+    private int blockAmount = 0, packetBlockSlot, sneakAfterTick = 0, placedBlocks;
+    private boolean placeUp;
+
+    //Item switch
+    private int slot = -1, itemPrevEnable = -1;
+
+    //KeepY
+    private double y = 0.0;
+
+    //Raycasting
+    private Vector3d ray = null;
+
+    //Ticks
+    private int offGroundTicks, damageTicks;
 
     public BlockFly() {
         super(ModuleCategory.MOVEMENT, "BlockFly", "Allows you to automatically bridge");
-        this.registerSetting(new ModeSetting("Mode", "Rotation strategy for scaffold rotation.", 1, "Grim", "Hypixel","SideHit","Clutch"));
+        this.registerSetting(new ModeSetting("Mode", "Rotation strategy for scaffold rotation.", 1, "Grim", "Hypixel", "SideHit", "Clutch", "AAC"));
         this.registerSetting(new BooleanSetting("Static Pitch", "Special mode for Hypixel Mode.", false));
-        this.registerSetting(new NumberSetting<Float>("Pitch Value", "Pitch value for Hypixel Mode.", 70F, Float.class, 70F, 90F, 0.2F){
+        this.registerSetting(new NumberSetting<>("Pitch Value", "Pitch value for Hypixel Mode.", 70F, Float.class, 70F, 90F, 0.2F) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Static Pitch");
             }
         });
 
-        this.registerSetting(new ModeSetting("Smart Block Finder", "Adjust rotation strategy when no block is found.", 1, "Basic", "Test1","Test2"));
+        this.registerSetting(new ModeSetting("Smart Block Finder", "Adjust rotation strategy when no block is found.", 1, "Basic", "Test1", "Test2"));
         this.registerSetting(new ModeSetting("ItemSpoof", "Item spoofing mode.", 2, "None", "Switch", "Spoof", "LiteSpoof"));
         this.registerSetting(new ModeSetting("Tower Mode", "Tower mode", 1, "None", "NCP", "AAC", "Vanilla"));
         this.registerSetting(new ModeSetting("Picking mode", "The way it will move blocks in your inventory.", 0, "Basic", "FakeInv", "OpenInv"));
@@ -101,32 +109,32 @@ public class BlockFly extends Module {
         this.registerSetting(new NumberSetting<Float>("Rotation Speed", "Max rotation change per tick.", 0.0F, Float.class, 6.0F, 360, 6F));
         this.registerSetting(new BooleanSetting("Intelligent Block Picker", "Always get the biggest blocks stack.", true));
         this.registerSetting(new BooleanSetting("Eagle", "Doesn't let you fall off edges sneaking.", true));
-        this.registerSetting(new NumberSetting<Integer>("Eagle Rate", "Placed blocks before eagle.", 0.0F, Integer.class, 0, 8, 1){
+        this.registerSetting(new NumberSetting<Integer>("Eagle Rate", "Placed blocks before eagle.", 0.0F, Integer.class, 0, 8, 1) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
             }
         });
-        this.registerSetting(new NumberSetting<Integer>("Eagle Ticks", "Eagle tick duration.", 1, Integer.class, 1, 8, 1){
+        this.registerSetting(new NumberSetting<Integer>("Eagle Ticks", "Eagle tick duration.", 1, Integer.class, 1, 8, 1) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
             }
         });
-        this.registerSetting(new NumberSetting<Float>("Eagle Gap", "Distance from the block edges to sneak.", 0.0F, Float.class, 0, 1, 0.05f){
+        this.registerSetting(new NumberSetting<Float>("Eagle Gap", "Distance from the block edges to sneak.", 0.0F, Float.class, 0, 1, 0.05f) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
             }
         });
-        this.registerSetting(new BooleanSetting("Eagle Gap Rand", "Add Randomization to distance from the block edges", true){
+        this.registerSetting(new BooleanSetting("Eagle Gap Rand", "Add Randomization to distance from the block edges", true) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
             }
         });
         this.registerSetting(new BooleanSetting("Clutch", "Place a block under when you are going to fall.", true));
-        this.registerSetting(new ModeSetting("Clutch Mode", "Clutch rotation method.", 1, "Basic", "Advanced"){
+        this.registerSetting(new ModeSetting("Clutch Mode", "Clutch rotation method.", 1, "Basic", "Advanced") {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Clutch");
@@ -179,6 +187,7 @@ public class BlockFly extends Module {
                 Blocks.ACACIA_SAPLING
         );
     }
+
     @Override
     public void onEnable() {
         this.rots = new float[]{mc.player.rotationYaw, 96};
@@ -187,15 +196,14 @@ public class BlockFly extends Module {
         damageTicks = 0;
         this.y = mc.player.getPosY();
         this.blockPos = null;
-
     }
 
-    public static boolean isValid(Item var0) {
+    public boolean isValid(Item var0) {
         if (!(var0 instanceof BlockItem)) {
             return false;
         } else {
             Block var3 = ((BlockItem) var0).getBlock();
-            return ! BLACKLISTED_BLOCKS.contains(var3)
+            return !BLACKLISTED_BLOCKS.contains(var3)
                     && !(var3 instanceof AbstractButtonBlock)
                     && !(var3 instanceof BushBlock)
                     && !(var3 instanceof TrapDoorBlock)
@@ -210,98 +218,92 @@ public class BlockFly extends Module {
         }
     }
 
-
     public void updateCurrentHand() {
-        try {
-            for (int var3 = 36; var3 < 45; var3++) {
-                int var4 = var3 - 36;
-                if (mc.player.container.getSlot(var3).getHasStack()
-                        && isValid(mc.player.container.getSlot(var3).getStack().getItem())
-                        && mc.player.container.getSlot(var3).getStack().getCount() != 0) {
-                    slot = var4;
-                    if (mc.player.inventory.currentItem == var4) {
-                        return;
-                    }
-
-                    mc.player.inventory.currentItem = var4;
-                    if (this.getStringSettingValueByName("ItemSpoof").equals("LiteSpoof") && (this.packetBlockSlot < 0 || this.packetBlockSlot != var4)) {
-                        mc.getConnection().getNetworkManager().sendPacket(new CHeldItemChangePacket(var4));
-                        this.packetBlockSlot = var4;
-                    }
-                    break;
+        for (int var3 = 36; var3 < 45; var3++) {
+            int var4 = var3 - 36;
+            if (mc.player.container.getSlot(var3).getHasStack()
+                    && isValid(mc.player.container.getSlot(var3).getStack().getItem())
+                    && mc.player.container.getSlot(var3).getStack().getCount() != 0) {
+                slot = var4;
+                if (mc.player.inventory.currentItem == var4) {
+                    return;
                 }
-            }
-        } catch (Exception var5) {
 
+                mc.player.inventory.currentItem = var4;
+                if (this.getStringSettingValueByName("ItemSpoof").equals("LiteSpoof") && (this.packetBlockSlot < 0 || this.packetBlockSlot != var4)) {
+                    mc.getConnection().getNetworkManager().sendPacket(new CHeldItemChangePacket(var4));
+                    this.packetBlockSlot = var4;
+                }
+                break;
+            }
         }
     }
+
     @EventTarget
     @HigherPriority
-    public void metaahod16809(EventMove var1) {
-        if(blockAmmount != 0 && !getStringSettingValueByName("Tower Mode").equalsIgnoreCase("None")){
-            tower(var1);
+    public void onMove(EventMove event) {
+        if (blockAmount != 0 && !getStringSettingValueByName("Tower Mode").equalsIgnoreCase("None")) {
+            tower(event);
         }
     }
 
     @EventTarget
-    public void methoddd16889(EventJump var1) {
+    public void onJump(EventJump event) {
         if (getStringSettingValueByName("Tower Mode").equalsIgnoreCase("Vanilla")
-                && (!method17686() || getBooleanValueFromSettingName("Tower while moving"))) {
-            var1.cancelled = true;
+                && (!MovementUtil.isMoving() || getBooleanValueFromSettingName("Tower while moving"))) {
+            event.cancelled = true;
         }
-
-    }
-    public static final boolean method17686() {
-        return mc.player.moveStrafing != 0.0F || mc.player.moveForward != 0.0F;
     }
 
     public int getBlockAmount() {
-        int var3 = 0;
+        int count = 0;
 
-        for (int var4 = 0; var4 < 45; var4++) {
-            if (mc.player.container.getSlot(var4).getHasStack()) {
-                ItemStack var5 = mc.player.container.getSlot(var4).getStack();
+        for (int i = 0; i < 45; i++) {
+            if (mc.player.container.getSlot(i).getHasStack()) {
+                ItemStack var5 = mc.player.container.getSlot(i).getStack();
                 Item var6 = var5.getItem();
                 if (isValid(var6)) {
-                    var3 += var5.getCount();
+                    count += var5.getCount();
                 }
             }
         }
 
-        return var3;
+        return count;
     }
-    public int getBlockAmountOnHotbar() {
-        int var3 = 0;
 
-        for (int var4 = 36; var4 < 45; var4++) {
-            if (mc.player.container.getSlot(var4).getHasStack()) {
-                ItemStack var5 = mc.player.container.getSlot(var4).getStack();
+    public int getBlockAmountOnHotbar() {
+        int count = 0;
+
+        for (int i = 36; i < 45; i++) {
+            if (mc.player.container.getSlot(i).getHasStack()) {
+                ItemStack var5 = mc.player.container.getSlot(i).getStack();
                 Item var6 = var5.getItem();
                 if (isValid(var6)) {
-                    var3 += var5.getCount();
+                    count += var5.getCount();
                 }
             }
         }
 
-        return var3;
+        return count;
     }
 
     private BlockFlyHelper.BlockCache canPlace(float[] yawPitch) {
         BlockRayTraceResult rayTraceResult;
-        RayTraceResult m4 = BlockFly.mc.player.customPick(4.5, 1.0f, yawPitch[0], yawPitch[1]);
-        if (m4.getType() == RayTraceResult.Type.BLOCK && (rayTraceResult = (BlockRayTraceResult)m4).getFace() != net.minecraft.util.Direction.DOWN && (placeUp || rayTraceResult.getFace() != net.minecraft.util.Direction.UP)) {
+        RayTraceResult m4 = mc.player.customPick(4.5, 1.0f, yawPitch[0], yawPitch[1]);
+        if (m4.getType() == RayTraceResult.Type.BLOCK && (rayTraceResult = (BlockRayTraceResult) m4).getFace() != net.minecraft.util.Direction.DOWN && (placeUp || rayTraceResult.getFace() != net.minecraft.util.Direction.UP)) {
             this.ray = m4.getHitVec();
             return new BlockFlyHelper.BlockCache(rayTraceResult.getPos(), rayTraceResult.getFace());
         }
         return null;
     }
+
     public void click() {
         BlockPos bp;
         boolean r;
         if (this.blockPos == null) {
             return;
         }
-        if(getBlockAmountOnHotbar() == 0){
+        if (getBlockAmountOnHotbar() == 0) {
             return;
         }
 
@@ -320,8 +322,8 @@ public class BlockFly extends Module {
             this.blockPos = facing;
         }
 
-        if (BlockFly.mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB((bp = this.blockPos.getPosition().add(this.blockPos.getFacing().getXOffset(), this.blockPos.getFacing().getYOffset(), this.blockPos.getFacing().getZOffset())).getX(), bp.getY(), bp.getZ(), bp.getX() + 1, bp.getY() + 1, bp.getZ() + 1)).isEmpty() && !BlockFly.mc.world.getBlockState(bp).isSolid()) {
-            if (BlockFly.mc.playerController.processRightClickBlock(BlockFly.mc.player, BlockFly.mc.world, r ? facing.getPosition() : this.blockPos.getPosition(), facing.getFacing(), r ? this.ray : BlockFlyHelper.blockPosRedirection(ex ? new BlockPos(BlockFly.mc.player.getPositionVec()) : this.blockPos.getPosition(), facing.getFacing()), Hand.MAIN_HAND) == ActionResultType.SUCCESS) {
+        if (mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB((bp = this.blockPos.getPosition().add(this.blockPos.getFacing().getXOffset(), this.blockPos.getFacing().getYOffset(), this.blockPos.getFacing().getZOffset())).getX(), bp.getY(), bp.getZ(), bp.getX() + 1, bp.getY() + 1, bp.getZ() + 1)).isEmpty() && !mc.world.getBlockState(bp).isSolid()) {
+            if (mc.playerController.processRightClickBlock(mc.player, mc.world, r ? facing.getPosition() : this.blockPos.getPosition(), facing.getFacing(), r ? this.ray : BlockFlyHelper.blockPosRedirection(ex ? new BlockPos(mc.player.getPositionVec()) : this.blockPos.getPosition(), facing.getFacing()), Hand.MAIN_HAND) == ActionResultType.SUCCESS) {
                 placedBlocks++;
                 if (getStringSettingValueByName("ItemSpoof").equals("Spoof") || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
                     mc.player.inventory.currentItem = itemPrevEnable;
@@ -331,22 +333,11 @@ public class BlockFly extends Module {
             if (getBooleanValueFromSettingName("NoSwing")) {
                 mc.getConnection().sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
             } else {
-                BlockFly.mc.player.swingArm(Hand.MAIN_HAND);
+                mc.player.swingArm(Hand.MAIN_HAND);
             }
         }
         mc.sendClickBlockToController(false);
     }
-
-    public boolean shouldBuild() {
-        BlockPos downPos = new BlockPos(BlockFly.mc.player.getPositionVec().add(0.0, -0.5, 0.0));
-        boolean rotationChange = false;
-        boolean underAir = BlockFly.mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
-
-        rotationChange = underAir;
-        return rotationChange;
-    }
-
-
 
     public void handleBlockPicking() {
         String var3 = this.getStringSettingValueByName("Picking mode");
@@ -422,9 +413,6 @@ public class BlockFly extends Module {
             }
         }
     }
-    public static boolean isBlockValid(Block block) {
-        return block != Blocks.SAND && block != Blocks.GRAVEL && block != Blocks.DISPENSER && block != Blocks.CHEST && block != Blocks.ENDER_CHEST && block != Blocks.COMMAND_BLOCK && block != Blocks.NOTE_BLOCK && block != Blocks.FURNACE && block != Blocks.CRAFTING_TABLE && block != Blocks.TNT && block != Blocks.DROPPER && block != Blocks.BEACON && block != Blocks.ENCHANTING_TABLE && block != Blocks.LADDER && block != Blocks.COBWEB && block != Blocks.TORCH;
-    }
 
     public int bestBlockSlot() {
         int var3 = -1;
@@ -460,13 +448,6 @@ public class BlockFly extends Module {
         return false;
     }
 
-    public boolean method16739(Hand var1) {
-        if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-            return this.getBlockAmount() != 0;
-        } else return isValid(mc.player.getHeldItem(var1).getItem());
-    }
-
-
     public void click(int var1, int var2) {
         mc.playerController.windowClickFixed(mc.player.container.windowId, var1, var2, ClickType.SWAP, mc.player);
     }
@@ -474,8 +455,8 @@ public class BlockFly extends Module {
 
     @EventTarget
     @HighestPriority
-    public void met31210(EventUpdateWalkingPlayer var1) {
-        if(var1.isPre()){
+    public void onMotion(EventUpdateWalkingPlayer event) {
+        if (event.isPre()) {
             if (mc.player.onGround) {
                 offGroundTicks = 0;
             } else {
@@ -483,37 +464,38 @@ public class BlockFly extends Module {
             }
 
 
-            if(damageTicks > 0){
-                if(BlockFly.mc.gameSettings.keyBindSneak.pressed){
-                    BlockFly.mc.gameSettings.keyBindSneak.pressed = false;
+            if (damageTicks > 0) {
+                if (mc.gameSettings.keyBindSneak.pressed) {
+                    mc.gameSettings.keyBindSneak.pressed = false;
                 }
 
                 --damageTicks;
             }
 
-
-            var1.setYaw(RotationCore.currentYaw);
-            var1.setPitch(RotationCore.currentPitch);
+            event.setYaw(RotationCore.currentYaw);
+            event.setPitch(RotationCore.currentPitch);
         }
-        if(getBooleanValueFromSettingName("Sprint")){
-			mc.player.setSprinting(MovementUtil.isMoving());
+
+        if (getBooleanValueFromSettingName("Sprint")) {
+            mc.player.setSprinting(MovementUtil.isMoving());
+        } else {
+            mc.player.setSprinting(false);
         }
     }
 
     @EventTarget
     @HighestPriority
-    public void m2et12h32od10(EventPlayerTick var1) {
-        boolean ex;
+    public void onPlayerTick(EventPlayerTick event) {
         if (getBooleanValueFromSettingName("Eagle") && damageTicks == 0) {
-            if(placedBlocks >= (int)getNumberValueBySettingName("Eagle Rate")){
-                boolean block = blockRelativeToPlayer( -0.5, getBooleanValueFromSettingName("Eagle Gap Rand") ? (getNumberValueBySettingName("Eagle Gap") * 2) + RandomUtil.nextFloat(0, 0.3) : (getNumberValueBySettingName("Eagle Gap") * 2)) instanceof AirBlock;
+            if (placedBlocks >= (int) getNumberValueBySettingName("Eagle Rate")) {
+                boolean block = blockRelativeToPlayer(-0.5, getBooleanValueFromSettingName("Eagle Gap Rand") ? (getNumberValueBySettingName("Eagle Gap") * 2) + RandomUtil.nextFloat(0, 0.3) : (getNumberValueBySettingName("Eagle Gap") * 2)) instanceof AirBlock;
                 if (block && mc.player.onGround) {
-                    BlockFly.mc.gameSettings.keyBindSneak.pressed = true;
+                    mc.gameSettings.keyBindSneak.pressed = true;
                     this.sneakAfterTick = (int) getNumberValueBySettingName("Eagle Ticks");
                 } else if (this.sneakAfterTick > 0) {
                     --this.sneakAfterTick;
                     if (this.sneakAfterTick == 0) {
-                        BlockFly.mc.gameSettings.keyBindSneak.pressed = false;
+                        mc.gameSettings.keyBindSneak.pressed = false;
                         placedBlocks = 0;
                     }
                 }
@@ -528,6 +510,7 @@ public class BlockFly extends Module {
         if (!getStringSettingValueByName("ItemSpoof").equals("None")) {
             updateCurrentHand();
         }
+
         if (getBooleanValueFromSettingName("SameY")) {
             if (mc.player.fallDistance > 1.2 + 0 || (!MovementUtil.isMoving() && mc.gameSettings.keyBindJump.isKeyDown())) {
                 y = mc.player.getPosY();
@@ -535,121 +518,121 @@ public class BlockFly extends Module {
         } else {
             y = mc.player.getPosY();
         }
-        BlockPos downPos = new BlockPos(mc.player.getPosX(),y-0.5,mc.player.getPosZ());
 
+        BlockPos downPos = new BlockPos(mc.player.getPosX(), y - 0.5, mc.player.getPosZ());
 
-        boolean bl = ex = (int) getNumberValueBySettingName("Extend") != 0;
-        if (this.blockPos != null && ex) {
-            this.blockPos = new BlockFlyHelper.BlockCache(this.expand(new BlockPos(BlockFly.mc.player.getPositionVector().add(0.0, -0.5, 0.0)), getNumberValueBySettingName("Extend")), this.blockPos.getFacing());
+        boolean shouldExtend = (int) getNumberValueBySettingName("Extend") != 0;
+        if (this.blockPos != null && shouldExtend) {
+            this.blockPos = new BlockFlyHelper.BlockCache(this.expand(new BlockPos(mc.player.getPositionVector().add(0.0, -0.5, 0.0)), getNumberValueBySettingName("Extend")), this.blockPos.getFacing());
         }
+
         if (this.blockPos == null || this.slot == -1) {
-            float[] oldRots = { mc.player.lastReportedYaw, mc.player.lastReportedPitch};
             return;
         }
 
-        boolean rotationChange = this.shouldBuild();
-        float[] testone = BlockUtils.rotationToBlock(blockPos.getPosition(),blockPos.getFacing());
-        float[] testtwo = RotationUtils.scaffoldRots((double)this.blockPos.getPosition().getX() + 0.5 + (double)((float)this.blockPos.getFacing().getXOffset() / 2.0f), (double)this.blockPos.getPosition().getY() + 0.5 + (double)((float)this.blockPos.getFacing().getYOffset() / 2.0f), (double)this.blockPos.getPosition().getZ() + 0.5 + (double)((float)this.blockPos.getFacing().getZOffset() / 2.0f), BlockFly.mc.player.lastReportedYaw, BlockFly.mc.player.lastReportedPitch, getNumberValueBySettingName("Rotation Speed"), getNumberValueBySettingName("Rotation Speed"), false);
-        boolean underAir = BlockFly.mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
-        switch (getStringSettingValueByName("Mode")){
+        float[] testone = BlockUtils.rotationToBlock(blockPos.getPosition(), blockPos.getFacing());
+        float[] testtwo = RotationUtils.scaffoldRots((double) this.blockPos.getPosition().getX() + 0.5 + (double) ((float) this.blockPos.getFacing().getXOffset() / 2.0f), (double) this.blockPos.getPosition().getY() + 0.5 + (double) ((float) this.blockPos.getFacing().getYOffset() / 2.0f), (double) this.blockPos.getPosition().getZ() + 0.5 + (double) ((float) this.blockPos.getFacing().getZOffset() / 2.0f), mc.player.lastReportedYaw, mc.player.lastReportedPitch, getNumberValueBySettingName("Rotation Speed"), getNumberValueBySettingName("Rotation Speed"), false);
+
+        boolean underAir = mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
+        switch (getStringSettingValueByName("Mode")) {
             case "Grim":
-                this.rots[0] = underAir  ? mc.player.rotationYaw + 180: mc.player.rotationYaw;
+                this.rots[0] = underAir ? mc.player.rotationYaw + 180 : mc.player.rotationYaw;
                 this.getYawBasedPitch(this.rots[0], true);
                 break;
+
             case "AAC":
                 this.rots[0] = testone[0];
                 rots[1] = testone[1];
                 break;
+
             case "Hypixel":
-
                 this.rots[0] = mc.player.rotationYaw - 180;
-                getYawBasedPitch(rots[0],false);
-
+                getYawBasedPitch(rots[0], false);
                 break;
+
             case "SideHit":
                 this.rots[0] = mc.player.rotationYaw - 180 + 45;
                 this.rots[1] = 77.1f;
                 break;
+
             case "Clutch":
-                this.rots[0] = underAir && offGroundTicks > 3 ? mc.player.rotationYaw + 180: mc.player.rotationYaw;
-                getYawBasedPitch(mc.player.rotationYaw - 180,false);
+                this.rots[0] = underAir && offGroundTicks > 3 ? mc.player.rotationYaw + 180 : mc.player.rotationYaw;
+                getYawBasedPitch(mc.player.rotationYaw - 180, false);
                 break;
         }
         BlockFlyHelper.BlockCache f1 = canPlace(this.rots);
 
         String amode = getStringSettingValueByName("Smart Block Finder");
 
-        boolean shouldAdapt = f1== null && underAir &&  !amode.equalsIgnoreCase("Basic");
+        boolean shouldAdapt = f1 == null && underAir && !amode.equalsIgnoreCase("Basic");
 
         float[] var15 = amode.equalsIgnoreCase("Test1") ? testone : testtwo;
 
         float backSide = shouldAdapt ? var15[0] : (mc.player.rotationYaw + 180);
 
-        if(getStringSettingValueByName("Mode").equalsIgnoreCase("Grim")){
-            if(underAir){
+        if (getStringSettingValueByName("Mode").equalsIgnoreCase("Grim")) {
+            if (underAir) {
                 rots[0] = backSide;
             }
 
-            if(amode.equalsIgnoreCase("Test1")){
+            if (amode.equalsIgnoreCase("Test1")) {
                 rots[1] = shouldAdapt ? var15[1] : rots[1];
-            }else if (amode.equalsIgnoreCase("Test2")){
-                if(shouldAdapt){
-                    getYawBasedPitch(rots[0],true);
+            } else if (amode.equalsIgnoreCase("Test2")) {
+                if (shouldAdapt) {
+                    getYawBasedPitch(rots[0], true);
                 }
             }
 
         }
-        if(getStringSettingValueByName("Mode").equalsIgnoreCase("Hypixel")){
+        if (getStringSettingValueByName("Mode").equalsIgnoreCase("Hypixel")) {
 
             rots[0] = backSide;
 
-            if(amode.equalsIgnoreCase("Test1")){
+            if (amode.equalsIgnoreCase("Test1")) {
                 rots[1] = shouldAdapt ? var15[1] : rots[1];
-            }else if (amode.equalsIgnoreCase("Test2")){
+            } else if (amode.equalsIgnoreCase("Test2")) {
                 rots[1] = var15[1];
             }
 
-            getYawBasedPitch(rots[0],false);
+            getYawBasedPitch(rots[0], false);
 
-            if(getBooleanValueFromSettingName("Static Pitch")){
+            if (getBooleanValueFromSettingName("Static Pitch")) {
                 rots[1] = getNumberValueBySettingName("Pitch Value");
             }
 
         }
-        if(getStringSettingValueByName("Mode").equalsIgnoreCase("Clutch")){
-            if(underAir && offGroundTicks > 3){
+        if (getStringSettingValueByName("Mode").equalsIgnoreCase("Clutch")) {
+            if (underAir && offGroundTicks > 3) {
                 rots[0] = backSide;
             }
 
-            if(amode.equalsIgnoreCase("Test1")){
+            if (amode.equalsIgnoreCase("Test1")) {
                 rots[1] = shouldAdapt ? var15[1] : rots[1];
-            }else if (amode.equalsIgnoreCase("Test2")){
-                if(shouldAdapt){
-                    getYawBasedPitch(rots[0],false);
+            } else if (amode.equalsIgnoreCase("Test2")) {
+                if (shouldAdapt) {
+                    getYawBasedPitch(rots[0], false);
                 }
             }
 
         }
 
 
-
-
-        if(damageTicks > 0){
-            if(getStringSettingValueByName("Clutch Mode").equalsIgnoreCase("Basic")){
+        if (damageTicks > 0) {
+            if (getStringSettingValueByName("Clutch Mode").equalsIgnoreCase("Basic")) {
                 this.rots[0] = testone[0];
                 this.rots[1] = testone[1];
-            }else if(getStringSettingValueByName("Clutch Mode").equalsIgnoreCase("Advanced")){
+            } else if (getStringSettingValueByName("Clutch Mode").equalsIgnoreCase("Advanced")) {
                 this.rots[0] = testtwo[0];
-                getYawBasedPitch(rots[0],false);
+                getYawBasedPitch(rots[0], false);
 
             }
         }
 
-        Rotation limit = RotationUtils.limitAngleChange(new Rotation(BlockFly.mc.player.lastReportedYaw, BlockFly.mc.player.lastReportedPitch), new Rotation(this.rots[0], this.rots[1]), getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f), getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f));
+        Rotation limit = RotationUtils.limitAngleChange(new Rotation(mc.player.lastReportedYaw, mc.player.lastReportedPitch), new Rotation(this.rots[0], this.rots[1]), getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f), getNumberValueBySettingName("Rotation Speed") + RandomUtil.nextFloat(0.0f, 16.0f));
         this.rots = new float[]{limit.yaw, limit.pitch};
 
-        float[] oldRots = { mc.player.lastReportedYaw, mc.player.lastReportedPitch};
-        this.rots = RotationUtils.gcdFix(rots,oldRots);
+        float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
+        this.rots = RotationUtils.gcdFix(rots, oldRots);
 
         RotationCore.currentYaw = rots[0];
         RotationCore.currentPitch = rots[1];
@@ -662,21 +645,25 @@ public class BlockFly extends Module {
             this.click();
         }
     }
+
     public void getYawBasedPitch(float yaw, boolean t) {
         float[] curentRot = null;
         double lastDist = 0.0;
         double diff = 0.3f;
         float y = 40.0f;
         while (y <= 90.0f) {
-            block10: {
-                block9: {
-                    RayTraceResult rayTraceResult = BlockFly.mc.player.customPick(4.5, 1.0f, yaw, y);
+            block10:
+            {
+                block9:
+                {
+                    RayTraceResult rayTraceResult = mc.player.customPick(4.5, 1.0f, yaw, y);
                     if (rayTraceResult.getType() != RayTraceResult.Type.BLOCK) break block9;
-                    BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult)rayTraceResult;
-                    if (!blockRayTraceResult.getFace().equals(this.blockPos.getFacing()) || !blockRayTraceResult.getPos().equals(this.blockPos.getPosition())) break block10;
-                    double d = BlockFly.mc.player.getEyePosition(1.0f).squareDistanceTo(blockRayTraceResult.getHitVec());
+                    BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult) rayTraceResult;
+                    if (!blockRayTraceResult.getFace().equals(this.blockPos.getFacing()) || !blockRayTraceResult.getPos().equals(this.blockPos.getPosition()))
+                        break block10;
+                    double d = mc.player.getEyePosition(1.0f).squareDistanceTo(blockRayTraceResult.getHitVec());
                     if (curentRot == null || d <= lastDist) {
-                        curentRot = RotationUtils.scaffoldRots(blockRayTraceResult.getHitVec().x, blockRayTraceResult.getHitVec().y, blockRayTraceResult.getHitVec().z, BlockFly.mc.player.lastReportedYaw, BlockFly.mc.player.lastReportedPitch, getNumberValueBySettingName("Rotation Speed"), getNumberValueBySettingName("Rotation Speed"), false);
+                        curentRot = RotationUtils.scaffoldRots(blockRayTraceResult.getHitVec().x, blockRayTraceResult.getHitVec().y, blockRayTraceResult.getHitVec().z, mc.player.lastReportedYaw, mc.player.lastReportedPitch, getNumberValueBySettingName("Rotation Speed"), getNumberValueBySettingName("Rotation Speed"), false);
                         lastDist = d;
                     }
                 }
@@ -684,7 +671,7 @@ public class BlockFly extends Module {
                     diff = 0.05;
                 }
             }
-            y = (float)((double)y + diff);
+            y = (float) ((double) y + diff);
         }
         if (curentRot != null) {
             this.rots[1] = curentRot[1];
@@ -696,17 +683,18 @@ public class BlockFly extends Module {
     @EventTarget
     @HighestPriority
     public void m3ethod1210(EventMoveRelative var1) {
-        if(getBooleanValueFromSettingName("Movement Fix")){
+        if (getBooleanValueFromSettingName("Movement Fix")) {
             var1.setYaw(RotationCore.currentYaw);
         }
 
 
     }
+
     public BlockPos expand(BlockPos now, double max) {
         double dist = 0.0;
-        double forward = BlockFly.mc.player.movementInput.moveForward;
-        double strafe = BlockFly.mc.player.movementInput.moveStrafe;
-        float YAW = BlockFly.mc.player.rotationYaw;
+        double forward = mc.player.movementInput.moveForward;
+        double strafe = mc.player.movementInput.moveStrafe;
+        float YAW = mc.player.rotationYaw;
         BlockPos underPos = now;
         while (BlockFlyHelper.isOkBlock(underPos)) {
             double xCalc = now.getX();
@@ -714,7 +702,7 @@ public class BlockFly extends Module {
             if ((dist += 0.5) > max) break;
             double cos = Math.cos(Math.toRadians(YAW + 90.0f));
             double sin = Math.sin(Math.toRadians(YAW + 90.0f));
-            underPos = new BlockPos(xCalc += (forward * cos + strafe * sin) * dist, BlockFly.mc.player.getPosY() - 0.5, zCalc += (forward * sin - strafe * cos) * dist);
+            underPos = new BlockPos(xCalc += (forward * cos + strafe * sin) * dist, mc.player.getPosY() - 0.5, zCalc += (forward * sin - strafe * cos) * dist);
         }
         return underPos;
     }
@@ -722,32 +710,32 @@ public class BlockFly extends Module {
     @EventTarget
     @HighestPriority
     public void meth2od10(EventInputOptions var1) {
-        if(getStringSettingValueByName("Mode").equals("Grim")){
+        if (getStringSettingValueByName("Mode").equals("Grim")) {
             float current = mc.player.rotationYaw;
             float currentWrapped = MathHelper.wrapAngleTo180_float(current);
             double dir = MathHelper.round(Math.abs(currentWrapped), 45.0F);
             boolean diagonal = dir == 45 || dir == 135;
             BlockPos downPos = new BlockPos(mc.player.getPositionVector().add(0.0, -0.5, 0.0));
-            boolean underAir = BlockFly.mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
-            if(underAir && diagonal){
+            boolean underAir = mc.world.getBlockState(downPos).getBlock() instanceof AirBlock;
+            if (underAir && diagonal) {
                 //var1.setSneaking(true);
             }
         }
 
-        if(getBooleanValueFromSettingName("Movement Fix")){
+        if (getBooleanValueFromSettingName("Movement Fix")) {
             var1.cancelled = true;
-            MovementUtil.silentStrafe(var1,RotationCore.currentYaw);
+            MovementUtil.silentStrafe(var1, RotationCore.currentYaw);
         }
-        if(getStringSettingValueByName("Mode").equals("SideHit")){
-            if(!mc.player.onGround)
+        if (getStringSettingValueByName("Mode").equals("SideHit")) {
+            if (!mc.player.onGround)
                 var1.setForward(mc.player.ticksExisted % 3 == 0 ? -1 : 0);
 
-			mc.gameSettings.keyBindLeft.pressed = mc.gameSettings.keyBindForward.pressed && var1.getForward() != 0;
+            mc.gameSettings.keyBindLeft.pressed = mc.gameSettings.keyBindForward.pressed && var1.getForward() != 0;
 
         }
 
-        if(getBooleanValueFromSettingName("AutoJump")){
-            if(MovementUtil.isMoving()){
+        if (getBooleanValueFromSettingName("AutoJump")) {
+            if (MovementUtil.isMoving()) {
                 var1.setJumping(true);
             }
         }
@@ -850,7 +838,7 @@ public class BlockFly extends Module {
     public void onTick(EventPlayerTick var1) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {
-                this.blockAmmount = this.getBlockAmount();
+                this.blockAmount = this.getBlockAmount();
             }
         }
     }
@@ -858,7 +846,7 @@ public class BlockFly extends Module {
     @Override
     public void onDisable() {
         this.animation.changeDirection(Animation.Direction.BACKWARDS);
-        if(getStringSettingValueByName("ItemSpoof").equals("Switch")){
+        if (getStringSettingValueByName("ItemSpoof").equals("Switch")) {
             mc.player.inventory.currentItem = itemPrevEnable;
         }
         damageTicks = 0;
@@ -867,8 +855,8 @@ public class BlockFly extends Module {
             mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
             packetBlockSlot = -1;
         }
-        if(getStringSettingValueByName("Mode").equals("SideHit")){
-            if(mc.gameSettings.keyBindLeft.pressed) {
+        if (getStringSettingValueByName("Mode").equals("SideHit")) {
+            if (mc.gameSettings.keyBindLeft.pressed) {
                 mc.gameSettings.keyBindLeft.pressed = false;
             }
         }
@@ -886,10 +874,10 @@ public class BlockFly extends Module {
 
     @EventTarget
     public void method16743(EventRender2DOffset var1) {
-        if(mc.player.hurtTime > 0 && getBooleanValueFromSettingName("Clutch")){
+        if (mc.player.hurtTime > 0 && getBooleanValueFromSettingName("Clutch")) {
             damageTicks += 20;
         }
-        BlockPos downPos = new BlockPos(mc.player.getPosX(),y-0.5,mc.player.getPosZ());
+        BlockPos downPos = new BlockPos(mc.player.getPosX(), y - 0.5, mc.player.getPosZ());
 
 
         this.blockPos = BlockFlyHelper.getBlockCache(downPos, (int) getNumberValueBySettingName("Search"));
@@ -920,7 +908,7 @@ public class BlockFly extends Module {
         zCalc = mc.player.getPosZ();
         xCalc += (1 * 0.45 * Math.cos(Math.toRadians(mc.player.rotationYaw + 90.0f)) + 0 * 0.45 * Math.sin(Math.toRadians(mc.player.rotationYaw + 90.0f))) * gap;
         zCalc += (1 * 0.45 * Math.sin(Math.toRadians(mc.player.rotationYaw + 90.0f)) - 0 * 0.45 * Math.cos(Math.toRadians(mc.player.rotationYaw + 90.0f))) * gap;
-        return mc.world.getBlockState(new BlockPos(xCalc,mc.player.getPosY(),zCalc).add(0, offsetY, 0)).getBlock();
+        return mc.world.getBlockState(new BlockPos(xCalc, mc.player.getPosY(), zCalc).add(0, offsetY, 0)).getBlock();
     }
 
     public void renderClassicBlockCount(int x, int y, float alpha) {
@@ -930,20 +918,20 @@ public class BlockFly extends Module {
                 Resources.medium17,
                 (float) (x + 10),
                 (float) (y + 5),
-                this.blockAmmount + " Blocks",
+                this.blockAmount + " Blocks",
                 RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha * 0.3F));
         RenderUtil.drawString(
                 Resources.medium17,
                 (float) (x + 10),
                 (float) (y + 4),
-                this.blockAmmount + " Blocks",
+                this.blockAmount + " Blocks",
                 RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha * 0.8F));
         GL11.glAlphaFunc(519, 0.0F);
     }
 
     public void renderJelloBlockCount(int var1, int var2, float var3) {
         int var6 = 0;
-        int var7 = ResourceRegistry.JelloLightFont18.getWidth(this.blockAmmount + "") + 3;
+        int var7 = ResourceRegistry.JelloLightFont18.getWidth(this.blockAmount + "") + 3;
         var6 += var7;
         var6 += ResourceRegistry.JelloLightFont14.getWidth("Blocks");
         int var8 = var6 + 20;
@@ -952,7 +940,7 @@ public class BlockFly extends Module {
         GL11.glPushMatrix();
         RenderUtil.method11465(var1, var2, var8, var9, RenderUtil.applyAlpha(-15461356, 0.8F * var3));
         RenderUtil.drawString(
-                ResourceRegistry.JelloLightFont18, (float) (var1 + 10), (float) (var2 + 4), this.blockAmmount + "",
+                ResourceRegistry.JelloLightFont18, (float) (var1 + 10), (float) (var2 + 4), this.blockAmount + "",
                 RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14, (float) (var1 + 10 + var7), (float) (var2 + 8), "Blocks",
