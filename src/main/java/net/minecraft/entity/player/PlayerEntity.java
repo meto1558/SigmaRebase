@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.player.EventKeepSprint;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveRelative;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
