@@ -96,11 +96,7 @@ public class MovementUtil implements MinecraftUtil {
     }
 
     public static boolean isMoving() {
-        boolean forward = mc.gameSettings.keyBindForward.isKeyDown();
-        boolean left = mc.gameSettings.keyBindLeft.isKeyDown();
-        boolean right = mc.gameSettings.keyBindRight.isKeyDown();
-        boolean back = mc.gameSettings.keyBindBack.isKeyDown();
-        return forward || left || right || back;
+        return mc.player.moveForward != 0 || mc.player.moveStrafing != 0;
     }
 
     public static float getDirection(float forward, float strafing, float yaw) {
