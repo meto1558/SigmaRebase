@@ -53,7 +53,7 @@ public class KillAura extends Module {
     private final BooleanSetting useRotationSpeed;
     private final BooleanSetting hitEvent;
     public HashMap<Entity, Animation> entityAnimation = new HashMap<>();
-    private static InteractAutoBlock autoBlock;
+    public static InteractAutoBlock autoBlock;
     private int attackTimer;
     private int animationTimer;
     private float eventUpdateYaw, eventUpdatePitch;
@@ -122,10 +122,6 @@ public class KillAura extends Module {
 
     public static Rotation getCurrentRotation(KillAura var0) {
         return var0.currentRotation;
-    }
-
-    public static InteractAutoBlock getInteractAutoblock(KillAura var0) {
-        return autoBlock;
     }
 
     public static List<TimedEntity> getTargets(KillAura var0) {
