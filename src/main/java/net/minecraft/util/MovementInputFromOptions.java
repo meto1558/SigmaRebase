@@ -47,7 +47,7 @@ public class MovementInputFromOptions extends MovementInput {
         this.sneaking = eventMoveButton.sneak;
 
         final EventMoveInput eventMoveInput = new EventMoveInput(this.moveForward, this.moveStrafe, this.jump, this.sneaking, 0.3F);
-        EventBus.register(eventMoveInput);
+        EventBus.call(eventMoveInput);
 
         this.moveStrafe = eventMoveInput.strafe;
         this.moveForward = eventMoveInput.forward;
