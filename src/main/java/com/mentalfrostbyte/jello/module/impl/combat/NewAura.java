@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.player.EventKeepSprint;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
@@ -46,6 +47,7 @@ public class NewAura extends Module {
     private final BooleanSetting invisibles = new BooleanSetting("Invisibles", "Should aura target invisible entities?", false);
     private final BooleanSetting throughWalls = new BooleanSetting("Through walls", "Should aura attack entities through walls?", false);
     private final BooleanSetting raycast = new BooleanSetting("Raycast", "Should aura raycast a line to each target?", true);
+    private final BooleanSetting keepSprint = new BooleanSetting("Keep sprint", "Should aura keep sprinting while attacking?", true);
 
     public NewAura() {
         super(ModuleCategory.COMBAT, "NewAura", "Attacks entities.");
@@ -152,6 +154,13 @@ public class NewAura extends Module {
         if (target != null) {
             event.setYaw(rots.yaw);
             event.setPitch(rots.pitch);
+        }
+    }
+
+    @EventTarget
+    public void onSprint(EventKeepSprint event) {
+        if (keepSprint.getCurrentValue()) {
+            event.greater = false;
         }
     }
 
