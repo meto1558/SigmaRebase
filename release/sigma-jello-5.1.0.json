@@ -475,13 +475,13 @@
     {
       "downloads": {
         "artifact": {
-          "path": "com/google/code/gson/gson/2.8.0/gson-2.8.0.jar",
-          "sha1": "c4ba5371a29ac9b2ad6129b1d39ea38750043eff",
-          "size": 231952,
-          "url": "https://libraries.minecraft.net/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar"
+          "path": "com/google/code/gson/gson/2.8.9/gson-2.8.9.jar",
+          "sha1": "8a432c1d6825781e21a02db2e2c33c5fde2833b9",
+          "size": 258075,
+          "url": "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar"
         }
       },
-      "name": "com.google.code.gson:gson:2.8.0"
+      "name": "com.google.code.gson:gson:2.8.9"
     },
     {
       "downloads": {
