@@ -27,37 +27,37 @@ public class MovementInputFromOptions extends MovementInput {
         );
         EventBus.call(eventMoveButton);
 
-        if (eventMoveButton.isForward()) {
+        if (eventMoveButton.forward) {
             ++this.moveForward;
         }
 
-        if (eventMoveButton.isBack()) {
+        if (eventMoveButton.back) {
             --this.moveForward;
         }
 
-        if (eventMoveButton.isLeft()) {
+        if (eventMoveButton.left) {
             ++this.moveStrafe;
         }
 
-        if (eventMoveButton.isRight()) {
+        if (eventMoveButton.right) {
             --this.moveStrafe;
         }
 
-        this.jump = eventMoveButton.isJump();
-        this.sneaking = eventMoveButton.isSneak();
+        this.jump = eventMoveButton.jump;
+        this.sneaking = eventMoveButton.sneak;
 
         final EventMoveInput eventMoveInput = new EventMoveInput(this.moveForward, this.moveStrafe, this.jump, this.sneaking, 0.3F);
         EventBus.register(eventMoveInput);
 
-        this.moveStrafe = eventMoveInput.getStrafe();
-        this.moveForward = eventMoveInput.getForward();
+        this.moveStrafe = eventMoveInput.strafe;
+        this.moveForward = eventMoveInput.forward;
 
-        this.jump = eventMoveInput.isJumping();
-        this.sneaking = eventMoveInput.isSneaking();
+        this.jump = eventMoveInput.jumping;
+        this.sneaking = eventMoveInput.sneaking;
 
         if (this.sneaking) {
-            this.moveStrafe *= eventMoveInput.getSneakFactor();
-            this.moveForward *= eventMoveInput.getSneakFactor();
+            this.moveStrafe *= eventMoveInput.sneakFactor;
+            this.moveForward *= eventMoveInput.sneakFactor;
         }
     }
 }
