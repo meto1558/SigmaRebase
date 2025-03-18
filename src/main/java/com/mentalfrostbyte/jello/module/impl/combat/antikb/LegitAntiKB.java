@@ -1,37 +1,46 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antikb;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveButton;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveInput;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
 public class LegitAntiKB extends Module {
-    public static boolean s12_received;
-
     public LegitAntiKB() {
         super(ModuleCategory.COMBAT, "Legit", "Use jump-reset mechanism to reduce velocity.");
     }
 
-    @EventTarget
-    @HighestPriority
-    public void onInputOptionEvent(EventInputOptions var1) {
-        if(s12_received){
-            var1.setJumping(true);
-            s12_received = false;
-        }
-
-    }
+    private boolean working = false, attacking = false;
 
     @EventTarget
     @HighestPriority
     public void onReceivePackett(EventReceivePacket event) {
-        if (event.packet instanceof SEntityVelocityPacket var4) {
+        if (working) {
+            if (mc.player.hurtTime != 0) {
+                mc.player.setSprinting(false);
+                KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.keyCode, false);
 
-			if (var4.getEntityID() == mc.player.getEntityId()) {
-                s12_received = true;
+                if (!mc.player.onGround) {
+                    KeyBinding.setKeyBindState(mc.gameSettings.keyBindJump.keyCode, true);
+                }
+
+                if (mc.player.isSwingInProgress) {
+                    attacking = true;
+                }
+
+                if (attacking) {
+                    mc.player.setMotion(mc.player.getMotion().x * 0.6, mc.player.getMotion().y, mc.player.getMotion().x * 0.6);
+                }
+
+                attacking = false;
             }
+            working = false;
         }
     }
 }
