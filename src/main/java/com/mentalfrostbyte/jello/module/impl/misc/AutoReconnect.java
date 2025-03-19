@@ -13,16 +13,12 @@ public class AutoReconnect extends Module {
 
     public AutoReconnect() {
         super(ModuleCategory.MISC, "AutoReconnect", "Automatically reconnects you to the server if you got disconnected");
-
-        BooleanSetting oneTime = new BooleanSetting("One time", "Reconnect only once before disabling AutoReconnect", false);
-        this.registerSetting(oneTime);
-
-        BooleanSetting reconnectButton = new BooleanSetting("Reconnect button", "Show reconnect button on the disconnected screen", true);
-        this.registerSetting(reconnectButton);
+        this.registerSetting(new BooleanSetting("One time", "Reconnect only once before disabling AutoReconnect", false));
+        this.registerSetting(new BooleanSetting("Reconnect button", "Show reconnect button on the disconnected screen", true));
     }
 
     @EventTarget
-    public void worldLoad(EventLoadWorld event) {
+    public void onLoadWorld(EventLoadWorld event) {
         if(mc.getCurrentServerData() != null) {
             serverData = mc.getCurrentServerData();
         }
@@ -31,11 +27,10 @@ public class AutoReconnect extends Module {
     @Override
     public void onEnable() {
         super.onEnable();
+
         if (mc.getCurrentServerData() != null) {
             serverData = mc.getCurrentServerData();
         }
     }
-
-
 }
 
