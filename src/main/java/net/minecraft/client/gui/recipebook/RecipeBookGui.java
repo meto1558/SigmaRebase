@@ -527,34 +527,11 @@ public class RecipeBookGui extends AbstractGui implements IRenderable, IGuiEvent
     private void updateSearch()
     {
         String s = this.searchBar.getText().toLowerCase(Locale.ROOT);
-        this.pirateRecipe(s);
 
         if (!s.equals(this.lastSearch))
         {
             this.updateCollections(false);
             this.lastSearch = s;
-        }
-    }
-
-    /**
-     * "Check if we should activate the pirate speak easter egg"
-     */
-    private void pirateRecipe(String text)
-    {
-        if ("excitedze".equals(text))
-        {
-            LanguageManager languagemanager = this.mc.getLanguageManager();
-            Language language = languagemanager.getLanguage("en_pt");
-
-            if (languagemanager.getCurrentLanguage().compareTo(language) == 0)
-            {
-                return;
-            }
-
-            languagemanager.setCurrentLanguage(language);
-            this.mc.gameSettings.language = language.getCode();
-            this.mc.reloadResources();
-            this.mc.gameSettings.saveOptions();
         }
     }
 
