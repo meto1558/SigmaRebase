@@ -2,21 +2,19 @@ package com.mentalfrostbyte.jello.module.impl.player;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventHandAnimation;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.managers.ViaManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
-
-import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import net.minecraft.block.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Items;
@@ -35,6 +33,7 @@ import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OldHitting extends Module {
     public static boolean field23408 = false;
@@ -42,30 +41,28 @@ public class OldHitting extends Module {
 
     public OldHitting() {
         super(ModuleCategory.PLAYER, "OldHitting", "Reverts to 1.7/1.8 hitting");
-        this.registerSetting(new ModeSetting("Animation", "Animation mode", 0, "Vanilla", "Tap", "Tap2", "Slide", "Slide2", "Scale", "Leaked", "Ninja", "Down"));
-        this.registerSetting(new BooleanSetting("Enhancements", "Fix some 1.8 server ViaVersion issues.", true));
-        this.registerSetting(new BooleanSetting("Always", "Fake autoblock.", true));
-        this.registerSetting(new NumberSetting<Float>("XPos", "Default X position of the main hand", 0, Float.class, -1, 1, 0.01F));
-        this.registerSetting(new NumberSetting<Float>("YPos", "Default Y position of the main hand", 0, Float.class, -1, 1, 0.01F));
-        this.registerSetting(new NumberSetting<Float>("ZPos", "Default Z position of the main hand", 0, Float.class, -1, 1, 0.01F));
+        this.registerSetting(new ModeSetting("Animation", "Animation mode", 0, "Vanilla", "Tap", "Tap2", "Slide", "Slide2", "Scale", "Leaked", "Ninja", "Down", "Tomy"));
+        this.registerSetting(new NumberSetting<>("XPos", "Default X position of the main hand", 0, Float.class, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<>("YPos", "Default Y position of the main hand", 0, Float.class, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<>("ZPos", "Default Z position of the main hand", 0, Float.class, -1, 1, 0.01F));
         this.setAvailableOnClassic(true);
     }
 
     @EventTarget
     @HigherPriority
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
-        if (this.isEnabled() || ViaLoadingBase.getInstance().getTargetVersion().equalTo(ProtocolVersion.v1_8)) {
-            if (var1.isPre()) {
-                boolean holdingSword = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;
-                boolean killauraEnabled = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled();
+    public void onUpdate(EventUpdateWalkingPlayer event) {
+        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+            if (event.isPre()) {
+                boolean var4 = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;
+                boolean var5 = Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2();
                 boolean var6 = true;
                 if (!mc.player.isSneaking()
                         && mc.objectMouseOver.getType() == RayTraceResult.Type.BLOCK
-                        && !Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled()) {
-                    BlockRayTraceResult var7 = (BlockRayTraceResult) mc.objectMouseOver;
-                    BlockPos var8 = var7.getPos();
-                    Block var9 = mc.world.getBlockState(var8).getBlock();
-                    ArrayList var10 = new ArrayList<Block>(
+                        && !Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled2()) {
+                    BlockRayTraceResult blockRayTrace = (BlockRayTraceResult) mc.objectMouseOver;
+                    BlockPos blockPos = blockRayTrace.getPos();
+                    Block block = mc.world.getBlockState(blockPos).getBlock();
+                    List<Block> blocks = new ArrayList<>(
                             Arrays.asList(
                                     Blocks.CHEST,
                                     Blocks.ENDER_CHEST,
@@ -87,26 +84,29 @@ public class OldHitting extends Module {
                                     Blocks.COMPARATOR
                             )
                     );
-                    if (var10.contains(var9)
-                            || var9 instanceof WoodButtonBlock
-                            || var9 instanceof StoneButtonBlock
-                            || var9 instanceof FenceGateBlock
-                            || var9 instanceof DoorBlock && var9 != Blocks.IRON_DOOR) {
+                    if (blocks.contains(block)
+                            || block instanceof WoodButtonBlock
+                            || block instanceof StoneButtonBlock
+                            || block instanceof FenceGateBlock
+                            || block instanceof DoorBlock && block != Blocks.IRON_DOOR) {
                         var6 = false;
                     }
                 }
 
-                field23408 = mc.player.getItemInUseCount() > 0 && holdingSword && var6 || killauraEnabled && KillAura.targetEntity != null && getBooleanValueFromSettingName("Always");
-                //JelloPortalFixes.doBlock
+                field23408 = mc.gameSettings.keyBindUseItem.isKeyDown() && var4 && var6 && var6 || var5;
                 if (!field23408) {
-					ViaManager.entities.remove(mc.player);
+                    if (ViaManager.entities.contains(mc.player)) {
+                        ViaManager.entities.remove(mc.player);
+                    }
                 } else if (!ViaManager.entities.contains(mc.player)) {
                     ViaManager.entities.add(mc.player);
                 }
 
                 if (field23408 && !this.field23409) {
                     this.field23409 = !this.field23409;
-
+                    if (!var5) {
+                        CombatUtil.block();
+                    }
                 } else if (!field23408 && this.field23409) {
                     this.field23409 = !this.field23409;
                 }
@@ -119,9 +119,10 @@ public class OldHitting extends Module {
     public void onPacketReceive(EventReceivePacket event) {
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             if (mc.player != null) {
-                if (event.packet instanceof SEntityEquipmentPacket pack) {
+                if (event.getPacket() instanceof SEntityEquipmentPacket) {
+                    SEntityEquipmentPacket pack = (SEntityEquipmentPacket) event.getPacket();
 
-					pack.func_241790_c_().removeIf(pair -> pack.getEntityID() == mc.player.getEntityId()
+                    pack.func_241790_c_().removeIf(pair -> pack.getEntityID() == mc.player.getEntityId()
                             && pair.getFirst() == EquipmentSlotType.OFFHAND
                             && pair.getSecond() != null
                             && pair.getSecond().getItem() == Items.SHIELD);
@@ -130,20 +131,19 @@ public class OldHitting extends Module {
         }
     }
 
-
     @EventTarget
     @LowerPriority
     public void method16022(EventHandAnimation event) {
-        if (this.isEnabled() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
+        if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             float swingProgress = event.getSwingProgress();
             event.getMatrix().translate(getNumberValueBySettingName("XPos"), getNumberValueBySettingName("YPos"), getNumberValueBySettingName("ZPos"));
+
             if (event.method13926() && event.getHand() == HandSide.LEFT && event.getItemStack().getItem() instanceof ShieldItem) {
                 event.renderBlocking(false);
             } else if (event.getHand() != HandSide.LEFT || !field23408) {
-                if (field23408 && event.method13926()) {
+                if (field23408 && event.method13926() && this.isEnabled() && event.getItemStack().getItem() instanceof SwordItem) {
                     event.cancelled = true;
-                    String var5 = this.getStringSettingValueByName("Animation");
-                    switch (var5) {
+                    switch (this.getStringSettingValueByName("Animation")) {
                         case "Vanilla":
                             this.doVanilla(0.0F, swingProgress, event.getMatrix());
                             break;
@@ -185,7 +185,7 @@ public class OldHitting extends Module {
 
     private void doTomy(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, var1 * -0.6F, 0.0);
+        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * var2 * (float) Math.PI);
@@ -200,7 +200,7 @@ public class OldHitting extends Module {
 
     private void doNinja(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.39F, -0.71999997F);
-        var3.translate(0.0, var1 * -0.6F, 0.0);
+        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
         this.rotate(100.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-50.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * (float) Math.PI);
@@ -215,7 +215,7 @@ public class OldHitting extends Module {
 
     private void doVanilla(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, var1 * -0.6F, 0.0);
+        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * var2 * (float) Math.PI);
@@ -242,21 +242,21 @@ public class OldHitting extends Module {
         var3.scale(2.7F, 2.7F, 2.7F);
     }
 
-    private void doTap2(float var1, float swingProgress, MatrixStack matrixStack) {
-        matrixStack.translate(0.648F, -0.55F, -0.71999997F);
-        matrixStack.translate(0.0, var1 * -0.6F, 0.0);
-        this.rotate(77.0F, 0.0F, 1.0F, 0.0F, matrixStack);
-        this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, matrixStack);
-        float var6 = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
-        this.rotate(-80.0F, 1.0F, 0.0F, 0.0F, matrixStack);
-        this.rotate(-var6 * 10.0F, 1.0F, -2.0F, 3.0F, matrixStack);
+    private void doTap2(float var1, float var2, MatrixStack var3) {
+        var3.translate(0.648F, -0.55F, -0.71999997F);
+        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
+        this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
+        this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
+        float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
+        this.rotate(-80.0F, 1.0F, 0.0F, 0.0F, var3);
+        this.rotate(-var6 * 10.0F, 1.0F, -2.0F, 3.0F, var3);
         float var7 = 1.2F;
-        matrixStack.scale(var7, var7, var7);
+        var3.scale(var7, var7, var7);
     }
 
     private void doSlide(float var1, float var2, MatrixStack var3) {
         var3.translate(0.648F, -0.55F, -0.71999997F);
-        var3.translate(0.0, var1 * -0.6F, 0.0);
+        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
@@ -268,7 +268,7 @@ public class OldHitting extends Module {
 
     private void doSlide2(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, var1 * -0.6F, 0.0);
+        var3.translate(0.0, (double) (var1 * -0.6F), 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(var2 * var2 * (float) Math.PI);
@@ -283,7 +283,7 @@ public class OldHitting extends Module {
 
     private void doScale(float var1, float var2, MatrixStack var3) {
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, var1 * -0.2F, 0.0);
+        var3.translate(0.0, (double) (var1 * -0.2F), 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
@@ -305,7 +305,7 @@ public class OldHitting extends Module {
     private void doDown(float var1, float var2, MatrixStack var3) {
         float var6 = MathHelper.sin(MathHelper.sqrt(var2) * (float) Math.PI);
         var3.translate(0.48F, -0.55F, -0.71999997F);
-        var3.translate(0.0, var6 * -0.2F, 0.0);
+        var3.translate(0.0, (double) (var6 * -0.2F), 0.0);
         this.rotate(77.0F, 0.0F, 1.0F, 0.0F, var3);
         this.rotate(-10.0F, 0.0F, 0.0F, 1.0F, var3);
         this.rotate(-80.0F, 1.0F, 0.0F, 0.0F, var3);
