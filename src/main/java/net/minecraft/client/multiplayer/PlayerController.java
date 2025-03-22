@@ -1,7 +1,7 @@
 package net.minecraft.client.multiplayer;
 
-import com.mentalfrostbyte.jello.util.client.invmanager.InvManagerUtil;
 import baritone.utils.accessor.IPlayerControllerMP;
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.Block;
@@ -43,7 +43,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
@@ -622,7 +621,7 @@ public class PlayerController implements IPlayerControllerMP
     }
 
     public ItemStack windowClickFixed(int var1, int var2, int var3, ClickType var4, PlayerEntity var5) {
-        return InvManagerUtil.regularClick(var1, var2, var3, var4, var5);
+        return InvManagerUtil.clickSlot(var1, var2, var3, var4, var5);
     }
 
     public boolean isSpectatorMode()
