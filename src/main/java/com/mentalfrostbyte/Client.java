@@ -4,12 +4,11 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import com.google.gson.JsonObject;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
-import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
@@ -18,9 +17,7 @@ import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.newdawn.slick.opengl.Texture;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -32,21 +29,17 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-public class Client {
-    //test
-
-    private static final Minecraft mc = Minecraft.getInstance();
+public class Client implements MinecraftUtil {
     public static int currentVersionIndex = 28;
+    public static final org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
 
     public static final String RELEASE_TARGET = "5.1.0";
     public static final int BETA_ITERATION = 16;
     public static final String FULL_VERSION = RELEASE_TARGET + (BETA_ITERATION > 0 ? "b" + BETA_ITERATION : "");
-    public static String NAME = "Jello";
-    public static String PROD = "Sigma Production";
 
     public File file = new File("sigma5");
 
-    public static List<Texture> textureList = new ArrayList<Texture>();
+    public static List<Texture> textureList = new ArrayList<>();
 
     private static Client instance;
     public ClientMode clientMode = ClientMode.INDETERMINATE;
@@ -54,11 +47,11 @@ public class Client {
     public FriendManager friendManager;
     public SlotChangeTracker slotChangeTracker;
 
-    private JsonObject config;
+    public JsonObject config;
 
     public GuiManager guiManager;
     public ModuleManager moduleManager;
-    public NetworkManager networkManager;
+    public LicenseManager licenseManager;
     public BotManager botManager;
     public ViaManager viaManager;
     public CommandManager commandManager;
@@ -71,103 +64,78 @@ public class Client {
     public PlayerStateTracker playerTracker;
     public MinerTracker minerTracker;
 
-    private final org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
 
     public static boolean dontRenderHand = false;
-    private boolean loading = true;
+    public boolean loading = true;
 
     public BlurEngine blurEngine;
 
     public void start() {
-        this.logger.info("Initializing...");
+        logger.info("Initializing...");
 
         try {
-            if (!this.file.exists()) {
-                this.file.mkdirs();
+            if (!file.exists()) {
+                file.mkdirs();
             }
 
-            this.config = FileUtil.readFile(new File(this.file + "/config.json"));
-        } catch (IOException var8) {
-            var8.printStackTrace();
+            config = FileUtil.readFile(new File(file + "/config.json"));
+        } catch (IOException exception) {
+            logger.error(exception);
         }
 
-        this.networkManager = new NetworkManager();
-        this.networkManager.init();
-        this.guiManager = new GuiManager();
-        this.botManager = new BotManager();
-        this.botManager.init();
-        this.viaManager = new ViaManager();
-        this.viaManager.init();
-        this.commandManager = new CommandManager();
-        this.commandManager.init();
-        this.friendManager = new FriendManager();
-        this.friendManager.init();
-        this.musicManager = new MusicManager();
-        this.musicManager.init();
-        this.soundManager = new SoundManager();
-        this.soundManager.init();
-        this.notificationManager = new NotificationManager();
-        this.notificationManager.init();
-        this.accountManager = new AccountManager();
-        this.accountManager.registerEvents();
-        this.playerTracker = new PlayerStateTracker();
-        this.playerTracker.init();
-        this.waypointsManager = new WaypointsManager();
-        this.waypointsManager.init();
-        this.blurEngine = new BlurEngine();
-        this.blurEngine.init();
-        this.minerTracker = new MinerTracker();
-        this.minerTracker.init();
+        licenseManager = new LicenseManager();
+        licenseManager.init();
+        guiManager = new GuiManager();
+        botManager = new BotManager();
+        botManager.init();
+        viaManager = new ViaManager();
+        viaManager.init();
+        commandManager = new CommandManager();
+        commandManager.init();
+        friendManager = new FriendManager();
+        friendManager.init();
+        musicManager = new MusicManager();
+        musicManager.init();
+        soundManager = new SoundManager();
+        soundManager.init();
+        notificationManager = new NotificationManager();
+        notificationManager.init();
+        accountManager = new AccountManager();
+        accountManager.init();
+        playerTracker = new PlayerStateTracker();
+        playerTracker.init();
+        waypointsManager = new WaypointsManager();
+        waypointsManager.init();
+        blurEngine = new BlurEngine();
+        blurEngine.init();
+        minerTracker = new MinerTracker();
+        minerTracker.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
-        this.logger.info("Initialized.");
+        logger.info("Initialized.");
     }
 
     public void shutdown() {
-        this.logger.info("Shutting down...");
+        logger.info("Shutting down...");
 
         try {
-            if (this.guiManager != null) {
-                this.guiManager.getUIConfig(this.config);
+            if (guiManager != null) {
+                guiManager.getUIConfig(config);
             }
 
-            if (this.moduleManager != null) {
-                this.moduleManager.method14660(this.config);
+            if (moduleManager != null) {
+                moduleManager.method14660(config);
             }
 
-            FileUtil.save(this.config, new File(this.file + "/config.json"));
-        } catch (IOException var4) {
-            this.logger.error("Unable to shutdown correctly. Config may be corrupt?");
-            var4.printStackTrace();
+            FileUtil.save(config, new File(file + "/config.json"));
+        } catch (IOException exc) {
+            logger.error("Unable to shutdown correctly. Config may be corrupt?", exc);
         }
 
-        this.logger.info("Done.");
+        logger.info("Done.");
     }
 
     public void endTick() {
-        this.guiManager.endTick();
-    }
-
-    public void method19926() {
-        GL11.glPushMatrix();
-        double var3 = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
-        GL11.glScaled(var3, var3, var3);
-        GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, GuiManager.scaleFactor);
-        GL11.glDisable(2912);
-        RenderSystem.disableDepthTest();
-        RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
-        RenderSystem.alphaFunc(519, 0.0F);
-        RenderSystem.enableBlend();
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(2896);
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        Resources.gingerbreadIconPNG.bind();
-        EventBus.call(new EventRender2DCustom());
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.enableCull();
-        RenderSystem.disableDepthTest();
-        RenderSystem.enableBlend();
-        RenderSystem.alphaFunc(518, 0.1F);
-        GL11.glPopMatrix();
+        guiManager.endTick();
     }
 
     public void hook3DRenderEvent() {
@@ -195,7 +163,8 @@ public class Client {
                 }
 
                 textureList.clear();
-            } catch (ConcurrentModificationException ignored) {
+            } catch (ConcurrentModificationException exception) {
+                logger.warn(exception);
             }
         }
 
@@ -206,19 +175,12 @@ public class Client {
             RenderSystem.disableDepthTest();
             RenderSystem.pushMatrix();
             RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
-            this.guiManager.renderWatermark();
+            guiManager.renderWatermark();
             RenderSystem.popMatrix();
             RenderSystem.enableDepthTest();
             RenderSystem.enableAlphaTest();
             GL11.glAlphaFunc(GL11.GL_GEQUAL, 0.1F);
         }
-    }
-
-    public DiscordRichPresence getDRPC() {
-        return this.discordRichPresence;
-    }
-
-    private Client() {
     }
 
     public static Client getInstance() {
@@ -240,20 +202,21 @@ public class Client {
     }
 
     public void setupClient(ClientMode mode) {
-        this.clientMode = mode;
+        clientMode = mode;
+
         if (mode == ClientMode.CLASSIC) {
             getInstance().guiManager.useClassicReplacementScreens();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         } else if (mode == ClientMode.JELLO) {
-            this.initRPC();
+            initRPC();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
         }
 
-        if (this.moduleManager == null && ModuleSettingInitializr.thisThread != null) {
-            this.moduleManager = new ModuleManager();
-            this.moduleManager.register(this.clientMode);
-            this.moduleManager.loadProfileFromJSON(this.config);
-            this.moduleManager.loadCurrentConfig(this.config);
+        if (moduleManager == null && ModuleSettingInitializr.thisThread != null) {
+            moduleManager = new ModuleManager();
+            moduleManager.register(clientMode);
+            moduleManager.loadProfileFromJSON(config);
+            moduleManager.loadCurrentConfig(config);
         }
 
         System.gc();
@@ -261,25 +224,9 @@ public class Client {
 
     public void saveClientData() {
         try {
-            FileUtil.save(this.config, new File(this.file + "/config.json"));
+            FileUtil.save(config, new File(file + "/config.json"));
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
-    }
-
-    public JsonObject getConfig() {
-        return this.config;
-    }
-
-    public org.apache.logging.log4j.Logger getLogger() {
-        return this.logger;
-    }
-
-    public boolean isLoading() {
-        return this.loading;
-    }
-
-    public void setLoading(boolean loading) {
-        this.loading = loading;
     }
 }
