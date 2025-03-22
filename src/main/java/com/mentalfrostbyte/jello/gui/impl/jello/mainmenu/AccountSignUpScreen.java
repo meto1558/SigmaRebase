@@ -90,9 +90,9 @@ public class AccountSignUpScreen extends Element {
                 () -> {
                     this.loadingBox.setHovered(true);
                     this.registerButton.setSelfVisible(false);
-                    Client.getInstance().networkManager.resetLicense();
-                    Client.getInstance().networkManager.signup(this.usernameInputBox.getText(), this.passwordInputBox.getText(), this.emailInputBox.getText());
-                    String s = Client.getInstance().networkManager.newAccount(this.usernameInputBox.getText(), this.passwordInputBox.getText());
+                    Client.getInstance().licenseManager.resetLicense();
+                    Client.getInstance().licenseManager.signup(this.usernameInputBox.getText(), this.passwordInputBox.getText(), this.emailInputBox.getText());
+                    String s = Client.getInstance().licenseManager.newAccount(this.usernameInputBox.getText(), this.passwordInputBox.getText());
                     RegisterScreen var5 = (RegisterScreen) this.getParent();
                     if (s != null) {
                         var5.method13424("Error", s);

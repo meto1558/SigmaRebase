@@ -97,7 +97,7 @@ public class LoginScreen extends Element {
             this.loadingThingy.setHovered(true);
             this.loginButton.setSelfVisible(false);
 
-            String account = Client.getInstance().networkManager.newAccount(this.inputUsername.getText(), this.inputPassword.getText());
+            String account = Client.getInstance().licenseManager.newAccount(this.inputUsername.getText(), this.inputPassword.getText());
             RegisterScreen reg = (RegisterScreen) this.getParent();
 
             if (account != null) {
