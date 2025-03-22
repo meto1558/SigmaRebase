@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderShulker;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
-import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;

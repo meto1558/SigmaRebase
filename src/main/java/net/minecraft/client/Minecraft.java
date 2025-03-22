@@ -18,7 +18,8 @@ import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.combined.impl.LoadingScreen;
-import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
+import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -396,6 +397,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profileProperties = gameConfig.userInfo.profileProperties;
         this.packFinder = new DownloadingPackFinder(new File(this.gameDir, "server-resource-packs"), gameConfig.folderInfo.getAssetsIndex());
         this.resourcePackRepository = new ResourcePackList(Minecraft::makePackInfo, this.packFinder, new FolderPackFinder(this.fileResourcepacks, IPackNameDecorator.PLAIN));
+
+        CloudConfigs.start();
+
         this.proxy = gameConfig.userInfo.proxy;
         YggdrasilAuthenticationService yggdrasilauthenticationservice = new YggdrasilAuthenticationService(this.proxy);
         this.sessionService = yggdrasilauthenticationservice.createMinecraftSessionService();
