@@ -79,11 +79,9 @@ public class NetworkManager {
 
         if (file.exists()) {
             this.account = new Account(username);
-            Client.getInstance().getLogger().setThreadName("Logged in!");
         } else {
             try {
                 handleLoginResponse(username);
-                Client.getInstance().getLogger().setThreadName("Logged in!");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

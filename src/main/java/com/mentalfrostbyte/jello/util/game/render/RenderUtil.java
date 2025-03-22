@@ -10,6 +10,7 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -40,10 +41,7 @@ import java.util.Stack;
 
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 
-public class RenderUtil {
-
-    private static final Minecraft mc = Minecraft.getInstance();
-
+public class RenderUtil implements MinecraftUtil {
     public static boolean stencilOpInProgress = false;
 
     private static final Stack<IntBuffer> buffer = new Stack<>();
@@ -70,20 +68,20 @@ public class RenderUtil {
         method11446(var0, var1, var2, var3, var4, var4, var5);
     }
 
-    public static float method11417() {
+    public static float getGuiScaleFactor() {
         return (float) mc.mainWindow.getGuiScaleFactor();
     }
 
-    public static void method11425(double var0, double var2, double var4, double var6, int var8) {
+    public static void drawRect(double var0, double var2, double var4, double var6, int var8) {
         drawRect((float) var0, (float) var2, (float) var4, (float) var6, var8);
     }
 
-    public static void renderBackgroundBox(float var0, float var1, float var2, float var3, int var4) {
+    public static void drawRect2(float var0, float var1, float var2, float var3, int var4) {
         drawRect(var0, var1, var0 + var2, var1 + var3, var4);
     }
 
-    public static void method11450(float var0, float var1, float var2, float var3, Texture var4, int var5,
-                                   boolean var6) {
+    public static void drawImage2(float var0, float var1, float var2, float var3, Texture var4, int var5,
+                                  boolean var6) {
         drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(),
                 (float) var4.getImageHeight(), var6);
     }
@@ -295,10 +293,6 @@ public class RenderUtil {
         }
     }
 
-    public static float getScaleFactor() {
-        return (float) mc.getMainWindow().getGuiScaleFactor();
-    }
-
     /**
      * Transforms 2D coordinates using the current OpenGL model view matrix and applies scaling.
      * This method is typically used for converting screen coordinates to scaled OpenGL coordinates.
@@ -317,15 +311,15 @@ public class RenderUtil {
         float var7 = var4.get(3) * (float) x + var4.get(7) * (float) y + var4.get(11) * 0.0F + var4.get(15);
         var5 /= var7;
         var6 /= var7;
-        return new float[]{(float) Math.round(var5 * getScaleFactor()), (float) Math.round(var6 * getScaleFactor())};
+        return new float[]{(float) Math.round(var5 * getGuiScaleFactor()), (float) Math.round(var6 * getGuiScaleFactor())};
     }
 
     public static void method11430(double var0, double var2, double var4, double var6, double var8, int var10, int var11) {
-        method11425(var0 + var8, var2 + var8, var4 - var8, var6 - var8, var10);
-        method11425(var0 + var8, var2, var4 - var8, var2 + var8, var11);
-        method11425(var0, var2, var0 + var8, var6, var11);
-        method11425(var4 - var8, var2, var4, var6, var11);
-        method11425(var0 + var8, var6 - var8, var4 - var8, var6, var11);
+        drawRect(var0 + var8, var2 + var8, var4 - var8, var6 - var8, var10);
+        drawRect(var0 + var8, var2, var4 - var8, var2 + var8, var11);
+        drawRect(var0, var2, var0 + var8, var6, var11);
+        drawRect(var4 - var8, var2, var4, var6, var11);
+        drawRect(var0 + var8, var6 - var8, var4 - var8, var6, var11);
     }
 
     public static void drawBlurredBackground(int x, int y, int width, int height, boolean scale) {
@@ -1406,7 +1400,7 @@ public class RenderUtil {
     }
 
     public static int applyAlpha(int color, float alpha) {
-        return (int)(alpha * 255.0F) << 24 | color & 16777215;
+        return (int) (alpha * 255.0F) << 24 | color & 16777215;
     }
 
     public static boolean projectToScreen(float x, float y, float z, FloatBuffer modelMatrix, FloatBuffer projectionMatrix, IntBuffer viewport, FloatBuffer screenCoords) {
@@ -1446,7 +1440,7 @@ public class RenderUtil {
         float var4 = (float) (var0 >> 16 & 0xFF) / 255.0F;
         float var5 = (float) (var0 >> 8 & 0xFF) / 255.0F;
         float var6 = (float) (var0 & 0xFF) / 255.0F;
-        return new float[] { var4, var5, var6, var3 };
+        return new float[]{var4, var5, var6, var3};
     }
 
     public static int method17691(int var0, float var1) {
@@ -1454,9 +1448,9 @@ public class RenderUtil {
         int var5 = var0 >> 16 & 0xFF;
         int var6 = var0 >> 8 & 0xFF;
         int var7 = var0 & 0xFF;
-        int var8 = (int)((float)var5 * (1.0F - var1));
-        int var9 = (int)((float)var6 * (1.0F - var1));
-        int var10 = (int)((float)var7 * (1.0F - var1));
+        int var8 = (int) ((float) var5 * (1.0F - var1));
+        int var9 = (int) ((float) var6 * (1.0F - var1));
+        int var10 = (int) ((float) var7 * (1.0F - var1));
         return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
 

@@ -111,9 +111,9 @@ public class InfoHUD extends Module {
                 GL11.glDisable(GL11.GL_LIGHTING);
                 float durability = 1.0F - (float) armorPiece.getDamage() / (float) armorPiece.getMaxDamage();
                 if (durability != 1.0F) {
-                    RenderUtil.renderBackgroundBox((float) (x + 2), (float) (armorY + 28), 28.0F, 5.0F,
+                    RenderUtil.drawRect2((float) (x + 2), (float) (armorY + 28), 28.0F, 5.0F,
                             RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
-                    RenderUtil.renderBackgroundBox(
+                    RenderUtil.drawRect2(
                             (float) (x + 2),
                             (float) (armorY + 28),
                             28.0F * durability,

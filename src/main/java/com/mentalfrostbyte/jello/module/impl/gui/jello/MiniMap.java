@@ -144,7 +144,7 @@ public class MiniMap extends Module {
                             float var7 = 1.5F;
                             int field23710 = 150;
                             int field23711 = 10;
-                            RenderUtil.renderBackgroundBox((float) field23711, (float) yOffset,
+                            RenderUtil.drawRect2((float) field23711, (float) yOffset,
                                     (float) field23710, (float) field23709, -7687425);
                             GL11.glPushMatrix();
                             float var8 = (float) (field23710 / this.field23715);
