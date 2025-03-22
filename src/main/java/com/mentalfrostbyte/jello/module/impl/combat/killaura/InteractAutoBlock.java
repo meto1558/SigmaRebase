@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.killaura;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.client.rotation.util.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.impl.combat.Teams;

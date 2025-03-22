@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.client.rotation.util.RotationUtils;
+import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;

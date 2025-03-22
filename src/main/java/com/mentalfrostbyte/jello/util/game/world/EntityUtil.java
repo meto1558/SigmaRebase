@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.world;
 
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -217,5 +219,16 @@ public class EntityUtil {
 
     public static Vector3d getCenteredHitbox(Entity entity) {
         return getCenteredPosition(entity.getBoundingBox());
+    }
+
+    public static List<PlayerEntity> getPlayerEntities() {
+        ArrayList<PlayerEntity> result = new ArrayList<>();
+        assert mc.world != null;
+        mc.world.entitiesById.forEach((var1, var2x) -> {
+            if (var2x instanceof PlayerEntity) {
+                result.add((PlayerEntity) var2x);
+            }
+        });
+        return result;
     }
 }

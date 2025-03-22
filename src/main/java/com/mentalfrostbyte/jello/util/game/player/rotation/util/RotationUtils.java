@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.client.rotation.util;
+package com.mentalfrostbyte.jello.util.game.player.rotation.util;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;

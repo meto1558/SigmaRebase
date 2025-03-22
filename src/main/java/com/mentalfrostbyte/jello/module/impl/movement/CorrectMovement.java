@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveFlying;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveInput;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;

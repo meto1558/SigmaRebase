@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.client;
+package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.block.BlockState;

@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.client.rotation.util;
+package com.mentalfrostbyte.jello.util.game.player.rotation.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 
