@@ -174,18 +174,18 @@ public class ProfileManager {
     public void loadConfig(Profile config) {
         Client.getInstance().saveClientData();
         ModuleSettingInitializr.modOffsetMap = new HashMap<>();
+
         if (Client.getInstance().clientMode != ClientMode.CLASSIC) {
             this.currentConfigs.moduleConfig = Client.getInstance().moduleManager.loadCurrentConfig(new JsonObject());
             this.currentConfigs = config;
-            Client.getInstance().getConfig().addProperty("profile", config.profileName);
-            Client.getInstance().moduleManager.load(config.moduleConfig);
-            Client.getInstance().saveClientData();
+            Client.getInstance().config.addProperty("profile", config.profileName);
         } else {
             this.currentConfigs.moduleConfig = config.getDefaultConfig();
-            Client.getInstance().getConfig().addProperty("profile", "Classic");
-            Client.getInstance().moduleManager.load(config.moduleConfig);
-            Client.getInstance().saveClientData();
+            Client.getInstance().config.addProperty("profile", "Classic");
         }
+
+        Client.getInstance().moduleManager.load(config.moduleConfig);
+        Client.getInstance().saveClientData();
     }
 
     public List<Profile> getAllConfigs() {

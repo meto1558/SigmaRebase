@@ -5,7 +5,7 @@ import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
-import team.sdhq.eventBus.EventBus;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import team.sdhq.eventBus.annotations.EventTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.Minecraft;
@@ -13,17 +13,19 @@ import net.minecraft.client.Minecraft;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class FriendManager {
+public class FriendManager extends Manager {
     public List<String> pureTextFriends = new CopyOnWriteArrayList<>();
     public List<String> enemies = new CopyOnWriteArrayList<>();
     private final Minecraft mc = Minecraft.getInstance();
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
+
         try {
             this.loadFromCurrentConfig();
         } catch (JsonParseException e) {
-            throw new RuntimeException(e);
+            Client.logger.warn(e);
         }
     }
 
@@ -136,7 +138,7 @@ public class FriendManager {
             friendsArray.add(friend);
         }
 
-        Client.getInstance().getConfig().add("friends", friendsArray);
+        Client.getInstance().config.add("friends", friendsArray);
     }
 
     public void saveEnemies() {
@@ -145,22 +147,22 @@ public class FriendManager {
             enemiesArray.add(enemy);
         }
 
-        Client.getInstance().getConfig().add("enemies", enemiesArray);
+        Client.getInstance().config.add("enemies", enemiesArray);
     }
 
     private void loadFromCurrentConfig() throws JsonParseException {
         this.pureTextFriends.clear();
         this.enemies.clear();
 
-        if (Client.getInstance().getConfig().has("friends")) {
-            JsonArray var3 = Client.getInstance().getConfig().getAsJsonArray("friends");
+        if (Client.getInstance().config.has("friends")) {
+            JsonArray var3 = Client.getInstance().config.getAsJsonArray("friends");
             if (var3 != null) {
                 var3.forEach(var1 -> this.pureTextFriends.add(var1.getAsString()));
             }
         }
 
-        if (Client.getInstance().getConfig().has("enemies")) {
-            JsonArray var4 = Client.getInstance().getConfig().getAsJsonArray("enemies");
+        if (Client.getInstance().config.has("enemies")) {
+            JsonArray var4 = Client.getInstance().config.getAsJsonArray("enemies");
             if (var4 != null) {
                 var4.forEach(var1 -> this.enemies.add(var1.getAsString()));
             }

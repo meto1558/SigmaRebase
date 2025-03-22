@@ -25,6 +25,7 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.maps.Chunk;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class2531;
 import com.mentalfrostbyte.jello.managers.util.waypoints.Class7927;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
@@ -38,11 +39,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import org.lwjgl.BufferUtils;
 
-public class WaypointsManager {
+public class WaypointsManager extends Manager {
     private final Minecraft field36365 = Minecraft.getInstance();
     private final List<ChunkPos> field36366 = new ArrayList<ChunkPos>();
     private final List<ChunkPos> field36367 = new ArrayList<ChunkPos>();
@@ -56,8 +56,9 @@ public class WaypointsManager {
     public HashMap<Long, ByteBuffer> field36375 = new HashMap<Long, ByteBuffer>();
     public ByteBuffer field36376 = BufferUtils.createByteBuffer(this.field36370 * 16 * this.field36370 * 16 * 3);
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
         int var3 = -7687425;
 
         for (int var4 = 0; var4 < 16; var4++) {
@@ -98,8 +99,8 @@ public class WaypointsManager {
 
             try {
                 FileUtil.save(var8, var3);
-            } catch (IOException | JsonParseException var7) {
-                Client.getInstance().getLogger().error(var7.getMessage());
+            } catch (IOException | JsonParseException exc) {
+                Client.logger.error(exc);
             }
         }
     }
@@ -118,8 +119,8 @@ public class WaypointsManager {
             }
 
             this.field36369 = true;
-        } catch (IOException var7) {
-            var7.printStackTrace();
+        } catch (IOException exc) {
+            Client.logger.error(exc);
         }
     }
 
@@ -128,12 +129,12 @@ public class WaypointsManager {
     }
 
     @EventTarget
-    public void method29994(EventLoadWorld var1) {
+    public void onLoadWorld(EventLoadWorld event) {
         try {
             this.method29991();
             this.method29997();
         } catch (IOException var5) {
-            var5.printStackTrace();
+            Client.logger.error(var5);
         }
 
         this.field36371 = this.method29999();
@@ -145,17 +146,17 @@ public class WaypointsManager {
     }
 
     @EventTarget
-    public void method29995(EventPlayerTick var1) {
+    public void onTick(EventPlayerTick event) {
         if (this.field36365.world != null) {
             if (this.field36371 != null) {
                 boolean var4 = false;
                 if (!var4) {
                     if (this.field36365.player.ticksExisted % 140 == 0) {
                         Class2531 var5 = Class7927.method26605(this.field36365.world.getChunk(this.field36365.player.getPosition()).getPos());
-                        Iterator var6 = this.field36372.entrySet().iterator();
+                        Iterator<Entry<Long, Class7927>> var6 = this.field36372.entrySet().iterator();
 
                         while (var6.hasNext()) {
-                            Entry var7 = (Entry) var6.next();
+                            Entry var7 = var6.next();
                             Class2531 var8 = new Class2531((Long) var7.getKey());
                             double var9 = var5.field16734 - var8.field16734;
                             double var11 = var5.field16735 - var8.field16735;
@@ -167,8 +168,8 @@ public class WaypointsManager {
                                     );
                                     ((Class7927) var7.getValue()).method26603(var15);
                                     var15.close();
-                                } catch (IOException var22) {
-                                    var22.printStackTrace();
+                                } catch (IOException exc) {
+                                    Client.logger.warn(exc);
                                 }
 
                                 this.field36373 = Math.max(0, this.field36373 - ((Class7927) var7.getValue()).field33959.size());
@@ -177,7 +178,6 @@ public class WaypointsManager {
                         }
                     }
 
-                    new ArrayList();
                     String var23 = this.field36371;
                     int var24 = 0;
 
@@ -223,8 +223,8 @@ public class WaypointsManager {
                                         }
 
                                         this.field36373++;
-                                    } catch (IOException var9x) {
-                                        var9x.printStackTrace();
+                                    } catch (IOException exc) {
+                                        Client.logger.warn(exc);
                                     }
                                 }).start();
                                 if (++var24 > 6) {
@@ -239,8 +239,8 @@ public class WaypointsManager {
 
                         try {
                             this.method29997();
-                        } catch (IOException var21) {
-                            var21.printStackTrace();
+                        } catch (IOException exc) {
+                            Client.logger.warn(exc);
                         }
                     }
                 }
@@ -278,7 +278,8 @@ public class WaypointsManager {
                     ((Class7927) var5.getValue()).method26603(var6);
                     var6.close();
                 }
-            } catch (ConcurrentModificationException var7) {
+            } catch (ConcurrentModificationException exc) {
+                Client.logger.warn(exc);
             }
         }
     }
@@ -345,8 +346,8 @@ public class WaypointsManager {
                             var12 = var24.duplicate();
                         }
                     }
-                } catch (IOException var20) {
-                    var20.printStackTrace();
+                } catch (IOException exc) {
+                    Client.logger.warn(exc);
                 }
             }
 

@@ -13,6 +13,7 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
 import com.mentalfrostbyte.jello.module.impl.player.OldHitting;
 import com.mentalfrostbyte.jello.module.impl.render.Freecam;
@@ -43,13 +44,12 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.EmptyChunk;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
 import java.util.*;
 
-public class ViaManager implements MinecraftUtil {
+public class ViaManager extends Manager implements MinecraftUtil {
     public static List<Entity> entities = new ArrayList<>();
     public static int field31494 = 0;
     private UUID field31497;
@@ -58,10 +58,6 @@ public class ViaManager implements MinecraftUtil {
 
     //public final Class8982 field31495;
     public CTabCompletePacket cTabComplete;
-
-    public void init() {
-        EventBus.register(this);
-    }
 
     @EventTarget
     public void onStopUse(EventStopUseItem event) {
