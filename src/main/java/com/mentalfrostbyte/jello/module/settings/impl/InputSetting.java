@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 
 public class InputSetting extends Setting<String> {
     public InputSetting(String name, String description, String defaultValue) {
@@ -11,7 +12,7 @@ public class InputSetting extends Setting<String> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
-        this.currentValue = jsonObject.get("value").getAsString();
+        this.currentValue = GsonUtil.getStringOrDefault(jsonObject, "value", this.getDefaultValue());
         return jsonObject;
     }
 }

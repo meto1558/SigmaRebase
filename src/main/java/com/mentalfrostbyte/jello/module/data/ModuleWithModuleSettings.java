@@ -6,6 +6,7 @@ import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import team.sdhq.eventBus.EventBus;
 
 import java.util.ArrayList;
@@ -95,16 +96,16 @@ public class ModuleWithModuleSettings extends com.mentalfrostbyte.jello.module.M
 
     @Override
     public JsonObject initialize(JsonObject config) throws JsonParseException {
-        JsonObject var4 = config.getAsJsonObject("sub-options");
-        if (var4 != null) {
-            for (com.mentalfrostbyte.jello.module.Module var8 : this.moduleArray) {
-                JsonArray var9 = var4.getAsJsonArray(var8.getName());
+        JsonObject subOptions = GsonUtil.getJSONObjectOrNull(config, "sub-options");
+        if (subOptions != null) {
+            for (com.mentalfrostbyte.jello.module.Module module : this.moduleArray) {
+                JsonArray var9 = GsonUtil.getJSONArrayOrNull(subOptions, module.getName());
                 if (var9 != null) {
                     for (int var10 = 0; var10 < var9.size(); var10++) {
                         JsonObject var11 = var9.get(var10).getAsJsonObject();
-                        String var12 = var11.get("name").getAsString();
+                        String var12 = GsonUtil.getStringOrDefault(var11, "name", null);
 
-                        for (Setting<?> var14 : var8.settingMap.values()) {
+                        for (Setting<?> var14 : module.settingMap.values()) {
                             if (var14.getName().equals(var12)) {
                                 try {
                                     var14.loadCurrentValueFromJSONObject(var11);

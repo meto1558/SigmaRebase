@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class BooleanSetting extends Setting<Boolean> {
@@ -20,7 +21,7 @@ public class BooleanSetting extends Setting<Boolean> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
-        this.currentValue = jsonObject.get("value").getAsBoolean();
+        this.currentValue = GsonUtil.getBooleanOrDefault(jsonObject, "value", this.getDefaultValue());
         return jsonObject;
     }
 }

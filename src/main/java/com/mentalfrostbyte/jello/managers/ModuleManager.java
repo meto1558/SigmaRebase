@@ -18,6 +18,7 @@ import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
 
 import com.mentalfrostbyte.jello.module.impl.world.*;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import team.sdhq.eventBus.EventBus;
 
 import java.io.IOException;
@@ -216,7 +217,8 @@ public class ModuleManager {
 
         try {
             array = json.getAsJsonArray("mods");
-        } catch (JsonParseException ignored) {
+        } catch (JsonParseException exc) {
+            Client.logger.warn(exc);
         }
 
         for (Module modulesFound : this.moduleMap.values()) {
@@ -231,27 +233,28 @@ public class ModuleManager {
                 } catch (JsonParseException e) {
                     throw new RuntimeException(e);
                 }
+
                 String moduleName = null;
 
                 try {
                     moduleName = moduleObject.get("name").getAsString();
-                } catch (JsonParseException var13) {
-                    Client.getInstance().getLogger().warn("Invalid name in mod list config");
+                } catch (JsonParseException exc) {
+                    Client.logger.warn("Invalid name in mod list config", exc);
                 }
 
                 for (Module module : this.moduleMap.values()) {
                     if (module.getName().equals(moduleName)) {
                         try {
                             module.initialize(moduleObject);
-                        } catch (JsonParseException var12) {
-                            Client.getInstance().getLogger().warn("Could not initialize mod " + module.getName() + " from config. All settings for this mod have been erased.");
+                        } catch (JsonParseException exc) {
+                            Client.logger.warn("Could not initialize mod {} from config. All settings for this mod have been erased.", module.getName(), exc);
                         }
                         break;
                     }
                 }
             }
         } else {
-            Client.getInstance().getLogger().warn("Mods array does not exist in config. Assuming a blank profile...");
+            Client.logger.warn("Mods array does not exist in config. Assuming a blank profile...");
         }
 
         for (Module module : this.moduleMap.values()) {
@@ -282,7 +285,7 @@ public class ModuleManager {
         String profileName = null;
 
         try {
-            profileName = json.get("profile").getAsString();
+            profileName = GsonUtil.getStringOrDefault(json, "profile", "Default");
         } catch (JsonParseException ignored) {
         }
 
@@ -296,10 +299,8 @@ public class ModuleManager {
         try {
             this.profile.loadProfile(profileName);
             this.keyManager.method13732(json);
-        } catch (IOException var6) {
-            Client.getInstance().getLogger().warn("Could not load profiles!");
-            var6.printStackTrace();
-            throw new RuntimeException("sorry m8");
+        } catch (IOException exc) {
+            Client.logger.warn("Could not load profiles!", exc);
         }
     }
 
@@ -321,9 +322,8 @@ public class ModuleManager {
         try {
             this.profile.saveAndReplaceConfigs();
             this.keyManager.getKeybindsJSONObject(var1);
-        } catch (IOException var5) {
-            var5.printStackTrace();
-            Client.getInstance().getLogger().warn("Unable to save mod profiles...");
+        } catch (IOException exc) {
+            Client.logger.warn("Unable to save mod profiles...", exc);
         }
     }
 
@@ -332,18 +332,6 @@ public class ModuleManager {
 
         for (Module moduleFromMap : this.moduleMap.values()) {
             if (moduleFromMap.getCategoryBasedOnMode().equals(category)) {
-                moduleList.add(moduleFromMap);
-            }
-        }
-
-        return moduleList;
-    }
-
-    public List<Module> getEnabledModules() {
-        ArrayList<Module> moduleList = new ArrayList();
-
-        for (Module moduleFromMap : this.moduleMap.values()) {
-            if (moduleFromMap.isEnabled()) {
                 moduleList.add(moduleFromMap);
             }
         }

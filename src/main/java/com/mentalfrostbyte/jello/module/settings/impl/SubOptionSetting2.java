@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,11 +24,11 @@ public abstract class SubOptionSetting2 extends Setting<Boolean> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) throws JsonParseException {
-        JsonArray array = jsonObject.getAsJsonArray(this.getName());
+        JsonArray array = GsonUtil.getJSONArrayOrNull(jsonObject, this.getName());
         if (array != null) {
             for (int i = 0; i < array.size(); i++) {
                 JsonObject settingObject = array.get(i).getAsJsonObject();
-                String settingName = settingObject.get("name").getAsString();
+                String settingName = GsonUtil.getStringOrDefault(settingObject, "name", null);
 
                 for (Setting<?> setting : this.getSubSettings()) {
                     if (setting.getName().equals(settingName)) {
@@ -38,7 +39,7 @@ public abstract class SubOptionSetting2 extends Setting<Boolean> {
             }
         }
 
-        this.currentValue = jsonObject.get("value").getAsBoolean();
+        this.currentValue = GsonUtil.getBooleanOrDefault(jsonObject, "value", this.getDefaultValue());
         return jsonObject;
     }
 

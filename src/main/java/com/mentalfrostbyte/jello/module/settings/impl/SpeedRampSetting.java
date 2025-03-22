@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
@@ -14,7 +15,7 @@ public class SpeedRampSetting extends Setting<SpeedRampSetting.SpeedRamp> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) throws JsonParseException {
-        this.currentValue = new SpeedRamp(jsonObject.getAsJsonArray("value"));
+        this.currentValue = new SpeedRamp(GsonUtil.getJSONArrayOrNull(jsonObject, "value"));
         return jsonObject;
     }
 

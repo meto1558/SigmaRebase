@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -21,17 +22,9 @@ public class ColorSetting extends Setting<Integer> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
-        this.currentValue = jsonObject.get("value").getAsInt();
-        this.rainbow = jsonObject.get("rainbow").getAsBoolean();
+        this.currentValue = GsonUtil.getIntOrDefault(jsonObject, "value", this.getDefaultColor());
+        this.rainbow = GsonUtil.getBooleanOrDefault(jsonObject, "rainbow", false);
         return jsonObject;
-    }
-
-    public boolean isRainbow() {
-        return this.rainbow;
-    }
-
-    public void setRainbow(boolean var1) {
-        this.rainbow = var1;
     }
 
     @Override
