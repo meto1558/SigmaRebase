@@ -14,6 +14,7 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
+import net.minecraft.util.StringUtils;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
@@ -97,7 +98,7 @@ public class RegisterScreen extends Screen {
             this.runThisOnDimensionUpdate(() -> {
                 ArrayList<AlertComponent> var5 = new ArrayList();
                 var5.add(new AlertComponent(ComponentType.HEADER, var1, 45));
-                String[] var6 = RenderUtil2.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
+                String[] var6 = StringUtils.wrapText(var2, 240, ResourceRegistry.JelloLightFont20);
 
                 for (int var7 = 0; var7 < var6.length; var7++) {
                     var5.add(new AlertComponent(ComponentType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
