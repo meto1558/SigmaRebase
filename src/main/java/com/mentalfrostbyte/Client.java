@@ -9,17 +9,14 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
-import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.util.client.logger.Logger;
 import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
-import com.mentalfrostbyte.jello.util.client.logger.ClientLogger;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
-import com.mentalfrostbyte.jello.util.system.other.OSUtil;
+import org.apache.logging.log4j.LogManager;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -36,6 +33,8 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Client {
+    //test
+
     private static final Minecraft mc = Minecraft.getInstance();
     public static int currentVersionIndex = 28;
 
@@ -72,7 +71,7 @@ public class Client {
     public PlayerStateTracker playerTracker;
     public MinerTracker minerTracker;
 
-    private Logger logger;
+    private final org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
 
     public static boolean dontRenderHand = false;
     private boolean loading = true;
@@ -80,9 +79,7 @@ public class Client {
     public BlurEngine blurEngine;
 
     public void start() {
-        this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
-        CloudConfigs.start();
 
         try {
             if (!this.file.exists()) {
@@ -229,19 +226,17 @@ public class Client {
     }
 
     private void initRPC() {
-        if (!OSUtil.hasAndroidFS()) { //FIX FOR POJAV CRASHING
-            DiscordRPC updatePresence = DiscordRPC.INSTANCE;
-            String id = "693493612754763907";
-            DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
-            eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
-            updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
-            discordRichPresence = new DiscordRichPresence();
-            discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
-            discordRichPresence.state = "Playing Minecraft";
-            discordRichPresence.details = "Jello for Sigma";
-            discordRichPresence.largeImageKey = "jello";
-            updatePresence.Discord_UpdatePresence(discordRichPresence);
-        }
+        DiscordRPC updatePresence = DiscordRPC.INSTANCE;
+        String id = "693493612754763907";
+        DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
+        eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
+        updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
+        discordRichPresence = new DiscordRichPresence();
+        discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
+        discordRichPresence.state = "Playing Minecraft";
+        discordRichPresence.details = "Jello for Sigma";
+        discordRichPresence.largeImageKey = "jello";
+        updatePresence.Discord_UpdatePresence(discordRichPresence);
     }
 
     public void setupClient(ClientMode mode) {
@@ -276,7 +271,7 @@ public class Client {
         return this.config;
     }
 
-    public Logger getLogger() {
+    public org.apache.logging.log4j.Logger getLogger() {
         return this.logger;
     }
 
