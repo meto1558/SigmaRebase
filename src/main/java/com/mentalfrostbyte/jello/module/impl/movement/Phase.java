@@ -18,8 +18,8 @@ public class Phase extends ModuleWithModuleSettings {
                 new NoClipPhase(),
                 new UnfullPhase(),
                 new VClipPhase(),
-                new VanillaPhase()
-
+                new VanillaPhase(),
+                new MinibloxPhase()
         );
     }
 
