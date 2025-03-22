@@ -5,9 +5,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
+import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.impl.player.OldHitting;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -80,6 +83,7 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.TextureAnimations;
 import net.optifine.reflect.Reflector;
+import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
 
 public class IngameGui extends AbstractGui
@@ -193,7 +197,27 @@ public class IngameGui extends AbstractGui
             RenderSystem.defaultBlendFunc();
         }
 
-        Client.getInstance().method19926();
+        GL11.glPushMatrix();
+        double scale = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+        GL11.glScaled(scale, scale, scale);
+        GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, GuiManager.scaleFactor);
+        GL11.glDisable(2912);
+        RenderSystem.disableDepthTest();
+        RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
+        RenderSystem.alphaFunc(519, 0.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(2896);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        Resources.gingerbreadIconPNG.bind();
+        EventBus.call(new EventRender2DCustom());
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.enableCull();
+        RenderSystem.disableDepthTest();
+        RenderSystem.enableBlend();
+        RenderSystem.alphaFunc(518, 0.1F);
+        GL11.glPopMatrix();
+
         ItemStack itemstack = this.mc.player.inventory.armorItemInSlot(3);
 
         if (this.mc.gameSettings.getPointOfView().func_243192_a() && itemstack.getItem() == Blocks.CARVED_PUMPKIN.asItem())
