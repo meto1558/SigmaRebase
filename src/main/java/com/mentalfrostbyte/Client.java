@@ -83,7 +83,6 @@ public class Client {
     public void start() {
         this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
-        CloudConfigs.start();
 
         try {
             if (!this.file.exists()) {
