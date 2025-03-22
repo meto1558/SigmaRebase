@@ -60,8 +60,8 @@ public class BlurEngine {
                     blurShader.listShaders.get(1).getShaderManager().getShaderUniform("Radius").set(35.0F);
                     frameBuff = blurShader.getFramebuffer("jello");
                     frameBuff2 = blurShader.getFramebuffer("jelloswap");
-                } catch (IOException | JsonSyntaxException var5) {
-                    var5.printStackTrace();
+                } catch (IOException | JsonSyntaxException exc) {
+                    exc.printStackTrace();
                 }
             }
 
@@ -71,13 +71,13 @@ public class BlurEngine {
 
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.enableBlend();
-            GL11.glDisable(2929);
-            GL11.glDisable(3008);
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
             RenderSystem.disableBlend();
             frameBuff.framebufferClear(true);
             frameBuff2.framebufferClear(true);
             RenderSystem.clear(256, Minecraft.IS_RUNNING_ON_MAC);
-            RenderSystem.matrixMode(5889);
+            RenderSystem.matrixMode(GL11.GL_PROJECTION);
             RenderSystem.loadIdentity();
             RenderSystem.ortho(
                     0.0,
@@ -87,7 +87,7 @@ public class BlurEngine {
                     1000.0,
                     3000.0
             );
-            RenderSystem.matrixMode(5888);
+            RenderSystem.matrixMode(GL11.GL_MODELVIEW);
             RenderSystem.loadIdentity();
             RenderSystem.translatef(0.0F, 0.0F, -2000.0F);
             GL11.glScaled(1.0 / mc.mainWindow.getGuiScaleFactor() * (double) GuiManager.scaleFactor, 1.0 / mc.mainWindow.getGuiScaleFactor() * (double) GuiManager.scaleFactor, 1.0);
@@ -95,7 +95,7 @@ public class BlurEngine {
             RenderUtil.drawBlurredBackground(frameBuffWidth, frameBuffHeight - var4, screenWidth, screenHeight + var4);
             blurShader.render(mc.timer.renderPartialTicks);
             RenderUtil.endScissor();
-            GL11.glEnable(3008);
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
             frameBuff.bindFramebuffer(true);
             mc.getFramebuffer().bindFramebuffer(true);
         }
@@ -113,7 +113,7 @@ public class BlurEngine {
             frameBuff.framebufferRender(mc.getFramebuffer().framebufferWidth, mc.getFramebuffer().framebufferHeight);
             GL11.glPopMatrix();
             RenderSystem.clear(256, Minecraft.IS_RUNNING_ON_MAC);
-            RenderSystem.matrixMode(5889);
+            RenderSystem.matrixMode(GL11.GL_PROJECTION);
             RenderSystem.loadIdentity();
             RenderSystem.ortho(
                     0.0,
@@ -123,7 +123,7 @@ public class BlurEngine {
                     1000.0,
                     3000.0
             );
-            RenderSystem.matrixMode(5888);
+            RenderSystem.matrixMode(GL11.GL_MODELVIEW);
             RenderSystem.loadIdentity();
             RenderSystem.translatef(0.0F, 0.0F, -2000.0F);
             GL11.glScaled(

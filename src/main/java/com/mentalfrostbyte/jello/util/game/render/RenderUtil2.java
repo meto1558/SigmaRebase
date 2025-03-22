@@ -1,19 +1,14 @@
 package com.mentalfrostbyte.jello.util.game.render;
 
 import com.mentalfrostbyte.Client;
-import net.minecraft.client.Minecraft;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import org.newdawn.slick.TrueTypeFont;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class RenderUtil2 {
-    private static final Minecraft mc = Minecraft.getInstance();
+public class RenderUtil2 implements MinecraftUtil {
     public static final ResourceLocation BLUR_SHADER = new ResourceLocation("shaders/post/blur.json");
 
     public static int applyAlpha(int color, float alpha) {
@@ -40,18 +35,6 @@ public class RenderUtil2 {
         int shiftedG = (int) ((float) g * (1.0F - shift));
         int shiftedB = (int) ((float) b * (1.0F - shift));
         return a << 24 | (shiftedR & 0xFF) << 16 | (shiftedG & 0xFF) << 8 | shiftedB & 0xFF;
-    }
-
-    // why is this in color utils :skull:
-    public static List<PlayerEntity> getPlayerEntities() {
-        ArrayList<PlayerEntity> result = new ArrayList<>();
-        assert mc.world != null;
-        mc.world.entitiesById.forEach((var1, var2x) -> {
-            if (var2x instanceof PlayerEntity) {
-                result.add((PlayerEntity) var2x);
-            }
-        });
-        return result;
     }
 
     /**
@@ -88,81 +71,24 @@ public class RenderUtil2 {
         return (float) (color >> 24 & 0xFF) / 255.0F;
     }
 
-    public static float[] method17701(float var0, float var1, float var2, float var3) {
-        float var6 = var0 / var1;
-        float var7 = var2 / var3;
-        float var8;
-        float var9;
-        if (!(var7 <= var6)) {
-            var8 = var2;
-            var9 = var1 * var2 / var0;
+    public static float[] calculateAspectRatioFit(float sourceWidth, float sourceHeight, float targetWidth, float targetHeight) {
+        float sourceAspect = sourceWidth / sourceHeight;
+        float targetAspect = targetWidth / targetHeight;
+        float fittedWidth;
+        float fittedHeight;
+
+        if (targetAspect > sourceAspect) {
+            fittedWidth = targetWidth;
+            fittedHeight = sourceHeight * targetWidth / sourceWidth;
         } else {
-            var8 = var0 * var3 / var1;
-            var9 = var3;
+            fittedWidth = sourceWidth * targetHeight / sourceHeight;
+            fittedHeight = targetHeight;
         }
 
-        float var10 = (var2 - var8) / 2.0F;
-        float var11 = (var3 - var9) / 2.0F;
-        return new float[]{var10, var11, var8, var9};
-    }
+        float offsetX = (targetWidth - fittedWidth) / 2.0F;
+        float offsetY = (targetHeight - fittedHeight) / 2.0F;
 
-    public static String[] method17745(String var0, int var1, TrueTypeFont var2) {
-        String[] var5 = var0.split(" ");
-        HashMap<Integer, String> var6 = new HashMap();
-        int var7 = 0;
-
-        for (String var11 : var5) {
-            String var12 = var6.get(var7) != null ? var6.get(var7) : "";
-            boolean var13 = var6.get(var7) == null;
-            boolean var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
-            boolean var15 = var2.getWidth(var11) >= var1;
-            if (!var14 && !var15) {
-                var7++;
-                var12 = var6.get(var7) != null ? var6.get(var7) : "";
-                var13 = var6.get(var7) == null;
-                var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
-                var15 = var2.getWidth(var11) >= var1;
-            }
-
-            if (var14) {
-                if (!var13) {
-                    var6.put(var7, var12 + " " + var11);
-                } else {
-                    var6.put(var7, var11);
-                }
-            } else if (var15) {
-                while (var15 && !var14) {
-                    int var16 = 0;
-
-                    while (true) {
-                        if (var16 <= var11.length()) {
-                            String var17 = var11.substring(0, var11.length() - var16);
-                            if (var2.getWidth(var17) > var1) {
-                                var16++;
-                                continue;
-                            }
-
-                            var6.put(++var7, var17);
-                            var11 = var11.substring(var11.length() - var16);
-                        }
-
-                        var12 = var6.get(var7) != null ? var6.get(var7) : "";
-                        var14 = var2.getWidth(var12) + var2.getWidth(var11) <= var1;
-                        var15 = var2.getWidth(var11) >= var1;
-                        var13 = var6.get(var7) == null;
-                        break;
-                    }
-                }
-
-                if (!var14) {
-                    var7++;
-                }
-
-                var6.put(var7, var11);
-            }
-        }
-
-        return var6.values().toArray(new String[var6.size()]);
+        return new float[]{offsetX, offsetY, fittedWidth, fittedHeight};
     }
 
     public static void blur() {
@@ -226,33 +152,29 @@ public class RenderUtil2 {
         return a << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
     }
 
-    public static Color method17682(Color... var0) {
-        if (var0 != null) {
-            if (var0.length > 0) {
-                float var3 = 1.0F / (float) var0.length;
-                float var4 = 0.0F;
-                float var5 = 0.0F;
-                float var6 = 0.0F;
-                float var7 = 0.0F;
-
-                for (Color var11 : var0) {
-                    if (var11 == null) {
-                        var11 = Color.BLACK;
-                    }
-
-                    var4 += (float) var11.getRed() * var3;
-                    var5 += (float) var11.getGreen() * var3;
-                    var6 += (float) var11.getBlue() * var3;
-                    var7 += (float) var11.getAlpha() * var3;
-                }
-
-                return new Color(var4 / 255.0F, var5 / 255.0F, var6 / 255.0F, var7 / 255.0F);
-            } else {
-                return Color.WHITE;
-            }
-        } else {
+    public static Color calculateAverageColor(Color... colors) {
+        if (colors == null || colors.length == 0) {
             return Color.WHITE;
         }
+
+        float weight = 1.0F / colors.length;
+        float totalRed = 0.0F;
+        float totalGreen = 0.0F;
+        float totalBlue = 0.0F;
+        float totalAlpha = 0.0F;
+
+        for (Color color : colors) {
+            if (color == null) {
+                color = Color.BLACK;
+            }
+
+            totalRed += color.getRed() * weight;
+            totalGreen += color.getGreen() * weight;
+            totalBlue += color.getBlue() * weight;
+            totalAlpha += color.getAlpha() * weight;
+        }
+
+        return new Color(totalRed / 255.0F, totalGreen / 255.0F, totalBlue / 255.0F, totalAlpha / 255.0F);
     }
 
     /**
