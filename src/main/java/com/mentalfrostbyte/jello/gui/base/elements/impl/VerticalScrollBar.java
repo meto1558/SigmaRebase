@@ -13,9 +13,10 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 
 public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
-    public int field20793;
+    public int offset;
     public float field20794;
     public boolean field20795;
     public final VerticalScrollBarButton field20796;
@@ -48,7 +49,7 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
                 return;
             }
 
-            this.field20793 = this.field20793
+            this.offset = this.offset
                     - Math.round(!(scroll < 0.0F) ? (float) ((ScrollableContentPanel) this.parent).field21207 * scroll : 1.0F * (float) ((ScrollableContentPanel) this.parent).field21207 * scroll);
             this.field20797.reset();
             this.field20797.start();
@@ -114,10 +115,10 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
                 int var6 = mouseY - this.method13272();
                 if (var6 <= this.field20796.getYA() + this.field20796.getHeightA()) {
                     if (var6 < this.field20796.getYA()) {
-                        this.field20793 = this.field20793 - (int) ((float) ((ScrollableContentPanel) this.parent).getButton().getHeightA() / 4.0F);
+                        this.offset = this.offset - (int) ((float) ((ScrollableContentPanel) this.parent).getButton().getHeightA() / 4.0F);
                     }
                 } else {
-                    this.field20793 = this.field20793 + (int) ((float) ((ScrollableContentPanel) this.parent).getButton().getHeightA() / 4.0F);
+                    this.offset = this.offset + (int) ((float) ((ScrollableContentPanel) this.parent).getButton().getHeightA() / 4.0F);
                 }
             }
 
@@ -129,19 +130,19 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
 
     @Override
     public JsonObject toConfigWithExtra(JsonObject config) {
-        config.addProperty("offset", this.field20793);
+        config.addProperty("offset", this.offset);
         return super.toConfigWithExtra(config);
     }
 
     @Override
     public void loadConfig(JsonObject config) {
         super.loadConfig(config);
-        this.field20793 = config.get("offset").getAsInt();
+        this.offset = GsonUtil.getIntOrDefault(config, "offset", this.offset);
     }
 
     @Override
     public int method13162() {
-        return this.field20793;
+        return this.offset;
     }
 
 }
