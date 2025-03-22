@@ -1,23 +1,5 @@
-/*
- * =================================================
- * Copyright 2011 tagtraum industries incorporated
- * All rights reserved.
- * =================================================
- */
-package com.tagtraum.jipes.math;
+package com.mentalfrostbyte.jello.util.client.music;
 
-/**
- * Transform that can be obtained for example through a {@link FFTFactory} or a {@link ConstantQTransformFactory}.
- * <p/>
- * The forward transform is typically from the time domain to the frequency domain,
- * the inverse the other way around. Note that not all methods of this interface are necessarily implemented
- * by its implementing classes. Unsupported methods throw {@link UnsupportedOperationException}s.
- * <p/>
- * Date: 1/15/11
- * Time: 8:03 PM
- *
- * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
- */
 public interface Transform {
 
     /**

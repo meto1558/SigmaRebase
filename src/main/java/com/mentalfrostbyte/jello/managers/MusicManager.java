@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.music.JavaFFT;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
@@ -31,7 +32,6 @@ import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinReg;
-import com.tagtraum.jipes.math.FFTFactory;
 import net.sourceforge.jaad.aac.Decoder;
 import net.sourceforge.jaad.aac.SampleBuffer;
 import net.sourceforge.jaad.mp4.MP4Container;
@@ -396,7 +396,7 @@ public class MusicManager extends Manager implements MinecraftUtil {
                                         this.sourceDataLine.write(pcmBufferData, 0, pcmBufferData.length);
                                         float[] var29 = MathHelper.convertToPCMFloatArray(var16.getData(), var14);
 
-                                        FFTFactory.JavaFFT var19 = new FFTFactory.JavaFFT(var29.length);
+                                        JavaFFT var19 = new JavaFFT(var29.length);
 
                                         float[][] var20 = var19.transform(var29);
                                         float[] var21 = var20[0];
