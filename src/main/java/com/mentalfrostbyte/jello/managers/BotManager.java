@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.managers;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.managers.util.combat.AntiBotBase;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.EventBus;
@@ -35,7 +35,7 @@ public class BotManager {
     @HighestPriority
     public void onPlayerTick(EventPlayerTick var1) {
         if (this.antiBot != null) {
-            for (PlayerEntity entity : RenderUtil2.getPlayerEntities()) {
+            for (PlayerEntity entity : EntityUtil.getPlayerEntities()) {
                 if (!this.antiBot.isBot(entity)) {
                     if (this.antiBot.isNotBot(entity)) {
                         this.bots.remove(entity);

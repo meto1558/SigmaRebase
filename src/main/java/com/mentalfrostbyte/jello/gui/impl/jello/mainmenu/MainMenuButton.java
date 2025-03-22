@@ -72,7 +72,7 @@ public class MainMenuButton extends SmallImage {
         int var7 = (int) ((double) this.getHeightA() * (1.0 + (double) var5 * 0.2));
         int var8 = this.getXA() - (var6 - this.getWidthA()) / 2;
         int var9 = (int) ((double) (this.getYA() - (var7 - this.getHeightA()) / 2) - (double) ((float) (this.getHeightA() / 2) * var5) * 0.2);
-        float[] var10 = RenderUtil2.method17701(this.getTexture().getWidth(), this.getTexture().getHeight(), (float) var6, (float) var7);
+        float[] var10 = RenderUtil2.calculateAspectRatioFit(this.getTexture().getWidth(), this.getTexture().getHeight(), (float) var6, (float) var7);
         float var11 = 85;
         RenderUtil.drawImage(
                 (float) var8 + var10[0] - var11,
