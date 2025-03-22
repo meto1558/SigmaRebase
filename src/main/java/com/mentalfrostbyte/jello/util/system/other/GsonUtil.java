@@ -7,6 +7,10 @@ import com.google.gson.JsonParseException;
 
 public class GsonUtil {
     public static boolean getBooleanOrDefault(JsonObject jsonObject, String key, boolean defaultValue) {
+        if (jsonObject == null) {
+            return defaultValue;
+        }
+
         JsonElement jsonElement;
 
         try {
@@ -23,6 +27,10 @@ public class GsonUtil {
     }
 
     public static int getIntOrDefault(JsonObject jsonObject, String key, int defaultValue) {
+        if (jsonObject == null) {
+            return defaultValue;
+        }
+
         JsonElement jsonElement;
 
         try {
@@ -39,6 +47,10 @@ public class GsonUtil {
     }
 
     public static float getFloatOrDefault(JsonObject jsonObject, String key, float defaultValue) {
+        if (jsonObject == null) {
+            return defaultValue;
+        }
+
         JsonElement jsonElement;
 
         try {
@@ -55,6 +67,10 @@ public class GsonUtil {
     }
 
     public static String getStringOrDefault(JsonObject jsonObject, String key, String defaultValue) {
+        if (jsonObject == null) {
+            return defaultValue;
+        }
+
         JsonElement jsonElement;
 
         try {
@@ -71,6 +87,10 @@ public class GsonUtil {
     }
 
     public static JsonObject getJSONObjectOrNull(JsonObject jsonObject, String key) {
+        if (jsonObject == null) {
+            return null;
+        }
+
         try {
             return jsonObject.getAsJsonObject(key);
         } catch (JsonParseException e) {
@@ -79,6 +99,10 @@ public class GsonUtil {
     }
 
     public static JsonArray getJSONArrayOrNull(JsonObject jsonObject, String key) {
+        if (jsonObject == null) {
+            return null;
+        }
+
         try {
             return jsonObject.getAsJsonArray(key);
         } catch (JsonParseException e) {
