@@ -19,7 +19,7 @@ import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.combined.impl.LoadingScreen;
 import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
-import com.mentalfrostbyte.jello.util.client.rotation.RotationCore;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
