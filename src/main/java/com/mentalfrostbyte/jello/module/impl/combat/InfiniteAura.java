@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.PathFinder;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.infiniteaura.Sorter;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

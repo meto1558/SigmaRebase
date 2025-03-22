@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.module;
+package com.mentalfrostbyte.jello.module.data;
 
 public record ModuleCategory(String name) {
     public static final ModuleCategory RENDER = new ModuleCategory("Render");

@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 public class PremiumModule extends Module {
 

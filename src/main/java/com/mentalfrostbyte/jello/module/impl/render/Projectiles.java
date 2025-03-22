@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.render;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.TraceThing;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.FloatVector4;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.ProjectileItems;
