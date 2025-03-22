@@ -3,18 +3,18 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.ThumbnailButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
-import com.mentalfrostbyte.jello.managers.MusicVideoManager;
+import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 
 public class MusicInitializer implements Runnable {
-    public final MusicVideoManager thumbnail;
+    public final Thumbnails thumbnail;
     public final ColorHelper colorHelper;
     public final MusicPlayer musicPlayer;
     public final MusicPlayer musicPlayer2;
 
-    public MusicInitializer(MusicPlayer var1, MusicVideoManager var2, ColorHelper var3, MusicPlayer var4) {
+    public MusicInitializer(MusicPlayer var1, Thumbnails var2, ColorHelper var3, MusicPlayer var4) {
         this.musicPlayer2 = var1;
         this.thumbnail = var2;
         this.colorHelper = var3;

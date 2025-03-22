@@ -16,7 +16,7 @@ import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
 import com.mentalfrostbyte.jello.managers.MusicManager;
-import com.mentalfrostbyte.jello.managers.MusicVideoManager;
+import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -41,7 +41,7 @@ public class MusicPlayer extends AnimatedIconPanel {
     private ScrollableContentPanel field20852;
     private final CustomGuiScreen musicControls;
     private final MusicManager musicManager = Client.getInstance().musicManager;
-    public static Map<String, MusicVideoManager> videoMap = new LinkedHashMap<>();
+    public static Map<String, Thumbnails> videoMap = new LinkedHashMap<>();
     private final Button play;
     private final Button pause;
     private final Button forwards;
@@ -52,7 +52,7 @@ public class MusicPlayer extends AnimatedIconPanel {
     private final CustomGuiScreen field20865;
     public SearchBox searchBox;
     public ProgressBar field20867;
-    public static List<MusicVideoManager> videos = new ArrayList<>();
+    public static List<Thumbnails> videos = new ArrayList<>();
     public static long time = 0L;
     public float field20871 = 0.0F;
     public float field20872 = 0.0F;
@@ -67,15 +67,15 @@ public class MusicPlayer extends AnimatedIconPanel {
 
         if (videos.size() != 9) {
             videos.clear();
-            videos.add(new MusicVideoManager("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
-            videos.add(new MusicVideoManager("EDM", "PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("VEVO", "PL9tY0BWXOZFu8MzzbNVtUvHs0cQ_gZ03m", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("Rap Nation", "PLayVKgoNNljOZifkJNtvwfmrmh2OglYzx", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("MrSuicideSheep", "PLyqoPTKp-zlrI_PEqytQ7J9FgPhptcC64", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
+            videos.add(new Thumbnails("EDM", "PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5", YoutubeContentType.PLAYLIST));
 
         }
 
@@ -106,7 +106,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         List<Thread> threads = new ArrayList<>();
         MusicPlayer player = this;
 
-        for (MusicVideoManager video : videos) {
+        for (Thumbnails video : videos) {
             threads.add(new Thread(() -> {
                 if (!videoMap.containsKey(video.videoId) && !video.isUpdated) {
                     video.isUpdated = true;
@@ -187,7 +187,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         this.field20852.field21207 = 65;
     }
 
-    private void playSong(MusicVideoManager manager, YoutubeVideoData video) {
+    private void playSong(Thumbnails manager, YoutubeVideoData video) {
         this.musicManager.playSong(manager, video);
     }
 
@@ -554,7 +554,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         player.method13189(tabs);
     }
 
-    public static void playSong(MusicPlayer player, MusicVideoManager videoManager, YoutubeVideoData video) {
+    public static void playSong(MusicPlayer player, Thumbnails videoManager, YoutubeVideoData video) {
         player.playSong(videoManager, video);
     }
 }
