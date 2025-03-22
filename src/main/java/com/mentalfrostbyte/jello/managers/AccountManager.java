@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.BanListener;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
@@ -16,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AccountManager {
+public class AccountManager extends Manager {
     public ArrayList<Account> accounts = new ArrayList<Account>();
     public File altsFile = new File(Client.getInstance().file + "/alts.json");
     private String email;
@@ -26,8 +27,9 @@ public class AccountManager {
         this.loadAltsFromFile();
     }
 
-    public void registerEvents() {
-        EventBus.register(this);
+    @Override
+    public void init() {
+        super.init();
         EventBus.register(this.banListener);
     }
 
@@ -123,7 +125,7 @@ public class AccountManager {
         try {
             FileUtil.save(jsonObject, new File(Client.getInstance().file + "/alts.json"));
         } catch (IOException | JsonParseException var6) {
-            Client.getInstance().getLogger().error(var6.getMessage());
+            Client.logger.error(var6.getMessage());
         }
     }
 
@@ -138,7 +140,7 @@ public class AccountManager {
                 this.accounts.add(new Account((JsonObject) obj));
             }
         } catch (IOException e) {
-            Client.getInstance().getLogger().error(e.getMessage());
+            Client.logger.error(e.getMessage());
         }
     }
 

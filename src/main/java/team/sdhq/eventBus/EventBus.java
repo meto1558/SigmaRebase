@@ -78,20 +78,15 @@ public final class EventBus {
                 try {
                     m.invoke(instance, e);
                 } catch (IllegalAccessException ex) {
-                    Client.getInstance().getLogger().error("!!! PRIVATE EVENT LISTENER: " + instance.getClass().getName() + "#" + m.getName());
+                    Client.logger.error("!!! PRIVATE EVENT LISTENER: {}#{}", instance.getClass().getName(), m.getName());
                 } catch (InvocationTargetException ex) {
-                    Client.getInstance().getLogger().error("Exception from listener: " + instance.getClass().getName() + "#" + m.getName());
-//                    throw new RuntimeException(ex.getCause());
+                    Client.logger.error("Exception from listener: {}#{}", instance.getClass().getName(), m.getName());
                 } catch (Throwable ex) {
-                    ex.printStackTrace();
+                    Client.logger.error(ex);
                 }
             }
         } catch (ConcurrentModificationException ex) {
-            ex.printStackTrace();
-            Client
-                    .getInstance()
-                    .getLogger()
-                    .warn("Ignored concurrent modification exception because those are gay");
+            Client.logger.warn("Ignored concurrent modification exception because those are gay");
         }
     }
 

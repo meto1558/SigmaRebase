@@ -47,7 +47,7 @@ public class VerusTestDisabler extends Module {
     @Override
     public void onDisable() {
         try {
-            Client.getInstance().getLogger().info(String.format("Sending %d old transaction packets", transactionPackets.size()));
+            Client.logger.info("Sending {} old transaction packets", transactionPackets.size());
             for (var packet : transactionPackets) {
                 transactionPackets.remove(packet);
                 mc.getConnection().getNetworkManager().sendNoEventPacket(packet);

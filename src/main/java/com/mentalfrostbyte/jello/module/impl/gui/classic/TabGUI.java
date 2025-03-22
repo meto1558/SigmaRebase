@@ -263,7 +263,7 @@ public class TabGUI extends Module {
                 RenderUtil.endScissor();
             }
         } catch (IndexOutOfBoundsException e) {
-            Client.getInstance().getLogger().warn("bruh your modules aren't enough for this sexy ass tabgui");
+            Client.logger.warn("bruh your modules aren't enough for this sexy ass tabgui", e);
         }
     }
 

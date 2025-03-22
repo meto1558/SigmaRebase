@@ -11,6 +11,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import org.newdawn.slick.TrueTypeFont;
 import com.mojang.blaze3d.platform.GlStateManager;
 import org.lwjgl.opengl.GL11;
@@ -83,7 +84,7 @@ public class CustomGuiScreen implements IGuiEventListener {
      * @param widthA    The width of the screen.
      * @param heightA   The height of the screen.
      * @param textColor The color of the text.
-     * @param text The initial typed text (can be null).
+     * @param text      The initial typed text (can be null).
      * @param font      The TrueTypeFont to be used for rendering text.
      */
     public CustomGuiScreen(CustomGuiScreen parent, String name, int xA, int yA, int widthA, int heightA, ColorHelper textColor, String text, TrueTypeFont font) {
@@ -133,6 +134,7 @@ public class CustomGuiScreen implements IGuiEventListener {
             }
         }
     }
+
     /**
      * Manages the arrangement and removal of CustomGuiScreen objects within various lists.
      * This method performs the following operations:
@@ -177,7 +179,7 @@ public class CustomGuiScreen implements IGuiEventListener {
                 }
             }
         } catch (ConcurrentModificationException e) {
-            Client.getInstance().getLogger().info("kys concurrent modification exception go away");
+            Client.getInstance().logger.info("kys concurrent modification exception go away");
         }
 
         this.runOnDimensionUpdate.clear();
@@ -535,14 +537,14 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     public void loadConfig(JsonObject config) {
         if (this.isListening()) {
-            this.xA = config.get("x").getAsInt();
-            this.yA = config.get("y").getAsInt();
+            this.xA = GsonUtil.getIntOrDefault(config, "x", this.xA);
+            this.yA = GsonUtil.getIntOrDefault(config, "y", this.yA);
             if (this.shouldSaveSize()) {
-                this.widthA = config.get("width").getAsInt();
-                this.heightA = config.get("width").getAsInt();
+                this.widthA = GsonUtil.getIntOrDefault(config, "width", this.widthA);
+                this.heightA = GsonUtil.getIntOrDefault(config, "height", this.heightA);
             }
 
-            JsonArray children = config.get("children").getAsJsonArray();;
+            JsonArray children = GsonUtil.getJSONArrayOrNull(config, "children");
             if (children != null) {
                 List<CustomGuiScreen> childrenArray = new ArrayList<>(this.children);
 
@@ -553,8 +555,8 @@ public class CustomGuiScreen implements IGuiEventListener {
                     } catch (JsonParseException e) {
                         throw new RuntimeException(e);
                     }
-                    String id = config.get("id").getAsString();
-                    int index = config.get("index").getAsInt();
+                    String id = GsonUtil.getStringOrDefault(childJson, "id", null);
+                    int index = GsonUtil.getIntOrDefault(childJson, "index", -1);
 
                     for (CustomGuiScreen child : childrenArray) {
                         if (child.getName().equals(id)) {
@@ -580,7 +582,7 @@ public class CustomGuiScreen implements IGuiEventListener {
             if (!(other instanceof CustomGuiScreen to)) {
                 return false;
             } else {
-				return this.name.equals(to.name) && (this.getParent() == null || this.getParent().equals(to.getParent()));
+                return this.name.equals(to.name) && (this.getParent() == null || this.getParent().equals(to.getParent()));
             }
         } else {
             return true;
@@ -744,7 +746,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     /**
      * @return If this screen is visible.
-     *         doesn't account for the parent, but {@link CustomGuiScreen#isVisible()} does
+     * doesn't account for the parent, but {@link CustomGuiScreen#isVisible()} does
      * @see CustomGuiScreen#isVisible()
      */
     public boolean isSelfVisible() {
@@ -867,6 +869,6 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public interface Class7914 {
-       void method26544(CustomGuiScreen screen, int var2);
+        void method26544(CustomGuiScreen screen, int var2);
     }
 }

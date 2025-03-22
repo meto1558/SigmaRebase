@@ -34,21 +34,14 @@ public class FileUtil {
                     try {
                         var3 = JsonParser.parseString(var5).getAsJsonObject();
                     } catch (JsonParseException var7) {
-                        if (Client.getInstance().getLogger() != null) {
-                            Client.getInstance().getLogger().warn("Error when reading json from config. Continuing, but no preferences will be loaded.");
-                        }
-                        var7.printStackTrace();
+                        Client.logger.warn("Error when reading json from config. Continuing, but no preferences will be loaded.", var7);
                     }
                 } else {
-                    if (Client.getInstance().getLogger() != null) {
-                        Client.getInstance().getLogger().warn("Empty config file");
-                    }
+                    Client.logger.warn("Empty config file");
                 }
             }
         } else {
-            if (Client.getInstance().getLogger() != null) {
-                Client.getInstance().getLogger().info("Config does not exist... creating new config file...");
-            }
+            Client.logger.info("Config does not exist... creating new config file...");
             freshConfig = true;
             var0.createNewFile();
         }

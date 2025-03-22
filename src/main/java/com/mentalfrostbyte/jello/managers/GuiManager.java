@@ -21,7 +21,6 @@ import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.FileUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -38,8 +37,6 @@ import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Map.Entry;
@@ -131,27 +128,10 @@ public class GuiManager {
                 return replacementScreens.get(screen.getClass()).getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
 					 NoSuchMethodException e) {
-                Client.getInstance().getLogger().error("Error creating replacement screen: " + e.getMessage());
-                e.printStackTrace();
+                Client.logger.error("Error creating replacement screen", e);
             }
 
 			return null;
-        }
-    }
-
-    public static void unusedHIDPIThing() {
-        Minecraft.getInstance();
-        if (Minecraft.IS_RUNNING_ON_MAC) {
-            try {
-                JsonObject config = FileUtil.readFile(new File(Client.getInstance().file + "/config.json"));
-                if (config.has("hidpicocoa")) {
-                    hidpiCocoa = config.get("hidpicocoa").getAsBoolean();
-                }
-
-                GLFW.glfwWindowHint(GLFW.GLFW_COCOA_RETINA_FRAMEBUFFER, hidpiCocoa ? 1 : 0);
-            } catch (IOException var3) {
-                var3.printStackTrace();
-            }
         }
     }
 
@@ -316,7 +296,7 @@ public class GuiManager {
         }
     }
 
-    public JsonObject getUIConfig(JsonObject uiConfig) {
+    public void getUIConfig(JsonObject uiConfig) {
         if (this.screen != null) {
             JsonObject var4 = this.screen.toConfigWithExtra(new JsonObject());
             if (var4.size() != 0) {
@@ -327,7 +307,6 @@ public class GuiManager {
         uiConfig.addProperty("guiBlur", this.guiBlur);
         uiConfig.addProperty("hqIngameBlur", this.hqIngameBlur);
         uiConfig.addProperty("hidpicocoa", hidpiCocoa);
-        return uiConfig;
     }
 
     public void setGuiBlur(boolean to) {
@@ -359,7 +338,7 @@ public class GuiManager {
             JsonObject var4 = null;
 
             try {
-                var4 = Client.getInstance().getConfig().getAsJsonObject(this.screen.getName());
+                var4 = Client.getInstance().config.getAsJsonObject(this.screen.getName());
             } catch (Exception var9) {
                 var4 = new JsonObject();
             } finally {
@@ -402,15 +381,15 @@ public class GuiManager {
 
     public void onResize() throws JsonParseException {
         if (this.screen != null) {
-            this.getUIConfig(Client.getInstance().getConfig());
+            this.getUIConfig(Client.getInstance().config);
 
             try {
                 this.screen = this.screen.getClass().newInstance();
-            } catch (IllegalAccessException | InstantiationException var4) {
-                var4.printStackTrace();
+            } catch (IllegalAccessException | InstantiationException exc) {
+                Client.logger.warn(exc);
             }
 
-            this.loadUIConfig(Client.getInstance().getConfig());
+            this.loadUIConfig(Client.getInstance().config);
         }
 
         if (Minecraft.getInstance().getMainWindow().getWidth() != 0 && Minecraft.getInstance().getMainWindow().getHeight() != 0) {
@@ -431,11 +410,11 @@ public class GuiManager {
 
     public void handleScreen(Screen screen) {
         if (this.screen != null) {
-            this.getUIConfig(Client.getInstance().getConfig());
+            this.getUIConfig(Client.getInstance().config);
         }
 
         this.screen = screen;
-        this.loadUIConfig(Client.getInstance().getConfig());
+        this.loadUIConfig(Client.getInstance().config);
         if (this.screen != null) {
             this.screen.updatePanelDimensions(this.field41354[0], this.field41354[1]);
         }
