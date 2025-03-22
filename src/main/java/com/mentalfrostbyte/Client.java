@@ -9,16 +9,14 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
-import com.mentalfrostbyte.jello.util.client.network.auth.CloudConfigs;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.util.client.logger.Logger;
 import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
-import com.mentalfrostbyte.jello.util.client.logger.ClientLogger;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
+import org.apache.logging.log4j.LogManager;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -73,7 +71,7 @@ public class Client {
     public PlayerStateTracker playerTracker;
     public MinerTracker minerTracker;
 
-    private Logger logger;
+    private final org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
 
     public static boolean dontRenderHand = false;
     private boolean loading = true;
@@ -81,7 +79,6 @@ public class Client {
     public BlurEngine blurEngine;
 
     public void start() {
-        this.logger = new ClientLogger(System.out, System.out, System.err);
         this.logger.info("Initializing...");
 
         try {
@@ -274,7 +271,7 @@ public class Client {
         return this.config;
     }
 
-    public Logger getLogger() {
+    public org.apache.logging.log4j.Logger getLogger() {
         return this.logger;
     }
 
