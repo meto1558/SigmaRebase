@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl.button.types;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.client.network.auth.Account;
+import com.mentalfrostbyte.jello.util.client.network.auth.SigmaAccount;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -31,12 +31,12 @@ public class LoginButton extends Element {
 
     @Override
     public void draw(float partialTicks) {
-        Account account = Client.getInstance().licenseManager.account;
+        SigmaAccount sigmaAccount = Client.getInstance().licenseManager.sigmaAccount;
         String text = "Log in";
 
         Texture texture = Resources.accountPNG;
-        if (account != null) {
-            text = account.username;
+        if (sigmaAccount != null) {
+            text = sigmaAccount.username;
         }
 
         this.setWidthA(this.font.getWidth(text) + 50 + 60);

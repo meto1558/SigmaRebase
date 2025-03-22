@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-public class CloudConfigs {
+public class SigmaConfigs {
 
     public static void start() {
         new Thread(() -> {
@@ -23,9 +23,9 @@ public class CloudConfigs {
                 return;
             }
 
-            synchronized (CloudConfigs.class) {
+            synchronized (SigmaConfigs.class) {
                 try {
-                    CloudConfigs.class.wait();
+                    SigmaConfigs.class.wait();
                 } catch (InterruptedException e) {
                     System.err.println("Server interrupted: " + e.getMessage());
                 }

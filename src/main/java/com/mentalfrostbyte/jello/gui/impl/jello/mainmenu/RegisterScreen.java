@@ -153,8 +153,8 @@ public class RegisterScreen extends Screen {
             this.field21088.setSelfVisible(false);
         }
 
-        if (this.loggedIn && Client.getInstance().licenseManager.account != null) {
-            String username = Client.getInstance().licenseManager.account.username;
+        if (this.loggedIn && Client.getInstance().licenseManager.sigmaAccount != null) {
+            String username = Client.getInstance().licenseManager.sigmaAccount.username;
             String welcomeBackSign = "Welcome back";
             int var8 = 100;
             int var9 = 10;

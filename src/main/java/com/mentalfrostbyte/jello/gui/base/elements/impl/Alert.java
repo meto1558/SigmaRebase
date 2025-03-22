@@ -12,7 +12,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.util.client.network.microsoft.CookieLoginUtil;
-import com.mentalfrostbyte.jello.util.client.network.microsoft.MicrosoftUtil;
+import com.mentalfrostbyte.jello.util.client.network.microsoft.MicrosoftLoginUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
@@ -132,12 +132,12 @@ public class Alert extends Element {
                                 }
                                 case "Web login" -> {
                                     ExecutorService executor = Executors.newSingleThreadExecutor();
-                                    MicrosoftUtil.acquireMSAuthCode(executor)
-                                            .thenComposeAsync(msAuthCode -> MicrosoftUtil.acquireMSAccessToken(msAuthCode, executor), executor)
-                                            .thenComposeAsync(msAccessToken -> MicrosoftUtil.acquireXboxAccessToken(msAccessToken, executor), executor)
-                                            .thenComposeAsync(xboxAccessToken -> MicrosoftUtil.acquireXboxXstsToken(xboxAccessToken, executor), executor)
-                                            .thenComposeAsync(xboxXstsData -> MicrosoftUtil.acquireMCAccessToken(xboxXstsData.get("Token"), xboxXstsData.get("uhs"), executor), executor)
-                                            .thenComposeAsync(mcToken -> MicrosoftUtil.login(mcToken, executor), executor)
+                                    MicrosoftLoginUtil.acquireMSAuthCode(executor)
+                                            .thenComposeAsync(msAuthCode -> MicrosoftLoginUtil.acquireMSAccessToken(msAuthCode, executor), executor)
+                                            .thenComposeAsync(msAccessToken -> MicrosoftLoginUtil.acquireXboxAccessToken(msAccessToken, executor), executor)
+                                            .thenComposeAsync(xboxAccessToken -> MicrosoftLoginUtil.acquireXboxXstsToken(xboxAccessToken, executor), executor)
+                                            .thenComposeAsync(xboxXstsData -> MicrosoftLoginUtil.acquireMCAccessToken(xboxXstsData.get("Token"), xboxXstsData.get("uhs"), executor), executor)
+                                            .thenComposeAsync(mcToken -> MicrosoftLoginUtil.login(mcToken, executor), executor)
                                             .thenAccept(session -> {
                                                 Account account = new Account(session.username, session.playerID, session.token);
                                                 if (!Client.getInstance().accountManager.containsAccount(account)) {
