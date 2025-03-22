@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 
 public class TextBoxSetting extends Setting<Integer> {
     private final String[] options;
@@ -14,7 +15,7 @@ public class TextBoxSetting extends Setting<Integer> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
-        this.currentValue = jsonObject.get("value").getAsInt();
+        this.currentValue = GsonUtil.getIntOrDefault(jsonObject, "value", this.getDefaultValue());
         return jsonObject;
     }
 

@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.module.settings.impl;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 
 public class NumberSetting<T extends Number> extends Setting<Float> {
     private float minValue;
@@ -28,7 +29,7 @@ public class NumberSetting<T extends Number> extends Setting<Float> {
 
     @Override
     public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
-        this.currentValue = jsonObject.get("value").getAsFloat();
+        this.currentValue = GsonUtil.getFloatOrDefault(jsonObject, "value", this.getDefaultValue());
         return jsonObject;
     }
 
