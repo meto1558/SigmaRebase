@@ -32,7 +32,7 @@ jobs:
 
       - name: Compute SHA1 and file size
         run: |
-          JAR_FILE=$(ls target/*.jar | head -n 1)  # Ensure JAR_FILE is set correctly
+          JAR_FILE=$(ls target/*.jar | head -n 1)
           if [[ -z "$JAR_FILE" ]]; then
             echo "Error: No JAR file found in target/"
             exit 1
@@ -109,6 +109,7 @@ jobs:
         run: |
           git push origin :refs/tags/nightly
           git tag -f nightly
+          git push origin nightly
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
