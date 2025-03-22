@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.module;
+package com.mentalfrostbyte.jello.module.data;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

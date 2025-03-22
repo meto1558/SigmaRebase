@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.wtap;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;

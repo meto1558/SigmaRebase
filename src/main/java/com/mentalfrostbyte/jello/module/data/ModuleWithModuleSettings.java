@@ -1,8 +1,9 @@
-package com.mentalfrostbyte.jello.module;
+package com.mentalfrostbyte.jello.module.data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import team.sdhq.eventBus.EventBus;
@@ -10,24 +11,24 @@ import team.sdhq.eventBus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModuleWithModuleSettings extends Module {
+public class ModuleWithModuleSettings extends com.mentalfrostbyte.jello.module.Module {
 
     private final List<ModuleStateListener> moduleStateListeners = new ArrayList<>();
-    public Module[] moduleArray;
-    public Module parentModule;
+    public com.mentalfrostbyte.jello.module.Module[] moduleArray;
+    public com.mentalfrostbyte.jello.module.Module parentModule;
     public ModeSetting modeSetting;
     public String customModeName;
     private final List<String> stringList = new ArrayList<>();
 
-    public ModuleWithModuleSettings(ModuleCategory category, String type, String description, Module... modules) {
+    public ModuleWithModuleSettings(ModuleCategory category, String type, String description, com.mentalfrostbyte.jello.module.Module... modules) {
         this(category, type, description, "Type", modules);
     }
 
-    public ModuleWithModuleSettings(ModuleCategory category, String type, String description, String customModeName, Module... modules) {
+    public ModuleWithModuleSettings(ModuleCategory category, String type, String description, String customModeName, com.mentalfrostbyte.jello.module.Module... modules) {
         super(category, type, description);
         this.moduleArray = modules;
 
-        for (Module moduleFromArray : moduleArray) {
+        for (com.mentalfrostbyte.jello.module.Module moduleFromArray : moduleArray) {
             EventBus.register(moduleFromArray);
             stringList.add(moduleFromArray.getName());
             moduleFromArray.setSomeMod(this);
@@ -42,7 +43,7 @@ public class ModuleWithModuleSettings extends Module {
     public void calledOnEnable() {
         this.isTypeSetToThisModName();
 
-        for (Module module : this.moduleArray) {
+        for (com.mentalfrostbyte.jello.module.Module module : this.moduleArray) {
             boolean isParent = this.getStringSettingValueByName(this.customModeName).equals(module.name);
             if (this.isEnabled() && mc.player != null) {
                 module.setState(isParent);
@@ -60,7 +61,7 @@ public class ModuleWithModuleSettings extends Module {
     private void isTypeSetToThisModName() {
         boolean isOurName = false;
 
-        for (Module module : this.moduleArray) {
+        for (com.mentalfrostbyte.jello.module.Module module : this.moduleArray) {
             if (this.getStringSettingValueByName(this.customModeName).equals(module.name)) {
                 isOurName = true;
             }
@@ -71,10 +72,10 @@ public class ModuleWithModuleSettings extends Module {
         }
     }
 
-    public Module getModWithTypeSetToName() {
+    public com.mentalfrostbyte.jello.module.Module getModWithTypeSetToName() {
         this.isTypeSetToThisModName();
 
-        for (Module mod : this.moduleArray) {
+        for (com.mentalfrostbyte.jello.module.Module mod : this.moduleArray) {
             if (this.getStringSettingValueByName(this.customModeName).equals(mod.name)) {
                 return mod;
             }
@@ -96,7 +97,7 @@ public class ModuleWithModuleSettings extends Module {
     public JsonObject initialize(JsonObject config) throws JsonParseException {
         JsonObject var4 = config.getAsJsonObject("sub-options");
         if (var4 != null) {
-            for (Module var8 : this.moduleArray) {
+            for (com.mentalfrostbyte.jello.module.Module var8 : this.moduleArray) {
                 JsonArray var9 = var4.getAsJsonArray(var8.getName());
                 if (var9 != null) {
                     for (int var10 = 0; var10 < var9.size(); var10++) {
@@ -131,7 +132,7 @@ public class ModuleWithModuleSettings extends Module {
         try {
             JsonObject subOptionsObj = new JsonObject();
 
-            for (Module mod : this.moduleArray) {
+            for (com.mentalfrostbyte.jello.module.Module mod : this.moduleArray) {
                 JsonArray arr = new JsonArray();
 
                 for (Setting<?> setting : mod.settingMap.values()) {
@@ -155,14 +156,14 @@ public class ModuleWithModuleSettings extends Module {
 
     @Override
     public void onDisable() {
-        for (Module var6 : this.moduleArray) {
+        for (com.mentalfrostbyte.jello.module.Module var6 : this.moduleArray) {
             var6.setEnabled(false);
         }
     }
 
     @Override
     public void resetModuleState() {
-        for (Module var6 : this.moduleArray) {
+        for (com.mentalfrostbyte.jello.module.Module var6 : this.moduleArray) {
             var6.setState(false);
         }
 
@@ -173,7 +174,7 @@ public class ModuleWithModuleSettings extends Module {
         this.moduleStateListeners.add(listener);
     }
 
-    public final void setModuleEnabled(Module module, boolean enabled) {
+    public final void setModuleEnabled(com.mentalfrostbyte.jello.module.Module module, boolean enabled) {
         for (ModuleStateListener listener : this.moduleStateListeners) {
             listener.onModuleEnabled(this, module, enabled);
         }

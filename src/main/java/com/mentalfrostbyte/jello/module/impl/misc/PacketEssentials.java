@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.module.InDevelopment;
+import com.mentalfrostbyte.jello.module.data.InDevelopment;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.play.server.*;
 import team.sdhq.eventBus.annotations.EventTarget;

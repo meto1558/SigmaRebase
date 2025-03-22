@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render.jello;
 
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.render.classic.esp.BoxOutlineESP;
 import com.mentalfrostbyte.jello.module.impl.render.classic.esp.VanillaESP;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.ShadowESP;

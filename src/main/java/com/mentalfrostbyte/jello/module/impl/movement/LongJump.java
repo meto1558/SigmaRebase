@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.longjump.NCPLongJump;
 import com.mentalfrostbyte.jello.module.impl.movement.longjump.CubecraftLongJump;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

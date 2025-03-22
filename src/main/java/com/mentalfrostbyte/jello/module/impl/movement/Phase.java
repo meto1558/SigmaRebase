@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.phase.*;
 import team.sdhq.eventBus.annotations.EventTarget;
 

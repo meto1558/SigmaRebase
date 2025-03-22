@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.render.chestesp.BoxChestESP;
 import com.mentalfrostbyte.jello.module.impl.render.chestesp.OutlineChestESP;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.search.ChunkRegion;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanListSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

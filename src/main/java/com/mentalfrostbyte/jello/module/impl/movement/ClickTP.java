@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.clicktp.BasicClickTP;
 import com.mentalfrostbyte.jello.module.impl.movement.clicktp.MinibloxClickTP;
 import com.mentalfrostbyte.jello.module.impl.movement.clicktp.SpartanClickTP;
