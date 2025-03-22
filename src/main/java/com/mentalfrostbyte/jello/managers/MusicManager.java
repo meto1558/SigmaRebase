@@ -7,6 +7,8 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.managers.data.Manager;
+import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
@@ -14,6 +16,7 @@ import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
@@ -43,7 +46,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.util.BufferedImageUtil;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import javax.imageio.ImageIO;
@@ -57,15 +59,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicManager {
-    private static final Minecraft mc = Minecraft.getInstance();
+public class MusicManager extends Manager implements MinecraftUtil {
     public BufferedImage scaledThumbnail;
     public String songTitle = "";
     public List<double[]> visualizerData = new ArrayList<double[]>();
     public ArrayList<Double> amplitudes = new ArrayList<Double>();
     public SourceDataLine sourceDataLine;
     private boolean playing = false;
-    private MusicVideoManager videoManager;
+    private Thumbnails videoManager;
     private int volume = 50;
     private long duration = -1L;
     private Texture notificationImage;
@@ -84,13 +85,16 @@ public class MusicManager {
     private boolean field32169 = false;
     private double field32170 = 0.0;
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
+
         try {
             this.loadSettings();
         } catch (JsonParseException e) {
-            throw new RuntimeException(e);
+            Client.logger.error(e);
         }
+
         if (!this.doesYTDLPExist()) {
             this.setupDownloadThread();
         }
@@ -103,12 +107,12 @@ public class MusicManager {
         jsonObject.addProperty("volume", this.volume);
         jsonObject.addProperty("spectrum", this.spectrum);
         jsonObject.addProperty("repeat", this.repeat.type);
-        Client.getInstance().getConfig().add("music", jsonObject);
+        Client.getInstance().config.add("music", jsonObject);
     }
 
     private void loadSettings() throws JsonParseException {
-        if (Client.getInstance().getConfig().has("music")) {
-            JsonObject jsonObject = Client.getInstance().getConfig().getAsJsonObject("music");
+        if (Client.getInstance().config.has("music")) {
+            JsonObject jsonObject = Client.getInstance().config.getAsJsonObject("music");
             if (jsonObject != null) {
                 if (jsonObject.has("volume")) {
                     this.volume = Math.max(0, Math.min(100, jsonObject.get("volume").getAsInt()));
@@ -537,9 +541,9 @@ public class MusicManager {
         }
     }
 
-    public void playSong(MusicVideoManager vidManager, YoutubeVideoData videoData) {
+    public void playSong(Thumbnails vidManager, YoutubeVideoData videoData) {
         if (vidManager == null) {
-            vidManager = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
+            vidManager = new Thumbnails("temp", "temp", YoutubeContentType.PLAYLIST);
             vidManager.videoList.add(videoData);
         }
 
@@ -759,8 +763,8 @@ public class MusicManager {
                         return true;
                     }
                 }
-            } catch (IOException ignored) {
-                Client.getInstance().getLogger().warn("No Python version found!");
+            } catch (IOException exc) {
+                Client.logger.error("No Python version found!", exc);
             }
         }
 
@@ -788,8 +792,8 @@ public class MusicManager {
                 if (Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, key, "Installed") == 1) {
                     return true;
                 }
-            } catch (Win32Exception ignored) {
-                Client.getInstance().getLogger().warn("No VCRedist was found on your computer.");
+            } catch (Win32Exception exc) {
+                Client.logger.error("No VCRedist was found on your computer.", exc);
             }
         }
 

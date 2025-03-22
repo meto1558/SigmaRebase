@@ -336,7 +336,7 @@ public class Alert extends Element {
                         "blur", ImageUtil.method35036(0, 0, this.getWidthA(), this.getHeightA(), 5, 10, ClientColors.LIGHT_GREYISH_BLUE.getColor(), true)
                 );
             } catch (IOException var5) {
-                Client.getInstance().getLogger().error(var5.getMessage());
+                Client.getInstance().logger.error(var5.getMessage());
             }
         }
 
