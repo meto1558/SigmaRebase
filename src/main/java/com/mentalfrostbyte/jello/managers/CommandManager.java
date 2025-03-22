@@ -5,19 +5,19 @@ import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.command.impl.*;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CTabCompletePacket;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandManager {
+public class CommandManager extends Manager {
     public static final String CHAT_COMMAND_CHAR = ".";
     public static final String CHAT_PREFIX = "§f[§6Sigma§f]§7";
     private static final List<Runnable> runnableList = new ArrayList<>();
@@ -28,8 +28,9 @@ public class CommandManager {
         runnableList.add(runnable);
     }
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
         this.register(new VClip());
         this.register(new HClip());
         this.register(new Damage());

@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class NotificationManager {
+public class NotificationManager extends Manager {
     public Minecraft mc = Minecraft.getInstance();
     private final List<Notification> notifications = new ArrayList<>();
     private final int field39922 = 200, field39923 = 340, field39924 = 64, field39925 = 10, field39926 = 10, field39927 = 10;
@@ -137,9 +138,5 @@ public class NotificationManager {
             }
         }
         return false;
-    }
-
-    public void init() {
-        EventBus.register(this);
     }
 }

@@ -2,24 +2,20 @@ package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.combat.AntiBotBase;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class BotManager {
+public class BotManager extends Manager {
     public AntiBotBase antiBot;
-    public List<Entity> bots = new CopyOnWriteArrayList<Entity>();
-
-    public void init() {
-        EventBus.register(this);
-    }
+    public List<Entity> bots = new CopyOnWriteArrayList<>();
 
     public boolean isBot(Entity entity) {
         return this.bots.contains(entity);
