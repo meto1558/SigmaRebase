@@ -31,7 +31,7 @@ public class LoginButton extends Element {
 
     @Override
     public void draw(float partialTicks) {
-        Account account = Client.getInstance().networkManager.account;
+        Account account = Client.getInstance().licenseManager.account;
         String text = "Log in";
 
         Texture texture = Resources.accountPNG;

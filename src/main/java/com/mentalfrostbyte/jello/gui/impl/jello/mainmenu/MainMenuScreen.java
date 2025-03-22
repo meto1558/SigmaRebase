@@ -248,9 +248,9 @@ public class MainMenuScreen extends Screen {
             }
 
 
-            if (foregroundOpacity > 0.0F && Client.getInstance().isLoading()) {
+            if (foregroundOpacity > 0.0F && Client.getInstance().loading) {
                 LoadingScreen.xd(backgroundOpacity, 1.0F);
-                Client.getInstance().setLoading(false);
+                Client.getInstance().loading = false;
             }
 
             field20982 *= 0.7F;
@@ -315,7 +315,7 @@ public class MainMenuScreen extends Screen {
                         ex.printStackTrace();
                     }
                 }).start());
-                this.alert.onPress(var -> Client.getInstance().networkManager.resetLicense());
+                this.alert.onPress(var -> Client.getInstance().licenseManager.resetLicense());
                 this.alert.method13603(true);
             });
         }

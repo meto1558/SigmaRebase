@@ -39,12 +39,12 @@ public class RedeemKeyScreen extends CustomGuiScreen {
         this.addToList(this.captchaField = new TextField(this, "captcha", 195, 290, 75, 35, TextField.field20742, "", "Captcha"));
         this.captchaField.setFont(ResourceRegistry.JelloLightFont18);
         redeemButton.doThis((var2x, var3x) -> new Thread(() -> {
-            this.premiumLicense = Client.getInstance().networkManager.redeemPremium(redeemBox.getText());
+            this.premiumLicense = Client.getInstance().licenseManager.redeemPremium(redeemBox.getText());
             if (this.premiumLicense == null) {
                 this.premiumLicense = "";
             }
 
-            if (Client.getInstance().networkManager.isPremium()) {
+            if (Client.getInstance().licenseManager.isPremium()) {
                 this.runThisOnDimensionUpdate(() -> ((MainMenuScreen) this.getParent()).goOut());
             }
         }).start());

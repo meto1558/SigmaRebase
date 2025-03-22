@@ -1,10 +1,9 @@
 package com.mentalfrostbyte.jello.managers;
 
-import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.util.client.network.auth.Account;
 import com.mentalfrostbyte.jello.util.client.network.auth.SigmaIRC;
 import org.apache.commons.io.FileUtils;
-import team.sdhq.eventBus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,14 +12,14 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NetworkManager {
+public class LicenseManager extends Manager {
 
     public Account account;
     public SigmaIRC sigmaIRC;
 
     public static boolean premium = true;
 
-    public NetworkManager() {
+    public LicenseManager() {
         File license = new File("jello/jello.lic");
         if (license.exists()) {
             try {
@@ -41,8 +40,9 @@ public class NetworkManager {
         }
     }
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
         this.sigmaIRC = new SigmaIRC();
     }
 

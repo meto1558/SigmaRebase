@@ -139,7 +139,7 @@ public class ProfileGroup extends AnimatedIconPanel {
                var5x.runThisOnDimensionUpdate(() -> var5x.method13615());
 
                for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-                  if (!Client.getInstance().networkManager.isPremium()) {
+                  if (!Client.getInstance().licenseManager.isPremium()) {
                      module.setEnabledBasic(false);
                   }
                }
