@@ -41,28 +41,28 @@ public class VerticalScrollBarButton extends AnimatedIconPanel {
 
         this.setHeightA((int) var9);
         if (!this.field20877 && this.getHeightA() != this.parent.getHeightA()) {
-            if (this.field20781.field20793 >= 0) {
-                if (this.field20781.field20793 + this.parent.getParent().getHeightA() > this.field20780.getButton().getHeightA()) {
-                    this.field20781.field20793 = this.field20780.getButton().getHeightA() - this.parent.getParent().getHeightA();
+            if (this.field20781.offset >= 0) {
+                if (this.field20781.offset + this.parent.getParent().getHeightA() > this.field20780.getButton().getHeightA()) {
+                    this.field20781.offset = this.field20780.getButton().getHeightA() - this.parent.getParent().getHeightA();
                 }
             } else {
-                this.field20781.field20793 = 0;
+                this.field20781.offset = 0;
             }
 
             float var16 = var5 - var6;
-            float var13 = (float) this.field20781.field20793 / var16;
+            float var13 = (float) this.field20781.offset / var16;
             float var14 = (float) (this.parent.getHeightA() - this.getHeightA());
             float var15 = var14 * var13 + 0.5F;
             this.setYA((int) var15);
         } else if (this.method13216()) {
             float var12 = (float) this.getYA() / (float) this.parent.getHeightA();
-            this.field20781.field20793 = (int) (var12 * (float) this.field20780.getButton().getHeightA());
-            if (this.field20781.field20793 >= 0) {
-                if (this.field20781.field20793 + this.parent.getParent().getHeightA() > this.field20780.getButton().getHeightA()) {
-                    this.field20781.field20793 = this.field20780.getButton().getHeightA() - this.parent.getParent().getHeightA();
+            this.field20781.offset = (int) (var12 * (float) this.field20780.getButton().getHeightA());
+            if (this.field20781.offset >= 0) {
+                if (this.field20781.offset + this.parent.getParent().getHeightA() > this.field20780.getButton().getHeightA()) {
+                    this.field20781.offset = this.field20780.getButton().getHeightA() - this.parent.getParent().getHeightA();
                 }
             } else {
-                this.field20781.field20793 = 0;
+                this.field20781.offset = 0;
             }
 
             this.field20781.field20797.reset();

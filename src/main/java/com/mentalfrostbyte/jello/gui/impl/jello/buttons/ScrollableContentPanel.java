@@ -47,11 +47,11 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
    }
 
    public void method13512(int var1) {
-      this.scrollBar.field20793 = var1;
+      this.scrollBar.offset = var1;
    }
 
    public int method13513() {
-      return this.scrollBar != null ? this.scrollBar.field20793 : 0;
+      return this.scrollBar != null ? this.scrollBar.offset : 0;
    }
 
    public void method13514(boolean var1) {
