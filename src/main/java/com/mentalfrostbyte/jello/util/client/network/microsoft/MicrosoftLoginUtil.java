@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public final class MicrosoftUtil {
+public final class MicrosoftLoginUtil {
 
     public static void openWebLink(final URI url) {
         try {
@@ -67,7 +67,7 @@ public final class MicrosoftUtil {
     public static CompletableFuture<String> acquireMSAuthCode(
             final Executor executor
     ) {
-        return acquireMSAuthCode(MicrosoftUtil::openWebLink, executor);
+        return acquireMSAuthCode(MicrosoftLoginUtil::openWebLink, executor);
     }
 
     public static CompletableFuture<String> acquireMSAuthCode(
@@ -105,7 +105,7 @@ public final class MicrosoftUtil {
                         errorMsg.set(String.format("%s: %s", query.get("error"), query.get("error_description")));
                     }
 
-                    final InputStream stream = MicrosoftUtil.class.getResourceAsStream("/callback.html");
+                    final InputStream stream = MicrosoftLoginUtil.class.getResourceAsStream("/callback.html");
                     final byte[] response = stream != null ? IOUtils.toByteArray(stream) : new byte[0];
                     exchange.getResponseHeaders().add("Content-Type", "text/html");
                     exchange.sendResponseHeaders(200, response.length);

@@ -2,8 +2,6 @@ package com.mentalfrostbyte.jello.util.client.network.youtube;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
 
 public class YoutubeUtil {
     public static String method34955(int var0) {
@@ -23,12 +21,5 @@ public class YoutubeUtil {
             var4.printStackTrace();
             return null;
         }
-    }
-
-    public static String method34963(String var0) {
-        var0 = var0.replaceAll("\\(.*\\)", "");
-        var0 = var0.replaceAll("\\[.*\\]", "");
-        var0 = Normalizer.normalize(var0, Form.NFD);
-        return var0.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
     }
 }

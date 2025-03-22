@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.managers.data.Manager;
-import com.mentalfrostbyte.jello.util.client.network.auth.Account;
+import com.mentalfrostbyte.jello.util.client.network.auth.SigmaAccount;
 import com.mentalfrostbyte.jello.util.client.network.auth.SigmaIRC;
 import org.apache.commons.io.FileUtils;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class LicenseManager extends Manager {
 
-    public Account account;
+    public SigmaAccount sigmaAccount;
     public SigmaIRC sigmaIRC;
 
     public static boolean premium = true;
@@ -60,7 +60,7 @@ public class LicenseManager extends Manager {
     }
 
     public String redeemPremium(String s) {
-        String username = account.username;
+        String username = sigmaAccount.username;
         resetLicense();
         premium = true;
         try {
@@ -71,14 +71,14 @@ public class LicenseManager extends Manager {
     }
 
     public void loadLicense(String username) {
-        if (this.account != null) {
+        if (this.sigmaAccount != null) {
             return;
         }
 
         File file = new File("jello/jello.lic");
 
         if (file.exists()) {
-            this.account = new Account(username);
+            this.sigmaAccount = new SigmaAccount(username);
         } else {
             try {
                 handleLoginResponse(username);
@@ -89,7 +89,7 @@ public class LicenseManager extends Manager {
     }
 
     public void resetLicense() {
-        account = null;
+        sigmaAccount = null;
         premium = false;
 
         File file = new File("jello/jello.lic");
@@ -99,7 +99,7 @@ public class LicenseManager extends Manager {
     }
 
     public void handleLoginResponse(String username) throws IOException {
-        this.account = new Account(username);
+        this.sigmaAccount = new SigmaAccount(username);
         String full = username + ":" + premium;
         FileUtils.writeByteArrayToFile(new File("jello/jello.lic"), full.getBytes(StandardCharsets.UTF_8));
     }
