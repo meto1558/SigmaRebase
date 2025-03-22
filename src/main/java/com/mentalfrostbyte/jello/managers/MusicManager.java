@@ -320,7 +320,6 @@ public class MusicManager {
 
                         for (int index = this.currentVideoIndex; index < this.videoManager.videoList.size(); index++) {
                             URL songUrl = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(index).videoId);
-                            Client.getInstance().getLogger().setThreadName(songUrl.toString());
                             this.currentVideoIndex2 = index;
                             this.currentVideo = this.videoManager.videoList.get(index);
                             this.visualizerData.clear();
@@ -344,7 +343,6 @@ public class MusicManager {
 
                             try {
                                 URL url = this.resolveAudioStream(songUrl);
-                                Client.getInstance().getLogger().setThreadName(url == null ? "No stream" : url.toString());
                                 if (url != null) {
                                     URLConnection connection = url.openConnection();
                                     connection.setConnectTimeout(14000);
@@ -359,10 +357,6 @@ public class MusicManager {
                                     MP4Container container = new MP4Container(mS);
                                     Movie movie = container.getMovie();
                                     List<Track> tracks = movie.getTracks();
-
-                                    if (tracks.isEmpty()) {
-                                        Client.getInstance().getLogger().setThreadName("No content");
-                                    }
 
                                     AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
                                     AudioFormat var14 = new AudioFormat((float) var13.getSampleRate(),
@@ -652,7 +646,6 @@ public class MusicManager {
     }
 
     public void setupDownloadThread() {
-        Client.getInstance().getLogger().setThreadName("Updating dependencies threaded");
         new Thread(this::download).start();
     }
 
@@ -660,7 +653,6 @@ public class MusicManager {
         if (!this.finished) {
             File musicDir = new File(Client.getInstance().file + "/music/");
             musicDir.mkdirs();
-            Client.getInstance().getLogger().setThreadName("Updating dependencies");
             if (Util.getOSType() == Util.OS.WINDOWS) {
                 try {
                     File targetFile = new File(Client.getInstance().file + "/music/yt-dlp.exe");
