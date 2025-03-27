@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.mentalfrostbyte.jello.event.impl.game.world.EventSaveChunk;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
@@ -153,6 +154,7 @@ import net.minecraft.world.storage.WorldSavedDataCallableSave;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.sdhq.eventBus.EventBus;
 
 public abstract class MinecraftServer extends RecursiveEventLoop<TickDelayedTask> implements ISnooperInfo, ICommandSource, AutoCloseable
 {
@@ -583,6 +585,7 @@ public abstract class MinecraftServer extends RecursiveEventLoop<TickDelayedTask
 
     public boolean save(boolean suppressLog, boolean flush, boolean forced)
     {
+        EventBus.call(new EventSaveChunk());
         boolean flag = false;
 
         for (ServerWorld serverworld : this.getWorlds())
