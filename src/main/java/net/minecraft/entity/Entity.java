@@ -1,7 +1,5 @@
 package net.minecraft.entity;
 
-import baritone.api.BaritoneAPI;
-import baritone.api.event.events.RotationMoveEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -1212,13 +1210,8 @@ public abstract class Entity implements INameable, ICommandSource {
         return !this.firstUpdate && this.eyesFluidLevel.getDouble(FluidTags.LAVA) > 0.0D;
     }
 
-    float yawRestore;
-    float pitchRestore;
-
     public void moveRelative(float friction, Vector3d relative) {
         if (this instanceof ClientPlayerEntity) {
-            this.yawRestore = this.rotationYaw;
-
             EventMoveFlying event = new EventMoveFlying(this.rotationYaw, (float) relative.x, (float) relative.z, friction);
             EventBus.call(event);
 
@@ -1231,20 +1224,8 @@ public abstract class Entity implements INameable, ICommandSource {
             float forward = event.forward;
             friction = event.friction;
 
-            this.pitchRestore = this.rotationPitch;
-            if (!ClientPlayerEntity.class.isInstance(this) || BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this) == null) {
-                return;
-            }
-
-            RotationMoveEvent motionUpdateRotationEvent = new RotationMoveEvent(RotationMoveEvent.Type.MOTION_UPDATE, this.rotationYaw, this.rotationPitch);
-            BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this).getGameEventHandler().onPlayerRotationMove(motionUpdateRotationEvent);
-
-            this.rotationYaw = motionUpdateRotationEvent.getYaw();
-            this.rotationPitch = motionUpdateRotationEvent.getPitch();
             Vector3d vector3d = getAbsoluteMotion(new Vector3d(strafe, relative.y, forward), friction, yaw);
             this.setMotion(this.getMotion().add(vector3d));
-            this.rotationYaw = this.yawRestore;
-            this.rotationPitch = this.pitchRestore;
         } else {
             Vector3d vector3d = getAbsoluteMotion(relative, friction, this.rotationYaw);
             this.setMotion(this.getMotion().add(vector3d));

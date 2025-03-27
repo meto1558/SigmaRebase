@@ -425,12 +425,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.4meav</groupId>
-            <artifactId>Baritone</artifactId>
-            <version>36145a94c1</version>
-        </dependency>
-
-        <dependency>
             <groupId>io.github.classgraph</groupId>
             <artifactId>classgraph</artifactId>
             <version>4.8.179</version>

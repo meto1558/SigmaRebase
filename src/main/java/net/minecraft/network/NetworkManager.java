@@ -1,12 +1,7 @@
 package net.minecraft.network;
 
-import baritone.api.BaritoneAPI;
-import baritone.api.IBaritone;
-import baritone.api.event.events.PacketEvent;
-import baritone.api.event.events.type.EventState;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
@@ -16,7 +11,16 @@ import de.florianmichael.vialoadingbase.netty.event.CompressionReorderEvent;
 import de.florianmichael.viamcp.MCPVLBPipeline;
 import de.florianmichael.viamcp.ViaMCP;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelException;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.DefaultEventLoopGroup;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.epoll.Epoll;
 import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.epoll.EpollSocketChannel;
@@ -30,6 +34,13 @@ import io.netty.handler.timeout.TimeoutException;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+
+import java.net.InetAddress;
+import java.net.SocketAddress;
+import java.util.Queue;
+import javax.annotation.Nullable;
+import javax.crypto.Cipher;
+
 import net.minecraft.network.login.ServerLoginNetHandler;
 import net.minecraft.network.play.ServerPlayNetHandler;
 import net.minecraft.network.play.server.SDisconnectPacket;
@@ -43,12 +54,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import team.sdhq.eventBus.EventBus;
-
-import javax.annotation.Nullable;
-import javax.crypto.Cipher;
-import java.net.InetAddress;
-import java.net.SocketAddress;
-import java.util.Queue;
 
 public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -158,34 +163,13 @@ public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
     }
 
     protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, IPacket<?> p_channelRead0_2_) throws Exception {
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            if (ibaritone.getPlayerContext().player() != null && ibaritone.getPlayerContext().player().connection.getNetworkManager() == (NetworkManager) (Object) this) {
-                ibaritone.getGameEventHandler().onReceivePacket(new PacketEvent((NetworkManager) (Object) this, EventState.PRE, p_channelRead0_2_));
-            }
-        }
         if (this.channel.isOpen()) {
-
-            EventReceivePacket receivePacketEvent = new EventReceivePacket(p_channelRead0_2_);
-            EventBus.call(receivePacketEvent);
-
-            if (receivePacketEvent.cancelled) {
-                return;
-            }
-
             try {
                 processPacket(p_channelRead0_2_, this.packetListener);
             } catch (ThreadQuickExitException threadquickexitexception) {
             }
 
             ++this.field_211394_q;
-        }
-        if (!this.channel.isOpen() || this.direction != PacketDirection.CLIENTBOUND) {
-            return;
-        }
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            if (ibaritone.getPlayerContext().player() != null && ibaritone.getPlayerContext().player().connection.getNetworkManager() == (NetworkManager) (Object) this) {
-                ibaritone.getGameEventHandler().onReceivePacket(new PacketEvent((NetworkManager) (Object) this, EventState.POST, p_channelRead0_2_));
-            }
         }
     }
 
@@ -203,29 +187,24 @@ public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
     }
 
     public void sendPacket(IPacket<?> packetIn) {
-        this.sendPacket(packetIn, (GenericFutureListener<? extends Future<? super Void>>) null);
+        this.sendPacket(packetIn, null);
     }
 
     public void sendPacket(IPacket<?> packetIn, @Nullable GenericFutureListener<? extends Future<? super Void>> p_201058_2_) {
-        // MODIFICATION BEGIN: call send packet event
-        EventSendPacket var5 = new EventSendPacket(packetIn);
-        EventBus.call(var5);
-        // MODIFICATION END
-        // MODIFICATION BEGIN: use the packet from the event
-        packetIn = var5.packet;
-        // MODIFICATION END
+        EventSendPacket event = new EventSendPacket(packetIn);
+        EventBus.call(event);
 
-        // MODIFICATION BEGIN: return early if the event was cancelled
-        if (var5.cancelled) return;
-        // MODIFICATION END
+        if (event.cancelled) {
+            return;
+        }
 
-        // MODIFICATION BEGIN: use sendNoEventPacket to send instead so we don't duplicate code
-        //                     (we already handled the send packet event stuff)
-        this.sendNoEventPacket(packetIn, p_201058_2_);
-        // MODIFICATION END
+        if (this.isChannelOpen()) {
+            this.flushOutboundQueue();
+            this.dispatchPacket(packetIn, p_201058_2_);
+        } else {
+            this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
+        }
     }
-
-    // MODIFICATION BEGIN: sendNoEventPacket
 
     public void sendNoEventPacket(IPacket<?> packetIn) {
         sendNoEventPacket(packetIn, null);
@@ -240,19 +219,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
             this.outboundPacketsQueue.add(new NetworkManager.QueuedPacket(packetIn, p_201058_2_));
         }
     }
-    // MODIFICATION END
 
     /**
      * Will commit the packet to the channel. If the current thread 'owns' the channel it will write and flush the
      * packet, otherwise it will add a task for the channel eventloop thread to do that.
      */
     private void dispatchPacket(IPacket<?> inPacket, @Nullable GenericFutureListener<? extends Future<? super Void>> futureListeners) {
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            if (ibaritone.getPlayerContext().player() != null && ibaritone.getPlayerContext().player().connection.getNetworkManager() == (NetworkManager) (Object) this) {
-                ibaritone.getGameEventHandler().onSendPacket(new PacketEvent((NetworkManager) (Object) this, EventState.PRE, inPacket));
-            }
-        }
-
         ProtocolType protocoltype = ProtocolType.getFromPacket(inPacket);
         ProtocolType protocoltype1 = this.channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
         ++this.field_211395_r;
@@ -289,12 +261,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
 
                 channelfuture1.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
             });
-        }
-
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            if (ibaritone.getPlayerContext().player() != null && ibaritone.getPlayerContext().player().connection.getNetworkManager() == (NetworkManager) (Object) this) {
-                ibaritone.getGameEventHandler().onSendPacket(new PacketEvent((NetworkManager) (Object) this, EventState.POST, inPacket));
-            }
         }
     }
 

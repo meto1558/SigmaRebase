@@ -1,11 +1,5 @@
 package net.minecraft.client.entity.player;
 
-import baritone.api.BaritoneAPI;
-import baritone.api.IBaritone;
-import baritone.api.event.events.ChatEvent;
-import baritone.api.event.events.PlayerUpdateEvent;
-import baritone.api.event.events.type.EventState;
-import baritone.utils.PlayerMovementInput;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
@@ -229,15 +223,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
                     this.connection.sendPacket(new CMoveVehiclePacket(entity));
                 }
             } else {
-                IBaritone baritone = BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this);
-                if (baritone != null) {
-                    baritone.getGameEventHandler().onPlayerUpdate(new PlayerUpdateEvent(EventState.PRE));
-                }
-                //System.out.println(mc.player.rotationYaw);
                 this.onUpdateWalkingPlayer();
-                if (baritone != null) {
-                    baritone.getGameEventHandler().onPlayerUpdate(new PlayerUpdateEvent(EventState.POST));
-                }
             }
 
             for (IAmbientSoundHandler iambientsoundhandler : this.ambientSoundHandlers) {
@@ -350,15 +336,6 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
      * Sends a chat message from the player.
      */
     public void sendChatMessage(String message) {
-        ChatEvent event = new ChatEvent(message);
-        IBaritone baritone = BaritoneAPI.getProvider().getBaritoneForPlayer((ClientPlayerEntity) (Object) this);
-        if (baritone == null) {
-            return;
-        }
-        baritone.getGameEventHandler().onSendChatMessage(event);
-        if (event.isCancelled()) {
-            return;
-        }
         this.connection.sendPacket(new CChatMessagePacket(message));
     }
 
@@ -709,7 +686,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
         super.updateEntityActionState();
         EventBus.call(new EventUpdatePlayerActionState());
 
-        if (this.isCurrentViewEntity() || movementInput instanceof PlayerMovementInput) {
+        if (this.isCurrentViewEntity()) {
             this.moveStrafing = this.movementInput.moveStrafe;
             this.moveForward = this.movementInput.moveForward;
             this.isJumping = this.movementInput.jump;

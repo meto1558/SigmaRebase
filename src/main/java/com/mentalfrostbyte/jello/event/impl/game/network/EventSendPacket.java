@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventSendPacket extends CancellableEvent {
-    public IPacket packet;
+    public final IPacket packet;
 
 	public EventSendPacket(IPacket packet) {
         this.packet = packet;
