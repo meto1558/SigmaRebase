@@ -1,9 +1,11 @@
 package net.minecraft.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.DialogTexts;
 import net.minecraft.client.gui.chat.NarratorChatListener;
@@ -22,8 +24,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ConnectingScreen extends Screen
-{
+public class ConnectingScreen extends Screen {
     private static final AtomicInteger CONNECTION_ID = new AtomicInteger(0);
     private static final Logger LOGGER = LogManager.getLogger();
     private NetworkManager networkManager;
@@ -32,8 +33,7 @@ public class ConnectingScreen extends Screen
     private ITextComponent field_209515_s = new TranslationTextComponent("connect.connecting");
     private long field_213000_g = -1L;
 
-    public ConnectingScreen(Screen parent, Minecraft mcIn, ServerData serverDataIn)
-    {
+    public ConnectingScreen(Screen parent, Minecraft mcIn, ServerData serverDataIn) {
         super(NarratorChatListener.EMPTY);
         this.minecraft = mcIn;
         this.previousGuiScreen = parent;
@@ -43,8 +43,7 @@ public class ConnectingScreen extends Screen
         this.connect(serveraddress.getIP(), serveraddress.getPort());
     }
 
-    public ConnectingScreen(Screen parent, Minecraft mcIn, String hostName, int port)
-    {
+    public ConnectingScreen(Screen parent, Minecraft mcIn, String hostName, int port) {
         super(NarratorChatListener.EMPTY);
         this.minecraft = mcIn;
         this.previousGuiScreen = parent;
@@ -52,19 +51,14 @@ public class ConnectingScreen extends Screen
         this.connect(hostName, port);
     }
 
-    private void connect(final String ip, final int port)
-    {
+    private void connect(final String ip, final int port) {
         LOGGER.info("Connecting to {}, {}", ip, port);
-        Thread thread = new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet())
-        {
-            public void run()
-            {
+        Thread thread = new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
+            public void run() {
                 InetAddress inetaddress = null;
 
-                try
-                {
-                    if (ConnectingScreen.this.cancel)
-                    {
+                try {
+                    if (ConnectingScreen.this.cancel) {
                         return;
                     }
 
@@ -76,28 +70,22 @@ public class ConnectingScreen extends Screen
                     }));
                     ConnectingScreen.this.networkManager.sendPacket(new CHandshakePacket(ip, port, ProtocolType.LOGIN));
                     ConnectingScreen.this.networkManager.sendPacket(new CLoginStartPacket(ConnectingScreen.this.minecraft.getSession().getProfile()));
-                }
-                catch (UnknownHostException unknownhostexception)
-                {
-                    if (ConnectingScreen.this.cancel)
-                    {
+                } catch (UnknownHostException unknownhostexception) {
+                    if (ConnectingScreen.this.cancel) {
                         return;
                     }
 
-                    ConnectingScreen.LOGGER.error("Couldn't connect to server", (Throwable)unknownhostexception);
+                    ConnectingScreen.LOGGER.error("Couldn't connect to server", (Throwable) unknownhostexception);
                     ConnectingScreen.this.minecraft.execute(() ->
                     {
                         ConnectingScreen.this.minecraft.displayGuiScreen(new DisconnectedScreen(ConnectingScreen.this.previousGuiScreen, DialogTexts.CONNECTION_FAILED, new TranslationTextComponent("disconnect.genericReason", "Unknown host")));
                     });
-                }
-                catch (Exception exception)
-                {
-                    if (ConnectingScreen.this.cancel)
-                    {
+                } catch (Exception exception) {
+                    if (ConnectingScreen.this.cancel) {
                         return;
                     }
 
-                    ConnectingScreen.LOGGER.error("Couldn't connect to server", (Throwable)exception);
+                    ConnectingScreen.LOGGER.error("Couldn't connect to server", (Throwable) exception);
                     String s = inetaddress == null ? exception.toString() : exception.toString().replaceAll(inetaddress + ":" + port, "");
                     ConnectingScreen.this.minecraft.execute(() ->
                     {
@@ -110,39 +98,30 @@ public class ConnectingScreen extends Screen
         thread.start();
     }
 
-    private void func_209514_a(ITextComponent p_209514_1_)
-    {
+    private void func_209514_a(ITextComponent p_209514_1_) {
         this.field_209515_s = p_209514_1_;
     }
 
-    public void tick()
-    {
-        if (this.networkManager != null)
-        {
-            if (this.networkManager.isChannelOpen())
-            {
+    public void tick() {
+        if (this.networkManager != null) {
+            if (this.networkManager.isChannelOpen()) {
                 this.networkManager.tick();
-            }
-            else
-            {
+            } else {
                 this.networkManager.handleDisconnection();
             }
         }
     }
 
-    public boolean shouldCloseOnEsc()
-    {
+    public boolean shouldCloseOnEsc() {
         return false;
     }
 
-    protected void init()
-    {
+    protected void init() {
         this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20, DialogTexts.GUI_CANCEL, (p_212999_1_) ->
         {
             this.cancel = true;
 
-            if (this.networkManager != null)
-            {
+            if (this.networkManager != null) {
                 this.networkManager.closeChannel(new TranslationTextComponent("connect.aborted"));
             }
 
@@ -150,13 +129,11 @@ public class ConnectingScreen extends Screen
         }));
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
-    {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         long i = Util.milliTime();
 
-        if (i - this.field_213000_g > 2000L)
-        {
+        if (i - this.field_213000_g > 2000L) {
             this.field_213000_g = i;
             NarratorChatListener.INSTANCE.say((new TranslationTextComponent("narrator.joining")).getString());
         }

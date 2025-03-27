@@ -1,18 +1,10 @@
 package net.minecraft.client.network.play;
 
-import baritone.Baritone;
-import baritone.api.BaritoneAPI;
-import baritone.api.IBaritone;
-import baritone.api.event.events.ChunkEvent;
-import baritone.api.event.events.type.EventState;
-import baritone.cache.CachedChunk;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.module.impl.combat.AutoLog;
 import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mojang.authlib.GameProfile;
@@ -925,31 +917,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         {
             this.world.setBlockState(p_243492_2_, p_243492_3_, i);
         });
-        if (!Baritone.settings().repackOnAnyBlockChange.value) {
-            return;
-        }
-        ChunkPos[] chunkPos = new ChunkPos[1];
-        packetIn.func_244310_a((pos, state) -> {
-            if (CachedChunk.BLOCKS_TO_KEEP_TRACK_OF.contains(state.getBlock())) {
-                chunkPos[0] = new ChunkPos(pos);
-            }
-        });
-        if (chunkPos[0] == null) {
-            return;
-        }
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            ClientPlayerEntity player = ibaritone.getPlayerContext().player();
-            if (player != null && player.connection == (ClientPlayNetHandler) (Object) this) {
-                ibaritone.getGameEventHandler().onChunkEvent(
-                        new ChunkEvent(
-                                EventState.POST,
-                                ChunkEvent.Type.POPULATE_FULL,
-                                chunkPos[0].x,
-                                chunkPos[0].z
-                        )
-                );
-            }
-        }
     }
 
     /**
@@ -979,33 +946,10 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
                 tileentity.read(this.world.getBlockState(blockpos), compoundnbt);
             }
         }
-
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            ClientPlayerEntity player = ibaritone.getPlayerContext().player();
-            if (player != null && player.connection == (ClientPlayNetHandler) (Object) this) {
-                ibaritone.getGameEventHandler().onChunkEvent(
-                        new ChunkEvent(
-                                EventState.POST,
-                                packetIn.isFullChunk() ? ChunkEvent.Type.POPULATE_FULL : ChunkEvent.Type.POPULATE_PARTIAL,
-                                packetIn.getChunkX(),
-                                packetIn.getChunkZ()
-                        )
-                );
-            }
-        }
     }
 
     public void processChunkUnload(SUnloadChunkPacket packetIn)
     {
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            ClientPlayerEntity player = ibaritone.getPlayerContext().player();
-            if (player != null && player.connection == (ClientPlayNetHandler) (Object) this) {
-                ibaritone.getGameEventHandler().onChunkEvent(
-                        new ChunkEvent(EventState.PRE, ChunkEvent.Type.UNLOAD, packetIn.getX(), packetIn.getZ())
-                );
-            }
-        }
-
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
         int i = packetIn.getX();
         int j = packetIn.getZ();
@@ -1019,15 +963,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         }
 
         worldlightmanager.enableLightSources(new ChunkPos(i, j), false);
-
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            ClientPlayerEntity player = ibaritone.getPlayerContext().player();
-            if (player != null && player.connection == (ClientPlayNetHandler) (Object) this) {
-                ibaritone.getGameEventHandler().onChunkEvent(
-                        new ChunkEvent(EventState.POST, ChunkEvent.Type.UNLOAD, packetIn.getX(), packetIn.getZ())
-                );
-            }
-        }
     }
 
     /**
@@ -1037,26 +972,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
         this.world.invalidateRegionAndSetBlock(packetIn.getPos(), packetIn.getState());
-
-        if (!Baritone.settings().repackOnAnyBlockChange.value) {
-            return;
-        }
-        if (!CachedChunk.BLOCKS_TO_KEEP_TRACK_OF.contains(packetIn.getState().getBlock())) {
-            return;
-        }
-        for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-            ClientPlayerEntity player = ibaritone.getPlayerContext().player();
-            if (player != null && player.connection == (ClientPlayNetHandler) (Object) this) {
-                ibaritone.getGameEventHandler().onChunkEvent(
-                        new ChunkEvent(
-                                EventState.POST,
-                                ChunkEvent.Type.POPULATE_FULL,
-                                packetIn.getPos().getX() >> 4,
-                                packetIn.getPos().getZ() >> 4
-                        )
-                );
-            }
-        }
     }
 
     /**
@@ -1531,9 +1446,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
         if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
             this.sendPacket(new CConfirmTransactionPacket(packetIn.getWindowId(), (short) 0, false));
-
-
-
             return;
         }
         Container container = null;
@@ -2013,12 +1925,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
 
             if (entity == this.client.player) {
                 if (this.client.player.isShowDeathScreen()) {
-                    for (IBaritone ibaritone : BaritoneAPI.getProvider().getAllBaritones()) {
-                        ClientPlayerEntity player = ibaritone.getPlayerContext().player();
-                        if (player != null && player.connection == (ClientPlayNetHandler) (Object) this) {
-                            ibaritone.getGameEventHandler().onPlayerDeath();
-                        }
-                    }
                     this.client.displayGuiScreen(new DeathScreen(packetIn.deathMessage, this.world.getWorldInfo().isHardcore()));
                 } else {
                     this.client.player.respawnPlayer();

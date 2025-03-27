@@ -1,6 +1,5 @@
 package net.minecraft.loot;
 
-import baritone.api.utils.BlockOptionalMeta;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -242,34 +241,12 @@ public class LootContext
                     {
                         random = new Random();
                     }
-                    MinecraftServer minecraftserver = getServer(this.world);
-                    LootTableManager lootTableManager1 = getLootTableManager(minecraftserver);
-                    LootPredicateManager LootPredicateManager = getLootPredicateManager(minecraftserver);
-                    return new LootContext(random, this.luck, this.world, lootTableManager1::getLootTableFromLocation, LootPredicateManager::func_227517_a_, this.lootParameters, this.field_216026_c);
+
+                    MinecraftServer minecraftserver = this.world.getServer();
+                    return new LootContext(random, this.luck, this.world, minecraftserver.getLootTableManager()::getLootTableFromLocation, minecraftserver.func_229736_aP_()::func_227517_a_, this.lootParameters, this.field_216026_c);
                 }
             }
         }
-    }
-
-    private static LootPredicateManager getLootPredicateManager(MinecraftServer server) {
-        if (server == null) {
-            return BlockOptionalMeta.getPredicateManager();
-        }
-        return server.func_229736_aP_();
-    }
-
-    private static LootTableManager getLootTableManager(MinecraftServer server) {
-        if (server == null) {
-            return BlockOptionalMeta.getManager();
-        }
-        return server.getLootTableManager();
-    }
-
-    private static MinecraftServer getServer(ServerWorld world) {
-        if (world == null) {
-            return null;
-        }
-        return world.getServer();
     }
 
     public static enum EntityTarget

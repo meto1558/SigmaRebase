@@ -1,6 +1,5 @@
 package net.minecraft.item;
 
-import baritone.api.utils.accessor.IItemStack;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
@@ -71,7 +70,7 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public final class ItemStack implements IItemStack
+public final class ItemStack
 {
     public static final Codec<ItemStack> CODEC = RecordCodecBuilder.create((p_234698_0_) ->
     {
@@ -96,7 +95,6 @@ public final class ItemStack implements IItemStack
     private final Item item;
     private CompoundNBT tag;
     private boolean isEmpty;
-    private int baritoneHash;
 
     /** The entity the item is attached to, like an Item Frame. */
     private Entity attachedEntity;
@@ -104,10 +102,6 @@ public final class ItemStack implements IItemStack
     private boolean canDestroyCacheResult;
     private CachedBlockInfo canPlaceOnCacheBlock;
     private boolean canPlaceOnCacheResult;
-
-    private void recalculateHash() {
-        baritoneHash = item == null ? -1 : item.hashCode() + getDamage();
-    }
 
     public ItemStack(IItemProvider itemIn)
     {
@@ -131,7 +125,6 @@ public final class ItemStack implements IItemStack
         }
 
         this.updateEmptyState();
-        recalculateHash();
     }
 
     private void updateEmptyState()
@@ -315,7 +308,6 @@ public final class ItemStack implements IItemStack
     public void setDamage(int damage)
     {
         this.getOrCreateTag().putInt("Damage", Math.max(0, damage));
-        this.recalculateHash();
     }
 
     /**
@@ -1388,11 +1380,6 @@ public final class ItemStack implements IItemStack
     public SoundEvent getEatSound()
     {
         return this.getItem().getEatSound();
-    }
-
-    @Override
-    public int getBaritoneHash() {
-        return baritoneHash;
     }
 
     public static enum TooltipDisplayFlags

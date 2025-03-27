@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import baritone.utils.accessor.IEntityRenderManager;
 import com.google.common.collect.Maps;
 import com.mentalfrostbyte.jello.module.impl.render.FPSBooster;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -61,7 +60,7 @@ import net.optifine.player.PlayerItemsLayer;
 import net.optifine.render.RenderTypes;
 import net.optifine.shaders.Shaders;
 
-public class EntityRendererManager implements IEntityRenderManager {
+public class EntityRendererManager {
     private static final RenderType SHADOW_RENDER_TYPE = RenderType.getEntityShadow(new ResourceLocation("textures/misc/shadow.png"));
     private final Map<EntityType, EntityRenderer> renderers = Maps.newHashMap();
     private final Map<String, PlayerRenderer> skinMap = Maps.newHashMap();
@@ -528,20 +527,5 @@ public class EntityRendererManager implements IEntityRenderManager {
 
     public Map<String, PlayerRenderer> getSkinMap() {
         return Collections.unmodifiableMap(this.skinMap);
-    }
-
-    @Override
-    public double renderPosX() {
-        return ((EntityRendererManager) (Object) this).info.getProjectedView().x;
-    }
-
-    @Override
-    public double renderPosY() {
-        return ((EntityRendererManager) (Object) this).info.getProjectedView().y;
-    }
-
-    @Override
-    public double renderPosZ() {
-        return ((EntityRendererManager) (Object) this).info.getProjectedView().z;
     }
 }

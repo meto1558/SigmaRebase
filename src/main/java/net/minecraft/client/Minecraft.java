@@ -1,10 +1,5 @@
 package net.minecraft.client;
 
-import baritone.api.BaritoneAPI;
-import baritone.api.IBaritone;
-import baritone.api.event.events.TickEvent;
-import baritone.api.event.events.WorldEvent;
-import baritone.api.event.events.type.EventState;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
@@ -61,6 +56,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import de.florianmichael.viamcp.ViaMCP;
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import net.minecraft.block.Block;
@@ -1379,7 +1376,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 }
                 switch (this.objectMouseOver.getType()) {
                     case ENTITY:
-                        AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        if (!ViaLoadingBase.getInstance().getTargetVersion().equalTo(ProtocolVersion.v1_16_4)) {
+                            AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        } else {
+                            this.playerController.attackEntity(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity());
+                        }
+
                         if (rayTraceEvent != null) {
                             rayTraceEvent.unhover();
                             EventBus.call(rayTraceEvent);
@@ -1498,9 +1500,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         return this.musicTicker;
     }
 
-    private boolean passEvents(Screen screen) {
-        return (BaritoneAPI.getProvider().getPrimaryBaritone().getPathingBehavior().isPathing() && player != null) || screen.passEvents;
-    }
     /**
      * Runs the current tick.
      */
@@ -1534,25 +1533,13 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.textureManager.tick();
         }
 
-        if(player == null) return;
-        final BiFunction<EventState, TickEvent.Type, TickEvent> tickProvider = TickEvent.createNextProvider();
-        for (IBaritone baritone : BaritoneAPI.getProvider().getAllBaritones()) {
-
-            TickEvent.Type type = baritone.getPlayerContext().player() != null && baritone.getPlayerContext().world() != null
-                    ? TickEvent.Type.IN
-                    : TickEvent.Type.OUT;
-
-            baritone.getGameEventHandler().onTick(tickProvider.apply(EventState.PRE, type));
-        }
-
-        if (this.currentScreen == null) {
-
+        if (this.currentScreen == null && this.player != null) {
             if (this.player.getShouldBeDead() && !(this.currentScreen instanceof DeathScreen)) {
                 this.displayGuiScreen((Screen) null);
             } else if (this.player.isSleeping() && this.world != null) {
                 this.displayGuiScreen(new SleepInMultiplayerScreen());
             }
-        } else if (this.currentScreen instanceof SleepInMultiplayerScreen && !this.player.isSleeping()) {
+        } else if (this.currentScreen != null && this.currentScreen instanceof SleepInMultiplayerScreen && !this.player.isSleeping()) {
             this.displayGuiScreen((Screen) null);
         }
 
@@ -1999,14 +1986,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
      * unloads the current world first
      */
     public void loadWorld(ClientWorld worldClientIn) {
-
-        BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onWorldEvent(
-                new WorldEvent(
-                        worldClientIn,
-                        EventState.PRE
-                )
-        );
-
         WorkingScreen workingscreen = new WorkingScreen();
         workingscreen.displaySavingString(new TranslationTextComponent("connect.joining"));
         this.updateScreenTick(workingscreen);
@@ -2022,12 +2001,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             SkullTileEntity.setSessionService(minecraftsessionservice);
             PlayerProfileCache.setOnlineMode(false);
         }
-        BaritoneAPI.getProvider().getPrimaryBaritone().getGameEventHandler().onWorldEvent(
-                new WorldEvent(
-                        worldClientIn,
-                        EventState.POST
-                )
-        );
     }
 
     public void unloadWorld() {
