@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Slider extends UIBase {
+public class Slider extends Element {
    private static String[] field21362;
    private float field21363;
    public boolean field21364 = false;
@@ -18,7 +18,7 @@ public class Slider extends UIBase {
    public static float method13694(float var0, float var1, float var2, float var3, int var4) {
       float var7 = Math.abs(var2 - var1) / var3;
       float var8 = var1 + var0 * var7 * var3;
-      return (float)Math.round((double)var8 * Math.pow(10.0, (double)var4)) / (float)Math.pow(10.0, (double)var4);
+      return (float)Math.round((double)var8 * Math.pow(10.0, var4)) / (float)Math.pow(10.0, var4);
    }
 
    public Slider(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SConfirmTransactionPacket;
@@ -38,12 +38,12 @@ public class ViperDisabler extends Module {
             boolean isPlayerInAir = event.getY() > mc.player.getPosY() - 1.0E-6 && event.getY() < mc.player.getPosY() + 1.0E-6;
             if (isPlayerInAir) {
                 event.setY(mc.player.getPosY() + 0.4);
-                event.setGround(false);
+                event.setOnGround(false);
             }
 
             if (this.tickCounter > 60) {
                 event.setY(mc.player.getPosY() + 0.4);
-                event.setGround(false);
+                event.setOnGround(false);
             } else {
                 for (int i = 0; i < 10; i++) {
                     boolean isMiddleIteration = i > 2 && i < 8;
@@ -63,7 +63,7 @@ public class ViperDisabler extends Module {
                     for (int index = 0; index < this.pendingEvents.size(); index++) {
                         ViperEvent event1 = this.pendingEvents.get(index);
                         if (event1.shouldSendPacket()) {
-                            mc.getConnection().sendPacket(event1.getPacket());
+                            mc.getConnection().sendPacket(event1.packet);
                             this.pendingEvents.remove(index);
                         }
                     }
@@ -75,13 +75,13 @@ public class ViperDisabler extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            IPacket incomingPacket = event.getPacket();
+            IPacket incomingPacket = event.packet;
             if (incomingPacket instanceof SKeepAlivePacket) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
 
             if (incomingPacket instanceof SConfirmTransactionPacket) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }

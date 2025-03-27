@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -28,7 +28,7 @@ public class Compass extends Module {
                 int var5 = 60;
                 int var6 = !Minecraft.getInstance().gameSettings.showDebugInfo ? 0 : 60;
                 List<Integer> var7 = this.method16660((int) this.method16662(mc.player.rotationYaw), var4);
-                int var8 = (Integer) var7.get(var4);
+                int var8 = var7.get(var4);
                 if (var8 == 0 && this.method16662(mc.player.rotationYaw) > 345.0F) {
                     var8 = 360;
                 }

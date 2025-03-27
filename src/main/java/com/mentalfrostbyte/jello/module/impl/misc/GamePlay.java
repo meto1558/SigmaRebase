@@ -4,15 +4,15 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.spam.AutoLData;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.misc.gameplay.*;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.client.gui.screen.ChatScreen;
 import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
@@ -42,7 +42,8 @@ public class GamePlay extends ModuleWithModuleSettings {
                 new JartexGamePlay()
         );
         registerSetting(new BooleanSetting("AutoL", "Automatically says L when you kill a player", true));
-        registerSetting(new ModeSetting("AutoL Mode", "AutoL Mode", 0, "Basic", "Sigmeme", "Penshen").addObserver(var1 -> this.autoLQueue.clear()));
+        registerSetting(new ModeSetting("AutoL Mode", "AutoL Mode", 0, "Basic", "Miniblox", "Sigmeme", "Penshen")
+                .addObserver(var1 -> this.autoLQueue.clear()));
         registerSetting(new InputSetting("First character", "The characters your sentences will start with.", ""));
         registerSetting(new BooleanSetting("AutoGG", "Automatically say gg at the end of the game", true));
         registerSetting(new BooleanSetting("Auto Join", "Automatically joins another game", true));
@@ -76,7 +77,7 @@ public class GamePlay extends ModuleWithModuleSettings {
                     updateTimedMessage(null);
                     Client.getInstance().notificationManager.send(new Notification("Auto Join", "Auto join was canceled.", 2500));
                 } else if (timedMessage.hasExpired()) {
-                    MovementUtil2.sendChatMessage(timedMessage.getMessage());
+                    MinecraftUtil.sendChatMessage(timedMessage.getMessage());
                     updateTimedMessage(null);
                 } else if ((int) (timedMessage.getRemainingTime() / 1000L) + 1 < seconds) {
                     seconds = (int) (timedMessage.getRemainingTime() / 1000L) + 1;
@@ -119,7 +120,7 @@ public class GamePlay extends ModuleWithModuleSettings {
                 if (timer.getElapsedTime() > var5 && !autoLMessages.isEmpty()) {
                     timer.reset();
                     String message = autoLMessages.get(0);
-                    MovementUtil2.sendChatMessage(message);
+                    MinecraftUtil.sendChatMessage(message);
                     autoLMessages.remove(0);
                 }
             }
@@ -151,11 +152,20 @@ public class GamePlay extends ModuleWithModuleSettings {
                 autoLMessages.add(getStringSettingValueByName("First character") + "L " + playerName);
                 break;
             case "Sigmeme":
+            case "Miniblox":
             case "Penshen":
                 if (autoLQueue.isEmpty()) {
-                    autoLQueue = "Sigmeme".equals(getStringSettingValueByName("AutoL Mode"))
-                            ? new ArrayList<>(AutoLData.SIGMEME_QUOTES)
-                            : new ArrayList<>(AutoLData.PENSHEN_QUOTES);
+                    switch (getStringSettingValueByName("AutoL Mode")) {
+                        case "Sigmeme":
+                            autoLQueue = new ArrayList<>(AutoLData.SIGMEME_QUOTES);
+                            break;
+                        case "Miniblox":
+                            autoLQueue = new ArrayList<>(AutoLData.MINIBLOX_QUOTES);
+                            break;
+                        case "Penshen":
+                            autoLQueue = new ArrayList<>(AutoLData.PENSHEN_QUOTES);
+                            break;
+                    }
                     Collections.shuffle(autoLQueue);
                 }
 

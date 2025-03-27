@@ -30,7 +30,7 @@ public class SystemToast implements IToast
     {
         FontRenderer fontrenderer = p_238534_0_.fontRenderer;
         List<IReorderingProcessor> list = fontrenderer.trimStringToWidth(p_238534_3_, 200);
-        int i = Math.max(200, list.stream().mapToInt(fontrenderer::func_243245_a).max().orElse(200));
+        int i = Math.max(200, list.stream().mapToInt(fontrenderer::getStringWidth).max().orElse(200));
         return new SystemToast(p_238534_1_, p_238534_2_, list, i + 30);
     }
 

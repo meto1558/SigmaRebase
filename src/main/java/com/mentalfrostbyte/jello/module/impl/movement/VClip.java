@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.network.play.client.CChatMessagePacket;
@@ -42,15 +42,14 @@ public class VClip extends Module {
 
     @EventTarget
     public void method16290(EventSendPacket var1) {
-        if (var1.getPacket() instanceof CChatMessagePacket) {
-            CChatMessagePacket var4 = (CChatMessagePacket) var1.getPacket();
-            String var5 = var4.getMessage();
+        if (var1.packet instanceof CChatMessagePacket var4) {
+			String var5 = var4.getMessage();
             String var6 = "hclip";
             if (!var5.startsWith("/" + var6)) {
                 return;
             }
 
-            var1.setCancelled(true);
+            var1.cancelled = true;
             int var7 = 0;
             var5 = var5.replace("/" + var6, "").replaceAll("\\s", "");
             if (method16291(var5)) {

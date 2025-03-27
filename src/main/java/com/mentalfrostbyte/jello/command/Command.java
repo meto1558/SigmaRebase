@@ -44,9 +44,9 @@ public abstract class Command {
         return this.alias;
     }
 
-    public void registerSubCommands(String... var1) {
-        Collections.addAll(this.field25702, var1);
+    public void registerSubCommands(String... commands) {
+        Collections.addAll(this.field25702, commands);
     }
 
-    public abstract void run(String var1, ChatCommandArguments[] var2, ChatCommandExecutor var3) throws CommandException;
+    public abstract void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException;
 }

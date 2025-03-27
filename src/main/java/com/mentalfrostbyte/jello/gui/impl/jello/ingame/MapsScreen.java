@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.MapPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.Class774;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others.Waypoint;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.WaypointPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.opengl.Texture;
@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import java.util.Date;
 
 public class MapsScreen extends Screen {
-   private static Minecraft field21033 = Minecraft.getInstance();
+   private static final Minecraft field21033 = Minecraft.getInstance();
    private Texture field21034;
    public Date field21035;
    public MapPanel field21036;
@@ -43,8 +43,8 @@ public class MapsScreen extends Screen {
 
    private void method13389(WaypointPanel var1) {
       var1.method13131((var1x, var2, var3, var4) -> {
-         this.field21036.field20615.method13519(var2, var3, var4);
-         Client.getInstance().waypointsManager.method29990(new Class8351(var2, var3.getX(), var3.getZ(), var4));
+         this.field21036.waypointList.addWaypoint(var2, var3, var4);
+         Client.getInstance().waypointsManager.method29990(new Waypoint2(var2, var3.getX(), var3.getZ(), var4));
          this.method13390();
       });
    }
@@ -53,9 +53,8 @@ public class MapsScreen extends Screen {
       MapsScreen var3 = this;
 
       for (CustomGuiScreen var5 : this.getChildren()) {
-         if (var5 instanceof WaypointPanel) {
-            WaypointPanel var6 = (WaypointPanel)var5;
-            this.runThisOnDimensionUpdate(new Waypoint(this, var3, var5));
+         if (var5 instanceof WaypointPanel var6) {
+			 this.runThisOnDimensionUpdate(new Waypoint(this, var3, var5));
          }
       }
    }

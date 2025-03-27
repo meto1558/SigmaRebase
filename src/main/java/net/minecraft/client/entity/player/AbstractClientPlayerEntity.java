@@ -1,6 +1,7 @@
 package net.minecraft.client.entity.player;
 
 import com.google.common.hash.Hashing;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventGetLocationSkin;
 import com.mentalfrostbyte.jello.event.impl.player.EventGetFovModifier;
 import com.mojang.authlib.GameProfile;
 import java.io.File;
@@ -63,14 +64,24 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
      */
     public boolean isSpectator()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
-        return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
+        try {
+            NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
+            return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isCreative()
     {
-        NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
-        return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
+        try {
+            NetworkPlayerInfo networkplayerinfo = Minecraft.getInstance().getConnection().getPlayerInfo(this.getGameProfile().getId());
+            return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     /**
@@ -106,6 +117,13 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
      */
     public ResourceLocation getLocationSkin()
     {
+        EventGetLocationSkin eventGetLocationSkin = new EventGetLocationSkin();
+        EventBus.call(eventGetLocationSkin);
+
+        if (eventGetLocationSkin.cancelled) {
+            return DefaultPlayerSkin.getDefaultSkin(this.getUniqueID());
+        }
+
         NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
         return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(this.getUniqueID()) : networkplayerinfo.getLocationSkin();
     }
@@ -177,6 +195,13 @@ public abstract class AbstractClientPlayerEntity extends PlayerEntity
 
     public String getSkinType()
     {
+        EventGetLocationSkin eventGetLocationSkin = new EventGetLocationSkin();
+        EventBus.call(eventGetLocationSkin);
+
+        if (eventGetLocationSkin.cancelled) {
+            return DefaultPlayerSkin.getSkinType(this.getUniqueID());
+        }
+
         NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
         return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(this.getUniqueID()) : networkplayerinfo.getSkinType();
     }

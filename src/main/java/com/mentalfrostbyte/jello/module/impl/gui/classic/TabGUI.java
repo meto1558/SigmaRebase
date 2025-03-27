@@ -4,17 +4,17 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPart;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPartBackground;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -206,7 +206,7 @@ public class TabGUI extends Module {
             int index = 0;
 
             for (Module module : Client.getInstance().moduleManager.getModulesByCategory(currentCategory)) {
-                categoryDisplay.updateCategory(index++, (!module.isEnabled() ? "§7" : "") + module.getSuffix());
+                categoryDisplay.updateCategory(index++, (!module.isEnabled() ? "§7" : "") + module.getFormattedName());
             }
         }
     }
@@ -263,7 +263,7 @@ public class TabGUI extends Module {
                 RenderUtil.endScissor();
             }
         } catch (IndexOutOfBoundsException e) {
-            Client.getInstance().getLogger().warn("bruh your modules aren't enough for this sexy ass tabgui");
+            Client.logger.warn("bruh your modules aren't enough for this sexy ass tabgui", e);
         }
     }
 
@@ -302,7 +302,7 @@ public class TabGUI extends Module {
         List<String> suffixes = new ArrayList<>();
 
         for (Module module : Client.getInstance().moduleManager.getModulesByCategory(category)) {
-            suffixes.add(module.getSuffix());
+            suffixes.add(module.getFormattedName());
         }
 
         this.removePartsByThreshold(1);
@@ -381,6 +381,6 @@ public class TabGUI extends Module {
         LeftArrowKey,
         EnterKey,
         UpArrowKey,
-        DownArrowKey;
-    }
+        DownArrowKey
+	}
 }

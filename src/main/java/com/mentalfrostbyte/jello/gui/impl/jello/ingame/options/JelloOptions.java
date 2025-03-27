@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.options;
-import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
@@ -15,7 +16,7 @@ public class JelloOptions extends Screen {
    private boolean field21111 = true;
    public static Animation field21112 = new Animation(300, 200);
    private Texture field21113;
-   private JelloOptionsGroup field21114;
+   private final JelloOptionsGroup field21114;
    public static net.minecraft.client.gui.screen.Screen field21115 = null;
 
    public JelloOptions() {

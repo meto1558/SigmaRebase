@@ -5,7 +5,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
+import com.mentalfrostbyte.jello.managers.GuiManager;
+import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.impl.player.OldHitting;
+import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -78,6 +83,7 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.TextureAnimations;
 import net.optifine.reflect.Reflector;
+import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.EventBus;
 
 public class IngameGui extends AbstractGui
@@ -174,6 +180,8 @@ public class IngameGui extends AbstractGui
 
     public void renderIngameGui(MatrixStack matrixStack, float partialTicks)
     {
+        if(this.mc.playerController == null) return;
+
         this.scaledWidth = this.mc.getMainWindow().getScaledWidth();
         this.scaledHeight = this.mc.getMainWindow().getScaledHeight();
         FontRenderer fontrenderer = this.getFontRenderer();
@@ -189,7 +197,27 @@ public class IngameGui extends AbstractGui
             RenderSystem.defaultBlendFunc();
         }
 
-        Client.getInstance().method19926();
+        GL11.glPushMatrix();
+        double scale = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+        GL11.glScaled(scale, scale, scale);
+        GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, GuiManager.scaleFactor);
+        GL11.glDisable(2912);
+        RenderSystem.disableDepthTest();
+        RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
+        RenderSystem.alphaFunc(519, 0.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(2896);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        Resources.gingerbreadIconPNG.bind();
+        EventBus.call(new EventRender2DCustom());
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.enableCull();
+        RenderSystem.disableDepthTest();
+        RenderSystem.enableBlend();
+        RenderSystem.alphaFunc(518, 0.1F);
+        GL11.glPopMatrix();
+
         ItemStack itemstack = this.mc.player.inventory.armorItemInSlot(3);
 
         if (this.mc.gameSettings.getPointOfView().func_243192_a() && itemstack.getItem() == Blocks.CARVED_PUMPKIN.asItem())
@@ -351,7 +379,7 @@ public class IngameGui extends AbstractGui
                     int l1 = j1 << 24 & -16777216;
                     int i2 = fontrenderer.getStringPropertyWidth(this.displayedTitle);
                     this.func_238448_a_(matrixStack, fontrenderer, -10, i2, 16777215 | l1);
-                    fontrenderer.func_243246_a(matrixStack, this.displayedTitle, (float)(-i2 / 2), -10.0F, 16777215 | l1);
+                    fontrenderer.drawText(matrixStack, this.displayedTitle, (float)(-i2 / 2), -10.0F, 16777215 | l1);
                     RenderSystem.popMatrix();
 
                     if (this.displayedSubTitle != null)
@@ -360,7 +388,7 @@ public class IngameGui extends AbstractGui
                         RenderSystem.scalef(2.0F, 2.0F, 2.0F);
                         int k2 = fontrenderer.getStringPropertyWidth(this.displayedSubTitle);
                         this.func_238448_a_(matrixStack, fontrenderer, 5, k2, 16777215 | l1);
-                        fontrenderer.func_243246_a(matrixStack, this.displayedSubTitle, (float)(-k2 / 2), 5.0F, 16777215 | l1);
+                        fontrenderer.drawText(matrixStack, this.displayedSubTitle, (float)(-k2 / 2), 5.0F, 16777215 | l1);
                         RenderSystem.popMatrix();
                     }
 
@@ -627,7 +655,9 @@ public class IngameGui extends AbstractGui
             this.blit(matrixStack, i - 91, this.scaledHeight - 22, 0, 0, 182, 22);
             this.blit(matrixStack, i - 91 - 1 + playerentity.inventory.currentItem * 20, this.scaledHeight - 22 - 1, 0, 22, 24, 22);
 
-            if (!itemstack.isEmpty())
+            Module animations = Client.getInstance().moduleManager.getModuleByClass(OldHitting.class);
+
+            if (!itemstack.isEmpty() && !(animations.enabled))
             {
                 if (handside == HandSide.LEFT)
                 {
@@ -652,7 +682,7 @@ public class IngameGui extends AbstractGui
                 this.renderHotbarItem(j1, k1, partialTicks, playerentity, playerentity.inventory.mainInventory.get(i1));
             }
 
-            if (!itemstack.isEmpty())
+            if (!itemstack.isEmpty() && !(animations.enabled))
             {
                 CustomItems.setRenderOffHand(true);
                 int i2 = this.scaledHeight - 16 - 3;
@@ -813,7 +843,7 @@ public class IngameGui extends AbstractGui
                 }
                 else
                 {
-                    this.getFontRenderer().func_243246_a(p_238453_1_, itextcomponent, (float)j, (float)k, 16777215 + (l << 24));
+                    this.getFontRenderer().drawText(p_238453_1_, itextcomponent, (float)j, (float)k, 16777215 + (l << 24));
                 }
 
                 RenderSystem.disableBlend();

@@ -5,12 +5,12 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 
@@ -38,9 +38,9 @@ public class LibreCraftFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -72,17 +72,17 @@ public class LibreCraftFly extends Module {
                 if (this.field23910 != -1) {
                     if (this.field23910 == 0) {
                         var1.setY(0.0);
-                        MovementUtil.setPlayerYMotion(var1.getY());
-                        MovementUtil.setSpeed(var1, 0.35);
+                        mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
+                        MovementUtil.setMotion(var1, 0.35);
                     }
                 } else {
                     var1.setY(0.299);
-                    MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, this.getNumberValueBySettingName("Speed"));
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
+                    MovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
                 }
             } else {
                 var1.setY(0.0);
-                MovementUtil.setSpeed(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }
@@ -110,10 +110,9 @@ public class LibreCraftFly extends Module {
     @EventTarget
     public void method16795(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (mc.player != null && var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.field23910 >= 1) {
+            IPacket var4 = var1.packet;
+            if (mc.player != null && var4 instanceof SPlayerPositionLookPacket var5) {
+				if (this.field23910 >= 1) {
                     this.field23910 = -1;
                 }
 

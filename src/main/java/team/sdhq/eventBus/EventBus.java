@@ -7,6 +7,7 @@ import team.sdhq.eventBus.annotations.priority.HighestPriority;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import team.sdhq.eventBus.annotations.priority.LowestPriority;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -77,17 +78,15 @@ public final class EventBus {
                 try {
                     m.invoke(instance, e);
                 } catch (IllegalAccessException ex) {
-                    Client.getInstance().getLogger().error("!!! PRIVATE EVENT LISTENER: " + instance.getClass().getName() + "#" + m.getName());
+                    Client.logger.error("!!! PRIVATE EVENT LISTENER: {}#{}", instance.getClass().getName(), m.getName());
+                } catch (InvocationTargetException ex) {
+                    Client.logger.error("Exception from listener: {}#{}", instance.getClass().getName(), m.getName());
                 } catch (Throwable ex) {
-                    ex.printStackTrace();
+                    Client.logger.error(ex);
                 }
             }
         } catch (ConcurrentModificationException ex) {
-            ex.printStackTrace();
-            Client
-                    .getInstance()
-                    .getLogger()
-                    .warn("Ignored concurrent modification exception because those are gay");
+            Client.logger.warn("Ignored concurrent modification exception because those are gay");
         }
     }
 

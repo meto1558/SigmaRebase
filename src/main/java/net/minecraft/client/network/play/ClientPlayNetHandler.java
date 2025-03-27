@@ -4,8 +4,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import io.netty.buffer.Unpooled;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -45,17 +50,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
 import net.minecraft.client.gui.recipebook.RecipeBookGui;
 import net.minecraft.client.gui.recipebook.RecipeList;
-import net.minecraft.client.gui.screen.CommandBlockScreen;
-import net.minecraft.client.gui.screen.ConfirmScreen;
-import net.minecraft.client.gui.screen.DeathScreen;
-import net.minecraft.client.gui.screen.DemoScreen;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.gui.screen.DownloadTerrainScreen;
-import net.minecraft.client.gui.screen.MainMenuHolder;
-import net.minecraft.client.gui.screen.MultiplayerScreen;
-import net.minecraft.client.gui.screen.ReadBookScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.WinGameScreen;
+import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.HorseInventoryScreen;
 import net.minecraft.client.gui.toasts.RecipeToast;
@@ -147,14 +142,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketThreadUtil;
-import net.minecraft.network.play.client.CClientStatusPacket;
-import net.minecraft.network.play.client.CConfirmTeleportPacket;
-import net.minecraft.network.play.client.CConfirmTransactionPacket;
-import net.minecraft.network.play.client.CCustomPayloadPacket;
-import net.minecraft.network.play.client.CKeepAlivePacket;
-import net.minecraft.network.play.client.CMoveVehiclePacket;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.client.CResourcePackStatusPacket;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SAdvancementInfoPacket;
 import net.minecraft.network.play.server.SAnimateBlockBreakPacket;
 import net.minecraft.network.play.server.SAnimateHandPacket;
@@ -248,8 +236,6 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.realms.DisconnectedRealmsScreen;
-import net.minecraft.realms.RealmsScreen;
 import net.minecraft.resources.IPackNameDecorator;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreCriteria;
@@ -944,23 +930,19 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         BiomeContainer biomecontainer = packetIn.func_244296_i() == null ? null : new BiomeContainer(this.field_239163_t_.getRegistry(Registry.BIOME_KEY), packetIn.func_244296_i());
         Chunk chunk = this.world.getChunkProvider().loadChunk(i, j, biomecontainer, packetIn.getReadBuffer(), packetIn.getHeightmapTags(), packetIn.getAvailableSections(), packetIn.isFullChunk());
 
-        if (chunk != null && packetIn.isFullChunk())
-        {
+        if (chunk != null && packetIn.isFullChunk()) {
             this.world.addEntitiesToChunk(chunk);
         }
 
-        for (int k = 0; k < 16; ++k)
-        {
+        for (int k = 0; k < 16; ++k) {
             this.world.markSurroundingsForRerender(i, k, j);
         }
 
-        for (CompoundNBT compoundnbt : packetIn.getTileEntityTags())
-        {
+        for (CompoundNBT compoundnbt : packetIn.getTileEntityTags()) {
             BlockPos blockpos = new BlockPos(compoundnbt.getInt("x"), compoundnbt.getInt("y"), compoundnbt.getInt("z"));
             TileEntity tileentity = this.world.getTileEntity(blockpos);
 
-            if (tileentity != null)
-            {
+            if (tileentity != null) {
                 tileentity.read(this.world.getBlockState(blockpos), compoundnbt);
             }
         }
@@ -975,8 +957,7 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         clientchunkprovider.unloadChunk(i, j);
         WorldLightManager worldlightmanager = clientchunkprovider.getLightManager();
 
-        for (int k = 0; k < 16; ++k)
-        {
+        for (int k = 0; k < 16; ++k) {
             this.world.markSurroundingsForRerender(i, k, j);
             worldlightmanager.updateSectionStatus(SectionPos.of(i, k, j), true);
         }
@@ -1010,18 +991,29 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
 
         if (this.guiScreenServer != null)
         {
-            if (this.guiScreenServer instanceof RealmsScreen)
-            {
-                this.client.displayGuiScreen(new DisconnectedRealmsScreen(this.guiScreenServer, field_243491_b, reason));
-            }
-            else
-            {
-                this.client.displayGuiScreen(new DisconnectedScreen(this.guiScreenServer, field_243491_b, reason));
+            this.client.displayGuiScreen(new DisconnectedScreen(this.guiScreenServer, field_243491_b, reason));
+            if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).isEnabled()) {
+                ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
+                if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
+                MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+                if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
+                    MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
+                    Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
+                }
             }
         }
         else
         {
             this.client.displayGuiScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuHolder()), field_243491_b, reason));
+            if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).isEnabled()) {
+                ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
+                if (serverData!= null) Minecraft.getInstance().displayGuiScreen(new ConnectingScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance(), serverData));
+                MinecraftUtil.addChatMessage("AutoReconnect - reconnected you after you were: " + reason.getString());
+                if(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("One time")) {
+                    MinecraftUtil.addChatMessage("AutoReconnect - disabled module after reconnecting");
+                    Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).setEnabled(false);
+                }
+            }
         }
     }
 
@@ -1402,7 +1394,6 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
         PlayerEntity playerentity = this.client.player;
         ItemStack itemstack = packetIn.getStack();
         int i = packetIn.getSlot();
-        this.client.getTutorial().handleSetSlot(itemstack);
 
         if (packetIn.getWindowId() == -1)
         {
@@ -1453,6 +1444,10 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
     public void handleConfirmTransaction(SConfirmTransactionPacket packetIn)
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
+        if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
+            this.sendPacket(new CConfirmTransactionPacket(packetIn.getWindowId(), (short) 0, false));
+            return;
+        }
         Container container = null;
         PlayerEntity playerentity = this.client.player;
 
@@ -1925,18 +1920,13 @@ public class ClientPlayNetHandler implements IClientPlayNetHandler
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.client);
 
-        if (packetIn.eventType == SCombatPacket.Event.ENTITY_DIED)
-        {
+        if (packetIn.eventType == SCombatPacket.Event.ENTITY_DIED) {
             Entity entity = this.world.getEntityByID(packetIn.playerId);
 
-            if (entity == this.client.player)
-            {
-                if (this.client.player.isShowDeathScreen())
-                {
+            if (entity == this.client.player) {
+                if (this.client.player.isShowDeathScreen()) {
                     this.client.displayGuiScreen(new DeathScreen(packetIn.deathMessage, this.world.getWorldInfo().isHardcore()));
-                }
-                else
-                {
+                } else {
                     this.client.player.respawnPlayer();
                 }
             }

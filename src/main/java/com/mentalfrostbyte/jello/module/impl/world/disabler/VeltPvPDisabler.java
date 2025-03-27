@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class VeltPvPDisabler extends Module {
@@ -26,7 +26,7 @@ public class VeltPvPDisabler extends Module {
             if (this.tickCounter >= 20) {
                 this.tickCounter = 0;
                 event.setY(motionY);
-                event.setGround(false);
+                event.setOnGround(false);
             }
         }
     }

@@ -6,11 +6,11 @@ import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -51,7 +51,7 @@ public class MineplexHighJump extends Module {
 
          if (!mc.player.isOnGround() && this.field24023) {
             this.field24024 = Math.max(this.field24024, 0.499);
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field24024);
+            MovementUtil.setMotion(var1, this.field24024);
             this.field24024 -= 0.007;
             double var4 = 0.5;
             if (this.getNumberValueBySettingName("Motion") > 3.0F) {
@@ -61,7 +61,7 @@ public class MineplexHighJump extends Module {
             if (Math.abs(var1.getY()) < var4 && Math.abs(this.field24025) < var4) {
                this.field24025 -= 0.04000000000001;
                var1.setY(this.field24025);
-               MovementUtil2.setPlayerYMotion(var1.getY());
+               mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
             } else {
                this.field24025 = var1.getY();
             }
@@ -75,7 +75,7 @@ public class MineplexHighJump extends Module {
          if (mc.player.isOnGround()) {
             if (this.field24023) {
                this.field24023 = !this.field24023;
-               com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(0.0);
+               MovementUtil.moveInDirection(0.0);
                if (this.getBooleanValueFromSettingName("Disable")) {
                   this.access().toggle();
                }
@@ -86,14 +86,14 @@ public class MineplexHighJump extends Module {
             double var4 = mc.player.getPosX();
             double var6 = mc.player.getPosZ();
             double var8 = mc.player.getPosY();
-            double var10 = (double) mc.player.movementInput.moveForward;
-            double var12 = (double) mc.player.movementInput.moveForward;
+            double var10 = mc.player.movementInput.moveForward;
+            double var12 = mc.player.movementInput.moveForward;
             float var14 = mc.player.rotationYaw;
             double var15 = 0.1;
             double var17 = var4
-               + (var10 * 0.45 * Math.cos(Math.toRadians((double)(var14 + 90.0F))) + var12 * 0.45 * Math.sin(Math.toRadians((double)(var14 + 90.0F)))) * var15;
+               + (var10 * 0.45 * Math.cos(Math.toRadians(var14 + 90.0F)) + var12 * 0.45 * Math.sin(Math.toRadians(var14 + 90.0F))) * var15;
             double var19 = var6
-               + (var10 * 0.45 * Math.sin(Math.toRadians((double)(var14 + 90.0F))) - var12 * 0.45 * Math.cos(Math.toRadians((double)(var14 + 90.0F)))) * var15;
+               + (var10 * 0.45 * Math.sin(Math.toRadians(var14 + 90.0F)) - var12 * 0.45 * Math.cos(Math.toRadians(var14 + 90.0F))) * var15;
             AxisAlignedBB var21 = new AxisAlignedBB(var17 - 0.3, var8 - 1.0, var19 - 0.3, var17 + 0.3, var8 + 2.0, var19 + 0.3);
             if (mc.world.getCollisionShapes(mc.player, var21).count() == 0L) {
                double var22 = this.method16975(var21);
@@ -106,7 +106,7 @@ public class MineplexHighJump extends Module {
                   mc.getConnection().sendPacket(var26);
                   this.field24026 = var24 + 0.42;
                   mc.player.setPosition(var17, var24, var19);
-                  this.field24025 = (double)this.getNumberValueBySettingName("Motion");
+                  this.field24025 = this.getNumberValueBySettingName("Motion");
                   this.field24024 = 0.81;
                }
             }
@@ -117,7 +117,7 @@ public class MineplexHighJump extends Module {
    @EventTarget
    public void method16973(EventReceivePacket var1) {
       if (this.isEnabled()) {
-         IPacket var4 = var1.getPacket();
+         IPacket var4 = var1.packet;
          if (var4 instanceof SPlayerPositionLookPacket) {
             this.access().toggle();
          }
@@ -131,7 +131,7 @@ public class MineplexHighJump extends Module {
          mc.player.lastTickPosY = this.field24026;
          mc.player.chasingPosY = this.field24026;
          mc.player.prevPosY = this.field24026;
-         if (com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()) {
+         if (MovementUtil.isMoving()) {
             mc.player.cameraYaw = 0.099999994F;
          }
       }

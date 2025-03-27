@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -20,7 +20,7 @@ public class Timer extends Module {
     }
 
     @Override
-    public void onDisable() {
-        mc.timer.timerSpeed = 1.0F;
-    }
+public void onDisable() {
+    mc.timer.timerSpeed = 1.0F;
+}
 }

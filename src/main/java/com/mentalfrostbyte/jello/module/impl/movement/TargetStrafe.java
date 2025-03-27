@@ -4,14 +4,14 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -29,9 +29,9 @@ public class TargetStrafe extends Module {
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Ninja", "Random"));
         this.registerSetting(new NumberSetting<Float>("Radius", "Radius of the circle", 2.0F, Float.class, 1.0F, 6.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Only speed", "Use target strafe only when speed is enabled", true));
-        this.registerSetting(
-                new ModeSetting("AntiVoid", "The way you will avoid the void", 0, "Smart", "Halt", "Command", "None").addObserver(var1 -> this.field23496 = false)
-        );
+        this.registerSetting(new BooleanSetting("Hold Spacebar", "Use target strafe only when spacebar is held down", true));
+        this.registerSetting(new BooleanSetting("Anti Scaffold", "Prevents strafing when scaffolding", true));
+        this.registerSetting(new ModeSetting("AntiVoid", "The way you will avoid the void", 0, "Smart", "Halt", "Command", "None").addObserver(var1 -> this.field23496 = false));
     }
 
     // $VF: synthetic method
@@ -48,12 +48,18 @@ public class TargetStrafe extends Module {
     @LowerPriority
     public void method16151(EventMove var1) {
         if (this.isEnabled()) {
+            if (this.getBooleanValueFromSettingName("Hold Spacebar") && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                return;
+            }
+            if (this.getBooleanValueFromSettingName("Anti Scaffold") && Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
+                return;
+            }
             Entity var4 = null;
             if (Client.getInstance().moduleManager.getModuleByClass(Speed.class).isEnabled2() || !this.getBooleanValueFromSettingName("Only speed")) {
-                if (KillAura.currentTimedEntity != null) {
-                    var4 = KillAura.currentTimedEntity.getEntity();
-                } else if (KillAura.currentTarget != null) {
-                    var4 = KillAura.currentTarget;
+                if (KillAura.targetData != null) {
+                    var4 = KillAura.targetData.getEntity();
+                } else if (KillAura.targetEntity != null) {
+                    var4 = KillAura.targetEntity;
                 }
             }
 
@@ -63,10 +69,10 @@ public class TargetStrafe extends Module {
                 String var8 = this.getStringSettingValueByName("Mode");
                 switch (var8) {
                     case "Basic":
-                        this.method16152(var4, var5, (double) var7, var1);
+                        this.method16152(var4, var5, var7, var1);
                         break;
                     case "Ninja":
-                        float var15 = (float) Math.toRadians((double) (var4.getRotationYawHead() - 180.0F));
+                        float var15 = (float) Math.toRadians(var4.getRotationYawHead() - 180.0F);
                         double var16 = var4.getPositionVec().x - (double) (MathHelper.sin(var15) * var7);
                         double var17 = var4.getPositionVec().z + (double) (MathHelper.cos(var15) * var7);
                         var1.setX(var16 - mc.player.getPositionVec().x);
@@ -129,7 +135,7 @@ public class TargetStrafe extends Module {
 
         if (this.field23496 && mc.player.getDistance(var1) > this.getNumberValueBySettingName("Radius")) {
             if (!var27.equals("Halt")) {
-                MovementUtil.setSpeed(var6, var2);
+                MovementUtil.setMotion(var6, var2);
                 if (var27.equals("Smart")) {
                     var26 = new Vector3d(
                             mc.player.getPositionVec().x + var6.getX(),
@@ -137,18 +143,18 @@ public class TargetStrafe extends Module {
                             mc.player.getPositionVec().z + var6.getZ()
                     );
                     if (this.method16153(var26) && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
-                        MovementUtil.setSpeed(var6, 0.0);
+                        MovementUtil.setMotion(var6, 0.0);
                     }
                 }
             } else {
-                MovementUtil.setSpeed(var6, 0.0);
+                MovementUtil.setMotion(var6, 0.0);
             }
         }
     }
 
     public boolean method16153(Vector3d var1) {
         if (!(mc.player.getPositionVec().y < 1.0)) {
-            AxisAlignedBB var4 = new AxisAlignedBB(var1.add(-0.15, 0.0, -0.15), var1.add(0.15, (double) mc.player.getHeight(), 0.15));
+            AxisAlignedBB var4 = new AxisAlignedBB(var1.add(-0.15, 0.0, -0.15), var1.add(0.15, mc.player.getHeight(), 0.15));
             var4 = var4.expand(0.0, -mc.player.getPositionVec().y, 0.0);
             return mc.world.getCollisionShapes(mc.player, var4).count() == 0L;
         } else {

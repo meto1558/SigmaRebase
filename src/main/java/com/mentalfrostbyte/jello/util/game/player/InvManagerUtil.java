@@ -1,8 +1,9 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -21,127 +22,108 @@ import java.util.*;
 import static com.mentalfrostbyte.jello.module.Module.mc;
 
 public class InvManagerUtil {
-    public static boolean method25819(int var0) {
-        ItemStack var3 = mc.player.container.getSlot(var0).getStack();
-        return var3 == null || var3.getItem() instanceof AirItem;
+    public static boolean isSlotEmpty(int slotIndex) {
+        ItemStack itemStack = mc.player.container.getSlot(slotIndex).getStack();
+        return itemStack == null || itemStack.getItem() instanceof AirItem;
     }
 
-
-    public static float method25854(ItemStack var0) {
-        if (var0 != null) {
-            Item var3 = var0.getItem();
-            if (!(var3 instanceof SwordItem)) {
-                if (!(var3 instanceof BucketItem)) {
-                    if (!(var3 instanceof CompassItem)) {
-                        if (!(var3 instanceof ToolItem)) {
-                            if (!(var3 instanceof BowItem)) {
-                                if (!(var3 instanceof PotionItem)) {
-                                    if (!(var3 instanceof BlockItem)) {
-                                        if (var0.isFood() && var0.getItem().getFood() == Foods.GOLDEN_APPLE) {
-                                            return 1.0F;
-                                        } else if (!(var3 instanceof EnderPearlItem)) {
-                                            if (!var0.isFood()) {
-                                                if (!(var3 instanceof EggItem)) {
-                                                    return !(var3 instanceof SnowballItem) ? 0.0F : 0.25F;
-                                                } else {
-                                                    return 0.25F;
-                                                }
-                                            } else {
-                                                return 0.5F;
-                                            }
-                                        } else {
-                                            return 1.0F;
-                                        }
-                                    } else {
-                                        return 1.0F;
-                                    }
-                                } else {
-                                    return 1.25F;
-                                }
-                            } else {
-                                return 1.5F;
-                            }
-                        } else {
-                            return 1.5F;
-                        }
-                    } else {
-                        return 1.5F;
-                    }
-                } else {
-                    return 1.5F;
-                }
-            } else {
-                return 2.0F;
-            }
-        } else {
+    public static float getItemUseMultiplier(ItemStack itemStack) {
+        if (itemStack == null) {
             return -1.0F;
         }
-    }
 
-    public static HashMap<Integer, Float> method25855() {
-        HashMap var2 = new HashMap();
+        Item item = itemStack.getItem();
 
-        for (int var3 = 0; var3 < 9; var3++) {
-            ItemStack var4 = mc.player.inventory.getStackInSlot(var3);
-            var2.put(var3, method25854(var4) * (float) (mc.player.inventory.currentItem != var3 ? 1 : 2));
+        if (item instanceof SwordItem) {
+            return 2.0F;
+        }
+        if (item instanceof BucketItem || item instanceof CompassItem || item instanceof ToolItem || item instanceof BowItem) {
+            return 1.5F;
+        }
+        if (item instanceof PotionItem || item instanceof BlockItem) {
+            return 1.0F;
+        }
+        if (itemStack.isFood()) {
+            if (item.getFood() == Foods.GOLDEN_APPLE) {
+                return 1.0F;
+            }
+            return 0.5F;
+        }
+        if (item instanceof EnderPearlItem) {
+            return 1.0F;
+        }
+        if (item instanceof EggItem || item instanceof SnowballItem) {
+            return 0.25F;
         }
 
-        return var2;
+        return 0.0F;
     }
 
-    public static int method25856() {
-        HashMap<Integer, Float> var2 = method25855();
-        TreeMap<Integer, Float> var3 = new TreeMap(Collections.reverseOrder());
-        var3.putAll(var2);
-        Map.Entry<Integer, Float> var4 = null;
+    public static HashMap<Integer, Float> getItemUseMultipliers() {
+        HashMap<Integer, Float> multipliers = new HashMap<>();
 
-        for (Map.Entry<Integer, Float> var6 : var3.entrySet()) {
-            if (var4 == null || var4.getValue() > var6.getValue()) {
-                var4 = var6;
+        for (int slotIndex = 0; slotIndex < 9; slotIndex++) {
+            ItemStack itemStack = mc.player.inventory.getStackInSlot(slotIndex);
+            float multiplier = getItemUseMultiplier(itemStack) * (mc.player.inventory.currentItem != slotIndex ? 1 : 2);
+            multipliers.put(slotIndex, multiplier);
+        }
+
+        return multipliers;
+    }
+
+    public static int getSlotWithHighestItemUseMultiplier() {
+        HashMap<Integer, Float> itemMultipliers = getItemUseMultipliers();
+        TreeMap<Integer, Float> sortedMultipliers = new TreeMap<>(Collections.reverseOrder());
+        sortedMultipliers.putAll(itemMultipliers);
+        Map.Entry<Integer, Float> bestSlot = null;
+
+        for (Map.Entry<Integer, Float> entry : sortedMultipliers.entrySet()) {
+            if (bestSlot == null || bestSlot.getValue() > entry.getValue()) {
+                bestSlot = entry;
             }
         }
 
-        return var4.getKey();
+        return bestSlot.getKey();
     }
 
     public static int swapToolToHotbar(int var0) {
-        int var3 = method25856();
-        method25869(mc.player.container.windowId, var0, var3, ClickType.SWAP, mc.player);
+        int var3 = getSlotWithHighestItemUseMultiplier();
+        clickSlot(mc.player.container.windowId, var0, var3, ClickType.SWAP, mc.player);
         return var3;
     }
-    public static int method25823(Item... var0) {
-        int var3 = 0;
-        int var4 = -1;
 
-        for (int var5 = 44; var5 >= 9; var5--) {
-            ItemStack var6 = mc.player.container.getSlot(var5).getStack();
-            if (!method25819(var5)) {
-                for (Item var10 : var0) {
-                    if (var6.getItem() == var10) {
-                        int var11 = var6.getCount();
-                        if (var11 > var3) {
-                            var4 = var5;
-                            var3 = var11;
+    public static int findItemInContainer(Item... items) {
+        int highestCount = 0;
+        int bestSlot = -1;
+
+        for (int slotIndex = 44; slotIndex >= 9; slotIndex--) {
+            ItemStack itemStack = mc.player.container.getSlot(slotIndex).getStack();
+            if (!isSlotEmpty(slotIndex)) {
+                for (Item item : items) {
+                    if (itemStack.getItem() == item) {
+                        int itemCount = itemStack.getCount();
+                        if (itemCount > highestCount) {
+                            bestSlot = slotIndex;
+                            highestCount = itemCount;
                         }
                     }
                 }
             }
         }
 
-        return var4;
+        return bestSlot;
     }
 
-
-    public static void method25871(int var0) {
-        mc.playerController.windowClick(mc.player.container.windowId, var0, 1, ClickType.THROW, mc.player);
+    public static void clickSlot(int slot) {
+        mc.playerController.windowClick(mc.player.container.windowId, slot, 1, ClickType.THROW, mc.player);
     }
 
-    public static boolean method25859(ItemStack var0) {
-        return var0 != null ? var0.getItem() instanceof PotionItem : false;
+    public static boolean isPotionItem(ItemStack itemStack) {
+        return itemStack != null && itemStack.getItem() instanceof PotionItem;
     }
 
-    public static ItemStack method25866(int var0) {
-        return mc.player.container.getSlot(var0).getStack();
+    public static ItemStack getItemInSlot(int slotIndex) {
+        return mc.player.container.getSlot(slotIndex).getStack();
     }
 
     public static int isHotbarEmpty() {
@@ -183,28 +165,27 @@ public class InvManagerUtil {
         return slot;
     }
 
-    public static int method25843(Item... var0) {
-        int var3 = 0;
-        int var4 = -1;
+    public static int getSlotWithMaxItemCount(Item... items) {
+        int maxCount = 0;
+        int maxCountSlot = -1;
 
-        for (int var5 = 0; var5 < 9; var5++) {
-            ItemStack var6 = mc.player.inventory.getStackInSlot(var5);
-            if (var6 != null) {
-                for (Item var10 : var0) {
-                    if (var6.getItem() == var10) {
-                        int var11 = var6.getCount();
-                        if (var11 > var3) {
-                            var4 = var5;
-                            var3 = var11;
+        for (int slotIndex = 0; slotIndex < 9; slotIndex++) {
+            ItemStack stackInSlot = mc.player.inventory.getStackInSlot(slotIndex);
+            if (stackInSlot != null) {
+                for (Item item : items) {
+                    if (stackInSlot.getItem() == item) {
+                        int itemCount = stackInSlot.getCount();
+                        if (itemCount > maxCount) {
+                            maxCountSlot = slotIndex;
+                            maxCount = itemCount;
                         }
                     }
                 }
             }
         }
 
-        return var4;
+        return maxCountSlot;
     }
-
 
     public static int findItemSlot(Item var0) {
         int var3 = 0;
@@ -212,7 +193,7 @@ public class InvManagerUtil {
 
         for (int var5 = 44; var5 >= 9; var5--) {
             ItemStack var6 = mc.player.container.getSlot(var5).getStack();
-            if (!method25819(var5) && var6.getItem() == var0) {
+            if (!isSlotEmpty(var5) && var6.getItem() == var0) {
                 int var7 = var6.getCount();
                 if (var7 > var3) {
                     var4 = var5;
@@ -242,9 +223,9 @@ public class InvManagerUtil {
         return totalProtection;
     }
 
-    public static boolean method25875() {
-        for (Slot var3 : mc.player.container.inventorySlots) {
-            if (!var3.getHasStack() && var3.slotNumber > 8 && var3.slotNumber < 45) {
+    public static boolean hasAllSlotsFilled() {
+        for (Slot slot : mc.player.container.inventorySlots) {
+            if (!slot.getHasStack() && slot.slotNumber > 8 && slot.slotNumber < 45) {
                 return false;
             }
         }
@@ -262,13 +243,13 @@ public class InvManagerUtil {
         return itemStack.getItem() instanceof PotionItem ? PotionUtils.getEffectsFromStack(itemStack) : null;
     }
 
-    public static boolean method25874(ItemStack itemStack) {
+    public static boolean hasNegativePotionEffects(ItemStack itemStack) {
         if (itemStack != null && itemStack.getItem() instanceof PotionItem) {
-            for (EffectInstance var4 : getPotionEffects(itemStack)) {
-                if (var4.getPotion() == Effects.POISON
-                        || var4.getPotion() == Effects.INSTANT_DAMAGE
-                        || var4.getPotion() == Effects.SLOWNESS
-                        || var4.getPotion() == Effects.WEAKNESS) {
+            for (EffectInstance effect : getPotionEffects(itemStack)) {
+                if (effect.getPotion() == Effects.POISON
+                        || effect.getPotion() == Effects.INSTANT_DAMAGE
+                        || effect.getPotion() == Effects.SLOWNESS
+                        || effect.getPotion() == Effects.WEAKNESS) {
                     return true;
                 }
             }
@@ -277,11 +258,11 @@ public class InvManagerUtil {
         return false;
     }
 
-    public static ItemStack method25869(int windowId, int slotId, int usedButton, ClickType mode, PlayerEntity entity) {
-        return fixedClick(windowId, slotId, usedButton, mode, entity, false);
+    public static ItemStack clickSlot(int windowId, int slotId, int usedButton, ClickType mode, PlayerEntity entity) {
+        return clickSlot(windowId, slotId, usedButton, mode, entity, false);
     }
 
-    public static ItemStack fixedClick(int windowId, int slotId, int usedButton, ClickType mode, PlayerEntity entity, boolean fixed) {
+    public static ItemStack clickSlot(int windowId, int slotId, int usedButton, ClickType mode, PlayerEntity entity, boolean fixed) {
         ItemStack clickedItem = null;
         if (slotId >= 0) {
             clickedItem = entity.openContainer.getSlot(slotId).getStack().copy();
@@ -300,7 +281,7 @@ public class InvManagerUtil {
         return item;
     }
 
-    public static void moveItemToHotbar(int slot, int mouseButton) {
+    public static void clickSlot(int slot, int mouseButton) {
         mc.playerController.windowClick(mc.player.container.windowId, slot, mouseButton, ClickType.SWAP, mc.player);
     }
 
@@ -328,7 +309,7 @@ public class InvManagerUtil {
     }
 
     public static boolean isArmor(int slot) {
-        return method25848(mc.player.container.getSlot(slot).getStack());
+        return isArmorStrongerThanSlot(mc.player.container.getSlot(slot).getStack());
     }
 
     public static boolean isHead(ArmorItem armorPiece) {
@@ -348,8 +329,8 @@ public class InvManagerUtil {
     }
 
     public static int getDamageReduceFromSlot(int slot) {
-        assert mc.player != null;
         ItemStack stack = mc.player.container.getSlot(slot).getStack();
+
         if (stack.getItem() instanceof ArmorItem item) {
             Enchantment en = Objects.requireNonNull(Enchantment.getEnchantmentByID(0));
             return item.getDamageReduceAmount() + EnchantmentHelper.getEnchantmentLevel(en, stack);
@@ -358,30 +339,49 @@ public class InvManagerUtil {
         }
     }
 
-    public static boolean method25848(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof ArmorItem) {
-            ArmorItem armorItem = (ArmorItem) itemStack.getItem();
-            int var4 = getArmorProtectionValue(itemStack);
+    public static boolean isArmorStrongerThanSlot(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ArmorItem armorItem) {
+			int protectionValue = getArmorProtectionValue(itemStack);
+
             if (!isHead(armorItem)) {
                 if (!isChestplate(armorItem)) {
                     if (!isLeggings(armorItem)) {
-                        return !isBoots(armorItem) ? false : var4 > getDamageReduceFromSlot(8);
+                        return isBoots(armorItem) && protectionValue > getDamageReduceFromSlot(8);
                     } else {
-                        return var4 > getDamageReduceFromSlot(7);
+                        return protectionValue > getDamageReduceFromSlot(7);
                     }
                 } else {
-                    return var4 > getDamageReduceFromSlot(6);
+                    return protectionValue > getDamageReduceFromSlot(6);
                 }
             } else {
-                return var4 > getDamageReduceFromSlot(5);
+                return protectionValue > getDamageReduceFromSlot(5);
             }
         } else {
             return false;
         }
     }
 
-    public static void click(int slotId, int mouseButton, boolean type) {
-        mc.playerController
-                .windowClick(mc.player.container.windowId, slotId, mouseButton, !type ? ClickType.THROW : ClickType.QUICK_MOVE, mc.player);
+    public static void clickSlot(int slotId, int mouseButton, boolean type) {
+        mc.playerController.windowClick(mc.player.container.windowId, slotId, mouseButton, !type ? ClickType.THROW : ClickType.QUICK_MOVE, mc.player);
+    }
+
+    public static boolean shouldPlaceItem(Item item) {
+        if (!(item instanceof BlockItem)) {
+            return false;
+        } else {
+            Block var3 = ((BlockItem) item).getBlock();
+            return !BlockUtil.blocksToNotPlace.contains(var3)
+                    && !(var3 instanceof AbstractButtonBlock)
+                    && !(var3 instanceof BushBlock)
+                    && !(var3 instanceof TrapDoorBlock)
+                    && !(var3 instanceof AbstractPressurePlateBlock)
+                    && !(var3 instanceof SandBlock)
+                    && !(var3 instanceof OreBlock)
+                    && !(var3 instanceof SkullBlock)
+                    && !(var3 instanceof BedBlock)
+                    && !(var3 instanceof BannerBlock)
+                    && !(var3 instanceof ChestBlock)
+                    && !(var3 instanceof DoorBlock);
+        }
     }
 }

@@ -4,16 +4,15 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.bowaimbot.BowAngleSorter;
 import com.mentalfrostbyte.jello.module.impl.combat.bowaimbot.BowRangeSorter;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -43,7 +42,6 @@ public class BowAimbot extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
         this.field23754.clear();
     }
 
@@ -57,19 +55,9 @@ public class BowAimbot extends Module {
             }
 
             if (!this.field23754.isEmpty() && this.getBooleanValueFromSettingName("Silent")) {
-                float[] rots = RotationHelper.method34146((LivingEntity) this.field23754.get(0));
-                Rots.rotating = true;
-                Rots.prevYaw = rots[0];
-                Rots.prevPitch = rots[1];
+                float[] rots = RotationUtil.method34146((LivingEntity) this.field23754.get(0));
                 event.setYaw(rots[0]);
                 event.setPitch(rots[1]);
-                Rots.yaw = rots[0];
-                Rots.pitch = rots[1];
-
-                mc.player.rotationYawHead = event.getYaw();
-                mc.player.renderYawOffset = event.getYaw();
-            } else {
-                Rots.rotating = false;
             }
         }
     }
@@ -78,7 +66,7 @@ public class BowAimbot extends Module {
     public void method16570(EventRender3D var1) {
         if (this.isEnabled() && !this.getBooleanValueFromSettingName("Silent")) {
             if (!this.field23754.isEmpty()) {
-                float[] var4 = RotationHelper.method34146((LivingEntity) this.field23754.get(0));
+                float[] var4 = RotationUtil.method34146((LivingEntity) this.field23754.get(0));
                 mc.player.rotationYaw = var4[0];
                 mc.player.rotationPitch = var4[1];
             }
@@ -86,14 +74,14 @@ public class BowAimbot extends Module {
     }
 
     public List<Entity> validEntity(float var1) {
-        List var4 = MovementUtil2.method17708();
+        List var4 = PlayerUtil.getAllEntitiesInWorld();
         Iterator var5 = var4.iterator();
 
         while (var5.hasNext()) {
             Entity var6 = (Entity) var5.next();
             if (var6 == mc.player) {
                 var5.remove();
-            } else if (Client.getInstance().friendManager.method26997(var6)) {
+            } else if (Client.getInstance().friendManager.isFriendPure(var6)) {
                 var5.remove();
             } else if (!(var6 instanceof LivingEntity)) {
                 var5.remove();
@@ -107,7 +95,7 @@ public class BowAimbot extends Module {
                 var5.remove();
             } else if (!this.getBooleanValueFromSettingName("Players") && var6 instanceof PlayerEntity) {
                 var5.remove();
-            } else if (this.getBooleanValueFromSettingName("Anti-Bot") && var6 instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(var6)) {
+            } else if (this.getBooleanValueFromSettingName("Anti-Bot") && var6 instanceof PlayerEntity && Client.getInstance().botManager.isBot(var6)) {
                 var5.remove();
             } else if (!this.getBooleanValueFromSettingName("Invisible") && var6.isInvisible()) {
                 var5.remove();
@@ -117,7 +105,7 @@ public class BowAimbot extends Module {
                 var5.remove();
             } else if (var6.isInvulnerable()) {
                 var5.remove();
-            } else if (var6 instanceof PlayerEntity && TeamUtil.method31662((PlayerEntity) var6) && !this.getBooleanValueFromSettingName("Teams")) {
+            } else if (var6 instanceof PlayerEntity && CombatUtil.arePlayersOnSameTeam((PlayerEntity) var6) && !this.getBooleanValueFromSettingName("Teams")) {
                 var5.remove();
             }
         }

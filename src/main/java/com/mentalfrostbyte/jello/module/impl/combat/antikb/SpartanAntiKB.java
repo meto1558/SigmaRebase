@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.antikb;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
@@ -23,7 +23,7 @@ public class SpartanAntiKB extends Module {
             if (this.ticksSinceKb < 10) {
                 this.ticksSinceKb++;
                 if (this.ticksSinceKb == (int) this.getNumberValueBySettingName("Ticks")) {
-                    MovementUtil.strafe(0.0);
+                    MovementUtil.moveInDirection(0.0);
                 }
             }
         }
@@ -32,9 +32,8 @@ public class SpartanAntiKB extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (mc.player != null && event.getPacket() instanceof SEntityVelocityPacket) {
-                SEntityVelocityPacket var4 = (SEntityVelocityPacket) event.getPacket();
-                if (var4.getEntityID() == mc.player.getEntityId()) {
+            if (mc.player != null && event.packet instanceof SEntityVelocityPacket var4) {
+				if (var4.getEntityID() == mc.player.getEntityId()) {
                     this.ticksSinceKb = 0;
                 }
             }

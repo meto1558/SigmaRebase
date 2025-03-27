@@ -49,7 +49,7 @@ public class MouseHelper {
      */
     private void mouseButtonCallback(long handle, int button, int action, int mods) {
         if (Client.getInstance().guiManager.getCurrentScreen() != null) {
-            Client.getInstance().guiManager.method33456(button, action);
+            Client.getInstance().guiManager.onMouseButtonCallback(button, action);
         } else {
             if (this.minecraft.currentScreen == null) {
                 if (action != 1 && action != 2) {
@@ -321,8 +321,6 @@ public class MouseHelper {
             if (this.minecraft.gameSettings.invertMouse) {
                 i = -1;
             }
-
-            this.minecraft.getTutorial().onMouseMove(d2, d3);
 
             if (this.minecraft.player != null) {
                 this.minecraft.player.rotateTowards(d2, d3 * (double) i);

@@ -1,17 +1,17 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.Module;
 import net.minecraft.client.gui.screen.Screen;
-import totalcross.json.JSONException;
-import totalcross.json.JSONObject;
 
 public class Bound {
    private int key = -1;
    private Object target;
 
-   public Bound(JSONObject var1) {
-      this.loadFromJSON(var1);
+   public Bound(JsonObject json) {
+      this.loadFromJSON(json);
    }
 
    public Bound(int key, Module target) {
@@ -24,48 +24,48 @@ public class Bound {
       this.target = target;
    }
 
-   public void loadFromJSON(JSONObject from) {
+   public void loadFromJSON(JsonObject from) {
       if (from.has("target")) {
          try {
             if (from.has("key")) {
-               this.key = from.getInt("key");
+               this.key = from.get("key").getAsInt();
             }
 
             if (from.has("type")) {
-               String var4 = from.getString("type");
+               String var4 = from.get("type").getAsString();
                switch (var4) {
                   case "mod":
-                     for (Module var7 : Client.getInstance().moduleManager.getModuleMap().values()) {
-                        if (from.getString("target").equals(var7.getName())) {
-                           this.target = var7;
+                     for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
+                        if (from.get("target").getAsString().equals(module.getName())) {
+                           this.target = module;
                         }
                      }
                   case "screen":
-                     Class var8 = Client.getInstance().guiManager.method33477(from.getString("target"));
-                     if (var8 != null) {
-                        this.target = var8;
+                     Class screen = Client.getInstance().guiManager.method33477(from.get("target").getAsString());
+                     if (screen != null) {
+                        this.target = screen;
                      }
                }
             }
-         } catch (JSONException e) {
+         } catch (JsonParseException e) {
             throw new RuntimeException(e);
          }
       }
    }
 
-   public JSONObject getKeybindData() {
-      JSONObject obj = new JSONObject();
+   public JsonObject getKeybindData() {
+      JsonObject obj = new JsonObject();
        switch (KeybindTypesWrapper.values[this.getKeybindTypes().ordinal()]) {
           case 1:
-             obj.put("type", "mod");
-             obj.put("target", ((Module)this.target).getName());
+             obj.addProperty("type", "mod");
+             obj.addProperty("target", ((Module)this.target).getName());
              break;
           case 2:
-             obj.put("type", "screen");
-             obj.put("target", Client.getInstance().guiManager.getNameForTarget((Class<? extends Screen>)this.target));
+             obj.addProperty("type", "screen");
+             obj.addProperty("target", Client.getInstance().guiManager.getNameForTarget((Class<? extends Screen>)this.target));
        }
 
-       obj.put("key", this.key);
+       obj.addProperty("key", this.key);
        return obj;
    }
 
@@ -77,8 +77,8 @@ public class Bound {
       return this.key;
    }
 
-   public void setKey(int var1) {
-      this.key = var1;
+   public void setKey(int key) {
+      this.key = key;
    }
 
    public KeybindTypes getKeybindTypes() {
@@ -100,9 +100,8 @@ public class Bound {
    @Override
    public boolean equals(Object to) {
       if (to != this) {
-         if (to instanceof Bound) {
-            Bound other = (Bound)to;
-            return this.getTarget().equals(other.getTarget());
+         if (to instanceof Bound other) {
+             return this.getTarget().equals(other.getTarget());
          } else {
             return false;
          }

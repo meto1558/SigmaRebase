@@ -38,7 +38,7 @@ public interface IBidiRenderer
     {
         return func_243262_b(p_243258_0_, p_243258_0_.trimStringToWidth(p_243258_1_, p_243258_2_).stream().map((p_243264_1_) ->
         {
-            return new IBidiRenderer.Entry(p_243264_1_, p_243258_0_.func_243245_a(p_243264_1_));
+            return new IBidiRenderer.Entry(p_243264_1_, p_243258_0_.getStringWidth(p_243264_1_));
         }).collect(ImmutableList.toImmutableList()));
     }
 
@@ -46,7 +46,7 @@ public interface IBidiRenderer
     {
         return func_243262_b(p_243259_0_, p_243259_0_.trimStringToWidth(p_243259_1_, p_243259_2_).stream().limit((long)p_243259_3_).map((p_243263_1_) ->
         {
-            return new IBidiRenderer.Entry(p_243263_1_, p_243259_0_.func_243245_a(p_243263_1_));
+            return new IBidiRenderer.Entry(p_243263_1_, p_243259_0_.getStringWidth(p_243263_1_));
         }).collect(ImmutableList.toImmutableList()));
     }
 
@@ -54,7 +54,7 @@ public interface IBidiRenderer
     {
         return func_243262_b(p_243260_0_, Arrays.stream(p_243260_1_).map(ITextComponent::func_241878_f).map((p_243261_1_) ->
         {
-            return new IBidiRenderer.Entry(p_243261_1_, p_243260_0_.func_243245_a(p_243261_1_));
+            return new IBidiRenderer.Entry(p_243261_1_, p_243260_0_.getStringWidth(p_243261_1_));
         }).collect(ImmutableList.toImmutableList()));
     }
 

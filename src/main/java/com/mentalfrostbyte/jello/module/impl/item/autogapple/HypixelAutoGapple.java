@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item.autogapple;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.item.AutoGapple;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;

@@ -199,11 +199,19 @@ public class BufferBuilder extends DefaultColorVertexBuilder implements IVertexC
         }
     }
 
-    private void limitToVertex(FloatBuffer floatBufferIn, int indexIn)
-    {
+
+    private void limitToVertex(FloatBuffer floatBufferIn, int indexIn) {
+        if (floatBufferIn == null) {
+            System.err.println("Warning: floatBufferIn was null, initializing a new buffer!");
+
+            // Initialize with a default size (adjust if necessary)
+            int bufferSize = Math.max(1024, this.vertexFormat.getIntegerSize() * 4 * (indexIn + 1));
+            floatBufferIn = ByteBuffer.allocateDirect(bufferSize).asFloatBuffer();
+        }
+
         int i = this.vertexFormat.getIntegerSize() * 4;
-        ((Buffer)floatBufferIn).limit(this.renderedBytes / 4 + (indexIn + 1) * i);
-        ((Buffer)floatBufferIn).position(this.renderedBytes / 4 + indexIn * i);
+        ((Buffer) floatBufferIn).limit(this.renderedBytes / 4 + (indexIn + 1) * i);
+        ((Buffer) floatBufferIn).position(this.renderedBytes / 4 + indexIn * i);
     }
 
     public BufferBuilder.State getVertexState()

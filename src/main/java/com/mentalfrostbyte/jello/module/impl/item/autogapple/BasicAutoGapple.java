@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.AutoGapple;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Items;
@@ -36,7 +36,7 @@ public class BasicAutoGapple extends Module {
     public void onStopUseItem(EventStopUseItem event) {
         if (this.isEnabled()) {
             if (this.currentGappleSlot >= 0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }
@@ -100,10 +100,9 @@ public class BasicAutoGapple extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled() && this.currentGappleSlot > 1) {
-            IPacket<?> packet = event.getPacket();
-            if (packet instanceof SEntityMetadataPacket) {
-                SEntityMetadataPacket metadataPacket = (SEntityMetadataPacket) packet;
-                if (metadataPacket.getEntityId() == mc.player.getEntityId()) {
+            IPacket<?> packet = event.packet;
+            if (packet instanceof SEntityMetadataPacket metadataPacket) {
+				if (metadataPacket.getEntityId() == mc.player.getEntityId()) {
                     for (EntityDataManager.DataEntry<?> dataEntry : metadataPacket.getDataManagerEntries()) {
                         DataParameter<?> parameter = dataEntry.getKey();
                         if (parameter.getId() == 14) {

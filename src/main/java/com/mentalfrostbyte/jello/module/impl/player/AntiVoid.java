@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 //import com.mentalfrostbyte.jello.module.impl.movement.HighJump;
 import com.mentalfrostbyte.jello.module.impl.movement.HighJump;
@@ -13,7 +13,9 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -38,7 +40,7 @@ public class AntiVoid extends Module {
         this.fallDistanceAccumulated = 0.0;
         this.speedBoostTimer = 0;
         this.disableTimer = 0;
-        if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+        if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F)) {
             this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
         }
     }
@@ -46,7 +48,7 @@ public class AntiVoid extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            if (mc.player.isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+            if (mc.player.isOnGround() || BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.lastSafePosition = new Vector3d(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
             }
 
@@ -71,7 +73,7 @@ public class AntiVoid extends Module {
                     this.fallDistanceAccumulated = 0.0;
                 }
             } else {
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.0);
+                MovementUtil.setMotion(event, 0.0);
                 event.setY(0.0);
                 this.disableTimer--;
             }
@@ -83,7 +85,7 @@ public class AntiVoid extends Module {
 
             if (this.speedBoostTimer > 0) {
                 this.speedBoostTimer--;
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.1);
+                MovementUtil.setMotion(event, 0.1);
             }
         }
     }
@@ -91,14 +93,14 @@ public class AntiVoid extends Module {
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre() && this.disableTimer != 0) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 
     @EventTarget
     public void onPacketReceive(EventReceivePacket event) {
         if (this.isEnabled() && this.disableTimer != 0) {
-            if (event.getPacket() instanceof SPlayerPositionLookPacket) {
+            if (event.packet instanceof SPlayerPositionLookPacket) {
                 this.disableTimer = 0;
                 this.speedBoostTimer = 4;
             }
@@ -124,7 +126,7 @@ public class AntiVoid extends Module {
         double posY = mc.player.getPositionVec().getY();
         double posZ = mc.player.getPositionVec().getZ();
 
-        if (mode.equals("Cubecraft") && !MovementUtil2.isCubecraft()) {
+        if (mode.equals("Cubecraft") && !ServerUtil.isCubecraft()) {
             mode = "Motion";
         }
 
@@ -134,7 +136,7 @@ public class AntiVoid extends Module {
                 break;
             case "Motion":
                 event.setY(0.1);
-                MovementUtil2.setPlayerYMotion(event.getY());
+                mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
                 break;
             case "TP":
                 mc.player.setPosition(lastSafePosition.x, lastSafePosition.y, lastSafePosition.z);

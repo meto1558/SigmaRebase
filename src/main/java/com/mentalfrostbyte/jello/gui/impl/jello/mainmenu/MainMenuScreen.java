@@ -1,19 +1,22 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
-import club.minnced.discord.rpc.DiscordRPC;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
-import com.mentalfrostbyte.jello.managers.NetworkManager;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
+import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.FloatingBubble;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.impl.LoadingScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
@@ -74,7 +77,7 @@ public class MainMenuScreen extends Screen {
     public static String currentTitle;
     public static String currentMessage;
     public static float field20982;
-    public AlertPanel alertPanel;
+    public Alert alert;
 
     public MainMenuScreen() {
         super("Main Screen");
@@ -101,17 +104,17 @@ public class MainMenuScreen extends Screen {
         this.addToList(this.mainMenuScreen = new JelloMainMenu(this, "main", 0, 0, this.widthA, this.heightA));
         this.addToList(this.changelogScreen = new ChangelogScreen(this, "changelog", 0, 0, this.widthA, this.heightA));
         this.addToList(this.redeemKeyScreen = new RedeemKeyScreen(this, "redeem", 0, 0, this.widthA, this.heightA));
-        this.changelogScreen.method13296(false);
+        this.changelogScreen.setHovered(false);
         this.changelogScreen.method13294(true);
-        this.redeemKeyScreen.method13296(false);
+        this.redeemKeyScreen.setHovered(false);
         this.redeemKeyScreen.method13294(true);
     }
 
     public void goOut() {
         this.field20972.changeDirection(Animation.Direction.BACKWARDS);
-        this.changelogScreen.method13296(false);
-        this.redeemKeyScreen.method13296(false);
-        this.redeemKeyScreen.method13292(false);
+        this.changelogScreen.setHovered(false);
+        this.redeemKeyScreen.setHovered(false);
+        this.redeemKeyScreen.setReAddChildren(false);
         this.redeemKeyScreen.method13294(true);
     }
 
@@ -122,13 +125,13 @@ public class MainMenuScreen extends Screen {
 
     public void animateIn() {
         this.field20972.changeDirection(Animation.Direction.FORWARDS);
-        this.changelogScreen.method13296(true);
+        this.changelogScreen.setHovered(true);
     }
 
     public void animateNext() {
         this.field20972.changeDirection(Animation.Direction.FORWARDS);
-        this.redeemKeyScreen.method13296(true);
-        this.redeemKeyScreen.method13292(true);
+        this.redeemKeyScreen.setHovered(true);
+        this.redeemKeyScreen.setReAddChildren(true);
         this.redeemKeyScreen.method13294(false);
     }
 
@@ -150,7 +153,7 @@ public class MainMenuScreen extends Screen {
 
         float scaleOffset = 0.07F * transitionProgress;
         this.mainMenuScreen.method13279(1.0F - scaleOffset, 1.0F - scaleOffset);
-        this.mainMenuScreen.method13296(this.field20972.calcPercent() == 0.0F);
+        this.mainMenuScreen.setHovered(this.field20972.calcPercent() == 0.0F);
         long elapsedTime = System.nanoTime() - currentTime;
         field20982 = Math.min(10.0F, Math.max(0.0F, (float) elapsedTime / 1.810361E7F / 2.0F));
         currentTime = System.nanoTime();
@@ -230,7 +233,7 @@ public class MainMenuScreen extends Screen {
 
 
             for (CustomGuiScreen object : this.getChildren()) {
-                if (object.isVisible()) {
+                if (object.isSelfVisible()) {
                     GL11.glPushMatrix();
                     if (object instanceof ChangelogScreen) {
                         if (transitionProgress > 0.0F) {
@@ -245,9 +248,9 @@ public class MainMenuScreen extends Screen {
             }
 
 
-            if (foregroundOpacity > 0.0F && Client.getInstance().method19930()) {
+            if (foregroundOpacity > 0.0F && Client.getInstance().loading) {
                 LoadingScreen.xd(backgroundOpacity, 1.0F);
-                Client.getInstance().method19931(false);
+                Client.getInstance().loading = false;
             }
 
             field20982 *= 0.7F;
@@ -269,8 +272,8 @@ public class MainMenuScreen extends Screen {
                         (float) (this.heightA / 2 - 30),
                         currentTitle,
                         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent()),
-                        Class2218.field14492,
-                        Class2218.field14492
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                 );
                 RenderUtil.drawString(
                         ResourceRegistry.JelloLightFont18,
@@ -278,8 +281,8 @@ public class MainMenuScreen extends Screen {
                         (float) (this.heightA / 2 + 30),
                         "\"" + currentMessage + "\"",
                         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent() * 0.5F),
-                        Class2218.field14492,
-                        Class2218.field14492
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                        FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                 );
             }
         }
@@ -294,25 +297,26 @@ public class MainMenuScreen extends Screen {
     }
 
     public void logout() {
-        if (this.alertPanel == null) {
+        if (this.alert == null) {
             this.runThisOnDimensionUpdate(() -> {
-                ArrayList<MiniAlert> alert = new ArrayList<>();
-                alert.add(new MiniAlert(AlertType.HEADER, "Logout", 45));
-                alert.add(new MiniAlert(AlertType.FIRST_LINE, "Are you sure?", 35));
-                alert.add(new MiniAlert(AlertType.BUTTON, "Yes", 55));
-                this.showAlert(this.alertPanel = new AlertPanel(this, "music", true, "Dependencies.", alert.toArray(new MiniAlert[0])));
-                this.alertPanel.method13604(var1 -> new Thread(() -> {
-                    this.runThisOnDimensionUpdate(() -> {
-                        this.method13236(this.alertPanel);
-                        this.alertPanel = null;
-
-                        NetworkManager.premium = false;
-                        Client.getInstance().getDRPC().smallImageKey = null;
-                        Client.getInstance().getDRPC().smallImageText = null;
-                        DiscordRPC.INSTANCE.Discord_UpdatePresence(Client.getInstance().getDRPC());
-                    });
+                ArrayList<AlertComponent> alert = new ArrayList<>();
+                alert.add(new AlertComponent(ComponentType.HEADER, "Logout", 45));
+                alert.add(new AlertComponent(ComponentType.FIRST_LINE, "Are you sure?", 35));
+                alert.add(new AlertComponent(ComponentType.BUTTON, "Yes", 55));
+                this.showAlert(this.alert = new Alert(this, "music", true, "Dependencies.", alert.toArray(new AlertComponent[0])));
+                this.alert.method13604(var1 -> new Thread(() -> {
+                    try {
+                        Thread.sleep(114L);
+                        this.runThisOnDimensionUpdate(() -> {
+                            this.removeChildren(this.alert);
+                            this.alert = null;
+                        });
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
                 }).start());
-                this.alertPanel.method13603(true);
+                this.alert.onPress(var -> Client.getInstance().licenseManager.resetLicense());
+                this.alert.method13603(true);
             });
         }
     }

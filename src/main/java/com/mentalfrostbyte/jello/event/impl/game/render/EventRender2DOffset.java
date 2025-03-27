@@ -5,11 +5,11 @@ import com.mentalfrostbyte.jello.event.CancellableEvent;
 public class EventRender2DOffset extends CancellableEvent {
     private int yOffset = 99;
 
-    public int getyOffset() {
+    public int getYOffset() {
         return this.yOffset;
     }
 
-    public void setyOffset(int yOffset) {
+    public void setYOffset(int yOffset) {
         this.yOffset = yOffset;
     }
 

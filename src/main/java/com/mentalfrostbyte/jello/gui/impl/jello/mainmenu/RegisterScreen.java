@@ -1,16 +1,20 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.*;
-import com.mentalfrostbyte.jello.gui.unmapped.AlertPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
+import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
+import net.minecraft.util.StringUtils;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
@@ -25,13 +29,13 @@ public class RegisterScreen extends Screen {
     private boolean field21084 = true;
     private float field21085 = 0.0F;
     private float field21086 = 0.0F;
-    private Texture field21087;
-    private LoginScreen field21088;
-    private AccountSignUpScreen field21089;
-    private AlertPanel field21090;
-    private UIButton field21091;
-    private boolean field21092 = false;
-    private Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
+    private final Texture field21087;
+    private final LoginScreen field21088;
+    private final AccountSignUpScreen field21089;
+    private Alert field21090;
+    private final TextButton field21091;
+    private boolean loggedIn = false;
+    private final Animation field21093 = new Animation(250, 250, Animation.Direction.BACKWARDS);
 
     public RegisterScreen() {
         super("Credits");
@@ -59,7 +63,7 @@ public class RegisterScreen extends Screen {
         );
         this.method13423();
         this.addToList(
-                this.field21091 = new UIButton(
+                this.field21091 = new TextButton(
                         this,
                         "continue",
                         this.widthA / 2 - 120,
@@ -71,39 +75,39 @@ public class RegisterScreen extends Screen {
                         ResourceRegistry.JelloLightFont25
                 )
         );
-        this.field21091.setEnabled(false);
+        this.field21091.setSelfVisible(false);
         this.field21088.onPress(var1 -> {
-            this.field21092 = true;
-            this.field21091.setEnabled(true);
+            this.loggedIn = true;
+            this.field21091.setSelfVisible(true);
         });
         this.field21091.doThis((var0, var1) -> Minecraft.getInstance().displayGuiScreen(new MainMenuHolder()));
     }
 
     public void method13422() {
-        this.field21088.setEnabled(false);
-        this.field21089.setEnabled(true);
+        this.field21088.setSelfVisible(false);
+        this.field21089.setSelfVisible(true);
     }
 
     public void method13423() {
-        this.field21088.setEnabled(true);
-        this.field21089.setEnabled(false);
+        this.field21088.setSelfVisible(true);
+        this.field21089.setSelfVisible(false);
     }
 
     public void method13424(String var1, String var2) {
         if (this.field21090 == null) {
             this.runThisOnDimensionUpdate(() -> {
-                ArrayList<MiniAlert> var5 = new ArrayList();
-                var5.add(new MiniAlert(AlertType.HEADER, var1, 45));
-                String[] var6 = RenderUtil2.method17745(var2, 240, ResourceRegistry.JelloLightFont20);
+                ArrayList<AlertComponent> var5 = new ArrayList();
+                var5.add(new AlertComponent(ComponentType.HEADER, var1, 45));
+                String[] var6 = StringUtils.wrapText(var2, 240, ResourceRegistry.JelloLightFont20);
 
                 for (int var7 = 0; var7 < var6.length; var7++) {
-                    var5.add(new MiniAlert(AlertType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
+                    var5.add(new AlertComponent(ComponentType.FIRST_LINE, var6[var7], var7 != var6.length - 1 ? 14 : 35));
                 }
 
-                var5.add(new MiniAlert(AlertType.BUTTON, "Ok", 55));
-                this.showAlert(this.field21090 = new AlertPanel(this, "modal", true, "", var5.toArray(new MiniAlert[0])));
+                var5.add(new AlertComponent(ComponentType.BUTTON, "Ok", 55));
+                this.showAlert(this.field21090 = new Alert(this, "modal", true, "", var5.toArray(new AlertComponent[0])));
                 this.field21090.method13604(var1xx -> new Thread(() -> this.runThisOnDimensionUpdate(() -> {
-                    this.method13236(this.field21090);
+                    this.removeChildren(this.field21090);
                     this.field21090 = null;
                 })).start());
                 this.field21090.method13603(true);
@@ -115,13 +119,13 @@ public class RegisterScreen extends Screen {
     public void draw(float partialTicks) {
         Resources.cancelIconPNG.bind();
         this.field21085 = Math.max(0.0F, Math.min(this.field21085 + 0.075F, 1.0F));
-        if (this.field21092) {
+        if (this.loggedIn) {
             this.field21093.changeDirection(Animation.Direction.FORWARDS);
         }
 
         this.method13425();
         float var4 = (float) Math.sin((double) QuadraticEasing.easeOutQuad(this.field21085, 0.0F, 1.0F, 1.0F) * Math.PI / 2.0);
-        if (this.field21092) {
+        if (this.loggedIn) {
             var4 = 1.0F
                     - (float) Math.sin((Math.PI / 2) + (double) QuadraticEasing.easeInOutQuad(1.0F - this.field21093.calcPercent(), 0.0F, 1.0F, 1.0F) * (Math.PI / 2)) * 0.2F;
         }
@@ -131,7 +135,7 @@ public class RegisterScreen extends Screen {
         this.field21089.method13277(var4);
         this.field21089.method13278(var4);
         Rectangle var5 = RenderUtil.method11413(RenderUtil.method11414(this.field21088), this.field21088.method13273(), this.field21088.method13275());
-        if (this.field21089.isVisible()) {
+        if (this.field21089.isSelfVisible()) {
             var5 = RenderUtil.method11413(RenderUtil.method11414(this.field21089), this.field21089.method13273(), this.field21089.method13275());
         }
 
@@ -145,12 +149,12 @@ public class RegisterScreen extends Screen {
             );
         }
 
-        if (this.field21092 && this.field21093.calcPercent() == 1.0F) {
-            this.field21088.setEnabled(false);
+        if (this.loggedIn && this.field21093.calcPercent() == 1.0F) {
+            this.field21088.setSelfVisible(false);
         }
 
-        if (this.field21092) {
-            String username = Client.getInstance().networkManager.username;
+        if (this.loggedIn && Client.getInstance().licenseManager.sigmaAccount != null) {
+            String username = Client.getInstance().licenseManager.sigmaAccount.username;
             String welcomeBackSign = "Welcome back";
             int var8 = 100;
             int var9 = 10;

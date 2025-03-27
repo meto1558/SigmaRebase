@@ -17,7 +17,7 @@ public class VirtualAssetsPack extends VanillaPack
 
     public VirtualAssetsPack(ResourceIndex p_i48115_1_)
     {
-        super("minecraft", "realms");
+        super("minecraft");
         this.field_195785_b = p_i48115_1_;
     }
 

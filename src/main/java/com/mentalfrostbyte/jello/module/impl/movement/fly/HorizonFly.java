@@ -5,14 +5,14 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import team.sdhq.eventBus.annotations.EventTarget;
-import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
+import team.sdhq.eventBus.annotations.EventTarget;
+import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
 public class HorizonFly extends Module {
     private int field23497;
@@ -26,40 +26,40 @@ public class HorizonFly extends Module {
     public void onEnable() {
         this.field23498 = mc.player.getPosY();
         this.field23497 = 10;
-//        mc.timer.timerSpeed = 0.6F;
+        mc.timer.timerSpeed = 0.6F;
     }
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
 
-//        mc.timer.timerSpeed = 1.0F;
+        mc.timer.timerSpeed = 1.0F;
     }
 
     @EventTarget
     @LowerPriority
-    public void method16158(EventMove var1) {
+    public void method16158(EventMove event) {
         if (this.isEnabled()) {
-            double var4 = Math.sqrt(var1.getX() * var1.getX() + var1.getZ() * var1.getZ());
+            double var4 = Math.sqrt(event.getX() * event.getX() + event.getZ() * event.getZ());
             if (this.field23497 <= 9) {
                 if (this.field23497 != -1) {
                     if (this.field23497 != 0) {
                         if (this.field23497 >= 1) {
-                            MovementUtil.setSpeed(var1, var4 + 5.0E-4);
+                            MovementUtil.setMotion(event, var4 + 5.0E-4);
                         }
                     } else {
-                        MovementUtil.setSpeed(var1, var4 + 0.0015);
+                        MovementUtil.setMotion(event, var4 + 0.0015);
                     }
                 } else {
-//                    var1.setY(MovementUtil.getJumpValue());
-                    MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, 0.125);
+                    event.setY(MovementUtil.getJumpValue());
+                    mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
+                    MovementUtil.setMotion(event, 0.125);
                 }
             } else {
-                MovementUtil.setSpeed(var1, 0.0);
+                MovementUtil.setMotion(event, 0.0);
             }
         }
     }
@@ -83,10 +83,9 @@ public class HorizonFly extends Module {
     @EventTarget
     public void method16160(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.field23497 >= 1) {
+            IPacket var4 = var1.packet;
+            if (var4 instanceof SPlayerPositionLookPacket var5) {
+				if (this.field23497 >= 1) {
                     this.field23497 = -1;
                 }
 
@@ -100,10 +99,9 @@ public class HorizonFly extends Module {
     @EventTarget
     public void method16161(EventSendPacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof CPlayerPacket) {
-                CPlayerPacket var5 = (CPlayerPacket) var4;
-                if (this.field23497 == -1) {
+            IPacket var4 = var1.packet;
+            if (var4 instanceof CPlayerPacket var5) {
+				if (this.field23497 == -1) {
                     var5.onGround = true;
                 }
             }

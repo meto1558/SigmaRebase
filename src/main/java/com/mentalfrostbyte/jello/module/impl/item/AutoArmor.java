@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.item;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -119,9 +119,8 @@ public class AutoArmor extends Module {
                     if (var9.getItem() instanceof ElytraItem && this.field23799) {
                         mc.player.inventory.getStackInSlot(36 + EquipmentSlotType.CHEST.getIndex());
                     }
-                    if (var9.getItem() instanceof ArmorItem && !this.field23799) {
-                        ArmorItem armorItem = (ArmorItem) var9.getItem();
-                        if (armorItem.getEquipmentSlot() == type
+                    if (var9.getItem() instanceof ArmorItem armorItem && !this.field23799) {
+						if (armorItem.getEquipmentSlot() == type
                                 && InvManagerUtil.isBestArmorPiece(var9)
                                 && InvManagerUtil.getArmorProtectionValue(var9) > 0
                                 && (
@@ -130,18 +129,18 @@ public class AutoArmor extends Module {
                         )) {
                             this.method16617(var1);
                             if (!(AutoArmor.mc.player.inventory.getStackInSlot(36 + type.getIndex()).getItem() instanceof AirItem)) {
-                                InvManagerUtil.click(8 - type.getIndex(), 0, true);
+                                InvManagerUtil.clickSlot(8 - type.getIndex(), 0, true);
                             }
                             Item var11 = mc.player.inventory.getStackInSlot(36 + armorItem.getEquipmentSlot().getIndex()).getItem();
                             if (!(var11 instanceof ElytraItem)) {
                                 if (!(var11 instanceof AirItem)) {
-                                    InvManagerUtil.method25871(8 - armorItem.getEquipmentSlot().getIndex());
+                                    InvManagerUtil.clickSlot(8 - armorItem.getEquipmentSlot().getIndex());
                                 }
                             } else {
-                                InvManagerUtil.click(8 - type.getIndex(), 0, true);
+                                InvManagerUtil.clickSlot(8 - type.getIndex(), 0, true);
                             }
 
-                            InvManagerUtil.fixedClick(mc.player.container.windowId, slot, 0, ClickType.QUICK_MOVE, mc.player, true);
+                            InvManagerUtil.clickSlot(mc.player.container.windowId, slot, 0, ClickType.QUICK_MOVE, mc.player, true);
                             this.timer.reset();
                             field23798 = true;
                             if (Client.getInstance().moduleManager.getModuleByClass(AutoArmor.class).getNumberValueBySettingName("Delay") > 0.0F) {
@@ -166,9 +165,8 @@ public class AutoArmor extends Module {
             if (mc.player.container.getSlot(var4).getHasStack()) {
                 ItemStack var5 = mc.player.container.getSlot(var4).getStack();
                 Item var6 = var5.getItem();
-                if (var6 instanceof ArmorItem) {
-                    ArmorItem var7 = (ArmorItem) var6;
-                    if (var1 == var7.getEquipmentSlot()) {
+                if (var6 instanceof ArmorItem var7) {
+					if (var1 == var7.getEquipmentSlot()) {
                         return true;
                     }
                 }

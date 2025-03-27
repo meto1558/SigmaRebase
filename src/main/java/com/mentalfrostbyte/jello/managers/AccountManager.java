@@ -1,24 +1,23 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.BanListener;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
-import com.mojang.realmsclient.RealmsMainScreen;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONException2;
-import totalcross.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
-public class AccountManager {
+public class AccountManager extends Manager {
     public ArrayList<Account> accounts = new ArrayList<Account>();
     public File altsFile = new File(Client.getInstance().file + "/alts.json");
     private String email;
@@ -28,14 +27,10 @@ public class AccountManager {
         this.loadAltsFromFile();
     }
 
-    public void registerEvents() {
-        EventBus.register(this);
+    @Override
+    public void init() {
+        super.init();
         EventBus.register(this.banListener);
-    }
-
-    @Deprecated
-    public void addAccount(Account account) {
-        this.accounts.add(account);
     }
 
     public void updateAccount(Account account) {
@@ -86,7 +81,6 @@ public class AccountManager {
      */
     public boolean login(Account account) {
         try {
-            RealmsMainScreen.field_224000_H = null; // ?????
             Session session = Minecraft.getInstance().getSession();
             Session newSession = account.login();
             session.username = newSession.getUsername();
@@ -97,17 +91,6 @@ public class AccountManager {
         } catch (MicrosoftAuthenticationException e) {
             return false;
         }
-    }
-    /**
-     * Logs into the account
-     */
-    public void cookieLogin() throws MicrosoftAuthenticationException, ExecutionException, InterruptedException {
-        Session session = Minecraft.getInstance().getSession();
-        Session newSession = Account.cookieLogin().get();
-        session.username = newSession.getUsername();
-        session.playerID = newSession.getPlayerID();
-        session.token = newSession.getToken();
-        this.email = "microsoft-account-lol";
     }
 
     // What
@@ -130,34 +113,34 @@ public class AccountManager {
     }
 
     public void saveAlts() {
-        JSONArray jsonArray = new JSONArray();
+        JsonArray jsonArray = new JsonArray();
 
         for (Account account : this.accounts) {
-            jsonArray.put(account.method34232());
+            jsonArray.add(account.toJSON());
         }
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("alts", jsonArray);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("alts", jsonArray);
 
         try {
             FileUtil.save(jsonObject, new File(Client.getInstance().file + "/alts.json"));
-        } catch (IOException | JSONException2 var6) {
-            Client.getInstance().getLogger().error(var6.getMessage());
+        } catch (IOException | JsonParseException var6) {
+            Client.logger.error(var6.getMessage());
         }
     }
 
     private void loadAltsFromFile() {
         try {
-            JSONObject jsonObject = FileUtil.readFile(this.altsFile);
+            JsonObject jsonObject = FileUtil.readFile(this.altsFile);
             if (!jsonObject.has("alts")) {
-                jsonObject.put("alts", new JSONArray());
+                jsonObject.add("alts", new JsonArray());
             }
 
-            for (Object obj : jsonObject.getJSONArray("alts")) {
-                this.accounts.add(new Account((JSONObject) obj));
+            for (Object obj : jsonObject.getAsJsonArray("alts")) {
+                this.accounts.add(new Account((JsonObject) obj));
             }
         } catch (IOException e) {
-            Client.getInstance().getLogger().error(e.getMessage());
+            Client.logger.error(e.getMessage());
         }
     }
 

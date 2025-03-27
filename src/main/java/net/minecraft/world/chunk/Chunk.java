@@ -64,7 +64,7 @@ public class Chunk implements IChunk
     private final ChunkSection[] sections = new ChunkSection[16];
     private BiomeContainer blockBiomeArray;
     private final Map<BlockPos, CompoundNBT> deferredTileEntities = Maps.newHashMap();
-    private boolean loaded;
+    public boolean loaded;
     private final World world;
     private final Map<Heightmap.Type, Heightmap> heightMap = Maps.newEnumMap(Heightmap.Type.class);
     private final UpgradeData upgradeData;
@@ -441,7 +441,7 @@ public class Chunk implements IChunk
 
     public int getTopBlockY(Heightmap.Type heightmapType, int x, int z)
     {
-        return this.heightMap.get(heightmapType).getHeight(x & 15, z & 15) - 1;
+        return Math.max(this.heightMap.get(heightmapType).getHeight(x & 15, z & 15) - 1, -64); // Allow negative Y (I hope i am doing this right)
     }
 
     @Nullable

@@ -35,7 +35,6 @@ import net.minecraft.client.settings.PointOfView;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.client.settings.ToggleableKeyBinding;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.client.tutorial.TutorialSteps;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.ChatVisibility;
 import net.minecraft.entity.player.PlayerModelPart;
@@ -110,7 +109,6 @@ public class GameSettings
     private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
     public boolean useNativeTransport = true;
     public AttackIndicatorStatus attackIndicator = AttackIndicatorStatus.CROSSHAIR;
-    public TutorialSteps tutorialStep = TutorialSteps.MOVEMENT;
     public boolean field_244601_E = false;
     public int biomeBlendRadius = 2;
     public double mouseWheelSensitivity = 1.0D;
@@ -126,7 +124,6 @@ public class GameSettings
     public boolean forceUnicodeFont;
     public boolean invertMouse;
     public boolean discreteMouseScroll;
-    public boolean realmsNotifications = true;
     public boolean reducedDebugInfo;
     public boolean snooper = true;
     public boolean showSubtitles;
@@ -443,11 +440,6 @@ public class GameSettings
                         AbstractOption.INVERT_MOUSE.set(this, s1);
                     }
 
-                    if ("realmsNotifications".equals(s))
-                    {
-                        AbstractOption.REALMS_NOTIFICATIONS.set(this, s1);
-                    }
-
                     if ("reducedDebugInfo".equals(s))
                     {
                         AbstractOption.REDUCED_DEBUG_INFO.set(this, s1);
@@ -562,11 +554,6 @@ public class GameSettings
                     {
                         this.graphicFanciness = GraphicsFanciness.func_238163_a_(Integer.parseInt(s1));
                         this.updateRenderClouds();
-                    }
-
-                    if ("tutorialStep".equals(s))
-                    {
-                        this.tutorialStep = TutorialSteps.byName(s1);
                     }
 
                     if ("ao".equals(s))
@@ -889,7 +876,6 @@ public class GameSettings
                 printwriter.println("forceUnicodeFont:" + AbstractOption.FORCE_UNICODE_FONT.get(this));
                 printwriter.println("discrete_mouse_scroll:" + AbstractOption.DISCRETE_MOUSE_SCROLL.get(this));
                 printwriter.println("invertYMouse:" + AbstractOption.INVERT_MOUSE.get(this));
-                printwriter.println("realmsNotifications:" + AbstractOption.REALMS_NOTIFICATIONS.get(this));
                 printwriter.println("reducedDebugInfo:" + AbstractOption.REDUCED_DEBUG_INFO.get(this));
                 printwriter.println("snooperEnabled:" + AbstractOption.SNOOPER.get(this));
                 printwriter.println("showSubtitles:" + AbstractOption.SHOW_SUBTITLES.get(this));
@@ -958,7 +944,6 @@ public class GameSettings
                 printwriter.println("mainHand:" + (this.mainHand == HandSide.LEFT ? "left" : "right"));
                 printwriter.println("attackIndicator:" + this.attackIndicator.getId());
                 printwriter.println("narrator:" + this.narrator.getId());
-                printwriter.println("tutorialStep:" + this.tutorialStep.getName());
                 printwriter.println("mouseWheelSensitivity:" + this.mouseWheelSensitivity);
                 printwriter.println("rawMouseInput:" + AbstractOption.RAW_MOUSE_INPUT.get(this));
                 printwriter.println("glDebugVerbosity:" + this.glDebugVerbosity);

@@ -1,29 +1,28 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Screen;
-import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Account;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.buttons.AltList;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.ParticleOverlay;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.gui.impl.others.AccountSorter;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.AccountManager;
-import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.sorting.AccountCompareType;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ import java.util.List;
 public class ClassicAltScreen extends Screen {
     private AltList altList;
     public AccountManager accountManager = Client.getInstance().accountManager;
-    private Input altSearchBox;
+    private final Input altSearchBox;
     private final ClassicAltScreenGroup altScreenGroup;
     private String status = "§7Idle...";
 
@@ -69,30 +68,30 @@ public class ClassicAltScreen extends Screen {
                 )
         );
         this.altSearchBox.setFont(ResourceRegistry.DefaultClientFont);
-        this.altSearchBox.method13151(var1 -> this.method13402());
+        this.altSearchBox.addChangeListener(var1 -> this.method13402());
         this.method13403();
         this.addToList(
                 this.altScreenGroup = new ClassicAltScreenGroup(this, "toolbar", (Minecraft.getInstance().getMainWindow().getWidth() - var9) / 2 + 16, this.getHeightA() - 94)
         );
-        this.altScreenGroup.method13296(false);
+        this.altScreenGroup.setHovered(false);
     }
 
-    private void method13395(Account var1) {
+    private void method13395(com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var1) {
         int var4 = 52;
-        Class4349 var5;
+        Account var5;
         this.altList
                 .addToList(
-                        var5 = new Class4349(this.altList, var1.getEmail(), 4, var4 * this.method13400() + 4, this.altList.getWidthA() - 8, var4, var1)
+                        var5 = new Account(this.altList, var1.getEmail(), 4, var4 * this.method13400() + 4, this.altList.getWidthA() - 8, var4, var1)
                 );
         var5.doThis((var2, var3) -> {
             if (var3 == 0) {
-                Class4349 var6 = this.method13406();
+                Account var6 = this.method13406();
                 if (var6 != null) {
                     var6.method13580(false);
                 }
 
                 var5.method13580(true);
-                this.altScreenGroup.method13296(true);
+                this.altScreenGroup.setHovered(true);
                 if (var6 != null && var6.equals(var5)) {
                     this.method13398(var5);
                 }
@@ -101,26 +100,26 @@ public class ClassicAltScreen extends Screen {
     }
 
     public void method13396() {
-        Class4349 var3 = this.method13406();
+        Account var3 = this.method13406();
         if (var3 != null) {
             this.method13398(var3);
         }
     }
 
     public void method13397() {
-        Class4349 var3 = this.method13406();
+        Account var3 = this.method13406();
         if (var3 != null) {
             this.accountManager.removeAccount(var3.field21249);
-            this.altScreenGroup.method13296(false);
+            this.altScreenGroup.setHovered(false);
             this.method13402();
         }
     }
 
-    public void method13398(Class4349 var1) {
+    public void method13398(Account var1) {
         this.method13399(var1.field21249);
     }
 
-    public void method13399(Account var1) {
+    public void method13399(com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var1) {
         this.status = "§bLogging in...";
         new Thread(() -> {
             if (!this.accountManager.login(var1)) {
@@ -142,8 +141,8 @@ public class ClassicAltScreen extends Screen {
                 20.0F,
                 "Account Manager - " + this.method13400() + " alts",
                 ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                Class2218.field14492,
-                Class2218.field14488
+                FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                FontSizeAdjust.field14488
         );
         RenderUtil.drawString(
                 ResourceRegistry.DefaultClientFont,
@@ -151,8 +150,8 @@ public class ClassicAltScreen extends Screen {
                 40.0F,
                 this.status,
                 ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                Class2218.field14492,
-                Class2218.field14488,
+                FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+                FontSizeAdjust.field14488,
                 false
         );
     }
@@ -185,13 +184,13 @@ public class ClassicAltScreen extends Screen {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         this.accountManager.saveAlts();
         return config;
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         for (CustomGuiScreen var5 : this.altList.getChildren()) {
             if (!(var5 instanceof VerticalScrollBar)) {
                 for (CustomGuiScreen var7 : var5.getChildren()) {
@@ -208,23 +207,23 @@ public class ClassicAltScreen extends Screen {
     }
 
     public void method13403() {
-        List<Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getTypedText());
+        List<com.mentalfrostbyte.jello.managers.util.account.microsoft.Account> var4 = AccountSorter.sortByInputAltAccounts(this.accountManager.getAccounts(), AccountCompareType.DateAdded, "", this.altSearchBox.getText());
         int var5 = 0;
         if (this.altList != null) {
             var5 = this.altList.method13513();
-            this.method13236(this.altList);
+            this.removeChildren(this.altList);
         }
 
         CustomGuiScreen var6 = this.method13221("alts");
         if (var6 != null) {
-            this.method13236(var6);
+            this.removeChildren(var6);
         }
 
         int var7 = Minecraft.getInstance().getMainWindow().getWidth() - 200;
         int var8 = this.getWidthA() - var7;
         this.showAlert(this.altList = new AltList(this, "alts", var8 / 2, 69, var7, Minecraft.getInstance().getMainWindow().getHeight() - 169));
 
-        for (Account var10 : var4) {
+        for (com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var10 : var4) {
             this.method13395(var10);
         }
 
@@ -241,13 +240,12 @@ public class ClassicAltScreen extends Screen {
         return Minecraft.getInstance().getMainWindow().getHeight() / 12 + 280 + Minecraft.getInstance().getMainWindow().getHeight() / 12;
     }
 
-    public Class4349 method13406() {
+    public Account method13406() {
         for (CustomGuiScreen var4 : this.altList.getChildren()) {
             if (!(var4 instanceof VerticalScrollBar)) {
                 for (CustomGuiScreen var6 : var4.getChildren()) {
-                    if (var6 instanceof Class4349) {
-                        Class4349 var7 = (Class4349) var6;
-                        if (var7.method13582()) {
+                    if (var6 instanceof Account var7) {
+						if (var7.method13582()) {
                             return var7;
                         }
                     }

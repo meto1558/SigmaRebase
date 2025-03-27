@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -13,9 +13,10 @@ import net.minecraft.network.play.client.*;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FakeLag extends Module {
-    public final ArrayList<IPacket<?>> packets = new ArrayList<>();
+    public final List<IPacket<?>> packets = new ArrayList<>();
     public final TimerUtil timerUtil = new TimerUtil();
     public boolean isLagging;
 
@@ -38,8 +39,10 @@ public class FakeLag extends Module {
 
     @Override
     public void onDisable() {
-        for (IPacket<?> packet : this.packets) {
-            mc.getConnection().getNetworkManager().sendPacket(packet);
+        if (!this.packets.isEmpty() && mc.world != null) {
+            for (IPacket<?> packet : this.packets) {
+                mc.getConnection().getNetworkManager().sendPacket(packet);
+            }
         }
     }
 
@@ -67,12 +70,12 @@ public class FakeLag extends Module {
         } else {
             // If lag duration has not ended, process packets
             if (this.timerUtil.getElapsedTime() <= this.getNumberValueBySettingName("Lag duration") * 1000.0F) {
-                IPacket<?> packet = event.getPacket();
+                IPacket<?> packet = event.packet;
 
                 // Check for packet types and module settings
                 if (shouldDelayPacket(packet)) {
                     this.packets.add(packet);
-                    event.setCancelled(true);
+                    event.cancelled = true;
                 }
             } else {
                 // End lagging and send all delayed packets

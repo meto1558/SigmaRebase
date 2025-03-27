@@ -1,14 +1,13 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.AddAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.DirectLoginScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus.EditAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
-import com.mentalfrostbyte.jello.gui.unmapped.Class4349;
-import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.altmanager.Account;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 
@@ -43,7 +42,7 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
       this.field21143
          .doThis(
             (var1x, var2x) -> {
-               Account var5 = Client.getInstance()
+               com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var5 = Client.getInstance()
                   .accountManager
                   .getAccounts()
                   .get(new Random().nextInt(Client.getInstance().accountManager.getAccounts().size()));
@@ -54,7 +53,7 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
       this.field21142.doThis((var1x, var2x) -> var10.method13396());
       this.field21144.doThis((var1x, var2x) -> var10.method13397());
       this.field21146.doThis((var1x, var2x) -> {
-         Class4349 var5 = var10.method13406();
+         Account var5 = var10.method13406();
          if (var5 != null) {
             Client.getInstance().guiManager.handleScreen(new EditAltScreen(var5.field21249));
          }
@@ -64,10 +63,10 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
    }
 
    @Override
-   public void method13296(boolean var1) {
-      this.field21144.method13296(var1);
-      this.field21146.method13296(var1);
-      this.field21142.method13296(var1);
+   public void setHovered(boolean hovered) {
+      this.field21144.setHovered(hovered);
+      this.field21146.setHovered(hovered);
+      this.field21142.setHovered(hovered);
    }
 
    public boolean method13469() {

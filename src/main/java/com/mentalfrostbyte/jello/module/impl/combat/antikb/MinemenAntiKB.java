@@ -4,8 +4,9 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -27,14 +28,14 @@ public class MinemenAntiKB extends Module {
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer var1) {
         if (var1.isPre()) {
-            if (MovementUtil2.isAboveBounds(mc.player, 1.0E-5F)) {
+            if (BlockUtil.isAboveBounds(mc.player, 1.0E-5F)) {
                 this.aboveBounds = true;
                 var1.setY(var1.getY() - 5.0E-7);
-                var1.setGround(false);
+                var1.setOnGround(false);
             } else {
                 if (this.aboveBounds && mc.player.getMotion().y < 0.0) {
                     this.aboveBounds = false;
-                    var1.setGround(true);
+                    var1.setOnGround(true);
                 }
             }
         }
@@ -48,24 +49,22 @@ public class MinemenAntiKB extends Module {
                     this.field23853 = false;
                 }
             } else {
-                var1.setY(com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue());
+                var1.setY(MovementUtil.getJumpValue());
                 this.field23853 = false;
             }
         }
 
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setPlayerYMotion(var1.getY());
+        mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
     }
 
     @EventTarget
     public void onReceivePacket(EventReceivePacket var1) {
-        if (mc.player != null && var1.getPacket() instanceof SEntityVelocityPacket) {
-            SEntityVelocityPacket var5 = (SEntityVelocityPacket) var1.getPacket();
-            if (var5.getEntityID() == mc.player.getEntityId() && var5.motionY < 0 && mc.player.isOnGround()) {
+        if (mc.player != null && var1.packet instanceof SEntityVelocityPacket var5) {
+			if (var5.getEntityID() == mc.player.getEntityId() && var5.motionY < 0 && mc.player.isOnGround()) {
                 var1.cancelled = true;
             }
-        } else if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
-            SPlayerPositionLookPacket var4 = (SPlayerPositionLookPacket) var1.getPacket();
-            this.field23853 = true;
+        } else if (var1.packet instanceof SPlayerPositionLookPacket var4) {
+			this.field23853 = true;
         }
     }
 }

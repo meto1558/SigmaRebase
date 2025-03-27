@@ -4,14 +4,14 @@ package com.mentalfrostbyte.jello.module.impl.item;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -51,7 +51,7 @@ public class AutoPotion extends Module {
     @LowestPriority
     public void method16629(EventUpdateWalkingPlayer var1) {
         if (this.isEnabled() && var1.isPre()) {
-            if (this.getBooleanValueFromSettingName("In fight") || KillAura.currentTimedEntity == null && KillAura.currentTarget == null) {
+            if (this.getBooleanValueFromSettingName("In fight") || KillAura.targetData == null && KillAura.targetEntity == null) {
                 int var4 = this.method16631();
                 this.field23808++;
                 int[] var5 = new int[]{6, -1, -1};
@@ -103,7 +103,7 @@ public class AutoPotion extends Module {
         double var3 = mc.player.getPosX() + mc.player.getMotion().x * 26.0;
         double var5 = mc.player.getBoundingBox().minY - 3.6;
         double var7 = mc.player.getPosZ() + mc.player.getMotion().z * 26.0;
-        return !this.getBooleanValueFromSettingName("Predict") ? new float[]{mc.player.rotationYaw, 90.0F} : RotationHelper.rotationToPos(var3, var7, var5);
+        return !this.getBooleanValueFromSettingName("Predict") ? new float[]{mc.player.rotationYaw, 90.0F} : RotationUtil.rotationToPos(var3, var7, var5);
     }
 
     public int method16631() {
@@ -136,7 +136,7 @@ public class AutoPotion extends Module {
                             int var14 = Effect.getId(var13.getPotion());
                             int var15 = var13.getAmplifier();
                             int var16 = var13.getDuration();
-                            if (var14 == var1 && InvManagerUtil.method25859(var9)) {
+                            if (var14 == var1 && InvManagerUtil.isPotionItem(var9)) {
                                 if (var15 <= var4) {
                                     if (var15 == var4 && var16 > var5) {
                                         var6 = var8;
@@ -180,7 +180,7 @@ public class AutoPotion extends Module {
         if (var6 != -1) {
             if (var6 < 36) {
                 if (Client.getInstance().playerTracker.getMode() > 2) {
-                    InvManagerUtil.moveItemToHotbar(var6, var2);
+                    InvManagerUtil.clickSlot(var6, var2);
                 }
             } else {
                 this.field23808 = 0;

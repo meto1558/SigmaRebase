@@ -1,11 +1,11 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.Class6665;
-import com.mentalfrostbyte.jello.gui.unmapped.IWidthSetter;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.combined.ContentSize;
+import com.mentalfrostbyte.jello.gui.base.interfaces.IWidthSetter;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -14,7 +14,7 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
    private boolean field21202;
    private boolean field21203 = false;
    public CustomGuiScreen buttonList;
-   public VerticalScrollBar field21205;
+   public VerticalScrollBar scrollBar;
    private boolean field21206 = true;
    public int field21207 = 35;
    public boolean field21208 = false;
@@ -39,19 +39,19 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
       this.method13511();
    }
 
-   private final void method13511() {
+   private void method13511() {
       this.getChildren().add(this.buttonList = new CustomGuiScreen(this, "content", 0, 0, this.widthA, this.heightA));
-      this.buttonList.setSize(new Class6665());
-      this.getChildren().add(this.field21205 = new VerticalScrollBar(this, 11));
-      this.field21205.method13292(true);
+      this.buttonList.setSize(new ContentSize());
+      this.getChildren().add(this.scrollBar = new VerticalScrollBar(this, 11));
+      this.scrollBar.setReAddChildren(true);
    }
 
    public void method13512(int var1) {
-      this.field21205.field20793 = var1;
+      this.scrollBar.offset = var1;
    }
 
    public int method13513() {
-      return this.field21205 != null ? this.field21205.field20793 : 0;
+      return this.scrollBar != null ? this.scrollBar.offset : 0;
    }
 
    public void method13514(boolean var1) {
@@ -60,9 +60,9 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
-      if (!this.field21203 || this.isVisible()) {
+      if (!this.field21203 || this.isSelfVisible()) {
          super.updatePanelDimensions(newHeight, newWidth);
-         this.buttonList.setYA(-1 * this.field21205.method13162());
+         this.buttonList.setYA(-1 * this.scrollBar.method13162());
 
          for (CustomGuiScreen var6 : this.getButton().getChildren()) {
             for (IWidthSetter var8 : var6.method13260()) {
@@ -83,7 +83,7 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
    @Override
    public void draw(float partialTicks) {
       this.method13224();
-      if (!this.field21203 || this.isVisible()) {
+      if (!this.field21203 || this.isSelfVisible()) {
          if (this.field21206) {
             RenderUtil.method11415(this);
          }

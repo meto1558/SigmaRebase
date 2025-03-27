@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
@@ -37,15 +37,14 @@ public class GommeAntiKB extends Module {
             event.setZ(event.getZ() * 0.5);
         } else if (this.velocityPackets == 2) {
             this.velocityPackets++;
-            MovementUtil.setSpeed(event, this.getNumberValueBySettingName("Boost"));
+            MovementUtil.setMotion(event, this.getNumberValueBySettingName("Boost"));
         }
     }
 
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
-        if (event.getPacket() instanceof SEntityVelocityPacket) {
-            SEntityVelocityPacket var4 = (SEntityVelocityPacket) event.getPacket();
-            if (var4.getEntityID() == mc.player.getEntityId()) {
+        if (event.packet instanceof SEntityVelocityPacket var4) {
+			if (var4.getEntityID() == mc.player.getEntityId()) {
                 this.velocityPackets = 1;
                 this.motionY = (double) var4.getMotionY() / 8000.0;
             }

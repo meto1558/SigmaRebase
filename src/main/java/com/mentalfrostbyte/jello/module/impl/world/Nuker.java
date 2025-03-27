@@ -4,13 +4,12 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import net.minecraft.block.*;
@@ -68,8 +67,8 @@ public class Nuker extends Module {
                         this.targetPos = this.blocksToDestroy.get(0);
                     }
 
-                    float[] rotations = RotationHelper.rotationToPos(
-                            (double) this.targetPos.getX(), (double) this.targetPos.getZ(), (double) this.targetPos.getY()
+                    float[] rotations = RotationUtil.rotationToPos(
+							this.targetPos.getX(), this.targetPos.getZ(), this.targetPos.getY()
                     );
                     event.setYaw(rotations[0]);
                     event.setPitch(rotations[1]);
@@ -77,8 +76,8 @@ public class Nuker extends Module {
                     EventBus.call(keyPress);
                 } else {
                     this.targetPos = this.blocksToDestroy.get(0);
-                    float[] var6 = RotationHelper.rotationToPos(
-                            (double) this.targetPos.getX() + 0.5, (double) this.targetPos.getZ(), (double) this.targetPos.getY() + 0.5
+                    float[] var6 = RotationUtil.rotationToPos(
+                            (double) this.targetPos.getX() + 0.5, this.targetPos.getZ(), (double) this.targetPos.getY() + 0.5
                     );
                     event.setYaw(var6[0]);
                     event.setPitch(var6[1]);
@@ -107,7 +106,7 @@ public class Nuker extends Module {
     @EventTarget
     public void onRender(EventRender3D var1) {
         if (this.targetPos != null && !mc.world.getBlockState(this.targetPos).isAir()) {
-            int var4 = MovementUtil2.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.4F);
+            int var4 = RenderUtil.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.4F);
             GL11.glPushMatrix();
             GL11.glDisable(2929);
             double var5 = (double) this.targetPos.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();

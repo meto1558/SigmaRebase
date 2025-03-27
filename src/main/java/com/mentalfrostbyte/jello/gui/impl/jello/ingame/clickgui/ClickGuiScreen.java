@@ -1,16 +1,23 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
+import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.SmallImage;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.PanelGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.SettingGroup;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.musicplayer.MusicPlayer;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.BrainFreeze;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
@@ -20,7 +27,6 @@ import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
-import totalcross.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +44,7 @@ public class ClickGuiScreen extends Screen {
     public BrainFreezeOverlay brainFreeze;
     public ConfigScreen configButton;
     public SettingGroup settingGroup;
-    public AlertPanel dependenciesAlert;
+    public Alert dependenciesAlert;
     public PanelGroup panelGroup = null;
 
     public ClickGuiScreen() {
@@ -49,9 +55,9 @@ public class ClickGuiScreen extends Screen {
         this.addToList(this.brainFreeze = new BrainFreezeOverlay(this, "brainFreeze"));
 
         for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (!this.categoryPanels.containsKey(module.getAdjustedCategoryBasedOnClientMode())) {
-                PanelGroup clickGUIPanels = new PanelGroup(this, module.getAdjustedCategoryBasedOnClientMode().name(), x, y, module.getAdjustedCategoryBasedOnClientMode());
-                this.categoryPanels.put(module.getAdjustedCategoryBasedOnClientMode(), clickGUIPanels);
+            if (!this.categoryPanels.containsKey(module.getCategoryBasedOnMode())) {
+                PanelGroup clickGUIPanels = new PanelGroup(this, module.getCategoryBasedOnMode().name(), x, y, module.getCategoryBasedOnMode());
+                this.categoryPanels.put(module.getCategoryBasedOnMode(), clickGUIPanels);
                 this.addToList(clickGUIPanels);
 
                 x += clickGUIPanels.getWidthA() + 10;
@@ -62,26 +68,26 @@ public class ClickGuiScreen extends Screen {
 
                 clickGUIPanels.method13507(var2 -> this.runThisOnDimensionUpdate(() -> {
                     this.addToList(this.settingGroup = new SettingGroup(this, "settings", 0, 0, this.widthA, this.heightA, var2));
-                    this.settingGroup.method13292(true);
+                    this.settingGroup.setReAddChildren(true);
                 }));
             }
         }
 
         this.addToList(this.musicPlayer = new MusicPlayer(this, "musicPlayer"));
         this.musicPlayer.method13215(true);
-        PNGIconButton moreButton;
-        this.addToList(moreButton = new PNGIconButton(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
+        SmallImage moreButton;
+        this.addToList(moreButton = new SmallImage(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
 
         moreButton.getTextColor().setPrimaryColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
 
-        this.musicPlayer.setEnabled(true);
+        this.musicPlayer.setSelfVisible(true);
         moreButton.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
             if (this.configButton != null && this.hasChild(this.configButton)) {
                 this.method13234(this.configButton);
             } else {
                 this.addToList(this.configButton = new ConfigScreen(this, "morepopover", this.getWidthA() - 14, this.getHeightA() - 14));
-                this.configButton.method13292(true);
+                this.configButton.setReAddChildren(true);
             }
         }));
 
@@ -96,24 +102,24 @@ public class ClickGuiScreen extends Screen {
             return true;
         } else if (this.dependenciesAlert == null) {
             this.runThisOnDimensionUpdate(() -> {
-                List<MiniAlert> alerts = new ArrayList<>();
-                alerts.add(new MiniAlert(AlertType.HEADER, "Music", 40));
-                alerts.add(new MiniAlert(AlertType.FIRST_LINE, "Jello Music requires:", 20));
+                List<AlertComponent> alerts = new ArrayList<>();
+                alerts.add(new AlertComponent(ComponentType.HEADER, "Music", 40));
+                alerts.add(new AlertComponent(ComponentType.FIRST_LINE, "Jello Music requires:", 20));
 
                 if (!Client.getInstance().musicManager.hasPython()) {
-                    alerts.add(new MiniAlert(AlertType.FIRST_LINE, "- Python 3.12.5", 30));
+                    alerts.add(new AlertComponent(ComponentType.FIRST_LINE, "- Python 3.12.5", 30));
                 }
 
                 if (!Client.getInstance().musicManager.hasVCRedist()) {
-                    alerts.add(new MiniAlert(AlertType.FIRST_LINE, "- Visual C++ 2010 x86", 30));
+                    alerts.add(new AlertComponent(ComponentType.FIRST_LINE, "- Visual C++ 2010 x86", 30));
                 }
 
-                alerts.add(new MiniAlert(AlertType.BUTTON, "Download", 55));
-                this.showAlert(this.dependenciesAlert = new AlertPanel(this, "music", true, "Dependencies.", alerts.toArray(new MiniAlert[0])));
+                alerts.add(new AlertComponent(ComponentType.BUTTON, "Download", 55));
+                this.showAlert(this.dependenciesAlert = new Alert(this, "music", true, "Dependencies.", alerts.toArray(new AlertComponent[0])));
 
                 this.dependenciesAlert.onPress(thread -> {
                     if (!Client.getInstance().musicManager.hasPython()) {
-                        Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/python-3.12.5-macos11.pkg");
+                        Util.getOSType().openLink("https://www.python.org/ftp/python/3.12.5/");
                     }
 
                     if (!Client.getInstance().musicManager.hasVCRedist()) {
@@ -123,7 +129,7 @@ public class ClickGuiScreen extends Screen {
 
                 this.dependenciesAlert.method13604(thread -> new Thread(() -> {
                     this.runThisOnDimensionUpdate(() -> {
-                        this.method13236(this.dependenciesAlert);
+                        this.removeChildren(this.dependenciesAlert);
                         this.dependenciesAlert = null;
                     });
                 }).start());
@@ -144,10 +150,10 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.musicPlayer.setEnabled(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
+        this.musicPlayer.setSelfVisible(this.musicPlayer.getWidthA() < this.getWidthA() && this.musicPlayer.getHeightA() < this.getHeightA());
         super.updatePanelDimensions(newHeight, newWidth);
         RenderUtil2.setShaderParamsRounded(Math.min(1.0F, animationProgress.calcPercent() * 4.0F));
-        this.brainFreeze.setEnabled(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
+        this.brainFreeze.setSelfVisible(Client.getInstance().moduleManager.getModuleByClass(BrainFreeze.class).isEnabled());
         if (this.configButton != null) {
             int newHeightValue = newHeight - this.configButton.method13271();
             int newWidthValue = newWidth - this.configButton.method13272();
@@ -158,7 +164,7 @@ public class ClickGuiScreen extends Screen {
         }
 
         if (this.configButton != null && this.configButton.method13614()) {
-            this.method13236(this.configButton);
+            this.removeChildren(this.configButton);
             this.configButton = null;
         }
 
@@ -168,7 +174,7 @@ public class ClickGuiScreen extends Screen {
 
         if (this.settingGroup != null && this.settingGroup.field20671 && this.settingGroup.animation1.calcPercent() == 0.0F) {
             this.runThisOnDimensionUpdate(() -> {
-                this.method13236(this.settingGroup);
+                this.removeChildren(this.settingGroup);
                 this.settingGroup = null;
             });
         }
@@ -197,14 +203,14 @@ public class ClickGuiScreen extends Screen {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         RenderUtil2.resetShaders();
         this.method13234(this.blurOverlay);
         return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         super.loadConfig(config);
     }
 
@@ -228,7 +234,7 @@ public class ClickGuiScreen extends Screen {
     @Override
     public void keyPressed(int keyCode) {
         super.keyPressed(keyCode);
-        int keyBindForClickGui = Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGuiHolder.class);
+        int keyBindForClickGui = Client.getInstance().moduleManager.getKeyManager().getKeybindFor(ClickGuiHolder.class);
         if (keyCode == 256 || keyCode == keyBindForClickGui && this.settingGroup == null && !this.method13227()) {
             if (animationCompleted) {
                 animationStarted = !animationStarted;
@@ -240,7 +246,7 @@ public class ClickGuiScreen extends Screen {
 
     public float method13317(float var1, float var2) {
         return animationProgress.getDirection() != Animation.Direction.BACKWARDS
-                ? (float) (Math.pow(2.0, (double) (-10.0F * var1)) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
+                ? (float) (Math.pow(2.0, -10.0F * var1) * Math.sin((double) (var1 - var2 / 4.0F) * (Math.PI * 2) / (double) var2) + 1.0)
                 : QuadraticEasing.easeOutQuad(var1, 0.0F, 1.0F, 1.0F);
     }
 
@@ -269,7 +275,7 @@ public class ClickGuiScreen extends Screen {
         }
 
         if (Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig() != null && !Client.getInstance().notificationManager.isRenderingNotification()) {
-            String configName = Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig().getName;
+            String configName = Client.getInstance().moduleManager.getConfigurationManager().getCurrentConfig().profileName;
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont20,
                     (float) (this.widthA - ResourceRegistry.JelloLightFont20.getWidth(configName) - 80),
@@ -288,10 +294,10 @@ public class ClickGuiScreen extends Screen {
 
         super.draw(partialTicks * Math.min(1.0F, alphaFactor) * fadeAmount);
         if (this.panelGroup != null) {
-            this.panelGroup.method13292(false);
+            this.panelGroup.setReAddChildren(false);
         }
 
-        this.blurOverlay.method13292(false);
+        this.blurOverlay.setReAddChildren(false);
         this.method13234(this.blurOverlay);
     }
 }

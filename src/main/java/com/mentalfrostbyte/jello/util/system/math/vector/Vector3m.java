@@ -12,15 +12,15 @@ public class Vector3m implements Comparable<Vector3m> {
    }
 
    public Vector3m(int x, int y, int z) {
-      this.x = (double)x;
-      this.y = (double)y;
-      this.z = (double)z;
+      this.x = x;
+      this.y = y;
+      this.z = z;
    }
 
    public Vector3m(float x, float y, float z) {
-      this.x = (double)x;
-      this.y = (double)y;
-      this.z = (double)z;
+      this.x = x;
+      this.y = y;
+      this.z = z;
    }
 
    public Vector3m(Vector3m vectorIn) {
@@ -48,7 +48,7 @@ public class Vector3m implements Comparable<Vector3m> {
    }
 
    public Vector3m withX(int x) {
-      return new Vector3m((double)x, this.y, this.z);
+      return new Vector3m(x, this.y, this.z);
    }
 
    public double getY() {
@@ -64,7 +64,7 @@ public class Vector3m implements Comparable<Vector3m> {
    }
 
    public Vector3m withY(int y) {
-      return new Vector3m(this.x, (double)y, this.z);
+      return new Vector3m(this.x, y, this.z);
    }
 
    public double getZ() {
@@ -80,7 +80,7 @@ public class Vector3m implements Comparable<Vector3m> {
    }
 
    public Vector3m withZ(int z) {
-      return new Vector3m(this.x, this.y, (double)z);
+      return new Vector3m(this.x, this.y, z);
    }
 
    public Vector3m add(Vector3m vectorIn) {
@@ -252,7 +252,7 @@ public class Vector3m implements Comparable<Vector3m> {
    }
 
    public Vector3m clampY(int min, int max) {
-      return new Vector3m(this.x, Math.max((double)min, Math.min((double)max, this.y)), this.z);
+      return new Vector3m(this.x, Math.max(min, Math.min(max, this.y)), this.z);
    }
 
    public Vector3m floor() {
@@ -359,11 +359,10 @@ public class Vector3m implements Comparable<Vector3m> {
 
    @Override
    public boolean equals(Object obj) {
-      if (!(obj instanceof Vector3m)) {
+      if (!(obj instanceof Vector3m vec)) {
          return false;
       } else {
-         Vector3m vec = (Vector3m)obj;
-         return vec.x == this.x && vec.y == this.y && vec.z == this.z;
+		  return vec.x == this.x && vec.y == this.y && vec.z == this.z;
       }
    }
 
@@ -427,11 +426,10 @@ public class Vector3m implements Comparable<Vector3m> {
 
       @Override
       public boolean equals(Object obj) {
-         if (!(obj instanceof Vector3m)) {
+         if (!(obj instanceof Vector3m vectorI)) {
             return false;
          } else {
-            Vector3m vectorI = (Vector3m) obj;
-            return (int)vectorI.getX() == (int)this.x
+			 return (int)vectorI.getX() == (int)this.x
                && (int)vectorI.getY() == (int)this.y
                && (int)vectorI.getZ() == (int)this.z;
          }

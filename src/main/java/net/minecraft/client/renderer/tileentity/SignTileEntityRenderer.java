@@ -98,7 +98,7 @@ public class SignTileEntityRenderer extends TileEntityRenderer<SignTileEntity>
 
                 if (ireorderingprocessor != null)
                 {
-                    float f3 = (float)(-fontrenderer.func_243245_a(ireorderingprocessor) / 2);
+                    float f3 = (float)(-fontrenderer.getStringWidth(ireorderingprocessor) / 2);
                     fontrenderer.func_238416_a_(ireorderingprocessor, f3, (float)(k1 * 10 - 20), i1, false, matrixStackIn.getLast().getMatrix(), bufferIn, false, 0, combinedLightIn);
                 }
             }

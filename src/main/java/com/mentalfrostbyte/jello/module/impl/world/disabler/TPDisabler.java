@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -59,7 +59,7 @@ public class TPDisabler extends Module {
                     mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(mc.player.getPosX(), PosY, mc.player.getPosX(), onGround));
                 } else {
                     event.setY(PosY);
-                    event.setGround(onGround);
+                    event.setOnGround(onGround);
                 }
             }
         }

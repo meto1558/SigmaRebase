@@ -22,9 +22,8 @@ public class BanListener {
     @EventTarget
     public void onPacketReceive(EventReceivePacket event) {
         if (this.mc.getCurrentServerData() != null) {
-            if (event.getPacket() instanceof SChatPacket) {
-                SChatPacket packet = (SChatPacket) event.getPacket();
-                ArrayList<String> var5 = new ArrayList<>(
+            if (event.packet instanceof SChatPacket packet) {
+                ArrayList<String> banMessages = new ArrayList<>(
                         Arrays.asList(
                                 "You are permanently banned from MinemenClub. ",
                                 "Your connection to the server leu-practice has been prevented due to you being associated to a blacklisted player.",
@@ -32,21 +31,21 @@ public class BanListener {
                         )
                 );
                 if (!packet.getChatComponent().getSiblings().isEmpty()
-                        && var5.contains(packet.getChatComponent().getString())
+                        && banMessages.contains(packet.getChatComponent().getString())
                         && packet.getChatComponent().getSiblings().get(0).getStyle().getColor().toString().equalsIgnoreCase("red")) {
-                    Account var6 = Client.getInstance().accountManager.containsAccount();
-                    if (var6 != null) {
-                        Ban var7 = new Ban(this.mc.getCurrentServerData().serverIP, new Date(Long.MAX_VALUE));
-                        var6.registerBan(var7);
-                        Client.getInstance().accountManager.updateAccount(var6);
+                    Account account = Client.getInstance().accountManager.containsAccount();
+                    if (account != null) {
+                        Ban ban = new Ban(this.mc.getCurrentServerData().serverIP, new Date(Long.MAX_VALUE));
+                        account.registerBan(ban);
+                        Client.getInstance().accountManager.updateAccount(account);
                         Client.getInstance().accountManager.saveAlts();
                     }
                 }
             }
 
-            if (!(event.getPacket() instanceof SDisconnectLoginPacket)) {
-                if (!(event.getPacket() instanceof SDisconnectPacket)) {
-                    if (event.getPacket() instanceof SLoginSuccessPacket) {
+            if (!(event.packet instanceof SDisconnectLoginPacket packet)) {
+                if (!(event.packet instanceof SDisconnectPacket packet)) {
+                    if (event.packet instanceof SLoginSuccessPacket) {
                         long currentTimeMillis = System.currentTimeMillis();
                         if (this.mc.getCurrentServerData() == null) {
                             return;
@@ -61,7 +60,6 @@ public class BanListener {
                         }
                     }
                 } else {
-                    SDisconnectPacket packet = (SDisconnectPacket) event.getPacket();
                     long banDur = this.calculateBanDuration(packet.getReason().getString());
                     if (banDur == 0L) {
                         return;
@@ -76,7 +74,6 @@ public class BanListener {
                     }
                 }
             } else {
-                SDisconnectLoginPacket packet = (SDisconnectLoginPacket) event.getPacket();
                 long banDur = this.calculateBanDuration(packet.getReason().getString());
                 if (banDur == 0L) {
                     return;

@@ -5,10 +5,9 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.sound.*;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -40,9 +39,9 @@ public class NoteblockPlayer extends Module {
 
     public NoteblockPlayer() {
         super(ModuleCategory.MISC, "NoteblockPlayer", "Plays noteblocks! Needs NBS files in sigma5/nbs");
-        File var3 = new File(Client.getInstance().file + "/nbs");
-        if (var3.exists()) {
-            this.field23640 = new ArrayList<>(Arrays.asList(var3.list()));
+        File nbsFile = new File(Client.getInstance().file + "/nbs");
+        if (nbsFile.exists()) {
+            this.field23640 = new ArrayList<>(Arrays.asList(nbsFile.list()));
 
             for (int var4 = 0; var4 < this.field23640.size(); var4++) {
                 if (this.field23640.get(var4).startsWith(".")) {
@@ -90,7 +89,6 @@ public class NoteblockPlayer extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
         super.onDisable();
     }
 
@@ -114,8 +112,6 @@ public class NoteblockPlayer extends Module {
 
                             this.positions.clear();
 
-                            Rots.rotating = true;
-
                             for (Class9616 var5 : this.nbsFile.method9950().values()) {
                                 Class8255 var6 = var5.method37433(this.field23638);
                                 if (var6 != null) {
@@ -132,15 +128,8 @@ public class NoteblockPlayer extends Module {
                                                 var9 = BlockUtil.method34542(var8.field28401, Direction.DOWN);
                                             }
 
-                                            Rots.prevYaw = var9[0];
-                                            Rots.prevPitch = var9[1];
                                             var1.setYaw(var9[0]);
                                             var1.setPitch(var9[1]);
-                                            Rots.yaw = var9[0];
-                                            Rots.pitch = var9[1];
-
-                                            mc.player.rotationYawHead = var9[0];
-                                            mc.player.renderYawOffset = var9[0];
 
                                             mc.getConnection()
                                                     .sendPacket(new CPlayerDiggingPacket(
@@ -178,16 +167,9 @@ public class NoteblockPlayer extends Module {
             if (var5.field28402 == -1.0F && Math.sqrt(mc.player.getPosition()
                     .distanceSq(var5.field28401)) < (double) mc.playerController.getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
-                Rots.rotating = true;
-                Rots.prevYaw = var6[0];
-                Rots.prevPitch = var6[1];
                 event.setYaw(var6[0]);
                 event.setPitch(var6[1]);
-                Rots.yaw = var6[0];
-                Rots.pitch = var6[1];
 
-                mc.player.rotationYawHead = var6[0];
-                mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK,
                         var5.field28401, Direction.UP));
                 mc.player.swingArm(Hand.MAIN_HAND);
@@ -205,12 +187,7 @@ public class NoteblockPlayer extends Module {
             if (var5.field28402 == -1.0F && Math.sqrt(mc.player.getPosition()
                     .distanceSq(var5.field28401)) < (double) mc.playerController.getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
-                Rots.rotating = true;
-                Rots.prevYaw = var6[0];
-                Rots.prevPitch = var6[1];
                 mc.getConnection().sendPacket(new CPlayerPacket.RotationPacket(var6[0], var6[1], mc.player.isOnGround()));
-                Rots.yaw = var6[0];
-                Rots.pitch = var6[1];
 
                 mc.player.rotationYawHead = var6[0];
                 mc.player.renderYawOffset = var6[0];
@@ -232,15 +209,7 @@ public class NoteblockPlayer extends Module {
                     .getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
                 mc.player.swingArm(Hand.MAIN_HAND);
-                Rots.rotating = true;
-                Rots.prevYaw = var6[0];
-                Rots.prevPitch = var6[1];
                 mc.getConnection().sendPacket(new CPlayerPacket.RotationPacket(var6[0], var6[1], mc.player.isOnGround()));
-                Rots.yaw = var6[0];
-                Rots.pitch = var6[1];
-
-                mc.player.rotationYawHead = var6[0];
-                mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                         BlockUtil.rayTrace(var6[0], var6[1], mc.playerController.getBlockReachDistance() + 1.0F)));
                 this.positions.clear();
@@ -259,16 +228,8 @@ public class NoteblockPlayer extends Module {
                     .getBlockReachDistance()) {
                 float[] var6 = BlockUtil.method34542(var5.field28401, Direction.UP);
                 mc.player.swingArm(Hand.MAIN_HAND);
-                Rots.rotating = true;
-                Rots.prevYaw = var6[0];
-                Rots.prevPitch = var6[1];
                 event.setYaw(var6[0]);
                 event.setPitch(var6[1]);
-                Rots.yaw = var6[0];
-                Rots.pitch = var6[1];
-
-                mc.player.rotationYawHead = var6[0];
-                mc.player.renderYawOffset = var6[0];
                 mc.getConnection().sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND,
                         BlockUtil.rayTrace(var6[0], var6[1], mc.playerController.getBlockReachDistance() + 1.0F)));
                 this.positions.clear();
@@ -305,10 +266,9 @@ public class NoteblockPlayer extends Module {
     public void onPacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
             if (this.field23641 != null) {
-                if (var1.getPacket() instanceof SPlaySoundEffectPacket) {
-                    SPlaySoundEffectPacket var4 = (SPlaySoundEffectPacket) var1.getPacket();
+                if (var1.packet instanceof SPlaySoundEffectPacket var4) {
 
-                    for (int var5 = 0; var5 < this.field23641.size(); var5++) {
+					for (int var5 = 0; var5 < this.field23641.size(); var5++) {
                         Class6463 var6 = this.field23641.get(var5);
                         if (var6.field28401
                                 .equals(new BlockPos(var4.getX(), var4.getY(), var4.getZ()))) {
@@ -318,10 +278,9 @@ public class NoteblockPlayer extends Module {
                     }
                 }
 
-                if (var1.getPacket() instanceof SPlaySoundPacket) {
-                    SPlaySoundPacket var7 = (SPlaySoundPacket) var1.getPacket();
+                if (var1.packet instanceof SPlaySoundPacket var7) {
 
-                    for (int var8 = 0; var8 < this.field23641.size(); var8++) {
+					for (int var8 = 0; var8 < this.field23641.size(); var8++) {
                         Class6463 var9 = this.field23641.get(var8);
                         if (var9.field28401
                                 .equals(new BlockPos(var7.getX(), var7.getY(), var7.getZ()))) {
@@ -368,7 +327,7 @@ public class NoteblockPlayer extends Module {
             this.field23638 = 0;
             this.field23641.clear();
 
-            for (BlockPos var4 : BlockUtil.method34561(mc.playerController.getBlockReachDistance())) {
+            for (BlockPos var4 : BlockUtil.getBlockPositionsInRange(mc.playerController.getBlockReachDistance())) {
                 BlockState var5 = mc.world.getBlockState(var4);
                 if (var5.getBlock() instanceof NoteBlock) {
                     Class6463 var6 = new Class6463(var4);

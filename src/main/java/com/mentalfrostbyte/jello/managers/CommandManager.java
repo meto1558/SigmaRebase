@@ -1,23 +1,23 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.command.impl.*;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
-import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.network.play.client.CChatMessagePacket;
 import net.minecraft.network.play.client.CTabCompletePacket;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandManager {
+public class CommandManager extends Manager {
     public static final String CHAT_COMMAND_CHAR = ".";
     public static final String CHAT_PREFIX = "§f[§6Sigma§f]§7";
     private static final List<Runnable> runnableList = new ArrayList<>();
@@ -28,8 +28,9 @@ public class CommandManager {
         runnableList.add(runnable);
     }
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
         this.register(new VClip());
         this.register(new HClip());
         this.register(new Damage());
@@ -112,16 +113,15 @@ public class CommandManager {
     @EventTarget
     public void onSendPacket(EventSendPacket var1) {
         if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
-            if (var1.getPacket() instanceof CChatMessagePacket) {
-                CChatMessagePacket var4 = (CChatMessagePacket) var1.getPacket();
-                String var5 = var4.getMessage();
+            if (var1.packet instanceof CChatMessagePacket var4) {
+				String var5 = var4.getMessage();
                 if (var5.startsWith(".") && var5.substring(1).startsWith(".")) {
                     var4.message = var5.substring(1);
                     return;
                 }
 
                 if (var5.startsWith(".")) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     this.method30236();
                     String[] var6 = var5.substring(".".length()).split(" ");
                     Command var7 = this.getCommandByName(var6[0]);
@@ -152,9 +152,9 @@ public class CommandManager {
                 }
             }
 
-            if (var1.getPacket() instanceof CTabCompletePacket var11) {
+            if (var1.packet instanceof CTabCompletePacket var11) {
                 if (var11.getCommand().startsWith(".")) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
             }
         }

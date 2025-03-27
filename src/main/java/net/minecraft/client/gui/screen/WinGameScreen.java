@@ -244,7 +244,7 @@ public class WinGameScreen extends Screen
 
                 if (this.field_238664_v_.contains(i1))
                 {
-                    this.font.func_238407_a_(matrices, ireorderingprocessor, (float)(j + (274 - this.font.func_243245_a(ireorderingprocessor)) / 2), (float)l, 16777215);
+                    this.font.func_238407_a_(matrices, ireorderingprocessor, (float)(j + (274 - this.font.getStringWidth(ireorderingprocessor)) / 2), (float)l, 16777215);
                 }
                 else
                 {

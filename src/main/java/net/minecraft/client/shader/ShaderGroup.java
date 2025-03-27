@@ -429,7 +429,7 @@ public class ShaderGroup implements AutoCloseable
         return this.shaderGroupName;
     }
 
-    private Framebuffer getFramebuffer(String p_148017_1_)
+    public Framebuffer getFramebuffer(String p_148017_1_)
     {
         if (p_148017_1_ == null)
         {

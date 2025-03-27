@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
-import totalcross.json.JSONException;
-import totalcross.json.JSONObject;
 import net.minecraft.client.Minecraft;
 
 import java.util.Calendar;
@@ -13,34 +13,34 @@ public class Ban {
     private final String serverIP;
     private final Date date;
 
-    public Ban(String var1, Date var2) {
-        this.serverIP = var1;
-        this.date = var2;
+    public Ban(String serverIP, Date date) {
+        this.serverIP = serverIP;
+        this.date = date;
     }
 
-    public Ban(JSONObject var1) throws JSONException {
+    public Ban(JsonObject var1) throws JsonParseException {
         Calendar var4 = Calendar.getInstance();
-        long var5;
-        if (!(var1.get("until") instanceof Integer)) {
-            var5 = (Long) var1.get("until");
+        long bannedUntil;
+        if (!(var1.get("until").getAsNumber() instanceof Integer)) {
+            bannedUntil = var1.get("until").getAsLong();
         } else {
-            var5 = ((Integer) var1.get("until")).longValue();
+            bannedUntil = ((Integer) var1.get("until").getAsInt()).longValue();
         }
 
-        if (var5 == 1L) {
-            var5 = 9223372036854775806L;
+        if (bannedUntil == 1L) {
+            bannedUntil = 9223372036854775806L;
         }
 
-        var4.setTimeInMillis(var5);
-        this.serverIP = var1.getString("server");
+        var4.setTimeInMillis(bannedUntil);
+        this.serverIP = var1.get("server").getAsString();
         this.date = var4.getTime();
     }
 
-    public JSONObject asJSONObject() {
-        JSONObject var3 = new JSONObject();
-        var3.put("server", this.serverIP);
-        var3.put("until", this.date.getTime());
-        return var3;
+    public JsonObject asJSONObject() {
+        JsonObject jsonObj = new JsonObject();
+        jsonObj.addProperty("server", this.serverIP);
+        jsonObj.addProperty("until", this.date.getTime());
+        return jsonObj;
     }
 
     public String getServerIP() {
@@ -51,15 +51,15 @@ public class Ban {
         return this.date;
     }
 
-    public ServerData method31736() {
-        ServerList var3 = new ServerList(Minecraft.getInstance());
-        var3.loadServerList();
-        int var4 = var3.countServers();
+    public ServerData getServer() {
+        ServerList serverList = new ServerList(Minecraft.getInstance());
+        serverList.loadServerList();
+        int count = serverList.countServers();
 
-        for (int var5 = 0; var5 < var4; var5++) {
-            ServerData var6 = var3.getServerData(var5);
-            if (var6.serverIP.equals(this.serverIP)) {
-                return var6;
+        for (int i = 0; i < count; i++) {
+            ServerData serverData = serverList.getServerData(i);
+            if (serverData.serverIP.equals(this.serverIP)) {
+                return serverData;
             }
         }
 

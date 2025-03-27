@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Keyboard;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.*;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.ModsPanel;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -21,11 +21,11 @@ import java.util.Date;
 import java.util.Map.Entry;
 
 public class KeyboardScreen extends Screen {
-   private static Minecraft field20953 = Minecraft.getInstance();
+   private static final Minecraft field20953 = Minecraft.getInstance();
    private Texture field20954;
    public Date field20955;
-   public Class4375 field20956;
-   public Class4270 field20957;
+   public PopOver field20956;
+   public Keyboard field20957;
    public boolean field20958 = false;
    public boolean field20959;
    public ModsPanel field20960;
@@ -37,7 +37,7 @@ public class KeyboardScreen extends Screen {
    public KeyboardScreen() {
       super("KeybindManager");
       this.field20955 = new Date();
-      this.addToList(this.field20957 = new Class4270(this, "keyboard", (this.widthA - 1060) / 2, (this.heightA - 357) / 2));
+      this.addToList(this.field20957 = new Keyboard(this, "keyboard", (this.widthA - 1060) / 2, (this.heightA - 357) / 2));
       this.field20957.method13279(0.4F, 0.4F);
       this.field20957
          .onPress(
@@ -45,9 +45,10 @@ public class KeyboardScreen extends Screen {
                boolean var5 = false;
 
                for (CustomGuiScreen var7 : this.getChildren()) {
-                  if (var7 instanceof Class4375) {
-                     var5 = true;
-                  }
+				   if (var7 instanceof PopOver) {
+					   var5 = true;
+					   break;
+				   }
                }
 
                if (this.field20957.field20696 == this.field20961 && var5) {
@@ -55,12 +56,12 @@ public class KeyboardScreen extends Screen {
                } else {
                   int[] var8 = this.field20957.method13105(this.field20957.field20696);
                   String var9 = RenderUtil.getKeyName(this.field20957.field20696);
-                  this.field20956 = new Class4375(
+                  this.field20956 = new PopOver(
                      this, "popover", this.field20957.getXA() + var8[0], this.field20957.getYA() + var8[1], this.field20957.field20696, var9
                   );
                   this.field20956.onPress(var1x -> this.method13329(this.field20957));
                   this.field20956.method13713(var1x -> {
-                     var1x.method13292(false);
+                     var1x.setReAddChildren(false);
                      this.method13331();
                   });
                   this.field20961 = this.field20957.field20696;
@@ -84,7 +85,7 @@ public class KeyboardScreen extends Screen {
       return var2;
    }
 
-   private void method13329(Class4270 var1) {
+   private void method13329(Keyboard var1) {
       this.runThisOnDimensionUpdate(new Class635(this, var1));
    }
 

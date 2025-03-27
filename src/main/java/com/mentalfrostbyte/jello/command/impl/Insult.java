@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.command.Command;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 
 
 public class Insult extends Command {
@@ -330,7 +330,7 @@ public class Insult extends Command {
             "arouse",
             "grasp"
     };
-    public static final String[] field25709 = new String[]{
+    public static final String[] commitSelfHarm = new String[]{
             "Go kill yourself", "Jump off of a bridge", "Go back to school", "Get hit by a bus", "Go fuck yourself"
     };
 
@@ -339,9 +339,9 @@ public class Insult extends Command {
     }
 
     @Override
-    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor var3) throws CommandException {
+    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
         if (args.length == 0) {
-            MovementUtil2.sendChatMessage(generateInsult());
+            MinecraftUtil.sendChatMessage(generateInsult());
         } else {
             throw new CommandException("Too many arguments");
         }
@@ -354,10 +354,10 @@ public class Insult extends Command {
     public static String method18333() {
         String var2 = "";
         if (!(Math.random() < 0.9F)) {
-            var2 = field25709[method18335(field25709.length)];
+            var2 = commitSelfHarm[method18335(commitSelfHarm.length)];
         } else {
             String var3 = field25708[method18335(field25708.length)];
-            var3 = var3.substring(0, 1).toUpperCase() + var3.substring(1, var3.length());
+            var3 = var3.substring(0, 1).toUpperCase() + var3.substring(1);
             String var4 = method18334();
             String var5 = "a";
             if (var4.startsWith("a") || var4.startsWith("e") || var4.startsWith("i") || var4.startsWith("o") || var4.startsWith("u")) {
@@ -392,6 +392,6 @@ public class Insult extends Command {
     }
 
     private static int method18335(int var0) {
-        return (int)Math.round(Math.random() * (double)var0);
+        return (int) Math.round(Math.random() * (double) var0);
     }
 }

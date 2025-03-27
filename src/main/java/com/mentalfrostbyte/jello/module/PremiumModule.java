@@ -2,6 +2,7 @@ package com.mentalfrostbyte.jello.module;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 public class PremiumModule extends Module {
 
@@ -11,12 +12,12 @@ public class PremiumModule extends Module {
 
     @Override
     public boolean isEnabled() {
-        return Client.getInstance().networkManager.isPremium() && super.isEnabled();
+        return Client.getInstance().licenseManager.isPremium() && super.isEnabled();
     }
 
     @Override
     public void setState(boolean enabled) {
-        if (Client.getInstance().networkManager.isPremium()) {
+        if (Client.getInstance().licenseManager.isPremium()) {
             super.setState(enabled);
         } else {
             if (this.enabled != enabled) {
@@ -28,7 +29,7 @@ public class PremiumModule extends Module {
 
     @Override
     public void setEnabledBasic(boolean enabled) {
-        if (Client.getInstance().networkManager.isPremium()) {
+        if (Client.getInstance().licenseManager.isPremium()) {
             super.setEnabledBasic(enabled);
         } else {
             if (this.enabled != enabled && enabled) {
@@ -40,7 +41,7 @@ public class PremiumModule extends Module {
 
     @Override
     public void setEnabled(boolean newEnabled) {
-        if (Client.getInstance().networkManager.isPremium()) {
+        if (Client.getInstance().licenseManager.isPremium()) {
             super.setEnabled(newEnabled);
         } else {
             if (this.isEnabled() != newEnabled) {

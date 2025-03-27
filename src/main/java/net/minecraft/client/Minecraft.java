@@ -3,13 +3,18 @@ package net.minecraft.client;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventClick;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.gui.impl.others.LoadingScreen;
+import com.mentalfrostbyte.jello.gui.combined.impl.LoadingScreen;
+import com.mentalfrostbyte.jello.util.client.network.auth.SigmaConfigs;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -45,11 +50,14 @@ import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import de.florianmichael.viamcp.ViaMCP;
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import net.minecraft.block.Block;
@@ -93,7 +101,6 @@ import net.minecraft.client.gui.social.FilterManager;
 import net.minecraft.client.gui.social.SocialInteractionsScreen;
 import net.minecraft.client.gui.toasts.SystemToast;
 import net.minecraft.client.gui.toasts.ToastGui;
-import net.minecraft.client.gui.toasts.TutorialToast;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.login.ClientLoginNetHandler;
@@ -140,7 +147,6 @@ import net.minecraft.client.settings.GraphicsFanciness;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.client.tutorial.Tutorial;
 import net.minecraft.client.util.IMutableSearchTree;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.SearchTree;
@@ -206,17 +212,7 @@ import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.SkullTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.FrameTimer;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Session;
-import net.minecraft.util.SharedConstants;
-import net.minecraft.util.Timer;
-import net.minecraft.util.Unit;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.concurrent.RecursiveEventLoop;
 import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.datafix.codec.DatapackCodec;
@@ -248,7 +244,6 @@ import net.minecraft.world.storage.ServerWorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.JSONException;
 
 import static com.mentalfrostbyte.Client.RELEASE_TARGET;
 
@@ -325,7 +320,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final PotionSpriteUploader potionSprites;
     private final ToastGui toastGui;
     private final MinecraftGame game = new MinecraftGame(this);
-    private final Tutorial tutorial;
     private final FilterManager field_244597_aC;
     public static byte[] memoryReserve = new byte[10485760];
     @Nullable
@@ -364,10 +358,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     @Nullable
     public LoadingGui loadingGui;
 
-    /**
-     * True if the player is connected to a realms server
-     */
-    private boolean connectedToRealms;
     private Thread thread;
     private volatile boolean running = true;
     @Nullable
@@ -381,8 +371,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     private final Queue<Runnable> queueChunkTracking = Queues.newConcurrentLinkedQueue();
     @Nullable
     private CompletableFuture<Void> futureRefreshResources;
-    @Nullable
-    private TutorialToast field_244598_aV;
     private IProfiler profiler = EmptyProfiler.INSTANCE;
     private int gameTime;
     private final TimeTracker gameTimeTracker = new TimeTracker(Util.nanoTimeSupplier, () ->
@@ -406,6 +394,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profileProperties = gameConfig.userInfo.profileProperties;
         this.packFinder = new DownloadingPackFinder(new File(this.gameDir, "server-resource-packs"), gameConfig.folderInfo.getAssetsIndex());
         this.resourcePackRepository = new ResourcePackList(Minecraft::makePackInfo, this.packFinder, new FolderPackFinder(this.fileResourcepacks, IPackNameDecorator.PLAIN));
+
+        SigmaConfigs.start();
+
         this.proxy = gameConfig.userInfo.proxy;
         YggdrasilAuthenticationService yggdrasilauthenticationservice = new YggdrasilAuthenticationService(this.proxy);
         this.sessionService = yggdrasilauthenticationservice.createMinecraftSessionService();
@@ -429,7 +420,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         KeybindTextComponent.func_240696_a_(KeyBinding::getDisplayString);
         this.dataFixer = DataFixesManager.getDataFixer();
         this.toastGui = new ToastGui(this);
-        this.tutorial = new Tutorial(this);
         this.thread = Thread.currentThread();
         this.gameSettings = new GameSettings(this, this.gameDir);
         this.creativeSettings = new CreativeSettings(this.gameDir, this.dataFixer);
@@ -563,8 +553,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             stringbuilder.append(" - ");
             if (this.integratedServer != null && !this.integratedServer.getPublic()) {
                 stringbuilder.append(I18n.format("title.singleplayer"));
-            } else if (this.isConnectedToRealms()) {
-                stringbuilder.append(I18n.format("title.multiplayer.realms"));
             } else if (this.integratedServer != null || this.currentServerData != null && this.currentServerData.isOnLAN()) {
                 stringbuilder.append(I18n.format("title.multiplayer.lan"));
             } else {
@@ -890,7 +878,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.currentScreen = guiScreenIn;
         try {
             Client.getInstance().guiManager.handleCurrentScreen();
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             throw new RuntimeException(e);
         }
 
@@ -1130,7 +1118,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             this.currentScreen.resize(this, this.mainWindow.getScaledWidth(), this.mainWindow.getScaledHeight());
             try {
                 Client.getInstance().guiManager.onResize();
-            } catch (JSONException e) {
+            } catch (JsonParseException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -1337,7 +1325,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private void sendClickBlockToController(boolean leftClick) {
+    public void sendClickBlockToController(boolean leftClick) {
         if (!leftClick) {
             this.leftClickCounter = 0;
         }
@@ -1361,7 +1349,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         }
     }
 
-    private void clickMouse() {
+    public void clickMouse() {
         EventClick eventClick = new EventClick(EventClick.Button.LEFT);
         EventBus.call(eventClick);
 
@@ -1388,7 +1376,12 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 }
                 switch (this.objectMouseOver.getType()) {
                     case ENTITY:
-                        AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        if (!ViaLoadingBase.getInstance().getTargetVersion().equalTo(ProtocolVersion.v1_16_4)) {
+                            AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
+                        } else {
+                            this.playerController.attackEntity(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity());
+                        }
+
                         if (rayTraceEvent != null) {
                             rayTraceEvent.unhover();
                             EventBus.call(rayTraceEvent);
@@ -1523,14 +1516,18 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
         this.profiler.endSection();
         this.gameRenderer.getMouseOver(1.0F);
-        this.tutorial.onMouseHover(this.world, this.objectMouseOver);
         this.profiler.startSection("gameMode");
 
-        if (!this.isGamePaused && this.world != null) {
+        if (!this.isGamePaused && this.world != null && this.playerController != null) {
             this.playerController.tick();
         }
 
         this.profiler.endStartSection("textures");
+
+        if (player != null) {
+            RotationCore.currentYaw = player.rotationYaw;
+            RotationCore.currentPitch = player.rotationPitch;
+        }
 
         if (this.world != null) {
             this.textureManager.tick();
@@ -1605,15 +1602,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         if (this.world != null) {
             if (!this.isGamePaused) {
                 if (!this.gameSettings.field_244601_E && this.func_244600_aM()) {
-                    ITextComponent itextcomponent = new TranslationTextComponent("tutorial.socialInteractions.title");
-                    ITextComponent itextcomponent1 = new TranslationTextComponent("tutorial.socialInteractions.description", Tutorial.createKeybindComponent("socialInteractions"));
-                    this.field_244598_aV = new TutorialToast(TutorialToast.Icons.SOCIAL_INTERACTIONS, itextcomponent, itextcomponent1, true);
-                    this.tutorial.func_244698_a(this.field_244598_aV, 160);
                     this.gameSettings.field_244601_E = true;
                     this.gameSettings.saveOptions();
                 }
-
-                this.tutorial.tick();
 
                 try {
                     this.world.tick(() ->
@@ -1693,11 +1684,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 this.player.sendStatusMessage(field_244596_I, true);
                 NarratorChatListener.INSTANCE.say(field_244596_I.getString());
             } else {
-                if (this.field_244598_aV != null) {
-                    this.tutorial.func_244697_a(this.field_244598_aV);
-                    this.field_244598_aV = null;
-                }
-
                 this.displayGuiScreen(new SocialInteractionsScreen());
             }
         }
@@ -1706,7 +1692,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             if (this.playerController.isRidingHorse()) {
                 this.player.sendHorseInventory();
             } else {
-                this.tutorial.openInventory();
                 this.displayGuiScreen(new InventoryScreen(this.player));
             }
         }
@@ -1739,8 +1724,11 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
         }
 
+        EventUseItem eventInputOptions = new EventUseItem(this.gameSettings.keyBindUseItem.isKeyDown());
+        EventBus.call(eventInputOptions);
+
         if (this.player.isHandActive()) {
-            if (!this.gameSettings.keyBindUseItem.isKeyDown()) {
+            if (!eventInputOptions.useItem) {
                 EventStopUseItem var6 = new EventStopUseItem();
                 EventBus.call(var6);
                 if (!var6.cancelled) {
@@ -1757,6 +1745,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             while (this.gameSettings.keyBindPickBlock.isPressed()) {
             }
         } else {
+            EventPlace eventNaturalPlace = new EventPlace();
+            EventBus.call(eventNaturalPlace);
+
             while (this.gameSettings.keyBindAttack.isPressed()) {
                 this.clickMouse();
             }
@@ -1770,7 +1761,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             }
         }
 
-        if (this.gameSettings.keyBindUseItem.isKeyDown() && this.rightClickDelayTimer == 0 && !this.player.isHandActive()) {
+        if (eventInputOptions.useItem && this.rightClickDelayTimer == 0 && !this.player.isHandActive()) {
             this.rightClickMouse();
         }
 
@@ -2574,20 +2565,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         return this.frameTimer;
     }
 
-    /**
-     * Return true if the player is connected to a realms server
-     */
-    public boolean isConnectedToRealms() {
-        return this.connectedToRealms;
-    }
-
-    /**
-     * Set if the player is connected to a realms server
-     */
-    public void setConnectedToRealms(boolean isConnected) {
-        this.connectedToRealms = isConnected;
-    }
-
     public DataFixer getDataFixer() {
         return this.dataFixer;
     }
@@ -2613,10 +2590,6 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
     public ToastGui getToastGui() {
         return this.toastGui;
-    }
-
-    public Tutorial getTutorial() {
-        return this.tutorial;
     }
 
     public boolean isGameFocused() {

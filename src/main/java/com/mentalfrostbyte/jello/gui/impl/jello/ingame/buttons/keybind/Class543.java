@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.KeyboardScreen;
 
 public class Class543 implements Runnable {
@@ -16,11 +16,10 @@ public class Class543 implements Runnable {
    @Override
    public void run() {
       for (CustomGuiScreen var4 : this.field2603.getChildren()) {
-         if (var4 instanceof Class4375) {
-            Class4375 var5 = (Class4375)var4;
-            var5.method13712();
+         if (var4 instanceof PopOver var5) {
+			 var5.method13712();
             this.field2604.field20957.method13104();
-            var5.method13292(true);
+            var5.setReAddChildren(true);
             var5.method13242();
             this.field2603.method13234(this.field2604.field20960);
          }

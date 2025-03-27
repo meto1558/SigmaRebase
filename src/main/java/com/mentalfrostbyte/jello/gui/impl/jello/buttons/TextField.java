@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.impl.others.Class8906;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.newdawn.slick.TrueTypeFont;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
@@ -18,11 +18,14 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextField extends AnimatedIconPanelWrap {
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_SHIFT;
+
+public class TextField extends AnimatedIconPanel {
    public static final ColorHelper field20741 = new ColorHelper(
-      -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), Class2218.field14488, Class2218.field14492
+      -892679478, -892679478, -892679478, ClientColors.DEEP_TEAL.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
    );
-   public static final ColorHelper field20742 = new ColorHelper(-1, -1, -1, ClientColors.LIGHT_GREYISH_BLUE.getColor(), Class2218.field14488, Class2218.field14492);
+   public static final ColorHelper field20742 = new ColorHelper(-1, -1, -1, ClientColors.LIGHT_GREYISH_BLUE.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
    private String placeholder = "";
    private float field20744;
    private final float field20745 = 2.0F;
@@ -30,15 +33,15 @@ public class TextField extends AnimatedIconPanelWrap {
    private float field20747;
    private final float field20748 = 2.0F;
    private int maxLen;
-   private int field20750;
-   private int field20751;
+   private int startSelect;
+   private int endSelect;
    private boolean field20752;
    private boolean field20753;
    private boolean censorText = false;
    private String censorChar = Character.toString('·');
-   private TimerUtil timer = new TimerUtil();
-   private final List<Class7902> field20757 = new ArrayList<Class7902>();
-   private boolean field20758 = true;
+   private final TimerUtil timer = new TimerUtil();
+   private final List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
+   private boolean roundedThingy = true;
 
    public TextField(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, field20741, "", false);
@@ -70,24 +73,24 @@ public class TextField extends AnimatedIconPanelWrap {
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
       super.updatePanelDimensions(newHeight, newWidth);
-      String text = this.typedText;
+      String text = this.text;
       if (this.censorText) {
-         text = this.typedText.replaceAll(".", this.censorChar);
+         text = this.text.replaceAll(".", this.censorChar);
       }
 
-      this.field20744 = this.field20744 + ((!this.field20905 ? 0.0F : 1.0F) - this.field20744) / 2.0F;
-      if (this.field20905) {
+      this.field20744 = this.field20744 + ((!this.focused ? 0.0F : 1.0F) - this.field20744) / 2.0F;
+      if (this.focused) {
          if (this.field20752) {
-            this.maxLen = Class8906.getStringLen(text, this.font, (float)this.method13271(), newHeight, this.field20746);
+            this.maxLen = ChatUtil.getStringLen(text, this.font, (float)this.method13271(), newHeight, this.field20746);
          }
       } else {
          this.maxLen = 0;
-         this.field20750 = 0;
+         this.startSelect = 0;
          this.field20747 = 0.0F;
       }
 
       this.maxLen = Math.min(Math.max(0, this.maxLen), text.length());
-      this.field20751 = this.maxLen;
+      this.endSelect = this.maxLen;
    }
 
    public void method13146() {
@@ -101,16 +104,16 @@ public class TextField extends AnimatedIconPanelWrap {
    @Override
    public boolean onClick(int mouseX, int mouseY, int mouseButton) {
       if (!super.onClick(mouseX, mouseY, mouseButton)) {
-         String var6 = this.typedText;
+         String var6 = this.text;
          if (this.censorText) {
-            var6 = this.typedText.replaceAll(".", this.censorChar);
+            var6 = this.text.replaceAll(".", this.censorChar);
          }
 
          this.field20752 = true;
-         this.maxLen = Class8906.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
+         this.maxLen = ChatUtil.getStringLen(var6, this.font, (float)this.method13271(), mouseX, this.field20746);
          if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
             && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-            this.field20750 = this.maxLen;
+            this.startSelect = this.maxLen;
          }
 
          return false;
@@ -121,9 +124,9 @@ public class TextField extends AnimatedIconPanelWrap {
 
    public void method13148() {
       this.method13242();
-      this.maxLen = this.typedText.length();
-      this.field20750 = 0;
-      this.field20751 = this.maxLen;
+      this.maxLen = this.text.length();
+      this.startSelect = 0;
+      this.endSelect = this.maxLen;
    }
 
    @Override
@@ -135,142 +138,139 @@ public class TextField extends AnimatedIconPanelWrap {
    @Override
    public void keyPressed(int keyCode) {
       super.keyPressed(keyCode);
-      if (this.field20905) {
+      if (this.focused) {
          switch (keyCode) {
-            case 65:
-               if (this.method13149()) {
-                  this.maxLen = this.typedText.length();
-                  this.field20750 = 0;
-                  this.field20751 = this.maxLen;
+            case GLFW.GLFW_KEY_A:
+               if (this.isModifierKeyPressed()) {
+                  this.maxLen = this.text.length();
+                  this.startSelect = 0;
+                  this.endSelect = this.maxLen;
                }
                break;
-            case 67:
-               if (this.method13149() && this.field20750 != this.field20751) {
+            case GLFW.GLFW_KEY_C:
+               if (this.isModifierKeyPressed() && this.startSelect != this.endSelect) {
                   GLFW.glfwSetClipboardString(
                      Minecraft.getInstance().getMainWindow().getHandle(),
-                     this.typedText.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
+                     this.text.substring(Math.min(this.startSelect, this.endSelect), Math.max(this.startSelect, this.endSelect))
                   );
                }
                break;
-            case 86:
-               if (this.method13149()) {
-                  String var12 = "";
+            case GLFW.GLFW_KEY_V:
+               if (!this.isModifierKeyPressed()) break;
+               String clip = "";
 
-                  try {
-                     var12 = GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle());
-                     if (var12 == null) {
-                        var12 = "";
-                     }
-                  } catch (Exception var7) {
+               try {
+                  clip = GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle());
+                  if (clip == null) {
+                     clip = "";
                   }
+               } catch (Exception ignored) {
+               }
 
-                  if (var12 != "") {
-                     if (this.field20750 != this.field20751) {
-                        this.typedText = Class8906.method32493(this.typedText, var12, this.field20750, this.field20751);
-                        if (this.maxLen > this.field20750) {
-                           this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
-                        }
-
-                        this.maxLen = this.maxLen + var12.length();
-                        this.field20750 = this.maxLen;
-                     } else {
-                        this.typedText = Class8906.method32492(this.typedText, var12, this.maxLen);
-                        this.maxLen = this.maxLen + var12.length();
-                        this.field20750 = this.maxLen;
+               if (!clip.isEmpty()) {
+                  if (this.startSelect != this.endSelect) {
+                     this.text = ChatUtil.cut(this.text, clip, this.startSelect, this.endSelect);
+                     if (this.maxLen > this.startSelect) {
+                        this.maxLen = this.maxLen - (Math.max(this.startSelect, this.endSelect) - Math.min(this.startSelect, this.endSelect));
                      }
 
-                     this.method13152();
-                  }
+				  } else {
+                     this.text = ChatUtil.paste(this.text, clip, this.maxLen);
+				  }
+				   this.maxLen = this.maxLen + clip.length();
+				   this.startSelect = this.maxLen;
+
+				   this.callChangeListeners();
                }
                break;
-            case 88:
-               if (this.method13149() && this.field20750 != this.field20751) {
+            case GLFW.GLFW_KEY_X:
+               if (this.isModifierKeyPressed() && this.startSelect != this.endSelect) {
                   GLFW.glfwSetClipboardString(
                      Minecraft.getInstance().getMainWindow().getHandle(),
-                     this.typedText.substring(Math.min(this.field20750, this.field20751), Math.max(this.field20750, this.field20751))
+                     this.text.substring(Math.min(this.startSelect, this.endSelect), Math.max(this.startSelect, this.endSelect))
                   );
-                  this.typedText = Class8906.method32493(this.typedText, "", this.field20750, this.field20751);
-                  if (this.maxLen > this.field20750) {
-                     this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
+                  this.text = ChatUtil.cut(this.text, "", this.startSelect, this.endSelect);
+                  if (this.maxLen > this.startSelect) {
+                     this.maxLen = this.maxLen - (Math.max(this.startSelect, this.endSelect) - Math.min(this.startSelect, this.endSelect));
                   }
 
-                  this.field20750 = this.maxLen;
-                  this.field20751 = this.maxLen;
-                  this.method13152();
+                  this.startSelect = this.maxLen;
+                  this.endSelect = this.maxLen;
+                  this.callChangeListeners();
                }
                break;
-            case 256:
-               this.method13145(false);
+            case GLFW.GLFW_KEY_ESCAPE:
+               this.setFocused(false);
                break;
-            case 259:
-               if (this.typedText.length() > 0) {
-                  if (this.field20750 != this.field20751) {
-                     this.typedText = Class8906.method32493(this.typedText, "", this.field20750, this.field20751);
-                     if (this.maxLen > this.field20750) {
-                        this.maxLen = this.maxLen - (Math.max(this.field20750, this.field20751) - Math.min(this.field20750, this.field20751));
+            case GLFW.GLFW_KEY_BACKSPACE:
+               if (!this.text.isEmpty()) {
+                  if (this.startSelect != this.endSelect) {
+                     this.text = ChatUtil.cut(this.text, "", this.startSelect, this.endSelect);
+                     if (this.maxLen > this.startSelect) {
+                        this.maxLen = this.maxLen - (Math.max(this.startSelect, this.endSelect) - Math.min(this.startSelect, this.endSelect));
                      }
-                  } else if (this.method13149()) {
+                  } else if (this.isModifierKeyPressed()) {
                      int var11 = -1;
 
                      for (int var14 = Math.max(this.maxLen - 1, 0); var14 >= 0; var14--) {
-                        if ((String.valueOf(this.typedText.charAt(var14)).equalsIgnoreCase(" ") || var14 == 0) && Math.abs(this.maxLen - var14) > 1) {
+                        if ((String.valueOf(this.text.charAt(var14)).equalsIgnoreCase(" ") || var14 == 0) && Math.abs(this.maxLen - var14) > 1) {
                            var11 = var14 + (var14 == 0 ? 0 : 1);
                            break;
                         }
                      }
 
                      if (var11 != -1) {
-                        this.typedText = Class8906.method32493(this.typedText, "", var11, this.maxLen);
+                        this.text = ChatUtil.cut(this.text, "", var11, this.maxLen);
                         this.maxLen = var11;
                      }
                   } else {
-                     this.typedText = Class8906.method32493(this.typedText, "", this.maxLen - 1, this.maxLen);
+                     this.text = ChatUtil.cut(this.text, "", this.maxLen - 1, this.maxLen);
                      this.maxLen--;
                   }
 
-                  this.method13152();
+                  this.callChangeListeners();
                }
 
-               this.field20750 = this.maxLen;
+               this.startSelect = this.maxLen;
                break;
-            case 262:
-               if (!this.method13149()) {
+            case GLFW.GLFW_KEY_RIGHT:
+               if (!this.isModifierKeyPressed()) {
                   this.maxLen++;
                } else {
-                  int var10 = -1;
+                  int previousIdx = -1;
 
-                  for (int var13 = this.maxLen; var13 < this.typedText.length(); var13++) {
+                  for (int i = this.maxLen; i < this.text.length(); i++) {
                      try {
-                        if ((String.valueOf(this.typedText.charAt(var13)).equalsIgnoreCase(" ") || var13 == this.typedText.length() - 1)
-                           && (Math.abs(this.maxLen - var13) > 1 || var13 == this.typedText.length() - 1)) {
-                           var10 = var13 + 1;
+                        if ((String.valueOf(this.text.charAt(i)).equalsIgnoreCase(" ") || i == this.text.length() - 1)
+                           && (Math.abs(this.maxLen - i) > 1 || i == this.text.length() - 1)) {
+                           previousIdx = i + 1;
                            break;
                         }
-                     } catch (Exception var9) {
+                     } catch (Exception ignored) {
                         break;
                      }
                   }
 
-                  if (var10 != -1) {
-                     this.maxLen = var10;
+                  if (previousIdx != -1) {
+                     this.maxLen = previousIdx;
                   }
                }
 
                if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
                   && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+                  this.startSelect = this.maxLen;
                }
                break;
-            case 263:
-               if (!this.method13149()) {
+            case GLFW.GLFW_KEY_LEFT:
+               if (!this.isModifierKeyPressed()) {
                   this.maxLen--;
                } else {
-                  int var4 = -1;
+                  int previousIdx = -1;
 
-                  for (int var5 = Math.max(this.maxLen - 1, 0); var5 >= 0; var5--) {
+                  for (int i = Math.max(this.maxLen - 1, 0); i >= 0; i--) {
                      try {
-                        if ((String.valueOf(this.typedText.charAt(var5)).equalsIgnoreCase(" ") || var5 == 0) && Math.abs(this.maxLen - var5) > 1) {
-                           var4 = var5;
+                        if ((String.valueOf(this.text.charAt(i)).equalsIgnoreCase(" ") || i == 0) && Math.abs(this.maxLen - i) > 1) {
+                           previousIdx = i;
                            break;
                         }
                      } catch (Exception var8) {
@@ -278,52 +278,53 @@ public class TextField extends AnimatedIconPanelWrap {
                      }
                   }
 
-                  if (var4 != -1) {
-                     this.maxLen = var4;
+                  if (previousIdx != -1) {
+                     this.maxLen = previousIdx;
                   }
                }
 
-               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
-                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_LEFT_SHIFT)
+                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_RIGHT_SHIFT)) {
+                  this.startSelect = this.maxLen;
                }
                break;
-            case 268:
+            case GLFW.GLFW_KEY_HOME:
                this.maxLen = 0;
-               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
-                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_LEFT_SHIFT)
+                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_RIGHT_SHIFT)) {
+                  this.startSelect = this.maxLen;
                }
                break;
-            case 269:
-               this.maxLen = this.typedText.length();
-               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 340)
-                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 344)) {
-                  this.field20750 = this.maxLen;
+            case GLFW.GLFW_KEY_END:
+               this.maxLen = this.text.length();
+               if (!InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_LEFT_SHIFT)
+                  && !InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW_KEY_RIGHT_SHIFT)) {
+                  this.startSelect = this.maxLen;
                }
          }
       }
    }
 
-   public boolean method13149() {
-      return InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 341)
-         || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 345)
-         || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), 343);
+   public boolean isModifierKeyPressed() {
+      long handle = Minecraft.getInstance().getMainWindow().getHandle();
+      return InputMappings.isKeyDown(handle, GLFW.GLFW_KEY_LEFT_CONTROL)
+         || InputMappings.isKeyDown(handle, GLFW.GLFW_KEY_RIGHT_CONTROL)
+         || InputMappings.isKeyDown(handle, GLFW.GLFW_KEY_LEFT_SUPER);
    }
 
    @Override
    public void charTyped(char typed) {
       super.charTyped(typed);
-      if (this.method13297() && Class8906.method32486(typed)) {
-         if (this.field20750 == this.field20751) {
-            this.typedText = Class8906.method32492(this.typedText, Character.toString(typed), this.maxLen);
+      if (this.isFocused() && ChatUtil.method32486(typed)) {
+         if (this.startSelect == this.endSelect) {
+            this.text = ChatUtil.paste(this.text, Character.toString(typed), this.maxLen);
          } else {
-            this.typedText = Class8906.method32493(this.typedText, Character.toString(typed), this.field20750, this.field20751);
+            this.text = ChatUtil.cut(this.text, Character.toString(typed), this.startSelect, this.endSelect);
          }
 
          this.maxLen++;
-         this.field20750 = this.maxLen;
-         this.method13152();
+         this.startSelect = this.maxLen;
+         this.callChangeListeners();
       }
    }
 
@@ -331,21 +332,21 @@ public class TextField extends AnimatedIconPanelWrap {
    public void draw(float partialTicks) {
       this.method13225();
       float var4 = 1000.0F;
-      boolean var5 = !this.field20905 ? false : (float)this.timer.getElapsedTime() > var4 / 2.0F;
+      boolean var5 = this.focused && (float) this.timer.getElapsedTime() > var4 / 2.0F;
       if ((float)this.timer.getElapsedTime() > var4) {
          this.timer.reset();
       }
 
-      String var6 = this.typedText;
+      String var6 = this.text;
       if (this.censorText) {
-         var6 = this.typedText.replaceAll(".", this.censorChar);
+         var6 = this.text.replaceAll(".", this.censorChar);
       }
 
-      RenderUtil.drawPortalBackground(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);
+      RenderUtil.drawBlurredBackground(this.getXA(), this.getYA(), this.getXA() + this.widthA, this.getYA() + this.heightA, true);
       int var7 = this.xA + 4;
       int var8 = this.widthA - 4;
       float var9 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.maxLen));
-      if (this.method13297()) {
+      if (this.isFocused()) {
          RenderUtil.drawRoundedRect(
             var9 + (float)(var6.isEmpty() ? 0 : -1),
             (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2 + 2),
@@ -365,10 +366,10 @@ public class TextField extends AnimatedIconPanelWrap {
       }
 
       this.field20746 = this.field20746 + (this.field20747 - this.field20746) / 2.0F;
-      this.field20750 = Math.min(Math.max(0, this.field20750), var6.length());
-      this.field20751 = Math.min(Math.max(0, this.field20751), var6.length());
-      float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20750));
-      float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.field20751));
+      this.startSelect = Math.min(Math.max(0, this.startSelect), var6.length());
+      this.endSelect = Math.min(Math.max(0, this.endSelect), var6.length());
+      float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.startSelect));
+      float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.endSelect));
       RenderUtil.drawRoundedRect(
          var14,
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
@@ -376,19 +377,19 @@ public class TextField extends AnimatedIconPanelWrap {
          (float)(this.yA + this.heightA / 2 + this.font.getHeight(var6) / 2),
          RenderUtil2.applyAlpha(-5516546, partialTicks)
       );
-      Class2218 var12 = this.textColor.method19411();
-      Class2218 var13 = this.textColor.method19413();
+      FontSizeAdjust var12 = this.textColor.method19411();
+      FontSizeAdjust var13 = this.textColor.method19413();
       RenderUtil.drawString(
          this.font,
          (float)var7 + this.field20746,
          (float)(this.yA + this.heightA / 2),
-         var6.length() == 0 && (!this.field20905 || var6.length() <= 0) ? this.placeholder : var6,
-         RenderUtil2.applyAlpha(this.textColor.getTextColor(), (this.field20744 / 2.0F + 0.4F) * partialTicks * (this.field20905 && var6.length() > 0 ? 1.0F : 0.5F)),
+         var6.length() == 0 && (!this.focused || var6.length() <= 0) ? this.placeholder : var6,
+         RenderUtil2.applyAlpha(this.textColor.getTextColor(), (this.field20744 / 2.0F + 0.4F) * partialTicks * (this.focused && var6.length() > 0 ? 1.0F : 0.5F)),
          var12,
          var13
       );
       RenderUtil.endScissor();
-      if (this.field20758) {
+      if (this.roundedThingy) {
          RenderUtil.drawRoundedRect(
             (float)this.xA,
             (float)(this.yA + this.heightA - 2),
@@ -401,33 +402,33 @@ public class TextField extends AnimatedIconPanelWrap {
       super.draw(partialTicks);
    }
 
-   public final void method13151(Class7902 var1) {
-      this.field20757.add(var1);
+   public final void addChangeListener(ChangeListener listener) {
+      this.changeListeners.add(listener);
    }
 
-   public void method13152() {
-      for (Class7902 var4 : this.field20757) {
-         var4.method26474(this);
+   public void callChangeListeners() {
+      for (ChangeListener listener : this.changeListeners) {
+         listener.onUpdate(this);
       }
    }
 
-   public String method13153() {
+   public String getPlaceholder() {
       return this.placeholder;
    }
 
-   public void method13154(String var1) {
-      this.placeholder = var1;
+   public void setPlaceholder(String placeholder) {
+      this.placeholder = placeholder;
    }
 
-   public void method13155(boolean var1) {
-      this.censorText = var1;
+   public void setCensorText(boolean censorText) {
+      this.censorText = censorText;
    }
 
-   public void method13156(boolean var1) {
-      this.field20758 = var1;
+   public void setRoundedThingy(boolean roundedThingy) {
+      this.roundedThingy = roundedThingy;
    }
 
-    public static interface Class7902 {
-       void method26474(TextField var1);
+    public interface ChangeListener {
+       void onUpdate(TextField var1);
     }
 }

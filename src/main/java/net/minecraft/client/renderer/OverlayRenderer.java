@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import javax.annotation.Nullable;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.optifine.SmartAnimations;
 import net.optifine.reflect.Reflector;
 import org.apache.commons.lang3.tuple.Pair;
+import team.sdhq.eventBus.EventBus;
 
 public class OverlayRenderer
 {
@@ -190,24 +192,24 @@ public class OverlayRenderer
         float f8 = MathHelper.lerp(f6, f1, f2);
         float f9 = MathHelper.lerp(f6, f3, f5);
         float f10 = MathHelper.lerp(f6, f4, f5);
-        float f11 = 1.0F;
 
-        for (int i = 0; i < 2; ++i)
-        {
+        EventRenderFire renderFireEvent = new EventRenderFire(0.9F);
+        EventBus.call(renderFireEvent);
+
+        for (int i = 0; i < 2; i++) {
             matrixStackIn.push();
-            float f12 = -0.5F;
-            float f13 = 0.5F;
-            float f14 = -0.5F;
-            float f15 = 0.5F;
-            float f16 = -0.5F;
-            matrixStackIn.translate((double)((float)(-(i * 2 - 1)) * 0.24F), (double) - 0.3F, 0.0D);
-            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float)(i * 2 - 1) * 10.0F));
+            matrixStackIn.translate((double) ((float) (-(i * 2 - 1)) * 0.24F), -0.3F, 0.0);
+            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float) (i * 2 - 1) * 10.0F));
             Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR_TEX);
-            bufferbuilder.pos(matrix4f, -0.5F, -0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, 0.9F).tex(f8, f10).endVertex();
-            bufferbuilder.pos(matrix4f, 0.5F, -0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, 0.9F).tex(f7, f10).endVertex();
-            bufferbuilder.pos(matrix4f, 0.5F, 0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, 0.9F).tex(f7, f9).endVertex();
-            bufferbuilder.pos(matrix4f, -0.5F, 0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, 0.9F).tex(f8, f9).endVertex();
+            bufferbuilder.pos(matrix4f, -0.5F, -0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, renderFireEvent.getFireHeight()).tex(f8, f10)
+                    .endVertex();
+            bufferbuilder.pos(matrix4f, 0.5F, -0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, renderFireEvent.getFireHeight()).tex(f7, f10)
+                    .endVertex();
+            bufferbuilder.pos(matrix4f, 0.5F, 0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, renderFireEvent.getFireHeight()).tex(f7, f9)
+                    .endVertex();
+            bufferbuilder.pos(matrix4f, -0.5F, 0.5F, -0.5F).color(1.0F, 1.0F, 1.0F, renderFireEvent.getFireHeight()).tex(f8, f9)
+                    .endVertex();
             bufferbuilder.finishDrawing();
             WorldVertexBufferUploader.draw(bufferbuilder);
             matrixStackIn.pop();

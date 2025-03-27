@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.fly.*;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 
 public class Fly extends ModuleWithModuleSettings {
     public Fly() {
@@ -26,9 +26,10 @@ public class Fly extends ModuleWithModuleSettings {
                 new AGCFly(),
                 new HorizonFly(),
                 new SpartanFly(),
-//                new CubecraftFly(),
-//                new Cubecraft2Fly(),
-                new OmegaCraftTestFly()
+                new CubecraftFly(),
+                new Cubecraft2Fly(),
+                new OmegaCraftTestFly(),
+                new VerusFly() //AUTHOR - alarmingly_good (on discord)
         );
     }
 }

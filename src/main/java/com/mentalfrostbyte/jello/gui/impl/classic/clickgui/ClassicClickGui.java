@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.google.gson.JsonObject;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
-import totalcross.json.JSONObject;
 
 public class ClassicClickGui extends Screen {
     private static final Minecraft field21078 = Minecraft.getInstance();
@@ -30,7 +30,7 @@ public class ClassicClickGui extends Screen {
     public void method13418(String var1, ModuleCategory... var2) {
         this.runThisOnDimensionUpdate(() -> {
             if (this.category != null) {
-                this.method13236(this.category);
+                this.removeChildren(this.category);
             }
 
             this.addToList(this.category = new ModuleSettingGroup(this, var1, this.getWidthA() / 2, this.getHeightA() / 2, var2));
@@ -39,7 +39,7 @@ public class ClassicClickGui extends Screen {
 
     private void method13419() {
         if (this.category != null) {
-            this.method13236(this.category);
+            this.removeChildren(this.category);
         }
 
         this.addToList(this.category = new CategoryHolder(this, "Sigma", this.getWidthA() / 2, this.getHeightA() / 2));
@@ -56,13 +56,13 @@ public class ClassicClickGui extends Screen {
     }
 
     @Override
-    public JSONObject toConfigWithExtra(JSONObject config) {
+    public JsonObject toConfigWithExtra(JsonObject config) {
         RenderUtil2.resetShaders();
         return super.toConfigWithExtra(config);
     }
 
     @Override
-    public void loadConfig(JSONObject config) {
+    public void loadConfig(JsonObject config) {
         super.loadConfig(config);
     }
 

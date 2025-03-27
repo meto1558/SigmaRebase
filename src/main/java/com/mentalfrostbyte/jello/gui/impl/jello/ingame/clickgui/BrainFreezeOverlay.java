@@ -1,34 +1,34 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimationManager;
+import com.mentalfrostbyte.jello.managers.AnimationManager;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrainFreezeOverlay extends AnimatedIconPanelWrap {
+public class BrainFreezeOverlay extends AnimatedIconPanel {
     private final List<ParticleEffect> particles = new ArrayList<>();
     private final AnimationManager animationManager = new AnimationManager();
     public RandomIntGenerator random = new RandomIntGenerator();
 
     public BrainFreezeOverlay(CustomGuiScreen parentScreen, String name) {
         super(parentScreen, name, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
-        this.method13145(false);
-        this.method13296(false);
-        this.method13292(false);
+        this.setFocused(false);
+        this.setHovered(false);
+        this.setReAddChildren(false);
         this.method13294(true);
         this.setListening(false);
     }
 
     @Override
-    public void method13145(boolean var1) {
-        super.method13145(false);
+    public void setFocused(boolean focused) {
+        super.setFocused(false);
     }
 
     @Override

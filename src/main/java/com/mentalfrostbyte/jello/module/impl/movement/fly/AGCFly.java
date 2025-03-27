@@ -5,13 +5,13 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.block.Block;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -64,9 +64,9 @@ public class AGCFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -78,14 +78,14 @@ public class AGCFly extends Module {
                 if (this.preUpdates == -1) {
                     var1.setY(this.field23903 != 3 ? 0.001 : 0.095);
                     if (this.field23903 != 3) {
-                        MovementUtil.setSpeed(var1, 0.32);
+                        MovementUtil.setMotion(var1, 0.32);
                     }
 
-                    MovementUtil.setPlayerYMotion(var1.getY());
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                 }
             } else {
                 var1.setY(0.0);
-                MovementUtil.setSpeed(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }
@@ -102,13 +102,13 @@ public class AGCFly extends Module {
                         double var4 = this.method16785();
                         var1.setY(var4 - 1.0E-4);
                         var1.setMoving(true);
-                        var1.setGround(true);
+                        var1.setOnGround(true);
                     }
                 }
             } else {
                 double var6 = this.method16785();
                 var1.setY(var6 - 1.0E-4);
-                var1.setGround(true);
+                var1.setOnGround(true);
                 var1.setMoving(true);
                 this.field23903 = !this.down
                         ? (!mc.gameSettings.keyBindJump.isKeyDown() ? 1 : 3)
@@ -120,10 +120,9 @@ public class AGCFly extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.preUpdates >= (this.field23903 != 3 ? this.field23903 : 1)) {
+            IPacket var4 = var1.packet;
+            if (var4 instanceof SPlayerPositionLookPacket var5) {
+				if (this.preUpdates >= (this.field23903 != 3 ? this.field23903 : 1)) {
                     this.preUpdates = -1;
                 }
 

@@ -1,10 +1,10 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedImage;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.AnimatedImage;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
 
-public class AnimatedImageButton extends UIBase {
+public class AnimatedImageButton extends Element {
    public AnimatedImage image;
 
    public AnimatedImageButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, boolean var7, AnimatedImage var8) {

@@ -1,18 +1,18 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.altmanager.submenus;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AltManagerButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.AltManagerButton;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Input;
 import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.Account;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
@@ -42,12 +42,12 @@ public class AddAltScreen extends Screen {
       this.addToList(this.field21119 = new AltManagerButton(this, "back", var5, var4, var3, 40, "Back", ClientColors.MID_GREY.getColor()));
       var4 += 50;
       this.addToList(this.field21120 = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
-      this.field21117.method13155(true);
+      this.field21117.setCensorText(true);
       this.field21117.method13147("*");
       this.field21118.doThis((var1, var2) -> {
          this.field21122 = "§bLogging in...";
          new Thread(() -> {
-            Account var3x = new Account(this.field21116.getTypedText(), this.field21117.getTypedText());
+            Account var3x = new Account(this.field21116.getText(), this.field21117.getText());
             if (!this.field21121.updateSelectedEmail(var3x)) {
                this.field21122 = "§cAlt failed!";
             } else {
@@ -68,8 +68,8 @@ public class AddAltScreen extends Screen {
          if (var5x != "" && var5x.contains(":")) {
             String[] var6x = var5x.split(":");
             if (var6x.length == 2) {
-               this.field21116.setTypedText(var6x[0].replace("\n", ""));
-               this.field21117.setTypedText(var6x[1].replace("\n", ""));
+               this.field21116.setText(var6x[0].replace("\n", ""));
+               this.field21117.setText(var6x[1].replace("\n", ""));
             }
          }
       });
@@ -81,7 +81,7 @@ public class AddAltScreen extends Screen {
       RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.PALE_RED.getColor(), 0.1F));
       RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.95F));
       RenderUtil.drawString(
-         ResourceRegistry.DefaultClientFont, (float)(this.getWidthA() / 2), 38.0F, "Add Alt", ClientColors.LIGHT_GREYISH_BLUE.getColor(), Class2218.field14492, Class2218.field14488
+         ResourceRegistry.DefaultClientFont, (float)(this.getWidthA() / 2), 38.0F, "Add Alt", ClientColors.LIGHT_GREYISH_BLUE.getColor(), FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2, FontSizeAdjust.field14488
       );
       RenderUtil.drawString(
          ResourceRegistry.DefaultClientFont,
@@ -89,8 +89,8 @@ public class AddAltScreen extends Screen {
          58.0F,
          this.field21122,
          ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-         Class2218.field14492,
-         Class2218.field14488,
+         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
+         FontSizeAdjust.field14488,
          true
       );
       super.draw(partialTicks);

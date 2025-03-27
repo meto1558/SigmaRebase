@@ -1,54 +1,9 @@
 package net.minecraft.network.play;
 
 import net.minecraft.network.INetHandler;
-import net.minecraft.network.play.client.CAnimateHandPacket;
-import net.minecraft.network.play.client.CChatMessagePacket;
-import net.minecraft.network.play.client.CClickWindowPacket;
-import net.minecraft.network.play.client.CClientSettingsPacket;
-import net.minecraft.network.play.client.CClientStatusPacket;
-import net.minecraft.network.play.client.CCloseWindowPacket;
-import net.minecraft.network.play.client.CConfirmTeleportPacket;
-import net.minecraft.network.play.client.CConfirmTransactionPacket;
-import net.minecraft.network.play.client.CCreativeInventoryActionPacket;
-import net.minecraft.network.play.client.CCustomPayloadPacket;
-import net.minecraft.network.play.client.CEditBookPacket;
-import net.minecraft.network.play.client.CEnchantItemPacket;
-import net.minecraft.network.play.client.CEntityActionPacket;
-import net.minecraft.network.play.client.CHeldItemChangePacket;
-import net.minecraft.network.play.client.CInputPacket;
-import net.minecraft.network.play.client.CJigsawBlockGeneratePacket;
-import net.minecraft.network.play.client.CKeepAlivePacket;
-import net.minecraft.network.play.client.CLockDifficultyPacket;
-import net.minecraft.network.play.client.CMarkRecipeSeenPacket;
-import net.minecraft.network.play.client.CMoveVehiclePacket;
-import net.minecraft.network.play.client.CPickItemPacket;
-import net.minecraft.network.play.client.CPlaceRecipePacket;
-import net.minecraft.network.play.client.CPlayerAbilitiesPacket;
-import net.minecraft.network.play.client.CPlayerDiggingPacket;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.client.CPlayerTryUseItemOnBlockPacket;
-import net.minecraft.network.play.client.CPlayerTryUseItemPacket;
-import net.minecraft.network.play.client.CQueryEntityNBTPacket;
-import net.minecraft.network.play.client.CQueryTileEntityNBTPacket;
-import net.minecraft.network.play.client.CRenameItemPacket;
-import net.minecraft.network.play.client.CResourcePackStatusPacket;
-import net.minecraft.network.play.client.CSeenAdvancementsPacket;
-import net.minecraft.network.play.client.CSelectTradePacket;
-import net.minecraft.network.play.client.CSetDifficultyPacket;
-import net.minecraft.network.play.client.CSpectatePacket;
-import net.minecraft.network.play.client.CSteerBoatPacket;
-import net.minecraft.network.play.client.CTabCompletePacket;
-import net.minecraft.network.play.client.CUpdateBeaconPacket;
-import net.minecraft.network.play.client.CUpdateCommandBlockPacket;
-import net.minecraft.network.play.client.CUpdateJigsawBlockPacket;
-import net.minecraft.network.play.client.CUpdateMinecartCommandBlockPacket;
-import net.minecraft.network.play.client.CUpdateRecipeBookStatusPacket;
-import net.minecraft.network.play.client.CUpdateSignPacket;
-import net.minecraft.network.play.client.CUpdateStructureBlockPacket;
-import net.minecraft.network.play.client.CUseEntityPacket;
+import net.minecraft.network.play.client.*;
 
-public interface IServerPlayNetHandler extends INetHandler
-{
+public interface IServerPlayNetHandler extends INetHandler {
     void handleAnimation(CAnimateHandPacket packetIn);
 
     /**

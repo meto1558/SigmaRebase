@@ -2,7 +2,8 @@ package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SEntityPacket;
@@ -39,10 +40,10 @@ public class MovementAntiBot extends AntiBotBase {
          this.field31116.clear();
       }
 
-      for (PlayerEntity var5 : MovementUtil2.getPlayers()) {
+      for (PlayerEntity var5 : CombatUtil.getPlayers()) {
          if (var5 != mc.player) {
             if (var5 == null
-               || !MovementUtil2.isAboveBounds(var5, 0.01F)
+               || !BlockUtil.isAboveBounds(var5, 0.01F)
                || var5.isInvisible()
                || !(var5.getDistance(mc.player) > 5.0F)
                   && (var5.getPosX() != var5.lastTickPosX || var5.getPosZ() != var5.lastTickPosZ || var5.getPosY() != var5.lastTickPosY)) {
@@ -63,9 +64,8 @@ public class MovementAntiBot extends AntiBotBase {
             this.field31116.clear();
          }
 
-         if (var1.getPacket() instanceof SEntityPacket.RelativeMovePacket) {
-            SEntityPacket.RelativeMovePacket relativeMovePacket = (SEntityPacket.RelativeMovePacket)var1.getPacket();
-            if (mc.world == null)
+         if (var1.packet instanceof SEntityPacket.RelativeMovePacket relativeMovePacket) {
+			 if (mc.world == null)
                return;
 
             if (!(relativeMovePacket.getEntity(mc.world) instanceof PlayerEntity)) {
@@ -73,7 +73,7 @@ public class MovementAntiBot extends AntiBotBase {
             }
 
             Entity var5 = relativeMovePacket.getEntity(mc.world);
-            boolean var6 = MovementUtil2.isAboveBounds(var5, 0.5F);
+            boolean var6 = BlockUtil.isAboveBounds(var5, 0.5F);
             short var7 = relativeMovePacket.getPitch(); // prob wrong will fix
             if (!this.field31117.containsKey(var5)) {
                this.field31117.put(var5, new ArrayList<Integer>());

@@ -1,42 +1,46 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.groups;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.dropdown.Class7262;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.configs.ConfigScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.managers.OnlineProfilesManager;
 import com.mentalfrostbyte.jello.managers.ProfileManager;
-import com.mentalfrostbyte.jello.managers.util.profile.Configuration;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.managers.util.profile.Profile;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
-public class ConfigGroup extends UIBase {
+public class ConfigGroup extends Element {
    public Animation field20703 = new Animation(300, 200, Animation.Direction.BACKWARDS);
    private final int field20704;
-   private ScrollableContentPanel field20705;
-   public static Class8233 field20706;
-   private LoadingIndicator field20707;
+   private final ScrollableContentPanel field20705;
+   public static OnlineProfilesManager onlineProfilesManager;
+   private final LoadingIndicator field20707;
 
    public ConfigGroup(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, 0, ColorHelper.field27961, false);
-      UIButton blankButton;
+      TextButton blankButton;
       this.addToList(
-         blankButton = new UIButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
+         blankButton = new TextButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
       );
       blankButton.doThis((var1x, var2x) -> {
          ConfigScreen var5x = (ConfigScreen)this.getParent();
          var5x.method13612();
       });
-      UIButton var10;
+      TextButton var10;
       this.addToList(
-         var10 = new UIButton(
+         var10 = new TextButton(
             this,
             "dupeButton",
             var5 - 25 - ResourceRegistry.JelloLightFont20.getWidth("Duplicate"),
@@ -54,10 +58,10 @@ public class ConfigGroup extends UIBase {
       });
       this.addToList(this.field20707 = new LoadingIndicator(this, "loading", (var5 - 30) / 2, 100, 30, 30));
       this.addToList(this.field20705 = new ScrollableContentPanel(this, "defaultProfiles", 0, 40, var5, var6 - 40));
-      field20706 = new Class8233(
+      onlineProfilesManager = new OnlineProfilesManager(
          var2x -> {
-            this.field20707.setEnabled(false);
-            ConfigScreen var5x = (ConfigScreen)this.getParent();
+            this.field20707.setSelfVisible(false);
+            ConfigScreen screen = (ConfigScreen)this.getParent();
 
             for (String var7 : var2x) {
                Button var8;
@@ -72,9 +76,9 @@ public class ConfigGroup extends UIBase {
                   new Thread(() -> {
                      Client.getInstance();
                      ProfileManager var5xx = Client.getInstance().moduleManager.getConfigurationManager();
-                     Configuration var6x = var5xx.getCurrentConfig();
-                     Configuration var7x = field20706.method28657(var6x, var7);
-                     var5x.method13611(var7x);
+                     Profile var6x = var5xx.getCurrentConfig();
+                     Profile var7x = onlineProfilesManager.createProfileFromOnlineConfig(var6x, var7);
+                     screen.method13611(var7x);
                      this.method13118(false);
                   }).start();
                });
@@ -87,8 +91,8 @@ public class ConfigGroup extends UIBase {
    }
 
    public void method13118(boolean var1) {
-      this.field20705.setEnabled(!var1);
-      this.field20707.setEnabled(var1);
+      this.field20705.setSelfVisible(!var1);
+      this.field20707.setSelfVisible(var1);
    }
 
    public void method13119(boolean var1) {
@@ -106,9 +110,9 @@ public class ConfigGroup extends UIBase {
 
    @Override
    public void draw(float partialTicks) {
-      float var4 = MathUtils.lerp(this.field20703.calcPercent(), 0.1, 0.81, 0.14, 1.0);
+      float var4 = MathUtil.lerp(this.field20703.calcPercent(), 0.1, 0.81, 0.14, 1.0);
       if (this.field20703.getDirection() == Animation.Direction.BACKWARDS) {
-         var4 = MathUtils.lerp(this.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16);
+         var4 = MathUtil.lerp(this.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16);
       }
 
       this.setHeightA((int)((float)this.field20704 * var4));
@@ -125,7 +129,7 @@ public class ConfigGroup extends UIBase {
          RenderUtil.drawRoundedRect2(
             (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, RenderUtil2.applyAlpha(-723724, partialTicks)
          );
-         if (field20706 != null && Class8233.field35347 != null && Class8233.field35347.isEmpty()) {
+         if (onlineProfilesManager != null && OnlineProfilesManager.cachedOnlineProfiles != null && OnlineProfilesManager.cachedOnlineProfiles.isEmpty()) {
             RenderUtil.drawString(
                ResourceRegistry.JelloLightFont14,
                (float)(this.xA + 40),

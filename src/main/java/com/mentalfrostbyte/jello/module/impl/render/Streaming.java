@@ -1,15 +1,16 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventGetLocationSkin;
 import com.mentalfrostbyte.jello.event.impl.game.EventReplaceText;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import team.sdhq.eventBus.annotations.EventTarget;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 public class Streaming extends Module {
     public Streaming() {
@@ -22,26 +23,27 @@ public class Streaming extends Module {
 
     @EventTarget
     public void onTextReplace(EventReplaceText event) {
-        if (this.isEnabled()) {
-            if (this.getBooleanValueFromSettingName("Hide server name") && this.getStringSettingValueByName("Server name").length() > 1) {
-                event.setText(event.setText().replaceAll(this.getStringSettingValueByName("Server name"), "sigmaclient"));
-                event.setText(event.setText().replaceAll(this.getStringSettingValueByName("Server name").toLowerCase(), "sigmaclient"));
-                event.setText(event.setText().replaceAll(this.getStringSettingValueByName("Server name").toUpperCase(), "sigmaclient"));
-            }
+        if (getBooleanValueFromSettingName("Hide date")) {
+            String todayFull = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            String todayShort = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+
+            event.getText(event.getText().replaceAll(
+                    Pattern.quote(todayFull) + "|" + Pattern.quote(todayShort),
+                    "HIDDEN"
+            ));
+        }
+
+        if (this.getBooleanValueFromSettingName("Hide server name") && this.getStringSettingValueByName("Server name").length() > 1) {
+            event.getText(event.getText().replaceAll(this.getStringSettingValueByName("Server name"), "sigmaclient"));
+            event.getText(event.getText().replaceAll(this.getStringSettingValueByName("Server name").toLowerCase(), "sigmaclient"));
+            event.getText(event.getText().replaceAll(this.getStringSettingValueByName("Server name").toUpperCase(), "sigmaclient"));
         }
     }
 
     @EventTarget
-    public void renderNameTag(EventRenderNameTag event) {
-    }
-
-    @EventTarget
-    public void EventRenderEntity(EventRenderEntity event) {
-        if (this.isEnabled()) {
-            if (this.getBooleanValueFromSettingName("Hide skins")) {
-                event.setCancelled(false);
-            }
+    public void onGetLocationSkin(EventGetLocationSkin event) {
+        if (this.getBooleanValueFromSettingName("Hide skins")) {
+            event.cancelled = true;
         }
-        // will fix later
     }
 }

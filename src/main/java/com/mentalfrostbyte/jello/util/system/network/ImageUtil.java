@@ -1,61 +1,22 @@
 package com.mentalfrostbyte.jello.util.system.network;
 
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import net.minecraft.client.Minecraft;
-import org.apache.commons.codec.binary.Base64;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-import totalcross.json.JSONObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.nio.ByteBuffer;
 
 public class ImageUtil {
 
-    public static String getSkinUrlByID(String uuid) throws Exception {
-        String skinURL = "";
-        URL profileURL = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
-        BufferedReader var5 = new BufferedReader(new InputStreamReader(profileURL.openStream()));
-        String var6 = "";
-
-        String var7;
-        while ((var7 = var5.readLine()) != null) {
-            var6 = var6 + var7;
-        }
-
-        String var8 = "";
-        JSONObject var9 = new JSONObject(var6);
-
-        for (Object var12 : var9.getJSONArray("properties")) {
-            JSONObject var13 = (JSONObject)var12;
-            if (var13.has("value") && var13.has("name")) {
-                var8 = var13.getString("value");
-            }
-        }
-
-        if (Base64.isBase64(var8)) {
-            String var14 = new String(Base64.decodeBase64(var8));
-            JSONObject var15 = new JSONObject(var14);
-            if (var15.has("textures")) {
-                JSONObject var16 = var15.getJSONObject("textures");
-                if (var16.has("SKIN")) {
-                    skinURL = var16.getJSONObject("SKIN").getString("url");
-                }
-            }
-
-            System.out.println(skinURL);
-            return skinURL;
-        } else {
-            return skinURL;
-        }
+    public static String getSkinUrlByID(String uuid) {
+        return "https://crafatar.com/skins/" + uuid;
     }
 
     public static BufferedImage applyBlur(BufferedImage image, int amount) {

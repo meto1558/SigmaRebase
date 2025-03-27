@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.render;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class NoHurtCam extends Module {
@@ -13,7 +13,6 @@ public class NoHurtCam extends Module {
     @EventTarget
     public void Render2DEvent(EventRender2D event) {
         if (this.isEnabled()) {
-
             mc.player.hurtTime = 0;
         }
     }

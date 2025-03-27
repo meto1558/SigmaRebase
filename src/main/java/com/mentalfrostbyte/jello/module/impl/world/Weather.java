@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
@@ -46,14 +46,13 @@ public class Weather extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.getPacket() instanceof SUpdateTimePacket) {
-                event.setCancelled(true);
-            } else if (event.getPacket() instanceof SChangeGameStatePacket) {
-                SChangeGameStatePacket gameStatePacket = (SChangeGameStatePacket) event.getPacket();
-                if (gameStatePacket.func_241776_b_().field_241778_b_ == 7) {
+            if (event.packet instanceof SUpdateTimePacket) {
+                event.cancelled = true;
+            } else if (event.packet instanceof SChangeGameStatePacket gameStatePacket) {
+				if (gameStatePacket.func_241776_b_().field_241778_b_ == 7) {
                     this.isRaining = gameStatePacket.getValue() == 1.0F;
                     if (this.getBooleanValueFromSettingName("Disable rain")) {
-                        event.setCancelled(true);
+                        event.cancelled = true;
                     }
                 }
             }

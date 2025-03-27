@@ -2,14 +2,14 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.network.IPacket;
 
 public class HawkFly extends Module {
@@ -32,9 +32,9 @@ public class HawkFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -45,16 +45,14 @@ public class HawkFly extends Module {
             double var4 = 0.125;
             if (this.field23424 != -1) {
                 if (this.field23424 == 0) {
-                    MovementUtil.setSpeed(var1, 0.18);
+                    MovementUtil.setMotion(var1, 0.18);
                 }
             } else {
                 var1.setY(0.015);
-                MovementUtil.setSpeed(var1, var4);
+                MovementUtil.setMotion(var1, var4);
             }
 
-            MovementUtil.setPlayerYMotion(var1.getY());
-            MovementUtil.setPlayerXMotion(var1.getX());
-            MovementUtil.setPlayerZMotion(var1.getZ());
+            mc.player.setMotion(var1.getX(), var1.getY(), var1.getZ());
         }
     }
 
@@ -67,17 +65,16 @@ public class HawkFly extends Module {
             }
 
             var1.setMoving(true);
-            var1.setGround(false);
+            var1.setOnGround(false);
         }
     }
 
     @EventTarget
     public void method16054(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var4;
-                if (this.field23424 >= 1) {
+            IPacket var4 = var1.packet;
+            if (var4 instanceof SPlayerPositionLookPacket var5) {
+				if (this.field23424 >= 1) {
                     this.field23424 = -1;
                 }
 

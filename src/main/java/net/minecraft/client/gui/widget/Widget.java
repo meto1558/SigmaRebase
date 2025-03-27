@@ -1,5 +1,9 @@
 package net.minecraft.client.gui.widget;
 
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.JelloMainMenu;
+import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.MainMenuScreen;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.util.Objects;
@@ -11,6 +15,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.IRenderable;
 import net.minecraft.client.gui.chat.NarratorChatListener;
+import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.Util;
@@ -246,6 +251,9 @@ public abstract class Widget extends AbstractGui implements IRenderable, IGuiEve
 
     public void playDownSound(SoundHandler handler)
     {
+        if (Minecraft.getInstance().currentScreen instanceof MainMenuHolder && Client.getInstance().clientMode.equals(ClientMode.JELLO))
+            return;
+
         handler.play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 

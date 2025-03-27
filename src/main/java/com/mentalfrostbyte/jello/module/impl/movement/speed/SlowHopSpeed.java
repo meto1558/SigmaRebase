@@ -1,12 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 
 public class SlowHopSpeed extends Module {
     private int onGroundTicks;
@@ -20,20 +20,20 @@ public class SlowHopSpeed extends Module {
 
     @Override
     public void onEnable() {
-        this.speed = MovementUtil.getSpeed();
+        this.speed = MovementUtil.getSmartSpeed();
         this.onGroundTicks = 2;
     }
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(MovementUtil.getSpeed());
+        MovementUtil.moveInDirection(MovementUtil.getSmartSpeed());
     }
 
     @EventTarget
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             boolean autoJump = this.getBooleanValueFromSettingName("AutoJump");
-            double var5 = MovementUtil.getSpeed();
+            double var5 = MovementUtil.getSmartSpeed();
             if (!mc.player.isOnGround()) {
                 this.onGroundTicks++;
                 this.speed = 0.36 - (double) this.onGroundTicks / 250.0;
@@ -41,7 +41,7 @@ public class SlowHopSpeed extends Module {
                     this.speed = var5;
                 }
 
-                MovementUtil.setSpeed(var1, this.speed);
+                MovementUtil.setMotion(var1, this.speed);
             } else {
                 this.onGroundTicks = 0;
                 mc.player.jump();
@@ -53,7 +53,7 @@ public class SlowHopSpeed extends Module {
     @EventTarget
     public void onJump(EventJump var1) {
         if (this.isEnabled()) {
-             var1.setY(0.407 + 0.1 * (double) MovementUtil.getJumpBoost());
+             var1.vector.y = 0.407 + 0.1 * (double) MovementUtil.getJumpBoost();
             this.onGroundTicks = 0;
              var1.setStrafeSpeed(1.8);
         }

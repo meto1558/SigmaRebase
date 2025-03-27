@@ -3,19 +3,18 @@ package com.mentalfrostbyte.jello.module.impl.render;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class9110;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.render.projectiles.TraceThing;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.FloatVector4;
-import com.mentalfrostbyte.jello.module.impl.render.projectiles.ProjectileThingy;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.module.impl.render.projectiles.ProjectileItems;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -32,16 +31,12 @@ public class Projectiles extends Module {
         this.setAvailableOnClassic(false);
     }
 
-    // $VF: synthetic method
-    public static Minecraft getMinecraft() {
-        return mc;
-    }
-
     @EventTarget
     public void method16523(EventRender3D var1) {
         if (this.isEnabled()) {
-            if (mc.player.getHeldItemMainhand() != null) {
-                ProjectileThingy var4 = ProjectileThingy
+			assert mc.player != null;
+			if (mc.player.getHeldItemMainhand() != null) {
+                ProjectileItems var4 = ProjectileItems
                         .getProjectileThingyForItem(mc.player.getHeldItemMainhand().getItem());
                 if (var4 != null) {
                     float rotYawRadians = (float) Math.toRadians(mc.player.rotationYaw - 25.0F);
@@ -70,19 +65,19 @@ public class Projectiles extends Module {
                     GL11.glColor4d(0.0, 0.0, 0.0, 0.05F);
                     GL11.glAlphaFunc(519, 0.0F);
                     GL11.glBegin(3);
-                    List var21 = var4.method9086();
+                    List<TraceThing> traceThings = var4.getTraceThings();
 
-                    for (int var22 = 0; var22 < var21.size(); var22++) {
-                        Class9110 var23 = (Class9110) var21.get(var22);
-                        double var24 = var11 - (double) ((float) (var22 + 1) / (float) var21.size()) * var11;
-                        double var26 = var13 - (double) ((float) (var22 + 1) / (float) var21.size()) * var13;
-                        double var28 = var7 - (double) ((float) (var22 + 1) / (float) var21.size()) * var7;
+                    for (int var22 = 0; var22 < traceThings.size(); var22++) {
+                        TraceThing traceThing = traceThings.get(var22);
+                        double var24 = var11 - (double) ((float) (var22 + 1) / (float) traceThings.size()) * var11;
+                        double var26 = var13 - (double) ((float) (var22 + 1) / (float) traceThings.size()) * var13;
+                        double var28 = var7 - (double) ((float) (var22 + 1) / (float) traceThings.size()) * var7;
                         float var30 = (float) Math.min(1, var22);
                         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.05F * var30);
                         GL11.glVertex3d(
-                                var23.method33969() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var24,
-                                var23.method33970() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var28,
-                                var23.method33971() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var26);
+                                traceThing.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var24,
+                                traceThing.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var28,
+                                traceThing.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var26);
                     }
 
                     GL11.glEnd();
@@ -90,43 +85,28 @@ public class Projectiles extends Module {
                     GL11.glColor4d(1.0, 1.0, 1.0, 0.75);
                     GL11.glBegin(3);
 
-                    for (int var38 = 0; var38 < var21.size(); var38++) {
-                        Class9110 var39 = (Class9110) var21.get(var38);
-                        double var40 = var11 - (double) ((float) (var38 + 1) / (float) var21.size()) * var11;
-                        double var43 = var13 - (double) ((float) (var38 + 1) / (float) var21.size()) * var13;
-                        double var46 = var7 - (double) ((float) (var38 + 1) / (float) var21.size()) * var7;
+                    for (int var38 = 0; var38 < traceThings.size(); var38++) {
+                        TraceThing var39 = traceThings.get(var38);
+                        double var40 = var11 - (double) ((float) (var38 + 1) / (float) traceThings.size()) * var11;
+                        double var43 = var13 - (double) ((float) (var38 + 1) / (float) traceThings.size()) * var13;
+                        double var46 = var7 - (double) ((float) (var38 + 1) / (float) traceThings.size()) * var7;
                         float var48 = (float) Math.min(1, var38);
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F * var48);
                         GL11.glVertex3d(
-                                var39.method33969() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var40,
-                                var39.method33970() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var46,
-                                var39.method33971() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var43);
+                                var39.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX() - var40,
+                                var39.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() - var46,
+                                var39.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ() - var43);
                     }
 
                     GL11.glEnd();
                     GL11.glDisable(2929);
                     if (var4.rayTraceResult == null) {
-                        if (var4.field15832 != null) {
-                            double var31 = var4.field15832.lastTickPosX
-                                    + (var4.field15832.getPosX() - var4.field15832.lastTickPosX)
-                                    * (double) mc.timer.renderPartialTicks
-                                    - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
-                            double var41 = var4.field15832.lastTickPosY
-                                    + (var4.field15832.getPosY() - var4.field15832.lastTickPosY)
-                                    * (double) mc.timer.renderPartialTicks
-                                    - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
-                            double var44 = var4.field15832.lastTickPosZ
-                                    + (var4.field15832.getPosZ() - var4.field15832.lastTickPosZ)
-                                    * (double) mc.timer.renderPartialTicks
-                                    - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
-                            double var47 = var4.field15832.getWidth() / 2.0F + 0.2F;
-                            double var35 = var4.field15832.getHeight() + 0.1F;
-                            BoundingBox var37 = new BoundingBox(var31 - var47, var41, var44 - var47, var31 + var47, var41 + var35,
-                                    var44 + var47);
-                            RenderUtil.render3DColoredBox(var37,
-                                    MovementUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
-                            RenderUtil.renderWireframeBox(var37,
-                                    MovementUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                        if (var4.hit != null) {
+                            BoundingBox renderBoundingBox = getRenderBoundingBox(var4);
+                            RenderUtil.render3DColoredBox(renderBoundingBox,
+                                    RenderUtil.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                            RenderUtil.renderWireframeBox(renderBoundingBox,
+                                    RenderUtil.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                         }
 
                     } else {
@@ -150,9 +130,9 @@ public class Projectiles extends Module {
                         GL11.glTranslatef(-0.5F, 0.0F, -0.5F);
                         BoundingBox box = new BoundingBox(0.0, 0.0, 0.0, 1.0, 0.0, 1.0);
                         RenderUtil.render3DColoredBox(box,
-                                MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(box,
-                                MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         GL11.glPopMatrix();
                     }
 
@@ -167,5 +147,24 @@ public class Projectiles extends Module {
                 }
             }
         }
+    }
+
+    private static @NotNull BoundingBox getRenderBoundingBox(ProjectileItems var4) {
+        double x = var4.hit.lastTickPosX
+                + (var4.hit.getPosX() - var4.hit.lastTickPosX)
+                * (double) mc.timer.renderPartialTicks
+                - mc.gameRenderer.getActiveRenderInfo().getPos().getX();
+        double y = var4.hit.lastTickPosY
+                + (var4.hit.getPosY() - var4.hit.lastTickPosY)
+                * (double) mc.timer.renderPartialTicks
+                - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
+        double z = var4.hit.lastTickPosZ
+                + (var4.hit.getPosZ() - var4.hit.lastTickPosZ)
+                * (double) mc.timer.renderPartialTicks
+                - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
+        double hitWidth = var4.hit.getWidth() / 2.0F + 0.2F;
+        double hitHeight = var4.hit.getHeight() + 0.1F;
+		return new BoundingBox(x - hitWidth, y, z - hitWidth, x + hitWidth, y + hitHeight,
+				z + hitWidth);
     }
 }

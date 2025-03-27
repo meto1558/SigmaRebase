@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -19,10 +19,10 @@ public class ClickGuiPanel extends CustomGuiScreen {
    @Override
    public void draw(float partialTicks) {
       GL11.glAlphaFunc(518, 0.1F);
-      float var4 = MathUtils.lerp(1.0F - this.field21149.calcPercent(), 0.9, 0.0, 0.9, 0.0);
+      float var4 = MathUtil.lerp(1.0F - this.field21149.calcPercent(), 0.9, 0.0, 0.9, 0.0);
       float var5 = (float)this.getWidthA() * var4 / 2.0F;
       float var6 = (float)(this.getHeightA() + 10) * var4 / 2.0F;
-      RenderUtil.drawPortalBackground(
+      RenderUtil.drawBlurredBackground(
          (float)this.method13271() + var5,
          (float)this.method13272() + var6,
          (float)(this.method13271() + this.getWidthA()) - var5,

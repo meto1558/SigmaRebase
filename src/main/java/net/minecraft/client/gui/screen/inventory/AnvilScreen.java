@@ -123,7 +123,7 @@ public class AnvilScreen extends AbstractRepairScreen<RepairContainer>
                 int k = this.xSize - 8 - this.font.getStringPropertyWidth(itextcomponent) - 2;
                 int l = 69;
                 fill(matrixStack, k - 2, 67, this.xSize - 8, 79, 1325400064);
-                this.font.func_243246_a(matrixStack, itextcomponent, (float)k, 69.0F, j);
+                this.font.drawText(matrixStack, itextcomponent, (float)k, 69.0F, j);
             }
         }
     }

@@ -1,24 +1,28 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.base.Screen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.LoginButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.PremiumButton;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Text;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.viamcp.protocolinfo.ProtocolInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.OptionsScreen;
 import net.minecraft.client.gui.screen.WorldSelectionScreen;
-import net.minecraft.realms.RealmsBridgeScreen;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
@@ -31,12 +35,13 @@ public class JelloMainMenu extends CustomGuiScreen {
     private final Button realmsButton;
     private final Button optionsButton;
     private final Button altManagerButton;
-    private final Class4302 field21128;
+    private final PremiumButton premiumButton;
     private final Text field21129;
     private final Text field21130;
-    private final TextButtonWithImage loginButton;
-    private final UIButton changelogButton;
-    private final UIButton field21133;
+    private final LoginButton loginButton;
+    private final TextButton switchButton;
+    private final TextButton changelogButton;
+    private final TextButton field21133;
     public int field21134 = 0;
 
     public JelloMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
@@ -141,12 +146,17 @@ public class JelloMainMenu extends CustomGuiScreen {
         this.field21130.field20779 = true;
         this.field21129.field20779 = true;
         this.addToList(
-                this.changelogButton = new UIButton(
+                this.switchButton = new TextButton(
+                        this, "switch", 220, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Switch", ResourceRegistry.JelloLightFont20
+                )
+        );
+        this.addToList(
+                this.changelogButton = new TextButton(
                         this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
                 )
         );
         this.addToList(
-                this.field21133 = new UIButton(
+                this.field21133 = new TextButton(
                         this, "quit", 30, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
                 )
         );
@@ -161,23 +171,26 @@ public class JelloMainMenu extends CustomGuiScreen {
                 }
             }).start();
         });
-        this.addToList(this.loginButton = new TextButtonWithImage(this, "Account", 0, var19, 0, var18, "Log in"));
-        this.addToList(this.field21128 = new Class4302(this, "pre", 0, 0, 240, 100));
-        this.field21128.method13247((var1x, var2x) -> {
-            if (Client.getInstance().networkManager.username != null) {
+        this.addToList(this.loginButton = new LoginButton(this, "Account", 0, var19, 0, var18, "Log in"));
+        this.addToList(this.premiumButton = new PremiumButton(this, "pre", 0, 0, 240, 100));
+        this.premiumButton.method13247((var1x, var2x) -> {
+            if (Client.getInstance().licenseManager.sigmaAccount != null) {
                 ((MainMenuScreen) this.getParent()).animateNext();
             } else {
                 this.displayScreen(new RegisterScreen());
             }
         });
         this.changelogButton.doThis((var1x, var2x) -> ((MainMenuScreen) this.getParent()).animateIn());
+        this.switchButton.doThis((var1x, var2x) -> {
+            this.displayScreen(new SwitchScreen());
+        });
         this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
         this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
         this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
         this.altManagerButton.doThis((var1x, var2x) -> this.displayScreen(new AltManagerScreen()));
         this.realmsButton.doThis((var1x, var2x) -> this.method13443());
         this.loginButton.doThis((var1x, var2x) -> {
-            if (Client.getInstance().networkManager.username != null) {
+            if (Client.getInstance().licenseManager.sigmaAccount != null) {
                 ((MainMenuScreen) this.getParent()).logout();
             } else {
                 this.displayScreen(new RegisterScreen());
@@ -191,8 +204,6 @@ public class JelloMainMenu extends CustomGuiScreen {
     }
 
     public void method13443() {
-        RealmsBridgeScreen var3 = new RealmsBridgeScreen();
-        var3.func_231394_a_(Minecraft.getInstance().currentScreen);
         this.playClickSound();
     }
 
@@ -219,11 +230,11 @@ public class JelloMainMenu extends CustomGuiScreen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.field21128.setEnabled(!Client.getInstance().networkManager.isPremium());
+        this.premiumButton.setSelfVisible(!Client.getInstance().licenseManager.isPremium());
         int var5 = 30;
         int var6 = 90;
-        this.changelogButton.setXA(var6 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
-        this.field21133.setXA(var5 + (!Client.getInstance().networkManager.isPremium() ? 202 : 0));
+        this.changelogButton.setXA(var6 + (!Client.getInstance().licenseManager.isPremium() ? 202 : 0));
+        this.field21133.setXA(var5 + (!Client.getInstance().licenseManager.isPremium() ? 202 : 0));
         super.updatePanelDimensions(newHeight, newWidth);
     }
 

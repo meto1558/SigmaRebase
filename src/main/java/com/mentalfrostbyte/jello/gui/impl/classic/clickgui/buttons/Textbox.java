@@ -1,14 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.PNGIconButton;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.SmallImage;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Textbox extends PNGIconButton {
-   private String[] field21384;
+public class Textbox extends SmallImage {
+   private final String[] field21384;
    private int field21385;
 
    public Textbox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10, TrueTypeFont var11) {
@@ -42,7 +42,7 @@ public class Textbox extends PNGIconButton {
    private void method13719() {
       if (this.field21385 >= 0 && this.field21385 < this.field21384.length) {
          this.setFont(ResourceRegistry.JelloLightFont20);
-         this.setTypedText(this.field21384[this.field21385]);
+         this.setText(this.field21384[this.field21385]);
       } else {
          throw new RuntimeException("Invalid index for TypeButton");
       }
@@ -76,7 +76,7 @@ public class Textbox extends PNGIconButton {
       var1 %= this.field21384.length;
       if (var1 != this.field21385) {
          this.field21385 = var1;
-         this.setTypedText(this.field21384[var1]);
+         this.setText(this.field21384[var1]);
          if (var2) {
             this.callUIHandlers();
          }

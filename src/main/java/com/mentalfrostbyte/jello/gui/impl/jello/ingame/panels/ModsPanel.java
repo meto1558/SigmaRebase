@@ -1,21 +1,25 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.*;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class7875;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.impl.others.buttons.VerticalScrollBar;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.VerticalScrollBar;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Class6984;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.client.gui.screen.Screen;
 
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class ModsPanel extends UIBase {
+public class ModsPanel extends Element {
    public Animation field21302;
    public int field21303;
    public int field21304;
@@ -48,8 +52,8 @@ public class ModsPanel extends UIBase {
             this, "search", this.field21304 + 30, this.field21303 + 30 + 50, this.field21305 - 30 * 2, 60, TextField.field20741, "", "Search..."
          )
       );
-      var10.method13151(var2x -> {
-         this.field21307 = var10.getTypedText();
+      var10.addChangeListener(var2x -> {
+         this.field21307 = var10.getText();
          this.field21308.method13512(0);
       });
       var10.method13242();
@@ -64,7 +68,7 @@ public class ModsPanel extends UIBase {
          Class6984 var14 = new Class6984((Class<? extends Screen>)var13.getKey());
          ColorHelper var15 = new ColorHelper(RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.02F), -986896)
             .setTextColor(RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F))
-            .method19412(Class2218.field14492);
+            .method19412(FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
          Button var16;
          this.field21308
             .addToList(
@@ -85,7 +89,7 @@ public class ModsPanel extends UIBase {
       var11 += 50;
 
       for (Module var19 : Client.getInstance().moduleManager.getModuleMap().values()) {
-         ColorHelper var20 = new ColorHelper(16777215, -986896).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19412(Class2218.field14488);
+         ColorHelper var20 = new ColorHelper(16777215, -986896).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19412(FontSizeAdjust.field14488);
          Button var21;
          this.field21308
             .addToList(
@@ -96,7 +100,7 @@ public class ModsPanel extends UIBase {
          var21.method13034(10);
          var21.doThis((var2x, var3x) -> {
             for (Module var7 : Client.getInstance().moduleManager.getModuleMap().values()) {
-               if (var7.getName().equals(var21.getTypedText()) && !this.field21311) {
+               if (var7.getName().equals(var21.getText()) && !this.field21311) {
                   this.field21309 = new Class6984(var7);
                   this.field21311 = true;
                   break;
@@ -125,19 +129,18 @@ public class ModsPanel extends UIBase {
       for (CustomGuiScreen var10 : this.field21308.getChildren()) {
          if (!(var10 instanceof VerticalScrollBar)) {
             for (CustomGuiScreen var12 : var10.getChildren()) {
-               if (var12 instanceof Button) {
-                  Button var13 = (Button)var12;
-                  boolean var14 = var13.getHeightA() != 40;
+               if (var12 instanceof Button var13) {
+				   boolean var14 = var13.getHeightA() != 40;
                   if (!var14 || this.field21307 != null && (this.field21307 == null || this.field21307.length() != 0)) {
-                     if (!var14 && this.method13622(this.field21307, var13.getTypedText())) {
-                        var6.put(var13.getTypedText(), var13);
-                     } else if (!var14 && this.method13621(this.field21307, var13.getTypedText())) {
-                        var7.put(var13.getTypedText(), var13);
+                     if (!var14 && this.method13622(this.field21307, var13.getText())) {
+                        var6.put(var13.getText(), var13);
+                     } else if (!var14 && this.method13621(this.field21307, var13.getText())) {
+                        var7.put(var13.getText(), var13);
                      } else {
                         var8.add(var13);
                      }
                   } else {
-                     var5.put(var13.getTypedText(), var13);
+                     var5.put(var13.getText(), var13);
                   }
                }
             }
@@ -147,7 +150,7 @@ public class ModsPanel extends UIBase {
       int var15 = var5.size() <= 0 ? 0 : 10;
 
       for (Button var20 : var5.values()) {
-         var20.setEnabled(true);
+         var20.setSelfVisible(true);
          var20.setYA(var15);
          var15 += var20.getHeightA();
       }
@@ -157,30 +160,30 @@ public class ModsPanel extends UIBase {
       }
 
       for (Button var21 : var6.values()) {
-         var21.setEnabled(true);
+         var21.setSelfVisible(true);
          var21.setYA(var15);
          var15 += var21.getHeightA();
       }
 
       for (Button var22 : var7.values()) {
-         var22.setEnabled(true);
+         var22.setSelfVisible(true);
          var22.setYA(var15);
          var15 += var22.getHeightA();
       }
 
       for (Button var23 : var8) {
-         var23.setEnabled(false);
+         var23.setSelfVisible(false);
       }
 
       super.updatePanelDimensions(newHeight, newWidth);
    }
 
    private boolean method13621(String var1, String var2) {
-      return var1 != null && var1 != "" && var2 != null ? var2.toLowerCase().contains(var1.toLowerCase()) : true;
+      return var1 == null || var1 == "" || var2 == null || var2.toLowerCase().contains(var1.toLowerCase());
    }
 
    private boolean method13622(String var1, String var2) {
-      return var1 != null && var1 != "" && var2 != null ? var2.toLowerCase().startsWith(var1.toLowerCase()) : true;
+      return var1 == null || var1 == "" || var2 == null || var2.toLowerCase().startsWith(var1.toLowerCase());
    }
 
    @Override

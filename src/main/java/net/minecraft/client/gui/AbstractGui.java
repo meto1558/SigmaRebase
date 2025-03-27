@@ -127,7 +127,7 @@ public abstract class AbstractGui
     public static void drawCenteredString(MatrixStack matrixStack, FontRenderer fontRenderer, ITextComponent font, int text, int x, int y)
     {
         IReorderingProcessor ireorderingprocessor = font.func_241878_f();
-        fontRenderer.func_238407_a_(matrixStack, ireorderingprocessor, (float)(text - fontRenderer.func_243245_a(ireorderingprocessor) / 2), (float)x, y);
+        fontRenderer.func_238407_a_(matrixStack, ireorderingprocessor, (float)(text - fontRenderer.getStringWidth(ireorderingprocessor) / 2), (float)x, y);
     }
 
     public static void drawString(MatrixStack matrixStack, FontRenderer fontRenderer, String font, int text, int x, int y)
@@ -137,7 +137,7 @@ public abstract class AbstractGui
 
     public static void drawString(MatrixStack matrixStack, FontRenderer fontRenderer, ITextComponent font, int text, int x, int y)
     {
-        fontRenderer.func_243246_a(matrixStack, font, (float)text, (float)x, y);
+        fontRenderer.drawText(matrixStack, font, (float)text, (float)x, y);
     }
 
     public void blitBlackOutline(int width, int height, BiConsumer<Integer, Integer> boxXYConsumer)

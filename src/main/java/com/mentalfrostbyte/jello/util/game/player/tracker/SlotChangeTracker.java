@@ -17,9 +17,8 @@ public class SlotChangeTracker {
 
     @EventTarget
     public void onReceivePacket(EventReceivePacket var1) {
-        if (var1.getPacket() instanceof SSetSlotPacket) {
-            SSetSlotPacket slotPacket = (SSetSlotPacket) var1.getPacket();
-            if (slotPacket.getWindowId() != 0) {
+        if (var1.packet instanceof SSetSlotPacket slotPacket) {
+			if (slotPacket.getWindowId() != 0) {
                 return;
             }
 

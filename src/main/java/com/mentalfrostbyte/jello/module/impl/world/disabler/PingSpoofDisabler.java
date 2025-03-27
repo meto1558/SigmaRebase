@@ -6,8 +6,8 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -79,10 +79,9 @@ public class PingSpoofDisabler extends Module {
 
     @EventTarget
     public void method16102(EventSendPacket var1) {
-        IPacket var4 = var1.getPacket();
-        if (var4 instanceof CClickWindowPacket) {
-            CClickWindowPacket var5 = (CClickWindowPacket) var4;
-            this.field23463 = var5.getActionNumber();
+        IPacket var4 = var1.packet;
+        if (var4 instanceof CClickWindowPacket var5) {
+			this.field23463 = var5.getActionNumber();
         }
     }
 
@@ -98,12 +97,11 @@ public class PingSpoofDisabler extends Module {
         }
 
         if (mc.getCurrentServerData() != null) {
-            IPacket var7 = var1.getPacket();
-            if (!(var7 instanceof SKeepAlivePacket)) {
-                if (!(var7 instanceof SConfirmTransactionPacket)) {
-                    if (var7 instanceof SPlayerPositionLookPacket && this.field23462 > 0) {
-                        SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) var7;
-                    } else if (!(var7 instanceof SWorldSpawnChangedPacket)) {
+            IPacket var7 = var1.packet;
+            if (!(var7 instanceof SKeepAlivePacket var9)) {
+                if (!(var7 instanceof SConfirmTransactionPacket var8)) {
+                    if (var7 instanceof SPlayerPositionLookPacket var5 && this.field23462 > 0) {
+					} else if (!(var7 instanceof SWorldSpawnChangedPacket)) {
                         if (!(var7 instanceof SPlayerAbilitiesPacket) && !(var7 instanceof SSetSlotPacket)
                                 && !(var7 instanceof SOpenWindowPacket) && !(var7 instanceof SWindowItemsPacket)) {
                         }
@@ -111,17 +109,15 @@ public class PingSpoofDisabler extends Module {
                         this.field23462 = 0;
                     }
                 } else {
-                    SConfirmTransactionPacket var8 = (SConfirmTransactionPacket) var7;
-                    int var6 = var8.getActionNumber() - this.field23463;
+					int var6 = var8.getActionNumber() - this.field23463;
                     if (var6 > 0 || var6 < -20 || !this.getBooleanValueFromSettingName("Inv Bypass")) {
                         this.field23461.add(new Class8772(var8, this, (long) this.getNumberValueBySettingName("Lag")));
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                     }
                 }
             } else {
-                SKeepAlivePacket var9 = (SKeepAlivePacket) var7;
-                this.field23461.add(new Class8772(var9, this, (long) this.getNumberValueBySettingName("Lag")));
-                var1.setCancelled(true);
+				this.field23461.add(new Class8772(var9, this, (long) this.getNumberValueBySettingName("Lag")));
+                var1.cancelled = true;
             }
         }
     }

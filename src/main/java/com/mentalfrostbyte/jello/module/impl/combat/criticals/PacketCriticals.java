@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.criticals;
 import com.mentalfrostbyte.jello.event.impl.game.EventRayTraceResult;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Step;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -57,15 +57,15 @@ public class PacketCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16924(EventSendPacket var1) {
+    public void method16924(EventSendPacket event) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof CPlayerPacket) {
+            if (event.packet instanceof CPlayerPacket) {
                 if (!this.timer.isEnabled()) {
                     this.timer.start();
                 }
 
                 if (this.field23999 && mc.player.isOnGround()) {
-                    var1.setCancelled(true);
+                    event.cancelled = true;
                     this.field23999 = false;
                 }
             }

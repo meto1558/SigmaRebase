@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.module.impl.misc.gameplay;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
 import net.minecraft.network.play.server.STeamsPacket;
@@ -41,7 +41,7 @@ public class HypixelGamePlay extends Module {
     @EventTarget
     public void onReceive(EventReceivePacket event) {
         if (mc.player != null) {
-            IPacket<?> packet = event.getPacket();
+            IPacket<?> packet = event.packet;
             if (packet instanceof SChatPacket chatPacket) {
                 String text = chatPacket.getChatComponent().getString().replaceAll("§.", "");
                 if (chatPacket.getType() != ChatType.SYSTEM && chatPacket.getType() != ChatType.CHAT) {
@@ -117,7 +117,7 @@ public class HypixelGamePlay extends Module {
                     for (ITextComponent textCom : chatPacket.getChatComponent().getSiblings()) {
                         ClickEvent clickEvent = textCom.getStyle().getClickEvent();
                         if (clickEvent != null && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND && clickEvent.getValue().contains("/f accept")) {
-                            MovementUtil2.sendChatMessage(clickEvent.getValue());
+                            MinecraftUtil.sendChatMessage(clickEvent.getValue());
                         }
                     }
                 }
@@ -147,7 +147,7 @@ public class HypixelGamePlay extends Module {
                     String teamPrefixSuffixCombined = teamsPacket.getPrefix().getString() + teamsPacket.getSuffix().getString();
                     String[] splitPrefixSuffix = teamPrefixSuffixCombined.split(" ");
                     if (splitPrefixSuffix != null && splitPrefixSuffix.length > 1 && StringUtils.countMatches(splitPrefixSuffix[0], "/") == 2) {
-                        event.setCancelled(true);
+                        event.cancelled = true;
                     }
                 }
             }

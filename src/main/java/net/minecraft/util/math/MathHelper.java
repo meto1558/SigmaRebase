@@ -725,9 +725,9 @@ public class MathHelper
         }
     }
 
-    public static float interpolateAngle(float p_219805_0_, float p_219805_1_, float p_219805_2_)
+    public static float interpolateAngle(float partialTicks, float startAngle, float endAngle)
     {
-        return p_219805_1_ + p_219805_0_ * wrapDegrees(p_219805_2_ - p_219805_1_);
+        return startAngle + partialTicks * wrapDegrees(endAngle - startAngle);
     }
 
     @Deprecated
@@ -787,5 +787,25 @@ public class MathHelper
         {
             SIN_TABLE_FAST[j] = MathUtils.roundToFloat(Math.sin((double)j * Math.PI * 2.0D / 4096.0D));
         }
+    }
+
+    public static long calculateTimeBasedValue() {
+        long time = System.currentTimeMillis() / 720000L;
+        time <<= 1;
+        time = time % 2L != 0L ? time >> 2 : time << 1;
+        return time % 3L != 0L ? time * 2L : time / 2L;
+    }
+
+    public static float wrapAngleTo180_float(float var0) {
+        float var3 = var0 % 360.0F;
+        if (var3 >= 180.0F) {
+            var3 -= 360.0F;
+        }
+
+        if (var3 < -180.0F) {
+            var3 += 360.0F;
+        }
+
+        return var3;
     }
 }

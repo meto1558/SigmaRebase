@@ -5,24 +5,24 @@ import net.minecraft.entity.LivingEntity;
 
 public class EventRenderEntity extends CancellableEvent {
 
-    private float field21527;
-    private float field21528;
-    private float field21529;
-    private float field21530;
-    private final float field21531;
+    private float yawOffset;
+    private float headYaw;
+    private float yaw;
+    private float pitch;
+    private final float partialTicks;
     private final LivingEntity entity;
     private boolean field21533 = true;
     private boolean field21534 = true;
     private RenderState state;
 
-    public EventRenderEntity(float var1, float var2, float var3, float var4, float var5, LivingEntity var6) {
-        this.field21527 = var1;
-        this.field21528 = var2;
-        this.field21529 = var3;
-        this.field21530 = var4;
-        this.field21531 = var5;
-        this.entity = var6;
-        this.state = RenderState.DEFAULT;
+    public EventRenderEntity(float yawOffset, float headYaw, float yaw, float pitch, float partialTicks, LivingEntity entity) {
+        this.yawOffset = yawOffset;
+        this.headYaw = headYaw;
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.partialTicks = partialTicks;
+        this.entity = entity;
+        this.state = RenderState.PRE;
     }
 
     public void setState(RenderState state) {
@@ -33,43 +33,43 @@ public class EventRenderEntity extends CancellableEvent {
         return this.state;
     }
 
-    public float method13944() {
-        return this.field21527;
+    public float getYawOffset() {
+        return this.yawOffset;
     }
 
-    public float method13945() {
-        return this.field21528;
+    public float getHeadYaw() {
+        return this.headYaw;
     }
 
-    public float method13946() {
-        return this.field21529;
+    public float getYaw() {
+        return this.yaw;
     }
 
-    public float method13947() {
-        return this.field21530;
+    public float getPitch() {
+        return this.pitch;
     }
 
-    public float method13948() {
-        return this.field21531;
+    public float getPartialTicks() {
+        return this.partialTicks;
     }
 
-    public void method13949(float var1) {
-        this.field21527 = var1;
+    public void setYawOffset(float yawOffset) {
+        this.yawOffset = yawOffset;
     }
 
-    public void method13950(float var1) {
-        this.field21528 = var1;
+    public void setHeadYaw(float headYaw) {
+        this.headYaw = headYaw;
     }
 
-    public void method13951(float var1) {
-        this.field21529 = var1;
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
     }
 
-    public void method13952(float var1) {
-        this.field21530 = var1;
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
     }
 
-    public LivingEntity method13953() {
+    public LivingEntity getEntity() {
         return this.entity;
     }
 
@@ -90,8 +90,8 @@ public class EventRenderEntity extends CancellableEvent {
     }
 
     public enum RenderState {
-        DEFAULT,
-        field13213,
-        field13214
+        PRE,
+        MID,
+        POST
     }
 }

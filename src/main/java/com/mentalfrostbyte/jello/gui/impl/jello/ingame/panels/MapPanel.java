@@ -1,11 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.game.render.StencilMode;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.maps.MapFrame;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.interfaces.Class9514;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
+import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.WaypointList;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -15,24 +19,24 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapPanel extends UIBase {
-   private List<Button> field20612 = new ArrayList<Button>();
+public class MapPanel extends Element {
+   private final List<Button> field20612 = new ArrayList<Button>();
    public int field20613;
-   public Class4259 field20614;
-   public Class4340 field20615;
+   public MapFrame field20614;
+   public WaypointList waypointList;
    public int field20616;
    private final List<Class9514> field20617 = new ArrayList<Class9514>();
 
    public MapPanel(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.field20616 = 260;
-      this.addToList(this.field20615 = new Class4340(this, "waypointList", 0, 65, this.field20616, this.heightA - 65));
+      this.addToList(this.waypointList = new WaypointList(this, "waypointList", 0, 65, this.field20616, this.heightA - 65));
 
-      for (Class8351 var10 : Client.getInstance().waypointsManager.method29989()) {
-         this.field20615.method13519(var10.field35889, new Vector3i(var10.field35890, 64, var10.field35891), var10.field35892);
+      for (Waypoint2 var10 : Client.getInstance().waypointsManager.getWaypoints()) {
+         this.waypointList.addWaypoint(var10.name, new Vector3i(var10.x, 64, var10.z), var10.color);
       }
 
-      this.addToList(this.field20614 = new Class4259(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));
+      this.addToList(this.field20614 = new MapFrame(this, "mapFrame", this.field20616, 0, this.widthA - this.field20616, this.heightA));
       this.setListening(false);
    }
 
@@ -80,10 +84,10 @@ public class MapPanel extends UIBase {
       RenderUtil.drawRoundedButton(
          (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, 14.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor()
       );
-      RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);
+      RenderUtil.configureStencilTest();
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
-      this.field20615.draw(partialTicks);
+      this.waypointList.draw(partialTicks);
       GL11.glPopMatrix();
       GL11.glPushMatrix();
       GL11.glTranslatef((float)this.getXA(), (float)this.getYA(), 0.0F);
@@ -92,7 +96,7 @@ public class MapPanel extends UIBase {
       RenderUtil.restorePreviousStencilBuffer();
       RenderUtil.drawRoundedRect2(
          (float)(this.xA + this.field20616),
-         (float)(this.yA + 0),
+         (float)(this.yA),
          1.0F,
          (float)this.heightA,
               RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F)

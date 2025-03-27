@@ -1,30 +1,27 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.LoadingIndicator;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
-import com.mentalfrostbyte.jello.gui.unmapped.Text;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.gui.unmapped.UIButton;
-import com.mentalfrostbyte.jello.managers.util.account.Class9507;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Text;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import net.minecraft.util.Util;
 
-public class LoginScreen extends UIBase {
-    private TextField inputUsername;
-    private TextField inputPassword;
-    private TextField field21355;
-    private UIButton loginButton;
-    private UIButton registerButton;
-    private UIButton forgotButton;
-    private LoadingIndicator loadingThingy;
+public class LoginScreen extends Element {
+    private final TextField inputUsername;
+    private final TextField inputPassword;
+    private final TextButton loginButton;
+    private final TextButton registerButton;
+    private final TextButton forgotButton;
+    private final LoadingIndicator loadingThingy;
     public static int widthy = 334;
     public static int heighty = 571;
 
@@ -44,17 +41,17 @@ public class LoginScreen extends UIBase {
                 )
         );
         this.addToList(
-                this.loginButton = new UIButton(
+                this.loginButton = new TextButton(
                         this, "LoginButton", 468, 238, ResourceRegistry.JelloLightFont25.getWidth("Login"), 70, ColorHelper.field27961, "Login", ResourceRegistry.JelloLightFont25
                 )
         );
         this.addToList(
-                this.registerButton = new UIButton(
+                this.registerButton = new TextButton(
                         this, "RegisterButton", 88, 250, ResourceRegistry.JelloLightFont14.getWidth("Register"), 14, ColorHelper.field27961, "Register", ResourceRegistry.JelloLightFont14
                 )
         );
         this.addToList(
-                this.forgotButton = new UIButton(
+                this.forgotButton = new TextButton(
                         this,
                         "ForgotButton",
                         60,
@@ -67,20 +64,17 @@ public class LoginScreen extends UIBase {
                 )
         );
         this.addToList(this.loadingThingy = new LoadingIndicator(this, "loading", 511, 260, 30, 30));
-        this.loadingThingy.method13296(false);
+        this.loadingThingy.setHovered(false);
         this.loadingThingy.method13294(true);
         int var9 = 50;
         int var10 = 300;
         int var11 = 106;
-        ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor(), Class2218.field14488, Class2218.field14492);
+        ColorHelper var12 = new ColorHelper(-892679478, -892679478, -892679478, ClientColors.MID_GREY.getColor(), FontSizeAdjust.field14488, FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
         this.addToList(this.inputUsername = new TextField(this, "Username", 228, var11, var10, var9, var12, "", "Username"));
         this.addToList(this.inputPassword = new TextField(this, "Password", 228, var11 + 53, var10, var9, var12, "", "Password"));
         this.inputUsername.setFont(ResourceRegistry.JelloLightFont20);
         this.inputPassword.setFont(ResourceRegistry.JelloLightFont20);
-        this.inputPassword.method13155(true);
-        this.addToList(this.field21355 = new TextField(this, "CaptchaBox", 228, var11 + 135, 84, var9, var12, "", "Captcha"));
-        this.field21355.setFont(ResourceRegistry.JelloLightFont20);
-        this.field21355.setEnabled(false);
+        this.inputPassword.setCensorText(true);
         this.loginButton.doThis((var1x, var2x) -> this.method13688());
         this.registerButton.doThis((var1x, var2x) -> {
             RegisterScreen var5x = (RegisterScreen) this.getParent();
@@ -95,45 +89,25 @@ public class LoginScreen extends UIBase {
         super.method13225();
         int var4 = 28;
         RenderUtil.drawImage((float) (this.xA + var4), (float) (this.yA + var4 + 10), 160.0F, 160.0F, Resources.sigmaPNG, partialTicks);
-        Class9507 var5 = Client.getInstance().networkManager.method30452();
-        if (var5 != null) {
-            this.field21355.setEnabled(var5.method36702());
-            if (var5.method36702()) {
-                RenderUtil.drawRoundedRect2(
-                        (float) (this.xA + 330), (float) (this.yA + 255), 114.0F, 40.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F)
-                );
-            }
-
-            if (var5.method36701() != null) {
-                RenderUtil.startScissor((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 50.0F);
-                RenderUtil.drawImage((float) (this.xA + 316), (float) (this.yA + 255), 190.0F, 190.0F, var5.method36701());
-                RenderUtil.endScissor();
-            }
-        }
-
         super.draw(partialTicks);
     }
 
     public void method13688() {
         new Thread(() -> {
-            this.loadingThingy.method13296(true);
-            this.loginButton.setEnabled(false);
-            Class9507 var3 = Client.getInstance().networkManager.method30452();
-            if (var3 != null) {
-                var3.method36706(this.field21355.getTypedText());
-            }
+            this.loadingThingy.setHovered(true);
+            this.loginButton.setSelfVisible(false);
 
-            String var4 = Client.getInstance().networkManager.newAccount(this.inputUsername.getTypedText());
-            if (var4 != null) {
-                RegisterScreen var5 = (RegisterScreen) this.getParent();
-                var5.method13424("Error", var4);
-                this.field21355.setTypedText("");
+            String account = Client.getInstance().licenseManager.newAccount(this.inputUsername.getText(), this.inputPassword.getText());
+            RegisterScreen reg = (RegisterScreen) this.getParent();
+
+            if (account != null) {
+                reg.method13424("Error", account);
             } else {
                 this.callUIHandlers();
             }
 
-            this.loadingThingy.method13296(false);
-            this.loginButton.setEnabled(true);
+            this.loadingThingy.setHovered(false);
+            this.loginButton.setSelfVisible(true);
         }).start();
     }
 }

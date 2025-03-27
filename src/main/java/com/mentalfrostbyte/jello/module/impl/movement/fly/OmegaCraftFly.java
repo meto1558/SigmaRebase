@@ -2,13 +2,13 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 
 public class OmegaCraftFly extends Module {
     private int field23700;
@@ -41,9 +41,9 @@ public class OmegaCraftFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.2);
+        MovementUtil.moveInDirection(0.2);
         if (mc.player.getMotion().y > 0.03) {
-            MovementUtil.setPlayerYMotion(-0.0784);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0784, mc.player.getMotion().z);
         }
     }
 
@@ -72,11 +72,11 @@ public class OmegaCraftFly extends Module {
             var1.setMoving(true);
             if (this.field23700 != 0) {
                 if (this.field23700 == 1) {
-                    var1.setGround(false);
+                    var1.setOnGround(false);
                     var1.setY(var1.getY() + 0.03);
                 }
             } else {
-                var1.setGround(true);
+                var1.setOnGround(true);
             }
         }
     }
@@ -95,7 +95,7 @@ public class OmegaCraftFly extends Module {
                 double speed = !mc.gameSettings.keyBindSneak.isKeyDown()
                         ? 0.405/* + (double) MovementUtil.method37078() * 0.02*/
                         : 0.25;
-                MovementUtil.setSpeed(event, speed);
+                MovementUtil.setMotion(event, speed);
                 this.field23700 = 0;
             }
         } else {
@@ -107,19 +107,16 @@ public class OmegaCraftFly extends Module {
             }
 
             double var6 = !mc.gameSettings.keyBindSneak.isKeyDown() ? 0.6 : 0.25;
-            MovementUtil.setSpeed(event, var6);
+            MovementUtil.setMotion(event, var6);
         }
 
-        MovementUtil.setPlayerXMotion(event.getX());
-        MovementUtil.setPlayerYMotion(event.getY());
-        MovementUtil.setPlayerZMotion(event.getZ());
+        mc.player.setMotion(event.getX(), event.getY(), event.getZ());
     }
 
     @EventTarget
     public void method16497(EventReceivePacket var1) {
-        if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
-            SPlayerPositionLookPacket var4 = (SPlayerPositionLookPacket) var1.getPacket();
-            double var5 = this.field23703[0];
+        if (var1.packet instanceof SPlayerPositionLookPacket var4) {
+			double var5 = this.field23703[0];
             int var7 = this.field23703.length;
             double var8 = var4.getY() - (double) ((int) var4.getY());
 

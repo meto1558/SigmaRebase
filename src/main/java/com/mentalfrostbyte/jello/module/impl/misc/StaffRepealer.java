@@ -3,9 +3,9 @@ package com.mentalfrostbyte.jello.module.impl.misc;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SPlayerListItemPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -19,7 +19,7 @@ public class StaffRepealer extends Module {
     @EventTarget
     public void onTick(EventPlayerTick event) {
         if (this.isEnabled()) {
-            if (MovementUtil2.isHypixel()) {
+            if (ServerUtil.isHypixel()) {
                 mc.gameSettings.sendSettingsToServer();
             }
         }
@@ -28,7 +28,7 @@ public class StaffRepealer extends Module {
     @EventTarget
     public void onReceive(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.getPacket() instanceof SPlayerListItemPacket listItemPacket) {
+            if (event.packet instanceof SPlayerListItemPacket listItemPacket) {
                 new Thread(() -> {
                     try {
                         Thread.sleep(2000L);

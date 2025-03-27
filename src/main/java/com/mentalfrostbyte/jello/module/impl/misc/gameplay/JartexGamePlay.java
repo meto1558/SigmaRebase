@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.logger.TimedMessage;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.misc.GamePlay;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SChatPacket;
@@ -28,7 +28,7 @@ public class JartexGamePlay extends Module {
     @EventTarget
     public void onReceive(EventReceivePacket event) {
         if (this.isEnabled() && mc.player != null) {
-            IPacket<?> packet = event.getPacket();
+            IPacket<?> packet = event.packet;
             if (packet instanceof SChatPacket chatPacket) {
                 String text = chatPacket.getChatComponent().getString();
                 String playerName = mc.player.getName().getString().toLowerCase();

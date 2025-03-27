@@ -1,115 +1,181 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
-
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.gui.screen.IngameMenuScreen;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AirItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class InfoHUD extends Module {
-    public float field23851 = 0.0F;
 
     public InfoHUD() {
         super(ModuleCategory.GUI, "Info HUD", "Shows a bunch of usefull stuff");
         this.registerSetting(new ModeSetting("Cords", "Coordinate display type", 1, "None", "Normal", "Precise"));
         this.registerSetting(new BooleanSetting("Show Player", "Renders a miniature version of your character", true));
         this.registerSetting(new BooleanSetting("Show Armor", "Shows your armor's status", true));
+        this.registerSetting(new BooleanSetting("Move chat up", "Moves the chat gui up", true));
         this.setAvailableOnClassic(false);
     }
 
     @EventTarget
-    public void method16692(EventRender2DOffset var1) {
+    public void onRenderChat(EventRenderChat eventRenderChat) {
+        if (getBooleanValueFromSettingName("Move chat up")) {
+            eventRenderChat.addOffset(-40);
+        }
+    }
+
+    @EventTarget
+    public void onRender2D(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                if (!(mc.currentScreen instanceof ChatScreen)) {
-                    float var4 = mc.player.rotationYaw % 360.0F - this.field23851 % 360.0F;
-                    this.field23851 = this.field23851 + var4 / (float) Minecraft.getFps() * 1.5F;
-                    boolean var5 = false;
-                    int var6 = 14;
+                if (!(mc.currentScreen instanceof IngameMenuScreen)) {
+                    int xOffset = 14;
+
                     if (this.getBooleanValueFromSettingName("Show Player")) {
-                        var6 += this.method16696(0, mc.mainWindow.getHeight() - 23, 114);
+                        int y = mc.mainWindow.getHeight() - 22;
+                        if (Client.getInstance().musicManager.isPlayingSong())
+                            y -= 105;
+
+                        xOffset += this.renderPlayerModel(0, y, 114);
                     }
 
                     if (this.getBooleanValueFromSettingName("Show Armor")) {
-                        var6 += this.method16695(var6, mc.mainWindow.getHeight() - 14) + 10;
+                        int y = mc.mainWindow.getHeight() - 14;
+                        if (Client.getInstance().musicManager.isPlayingSong())
+                            y -= 105;
+
+                        xOffset += this.renderArmorStatus(xOffset, y) + 10;
                     }
 
                     if (!this.getStringSettingValueByName("Cords").equals("None")) {
-                        var6 += this.method16694(var6, 42) + 10;
+                        int y = 42;
+                        if (Client.getInstance().musicManager.isPlayingSong())
+                            y += 105;
+                        xOffset += this.renderCoordinates(xOffset, y) + 10;
                     }
                 }
             }
         }
     }
 
-    public String method16693(boolean var1) {
-        return !var1
-                ? Math.round(mc.player.getPosX())
-                        + " "
-                        + Math.round(mc.player.getPosY())
-                        + " "
-                        + Math.round(mc.player.getPosZ())
-                : (float) Math.round(mc.player.getPosX() * 10.0) / 10.0F
-                        + " "
-                        + (float) Math.round(mc.player.getPosY() * 10.0) / 10.0F
-                        + " "
-                        + (float) Math.round(mc.player.getPosZ() * 10.0) / 10.0F;
+    public String getFormattedCoordinates(boolean precise) {
+        return !precise
+                ? Math.round(mc.player.getPosX()) + " " +
+                Math.round(mc.player.getPosY()) + " " +
+                Math.round(mc.player.getPosZ())
+                : (float) Math.round(mc.player.getPosX() * 10.0) / 10.0F + " " +
+                (float) Math.round(mc.player.getPosY() * 10.0) / 10.0F + " " +
+                (float) Math.round(mc.player.getPosZ() * 10.0) / 10.0F;
     }
 
-    public int method16694(int var1, int var2) {
-        String var5 = "Facing South";
-        String var6 = this.method16693(this.getStringSettingValueByName("Cords").equals("Precise"));
+    public int renderCoordinates(int x, int yOffset) {
+        String direction = "Facing South";
+        String coordinates = this.getFormattedCoordinates(this.getStringSettingValueByName("Cords").equals("Precise"));
         RenderUtil.drawString(
                 ResourceRegistry.JelloMediumFont20,
-                (float) var1,
-                (float) (mc.mainWindow.getHeight() - var2),
-                var6,
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
-        return Math.max(ResourceRegistry.JelloLightFont20.getWidth(var5),
-                ResourceRegistry.JelloMediumFont20.getWidth(var6));
+                (float) x,
+                (float) (mc.mainWindow.getHeight() - yOffset),
+                coordinates,
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
+        return Math.max(ResourceRegistry.JelloLightFont20.getWidth(direction),
+                ResourceRegistry.JelloMediumFont20.getWidth(coordinates));
     }
 
-    public int method16695(int var1, int var2) {
-        int var5 = 0;
+    public int renderArmorStatus(int x, int y) {
+        int armorCount = 0;
 
-        for (int var6 = 0; var6 < mc.player.inventory.armorInventory.size(); var6++) {
-            ItemStack var7 = mc.player.inventory.armorInventory.get(var6);
-            if (!(var7.getItem() instanceof AirItem)) {
-                var5++;
-                int var8 = var2 - 32 * var5;
-                RenderUtil.method11479(var7, var1, var8, 32, 32);
-                GL11.glDisable(2896);
-                float var9 = 1.0F - (float) var7.getDamage() / (float) var7.getMaxDamage();
-                if (var9 != 1.0F) {
-                    RenderUtil.renderBackgroundBox((float) (var1 + 2), (float) (var8 + 28), 28.0F, 5.0F,
-                            MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
-                    RenderUtil.renderBackgroundBox(
-                            (float) (var1 + 2),
-                            (float) (var8 + 28),
-                            28.0F * var9,
+        for (int i = 0; i < mc.player.inventory.armorInventory.size(); i++) {
+            ItemStack armorPiece = mc.player.inventory.armorInventory.get(i);
+            if (!(armorPiece.getItem() instanceof AirItem)) {
+                armorCount++;
+                int armorY = y - 32 * armorCount;
+                RenderUtil.renderItem(armorPiece, x, armorY, 32, 32);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                float durability = 1.0F - (float) armorPiece.getDamage() / (float) armorPiece.getMaxDamage();
+                if (durability != 1.0F) {
+                    RenderUtil.drawRect2((float) (x + 2), (float) (armorY + 28), 28.0F, 5.0F,
+                            RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
+                    RenderUtil.drawRect2(
+                            (float) (x + 2),
+                            (float) (armorY + 28),
+                            28.0F * durability,
                             3.0F,
-                            MovementUtil2.applyAlpha(!((double) var9 <= 0.2) ? ClientColors.DARK_SLATE_GREY.getColor()
+                            RenderUtil.applyAlpha(durability > 0.2 ? ClientColors.DARK_SLATE_GREY.getColor()
                                     : ClientColors.PALE_YELLOW.getColor(), 0.9F));
                 }
             }
         }
-
-        return var5 != 0 ? 32 : -7;
+        return armorCount != 0 ? 32 : -7;
     }
 
-    public int method16696(int var1, int var2, int var3) {
-        return var3 - 24;
+    public int renderPlayerModel(int x, int y, int height) {
+        drawEntityOnScreen(x + height / 2, y, height / 2, mc.player);
+        return height - 24;
+    }
+
+    private void drawEntityOnScreen(int posX, int posY, int scale, LivingEntity livingEntity) {
+        float fixedYaw = livingEntity.rotationYaw;
+        float fixedPitch = livingEntity.rotationPitch;
+
+        RenderSystem.pushMatrix();
+        RenderSystem.translatef((float) posX, (float) posY, 1050.0F);
+        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
+
+        MatrixStack matrixstack = new MatrixStack();
+        matrixstack.translate(0.0D, 0.0D, 1000.0D);
+        matrixstack.scale((float) scale, (float) scale, (float) scale);
+
+        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
+        matrixstack.rotate(quaternion);
+
+        float f2 = livingEntity.renderYawOffset;
+        float f3 = livingEntity.rotationYaw;
+        float f4 = livingEntity.rotationPitch;
+        float f5 = livingEntity.prevRotationYawHead;
+        float f6 = livingEntity.rotationYawHead;
+
+        livingEntity.renderYawOffset = f2;
+        livingEntity.rotationYaw = fixedYaw;
+        livingEntity.rotationPitch = fixedPitch;
+        livingEntity.rotationYawHead = f6;
+        livingEntity.prevRotationYawHead = f5;
+
+        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getRenderManager();
+        entityrenderermanager.setCameraOrientation(new Quaternion(0, 0, 0, 1)); // Set no camera rotation
+        entityrenderermanager.setRenderShadow(false);
+
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+        RenderSystem.runAsFancy(() -> {
+            entityrenderermanager.renderEntityStatic(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
+        });
+
+        irendertypebuffer$impl.finish();
+        entityrenderermanager.setRenderShadow(true);
+
+        livingEntity.renderYawOffset = f2;
+        livingEntity.rotationYaw = f3;
+        livingEntity.rotationPitch = f4;
+        livingEntity.prevRotationYawHead = f5;
+        livingEntity.rotationYawHead = f6;
+
+        RenderSystem.popMatrix();
     }
 }

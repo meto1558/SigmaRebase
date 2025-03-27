@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.InvManager;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
@@ -70,7 +70,7 @@ public class HypixelPredictionDisabler extends Module {
         if (motion.currentValue && !watchDogDisabled) {
             airTicks = HypixelDisabler.mc.player.isOnGround() ? 0 : ++airTicks;
             if (stuckOnAir && airTicks >= 9) {
-                MovementUtil.stopMoving();
+                MovementUtil.stop();
             }
         }
         if (inventoryMove.currentValue) {
@@ -98,14 +98,14 @@ public class HypixelPredictionDisabler extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (mc.player == null) return;
-        if (event.getPacket() instanceof CClientStatusPacket) {
+        if (event.packet instanceof CClientStatusPacket) {
             if (caughtClientStatus) {
                 event.cancelled = true;
             }
 
             caughtClientStatus = false;
         }
-        if (event.getPacket() instanceof CCloseWindowPacket) {
+        if (event.packet instanceof CCloseWindowPacket) {
             if (caughtCloseWindow) {
                 event.cancelled = true;
             }
@@ -113,7 +113,7 @@ public class HypixelPredictionDisabler extends Module {
             caughtCloseWindow = true;
         }
 
-        if (motion.currentValue && !watchDogDisabled && stuckOnAir && event.getPacket() instanceof SPlayerPositionLookPacket) {
+        if (motion.currentValue && !watchDogDisabled && stuckOnAir && event.packet instanceof SPlayerPositionLookPacket) {
             airStuckTicks++;
             if (airStuckTicks >= 20) {
                 MinecraftUtil.addChatMessage("Watchdog jump checks disabled.");
@@ -139,7 +139,7 @@ public class HypixelPredictionDisabler extends Module {
                 if (airTicks % 2 == 0) {
                     event.setZ(event.getZ() + 0.095);
                 }
-                MovementUtil.setPlayerYMotion(0.0);
+                mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
             }
         }
     }

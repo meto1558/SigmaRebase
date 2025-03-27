@@ -3,16 +3,16 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.PathFinder;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.infiniteaura.Sorter;
 import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -224,7 +224,7 @@ public class InfiniteAura extends Module {
         while (iter.hasNext()) {
             Entity var8 = iter.next().getEntity();
             if (var8 != mc.player) {
-                if (!Client.getInstance().friendManager.method26997(var8)) {
+                if (!Client.getInstance().friendManager.isFriendPure(var8)) {
                     if (var8 instanceof LivingEntity) {
                         if (((LivingEntity) var8).getHealth() != 0.0F) {
                             if (!(mc.player.getDistance(var8) > range)) {
@@ -232,7 +232,7 @@ public class InfiniteAura extends Module {
                                     if (!(var8 instanceof ArmorStandEntity)) {
                                         if (!this.getBooleanValueFromSettingName("Players") && var8 instanceof PlayerEntity) {
                                             iter.remove();
-                                        } else if (var8 instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(var8)) {
+                                        } else if (var8 instanceof PlayerEntity && Client.getInstance().botManager.isBot(var8)) {
                                             iter.remove();
                                         } else if (!this.getBooleanValueFromSettingName("Invisible") && var8.isInvisible()) {
                                             iter.remove();
@@ -242,7 +242,7 @@ public class InfiniteAura extends Module {
                                             iter.remove();
                                         } else if (!var8.isInvulnerable()) {
                                             if (var8 instanceof PlayerEntity
-                                                    && TeamUtil.method31662((PlayerEntity) var8)
+                                                    && CombatUtil.arePlayersOnSameTeam((PlayerEntity) var8)
                                                     && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                                                 iter.remove();
                                             }

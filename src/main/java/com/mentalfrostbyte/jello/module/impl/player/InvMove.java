@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.KeyboardHolder;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.ChatScreen;
@@ -38,10 +38,9 @@ public class InvMove extends Module {
     @EventTarget
     public void method16584(EventSendPacket var1) {
         if (this.isEnabled()) {
-            if (this.field23757 && var1.getPacket() instanceof CEntityActionPacket && this.getBooleanValueFromSettingName("AACP")) {
-                CEntityActionPacket var4 = (CEntityActionPacket) var1.getPacket();
-                if (var4.getAction() == CEntityActionPacket.Action.START_SPRINTING) {
-                    var1.setCancelled(true);
+            if (this.field23757 && var1.packet instanceof CEntityActionPacket var4 && this.getBooleanValueFromSettingName("AACP")) {
+				if (var4.getAction() == CEntityActionPacket.Action.START_SPRINTING) {
+                    var1.cancelled = true;
                 }
             }
         }
@@ -71,14 +70,13 @@ public class InvMove extends Module {
                     return;
                 }
 
-                if (mc.currentScreen instanceof CreativeScreen) {
-                    CreativeScreen var9 = (CreativeScreen) mc.currentScreen;
-                    if (var9.getSelectedTabIndex() == 5) {
+                if (mc.currentScreen instanceof CreativeScreen var9) {
+					if (var9.getSelectedTabIndex() == 5) {
                         return;
                     }
                 }
 
-                if (Client.getInstance().guiManager.method33480() != null && Client.getInstance().guiManager.method33480().method13227()) {
+                if (Client.getInstance().guiManager.getScreen() != null && Client.getInstance().guiManager.getScreen().method13227()) {
                     for (KeyBinding var14 : Minecraft.getInstance().gameSettings.keyBindings) {
                         var14.setPressed(false);
                     }

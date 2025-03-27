@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import java.util.List;
@@ -85,6 +85,7 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
             this.entityModel.isChild = entityIn.isChild();
             float f = MathHelper.interpolateAngle(partialTicks, entityIn.prevRenderYawOffset, entityIn.renderYawOffset);
             float f1 = MathHelper.interpolateAngle(partialTicks, entityIn.prevRotationYawHead, entityIn.rotationYawHead);
+
             float f2 = f1 - f;
 
             if (this.entityModel.isSitting && entityIn.getRidingEntity() instanceof LivingEntity)
@@ -116,14 +117,18 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
 
             float f7 = MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch);
 
-            // MODIFICATION START: EventRenderEntity
-            if (entityIn.equals(Minecraft.getInstance().player) && Rots.rotating)
-                f7 = MathHelper.lerp(partialTicks, Rots.prevPitch, Rots.pitch);
+            EventRenderEntity eventRenderEntity = new EventRenderEntity(f, f1, f2, f7, partialTicks, entityIn);
+            EventBus.call(eventRenderEntity);
 
+            if (eventRenderEntity.cancelled) {
+                matrixStackIn.pop();
+                return;
+            }
 
-            EventRenderEntity var33 = new EventRenderEntity(f, f1, f2, f7, partialTicks, entityIn);
-            EventBus.call(var33);
-            // MODIFICATION END: EventRenderEntity
+            f = eventRenderEntity.getYawOffset();
+            f1 = eventRenderEntity.getHeadYaw();
+            f2 = eventRenderEntity.getYaw();
+            f7 = eventRenderEntity.getPitch();
 
             if (entityIn.getPose() == Pose.SLEEPING)
             {
@@ -159,6 +164,9 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                     f9 = 1.0F;
                 }
             }
+
+            eventRenderEntity.setState(EventRenderEntity.RenderState.MID);
+            EventBus.call(eventRenderEntity);
 
             this.entityModel.setLivingAnimations(entityIn, f5, f9, partialTicks);
             this.entityModel.setRotationAngles(entityIn, f5, f9, f8, f2, f7);
@@ -203,10 +211,8 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                 this.entityModel.render(matrixStackIn, ivertexbuilder, packedLightIn, i, 1.0F, 1.0F, 1.0F, flag2 ? 0.15F : 1.0F);
             }
 
-            if (!entityIn.isSpectator())
-            {
-                for (LayerRenderer<T, M> layerrenderer : this.layerRenderers)
-                {
+            if (!entityIn.isSpectator() && eventRenderEntity.method13954()) {
+                for (LayerRenderer<T, M> layerrenderer : this.layerRenderers) {
                     layerrenderer.render(matrixStackIn, bufferIn, packedLightIn, entityIn, f5, f9, partialTicks, f8, f2, f7);
                 }
             }
@@ -221,6 +227,8 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
                 this.renderEntity = null;
             }
 
+            eventRenderEntity.setState(EventRenderEntity.RenderState.POST);
+            EventBus.call(eventRenderEntity);
             matrixStackIn.pop();
             super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 

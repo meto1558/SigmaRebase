@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.network.IPacket;
@@ -44,9 +44,9 @@ public class ACRFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -80,8 +80,8 @@ public class ACRFly extends Module {
                         var1.setY(!this.getBooleanValueFromSettingName("Offset") ? 0.0 : -0.01);
                     }
 
-                    MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, 0.35);
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
+                    MovementUtil.setMotion(var1, 0.35);
                 }
             } else {
                 double var4 = !this.getBooleanValueFromSettingName("Offset") ? 0.0 : 0.01;
@@ -94,8 +94,8 @@ public class ACRFly extends Module {
                 }
 
                 var1.setY(var4);
-                MovementUtil.setPlayerYMotion(var1.getY());
-                MovementUtil.setSpeed(var1, this.getNumberValueBySettingName("Speed"));
+                mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
+                MovementUtil.setMotion(var1, this.getNumberValueBySettingName("Speed"));
             }
         }
     }
@@ -113,7 +113,7 @@ public class ACRFly extends Module {
             }
 
             if (this.getBooleanValueFromSettingName("NoFall")) {
-                var1.setGround(true);
+                var1.setOnGround(true);
             }
 
             var1.setMoving(true);
@@ -123,10 +123,9 @@ public class ACRFly extends Module {
     @EventTarget
     public void method16906(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket lookPacket = (SPlayerPositionLookPacket) var4;
-                if (this.preUpdates >= 1) {
+            IPacket var4 = var1.packet;
+            if (var4 instanceof SPlayerPositionLookPacket lookPacket) {
+				if (this.preUpdates >= 1) {
                     this.preUpdates = -1;
                 }
 
@@ -140,10 +139,9 @@ public class ACRFly extends Module {
     @EventTarget
     public void method16907(EventSendPacket var1) {
         if (this.isEnabled()) {
-            IPacket var4 = var1.getPacket();
-            if (var4 instanceof CPlayerPacket) {
-                CPlayerPacket var5 = (CPlayerPacket) var4;
-                if (this.preUpdates == -1 && this.getBooleanValueFromSettingName("NoFall")) {
+            IPacket var4 = var1.packet;
+            if (var4 instanceof CPlayerPacket var5) {
+				if (this.preUpdates == -1 && this.getBooleanValueFromSettingName("NoFall")) {
                     var5.onGround = true;
                 }
             }

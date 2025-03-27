@@ -1,14 +1,12 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
-import com.mentalfrostbyte.jello.module.impl.combat.aimbot.BasicAimbot;
-import com.mentalfrostbyte.jello.module.impl.combat.aimbot.CandCAimbot;
-import com.mentalfrostbyte.jello.module.impl.combat.aimbot.SmoothAimbot;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.impl.combat.aimbot.*;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.TeamUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -22,8 +20,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                 "Aimbot",
                 "Automatically aim at players",
                 new BasicAimbot(),
-                new SmoothAimbot(),
-                new CandCAimbot());
+                new SmoothAimbot());
         this.registerSetting(new BooleanSetting("Players", "Aim at players", true));
         this.registerSetting(new BooleanSetting("Animals/Monsters", "Aim at animals and monsters", false));
         this.registerSetting(new BooleanSetting("Invisible", "Aim at invisible entites", true));
@@ -35,7 +32,7 @@ public class Aimbot extends ModuleWithModuleSettings {
 
         for (Entity entity : entities) {
             if (entity != mc.player) {
-                if (!Client.getInstance().friendManager.method26997(entity)) {
+                if (!Client.getInstance().friendManager.isFriendPure(entity)) {
                     if (entity instanceof LivingEntity) {
                         if (((LivingEntity) entity).getHealth() != 0.0F) {
                             if (!(mc.player.getDistance(entity) > maxDistance)) {
@@ -44,7 +41,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                                         continue;
                                     if (!this.getBooleanValueFromSettingName("Players") && entity instanceof PlayerEntity) {
                                         
-                                    } else if (entity instanceof PlayerEntity && Client.getInstance().combatManager.isTargetABot(entity)) {
+                                    } else if (entity instanceof PlayerEntity && Client.getInstance().botManager.isBot(entity)) {
                                         
                                     } else if (!this.getBooleanValueFromSettingName("Invisible") && entity.isInvisible()) {
                                         
@@ -54,7 +51,7 @@ public class Aimbot extends ModuleWithModuleSettings {
                                         
                                     } else if (!entity.isInvulnerable()) {
                                         if (entity instanceof PlayerEntity
-                                                && TeamUtil.method31662((PlayerEntity) entity)
+                                                && CombatUtil.arePlayersOnSameTeam((PlayerEntity) entity)
                                                 && Client.getInstance().moduleManager.getModuleByClass(Teams.class).isEnabled()) {
                                             
                                         } else if (target == null || mc.player.getDistance(entity) < mc.player.getDistance(target)) {

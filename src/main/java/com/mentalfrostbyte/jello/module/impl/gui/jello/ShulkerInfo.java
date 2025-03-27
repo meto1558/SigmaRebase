@@ -7,13 +7,13 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderShulker;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -37,6 +37,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.TextureImpl;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class ShulkerInfo extends Module {
     }
 
     @EventTarget
-    public void method16669(EventMouse var1) {
+    public void onMouse(EventMouse var1) {
         this.field23842 = this.field23842 - var1.method13980();
     }
 
@@ -64,13 +65,12 @@ public class ShulkerInfo extends Module {
     }
 
     @EventTarget
-    public void method16671(EventRender3D var1) {
+    public void onRender3D(EventRender3D event) {
         if (this.isEnabled()) {
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
 
-            for (Entity var5 : MovementUtil2.getEntitesInWorld()) {
-                if (var5 instanceof ItemEntity) {
-                    ItemEntity var6 = (ItemEntity) var5;
+            for (Entity var5 : PlayerUtil.getEntitesInWorld()) {
+                if (var5 instanceof ItemEntity var6) {
                     if (!(var6.getItem().getItem() instanceof BlockItem)
                             || !(((BlockItem) var6.getItem().getItem()).getBlock() instanceof ShulkerBoxBlock)) {
                         return;
@@ -97,13 +97,13 @@ public class ShulkerInfo extends Module {
                                 new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
-                                MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
+                                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(
                                 new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
                                 3.0F,
-                                MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F));
+                                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F));
                         GL11.glDisable(3042);
                         if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
                             mc.gameSettings.keyBindUseItem.pressed = false;
@@ -116,10 +116,8 @@ public class ShulkerInfo extends Module {
             }
 
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
-         //   TextureImpl.method36180();
-            TextureManager var10000 = mc.getTextureManager();
-            mc.getTextureManager();
-            var10000.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+            TextureImpl.unbind();
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
         }
     }
 
@@ -133,9 +131,9 @@ public class ShulkerInfo extends Module {
             double var8 = var1.getPosY() - mc.player.getPosY() - (double) mc.player.getHeight() + 0.4F;
             double var10 = var1.getPosZ() - mc.player.getPosZ();
             double var12 = MathHelper.sqrt(var6 * var6 + var10 * var10);
-            float var14 = RotationHelper.calculate(mc.player.rotationYaw,
+            float var14 = RotationUtil.calculate(mc.player.rotationYaw,
                     (float) (Math.atan2(var10, var6) * 180.0 / Math.PI) - 90.0F, 360.0F);
-            float var15 = RotationHelper.calculate(mc.player.rotationPitch,
+            float var15 = RotationUtil.calculate(mc.player.rotationPitch,
                     (float) (-(Math.atan2(var8, var12) * 180.0 / Math.PI)), 360.0F);
             return this.method16673(mc.player.rotationYaw, var14) <= var5
                     && this.method16673(mc.player.rotationPitch, var15) <= var5;
@@ -178,10 +176,9 @@ public class ShulkerInfo extends Module {
     }
 
     @EventTarget
-    public void method16675(EventRenderShulker var1) {
+    public void onRenderShulker(EventRenderShulker event) {
         if (this.isEnabled()) {
-            if (mc.currentScreen instanceof ContainerScreen) {
-                ContainerScreen var4 = (ContainerScreen) mc.currentScreen;
+            if (mc.currentScreen instanceof ContainerScreen var4) {
                 Slot var5 = ((ContainerScreen<?>) var4).hoveredSlot;
                 if (var5 != null
                         && var5.getHasStack()
@@ -196,8 +193,8 @@ public class ShulkerInfo extends Module {
 
                     GL11.glPushMatrix();
                     GL11.glTranslatef(0.0F, 0.0F, 1000.0F);
-                    GL11.glScalef(1.0F / RenderUtil.getScaleFactor(), 1.0F / RenderUtil.getScaleFactor(), 0.0F);
-                    int var9 = Math.round(16.0F * RenderUtil.getScaleFactor());
+                    GL11.glScalef(1.0F / RenderUtil.getGuiScaleFactor(), 1.0F / RenderUtil.getGuiScaleFactor(), 0.0F);
+                    int var9 = Math.round(16.0F * RenderUtil.getGuiScaleFactor());
                     int var10 = 1;
                     int var11 = 12;
                     int var13 = (int) (mc.mouseHelper.getMouseX() * (double) GuiManager.scaleFactor
@@ -221,29 +218,29 @@ public class ShulkerInfo extends Module {
     public void method16676(int var1, int var2, List<ItemStack> var3, String var4, boolean var5) {
         int var8 = 12;
         int var9 = ResourceRegistry.JelloLightFont25.getHeight();
-        int var10 = Math.round(16.0F * RenderUtil.method11417());
+        int var10 = Math.round(16.0F * RenderUtil.getGuiScaleFactor());
         int var11 = 1;
         int var12 = (int) Math.ceil((float) var3.size() / 9.0F) * (var10 + var11) + var8 * 2 + var9;
         int var13 = 9 * (var10 + var11) + var8 * 2;
         RenderSystem.disableLighting();
         GL11.glAlphaFunc(519, 0.0F);
         if (!var5) {
-            RenderUtil.renderBackgroundBox(
+            RenderUtil.drawRect2(
                     (float) var1,
                     (float) var2,
                     (float) var13,
                     (float) var12,
-                    MovementUtil2.applyAlpha(MovementUtil2.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
+                    RenderUtil.applyAlpha(RenderUtil.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                             ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.7F));
             RenderUtil.drawRoundedRect((float) var1, (float) var2, (float) var13, (float) var12, 10.0F, 0.5F);
         } else {
             RenderUtil.method11467(var1, var2, var13, var12,
-                    MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.94F));
+                    RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.94F));
         }
 
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont25, (float) (var1 + var8), (float) (var2 + var8 - 3), var4,
-                MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
+                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
         RenderSystem.enableLighting();
 
         for (int var14 = 0; var14 < var3.size(); var14++) {
@@ -252,23 +249,23 @@ public class ShulkerInfo extends Module {
             int var17 = var1 + var8 + var14 % 9 * (var10 + var11);
             RenderSystem.disableLighting();
             if (var14 == this.field23841 && var5) {
-                RenderUtil.renderBackgroundBox((float) var17, (float) var16, (float) var10, (float) var10,
-                        MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
+                RenderUtil.drawRect2((float) var17, (float) var16, (float) var10, (float) var10,
+                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
             }
 
-            RenderUtil.method11479(var15, var17, var16, var10, var10);
+            RenderUtil.renderItem(var15, var17, var16, var10, var10);
             if (var15.getCount() > 1) {
                 int var18 = var10 - ResourceRegistry.JelloLightFont20.getWidth("" + var15.getCount());
                 int var19 = ResourceRegistry.JelloLightFont20.getWidth("" + var15.getCount());
                 GL11.glAlphaFunc(519, 0.0F);
                 RenderSystem.disableLighting();
-                RenderUtil.method11450(
+                RenderUtil.drawImage2(
                         (float) (var17 + var18 - 17 - var19 / 4),
                         (float) (var16 + 7),
                         (float) (40 + var19),
                         40.0F,
                         Resources.shadowPNG,
-                        MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F),
+                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F),
                         false);
                 RenderUtil.drawString(ResourceRegistry.JelloLightFont20, (float) (var17 + var18), (float) (var16 + 13),
                         "" + var15.getCount(), ClientColors.LIGHT_GREYISH_BLUE.getColor());
@@ -291,31 +288,31 @@ public class ShulkerInfo extends Module {
                     var29 = Math.max(var29, mc.fontRenderer.getStringWidth((String) var32.get(var20)));
                 }
 
-                var29 = (int) ((float) var29 * RenderUtil.method11417());
+                var29 = (int) ((float) var29 * RenderUtil.getGuiScaleFactor());
                 int var33 = var32.size();
-                RenderUtil.renderBackgroundBox(
+                RenderUtil.drawRect2(
                         (float) var27,
                         (float) (var25 + var10),
-                        (float) var29 + 9.0F * RenderUtil.method11417(),
-                        10.0F * RenderUtil.method11417() * (float) var33 + 7.0F * RenderUtil.method11417(),
-                        MovementUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F));
+                        (float) var29 + 9.0F * RenderUtil.getGuiScaleFactor(),
+                        10.0F * RenderUtil.getGuiScaleFactor() * (float) var33 + 7.0F * RenderUtil.getGuiScaleFactor(),
+                        RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F));
                 GL11.glPushMatrix();
-                GL11.glScalef(RenderUtil.method11417(), RenderUtil.method11417(), 0.0F);
-                var25 = (int) ((float) var25 * (1.0F / RenderUtil.method11417()));
-                var27 = (int) ((float) var27 * (1.0F / RenderUtil.method11417()));
-                var10 = (int) ((float) var10 * (1.0F / RenderUtil.method11417()));
-                var29 = (int) ((float) var29 * (1.0F / RenderUtil.method11417()));
+                GL11.glScalef(RenderUtil.getGuiScaleFactor(), RenderUtil.getGuiScaleFactor(), 0.0F);
+                var25 = (int) ((float) var25 * (1.0F / RenderUtil.getGuiScaleFactor()));
+                var27 = (int) ((float) var27 * (1.0F / RenderUtil.getGuiScaleFactor()));
+                var10 = (int) ((float) var10 * (1.0F / RenderUtil.getGuiScaleFactor()));
+                var29 = (int) ((float) var29 * (1.0F / RenderUtil.getGuiScaleFactor()));
 
                 for (int var21 = 0; var21 < var32.size(); var21++) {
                     String var22 = (String) var32.get(var21);
                     mc.fontRenderer.renderString(
-                                    var22,
-                                    (float) (var27 + 5),
-                                    5.3F + (float) var25 + (float) var10 + (float) (var21 * 10),
-                                    ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                                    new MatrixStack().getLast().getMatrix(),
-                                    false,
-                                    false);
+                            var22,
+                            (float) (var27 + 5),
+                            5.3F + (float) var25 + (float) var10 + (float) (var21 * 10),
+                            ClientColors.LIGHT_GREYISH_BLUE.getColor(),
+                            new MatrixStack().getLast().getMatrix(),
+                            false,
+                            false);
                 }
 
                 GL11.glPopMatrix();

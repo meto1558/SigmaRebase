@@ -5,27 +5,16 @@ import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class EventJump extends CancellableEvent {
+    public float yaw;
     public Vector3d vector;
-    public boolean modified;
 
-    public EventJump(Vector3d vector) {
+    public EventJump(Vector3d vector, float yaw) {
         this.vector = vector;
-    }
-
-    public boolean isModified() {
-        return this.modified;
-    }
-
-    public Vector3d getVector() {
-        return this.vector;
-    }
-
-    public void setY(double y) {
-        this.vector.y = y;
+        this.yaw = yaw;
     }
 
     public void setStrafeSpeed(double speed) {
-        float[] var3 = MovementUtil.lenientStrafe();
+        float[] var3 = MovementUtil.getDirectionArray();
         float forward = var3[1];
         float strafe = var3[2];
         float yaw = var3[0];
@@ -40,11 +29,5 @@ public class EventJump extends CancellableEvent {
         double z = (forward * sin - strafe * cos) * speed;
         this.vector.x = x;
         this.vector.z = z;
-        this.modified = true;
-    }
-
-    public void setVector(Vector3d vector) {
-        this.vector = vector;
-        this.modified = true;
     }
 }

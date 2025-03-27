@@ -134,7 +134,7 @@ public class PlayerTabOverlayGui extends AbstractGui
 
             for (IReorderingProcessor ireorderingprocessor : list1)
             {
-                l1 = Math.max(l1, this.mc.fontRenderer.func_243245_a(ireorderingprocessor));
+                l1 = Math.max(l1, this.mc.fontRenderer.getStringWidth(ireorderingprocessor));
             }
         }
 
@@ -146,7 +146,7 @@ public class PlayerTabOverlayGui extends AbstractGui
 
             for (IReorderingProcessor ireorderingprocessor1 : list2)
             {
-                l1 = Math.max(l1, this.mc.fontRenderer.func_243245_a(ireorderingprocessor1));
+                l1 = Math.max(l1, this.mc.fontRenderer.getStringWidth(ireorderingprocessor1));
             }
         }
 
@@ -156,7 +156,7 @@ public class PlayerTabOverlayGui extends AbstractGui
 
             for (IReorderingProcessor ireorderingprocessor2 : list1)
             {
-                int i2 = this.mc.fontRenderer.func_243245_a(ireorderingprocessor2);
+                int i2 = this.mc.fontRenderer.getStringWidth(ireorderingprocessor2);
                 this.mc.fontRenderer.func_238407_a_(p_238523_1_, ireorderingprocessor2, (float)(p_238523_2_ / 2 - i2 / 2), (float)k1, -1);
                 k1 += 9;
             }
@@ -203,7 +203,7 @@ public class PlayerTabOverlayGui extends AbstractGui
                     k2 += 9;
                 }
 
-                this.mc.fontRenderer.func_243246_a(p_238523_1_, this.getDisplayName(networkplayerinfo1), (float)k2, (float)l2, networkplayerinfo1.getGameType() == GameType.SPECTATOR ? -1862270977 : -1);
+                this.mc.fontRenderer.drawText(p_238523_1_, this.getDisplayName(networkplayerinfo1), (float)k2, (float)l2, networkplayerinfo1.getGameType() == GameType.SPECTATOR ? -1862270977 : -1);
 
                 if (p_238523_4_ != null && networkplayerinfo1.getGameType() != GameType.SPECTATOR)
                 {
@@ -227,7 +227,7 @@ public class PlayerTabOverlayGui extends AbstractGui
 
             for (IReorderingProcessor ireorderingprocessor3 : list2)
             {
-                int k5 = this.mc.fontRenderer.func_243245_a(ireorderingprocessor3);
+                int k5 = this.mc.fontRenderer.getStringWidth(ireorderingprocessor3);
                 this.mc.fontRenderer.func_238407_a_(p_238523_1_, ireorderingprocessor3, (float)(p_238523_2_ / 2 - k5 / 2), (float)k1, -1);
                 k1 += 9;
             }

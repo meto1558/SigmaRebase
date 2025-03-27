@@ -1,5 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.Module;
+import com.mentalfrostbyte.jello.module.impl.render.ItemPhysics;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import java.util.Random;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -52,79 +55,59 @@ public class ItemRenderer extends EntityRenderer<ItemEntity>
         return i;
     }
 
-    public void render(ItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
-    {
+    public void render(ItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        Module module = Client.getInstance().moduleManager.getModuleByClass(ItemPhysics.class);
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
         int i = itemstack.isEmpty() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getDamage();
-        this.random.setSeed((long)i);
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity)null);
-        boolean flag = ibakedmodel.isGui3d();
-        int j = this.getModelCount(itemstack);
-        float f = 0.25F;
-        float f1 = MathHelper.sin(((float)entityIn.getAge() + partialTicks) / 10.0F + entityIn.hoverStart) * 0.1F + 0.1F;
+        this.random.setSeed((long) i);
+        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity) null);
+        boolean is3D = ibakedmodel.isGui3d();
+        int itemCount = this.getModelCount(itemstack);
 
-        if (!this.shouldBob())
-        {
-            f1 = 0.0F;
+        float hoverOffset = MathHelper.sin(((float) entityIn.getAge() + partialTicks) / 10.0F + entityIn.hoverStart) * 0.1F + 0.1F;
+        if(module.isEnabled() && module.getBooleanValueFromSettingName("Disable Floating")){
+            hoverOffset = 0;
+        }
+        matrixStackIn.translate(0.0D, (double) (hoverOffset + 0.1F), 0.0D);
+
+        if (!entityIn.isOnGround()) {
+
+            float rotationSpeed = 5.0F * module.getNumberValueBySettingName("Gravity Value");
+            if(module.getBooleanValueFromSettingName("Enable Gravity") && module.isEnabled()){
+                matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(entityIn.getAge() * rotationSpeed));
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees(-entityIn.getAge() * rotationSpeed));
+            }
+
         }
 
-        float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
-        matrixStackIn.translate(0.0D, (double)(f1 + 0.25F * f2), 0.0D);
-        float f3 = entityIn.getItemHover(partialTicks);
-        matrixStackIn.rotate(Vector3f.YP.rotation(f3));
-        float f4 = ibakedmodel.getItemCameraTransforms().ground.scale.getX();
-        float f5 = ibakedmodel.getItemCameraTransforms().ground.scale.getY();
-        float f6 = ibakedmodel.getItemCameraTransforms().ground.scale.getZ();
-
-        if (!flag)
-        {
-            float f7 = -0.0F * (float)(j - 1) * 0.5F * f4;
-            float f8 = -0.0F * (float)(j - 1) * 0.5F * f5;
-            float f9 = -0.09375F * (float)(j - 1) * 0.5F * f6;
-            matrixStackIn.translate((double)f7, (double)f8, (double)f9);
+        if ((module.isEnabled() && module.getBooleanValueFromSettingName("Loaf Always")) || entityIn.isOnGround() && module.isEnabled()) {
+            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90.0F));
+            matrixStackIn.translate(0.0D, -0.1D, 0.0D);
         }
 
-        for (int k = 0; k < j; ++k)
-        {
+        if(module.isEnabled()){
+            if (is3D) matrixStackIn.scale(0.8F, 0.8F, 0.8F);
+        }
+
+        for (int k = 0; k < itemCount; ++k) {
             matrixStackIn.push();
 
-            if (k > 0)
-            {
-                if (flag)
-                {
-                    float f11 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-                    float f13 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-                    float f10 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-
-                    if (!this.shouldSpreadItems())
-                    {
-                        f11 = 0.0F;
-                        f13 = 0.0F;
-                    }
-
-                    matrixStackIn.translate((double)f11, (double)f13, (double)f10);
-                }
-                else
-                {
-                    float f12 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-                    float f14 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-                    matrixStackIn.translate((double)f12, (double)f14, 0.0D);
-                }
+            if (k > 0) {
+                float offsetX = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+                float offsetY = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+                float offsetZ = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+                matrixStackIn.translate(offsetX, offsetY, offsetZ);
             }
 
             this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
             matrixStackIn.pop();
-
-            if (!flag)
-            {
-                matrixStackIn.translate((double)(0.0F * f4), (double)(0.0F * f5), (double)(0.09375F * f6));
-            }
         }
 
         matrixStackIn.pop();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
+
 
     /**
      * Returns the location of an entity's texture.

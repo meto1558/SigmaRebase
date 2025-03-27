@@ -1,5 +1,7 @@
 package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -12,19 +14,14 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Base64OutputStream;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.newdawn.slick.util.BufferedImageUtil;
-import totalcross.json.JSONArray;
-import totalcross.json.JSONException;
-import totalcross.json.JSONObject;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
 public class Account {
@@ -37,12 +34,14 @@ public class Account {
     private final long dateAdded;
     private int useCount;
     private BufferedImage skin;
-    private BufferedImage field42081;
     private Texture skinTexture;
     private Thread skinUpdateThread;
 
+    private String token = "";
+
     public Account(String email, String password, ArrayList<Ban> bans, String knownName) {
         this.email = email;
+        this.token = "";
         this.password = password;
         this.dateAdded = System.currentTimeMillis();
         this.lastUsed = 0L;
@@ -56,99 +55,68 @@ public class Account {
         }
     }
 
-    public Account(String var1, String var2, ArrayList<Ban> var3) {
-        this(var1, var2, var3, null);
+    public Account(String username, String playerID, String token) {
+        this(username, playerID, null, null);
+        this.token = token;
     }
 
-    public Account(String var1, String var2) {
-        this(var1, var2, null, null);
+    public Account(String email, String password, ArrayList<Ban> bans) {
+        this(email, password, bans, null);
     }
 
-    public Account(JSONObject var1) throws JSONException {
-        if (var1.has("email")) {
-            this.email = var1.getString("email");
+    public Account(String email, String password) {
+        this(email, password, null, null);
+    }
+
+    public Account(JsonObject json) throws IOException {
+        if (json.has("email")) {
+            this.email = json.get("email").getAsString();
         }
 
-        if (var1.has("password")) {
-            this.password = decodeBase64(var1.getString("password"));
+        if (json.has("password")) {
+            this.password = decodeBase64(json.get("password").getAsString());
         }
 
-        if (var1.has("bans")) {
-            for (Object var5 : var1.getJSONArray("bans")) {
-                this.bans.add(new Ban((JSONObject) var5));
+        if (json.has("token")) {
+            this.token = decodeBase64(json.get("token").getAsString());
+        }
+
+        if (json.has("bans")) {
+            for (Object var5 : json.getAsJsonArray("bans")) {
+                this.bans.add(new Ban((JsonObject) var5));
             }
         }
 
-        if (var1.has("knownName")) {
-            this.knownName = var1.getString("knownName");
+        if (json.has("knownName")) {
+            this.knownName = json.get("knownName").getAsString();
         }
 
-        if (var1.has("knownUUID")) {
-            this.knownUUID = var1.getString("knownUUID");
+        if (json.has("knownUUID")) {
+            this.knownUUID = json.get("knownUUID").getAsString();
         }
 
-        if (var1.has("dateAdded")) {
-            this.dateAdded = var1.getLong("dateAdded");
+        if (json.has("dateAdded")) {
+            this.dateAdded = json.get("dateAdded").getAsLong();
         } else {
             this.dateAdded = System.currentTimeMillis();
         }
 
-        if (var1.has("lastUsed")) {
-            this.lastUsed = var1.getLong("lastUsed");
+        if (json.has("lastUsed")) {
+            this.lastUsed = json.get("lastUsed").getAsLong();
         }
 
-        if (var1.has("useCount")) {
-            this.useCount = var1.getInt("useCount");
+        if (json.has("useCount")) {
+            this.useCount = json.get("useCount").getAsInt();
         }
 
-        if (var1.has("skin")) {
-            byte[] var7 = parseBase64Binary(var1.getString("skin"));
+        if (json.has("skin")) {
+            byte[] var7 = parseBase64Binary(json.get("skin").getAsString());
 
             try {
                 this.skin = ImageIO.read(new ByteArrayInputStream(var7));
             } catch (IOException var6) {
-                var6.printStackTrace();
+                throw new IOException(var6);
             }
-        }
-    }
-
-    /**
-     * Seems to be unused. Maybe for a prototype of a clipboard login or smth
-     *
-     * @param email    Email
-     * @param password Password
-     * @return Returns the session ig
-     * @throws MicrosoftAuthenticationException if the authentication fails horribly
-     */
-    public static Session fastLogin(String email, String password) throws MicrosoftAuthenticationException {
-        return alternativeLogin(new Account(email, password));
-    }
-
-    public static CompletableFuture<Session> cookieLogin() throws MicrosoftAuthenticationException {
-        MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-        CompletableFuture<MicrosoftAuthResult> future = authenticator.loginWithAsyncWebview();
-        return future.thenApply(result -> new Session(
-                result.getProfile().getName(),
-                result.getProfile().getId(),
-                result.getAccessToken(),
-                "mojang"
-        ));
-    }
-
-    public static Session alternativeLogin(Account account) throws MicrosoftAuthenticationException {
-        if (!account.isEmailAValidEmailFormat()) {
-            MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-            MicrosoftAuthResult result = authenticator.loginWithCredentials("email", "password");
-            // Or using refresh token: authenticator.loginWithRefreshToken("refresh token");
-            // Or using your own way: authenticator.loginWithTokens("access token", "refresh token");
-
-            System.out.printf("Logged in with '%s'%n", result.getProfile().getName());
-            account.updateUsedCount();
-            return new Session(
-                    result.getProfile().getName(), result.getProfile().getId(), result.getAccessToken(), account.getAccountType().name()
-            );
-        } else {
-            return new Session(account.getEmail(), "", "", "mojang");
         }
     }
 
@@ -203,8 +171,8 @@ public class Account {
         this.bans.add(ban);
     }
 
-    public void unbanFromServerIP(String var1) {
-        this.bans.removeIf(ban -> ban.getServerIP().equals(var1));
+    public void unbanFromServerIP(String serverIP) {
+        this.bans.removeIf(ban -> ban.getServerIP().equals(serverIP));
     }
 
     public void setName(String name) {
@@ -232,51 +200,25 @@ public class Account {
     protected void finalize() throws Throwable {
         try {
             if (this.skinTexture != null) {
-                Client.getInstance().method19927(this.skinTexture);
+                Client.getInstance().addTexture(this.skinTexture);
             }
         } finally {
             super.finalize();
         }
     }
 
-    public BufferedImage method34228() {
-        if (this.field42081 == null && this.skin != null) {
-            Rectangle var3 = new Rectangle(64, 64);
-            this.field42081 = new BufferedImage((int) var3.getWidth(), (int) var3.getHeight(), 3);
-            Graphics2D var4 = this.field42081.createGraphics();
-            var4.drawImage(this.skin, 0, 0, null);
-            if (this.skin.getHeight() == 32) {
-                BufferedImage var5 = this.skin.getSubimage(0, 16, 16, 16);
-                BufferedImage var6 = this.skin.getSubimage(40, 16, 16, 16);
-                var4.drawImage(var5, 16, 48, null);
-                var4.drawImage(var6, 32, 48, null);
-            }
-
-            var4.dispose();
-        }
-
-        return this.field42081;
-    }
-
     public void updateSkin() {
-        // new Date(); // Imma just leave this here
         if (!this.getKnownUUID().contains("steve") && this.skinUpdateThread == null) {
             this.skinUpdateThread = new Thread(() -> {
                 try {
                     this.skin = ImageIO.read(new URL(ImageUtil.getSkinUrlByID(this.getKnownUUID().replaceAll("-", ""))));
-                } catch (Exception var4) {
-                    var4.printStackTrace();
+                } catch (Exception ignored) {
                 }
             });
             this.skinUpdateThread.start();
         }
     }
 
-    /**
-     * Maybe a cracked account check??
-     *
-     * @return Session Type
-     */
     public Session.Type getAccountType() {
         return this.email.contains("@") ? Session.Type.MOJANG : Session.Type.LEGACY;
     }
@@ -293,10 +235,28 @@ public class Account {
             return new Session(
                     result.getProfile().getName(), result.getProfile().getId(), result.getAccessToken(), getAccountType().name()
             );
+        } else if (isPossibleRefreshToken(this.token)) {
+            this.setName(this.getEmail());
+            this.setKnownUUID(fixUUID(this.getPassword()));
+            this.updateSkin();
+            this.lastUsed = System.currentTimeMillis();
+            System.out.println("Logged in with refresh token");
+            System.out.println("Username: " + this.getEmail());
+            System.out.println("UUID: " + this.getPassword());
+            return new Session(this.getEmail(), this.getPassword(), this.token, "mojang");
         } else {
             this.setName(this.getEmail());
+            this.lastUsed = System.currentTimeMillis();
             return new Session(this.getEmail(), "", "", "mojang");
         }
+    }
+
+    public boolean isPossibleRefreshToken(String token) {
+        if (token.length() > 100) {
+            return true;
+        }
+
+        return token.matches("^[A-Za-z0-9+/=]+$");
     }
 
     /**
@@ -309,43 +269,44 @@ public class Account {
         );
     }
 
-    public JSONObject method34232() {
-        JSONObject var3 = new JSONObject();
-        var3.put("bans", this.makeBanJSONArray());
-        var3.put("email", this.email);
-        var3.put("password", encodeBase64(this.password));
-        var3.put("knownName", this.knownName);
-        var3.put("knownUUID", this.knownUUID);
-        var3.put("useCount", this.useCount);
-        var3.put("lastUsed", this.lastUsed);
-        var3.put("dateAdded", this.dateAdded);
+    public JsonObject toJSON() {
+        JsonObject obj = new JsonObject();
+        obj.add("bans", this.makeBanJSONArray());
+        obj.addProperty("email", this.email);
+        obj.addProperty("password", encodeBase64(this.password));
+        obj.addProperty("token", encodeBase64(this.token));
+        obj.addProperty("knownName", this.knownName);
+        obj.addProperty("knownUUID", this.knownUUID);
+        obj.addProperty("useCount", this.useCount);
+        obj.addProperty("lastUsed", this.lastUsed);
+        obj.addProperty("dateAdded", this.dateAdded);
         if (this.skin != null) {
-            ByteArrayOutputStream var4 = new ByteArrayOutputStream();
-            Base64OutputStream var5 = new Base64OutputStream(var4);
-            String var6 = "";
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            Base64OutputStream base64OutputStream = new Base64OutputStream(outputStream);
+            String skinBase64 = "";
 
             try {
-                ImageIO.write(this.skin, "png", var5);
-                var6 = var4.toString("UTF-8");
-            } catch (IOException var8) {
-                var8.printStackTrace();
+                ImageIO.write(this.skin, "png", base64OutputStream);
+                skinBase64 = outputStream.toString("UTF-8");
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
 
-            var3.put("skin", var6);
+            obj.addProperty("skin", skinBase64);
         }
 
-        return var3;
+        return obj;
     }
 
     public static byte[] parseBase64Binary(String base64String) {
         return Base64.decodeBase64(base64String);
     }
 
-    public JSONArray makeBanJSONArray() {
-        JSONArray jsonArray = new JSONArray();
+    public JsonArray makeBanJSONArray() {
+        JsonArray jsonArray = new JsonArray();
 
         for (Ban ban : this.bans) {
-            jsonArray.put(ban.asJSONObject());
+            jsonArray.add(ban.asJSONObject());
         }
 
         return jsonArray;
@@ -364,23 +325,20 @@ public class Account {
     }
 
     public Ban getBanInfo(String serverIP) {
-        for (Ban var5 : this.getBans()) {
-            if (var5.getServerIP().equals(serverIP)) {
-                return var5;
+        for (Ban ban : this.getBans()) {
+            if (ban.getServerIP().equals(serverIP)) {
+                return ban;
             }
         }
 
         return null;
     }
 
-    /**
-     * This is definitely used for a cracked account check!!
-     *
-     * @return if the input email is a valid email
-     */
     public boolean isEmailAValidEmailFormat() {
+        if (this.getPassword().isEmpty())
+            return true;
+
         Pattern var3 = Pattern.compile("[a-zA-Z0-9_]{2,16}");
-        boolean var4 = var3.matcher(this.getEmail()).matches();
-        return var4 && this.getPassword().isEmpty();
+        return var3.matcher(this.getEmail()).matches();
     }
 }

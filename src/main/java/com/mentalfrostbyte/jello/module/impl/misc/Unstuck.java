@@ -8,10 +8,11 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -33,7 +34,7 @@ public class Unstuck extends Module {
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
             if ((float) this.packetCancelled >= this.getNumberValueBySettingName("Flags")) {
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.0);
+                MovementUtil.setMotion(event, 0.0);
                 event.setY(0.0);
                 mc.player.setMotion(0.0, 0.0, 0.0);
             }
@@ -50,7 +51,7 @@ public class Unstuck extends Module {
     @EventTarget
     public void onUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
-            if (!mc.player.isOnGround() && !MovementUtil2.isAboveBounds(mc.player, 0.001F)) {
+            if (!mc.player.isOnGround() && !BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 if ((float) this.packetCancelled >= this.getNumberValueBySettingName("Flags") && this.packetsToCancelCount == 0) {
                     this.packetsToCancelCount = 60;
                     Client.getInstance().notificationManager.send(new Notification("Unstuck", "Trying to unstuck you.."));
@@ -62,7 +63,7 @@ public class Unstuck extends Module {
                         this.packetCancelled = 0;
                     }
 
-                    event.setCancelled(true);
+                    event.cancelled = true;
                 }
             } else {
                 this.packetCancelled = 0;
@@ -74,10 +75,10 @@ public class Unstuck extends Module {
     public void onReceive(EventReceivePacket event) {
         if (this.isEnabled()) {
             if (mc.player != null) {
-                if (event.getPacket() instanceof SPlayerPositionLookPacket && !MovementUtil2.isAboveBounds(mc.player, 0.3F) && mc.player.ticksExisted > 10) {
+                if (event.packet instanceof SPlayerPositionLookPacket && !BlockUtil.isAboveBounds(mc.player, 0.3F) && mc.player.ticksExisted > 10) {
                     this.packetCancelled++;
                     if ((float) this.packetCancelled > this.getNumberValueBySettingName("Flags")) {
-                        event.setCancelled(true);
+                        event.cancelled = true;
                     }
                 }
             }

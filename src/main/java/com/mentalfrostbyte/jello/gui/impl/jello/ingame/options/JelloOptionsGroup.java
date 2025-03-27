@@ -1,13 +1,14 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.options;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.Checkbox;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.ClickGuiHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.CreditsHolder;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.KeyboardHolder;
-import com.mentalfrostbyte.jello.gui.unmapped.*;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -19,21 +20,21 @@ public class JelloOptionsGroup extends CustomGuiScreen {
       this.setListening(false);
       ColorHelper var9 = ColorHelper.field27961.clone();
       var9.setPrimaryColor(ClientColors.LIGHT_GREYISH_BLUE.getColor());
-      UIButton var10;
-      this.addToList(var10 = new UIButton(this, "openKeybinds", var5 / 2 - 300, var6 - 80, 300, 38, var9, "Open Keybind Manager", ResourceRegistry.JelloLightFont24));
-      UIButton var11;
-      this.addToList(var11 = new UIButton(this, "openGui", var5 / 2, var6 - 80, 300, 38, var9, "Open Jello's Click GUI", ResourceRegistry.JelloLightFont24));
-      UIButton var12;
-      this.addToList(var12 = new UIButton(this, "credits", var5 / 2 - 100, var6 - 280, 200, 38, var9, "Credits", ResourceRegistry.JelloLightFont18));
+      TextButton var10;
+      this.addToList(var10 = new TextButton(this, "openKeybinds", var5 / 2 - 300, var6 - 80, 300, 38, var9, "Open Keybind Manager", ResourceRegistry.JelloLightFont24));
+      TextButton var11;
+      this.addToList(var11 = new TextButton(this, "openGui", var5 / 2, var6 - 80, 300, 38, var9, "Open Jello's Click GUI", ResourceRegistry.JelloLightFont24));
+      TextButton var12;
+      this.addToList(var12 = new TextButton(this, "credits", var5 / 2 - 100, var6 - 280, 200, 38, var9, "Credits", ResourceRegistry.JelloLightFont18));
       var10.doThis((var0, var1x) -> JelloOptions.showGUI(new KeyboardHolder(new StringTextComponent("Keybind Manager"))));
       var11.doThis((var0, var1x) -> JelloOptions.showGUI(new ClickGuiHolder(new StringTextComponent("Click GUI"))));
       var12.doThis((var0, var1x) -> JelloOptions.showGUI(new CreditsHolder(new StringTextComponent("GuiCredits"))));
-      UICheckBox var13;
-      this.addToList(var13 = new UICheckBox(this, "guiBlurCheckBox", var5 / 2 - 70, var6 - 220, 25, 25));
+      Checkbox var13;
+      this.addToList(var13 = new Checkbox(this, "guiBlurCheckBox", var5 / 2 - 70, var6 - 220, 25, 25));
       var13.method13705(Client.getInstance().guiManager.getGuiBlur(), false);
       var13.onPress(var1x -> Client.getInstance().guiManager.setGuiBlur(var13.method13703()));
-      UICheckBox var14;
-      this.addToList(var14 = new UICheckBox(this, "guiBlurIngameCheckBox", var5 / 2 + 130, var6 - 220, 25, 25));
+      Checkbox var14;
+      this.addToList(var14 = new Checkbox(this, "guiBlurIngameCheckBox", var5 / 2 + 130, var6 - 220, 25, 25));
       var14.method13705(Client.getInstance().guiManager.getHqIngameBlur(), false);
       var14.onPress(var1x -> Client.getInstance().guiManager.setHqIngameBlur(var14.method13703()));
    }
@@ -52,7 +53,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
       );
       String var5 = "Click GUI is currently bound to: "
-         + RenderUtil.getKeyName(Client.getInstance().moduleManager.getMacOSTouchBar().getKeybindFor(ClickGuiHolder.class))
+         + RenderUtil.getKeyName(Client.getInstance().moduleManager.getKeyManager().getKeybindFor(ClickGuiHolder.class))
          + " Key";
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,

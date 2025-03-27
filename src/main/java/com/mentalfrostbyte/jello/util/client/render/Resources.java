@@ -2,15 +2,16 @@ package com.mentalfrostbyte.jello.util.client.render;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
-import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.BufferedImageUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Resources {
 
@@ -76,7 +77,7 @@ public class Resources {
     public static Texture searchPNG = loadTexture("com/mentalfrostbyte/gui/resources/jello/search.png");
     public static Texture optionsPNG1 = loadTexture("com/mentalfrostbyte/gui/resources/jello/options.png");
     public static Texture dvdPNG = loadTexture("com/mentalfrostbyte/gui/resources/jello/dvd.png");
-    public static Texture gemPNG = loadTexture("com/mentalfrostbyte/gui/resources/sigma/gem.png");
+    public static Texture getPremium = loadTexture("com/mentalfrostbyte/gui/resources/sigma/gem.png");
     public static Texture foregroundPNG = loadTexture("com/mentalfrostbyte/gui/resources/background/foreground.png");
     public static Texture backgroundPNG = loadTexture("com/mentalfrostbyte/gui/resources/background/background.png");
     public static Texture middlePNG = loadTexture("com/mentalfrostbyte/gui/resources/background/middle.png");
@@ -84,11 +85,9 @@ public class Resources {
     public static Texture guildedPNG = loadTexture("com/mentalfrostbyte/gui/resources/loading/guilded.png");
     public static Texture redditPNG = loadTexture("com/mentalfrostbyte/gui/resources/loading/reddit.png");
     public static Texture panoramaPNG = createScaledAndProcessedTexture1("com/mentalfrostbyte/gui/resources/background/panorama5.png", 0.25F, 30);
-    ;
 
-    public static Texture singlePlayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/singleplayer.png");
-    ;
-    public static Texture multiplayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/multiplayer.png");
+	public static Texture singlePlayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/singleplayer.png");
+	public static Texture multiplayer = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/multiplayer.png");
     public static Texture options = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/options.png");
     public static Texture language = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/language.png");
     public static Texture accounts = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/accounts.png");
@@ -121,7 +120,6 @@ public class Resources {
     public static Texture xmark2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/xmark2.png");
     public static Texture world = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/world.png");
     public static Texture world2 = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/world2.png");
-
 
     public static TrueTypeFont regular28 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 28.0F);
     public static TrueTypeFont regular25 = ResourceRegistry.getFont("com/mentalfrostbyte/gui/resources/font/SF-UI-Display-Regular.ttf", 0, 25.0F);

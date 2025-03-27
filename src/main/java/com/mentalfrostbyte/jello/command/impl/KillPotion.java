@@ -18,7 +18,7 @@ public class KillPotion extends Command {
     }
 
     @Override
-    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor chatCommandExecutor) throws CommandException {
+    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
         if (args.length == 0) {
             if (!mc.playerController.isNotCreative()) {
                 ItemStack itemStack = new ItemStack(Items.SPLASH_POTION);
@@ -30,7 +30,7 @@ public class KillPotion extends Command {
                 listNBT.add(nbt);
                 itemStack.setTagInfo("CustomPotionEffects", listNBT);
                 mc.getConnection().sendPacket(new CCreativeInventoryActionPacket(36 + InvManagerUtil.isHotbarEmpty(), itemStack));
-                chatCommandExecutor.send("Requested server a killpotion!");
+                executor.send("Requested server a killpotion!");
             } else {
                 throw new CommandException("Creative mode only!");
             }

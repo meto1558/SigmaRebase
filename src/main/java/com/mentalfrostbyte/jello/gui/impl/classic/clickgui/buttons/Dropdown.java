@@ -1,21 +1,21 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Button;
-import com.mentalfrostbyte.jello.gui.unmapped.Class7262;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.dropdown.Class7262;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
-import com.mentalfrostbyte.jello.util.client.render.Class2218;
+import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dropdown extends UIBase {
-   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(Class2218.field14492);
+public class Dropdown extends Element {
+   public static final ColorHelper field21342 = new ColorHelper(1250067, -15329770).setTextColor(ClientColors.DEEP_TEAL.getColor()).method19414(FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
    public List<String> field21343 = new ArrayList<String>();
    public int field21344 = 0;
    public boolean field21345;
@@ -56,8 +56,8 @@ public class Dropdown extends UIBase {
                   this.textColor.getPrimaryColor(),
                   this.textColor.getPrimaryColor(),
                   ClientColors.LIGHT_GREYISH_BLUE.getColor(),
-                  Class2218.field14488,
-                  Class2218.field14492
+                  FontSizeAdjust.field14488,
+                  FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                ),
                var5,
                     Resources.regular12
@@ -91,7 +91,7 @@ public class Dropdown extends UIBase {
 
    @Override
    public void updatePanelDimensions(int newHeight, int newWidth) {
-      if (!this.method13297() && this.method13673()) {
+      if (!this.isFocused() && this.method13673()) {
          this.method13674(false);
       }
 
@@ -136,17 +136,17 @@ public class Dropdown extends UIBase {
 
       for (CustomGuiScreen var7 : this.getChildren()) {
          if (!var7.getName().equals("dropdownButton")) {
-            var7.setEnabled(this.field21345);
+            var7.setSelfVisible(this.field21345);
          }
       }
 
-      if (this.getTypedText() != null) {
+      if (this.getText() != null) {
          RenderUtil.method11415(this);
          RenderUtil.drawString(
             this.getFont(),
             (float)(this.getXA() + 7),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2),
-            this.getTypedText(),
+            this.getText(),
             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
          );
          RenderUtil.endScissor();
@@ -178,8 +178,8 @@ public class Dropdown extends UIBase {
    public <E extends Enum<E>> void method13670(Class<E> var1) {
       this.field21343.clear();
 
-      for (Enum var7 : (Enum[])var1.getEnumConstants()) {
-         String var8 = var7.toString().substring(0, 1).toUpperCase() + var7.toString().substring(1, var7.toString().length()).toLowerCase();
+      for (Enum var7 : var1.getEnumConstants()) {
+         String var8 = var7.toString().substring(0, 1).toUpperCase() + var7.toString().substring(1).toLowerCase();
          this.method13668(var8, var7.ordinal());
       }
    }
@@ -201,7 +201,7 @@ public class Dropdown extends UIBase {
    }
 
    @Override
-   public String getTypedText() {
+   public String getText() {
       return this.method13667().size() <= 0 ? null : this.method13667().get(this.method13671());
    }
 

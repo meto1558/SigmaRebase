@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.util.system.math.vector;
 
 public class Vector2d {
-    private double field45742;
-    private double field45743;
+    private final double field45742;
+    private final double field45743;
 
     public Vector2d(double var1, double var3) {
         this.field45742 = var1;

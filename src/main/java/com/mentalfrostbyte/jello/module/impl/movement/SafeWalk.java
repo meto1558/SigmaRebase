@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class SafeWalk extends Module {

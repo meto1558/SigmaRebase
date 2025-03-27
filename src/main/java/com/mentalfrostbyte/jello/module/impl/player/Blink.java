@@ -1,8 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
+import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.movement.NoSlow;
 import net.minecraft.client.entity.player.RemoteClientPlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.*;
@@ -16,11 +18,9 @@ public class Blink extends Module {
     public static RemoteClientPlayerEntity clientPlayerEntity;
     public float yaw;
     public float pitch;
+
     private final List<IPacket<?>> packets = new ArrayList<>();
     private Vector3d vector;
-
-    // New boolean flag for controlling the blinking state
-    public boolean isBlinking = false;
 
     public Blink() {
         super(ModuleCategory.PLAYER, "Blink", "Stops your packets to blink");
@@ -40,38 +40,39 @@ public class Blink extends Module {
 
     @Override
     public void onDisable() {
-        isBlinking = false;
-
-        int packetAmount = this.packets.size();
-
-        for (int i = 0; i < packetAmount; i++) {
-            mc.getConnection().sendPacket(this.packets.get(i));
+        for (IPacket<?> packet : this.packets) {
+            mc.getConnection().sendPacket(packet);
         }
-
         this.packets.clear();
         mc.world.removeEntityFromWorld(-1);
     }
 
     @EventTarget
     public void onSendPacket(EventSendPacket event) {
-        if (isBlinking && this.isEnabled()) {
-            if (mc.player != null && event.getPacket() instanceof CEntityActionPacket
-                    || event.getPacket() instanceof CPlayerPacket
-                    || event.getPacket() instanceof CUseEntityPacket
-                    || event.getPacket() instanceof CAnimateHandPacket
-                    || event.getPacket() instanceof CPlayerTryUseItemPacket) {
-                this.packets.add(event.getPacket());
-                event.cancelled = true;
-                isBlinking = true;
-            }
+        if (mc.player != null && (event.packet instanceof CEntityActionPacket
+                || event.packet instanceof CPlayerPacket
+                || event.packet instanceof CUseEntityPacket
+                || event.packet instanceof CAnimateHandPacket
+                || event.packet instanceof CPlayerTryUseItemPacket)) {
+            this.packets.add(event.packet);
+            event.cancelled = true;
         }
     }
 
-    public boolean isBlinking() {
-        return isBlinking;
-    }
+    public static void handleEatingBlink() {
+        NoSlow noSlow = (NoSlow) Client.getInstance().moduleManager.getModuleByClass(NoSlow.class);
+        Blink blink = (Blink) Client.getInstance().moduleManager.getModuleByClass(Blink.class);
 
-    public void setBlinking(boolean isBlinking) {
-        this.isBlinking = isBlinking;
+        if (noSlow != null && blink != null && noSlow.isEnabled() && noSlow.getStringSettingValueByName("Mode").equals("Hypixel")) {
+            if (mc.player.isHandActive() && mc.player.getHeldItem(mc.player.getActiveHand()).getItem().isFood()) {
+                if (!blink.isEnabled()) {
+                    blink.setEnabled(true);
+                }
+            } else {
+                if (blink.isEnabled()) {
+                    blink.setEnabled(false);
+                }
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -40,7 +40,7 @@ public class MusicParticles extends Module {
                     maxAmplitude = Math.max(maxAmplitude, Math.sqrt(Client.getInstance().musicManager.amplitudes.get(i)) - 1000.0);
                 }
 
-                float particleCount = 0.7F + (float) (maxAmplitude / (double) (maxThreshold - 1000)) * 8.14F;
+                float particleCount = 0.7F + (float) (maxAmplitude / (maxThreshold - 1000)) * 8.14F;
                 particleCount *= particleIntensity;
                 int particleIndex = 0;
 

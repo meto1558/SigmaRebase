@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat.antikb;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
@@ -28,15 +28,13 @@ public class DelayAntiKB extends Module {
     @EventTarget
     public void onReceivePacket(EventReceivePacket event) {
         if (this.isEnabled()) {
-            if (event.getPacket() instanceof SExplosionPacket) {
-                SExplosionPacket packet = (SExplosionPacket) event.getPacket();
-                this.packets.add(packet);
+            if (event.packet instanceof SExplosionPacket packet) {
+				this.packets.add(packet);
                 event.cancelled = true;
             }
 
-            if (mc.player != null && event.getPacket() instanceof SEntityVelocityPacket) {
-                SEntityVelocityPacket packet = (SEntityVelocityPacket) event.getPacket();
-                if (packet.getEntityID() == mc.player.getEntityId()) {
+            if (mc.player != null && event.packet instanceof SEntityVelocityPacket packet) {
+				if (packet.getEntityID() == mc.player.getEntityId()) {
                     this.packets.add(packet);
                     event.cancelled = true;
                     if (this.delay == 0) {
@@ -51,8 +49,8 @@ public class DelayAntiKB extends Module {
 //    @EventTarget
 //    public void onSendPacket(SendPacketEvent event) {
 ////        if (this.isEnabled()) {
-//////            if (event.getPacket() instanceof CUseEntityPacket) {
-//////                CUseEntityPacket usePacket = (CUseEntityPacket) event.getPacket();
+//////            if (event.packet instanceof CUseEntityPacket) {
+//////                CUseEntityPacket usePacket = (CUseEntityPacket) event.packet;
 //////                CUseEntityPacket.Action var5 = usePacket.getAction();
 ////////                if (var5 != CUseEntityPacket.Action.ATTACK) {
 ////////                }
@@ -76,17 +74,15 @@ public class DelayAntiKB extends Module {
     /** handles packets **/
     private void handlePackets() {
         for (IPacket base : this.packets) {
-            if (!(base instanceof SEntityVelocityPacket)) {
-                if (base instanceof SExplosionPacket) {
-                    SExplosionPacket packet = (SExplosionPacket) base;
-                    packet.motionX = packet.motionX * this.getNumberValueBySettingName("H-Multiplier");
+            if (!(base instanceof SEntityVelocityPacket packet)) {
+                if (base instanceof SExplosionPacket packet) {
+					packet.motionX = packet.motionX * this.getNumberValueBySettingName("H-Multiplier");
                     packet.motionZ = packet.motionZ * this.getNumberValueBySettingName("H-Multiplier");
                     packet.motionY = packet.motionY * this.getNumberValueBySettingName("V-Multiplier");
                     mc.getConnection().handleExplosion(packet);
                 }
             } else {
-                SEntityVelocityPacket packet = (SEntityVelocityPacket) base;
-                packet.motionX = (int) ((float) packet.motionX * this.getNumberValueBySettingName("H-Multiplier"));
+				packet.motionX = (int) ((float) packet.motionX * this.getNumberValueBySettingName("H-Multiplier"));
                 packet.motionZ = (int) ((float) packet.motionZ * this.getNumberValueBySettingName("H-Multiplier"));
                 packet.motionY = (int) ((float) packet.motionY * this.getNumberValueBySettingName("V-Multiplier"));
                 mc.getConnection().handleEntityVelocity(packet);

@@ -16,6 +16,6 @@ public class EventClick extends CancellableEvent {
     public enum Button {
         LEFT,
         RIGHT,
-        MID;
-    }
+        MID
+	}
 }

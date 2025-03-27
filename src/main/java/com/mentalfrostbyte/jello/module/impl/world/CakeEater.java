@@ -4,15 +4,13 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.movement.fly.MineplexFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.block.CakeBlock;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.network.play.client.CPlayerTryUseItemOnBlockPacket;
 import net.minecraft.network.play.server.SChatPacket;
@@ -38,29 +36,17 @@ public class CakeEater extends Module {
         this.registerSetting(new BooleanSetting("Mineplex", "Mineplex mode.", true));
     }
 
-    // $VF: synthetic method
-    public static Minecraft method16322() {
-        return mc;
-    }
-
-    // $VF: synthetic method
-    public static Minecraft method16323() {
-        return mc;
-    }
-
     @Override
     public void onDisable() {
-        Rots.rotating = false;
         field23588 = null;
     }
 
     @EventTarget
     public void method16319(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SChatPacket) {
-                SChatPacket var4 = (SChatPacket) var1.getPacket();
-                if (var4.getChatComponent().getString().equals("§9Game> §r§7You cannot eat your own cake!§r")) {
-                    var1.setCancelled(true);
+            if (var1.packet instanceof SChatPacket var4) {
+				if (var4.getChatComponent().getString().equals("§9Game> §r§7You cannot eat your own cake!§r")) {
+                    var1.cancelled = true;
                 }
             }
         }
@@ -71,9 +57,8 @@ public class CakeEater extends Module {
     public void method16320(EventUpdateWalkingPlayer event) {
         if (this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Fly.class);
-            if (var4.getModWithTypeSetToName() instanceof MineplexFly) {
-                MineplexFly var5 = (MineplexFly) var4.getModWithTypeSetToName();
-                if (var5.method16456()) {
+            if (var4.getModWithTypeSetToName() instanceof MineplexFly var5) {
+				if (var5.method16456()) {
                     return;
                 }
             }
@@ -102,27 +87,16 @@ public class CakeEater extends Module {
                 List<BlockPos> var8 = this.method16321(!this.getBooleanValueFromSettingName("Mineplex") ? mc.playerController.getBlockReachDistance() : 6.0F);
                 if (var8.isEmpty()) {
                     field23588 = null;
-                    Rots.rotating = false;
                 } else {
                     Collections.sort(var8, new Class3593(this));
                     field23588 = var8.get(0);
                     if (!this.getBooleanValueFromSettingName("Mineplex")) {
-                        float[] rots = RotationHelper.method34144(
+                        float[] rots = RotationUtil.method34144(
                                 (double) field23588.getX() + 0.5, (double) field23588.getZ() + 0.5, field23588.getY()
                         );
 
-                        Rots.rotating = true;
-                        Rots.prevYaw = rots[0];
-                        Rots.prevPitch = rots[1];
                         event.setYaw(rots[0]);
                         event.setPitch(rots[1]);
-                        Rots.yaw = rots[0];
-                        Rots.pitch = rots[1];
-
-                        mc.player.rotationYawHead = event.getYaw();
-                        mc.player.renderYawOffset = event.getYaw();
-                    } else {
-                        Rots.rotating = true;
                     }
                 }
             }
@@ -165,14 +139,14 @@ public class CakeEater extends Module {
         public int compare(BlockPos var1, BlockPos var2) {
             return !(
                     Math.sqrt(
-                            method16322()
+                            mc
                                     .player
-                                    .getDistanceSq((double)var1.getX() + 0.5, (double)var1.getY() + 0.5, (double)var1.getZ() + 0.5)
+                                    .getDistanceSq((double) var1.getX() + 0.5, (double) var1.getY() + 0.5, (double) var1.getZ() + 0.5)
                     )
                             > Math.sqrt(
-                            method16323()
+                            mc
                                     .player
-                                    .getDistanceSq((double)var2.getX() + 0.5, (double)var2.getY() + 0.5, (double)var2.getZ() + 0.5)
+                                    .getDistanceSq((double) var2.getX() + 0.5, (double) var2.getY() + 0.5, (double) var2.getZ() + 0.5)
                     )
             )
                     ? -1

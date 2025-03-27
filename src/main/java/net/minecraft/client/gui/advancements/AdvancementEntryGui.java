@@ -49,12 +49,12 @@ public class AdvancementEntryGui extends AbstractGui
         int i = advancement.getRequirementCount();
         int j = String.valueOf(i).length();
         int k = i > 1 ? minecraft.fontRenderer.getStringWidth("  ") + minecraft.fontRenderer.getStringWidth("0") * j * 2 + minecraft.fontRenderer.getStringWidth("/") : 0;
-        int l = 29 + minecraft.fontRenderer.func_243245_a(this.title) + k;
+        int l = 29 + minecraft.fontRenderer.getStringWidth(this.title) + k;
         this.description = LanguageMap.getInstance().func_244260_a(this.getDescriptionLines(TextComponentUtils.func_240648_a_(displayInfo.getDescription().deepCopy(), Style.EMPTY.setFormatting(displayInfo.getFrame().getFormat())), l));
 
         for (IReorderingProcessor ireorderingprocessor : this.description)
         {
-            l = Math.max(l, minecraft.fontRenderer.func_243245_a(ireorderingprocessor));
+            l = Math.max(l, minecraft.fontRenderer.getStringWidth(ireorderingprocessor));
         }
 
         this.width = l + 3 + 5;

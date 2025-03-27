@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.player;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -13,7 +13,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 import java.util.Random;
 
 public class Derp extends Module {
-    private Random random = new Random();
+    private final Random random = new Random();
     private boolean releaseShift;
     private int hitCounter;
     private int spinCounter;
@@ -58,6 +58,7 @@ public class Derp extends Module {
                     }
 
                     event.setYaw((float) this.spinCounter + this.random.nextFloat());
+                    break;
             }
         }
     }

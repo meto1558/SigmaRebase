@@ -1,11 +1,11 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.Button;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Image;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.panel.ClickGuiPanel;
 import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Exit;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.client.Minecraft;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryHolder extends ClickGuiPanel {
-   private List<Button> field21150 = new ArrayList<Button>();
+   private final List<Button> field21150 = new ArrayList<Button>();
    public Image field21152;
    public Image field21153;
    public Image field21154;

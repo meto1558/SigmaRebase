@@ -1,9 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.render.classic;
 
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
-import com.mentalfrostbyte.jello.module.impl.render.classic.esp.TwoDESP;
-import com.mentalfrostbyte.jello.module.impl.render.classic.esp.VanillaESP;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.impl.render.classic.esp.*;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 
 public class ESP extends ModuleWithModuleSettings {
@@ -11,10 +10,8 @@ public class ESP extends ModuleWithModuleSettings {
         super(ModuleCategory.RENDER,
                 "ESP",
                 "See entities anywhere anytime",
-        //        new FillESP(),
                 new TwoDESP(),
-           //     new BoxOutlineESP(),
-           //     new SkeletonESP(),
+                new BoxOutlineESP(),
                 new VanillaESP());
         this.registerSetting(new BooleanSetting("Show Players", "Draws a line arround players", true));
         this.registerSetting(new BooleanSetting("Show Mobs", "Draws a line arround hostile creatures", false));

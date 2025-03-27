@@ -1,17 +1,17 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.Animation;
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.opengl.GL11;
 
-public class BoxedButton extends UIBase {
+public class BoxedButton extends Element {
    public Animation field20630 = new Animation(300, 300, Animation.Direction.BACKWARDS);
    public Texture field20631;
 
@@ -32,9 +32,9 @@ public class BoxedButton extends UIBase {
 
    @Override
    public void draw(float partialTicks) {
-      float var4 = MathUtils.lerp(this.field20630.calcPercent(), 0.68, 2.32, 0.06, 0.48);
+      float var4 = MathUtil.lerp(this.field20630.calcPercent(), 0.68, 2.32, 0.06, 0.48);
       if (this.field20630.getDirection() == Animation.Direction.BACKWARDS) {
-         var4 = MathUtils.lerp(this.field20630.calcPercent(), 0.81, 0.38, 0.32, -1.53);
+         var4 = MathUtil.lerp(this.field20630.calcPercent(), 0.81, 0.38, 0.32, -1.53);
       }
 
       this.drawBackground((int)(-25.0F * var4));

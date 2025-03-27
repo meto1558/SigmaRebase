@@ -4,14 +4,13 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 //import com.mentalfrostbyte.jello.module.impl.movement.Fly;
-import com.mentalfrostbyte.jello.module.impl.player.NoFall;
+import com.mentalfrostbyte.jello.module.impl.player.nofall.CancelNoFall;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -88,7 +87,7 @@ public class MinibloxDisabler extends Module {
     @EventTarget
     @SuppressWarnings("unused")
     public void onSendPacket(EventSendPacket event) {
-        if (event.getPacket() instanceof CClientStatusPacket packet && packet.getStatus() == CClientStatusPacket.State.PERFORM_RESPAWN) {
+        if (event.packet instanceof CClientStatusPacket packet && packet.getStatus() == CClientStatusPacket.State.PERFORM_RESPAWN) {
             waitForPos = true;
         }
     }
@@ -96,7 +95,7 @@ public class MinibloxDisabler extends Module {
     @SuppressWarnings("unused")
     @EventTarget
     public void onReceivedPacket(EventReceivePacket event) {
-        IPacket<?> rawPacket = event.getPacket();
+        IPacket<?> rawPacket = event.packet;
         if (rawPacket instanceof SRespawnPacket) {
             waitForPos = true;
             return;
@@ -108,7 +107,7 @@ public class MinibloxDisabler extends Module {
         if (rawPacket instanceof SPlayerPositionLookPacket packet
                 && mc.getConnection() != null
                 && mc.player.ticksExisted >= 100
-                && !NoFall.falling) {
+                && !CancelNoFall.falling) {
             if (waitForPos) {
                 MinecraftUtil.addChatMessage("[Miniblox Disabler] Accepting pos due to respawn");
                 waitForPos = false;
@@ -132,7 +131,6 @@ public class MinibloxDisabler extends Module {
                 mc.getConnection().sendPacket(posPacket);
             }
             event.cancelled = true;
-            return;
             // this disabler probably performs worse with this, since if the server accepts our pos,
             // and we'll probably be far away
 //            mc.getConnection().sendPacket(new CPlayerPacket.PositionRotationPacket(
@@ -165,8 +163,8 @@ public class MinibloxDisabler extends Module {
                 mc.player.getPosX(),
                 mc.player.getPosY(),
                 mc.player.getPosZ(),
-                Rots.yaw,
-                Rots.pitch,
+                mc.player.rotationYaw,
+                mc.player.rotationPitch,
                 spoofGround || mc.player.isOnGround()
         );
         if (posPacket.onGround)

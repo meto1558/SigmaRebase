@@ -165,7 +165,7 @@ public class WorldRenderer implements IResourceManagerReloadListener, AutoClosea
     public static final Direction[] FACINGS = Direction.values();
     private final Minecraft mc;
     private final TextureManager textureManager;
-    private final EntityRendererManager renderManager;
+    public final EntityRendererManager renderManager;
     private final RenderTypeBuffers renderTypeTextures;
     private ClientWorld world;
     private Set<ChunkRenderDispatcher.ChunkRender> chunksToUpdate = new ObjectLinkedOpenHashSet<>();

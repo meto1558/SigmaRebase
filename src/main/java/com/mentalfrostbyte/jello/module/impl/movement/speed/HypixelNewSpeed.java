@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
 import com.mentalfrostbyte.jello.module.impl.world.disabler.HypixelPredictionDisabler;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
@@ -37,7 +37,7 @@ public class HypixelNewSpeed extends Module {
                     }
 
                     if (mc.player.isPotionActive(Effects.SPEED)) {
-                        MovementUtil.strafe(
+                        MovementUtil.moveInDirection(
                                 0.46F
                                         + (
                                         ((float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1.0F) * (float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier()
@@ -47,29 +47,31 @@ public class HypixelNewSpeed extends Module {
                                 )
                         );
                     } else {
-                        MovementUtil.strafe(0.467F);
+                        MovementUtil.moveInDirection(0.467F);
                     }
                 } else if (!mc.player.collidedHorizontally && !mc.player.isPotionActive(Effects.JUMP_BOOST) && mc.player.hurtTime == 0) {
                     double baseVelocityY = mc.player.getMotion().y;
                     switch (fallTicks) {
                         case 1:
-                            MovementUtil.strafe(0.33F);
+                            MovementUtil.moveInDirection(0.33F);
                             if (mc.player.isPotionActive(Effects.SPEED)) {
-                                MovementUtil.strafe(0.36F);
+                                MovementUtil.moveInDirection(0.36F);
                             }
 
                             event.setY(baseVelocityY + 0.057);
-                            MovementUtil.setPlayerYMotion(event.getY());
+                            mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
+                            break;
                         case 2:
                         default:
                             break;
                         case 3:
                             event.setY(baseVelocityY - 0.1309);
-                            MovementUtil.setPlayerYMotion(event.getY());
+                            mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
                             break;
                         case 4:
                             event.setY(baseVelocityY - 0.2);
-                            MovementUtil.setPlayerYMotion(event.getY());
+                            mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
+                            break;
                     }
                 }
                 if (MovementUtil.isMoving()) {
@@ -77,7 +79,7 @@ public class HypixelNewSpeed extends Module {
                 }
 
                 if (mc.player.isPotionActive(Effects.SPEED)) {
-                    MovementUtil.strafe(
+                    MovementUtil.moveInDirection(
                             0.46F
                                     + (
                                     ((float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier() + 1.0F) * (float)mc.player.getActivePotionEffect(Effects.SPEED).getAmplifier()
@@ -87,7 +89,7 @@ public class HypixelNewSpeed extends Module {
                             )
                     );
                 } else {
-                    MovementUtil.strafe(0.465F);
+                    MovementUtil.moveInDirection(0.465F);
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame.panels.others;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.MapsScreen;
 
 public class Waypoint implements Runnable {
@@ -17,7 +17,7 @@ public class Waypoint implements Runnable {
 
    @Override
    public void run() {
-      this.field2987.method13236(this.field2988);
+      this.field2987.removeChildren(this.field2988);
       this.field2987.field21041 = null;
    }
 }

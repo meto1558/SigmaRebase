@@ -1,8 +1,12 @@
 package net.minecraft.client.gui.screen;
 
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.impl.misc.AutoReconnect;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IBidiRenderer;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -33,6 +37,14 @@ public class DisconnectedScreen extends Screen
         {
             this.minecraft.displayGuiScreen(this.nextScreen);
         }));
+
+        if (Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class).getBooleanValueFromSettingName("Reconnect button")) {
+            this.addButton(new Button(this.width / 2 - 100, Math.min(this.height / 2 + this.textHeight / 2 + 9, this.height - 30) + 25, 200, 20, new TranslationTextComponent("Reconnect"), (p_213033_1_) ->
+            {
+                ServerData serverData = ((AutoReconnect)(Client.getInstance().moduleManager.getModuleByClass(AutoReconnect.class))).serverData;
+                if (serverData!= null) this.minecraft.displayGuiScreen(new ConnectingScreen(this, Minecraft.getInstance(), serverData));
+            }));
+        }
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)

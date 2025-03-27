@@ -7,11 +7,12 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -121,9 +122,9 @@ public class VClipFly extends Module {
 
     @Override
     public void onDisable() {
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setPlayerYMotion(-0.08);
-        double plrSpeed = com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeed();
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.strafe(plrSpeed);
+        mc.player.setMotion(mc.player.getMotion().x, -0.08, mc.player.getMotion().z);
+        double plrSpeed = MovementUtil.getSmartSpeed();
+        MovementUtil.moveInDirection(plrSpeed);
         if (this.sneakCancelled) {
             mc.gameSettings.keyBindSneak.setPressed(true);
         }
@@ -166,7 +167,7 @@ public class VClipFly extends Module {
         if (!this.getBooleanValueFromSettingName("Kick bypass")) return;
 
         if (this.ticksInAir > 0 && this.ticksInAir % 30 == 0
-                && !MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+                && !BlockUtil.isAboveBounds(mc.player, 0.01F)) {
 
             if (!JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
                 event.setY(event.getY() - 0.04);
@@ -248,7 +249,7 @@ public class VClipFly extends Module {
     @EventTarget
     public void onMove(EventMove event) {
         if (this.isEnabled()) {
-            if (!MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+            if (!BlockUtil.isAboveBounds(mc.player, 0.01F)) {
                 this.ticksInAir++;
             } else {
                 this.ticksInAir = 0;
@@ -257,7 +258,7 @@ public class VClipFly extends Module {
             double speed = this.getNumberValueBySettingName("Speed");
             double verticalSpeed = getVerticalSpeed();
 
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, speed);
+            MovementUtil.setMotion(event, speed);
             double fallDistance = mc.player.getPosY() - previousY;
             if (fallDistance < 0) fallDistance = -fallDistance;
             switch (whenToClip.currentValue) {

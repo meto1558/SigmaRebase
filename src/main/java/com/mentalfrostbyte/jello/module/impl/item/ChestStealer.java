@@ -5,13 +5,12 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.block.BarrierBlock;
 import net.minecraft.block.ChestBlock;
@@ -110,7 +109,7 @@ public class ChestStealer extends Module {
                                 && var12.getPos().getY() == var7.getPos().getY()
                                 && var12.getPos().getZ() == var7.getPos().getZ()) {
                             this.targetChest = var7;
-                            float[] var13 = RotationHelper.rotationToPos((double) var9 + 0.5, (double) var11 + 0.5, (double) var10 + 0.35);
+                            float[] var13 = RotationUtil.rotationToPos((double) var9 + 0.5, (double) var11 + 0.5, (double) var10 + 0.35);
                             var1.setYaw(var13[0]);
                             var1.setPitch(var13[1]);
                             var14 = true;
@@ -140,7 +139,7 @@ public class ChestStealer extends Module {
                 this.field23621 = false;
                 this.field23623.stop();
                 this.field23623.reset();
-                if (mc.currentScreen == null && InvManagerUtil.method25875()) {
+                if (mc.currentScreen == null && InvManagerUtil.hasAllSlotsFilled()) {
                     this.field23624.reset();
                 }
             } else {
@@ -149,7 +148,7 @@ public class ChestStealer extends Module {
                 }
 
                 if (!((float) Client.getInstance().playerTracker.getMode() < this.getNumberValueBySettingName("Delay") * 20.0F)) {
-                    if (InvManagerUtil.method25875()) {
+                    if (InvManagerUtil.hasAllSlotsFilled()) {
                         if (this.getBooleanValueFromSettingName("Close")) {
                             mc.player.closeScreen();
                         }
@@ -175,9 +174,9 @@ public class ChestStealer extends Module {
                                         }
 
                                         if (!this.getBooleanValueFromSettingName("Fix ViaVersion")) {
-                                            InvManagerUtil.method25869(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player);
+                                            InvManagerUtil.clickSlot(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player);
                                         } else {
-                                            InvManagerUtil.fixedClick(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player, true);
+                                            InvManagerUtil.clickSlot(chestScreen.getContainer().windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, mc.player, true);
                                         }
 
                                         this.field23623.reset();
@@ -267,7 +266,7 @@ public class ChestStealer extends Module {
                         "modalidades"
                 )
         );
-        List<BlockPos> positions = BlockUtil.method34561(8.0F);
+        List<BlockPos> positions = BlockUtil.getBlockPositionsInRange(8.0F);
         String cleanName = chest.getNarrationMessage().replaceAll("§.", "").toLowerCase();
 
         for (String keyword : doNotStealKeywords) {
@@ -298,7 +297,7 @@ public class ChestStealer extends Module {
                     return !InvManager.isHoe(itemStack);
                 } else if (!(item instanceof PotionItem)) {
                     if (item instanceof BlockItem) {
-                        return !BlockFly.shouldPlaceItem(item);
+                        return !InvManagerUtil.shouldPlaceItem(item);
                     } else if (!(item instanceof ArrowItem)
                             && (!(item instanceof BowItem) || !Client.getInstance().moduleManager.getModuleByClass(InvManager.class).getBooleanValueFromSettingName("Archery"))) {
                         if (item == Items.WATER_BUCKET && Client.getInstance().moduleManager.getModuleByClass(AutoMLG.class).isEnabled()) {
@@ -339,7 +338,7 @@ public class ChestStealer extends Module {
                         return true;
                     }
                 } else {
-                    return InvManagerUtil.method25874(itemStack);
+                    return InvManagerUtil.hasNegativePotionEffects(itemStack);
                 }
             } else {
                 return !InvManager.method16444(itemStack);

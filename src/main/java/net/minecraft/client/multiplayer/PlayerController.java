@@ -1,5 +1,6 @@
 package net.minecraft.client.multiplayer;
 
+import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.Block;
@@ -41,7 +42,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
@@ -55,10 +55,10 @@ public class PlayerController
     protected final ClientPlayNetHandler connection;
     private BlockPos currentBlock = new BlockPos(-1, -1, -1);
     private ItemStack currentItemHittingBlock = ItemStack.EMPTY;
-    public float curBlockDamageMP;
+    public static float curBlockDamageMP;
     private float stepSoundTickCounter;
     private int blockHitDelay;
-    private boolean isHittingBlock;
+    public static boolean isHittingBlock;
     private GameType currentGameType = GameType.SURVIVAL;
     private GameType field_239166_k_ = GameType.NOT_SET;
     private final Object2ObjectLinkedOpenHashMap<Pair<BlockPos, CPlayerDiggingPacket.Action>, Vector3d> unacknowledgedDiggingPackets = new Object2ObjectLinkedOpenHashMap<>();
@@ -164,7 +164,6 @@ public class PlayerController
             if (this.currentGameType.isCreative())
             {
                 BlockState blockstate = this.mc.world.getBlockState(loc);
-                this.mc.getTutorial().onHitBlock(this.mc.world, loc, blockstate, 1.0F);
                 this.sendDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK, loc, face);
                 this.onPlayerDestroyBlock(loc);
                 this.blockHitDelay = 5;
@@ -177,7 +176,6 @@ public class PlayerController
                 }
 
                 BlockState blockstate1 = this.mc.world.getBlockState(loc);
-                this.mc.getTutorial().onHitBlock(this.mc.world, loc, blockstate1, 0.0F);
                 this.sendDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK, loc, face);
                 boolean flag = !blockstate1.isAir();
 
@@ -213,7 +211,6 @@ public class PlayerController
         if (this.isHittingBlock)
         {
             BlockState blockstate = this.mc.world.getBlockState(this.currentBlock);
-            this.mc.getTutorial().onHitBlock(this.mc.world, this.currentBlock, blockstate, -1.0F);
             this.sendDiggingPacket(CPlayerDiggingPacket.Action.ABORT_DESTROY_BLOCK, this.currentBlock, Direction.DOWN);
             this.isHittingBlock = false;
             this.curBlockDamageMP = 0.0F;
@@ -235,7 +232,6 @@ public class PlayerController
         {
             this.blockHitDelay = 5;
             BlockState blockstate1 = this.mc.world.getBlockState(posBlock);
-            this.mc.getTutorial().onHitBlock(this.mc.world, posBlock, blockstate1, 1.0F);
             this.sendDiggingPacket(CPlayerDiggingPacket.Action.START_DESTROY_BLOCK, posBlock, directionFacing);
             this.onPlayerDestroyBlock(posBlock);
             return true;
@@ -260,7 +256,6 @@ public class PlayerController
                 }
 
                 ++this.stepSoundTickCounter;
-                this.mc.getTutorial().onHitBlock(this.mc.world, posBlock, blockstate, MathHelper.clamp(this.curBlockDamageMP, 0.0F, 1.0F));
 
                 if (this.curBlockDamageMP >= 1.0F)
                 {
@@ -557,9 +552,75 @@ public class PlayerController
     /**
      * Checks if the player is riding a horse, used to chose the GUI to open
      */
+    public ActionResultType processRightClickBlock(ClientPlayerEntity p_217292_1_, ClientWorld p_217292_2_, BlockPos pos, Direction face, Vector3d hitvec, Hand p_217292_3_)
+    {
+        BlockRayTraceResult p_217292_4_ = new BlockRayTraceResult(hitvec, face, pos, false);
+        this.syncCurrentPlayItem();
+        BlockPos blockpos = p_217292_4_.getPos();
+
+        if (!this.mc.world.getWorldBorder().contains(blockpos))
+        {
+            return ActionResultType.FAIL;
+        }
+        else
+        {
+            ItemStack itemstack = p_217292_1_.getHeldItem(p_217292_3_);
+
+            if (this.currentGameType == GameType.SPECTATOR)
+            {
+                this.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(p_217292_3_, p_217292_4_));
+                return ActionResultType.SUCCESS;
+            }
+            else
+            {
+                boolean flag = !p_217292_1_.getHeldItemMainhand().isEmpty() || !p_217292_1_.getHeldItemOffhand().isEmpty();
+                boolean flag1 = p_217292_1_.isSecondaryUseActive() && flag;
+
+                if (!flag1)
+                {
+                    ActionResultType actionresulttype = p_217292_2_.getBlockState(blockpos).onBlockActivated(p_217292_2_, p_217292_1_, p_217292_3_, p_217292_4_);
+
+                    if (actionresulttype.isSuccessOrConsume())
+                    {
+                        this.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(p_217292_3_, p_217292_4_));
+                        return actionresulttype;
+                    }
+                }
+
+                this.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(p_217292_3_, p_217292_4_));
+
+                if (!itemstack.isEmpty() && !p_217292_1_.getCooldownTracker().hasCooldown(itemstack.getItem()))
+                {
+                    ItemUseContext itemusecontext = new ItemUseContext(p_217292_1_, p_217292_3_, p_217292_4_);
+                    ActionResultType actionresulttype1;
+
+                    if (this.currentGameType.isCreative())
+                    {
+                        int i = itemstack.getCount();
+                        actionresulttype1 = itemstack.onItemUse(itemusecontext);
+                        itemstack.setCount(i);
+                    }
+                    else
+                    {
+                        actionresulttype1 = itemstack.onItemUse(itemusecontext);
+                    }
+
+                    return actionresulttype1;
+                }
+                else
+                {
+                    return ActionResultType.PASS;
+                }
+            }
+        }
+    }
     public boolean isRidingHorse()
     {
         return this.mc.player.isPassenger() && this.mc.player.getRidingEntity() instanceof AbstractHorseEntity;
+    }
+
+    public ItemStack windowClickFixed(int var1, int var2, int var3, ClickType var4, PlayerEntity var5) {
+        return InvManagerUtil.clickSlot(var1, var2, var3, var4, var5);
     }
 
     public boolean isSpectatorMode()

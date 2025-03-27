@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.bowaimbot;
 
 import com.mentalfrostbyte.jello.module.impl.combat.BowAimbot;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 
@@ -15,8 +15,8 @@ public class BowAngleSorter implements Comparator<Entity> {
     }
 
     public int compare(Entity var1, Entity var2) {
-        float var5 = RotationHelper.angleDiff(RotationHelper.method34147(var1).yaw, Minecraft.getInstance().player.rotationYaw);
-        float var6 = RotationHelper.angleDiff(RotationHelper.method34147(var2).yaw, Minecraft.getInstance().player.rotationYaw);
+        float var5 = RotationUtil.angleDiff(RotationUtil.method34147(var1).yaw, Minecraft.getInstance().player.rotationYaw);
+        float var6 = RotationUtil.angleDiff(RotationUtil.method34147(var2).yaw, Minecraft.getInstance().player.rotationYaw);
         if (!(var5 - var6 < 0.0F)) {
             if (var5 - var6 != 0.0F) {
                 return 1;

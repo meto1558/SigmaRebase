@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -221,9 +221,8 @@ public class TwoDESP extends Module {
         float var9 = mc.timer.renderPartialTicks;
 
         for (Object var11 : mc.world.getAllEntities()) {
-            if (var11 instanceof PlayerEntity && !(var11 instanceof ClientPlayerEntity)) {
-                PlayerEntity var12 = (PlayerEntity) var11;
-                double var13 = var12.lastTickPosY + (var12.getPosY() - var12.lastTickPosY) * (double) var9 - var5;
+            if (var11 instanceof PlayerEntity var12 && !(var11 instanceof ClientPlayerEntity)) {
+				double var13 = var12.lastTickPosY + (var12.getPosY() - var12.lastTickPosY) * (double) var9 - var5;
                 double var15 = var12.lastTickPosX + (var12.getPosX() + 10.0 - (var12.lastTickPosX + 10.0)) * (double) var9 - var3;
                 double var17 = var12.lastTickPosZ + (var12.getPosZ() + 10.0 - (var12.lastTickPosZ + 10.0)) * (double) var9 - var7;
                 var13 += (double) var12.getHeight() + 0.2;
@@ -252,7 +251,7 @@ public class TwoDESP extends Module {
 
     private void method16520(Entity var1) {
         float var4 = 1.0F;
-        float var5 = (float) ((double) var4 * (1.0));
+        float var5 = (float) ((double) var4);
         if (this.field23727 == 0.0 || Double.isNaN(this.field23727)) {
             this.field23727 = var5;
         }
@@ -270,7 +269,7 @@ public class TwoDESP extends Module {
         }
 
         public static int method38565(int var0, int var1) {
-            return (int)((double)var0 - (double)var1 * Math.floor(Math.floor((double)var0) / (double)var1));
+            return (int)((double)var0 - (double)var1 * Math.floor(Math.floor(var0) / (double)var1));
         }
 
         public static double method38566(double var0) {

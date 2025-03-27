@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.*;
@@ -114,16 +114,16 @@ public class HypixelDisabler extends Module {
     public void onSendPacket(EventSendPacket var1) {
         if (mc.getConnection() != null) {
             if (this.field23984) {
-                if (var1.getPacket() instanceof CEntityActionPacket
-                        || var1.getPacket() instanceof CPlayerPacket
-                        || var1.getPacket() instanceof CUseEntityPacket
-                        || var1.getPacket() instanceof CAnimateHandPacket
-                        || var1.getPacket() instanceof CPlayerTryUseItemPacket) {
+                if (var1.packet instanceof CEntityActionPacket
+                        || var1.packet instanceof CPlayerPacket
+                        || var1.packet instanceof CUseEntityPacket
+                        || var1.packet instanceof CAnimateHandPacket
+                        || var1.packet instanceof CPlayerTryUseItemPacket) {
                     if (this.getBooleanValueFromSettingName("Instant")) {
-                        this.field23983.add(var1.getPacket());
+                        this.field23983.add(var1.packet);
                     }
 
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
             }
         }
@@ -133,14 +133,14 @@ public class HypixelDisabler extends Module {
     public void method16901(EventReceivePacket var1) {
         if (mc.player != null && this.field23984) {
             if (this.isEnabled() || this.getBooleanValueFromSettingName("Instant")) {
-                if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
+                if (var1.packet instanceof SPlayerPositionLookPacket) {
                     this.access().toggle();
                     if (!this.getBooleanValueFromSettingName("Instant")) {
                         Client.getInstance().notificationManager
                                 .send(new Notification("Hypixel disabler", "You can do what you want for 5s"));
                     } else {
-                        SPlayerPositionLookPacket var4 = (SPlayerPositionLookPacket) var1.getPacket();
-                        var1.setCancelled(true);
+                        SPlayerPositionLookPacket var4 = (SPlayerPositionLookPacket) var1.packet;
+                        var1.cancelled = true;
                         mc.getConnection()
                                 .sendPacket(new CPlayerPacket.PositionRotationPacket(var4.getX(), var4.getY(), var4.getZ(), var4.yaw,
                                         var4.pitch, false));

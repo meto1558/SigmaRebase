@@ -3,8 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.render;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.util.system.render.ScreenDimension;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import net.minecraft.util.math.vector.Vector2f;
@@ -36,7 +35,7 @@ public class DVDSimulator extends Module {
 
     @EventTarget
     public void onRender(EventRender2DOffset event) throws IOException {
-        if (this.isEnabled() && mc.player != null && mc.world != null) {
+        if (mc.player != null && mc.world != null) {
             int windowHeight = mc.getMainWindow().getHeight();
             int windowWidth = mc.getMainWindow().getWidth();
             float speed = 2;
@@ -70,7 +69,7 @@ public class DVDSimulator extends Module {
                     (float) this.dvdDimensions.width,
                     (float) this.dvdDimensions.height,
                     Resources.dvdPNG,
-                    MovementUtil2.applyAlpha(this.dvdColor, 0.8F)
+                    RenderUtil.applyAlpha(this.dvdColor, 0.8F)
             );
         }
     }

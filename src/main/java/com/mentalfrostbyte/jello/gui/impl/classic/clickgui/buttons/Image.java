@@ -1,15 +1,15 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.UIBase;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.client.ColorHelper;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.opengl.GL11;
 
-public class Image extends UIBase {
+public class Image extends Element {
    public Texture field20633;
    public Texture field20634;
 
@@ -33,9 +33,9 @@ public class Image extends UIBase {
 
       RenderUtil.drawString(
               Resources.regular25,
-         (float)(this.xA + (this.getWidthA() - Resources.regular25.getWidth(this.typedText)) / 2),
+         (float)(this.xA + (this.getWidthA() - Resources.regular25.getWidth(this.text)) / 2),
          (float)(this.yA + this.getHeightA() - 50),
-         this.typedText,
+         this.text,
          !this.method13298() ? -14869219 : -319475
       );
       super.draw(partialTicks);

@@ -5,11 +5,11 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
@@ -30,9 +30,9 @@ public class NCPFly extends Module {
 
     @Override
     public void onDisable() {
-        MovementUtil.strafe(0.0);
+        MovementUtil.moveInDirection(0.0);
         if (mc.player.getMotion().y > 0.0) {
-            MovementUtil.setPlayerYMotion(-0.0789);
+            mc.player.setMotion(mc.player.getMotion().x, -0.0789, mc.player.getMotion().z);
         }
     }
 
@@ -45,21 +45,21 @@ public class NCPFly extends Module {
                     if (this.field23919 != 0) {
                         if (this.field23919 == 1) {
                             var1.setY(-1.0E-7);
-                            MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
-                            MovementUtil.setPlayerYMotion(var1.getY());
+                            MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
+                            mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                         }
                     } else {
                         var1.setY(-1.0E-7);
-                        MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
-                        MovementUtil.setPlayerYMotion(var1.getY());
+                        MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
+                        mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
                     }
                 } else {
                     var1.setY(0.0);
-                    MovementUtil.setPlayerYMotion(var1.getY());
-                    MovementUtil.setSpeed(var1, MovementUtil.getSpeed());
+                    mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
+                    MovementUtil.setMotion(var1, MovementUtil.getSmartSpeed());
                 }
             } else {
-                MovementUtil.setSpeed(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }
@@ -83,10 +83,9 @@ public class NCPFly extends Module {
     @EventTarget
     public void method16802(EventReceivePacket event) {
         if (this.isEnabled()) {
-            IPacket packet = event.getPacket();
-            if (packet instanceof SPlayerPositionLookPacket) {
-                SPlayerPositionLookPacket var5 = (SPlayerPositionLookPacket) packet;
-                if (this.field23919 >= 1) {
+            IPacket packet = event.packet;
+            if (packet instanceof SPlayerPositionLookPacket var5) {
+				if (this.field23919 >= 1) {
                     this.field23919 = -1;
                 }
 
@@ -100,10 +99,9 @@ public class NCPFly extends Module {
     @EventTarget
     public void method16803(EventSendPacket event) {
         if (this.isEnabled()) {
-            IPacket packet = event.getPacket();
-            if (packet instanceof CPlayerPacket) {
-                CPlayerPacket playerPacket = (CPlayerPacket) packet;
-                if (this.field23919 == -1) {
+            IPacket packet = event.packet;
+            if (packet instanceof CPlayerPacket playerPacket) {
+				if (this.field23919 == -1) {
                     playerPacket.onGround = true;
                 }
             }

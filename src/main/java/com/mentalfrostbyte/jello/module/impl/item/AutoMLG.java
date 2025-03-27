@@ -4,13 +4,14 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.play.client.CClientStatusPacket;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -58,7 +59,7 @@ public class AutoMLG extends PremiumModule {
     public void onMove(EventMove var1) {
         if (this.isEnabled()) {
             if (preTicks > 0 && !mc.player.isOnGround()) {
-                MovementUtil.setSpeed(var1, 0.0);
+                MovementUtil.setMotion(var1, 0.0);
             }
         }
     }
@@ -69,7 +70,7 @@ public class AutoMLG extends PremiumModule {
         if (this.isEnabled() && mc.playerController.gameIsSurvivalOrAdventure()) {
             if (var1.isPre() && preTicks >= 0) {
                 preTicks++;
-                float[] var4 = RotationHelper.rotationToPos(
+                float[] var4 = RotationUtil.rotationToPos(
                         (double) this.field23650.getX() + 0.5, (double) this.field23650.getZ() + 0.5, (double) this.field23650.getY() + 0.5
                 );
                 var1.setYaw(var4[0]);
@@ -98,7 +99,7 @@ public class AutoMLG extends PremiumModule {
                 BlockPos var5 = this.method16425();
                 if (var5 != null) {
                     if (var1.isPre() && preTicks == -1) {
-                        float[] var6 = RotationHelper.rotationToPos((double) var5.getX() + 0.5, (double) var5.getZ() + 0.5, (double) var5.getY() + 0.5);
+                        float[] var6 = RotationUtil.rotationToPos((double) var5.getX() + 0.5, (double) var5.getZ() + 0.5, (double) var5.getY() + 0.5);
                         var1.setYaw(var6[0]);
                         var1.setPitch(var6[1]);
                         if (var7 != mc.player.inventory.currentItem) {
@@ -142,7 +143,7 @@ public class AutoMLG extends PremiumModule {
                             mc.getConnection().sendPacket(new CClientStatusPacket(CClientStatusPacket.State.OPEN_INVENTORY));
                         }
 
-                        InvManagerUtil.moveItemToHotbar(var5, 6);
+                        InvManagerUtil.clickSlot(var5, 6);
                         mc.getConnection().sendPacket(new CCloseWindowPacket(-1));
                         return 6;
                     }
@@ -168,7 +169,7 @@ public class AutoMLG extends PremiumModule {
             VoxelShape var13 = (VoxelShape) var11.next();
             AxisAlignedBB var14 = var13.getBoundingBox();
             BlockPos var15 = new BlockPos(var14.getCenter());
-            if (true/*BlockUtil.method34578(var15)
+            if (BlockUtil.isValidBlockPosition(var15)
                     && (double) (var15.getY() + 1) < mc.player.getPosY()
                     && (
                     var12 == null
@@ -176,7 +177,7 @@ public class AutoMLG extends PremiumModule {
                             .getDistanceSq((double) var12.getX() + 0.5 - var3, var12.getY() + 1, (double) var12.getZ() + 0.5 - var7)
                             > mc.player
                             .getDistanceSq((double) var15.getX() + 0.5 - var3, var15.getY() + 1, (double) var15.getZ() + 0.5 - var7)
-            )*/) {
+            )) {
                 var12 = var15;
             }
         }
@@ -193,8 +194,7 @@ public class AutoMLG extends PremiumModule {
                 VoxelShape var20 = (VoxelShape) var11.next();
                 AxisAlignedBB var21 = var20.getBoundingBox();
                 BlockPos var22 = new BlockPos(var21.getCenter());
-                // TODO
-                if (true/*BlockUtil.method34578(var22)
+                if (BlockUtil.isValidBlockPosition(var22)
                         && (double) (var22.getY() + 1) < mc.player.getPosY()
                         && (
                         var12 == null
@@ -202,7 +202,7 @@ public class AutoMLG extends PremiumModule {
                                 .getDistanceSq((double) var12.getX() + 0.5 - var3, var12.getY() + 1, (double) var12.getZ() + 0.5 - var7)
                                 > mc.player
                                 .getDistanceSq((double) var22.getX() + 0.5 - var3, var22.getY() + 1, (double) var22.getZ() + 0.5 - var7)
-                )*/) {
+                )) {
                     var12 = var22;
                 }
             }

@@ -1,9 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.clicktp.BasicClickTP;
+import com.mentalfrostbyte.jello.module.impl.movement.clicktp.MinibloxClickTP;
 import com.mentalfrostbyte.jello.module.impl.movement.clicktp.SpartanClickTP;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -16,11 +17,21 @@ import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class ClickTP extends ModuleWithModuleSettings {
+    private final NumberSetting<Float> maxRange;
+
     public ClickTP() {
-        super(ModuleCategory.MOVEMENT, "ClickTP", "TP's you when you click", new BasicClickTP(), new SpartanClickTP());
+        super(ModuleCategory.MOVEMENT, "ClickTP", "TP's you when you click", new BasicClickTP(), new MinibloxClickTP(), new SpartanClickTP());
         this.registerSetting(new BooleanSetting("Sneak", "Allows teleport only when sneaking", true));
         this.registerSetting(new BooleanSetting("Auto Disable", "Disable ClickTP after teleporting", true));
-        this.registerSetting(new NumberSetting<Float>("Maximum range", "Maximum range of the teleport", 100.0F, Float.class, 10.0F, 300.0F, 1.0F));
+        this.registerSetting(this.maxRange = new NumberSetting<>("Maximum range", "Maximum range of the teleport", 100.0F, Float.class, 10.0F, 300.0F, 1.0F));
+    }
+
+    public BlockPos getRotationHit() {
+        BlockRayTraceResult trace = BlockUtil.rayTrace(
+                mc.player.rotationYaw, mc.player.rotationPitch,
+                this.maxRange.currentValue);
+
+		return trace.getPos();
     }
 
     @EventTarget
@@ -94,6 +105,10 @@ public class ClickTP extends ModuleWithModuleSettings {
 
     private void method16757(float var1, float var2, float var3) {
         GL11.glColor3f(var1 / 255.0F, var2 / 255.0F, var3 / 255.0F);
+        rotationThingy();
+    }
+
+    public static void rotationThingy() {
         GL11.glTranslatef(0.0F, 0.0F, 0.3F);
         GL11.glNormal3f(0.0F, 0.0F, 1.0F);
         GL11.glRotated(-37.0, 1.0, 0.0, 0.0);

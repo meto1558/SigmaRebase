@@ -6,15 +6,12 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
-import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.ContainerType;
@@ -50,9 +47,9 @@ public class Auto32k extends Module {
     public void onEnable() {
         this.field23870 = null;
 
-        for (BlockPos var4 : BlockUtil.method34545(BlockUtil.method34561(mc.playerController.getBlockReachDistance()))) {
-            if (!(BlockUtil.method34550(mc.player, var4) < 2.0F)
-                    && BlockUtil.method34535(mc.player, var4)
+        for (BlockPos var4 : BlockUtil.sortPositionsByDistance(BlockUtil.getBlockPositionsInRange(mc.playerController.getBlockReachDistance()))) {
+            if (!(BlockUtil.getDistance(mc.player, var4) < 2.0F)
+                    && BlockUtil.canPlaceAt(mc.player, var4)
                     && (double) var4.getY() >= mc.player.getPosY() - 2.0
                     && (double) var4.getY() <= mc.player.getPosY() - 1.0
                     && this.method16717(var4)) {
@@ -61,7 +58,7 @@ public class Auto32k extends Module {
             }
         }
 
-        this.field23872 = InvManagerUtil.method25843(
+        this.field23872 = InvManagerUtil.getSlotWithMaxItemCount(
                 Items.SHULKER_BOX,
                 Items.WHITE_SHULKER_BOX,
                 Items.ORANGE_SHULKER_BOX,
@@ -81,7 +78,7 @@ public class Auto32k extends Module {
                 Items.BLACK_SHULKER_BOX
 
         );
-        this.field23871 = InvManagerUtil.method25843(Items.HOPPER);
+        this.field23871 = InvManagerUtil.getSlotWithMaxItemCount(Items.HOPPER);
         if (this.field23871 == -1) {
             this.field23871 = InvManagerUtil.findItemSlot(Items.HOPPER);
             if (this.field23871 != -1) {
@@ -94,7 +91,7 @@ public class Auto32k extends Module {
         }
 
         if (this.field23872 == -1) {
-            this.field23872 = InvManagerUtil.method25823(
+            this.field23872 = InvManagerUtil.findItemInContainer(
                     Items.SHULKER_BOX,
                     Items.WHITE_SHULKER_BOX,
                     Items.ORANGE_SHULKER_BOX,
@@ -134,7 +131,6 @@ public class Auto32k extends Module {
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
         super.onDisable();
     }
 
@@ -148,7 +144,7 @@ public class Auto32k extends Module {
                 double var7 = (double) var4.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY();
                 double var9 = (double) var4.getZ() - mc.gameRenderer.getActiveRenderInfo().getPos().getZ();
                 RenderUtil.render3DColoredBox(
-                        new BoundingBox(var5, var7 + 1.625, var9, var5 + 1.0, var7 + 3.0, var9 + 1.0), MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.3F)
+                        new BoundingBox(var5, var7 + 1.625, var9, var5 + 1.0, var7 + 3.0, var9 + 1.0), RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.3F)
                 );
                 GL11.glColor3f(1.0F, 1.0F, 1.0F);
                 GL11.glBlendFunc(770, 771);
@@ -162,7 +158,7 @@ public class Auto32k extends Module {
                 boolean var12 = true;
                 if (var12) {
                     GL11.glPushMatrix();
-                    int var13 = MovementUtil2.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.5F);
+                    int var13 = RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.5F);
                     float var14 = (float) (var13 >> 24 & 0xFF) / 255.0F;
                     float var15 = (float) (var13 >> 16 & 0xFF) / 255.0F;
                     float var16 = (float) (var13 >> 8 & 0xFF) / 255.0F;
@@ -175,7 +171,7 @@ public class Auto32k extends Module {
                     GL11.glPopMatrix();
                 }
 
-                int var22 = MovementUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F);
+                int var22 = RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F);
                 float var23 = (float) (var22 >> 24 & 0xFF) / 255.0F;
                 float var24 = (float) (var22 >> 16 & 0xFF) / 255.0F;
                 float var25 = (float) (var22 >> 8 & 0xFF) / 255.0F;
@@ -235,20 +231,11 @@ public class Auto32k extends Module {
                             if (this.field23873 == 1) {
                                 float yaw = BlockUtil.method34543(this.field23870.up(), Direction.UP)[0];
                                 float pitch = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
-                                Rots.rotating = true;
-                                Rots.prevYaw = yaw;
-                                Rots.prevPitch = pitch;
-                                event.setYaw(yaw);
                                 event.setPitch(pitch);
-                                Rots.yaw = yaw;
-                                Rots.pitch = pitch;
+                                event.setYaw(yaw);
 
-                                mc.player.rotationYawHead = event.getYaw();
-                                mc.player.renderYawOffset = event.getYaw();
-
-                                int var6 = mc.player.inventory.currentItem;
                                 mc.player.inventory.currentItem = this.field23871;
-                                net.minecraft.util.math.vector.Vector3d var7 = BlockUtil.method34572(Direction.UP, this.field23870);
+                                net.minecraft.util.math.vector.Vector3d var7 = BlockUtil.getRandomlyOffsettedPos(Direction.UP, this.field23870);
                                 BlockRayTraceResult var8 = new BlockRayTraceResult(var7, Direction.UP, this.field23870, false);
                                 ActionResultType var9 = mc.playerController.func_217292_a(mc.player, mc.world, Hand.MAIN_HAND, var8);
                                 mc.player.swingArm(Hand.MAIN_HAND);
@@ -257,7 +244,7 @@ public class Auto32k extends Module {
                                     mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.PRESS_SHIFT_KEY));
                                     mc.player.movementInput.sneaking = true;
                                     mc.player.inventory.currentItem = this.field23872;
-                                    net.minecraft.util.math.vector.Vector3d var10 = BlockUtil.method34572(Direction.UP, this.field23870.up());
+                                    net.minecraft.util.math.vector.Vector3d var10 = BlockUtil.getRandomlyOffsettedPos(Direction.UP, this.field23870.up());
                                     BlockRayTraceResult var11 = new BlockRayTraceResult(var10, Direction.UP, this.field23870.up(), false);
                                     mc.playerController.func_217292_a(mc.player, mc.world, Hand.MAIN_HAND, var11);
                                     mc.player.swingArm(Hand.MAIN_HAND);
@@ -269,20 +256,11 @@ public class Auto32k extends Module {
                         } else {
                             float yaw = BlockUtil.method34543(this.field23870, Direction.UP)[0];
                             float pitch = BlockUtil.method34543(this.field23870, Direction.UP)[1];
-                            Rots.rotating = true;
-                            Rots.prevYaw = yaw;
-                            Rots.prevPitch = pitch;
-                            event.setYaw(yaw);
                             event.setPitch(pitch);
-                            Rots.yaw = yaw;
-                            Rots.pitch = pitch;
+                            event.setYaw(yaw);
 
-                            mc.player.rotationYawHead = event.getYaw();
-                            mc.player.renderYawOffset = event.getYaw();
                             this.field23873++;
                         }
-                    } else {
-                        Rots.rotating = false;
                     }
                 }
             }
@@ -292,23 +270,22 @@ public class Auto32k extends Module {
     @EventTarget
     public void method16721(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SOpenWindowPacket) {
-                this.field23876 = (SOpenWindowPacket) var1.getPacket();
+            if (var1.packet instanceof SOpenWindowPacket) {
+                this.field23876 = (SOpenWindowPacket) var1.packet;
                 if (this.isEnabled() && this.field23876.getTitle() == ContainerType.HOPPER) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                 }
 
                 this.field23874 = this.field23876.getWindowId();
                 this.field23877 = false;
             }
 
-            if (var1.getPacket() instanceof SSetSlotPacket) {
-                SSetSlotPacket var4 = (SSetSlotPacket) var1.getPacket();
-                int var5 = var4.getSlot();
+            if (var1.packet instanceof SSetSlotPacket var4) {
+				int var5 = var4.getSlot();
                 ItemStack var6 = var4.getStack();
                 int var7 = var4.getWindowId();
                 if (this.field23874 == var7 && var5 == 0 && var6.getItem() != Items.AIR && !this.field23877) {
-                    var1.setCancelled(true);
+                    var1.cancelled = true;
                     mc.getConnection().sendPacket(new CClickWindowPacket(var7, var5, 1, ClickType.QUICK_MOVE, var6, this.field23875++));
                     int var8 = -1;
 
@@ -331,7 +308,7 @@ public class Auto32k extends Module {
                 }
             }
 
-            if (var1.getPacket() instanceof SCloseWindowPacket) {
+            if (var1.packet instanceof SCloseWindowPacket) {
                 this.setEnabled(false);
             }
         }
@@ -340,18 +317,17 @@ public class Auto32k extends Module {
     @EventTarget
     public void method16722(EventSendPacket var1) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof CCloseWindowPacket) {
-                var1.setCancelled(true);
+            if (var1.packet instanceof CCloseWindowPacket) {
+                var1.cancelled = true;
             }
 
-            if (var1.getPacket() instanceof CUseEntityPacket) {
+            if (var1.packet instanceof CUseEntityPacket) {
                 float var4 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[0];
                 float var5 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
             }
 
-            if (var1.getPacket() instanceof CPlayerPacket) {
-                CPlayerPacket var6 = (CPlayerPacket) var1.getPacket();
-                var6.onGround = false;
+            if (var1.packet instanceof CPlayerPacket var6) {
+				var6.onGround = false;
             }
         }
     }

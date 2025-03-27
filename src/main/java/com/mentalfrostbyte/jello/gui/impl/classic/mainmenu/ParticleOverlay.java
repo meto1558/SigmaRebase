@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 
-import com.mentalfrostbyte.jello.gui.base.CustomGuiScreen;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimatedIconPanelWrap;
-import com.mentalfrostbyte.jello.gui.unmapped.AnimationManager;
+import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
+import com.mentalfrostbyte.jello.managers.AnimationManager;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons.Particle;
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
 import net.minecraft.client.Minecraft;
@@ -11,23 +11,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ParticleOverlay extends AnimatedIconPanelWrap {
+public class ParticleOverlay extends AnimatedIconPanel {
    private static String[] field21273;
-   private List<Particle> field21274 = new ArrayList<Particle>();
-   private AnimationManager field21275 = new AnimationManager();
+   private final List<Particle> field21274 = new ArrayList<Particle>();
+   private final AnimationManager field21275 = new AnimationManager();
    public RandomIntGenerator field21276 = new RandomIntGenerator();
 
    public ParticleOverlay(CustomGuiScreen var1, String var2) {
       super(var1, var2, 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), Minecraft.getInstance().getMainWindow().getHeight(), false);
-      this.method13145(false);
-      this.method13296(false);
-      this.method13292(false);
+      this.setFocused(false);
+      this.setHovered(false);
+      this.setReAddChildren(false);
       this.method13294(true);
    }
 
    @Override
-   public void method13145(boolean var1) {
-      super.method13145(false);
+   public void setFocused(boolean focused) {
+      super.setFocused(false);
    }
 
    @Override

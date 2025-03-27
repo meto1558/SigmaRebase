@@ -5,8 +5,9 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class FullBlockPhase extends Module {
@@ -16,7 +17,7 @@ public class FullBlockPhase extends Module {
 
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
-        if (this.isEnabled() && MovementUtil2.method17761()) {
+        if (this.isEnabled() && PlayerUtil.isCollidingWithSurroundingBlocks()) {
             event.setMoving(true);
         }
     }
@@ -24,13 +25,13 @@ public class FullBlockPhase extends Module {
     @EventTarget
     public void EventMove(EventMove event) {
         if (this.isEnabled()) {
-            if (!MovementUtil2.method17761()) {
+            if (!PlayerUtil.isCollidingWithSurroundingBlocks()) {
                 if (mc.player.collidedHorizontally) {
-                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.0);
-                    com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37095(1.1920931E-8);
+                    MovementUtil.setMotion(event, 0.0);
+                    MovementUtil.movePlayerInDirection(1.1920931E-8);
                 }
             } else {
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.method37095(0.617);
+                MovementUtil.movePlayerInDirection(0.617);
             }
         }
     }
@@ -38,7 +39,7 @@ public class FullBlockPhase extends Module {
     @EventTarget
     public void EventPushBlock(EventPushBlock event) {
         if (this.isEnabled()) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 }

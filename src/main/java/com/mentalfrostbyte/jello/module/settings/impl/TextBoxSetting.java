@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.settings.impl;
 
+import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.SettingType;
-import totalcross.json.CJsonUtils;
-import totalcross.json.JSONObject;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 
 public class TextBoxSetting extends Setting<Integer> {
     private final String[] options;
@@ -14,8 +14,8 @@ public class TextBoxSetting extends Setting<Integer> {
     }
 
     @Override
-    public JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) {
-        this.currentValue = CJsonUtils.getIntOrDefault(jsonObject, "value", this.getDefaultValue());
+    public JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) {
+        this.currentValue = GsonUtil.getIntOrDefault(jsonObject, "value", this.getDefaultValue());
         return jsonObject;
     }
 

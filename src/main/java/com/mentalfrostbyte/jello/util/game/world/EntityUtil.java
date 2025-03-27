@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.world;
 
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -16,15 +17,33 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.StreamSupport;
 
-import static com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper.getLookVector;
+import static com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil.getLookVector;
 
 public class EntityUtil {
-    private static Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft mc = Minecraft.getInstance();
+
+    public static Comparator<LivingEntity> sortEntities(String mode) {
+        switch (mode) {
+            case "Health":
+                return Comparator.comparingDouble(LivingEntity::getHealth);
+
+            case "Armor":
+                return Comparator.comparingDouble(LivingEntity::getTotalArmorValue);
+
+            case "Ticks":
+                return Comparator.comparingDouble(LivingEntity::getTicksExisted);
+
+            default:
+                return Comparator.comparingDouble(e -> e.getDistance(mc.player));
+        }
+    }
 
     public static void swing(Entity target, boolean swing) {
         if (target == null) {
@@ -36,7 +55,7 @@ public class EntityUtil {
         if (isOnePointEight && swing) {
             mc.player.swingArm(Hand.MAIN_HAND);
         }
-        //this is how 1.9+ packet order is StormingMoon use this on all things that needs swinging like aura and stuff if not it will flag and thats not good ong
+
         // 1. Send attack packet first
         mc.getConnection().getNetworkManager().sendNoEventPacket(new CUseEntityPacket(target, mc.player.isSneaking()));
 
@@ -52,7 +71,6 @@ public class EntityUtil {
         boolean canSwing = mc.player.getCooledAttackStrength(0.5F) > 0.9 || isOnePointEight;
         if (!isOnePointEight && swing && canSwing) {
             mc.player.swingArm(Hand.MAIN_HAND);
-
         }
     }
 
@@ -100,9 +118,9 @@ public class EntityUtil {
         Entity renderViewEntity = mc.getRenderViewEntity();
 
         if (renderViewEntity != null && mc.world != null) {
-            double reachDistance = (double) mc.playerController.getBlockReachDistance();
+            double reachDistance = mc.playerController.getBlockReachDistance();
             if (reachDistanceModifier != 0.0F) {
-                reachDistance = (double) reachDistanceModifier;
+                reachDistance = reachDistanceModifier;
             }
 
             Vector3d lookVector = getLookVector(pitch, yaw);
@@ -112,7 +130,7 @@ public class EntityUtil {
             return traceEntityRay(
                     mc.world, renderViewEntity, playerEyesPos, rayEndPos, searchBox,
                     entity -> entity instanceof LivingEntity || entity instanceof FallingBlockEntity,
-                    (double) (reachDistanceModifier * reachDistanceModifier), boundingBoxExpansion
+					reachDistanceModifier * reachDistanceModifier, boundingBoxExpansion
             );
         } else {
             return null;
@@ -201,5 +219,16 @@ public class EntityUtil {
 
     public static Vector3d getCenteredHitbox(Entity entity) {
         return getCenteredPosition(entity.getBoundingBox());
+    }
+
+    public static List<PlayerEntity> getPlayerEntities() {
+        ArrayList<PlayerEntity> result = new ArrayList<>();
+        assert mc.world != null;
+        mc.world.entitiesById.forEach((var1, var2x) -> {
+            if (var2x instanceof PlayerEntity) {
+                result.add((PlayerEntity) var2x);
+            }
+        });
+        return result;
     }
 }

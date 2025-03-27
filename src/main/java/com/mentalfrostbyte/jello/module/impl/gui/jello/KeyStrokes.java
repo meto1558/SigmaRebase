@@ -3,13 +3,14 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -39,79 +40,89 @@ public class KeyStrokes extends Module {
     }
 
     @EventTarget
-    public void onRender(EventRender2DOffset var1) {
+    public void onRender(EventRender2DOffset event) {
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    this.yBase = var1.getyOffset();
+                    this.yBase = event.getYOffset();
                     if (Client.getInstance().guiManager.getGuiBlur()) {
-                        for (Keystroke var7 : Keystroke.values()) {
-                            KeyPosition var8 = var7.getTopLeftPosition();
-                            KeyPosition var9 = var7.getBottomRightPosition();
-                            RenderUtil.drawPortalBackground(
-                                    this.xBase + var8.x,
-                                    this.yBase + var8.y,
-                                    this.xBase + var8.x + var9.x,
-                                    this.yBase + var8.y + var9.y
+                        for (Keystroke keystroke : Keystroke.values()) {
+                            KeyPosition topLeftKey = keystroke.getTopLeftPosition();
+                            KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
+                            RenderUtil.drawBlurredBackground(
+                                    this.xBase + topLeftKey.x,
+                                    this.yBase + topLeftKey.y,
+                                    this.xBase + topLeftKey.x + bottomRightKey.x,
+                                    this.yBase + topLeftKey.y + bottomRightKey.y
                             );
-                            // TODO: blur
-//                            BlurEngine.drawBlur(this.field23585 + var8.field42635, this.field23586 + var8.field42636, var9.field42635, var9.field42636);
-//                            BlurEngine.endBlur();
+                            BlurEngine.drawBlur(this.xBase + topLeftKey.x, this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
+                            BlurEngine.endBlur();
                             RenderUtil.endScissor();
                         }
                     }
 
                     for (Keystroke keystroke : Keystroke.values()) {
-                        KeyPosition var21 = keystroke.getTopLeftPosition();
-                        KeyPosition var23 = keystroke.getBottomRightPosition();
-                        float var10 = 1.0F;
-                        float var11 = 1.0F;
+                        KeyPosition topLeftKey = keystroke.getTopLeftPosition();
+                        KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
+                        float topLeftOpacityMul = 1.0F;
+                        float bottomRightOpacityMul = 1.0F;
                         if (Client.getInstance().guiManager.getGuiBlur()) {
-                            var11 = 0.5F;
-                            var10 = 0.5F;
+                            bottomRightOpacityMul = 0.5F;
+                            topLeftOpacityMul = 0.5F;
                         }
 
-                        String var12 = RenderUtil.getKeyName(keystroke.bind.keyCode.getKeyCode());
+                        String keyName = RenderUtil.getKeyName(keystroke.bind.keyCode.getKeyCode());
                         if (keystroke.bind != mc.gameSettings.keyBindAttack) {
                             if (keystroke.bind == mc.gameSettings.keyBindUseItem) {
-                                var12 = "R";
+                                keyName = "R";
                             }
                         } else {
-                            var12 = "L";
+                            keyName = "L";
                         }
 
-                        RenderUtil.drawRoundedRect( // TODO: check this, again
-                                (float) (this.xBase + var21.x),
-                                (float) (this.yBase + var21.y),
-                                (float) (this.xBase + var21.x + var23.x),
-                                (float) (this.yBase + var21.y + var23.y),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * var10)
-                        );
+                        if (keystroke.getKeyBinding().isKeyDown()) {
+                            RenderUtil.drawRoundedRect(
+                                    (float) (this.xBase + topLeftKey.x),
+                                    (float) (this.yBase + topLeftKey.y),
+                                    (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
+                                    (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
+                                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * topLeftOpacityMul)
+                            );
+                        } else {
+                            RenderUtil.drawRoundedRect(
+                                    (float) (this.xBase + topLeftKey.x),
+                                    (float) (this.yBase + topLeftKey.y),
+                                    (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
+                                    (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
+                                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * topLeftOpacityMul)
+                            );
+                        }
+
                         RenderUtil.drawRoundedRect(
-                                (float) (this.xBase + var21.x),
-                                (float) (this.yBase + var21.y),
-                                (float) var23.x,
-                                (float) var23.y,
+                                (float) (this.xBase + topLeftKey.x),
+                                (float) (this.yBase + topLeftKey.y),
+                                (float) bottomRightKey.x,
+                                (float) bottomRightKey.y,
                                 10.0F,
-                                0.75F * var11
+                                0.75F * bottomRightOpacityMul
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
-                                (float) (this.xBase + var21.x + (var23.x - ResourceRegistry.JelloLightFont18.getWidth(var12)) / 2),
-                                (float) (this.yBase + var21.y + 12),
-                                var12,
+                                (float) (this.xBase + topLeftKey.x + (bottomRightKey.x - ResourceRegistry.JelloLightFont18.getWidth(keyName)) / 2),
+                                (float) (this.yBase + topLeftKey.y + 12),
+                                keyName,
                                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
                         );
                     }
 
-                    Iterator iter = this.animations.iterator();
+                    Iterator<KeyAnimationData> iter = this.animations.iterator();
 
                     while (iter.hasNext()) {
-                        KeyAnimationData animationData = (KeyAnimationData) iter.next();
+                        KeyAnimationData animationData = iter.next();
                         Keystroke keyStroke = animationData.keyStroke;
                         KeyPosition topLeftPosition = keyStroke.getTopLeftPosition();
                         KeyPosition bottomRightPosition = keyStroke.getBottomRightPosition();
-                        RenderUtil.drawPortalBackground(
+                        RenderUtil.drawBlurredBackground(
                                 this.xBase + topLeftPosition.x,
                                 this.yBase + topLeftPosition.y,
                                 this.xBase + topLeftPosition.x + bottomRightPosition.x,
@@ -130,17 +141,17 @@ public class KeyStrokes extends Module {
                             animationData.animation.updateStartTime(maxAnimPercent);
                         }
 
-                        float var27 = animationData.animation.calcPercent();
-                        float alpha = (1.0F - var27 * (0.5F + var27 * 0.5F)) * 0.8F;
+                        float animPercent = animationData.animation.calcPercent();
+                        float alpha = (1.0F - animPercent * (0.5F + animPercent * 0.5F)) * 0.8F;
                         int color = RenderUtil2.applyAlpha(-5658199, alpha);
-                        if (Client.getInstance().guiManager.getGuiBlur()) { // TODO: check this
+                        if (Client.getInstance().guiManager.getGuiBlur()) {
                             color = RenderUtil2.applyAlpha(-1, alpha);
                         }
 
                         RenderUtil.drawFilledArc(
-                                (float) (this.xBase + topLeftPosition.x + bottomRightPosition.getX() / 2),
+                                (float) (this.xBase + topLeftPosition.x + bottomRightPosition.x / 2),
                                 (float) (this.yBase + topLeftPosition.y + bottomRightPosition.y / 2),
-                                (float) (bottomRightPosition.getX() - 4) * var27 + 4.0F,
+                                (float) (bottomRightPosition.x - 4) * animPercent + 4.0F,
                                 color
                         );
                         RenderUtil.endScissor();
@@ -149,7 +160,7 @@ public class KeyStrokes extends Module {
                         }
                     }
 
-                    var1.addOffset(160);
+                    event.addOffset(160);
                 }
             }
         }
@@ -164,16 +175,6 @@ public class KeyStrokes extends Module {
         }
     }
 
-//    @EventTarget
-//    public void onClick(ClickEvent var1) {
-//        if (!this.isEnabled() || mc.player == null) {
-//        }
-//    }
-    /**
-     * {@link Keystroke} represents a key on the keyboard that can be pressed
-     * or released. It provides information about the key such as its position
-     * on the keyboard, its binding, and its state.
-     */
     public enum Keystroke {
         Left(0.0F, 1.0F, mc.gameSettings.keyBindLeft),
         Right(2.0F, 1.0F, mc.gameSettings.keyBindRight),
@@ -189,51 +190,38 @@ public class KeyStrokes extends Module {
         public int padding = 3;
         public final KeyBinding bind;
 
-        private Keystroke(float positionX, float positionY, KeyBinding bind) {
+        Keystroke(float positionX, float positionY, KeyBinding bind) {
             this.positionX = positionX;
             this.positionY = positionY;
             this.bind = bind;
         }
 
-        private Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
+        Keystroke(float positionX, float positionY, int width, KeyBinding bind) {
             this.positionX = positionX;
             this.positionY = positionY;
             this.bind = bind;
             this.width = width;
         }
 
-        /**
-         * Gets the top left position of the key on the keyboard.
-         * @return the top left position of the key on the keyboard.
-         */
         public KeyPosition getTopLeftPosition() {
             return new KeyPosition(
-                    this, (int)(this.positionX * (float)(this.width + this.padding)), (int)(this.positionY * (float)(this.height + this.padding))
+                    this, (int) (this.positionX * (float) (this.width + this.padding)), (int) (this.positionY * (float) (this.height + this.padding))
             );
         }
 
-        /**
-         * Gets the bottom right position of the key on the keyboard.
-         * @return the bottom right position of the key on the keyboard.
-         */
         public KeyPosition getBottomRightPosition() {
             return new KeyPosition(this, this.width, this.height);
         }
 
-        /**
-         * Gets the key binding for the key.
-         * @return the key binding for the key.
-         */
         public KeyBinding getKeyBinding() {
-            switch (this) {
-                case Left: return mc.gameSettings.keyBindLeft;
-                case Right: return mc.gameSettings.keyBindRight;
-                case Forward: return mc.gameSettings.keyBindForward;
-                case Back: return mc.gameSettings.keyBindBack;
-                case Attack: return mc.gameSettings.keyBindAttack;
-                case UseItem: return mc.gameSettings.keyBindUseItem;
-                default: return null;
-            }
+            return switch (this) {
+                case Left -> mc.gameSettings.keyBindLeft;
+                case Right -> mc.gameSettings.keyBindRight;
+                case Forward -> mc.gameSettings.keyBindForward;
+                case Back -> mc.gameSettings.keyBindBack;
+                case Attack -> mc.gameSettings.keyBindAttack;
+                case UseItem -> mc.gameSettings.keyBindUseItem;
+            };
         }
     }
 
@@ -247,9 +235,6 @@ public class KeyStrokes extends Module {
         }
     }
 
-    /**
-     * represents the position of a key on the keyboard.
-     */
     public static class KeyPosition {
         public int x;
         public int y;
@@ -259,14 +244,6 @@ public class KeyStrokes extends Module {
             this.keystroke = keystroke;
             this.x = x;
             this.y = y;
-        }
-
-        /**
-         * Gets the x position of the key.
-         * @return the x position of the key.
-         */
-        public int getX() {
-            return this.x;
         }
     }
 }

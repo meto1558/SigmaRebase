@@ -3,14 +3,15 @@ package com.mentalfrostbyte.jello.module.impl.movement.spider;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.module.impl.movement.phase.VanillaPhase;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class MinemenSpider extends Module {
@@ -46,10 +47,10 @@ public class MinemenSpider extends Module {
                 event.setY(0.6);
             }
 
-            com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.689 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.06);
+            MovementUtil.setMotion(event, 0.689 + (double) MovementUtil.getSpeedBoost() * 0.06);
         }
 
-        if (MovementUtil2.isAboveBounds(mc.player, 0.001F) && this.getBooleanValueFromSettingName("SneakVClip")) {
+        if (BlockUtil.isAboveBounds(mc.player, 0.001F) && this.getBooleanValueFromSettingName("SneakVClip")) {
             if (mc.gameSettings.keyBindSneak.isKeyDown()
                     && !this.field23813
                     && mc.world.getCollisionShapes(mc.player, mc.player.boundingBox.offset(0.0, -2.8, 0.0)).count() == 0L) {
@@ -71,7 +72,7 @@ public class MinemenSpider extends Module {
                 mc.gameSettings.keyBindSneak.pressed = false;
                 mc.player.onGround = false;
                 mc.timer.timerSpeed = 0.08F;
-                event.setCancelled(true);
+                event.cancelled = true;
                 this.field23813 = true;
                 event.setY(1.0E-14);
             }
@@ -80,24 +81,24 @@ public class MinemenSpider extends Module {
                     && !mc.gameSettings.keyBindSneak.isKeyDown()
                     && mc.world.getCollisionShapes(mc.player, mc.player.boundingBox.offset(0.0, 0.01, 0.0)).count() > 0L) {
                 event.setY(1.0E-14);
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.689 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.06);
+                MovementUtil.setMotion(event, 0.689 + (double) MovementUtil.getSpeedBoost() * 0.06);
             }
 
             if (this.field23813) {
                 mc.timer.timerSpeed = 1.0F;
                 this.field23813 = false;
                 event.setY(1.0E-14);
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.28);
+                MovementUtil.setMotion(event, 0.28);
             }
         }
 
-        MovementUtil2.setPlayerYMotion(event.getY());
+        mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
     }
 
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
-            SimpleEntryPair var4 = MovementUtil2.findCollisionDirection(1.0E-4);
+            SimpleEntryPair var4 = PlayerUtil.findCollisionDirection(1.0E-4);
             if (this.getBooleanValueFromSettingName("Ceiling")
                     && !mc.player.onGround
                     && mc.world.getCollisionShapes(mc.player, mc.player.boundingBox.offset(0.0, 1.0E-6, 0.0)).count() > 0L) {
@@ -110,23 +111,13 @@ public class MinemenSpider extends Module {
                     .getCollisionShapes(mc.player, mc.player.boundingBox.expand(var5, 0.0, var5).expand(-var5, 0.0, -var5))
                     .count()
                     > 0L) {
-                if (!MovementUtil2.isAboveBounds(mc.player, 1.0E-4F)) {
-                    event.setGround(true);
+                if (!BlockUtil.isAboveBounds(mc.player, 1.0E-4F)) {
+                    event.setOnGround(true);
                 }
 
                 double var7 = 4.88E-7;
-                if (((Direction) var4.getKey()).getAxis() != Direction.Axis.X) {
-                    event.setZ(
-                            (double) Math.round((((Vector3d) var4.getValue()).z + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.getKey()).getZOffset() * var7
-                    );
-                } else {
-                    event.setX(
-                            (double) Math.round((((Vector3d) var4.getValue()).x + 1.1921022E-8) * 10000.0) / 10000.0
-                                    + (double) ((Direction) var4.getKey()).getXOffset() * var7
-                    );
-                }
-            }
+				VanillaPhase.setXZ(event, var4, var7);
+			}
         }
     }
 
@@ -136,7 +127,7 @@ public class MinemenSpider extends Module {
             if (event.getVoxelShape() != null
                     && !event.getVoxelShape().isEmpty()
                     && event.getVoxelShape().getBoundingBox().minY > mc.player.boundingBox.minY + 1.0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }

@@ -5,10 +5,11 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
+import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -19,11 +20,11 @@ public class AACSpeed extends Module {
     private double field23401;
     private double field23402;
     private double field23403 = 0.0;
-    private float field23404;
+    private float direction;
 
     public AACSpeed() {
         super(ModuleCategory.MOVEMENT, "AAC", "Speed for AAC");
-        this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Fast1", "Fast2")/*.setPremiumModes("Fast2")*/);
+        this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Fast1", "Fast2"));
         this.registerSetting(new BooleanSetting("Fluid Fix", "Makes your jump fluid.", true));
         this.registerSetting(new BooleanSetting("Auto Jump", "Automatically jumps for you.", true));
     }
@@ -33,29 +34,29 @@ public class AACSpeed extends Module {
         this.field23398 = -1;
         this.field23399 = 0;
         this.field23403 = mc.player.getPosY();
-        this.field23404 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0];
+        this.direction = MovementUtil.getDirection();
         this.field23400 = 0;
     }
 
     @Override
     public void onDisable() {
-        com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(0.27, com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
+        MovementUtil.setMotion(0.27, MovementUtil.getDirection(), this.direction, 45.0F);
     }
 
     @EventTarget
     public void method16008(EventReceivePacket var1) {
         if (this.isEnabled()) {
-            if (var1.getPacket() instanceof SPlayerPositionLookPacket) {
+            if (var1.packet instanceof SPlayerPositionLookPacket) {
                 this.field23399 = 0;
             }
         }
     }
 
     @EventTarget
-    public void method16009(EventMove var1) {
+    public void method16009(EventMove event) {
         if (this.isEnabled()) {
             String var4 = this.getStringSettingValueByName("Mode");
-            if (MovementUtil2.isAboveBounds(mc.player, 0.01F)) {
+            if (BlockUtil.isAboveBounds(mc.player, 0.01F)) {
                 if (this.field23400 <= 1) {
                     this.field23400++;
                 } else {
@@ -63,9 +64,9 @@ public class AACSpeed extends Module {
                     this.field23398 = -1;
                 }
 
-                if (MovementUtil2.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
+                if (MovementUtil.isMoving() && this.getBooleanValueFromSettingName("Auto Jump")) {
                     mc.player.jump();
-                    var1.setY(mc.player.getMotion().y);
+                    event.setY(mc.player.getMotion().y);
                 }
             } else if (this.field23398 >= 0) {
                 this.field23398++;
@@ -84,17 +85,17 @@ public class AACSpeed extends Module {
                 case "Fast1":
                     this.field23401 = this.method16013(this.field23398, this.field23399);
                     this.field23402 = this.method16012(this.field23398);
-                    var1.setY(this.field23402);
+                    event.setY(this.field23402);
                     mc.player.getMotion().y = this.field23402;
                     break;
                 case "Fast2":
                     this.field23401 = this.method16015(this.field23398, this.field23399);
                     this.field23402 = this.method16014(this.field23398);
-                    var1.setY(this.field23402);
+                    event.setY(this.field23402);
                     mc.player.getMotion().y = this.field23402;
             }
 
-            if (!MovementUtil2.isMoving()) {
+            if (!MovementUtil.isMoving()) {
                 this.field23401 = 0.0;
             }
 
@@ -103,10 +104,10 @@ public class AACSpeed extends Module {
             }
 
             if (this.field23398 >= 0) {
-                this.field23404 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(var1, this.field23401, com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0], this.field23404, 45.0F);
+                this.direction = MovementUtil.setMotion(event, this.field23401, MovementUtil.getDirection(), this.direction, 45.0F);
             }
 
-            MovementUtil2.setPlayerYMotion(var1.getY());
+            mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
         }
     }
 
@@ -126,7 +127,7 @@ public class AACSpeed extends Module {
                     }
 
                     if (!((float)this.field23398 > var5) && this.field23398 >= 0) {
-                        double var6 = Math.cos(Math.toRadians((double)((float)this.field23398 / var5 * 180.0F - 90.0F)));
+                        double var6 = Math.cos(Math.toRadians((float)this.field23398 / var5 * 180.0F - 90.0F));
                         mc.player.setPosition(mc.player.getPosX(), this.field23403 + var6, mc.player.getPosZ());
                         mc.player.cameraYaw = 0.0F;
                     }
@@ -143,7 +144,7 @@ public class AACSpeed extends Module {
     public void method16011(EventJump var1) {
         this.field23398 = 0;
         this.field23400 = 0;
-        this.field23404 = com.mentalfrostbyte.jello.util.game.player.MovementUtil.lenientStrafe()[0];
+        this.direction = MovementUtil.getDirection();
         String var4 = this.getStringSettingValueByName("Mode");
         switch (var4) {
             case "Basic":
@@ -169,7 +170,7 @@ public class AACSpeed extends Module {
 
     private double method16012(int var1) {
         double var4 = mc.player.getMotion().y;
-        boolean var6 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
+        boolean var6 = BlockUtil.isAboveBounds(mc.player, 0.37F);
         double[] var7 = new double[]{0.41, 0.309, 0.21, 0.113, 0.03, -0.05, -0.12, -0.192, -0.26, -0.33, !var6 ? -0.4 : -0.0, !var6 ? -0.47 : -0.13};
         if (var1 >= 0 && var1 < var7.length) {
             var4 = var7[var1];
@@ -179,7 +180,7 @@ public class AACSpeed extends Module {
     }
 
     private double method16013(int var1, int var2) {
-        boolean var5 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
+        boolean var5 = BlockUtil.isAboveBounds(mc.player, 0.37F);
         double[] var6 = new double[]{0.497, 0.671, 0.719, 0.733, 0.738};
         double[] var7 = new double[]{0.303, 0.407, 0.436, 0.444, 0.447};
         double[] var8 = new double[]{0.0, 0.003, 0.004, 0.004, 0.004};
@@ -216,7 +217,7 @@ public class AACSpeed extends Module {
 
     private double method16014(int var1) {
         double var4 = mc.player.getMotion().y;
-        boolean var6 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
+        boolean var6 = BlockUtil.isAboveBounds(mc.player, 0.37F);
         double[] var7 = new double[]{0.41, 0.309, 0.21, 0.113, 0.03, -0.06, -0.14, -0.22, -0.29, 0.0, -0.082, -0.11, 0.0, -0.18};
         if (var1 >= 0 && var1 < var7.length) {
             var4 = var7[var1];
@@ -234,7 +235,7 @@ public class AACSpeed extends Module {
     }
 
     private double method16015(int var1, int var2) {
-        boolean var5 = MovementUtil2.isAboveBounds(mc.player, 0.37F);
+        boolean var5 = BlockUtil.isAboveBounds(mc.player, 0.37F);
         double[] var6 = new double[]{0.497, 0.709, 0.746, 0.753};
         double[] var7 = new double[]{0.303, 0.43, 0.4525, 0.456};
         double[] var8 = new double[]{0.0, 0.0036, 0.0041, 0.0042};

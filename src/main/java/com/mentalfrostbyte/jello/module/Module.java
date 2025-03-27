@@ -1,6 +1,12 @@
 package com.mentalfrostbyte.jello.module;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.module.data.InDevelopment;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.module.settings.Setting;
@@ -8,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -23,6 +28,7 @@ public class Module {
     public ModuleCategory category;
     public boolean enabled;
     public boolean allowed;
+    //    public boolean hiddenFromActiveMods;
     private boolean availableOnClassic = true;
     private Module someMod = null;
 
@@ -41,6 +47,12 @@ public class Module {
             this.settingMap.put(setting.getName(), setting);
         } else {
             throw new IllegalArgumentException("Attempted to add an option with the same name");
+        }
+    }
+
+    public void registerSetting(Setting... settings) {
+        for (Setting setting : settings) {
+            registerSetting(setting);
         }
     }
 
@@ -97,23 +109,23 @@ public class Module {
         }
     }
 
-    public JSONObject initialize(JSONObject config) throws JSONException {
-        JSONArray options = CJsonUtils.getJSONArrayOrNull(config, "options");
+    public JsonObject initialize(JsonObject config) throws JsonParseException {
+        JsonArray options = config.getAsJsonArray("options");
 
-        this.enabled = config.getBoolean("enabled");
+        this.enabled = config.get("enabled").getAsBoolean();
 
-        this.allowed = config.getBoolean("allowed");
+        this.allowed = config.get("allowed").getAsBoolean();
 
         if (options != null) {
-            for (int i = 0; i < options.length(); i++) {
-                JSONObject settingCfg = options.getJSONObject(i);
-                String optName = CJsonUtils.getStringOrDefault(settingCfg, "name", null);
+            for (int i = 0; i < options.size(); i++) {
+                JsonObject settingCfg = options.get(i).getAsJsonObject();
+                String optName = settingCfg.get("name").getAsString();
 
                 for (Setting<?> setting : this.settingMap.values()) {
                     if (setting.getName().equals(optName)) {
                         try {
                             setting.loadCurrentValueFromJSONObject(settingCfg);
-                        } catch (JSONException2 jsonException2) {
+                        } catch (JsonParseException jsonException) {
                             System.err.println("Could not initialize settings of " + this.getName() + "." + setting.getName() + " from config.");
                         }
                         break;
@@ -129,25 +141,25 @@ public class Module {
         return config;
     }
 
-    public JSONObject buildUpModuleData(JSONObject obj) {
+    public JsonObject buildUpModuleData(JsonObject obj) {
         try {
-            obj.put("name", this.getName());
-            obj.put("enabled", this.enabled);
-            obj.put("allowed", this.isAllowed());
-            JSONArray jsonArray = new JSONArray();
+            obj.addProperty("name", this.getName());
+            obj.addProperty("enabled", this.enabled);
+            obj.addProperty("allowed", this.isAllowed());
+            JsonArray jsonArray = new JsonArray();
 
             for (Setting<?> s : this.settingMap.values()) {
-                jsonArray.put(s.buildUpSettingData(new JSONObject()));
+                jsonArray.add(s.buildUpSettingData(new JsonObject()));
             }
 
-            obj.put("options", jsonArray);
+            obj.add("options", jsonArray);
             return obj;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public String getSuffix() {
+    public String getFormattedName() {
         return this.name;
     }
 
@@ -169,7 +181,7 @@ public class Module {
     public void onDisable() {
     }
 
-    public ModuleCategory getAdjustedCategoryBasedOnClientMode() {
+    public ModuleCategory getCategoryBasedOnMode() {
         if (Client.getInstance().clientMode == ClientMode.CLASSIC && this.category == ModuleCategory.ITEM) {
             return ModuleCategory.PLAYER;
         } else {
@@ -205,8 +217,6 @@ public class Module {
                 this.onEnable();
             }
         }
-
-        Client.getInstance().moduleManager.getMacOSTouchBar().onModuleToggled(this);
     }
 
     public void setEnabledBasic(boolean enabled) {
@@ -224,12 +234,12 @@ public class Module {
                 EventBus.unregister(this);
                 if (!(this instanceof ModuleWithModuleSettings)) {
                     if (Client.getInstance().clientMode == ClientMode.JELLO
-                            && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                            && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                         Client.getInstance().soundManager.play("deactivate");
                     }
 
                     if (Client.getInstance().clientMode == ClientMode.CLASSIC
-                        && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                            && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                         Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.6F));
                     }
                 }
@@ -238,12 +248,12 @@ public class Module {
             } else {
                 EventBus.register(this);
                 if (Client.getInstance().clientMode == ClientMode.JELLO
-                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
+                        && Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                     Client.getInstance().soundManager.play("activate");
                 }
 
                 if (Client.getInstance().clientMode == ClientMode.CLASSIC
-                        /*&& Client.getInstance().moduleManager.getModuleByClass(ActiveMods.class).getBooleanValueFromSettingName("Sound")*/) {
+                        && Client.getInstance().moduleManager.getModuleByClass(com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods.class).getBooleanValueFromSettingName("Sound")) {
                     Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, 0.7F));
                 }
 
@@ -251,8 +261,6 @@ public class Module {
                 this.randomAssOffset++;
             }
         }
-
-        Client.getInstance().moduleManager.getMacOSTouchBar().onModuleToggled(this);
     }
 
     public void toggle() {

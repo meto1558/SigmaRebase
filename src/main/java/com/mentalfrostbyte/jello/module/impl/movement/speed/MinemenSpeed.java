@@ -5,7 +5,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import team.sdhq.eventBus.annotations.priority.HigherPriority;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 public class MinemenSpeed extends Module {
     public MinemenSpeed() {
@@ -21,7 +21,7 @@ public class MinemenSpeed extends Module {
                 calculatedSpeed = 0.679 + (double) MovementUtil.getSpeedBoost() * 0.12;
             }
 
-            MovementUtil.setSpeed(event, calculatedSpeed);
+            MovementUtil.setMotion(event, calculatedSpeed);
         }
     }
 }

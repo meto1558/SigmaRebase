@@ -482,7 +482,7 @@ public class StatsScreen extends Screen implements IProgressMeter
                 this.fillGradient(p_238680_1_, i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
                 RenderSystem.pushMatrix();
                 RenderSystem.translatef(0.0F, 0.0F, 400.0F);
-                StatsScreen.this.font.func_243246_a(p_238680_1_, p_238680_2_, (float)i, (float)j, -1);
+                StatsScreen.this.font.drawText(p_238680_1_, p_238680_2_, (float)i, (float)j, -1);
                 RenderSystem.popMatrix();
             }
         }

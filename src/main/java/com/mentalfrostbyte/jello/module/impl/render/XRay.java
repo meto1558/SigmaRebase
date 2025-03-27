@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.render;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderBlocks;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.OreBlock;
@@ -36,7 +36,7 @@ public class XRay extends Module {
         if (this.isEnabled()) {
             AbstractBlock.AbstractBlockState blockState = event.getBlockState();
             if (!(blockState.getBlock() instanceof OreBlock) && blockState.getBlock() != Blocks.NETHERITE_BLOCK) {
-                event.setCancelled(true);
+                event.cancelled = true;
             } else {
                 event.method13972(true);
             }

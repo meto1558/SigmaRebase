@@ -1,32 +1,54 @@
 package com.mentalfrostbyte.jello.module.settings;
 
-import totalcross.json.JSONException;
-import totalcross.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 public abstract class Setting<T> {
     public final SettingType settingType;
     public final String name;
     public final String description;
     private final List<SettingObserver> observers = new ArrayList<>();
+    private BooleanSupplier hidden = () -> false;
+    @NotNull
     public T currentValue;
+    @NotNull
     public T defaultValue;
 
-    public Setting(String name, String description, SettingType settingType, T defaultValue) {
+    public Setting(String name, String description, SettingType settingType, @NotNull T defaultValue) {
         this.settingType = settingType;
         this.currentValue = this.defaultValue = defaultValue;
         this.name = name;
         this.description = description;
     }
 
-    public abstract JSONObject loadCurrentValueFromJSONObject(JSONObject jsonObject) throws JSONException;
+    public abstract JsonObject loadCurrentValueFromJSONObject(JsonObject jsonObject) throws JsonParseException;
 
-    public JSONObject buildUpSettingData(JSONObject jsonObject) {
-        jsonObject.put("name", this.getName());
-        jsonObject.put("value", this.currentValue);
+    public JsonObject buildUpSettingData(JsonObject jsonObject) {
+        Gson gson = new Gson();
+
+        jsonObject.addProperty("name", this.getName());
+
+        JsonElement valueElement = gson.toJsonTree(this.currentValue);
+        jsonObject.add("value", valueElement);
+
         return jsonObject;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <I extends Setting<?>> I hide(BooleanSupplier hidden) {
+        this.hidden = hidden;
+        return (I) this;
+    }
+
+    public boolean isHidden() {
+        return hidden.getAsBoolean();
     }
 
     public void resetToDefault() {
@@ -48,7 +70,7 @@ public abstract class Setting<T> {
         return this.settingType;
     }
 
-    public T getCurrentValue() {
+    public @NotNull T getCurrentValue() {
         return this.currentValue;
     }
 
@@ -65,7 +87,7 @@ public abstract class Setting<T> {
         }
     }
 
-    public T getDefaultValue() {
+    public @NotNull T getDefaultValue() {
         return this.defaultValue;
     }
 

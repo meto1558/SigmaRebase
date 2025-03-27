@@ -3,12 +3,13 @@ package com.mentalfrostbyte.jello.module.impl.movement.spider;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -42,7 +43,7 @@ public class JumpSpider extends Module {
                 mc.player.jump();
                 event.setY(mc.player.getMotion().y);
             } else if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
-                com.mentalfrostbyte.jello.util.game.player.MovementUtil.setSpeed(event, 0.28 + (double) com.mentalfrostbyte.jello.util.game.player.MovementUtil.getSpeedBoost() * 0.05);
+                MovementUtil.setMotion(event, 0.28 + (double) MovementUtil.getSpeedBoost() * 0.05);
                 event.setY(0.0);
             } else {
                 event.setY(-0.0784);
@@ -52,13 +53,13 @@ public class JumpSpider extends Module {
             event.setY(mc.player.getMotion().y);
         }
 
-        MovementUtil2.setPlayerYMotion(event.getY());
+        mc.player.setMotion(mc.player.getMotion().x, event.getY(), mc.player.getMotion().z);
     }
 
     @EventTarget
     public void EventUpdate(EventUpdateWalkingPlayer event) {
         if (this.isEnabled() && event.isPre()) {
-            SimpleEntryPair var4 = MovementUtil2.findCollisionDirection(1.0E-4);
+            SimpleEntryPair var4 = PlayerUtil.findCollisionDirection(1.0E-4);
             String mode = this.getStringSettingValueByName("Mode");
             if (this.getBooleanValueFromSettingName("Ceiling")
                     && !mc.player.onGround
@@ -82,7 +83,7 @@ public class JumpSpider extends Module {
                         this.isJumping = !this.isJumping;
                     }
 
-                    event.setGround(true);
+                    event.setOnGround(true);
                     switch (mode) {
                         case "AGC":
                             movementOffset = 4.85E-7;
@@ -113,7 +114,7 @@ public class JumpSpider extends Module {
             if (event.getVoxelShape() != null
                     && !event.getVoxelShape().isEmpty()
                     && event.getVoxelShape().getBoundingBox().minY > mc.player.boundingBox.minY + 1.0) {
-                event.setCancelled(true);
+                event.cancelled = true;
             }
         }
     }

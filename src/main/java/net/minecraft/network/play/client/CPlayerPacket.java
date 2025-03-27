@@ -13,7 +13,7 @@ public class CPlayerPacket implements IPacket<IServerPlayNetHandler>
     protected float yaw;
     protected float pitch;
     public boolean onGround;
-    protected boolean moving;
+    public boolean moving; // MODIFICATION: publicize
     protected boolean rotating;
 
     public CPlayerPacket()
@@ -72,6 +72,36 @@ public class CPlayerPacket implements IPacket<IServerPlayNetHandler>
     public float getPitch(float defaultValue)
     {
         return this.rotating ? this.pitch : defaultValue;
+    }
+
+    public void setX(double x)
+    {
+        if (this.moving)
+            this.x = x;
+    }
+
+    public void setY(double y)
+    {
+        if (this.moving)
+            this.y = y;
+    }
+
+    public void setZ(double z)
+    {
+        if (this.moving)
+            this.z = z;
+    }
+
+    public void setYaw(float yaw)
+    {
+        if (this.rotating)
+            this.yaw = yaw;
+    }
+
+    public void setPitch(float pitch)
+    {
+        if (this.rotating)
+            this.pitch = pitch;
     }
 
     public boolean isOnGround()

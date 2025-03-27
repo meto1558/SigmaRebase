@@ -14,57 +14,56 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class JelloOptionsButton extends IngameMenuScreen {
-   public static Date field4622 = new Date(0L);
+    public static Date field4622 = new Date(0L);
 
-   public JelloOptionsButton() {
-      super(true);
-      if (field4622.before(new Date(System.currentTimeMillis() - 3000L))) {
-         field4622 = new Date();
-         Client.getInstance().getLogger().info("Saving profiles...");
+    public JelloOptionsButton() {
+        super(true);
+        if (field4622.before(new Date(System.currentTimeMillis() - 3000L))) {
+            field4622 = new Date();
+            Client.logger.info("Saving profiles...");
 
-         try {
-            Client.getInstance().moduleManager.getConfigurationManager().saveAndReplaceConfigs();
-            Client.getInstance().saveClientData();
-         } catch (IOException var4) {
-            var4.printStackTrace();
-            Client.getInstance().getLogger().warn("Unable to save mod profiles...");
-         }
-      }
-   }
+            try {
+                Client.getInstance().moduleManager.getConfigurationManager().saveAndReplaceConfigs();
+                Client.getInstance().saveClientData();
+            } catch (IOException var4) {
+                Client.logger.warn("Unable to save mod profiles...", var4);
+            }
+        }
+    }
 
-   @Override
-   public void init() {
-      if (Client.getInstance().clientMode == ClientMode.JELLO) {
-         this.addButton(
-            new Button(
-               this.width / 2 - 102,
-               this.height - 45,
-               204,
-               20,
-               new StringTextComponent("Jello for Sigma Options"),
-               var1 -> this.minecraft.displayGuiScreen(new JelloOptionsHolder())
-            )
-         );
-      }
+    @Override
+    public void init() {
+        if (Client.getInstance().clientMode == ClientMode.JELLO) {
+            this.addButton(
+                    new Button(
+                            this.width / 2 - 102,
+                            this.height - 45,
+                            204,
+                            20,
+                            new StringTextComponent("Jello for Sigma Options"),
+                            var1 -> this.minecraft.displayGuiScreen(new JelloOptionsHolder())
+                    )
+            );
+        }
 
-      super.init();
-      Iterator var3 = this.buttons.iterator();
+        super.init();
+        Iterator var3 = this.buttons.iterator();
 
-      while (var3.hasNext()) {
-         Widget var4 = (Widget)var3.next();
-         if (var4.y == this.height / 4 + 72 + -16) {
-            var3.remove();
-         }
-      }
-   }
+        while (var3.hasNext()) {
+            Widget var4 = (Widget) var3.next();
+            if (var4.y == this.height / 4 + 72 + -16) {
+                var3.remove();
+            }
+        }
+    }
 
-   @Override
-   public void render(MatrixStack matrices, int var2, int var3, float delta) {
-      super.render(matrices, var2, var3, delta);
-   }
+    @Override
+    public void render(MatrixStack matrices, int var2, int var3, float delta) {
+        super.render(matrices, var2, var3, delta);
+    }
 
-   @Override
-   public boolean isPauseScreen() {
-      return false;
-   }
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
 }

@@ -239,6 +239,13 @@ public class ChatScreen extends Screen
         }
     }
 
+    /**
+     * Draws the Minecraft chat input box.
+     * @param matrices The render matrix buffer.
+     * @param mouseX The mouse X position.
+     * @param mouseY The mouse Y position.
+     * @param delta The render delta time.
+     */
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
     {
         this.setListener(this.inputField);

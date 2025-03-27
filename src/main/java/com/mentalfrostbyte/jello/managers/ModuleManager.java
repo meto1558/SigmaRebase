@@ -1,11 +1,14 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.gui.unmapped.MacOSTouchBar;
+import com.mentalfrostbyte.jello.gui.impl.jello.KeyManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.gui.jello.*;
 import com.mentalfrostbyte.jello.module.impl.combat.*;
 import com.mentalfrostbyte.jello.module.impl.item.*;
@@ -15,8 +18,8 @@ import com.mentalfrostbyte.jello.module.impl.player.*;
 import com.mentalfrostbyte.jello.module.impl.render.*;
 
 import com.mentalfrostbyte.jello.module.impl.world.*;
+import com.mentalfrostbyte.jello.util.system.other.GsonUtil;
 import team.sdhq.eventBus.EventBus;
-import totalcross.json.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,19 +32,19 @@ public class ModuleManager {
 
     private final Map<Class<? extends Module>, Module> moduleMap = new LinkedHashMap<>();
     private ProfileManager profile;
-    private MacOSTouchBar macOSTouchBar;
+    private KeyManager keyManager;
     private List<Module> modules;
 
     private void createModules() {
         this.modules = new ArrayList<>();
     }
 
-    private void register(Module var1) {
-        this.modules.add(var1);
+    private void register(Module module) {
+        this.modules.add(module);
     }
 
     private void sortBySuffixAndRegisterEvents() {
-        this.modules.sort(Comparator.comparing(Module::getSuffix));
+        this.modules.sort(Comparator.comparing(Module::getFormattedName));
 
         for (Module mod : this.modules) {
             EventBus.register(mod);
@@ -60,19 +63,20 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.Coords());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MusicParticles());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.RearView());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.MiniMap());
             this.register(new KeyStrokes());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.ESP());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.InfoHUD());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.ShulkerInfo());
-
-
-
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.TabGUI());
+            this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.NameTags());
+            this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.Waypoints());
         }
 
         if (clientMode == ClientMode.CLASSIC) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.TabGUI());
+            this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.classic.ESP());
-
         }
         // COMBAT
         this.register(new AutoClicker());
@@ -89,9 +93,7 @@ public class ModuleManager {
         this.register(new WTap());
         this.register(new BowAimbot());
         this.register(new InfiniteAura());
-
-
-
+        this.register(new NewAura());
         // RENDER
         this.register(new AntiBlind());
         this.register(new DVDSimulator());
@@ -109,12 +111,9 @@ public class ModuleManager {
         this.register(new Projectiles());
         this.register(new NoServerInfo());
         this.register(new Breadcrumbs());
-
-
-
-
-
-
+        this.register(new Freecam());
+        this.register(new ChestESP());
+        this.register(new Cape());
         // WORLD
         this.register(new Weather());
         this.register(new FakeLag());
@@ -130,11 +129,6 @@ public class ModuleManager {
         this.register(new NewChunks());
         this.register(new AntiCactus());
         this.register(new Auto32k());
-
-
-
-
-
         // MISC
         this.register(new GamePlay());
         this.register(new ChatCleaner());
@@ -150,10 +144,11 @@ public class ModuleManager {
         this.register(new GamePlay());
         this.register(new AntiLevitation());
         this.register(new NoteblockPlayer());
-
-
-
-
+        this.register(new PacketEssentials());
+        this.register(new PacketDumper());
+        this.register(new PortalGodMode());
+        this.register(new DebugSpeed());
+        this.register(new AutoReconnect());
         // PLAYER
         this.register(new AutoSprint());
         this.register(new NoFall());
@@ -169,14 +164,7 @@ public class ModuleManager {
         this.register(new OldHitting());
         this.register(new InvMove());
         this.register(new FastEat());
-
-
-
-
-
-
-
-
+        this.register(new XCarry());
         // ITEM
         this.register(new AutoArmor());
         this.register(new AutoMLG());
@@ -187,12 +175,8 @@ public class ModuleManager {
         this.register(new AutoPotion());
         this.register(new AutoSoup());
         this.register(new AutoGapple());
-
-
-
-
-
         // MOVEMENT
+        this.register(new CorrectMovement());
         this.register(new ClickTP());
         this.register(new Speed());
         this.register(new FastLadder());
@@ -202,6 +186,7 @@ public class ModuleManager {
         this.register(new Step());
         this.register(new Jesus());
         this.register(new SafeWalk());
+        this.register(new Spider());
         this.register(new HighJump());
         this.register(new LongJump());
         this.register(new BlockFly());
@@ -219,20 +204,21 @@ public class ModuleManager {
         return moduleMap;
     }
 
-    public MacOSTouchBar getMacOSTouchBar() {
-        return macOSTouchBar;
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 
     public Module getModuleByClass(Class<? extends Module> module) {
         return this.moduleMap.get(module);
     }
 
-    public JSONObject load(JSONObject json) {
-        JSONArray array = null;
+    public JsonObject load(JsonObject json) {
+        JsonArray array = null;
 
         try {
-            array = CJsonUtils.getJSONArrayOrNull(json, "mods");
-        } catch (JSONException2 ignored) {
+            array = json.getAsJsonArray("mods");
+        } catch (JsonParseException exc) {
+            Client.logger.warn(exc);
         }
 
         for (Module modulesFound : this.moduleMap.values()) {
@@ -240,49 +226,48 @@ public class ModuleManager {
         }
 
         if (array != null) {
-            for (int var15 = 0; var15 < array.length(); var15++) {
-                JSONObject moduleObject = null;
+            for (int var15 = 0; var15 < array.size(); var15++) {
+                JsonObject moduleObject;
                 try {
-                    moduleObject = array.getJSONObject(var15);
-                } catch (JSONException e) {
+                    moduleObject = array.get(var15).getAsJsonObject();
+                } catch (JsonParseException e) {
                     throw new RuntimeException(e);
                 }
+
                 String moduleName = null;
 
                 try {
-                    moduleName = CJsonUtils.getStringOrDefault(moduleObject, "name", null);
-                } catch (JSONException2 var13) {
-                    Client.getInstance().getLogger().warn("Invalid name in mod list config");
+                    moduleName = moduleObject.get("name").getAsString();
+                } catch (JsonParseException exc) {
+                    Client.logger.warn("Invalid name in mod list config", exc);
                 }
 
                 for (Module module : this.moduleMap.values()) {
                     if (module.getName().equals(moduleName)) {
                         try {
                             module.initialize(moduleObject);
-                        } catch (JSONException2 | JSONException var12) {
-                            Client.getInstance().getLogger().warn("Could not initialize mod " + module.getName() + " from config. All settings for this mod have been erased.");
+                        } catch (JsonParseException exc) {
+                            Client.logger.warn("Could not initialize mod {} from config. All settings for this mod have been erased.", module.getName(), exc);
                         }
                         break;
                     }
                 }
             }
         } else {
-            Client.getInstance().getLogger().warn("Mods array does not exist in config. Assuming a blank profile...");
+            Client.logger.warn("Mods array does not exist in config. Assuming a blank profile...");
         }
 
         for (Module module : this.moduleMap.values()) {
             if (module.isEnabled()) {
                 EventBus.register(module);
-                if (module instanceof ModuleWithModuleSettings) {
-                    ModuleWithModuleSettings moduleWithSettings = (ModuleWithModuleSettings) module;
+                if (module instanceof ModuleWithModuleSettings moduleWithSettings) {
                     if (moduleWithSettings.parentModule != null) {
                         EventBus.register(moduleWithSettings.parentModule);
                     }
                 }
             } else {
                 EventBus.unregister(module);
-                if (module instanceof ModuleWithModuleSettings) {
-                    ModuleWithModuleSettings moduleWithSettings = (ModuleWithModuleSettings) module;
+                if (module instanceof ModuleWithModuleSettings moduleWithSettings) {
 
                     for (Module module1 : moduleWithSettings.moduleArray) {
                         EventBus.unregister(module1);
@@ -296,54 +281,49 @@ public class ModuleManager {
         return json;
     }
 
-    public void method14659(JSONObject var1) {
-        String var4 = null;
+    public void loadProfileFromJSON(JsonObject json) {
+        String profileName = null;
 
         try {
-            var4 = var1.getString("profile");
-        } catch (JSONException ignored) {
+            profileName = GsonUtil.getStringOrDefault(json, "profile", "Default");
+        } catch (JsonParseException ignored) {
         }
 
         if (Client.getInstance().clientMode == ClientMode.CLASSIC) {
-            var4 = "Classic";
+            profileName = "Classic";
         }
 
         this.profile = new ProfileManager();
-        this.macOSTouchBar = new MacOSTouchBar();
+        this.keyManager = new KeyManager();
 
         try {
-            this.profile.loadProfile(var4);
-            this.macOSTouchBar.method13732(var1);
-        } catch (IOException var6) {
-            Client.getInstance().getLogger().warn("Could not load profiles!");
-            var6.printStackTrace();
-            throw new RuntimeException("sorry m8");
+            this.profile.loadProfile(profileName);
+            this.keyManager.method13732(json);
+        } catch (IOException exc) {
+            Client.logger.warn("Could not load profiles!", exc);
         }
-
-        this.macOSTouchBar.init();
     }
 
-    public JSONObject saveCurrentConfigToJSON(JSONObject obj) {
-        JSONArray array = new JSONArray();
+    public JsonObject loadCurrentConfig(JsonObject obj) {
+        JsonArray array = new JsonArray();
 
         for (Module module : this.moduleMap.values()) {
-            array.put(module.buildUpModuleData(new JSONObject()));
+            array.add(module.buildUpModuleData(new JsonObject()));
         }
 
-        obj.put("mods", array);
+        obj.add("mods", array);
         return obj;
     }
 
-    public void method14660(JSONObject var1) {
-        var1.put("profile", this.profile.getCurrentConfig().getName);
-        this.profile.getCurrentConfig().serializedConfigData = this.saveCurrentConfigToJSON(new JSONObject());
+    public void method14660(JsonObject var1) {
+        var1.addProperty("profile", this.profile.getCurrentConfig().profileName);
+        this.profile.getCurrentConfig().moduleConfig = this.loadCurrentConfig(new JsonObject());
 
         try {
             this.profile.saveAndReplaceConfigs();
-            this.macOSTouchBar.getKeybindsJSONObject(var1);
-        } catch (IOException var5) {
-            var5.printStackTrace();
-            Client.getInstance().getLogger().warn("Unable to save mod profiles...");
+            this.keyManager.getKeybindsJSONObject(var1);
+        } catch (IOException exc) {
+            Client.logger.warn("Unable to save mod profiles...", exc);
         }
     }
 
@@ -351,19 +331,7 @@ public class ModuleManager {
         ArrayList<Module> moduleList = new ArrayList<>();
 
         for (Module moduleFromMap : this.moduleMap.values()) {
-            if (moduleFromMap.getAdjustedCategoryBasedOnClientMode().equals(category)) {
-                moduleList.add(moduleFromMap);
-            }
-        }
-
-        return moduleList;
-    }
-
-    public List<Module> getEnabledModules() {
-        ArrayList<Module> moduleList = new ArrayList();
-
-        for (Module moduleFromMap : this.moduleMap.values()) {
-            if (moduleFromMap.isEnabled()) {
+            if (moduleFromMap.getCategoryBasedOnMode().equals(category)) {
                 moduleList.add(moduleFromMap);
             }
         }

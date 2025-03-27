@@ -1,211 +1,182 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
+import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.system.other.Pair;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
-import com.mentalfrostbyte.jello.module.impl.combat.killaura.ExpirationTimer;
-import com.mentalfrostbyte.jello.module.impl.combat.killaura.InteractAutoBlock;
-import com.mentalfrostbyte.jello.module.impl.combat.killaura.KillAuraAttackLambda;
-import com.mentalfrostbyte.jello.module.impl.combat.killaura.TimedEntity;
-import com.mentalfrostbyte.jello.module.impl.movement.Jesus;
-import com.mentalfrostbyte.jello.module.impl.movement.Speed;
-import com.mentalfrostbyte.jello.module.impl.movement.Step;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.combat.killaura.*;
+import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationHelper;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
+import com.mentalfrostbyte.jello.util.game.player.rotation.util.RandomUtil;
+import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationHelper;
+import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationUtils;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.game.player.combat.Rots;
-import net.minecraft.client.Minecraft;
+import com.mentalfrostbyte.jello.util.system.math.MathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.play.client.CEntityActionPacket;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.network.play.server.SEntityPacket;
-import net.minecraft.network.play.server.SEntityStatusPacket;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
-import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
-import team.sdhq.eventBus.annotations.priority.LowestPriority;
+import team.sdhq.eventBus.annotations.priority.HighestPriority;
+
 
 import java.util.*;
 import java.util.Map.Entry;
 
-import static com.mentalfrostbyte.jello.util.game.render.RenderUtil.drawCircle;
-
-@SuppressWarnings({ "unused", "cast" })
+@SuppressWarnings({"unused", "cast"})
 public class KillAura extends Module {
-    public static boolean isAuraActive = false;
-    public static Entity currentTarget;
-    public static TimedEntity currentTimedEntity;
-    public static Rotation previousRotation = new Rotation(0.0F, 0.0F);
+    public static boolean isActive = false;
+    public static Entity targetEntity;
+    public static TimedEntity targetData;
+    private Rotation rotation = new Rotation(0.0F, 0.0F);
     public static int attackCooldown;
-    public HashMap<Entity, Animation> entityGlowAnimations = new HashMap<>();
-    public static InteractAutoBlock interactAB;
+    private final ModeSetting rotationMode;
+    private final NumberSetting<Float> rotationSpeed;
+    private final BooleanSetting useRotationSpeed;
+    private final BooleanSetting hitEvent;
+    public HashMap<Entity, Animation> entityAnimation = new HashMap<>();
+    public static InteractAutoBlock autoBlock;
+    private int attackTimer;
+    private int animationTimer;
+    private float eventUpdateYaw, eventUpdatePitch;
     private int attackDelay;
     private int blockDelay;
-    private int groundTicks;
-    private int targetIndex;
-    private int currentItemIndex;
-    private int swingDelay;
+    private int animationProgress;
+    private int currentSlot;
     private int blockCooldown;
-    private int hitDelay;
-    public static List<TimedEntity> targetEntities;
+
+    private List<TimedEntity> targets;
+
     private Rotation currentRotation;
-    private Rotation secondaryRotation;
-    private double randomOffset;
-    private float rotationSpeed;
-    private float rotationProgress;
-    private float rotationAdjustment;
+    private Rotation lastRotation;
+
+    private double yawDifference;
+    private float targetYaw;
+    private float targetPitch;
+    private float smoothYaw;
+
     private boolean isBlocking;
-    private double[] positionOffset;
-    float randomAngle = 0;
 
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
-        this.registerSetting(
-                new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
-        this.registerSetting(
-                new ModeSetting("Autoblock Mode", "Autoblock Mode", 0, "None", "NCP", "Basic1", "Basic2", "Vanilla", "Fake"));
-        this.registerSetting(
-                new ModeSetting("Sort Mode", "Sort Mode", 0, "Range", "Health", "Angle", "Armor", "Prev Range"));
-        this.registerSetting(
-                new ModeSetting("Attack Mode", "Attacks after or before sending the movement", 0, "Pre", "Post"));
-        this.registerSetting(new ModeSetting("Rotation Mode", "The way you will look at entities", 0, "NCP", "New", "Smooth", "LockView", "None"));
+        this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
+        this.registerSetting(new ModeSetting("Autoblock Mode", "Autoblock Mode", 0, "None", "NCP", "Basic1", "Basic2", "Basic3", "Vanilla"));
+        this.registerSetting(new NumberSetting<>("Unblock Rate", "Unlock Ticks for Vanilla AutoBlock mode.", 0, Integer.class, 0, 2, 1) {
+            @Override
+            public boolean isHidden() {
+                return !getStringSettingValueByName("Autoblock Mode").equals("Vanilla");
+            }
+        });
+        this.registerSetting(new ModeSetting("Sort Mode", "Sort Mode", 0, "Range", "Health", "Angle", "Armor", "Prev Range"));
+        this.registerSetting(this.rotationMode = new ModeSetting("Rotation Mode",
+                "The way you will look at entities",
+                0,
+                "NCP",
+                "AAC", "Smooth",
+                "LockView", "Test",
+                "Test2", "None")
+        );
+        this.registerSetting(this.useRotationSpeed = new BooleanSetting("Use Rotation Speed", "Max rotation change per tick.", true));
+        this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, Float.class, 6.0F, 360, 6F));
+        this.registerSetting(new BooleanSetting("Movement Fix", "Fix the XZ motion depending on your yaw.", false));
         this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
         this.registerSetting(
-                new NumberSetting<>("Block Range", "Block Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.2F));
+                new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())
+        );
         this.registerSetting(
-                new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(setting -> interactAB.method36818()));
-        this.registerSetting(
-                new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(setting -> interactAB.method36818()));
-        this.registerSetting(
-                new NumberSetting<>("Hit box expand", "Hit Box expand", 0.05F, Float.class, 0.0F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<>("Hit Chance", "Hit Chance", 100.0F, Float.class, 25.0F, 100.0F, 1.0F));
-        this.registerSetting(new BooleanSetting("Interact auto block", "Send interact packet when blocking", true));
+                new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())
+        );
+        this.registerSetting(new BooleanSetting("Interact autoblock", "Send interact packet when blocking", true));
+        this.registerSetting(this.hitEvent = new BooleanSetting("HitEvent", "Change the hit event (vanilla autoblock?legit)", true));
         this.registerSetting(new BooleanSetting("Players", "Hit players", true));
         this.registerSetting(new BooleanSetting("Animals", "Hit animals", false));
         this.registerSetting(new BooleanSetting("Monsters", "Hit monsters", false));
-        this.registerSetting(new BooleanSetting("Invisible", "Hit invisible entities", true));
+        this.registerSetting(new BooleanSetting("Invisible", "Hit invisible entites", true));
         this.registerSetting(new BooleanSetting("Raytrace", "Helps the aura become more legit", true));
         this.registerSetting(new BooleanSetting("Cooldown", "Use attack cooldown (1.9+)", false));
         this.registerSetting(new BooleanSetting("No swing", "Hit without swinging", false));
         this.registerSetting(new BooleanSetting("Disable on death", "Disable on death", true));
         this.registerSetting(new BooleanSetting("Through walls", "Target entities through walls", true));
-        this.registerSetting(new BooleanSetting("Smart Reach", "Allows you to get more reach (depends on your ping)", true));
         this.registerSetting(new BooleanSetting("Silent", "Silent rotations", true));
         this.registerSetting(new BooleanSetting("ESP", "ESP on targets", true));
         this.registerSetting(new ColorSetting("ESP Color", "The render color", ClientColors.LIGHT_GREYISH_BLUE.getColor()));
     }
 
-    public static Rotation getRotations2(KillAura killaura) {
-        return killaura.secondaryRotation;
+    public static Rotation getCurrentRotation(KillAura var0) {
+        return var0.currentRotation;
     }
 
-    public static Rotation getRotations(KillAura killaura) {
-        return killaura.currentRotation;
+    public static List<TimedEntity> getTargets(KillAura var0) {
+        return var0.targets;
     }
 
-    public static int getTargetIndex(KillAura killaura) {
-        return killaura.targetIndex;
+    public static int getAttackDelay(KillAura var0) {
+        return var0.attackDelay;
     }
 
-    public static void setTargetIndex(KillAura killaura, int targetIndex) {
-        killaura.targetIndex = targetIndex;
+    public static void setAttackDelya(KillAura var0, int var1) {
+        var0.attackDelay = var1;
     }
+
 
     @Override
     public void initialize() {
+        this.targets = new ArrayList<TimedEntity>();
+        autoBlock = new InteractAutoBlock(this);
         super.initialize();
-
-        targetEntities = new ArrayList<>();
-        interactAB = new InteractAutoBlock(this);
     }
 
     @Override
     public void onEnable() {
-        super.onEnable();
-        resetState();
-        initializeRotations();
-        interactAB.setBlocking(isHoldingSword() && isUseItemKeyDown());
-    }
-
-    private void resetState() {
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
-
-        targetEntities = new ArrayList<>();
-        currentTarget = null;
-        currentTimedEntity = null;
-        attackDelay = 0;
-        blockDelay = 0;
-        targetIndex = 0;
+        this.targets = new ArrayList<TimedEntity>();
+        targetEntity = null;
+        targetData = null;
+        this.attackTimer = (int) autoBlock.getCpsTiming(0);
+        this.animationTimer = 0;
+        this.attackDelay = 0;
         attackCooldown = 0;
-        blockCooldown = -1;
-        entityGlowAnimations.clear();
-        if (mc.player.isOnGround()) {
-            groundTicks = 1;
-        }
-    }
+        this.lastRotation = new Rotation(mc.player.lastReportedYaw, mc.player.lastReportedPitch);
+        this.currentRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
+        rotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
+        this.targetPitch = -1.0F;
+        autoBlock
+                .setBlockingState(mc.player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof SwordItem && mc.gameSettings.keyBindUseItem.isKeyDown());
+        this.isBlocking = false;
+        this.currentSlot = -1;
+        this.entityAnimation.clear();
 
-    private void initializeRotations() {
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
-
-        secondaryRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
-        currentRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
-        previousRotation = new Rotation(mc.player.rotationYaw, mc.player.rotationPitch);
-        rotationProgress = -1.0F;
-    }
-
-    private boolean isHoldingSword() {
-        if (mc.player == null || mc.world == null) {
-            return false;
-        }
-
-        return mc.player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof SwordItem;
-    }
-
-    private boolean isUseItemKeyDown() {
-        return mc.gameSettings.keyBindUseItem.isKeyDown();
+        super.onEnable();
     }
 
     @Override
     public void onDisable() {
-        Rots.rotating = false;
-        currentTarget = null;
-        currentTimedEntity = null;
-        targetEntities = null;
-        isAuraActive = false;
+        targetEntity = null;
+        targetData = null;
+        this.targets = null;
+        isActive = false;
         super.onDisable();
     }
 
     @EventTarget
-    public void onWorldChange(EventLoadWorld event) {
+    public void onWorldLoadd(EventLoadWorld var1) {
         if (this.isEnabled() && this.getBooleanValueFromSettingName("Disable on death")) {
             Client.getInstance().notificationManager.send(new Notification("Aura", "Aura disabled due to respawn"));
             this.toggle();
@@ -213,19 +184,10 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
-        if (currentTarget == null) {
-            Rots.rotating = false;
-        } else
-            Rots.rotating = true;
-
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
-
+    public void onTick2(EventPlayerTick var1) {
         if (this.isEnabled()) {
-            if (this.rotationProgress != -1.0F) {
-                this.rotationProgress++;
+            if (this.targetPitch != -1.0F) {
+                this.targetPitch++;
             }
 
             if (this.getBooleanValueFromSettingName("Disable on death")) {
@@ -239,619 +201,515 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onStopuseItem(EventStopUseItem event) {
+    public void onStopUseItem(EventStopUseItem var1) {
+        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
+            return;
+
         if (this.isEnabled()) {
-            if (!this.getStringSettingValueByName("Autoblock Mode").equals("None")
-                    && (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem
-                            || this.currentItemIndex != mc.player.inventory.currentItem)
-                    && currentTarget != null) {
-                event.setCancelled(true);
-            } else if (Objects.requireNonNull(mc.player).getHeldItemMainhand().getItem() instanceof SwordItem) {
-                this.swingDelay = 2;
+            if (!this.getStringSettingValueByName("Autoblock Mode").equals("None") && !this.getStringSettingValueByName("Autoblock Mode").equals("Vanilla")
+                    && (mc.player.getHeldItemMainhand().getItem() instanceof SwordItem || this.blockDelay != mc.player.inventory.currentItem)
+                    && targetEntity != null) {
+                var1.cancelled = true;
+            } else if (mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) {
+                this.animationProgress = 2;
             }
         }
     }
 
     @EventTarget
-    @LowestPriority
-    public void onUpdate(EventUpdateWalkingPlayer event) {
-        if (!event.isPre()) {
-            currentItemIndex = mc.player.inventory.currentItem;
-            if (currentTarget != null && interactAB.canBlock() && currentRotation != null) {
-                if (this.getStringSettingValueByName("Autoblock Mode").equals("Fake")) {
-                    mc.player.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(
-                            mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(),
-                            mc.player.rotationYaw, mc.player.rotationPitch, mc.player.onGround
-                    ));
-                } else {
-                    interactAB.block(currentTarget, currentRotation.yaw, currentRotation.pitch);
-                    isBlocking = true;
+    @HighestPriority
+    public void onTick(EventPlayerTick var1) {
+        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
+            return;
+
+        if (mc.player != null) {
+            if (this.animationProgress > 0) {
+                this.animationProgress--;
+            }
+
+            if (targetEntity != null && autoBlock.isBlocking() && MovementUtil.isMoving() && this.getStringSettingValueByName("Autoblock Mode").equals("NCP")) {
+                autoBlock.stopAutoBlock();
+            }
+
+            if (autoBlock.isBlocking() && (!(mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) || targetEntity == null)) {
+                autoBlock.setBlockingState(false);
+            }
+
+            if (this.currentSlot >= 0) {
+                if (this.currentSlot == 0) {
+                    autoBlock.stopAutoBlock();
+                    autoBlock.setBlockingState(true);
+                }
+
+                this.currentSlot--;
+            }
+
+            this.updateTargetSelection();
+
+            if (this.targets != null && !this.targets.isEmpty()) {
+                this.attackTimer++;
+                    /*
+                    ModuleWithModuleSettings var5 = (ModuleWithModuleSettings) Client.getInstance().getModuleManager().getModuleByClass(Criticals.class);
+                    if (var5.isEnabled() && var5.getStringSettingValueByName("Type").equalsIgnoreCase("Minis")) {
+                        this.handleCriticals(var1, var5.method16726().getStringSettingValueByName("Mode"), var5.method16726().getBooleanValueFromSetttingName("Avoid Fall Damage"));
+                    }
+
+                     */
+
+                this.updateRotation();
+                if (eventUpdateYaw - mc.player.rotationYaw != 0.0F && (rotationMode.currentValue.equals("Test1") || rotationMode.currentValue.equals("Test")) && mc.player.ticksExisted % 50 == 0) {
+                    this.currentRotation.yaw = eventUpdateYaw;
+                    this.currentRotation.pitch = eventUpdatePitch;
+                }
+                float hSpeed = rotationSpeed.currentValue;
+                float vSpeed = rotationSpeed.currentValue;
+                //TODO TODO TODO TODO TODO
+
+                Rotation lastCopy = new Rotation(lastRotation.yaw, lastRotation.pitch);
+                Rotation currentCopy = new Rotation(currentRotation.yaw, currentRotation.pitch);
+                Rotation limit = !useRotationSpeed.currentValue
+                        ? currentCopy
+                        : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
+
+                float[] limitedRotation = new float[]{limit.yaw, limit.pitch};
+                float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
+
+                currentRotation.yaw = RotationUtils.gcdFix(limitedRotation, oldRots)[0];
+                currentRotation.pitch = RotationUtils.gcdFix(limitedRotation, oldRots)[1];
+
+                RotationCore.currentYaw = currentRotation.yaw;
+                RotationCore.currentPitch = currentRotation.pitch;
+                mc.gameRenderer.getMouseOver(1.0F); // might fix issue with slow raytrace update
+
+                if (!this.hitEvent.currentValue) {
+                    attack();
+                }
+
+                if (attackCooldown > 0) {
+                    attackCooldown--;
                 }
             }
-            return;
         }
-        if (interactAB.isBlocking() && (!(mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) || currentTarget == null)) {
-            if (!this.getStringSettingValueByName("Autoblock Mode").equals("Fake")) {
-                interactAB.setBlocking(false);
-                mc.getConnection().sendPacket(new CEntityActionPacket(mc.player, CEntityActionPacket.Action.START_SPRINTING));
+    }
 
+
+    @EventTarget
+    @HighestPriority
+    public void method16821(EventPlace var1) {
+        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
+            return;
+
+        if (this.targets != null && !this.targets.isEmpty()) {
+            if (this.hitEvent.currentValue) {
+                attack();
             }
         }
+    }
 
-        if (currentTarget == null) {
-            Rots.rotating = false;
-        }
-
-        if (!isEnabled() || mc.player == null) {
+    @EventTarget
+    @HighestPriority
+    public void method16821(EventUpdateWalkingPlayer event) {
+        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
-        }
 
-        if (!event.isPre()) {
-            currentItemIndex = mc.player.inventory.currentItem;
-
-            if (currentTarget != null && interactAB.canBlock() && currentRotation != null) {
-                interactAB.block(currentTarget, currentRotation.yaw, currentRotation.pitch);
-            }
-            return;
-        }
-
-        if (swingDelay > 0) {
-            swingDelay--;
-        }
-
-        if (currentTarget != null
-                && interactAB.isBlocking()
-                && com.mentalfrostbyte.jello.util.game.player.MovementUtil.isMoving()
-                && getStringSettingValueByName("Autoblock Mode").equals("NCP")) {
-            interactAB.doUnblock();
-        }
-
-        if (interactAB.isBlocking()
-                && (!(mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) || currentTarget == null)) {
-            interactAB.setBlocking(false);
-        }
-
-        if (blockCooldown >= 0) {
-            if (blockCooldown == 0) {
-                interactAB.doUnblock();
-                interactAB.setBlocking(true);
-            }
-            blockCooldown--;
-        }
-
-        handleAura();
-
-        if (targetEntities == null || targetEntities.isEmpty()) {
-            return;
-        }
-
-        attackDelay++;
-
-        float hitboxExpand = getNumberValueBySettingName("Hit box expand");
-        ModuleWithModuleSettings criticalsModule = (ModuleWithModuleSettings) Client.getInstance().moduleManager
-                .getModuleByClass(Criticals.class);
-
-        if (criticalsModule.isEnabled()
-                && criticalsModule.getStringSettingValueByName("Type").equalsIgnoreCase("Minis")) {
-            handleEventUpdate(
-                    event,
-                    criticalsModule.getModWithTypeSetToName().getStringSettingValueByName("Mode"),
-                    criticalsModule.getModWithTypeSetToName().getBooleanValueFromSettingName("Avoid Fall Damage"));
-        }
-
-        setRotation();
-
-        if (event.getYaw() - mc.player.rotationYaw != 0.0F) {
-            currentRotation.yaw = event.getYaw();
-            currentRotation.pitch = event.getPitch();
-        }
-
-        if (currentTarget != null) {
-            Rots.prevYaw = currentRotation.yaw;
-            Rots.prevPitch = currentRotation.pitch;
-            event.setYaw(currentRotation.yaw);
-            event.setPitch(currentRotation.pitch);
-            Rots.yaw = currentRotation.yaw;
-            Rots.pitch = currentRotation.pitch;
-
-            mc.player.rotationYawHead = event.getYaw();
-            mc.player.renderYawOffset = event.getYaw();
-        }
-
-        boolean canAttack = interactAB.method36821(attackDelay);
-        float attackCooldownThreshold = (mc.player.getCooldownPeriod() < 1.26
-                && getBooleanValueFromSettingName("Cooldown"))
-                        ? mc.player.getCooledAttackStrength(0.0F)
-                        : 1.0F;
-
-        boolean shouldAttack = attackCooldown == 0 && canAttack && attackCooldownThreshold >= 1.0F;
-
-        if (canAttack) {
-            interactAB.setupDelay();
-        }
-
-        if (shouldAttack) {
-            KillAuraAttackLambda attack = new KillAuraAttackLambda(this, hitboxExpand);
-            boolean isPre = getStringSettingValueByName("Attack Mode").equals("Pre");
-            if (!isPre) {
-                event.attackPost(attack);
+        if (mc.player != null) {
+            if (!event.isPre()) {
+                this.blockDelay = mc.player.inventory.currentItem;
+                if (targetEntity != null && autoBlock.canAutoBlock() && this.currentRotation != null) {
+                    autoBlock.performAutoBlock(targetEntity, this.currentRotation.yaw, this.currentRotation.pitch);
+                }
             } else {
-                attack.run();
-            }
-            attackDelay = 0;
-        }
+                eventUpdateYaw = event.getYaw();
+                eventUpdatePitch = event.getPitch();
 
-        if (attackCooldown > 0) {
-            attackCooldown--;
-        }
-    }
-
-    @EventTarget
-    public void onRender2D(EventRender2DOffset event) {
-
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
-
-        if (currentTimedEntity == null || getBooleanValueFromSettingName("Silent")
-                || getStringSettingValueByName("Rotation Mode").equals("None")) {
-            return;
-        }
-
-        float interpolatedYaw = MathHelper.wrapDegrees(
-                secondaryRotation.yaw + (currentRotation.yaw - secondaryRotation.yaw) * mc.getRenderPartialTicks());
-        float interpolatedPitch = MathHelper.wrapDegrees(secondaryRotation.pitch
-                + (currentRotation.pitch - secondaryRotation.pitch) * mc.getRenderPartialTicks());
-
-        mc.player.rotationYaw = interpolatedYaw;
-        mc.player.rotationPitch = interpolatedPitch;
-    }
-
-    @EventTarget
-    public void onRender3D(EventRender3D event) {
-        if (targetEntities == null) {
-            return;
-        }
-
-        Iterator<Entry<Entity, Animation>> animationIterator = entityGlowAnimations.entrySet().iterator();
-
-        while (animationIterator.hasNext()) {
-            Entry<Entity, Animation> entry = animationIterator.next();
-            Animation animation = entry.getValue();
-
-            animation.changeDirection(Animation.Direction.BACKWARDS);
-
-            if (animation.calcPercent() == 0.5F) {
-                animationIterator.remove();
-            }
-        }
-
-        for (TimedEntity timedEntity : targetEntities) {
-            if (timedEntity != null) {
-                Entity entity = timedEntity.getEntity();
-
-                if (!entityGlowAnimations.containsKey(entity)) {
-                    entityGlowAnimations.put(entity, new Animation(250, 250));
-                } else {
-                    entityGlowAnimations.get(entity).changeDirection(Animation.Direction.FORWARDS);
+                if (targetEntity != null && !this.targets.isEmpty()) {
+                    event.setYaw(RotationCore.currentYaw);
+                    event.setPitch(RotationCore.currentPitch);
                 }
             }
         }
+    }
 
-        for (Entry<Entity, Animation> entry : entityGlowAnimations.entrySet()) {
-            renderTargetESP(entry.getKey());
+    @EventTarget
+    public void method16822(EventRender2DOffset var1) {
+        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
+            return;
+
+        if (targetData != null && !this.getBooleanValueFromSettingName("Silent") && !this.rotationMode.currentValue.equals("None")) {
+            float var4 = MathHelper.wrapAngleTo180_float(this.lastRotation.yaw + (this.currentRotation.yaw - this.lastRotation.yaw) * mc.getRenderPartialTicks());
+            float var5 = MathHelper.wrapAngleTo180_float(this.lastRotation.pitch + (this.currentRotation.pitch - this.lastRotation.pitch) * mc.getRenderPartialTicks());
+            mc.player.rotationYaw = var4;
+            mc.player.rotationPitch = var5;
         }
     }
 
     @EventTarget
-    public void onReceivePacket(EventReceivePacket event) {
+    @HighestPriority
+    public void meth2od10(EventUseItem event) {
+        if (targetEntity != null) {
+            if (mc.objectMouseOver != null) {
+                if (mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
+                    if (mc.player.getHeldItemMainhand() != null &&
+                            mc.player.getHeldItemMainhand().getItem() instanceof SwordItem) {
 
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
+                        if (getStringSettingValueByName("Autoblock Mode").equals("Vanilla")) {
+                            int value = (int) getNumberValueBySettingName("Unblock Rate");
 
-        IPacket<?> packet = event.getPacket();
-
-        if (packet instanceof SEntityStatusPacket statusPacket) {
-
-            if (statusPacket.getOpCode() == 3) {
-                Entity entity = statusPacket.getEntity(mc.world);
-                interactAB.field44349.remove(entity);
-            }
-            return;
-        }
-
-        if (packet instanceof SEntityPacket entityPacket) {
-            if (entityPacket.func_229745_h_()
-                    && (entityPacket.posX != 0 || entityPacket.posY != 0 || entityPacket.posZ != 0)) {
-                for (Entry<Entity, List<Pair<Vector3d, Long>>> entry : interactAB.field44349.entrySet()) {
-                    Entity trackedEntity = entry.getKey();
-                    List<Pair<Vector3d, Long>> trackedPositions = entry.getValue();
-
-                    if (entityPacket.getEntity(mc.world) == trackedEntity) {
-                        Vector3d scaledVector = trackedEntity.field_242272_av.scale(2.4414062E-4F);
-                        trackedPositions.add(new Pair<>(scaledVector, System.currentTimeMillis()));
+                            if (mc.player.ticksExisted % (value == 0 ? 0 : value + 1) == 0) {
+                                event.useItem =true;
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    public void renderTargetESP(Entity targetEntity) {
-        if (targetEntity == null || !targetEntity.isAlive()) {
+    @EventTarget
+    public void method16823(EventRender3D var1) {
+        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
+
+        if (this.targets != null) {
+            Iterator<Entry<Entity, Animation>> var4 = this.entityAnimation.entrySet().iterator();
+
+            while (var4.hasNext()) {
+                Entry<Entity, Animation> var5 = var4.next();
+
+                var5.getValue().changeDirection(Animation.Direction.BACKWARDS);
+                if (var5.getValue().calcPercent() == 0.0F) {
+                    var4.remove();
+                }
+            }
+
+            for (TimedEntity var10 : this.targets) {
+                if (var10 != null) {
+                    if (!this.entityAnimation.containsKey(var10.getEntity())) {
+                        this.entityAnimation.put(var10.getEntity(), new Animation(250, 250));
+                    } else {
+                        this.entityAnimation.get(var10.getEntity()).changeDirection(Animation.Direction.FORWARDS);
+                    }
+                }
+            }
+
+            for (Entry<Entity, Animation> var11 : this.entityAnimation.entrySet()) {
+                AuraESP auraESP = new AuraESP(this);
+                auraESP.renderEsp(var11.getKey());
+            }
         }
-
-        GL11.glPushMatrix();
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glLineWidth(1.4F);
-
-        double partialTicks = Minecraft.getInstance().timer.renderPartialTicks;
-        double interpolatedX = targetEntity.lastTickPosX
-                + (targetEntity.getPosX() - targetEntity.lastTickPosX) * partialTicks;
-        double interpolatedY = targetEntity.lastTickPosY
-                + (targetEntity.getPosY() - targetEntity.lastTickPosY) * partialTicks;
-        double interpolatedZ = targetEntity.lastTickPosZ
-                + (targetEntity.getPosZ() - targetEntity.lastTickPosZ) * partialTicks;
-
-        double cameraX = mc.gameRenderer.getActiveRenderInfo().getProjectedView().getX();
-        double cameraY = mc.gameRenderer.getActiveRenderInfo().getProjectedView().getY();
-        double cameraZ = mc.gameRenderer.getActiveRenderInfo().getProjectedView().getZ();
-
-        GL11.glTranslated(interpolatedX - cameraX, interpolatedY - cameraY, interpolatedZ - cameraZ);
-
-        GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
-
-        long cycleDurationMs = 1425;
-        float glowProgress = (float) (System.currentTimeMillis() % cycleDurationMs) / cycleDurationMs;
-        boolean isFadingOut = glowProgress > 0.5F;
-        glowProgress = !isFadingOut ? glowProgress * 2.0F : 1.0F - (glowProgress * 2.0F % 1.0F);
-
-        GL11.glTranslatef(0.0F, (targetEntity.getHeight() + 0.4F) * glowProgress, 0.0F);
-
-        float glowFactor = (float) Math.sin(glowProgress * Math.PI);
-        Animation animation = this.entityGlowAnimations.get(targetEntity);
-        if (animation != null) {
-            drawCircle(isFadingOut, 0.45F * glowFactor, 0.6F, 0.35F * glowFactor, animation.calcPercent());
-        }
-
-        GL11.glPopMatrix();
-
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
     }
 
-    public boolean isAutoBlockEnabled() {
-        if (mc.player == null) {
-            return false;
-        }
-
-        return currentTarget != null && !mc.player.getHeldItemMainhand().isEmpty()
-                && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem &&
-                !this.getStringSettingValueByName("Autoblock Mode").equals("None");
+    public boolean isAutoblockActive() {
+        return targetEntity != null
+                && mc.player.getHeldItemMainhand() != null
+                && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem
+                && !this.getStringSettingValueByName("Autoblock Mode").equals("None") && !this.getStringSettingValueByName("Autoblock Mode").equals("Vanilla");
     }
 
     @Override
     public boolean isEnabled2() {
-        return this.isEnabled() && this.isAutoBlockEnabled();
+        return this.isEnabled() && this.isAutoblockActive();
     }
 
-    public void handleEventUpdate(EventUpdateWalkingPlayer event, String serverType, boolean avoidFallDamage) {
 
-        if (mc.player == null || mc.world == null) {
-            return;
+    private Entity getClosestTargetInBlockRange(List<TimedEntity> var1) {
+        var1 = autoBlock.sortTargets(var1);
+        return !var1.isEmpty() && var1.get(0).getEntity().getDistance(mc.player) <= this.getNumberValueBySettingName("Range")
+                ? var1.get(0).getEntity()
+                : null;
+    }
+
+    private void updateTargetSelection() {
+        float rangeF = this.getNumberValueBySettingName("Range");
+        String mode = this.getStringSettingValueByName("Mode");
+        List<TimedEntity> targetList = autoBlock.getPotentialTargets(rangeF);
+        targetList = autoBlock.sortTargets(targetList);
+        if (this.currentRotation == null) {
+            this.onEnable();
         }
 
-        double yOffset = !serverType.equals("Hypixel") ? 0.0 : 1.0E-14;
-        boolean shouldSetGround = true;
-
-        if (blockDelay == 0 && groundTicks >= 1 && Step.updateTicksBeforeStep > 1) {
-            if (interactAB.method36820(attackDelay)) {
-                blockDelay = 1;
-                shouldSetGround = avoidFallDamage;
-                yOffset = !serverType.equals("Cubecraft") ? 0.0626 : com.mentalfrostbyte.jello.util.game.player.MovementUtil.getJumpValue() / 10.0;
-                positionOffset = new double[] { event.getX(), event.getY() + yOffset, event.getZ() };
+        if (targetList != null && !targetList.isEmpty() && !mc.gameSettings.keyBindAttack.isPressed()) {
+            targetEntity = this.getClosestTargetInBlockRange(targetList);
+            targetList = autoBlock.getPotentialTargets(rangeF);
+            if (mode.equals("Single") || mode.equals("Multi")) {
+                targetList = autoBlock.sortTargets(targetList);
             }
-        } else if (blockDelay == 1) {
-            blockDelay = 0;
-            shouldSetGround = false;
-            if (serverType.equals("Hypixel") && positionOffset != null && mc.player.getMotion().y < 0.0) {
-                Objects.requireNonNull(mc.getConnection()).sendPacket(new CPlayerPacket.PositionPacket(
-                        positionOffset[0], positionOffset[1], positionOffset[2], false));
-                positionOffset = null;
-            }
-        }
 
-        boolean isOnGroundOrAboveBounds = !Jesus.isWalkingOnLiquid()
-                && (Objects.requireNonNull(mc.player).isOnGround() || MovementUtil2.isAboveBounds(mc.player, 0.001F));
-        if (!isOnGroundOrAboveBounds) {
-            groundTicks = 0;
-            blockDelay = 0;
-        } else {
-            groundTicks++;
-            if ((!Client.getInstance().moduleManager.getModuleByClass(Speed.class).isEnabled()
-                    || Client.getInstance().moduleManager.getModuleByClass(Speed.class)
-                            .getStringSettingValueByName("Type").equalsIgnoreCase("Cubecraft")
-                    || Client.getInstance().moduleManager.getModuleByClass(Speed.class)
-                            .getStringSettingValueByName("Type").equalsIgnoreCase("Vanilla"))
-                    && mc.player.collidedVertically && !mc.player.isJumping && !mc.player.isInWater()
-                    && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                isAuraActive = yOffset > 0.001;
-
-                event.setY(mc.player.getPosY() + yOffset);
-                event.setGround(shouldSetGround);
-            }
-        }
-    }
-
-    private Entity getClosestEntity(List<TimedEntity> var1) {
-
-        if (mc.player == null || mc.world == null) {
-            return null;
-        }
-
-        var1 = interactAB.sortEntities(var1);
-        return !var1.isEmpty()
-                && var1.get(0).getEntity().getDistance(mc.player) <= this.getNumberValueBySettingName("Block Range")
-                        ? var1.get(0).getEntity()
-                        : null;
-    }
-
-    private void handleAura() {
-        float blockRange = getNumberValueBySettingName("Block Range");
-        float range = getNumberValueBySettingName("Range");
-        String mode = getStringSettingValueByName("Mode");
-
-        List<TimedEntity> potentialTargets = interactAB.getEntitiesInRange(Math.max(blockRange, range));
-        if (potentialTargets == null || potentialTargets.isEmpty() || mc.gameSettings.keyBindAttack.isPressed()) {
-            resetState();
-            return;
-        }
-
-        potentialTargets = interactAB.sortEntities(potentialTargets);
-        Entity closestEntity = getClosestEntity(potentialTargets);
-        if (currentRotation == null) {
-            onEnable();
-        }
-
-        currentTarget = closestEntity;
-        potentialTargets = interactAB.getEntitiesInRange(range);
-
-        if (mode.equals("Single") || mode.equals("Multi")) {
-            potentialTargets = interactAB.sortEntities(potentialTargets);
-        }
-
-        if (potentialTargets.isEmpty()) {
-            resetState();
-        } else {
-            processTargets(potentialTargets, mode, range);
-        }
-    }
-
-    private void processTargets(List<TimedEntity> targets, String mode, float range) {
-        if (rotationProgress == -1.0F) {
-            float targetYaw = RotationHelper
-                    .getRotationsToVector(MovementUtil2.method17751(targets.get(0).getEntity())).yaw;
-            float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
-            rotationSpeed = yawDifference * 1.95F / 50.0F;
-            rotationProgress++;
-            randomOffset = Math.random();
-        }
-
-        targetEntities = targets;
-
-        if (!mode.equals("Switch")) {
-            if (mode.equals("Single")) {
-                currentTimedEntity = targets.get(0);
-            } else if (mode.equals("Multi2")) {
-                if (targetIndex >= targets.size()) {
-                    targetIndex = 0;
+            if (targetList.isEmpty()) {
+                targetData = null;
+                this.targets.clear();
+                this.attackTimer = (int) autoBlock.getCpsTiming(0);
+                this.animationTimer = 0;
+                isActive = false;
+                this.currentRotation.yaw = mc.player.rotationYaw;
+                this.currentRotation.pitch = mc.player.rotationPitch;
+                rotation.yaw = this.currentRotation.yaw;
+                rotation.pitch = this.currentRotation.pitch;
+                this.targetPitch = -1.0F;
+                this.yawDifference = Math.random();
+                this.currentSlot = -1;
+            } else {
+                if (this.targetPitch == -1.0F) {
+                    float var7 = RotationUtils.method34148(RotationUtils.getEntityPosition(targetList.get(0).getEntity())).yaw;
+                    float var8 = Math.abs(RotationUtils.getAngleDifference2(var7, rotation.yaw));
+                    this.targetYaw = var8 * 1.95F / 50.0F;
+                    this.targetPitch++;
+                    this.yawDifference = Math.random();
                 }
-                currentTimedEntity = targets.get(targetIndex);
-            } else if (currentTimedEntity == null || currentTimedEntity.getEntity() != targets.get(0).getEntity()) {
-                float targetYaw = RotationHelper
-                        .getRotationsToVector(MovementUtil2.method17751(targets.get(0).getEntity())).yaw;
-                float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
-                rotationSpeed = yawDifference * 1.95F / 50.0F;
-                rotationProgress++;
-                randomOffset = Math.random();
 
-                currentTimedEntity = targets.get(0);
+                this.targets = targetList;
+                float var12 = RotationUtils.method34148(RotationUtils.getEntityPosition(this.targets.get(0).getEntity())).yaw;
+                if (!this.targets.isEmpty() & !mode.equals("Switch")) {
+                    if (targetData != null && targetData.getEntity() != this.targets.get(0).getEntity()) {
+                        float var13 = Math.abs(RotationUtils.getAngleDifference2(var12, rotation.yaw));
+                        this.targetYaw = var13 * 1.95F / 50.0F;
+                        this.yawDifference = Math.random();
+                    }
+
+                    targetData = this.targets.get(0);
+                }
+
+                if (!mode.equals("Switch")) {
+                    if (!mode.equals("Multi2")) {
+                        if (mode.equals("Single")
+                                && !this.targets.isEmpty()
+                                && (targetData == null || targetData.getEntity() != this.targets.get(0).getEntity())) {
+                            targetData = this.targets.get(0);
+                        }
+                    } else {
+                        if (this.attackDelay >= this.targets.size()) {
+                            this.attackDelay = 0;
+                        }
+
+                        targetData = this.targets.get(this.attackDelay);
+                    }
+                } else if ((
+                        targetData == null
+                                || targetData.getTimer() == null
+                                || targetData.isExpired()
+                                || !this.targets.contains(targetData)
+                                || mc.player.getDistance(targetData.getEntity()) > rangeF
+                )
+                        && !this.targets.isEmpty()) {
+                    if (this.attackDelay + 1 < this.targets.size()) {
+                        if (targetData != null && !Client.getInstance().friendManager.isFriend(this.targets.get(this.attackDelay).getEntity())) {
+                            this.attackDelay++;
+                        }
+                    } else {
+                        this.attackDelay = 0;
+                    }
+
+                    Vector3d var14 = RotationUtils.getEntityPosition(this.targets.get(this.attackDelay).getEntity());
+                    float var9 = Math.abs(RotationUtils.getAngleDifference2(RotationUtils.method34148(var14).yaw, rotation.yaw));
+                    this.targetYaw = var9 * 1.95F / 50.0F;
+                    this.yawDifference = Math.random();
+                    targetData = new TimedEntity(
+                            this.targets.get(this.attackDelay).getEntity(), new ExpirationTimer(!this.rotationMode.currentValue.equals("NCP") ? 500L : 270L)
+                    );
+                }
+
+                if (this.attackDelay >= this.targets.size()) {
+                    this.attackDelay = 0;
+                }
+
+                if (!mode.equals("Multi")) {
+                    this.targets.clear();
+                    this.targets.add(targetData);
+                }
             }
         } else {
-            boolean shouldSwitch = currentTimedEntity == null
-                    || currentTimedEntity.isExpired()
-                    || !targets.contains(currentTimedEntity)
-                    || Objects.requireNonNull(mc.player).getDistance(currentTimedEntity.getEntity()) > range;
-
-            if (shouldSwitch && !targets.isEmpty()) {
-                targetIndex = (targetIndex + 1) % targets.size();
-                TimedEntity nextTarget = targets.get(targetIndex);
-                float targetYaw = RotationHelper
-                        .getRotationsToVector(MovementUtil2.method17751(nextTarget.getEntity())).yaw;
-                float yawDifference = Math.abs(getYawDifference(targetYaw, previousRotation.yaw));
-                rotationSpeed = yawDifference * 1.95F / 50.0F;
-                randomOffset = Math.random();
-                currentTimedEntity = new TimedEntity(nextTarget.getEntity(), createExpirationTimer());
+            targetData = null;
+            targetEntity = null;
+            if (this.targets != null) {
+                this.targets.clear();
             }
-        }
 
-        if (!mode.equals("Multi")) {
-
-            if (currentTimedEntity == null)
-                return;
-
-            targetEntities = List.of(currentTimedEntity);
+            this.attackTimer = (int) autoBlock.getCpsTiming(0);
+            this.animationTimer = 0;
+            isActive = false;
+            this.currentRotation.yaw = mc.player.rotationYaw;
+            this.currentRotation.pitch = mc.player.rotationPitch;
+            rotation.yaw = this.currentRotation.yaw;
+            rotation.pitch = this.currentRotation.pitch;
+            this.targetPitch = -1.0F;
+            this.yawDifference = Math.random();
+            this.currentSlot = -1;
         }
     }
 
-    private float getYawDifference(float targetYaw, float currentYaw) {
-        return MovementUtil2.method17756(targetYaw, currentYaw);
-    }
+    private void updateRotation() {
+        Entity entity = targetData.getEntity();
 
-    private ExpirationTimer createExpirationTimer() {
-        boolean isNCPMode = getStringSettingValueByName("Rotation Mode").equals("NCP");
-        return new ExpirationTimer(isNCPMode ? 270L : 500L);
-    }
+        Rotation advancedRotation = RotationUtils.getAdvancedRotation(entity, !this.getBooleanValueFromSettingName("Through walls"));
 
-    private void setRotation() {
+        float targetYawDifference = RotationUtils.wrapAngleDifference(this.currentRotation.yaw, advancedRotation.yaw);
+        float targetPitchDifference = advancedRotation.pitch - this.currentRotation.pitch;
 
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
+        lastRotation.yaw = currentRotation.yaw;
+        lastRotation.pitch = currentRotation.pitch;
 
-        Entity targ = currentTimedEntity.getEntity();
-        Rotation newRots = RotationHelper.getRotations(targ, !getBooleanValueFromSettingName("Through walls"));
-        if (newRots == null) {
-            System.out.println("[KillAura] newRots is null??? on line 712");
-            return;
-        }
-        float yawDifference = RotationHelper.method34152(currentRotation.yaw, newRots.yaw);
-        float pitchDifference = newRots.pitch - currentRotation.pitch;
-        String rotationMode = getStringSettingValueByName("Rotation Mode");
-        float range = getNumberValueBySettingName("Range");
-        switch (rotationMode) {
-            case "NCP":
-                secondaryRotation.yaw = currentRotation.yaw;
-                secondaryRotation.pitch = currentRotation.pitch;
-                currentRotation = newRots;
+        switch (rotationMode.currentValue) {
+            case "Test":
+
+                if (Math.abs(targetYawDifference) > 80.0F) {
+                    float var9 = (float) this.randomize(-10.2, 10.2);
+                    float var30 = targetYawDifference * targetYawDifference * 1.13F / 2.0F + var9;
+                    this.currentRotation.yaw += var30;
+                    this.smoothYaw = var30;
+                } else if (Math.abs(targetYawDifference) > 30.0F) {
+                    float var26 = (float) this.randomize(-10.2, 10.2);
+                    float var31 = targetYawDifference * 1.03F / 2.0F + var26;
+                    this.currentRotation.yaw += var31;
+                    this.smoothYaw = var31;
+                } else if (Math.abs(targetYawDifference) > 10.0F) {
+                    Entity var27 = RotationUtils.hoveringTarget(
+                            this.currentRotation.pitch, this.currentRotation.yaw, this.getNumberValueBySettingName("Range"), 0.07
+                    );
+                    double var11 = var27 == null ? 13.4 : 1.4;
+                    this.smoothYaw = (float) ((double) this.smoothYaw * 0.5296666666666666);
+                    if (Math.abs(targetYawDifference) < 20.0F) {
+                        this.smoothYaw = targetYawDifference * 0.5F;
+                    }
+
+                    this.currentRotation.yaw = this.currentRotation.yaw + targetYawDifference + this.smoothYaw + (float) this.randomize(-var11, var11);
+                } else {
+                    this.smoothYaw = (float) ((double) this.smoothYaw * 0.05);
+                    double var13 = 0.0;
+                    this.currentRotation.yaw = this.currentRotation.yaw + this.smoothYaw + (float) this.randomize(-var13, var13);
+                }
+
+                if (mc.player.ticksExisted % 5 == 0) {
+                    double var32 = 10.0;
+                    this.currentRotation.yaw = this.currentRotation.yaw
+                            + (float) this.randomize(-var32, var32) / (mc.player.getDistance(entity) + 1.0F);
+                    this.currentRotation.pitch = this.currentRotation.pitch
+                            + (float) this.randomize(-var32, var32) / (mc.player.getDistance(entity) + 1.0F);
+                }
+
+                if (Math.abs(targetPitchDifference) > 10.0F) {
+                    this.currentRotation.pitch = (float) ((double) this.currentRotation.pitch + (double) targetPitchDifference * 0.81 + this.randomize(-2.0, 2.0));
+                }
+
+                Entity var28 = RotationUtils.hoveringTarget(
+                        this.lastRotation.pitch, this.lastRotation.yaw, this.getNumberValueBySettingName("Range"), 0.07
+                );
+                if (var28 != null && (double) this.blockCooldown > this.randomize(2.0, 5.0)) {
+                    this.blockCooldown = 0;
+                }
                 break;
-            case "New":
-                updateRotations(mc.player, currentTarget, currentRotation, secondaryRotation, 0.1, 0.1);
+            case "NCP":
+                this.currentRotation.yaw = (float) (RotationHelper.doBasicRotation(entity)[0] + (float) (Math.random() - 0.5) * 4.0);
+                this.currentRotation.pitch = (float) (RotationHelper.doBasicRotation(entity)[1] + 3 + (float) (Math.random() - 0.5) * 4.0);
+                break;
+            case "AAC":
+                float var29 = this.targetPitch / Math.max(1.0F, this.targetYaw);
+                double var33 = entity.getPosX() - entity.lastTickPosX;
+                double var34 = entity.getPosZ() - entity.lastTickPosZ;
+                float var35 = (float) Math.sqrt(var33 * var33 + var34 * var34);
+                float var36 = MathUtil.lerp(var29, 0.57, -0.135, 0.095, -0.3);
+                float var37 = Math.min(1.0F, MathUtil.lerp(var29, 0.57, -0.135, 0.095, -0.3));
+                if (this.isBlocking) {
+                    var36 = MathUtil.lerp(var29, 0.18, 0.13, 1.0, 1.046);
+                    var37 = Math.min(1.0F, MathUtil.lerp(var29, 0.18, 0.13, 1.0, 1.04));
+                }
+
+                float var38 = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
+                float var39 = advancedRotation.pitch - rotation.pitch;
+                this.currentRotation.yaw = rotation.yaw + var36 * var38;
+                this.currentRotation.pitch = (rotation.pitch + var37 * var39) % 90.0F;
+                if (var29 == 0.0F || var29 >= 1.0F || (double) var35 > 0.1 && this.targetYaw < 4.0F) {
+                    float var41 = Math.abs(RotationUtils.getAngleDifference2(advancedRotation.yaw, rotation.yaw));
+                    this.targetYaw = (float) Math.round(var41 * 1.8F / 50.0F);
+
+                    this.targetPitch = 0.0F;
+                    if (mc.pointedEntity == null && var29 != 1.0F) {
+                        this.yawDifference = Math.random() * 0.5 + 0.25;
+                    }
+
+                    rotation.yaw = this.currentRotation.yaw;
+                    rotation.pitch = this.currentRotation.pitch;
+                }
                 break;
             case "Smooth":
-                secondaryRotation.yaw = currentRotation.yaw;
-                secondaryRotation.pitch = currentRotation.pitch;
-                currentRotation.yaw += (float) (yawDifference * 2.0F / 5.0);
-                currentRotation.pitch += (float) (pitchDifference * 2.0F / 5.0);
+                Vector3d entityPosition = RotationUtils.getEntityPosition(targetEntity);
+
+                boolean bool = mc.objectMouseOver != null && mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY;
+                this.currentRotation.yaw = (float) ((float) ((double) this.currentRotation.yaw + (double) (targetYawDifference * 2.3F) / (bool ? 10 : 3)) + (float) (Math.random() - 0.5) * 5.0);
+                this.currentRotation.pitch = (float) ((float) ((double) this.currentRotation.pitch + (double) (targetPitchDifference * 2.3F) / (bool ? 14 : 4)) + (float) (Math.random() - 0.5) * 5.0) + 3;
                 break;
             case "None":
-                secondaryRotation.yaw = currentRotation.yaw;
-                secondaryRotation.pitch = currentRotation.pitch;
-                currentRotation.yaw = mc.player.rotationYaw;
-                currentRotation.pitch = mc.player.rotationPitch;
+                this.currentRotation.yaw = mc.player.rotationYaw;
+                this.currentRotation.pitch = mc.player.rotationPitch;
                 break;
             case "LockView":
-                secondaryRotation.yaw = currentRotation.yaw;
-                secondaryRotation.pitch = currentRotation.pitch;
-                EntityRayTraceResult ray = EntityUtil.method17714(targ, currentRotation.yaw, currentRotation.pitch,
-                        e -> true, getNumberValueBySettingName("Range"));
-                if (ray == null || ray.getEntity() != targ) {
-                    currentRotation = newRots;
+                EntityRayTraceResult lvHoveringTarget = RotationUtils.hoveringTarget(
+                        entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
+                );
+                if (lvHoveringTarget == null || lvHoveringTarget.getEntity() != entity) {
+                    this.currentRotation = advancedRotation;
                 }
                 break;
-        }
-    }
-
-    public void updateRotations(Entity player, Entity target, Rotation currentRotation, Rotation secondaryRotation,
-                                double mouseDeltaX, double mouseDeltaY) {
-        if (player == null || target == null || currentRotation == null || secondaryRotation == null) {
-            return;
-        }
-
-        List<Vector3d> aimPoints = new ArrayList<>();
-        Vector3d closestPoint = findClosestPoint(player.getPositionVec(), target.getBoundingBox(), 25.0f, 0.05);
-        if (closestPoint != null) {
-            aimPoints.add(closestPoint);
-        }
-
-        Vector3d aimPoint = aimPoints.get(0);
-
-        double targetEyeX = aimPoint.x;
-        double targetEyeY = aimPoint.y;
-        double targetEyeZ = aimPoint.z;
-
-        double playerEyeX = player.getPosX();
-        double playerEyeY = player.getPosY() + player.getEyeHeight();
-        double playerEyeZ = player.getPosZ();
-
-        double deltaX = targetEyeX - playerEyeX;
-        double deltaY = targetEyeY - playerEyeY;
-        double deltaZ = targetEyeZ - playerEyeZ;
-
-        double distanceXZ = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-
-        float targetYaw = (float) Math.toDegrees(Math.atan2(deltaZ, deltaX)) - 90.0F;
-        float targetPitch = (float) -Math.toDegrees(Math.atan2(deltaY, distanceXZ));
-
-        final float factor = Math.min(Math.max(mc.player.getDistance(target), 0.0F), 3.0F) / 3.0F
-                * (float) (1.0F + Math.sin(randomAngle) * 2.0F) / 2.0F;
-
-        targetYaw = normalizeAngle(targetYaw);
-        targetPitch = Math.max(-90.0F, Math.min(90.0F, targetPitch));
-
-        {
-            final float radius = 10.0F * factor;
-
-            float x = radius * (float) Math.cos(randomAngle);
-            float y = radius * (float) Math.sin(randomAngle);
-            float z = radius * (float) Math.sin(randomAngle / 2.0F);
-
-            targetYaw += x * (float) Math.cos(randomAngle / 3.0F);
-            targetPitch += y * (float) Math.sin(randomAngle / 3.0F);
-
-            randomAngle += 0.25F;
-        }
-
-        double radianFactor = Math.sin(Math.toRadians(targetYaw)) * Math.cos(Math.toRadians(targetPitch));
-        double advancedCalculationX = deltaX * radianFactor + mouseDeltaX;
-        double advancedCalculationY = deltaY * radianFactor + mouseDeltaY;
-        double advancedCalculationZ = deltaZ * radianFactor;
-
-        currentRotation.yaw = (float) (targetYaw + advancedCalculationX);
-        currentRotation.pitch = (float) (targetPitch + advancedCalculationY);
-
-        secondaryRotation.yaw = (float) (targetYaw + advancedCalculationZ);
-        secondaryRotation.pitch = (float) (targetPitch + advancedCalculationY);
-    }
-
-    // simple because i didnt bother making better one.
-    private Vector3d findClosestPoint(Vector3d origin, AxisAlignedBB boundingBox, float maxDistance, double stepSize) {
-        Vector3d closestPoint = null;
-        double closestDistanceSquared = maxDistance * maxDistance;
-        List<Vector3d> points = new ArrayList<>();
-
-        double minX = boundingBox.minX;
-        double maxX = boundingBox.maxX;
-        double minY = boundingBox.maxY - 0.4;
-        double maxY = boundingBox.maxY;
-        double minZ = boundingBox.minZ;
-        double maxZ = boundingBox.maxZ;
-
-        for (double x = minX; x <= maxX; x += stepSize) {
-            for (double y = minY; y <= maxY; y += stepSize) {
-                for (double z = minZ; z <= maxZ; z += stepSize) {
-                    points.add(new Vector3d(x, y, z));
+            case "Test2":
+                EntityRayTraceResult rayTraceResult = RotationUtils.hoveringTarget(
+                        entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
+                );
+                if (rayTraceResult != null && rayTraceResult.getEntity() == entity) {
+                    this.currentRotation.yaw = (float) ((double) this.currentRotation.yaw + (Math.random() - 0.5) * 2.0 + (double) (targetYawDifference / 10.0F)) + RandomUtil.nextFloat(-4, 4);
+                    this.currentRotation.pitch = (float) ((double) this.currentRotation.pitch + (Math.random() - 0.5) * 2.0 + (double) (targetPitchDifference / 10.0F)) + RandomUtil.nextFloat(-4, 4);
+                    this.targetPitch = 0.0F;
+                    this.targetYaw = 1.0F;
+                    return;
                 }
-            }
-        }
 
-        for (Vector3d point : points) {
-            double distanceSquared = origin.squareDistanceTo(point);
-            if (distanceSquared <= closestDistanceSquared) {
-                if (closestPoint == null || origin.squareDistanceTo(closestPoint) > distanceSquared) {
-                    closestPoint = point;
-                    closestDistanceSquared = distanceSquared;
+                float pitchYawRatio = this.targetPitch / Math.max(1.0F, this.targetYaw);
+                //double deltaPosX = entity.getPosX() - entity.lastTickPosX;
+                //double deltaPosZ = entity.getPosZ() - entity.lastTickPosZ;
+                //float entityHypot = (float) Math.sqrt(deltaPosX * deltaPosX + deltaPosZ * deltaPosZ);
+                float interpolatedYawAdjustment = MathUtil.lerp(pitchYawRatio, 0.57, -0.135, 0.095, -0.3);
+                float interpolatedPitchAdjustment = Math.min(1.0F, MathUtil.lerp(pitchYawRatio, 0.57, -0.135, 0.095, -0.3));
+                float yawDifference = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
+                float pitchDifference = advancedRotation.pitch - rotation.pitch;
+                this.lastRotation.yaw = this.currentRotation.yaw;
+                this.lastRotation.pitch = this.currentRotation.pitch;
+                this.currentRotation.yaw = rotation.yaw + interpolatedYawAdjustment * (yawDifference + RandomUtil.nextFloat(-5, 5));
+                this.currentRotation.pitch = ((rotation.pitch + interpolatedPitchAdjustment * (pitchDifference + RandomUtil.nextFloat(-5, 5))) % 90.0F);
+                if (pitchYawRatio == 0.0F || pitchYawRatio >= 1.0F) {
+                    //KAUtils.addChatMessage(pitchYawRatio +"");
+
+                    float angleDifferenceAbs = Math.abs(RotationUtils.getAngleDifference2(advancedRotation.yaw, rotation.yaw));
+                    this.targetYaw = (float) Math.round(angleDifferenceAbs * 1.8F / 50.0F);
+                    if (this.targetYaw < 3.0F) {
+                        this.targetYaw = 3.0F;
+                    }
+
+                    this.targetPitch = 0.0F;
+                    if (mc.pointedEntity == null && pitchYawRatio != 1.0F) {
+                        this.yawDifference = Math.random() * 0.5 + 0.25;
+                    }
+
+                    rotation.yaw = this.currentRotation.yaw;
+                    rotation.pitch = this.currentRotation.pitch;
                 }
-            }
+        }
+    }
+    private final AttackRunnable attackRunnable = new AttackRunnable(this);
+
+    public void attack(){
+        boolean reachedCPS = autoBlock.hasReachedCpsTiming(this.attackTimer);
+        float cooldown = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
+        boolean shouldAttack = attackCooldown == 0 && reachedCPS && cooldown >= 1.0F;
+        if (reachedCPS) {
+            autoBlock.updateCpsTimings();
         }
 
-        return closestPoint;
+        if (shouldAttack) {
+            //we should NOT be making a new instance of attack runnable every attack
+            attackRunnable.run();
+            this.attackTimer = 0;
+        }
     }
 
-    private float normalizeAngle(float angle) {
-        while (angle <= -180.0F) {
-            angle += 360.0F;
-        }
-        while (angle > 180.0F) {
-            angle -= 360.0F;
-        }
-        return angle;
+    private double randomize(double var1, double var3) {
+        return var1 + Math.random() * (var3 - var1);
     }
 }

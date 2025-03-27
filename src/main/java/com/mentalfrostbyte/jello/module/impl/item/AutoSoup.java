@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPl
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.Client;
 
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -87,10 +87,9 @@ public class AutoSoup extends Module {
     @EventTarget
     public void method16058(EventSendPacket var1) {
         if (this.isEnabled()) {
-            if (this.field23433 && var1.getPacket() instanceof CClientStatusPacket) {
-                CClientStatusPacket var4 = (CClientStatusPacket) var1.getPacket();
-                if (var4.getStatus() == CClientStatusPacket.State.OPEN_INVENTORY) {
-                    var1.setCancelled(true);
+            if (this.field23433 && var1.packet instanceof CClientStatusPacket var4) {
+				if (var4.getStatus() == CClientStatusPacket.State.OPEN_INVENTORY) {
+                    var1.cancelled = true;
                 }
             }
         }
@@ -110,9 +109,9 @@ public class AutoSoup extends Module {
             if (var3 > 0) {
                 int var4 = this.method16062(var3);
                 if (var4 > 0) {
-                    InvManagerUtil.fixedClick(mc.player.container.windowId, var4, 0, ClickType.PICKUP, mc.player, true);
-                    InvManagerUtil.fixedClick(mc.player.container.windowId, var4, 0, ClickType.QUICK_MOVE, mc.player, true);
-                    InvManagerUtil.fixedClick(mc.player.container.windowId, var4, 0, ClickType.PICKUP, mc.player, true);
+                    InvManagerUtil.clickSlot(mc.player.container.windowId, var4, 0, ClickType.PICKUP, mc.player, true);
+                    InvManagerUtil.clickSlot(mc.player.container.windowId, var4, 0, ClickType.QUICK_MOVE, mc.player, true);
+                    InvManagerUtil.clickSlot(mc.player.container.windowId, var4, 0, ClickType.PICKUP, mc.player, true);
                     this.field23431 = -5;
                 }
             }
@@ -126,9 +125,9 @@ public class AutoSoup extends Module {
         if (this.field23431 >= var3 && Client.getInstance().playerTracker.getMode() >= var3) {
             while (this.field23429 < 36) {
                 boolean var4 = false;
-                if (InvManagerUtil.method25866(this.field23429).getItem() == Items.MUSHROOM_STEM
+                if (InvManagerUtil.getItemInSlot(this.field23429).getItem() == Items.MUSHROOM_STEM
                         && Math.random() * 100.0 > (double) this.getNumberValueBySettingName("Refill accuracy")) {
-                    InvManagerUtil.fixedClick(mc.player.container.windowId, this.field23429, 0, ClickType.QUICK_MOVE, mc.player, true);
+                    InvManagerUtil.clickSlot(mc.player.container.windowId, this.field23429, 0, ClickType.QUICK_MOVE, mc.player, true);
                     this.field23431 = 0;
                     var4 = true;
                 }
@@ -203,44 +202,44 @@ public class AutoSoup extends Module {
     }
 
     public int method16062(int var1) {
-        ItemStack var4 = InvManagerUtil.method25866(13);
+        ItemStack var4 = InvManagerUtil.getItemInSlot(13);
         if (var4.getItem() == Items.BOWL && var4.getCount() <= 64 - var1) {
             return 13;
         } else {
             for (int var5 = 9; var5 < 36; var5++) {
-                var4 = InvManagerUtil.method25866(var5);
+                var4 = InvManagerUtil.getItemInSlot(var5);
                 if (var4.getItem() == Items.BOWL && var4.getCount() <= 64 - var1) {
                     return var5;
                 }
             }
 
-            var4 = InvManagerUtil.method25866(13);
+            var4 = InvManagerUtil.getItemInSlot(13);
             if (var4.getItem() == Items.BOWL && var4.getCount() < 64) {
                 return 13;
             } else {
                 for (int var12 = 9; var12 < 36; var12++) {
-                    var4 = InvManagerUtil.method25866(var12);
+                    var4 = InvManagerUtil.getItemInSlot(var12);
                     if (var4.getItem() == Items.BOWL && var4.getCount() < 64) {
                         return var12;
                     }
                 }
 
-                var4 = InvManagerUtil.method25866(13);
+                var4 = InvManagerUtil.getItemInSlot(13);
                 if (var4.getItem() == Items.AIR) {
                     for (int var13 = 36; var13 < 45; var13++) {
                         if (mc.player.container.getSlot(var13).getStack().getItem() == Items.BOWL) {
-                            InvManagerUtil.moveItemToHotbar(13, var13 - 36);
+                            InvManagerUtil.clickSlot(13, var13 - 36);
                             return 13;
                         }
                     }
                 }
 
                 for (int var14 = 9; var14 < 36; var14++) {
-                    var4 = InvManagerUtil.method25866(var14);
+                    var4 = InvManagerUtil.getItemInSlot(var14);
                     if (var4.getItem() == Items.AIR) {
                         for (int var6 = 36; var6 < 45; var6++) {
                             if (mc.player.container.getSlot(var6).getStack().getItem() == Items.BOWL) {
-                                InvManagerUtil.moveItemToHotbar(var14, var6 - 36);
+                                InvManagerUtil.clickSlot(var14, var6 - 36);
                                 return -1;
                             }
                         }
@@ -249,7 +248,7 @@ public class AutoSoup extends Module {
 
                 for (int var15 = 36; var15 < 45; var15++) {
                     if (mc.player.container.getSlot(var15).getStack().getItem() == Items.BOWL) {
-                        InvManagerUtil.moveItemToHotbar(13, var15 - 36);
+                        InvManagerUtil.clickSlot(13, var15 - 36);
                         return -1;
                     }
                 }

@@ -23,12 +23,12 @@ public class Peek extends Command {
     }
 
     @Override
-    public void run(String var1, ChatCommandArguments[] var2, ChatCommandExecutor var3) throws CommandException {
-        if (var2.length == 0) {
+    public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
+        if (args.length == 0) {
             ItemStack item = mc.player.inventory.getCurrentItem();
-            if (item.getItem() instanceof BlockItem && ((BlockItem)item.getItem()).getBlock() instanceof ContainerBlock) {
+            if (item.getItem() instanceof BlockItem && ((BlockItem) item.getItem()).getBlock() instanceof ContainerBlock) {
                 peekContainerItem(item);
-                var3.send("Now peeking shulker");
+                executor.send("Now peeking shulker");
             } else {
                 throw new CommandException("You must hold the shulker you want to peek into first");
             }

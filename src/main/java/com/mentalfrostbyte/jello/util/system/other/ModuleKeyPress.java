@@ -19,7 +19,7 @@ public class ModuleKeyPress {
     public static void press(int key) {
         if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
             if (key != -1) {
-                for (Bound bindType : Client.getInstance().moduleManager.getMacOSTouchBar().getBindedObjects(key)) {
+                for (Bound bindType : Client.getInstance().moduleManager.getKeyManager().getBindedObjects(key)) {
                     if (bindType != null && bindType.hasTarget()) {
                         switch (bindType.getKeybindTypes()) {
                             case MODULE -> bindType.getModuleTarget().toggle();

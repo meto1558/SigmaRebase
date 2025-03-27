@@ -8,7 +8,7 @@ import net.minecraft.util.Util;
 public class RenderTypeBuffers
 {
     private final RegionRenderCacheBuilder fixedBuilder = new RegionRenderCacheBuilder();
-    private final SortedMap<RenderType, BufferBuilder> fixedBuffers = Util.make(new Object2ObjectLinkedOpenHashMap<>(), (p_228485_1_) ->
+    public final SortedMap<RenderType, BufferBuilder> fixedBuffers = Util.make(new Object2ObjectLinkedOpenHashMap<>(), (p_228485_1_) ->
     {
         p_228485_1_.put(Atlases.getSolidBlockType(), this.fixedBuilder.getBuilder(RenderType.getSolid()));
         p_228485_1_.put(Atlases.getCutoutBlockType(), this.fixedBuilder.getBuilder(RenderType.getCutout()));
@@ -32,6 +32,7 @@ public class RenderTypeBuffers
             put(p_228485_1_, p_228488_1_);
         });
     });
+
     private final IRenderTypeBuffer.Impl bufferSource = IRenderTypeBuffer.getImpl(this.fixedBuffers, new BufferBuilder(256));
     private final IRenderTypeBuffer.Impl crumblingBufferSource = IRenderTypeBuffer.getImpl(new BufferBuilder(256));
     private final OutlineLayerBuffer outlineBufferSource = new OutlineLayerBuffer(this.bufferSource);

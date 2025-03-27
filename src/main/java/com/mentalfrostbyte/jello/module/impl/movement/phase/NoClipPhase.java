@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -17,7 +17,7 @@ public class NoClipPhase extends Module {
     @EventTarget
     public void EventPushBlock(EventPushBlock event) {
         if (this.isEnabled()) {
-            event.setCancelled(true);
+            event.cancelled = true;
         }
     }
 
@@ -25,7 +25,7 @@ public class NoClipPhase extends Module {
     public void TickEvent(EventBlockCollision event) {
         if (this.isEnabled() && mc.world != null) {
             if ((double) event.getBlockPos().getY() >= mc.player.getPosY()) {
-                event.setBoxelShape(VoxelShapes.empty());
+                event.setVoxelShape(VoxelShapes.empty());
             }
         }
     }

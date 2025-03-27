@@ -3,17 +3,18 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
-import com.mentalfrostbyte.jello.gui.base.Animation;
+import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import org.jetbrains.annotations.NotNull;
 import org.newdawn.slick.TrueTypeFont;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
@@ -66,13 +67,14 @@ public class ActiveMods extends Module {
         this.activeModules.clear();
 
         for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (module.getAdjustedCategoryBasedOnClientMode() != ModuleCategory.GUI) {
+            if (module.getCategory() != ModuleCategory.GUI) {
                 this.activeModules.add(module);
                 this.animations.put(module, new Animation(150, 150, Animation.Direction.BACKWARDS));
 
-                if (this.getBooleanValueFromSettingName("Animations")) {
-                    this.animations.get(module).changeDirection(!module.isEnabled() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+                if (!this.getBooleanValueFromSettingName("Animations")) {
+                    continue;
                 }
+                this.animations.get(module).changeDirection(!module.isEnabled() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
             }
         }
 
@@ -81,23 +83,12 @@ public class ActiveMods extends Module {
 
     @EventTarget
     public void onGUI(EventRenderGUI event) {
+        if (!this.isEnabled()) return;
         if (mc.player != null) {
             if (!event.isRendering) {
                 GlStateManager.translatef(0.0F, (float) (-this.totalHeight), 0.0F);
             } else {
-                Scoreboard scoreboard = mc.world.getScoreboard();
-                ScoreObjective scoreobjective = null;
-                ScorePlayerTeam playerTeam = scoreboard.getPlayersTeam(mc.player.getScoreboardName());
-
-                if (playerTeam != null) {
-                    int colorIndex = playerTeam.getColor().getColorIndex();
-                    if (colorIndex >= 0) {
-                        scoreobjective = scoreboard.getObjectiveInDisplaySlot(3 + colorIndex);
-                    }
-                }
-
-                ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
-                Collection<Score> scores = scoreboard.getSortedScores(scoreobjective1);
+                Collection<Score> scores = getScores();
                 int offset = 0;
 
                 for (Module module : this.activeModules) {
@@ -120,6 +111,22 @@ public class ActiveMods extends Module {
                 }
             }
         }
+    }
+
+    private static @NotNull Collection<Score> getScores() {
+        Scoreboard scoreboard = mc.world.getScoreboard();
+        ScoreObjective scoreobjective = null;
+        ScorePlayerTeam playerTeam = scoreboard.getPlayersTeam(mc.player.getScoreboardName());
+
+        if (playerTeam != null) {
+            int colorIndex = playerTeam.getColor().getColorIndex();
+            if (colorIndex >= 0) {
+                scoreobjective = scoreboard.getObjectiveInDisplaySlot(3 + colorIndex);
+            }
+        }
+
+        ScoreObjective scoreObjective = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
+		return scoreboard.getSortedScores(scoreObjective);
     }
 
     @EventTarget
@@ -165,31 +172,31 @@ public class ActiveMods extends Module {
                         animationScale = 0.86F + 0.14F * transparency;
                     }
 
-                    String suffix = module.getSuffix();
+                    String moduleName = module.getFormattedName();
                     GL11.glAlphaFunc(519, 0.0F);
                     GL11.glPushMatrix();
 
-                    int xPos = screenWidth - margin - this.font.getWidth(suffix) / 2;
+                    int xPos = screenWidth - margin - this.font.getWidth(moduleName) / 2;
                     int yPos = screenHeight + 12;
 
                     GL11.glTranslatef((float) xPos, (float) yPos, 0.0F);
                     GL11.glScalef(animationScale, animationScale, 1.0F);
                     GL11.glTranslatef((float) (-xPos), (float) (-yPos), 0.0F);
 
-                    float scaleFactor = (float) Math.sqrt(Math.min(1.2F, (float) this.font.getWidth(suffix) / 63.0F));
+                    float scaleFactor = (float) Math.sqrt(Math.min(1.2F, (float) this.font.getWidth(moduleName) / 63.0F));
                     RenderUtil.drawImage(
-                            (float) screenWidth - (float) this.font.getWidth(suffix) * 1.5F - (float) margin - 20.0F,
+                            (float) screenWidth - (float) this.font.getWidth(moduleName) * 1.5F - (float) margin - 20.0F,
                             (float) (screenHeight - 20),
-                            (float) this.font.getWidth(suffix) * 3.0F,
+                            (float) this.font.getWidth(moduleName) * 3.0F,
                             this.font.getHeight() + scale + 40,
                             Resources.shadowPNG,
                             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.36F * transparency * scaleFactor)
                     );
                     RenderUtil.drawString(
-                            this.font, (float) (screenWidth - margin - this.font.getWidth(suffix)), (float) screenHeight, suffix, transparency != 1.0F ? RenderUtil2.applyAlpha(-1, transparency * 0.95F) : color
+                            this.font, (float) (screenWidth - margin - this.font.getWidth(moduleName)), (float) screenHeight, moduleName, transparency != 1.0F ? RenderUtil2.applyAlpha(-1, transparency * 0.95F) : color
                     );
                     GL11.glPopMatrix();
-                    screenHeight = (int) ((float) screenHeight + (float) (this.font.getHeight() + scale) * QuadraticEasing.easeInOutQuad(transparency, 0.0F, 1.0F, 1.0F));
+                    screenHeight = (int) ((float) screenHeight + (this.font.getHeight() + scale) * QuadraticEasing.easeInOutQuad(transparency, 0.0F, 1.0F, 1.0F));
                 }
 
                 this.offsetY = screenHeight;

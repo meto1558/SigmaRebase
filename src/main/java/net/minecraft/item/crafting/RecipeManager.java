@@ -72,7 +72,7 @@ public class RecipeManager extends JsonReloadListener
         {
             return recipeEntry.getValue().build();
         }));
-        LOGGER.info("Loaded {} recipes", (int)map.size());
+        //LOGGER.info("Loaded {} recipes", (int)map.size());
     }
 
     public <C extends IInventory, T extends IRecipe<C>> Optional<T> getRecipe(IRecipeType<T> recipeTypeIn, C inventoryIn, World worldIn)

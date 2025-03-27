@@ -7,8 +7,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.step.*;
 
 
@@ -124,6 +124,6 @@ public class Step extends ModuleWithModuleSettings {
     public enum StepEnum {
         NORMAL_BLOCK,
         STAIRS,
-        HALF_BLOCK;
-    }
+        HALF_BLOCK
+	}
 }

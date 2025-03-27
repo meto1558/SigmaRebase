@@ -1,19 +1,16 @@
 package net.minecraft.util;
 
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.bridge.game.GameVersion;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MinecraftVersion implements GameVersion
-{
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.UUID;
+
+public class MinecraftVersion implements GameVersion {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final GameVersion GAME_VERSION = new MinecraftVersion();
     private final String id;
@@ -25,99 +22,64 @@ public class MinecraftVersion implements GameVersion
     private final Date buildTime;
     private final String releaseTarget;
 
-    private MinecraftVersion()
-    {
+    private MinecraftVersion() {
         this.id = UUID.randomUUID().toString().replaceAll("-", "");
         this.name = "1.16.4";
         this.stable = true;
         this.worldVersion = 2584;
-        this.protocolVersion = SharedConstants.func_244709_b();
+        this.protocolVersion = SharedConstants.getNativeVersion();
         this.packVersion = 6;
         this.buildTime = new Date();
         this.releaseTarget = "1.16.4";
     }
 
-    private MinecraftVersion(JsonObject json)
-    {
-        this.id = JSONUtils.getString(json, "id");
-        this.name = JSONUtils.getString(json, "name");
-        this.releaseTarget = JSONUtils.getString(json, "release_target");
-        this.stable = JSONUtils.getBoolean(json, "stable");
-        this.worldVersion = JSONUtils.getInt(json, "world_version");
-        this.protocolVersion = JSONUtils.getInt(json, "protocol_version");
-        this.packVersion = JSONUtils.getInt(json, "pack_version");
-        this.buildTime = Date.from(ZonedDateTime.parse(JSONUtils.getString(json, "build_time")).toInstant());
-    }
-
     /**
      * Creates a new instance containing game version data from version.json (or fallback data if necessary).
-     *  
+     * <p>
      * For getting data, use {@link SharedConstants#getVersion} instead, as that is cached.
      */
-    public static GameVersion load()
-    {
-        try (InputStream inputstream = MinecraftVersion.class.getResourceAsStream("/version.json"))
-        {
-            if (inputstream == null)
-            {
+    public static GameVersion load() {
+        try (InputStream inputstream = MinecraftVersion.class.getResourceAsStream("/version.json")) {
+            if (inputstream == null) {
                 LOGGER.warn("Missing version information!");
                 return GAME_VERSION;
+            } else {
+                return new MinecraftVersion();
             }
-            else
-            {
-                MinecraftVersion minecraftversion;
-
-                try (InputStreamReader inputstreamreader = new InputStreamReader(inputstream))
-                {
-                    minecraftversion = new MinecraftVersion(JSONUtils.fromJson(inputstreamreader));
-                }
-
-                return minecraftversion;
-            }
-        }
-        catch (JsonParseException | IOException ioexception)
-        {
+        } catch (JsonParseException | IOException ioexception) {
             throw new IllegalStateException("Game version information is corrupt", ioexception);
         }
     }
 
-    public String getId()
-    {
+    public String getId() {
         return this.id;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    public String getReleaseTarget()
-    {
+    public String getReleaseTarget() {
         return this.releaseTarget;
     }
 
-    public int getWorldVersion()
-    {
+    public int getWorldVersion() {
         return this.worldVersion;
     }
 
-    public int getProtocolVersion()
-    {
+    public int getProtocolVersion() {
         return this.protocolVersion;
     }
 
-    public int getPackVersion()
-    {
+    public int getPackVersion() {
         return this.packVersion;
     }
 
-    public Date getBuildTime()
-    {
+    public Date getBuildTime() {
         return this.buildTime;
     }
 
-    public boolean isStable()
-    {
+    public boolean isStable() {
         return this.stable;
     }
 }

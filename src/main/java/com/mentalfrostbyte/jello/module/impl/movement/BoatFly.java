@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
+import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -22,7 +22,7 @@ public class BoatFly extends PremiumModule {
     public void method16416(EventPlayerTick var1) {
         if (this.isEnabled()) {
             if (mc.player.getRidingEntity() != null) {
-                float var4 = MovementUtil.method37086();
+                float var4 = MovementUtil.getYaw();
                 float var5 = this.getNumberValueBySettingName("Speed");
                 double var6 = Math.cos(Math.toRadians(var4)) * (double) var5;
                 double var8 = Math.sin(Math.toRadians(var4)) * (double) var5;
@@ -44,7 +44,7 @@ public class BoatFly extends PremiumModule {
             if (mc.player.getRidingEntity() != null) {
                 if (!mc.player.getRidingEntity().onGround) {
                     if (var1.getKey() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                         this.field23643 = true;
                     }
                 }
@@ -62,7 +62,7 @@ public class BoatFly extends PremiumModule {
             if (mc.player.getRidingEntity() != null) {
                 if (!mc.player.getRidingEntity().onGround) {
                     if (var1.method13980() == mc.gameSettings.keyBindSneak.keyCode.getKeyCode()) {
-                        var1.setCancelled(true);
+                        var1.cancelled = true;
                         this.field23643 = false;
                     }
                 }

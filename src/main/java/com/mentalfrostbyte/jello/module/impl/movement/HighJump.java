@@ -1,9 +1,10 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
-import com.mentalfrostbyte.jello.module.ModuleCategory;
-import com.mentalfrostbyte.jello.module.ModuleWithModuleSettings;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.highjump.HypixelHighJump;
 import com.mentalfrostbyte.jello.module.impl.movement.highjump.MineplexHighJump;
+import com.mentalfrostbyte.jello.module.impl.movement.highjump.MinibloxHighJump;
 import com.mentalfrostbyte.jello.module.impl.movement.highjump.VanillaHighJump;
 
 public class HighJump extends ModuleWithModuleSettings {
@@ -13,6 +14,8 @@ public class HighJump extends ModuleWithModuleSettings {
                 "Makes you jump higher",
                 new VanillaHighJump(),
                 new MineplexHighJump(),
-                new HypixelHighJump());
+                new MinibloxHighJump(),
+                new HypixelHighJump()
+        );
     }
 }

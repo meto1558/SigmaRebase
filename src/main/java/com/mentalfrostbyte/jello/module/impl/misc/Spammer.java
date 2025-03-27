@@ -2,11 +2,11 @@ package com.mentalfrostbyte.jello.module.impl.misc;
 
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
 import com.mentalfrostbyte.jello.module.settings.impl.InputSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class Spammer extends Module {
@@ -25,7 +25,7 @@ public class Spammer extends Module {
             if ((float) this.ticks > this.getNumberValueBySettingName("Messages delay") * 20.0F) {
                 this.ticks = 0;
                 String customMessage = this.getStringSettingValueByName("Message").replaceAll("%r", Integer.toString(Math.round(10.0F + (float) Math.random() * 89.0F)));
-                MovementUtil2.sendChatMessage(customMessage);
+                MinecraftUtil.sendChatMessage(customMessage);
             }
         }
     }

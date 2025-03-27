@@ -5,10 +5,11 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
-import com.mentalfrostbyte.jello.module.ModuleCategory;
+import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.MovementUtil2;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -36,9 +37,9 @@ public class Tracers extends Module {
             GL11.glDepthMask(false);
             GL11.glShadeModel(7425);
 
-            for (Entity entity : MovementUtil2.method17680()) {
+            for (Entity entity : CombatUtil.getAllPlayersInWorld()) {
                 if (entity != mc.player && entity.isAlive() && entity.boundingBox.getAverageEdgeLength() > 0.8
-                        && entity.ticksExisted > 30 && !Client.getInstance().combatManager.isTargetABot(entity)) {
+                        && entity.ticksExisted > 30 && !Client.getInstance().botManager.isBot(entity)) {
                     this.method16522(entity);
                 }
             }
@@ -60,9 +61,9 @@ public class Tracers extends Module {
                 .rotateYaw(-((float) Math.toRadians(Minecraft.getInstance().player.rotationYaw)));
         int color = this.parseSettingValueToIntBySettingName("Color");
         GL11.glBegin(1);
-        GL11.glColor4fv(MovementUtil2.method17709(MovementUtil2.applyAlpha(color, 0.45F)));
+        GL11.glColor4fv(RenderUtil.method17709(RenderUtil.applyAlpha(color, 0.45F)));
         GL11.glVertex3d(offset.x, offset.y, offset.z);
-        GL11.glColor4fv(MovementUtil2.method17709(MovementUtil2.applyAlpha(color, 0.0F)));
+        GL11.glColor4fv(RenderUtil.method17709(RenderUtil.applyAlpha(color, 0.0F)));
         GL11.glVertex3d(x, y, z);
         GL11.glEnd();
     }

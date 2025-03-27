@@ -1,23 +1,27 @@
 package com.mentalfrostbyte.jello.managers;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.managers.data.Manager;
+import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeContentType;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeUtil;
-import com.mentalfrostbyte.jello.util.client.ClientColors;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.client.music.JavaFFT;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
+import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.client.youtube.YoutubeVideoData;
+import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.game.render.StencilMode;
-import com.mentalfrostbyte.jello.util.system.math.MathUtils;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
-import com.mentalfrostbyte.jello.util.system.network.NetworkUtil;
 import com.mentalfrostbyte.jello.util.system.sound.AudioRepeatMode;
 import com.mentalfrostbyte.jello.util.system.sound.BasicAudioProcessor;
 import com.mentalfrostbyte.jello.util.system.sound.MusicStream;
@@ -26,25 +30,23 @@ import com.sapher.youtubedl.YoutubeDLException;
 import com.sapher.youtubedl.YoutubeDLRequest;
 import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinReg;
-import com.tagtraum.jipes.math.FFTFactory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.Util;
 import net.sourceforge.jaad.aac.Decoder;
 import net.sourceforge.jaad.aac.SampleBuffer;
 import net.sourceforge.jaad.mp4.MP4Container;
-import net.sourceforge.jaad.mp4.api.AudioTrack;
-import net.sourceforge.jaad.mp4.api.Frame;
-import net.sourceforge.jaad.mp4.api.Movie;
-import net.sourceforge.jaad.mp4.api.Track;
-import org.jetbrains.annotations.NotNull;
-import org.lwjgl.opengl.GL11;
+import net.sourceforge.jaad.mp4.api.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.newdawn.slick.opengl.Texture;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.Util;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.util.BufferedImageUtil;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
-import totalcross.json.JSONException;
-import totalcross.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
@@ -57,41 +59,43 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicManager {
-    private static final Minecraft mc = Minecraft.getInstance();
+public class MusicManager extends Manager implements MinecraftUtil {
     public BufferedImage scaledThumbnail;
     public String songTitle = "";
-    public List<double[]> visualizerData = new ArrayList<>();
-    public ArrayList<Double> amplitudes = new ArrayList<>();
+    public List<double[]> visualizerData = new ArrayList<double[]>();
+    public ArrayList<Double> amplitudes = new ArrayList<Double>();
     public SourceDataLine sourceDataLine;
     private boolean playing = false;
-    private MusicVideoManager videoManager;
+    private Thumbnails videoManager;
     private int volume = 50;
     private long duration = -1L;
     private Texture notificationImage;
     private BufferedImage thumbnailImage;
     private Texture songThumbnail;
-    private boolean isThumbnailProcessing = false;
+    private boolean processing = false;
     private transient volatile Thread audioThread = null;
     private int currentVideoIndex2;
     private long totalDuration = 0L;
     private int currentVideoIndex;
     private YoutubeVideoData currentVideo;
     private boolean spectrum = true;
-    private AudioRepeatMode repeatMode = AudioRepeatMode.REPEAT;
+    private AudioRepeatMode repeat = AudioRepeatMode.REPEAT;
     private boolean finished = false;
     private double field32168;
     private boolean field32169 = false;
     private double field32170 = 0.0;
 
+    @Override
     public void init() {
-        EventBus.register(this);
+        super.init();
+
         try {
-            this.loadMusicSettings();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+            this.loadSettings();
+        } catch (JsonParseException e) {
+            Client.logger.error(e);
         }
-        if (!this.doesExecutableExist()) {
+
+        if (!this.doesYTDLPExist()) {
             this.setupDownloadThread();
         }
 
@@ -99,51 +103,51 @@ public class MusicManager {
     }
 
     public void saveMusicSettings() {
-        JSONObject object = new JSONObject();
-        object.put("volume", this.volume);
-        object.put("spectrum", this.spectrum);
-        object.put("repeat", this.repeatMode.type);
-        Client.getInstance().getConfig().put("music", object);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("volume", this.volume);
+        jsonObject.addProperty("spectrum", this.spectrum);
+        jsonObject.addProperty("repeat", this.repeat.type);
+        Client.getInstance().config.add("music", jsonObject);
     }
 
-    private void loadMusicSettings() throws JSONException {
-        if (Client.getInstance().getConfig().has("music")) {
-            JSONObject object = Client.getInstance().getConfig().getJSONObject("music");
-            if (object != null) {
-                if (object.has("volume")) {
-                    this.volume = Math.max(0, Math.min(100, object.getInt("volume")));
+    private void loadSettings() throws JsonParseException {
+        if (Client.getInstance().config.has("music")) {
+            JsonObject jsonObject = Client.getInstance().config.getAsJsonObject("music");
+            if (jsonObject != null) {
+                if (jsonObject.has("volume")) {
+                    this.volume = Math.max(0, Math.min(100, jsonObject.get("volume").getAsInt()));
                 }
 
-                if (object.has("spectrum")) {
-                    this.spectrum = object.getBoolean("spectrum");
+                if (jsonObject.has("spectrum")) {
+                    this.spectrum = jsonObject.get("spectrum").getAsBoolean();
                 }
 
-                if (object.has("repeat")) {
-                    this.repeatMode = AudioRepeatMode.parseRepeat(object.getInt("repeat"));
+                if (jsonObject.has("repeat")) {
+                    this.repeat = AudioRepeatMode.parseRepeat(jsonObject.get("repeat").getAsInt());
                 }
             }
         }
     }
 
     @EventTarget
-    public void onRender(EventRender2DOffset event) {
+    public void onRender2D(EventRender2DOffset event) {
         if (Client.getInstance().clientMode == ClientMode.JELLO) {
             if (this.playing && !this.visualizerData.isEmpty()) {
-                double[] visualizers = this.visualizerData.get(0);
+                double[] var4 = this.visualizerData.get(0);
                 if (this.amplitudes.isEmpty()) {
-                    for (double amplitude : visualizers) {
+                    for (double v : var4) {
                         if (this.amplitudes.size() < 1024) {
-                            this.amplitudes.add(amplitude);
+                            this.amplitudes.add(v);
                         }
                     }
                 }
 
-                float fpsRatio = 60.0F / (float) Minecraft.getFps();
+                float fps = 60.0F / (float) Minecraft.getFps();
 
-                for (int i = 0; i < visualizers.length; i++) {
-                    double var7 = this.amplitudes.get(i) - visualizers[i];
+                for (int i = 0; i < var4.length; i++) {
+                    double var7 = this.amplitudes.get(i) - var4[i];
                     boolean var9 = !(this.amplitudes.get(i) < Double.MAX_VALUE);
-                    this.amplitudes.set(i, Math.min(2.256E7, Math.max(0.0, this.amplitudes.get(i) - var7 * (double) Math.min(0.335F * fpsRatio, 1.0F))));
+                    this.amplitudes.set(i, Math.min(2.256E7, Math.max(0.0, this.amplitudes.get(i) - var7 * (double) Math.min(0.335F * fps, 1.0F))));
                     if (var9) {
                         this.amplitudes.set(i, 0.0);
                     }
@@ -153,8 +157,20 @@ public class MusicManager {
     }
 
     @EventTarget
-    public void onRender(EventRender2DCustom render) {
+    public void onRenderChat(EventRenderChat eventRenderChat) {
+        if (isPlayingSong())
+            eventRenderChat.addOffset(-45);
+    }
+
+    @EventTarget
+    public void onRender2D(EventRender2DCustom event) {
         if (this.playing && !this.visualizerData.isEmpty() && this.spectrum) {
+            this.renderSpectrum();
+        }
+    }
+
+    private void renderSpectrum() {
+        if (!this.visualizerData.isEmpty()) {
             if (this.notificationImage != null) {
                 if (!this.amplitudes.isEmpty()) {
                     float maxWidth = 114.0F;
@@ -181,7 +197,7 @@ public class MusicManager {
                         RenderUtil.drawRoundedRect2((float) i * width, (float) mc.getMainWindow().getHeight() - height, width, height, ClientColors.LIGHT_GREYISH_BLUE.getColor());
                     }
 
-                    RenderUtil.configureStencilTest(StencilMode.NOTEQUAL);
+                    RenderUtil.configureStencilTest();
                     if (this.notificationImage != null && this.songThumbnail != null) {
                         RenderUtil.drawImage(0.0F, 0.0F, (float) mc.getMainWindow().getWidth(), (float) mc.getMainWindow().getHeight(), this.songThumbnail, 0.4F);
                     }
@@ -253,8 +269,6 @@ public class MusicManager {
         }
     }
 
-    private int ticks = 0;
-
     @EventTarget
     public void onTick(EventPlayerTick event) {
         if (!this.playing) {
@@ -262,38 +276,8 @@ public class MusicManager {
             this.amplitudes.clear();
         }
 
-        if (this.playing) {
-            ticks += 1;
-        }
-
-        if (ticks >= 1800 && getDuration() == 0L) {
-            isThumbnailProcessing = false;
-            playing = false;
-
-            currentVideoIndex = 0;
-
-            thumbnailImage = null;
-            scaledThumbnail = null;
-            currentVideo = null;
-
-            songThumbnail.release();
-            notificationImage.release();
-
-            visualizerData.clear();
-            amplitudes.clear();
-
-            audioThread.interrupt();
-            sourceDataLine.close();
-
-            ticks = 0;
-            duration = 0L;
-
-            Client.getInstance().notificationManager.send(
-                    new Notification("Failed to Play Song", "You bricked your music player :("));
-        }
-
         try {
-            if (this.isThumbnailProcessing && this.thumbnailImage != null && this.scaledThumbnail != null && this.currentVideo == null && !mc.isGamePaused()) {
+            if (this.processing && this.thumbnailImage != null && this.scaledThumbnail != null && this.currentVideo == null && !mc.isGamePaused()) {
                 if (this.songThumbnail != null) {
                     this.songThumbnail.release();
                 }
@@ -304,14 +288,15 @@ public class MusicManager {
 
                 this.songThumbnail = BufferedImageUtil.getTexture("picture", this.thumbnailImage);
                 this.notificationImage = BufferedImageUtil.getTexture("picture", this.scaledThumbnail);
-                Client.getInstance().notificationManager.send(new Notification("Now Playing", this.songTitle, 7000, this.notificationImage));
-                this.isThumbnailProcessing = false;
+                Client.getInstance().notificationManager
+                        .send(new Notification("Now Playing", this.songTitle, 7000, this.notificationImage));
+                this.processing = false;
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException exc) {
+            throw new RuntimeException(exc);
         }
 
-        if (!this.isThumbnailProcessing) {
+        if (!this.processing) {
             this.startProcessingVideoThumbnail();
         }
     }
@@ -337,50 +322,66 @@ public class MusicManager {
                             this.currentVideoIndex = 0;
                         }
 
-                        for (int i = this.currentVideoIndex; i < this.videoManager.videoList.size(); i++) {
-                            URL videoURL = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(i).videoId);
-                            Client.getInstance().getLogger().setThreadName(videoURL.toString());
-                            this.currentVideoIndex2 = i;
-                            this.currentVideo = this.videoManager.videoList.get(i);
+                        for (int index = this.currentVideoIndex; index < this.videoManager.videoList.size(); index++) {
+                            URL songUrl = YoutubeUtil.getVideoStreamURL(this.videoManager.videoList.get(index).videoId);
+                            this.currentVideoIndex2 = index;
+                            this.currentVideo = this.videoManager.videoList.get(index);
                             this.visualizerData.clear();
 
                             while (!this.playing) {
+                                try {
+                                    Thread.sleep(300L);
+                                } catch (final InterruptedException ignored) {
+                                }
+
+                                double[] var6 = new double[0];
                                 this.visualizerData.clear();
                                 if (Thread.interrupted()) {
-                                    this.sourceDataLine.close();
+                                    if (this.sourceDataLine != null) {
+                                        this.sourceDataLine.close();
+                                    }
+
                                     return;
                                 }
                             }
 
                             try {
-                                System.out.println(videoURL);
-                                URL audioStreamURL = this.resolveAudioStream(videoURL);
-                                Client.getInstance().getLogger().setThreadName(audioStreamURL == null ? "No stream" : audioStreamURL.toString());
-                                if (audioStreamURL != null) {
-                                    MusicStream stream = getMusicStream(audioStreamURL);
-                                    MP4Container mp4Container = new MP4Container(stream);
-                                    Movie movie = mp4Container.getMovie();
-                                    List<Track> tracks = movie.getTracks();
-                                    if (tracks.isEmpty()) {
-                                        Client.getInstance().getLogger().setThreadName("No content");
-                                    }
+                                URL url = this.resolveAudioStream(songUrl);
+                                if (url != null) {
+                                    URLConnection connection = url.openConnection();
+                                    connection.setConnectTimeout(14000);
+                                    connection.setReadTimeout(14000);
+                                    connection.setUseCaches(true);
+                                    connection.setDoOutput(true);
+                                    connection.setRequestProperty("Connection", "Keep-Alive");
 
-                                    AudioTrack audioTrack = (AudioTrack) movie.getTracks().get(1);
-                                    AudioFormat audioFormat = new AudioFormat((float) audioTrack.getSampleRate(), audioTrack.getSampleSize(), audioTrack.getChannelCount(), true, true);
-                                    this.sourceDataLine = AudioSystem.getSourceDataLine(audioFormat);
+                                    InputStream iS = connection.getInputStream();
+                                    MusicStream mS = new MusicStream(iS, new BasicAudioProcessor());
+
+                                    MP4Container container = new MP4Container(mS);
+                                    Movie movie = container.getMovie();
+                                    List<Track> tracks = movie.getTracks();
+
+                                    AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
+                                    AudioFormat var14 = new AudioFormat((float) var13.getSampleRate(),
+                                            var13.getSampleSize(), var13.getChannelCount(), true, true);
+                                    this.sourceDataLine = AudioSystem.getSourceDataLine(var14);
                                     this.sourceDataLine.open();
                                     this.sourceDataLine.start();
                                     this.duration = (long) movie.getDuration();
+
                                     if (this.duration > 1300L) {
-                                        stream.close();
-                                        Client.getInstance().notificationManager.send(new Notification("Now Playing", "Music is too long."));
+                                        mS.close();
+                                        Client.getInstance().notificationManager
+                                                .send(new Notification("Now Playing", "Music is too long."));
                                     }
 
-                                    Decoder decoder = new Decoder(audioTrack.getDecoderSpecificInfo());
-                                    SampleBuffer sampleBuffer = new SampleBuffer();
+                                    Decoder var15 = new Decoder(var13.getDecoderSpecificInfo());
+                                    SampleBuffer var16 = new SampleBuffer();
 
-                                    while (audioTrack.hasMoreFrames()) {
+                                    while (var13.hasMoreFrames()) {
                                         while (!this.playing) {
+                                            Thread.sleep(300L);
                                             this.visualizerData.clear();
                                             if (Thread.interrupted()) {
                                                 this.sourceDataLine.close();
@@ -388,35 +389,40 @@ public class MusicManager {
                                             }
                                         }
 
-                                        Frame nextFrame = audioTrack.readNextFrame();
-                                        decoder.decodeFrame(nextFrame.getData(), sampleBuffer);
-                                        pcmBufferData = sampleBuffer.getData();
-                                        this.sourceDataLine.write((byte[]) pcmBufferData, 0, ((byte[]) pcmBufferData).length);
-                                        float[] var29 = MathUtils.convertToPCMFloatArray(sampleBuffer.getData(), audioFormat);
-                                        FFTFactory.JavaFFT var19 = new FFTFactory.JavaFFT(var29.length);
+                                        Frame var18 = var13.readNextFrame();
+                                        var15.decodeFrame(var18.getData(), var16);
+                                        pcmBufferData = var16.getData();
+
+                                        this.sourceDataLine.write(pcmBufferData, 0, pcmBufferData.length);
+                                        float[] var29 = MathHelper.convertToPCMFloatArray(var16.getData(), var14);
+
+                                        JavaFFT var19 = new JavaFFT(var29.length);
+
                                         float[][] var20 = var19.transform(var29);
                                         float[] var21 = var20[0];
                                         float[] var22 = var20[1];
 
-                                        this.visualizerData.add(MathUtils.calculateAmplitudes(var21, var22));
+                                        this.visualizerData.add(MathHelper.calculateAmplitudes(var21, var22));
                                         if (this.visualizerData.size() > 18) {
                                             this.visualizerData.remove(0);
                                         }
 
                                         this.adjustAudioVolume(this.sourceDataLine, this.volume);
                                         if (!Thread.interrupted()) {
-                                            this.totalDuration = Math.round(audioTrack.getNextTimeStamp());
-                                            this.field32170 = audioTrack.method23326();
+                                            this.totalDuration = Math.round(var13.getNextTimeStamp());
+                                            this.field32170 = var13.method23326();
                                             if (this.field32169) {
-                                                audioTrack.seek(this.field32168);
+                                                var13.seek(this.field32168);
                                                 this.totalDuration = (long) this.field32168;
                                                 this.field32169 = false;
                                             }
                                         }
 
-                                        if (!audioTrack.hasMoreFrames()
-                                                && (this.repeatMode == AudioRepeatMode.LOOP_CURRENT || this.repeatMode == AudioRepeatMode.REPEAT && this.videoManager.videoList.size() == 1)) {
-                                            audioTrack.seek(0.0);
+                                        if (!var13.hasMoreFrames()
+                                                && (this.repeat == AudioRepeatMode.LOOP_CURRENT
+                                                || this.repeat == AudioRepeatMode.REPEAT
+                                                && this.videoManager.videoList.size() == 1)) {
+                                            var13.seek(0.0);
                                             this.totalDuration = 0L;
                                         }
 
@@ -427,77 +433,67 @@ public class MusicManager {
                                     }
 
                                     this.sourceDataLine.close();
-                                    stream.close();
+                                    mS.close();
+                                } else {
+                                    Thread.sleep(1000L);
                                 }
-                            } catch (IOException exception) {
-                                if (exception.getMessage() != null && exception.getMessage().contains("403")) {
+                            } catch (IOException exc) {
+                                if (exc.getMessage() != null && exc.getMessage().contains("403")) {
                                     System.out.println("installing");
-                                    NetworkUtil.download(finished);
+                                    this.download();
                                 }
-                            } catch (LineUnavailableException lineException) {
-                                lineException.printStackTrace();
+                            } catch (LineUnavailableException | InterruptedException exc) {
+                                throw new RuntimeException(exc);
                             }
 
-                            if (this.repeatMode == AudioRepeatMode.LOOP_CURRENT) {
-                                i--;
-                            } else if (this.repeatMode == AudioRepeatMode.REPEAT && i == this.videoManager.videoList.size() - 1) {
-                                i = -1;
-                            } else if (this.repeatMode == AudioRepeatMode.NO_REPEAT) {
+                            if (this.repeat == AudioRepeatMode.LOOP_CURRENT) {
+                                index--;
+                            } else if (this.repeat == AudioRepeatMode.REPEAT && index == this.videoManager.videoList.size() - 1) {
+                                index = -1;
+                            } else if (this.repeat == AudioRepeatMode.NO_REPEAT) {
                                 return;
                             }
 
-                            if (i >= this.videoManager.videoList.size()) {
-                                i = 0;
+                            if (index >= this.videoManager.videoList.size()) {
+                                index = 0;
                             }
                         }
-                    }
-            );
+                    });
             this.audioThread.start();
         }
     }
 
-    private @NotNull MusicStream getMusicStream(URL audioStreamURL) throws IOException {
-        URLConnection connection = audioStreamURL.openConnection();
-        connection.setConnectTimeout(14000);
-        connection.setReadTimeout(14000);
-        connection.setUseCaches(true);
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Connection", "Keep-Alive");
-        InputStream inputStream = connection.getInputStream();
-        MusicStream stream = new MusicStream(inputStream, new BasicAudioProcessor());
-        return stream;
-    }
-
-    public void setRepeat(AudioRepeatMode repeat) {
-        this.repeatMode = repeat;
+    public void setRepeat(AudioRepeatMode repeatMode) {
+        this.repeat = repeatMode;
         this.saveMusicSettings();
     }
 
-    public AudioRepeatMode getRepeatMode() {
-        return this.repeatMode;
+    public AudioRepeatMode getRepeat() {
+        return this.repeat;
     }
 
-    public void processVideoThumbnail(YoutubeVideoData video) {
+    public void processVideoThumbnail(YoutubeVideoData videoData) {
         try {
-            this.isThumbnailProcessing = true;
-            BufferedImage image = ImageIO.read(new URL(video.fullUrl));
-            this.thumbnailImage = ImageUtil.applyBlur(image, 15);
+            this.processing = true;
+            BufferedImage buffImage = ImageIO.read(new URL(videoData.fullUrl));
+            this.thumbnailImage = ImageUtil.applyBlur(buffImage, 15);
             this.thumbnailImage = this.thumbnailImage
-                    .getSubimage(0, (int) ((float) this.thumbnailImage.getHeight() * 0.75F), this.thumbnailImage.getWidth(), (int) ((float) this.thumbnailImage.getHeight() * 0.2F));
-            this.songTitle = video.title;
-            if (image.getHeight() != image.getWidth()) {
+                    .getSubimage(0, (int) ((float) this.thumbnailImage.getHeight() * 0.75F), this.thumbnailImage.getWidth(),
+                            (int) ((float) this.thumbnailImage.getHeight() * 0.2F));
+            this.songTitle = videoData.title;
+            if (buffImage.getHeight() != buffImage.getWidth()) {
                 if (this.songTitle.contains("[NCS Release]")) {
-                    this.scaledThumbnail = image.getSubimage(1, 3, 170, 170);
+                    this.scaledThumbnail = buffImage.getSubimage(1, 3, 170, 170);
                 } else {
-                    this.scaledThumbnail = image.getSubimage(70, 0, 180, 180);
+                    this.scaledThumbnail = buffImage.getSubimage(70, 0, 180, 180);
                 }
             } else {
-                this.scaledThumbnail = image;
+                this.scaledThumbnail = buffImage;
             }
 
             this.currentVideo = null;
-        } catch (IOException | NumberFormatException exception) {
-            exception.printStackTrace();
+        } catch (IOException | NumberFormatException var5) {
+            throw new RuntimeException(var5);
         }
     }
 
@@ -509,13 +505,13 @@ public class MusicManager {
         this.playing = playing;
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
+    public void setVolume(int var1) {
+        this.volume = var1;
         this.saveMusicSettings();
     }
 
-    public void setSpectrum(boolean spectrum) {
-        this.spectrum = spectrum;
+    public void setSpectrum(boolean var1) {
+        this.spectrum = var1;
         this.saveMusicSettings();
     }
 
@@ -545,29 +541,19 @@ public class MusicManager {
         }
     }
 
-    public void playSong(MusicVideoManager manager, YoutubeVideoData video) {
-        if (playing && totalDuration == 0L) {
-            return;
+    public void playSong(Thumbnails vidManager, YoutubeVideoData videoData) {
+        if (vidManager == null) {
+            vidManager = new Thumbnails("temp", "temp", YoutubeContentType.PLAYLIST);
+            vidManager.videoList.add(videoData);
         }
 
-        if (video.videoId.equals("DArzZ3RvejU")) {
-            Client.getInstance().notificationManager.send(
-                    new Notification("Failed to Play Song", "Prevented brick :)"));
-            return;
-        }
-
-        if (manager == null) {
-            manager = new MusicVideoManager("temp", "temp", YoutubeContentType.PLAYLIST);
-            manager.videoList.add(video);
-        }
-
-        this.videoManager = manager;
+        this.videoManager = vidManager;
         this.playing = true;
         this.totalDuration = 0L;
         this.field32170 = 0.0;
 
-        for (int i = 0; i < manager.videoList.size(); i++) {
-            if (manager.videoList.get(i) == video) {
+        for (int i = 0; i < vidManager.videoList.size(); i++) {
+            if (vidManager.videoList.get(i) == videoData) {
                 this.currentVideoIndex = i;
             }
         }
@@ -587,38 +573,35 @@ public class MusicManager {
         return this.field32170;
     }
 
-    public URL resolveAudioStream(URL songUrl) {
-        YoutubeDLRequest request = new YoutubeDLRequest(songUrl.toString(), System.getProperty("user.home"));
+    public URL resolveAudioStream(URL songURL) {
+        String songURLString = songURL.toString();
+        String userHomeDir = System.getProperty("user.home");
+        YoutubeDLRequest request = new YoutubeDLRequest(songURLString, userHomeDir);
         request.setOption("get-url");
-        request.setOption("no-check-certificate");
-        request.setOption("rm-cache-dir");
-        request.setOption("retries", "10");
-        request.setOption("format", "18");
+        request.setOption("no-check-certificate", " ");
+        request.setOption("rm-cache-dir", " ");
+        request.setOption("retries", 10);
+        request.setOption("format", 18);
 
         try {
             YoutubeDL.setExecutablePath(this.prepareYtDlpExecutable());
             YoutubeDLResponse response = YoutubeDL.execute(request);
-            String out = response.getOut();
-            return new URL(out);
-        } catch (YoutubeDLException var9) {
-            Client.getInstance().notificationManager.send(
-                    new Notification("Failed to Play Song", "Check the logs for more details."));
-
-            this.prepareYtDlpExecutable();
-
-            return null;
+            String responseString = response.getOut();
+            return new URL(responseString);
+        } catch (YoutubeDLException exception) {
+            if (exception.getMessage() != null
+                    && exception.getMessage().contains("ERROR: This video contains content from")
+                    && exception.getMessage().contains("who has blocked it in your country on copyright grounds")) {
+                Client.getInstance().notificationManager.send(new Notification("Now Playing", "Not available in your region."));
+            } else {
+                exception.printStackTrace();
+                this.download();
+            }
         } catch (MalformedURLException exception) {
-
-            MinecraftUtil.addChatMessage("URL Error: " + exception);
             exception.printStackTrace();
-
-            Client.getInstance().notificationManager.send(
-                    new Notification("Failed to Play Song", "Invalid URL encountered."));
-
-            this.prepareYtDlpExecutable();
-
-            return null;
         }
+
+        return null;
     }
 
     public String getSongTitle() {
@@ -640,7 +623,7 @@ public class MusicManager {
     private void adjustAudioVolume(SourceDataLine var1, int var2) {
         try {
             FloatControl var5 = (FloatControl) var1.getControl(Type.MASTER_GAIN);
-            BooleanControl var6 = (BooleanControl) var1.getControl(BooleanControl.Type.MUTE);
+            BooleanControl var6 = (BooleanControl) var1.getControl(javax.sound.sampled.BooleanControl.Type.MUTE);
             if (var2 == 0) {
                 var6.setValue(true);
             } else {
@@ -651,131 +634,169 @@ public class MusicManager {
         }
     }
 
-    public void method24329(double var1) {
-        this.field32168 = var1;
+    public void setDuration(double duration) {
+        this.field32168 = duration;
         this.totalDuration = (long) this.field32168;
         this.field32169 = true;
     }
 
-    public boolean doesExecutableExist() {
-        File file = new File(Client.getInstance().file + "/music/yt-dlp");
+    public boolean doesYTDLPExist() {
+        File targetFile = new File(Client.getInstance().file + "/music/yt-dlp");
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            file = new File(Client.getInstance().file + "/music/yt-dlp.exe");
-        } else if (Util.getOSType() == Util.OS.LINUX) {
-            file = new File(Client.getInstance().file + "/music/yt-dlp_linux");
-        } else if (Util.getOSType() == Util.OS.OSX) {
-            file = new File(Client.getInstance().file + "/music/yt-dlp_macos");
+            targetFile = new File(Client.getInstance().file + "/music/yt-dlp.exe");
         }
 
-        return file.exists();
+        return targetFile.exists();
     }
 
     public void setupDownloadThread() {
-        Client.getInstance().getLogger().setThreadName("Updating dependencies threaded");
-        new Thread(() -> {
-            boolean result = NetworkUtil.download(false);
-            if (result) {
-                this.finished = true;
+        new Thread(this::download).start();
+    }
+
+    public void download() {
+        if (!this.finished) {
+            File musicDir = new File(Client.getInstance().file + "/music/");
+            musicDir.mkdirs();
+            if (Util.getOSType() == Util.OS.WINDOWS) {
+                try {
+                    File targetFile = new File(Client.getInstance().file + "/music/yt-dlp.exe");
+                    CloseableHttpClient client = HttpClients.createDefault();
+                    CloseableHttpResponse response = client.execute(new HttpGet("https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"));
+                    Throwable throwable = null;
+
+                    try {
+                        HttpEntity entity = response.getEntity();
+                        if (entity != null) {
+                            try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+                                entity.writeTo(outputStream);
+                            }
+                        }
+                    } catch (Throwable t) {
+                        throwable = t;
+                        throw t;
+                    } finally {
+                        if (response != null) {
+                            if (throwable != null) {
+                                try {
+                                    response.close();
+                                } catch (Throwable t) {
+                                    throwable.addSuppressed(t);
+                                }
+                            } else {
+                                response.close();
+                            }
+                        }
+                    }
+                } catch (IOException exc) {
+                    exc.printStackTrace();
+                }
             } else {
-                System.out.println("Download failed.");
+                try {
+                    File targetFile = new File(Client.getInstance().file + "/music/yt-dlp");
+                    CloseableHttpClient client = HttpClients.createDefault();
+                    CloseableHttpResponse response = client.execute(new HttpGet("https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp"));
+                    Throwable throwable = null;
+
+                    try {
+                        HttpEntity entity = response.getEntity();
+                        if (entity != null) {
+                            try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+                                entity.writeTo(outputStream);
+                            }
+                        }
+                    } catch (Throwable t) {
+                        throwable = t;
+                        throw t;
+                    } finally {
+                        if (response != null) {
+                            if (throwable != null) {
+                                try {
+                                    response.close();
+                                } catch (Throwable t) {
+                                    throwable.addSuppressed(t);
+                                }
+                            } else {
+                                response.close();
+                            }
+                        }
+                    }
+                } catch (IOException exc) {
+                    exc.printStackTrace();
+                }
             }
-        }).start();
+
+            System.out.println("done");
+            this.finished = true;
+        }
     }
 
     public String prepareYtDlpExecutable() {
-        String fileName =
-                Util.getOSType() == Util.OS.WINDOWS ? "yt-dlp.exe"
-                        : Util.getOSType() == Util.OS.LINUX ? "yt-dlp_linux"
-                        : "yt-dlp_macos";
-        String ytDlpFile = Client.getInstance().file.getAbsolutePath() + "/music/" + fileName;
+        String fileName = Client.getInstance().file.getAbsolutePath() + "/music/yt-dlp";
         if (Util.getOSType() != Util.OS.WINDOWS) {
-            File var4 = new File(ytDlpFile);
-            var4.setExecutable(true);
+            File targetFile = new File(fileName);
+            targetFile.setExecutable(true);
+        } else {
+            fileName = fileName + ".exe";
         }
 
-        return ytDlpFile;
+        return fileName;
     }
 
     public boolean hasPython() {
-        String[] commands;
         if (Util.getOSType() == Util.OS.WINDOWS) {
-            commands = new String[]{"python --version || py --version || python3 --version"};
-        } else {
-            commands = new String[]{"python3 --version || python --version"};
+            return true; // Windows yt-dlp doesn't require Python
         }
 
-        for (String command : commands) {
+        String[][] commands = {{"python3", "-V"}, {"python", "-V"}};
+
+        for (String[] cmd : commands) {
             try {
-                Process process = new ProcessBuilder(getCommandArray(command)).redirectErrorStream(true).start();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String output = reader.readLine();
-                while (output != null) {
-                    if (
-                        // Windows / command prompt
-                            output.contains("is not recognized as an internal or external command")
-                                    // bash
-                                    || output.contains("command not found")) {
-                        break; // Move to the next command
+                Process process = new ProcessBuilder(cmd).start();
+
+                // Read both stdout and stderr
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+                String version;
+                while ((version = inputReader.readLine()) != null || (version = errorReader.readLine()) != null) {
+                    if (version.contains("Python")) {
+                        return true;
                     }
-                    if (output.toLowerCase().contains("python")) {
-                        String version = output.replaceAll("[^0-9.]", "");
-                        if (isVersionAtLeast(version, "3.12")) {
-                            return true;
-                        }
-                    }
-                    output = reader.readLine();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IOException exc) {
+                Client.logger.error("No Python version found!", exc);
             }
         }
+
         return false;
-    }
-
-    private String[] getCommandArray(String command) {
-        if (Util.getOSType() == Util.OS.WINDOWS) {
-            return new String[]{"cmd", "/c", command};
-        } else {
-            return new String[]{"bash", "-c", command};
-        }
-    }
-
-    private boolean isVersionAtLeast(String actual, String required) {
-        String[] actualParts = actual.split("\\.");
-        String[] requiredParts = required.split("\\.");
-        int length = Math.max(actualParts.length, requiredParts.length);
-        for (int i = 0; i < length; i++) {
-            int actualPart = i < actualParts.length ? Integer.parseInt(actualParts[i]) : 0;
-            int requiredPart = i < requiredParts.length ? Integer.parseInt(requiredParts[i]) : 0;
-            if (actualPart > requiredPart) return true;
-            if (actualPart < requiredPart) return false;
-        }
-        return true;
     }
 
     public boolean hasVCRedist() {
         if (Util.getOSType() != Util.OS.WINDOWS) {
-            return true;
-        } else {
-            boolean hasRedist = false;
-
-            try {
-                hasRedist = Advapi32Util.registryGetIntValue(
-                        WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed"
-                )
-                        == 1;
-            } catch (RuntimeException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                hasRedist = hasRedist
-                        || Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86", "Installed") == 1;
-            } catch (RuntimeException e) {
-                e.printStackTrace();
-            }
-
-            return hasRedist;
+            return true; // Not on Windows, VC Redist is not on Linux/mac.
         }
+
+        String[] redistKeys = {
+                "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86",
+                "SOFTWARE\\Microsoft\\VisualStudio\\10.0\\VC\\VCRedist\\x86",
+                "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86",
+                "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86",
+                "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+                "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1", // VC++ 2015-2019
+                "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1"
+        };
+
+        for (String key : redistKeys) {
+            try {
+                if (Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, key, "Installed") == 1) {
+                    return true;
+                }
+            } catch (Win32Exception exc) {
+                Client.logger.error("No VCRedist was found on your computer.", exc);
+            }
+        }
+
+        return false;
     }
 }

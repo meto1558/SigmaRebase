@@ -3,36 +3,30 @@ package net.minecraft.client.gui.screen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.advancements.AdvancementsScreen;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.realms.RealmsBridgeScreen;
 import net.minecraft.util.SharedConstants;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class IngameMenuScreen extends Screen
-{
+public class IngameMenuScreen extends Screen {
     private final boolean isFullMenu;
 
-    public IngameMenuScreen(boolean isFullMenu)
-    {
+    public IngameMenuScreen(boolean isFullMenu) {
         super(isFullMenu ? new TranslationTextComponent("menu.game") : new TranslationTextComponent("menu.paused"));
         this.isFullMenu = isFullMenu;
     }
 
-    protected void init()
-    {
-        if (this.isFullMenu)
-        {
+    protected void init() {
+        if (this.isFullMenu) {
             this.addButtons();
         }
     }
 
-    private void addButtons()
-    {
+    private void addButtons() {
         int i = -16;
         int j = 98;
         this.addButton(new Button(this.width / 2 - 102, this.height / 4 + 24 + -16, 204, 20, new TranslationTextComponent("menu.returnToGame"), (button2) ->
         {
-            this.minecraft.displayGuiScreen((Screen)null);
+            this.minecraft.displayGuiScreen((Screen) null);
             this.minecraft.mouseHelper.grabMouse();
         }));
         this.addButton(new Button(this.width / 2 - 102, this.height / 4 + 48 + -16, 98, 20, new TranslationTextComponent("gui.advancements"), (button2) ->
@@ -47,8 +41,7 @@ public class IngameMenuScreen extends Screen
         this.addButton(new Button(this.width / 2 - 102, this.height / 4 + 72 + -16, 98, 20, new TranslationTextComponent("menu.sendFeedback"), (button2) ->
         {
             this.minecraft.displayGuiScreen(new ConfirmOpenLinkScreen((open) -> {
-                if (open)
-                {
+                if (open) {
                     Util.getOSType().openURI(s);
                 }
 
@@ -58,8 +51,7 @@ public class IngameMenuScreen extends Screen
         this.addButton(new Button(this.width / 2 + 4, this.height / 4 + 72 + -16, 98, 20, new TranslationTextComponent("menu.reportBugs"), (button2) ->
         {
             this.minecraft.displayGuiScreen(new ConfirmOpenLinkScreen((open) -> {
-                if (open)
-                {
+                if (open) {
                     Util.getOSType().openURI("https://aka.ms/snapshotbugs?ref=game");
                 }
 
@@ -78,52 +70,36 @@ public class IngameMenuScreen extends Screen
         Button button1 = this.addButton(new Button(this.width / 2 - 102, this.height / 4 + 120 + -16, 204, 20, new TranslationTextComponent("menu.returnToMenu"), (button2) ->
         {
             boolean flag = this.minecraft.isIntegratedServerRunning();
-            boolean flag1 = this.minecraft.isConnectedToRealms();
             button2.active = false;
             this.minecraft.world.sendQuittingDisconnectingPacket();
 
-            if (flag)
-            {
+            if (flag) {
                 this.minecraft.unloadWorld(new DirtMessageScreen(new TranslationTextComponent("menu.savingLevel")));
-            }
-            else {
+            } else {
                 this.minecraft.unloadWorld();
             }
 
-            if (flag)
-            {
+            if (flag) {
                 this.minecraft.displayGuiScreen(new MainMenuHolder());
-            }
-            else if (flag1)
-            {
-                RealmsBridgeScreen realmsbridgescreen = new RealmsBridgeScreen();
-                realmsbridgescreen.func_231394_a_(new MainMenuHolder());
-            }
-            else {
+            } else {
                 this.minecraft.displayGuiScreen(new MultiplayerScreen(new MainMenuHolder()));
             }
         }));
 
-        if (!this.minecraft.isIntegratedServerRunning())
-        {
+        if (!this.minecraft.isIntegratedServerRunning()) {
             button1.setMessage(new TranslationTextComponent("menu.disconnect"));
         }
     }
 
-    public void tick()
-    {
+    public void tick() {
         super.tick();
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
-    {
-        if (this.isFullMenu)
-        {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        if (this.isFullMenu) {
             this.renderBackground(matrices);
             drawCenteredString(matrices, this.font, this.title, this.width / 2, 40, 16777215);
-        }
-        else
-        {
+        } else {
             drawCenteredString(matrices, this.font, this.title, this.width / 2, 10, 16777215);
         }
 

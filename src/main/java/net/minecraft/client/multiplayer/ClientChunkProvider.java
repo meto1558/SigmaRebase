@@ -3,6 +3,7 @@ package net.minecraft.client.multiplayer;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.BooleanSupplier;
 import javax.annotation.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -277,12 +278,12 @@ public class ClientChunkProvider extends AbstractChunkProvider
             this.chunks = new AtomicReferenceArray<>(this.sideLength * this.sideLength);
         }
 
-        private int getIndex(int x, int z)
+        public int getIndex(int x, int z)
         {
             return Math.floorMod(z, this.sideLength) * this.sideLength + Math.floorMod(x, this.sideLength);
         }
 
-        protected void replace(int chunkIndex, @Nullable Chunk chunkIn)
+        public void replace(int chunkIndex, @Nullable Chunk chunkIn)
         {
             Chunk chunk = this.chunks.getAndSet(chunkIndex, chunkIn);
 
