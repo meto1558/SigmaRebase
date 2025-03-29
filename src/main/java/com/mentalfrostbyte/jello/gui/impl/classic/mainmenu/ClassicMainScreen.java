@@ -12,12 +12,16 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.viamcp.protocolinfo.ProtocolInfo;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ClassicMainScreen extends Screen {
     public final AnimatedIconPanel field21094;
@@ -39,7 +43,16 @@ public class ClassicMainScreen extends Screen {
         String copyrightTag = "© Sigma Prod";
         StringBuilder versionBuilder = new StringBuilder().append("Sigma ");
         Client.getInstance();
-        String versionTag = versionBuilder.append(Client.FULL_VERSION).append(" for Minecraft 1.7.2 to ").append("1.21.4").toString();
+        List<ProtocolVersion> sorted = ProtocolInfo.
+                PROTOCOL_INFOS
+                .stream()
+                .sorted(Comparator.comparing(ProtocolInfo::getProtocolVersion))
+                .map(ProtocolInfo::getProtocolVersion)
+                .toList();
+        String oldestVersion = sorted.get(0).getIncludedVersions().stream().toList().get(0);
+        List<String> newestIncludedVersions = sorted.get(sorted.size() - 1).getIncludedVersions().stream().toList();
+        String newestVersion = newestIncludedVersions.get(newestIncludedVersions.size() - 1);
+        String versionTag = versionBuilder.append(Client.FULL_VERSION).append(" for Minecraft ").append(oldestVersion).append(" to ").append(newestVersion).toString();
         this.addToList(this.particleOverlay = new ParticleOverlay(this, "particles"));
         int var13 = 480;
         int var14 = 480;
