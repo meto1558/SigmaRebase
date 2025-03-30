@@ -655,9 +655,7 @@ public class IngameGui extends AbstractGui
             this.blit(matrixStack, i - 91, this.scaledHeight - 22, 0, 0, 182, 22);
             this.blit(matrixStack, i - 91 - 1 + playerentity.inventory.currentItem * 20, this.scaledHeight - 22 - 1, 0, 22, 24, 22);
 
-            Module animations = Client.getInstance().moduleManager.getModuleByClass(OldHitting.class);
-
-            if (!itemstack.isEmpty() && !(animations.enabled))
+            if (!itemstack.isEmpty())
             {
                 if (handside == HandSide.LEFT)
                 {
@@ -682,7 +680,7 @@ public class IngameGui extends AbstractGui
                 this.renderHotbarItem(j1, k1, partialTicks, playerentity, playerentity.inventory.mainInventory.get(i1));
             }
 
-            if (!itemstack.isEmpty() && !(animations.enabled))
+            if (!itemstack.isEmpty())
             {
                 CustomItems.setRenderOffHand(true);
                 int i2 = this.scaledHeight - 16 - 3;

@@ -3,9 +3,12 @@ package net.minecraft.client.renderer;
 import com.google.gson.JsonSyntaxException;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderShulker;
+import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
@@ -23,6 +26,7 @@ import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.shader.ShaderGroup;
@@ -66,14 +70,13 @@ import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TimedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 import team.sdhq.eventBus.EventBus;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 public class GameRenderer implements IResourceManagerReloadListener, AutoCloseable {
     private static final ResourceLocation field_243496_c = new ResourceLocation("textures/misc/nausea.png");
@@ -623,7 +626,33 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
             }
 
             RenderSystem.pushMatrix();
-            Client.getInstance().renderVisuals();
+
+            if (!Client.textureList.isEmpty()) {
+                try {
+                    for (Texture texture : Client.textureList) {
+                        texture.release();
+                    }
+
+                    Client.textureList.clear();
+                } catch (ConcurrentModificationException exception) {
+                    Client.logger.warn(exception);
+                }
+            }
+
+            if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
+                double scaleFactor = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
+                GL11.glScaled(scaleFactor, scaleFactor, 1.0);
+                GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, 1.0);
+                RenderSystem.disableDepthTest();
+                RenderSystem.pushMatrix();
+                RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
+                Client.getInstance().guiManager.renderWatermark();
+                RenderSystem.popMatrix();
+                RenderSystem.enableDepthTest();
+                RenderSystem.enableAlphaTest();
+                GL11.glAlphaFunc(GL11.GL_GEQUAL, 0.1F);
+            }
+
             RenderSystem.popMatrix();
             if (this.guiLoadingVisible != (this.mc.loadingGui != null)) {
                 if (this.mc.loadingGui != null) {
@@ -838,10 +867,21 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
         }
 
         this.mc.getProfiler().endStartSection("hand");
+
         RenderSystem.pushMatrix();
         RenderSystem.multMatrix(matrixStackIn.getLast().getMatrix());
-        Client.getInstance().hook3DRenderEvent();
+        if (mc != null && mc.world != null && mc.player != null && !Client.dontRenderHand) {
+            GL11.glTranslatef(0.0F, 0.0F, 0.0F);
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            GL11.glDisable(2896);
+            EventBus.call(new EventRender3D());
+            RenderSystem.enableDepthTest();
+            RenderSystem.depthMask(true);
+            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+        }
         RenderSystem.popMatrix();
+
         if (this.renderHand && !Shaders.isShadowPass) {
             if (flag) {
                 ShadersRender.renderHand1(this, matrixStackIn, activerenderinfo, partialTicks);
