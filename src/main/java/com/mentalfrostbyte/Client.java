@@ -4,7 +4,6 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import com.google.gson.JsonObject;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
@@ -17,16 +16,11 @@ import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.newdawn.slick.opengl.Texture;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.renderer.texture.TextureManager;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
-import team.sdhq.eventBus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Client implements MinecraftUtil {
@@ -63,7 +57,6 @@ public class Client implements MinecraftUtil {
     public MusicManager musicManager;
     public PlayerStateTracker playerTracker;
     public MinerTracker minerTracker;
-
 
     public static boolean dontRenderHand = false;
     public boolean loading = true;
@@ -134,53 +127,8 @@ public class Client implements MinecraftUtil {
         logger.info("Done.");
     }
 
-    public void endTick() {
-        guiManager.endTick();
-    }
-
-    public void hook3DRenderEvent() {
-        if (mc != null && mc.world != null && mc.player != null && !dontRenderHand) {
-            GL11.glTranslatef(0.0F, 0.0F, 0.0F);
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            GL11.glDisable(2896);
-            EventBus.call(new EventRender3D());
-            RenderSystem.enableDepthTest();
-            RenderSystem.depthMask(true);
-            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
-        }
-    }
-
     public void addTexture(Texture texture) {
         textureList.add(texture);
-    }
-
-    public void renderVisuals() {
-        if (!textureList.isEmpty()) {
-            try {
-                for (Texture texture : textureList) {
-                    texture.release();
-                }
-
-                textureList.clear();
-            } catch (ConcurrentModificationException exception) {
-                logger.warn(exception);
-            }
-        }
-
-        if (getInstance().clientMode != ClientMode.NOADDONS) {
-            double scaleFactor = mc.getMainWindow().getGuiScaleFactor() / (double) ((float) Math.pow(mc.getMainWindow().getGuiScaleFactor(), 2.0));
-            GL11.glScaled(scaleFactor, scaleFactor, 1.0);
-            GL11.glScaled(GuiManager.scaleFactor, GuiManager.scaleFactor, 1.0);
-            RenderSystem.disableDepthTest();
-            RenderSystem.pushMatrix();
-            RenderSystem.translatef(0.0F, 0.0F, 1000.0F);
-            guiManager.renderWatermark();
-            RenderSystem.popMatrix();
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableAlphaTest();
-            GL11.glAlphaFunc(GL11.GL_GEQUAL, 0.1F);
-        }
     }
 
     public static Client getInstance() {
@@ -221,7 +169,7 @@ public class Client implements MinecraftUtil {
 
         System.gc();
     }
-    //test
+
     public void saveClientData() {
         try {
             FileUtil.save(config, new File(file + "/config.json"));
