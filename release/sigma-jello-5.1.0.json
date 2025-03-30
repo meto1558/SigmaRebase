@@ -167,35 +167,35 @@
     {
       "downloads": {
         "artifact": {
-          "path": "com/viaversion/ViaBackwards/5.2.2-SNAPSHOT/ViaBackwards-5.2.2-SNAPSHOT.jar",
-          "sha1": "ad06f599609dbfd0e8a14d69f643588e9c24c036",
-          "size": 1221395,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/viabackwards-5.2.2-20250126.190421-5.jar"
+          "path": "com/viaversion/ViaBackwards/5.3.1-SNAPSHOT/ViaBackwards-5.3.1-SNAPSHOT.jar",
+          "sha1": "294e869da3ade71d5109f41a40d81d396c269dc2",
+          "size": 1262285,
+          "url": "https://repo.viaversion.com/everything/com/viaversion/viabackwards/5.3.1-SNAPSHOT/viabackwards-5.3.1-20250329.193710-4.jar"
         }
       },
-      "name": "com.viaversion:ViaBackwards:5.2.2-SNAPSHOT"
+      "name": "com.viaversion:ViaBackwards:5.3.1-SNAPSHOT"
     },
     {
       "downloads": {
         "artifact": {
-          "path": "com/viaversion/ViaVersion/5.2.2-SNAPSHOT/ViaVersion-5.2.2-SNAPSHOT.jar",
-          "sha1": "d322df21db9d9578ff0dc1cd811a3e117c385954",
-          "size": 5019541,
-          "url": "https://repo.viaversion.com/everything/com/viaversion/viaversion/5.2.2-SNAPSHOT/viaversion-5.2.2-20250127.210612-12.jar"
+          "path": "com/viaversion/ViaVersion/5.3.1-SNAPSHOT/ViaVersion-5.3.1-SNAPSHOT.jar",
+          "sha1": "d66e6aca0e55393870d28e54384fb1b84a839783",
+          "size": 5444827,
+          "url": "https://repo.viaversion.com/everything/com/viaversion/viaversion/5.3.1-SNAPSHOT/viaversion-5.3.1-20250330.131813-5.jar"
         }
       },
-      "name": "com.viaversion:ViaVersion:5.2.2-SNAPSHOT"
+      "name": "com.viaversion:ViaVersion:5.3.1-SNAPSHOT"
     },
     {
       "downloads": {
         "artifact": {
-          "path": "com/viaversion/ViaRewind/4.0.6-SNAPSHOT/ViaRewind-4.0.6-SNAPSHOT.jar",
-          "sha1": "19fb32991a8526679feaa00e8a35a658bd44d148",
-          "size": 376953,
-          "url": "https://repo.viaversion.com/everything/com/viaversion/viarewind/4.0.6-SNAPSHOT/viarewind-4.0.6-20250128.180319-3.jar"
+          "path": "com/viaversion/ViaRewind/4.0.7-SNAPSHOT/ViaRewind-4.0.7-SNAPSHOT.jar",
+          "sha1": "2cc76cb3125feb343919cd602a46de9c87237ebb",
+          "size": 377339,
+          "url": "https://repo.viaversion.com/everything/com/viaversion/viarewind/4.0.7-SNAPSHOT/viarewind-4.0.7-20250329.134810-1.jar"
         }
       },
-      "name": "com.viaversion:ViaRewind:4.0.6-SNAPSHOT"
+      "name": "com.viaversion:ViaRewind:4.0.7-SNAPSHOT"
     },
     {
       "downloads": {
