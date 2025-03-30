@@ -273,7 +273,7 @@ public class MinerTracker {
                 for (long var8 : var6.field44281) {
                     BlockPos var10 = BlockPos.fromLong(var8);
                     if (this.mc.player.getPositionVec().squareDistanceTo(var10.getX(), var10.getY(),
-							var10.getZ()) < 9.0
+                            var10.getZ()) < 9.0
                             && !TraceThing.method33985(var10)
                             && !this.mc.world.getBlockState(var10).isAir()) {
                         var4.add(var10);

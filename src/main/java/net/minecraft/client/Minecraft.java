@@ -619,7 +619,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                     this.tick(flag1, longtickdetector);
                     this.profiler.startTick();
                     this.runGameLoop(!flag);
-                    Client.getInstance().endTick();
+                    Client.getInstance().guiManager.endTick();
                     this.profiler.endTick();
                     this.func_238210_b_(flag1, longtickdetector);
                 } catch (OutOfMemoryError outofmemoryerror) {
