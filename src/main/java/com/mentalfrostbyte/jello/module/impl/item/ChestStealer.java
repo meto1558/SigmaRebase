@@ -212,76 +212,13 @@ public class ChestStealer extends Module {
     }
 
     private boolean shouldSteal(ChestScreen chest) {
-        List<String> doNotStealKeywords = new ArrayList<>(
-                Arrays.asList(
-                        "menu",
-                        "selector",
-                        "game",
-                        "gui",
-                        "server",
-                        "inventory",
-                        "play",
-                        "teleporter",
-                        "shop",
-                        "melee",
-                        "armor",
-                        "block",
-                        "castle",
-                        "mini",
-                        "warp",
-                        "teleport",
-                        "user",
-                        "team",
-                        "tool",
-                        "sure",
-                        "trade",
-                        "cancel",
-                        "accept",
-                        "soul",
-                        "book",
-                        "recipe",
-                        "profile",
-                        "tele",
-                        "port",
-                        "map",
-                        "kit",
-                        "select",
-                        "lobby",
-                        "vault",
-                        "lock",
-                        "anticheat",
-                        "travel",
-                        "settings",
-                        "user",
-                        "preference",
-                        "compass",
-                        "cake",
-                        "wars",
-                        "buy",
-                        "upgrade",
-                        "ranged",
-                        "potions",
-                        "utility",
-                        "choose",
-                        "modalidades"
-                )
-        );
         List<BlockPos> positions = BlockUtil.getBlockPositionsInRange(8.0F);
-        String cleanName = chest.getNarrationMessage().replaceAll("§.", "").toLowerCase();
-
-        for (String keyword : doNotStealKeywords) {
-            int indexOf = cleanName.indexOf(keyword);
-            if (indexOf > 0 && indexOf < 40) {
-                return false;
-            }
-        }
 
         for (BlockPos pos : positions) {
-            if (BlockUtil.getBlockFromPosition(pos) instanceof ChestBlock || BlockUtil.getBlockFromPosition(pos) instanceof BarrierBlock) {
+            if (BlockUtil.getBlockFromPosition(pos) instanceof ChestBlock) {
                 return true;
             }
         }
-
         return false;
     }
 
