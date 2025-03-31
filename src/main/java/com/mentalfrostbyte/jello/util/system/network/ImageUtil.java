@@ -5,12 +5,19 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.ByteBuffer;
 
 public class ImageUtil {
@@ -222,5 +229,28 @@ public class ImageUtil {
 
     public static BufferedImage method35037(int var0, int var1, int var2, int var3, int var4, int var5) {
         return method35036(var0, var1, var2, var3, var4, var5, ClientColors.DEEP_TEAL.getColor(), false);
+    }
+
+    public static Texture loadTextureFromURL(String urlString) {
+        try (InputStream inputStream = getInputStreamFromURL(urlString)) {
+            return TextureLoader.getTexture("PNG", inputStream);
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to load texture from URL: " + urlString, e);
+        }
+    }
+
+    public static InputStream getInputStreamFromURL(String urlString) throws IOException {
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0"); // Avoid blocking from some servers
+        connection.setRequestMethod("GET");
+        connection.setDoInput(true);
+        connection.connect();
+
+        if (connection.getResponseCode() != 200) {
+            throw new IOException("Failed to load image, HTTP response code: " + connection.getResponseCode());
+        }
+
+        return new BufferedInputStream(connection.getInputStream());
     }
 }

@@ -13,7 +13,6 @@ import net.minecraft.util.Session;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Base64OutputStream;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.newdawn.slick.util.BufferedImageUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -26,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class Account {
     private String knownName = "Unknown name";
-    private String knownUUID = "steve";
+    private String uuid = "steve";
     private String email;
     private String password;
     private ArrayList<Ban> bans = new ArrayList<>();
@@ -34,7 +33,7 @@ public class Account {
     private final long dateAdded;
     private int useCount;
     private BufferedImage skin;
-    private Texture skinTexture;
+    private Texture head;
     private Thread skinUpdateThread;
 
     private String token = "";
@@ -92,7 +91,7 @@ public class Account {
         }
 
         if (json.has("knownUUID")) {
-            this.knownUUID = json.get("knownUUID").getAsString();
+            this.uuid = json.get("knownUUID").getAsString();
         }
 
         if (json.has("dateAdded")) {
@@ -150,8 +149,12 @@ public class Account {
         return !this.knownName.equals("Unknown name") ? this.knownName : this.email;
     }
 
-    public String getKnownUUID() {
-        return this.knownUUID;
+    public String getUUID() {
+        return this.uuid;
+    }
+
+    public String getFormattedUUID() {
+        return this.uuid.replaceAll("-", "");
     }
 
     public String getPassword() {
@@ -180,27 +183,23 @@ public class Account {
         this.skinUpdateThread = null;
     }
 
-    public void setKnownUUID(String var1) {
-        this.knownUUID = var1;
+    public void setUuid(String var1) {
+        this.uuid = var1;
     }
 
-    public Texture setSkinTexture() {
-        if (this.skinTexture == null && this.skin != null) {
-            try {
-                this.skinTexture = BufferedImageUtil.getTexture("skin", this.skin.getSubimage(8, 8, 8, 8));
-            } catch (IOException var4) {
-                var4.printStackTrace();
-            }
+    public Texture setHeadTexture() {
+        if (this.head == null) {
+            this.head = ImageUtil.loadTextureFromURL("https://crafatar.com/avatars/" + getFormattedUUID());
         }
 
-        return this.skinTexture != null ? this.skinTexture : Resources.skinPNG;
+        return this.head != null ? this.head : Resources.head;
     }
 
     @Override
     protected void finalize() throws Throwable {
         try {
-            if (this.skinTexture != null) {
-                Client.getInstance().addTexture(this.skinTexture);
+            if (this.head != null) {
+                Client.getInstance().addTexture(this.head);
             }
         } finally {
             super.finalize();
@@ -208,10 +207,10 @@ public class Account {
     }
 
     public void updateSkin() {
-        if (!this.getKnownUUID().contains("steve") && this.skinUpdateThread == null) {
+        if (!this.getUUID().contains("steve") && this.skinUpdateThread == null) {
             this.skinUpdateThread = new Thread(() -> {
                 try {
-                    this.skin = ImageIO.read(new URL(ImageUtil.getSkinUrlByID(this.getKnownUUID().replaceAll("-", ""))));
+                    this.skin = ImageIO.read(new URL(ImageUtil.getSkinUrlByID(getFormattedUUID())));
                 } catch (Exception ignored) {
                 }
             });
@@ -229,7 +228,7 @@ public class Account {
             MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
             System.out.printf("Logged in with '%s'%n", result.getProfile().getName());
             this.setName(result.getProfile().getName());
-            this.setKnownUUID(fixUUID(result.getProfile().getId()));
+            this.setUuid(fixUUID(result.getProfile().getId()));
             this.updateSkin();
             this.lastUsed = System.currentTimeMillis();
             return new Session(
@@ -237,12 +236,9 @@ public class Account {
             );
         } else if (isPossibleRefreshToken(this.token)) {
             this.setName(this.getEmail());
-            this.setKnownUUID(fixUUID(this.getPassword()));
+            this.setUuid(fixUUID(this.getPassword()));
             this.updateSkin();
             this.lastUsed = System.currentTimeMillis();
-            System.out.println("Logged in with refresh token");
-            System.out.println("Username: " + this.getEmail());
-            System.out.println("UUID: " + this.getPassword());
             return new Session(this.getEmail(), this.getPassword(), this.token, "mojang");
         } else {
             this.setName(this.getEmail());
@@ -276,7 +272,7 @@ public class Account {
         obj.addProperty("password", encodeBase64(this.password));
         obj.addProperty("token", encodeBase64(this.token));
         obj.addProperty("knownName", this.knownName);
-        obj.addProperty("knownUUID", this.knownUUID);
+        obj.addProperty("knownUUID", this.uuid);
         obj.addProperty("useCount", this.useCount);
         obj.addProperty("lastUsed", this.lastUsed);
         obj.addProperty("dateAdded", this.dateAdded);
