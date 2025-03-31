@@ -12,28 +12,28 @@ public class Textbox extends SmallImage {
    private int field21385;
 
    public Textbox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10, TrueTypeFont var11) {
-      super(var1, var2, var3, var4, var5, var6, Resources.skinPNG, var9, var10, var11);
+      super(var1, var2, var3, var4, var5, var6, Resources.head, var9, var10, var11);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
    }
 
    public Textbox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9, String var10) {
-      super(var1, var2, var3, var4, var5, var6, Resources.skinPNG, var9, var10);
+      super(var1, var2, var3, var4, var5, var6, Resources.head, var9, var10);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
    }
 
    public Textbox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8, ColorHelper var9) {
-      super(var1, var2, var3, var4, var5, var6, Resources.skinPNG, var9);
+      super(var1, var2, var3, var4, var5, var6, Resources.head, var9);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
    }
 
    public Textbox(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, String[] var7, int var8) {
-      super(var1, var2, var3, var4, var5, var6, Resources.skinPNG);
+      super(var1, var2, var3, var4, var5, var6, Resources.head);
       this.field21384 = var7;
       this.field21385 = var8;
       this.method13719();
