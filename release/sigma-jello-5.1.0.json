@@ -200,17 +200,6 @@
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/java-discord-rpc/2.0.1-all/java-discord-rpc-2.0.1-all.jar",
-          "sha1": "d5d6adb11d48813b368d6265c34bfa8f936b97d7",
-          "size": 1706638,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/java-discord-rpc-2.0.1-all.jar"
-        }
-      },
-      "name": "com.mentalfrostbyte:java-discord-rpc:2.0.1-all"
-    },
-    {
-      "downloads": {
-        "artifact": {
           "path": "com/mentalfrostbyte/jlayer/1.0.1/jlayer-1.0.1.jar",
           "sha1": "2bfef7a5a4c9af2184ff74b460b6d7d24349b98a",
           "size": 143624,

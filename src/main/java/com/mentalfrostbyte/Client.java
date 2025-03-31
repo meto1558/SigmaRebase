@@ -1,8 +1,5 @@
 package com.mentalfrostbyte;
 
-import club.minnced.discord.rpc.DiscordEventHandlers;
-import club.minnced.discord.rpc.DiscordRPC;
-import club.minnced.discord.rpc.DiscordRichPresence;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
@@ -15,6 +12,7 @@ import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.glfw.GLFW;
 
@@ -25,7 +23,7 @@ import java.util.List;
 
 public class Client implements MinecraftUtil {
     public static int currentVersionIndex = 28;
-    public static final org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
+    public static final Logger logger = LogManager.getLogger("Jello");
 
     public static final String RELEASE_TARGET = "5.1.0";
     public static final int BETA_ITERATION = 16;
@@ -37,7 +35,6 @@ public class Client implements MinecraftUtil {
 
     private static Client instance;
     public ClientMode clientMode = ClientMode.INDETERMINATE;
-    public DiscordRichPresence discordRichPresence;
     public FriendManager friendManager;
     public SlotChangeTracker slotChangeTracker;
 
@@ -135,20 +132,6 @@ public class Client implements MinecraftUtil {
         return instance != null ? instance : (instance = new Client());
     }
 
-    private void initRPC() {
-        DiscordRPC updatePresence = DiscordRPC.INSTANCE;
-        String id = "693493612754763907";
-        DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
-        eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
-        updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
-        discordRichPresence = new DiscordRichPresence();
-        discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
-        discordRichPresence.state = "Playing Minecraft";
-        discordRichPresence.details = "Jello for Sigma";
-        discordRichPresence.largeImageKey = "jello";
-        updatePresence.Discord_UpdatePresence(discordRichPresence);
-    }
-
     public void setupClient(ClientMode mode) {
         clientMode = mode;
 
@@ -156,7 +139,6 @@ public class Client implements MinecraftUtil {
             getInstance().guiManager.useClassicReplacementScreens();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         } else if (mode == ClientMode.JELLO) {
-            initRPC();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
         }
 
