@@ -72,7 +72,7 @@ public class Head extends AnimatedIconPanel {
             float var7 = (float) Math.atan(var5 / (float) (this.mc.getMainWindow().getWidth() / 2)) * 20.0F;
             RenderSystem.rotatef(-var6, 1.0F, 0.0F, 0.0F);
             RenderSystem.rotatef(-var7, 0.0F, 1.0F, 0.0F);
-            UUID uid = UUID.fromString(this.account.getUUID().equals("steve") ? "40d29ac9-d71d-42c9-98e2-b378c3ed8fa7" : this.account.getUUID());
+            UUID uid = UUID.fromString(this.account.getUUID());
             if (clientWorld == null) {
                 ClientWorld.ClientWorldInfo var9 = new ClientWorld.ClientWorldInfo(Difficulty.NORMAL, false, false);
                 clientWorld = new ClientWorld(this.mc.getConnection(), var9, World.OVERWORLD, DimensionType.OVERWORLD_TYPE, 1, this::method13180, null, false, 0L);

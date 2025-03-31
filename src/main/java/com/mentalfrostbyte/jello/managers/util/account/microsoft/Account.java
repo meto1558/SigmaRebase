@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class Account {
     private String knownName = "Unknown name";
-    private String uuid = "steve";
+    private String uuid = "8667ba71-b85a-4004-af54-457a9734eed7";
     private String email;
     private String password;
     private ArrayList<Ban> bans = new ArrayList<>();
@@ -40,7 +40,6 @@ public class Account {
 
     public Account(String email, String password, ArrayList<Ban> bans, String knownName) {
         this.email = email;
-        this.token = "";
         this.password = password;
         this.dateAdded = System.currentTimeMillis();
         this.lastUsed = 0L;
