@@ -68,8 +68,8 @@ public class AccountUI extends AnimatedIconPanel {
                 );
                 RenderUtil.drawBlurredBackground(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
                 if (this.selectedAccount != null) {
-                    this.method13169();
-                    this.method13170();
+                    this.drawAccountHead();
+                    this.drawAccountUsername();
                     this.method13171(var7);
                     if (this.field20803.calcPercent() > 0.0F && var6 > 55) {
                         RenderUtil.drawImage(
@@ -91,7 +91,7 @@ public class AccountUI extends AnimatedIconPanel {
         }
     }
 
-    public void method13169() {
+    public void drawAccountHead() {
         RenderUtil.drawImage(
                 (float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, this.selectedAccount.setHeadTexture(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
         );
@@ -106,7 +106,7 @@ public class AccountUI extends AnimatedIconPanel {
         );
     }
 
-    public void method13170() {
+    public void drawAccountUsername() {
         if (this.selectedAccount.getPassword().isEmpty()) {
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont25, (float) (this.xA + 110), (float) (this.yA + 18), this.selectedAccount.getEmail(), ClientColors.DEEP_TEAL.getColor()
