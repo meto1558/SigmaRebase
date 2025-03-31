@@ -93,7 +93,7 @@ public class AccountUI extends AnimatedIconPanel {
 
     public void method13169() {
         RenderUtil.drawImage(
-                (float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, this.selectedAccount.setSkinTexture(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
+                (float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, this.selectedAccount.setHeadTexture(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
         );
         RenderUtil.method11464((float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, 20.0F, 1.0F);
         RenderUtil.drawImage(
