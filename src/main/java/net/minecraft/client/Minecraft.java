@@ -1376,11 +1376,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                 }
                 switch (this.objectMouseOver.getType()) {
                     case ENTITY:
-                        if (!ViaLoadingBase.getInstance().getTargetVersion().equalTo(ProtocolVersion.v1_16_4)) {
-                            AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
-                        } else {
-                            this.playerController.attackEntity(this.player, ((EntityRayTraceResult)this.objectMouseOver).getEntity());
-                        }
+                        AttackOrder.sendFixedAttack(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity(), Hand.MAIN_HAND);
 
                         if (rayTraceEvent != null) {
                             rayTraceEvent.unhover();
