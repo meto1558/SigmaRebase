@@ -60,7 +60,7 @@ public class Resources {
     public static Texture errorsPNG = loadTexture("com/mentalfrostbyte/gui/resources/alt/errors.png");
     public static Texture shadowPNG = loadTexture("com/mentalfrostbyte/gui/resources/alt/shadow.png");
     public static Texture imgPNG = loadTexture("com/mentalfrostbyte/gui/resources/alt/img.png");
-    public static Texture skinPNG = loadTexture("com/mentalfrostbyte/gui/resources/alt/skin.png");
+    public static Texture head = loadTexture("com/mentalfrostbyte/gui/resources/alt/skin.png");
     public static Texture loadingIndicatorPNG = loadTexture("com/mentalfrostbyte/gui/resources/jello/loading_indicator.png");
     public static Texture mentalfrostbytePNG = loadTexture("com/mentalfrostbyte/gui/resources/mentalfrostbyte/mentalfrostbyte.png");
     public static Texture sigmaPNG = loadTexture("com/mentalfrostbyte/gui/resources/mentalfrostbyte/sigma.png");
@@ -138,9 +138,7 @@ public class Resources {
             String extension = filePath.substring(filePath.lastIndexOf(".") + 1).toUpperCase();
             return loadTexture(filePath, extension);
         } catch (Exception e) {
-            System.err.println(
-                    "Unable to load texture " + filePath +
-                            ". Please make sure it is a valid path and has a valid extension.");
+            Client.logger.warn("Unable to load texture {}. Please make sure it is a valid path and has a valid extension.", filePath);
             throw e;
         }
     }
