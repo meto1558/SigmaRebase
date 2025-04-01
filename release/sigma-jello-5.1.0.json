@@ -233,17 +233,6 @@
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/jtouchbar/1.0.0/jtouchbar-1.0.0.jar",
-          "sha1": "24bfecdc18b103a1a824410f97e1f7b74e67152b",
-          "size": 324680,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/jtouchbar-1.0.0.jar"
-        }
-      },
-      "name": "com.mentalfrostbyte:jtouchbar:1.0.0"
-    },
-    {
-      "downloads": {
-        "artifact": {
           "path": "com/mentalfrostbyte/openauth/1.1.6/openauth-1.1.6.jar",
           "sha1": "b130fd84bc7b844d9ac570c40cd18b0e59b5c43c",
           "size": 49460,
