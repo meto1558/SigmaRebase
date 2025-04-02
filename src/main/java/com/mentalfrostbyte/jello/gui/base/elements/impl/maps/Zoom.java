@@ -122,7 +122,7 @@ public class Zoom extends Element {
                     int var7 = this.heightA / 2;
                     int var8 = this.yA + (var11.field30491 ? 0 : var7);
                     int var9 = this.widthA / 2;
-                    RenderUtil.drawBlurredBackground(this.xA, var8, this.xA + this.widthA, var8 + var7, true);
+                    RenderUtil.startScissor(this.xA, var8, this.xA + this.widthA, var8 + var7, true);
                     RenderUtil.drawFilledArc(
                             (float) (this.xA + var9),
                             (float) (var8 + this.heightA / 4),

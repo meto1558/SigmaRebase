@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.image.Image;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.image.types.FadedImage;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -20,26 +20,25 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SwitchScreen extends Screen {
-    public static Animation field21069 = new Animation(1050, 200, Animation.Direction.BACKWARDS);
+    public static Animation anim = new Animation(1050, 200, Animation.Direction.BACKWARDS);
     public static float field21070;
     public static float field21071;
-
 
     public SwitchScreen() {
         super("Switch");
         this.setListening(false);
-        int var3 = 537;
+        int width = 537;
         int var4 = 264;
-        int var5 = 93;
+        int height = 93;
         int var6 = 61;
-        int var7 = (this.getWidthA() - var3) / 2;
-        int var8 = (this.getHeightA() - var5) / 2 + 14;
+        int x = (this.getWidthA() - width) / 2;
+        int y = (this.getHeightA() - height) / 2 + 14;
         FadedImage var9 = null;
         FadedImage var10 = null;
         FadedImage var11 = null;
-        this.addToList(var9 = new FadedImage(this, "pb", var7, var8, var3, var5, Resources.noaddonsPNG));
-        this.addToList(var11 = new FadedImage(this, "pb2", var7, var5 + var8 + 9, var4, var6, Resources.sigmaLigmaPNG));
-        this.addToList(var10 = new FadedImage(this, "pb3", var7 + var4 + 9, var5 + var8 + 9, var4, var6, Resources.jelloPNG));
+        this.addToList(var9 = new FadedImage(this, "pb", x, y, width, height, Resources.noaddonsPNG));
+        this.addToList(var11 = new FadedImage(this, "pb2", x, height + y + 9, var4, var6, Resources.sigmaLigmaPNG));
+        this.addToList(var10 = new FadedImage(this, "pb3", x + var4 + 9, height + y + 9, var4, var6, Resources.jelloPNG));
         var9.doThis((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.NOADDONS);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
@@ -92,7 +91,7 @@ public class SwitchScreen extends Screen {
     @Override
     public void draw(float partialTicks) {
         if (LoadingScreen.back != null) {
-            field21069.changeDirection(Animation.Direction.FORWARDS);
+            anim.changeDirection(Animation.Direction.FORWARDS);
             int var4 = 40;
             float var5 = -field21070 / (float) Minecraft.getInstance().getMainWindow().getWidth();
             float var6 = -field21071 / (float) Minecraft.getInstance().getMainWindow().getHeight();
@@ -103,7 +102,7 @@ public class SwitchScreen extends Screen {
                     (float) (Minecraft.getInstance().getMainWindow().getHeight() + var4),
                     LoadingScreen.back
             );
-            float var7 = MathUtil.lerp(field21069.calcPercent(), 0.16, 0.71, 0.0, 0.99);
+            float var7 = SmoothInterpolator.interpolate(anim.calcPercent(), 0.16, 0.71, 0.0, 0.99);
             int var8 = (Minecraft.getInstance().getMainWindow().getWidth() - 455) / 2;
             int var9 = (int) ((float) ((Minecraft.getInstance().getMainWindow().getHeight() - 78) / 2 - 14) - 116.0F * var7);
             RenderUtil.drawRoundedRect2(
@@ -120,14 +119,14 @@ public class SwitchScreen extends Screen {
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
                     LoadingScreen.background,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - field21069.calcPercent())
+                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 1.0F - anim.calcPercent())
             );
             RenderUtil.drawRoundedRect2(
                     0.0F,
                     0.0F,
                     (float) Minecraft.getInstance().getMainWindow().getWidth(),
                     (float) Minecraft.getInstance().getMainWindow().getHeight(),
-                    RenderUtil2.applyAlpha(0, 0.75F * (1.0F - field21069.calcPercent()))
+                    RenderUtil2.applyAlpha(0, 0.75F * (1.0F - anim.calcPercent()))
             );
             RenderUtil.drawImage((float) var8, (float) var9, 455.0F, 78.0F, LoadingScreen.sigmaLogo);
         }

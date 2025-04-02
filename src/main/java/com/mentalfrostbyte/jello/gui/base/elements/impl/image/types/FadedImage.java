@@ -8,19 +8,19 @@ import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
 public class FadedImage extends Button {
-    private final Texture field20590;
-    private final Animation field20592 = new Animation(150, 190, Animation.Direction.BACKWARDS);
+    private final Texture texture;
+    private final Animation hoverAnim = new Animation(150, 190, Animation.Direction.BACKWARDS);
     private boolean field20591;
 
-    public FadedImage(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7) {
-        super(var1, var2, var3, var4, var5, var6);
-        this.field20590 = var7;
+    public FadedImage(CustomGuiScreen var1, String name, int x, int y, int width, int height, Texture texture) {
+        super(var1, name, x, y, width, height);
+        this.texture = texture;
     }
 
     @Override
@@ -31,10 +31,10 @@ public class FadedImage extends Button {
 
     @Override
     public void draw(float partialTicks) {
-        this.field20592.changeDirection(!this.field20591 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
-        float var4 = MathUtil.lerp(this.field20592.calcPercent(), 0.07, 0.73, 0.63, 1.01);
-        if (this.field20592.getDirection() == Animation.Direction.BACKWARDS) {
-            var4 = MathUtil.lerp(this.field20592.calcPercent(), 0.71, 0.18, 0.95, 0.57);
+        this.hoverAnim.changeDirection(!this.field20591 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+        float var4 = SmoothInterpolator.interpolate(this.hoverAnim.calcPercent(), 0.07, 0.73, 0.63, 1.01);
+        if (this.hoverAnim.getDirection() == Animation.Direction.BACKWARDS) {
+            var4 = SmoothInterpolator.interpolate(this.hoverAnim.calcPercent(), 0.71, 0.18, 0.95, 0.57);
         }
 
         RenderUtil.startScissor((float) this.getXA(), (float) this.getYA() - var4 * 3.0F, (float) this.getWidthA(), (float) this.getHeightA());
@@ -64,7 +64,7 @@ public class FadedImage extends Button {
                 (float) this.getYA() - var4 * 3.0F,
                 (float) this.getWidthA(),
                 (float) this.getHeightA(),
-                this.field20590,
+                this.texture,
                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
         );
         GL11.glPushMatrix();

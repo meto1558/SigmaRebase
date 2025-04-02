@@ -1,8 +1,5 @@
 package org.newdawn.slick.util;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
 /**
  * A simple central logging system
  *
@@ -63,27 +60,6 @@ public final class Log {
         if (forcedVerbose)
             return;
         verbose = v;
-    }
-
-    /**
-     * Check if the system property org.newdawn.slick.verboseLog is set to true.
-     * If this is the case we activate the verbose logging mode
-     */
-    public static void checkVerboseLogSetting() {
-        try {
-            AccessController.doPrivileged(new PrivilegedAction() {
-                public Object run() {
-                    String val = System.getProperty(Log.forceVerboseProperty);
-                    if ((val != null) && (val.equalsIgnoreCase(Log.forceVerbosePropertyOnValue))) {
-                        Log.setForcedVerboseOn();
-                    }
-
-                    return null;
-                }
-            });
-        } catch (Throwable e) {
-            // ignore, security failure - probably an applet
-        }
     }
 
     /**

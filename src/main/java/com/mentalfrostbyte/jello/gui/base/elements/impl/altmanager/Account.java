@@ -105,7 +105,7 @@ public class Account extends AnimatedIconPanel {
             );
         }
 
-        RenderUtil.drawBlurredBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+        RenderUtil.startScissor(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
         if (this.field21249 != null) {
             this.method13584();
             RenderUtil.endScissor();

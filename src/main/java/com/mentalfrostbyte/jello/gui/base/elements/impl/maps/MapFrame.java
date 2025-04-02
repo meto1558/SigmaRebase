@@ -131,7 +131,7 @@ public class MapFrame extends Element {
         double var13 = ((double) this.field20651 - Math.floor(this.field20651)) * (double) var10;
         TextureManager textureManager = var4.getTextureManager();
         textureManager.bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
-        RenderUtil.drawBlurredBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+        RenderUtil.startScissor(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) (this.xA + this.widthA / 2), (float) (this.yA + this.heightA / 2), 0.0F);
         GL11.glScalef(var9, var9, 0.0F);

@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 
 public class RedeemKeyScreen extends CustomGuiScreen {
     public String premiumLicense = "";
@@ -55,7 +55,7 @@ public class RedeemKeyScreen extends CustomGuiScreen {
         this.animation.changeDirection(!this.isHovered() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
         partialTicks = 1.0F;
         partialTicks *= this.animation.calcPercent();
-        float var4 = MathUtil.lerp(this.animation.calcPercent(), 0.17, 1.0, 0.51, 1.0);
+        float var4 = SmoothInterpolator.interpolate(this.animation.calcPercent(), 0.17, 1.0, 0.51, 1.0);
         if (this.animation.getDirection() == Animation.Direction.BACKWARDS) {
             var4 = 1.0F;
         }

@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.BezierButton;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector2d;
@@ -79,15 +79,15 @@ public class Bezier extends Element {
       var11.add(new Vector2d(var7, var8));
       var11.add(new Vector2d(var9, var10));
       var11.add(new Vector2d(1.0, 1.0));
-      MathUtil var12 = new MathUtil(1.0F / var6 * 2.0F);
-      double var13 = var12.method30789(var11, Math.min(0.8F, this.field20611.calcPercent()) * 1.25F);
+      SmoothInterpolator var12 = new SmoothInterpolator(1.0F / var6 * 2.0F);
+      double var13 = var12.calculateInterpolatedValue(var11, Math.min(0.8F, this.field20611.calcPercent()) * 1.25F);
       RenderUtil.drawCircle(
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),
          (float)(this.yA - var5 / 2 + this.heightA),
          14.0F,
               RenderUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
       );
-      List<Vector2d> var15 = var12.method30790(var11);
+      List<Vector2d> var15 = var12.generateInterpolatedPoints(var11);
       GL11.glPushMatrix();
       GL11.glTranslatef((float)(this.xA + var5), (float)(this.yA + var5), 0.0F);
       GL11.glLineWidth(1.0F);
@@ -101,7 +101,7 @@ public class Bezier extends Element {
       GL11.glVertex2f(0.0F, var6);
 
       for (Vector2d var17 : var15) {
-         GL11.glVertex2d(var17.method38553() * (double)var6, (1.0 - var17.method38554()) * (double)var6);
+         GL11.glVertex2d(var17.x() * (double)var6, (1.0 - var17.y()) * (double)var6);
       }
 
       GL11.glVertex2f(var6, 0.0F);

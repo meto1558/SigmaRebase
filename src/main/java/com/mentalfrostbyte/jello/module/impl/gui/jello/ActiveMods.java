@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.*;
 
 public class ActiveMods extends Module {
-    public int offsetY = 0;
-    public int totalHeight;
+    private int offsetY = 0;
+    private int totalHeight;
     public HashMap<Module, Animation> animations = new HashMap<>();
     public TrueTypeFont font = ResourceRegistry.JelloLightFont20;
     private final List<Module> activeModules = new ArrayList<>();
@@ -85,7 +85,7 @@ public class ActiveMods extends Module {
     public void onGUI(EventRenderGUI event) {
         if (!this.isEnabled()) return;
         if (mc.player != null) {
-            if (!event.isRendering) {
+            if (!event.pre) {
                 GlStateManager.translatef(0.0F, (float) (-this.totalHeight), 0.0F);
             } else {
                 Collection<Score> scores = getScores();
