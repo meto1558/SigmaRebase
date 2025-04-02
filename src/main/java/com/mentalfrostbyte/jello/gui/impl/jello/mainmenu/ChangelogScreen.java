@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.Change;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.changelog.Class576;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -62,7 +62,7 @@ public class ChangelogScreen extends CustomGuiScreen {
         this.animation.changeDirection(!this.isHovered() ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
         partialTicks *= this.animation.calcPercent();
 
-        float fadeFactor = MathUtil.lerp(this.animation.calcPercent(), 0.17f, 1.0f, 0.51f, 1.0f);
+        float fadeFactor = SmoothInterpolator.interpolate(this.animation.calcPercent(), 0.17f, 1.0f, 0.51f, 1.0f);
 
         if (this.animation.getDirection() == Animation.Direction.BACKWARDS) {
             fadeFactor = 1.0f;

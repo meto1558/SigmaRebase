@@ -26,7 +26,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.multiplayer.ServerData;
@@ -345,7 +345,7 @@ public class AltManagerScreen extends Screen {
                                 accountUI.field20805.changeDirection(Animation.Direction.FORWARDS);
                             }
 
-                            float var9 = MathUtil.lerp(accountUI.field20805.calcPercent(), 0.51, 0.82, 0.0, 0.99);
+                            float var9 = SmoothInterpolator.interpolate(accountUI.field20805.calcPercent(), 0.51, 0.82, 0.0, 0.99);
                             accountUI.method13284((int) (-((1.0F - var9) * (float) (var7.getWidthA() + 30))));
                             var3 = accountUI.field20805.calcPercent();
                         } else {

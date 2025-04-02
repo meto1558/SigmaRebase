@@ -26,7 +26,7 @@ import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.Hand;
@@ -606,11 +606,11 @@ public class KillAura extends Module {
                 double var33 = entity.getPosX() - entity.lastTickPosX;
                 double var34 = entity.getPosZ() - entity.lastTickPosZ;
                 float var35 = (float) Math.sqrt(var33 * var33 + var34 * var34);
-                float var36 = MathUtil.lerp(var29, 0.57, -0.135, 0.095, -0.3);
-                float var37 = Math.min(1.0F, MathUtil.lerp(var29, 0.57, -0.135, 0.095, -0.3));
+                float var36 = SmoothInterpolator.interpolate(var29, 0.57, -0.135, 0.095, -0.3);
+                float var37 = Math.min(1.0F, SmoothInterpolator.interpolate(var29, 0.57, -0.135, 0.095, -0.3));
                 if (this.isBlocking) {
-                    var36 = MathUtil.lerp(var29, 0.18, 0.13, 1.0, 1.046);
-                    var37 = Math.min(1.0F, MathUtil.lerp(var29, 0.18, 0.13, 1.0, 1.04));
+                    var36 = SmoothInterpolator.interpolate(var29, 0.18, 0.13, 1.0, 1.046);
+                    var37 = Math.min(1.0F, SmoothInterpolator.interpolate(var29, 0.18, 0.13, 1.0, 1.04));
                 }
 
                 float var38 = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
@@ -665,8 +665,8 @@ public class KillAura extends Module {
                 //double deltaPosX = entity.getPosX() - entity.lastTickPosX;
                 //double deltaPosZ = entity.getPosZ() - entity.lastTickPosZ;
                 //float entityHypot = (float) Math.sqrt(deltaPosX * deltaPosX + deltaPosZ * deltaPosZ);
-                float interpolatedYawAdjustment = MathUtil.lerp(pitchYawRatio, 0.57, -0.135, 0.095, -0.3);
-                float interpolatedPitchAdjustment = Math.min(1.0F, MathUtil.lerp(pitchYawRatio, 0.57, -0.135, 0.095, -0.3));
+                float interpolatedYawAdjustment = SmoothInterpolator.interpolate(pitchYawRatio, 0.57, -0.135, 0.095, -0.3);
+                float interpolatedPitchAdjustment = Math.min(1.0F, SmoothInterpolator.interpolate(pitchYawRatio, 0.57, -0.135, 0.095, -0.3));
                 float yawDifference = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
                 float pitchDifference = advancedRotation.pitch - rotation.pitch;
                 this.lastRotation.yaw = this.currentRotation.yaw;

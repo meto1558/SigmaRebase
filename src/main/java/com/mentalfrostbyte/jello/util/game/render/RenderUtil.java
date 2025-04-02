@@ -57,7 +57,7 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void drawBlurredBackground(int var0, int var1, int var2, int var3) {
-        drawBlurredBackground(var0, var1, var2, var3, false);
+        startScissor(var0, var1, var2, var3, false);
     }
 
     public static void method11436(float var0, float var1, float var2, int var3) {
@@ -322,7 +322,7 @@ public class RenderUtil implements MinecraftUtil {
         drawRect(var0 + var8, var6 - var8, var4 - var8, var6, var11);
     }
 
-    public static void drawBlurredBackground(int x, int y, int width, int height, boolean scale) {
+    public static void startScissor(int x, int y, int width, int height, boolean scale) {
         if (!scale) {
             x = (int) ((float) x * GuiManager.scaleFactor);
             y = (int) ((float) y * GuiManager.scaleFactor);
@@ -578,7 +578,7 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void drawBlurredBackground(float x, float y, float width, float height) {
-        drawBlurredBackground((int) x, (int) y, (int) width, (int) height, true);
+        startScissor((int) x, (int) y, (int) width, (int) height, true);
     }
 
     public static void drawCircle(float centerX, float centerY, float size, int color) {
@@ -687,9 +687,6 @@ public class RenderUtil implements MinecraftUtil {
             }
 
             if (!var16) {
-                float[] var17 = screenCoordinatesToOpenGLCoordinates((int) x, (int) y);
-                int var18 = (int) var17[0];
-                int var19 = (int) var17[1];
                 GL11.glTranslatef(x, y, 0.0F);
                 GL11.glScalef(1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor, 1.0F / GuiManager.scaleFactor);
                 GL11.glTranslatef(-x, -y, 0.0F);
@@ -713,7 +710,7 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void method11415(CustomGuiScreen var0) {
-        drawBlurredBackground(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
+        startScissor(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
     }
 
     public static void drawRoundedButton(float var0, float var1, float var2, float var3, float var4, int color) {
@@ -746,7 +743,7 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void startScissor(float var0, float var1, float var2, float var3) {
-        drawBlurredBackground((int) var0, (int) var1, (int) var0 + (int) var2, (int) var1 + (int) var3, true);
+        startScissor((int) var0, (int) var1, (int) var0 + (int) var2, (int) var1 + (int) var3, true);
     }
 
     public static void method11465(int var0, int var1, int var2, int var3, int var4) {
@@ -925,14 +922,14 @@ public class RenderUtil implements MinecraftUtil {
         GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var3 - var7 / 2), 0.0F);
         drawImage((float) (var0 + var8), (float) (var1 + var8 + var3), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
         GL11.glPopMatrix();
-        drawBlurredBackground(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
+        startScissor(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
 
         for (int var10 = 0; var10 < var3; var10 += var7) {
             drawImage((float) (var0 - var9), (float) (var1 + var8 + var10) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
         }
 
         endScissor();
-        drawBlurredBackground(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
+        startScissor(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
 
         for (int var11 = 0; var11 < var2; var11 += var7) {
             GL11.glPushMatrix();
@@ -944,7 +941,7 @@ public class RenderUtil implements MinecraftUtil {
         }
 
         endScissor();
-        drawBlurredBackground(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
+        startScissor(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
 
         for (int var12 = 0; var12 < var3; var12 += var7) {
             GL11.glPushMatrix();
@@ -956,7 +953,7 @@ public class RenderUtil implements MinecraftUtil {
         }
 
         endScissor();
-        drawBlurredBackground(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
+        startScissor(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
 
         for (int var13 = 0; var13 < var2; var13 += var7) {
             GL11.glPushMatrix();

@@ -61,7 +61,7 @@ public class Class4253 extends Element {
          }
       }
 
-      RenderUtil.drawBlurredBackground(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
+      RenderUtil.startScissor(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
       RenderUtil.drawString(
          ResourceRegistry.RegularFont20,
          (float)(this.xA + 25),

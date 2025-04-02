@@ -16,7 +16,7 @@ import com.mentalfrostbyte.jello.managers.ProfileManager;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
-import com.mentalfrostbyte.jello.util.system.math.MathUtil;
+import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -149,9 +149,9 @@ public class ConfigScreen extends Element {
     public void draw(float partialTicks) {
         partialTicks = this.field21298.calcPercent();
         this.method13616();
-        float var4 = MathUtil.lerp(partialTicks, 0.37, 1.48, 0.17, 0.99);
+        float var4 = SmoothInterpolator.interpolate(partialTicks, 0.37, 1.48, 0.17, 0.99);
         if (this.field21298.getDirection() == Animation.Direction.BACKWARDS) {
-            var4 = MathUtil.lerp(partialTicks, 0.38, 0.73, 0.0, 1.0);
+            var4 = SmoothInterpolator.interpolate(partialTicks, 0.38, 0.73, 0.0, 1.0);
         }
 
         this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
@@ -177,9 +177,9 @@ public class ConfigScreen extends Element {
                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
         );
         RenderUtil.drawRoundedRect((float) this.xA, (float) this.yA, (float) this.widthA, (float) this.heightA, (float) var5, var6);
-        float var7 = 0.9F + (1.0F - MathUtil.lerp(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
+        float var7 = 0.9F + (1.0F - SmoothInterpolator.interpolate(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
         if (this.field21300.field20703.getDirection() == Animation.Direction.BACKWARDS) {
-            var7 = 0.9F + (1.0F - MathUtil.lerp(this.field21300.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16)) * 0.1F;
+            var7 = 0.9F + (1.0F - SmoothInterpolator.interpolate(this.field21300.field20703.calcPercent(), 0.61, 0.01, 0.87, 0.16)) * 0.1F;
         }
 
         this.profileScrollView.method13279(var7, var7);
