@@ -468,7 +468,7 @@ public class MusicPlayer extends AnimatedIconPanel {
             );
         }
 
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
     }
 
     private void method13196(float var1) {

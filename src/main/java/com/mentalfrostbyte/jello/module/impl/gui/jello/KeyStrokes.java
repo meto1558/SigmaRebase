@@ -57,7 +57,7 @@ public class KeyStrokes extends Module {
                             );
                             BlurEngine.drawBlur(this.xBase + topLeftKey.x, this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
                             BlurEngine.endBlur();
-                            RenderUtil.endScissor();
+                            RenderUtil.restoreScissor();
                         }
                     }
 
@@ -154,7 +154,7 @@ public class KeyStrokes extends Module {
                                 (float) (bottomRightPosition.x - 4) * animPercent + 4.0F,
                                 color
                         );
-                        RenderUtil.endScissor();
+                        RenderUtil.restoreScissor();
                         if (animationData.animation.calcPercent() == 1.0F) {
                             iter.remove();
                         }

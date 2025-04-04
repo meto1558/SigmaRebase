@@ -140,7 +140,7 @@ public class ConfigGroup extends Element {
          }
 
          super.draw(partialTicks);
-         RenderUtil.endScissor();
+         RenderUtil.restoreScissor();
       }
    }
 }

@@ -8,7 +8,6 @@ import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
-import team.sdhq.eventBus.EventBus;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.awt.*;
@@ -90,7 +89,7 @@ public class NotificationManager extends Manager {
                         notif.desc,
                         var12
                 );
-                RenderUtil.endScissor();
+                RenderUtil.restoreScissor();
                 RenderUtil.drawImage(
                         (float) (var7 + this.field39927 / 2),
                         (float) (var8 + this.field39927 / 2),

@@ -27,56 +27,70 @@ public class SwitchScreen extends Screen {
     public SwitchScreen() {
         super("Switch");
         this.setListening(false);
-        int width = 537;
-        int var4 = 264;
-        int height = 93;
-        int var6 = 61;
-        int x = (this.getWidthA() - width) / 2;
-        int y = (this.getHeightA() - height) / 2 + 14;
-        FadedImage var9 = null;
-        FadedImage var10 = null;
-        FadedImage var11 = null;
-        this.addToList(var9 = new FadedImage(this, "pb", x, y, width, height, Resources.noaddonsPNG));
-        this.addToList(var11 = new FadedImage(this, "pb2", x, height + y + 9, var4, var6, Resources.sigmaLigmaPNG));
-        this.addToList(var10 = new FadedImage(this, "pb3", x + var4 + 9, height + y + 9, var4, var6, Resources.jelloPNG));
-        var9.doThis((var0, var1) -> {
+
+        int bigWidth = 537;
+        int smallWidth = 264;
+        int bigHeight = 93;
+        int smallHeight = 61;
+        int x = (this.getWidthA() - bigWidth) / 2;
+        int y = (this.getHeightA() - bigHeight) / 2 + 14;
+
+        FadedImage noAddonsBtn;
+        FadedImage classicBtn;
+        FadedImage jelloBtn;
+
+        this.addToList(noAddonsBtn = new FadedImage(this, "pb", x, y, bigWidth, bigHeight, Resources.noaddonsPNG));
+        this.addToList(jelloBtn = new FadedImage(this, "pb2", x, bigHeight + y + 9, smallWidth, smallHeight, Resources.sigmaLigmaPNG));
+        this.addToList(classicBtn = new FadedImage(this, "pb3", x + smallWidth + 9, bigHeight + y + 9, smallWidth, smallHeight, Resources.jelloPNG));
+
+        noAddonsBtn.doThis((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.NOADDONS);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
-        var10.doThis((var0, var1) -> {
+
+        classicBtn.doThis((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.JELLO);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
-        var11.doThis((var0, var1) -> {
+
+        jelloBtn.doThis((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.CLASSIC);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
-        CustomGuiScreen var12 = new CustomGuiScreen(this, "socialbtns", (this.getWidthA() - 174) / 2, this.getHeightA() - 70, 174, 34);
-        Image var13;
-        var12.addToList(var13 = new Image(var12, "youtube", 0, 0, 65, 34, Resources.youtubePNG));
-        Image var14;
-        var12.addToList(var14 = new Image(var12, "reddit", 85, 0, 36, 34, Resources.redditPNG));
-        Image var15;
-        var12.addToList(var15 = new Image(var12, "guilded", 142, 0, 32, 34, Resources.guildedPNG));
-        var13.doThis((var0, var1) -> {
+
+        CustomGuiScreen socialButtonPanel = new CustomGuiScreen(this, "socialbtns", (this.getWidthA() - 174) / 2, this.getHeightA() - 70, 174, 34);
+        Image youtubeBtn;
+
+        socialButtonPanel.addToList(youtubeBtn = new Image(socialButtonPanel, "youtube", 0, 0, 65, 34, Resources.youtubePNG));
+        Image redditBtn;
+
+        socialButtonPanel.addToList(redditBtn = new Image(socialButtonPanel, "reddit", 85, 0, 36, 34, Resources.redditPNG));
+        Image discordBtn;
+
+        socialButtonPanel.addToList(discordBtn = new Image(socialButtonPanel, "guilded", 142, 0, 32, 34, Resources.guildedPNG));
+
+        youtubeBtn.doThis((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://www.youtube.com/@sigmaclient2950"));
-            } catch (MalformedURLException var5x) {
+            } catch (MalformedURLException ignored) {
             }
         });
-        var14.doThis((var0, var1) -> {
+
+        redditBtn.doThis((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://www.reddit.com/r/SigmaClient/"));
-            } catch (MalformedURLException var5x) {
+            } catch (MalformedURLException ignored) {
             }
         });
-        var15.doThis((var0, var1) -> {
+
+        discordBtn.doThis((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://discord.gg/KBGX8FTAXa"));
-            } catch (MalformedURLException var5x) {
+            } catch (MalformedURLException ignored) {
             }
         });
-        this.addToList(var12);
+
+        this.addToList(socialButtonPanel);
     }
 
     @Override

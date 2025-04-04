@@ -78,6 +78,6 @@ public class Class4253 extends Element {
       );
       this.field20628.setYA((int)((float)this.heightA / 2.0F - 7.5F));
       super.draw(partialTicks);
-      RenderUtil.endScissor();
+      RenderUtil.restoreScissor();
    }
 }

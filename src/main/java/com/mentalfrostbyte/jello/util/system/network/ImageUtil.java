@@ -46,7 +46,7 @@ public class ImageUtil {
         }
     }
 
-    public static BufferedImage method35041(BufferedImage var0, int var1) {
+    public static BufferedImage addPadding(BufferedImage var0, int var1) {
         int var4 = var0.getWidth() + var1 * 2;
         int var5 = var0.getHeight() + var1 * 2;
         BufferedImage var6 = method35043(var0, (float) var4 / (float) var0.getWidth(), (float) var5 / (float) var0.getHeight());
@@ -74,7 +74,7 @@ public class ImageUtil {
         return var7;
     }
 
-    public static BufferedImage method35042(BufferedImage var0, float var1, float var2, float var3) {
+    public static BufferedImage adjustImageHSB(BufferedImage var0, float var1, float var2, float var3) {
         int var6 = var0.getWidth();
         int var7 = var0.getHeight();
 
@@ -194,7 +194,7 @@ public class ImageUtil {
         if (var5 <= 1) {
             return var12;
         } else {
-            return !var7 ? applyBlur(method35040(var12, var5, var6), var5) : applyBlur(method35041(var12, var5), var5);
+            return !var7 ? applyBlur(method35040(var12, var5, var6), var5) : applyBlur(addPadding(var12, var5), var5);
         }
     }
 

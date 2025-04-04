@@ -83,7 +83,7 @@ public class AccountUI extends AnimatedIconPanel {
                     }
 
                     super.draw(partialTicks * var7);
-                    RenderUtil.endScissor();
+                    RenderUtil.restoreScissor();
                 }
             }
         } else {

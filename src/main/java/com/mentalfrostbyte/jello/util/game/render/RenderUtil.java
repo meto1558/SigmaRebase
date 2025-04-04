@@ -47,7 +47,7 @@ public class RenderUtil implements MinecraftUtil {
     private static final Stack<IntBuffer> buffer = new Stack<>();
     public static boolean field18461 = false;
 
-    public static void endScissor() {
+    public static void restoreScissor() {
         if (buffer.isEmpty()) {
             GL11.glDisable(GL_SCISSOR_TEST);
         } else {
@@ -565,16 +565,16 @@ public class RenderUtil implements MinecraftUtil {
         drawRoundedRect(x + size, y + height - size, x + width - size, y + height, color);
         drawBlurredBackground(x, y, x + size, y + size);
         drawCircle(x + size, y + size, size * 2.0F, color);
-        endScissor();
+        restoreScissor();
         drawBlurredBackground(x + width - size, y, x + width, y + size);
         drawCircle(x - size + width, y + size, size * 2.0F, color);
-        endScissor();
+        restoreScissor();
         drawBlurredBackground(x, y + height - size, x + size, y + height);
         drawCircle(x + size, y - size + height, size * 2.0F, color);
-        endScissor();
+        restoreScissor();
         drawBlurredBackground(x + width - size, y + height - size, x + width, y + height);
         drawCircle(x - size + width, y - size + height, size * 2.0F, color);
-        endScissor();
+        restoreScissor();
     }
 
     public static void drawBlurredBackground(float x, float y, float width, float height) {
@@ -780,7 +780,7 @@ public class RenderUtil implements MinecraftUtil {
             drawImage((float) (var0 - var11), (float) (var1 + var10 + var12), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
         }
 
-        endScissor();
+        restoreScissor();
         drawBlurredBackground(var5, var6 - var11, var5 + var2 - var10, var6 + var10);
 
         for (int var13 = 0; var13 < var2; var13 += var9) {
@@ -792,7 +792,7 @@ public class RenderUtil implements MinecraftUtil {
             GL11.glPopMatrix();
         }
 
-        endScissor();
+        restoreScissor();
         drawBlurredBackground(var5 + var2 - var10, var6 - var11, var0 + var2 + var11, var6 + var3 - var10);
 
         for (int var14 = 0; var14 < var3; var14 += var9) {
@@ -804,7 +804,7 @@ public class RenderUtil implements MinecraftUtil {
             GL11.glPopMatrix();
         }
 
-        endScissor();
+        restoreScissor();
         drawBlurredBackground(var5 - var10, var6 - var11 + var3 - var9, var5 + var2 - var10, var6 + var3 + var10 * 2);
 
         for (int var15 = 0; var15 < var2; var15 += var9) {
@@ -816,7 +816,7 @@ public class RenderUtil implements MinecraftUtil {
             GL11.glPopMatrix();
         }
 
-        endScissor();
+        restoreScissor();
     }
 
     public static void drawTexture(float x, float y, float width, float height, Texture texture, int color) {
@@ -928,7 +928,7 @@ public class RenderUtil implements MinecraftUtil {
             drawImage((float) (var0 - var9), (float) (var1 + var8 + var10) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
         }
 
-        endScissor();
+        restoreScissor();
         startScissor(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
 
         for (int var11 = 0; var11 < var2; var11 += var7) {
@@ -940,7 +940,7 @@ public class RenderUtil implements MinecraftUtil {
             GL11.glPopMatrix();
         }
 
-        endScissor();
+        restoreScissor();
         startScissor(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
 
         for (int var12 = 0; var12 < var3; var12 += var7) {
@@ -952,7 +952,7 @@ public class RenderUtil implements MinecraftUtil {
             GL11.glPopMatrix();
         }
 
-        endScissor();
+        restoreScissor();
         startScissor(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
 
         for (int var13 = 0; var13 < var2; var13 += var7) {
@@ -964,7 +964,7 @@ public class RenderUtil implements MinecraftUtil {
             GL11.glPopMatrix();
         }
 
-        endScissor();
+        restoreScissor();
     }
 
     public static void drawFilledArc(float var0, float var1, float var2, int var3) {

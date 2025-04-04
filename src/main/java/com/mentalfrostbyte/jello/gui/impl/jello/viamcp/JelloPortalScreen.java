@@ -59,7 +59,7 @@ public class JelloPortalScreen extends MultiplayerScreen {
                 0, 0, Minecraft.getInstance().getMainWindow().getWidth(), (int)(30.0 * Minecraft.getInstance().getMainWindow().getGuiScaleFactor() / (double) GuiManager.scaleFactor)
         );
         this.renderBackground(matrices);
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
         this.versionSelectorWidget.render(matrices, mouseX, mouseY, delta);
         drawString(matrices, this.font, this.getTitle().getString(), this.width / 2 - 146, 13, 16777215);
         minecraft.fontRenderer.drawStringWithShadow(matrices, "Jello Portal:", (float) this.width / 2 - 30, 13, -1);

@@ -108,7 +108,7 @@ public class TabGUI extends Module {
                             false,
                             1.0F);
                     this.method16595(this.field23768, this.yOffset - Math.round(this.field23787), this.field23792);
-                    RenderUtil.endScissor();
+                    RenderUtil.restoreScissor();
                     if (this.field23781) {
                         this.field23783 = this.method16593(this.field23782).size() * this.field23778 + this.field23779;
                         this.method16600(170, this.yOffset, this.field23786, this.field23783, this.field23765,
@@ -307,7 +307,7 @@ public class TabGUI extends Module {
             }
         }
 
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
     }
 
     public List<ModuleCategory> method16597() {
@@ -406,7 +406,7 @@ public class TabGUI extends Module {
         } else {
             RenderUtil.startScissor((float) var1, (float) var2, (float) var3, (float) var4);
             BlurEngine.endBlur();
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
             RenderUtil.drawRect((float) var1, (float) var2, (float) (var1 + var3), (float) (var2 + var4),
                     this.field23793);
         }

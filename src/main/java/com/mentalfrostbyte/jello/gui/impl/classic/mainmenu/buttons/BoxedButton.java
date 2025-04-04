@@ -46,6 +46,6 @@ public class BoxedButton extends Element {
       RenderUtil.drawString(Resources.regular20, (float)var5, (float)(var6 + 1), this.name, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F));
       RenderUtil.drawString(Resources.regular20, (float)var5, (float)var6, this.name, ClientColors.LIGHT_GREYISH_BLUE.getColor());
       GL11.glAlphaFunc(519, 0.0F);
-      super.method13226(partialTicks);
+      super.drawChildren(partialTicks);
    }
 }

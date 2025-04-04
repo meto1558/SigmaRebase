@@ -388,7 +388,7 @@ public class TextField extends AnimatedIconPanel {
          var12,
          var13
       );
-      RenderUtil.endScissor();
+      RenderUtil.restoreScissor();
       if (this.roundedThingy) {
          RenderUtil.drawRoundedRect(
             (float)this.xA,

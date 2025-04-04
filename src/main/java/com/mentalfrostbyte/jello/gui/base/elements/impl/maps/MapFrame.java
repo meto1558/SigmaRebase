@@ -170,7 +170,7 @@ public class MapFrame extends Element {
             );
         }
 
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
         int var22 = Math.round((float) (this.chunkPos.x * 16) - this.field20651 * 16.0F);
         int var23 = Math.round((float) (this.chunkPos.z * 16) - this.field20650 * 16.0F);
         String var24 = var22 + "  " + var23;

@@ -130,6 +130,6 @@ public class MainMenuButton extends SmallImage {
             GL11.glPopMatrix();
         }
 
-        super.method13226(partialTicks);
+        super.drawChildren(partialTicks);
     }
 }

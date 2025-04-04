@@ -16,7 +16,7 @@ import org.newdawn.slick.opengl.Texture;
 public class FadedImage extends Button {
     private final Texture texture;
     private final Animation hoverAnim = new Animation(150, 190, Animation.Direction.BACKWARDS);
-    private boolean field20591;
+    private boolean hover;
 
     public FadedImage(CustomGuiScreen var1, String name, int x, int y, int width, int height, Texture texture) {
         super(var1, name, x, y, width, height);
@@ -25,13 +25,13 @@ public class FadedImage extends Button {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.field20591 = this.method13298();
+        this.hover = this.method13298();
         super.updatePanelDimensions(newHeight, newWidth);
     }
 
     @Override
     public void draw(float partialTicks) {
-        this.hoverAnim.changeDirection(!this.field20591 ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
+        this.hoverAnim.changeDirection(!this.hover ? Animation.Direction.BACKWARDS : Animation.Direction.FORWARDS);
         float var4 = SmoothInterpolator.interpolate(this.hoverAnim.calcPercent(), 0.07, 0.73, 0.63, 1.01);
         if (this.hoverAnim.getDirection() == Animation.Direction.BACKWARDS) {
             var4 = SmoothInterpolator.interpolate(this.hoverAnim.calcPercent(), 0.71, 0.18, 0.95, 0.57);
@@ -48,8 +48,8 @@ public class FadedImage extends Button {
                 (float) (Minecraft.getInstance().getMainWindow().getHeight() + var5),
                 LoadingScreen.background
         );
-        RenderUtil.endScissor();
-        if (this.field20591) {
+        RenderUtil.restoreScissor();
+        if (this.hover) {
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),
                     (float) this.getYA() - var4 * 3.0F,
@@ -68,7 +68,7 @@ public class FadedImage extends Button {
                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
         );
         GL11.glPushMatrix();
-        super.method13226(partialTicks);
+        super.drawChildren(partialTicks);
         GL11.glPopMatrix();
     }
 }

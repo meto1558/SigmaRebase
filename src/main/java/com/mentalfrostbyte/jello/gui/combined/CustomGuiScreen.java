@@ -216,10 +216,10 @@ public class CustomGuiScreen implements IGuiEventListener {
     }
 
     public void draw(float partialTicks) {
-        this.method13226(partialTicks);
+        this.drawChildren(partialTicks);
     }
 
-    public final void method13226(float partialTicks) {
+    public final void drawChildren(float partialTicks) {
         GlStateManager.enableAlphaTest();
         GL11.glAlphaFunc(519, 0.0F);
         GL11.glTranslatef((float) this.getXA(), (float) this.getYA(), 0.0F);

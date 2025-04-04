@@ -102,7 +102,7 @@ public class SettingGroup extends Element {
          this.module.getDescription(),
               RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
       );
-      RenderUtil.endScissor();
+      RenderUtil.restoreScissor();
       super.draw(partialTicks);
    }
 }
