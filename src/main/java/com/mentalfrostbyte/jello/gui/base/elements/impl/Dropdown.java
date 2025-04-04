@@ -200,7 +200,7 @@ public class Dropdown extends Element {
                     this.getText() + var4,
                     RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F)
             );
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
         }
 
         boolean var8 = this.animation.calcPercent() < 1.0F;
@@ -217,7 +217,7 @@ public class Dropdown extends Element {
 
         GL11.glPopMatrix();
         if (var8) {
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
         }
 
         int var9 = this.getWidthA() - (int) ((float) this.getHeightA() / 2.0F + 0.5F);

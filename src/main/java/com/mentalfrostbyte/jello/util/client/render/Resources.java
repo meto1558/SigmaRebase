@@ -190,7 +190,7 @@ public class Resources {
             var7.drawImage(var5, 0, 0, null);
             var7.dispose();
             var5 = ImageUtil.applyBlur(var6, var2);
-            var5 = ImageUtil.method35042(var5, 0.0F, 1.3F, -0.35F);
+            var5 = ImageUtil.adjustImageHSB(var5, 0.0F, 1.3F, -0.35F);
             return BufferedImageUtil.getTexture(var0, var5);
         } catch (IOException var8) {
             throw new IllegalStateException(
@@ -207,8 +207,8 @@ public class Resources {
             var7.scale(var1, var1);
             var7.drawImage(var5, 0, 0, null);
             var7.dispose();
-            var5 = ImageUtil.applyBlur(ImageUtil.method35041(var6, var2), var2);
-            var5 = ImageUtil.method35042(var5, 0.0F, 1.1F, 0.0F);
+            var5 = ImageUtil.applyBlur(ImageUtil.addPadding(var6, var2), var2);
+            var5 = ImageUtil.adjustImageHSB(var5, 0.0F, 1.1F, 0.0F);
             return BufferedImageUtil.getTexture(var0, var5);
         } catch (IOException var8) {
             throw new IllegalStateException(

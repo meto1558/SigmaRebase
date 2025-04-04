@@ -63,6 +63,6 @@ public class ClickGuiPanel extends CustomGuiScreen {
       }
 
       super.draw(partialTicks);
-      RenderUtil.endScissor();
+      RenderUtil.restoreScissor();
    }
 }

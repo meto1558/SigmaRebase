@@ -149,7 +149,7 @@ public class Dropdown extends Element {
             this.getText(),
             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
          );
-         RenderUtil.endScissor();
+         RenderUtil.restoreScissor();
       }
 
       if (!this.method13673()) {
@@ -158,7 +158,7 @@ public class Dropdown extends Element {
 
       super.draw(partialTicks);
       if (!this.method13673()) {
-         RenderUtil.endScissor();
+         RenderUtil.restoreScissor();
       }
    }
 

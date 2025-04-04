@@ -75,7 +75,7 @@ public class SmallImage extends Button {
         }
 
         GL11.glPushMatrix();
-        super.method13226(partialTicks);
+        super.drawChildren(partialTicks);
         GL11.glPopMatrix();
     }
 }

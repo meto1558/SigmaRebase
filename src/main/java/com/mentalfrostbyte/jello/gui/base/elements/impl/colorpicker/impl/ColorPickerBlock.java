@@ -71,7 +71,7 @@ public class ColorPickerBlock extends Element {
                 (float) (this.getYA() + this.getHeightA()),
                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.25F * partialTicks)
         );
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
         super.draw(partialTicks);
     }
 

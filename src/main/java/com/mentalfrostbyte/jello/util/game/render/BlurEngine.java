@@ -94,7 +94,7 @@ public class BlurEngine {
             int var4 = 35;
             RenderUtil.drawBlurredBackground(frameBuffWidth, frameBuffHeight - var4, screenWidth, screenHeight + var4);
             blurShader.render(mc.timer.renderPartialTicks);
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
             GL11.glEnable(GL11.GL_ALPHA_TEST);
             frameBuff.bindFramebuffer(true);
             mc.getFramebuffer().bindFramebuffer(true);

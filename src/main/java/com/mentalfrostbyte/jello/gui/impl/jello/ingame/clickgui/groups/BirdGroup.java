@@ -122,7 +122,7 @@ public class BirdGroup extends AnimatedIconPanel {
                 this.bird,
                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
         );
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
         this.field20837 = System.currentTimeMillis();
         super.draw(partialTicks);
     }

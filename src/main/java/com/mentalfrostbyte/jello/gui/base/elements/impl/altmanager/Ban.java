@@ -76,7 +76,7 @@ public class Ban extends AnimatedIconPanel {
                     if (var6 != null) {
                         this.field21245 = BufferedImageUtil.getTexture("servericon", var6);
                         this.field21246 = BufferedImageUtil.getTexture(
-                                "servericon", ImageUtil.applyBlur(ImageUtil.method35042(method13579(var6, 2.5, 2.5), 0.0F, 1.1F, 0.0F), 25)
+                                "servericon", ImageUtil.applyBlur(ImageUtil.adjustImageHSB(method13579(var6, 2.5, 2.5), 0.0F, 1.1F, 0.0F), 25)
                         );
                     }
                 } catch (IOException var8) {
@@ -115,7 +115,7 @@ public class Ban extends AnimatedIconPanel {
             }
 
             GL11.glPopMatrix();
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
             RenderUtil.drawRoundedRect(
                     (float) this.xA,
                     (float) this.yA,
@@ -231,7 +231,7 @@ public class Ban extends AnimatedIconPanel {
         }
 
         GL11.glPopMatrix();
-        RenderUtil.endScissor();
+        RenderUtil.restoreScissor();
     }
 
     public static BufferedImage method13578(String var0) {

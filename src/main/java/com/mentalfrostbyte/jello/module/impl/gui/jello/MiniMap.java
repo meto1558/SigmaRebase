@@ -175,7 +175,7 @@ public class MiniMap extends Module {
                                     (float) (this.field23715 * 16),
                                     true,
                                     false);
-                            RenderUtil.endScissor();
+                            RenderUtil.restoreScissor();
                             GL11.glPopMatrix();
                             GL11.glPushMatrix();
                             int direction = (int) MovementUtil.getDirection();

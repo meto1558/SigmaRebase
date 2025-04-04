@@ -260,7 +260,7 @@ public class TabGUI extends Module {
                 RenderUtil.drawString(
                         activeCategoryPart.font, (float) (descriptionX + 4), (float) (descriptionY + 2), description, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 1.7F))
                 );
-                RenderUtil.endScissor();
+                RenderUtil.restoreScissor();
             }
         } catch (IndexOutOfBoundsException e) {
             Client.logger.warn("bruh your modules aren't enough for this sexy ass tabgui", e);

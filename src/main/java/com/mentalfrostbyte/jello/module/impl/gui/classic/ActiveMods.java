@@ -129,7 +129,7 @@ public class ActiveMods extends Module {
 									this.getModSuffix(mod),
 									new Color(160, 160, 160)
 							);
-					RenderUtil.endScissor();
+					RenderUtil.restoreScissor();
 					RenderSystem.disableBlend();
 					var6 += textHeight;
 					RenderSystem.popMatrix();

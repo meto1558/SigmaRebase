@@ -224,6 +224,6 @@ public class ProfileGroup extends AnimatedIconPanel {
       }
 
       super.draw(partialTicks);
-      RenderUtil.endScissor();
+      RenderUtil.restoreScissor();
    }
 }

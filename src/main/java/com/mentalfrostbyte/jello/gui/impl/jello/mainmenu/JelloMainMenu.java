@@ -53,7 +53,6 @@ public class JelloMainMenu extends CustomGuiScreen {
         int var19 = 10;
         String prod = "© Sigma Prod";
         StringBuilder clientInfo = new StringBuilder().append("Jello for Sigma ");
-        Client.getInstance();
         List<ProtocolVersion> sorted = ProtocolInfo.
                 PROTOCOL_INFOS
                 .stream()
@@ -222,7 +221,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                 (float) (this.getHeightA() / 2 - imageHeight),
                 (float) imageWidth,
                 (float) imageHeight,
-                Resources.logoLargePNG,
+                largeLogo,
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
         super.draw(partialTicks);

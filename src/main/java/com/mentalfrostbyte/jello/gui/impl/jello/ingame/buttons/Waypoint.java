@@ -55,7 +55,7 @@ public class Waypoint extends Button {
               RenderUtil2.applyAlpha(this.color.color, partialTicks)
       );
       GL11.glPushMatrix();
-      super.method13226(partialTicks);
+      super.drawChildren(partialTicks);
       GL11.glPopMatrix();
    }
 }

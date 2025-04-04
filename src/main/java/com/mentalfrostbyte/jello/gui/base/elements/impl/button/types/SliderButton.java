@@ -65,6 +65,6 @@ public class SliderButton extends Button {
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
 
-        super.method13226(partialTicks);
+        super.drawChildren(partialTicks);
     }
 }

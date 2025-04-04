@@ -35,7 +35,7 @@ public class ChangingButton extends Element {
          Resources.repeatPNG,
          RenderUtil2.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.35F)
       );
-      RenderUtil.endScissor();
+      RenderUtil.restoreScissor();
       super.draw(partialTicks);
    }
 }

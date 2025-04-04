@@ -108,7 +108,7 @@ public class Account extends AnimatedIconPanel {
         RenderUtil.startScissor(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
         if (this.field21249 != null) {
             this.method13584();
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
             if (this.field21252 > 0.0F && this.heightA > 55) {
                 RenderUtil.drawImage(
                         (float) (this.xA + this.getWidthA()),

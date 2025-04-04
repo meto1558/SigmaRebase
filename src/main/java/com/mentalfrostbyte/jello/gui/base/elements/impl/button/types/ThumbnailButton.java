@@ -217,7 +217,7 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     );
                 }
 
-                RenderUtil.endScissor();
+                RenderUtil.restoreScissor();
             }
         }
     }

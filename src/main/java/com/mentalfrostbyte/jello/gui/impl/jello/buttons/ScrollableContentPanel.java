@@ -90,7 +90,7 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
 
          super.draw(partialTicks);
          if (this.field21206) {
-            RenderUtil.endScissor();
+            RenderUtil.restoreScissor();
          }
       }
    }
