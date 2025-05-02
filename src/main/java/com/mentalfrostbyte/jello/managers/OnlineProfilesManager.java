@@ -37,7 +37,7 @@ public class OnlineProfilesManager {
 
     public List<String> fetchOnlineProfiles() {
         try {
-            HttpGet request = new HttpGet("http://localhost/profiles.php?v=" + Client.RELEASE_TARGET);
+            HttpGet request = new HttpGet("https://jelloconnect.sigmaclient.cloud/profiles.php?v=" + Client.RELEASE_TARGET);
             CloseableHttpResponse response = HttpClients.createDefault().execute(request);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
@@ -64,7 +64,7 @@ public class OnlineProfilesManager {
 
     public JsonObject fetchProfileConfig(String profileName) {
         try {
-            HttpGet request = new HttpGet("http://localhost/profiles/" + encode(profileName) + ".profile?v=" + Client.RELEASE_TARGET);
+            HttpGet request = new HttpGet("https://jelloconnect.sigmaclient.cloud/profiles/" + encode(profileName) + ".profile?v=" + Client.RELEASE_TARGET);
             CloseableHttpResponse response = HttpClients.createDefault().execute(request);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
