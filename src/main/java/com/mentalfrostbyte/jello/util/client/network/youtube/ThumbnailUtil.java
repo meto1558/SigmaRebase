@@ -115,47 +115,44 @@ public class ThumbnailUtil {
 
     private static String fetchUrlContent(String url) {
         System.out.println(":" + url);
-        CloseableHttpClient var3 = HttpClients.createDefault();
-        HttpGet var4 = new HttpGet(url);
-        if (url.contains("playlist")) {
-            var4.addHeader("ChatCommandExecutor-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
-        } else {
-            var4.addHeader("ChatCommandExecutor-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
-        }
+
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("ChatCommandExecutor-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
 
         try {
-            CloseableHttpResponse var5 = var3.execute(var4);
-            Throwable var6 = null;
+            CloseableHttpResponse response = client.execute(httpGet);
+            Throwable t = null;
 
-            String var9;
+            String output;
             try {
-                HttpEntity var7 = var5.getEntity();
-                if (var7 == null) {
+                HttpEntity entity = response.getEntity();
+                if (entity == null) {
                     return "";
                 }
 
-                String var8 = EntityUtils.toString(var7);
-                var9 = var8;
-            } catch (Throwable var20) {
-                var6 = var20;
-                throw var20;
+                String stringContent = EntityUtils.toString(entity);
+                output = stringContent;
+            } catch (Throwable e) {
+                t = e;
+                throw e;
             } finally {
-                if (var5 != null) {
-                    if (var6 != null) {
+                if (response != null) {
+                    if (t != null) {
                         try {
-                            var5.close();
-                        } catch (Throwable var19) {
-                            var6.addSuppressed(var19);
+                            response.close();
+                        } catch (Throwable e) {
+                            t.addSuppressed(e);
                         }
                     } else {
-                        var5.close();
+                        response.close();
                     }
                 }
             }
 
-            return var9;
-        } catch (IllegalStateException | IOException | ParseException var22) {
-            var22.printStackTrace();
+            return output;
+        } catch (IllegalStateException | IOException | ParseException e) {
+            e.printStackTrace();
             return "";
         }
     }

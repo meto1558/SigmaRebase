@@ -80,7 +80,7 @@ public class LoginScreen extends Element {
             RegisterScreen var5x = (RegisterScreen) this.getParent();
             var5x.method13422();
         });
-        this.forgotButton.doThis((var0, var1x) -> Util.getOSType().openLink("https://sigmaclient.cloud"));
+        this.forgotButton.doThis((var0, var1x) -> Util.getOSType().openLink("https://sigmaclient.cloud/pwdreset.php"));
     }
 
     @Override
