@@ -39,16 +39,7 @@ public class MinecraftVersion implements GameVersion {
      * For getting data, use {@link SharedConstants#getVersion} instead, as that is cached.
      */
     public static GameVersion load() {
-        try (InputStream inputstream = MinecraftVersion.class.getResourceAsStream("/version.json")) {
-            if (inputstream == null) {
-                LOGGER.warn("Missing version information!");
-                return GAME_VERSION;
-            } else {
-                return new MinecraftVersion();
-            }
-        } catch (JsonParseException | IOException ioexception) {
-            throw new IllegalStateException("Game version information is corrupt", ioexception);
-        }
+        return GAME_VERSION;
     }
 
     public String getId() {
