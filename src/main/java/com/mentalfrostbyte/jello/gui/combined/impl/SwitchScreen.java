@@ -71,21 +71,21 @@ public class SwitchScreen extends Screen {
 
         youtubeBtn.doThis((var0, var1) -> {
             try {
-                Util.getOSType().openURL(new URL("https://www.youtube.com/@sigmaclient2950"));
+                Util.getOSType().openURL(new URL("https://jelloconnect.sigmaclient.cloud/urls/youtube.php"));
             } catch (MalformedURLException ignored) {
             }
         });
 
         redditBtn.doThis((var0, var1) -> {
             try {
-                Util.getOSType().openURL(new URL("https://www.reddit.com/r/SigmaClient/"));
+                Util.getOSType().openURL(new URL("https://jelloconnect.sigmaclient.cloud/urls/reddit.php"));
             } catch (MalformedURLException ignored) {
             }
         });
 
         discordBtn.doThis((var0, var1) -> {
             try {
-                Util.getOSType().openURL(new URL("https://discord.gg/KBGX8FTAXa"));
+                Util.getOSType().openURL(new URL("https://jelloconnect.sigmaclient.cloud/urls/guilded.php"));
             } catch (MalformedURLException ignored) {
             }
         });
