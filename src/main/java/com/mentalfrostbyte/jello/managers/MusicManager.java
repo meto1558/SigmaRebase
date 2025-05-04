@@ -773,7 +773,7 @@ public class MusicManager extends Manager implements MinecraftUtil {
 
     public boolean hasVCRedist() {
         if (Util.getOSType() != Util.OS.WINDOWS) {
-            return true; // Not on Windows, VC Redist is not on Linux/mac.
+            return true;
         }
 
         String[] redistKeys = {
@@ -783,17 +783,23 @@ public class MusicManager extends Manager implements MinecraftUtil {
                 "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86",
                 "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
                 "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
-                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1", // VC++ 2015-2019
+                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1",
                 "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D992A37A-AF08-45C4-9E49-D50EA5F46A16}_is1"
         };
 
         for (String key : redistKeys) {
             try {
-                if (Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, key, "Installed") == 1) {
-                    return true;
+                if (Advapi32Util.registryKeyExists(WinReg.HKEY_LOCAL_MACHINE, key)) {
+                    if (Advapi32Util.registryValueExists(WinReg.HKEY_LOCAL_MACHINE, key, "Installed")) {
+                        int installed = Advapi32Util.registryGetIntValue(WinReg.HKEY_LOCAL_MACHINE, key, "Installed");
+                        if (installed == 1) return true;
+                    } else {
+                        // Some VC Redists don't use "Installed" but can be detected by presence
+                        return true;
+                    }
                 }
-            } catch (Win32Exception exc) {
-                Client.logger.error("No VCRedist was found on your computer.", exc);
+            } catch (Exception exc) {
+                Client.logger.warn("Failed to check key: " + key, exc);
             }
         }
 
