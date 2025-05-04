@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manifest
-          path: release/sigma-jello-5.1.0.json
+          path: release/sigma-jello-5.1.0-pojav.json
 
   release:
     needs: build
@@ -96,10 +96,10 @@ jobs:
           echo "SHA1=$SHA1" >> $GITHUB_ENV
           echo "SIZE=$SIZE" >> $GITHUB_ENV
 
-      - name: Update sigma-jello-5.1.0.json
+      - name: Update sigma-jello-5.1.0-pojav.json
         run: |
-          JSON_FILE="release/sigma-jello-5.1.0.json"
-          URL="https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/pojav-nightly/sigma-jello-5.1.0.jar"
+          JSON_FILE="release/sigma-jello-5.1.0-pojav.json"
+          URL="https://github.com/Sigma-Skidder-Team/SigmaRebase/releases/download/pojav-nightly/sigma-jello-5.1.0-pojav.jar"
 
           jq --arg sha1 "$SHA1" --argjson size "$SIZE" --arg url "$URL" \
           '.downloads.client = { "sha1": $sha1, "size": $size, "url": $url }' \
