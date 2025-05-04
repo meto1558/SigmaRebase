@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class YoutubeUtil {
-    public static String method34955(int var0) {
+    public static String parseSongTime(int var0) {
         if (var0 < 0) {
             var0 = 0;
         }
