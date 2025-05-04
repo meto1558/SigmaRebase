@@ -115,7 +115,7 @@ public class NameTags extends Module {
     public void onSendPacket(EventSendPacket event) {
         if (this.isEnabled()) {
             if (event.packet instanceof CPlayerTryUseItemOnBlockPacket var4) {
-				if (mc.world.getBlockState(var4.func_218794_c().getPos()).getBlock() instanceof FurnaceBlock) {
+                if (mc.world.getBlockState(var4.func_218794_c().getPos()).getBlock() instanceof FurnaceBlock) {
                     this.currentBlockPos = var4.func_218794_c().getPos();
                 }
             }
@@ -362,87 +362,92 @@ public class NameTags extends Module {
                     .getStringSettingValueByName("Username");
         }
 
-        if (var13.length() != 0) {
-            float var14 = (float) (x - mc.gameRenderer.getActiveRenderInfo().getPos().getX());
-            float var15 = (float) (y - mc.gameRenderer.getActiveRenderInfo().getPos().getY());
-            float var16 = (float) (z - mc.gameRenderer.getActiveRenderInfo().getPos().getZ());
-            GL11.glBlendFunc(770, 771);
-            GL11.glEnable(3042);
-            GL11.glEnable(2848);
-            GL11.glDisable(2929);
-            GL11.glDisable(2896);
-            GL11.glDepthMask(false);
-            String var17 = (float) Math.round(((LivingEntity) var7).getHealth() * 10.0F) / 10.0F + "";
-            float var18 = Math.min(((LivingEntity) var7).getHealth() / ((LivingEntity) var7).getMaxHealth(), 1.0F);
-            GL11.glPushMatrix();
-            GL11.glAlphaFunc(519, 0.0F);
-            GL11.glTranslated(var14, var15 + 0.6F - 0.33333334F * (1.0F - var8), var16);
-            GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getYaw(), 0.0F, -1.0F, 0.0F);
-            GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getPitch(), 1.0F, 0.0F, 0.0F);
-            GL11.glScalef(-0.009F * var8, -0.009F * var8, -0.009F * var8);
-            int var19 = this.backgroundColor;
-            if (!Client.getInstance().friendManager.isFriendPure(var7)) {
-                if (Client.getInstance().friendManager.isFriend(var7)) {
-                    var19 = RenderUtil.applyAlpha(-6750208, 0.5F);
-                }
-            } else {
-                var19 = RenderUtil.applyAlpha(-16171506, 0.5F);
-            }
-
-            int var20 = RenderUtil
-                    .applyAlpha(!(var7 instanceof PlayerEntity) ? ClientColors.LIGHT_GREYISH_BLUE.getColor()
-                            : new Color(Class8781.method31663((PlayerEntity) var7)).getRGB(), 0.5F);
-            int var21 = var12.getWidth(var13) / 2;
-            if (!field24003.containsKey(var13)) {
-                RenderUtil.drawRoundedRect((float) (-var21 - 10), -25.0F, (float) (var21 * 2 + 20),
-                        (float) (var12.getHeight() + 27), 20.0F, 0.5F);
-            } else {
-                int var22 = Color.getHSBColor((float) (System.currentTimeMillis() % 10000L) / 10000.0F, 0.5F, 1.0F)
-                        .getRGB();
-
-                RenderUtil.drawImage(
-                        (float) (-var21 - 10 - 31),
-                        -25.0F, (float) (var12.getHeight() + 27),
-                        (float) (var12.getHeight() + 27),
-                        field24003.get(var13),
-                        RenderUtil.applyAlpha(var22, 0.7f)
-                );
-
-                RenderUtil.drawImage((float) (-var21 - 10 - 31 + var12.getHeight() + 27), -25.0F, 14.0F,
-                        (float) (var12.getHeight() + 27), Resources.shadowRightPNG,
-                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
-
-                RenderUtil.drawRoundedRect((float) (-var21 - 10 - 31), -25.0F, (float) (var21 * 2 + 20 + 31 + 27),
-                        (float) (var12.getHeight() + 27), 20.0F, 0.5F);
-                GL11.glTranslatef(27.0F, 0.0F, 0.0F);
-            }
-
-            RenderUtil.drawRect((float) (-var21 - 10), -25.0F, (float) (var21 + 10), (float) (var12.getHeight() + 2),
-                    var19);
-            RenderUtil.drawRect((float) (-var21 - 10),
-                    (float) (var12.getHeight() - 1) - (float) ((LivingEntity) var7).hurtTime / 3.0F,
-                    Math.min((float) (var21 * 2 + 20) * (var18 - 0.5F), (float) (var21 + 10)),
-                    (float) (var12.getHeight() + 2), var20);
-            GL11.glPushMatrix();
-            GL11.glTranslated(-var12.getWidth(var13) / 2, 0.0, 0.0);
-            int var26 = ResourceRegistry.JelloLightFont14.getWidth("Health: 20.0");
-            String var23 = "Health: ";
-            int var24 = var12.getWidth(var13);
-            if (var26 > var24) {
-                var23 = "H: ";
-            }
-
-            RenderUtil.drawString(var12, 0.0F, -20.0F, var13, ClientColors.LIGHT_GREYISH_BLUE.getColor());
-            RenderUtil.drawString(ResourceRegistry.JelloLightFont14, 0.0F, 10.0F, var23 + var17,
-                    ClientColors.LIGHT_GREYISH_BLUE.getColor());
-            //        SigmaIRC.Class8433 var25 = Client.getInstance().networkManager.field38429.method29512(var7);
-            //       if (var25 != null) {
-            //       RenderUtil.drawString(ResourceRegistry.JelloLightFont14, 0.0F, -30.0F, var25.field36141,
-            //               ClientColors.LIGHT_GREYISH_BLUE.getColor());
+        if (var13.length() == 0) {
+            return; // Early return to avoid any GL operations if name is empty
         }
 
+        float var14 = (float) (x - mc.gameRenderer.getActiveRenderInfo().getPos().getX());
+        float var15 = (float) (y - mc.gameRenderer.getActiveRenderInfo().getPos().getY());
+        float var16 = (float) (z - mc.gameRenderer.getActiveRenderInfo().getPos().getZ());
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(3042);
+        GL11.glEnable(2848);
+        GL11.glDisable(2929);
+        GL11.glDisable(2896);
+        GL11.glDepthMask(false);
+        String var17 = (float) Math.round(((LivingEntity) var7).getHealth() * 10.0F) / 10.0F + "";
+        float var18 = Math.min(((LivingEntity) var7).getHealth() / ((LivingEntity) var7).getMaxHealth(), 1.0F);
+
+
+        GL11.glPushMatrix();
+        GL11.glAlphaFunc(519, 0.0F);
+        GL11.glTranslated(var14, var15 + 0.6F - 0.33333334F * (1.0F - var8), var16);
+        GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getYaw(), 0.0F, -1.0F, 0.0F);
+        GL11.glRotatef(mc.gameRenderer.getActiveRenderInfo().getPitch(), 1.0F, 0.0F, 0.0F);
+        GL11.glScalef(-0.009F * var8, -0.009F * var8, -0.009F * var8);
+
+
+        int var19 = this.backgroundColor;
+        if (!Client.getInstance().friendManager.isFriendPure(var7)) {
+            if (Client.getInstance().friendManager.isFriend(var7)) {
+                var19 = RenderUtil.applyAlpha(-6750208, 0.5F);
+            }
+        } else {
+            var19 = RenderUtil.applyAlpha(-16171506, 0.5F);
+        }
+
+        int var20 = RenderUtil
+                .applyAlpha(!(var7 instanceof PlayerEntity) ? ClientColors.LIGHT_GREYISH_BLUE.getColor()
+                        : new Color(Class8781.method31663((PlayerEntity) var7)).getRGB(), 0.5F);
+        int var21 = var12.getWidth(var13) / 2;
+        if (!field24003.containsKey(var13)) {
+            RenderUtil.drawRoundedRect((float) (-var21 - 10), -25.0F, (float) (var21 * 2 + 20),
+                    (float) (var12.getHeight() + 27), 20.0F, 0.5F);
+        } else {
+            int var22 = Color.getHSBColor((float) (System.currentTimeMillis() % 10000L) / 10000.0F, 0.5F, 1.0F)
+                    .getRGB();
+
+            RenderUtil.drawImage(
+                    (float) (-var21 - 10 - 31),
+                    -25.0F, (float) (var12.getHeight() + 27),
+                    (float) (var12.getHeight() + 27),
+                    field24003.get(var13),
+                    RenderUtil.applyAlpha(var22, 0.7f)
+            );
+
+            RenderUtil.drawImage((float) (-var21 - 10 - 31 + var12.getHeight() + 27), -25.0F, 14.0F,
+                    (float) (var12.getHeight() + 27), Resources.shadowRightPNG,
+                    RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+
+            RenderUtil.drawRoundedRect((float) (-var21 - 10 - 31), -25.0F, (float) (var21 * 2 + 20 + 31 + 27),
+                    (float) (var12.getHeight() + 27), 20.0F, 0.5F);
+            GL11.glTranslatef(27.0F, 0.0F, 0.0F);
+        }
+
+        RenderUtil.drawRect((float) (-var21 - 10), -25.0F, (float) (var21 + 10), (float) (var12.getHeight() + 2),
+                var19);
+        RenderUtil.drawRect((float) (-var21 - 10),
+                (float) (var12.getHeight() - 1) - (float) ((LivingEntity) var7).hurtTime / 3.0F,
+                Math.min((float) (var21 * 2 + 20) * (var18 - 0.5F), (float) (var21 + 10)),
+                (float) (var12.getHeight() + 2), var20);
+
+        // Second matrix push - removed the extra push here
+        GL11.glTranslated(-var12.getWidth(var13) / 2, 0.0, 0.0);
+        int var26 = ResourceRegistry.JelloLightFont14.getWidth("Health: 20.0");
+        String var23 = "Health: ";
+        int var24 = var12.getWidth(var13);
+        if (var26 > var24) {
+            var23 = "H: ";
+        }
+
+        RenderUtil.drawString(var12, 0.0F, -20.0F, var13, ClientColors.LIGHT_GREYISH_BLUE.getColor());
+        RenderUtil.drawString(ResourceRegistry.JelloLightFont14, 0.0F, 10.0F, var23 + var17,
+                ClientColors.LIGHT_GREYISH_BLUE.getColor());
+
+
         GL11.glPopMatrix();
-        GL11.glPopMatrix();
+
+        // Reset GL state
         GL11.glEnable(2929);
         GL11.glEnable(2896);
         GL11.glDisable(2848);
@@ -459,4 +464,3 @@ public class NameTags extends Module {
         }
     }
 }
-
