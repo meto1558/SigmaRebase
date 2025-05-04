@@ -100,12 +100,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.28.0-GA</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.viaversion</groupId>
             <artifactId>viarewind</artifactId>
             <version>4.0.7-SNAPSHOT</version>
@@ -157,18 +151,6 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>2.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.thizzer.jtouchbar</groupId>
-            <artifactId>jtouchbar</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
         </dependency>
 
         <dependency>

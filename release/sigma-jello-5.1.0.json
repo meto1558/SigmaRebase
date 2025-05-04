@@ -123,17 +123,6 @@
     {
       "downloads": {
         "artifact": {
-          "path": "org/javassist/javassist/3.28.0-GA/javassist-3.28.0-GA.jar",
-          "sha1": "9a958811a88381bb159cc2f5ed79c34a45c4af7a",
-          "size": 851531,
-          "url": "https://repo1.maven.org/maven2/org/javassist/javassist/3.28.0-GA/javassist-3.28.0-GA.jar"
-        }
-      },
-      "name": "org.javassist:javassist:3.28.0-GA"
-    },
-    {
-      "downloads": {
-        "artifact": {
           "path": "org/slf4j/slf4j-simple/1.7.32/slf4j-simple-1.7.32.jar",
           "sha1": "321ffafb5123a91a71737dbff38ebe273e771e5b",
           "size": 15257,
@@ -152,17 +141,6 @@
         }
       },
       "name": "org.slf4j:slf4j-api:1.7.32"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/mentalfrostbyte/annotations/24.1.0/annotations-24.1.0.jar",
-          "sha1": "7af6a669488450c4a07c2c3254e2151df42d7d04",
-          "size": 30570,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/annotations-24.1.0.jar"
-        }
-      },
-      "name": "com.mentalfrostbyte:annotations:24.1.0"
     },
     {
       "downloads": {
@@ -200,90 +178,57 @@
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/java-discord-rpc/2.0.1-all/java-discord-rpc-2.0.1-all.jar",
+          "path": "club/minced/java-discord-rpc/2.0.1-all/java-discord-rpc-2.0.1-all.jar",
           "sha1": "d5d6adb11d48813b368d6265c34bfa8f936b97d7",
           "size": 1706638,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/java-discord-rpc-2.0.1-all.jar"
+          "url": "https://github.com/MinnDevelopment/java-discord-rpc/releases/download/v2.0.1/java-discord-rpc-2.0.1-all.jar"
         }
       },
-      "name": "com.mentalfrostbyte:java-discord-rpc:2.0.1-all"
+      "name": "club.minced:java-discord-rpc:2.0.1-all"
     },
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/jlayer/1.0.1/jlayer-1.0.1.jar",
+          "path": "javazoom/jlayer/1.0.1/jlayer-1.0.1.jar",
           "sha1": "2bfef7a5a4c9af2184ff74b460b6d7d24349b98a",
           "size": 143624,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/jlayer-1.0.1.jar"
+          "url": "https://repo1.maven.org/maven2/javazoom/jlayer/1.0.1/jlayer-1.0.1.jar"
         }
       },
-      "name": "com.mentalfrostbyte:jlayer:1.0.1"
+      "name": "javazoom.jlayer:jlayer:1.0.1"
     },
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/json/20140107/json-20140107.jar",
-          "sha1": "d1ffca6e2482b002702c6a576166fd685e3370e3",
-          "size": 64952,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/json-20140107.jar"
-        }
-      },
-      "name": "com.mentalfrostbyte:json:20140107"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/mentalfrostbyte/jsr305/3.0.2/jsr305-3.0.2.jar",
-          "sha1": "25ea2e8b0c338a877313bd4672d3fe056ea78f0d",
-          "size": 19936,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/jsr305-3.0.2.jar"
-        }
-      },
-      "name": "com.mentalfrostbyte:jsr305:3.0.2"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/mentalfrostbyte/jtouchbar/1.0.0/jtouchbar-1.0.0.jar",
-          "sha1": "24bfecdc18b103a1a824410f97e1f7b74e67152b",
-          "size": 324680,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/jtouchbar-1.0.0.jar"
-        }
-      },
-      "name": "com.mentalfrostbyte:jtouchbar:1.0.0"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/mentalfrostbyte/openauth/1.1.6/openauth-1.1.6.jar",
+          "path": "fr/litarvan/openauth/1.1.6/openauth-1.1.6.jar",
           "sha1": "b130fd84bc7b844d9ac570c40cd18b0e59b5c43c",
           "size": 49460,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/openauth-1.1.6.jar"
+          "url": "https://github.com/Litarvan/OpenAuth/releases/download/v1.1.6/openauth-1.1.6.jar"
         }
       },
-      "name": "com.mentalfrostbyte:openauth:1.1.6"
+      "name": "fr.litarvan:openauth:1.1.6"
     },
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/snakeyaml/2.2/snakeyaml-2.2.jar",
+          "path": "org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar",
           "sha1": "3af797a25458550a16bf89acc8e4ab2b7f2bfce0",
           "size": 334352,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/snakeyaml-2.2.jar"
+          "url": "https://repo1.maven.org/maven2/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar"
         }
       },
-      "name": "com.mentalfrostbyte:snakeyaml:2.2"
+      "name": "org.yaml:snakeyaml:2.2"
     },
     {
       "downloads": {
         "artifact": {
-          "path": "com/mentalfrostbyte/youtubedl/1.1/youtubedl-1.1.jar",
-          "sha1": "77827f97d4035da7bece2001c081294eae4bdbc6",
-          "size": 11268,
-          "url": "https://github.com/MarkGG8181/cloud/raw/refs/heads/main/sigma/youtubedl-1.1.jar"
+          "path": "com/github/sapher/youtubedl-java/1.1/youtubedl-java-1.1.jar",
+          "sha1": "e5365fc3c5e5f76de9cfaf64dca278af35448288",
+          "size": 11271,
+          "url": "https://jitpack.io/com/github/sapher/youtubedl-java/1.1/youtubedl-java-1.1.jar"
         }
       },
-      "name": "com.mentalfrostbyte:youtubedl:1.1"
+      "name": "com.github.sapher:youtubedl-java:1.1"
     },
     {
       "downloads": {
