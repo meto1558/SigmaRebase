@@ -65,7 +65,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         super(parent, var2, 875, 55, 800, 600, false);
         this.parent = parent;
 
-        if (videos.size() != 9) {
+        if (videos.size() != 8) {
             videos.clear();
             videos.add(new Thumbnails("Trap Nation", "PLC1og_v3eb4hrv4wsqG1G5dsNZh9bIscJ", YoutubeContentType.PLAYLIST));
             videos.add(new Thumbnails("Chill Nation", "PL3EfCK9aCbkptFjtgWYJ8wiXgJQw5k3M3", YoutubeContentType.PLAYLIST));
@@ -75,8 +75,6 @@ public class MusicPlayer extends AnimatedIconPanel {
             videos.add(new Thumbnails("Trap City", "PLU_bQfSFrM2PemIeyVUSjZjJhm6G7auOY", YoutubeContentType.PLAYLIST));
             videos.add(new Thumbnails("CloudKid", "PLejelFTZDTZM1yOroUyveJkjE7IY9Zj73", YoutubeContentType.PLAYLIST));
             videos.add(new Thumbnails("NCS", "PLRBp0Fe2Gpgm_u2w2a2isHw29SugZ34cD", YoutubeContentType.PLAYLIST));
-            videos.add(new Thumbnails("EDM", "PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5", YoutubeContentType.PLAYLIST));
-
         }
 
         time = System.nanoTime();
@@ -326,20 +324,20 @@ public class MusicPlayer extends AnimatedIconPanel {
     }
 
     private void method13192(float var1) {
-        int var4 = (int) this.musicManager.getDuration();
-        int var5 = this.musicManager.getDurationInt();
+        int duration1 = (int) this.musicManager.getDuration();
+        int duration = this.musicManager.getDurationInt();
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
                 (float) (this.getXA() + this.width + 14),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
-                YoutubeUtil.method34955(var4),
+                YoutubeUtil.parseSongTime(duration1),
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
         );
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14,
-                (float) (this.getXA() + this.getWidthA() - 14 - ResourceRegistry.JelloLightFont14.getWidth(YoutubeUtil.method34955(var5))),
+                (float) (this.getXA() + this.getWidthA() - 14 - ResourceRegistry.JelloLightFont14.getWidth(YoutubeUtil.parseSongTime(duration))),
                 (float) (this.getYA() + this.getHeightA() - 10) - 22.0F * var1,
-                YoutubeUtil.method34955(var5),
+                YoutubeUtil.parseSongTime(duration),
                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
         );
     }
