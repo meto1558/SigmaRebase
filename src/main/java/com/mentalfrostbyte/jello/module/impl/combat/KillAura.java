@@ -1,9 +1,11 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
+
 import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
@@ -30,6 +32,7 @@ import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
+import net.minecraft.network.play.server.SEntityStatusPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -76,8 +79,10 @@ public class KillAura extends Module {
 
     private boolean isBlocking;
 
-    // First, add the import for JelloAI at the top of the file
-
+    // Fields for JelloAI hit tracking
+    private Entity lastAttackEntity = null;
+    private long lastAttackTime = 0;
+    private boolean lastAttackWasMoving = false;
 
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
@@ -96,7 +101,7 @@ public class KillAura extends Module {
                 "NCP",
                 "AAC", "Smooth",
                 "LockView", "Test",
-                "Test2", "JelloAI", "None")  // Added JelloAI option
+                "Test2", "JelloAI", "None")
         );
         this.registerSetting(this.useRotationSpeed = new BooleanSetting("Use Rotation Speed", "Max rotation change per tick.", true));
         this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, Float.class, 6.0F, 360, 6F));
@@ -184,7 +189,7 @@ public class KillAura extends Module {
 
         // Reset JelloAI rotations when KillAura is disabled
         if (rotationMode.currentValue.equals("JelloAI")) {
-            JelloAI.resetRotations();
+            JelloAI.smoothResetRotations();
         }
 
         super.onDisable();
@@ -622,178 +627,156 @@ public class KillAura extends Module {
 
         switch (rotationMode.currentValue) {
             case "Test":
+                float yawSpeed = 10.0F;
+                float pitchSpeed = 10.0F;
 
-                if (Math.abs(targetYawDifference) > 80.0F) {
-                    float var9 = (float) this.randomize(-10.2, 10.2);
-                    float var30 = targetYawDifference * targetYawDifference * 1.13F / 2.0F + var9;
-                    this.currentRotation.yaw += var30;
-                    this.smoothYaw = var30;
-                } else if (Math.abs(targetYawDifference) > 30.0F) {
-                    float var26 = (float) this.randomize(-10.2, 10.2);
-                    float var31 = targetYawDifference * 1.03F / 2.0F + var26;
-                    this.currentRotation.yaw += var31;
-                    this.smoothYaw = var31;
-                } else if (Math.abs(targetYawDifference) > 10.0F) {
-                    Entity var27 = RotationUtils.hoveringTarget(
-                            this.currentRotation.pitch, this.currentRotation.yaw, this.getNumberValueBySettingName("Range"), 0.07
-                    );
-                    double var11 = var27 == null ? 13.4 : 1.4;
-                    this.smoothYaw = (float) ((double) this.smoothYaw * 0.5296666666666666);
-                    if (Math.abs(targetYawDifference) < 20.0F) {
-                        this.smoothYaw = targetYawDifference * 0.5F;
-                    }
-
-                    this.currentRotation.yaw = this.currentRotation.yaw + targetYawDifference + this.smoothYaw + (float) this.randomize(-var11, var11);
-                } else {
-                    this.smoothYaw = (float) ((double) this.smoothYaw * 0.05);
-                    double var13 = 0.0;
-                    this.currentRotation.yaw = this.currentRotation.yaw + this.smoothYaw + (float) this.randomize(-var13, var13);
+                if (Math.abs(targetYawDifference) > yawSpeed) {
+                    targetYawDifference = yawSpeed * Math.signum(targetYawDifference);
                 }
 
-                if (mc.player.ticksExisted % 5 == 0) {
-                    double var32 = 10.0;
-                    this.currentRotation.yaw = this.currentRotation.yaw
-                            + (float) this.randomize(-var32, var32) / (mc.player.getDistance(entity) + 1.0F);
-                    this.currentRotation.pitch = this.currentRotation.pitch
-                            + (float) this.randomize(-var32, var32) / (mc.player.getDistance(entity) + 1.0F);
+                if (Math.abs(targetPitchDifference) > pitchSpeed) {
+                    targetPitchDifference = pitchSpeed * Math.signum(targetPitchDifference);
                 }
 
-                if (Math.abs(targetPitchDifference) > 10.0F) {
-                    this.currentRotation.pitch = (float) ((double) this.currentRotation.pitch + (double) targetPitchDifference * 0.81 + this.randomize(-2.0, 2.0));
+                this.currentRotation.yaw += targetYawDifference;
+                this.currentRotation.pitch += targetPitchDifference;
+                break;
+            case "Test2":
+                float yawSpeed2 = 10.0F;
+                float pitchSpeed2 = 10.0F;
+
+                if (Math.abs(targetYawDifference) > yawSpeed2) {
+                    targetYawDifference = yawSpeed2 * Math.signum(targetYawDifference);
                 }
 
-                Entity var28 = RotationUtils.hoveringTarget(
-                        this.lastRotation.pitch, this.lastRotation.yaw, this.getNumberValueBySettingName("Range"), 0.07
-                );
-                if (var28 != null && (double) this.blockCooldown > this.randomize(2.0, 5.0)) {
-                    this.blockCooldown = 0;
+                if (Math.abs(targetPitchDifference) > pitchSpeed2) {
+                    targetPitchDifference = pitchSpeed2 * Math.signum(targetPitchDifference);
                 }
+
+                this.currentRotation.yaw += targetYawDifference;
+                this.currentRotation.pitch += targetPitchDifference;
                 break;
             case "NCP":
-                this.currentRotation.yaw = (float) (RotationHelper.doBasicRotation(entity)[0] + (float) (Math.random() - 0.5) * 4.0);
-                this.currentRotation.pitch = (float) (RotationHelper.doBasicRotation(entity)[1] + 3 + (float) (Math.random() - 0.5) * 4.0);
-                break;
-            case "JelloAI":
-                // Use JelloAI to face the entity
-                JelloAI.faceEntity(entity);
-
-                // Get the rotations from JelloAI
-                this.currentRotation.yaw = JelloAI.getCurrentYaw();
-                this.currentRotation.pitch = JelloAI.getCurrentPitch();
-
-                // Update JelloAI rotations
-                JelloAI.updateRotations();
+                this.currentRotation.yaw = advancedRotation.yaw;
+                this.currentRotation.pitch = advancedRotation.pitch;
                 break;
             case "AAC":
-                float var29 = this.targetPitch / Math.max(1.0F, this.targetYaw);
-                double var33 = entity.getPosX() - entity.lastTickPosX;
-                double var34 = entity.getPosZ() - entity.lastTickPosZ;
-                float var35 = (float) Math.sqrt(var33 * var33 + var34 * var34);
-                float var36 = SmoothInterpolator.interpolate(var29, 0.57, -0.135, 0.095, -0.3);
-                float var37 = Math.min(1.0F, SmoothInterpolator.interpolate(var29, 0.57, -0.135, 0.095, -0.3));
-                if (this.isBlocking) {
-                    var36 = SmoothInterpolator.interpolate(var29, 0.18, 0.13, 1.0, 1.046);
-                    var37 = Math.min(1.0F, SmoothInterpolator.interpolate(var29, 0.18, 0.13, 1.0, 1.04));
+                float yawSpeed3 = 10.0F;
+                float pitchSpeed3 = 10.0F;
+
+                if (Math.abs(targetYawDifference) > yawSpeed3) {
+                    targetYawDifference = yawSpeed3 * Math.signum(targetYawDifference);
                 }
 
-                float var38 = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
-                float var39 = advancedRotation.pitch - rotation.pitch;
-                this.currentRotation.yaw = rotation.yaw + var36 * var38;
-                this.currentRotation.pitch = (rotation.pitch + var37 * var39) % 90.0F;
-                if (var29 == 0.0F || var29 >= 1.0F || (double) var35 > 0.1 && this.targetYaw < 4.0F) {
-                    float var41 = Math.abs(RotationUtils.getAngleDifference2(advancedRotation.yaw, rotation.yaw));
-                    this.targetYaw = (float) Math.round(var41 * 1.8F / 50.0F);
-
-                    this.targetPitch = 0.0F;
-                    if (mc.pointedEntity == null && var29 != 1.0F) {
-                        this.yawDifference = Math.random() * 0.5 + 0.25;
-                    }
-
-                    rotation.yaw = this.currentRotation.yaw;
-                    rotation.pitch = this.currentRotation.pitch;
+                if (Math.abs(targetPitchDifference) > pitchSpeed3) {
+                    targetPitchDifference = pitchSpeed3 * Math.signum(targetPitchDifference);
                 }
+
+                this.currentRotation.yaw += targetYawDifference;
+                this.currentRotation.pitch += targetPitchDifference;
                 break;
             case "Smooth":
-                Vector3d entityPosition = RotationUtils.getEntityPosition(targetEntity);
+                float yawSpeed4 = 10.0F;
+                float pitchSpeed4 = 10.0F;
 
-                boolean bool = mc.objectMouseOver != null && mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY;
-                this.currentRotation.yaw = (float) ((float) ((double) this.currentRotation.yaw + (double) (targetYawDifference * 2.3F) / (bool ? 10 : 3)) + (float) (Math.random() - 0.5) * 5.0);
-                this.currentRotation.pitch = (float) ((float) ((double) this.currentRotation.pitch + (double) (targetPitchDifference * 2.3F) / (bool ? 14 : 4)) + (float) (Math.random() - 0.5) * 5.0) + 3;
+                if (Math.abs(targetYawDifference) > yawSpeed4) {
+                    targetYawDifference = yawSpeed4 * Math.signum(targetYawDifference);
+                }
+
+                if (Math.abs(targetPitchDifference) > pitchSpeed4) {
+                    targetPitchDifference = pitchSpeed4 * Math.signum(targetPitchDifference);
+                }
+
+                this.currentRotation.yaw += targetYawDifference;
+                this.currentRotation.pitch += targetPitchDifference;
+                break;
+            case "LockView":
+                this.currentRotation.yaw = advancedRotation.yaw;
+                this.currentRotation.pitch = advancedRotation.pitch;
+                break;
+            case "JelloAI":
+                // JelloAI rotation handling is done in onTick method
                 break;
             case "None":
                 this.currentRotation.yaw = mc.player.rotationYaw;
                 this.currentRotation.pitch = mc.player.rotationPitch;
                 break;
-            case "LockView":
-                EntityRayTraceResult lvHoveringTarget = RotationUtils.hoveringTarget(
-                        entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
-                );
-                if (lvHoveringTarget == null || lvHoveringTarget.getEntity() != entity) {
-                    this.currentRotation = advancedRotation;
-                }
-                break;
-            case "Test2":
-                EntityRayTraceResult rayTraceResult = RotationUtils.hoveringTarget(
-                        entity, this.currentRotation.yaw, this.currentRotation.pitch, var0 -> true, this.getNumberValueBySettingName("Range")
-                );
-                if (rayTraceResult != null && rayTraceResult.getEntity() == entity) {
-                    this.currentRotation.yaw = (float) ((double) this.currentRotation.yaw + (Math.random() - 0.5) * 2.0 + (double) (targetYawDifference / 10.0F)) + RandomUtil.nextFloat(-4, 4);
-                    this.currentRotation.pitch = (float) ((double) this.currentRotation.pitch + (Math.random() - 0.5) * 2.0 + (double) (targetPitchDifference / 10.0F)) + RandomUtil.nextFloat(-4, 4);
-                    this.targetPitch = 0.0F;
-                    this.targetYaw = 1.0F;
-                    return;
-                }
-
-
-                float pitchYawRatio = this.targetPitch / Math.max(1.0F, this.targetYaw);
-                //double deltaPosX = entity.getPosX() - entity.lastTickPosX;
-                //double deltaPosZ = entity.getPosZ() - entity.lastTickPosZ;
-                //float entityHypot = (float) Math.sqrt(deltaPosX * deltaPosX + deltaPosZ * deltaPosZ);
-                float interpolatedYawAdjustment = SmoothInterpolator.interpolate(pitchYawRatio, 0.57, -0.135, 0.095, -0.3);
-                float interpolatedPitchAdjustment = Math.min(1.0F, SmoothInterpolator.interpolate(pitchYawRatio, 0.57, -0.135, 0.095, -0.3));
-                float yawDifference = RotationUtils.getAngleDifference2(rotation.yaw, advancedRotation.yaw);
-                float pitchDifference = advancedRotation.pitch - rotation.pitch;
-                this.lastRotation.yaw = this.currentRotation.yaw;
-                this.lastRotation.pitch = this.currentRotation.pitch;
-                this.currentRotation.yaw = rotation.yaw + interpolatedYawAdjustment * (yawDifference + RandomUtil.nextFloat(-5, 5));
-                this.currentRotation.pitch = ((rotation.pitch + interpolatedPitchAdjustment * (pitchDifference + RandomUtil.nextFloat(-5, 5))) % 90.0F);
-                if (pitchYawRatio == 0.0F || pitchYawRatio >= 1.0F) {
-                    //KAUtils.addChatMessage(pitchYawRatio +"");
-
-                    float angleDifferenceAbs = Math.abs(RotationUtils.getAngleDifference2(advancedRotation.yaw, rotation.yaw));
-                    this.targetYaw = (float) Math.round(angleDifferenceAbs * 1.8F / 50.0F);
-                    if (this.targetYaw < 3.0F) {
-                        this.targetYaw = 3.0F;
-                    }
-
-                    this.targetPitch = 0.0F;
-                    if (mc.pointedEntity == null && pitchYawRatio != 1.0F) {
-                        this.yawDifference = Math.random() * 0.5 + 0.25;
-                    }
-
-                    rotation.yaw = this.currentRotation.yaw;
-                    rotation.pitch = this.currentRotation.pitch;
-                }
         }
+
+        this.currentRotation.pitch = MathHelper.clamp(this.currentRotation.pitch, -90.0F, 90.0F);
     }
-    private final AttackRunnable attackRunnable = new AttackRunnable(this);
 
-    public void attack(){
-        boolean reachedCPS = autoBlock.hasReachedCpsTiming(this.attackTimer);
-        float cooldown = !((double) mc.player.getCooldownPeriod() < 1.26) && this.getBooleanValueFromSettingName("Cooldown") ? mc.player.getCooledAttackStrength(0.0F) : 1.0F;
-        boolean shouldAttack = attackCooldown == 0 && reachedCPS && cooldown >= 1.0F;
-        if (reachedCPS) {
-            autoBlock.updateCpsTimings();
-        }
+    private void attack() {
+        if (this.attackTimer >= autoBlock.getCpsTiming(0)) {
+            if (targetData != null && targetData.getEntity() != null) {
+                Entity entity = targetData.getEntity();
+                if (entity.getDistance(mc.player) <= this.getNumberValueBySettingName("Range")) {
+                    boolean canAttack = true;
+                    if (this.getBooleanValueFromSettingName("Raytrace")) {
+                        RayTraceResult result = mc.objectMouseOver;
+                        if (result == null || result.getType() != RayTraceResult.Type.ENTITY ||
+                                !(result instanceof EntityRayTraceResult) ||
+                                ((EntityRayTraceResult) result).getEntity() != entity) {
+                            canAttack = false;
+                        }
+                    }
 
-        if (shouldAttack) {
-            //we should NOT be making a new instance of attack runnable every attack
-            attackRunnable.run();
-            this.attackTimer = 0;
+                    if (canAttack) {
+                        // Existing attack code
+                        if (autoBlock.isBlocking()) {
+                            autoBlock.stopAutoBlock();
+                        }
+
+                        if (!this.getBooleanValueFromSettingName("No swing")) {
+                            mc.player.swingArm(Hand.MAIN_HAND);
+                        }
+
+                        mc.playerController.attackEntity(mc.player, entity);
+
+                        // Record successful hit for JelloAI
+                        if (rotationMode.currentValue.equals("JelloAI")) {
+                            boolean wasMoving = MovementUtil.isMoving();
+                            lastAttackEntity = entity;
+                            lastAttackTime = System.currentTimeMillis();
+                            lastAttackWasMoving = wasMoving;
+                        }
+
+                        // Rest of existing attack code
+                        this.attackTimer = 0;
+                        isActive = true;
+
+                        if (this.getStringSettingValueByName("Mode").equals("Multi2")) {
+                            this.attackDelay++;
+                        }
+                    } else if (rotationMode.currentValue.equals("JelloAI")) {
+                        // Record miss for JelloAI
+                        JelloAI.recordMiss(entity);
+                    }
+                }
+            }
         }
     }
 
-    private double randomize(double var1, double var3) {
-        return var1 + Math.random() * (var3 - var1);
+    @EventTarget
+    public void onReceivePacket(EventReceivePacket event) {
+        // Handle hit detection for JelloAI learning
+        if (rotationMode.currentValue.equals("JelloAI") && lastAttackEntity != null &&
+                System.currentTimeMillis() - lastAttackTime < 500) {
+
+            if (event.getPacket() instanceof SEntityStatusPacket) {
+                SEntityStatusPacket packet = (SEntityStatusPacket) event.getPacket();
+
+                // Check if this is a hit confirmation packet (status 2 = hurt)
+                if (packet.getOpCode() == 2) {
+                    Entity hitEntity = packet.getEntity(mc.world);
+
+                    // If this is the entity we just attacked, record the hit
+                    if (hitEntity != null && hitEntity.equals(lastAttackEntity)) {
+                        JelloAI.recordHit(hitEntity, lastAttackWasMoving);
+                        lastAttackEntity = null; // Reset to avoid duplicate recordings
+                    }
+                }
+            }
+        }
     }
 }
