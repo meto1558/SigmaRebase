@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
+import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
 import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
@@ -72,7 +73,7 @@ public class Client implements MinecraftUtil {
         } catch (IOException exception) {
             logger.error(exception);
         }
-
+        JelloAI.init();
         licenseManager = new LicenseManager();
         licenseManager.init();
         guiManager = new GuiManager();
