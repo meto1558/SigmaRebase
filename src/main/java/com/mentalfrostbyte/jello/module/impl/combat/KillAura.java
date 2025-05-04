@@ -20,6 +20,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
 import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RandomUtil;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationHelper;
@@ -75,6 +76,9 @@ public class KillAura extends Module {
 
     private boolean isBlocking;
 
+    // First, add the import for JelloAI at the top of the file
+
+
     public KillAura() {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
@@ -92,7 +96,7 @@ public class KillAura extends Module {
                 "NCP",
                 "AAC", "Smooth",
                 "LockView", "Test",
-                "Test2", "None")
+                "Test2", "JelloAI", "None")  // Added JelloAI option
         );
         this.registerSetting(this.useRotationSpeed = new BooleanSetting("Use Rotation Speed", "Max rotation change per tick.", true));
         this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, Float.class, 6.0F, 360, 6F));
@@ -163,6 +167,11 @@ public class KillAura extends Module {
         this.currentSlot = -1;
         this.entityAnimation.clear();
 
+        // Initialize JelloAI when KillAura is enabled
+        if (rotationMode.currentValue.equals("JelloAI")) {
+            JelloAI.init();
+        }
+
         super.onEnable();
     }
 
@@ -172,6 +181,12 @@ public class KillAura extends Module {
         targetData = null;
         this.targets = null;
         isActive = false;
+
+        // Reset JelloAI rotations when KillAura is disabled
+        if (rotationMode.currentValue.equals("JelloAI")) {
+            JelloAI.resetRotations();
+        }
+
         super.onDisable();
     }
 
@@ -257,28 +272,50 @@ public class KillAura extends Module {
                      */
 
                 this.updateRotation();
-                if (eventUpdateYaw - mc.player.rotationYaw != 0.0F && (rotationMode.currentValue.equals("Test1") || rotationMode.currentValue.equals("Test")) && mc.player.ticksExisted % 50 == 0) {
+
+                // Add JelloAI rotation handling
+                if (rotationMode.currentValue.equals("JelloAI") && targetEntity != null) {
+                    // Let JelloAI handle the rotations
+                    JelloAI.faceEntity(targetEntity);
+
+                    // Update current rotation with JelloAI values
+                    this.currentRotation.yaw = JelloAI.getCurrentYaw();
+                    this.currentRotation.pitch = JelloAI.getCurrentPitch();
+
+                    // Update RotationCore values
+                    RotationCore.currentYaw = this.currentRotation.yaw;
+                    RotationCore.currentPitch = this.currentRotation.pitch;
+                } else if (eventUpdateYaw - mc.player.rotationYaw != 0.0F && (rotationMode.currentValue.equals("Test1") || rotationMode.currentValue.equals("Test")) && mc.player.ticksExisted % 50 == 0) {
                     this.currentRotation.yaw = eventUpdateYaw;
                     this.currentRotation.pitch = eventUpdatePitch;
                 }
-                float hSpeed = rotationSpeed.currentValue;
-                float vSpeed = rotationSpeed.currentValue;
-                //TODO TODO TODO TODO TODO
 
-                Rotation lastCopy = new Rotation(lastRotation.yaw, lastRotation.pitch);
-                Rotation currentCopy = new Rotation(currentRotation.yaw, currentRotation.pitch);
-                Rotation limit = !useRotationSpeed.currentValue
-                        ? currentCopy
-                        : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
+                // Only apply GCD and rotation limits if not using JelloAI
+                if (!rotationMode.currentValue.equals("JelloAI")) {
+                    float hSpeed = rotationSpeed.currentValue;
+                    float vSpeed = rotationSpeed.currentValue;
 
-                float[] limitedRotation = new float[]{limit.yaw, limit.pitch};
-                float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
+                    Rotation lastCopy = new Rotation(lastRotation.yaw, lastRotation.pitch);
+                    Rotation currentCopy = new Rotation(currentRotation.yaw, currentRotation.pitch);
+                    Rotation limit = !useRotationSpeed.currentValue
+                            ? currentCopy
+                            : RotationUtils.limitAngleChange(lastCopy, currentCopy, hSpeed, vSpeed);
 
-                currentRotation.yaw = RotationUtils.gcdFix(limitedRotation, oldRots)[0];
-                currentRotation.pitch = RotationUtils.gcdFix(limitedRotation, oldRots)[1];
+                    float[] limitedRotation = new float[]{limit.yaw, limit.pitch};
+                    float[] oldRots = {mc.player.lastReportedYaw, mc.player.lastReportedPitch};
 
-                RotationCore.currentYaw = currentRotation.yaw;
-                RotationCore.currentPitch = currentRotation.pitch;
+                    currentRotation.yaw = RotationUtils.gcdFix(limitedRotation, oldRots)[0];
+                    currentRotation.pitch = RotationUtils.gcdFix(limitedRotation, oldRots)[1];
+
+                    RotationCore.currentYaw = currentRotation.yaw;
+                    RotationCore.currentPitch = currentRotation.pitch;
+                }
+
+                // Update JelloAI rotations every tick
+                if (rotationMode.currentValue.equals("JelloAI")) {
+                    JelloAI.updateRotations();
+                }
+
                 mc.gameRenderer.getMouseOver(1.0F); // might fix issue with slow raytrace update
 
                 if (!this.hitEvent.currentValue) {
@@ -312,7 +349,42 @@ public class KillAura extends Module {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
-        if (mc.player != null) {
+        if (this.isEnabled() && this.targets != null && !this.targets.isEmpty()) {
+            if (this.getBooleanValueFromSettingName("Silent")) {
+                // If using JelloAI, use its rotation values
+                if (rotationMode.currentValue.equals("JelloAI")) {
+                    // Use reflection to set the fields since they're private
+                    try {
+                        // Get the field and make it accessible
+                        java.lang.reflect.Field yawField = event.getClass().getDeclaredField("yaw");
+                        java.lang.reflect.Field pitchField = event.getClass().getDeclaredField("pitch");
+
+                        yawField.setAccessible(true);
+                        pitchField.setAccessible(true);
+
+                        // Set the values
+                        yawField.set(event, JelloAI.getCurrentYaw());
+                        pitchField.set(event, JelloAI.getCurrentPitch());
+                    } catch (Exception e) {
+                        Client.logger.error("Error setting rotation values", e);
+                    }
+                } else {
+                    // Use reflection for non-JelloAI rotations too
+                    try {
+                        java.lang.reflect.Field yawField = event.getClass().getDeclaredField("yaw");
+                        java.lang.reflect.Field pitchField = event.getClass().getDeclaredField("pitch");
+
+                        yawField.setAccessible(true);
+                        pitchField.setAccessible(true);
+
+                        yawField.set(event, this.currentRotation.yaw);
+                        pitchField.set(event, this.currentRotation.pitch);
+                    } catch (Exception e) {
+                        Client.logger.error("Error setting rotation values", e);
+                    }
+                }
+            }
+
             if (!event.isPre()) {
                 this.blockDelay = mc.player.inventory.currentItem;
                 if (targetEntity != null && autoBlock.canAutoBlock() && this.currentRotation != null) {
@@ -601,6 +673,17 @@ public class KillAura extends Module {
                 this.currentRotation.yaw = (float) (RotationHelper.doBasicRotation(entity)[0] + (float) (Math.random() - 0.5) * 4.0);
                 this.currentRotation.pitch = (float) (RotationHelper.doBasicRotation(entity)[1] + 3 + (float) (Math.random() - 0.5) * 4.0);
                 break;
+            case "JelloAI":
+                // Use JelloAI to face the entity
+                JelloAI.faceEntity(entity);
+
+                // Get the rotations from JelloAI
+                this.currentRotation.yaw = JelloAI.getCurrentYaw();
+                this.currentRotation.pitch = JelloAI.getCurrentPitch();
+
+                // Update JelloAI rotations
+                JelloAI.updateRotations();
+                break;
             case "AAC":
                 float var29 = this.targetPitch / Math.max(1.0F, this.targetYaw);
                 double var33 = entity.getPosX() - entity.lastTickPosX;
@@ -660,6 +743,7 @@ public class KillAura extends Module {
                     this.targetYaw = 1.0F;
                     return;
                 }
+
 
                 float pitchYawRatio = this.targetPitch / Math.max(1.0F, this.targetYaw);
                 //double deltaPosX = entity.getPosX() - entity.lastTickPosX;
