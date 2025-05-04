@@ -6,7 +6,7 @@
 
     <groupId>com.mentalfrostbyte</groupId>
     <artifactId>sigma-jello</artifactId>
-    <version>5.1.0</version>
+    <version>5.1.0-pojav</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -88,9 +88,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.28.0-GA</version>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.179</version>
         </dependency>
 
         <dependency>
@@ -142,27 +142,21 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>javazoom</groupId>
             <artifactId>jlayer</artifactId>
             <version>1.0.1</version>
         </dependency>
 
         <dependency>
-            <groupId>com.ibm.icu</groupId>
-            <artifactId>icu4j</artifactId>
-            <version>66.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>fr.litarvan</groupId>
             <artifactId>openauth</artifactId>
             <version>1.1.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>66.1</version>
         </dependency>
 
         <dependency>
@@ -410,12 +404,6 @@
             <groupId>com.mojang</groupId>
             <artifactId>text2speech</artifactId>
             <version>1.11.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.classgraph</groupId>
-            <artifactId>classgraph</artifactId>
-            <version>4.8.179</version>
         </dependency>
     </dependencies>
 </project>

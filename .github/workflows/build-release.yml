@@ -118,4 +118,4 @@ jobs:
           prerelease: true
           files: |
             target/*.jar
-            release/sigma-jello-5.1.0.json
+            release/sigma-jello-5.1.0-pojav.json
