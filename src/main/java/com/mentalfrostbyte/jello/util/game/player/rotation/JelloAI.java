@@ -155,61 +155,111 @@ public class JelloAI {
     /**
      * Face a specific entity using the neural network
      */
+    /**
+     * Face an entity with smooth rotations
+     * @param entity The entity to face
+     */
     public static void faceEntity(Entity entity) {
         if (entity == null || mc.player == null) return;
 
-        // Calculate inputs for the neural network
-        float[] inputs = new float[INPUT_SIZE];
+        // Get precise entity position (center of hitbox)
+        double entityX = entity.getPosX();
+        double entityY = entity.getPosY() + entity.getEyeHeight() * 0.85; // Target slightly below eye level
+        double entityZ = entity.getPosZ();
 
-        // Relative position - using direct coordinate access
+        // Get player eye position
         double playerX = mc.player.getPosX();
         double playerY = mc.player.getPosY() + mc.player.getEyeHeight();
         double playerZ = mc.player.getPosZ();
 
-        double entityX = entity.getPosX();
-        double entityY = entity.getPosY() + entity.getHeight() / 2;
-        double entityZ = entity.getPosZ();
-
+        // Calculate differences
         double diffX = entityX - playerX;
         double diffY = entityY - playerY;
         double diffZ = entityZ - playerZ;
 
-        // Normalize inputs
-        inputs[0] = (float) (diffX / 20.0); // Normalize to roughly -1 to 1
+        // Calculate distance in XZ plane
+        double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
+
+        // Calculate target angles - FIXED YAW CALCULATION
+        float yaw = (float) (Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0F);
+        float pitch = (float) -Math.toDegrees(Math.atan2(diffY, dist));
+
+        // Ensure yaw is properly wrapped
+        yaw = MathHelper.wrapDegrees(yaw);
+
+        // Clamp pitch to valid range
+        pitch = MathHelper.clamp(pitch, -90.0F, 90.0F);
+
+        // Debug info
+        Client.logger.info("Target: " + entity.getName().getString() +
+                " Pos: " + entityX + "," + entityY + "," + entityZ +
+                " Calculated Yaw: " + yaw + " Pitch: " + pitch);
+
+        // Set target rotations
+        targetYaw = yaw;
+        targetPitch = pitch;
+        rotating = true;
+        lastRotationTime = System.currentTimeMillis();
+
+        // Add training sample for this rotation
+        float[] inputs = new float[INPUT_SIZE];
+        inputs[0] = (float) (diffX / 20.0);
         inputs[1] = (float) (diffY / 10.0);
         inputs[2] = (float) (diffZ / 20.0);
-
-        // Relative velocity - using direct motion access
-        inputs[3] = (float) (entity.getMotion().x / 2.0);
-        inputs[4] = (float) (entity.getMotion().y / 2.0);
-        inputs[5] = (float) (entity.getMotion().z / 2.0);
-
-        // Current rotations (normalized)
+        inputs[3] = 0;
+        inputs[4] = 0;
+        inputs[5] = 0;
         inputs[6] = mc.player.rotationYaw / 180.0f;
         inputs[7] = mc.player.rotationPitch / 90.0f;
 
-        // Run the neural network forward pass
-        float[] outputs = forwardPass(inputs);
-
-        // Convert outputs to rotations
-        float yaw = outputs[0] * 360.0f - 180.0f; // Convert from 0-1 to -180 to 180
-        float pitch = outputs[1] * 180.0f - 90.0f; // Convert from 0-1 to -90 to 90
-
-        // Calculate "ideal" rotations for training
-        double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
-        float idealYaw = (float) (Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
-        float idealPitch = (float) -(Math.atan2(diffY, dist) * 180.0D / Math.PI);
-
-        // Normalize ideal rotations for training
         float[] expectedOutputs = new float[OUTPUT_SIZE];
-        expectedOutputs[0] = (idealYaw + 180.0f) / 360.0f; // Convert from -180 to 180 to 0-1
-        expectedOutputs[1] = (idealPitch + 90.0f) / 180.0f; // Convert from -90 to 90 to 0-1
+        expectedOutputs[0] = (yaw + 180.0f) / 360.0f;
+        expectedOutputs[1] = (pitch + 90.0f) / 180.0f;
 
-        // Add to training samples
         addTrainingSample(inputs, expectedOutputs);
+    }
 
-        // Set target rotation
-        setTargetRotation(yaw, pitch);
+    /**
+     * Update rotations based on current target
+     */
+    /**
+     * Update rotations based on current target
+     */
+    public static void updateRotations() {
+        if (!rotating || mc.player == null) return;
+
+        long currentTime = System.currentTimeMillis();
+        float deltaTime = (currentTime - lastRotationTime) / 1000.0f;
+        lastRotationTime = currentTime;
+
+        // Calculate smooth rotation step
+        float yawDifference = MathHelper.wrapDegrees(targetYaw - currentYaw);
+        float pitchDifference = targetPitch - currentPitch;
+
+        // Fixed rotation speeds - more predictable than neural network for now
+        float yawSpeed = 10.0f + (Math.abs(yawDifference) * 0.5f); // Faster for larger differences
+        float pitchSpeed = 8.0f + (Math.abs(pitchDifference) * 0.3f);
+
+        // Apply rotation with speed limit
+        if (Math.abs(yawDifference) > 0.1f) {
+            float yawChange = Math.min(Math.abs(yawDifference), yawSpeed * deltaTime) * Math.signum(yawDifference);
+            currentYaw = MathHelper.wrapDegrees(currentYaw + yawChange);
+        } else {
+            currentYaw = targetYaw; // Snap to target when very close
+        }
+
+        if (Math.abs(pitchDifference) > 0.1f) {
+            float pitchChange = Math.min(Math.abs(pitchDifference), pitchSpeed * deltaTime) * Math.signum(pitchDifference);
+            currentPitch = MathHelper.clamp(currentPitch + pitchChange, -90.0f, 90.0f);
+        } else {
+            currentPitch = targetPitch; // Snap to target when very close
+        }
+
+        // Debug info occasionally
+        if (random.nextInt(100) == 0) {
+            Client.logger.info("Current Yaw: " + currentYaw + " Target Yaw: " + targetYaw +
+                    " Current Pitch: " + currentPitch + " Target Pitch: " + targetPitch);
+        }
     }
 
     /**
@@ -450,48 +500,6 @@ public class JelloAI {
         return currentPitch;
     }
 
-    /**
-     * Update rotations based on current target
-     */
-    public static void updateRotations() {
-        if (!rotating || mc.player == null) return;
-
-        long currentTime = System.currentTimeMillis();
-        float deltaTime = (currentTime - lastRotationTime) / 1000.0f;
-        lastRotationTime = currentTime;
-
-        // Calculate smooth rotation step
-        float yawDifference = MathHelper.wrapDegrees(targetYaw - currentYaw);
-        float pitchDifference = targetPitch - currentPitch;
-
-        // Apply smoothing based on neural network output
-        float[] inputs = new float[INPUT_SIZE];
-        inputs[0] = yawDifference / 180.0f;
-        inputs[1] = pitchDifference / 90.0f;
-        inputs[2] = 0;
-        inputs[3] = 0;
-        inputs[4] = 0;
-        inputs[5] = 0;
-        inputs[6] = currentYaw / 180.0f;
-        inputs[7] = currentPitch / 90.0f;
-
-        float[] outputs = forwardPass(inputs);
-
-        // Convert outputs to rotation speeds
-        float yawSpeed = outputs[0] * 20.0f; // Max 20 degrees per tick
-        float pitchSpeed = outputs[1] * 15.0f; // Max 15 degrees per tick
-
-        // Apply rotation with speed limit
-        if (Math.abs(yawDifference) > 0.1f) {
-            float yawChange = Math.min(Math.abs(yawDifference), yawSpeed * deltaTime) * Math.signum(yawDifference);
-            currentYaw = MathHelper.wrapDegrees(currentYaw + yawChange);
-        }
-
-        if (Math.abs(pitchDifference) > 0.1f) {
-            float pitchChange = Math.min(Math.abs(pitchDifference), pitchSpeed * deltaTime) * Math.signum(pitchDifference);
-            currentPitch = MathHelper.clamp(currentPitch + pitchChange, -90.0f, 90.0f);
-        }
-    }
 
     /**
      * Reset rotations to player's current view
