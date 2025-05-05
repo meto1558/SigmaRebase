@@ -22,7 +22,13 @@ public class RotationManager {
 
     // Rotation state
     private boolean rotating = false;
-    private long lastRotationTime = 0;
+
+    // Fixed rotation speeds (calculated once per target)
+    private float yawSpeed;
+    private float pitchSpeed;
+
+    // Tick-based timing instead of system time
+    private static final float TICK_TIME = 0.05f; // 1/20 seconds per tick
 
     /**
      * Initialize rotation values
@@ -41,8 +47,13 @@ public class RotationManager {
     public void setTargetRotation(float yaw, float pitch) {
         targetYaw = yaw;
         targetPitch = MathHelper.clamp(pitch, -90.0f, 90.0f);
+
+        // Calculate fixed rotation speeds with small random component
+        // This is calculated ONCE per target, not per tick
+        yawSpeed = 10.0f + (random.nextFloat() * 2.0f); // Reduced randomness
+        pitchSpeed = 8.0f + (random.nextFloat() * 1.5f); // Reduced randomness
+
         rotating = true;
-        lastRotationTime = System.currentTimeMillis();
     }
 
     /**
@@ -51,49 +62,35 @@ public class RotationManager {
     public void updateRotations() {
         if (!rotating || mc.player == null) return;
 
-        // Calculate time since last rotation
-        long currentTime = System.currentTimeMillis();
-        float deltaTime = (currentTime - lastRotationTime) / 1000.0f;
-        lastRotationTime = currentTime;
+        // Use fixed tick time instead of system time
+        float deltaTime = TICK_TIME;
 
         // Calculate rotation speed based on distance to target
         float yawDiff = MathHelper.wrapDegrees(targetYaw - currentYaw);
         float pitchDiff = targetPitch - currentPitch;
 
-        // Calculate rotation speed with some randomness
-        float baseYawSpeed = 10.0f + random.nextFloat() * 5.0f;
-        float basePitchSpeed = 8.0f + random.nextFloat() * 4.0f;
+        // Scale speed based on difference (with less aggressive scaling)
+        float adjustedYawSpeed = Math.min(yawSpeed * (1.0f + Math.abs(yawDiff) / 90.0f), 20.0f);
+        float adjustedPitchSpeed = Math.min(pitchSpeed * (1.0f + Math.abs(pitchDiff) / 40.0f), 15.0f);
 
-        // Scale speed based on difference (faster for larger differences)
-        float yawSpeed = Math.min(baseYawSpeed * (1.0f + Math.abs(yawDiff) / 45.0f), 30.0f);
-        float pitchSpeed = Math.min(basePitchSpeed * (1.0f + Math.abs(pitchDiff) / 20.0f), 25.0f);
+        // Calculate change with clamping to prevent overshooting
+        float yawChange = Math.min(adjustedYawSpeed * deltaTime, Math.abs(yawDiff)) * Math.signum(yawDiff);
+        float pitchChange = Math.min(adjustedPitchSpeed * deltaTime, Math.abs(pitchDiff)) * Math.signum(pitchDiff);
 
-        // Apply speed
-        float maxYawChange = yawSpeed * deltaTime;
-        float maxPitchChange = pitchSpeed * deltaTime;
+        // Apply changes
+        currentYaw = MathHelper.wrapDegrees(currentYaw + yawChange);
+        currentPitch = MathHelper.clamp(currentPitch + pitchChange, -90.0f, 90.0f);
 
-        // Limit rotation change
-        if (Math.abs(yawDiff) <= maxYawChange) {
-            currentYaw = targetYaw;
-        } else {
-            currentYaw += maxYawChange * Math.signum(yawDiff);
-        }
-
-        if (Math.abs(pitchDiff) <= maxPitchChange) {
-            currentPitch = targetPitch;
-        } else {
-            currentPitch += maxPitchChange * Math.signum(pitchDiff);
-        }
-
-        // Normalize yaw
-        currentYaw = MathHelper.wrapDegrees(currentYaw);
-
-        // Clamp pitch
-        currentPitch = MathHelper.clamp(currentPitch, -90.0f, 90.0f);
+        // Re-calculate differences AFTER updating to check completion
+        yawDiff = MathHelper.wrapDegrees(targetYaw - currentYaw);
+        pitchDiff = targetPitch - currentPitch;
 
         // Check if we've reached the target
         if (Math.abs(yawDiff) < 0.1f && Math.abs(pitchDiff) < 0.1f) {
             rotating = false;
+            // Snap to exact target when we're close enough
+            currentYaw = targetYaw;
+            currentPitch = targetPitch;
         }
     }
 
