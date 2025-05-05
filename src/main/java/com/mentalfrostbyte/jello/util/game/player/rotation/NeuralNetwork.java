@@ -35,6 +35,13 @@ public class NeuralNetwork {
     // File paths for saving/loading the neural network
     private static final String WEIGHTS_FILE = "jelloai_weights.dat";
 
+    // Training counter for auto-save
+    private int trainingCounter = 0;
+    private static final int SAVE_INTERVAL = 50;
+
+    // Track if network is initialized
+    private boolean initialized = false;
+
     /**
      * Initialize the neural network
      */
@@ -44,6 +51,7 @@ public class NeuralNetwork {
             // Initialize with random weights if loading fails
             initializeRandomWeights();
         }
+        initialized = true;
     }
 
     /**
@@ -72,117 +80,33 @@ public class NeuralNetwork {
     }
 
     /**
-     * Forward pass through the neural network
+     * Check if network is initialized
      */
-    public float[] forwardPass(float[] inputs) {
-        // Hidden layer
-        float[] hiddenOutputs = new float[HIDDEN_SIZE];
-        for (int i = 0; i < HIDDEN_SIZE; i++) {
-            float sum = hiddenBiases[i];
-            for (int j = 0; j < INPUT_SIZE; j++) {
-                sum += inputs[j] * weightsInputToHidden[j][i];
-            }
-            hiddenOutputs[i] = sigmoid(sum);
-        }
+    public boolean isInitialized() {
+        return initialized;
+    }
 
-        // Output layer
-        float[] outputs = new float[OUTPUT_SIZE];
-        for (int i = 0; i < OUTPUT_SIZE; i++) {
-            float sum = outputBiases[i];
-            for (int j = 0; j < HIDDEN_SIZE; j++) {
-                sum += hiddenOutputs[j] * weightsHiddenToOutput[j][i];
-            }
-            outputs[i] = sigmoid(sum);
-        }
+    // Add a sample counter to track training progress
+    private int sampleCount = 0;
+    private static final int CONFIDENCE_THRESHOLD = 100; // Samples needed for full confidence
 
-        return outputs;
+    /**
+     * Get confidence level of the network
+     */
+    public float getConfidence() {
+        if (!initialized) return 0.0f;
+
+        // Return a confidence that grows as we see more samples
+        return Math.min(1.0f, (float)sampleCount / CONFIDENCE_THRESHOLD);
     }
 
     /**
-     * Train the neural network using backpropagation
-     */
-    public void trainNetwork(TrainingSample[] samples) {
-        if (samples.length == 0) return;
-
-        // Train for multiple epochs
-        for (int epoch = 0; epoch < 5; epoch++) {
-            // Shuffle samples
-            shuffleArray(samples);
-
-            // Process each sample
-            for (TrainingSample sample : samples) {
-                // Forward pass
-                float[] hiddenOutputs = new float[HIDDEN_SIZE];
-                for (int i = 0; i < HIDDEN_SIZE; i++) {
-                    float sum = hiddenBiases[i];
-                    for (int j = 0; j < INPUT_SIZE; j++) {
-                        sum += sample.inputs[j] * weightsInputToHidden[j][i];
-                    }
-                    hiddenOutputs[i] = sigmoid(sum);
-                }
-
-                float[] outputs = new float[OUTPUT_SIZE];
-                for (int i = 0; i < OUTPUT_SIZE; i++) {
-                    float sum = outputBiases[i];
-                    for (int j = 0; j < HIDDEN_SIZE; j++) {
-                        sum += hiddenOutputs[j] * weightsHiddenToOutput[j][i];
-                    }
-                    outputs[i] = sigmoid(sum);
-                }
-
-                // Backpropagation with weight factor
-                // Output layer error
-                float[] outputErrors = new float[OUTPUT_SIZE];
-                for (int i = 0; i < OUTPUT_SIZE; i++) {
-                    outputErrors[i] = (sample.expectedOutputs[i] - outputs[i]) * sigmoidDerivative(outputs[i]) * sample.weight;
-                }
-
-                // Hidden layer error
-                float[] hiddenErrors = new float[HIDDEN_SIZE];
-                for (int i = 0; i < HIDDEN_SIZE; i++) {
-                    float error = 0;
-                    for (int j = 0; j < OUTPUT_SIZE; j++) {
-                        error += outputErrors[j] * weightsHiddenToOutput[i][j];
-                    }
-                    hiddenErrors[i] = error * sigmoidDerivative(hiddenOutputs[i]);
-                }
-
-                // Update weights and biases with momentum
-                // Hidden to output weights
-                for (int i = 0; i < HIDDEN_SIZE; i++) {
-                    for (int j = 0; j < OUTPUT_SIZE; j++) {
-                        float delta = LEARNING_RATE * outputErrors[j] * hiddenOutputs[i] + MOMENTUM * prevDeltaHiddenOutput[i][j];
-                        weightsHiddenToOutput[i][j] += delta;
-                        prevDeltaHiddenOutput[i][j] = delta;
-                    }
-                }
-
-                // Output biases
-                for (int i = 0; i < OUTPUT_SIZE; i++) {
-                    outputBiases[i] += LEARNING_RATE * outputErrors[i];
-                }
-
-                // Input to hidden weights
-                for (int i = 0; i < INPUT_SIZE; i++) {
-                    for (int j = 0; j < HIDDEN_SIZE; j++) {
-                        float delta = LEARNING_RATE * hiddenErrors[j] * sample.inputs[i] + MOMENTUM * prevDeltaInputHidden[i][j];
-                        weightsInputToHidden[i][j] += delta;
-                        prevDeltaInputHidden[i][j] = delta;
-                    }
-                }
-
-                // Hidden biases
-                for (int i = 0; i < HIDDEN_SIZE; i++) {
-                    hiddenBiases[i] += LEARNING_RATE * hiddenErrors[i];
-                }
-            }
-        }
-    }
-
-    /**
-     * Train the network immediately on a single sample
+     * Train the neural network immediately on a single sample
      */
     public void trainNetworkImmediate(float[] inputs, float[] expectedOutputs, float weight) {
+        // Increment sample counter for confidence calculation
+        sampleCount++;
+
         // Forward pass
         float[] hiddenOutputs = new float[HIDDEN_SIZE];
         for (int i = 0; i < HIDDEN_SIZE; i++) {
@@ -199,14 +123,19 @@ public class NeuralNetwork {
             for (int j = 0; j < HIDDEN_SIZE; j++) {
                 sum += hiddenOutputs[j] * weightsHiddenToOutput[j][i];
             }
-            outputs[i] = sigmoid(sum);
+            outputs[i] = tanh(sum); // Changed to tanh
         }
+
+        // Log expected vs predicted for debugging
+        Client.logger.info("JelloAI Training - Expected: [" +
+                expectedOutputs[0] + ", " + expectedOutputs[1] + "], Predicted: [" +
+                outputs[0] + ", " + outputs[1] + "], Weight: " + weight);
 
         // Backpropagation with weight factor
         // Output layer error
         float[] outputErrors = new float[OUTPUT_SIZE];
         for (int i = 0; i < OUTPUT_SIZE; i++) {
-            outputErrors[i] = (expectedOutputs[i] - outputs[i]) * sigmoidDerivative(outputs[i]) * weight;
+            outputErrors[i] = (expectedOutputs[i] - outputs[i]) * tanhDerivative(outputs[i]) * weight;
         }
 
         // Hidden layer error
@@ -247,6 +176,13 @@ public class NeuralNetwork {
         for (int i = 0; i < HIDDEN_SIZE; i++) {
             hiddenBiases[i] += LEARNING_RATE * hiddenErrors[i];
         }
+
+        // Auto-save weights periodically
+        trainingCounter++;
+        if (trainingCounter >= SAVE_INTERVAL) {
+            saveWeights();
+            trainingCounter = 0;
+        }
     }
 
     /**
@@ -282,6 +218,7 @@ public class NeuralNetwork {
             }
 
             out.close();
+            Client.logger.info("JelloAI: Saved neural network weights");
         } catch (Exception e) {
             Client.logger.error("Error saving JelloAI weights", e);
         }
@@ -322,6 +259,7 @@ public class NeuralNetwork {
             }
 
             in.close();
+            Client.logger.info("JelloAI: Loaded neural network weights");
             return true;
         } catch (Exception e) {
             Client.logger.error("Error loading JelloAI weights", e);
@@ -338,6 +276,16 @@ public class NeuralNetwork {
         return x * (1 - x);
     }
 
+    // New tanh activation function for better angle prediction
+    private float tanh(float x) {
+        return (float) Math.tanh(x);
+    }
+
+    // Derivative of tanh for backpropagation
+    private float tanhDerivative(float x) {
+        return 1 - x * x;
+    }
+
     private void shuffleArray(Object[] array) {
         for (int i = array.length - 1; i > 0; i--) {
             int index = random.nextInt(i + 1);
@@ -345,5 +293,71 @@ public class NeuralNetwork {
             array[index] = array[i];
             array[i] = temp;
         }
+    }
+
+    /**
+     * Train the neural network using backpropagation on a batch of samples
+     */
+    public void trainNetwork(TrainingSample[] samples) {
+        if (samples.length == 0) return;
+
+        // Increment sample counter for each batch of samples
+        sampleCount += samples.length;
+
+        // Shuffle samples for better training
+        shuffleArray(samples);
+
+        // Train for multiple epochs
+        for (int epoch = 0; epoch < 3; epoch++) {
+            for (TrainingSample sample : samples) {
+                float[] inputs = sample.getInputs();
+                float[] expectedOutputs = sample.getExpectedOutputs();
+                float weight = sample.getWeight();
+
+                // Use the immediate training method for each sample
+                trainNetworkImmediate(inputs, expectedOutputs, weight);
+            }
+        }
+
+        // Save weights after batch training
+        saveWeights();
+    }
+
+    /**
+     * Predict outputs for given inputs (alias for forwardPass)
+     */
+    public float[] predict(float[] inputs) {
+        return forwardPass(inputs);
+    }
+
+    /**
+     * Forward pass through the neural network
+     */
+    public float[] forwardPass(float[] inputs) {
+        if (!initialized) {
+            return new float[OUTPUT_SIZE]; // Return zeros if not initialized
+        }
+
+        // Hidden layer
+        float[] hiddenOutputs = new float[HIDDEN_SIZE];
+        for (int i = 0; i < HIDDEN_SIZE; i++) {
+            float sum = hiddenBiases[i];
+            for (int j = 0; j < INPUT_SIZE; j++) {
+                sum += inputs[j] * weightsInputToHidden[j][i];
+            }
+            hiddenOutputs[i] = sigmoid(sum);
+        }
+
+        // Output layer
+        float[] outputs = new float[OUTPUT_SIZE];
+        for (int i = 0; i < OUTPUT_SIZE; i++) {
+            float sum = outputBiases[i];
+            for (int j = 0; j < HIDDEN_SIZE; j++) {
+                sum += hiddenOutputs[j] * weightsHiddenToOutput[j][i];
+            }
+            outputs[i] = tanh(sum); // Using tanh for output
+        }
+
+        return outputs;
     }
 }

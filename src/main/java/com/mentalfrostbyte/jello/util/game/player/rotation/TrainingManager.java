@@ -22,6 +22,11 @@ public class TrainingManager {
     // Reference to neural network
     private final NeuralNetwork neuralNetwork;
 
+    // Updated constructor to accept shared instance
+    public TrainingManager(NeuralNetwork sharedNetwork) {
+        this.neuralNetwork = sharedNetwork;
+    }
+
     public TrainingManager() {
         this.neuralNetwork = new NeuralNetwork();
     }
@@ -30,7 +35,28 @@ public class TrainingManager {
      * Initialize the training manager
      */
     public void initialize() {
+        // Delete existing training data file to avoid serialization issues
+        deleteTrainingDataFile();
         loadTrainingData();
+    }
+
+    /**
+     * Delete the training data file if it exists
+     */
+    private void deleteTrainingDataFile() {
+        try {
+            File file = new File(Client.getInstance().file, TRAINING_FILE);
+            if (file.exists()) {
+                boolean deleted = file.delete();
+                if (deleted) {
+                    Client.logger.info("JelloAI: Deleted old training data file");
+                } else {
+                    Client.logger.warn("JelloAI: Failed to delete old training data file");
+                }
+            }
+        } catch (Exception e) {
+            Client.logger.error("Error deleting JelloAI training data file", e);
+        }
     }
 
     /**
