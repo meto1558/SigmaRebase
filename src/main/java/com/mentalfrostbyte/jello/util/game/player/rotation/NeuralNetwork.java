@@ -3,6 +3,9 @@ package com.mentalfrostbyte.jello.util.game.player.rotation;
 import com.mentalfrostbyte.Client;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,12 +28,17 @@ public class NeuralNetwork {
     private float[] outputBiases = new float[OUTPUT_SIZE];
 
     // Learning parameters
-    private static final float LEARNING_RATE = 0.01f;
+    private static final float LEARNING_RATE = 0.08f;  // Increased from 0.01f
     private static final float MOMENTUM = 0.9f;
 
     // Previous weight changes (for momentum)
     private float[][] prevDeltaInputHidden = new float[INPUT_SIZE][HIDDEN_SIZE];
     private float[][] prevDeltaHiddenOutput = new float[HIDDEN_SIZE][OUTPUT_SIZE];
+
+    // Batch training
+    private List<TrainingSample> batchSamples = new ArrayList<>();
+    private static final int BATCH_SIZE = 12;
+    private static final int EPOCHS_PER_BATCH = 15;
 
     // File paths for saving/loading the neural network
     private static final String WEIGHTS_FILE = "jelloai_weights.dat";
@@ -101,11 +109,53 @@ public class NeuralNetwork {
     }
 
     /**
+     * Add a sample to the batch
+     */
+    public void addToBatch(float[] inputs, float[] expected, float weight) {
+        if (batchSamples.size() >= BATCH_SIZE) {
+            trainBatch();
+        }
+
+        batchSamples.add(new TrainingSample(inputs, expected, weight));
+    }
+
+    /**
+     * Train on the current batch
+     */
+    public void trainBatch() {
+        if (batchSamples.isEmpty()) return;
+
+        float totalError = 0;
+
+        // Train for multiple epochs on the batch
+        for (int epoch = 0; epoch < EPOCHS_PER_BATCH; epoch++) {
+            // Shuffle batch for better training
+            Collections.shuffle(batchSamples);
+
+            for (TrainingSample sample : batchSamples) {
+                totalError += trainNetworkImmediate(
+                        sample.inputs, sample.expected, sample.weight);
+            }
+        }
+
+        // Log average error
+        Client.logger.info("JelloAI: Batch training completed, average error: " +
+                (totalError / (batchSamples.size() * EPOCHS_PER_BATCH)));
+
+        // Clear batch after training
+        batchSamples.clear();
+    }
+
+    /**
      * Train the neural network immediately on a single sample
      */
-    public void trainNetworkImmediate(float[] inputs, float[] expectedOutputs, float weight) {
+    public float trainNetworkImmediate(float[] inputs, float[] expectedOutputs, float weight) {
         // Increment sample counter for confidence calculation
         sampleCount++;
+
+        // For negative weights, we want to push away from the target
+        boolean pushAway = weight < 0;
+        float absWeight = Math.abs(weight);
 
         // Forward pass
         float[] hiddenOutputs = new float[HIDDEN_SIZE];
@@ -131,11 +181,20 @@ public class NeuralNetwork {
                 expectedOutputs[0] + ", " + expectedOutputs[1] + "], Predicted: [" +
                 outputs[0] + ", " + outputs[1] + "], Weight: " + weight);
 
-        // Backpropagation with weight factor
-        // Output layer error
+        // Calculate error
+        float totalError = 0;
         float[] outputErrors = new float[OUTPUT_SIZE];
+
         for (int i = 0; i < OUTPUT_SIZE; i++) {
-            outputErrors[i] = (expectedOutputs[i] - outputs[i]) * tanhDerivative(outputs[i]) * weight;
+            float error = expectedOutputs[i] - outputs[i];
+
+            // If weight is negative, reverse the direction of the gradient
+            if (pushAway) {
+                error = -error;
+            }
+
+            outputErrors[i] = error * tanhDerivative(outputs[i]) * absWeight;
+            totalError += error * error;
         }
 
         // Hidden layer error
@@ -183,6 +242,8 @@ public class NeuralNetwork {
             saveWeights();
             trainingCounter = 0;
         }
+
+        return totalError;
     }
 
     /**
@@ -324,16 +385,9 @@ public class NeuralNetwork {
     }
 
     /**
-     * Predict outputs for given inputs (alias for forwardPass)
+     * Predict outputs for given inputs
      */
     public float[] predict(float[] inputs) {
-        return forwardPass(inputs);
-    }
-
-    /**
-     * Forward pass through the neural network
-     */
-    public float[] forwardPass(float[] inputs) {
         if (!initialized) {
             return new float[OUTPUT_SIZE]; // Return zeros if not initialized
         }
@@ -359,5 +413,32 @@ public class NeuralNetwork {
         }
 
         return outputs;
+    }
+
+    /**
+     * Inner class for batch training samples
+     */
+    private static class TrainingSample {
+        float[] inputs;
+        float[] expected;
+        float weight;
+
+        TrainingSample(float[] inputs, float[] expected, float weight) {
+            this.inputs = inputs;
+            this.expected = expected;
+            this.weight = weight;
+        }
+
+        public float[] getInputs() {
+            return inputs;
+        }
+
+        public float[] getExpectedOutputs() {
+            return expected;
+        }
+
+        public float getWeight() {
+            return weight;
+        }
     }
 }

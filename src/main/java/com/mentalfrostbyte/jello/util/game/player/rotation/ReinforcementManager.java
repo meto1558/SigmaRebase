@@ -75,23 +75,17 @@ public class ReinforcementManager {
     /**
      * Record a missed attack
      */
-    public void recordMiss(Entity entity, float[] inputs, float[] expectedOutputs) {
+    public void recordMiss(Entity entity, float[] inputs, float[] idealOutputs) {
         if (entity == null || mc.player == null) return;
 
-        // Apply a small penalty for missing
-        float penalty = MISS_PENALTY;
+        // Apply a negative penalty for misses (to move away from incorrect angles)
+        float penalty = MISS_PENALTY * 3.0f;  // Amplify the penalty (e.g., -0.6 if MISS_PENALTY is -0.2)
 
-        // Update entity reward
-        entityRewards.put(entity, entityRewards.getOrDefault(entity, 0f) + penalty);
+        // Use the negative penalty directly to push away from incorrect angles
+        trainingManager.addTrainingSample(inputs, idealOutputs, penalty);
 
-        // Add a training sample with the better rotations
-        trainingManager.addTrainingSample(inputs, expectedOutputs, Math.abs(penalty));
-
-        // Train immediately for faster adaptation
-        neuralNetwork.trainNetworkImmediate(inputs, expectedOutputs, Math.abs(penalty));
-
-        Client.logger.info("JelloAI: Recorded miss on " + entity.getName().getString() +
-                " with penalty " + penalty + " (Total: " + entityRewards.get(entity) + ")");
+        // Log the miss for debugging
+        Client.logger.info("JelloAI: Recorded miss with penalty " + penalty);
     }
 
     /**
