@@ -2,6 +2,7 @@ package net.minecraft.network;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
@@ -162,11 +163,18 @@ public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
         }
     }
 
-    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, IPacket<?> p_channelRead0_2_) throws Exception {
+    protected void channelRead0(ChannelHandlerContext context, IPacket<?> packet) {
         if (this.channel.isOpen()) {
             try {
-                processPacket(p_channelRead0_2_, this.packetListener);
-            } catch (ThreadQuickExitException threadquickexitexception) {
+                EventReceivePacket packetEvent = new EventReceivePacket(packet);
+                EventBus.call(packetEvent);
+
+                if (packetEvent.cancelled) {
+                    return;
+                }
+
+                processPacket(packet, this.packetListener);
+            } catch (ThreadQuickExitException ignored) {
             }
 
             ++this.field_211394_q;
