@@ -23,6 +23,9 @@ public class RotationManager {
     // Rotation state
     private boolean rotating = false;
 
+    // Timing for smooth rotations
+    private long rotationTime = System.currentTimeMillis();
+
     // Tick-based timing instead of system time
     private static final float TICK_TIME = 0.05f; // 1/20 seconds per tick
 
@@ -30,13 +33,14 @@ public class RotationManager {
     private float lastYawDiff = 0;
     private float lastPitchDiff = 0;
 
-    // Control parameters
-    private static final float YAW_PROPORTIONAL_GAIN = 15.0f;    // Proportional control gain
-    private static final float PITCH_PROPORTIONAL_GAIN = 12.0f;  // Proportional control gain
-    private static final float YAW_FEEDFORWARD_GAIN = 0.6f;      // Feed-forward gain
-    private static final float PITCH_FEEDFORWARD_GAIN = 0.5f;    // Feed-forward gain
-    private static final float MAX_YAW_SPEED = 720.0f;           // Maximum yaw speed (degrees/sec)
-    private static final float MAX_PITCH_SPEED = 360.0f;         // Maximum pitch speed (degrees/sec)
+    // Control parameters - adjusted to prevent server kicks
+    private static final float YAW_PROPORTIONAL_GAIN = 12.0f;
+    private static final float PITCH_PROPORTIONAL_GAIN = 10.0f;
+    private static final float YAW_FEEDFORWARD_GAIN = 0.5f;
+    private static final float PITCH_FEEDFORWARD_GAIN = 0.4f;
+    // Ensure MAX_SPEED * TICK_TIME stays under ~45 degrees
+    private static final float MAX_YAW_SPEED = 540.0f;   // 540 * 0.05 = 27 degrees per tick
+    private static final float MAX_PITCH_SPEED = 270.0f; // 270 * 0.05 = 13.5 degrees per tick
 
     /**
      * Initialize rotation values
@@ -55,83 +59,77 @@ public class RotationManager {
      * Set target rotation and start rotating
      */
     public void setTargetRotation(float yaw, float pitch) {
-        targetYaw = yaw;
+        // Ensure yaw is properly wrapped to [-180, 180]
+        targetYaw = MathHelper.wrapDegrees(yaw);
+
+        // Clamp pitch to valid range
         targetPitch = MathHelper.clamp(pitch, -90.0f, 90.0f);
+
+        // Remove instant snaps that cause server kicks
+        // No more teleporting currentYaw/currentPitch to target
+
         rotating = true;
-        // Reset feed-forward tracking when setting a new target
-        lastYawDiff = 0;
-        lastPitchDiff = 0;
+        // No need to reset time if using fixed tick
     }
 
     /**
-     * Update rotations based on target
+     * Update rotations with smoothing
      */
     public void updateRotations() {
-        if (!rotating || mc.player == null) return;
+        if (!rotating) return;
 
-        // Use fixed tick time
-        float deltaTime = TICK_TIME;
+        // Use fixed tick time instead of wall clock time
+        float timeDelta = TICK_TIME;  // assume one tick per update
 
-        // Calculate rotation differences
+        // Adjust smoothing based on distance to target
         float yawDiff = MathHelper.wrapDegrees(targetYaw - currentYaw);
         float pitchDiff = targetPitch - currentPitch;
 
-        // Calculate angular velocities (how fast the error is changing)
-        float yawAngularVelocity = (yawDiff - lastYawDiff) / deltaTime;
-        float pitchAngularVelocity = (pitchDiff - lastPitchDiff) / deltaTime;
-
-        // Store current differences for next tick
+        // Calculate angular velocities (for feed-forward)
+        float yawAngularVelocity = (yawDiff - lastYawDiff) / timeDelta;
+        float pitchAngularVelocity = (pitchDiff - lastPitchDiff) / timeDelta;
         lastYawDiff = yawDiff;
         lastPitchDiff = pitchDiff;
 
-        // YAW CONTROL
-        // Pure proportional control - speed scales with error magnitude
+        // Calculate base speeds using proportional control
         float yawBaseSpeed = Math.abs(yawDiff) * YAW_PROPORTIONAL_GAIN;
-        // Ensure a minimum speed to catch up with strafing targets
-        yawBaseSpeed = Math.max(yawBaseSpeed, 30.0f);
-
-        // Add feed-forward term based on angular velocity (preserve sign)
-        float yawFeedForward = yawAngularVelocity * YAW_FEEDFORWARD_GAIN;
-
-        // Calculate total speed (capped at maximum)
-        float totalYawSpeed = Math.min(yawBaseSpeed + yawFeedForward, MAX_YAW_SPEED);
-
-        // Calculate maximum change per tick
-        float maxYawChange = totalYawSpeed * deltaTime;
-
-        // Calculate step with clamping to prevent overshooting
-        float stepYaw = Math.signum(yawDiff) * Math.min(Math.abs(yawDiff), maxYawChange);
-
-        // Apply yaw change
-        currentYaw = MathHelper.wrapDegrees(currentYaw + stepYaw);
-
-        // PITCH CONTROL
-        // Pure proportional control - speed scales with error magnitude
         float pitchBaseSpeed = Math.abs(pitchDiff) * PITCH_PROPORTIONAL_GAIN;
-        // Ensure a minimum speed
-        pitchBaseSpeed = Math.max(pitchBaseSpeed, 25.0f);
 
-        // Add feed-forward term based on angular velocity (preserve sign)
-        float pitchFeedForward = pitchAngularVelocity * PITCH_FEEDFORWARD_GAIN;
+        // Add feed-forward component to anticipate movement
+        float yawFeedForward = Math.abs(yawAngularVelocity) * YAW_FEEDFORWARD_GAIN;
+        float pitchFeedForward = Math.abs(pitchAngularVelocity) * PITCH_FEEDFORWARD_GAIN;
 
-        // Calculate total speed (capped at maximum)
+        // Calculate total speeds with feed-forward, capped at maximum
+        float totalYawSpeed = Math.min(yawBaseSpeed + yawFeedForward, MAX_YAW_SPEED);
         float totalPitchSpeed = Math.min(pitchBaseSpeed + pitchFeedForward, MAX_PITCH_SPEED);
 
-        // Calculate maximum change per tick
-        float maxPitchChange = totalPitchSpeed * deltaTime;
+        // Calculate movement this tick
+        float yawMove = Math.signum(yawDiff) * totalYawSpeed * timeDelta;
+        float pitchMove = Math.signum(pitchDiff) * totalPitchSpeed * timeDelta;
 
-        // Calculate step with clamping to prevent overshooting
-        float stepPitch = Math.signum(pitchDiff) * Math.min(Math.abs(pitchDiff), maxPitchChange);
+        // Additional safety check to prevent server kicks - limit per-tick rotation
+        yawMove = MathHelper.clamp(yawMove, -40.0f, 40.0f);
+        pitchMove = MathHelper.clamp(pitchMove, -40.0f, 40.0f);
 
-        // Apply pitch change
-        currentPitch = MathHelper.clamp(currentPitch + stepPitch, -90.0f, 90.0f);
-
-        // Check if we've reached the target (wider threshold)
-        if (Math.abs(yawDiff) < 0.5f && Math.abs(pitchDiff) < 0.5f) {
-            rotating = false;
-            // Snap exactly to target
+        // Apply movement (capped to prevent overshooting)
+        if (Math.abs(yawMove) > Math.abs(yawDiff)) {
             currentYaw = targetYaw;
+        } else {
+            currentYaw = MathHelper.wrapDegrees(currentYaw + yawMove);
+        }
+
+        if (Math.abs(pitchMove) > Math.abs(pitchDiff)) {
             currentPitch = targetPitch;
+        } else {
+            currentPitch = currentPitch + pitchMove;
+        }
+
+        // Clamp pitch to valid range
+        currentPitch = MathHelper.clamp(currentPitch, -90.0f, 90.0f);
+
+        // Check if we've reached the target
+        if (Math.abs(yawDiff) < 0.1f && Math.abs(pitchDiff) < 0.1f) {
+            rotating = false;
         }
     }
 

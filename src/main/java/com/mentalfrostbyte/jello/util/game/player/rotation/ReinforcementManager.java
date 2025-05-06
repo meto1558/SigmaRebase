@@ -55,18 +55,19 @@ public class ReinforcementManager {
         // Get the inputs that led to this successful hit
         float[] inputs = getEntityInputs(entity);
 
-        // Get the current outputs (rotations that led to the hit)
-        float[] currentOutputs = new float[NeuralNetwork.OUTPUT_SIZE];
-        currentOutputs[0] = (currentYaw + 180.0f) / 360.0f;
-        currentOutputs[1] = (currentPitch + 90.0f) / 180.0f;
+        // Use the same normalization as elsewhere in the codebase
+        // Instead of manually calculating:
+        // currentOutputs[0] = (currentYaw + 180.0f) / 360.0f;
+        // currentOutputs[1] = (currentPitch + 90.0f) / 180.0f;
+        float[] normalizedOutputs = JelloAI.normalizeRotations(currentYaw, currentPitch);
 
         // Create a reinforced training sample with higher weight
         for (int i = 0; i < 3; i++) { // Add multiple samples to emphasize this success
-            trainingManager.addTrainingSample(inputs, currentOutputs, reward);
+            trainingManager.addTrainingSample(inputs, normalizedOutputs, reward);
         }
 
         // Train immediately for faster adaptation
-        neuralNetwork.trainNetworkImmediate(inputs, currentOutputs, reward);
+        neuralNetwork.trainNetworkImmediate(inputs, normalizedOutputs, reward);
 
         Client.logger.info("JelloAI: Recorded hit on " + entity.getName().getString() +
                 " with reward " + reward + " (Total: " + entityRewards.get(entity) + ")");
@@ -79,10 +80,14 @@ public class ReinforcementManager {
         if (entity == null || mc.player == null) return;
 
         // Apply a negative penalty for misses (to move away from incorrect angles)
-        float penalty = MISS_PENALTY * 3.0f;  // Amplify the penalty (e.g., -0.6 if MISS_PENALTY is -0.2)
+        // Reduced penalty to avoid over-correction
+        float penalty = MISS_PENALTY;  // Use base penalty instead of amplifying by 3x
 
         // Use the negative penalty directly to push away from incorrect angles
         trainingManager.addTrainingSample(inputs, idealOutputs, penalty);
+
+        // Don't train immediately on misses to avoid wild swings
+        // neuralNetwork.trainNetworkImmediate(inputs, idealOutputs, penalty);
 
         // Log the miss for debugging
         Client.logger.info("JelloAI: Recorded miss with penalty " + penalty);
@@ -102,7 +107,8 @@ public class ReinforcementManager {
         double playerZ = mc.player.getPosZ();
 
         double entityX = entity.getPosX();
-        double entityY = entity.getPosY() + entity.getEyeHeight() * 0.85;
+        // Use consistent eye height calculation (removed the 0.85 multiplier)
+        double entityY = entity.getPosY() + entity.getEyeHeight();
         double entityZ = entity.getPosZ();
 
         double diffX = entityX - playerX;
