@@ -36,11 +36,11 @@ public class RotationManager {
     // Control parameters - adjusted to prevent server kicks
     private static final float YAW_PROPORTIONAL_GAIN = 12.0f;
     private static final float PITCH_PROPORTIONAL_GAIN = 10.0f;
-    private static final float YAW_FEEDFORWARD_GAIN = 0.5f;
-    private static final float PITCH_FEEDFORWARD_GAIN = 0.4f;
+    private static final float YAW_FEEDFORWARD_GAIN = 0.8f;      // Increased from 0.5f
+    private static final float PITCH_FEEDFORWARD_GAIN = 0.6f;    // Increased from 0.4f
     // Ensure MAX_SPEED * TICK_TIME stays under ~45 degrees
-    private static final float MAX_YAW_SPEED = 540.0f;   // 540 * 0.05 = 27 degrees per tick
-    private static final float MAX_PITCH_SPEED = 270.0f; // 270 * 0.05 = 13.5 degrees per tick
+    private static final float MAX_YAW_SPEED = 720.0f;   // Increased to 720 * 0.05 = 36 degrees per tick
+    private static final float MAX_PITCH_SPEED = 360.0f; // Increased to 360 * 0.05 = 18 degrees per tick
 
     /**
      * Initialize rotation values
@@ -76,7 +76,8 @@ public class RotationManager {
      * Update rotations with smoothing
      */
     public void updateRotations() {
-        if (!rotating) return;
+        // Remove the rotating check to always update rotations
+        // if (!rotating) return;
 
         // Use fixed tick time instead of wall clock time
         float timeDelta = TICK_TIME;  // assume one tick per update
@@ -95,15 +96,15 @@ public class RotationManager {
         float yawBaseSpeed = Math.abs(yawDiff) * YAW_PROPORTIONAL_GAIN;
         float pitchBaseSpeed = Math.abs(pitchDiff) * PITCH_PROPORTIONAL_GAIN;
 
-        // Add feed-forward component to anticipate movement
-        float yawFeedForward = Math.abs(yawAngularVelocity) * YAW_FEEDFORWARD_GAIN;
-        float pitchFeedForward = Math.abs(pitchAngularVelocity) * PITCH_FEEDFORWARD_GAIN;
+        // Add feed-forward component to anticipate movement - keep sign for direction
+        float yawFeedForward = yawAngularVelocity * YAW_FEEDFORWARD_GAIN;
+        float pitchFeedForward = pitchAngularVelocity * PITCH_FEEDFORWARD_GAIN;
 
         // Calculate total speeds with feed-forward, capped at maximum
-        float totalYawSpeed = Math.min(yawBaseSpeed + yawFeedForward, MAX_YAW_SPEED);
-        float totalPitchSpeed = Math.min(pitchBaseSpeed + pitchFeedForward, MAX_PITCH_SPEED);
+        float totalYawSpeed = Math.min(Math.abs(yawBaseSpeed + yawFeedForward), MAX_YAW_SPEED);
+        float totalPitchSpeed = Math.min(Math.abs(pitchBaseSpeed + pitchFeedForward), MAX_PITCH_SPEED);
 
-        // Calculate movement this tick
+        // Calculate movement this tick - preserve sign from yawDiff
         float yawMove = Math.signum(yawDiff) * totalYawSpeed * timeDelta;
         float pitchMove = Math.signum(pitchDiff) * totalPitchSpeed * timeDelta;
 
@@ -127,7 +128,7 @@ public class RotationManager {
         // Clamp pitch to valid range
         currentPitch = MathHelper.clamp(currentPitch, -90.0f, 90.0f);
 
-        // Check if we've reached the target
+        // Only set rotating to false when we're very close to target
         if (Math.abs(yawDiff) < 0.1f && Math.abs(pitchDiff) < 0.1f) {
             rotating = false;
         }
