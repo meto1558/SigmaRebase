@@ -763,9 +763,7 @@ public class KillAura extends Module {
         if (rotationMode.currentValue.equals("JelloAI") && lastAttackEntity != null &&
                 System.currentTimeMillis() - lastAttackTime < 500) {
 
-            if (event.getPacket() instanceof SEntityStatusPacket) {
-                SEntityStatusPacket packet = (SEntityStatusPacket) event.getPacket();
-
+            if (event.packet instanceof SEntityStatusPacket packet) {
                 // Check if this is a hit confirmation packet (status 2 = hurt)
                 if (packet.getOpCode() == 2) {
                     Entity hitEntity = packet.getEntity(mc.world);

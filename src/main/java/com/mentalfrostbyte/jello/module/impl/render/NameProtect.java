@@ -37,7 +37,7 @@ public class NameProtect extends Module {
                     String replacementUsername = this.getStringSettingValueByName("Username");
                     if (originalUsername.contains(mc.getSession().getUsername())) {
                         originalUsername = originalUsername.replaceAll(mc.getSession().getUsername(), replacementUsername);
-                        receivePacketEvent.setPacket(new SUpdateScorePacket(scorePacket.getAction(), scorePacket.getObjectiveName(), originalUsername, scorePacket.getScoreValue()));
+                        receivePacketEvent.packet = new SUpdateScorePacket(scorePacket.getAction(), scorePacket.getObjectiveName(), originalUsername, scorePacket.getScoreValue());
                     }
                 }
             }
@@ -81,7 +81,7 @@ public class NameProtect extends Module {
                 String replacementUsername = this.getStringSettingValueByName("Username");
                 if (titleText.contains(mc.getSession().getUsername())) {
                     titleText = titleText.replaceAll(mc.getSession().getUsername(), replacementUsername);
-                    receivePacketEvent.setPacket(new STitlePacket(titlePacket.getType(), new StringTextComponent(titleText), titlePacket.getFadeInTime(), titlePacket.getDisplayTime(), titlePacket.getFadeOutTime()));
+                    receivePacketEvent.packet = new STitlePacket(titlePacket.getType(), new StringTextComponent(titleText), titlePacket.getFadeInTime(), titlePacket.getDisplayTime(), titlePacket.getFadeOutTime());
                 }
             }
         }

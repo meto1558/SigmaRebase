@@ -50,7 +50,7 @@ public class CustomDisabler  extends Module {
 
     @EventTarget
     public void onRecievePacket(EventReceivePacket event) {
-        String packetName = event.getPacket().getClass().getSimpleName();
+        String packetName = event.packet.getClass().getSimpleName();
         if (this.getBooleanValueFromSettingName(packetName)) {
             logCancelled(packetName, "INCOMING packet");
             event.cancelled = true;

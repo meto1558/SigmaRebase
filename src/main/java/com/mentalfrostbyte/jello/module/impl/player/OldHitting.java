@@ -119,9 +119,7 @@ public class OldHitting extends Module {
     public void onPacketReceive(EventReceivePacket event) {
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             if (mc.player != null) {
-                if (event.getPacket() instanceof SEntityEquipmentPacket) {
-                    SEntityEquipmentPacket pack = (SEntityEquipmentPacket) event.getPacket();
-
+                if (event.packet instanceof SEntityEquipmentPacket pack) {
                     pack.func_241790_c_().removeIf(pair -> pack.getEntityID() == mc.player.getEntityId()
                             && pair.getFirst() == EquipmentSlotType.OFFHAND
                             && pair.getSecond() != null
