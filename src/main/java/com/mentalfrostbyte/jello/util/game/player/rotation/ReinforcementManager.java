@@ -26,6 +26,12 @@ public class ReinforcementManager {
     private final NeuralNetwork neuralNetwork;
     private final TrainingManager trainingManager;
 
+    // Updated constructor to accept shared instances
+    public ReinforcementManager(NeuralNetwork sharedNetwork, TrainingManager sharedTrainer) {
+        this.neuralNetwork = sharedNetwork;
+        this.trainingManager = sharedTrainer;
+    }
+
     public ReinforcementManager() {
         this.neuralNetwork = new NeuralNetwork();
         this.trainingManager = new TrainingManager();
@@ -69,49 +75,17 @@ public class ReinforcementManager {
     /**
      * Record a missed attack
      */
-    public void recordMiss(Entity entity) {
+    public void recordMiss(Entity entity, float[] inputs, float[] idealOutputs) {
         if (entity == null || mc.player == null) return;
 
-        // Apply a small penalty for missing
-        float penalty = MISS_PENALTY;
+        // Apply a negative penalty for misses (to move away from incorrect angles)
+        float penalty = MISS_PENALTY * 3.0f;  // Amplify the penalty (e.g., -0.6 if MISS_PENALTY is -0.2)
 
-        // Update entity reward
-        entityRewards.put(entity, entityRewards.getOrDefault(entity, 0f) + penalty);
+        // Use the negative penalty directly to push away from incorrect angles
+        trainingManager.addTrainingSample(inputs, idealOutputs, penalty);
 
-        // Get the inputs that led to this miss
-        float[] inputs = getEntityInputs(entity);
-
-        // Calculate what would have been better rotations
-        double entityX = entity.getPosX();
-        double entityY = entity.getPosY() + entity.getEyeHeight() * 0.85;
-        double entityZ = entity.getPosZ();
-
-        double playerX = mc.player.getPosX();
-        double playerY = mc.player.getPosY() + mc.player.getEyeHeight();
-        double playerZ = mc.player.getPosZ();
-
-        double diffX = entityX - playerX;
-        double diffY = entityY - playerY;
-        double diffZ = entityZ - playerZ;
-
-        double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
-
-        float idealYaw = (float) (Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0F);
-        float idealPitch = (float) -Math.toDegrees(Math.atan2(diffY, dist));
-
-        // Normalize ideal rotations
-        float[] idealOutputs = new float[NeuralNetwork.OUTPUT_SIZE];
-        idealOutputs[0] = (idealYaw + 180.0f) / 360.0f;
-        idealOutputs[1] = (idealPitch + 90.0f) / 180.0f;
-
-        // Add a training sample with the better rotations
-        trainingManager.addTrainingSample(inputs, idealOutputs, Math.abs(penalty));
-
-        // Train immediately for faster adaptation
-        neuralNetwork.trainNetworkImmediate(inputs, idealOutputs, Math.abs(penalty));
-
-        Client.logger.info("JelloAI: Recorded miss on " + entity.getName().getString() +
-                " with penalty " + penalty + " (Total: " + entityRewards.get(entity) + ")");
+        // Log the miss for debugging
+        Client.logger.info("JelloAI: Recorded miss with penalty " + penalty);
     }
 
     /**

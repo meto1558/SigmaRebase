@@ -22,7 +22,21 @@ public class RotationManager {
 
     // Rotation state
     private boolean rotating = false;
-    private long lastRotationTime = 0;
+
+    // Tick-based timing instead of system time
+    private static final float TICK_TIME = 0.05f; // 1/20 seconds per tick
+
+    // Feed-forward tracking
+    private float lastYawDiff = 0;
+    private float lastPitchDiff = 0;
+
+    // Control parameters
+    private static final float YAW_PROPORTIONAL_GAIN = 15.0f;    // Proportional control gain
+    private static final float PITCH_PROPORTIONAL_GAIN = 12.0f;  // Proportional control gain
+    private static final float YAW_FEEDFORWARD_GAIN = 0.6f;      // Feed-forward gain
+    private static final float PITCH_FEEDFORWARD_GAIN = 0.5f;    // Feed-forward gain
+    private static final float MAX_YAW_SPEED = 720.0f;           // Maximum yaw speed (degrees/sec)
+    private static final float MAX_PITCH_SPEED = 360.0f;         // Maximum pitch speed (degrees/sec)
 
     /**
      * Initialize rotation values
@@ -33,6 +47,8 @@ public class RotationManager {
         targetYaw = currentYaw;
         targetPitch = currentPitch;
         rotating = false;
+        lastYawDiff = 0;
+        lastPitchDiff = 0;
     }
 
     /**
@@ -42,7 +58,9 @@ public class RotationManager {
         targetYaw = yaw;
         targetPitch = MathHelper.clamp(pitch, -90.0f, 90.0f);
         rotating = true;
-        lastRotationTime = System.currentTimeMillis();
+        // Reset feed-forward tracking when setting a new target
+        lastYawDiff = 0;
+        lastPitchDiff = 0;
     }
 
     /**
@@ -51,49 +69,69 @@ public class RotationManager {
     public void updateRotations() {
         if (!rotating || mc.player == null) return;
 
-        // Calculate time since last rotation
-        long currentTime = System.currentTimeMillis();
-        float deltaTime = (currentTime - lastRotationTime) / 1000.0f;
-        lastRotationTime = currentTime;
+        // Use fixed tick time
+        float deltaTime = TICK_TIME;
 
-        // Calculate rotation speed based on distance to target
+        // Calculate rotation differences
         float yawDiff = MathHelper.wrapDegrees(targetYaw - currentYaw);
         float pitchDiff = targetPitch - currentPitch;
 
-        // Calculate rotation speed with some randomness
-        float baseYawSpeed = 10.0f + random.nextFloat() * 5.0f;
-        float basePitchSpeed = 8.0f + random.nextFloat() * 4.0f;
+        // Calculate angular velocities (how fast the error is changing)
+        float yawAngularVelocity = (yawDiff - lastYawDiff) / deltaTime;
+        float pitchAngularVelocity = (pitchDiff - lastPitchDiff) / deltaTime;
 
-        // Scale speed based on difference (faster for larger differences)
-        float yawSpeed = Math.min(baseYawSpeed * (1.0f + Math.abs(yawDiff) / 45.0f), 30.0f);
-        float pitchSpeed = Math.min(basePitchSpeed * (1.0f + Math.abs(pitchDiff) / 20.0f), 25.0f);
+        // Store current differences for next tick
+        lastYawDiff = yawDiff;
+        lastPitchDiff = pitchDiff;
 
-        // Apply speed
-        float maxYawChange = yawSpeed * deltaTime;
-        float maxPitchChange = pitchSpeed * deltaTime;
+        // YAW CONTROL
+        // Pure proportional control - speed scales with error magnitude
+        float yawBaseSpeed = Math.abs(yawDiff) * YAW_PROPORTIONAL_GAIN;
+        // Ensure a minimum speed to catch up with strafing targets
+        yawBaseSpeed = Math.max(yawBaseSpeed, 30.0f);
 
-        // Limit rotation change
-        if (Math.abs(yawDiff) <= maxYawChange) {
-            currentYaw = targetYaw;
-        } else {
-            currentYaw += maxYawChange * Math.signum(yawDiff);
-        }
+        // Add feed-forward term based on angular velocity (preserve sign)
+        float yawFeedForward = yawAngularVelocity * YAW_FEEDFORWARD_GAIN;
 
-        if (Math.abs(pitchDiff) <= maxPitchChange) {
-            currentPitch = targetPitch;
-        } else {
-            currentPitch += maxPitchChange * Math.signum(pitchDiff);
-        }
+        // Calculate total speed (capped at maximum)
+        float totalYawSpeed = Math.min(yawBaseSpeed + yawFeedForward, MAX_YAW_SPEED);
 
-        // Normalize yaw
-        currentYaw = MathHelper.wrapDegrees(currentYaw);
+        // Calculate maximum change per tick
+        float maxYawChange = totalYawSpeed * deltaTime;
 
-        // Clamp pitch
-        currentPitch = MathHelper.clamp(currentPitch, -90.0f, 90.0f);
+        // Calculate step with clamping to prevent overshooting
+        float stepYaw = Math.signum(yawDiff) * Math.min(Math.abs(yawDiff), maxYawChange);
 
-        // Check if we've reached the target
-        if (Math.abs(yawDiff) < 0.1f && Math.abs(pitchDiff) < 0.1f) {
+        // Apply yaw change
+        currentYaw = MathHelper.wrapDegrees(currentYaw + stepYaw);
+
+        // PITCH CONTROL
+        // Pure proportional control - speed scales with error magnitude
+        float pitchBaseSpeed = Math.abs(pitchDiff) * PITCH_PROPORTIONAL_GAIN;
+        // Ensure a minimum speed
+        pitchBaseSpeed = Math.max(pitchBaseSpeed, 25.0f);
+
+        // Add feed-forward term based on angular velocity (preserve sign)
+        float pitchFeedForward = pitchAngularVelocity * PITCH_FEEDFORWARD_GAIN;
+
+        // Calculate total speed (capped at maximum)
+        float totalPitchSpeed = Math.min(pitchBaseSpeed + pitchFeedForward, MAX_PITCH_SPEED);
+
+        // Calculate maximum change per tick
+        float maxPitchChange = totalPitchSpeed * deltaTime;
+
+        // Calculate step with clamping to prevent overshooting
+        float stepPitch = Math.signum(pitchDiff) * Math.min(Math.abs(pitchDiff), maxPitchChange);
+
+        // Apply pitch change
+        currentPitch = MathHelper.clamp(currentPitch + stepPitch, -90.0f, 90.0f);
+
+        // Check if we've reached the target (wider threshold)
+        if (Math.abs(yawDiff) < 0.5f && Math.abs(pitchDiff) < 0.5f) {
             rotating = false;
+            // Snap exactly to target
+            currentYaw = targetYaw;
+            currentPitch = targetPitch;
         }
     }
 

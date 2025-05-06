@@ -24,6 +24,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
 import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
+import com.mentalfrostbyte.jello.util.game.player.rotation.RotationManager;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RandomUtil;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationUtils;
@@ -189,7 +190,7 @@ public class KillAura extends Module {
 
         // Reset JelloAI rotations when KillAura is disabled
         if (rotationMode.currentValue.equals("JelloAI")) {
-            JelloAI.smoothResetRotations();
+            JelloAI.updateRotations();
         }
 
         super.onDisable();
