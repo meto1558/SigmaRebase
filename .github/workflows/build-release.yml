@@ -116,6 +116,7 @@ jobs:
         with:
           tag_name: pojav-nightly
           prerelease: true
+          draft: false
           files: |
             target/*.jar
             release/sigma-jello-5.1.0-pojav.json
