@@ -28,8 +28,8 @@ public class NeuralNetwork {
     private float[] outputBiases = new float[OUTPUT_SIZE];
 
     // Learning parameters
-    private static final float LEARNING_RATE = 0.08f;  // Increased from 0.01f
-    private static final float MOMENTUM = 0.9f;
+    private static final float LEARNING_RATE = 0.03f;  // Increased from 0.01f
+    private static final float MOMENTUM = 0.7f;
 
     // Previous weight changes (for momentum)
     private float[][] prevDeltaInputHidden = new float[INPUT_SIZE][HIDDEN_SIZE];

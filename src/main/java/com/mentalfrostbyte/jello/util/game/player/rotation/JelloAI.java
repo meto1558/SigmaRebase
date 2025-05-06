@@ -1,10 +1,12 @@
 package com.mentalfrostbyte.jello.util.game.player.rotation;
 
-
+import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.util.game.world.EntityRayTraceResult;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 
 /**
  * JelloAI - Neural network based rotation system
@@ -67,20 +69,40 @@ public class JelloAI {
      * Apply server-side rotations without changing client-side camera
      */
     public static void applyServerRotation() {
-        if (!rotationManager.isRotating() || mc.player == null) return;
+        if (mc.player == null) return;
 
         // Store original rotations
         float originalYaw = mc.player.rotationYaw;
         float originalPitch = mc.player.rotationPitch;
 
-        // Apply calculated rotations
-        mc.player.rotationYaw = rotationManager.getCurrentYaw();
-        mc.player.rotationPitch = rotationManager.getCurrentPitch();
+        // Apply calculated rotations - but limit the change per tick to avoid server kicks
+        float serverYaw = rotationManager.getCurrentYaw();
+        float serverPitch = rotationManager.getCurrentPitch();
+
+        // Limit rotation change per tick to avoid server anti-cheat
+        float maxYawChange = 30.0f; // Maximum degrees per tick
+        float maxPitchChange = 15.0f; // Maximum degrees per tick
+
+        float yawDiff = MathHelper.wrapDegrees(serverYaw - mc.player.prevRotationYaw);
+        if (Math.abs(yawDiff) > maxYawChange) {
+            serverYaw = mc.player.prevRotationYaw + (maxYawChange * Math.signum(yawDiff));
+        }
+
+        float pitchDiff = serverPitch - mc.player.prevRotationPitch;
+        if (Math.abs(pitchDiff) > maxPitchChange) {
+            serverPitch = mc.player.prevRotationPitch + (maxPitchChange * Math.signum(pitchDiff));
+        }
+
+        // Apply limited rotations
+        mc.player.rotationYaw = serverYaw;
+        mc.player.rotationPitch = serverPitch;
 
         // Restore client-side rotations (for camera)
-        mc.player.prevRotationYaw = originalYaw;
-        mc.player.prevRotationPitch = originalPitch;
+        mc.player.rotationYaw = originalYaw;
+        mc.player.rotationPitch = originalPitch;
     }
+
+    // Remove duplicate methods and keep only one version of each method
 
     /**
      * Get rotations to a specific position
@@ -91,14 +113,17 @@ public class JelloAI {
         // Calculate inputs for the neural network
         float[] inputs = getPositionInputs(x, y, z);
 
-        // Run the neural network forward pass
-        float[] outputs = neuralNetwork.predict(inputs);
+        // Use predictRotations instead of direct predict
+        float[] rotations = neuralNetwork.predict(inputs);
+        if (rotations == null || rotations.length < 2) {
+            return new float[2]; // Return zeros if prediction failed
+        }
 
-        // Convert outputs to rotations (fixed for tanh activation)
-        float yaw = outputs[0] * 180.0f;    // [-1..1] → [-180..180]
-        float pitch = outputs[1] * 90.0f;   // [-1..1] → [-90..90]
+        // Convert normalized rotations to game angles - FIXED conversion for [-1,1] range
+        float yawDegrees = MathHelper.wrapDegrees(rotations[0] * 180f);
+        float pitchDegrees = MathHelper.clamp(rotations[1] * 90f, -90f, 90f);
 
-        return new float[] {yaw, pitch};
+        return new float[] {yawDegrees, pitchDegrees};
     }
 
     /**
@@ -110,12 +135,15 @@ public class JelloAI {
         // Calculate inputs for the neural network
         float[] inputs = getBlockInputs(pos);
 
-        // Run the neural network forward pass
-        float[] outputs = neuralNetwork.predict(inputs);
+        // Use predictRotations instead of direct predict
+        float[] rotations = neuralNetwork.predict(inputs);
+        if (rotations == null || rotations.length < 2) {
+            return; // Exit if prediction failed
+        }
 
-        // Convert outputs to rotations (fixed for tanh activation)
-        float yaw = outputs[0] * 180.0f;    // [-1..1] → [-180..180]
-        float pitch = outputs[1] * 90.0f;   // [-1..1] → [-90..90]
+        // Convert normalized rotations to game angles - FIXED conversion for [-1,1] range
+        float yawDegrees = MathHelper.wrapDegrees(rotations[0] * 180f);
+        float pitchDegrees = MathHelper.clamp(rotations[1] * 90f, -90f, 90f);
 
         // Calculate "ideal" rotations for training
         float[] idealRotations = calculateIdealBlockRotations(pos);
@@ -125,20 +153,7 @@ public class JelloAI {
         trainingManager.addTrainingSample(inputs, expectedOutputs, 1.0f);
 
         // Set target rotation
-        rotationManager.setTargetRotation(yaw, pitch);
-    }
-
-    /**
-     * Convert neural network outputs to game rotations
-     */
-    public static float[] convertOutputsToRotations(float[] outputs) {
-        if (outputs == null || outputs.length < 2) return new float[2];
-
-        // Convert outputs to rotations (fixed for tanh activation)
-        float smoothedYaw = outputs[0] * 180.0f;    // [-1..1] → [-180..180]
-        float smoothedPitch = outputs[1] * 90.0f;   // [-1..1] → [-90..90]
-
-        return new float[] {smoothedYaw, smoothedPitch};
+        rotationManager.setTargetRotation(yawDegrees, pitchDegrees);
     }
 
     /**
@@ -150,12 +165,15 @@ public class JelloAI {
         // Calculate inputs for the neural network
         float[] inputs = getEntityInputs(entity);
 
-        // Run the neural network forward pass
-        float[] outputs = neuralNetwork.predict(inputs);
+        // Use predictRotations instead of direct predict
+        float[] rotations = neuralNetwork.predict(inputs);
+        if (rotations == null || rotations.length < 2) {
+            return; // Exit if prediction failed
+        }
 
-        // Convert outputs to rotations
-        float yaw = outputs[0] * 180.0f;    // [-1..1] → [-180..180]
-        float pitch = outputs[1] * 90.0f;   // [-1..1] → [-90..90]
+        // Convert normalized rotations to game angles - FIXED conversion for [-1,1] range
+        float yawDegrees = MathHelper.wrapDegrees(rotations[0] * 180f);
+        float pitchDegrees = MathHelper.clamp(rotations[1] * 90f, -90f, 90f);
 
         // Calculate "ideal" rotations for training
         float[] idealRotations = calculateIdealRotations(entity);
@@ -165,7 +183,7 @@ public class JelloAI {
         trainingManager.addTrainingSample(inputs, expectedOutputs, 1.0f);
 
         // Set target rotation
-        rotationManager.setTargetRotation(yaw, pitch);
+        rotationManager.setTargetRotation(yawDegrees, pitchDegrees);
     }
 
     // Helper methods
@@ -328,7 +346,7 @@ public class JelloAI {
     /**
      * Normalize rotations for neural network input
      */
-    private static float[] normalizeRotations(float yaw, float pitch) {
+    public static float[] normalizeRotations(float yaw, float pitch) {
         // FIXED: Normalize to [-1,1] range for tanh activation
         return new float[] {
                 yaw / 180.0f,    // maps [-180,180] → [-1,1]
@@ -378,5 +396,21 @@ public class JelloAI {
 
         // Record miss with normalized rotations
         instance.reinforcementManager.recordMiss(entity, inputs, expectedOutputs);
+    }
+
+    /**
+     * Update method to be called every tick
+     */
+    public static void onTick() {
+        if (mc.objectMouseOver != null && mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
+            Entity target = ((EntityRayTraceResult)mc.objectMouseOver).getEntity();
+            if (target != null) {
+                faceEntity(target);
+            }
+        }
+
+        // Always update and apply rotations
+        rotationManager.updateRotations();
+        applyServerRotation();
     }
 }
