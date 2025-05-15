@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.event.impl.player.movement;
 
-
 import team.sdhq.eventBus.Event;
 
 public class EventMoveInput extends Event {

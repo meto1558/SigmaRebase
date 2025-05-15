@@ -2,8 +2,7 @@ package net.minecraft.util;
 
 import net.minecraft.util.math.vector.Vector2f;
 
-public class MovementInput
-{
+public class MovementInput {
     public float moveStrafe;
     public float moveForward;
     public boolean forwardKeyDown;
@@ -13,17 +12,14 @@ public class MovementInput
     public boolean jump;
     public boolean sneaking;
 
-    public void tickMovement(boolean p_225607_1_)
-    {
+    public void tickMovement(boolean forcedDown) {
     }
 
-    public Vector2f getMoveVector()
-    {
+    public Vector2f getMoveVector() {
         return new Vector2f(this.moveStrafe, this.moveForward);
     }
 
-    public boolean isMovingForward()
-    {
+    public boolean isMovingForward() {
         return this.moveForward > 1.0E-5F;
     }
 }

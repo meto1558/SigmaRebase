@@ -111,50 +111,50 @@ public class CommandManager extends Manager {
     }
 
     @EventTarget
-    public void onSendPacket(EventSendPacket var1) {
+    public void onSendPacket(EventSendPacket event) {
         if (Client.getInstance().clientMode != ClientMode.NOADDONS) {
-            if (var1.packet instanceof CChatMessagePacket var4) {
-				String var5 = var4.getMessage();
-                if (var5.startsWith(".") && var5.substring(1).startsWith(".")) {
-                    var4.message = var5.substring(1);
+            if (event.packet instanceof CChatMessagePacket packet) {
+				String message = packet.getMessage();
+                if (message.startsWith(".") && message.substring(1).startsWith(".")) {
+                    packet.message = message.substring(1);
                     return;
                 }
 
-                if (var5.startsWith(".")) {
-                    var1.cancelled = true;
+                if (message.startsWith(".")) {
+                    event.cancelled = true;
                     this.method30236();
-                    String[] var6 = var5.substring(".".length()).split(" ");
-                    Command var7 = this.getCommandByName(var6[0]);
-                    if (var7 == null) {
-                        this.invalidCommandMessage(var6[0]);
+                    String[] parts = message.substring(".".length()).split(" ");
+                    Command command = this.getCommandByName(parts[0]);
+                    if (command == null) {
+                        this.invalidCommandMessage(parts[0]);
                         return;
                     }
 
-                    ArrayList var8 = new ArrayList();
+                    List<ChatCommandArguments> args = new ArrayList<>();
 
-                    for (int var9 = 1; var9 < var6.length; var9++) {
-                        var8.add(new ChatCommandArguments(var6[var9]));
+                    for (int i = 1; i < parts.length; i++) {
+                        args.add(new ChatCommandArguments(parts[i]));
                     }
 
                     MinecraftUtil.addChatMessage(" ");
 
                     try {
-                        var7.run(var5, (ChatCommandArguments[]) var8.<ChatCommandArguments>toArray(new ChatCommandArguments[0]), var1x -> MinecraftUtil.addChatMessage(this.getPrefix() + " " + var1x));
+                        command.run(message, args.toArray(new ChatCommandArguments[0]), msg -> MinecraftUtil.addChatMessage(this.getPrefix() + " " + msg));
                     } catch (CommandException exception) {
                         if (!exception.reason.isEmpty()) {
                             MinecraftUtil.addChatMessage(this.getPrefix() + " Error: " + exception.reason);
                         }
 
-                        MinecraftUtil.addChatMessage(this.getPrefix() + " Usage: " + "." + var7.getName() + " " + var7.getOptions());
+                        MinecraftUtil.addChatMessage(this.getPrefix() + " Usage: " + "." + command.getName() + " " + command.getOptions());
                     }
 
                     MinecraftUtil.addChatMessage(" ");
                 }
             }
 
-            if (var1.packet instanceof CTabCompletePacket var11) {
-                if (var11.getCommand().startsWith(".")) {
-                    var1.cancelled = true;
+            if (event.packet instanceof CTabCompletePacket packet) {
+                if (packet.getCommand().startsWith(".")) {
+                    event.cancelled = true;
                 }
             }
         }

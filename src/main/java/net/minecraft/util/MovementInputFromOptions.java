@@ -8,12 +8,11 @@ import team.sdhq.eventBus.EventBus;
 public class MovementInputFromOptions extends MovementInput {
     private final GameSettings gameSettings;
 
-    public MovementInputFromOptions(GameSettings var1) {
-        this.gameSettings = var1;
+    public MovementInputFromOptions(GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
     }
 
-
-    public void tickMovement(boolean var1) {
+    public void tickMovement(boolean forcedDown) {
         moveForward = 0.0f;
         moveStrafe = 0.0f;
 
