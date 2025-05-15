@@ -3,13 +3,12 @@ package com.mentalfrostbyte.jello.managers.util.command;
 public class ChatCommandArguments {
     private final String arguments;
 
-    public ChatCommandArguments(String args) {
-        this.arguments = args;
+    public ChatCommandArguments(String arguments) {
+        this.arguments = arguments;
     }
 
     public CommandType getCommandType() {
         try {
-            double var3 = Double.parseDouble(this.arguments);
         } catch (NullPointerException | NumberFormatException var6) {
             return CommandType.TEXT;
         }
@@ -27,7 +26,7 @@ public class ChatCommandArguments {
 
     public float getFloat() {
         try {
-            return (float)Double.parseDouble(this.arguments);
+            return (float) Double.parseDouble(this.arguments);
         } catch (NullPointerException | NumberFormatException var4) {
             return 0.0F;
         }
@@ -35,7 +34,7 @@ public class ChatCommandArguments {
 
     public int getInt() {
         try {
-            return (int)Double.parseDouble(this.arguments);
+            return (int) Double.parseDouble(this.arguments);
         } catch (NullPointerException | NumberFormatException var4) {
             return 0;
         }

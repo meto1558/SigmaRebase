@@ -173,7 +173,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<IPacket<?>> {
                     return;
                 }
 
-                processPacket(packet, this.packetListener);
+                processPacket(packetEvent.packet, this.packetListener);
             } catch (ThreadQuickExitException ignored) {
             }
 
