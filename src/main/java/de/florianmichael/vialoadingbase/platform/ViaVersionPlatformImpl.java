@@ -2,7 +2,7 @@
  * This file is part of ViaLoadingBase - https://github.com/FlorianMichael/ViaLoadingBase
  * Copyright (C) 2020-2024 FlorianMichael/EnZaXD <florian.michael07@gmail.com> and contributors
  *
- * This program is free software: you can redistribute it and/or modify
+ * This program is free software: you can redis tribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.

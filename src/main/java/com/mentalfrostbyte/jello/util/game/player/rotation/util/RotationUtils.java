@@ -1,4 +1,5 @@
 package com.mentalfrostbyte.jello.util.game.player.rotation.util;
+
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
@@ -18,7 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 public class RotationUtils {
-    private static final Minecraft mc = Minecraft. getInstance();
+    private static final Minecraft mc = Minecraft.getInstance();
 
     public static Rotation limitAngleChange(Rotation currentRotation, Rotation targetRotation, float horizontalSpeed, float verticalSpeed) {
         float yawDifference = getAngleDifference(targetRotation.yaw, currentRotation.yaw);
@@ -45,7 +46,7 @@ public class RotationUtils {
         boolean nigger = Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()
                 && (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Grim")
                 || Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Clutch"));
-        float f = (float) ((nigger ? 0 : mc.gameSettings.mouseSensitivity)  * 0.6F + 0.2F);
+        float f = (float) ((nigger ? 0 : mc.gameSettings.mouseSensitivity) * 0.6F + 0.2F);
         float f5 = f * f * f;
 
         float gcd = f * f * f * (nigger ? 8.0F : Client.getInstance().moduleManager.getModuleByClass(AutoSprint.class).getBooleanValueFromSettingName("VulcanGCD") ? 1.2F : 8.0F);
@@ -56,14 +57,13 @@ public class RotationUtils {
         deltaYaw -= (deltaYaw % gcd);
         deltaPitch -= (deltaPitch % gcd);
 
-        if(nigger){
+        if (nigger) {
             MouseSmoother filterVolkanX = new MouseSmoother();
             MouseSmoother filterVolkanY = new MouseSmoother();
             deltaYaw = (float) filterVolkanX.smooth(deltaYaw, 3800F * gcd);
             deltaPitch = (float) filterVolkanY.smooth(deltaPitch, 3800F * gcd);
             deltaYaw *= f5;
             deltaPitch *= f5;
-
 
 
         }
@@ -83,21 +83,21 @@ public class RotationUtils {
 
     public static float[] scaffoldRots(double bx, double by, double bz, float lastYaw, float lastPitch, float yawSpeed, float pitchSpeed, boolean random) {
         double x = bx - Minecraft.getInstance().player.getPosX();
-        double y = by - (Minecraft.getInstance().player.getPosY() + (double)Minecraft.getInstance().player.getEyeHeight());
+        double y = by - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight());
         double z = bz - Minecraft.getInstance().player.getPosZ();
-        float calcYaw = (float)(Math.toDegrees(MathHelper.atan2(z, x)) - 90.0);
-        float calcPitch = (float)(-(MathHelper.atan2(y, MathHelper.sqrt(x * x + z * z)) * 180.0 / Math.PI));
+        float calcYaw = (float) (Math.toDegrees(MathHelper.atan2(z, x)) - 90.0);
+        float calcPitch = (float) (-(MathHelper.atan2(y, MathHelper.sqrt(x * x + z * z)) * 180.0 / Math.PI));
         float pitch = RotationUtils.updateRotation(lastPitch, calcPitch, pitchSpeed + RandomUtil.nextFloat(0.0f, 15.0f));
         float yaw = RotationUtils.updateRotation(lastYaw, calcYaw, yawSpeed + RandomUtil.nextFloat(0.0f, 15.0f));
         if (random) {
-            yaw = (float)((double)yaw + ThreadLocalRandom.current().nextDouble(-2.0, 2.0));
-            pitch = (float)((double)pitch + ThreadLocalRandom.current().nextDouble(-0.2, 0.2));
+            yaw = (float) ((double) yaw + ThreadLocalRandom.current().nextDouble(-2.0, 2.0));
+            pitch = (float) ((double) pitch + ThreadLocalRandom.current().nextDouble(-0.2, 0.2));
         }
         return new float[]{yaw, pitch};
     }
 
-    public static Rotation method34148(Vector3d var0) {
-        float[] var3 = method34145(Minecraft.getInstance().player.getPositionVec().add(0.0, Minecraft.getInstance().player.getEyeHeight(), 0.0), var0);
+    public static Rotation getRotationsToPosition(Vector3d var0) {
+        float[] var3 = getRotationsToVector(Minecraft.getInstance().player.getPositionVec().add(0.0, Minecraft.getInstance().player.getEyeHeight(), 0.0), var0);
         return new Rotation(var3[0], var3[1]);
     }
 
@@ -122,17 +122,17 @@ public class RotationUtils {
         return new Vector3d(var17, var15, var19);
     }
 
-    public static float[] method34145(Vector3d var0, Vector3d var1) {
+    public static float[] getRotationsToVector(Vector3d var0, Vector3d var1) {
         double var4 = var1.x - var0.x;
         double var6 = var1.z - var0.z;
         double var8 = var1.y - var0.y;
         double var10 = MathHelper.sqrt(var4 * var4 + var6 * var6);
-        float var12 = adjustAngle(0.0F, (float)(Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F, 360.0F);
-        float var13 = adjustAngle(Minecraft.getInstance().player.rotationPitch, (float)(-(Math.atan2(var8, var10) * 180.0 / Math.PI)), 360.0F);
+        float var12 = smoothAngle(0.0F, (float) (Math.atan2(var6, var4) * 180.0 / Math.PI) - 90.0F, 360.0F);
+        float var13 = smoothAngle(Minecraft.getInstance().player.rotationPitch, (float) (-(Math.atan2(var8, var10) * 180.0 / Math.PI)), 360.0F);
         return new float[]{var12, var13};
     }
 
-    public static float adjustAngle(float var0, float var1, float var2) {
+    public static float smoothAngle(float var0, float var1, float var2) {
         float var5 = MathHelper.wrapAngleTo180_float(var1 - var0);
         if (var5 > var2) {
             var5 = var2;
@@ -159,6 +159,7 @@ public class RotationUtils {
         float var4 = current - target;
         return !(var4 > 180.0F) ? (!(var4 < -180.0F) ? var4 : var4 + 360.0F) : var4 - 360.0F;
     }
+
     public static Rotation getAdvancedRotation(Entity target, boolean raycast) {
         Vector3d entityPosition = getEntityPosition(target);
         if (raycast && !isHovering(entityPosition)) {
@@ -177,8 +178,8 @@ public class RotationUtils {
                 double deltaY = entityPosY - (double) mc.player.getEyeHeight() - 0.02F - mc.player.getPosY();
                 double deltaZ = entityPosZ - mc.player.getPosZ();
                 double horizontalDistance = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-                float adjustedYaw = adjustAngle(mc.player.rotationYaw, (float)(Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F, 360.0F);
-                float adjustedPitch = adjustAngle(mc.player.rotationPitch, (float)(-(Math.atan2(deltaY, horizontalDistance) * 180.0 / Math.PI)), 360.0F);
+                float adjustedYaw = smoothAngle(mc.player.rotationYaw, (float) (Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F, 360.0F);
+                float adjustedPitch = smoothAngle(mc.player.rotationPitch, (float) (-(Math.atan2(deltaY, horizontalDistance) * 180.0 / Math.PI)), 360.0F);
                 boolean isHoveringOverEntity = isHovering(new Vector3d(entityPosX, entityPosY, entityPosZ));
                 if (isHoveringOverEntity) {
                     return new Rotation(adjustedYaw, adjustedPitch);
@@ -188,8 +189,8 @@ public class RotationUtils {
                     entityPosX = target.getPosX() + (target.getPosX() - target.lastTickPosX) * (double) mc.getRenderPartialTicks();
                     entityPosZ = target.getPosZ() + (target.getPosZ() - target.lastTickPosZ) * (double) mc.getRenderPartialTicks();
                     entityPosY = target.getPosY() + 0.05 + (target.getPosY() - target.lastTickPosY) * (double) mc.getRenderPartialTicks() + heightAdjustment;
-                    double adjustmentX = target.boundingBox.getXSize() / 2.5 * (double)sideAdjustment;
-                    double adjustmentZ = target.boundingBox.getZSize() / 2.5 * (double)sideAdjustment;
+                    double adjustmentX = target.boundingBox.getXSize() / 2.5 * (double) sideAdjustment;
+                    double adjustmentZ = target.boundingBox.getZSize() / 2.5 * (double) sideAdjustment;
                     if (!(mc.player.getPosX() < entityPosX + adjustmentX)) {
                         if (mc.player.getPosX() > entityPosX + adjustmentX) {
                             if (!(mc.player.getPosZ() < entityPosZ - adjustmentZ)) {
@@ -222,8 +223,8 @@ public class RotationUtils {
                     deltaY = entityPosY - (double) mc.player.getEyeHeight() - 0.02 - mc.player.getPosY();
                     deltaZ = entityPosZ - mc.player.getPosZ();
                     horizontalDistance = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-                    adjustedYaw = adjustAngle(mc.player.rotationYaw, (float)(Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F, 360.0F);
-                    adjustedPitch = adjustAngle(mc.player.rotationPitch, (float)(-(Math.atan2(deltaY, horizontalDistance) * 180.0 / Math.PI)), 360.0F);
+                    adjustedYaw = smoothAngle(mc.player.rotationYaw, (float) (Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F, 360.0F);
+                    adjustedPitch = smoothAngle(mc.player.rotationPitch, (float) (-(Math.atan2(deltaY, horizontalDistance) * 180.0 / Math.PI)), 360.0F);
                     isHoveringOverEntity = isHovering(new Vector3d(entityPosX, entityPosY, entityPosZ));
                     if (isHoveringOverEntity) {
                         return new Rotation(adjustedYaw, adjustedPitch);
@@ -233,7 +234,7 @@ public class RotationUtils {
 
             return null;
         } else {
-            return method34148(entityPosition);
+            return getRotationsToPosition(entityPosition);
         }
     }
 
@@ -252,9 +253,9 @@ public class RotationUtils {
             AxisAlignedBB var17 = var16.getBoundingBox();
             Optional var18 = var17.rayTrace(var12, var14);
             if (var18.isPresent()) {
-                double var19 = var12.squareDistanceTo((Vector3d)var18.get());
+                double var19 = var12.squareDistanceTo((Vector3d) var18.get());
                 if (var19 < var8 && (var16 == var0 || var0 == null)) {
-                    var11 = ((Vector3d)var18.get()).subtract(var16.getPosX(), var16.getPosY(), var16.getPosZ());
+                    var11 = ((Vector3d) var18.get()).subtract(var16.getPosX(), var16.getPosY(), var16.getPosZ());
                     var10 = var16;
                     var8 = var19;
                 }
@@ -291,16 +292,14 @@ public class RotationUtils {
             return null;
         }
     }
-    public static boolean isHovering(Vector3d var0) {
-        Vector3d var3 = new Vector3d(
-                mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ()
-        );
-        RayTraceContext var4 = new RayTraceContext(var3, var0, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, mc.player);
-        BlockRayTraceResult var5 = mc.world.rayTraceBlocks(var4);
-        boolean var6 = var5.getType() == RayTraceResult.Type.MISS || var5.getType() == RayTraceResult.Type.ENTITY;
-        Block var7 = mc.world.getBlockState(var5.getPos()).getBlock();
-        return var6;
+
+    public static boolean isHovering(Vector3d end) {
+        Vector3d start = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ());
+        RayTraceContext ctx = new RayTraceContext(start, end, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, mc.player);
+        BlockRayTraceResult ray = mc.world.rayTraceBlocks(ctx);
+        return ray.getType() == RayTraceResult.Type.MISS || ray.getType() == RayTraceResult.Type.ENTITY;
     }
+
     public static EntityRayTraceResult method17713(
             World var0, Entity var1, Vector3d var2, Vector3d var3, AxisAlignedBB var4, Predicate<Entity> var5, double var6, double var8
     ) {
@@ -316,7 +315,7 @@ public class RotationUtils {
                     break;
                 }
             } else {
-                double var19 = var2.squareDistanceTo((Vector3d)var18.get());
+                double var19 = var2.squareDistanceTo((Vector3d) var18.get());
                 if (var19 < var12) {
                     var14 = var16;
                     var12 = var19;

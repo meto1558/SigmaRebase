@@ -528,7 +528,7 @@ public class KillAura extends Module {
                 this.currentSlot = -1;
             } else {
                 if (this.targetPitch == -1.0F) {
-                    float var7 = RotationUtils.method34148(RotationUtils.getEntityPosition(targetList.get(0).getEntity())).yaw;
+                    float var7 = RotationUtils.getRotationsToPosition(RotationUtils.getEntityPosition(targetList.get(0).getEntity())).yaw;
                     float var8 = Math.abs(RotationUtils.getAngleDifference2(var7, rotation.yaw));
                     this.targetYaw = var8 * 1.95F / 50.0F;
                     this.targetPitch++;
@@ -536,7 +536,7 @@ public class KillAura extends Module {
                 }
 
                 this.targets = targetList;
-                float var12 = RotationUtils.method34148(RotationUtils.getEntityPosition(this.targets.get(0).getEntity())).yaw;
+                float var12 = RotationUtils.getRotationsToPosition(RotationUtils.getEntityPosition(this.targets.get(0).getEntity())).yaw;
                 if (!this.targets.isEmpty() & !mode.equals("Switch")) {
                     if (targetData != null && targetData.getEntity() != this.targets.get(0).getEntity()) {
                         float var13 = Math.abs(RotationUtils.getAngleDifference2(var12, rotation.yaw));
@@ -578,7 +578,7 @@ public class KillAura extends Module {
                     }
 
                     Vector3d var14 = RotationUtils.getEntityPosition(this.targets.get(this.attackDelay).getEntity());
-                    float var9 = Math.abs(RotationUtils.getAngleDifference2(RotationUtils.method34148(var14).yaw, rotation.yaw));
+                    float var9 = Math.abs(RotationUtils.getAngleDifference2(RotationUtils.getRotationsToPosition(var14).yaw, rotation.yaw));
                     this.targetYaw = var9 * 1.95F / 50.0F;
                     this.yawDifference = Math.random();
                     targetData = new TimedEntity(
