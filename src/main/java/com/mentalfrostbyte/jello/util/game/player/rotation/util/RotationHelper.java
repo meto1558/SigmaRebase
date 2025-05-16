@@ -61,7 +61,7 @@ public class RotationHelper {
         double var19 = var11 - var5;
         double var21 = MathHelper.sqrt(var15 * var15 + var19 * var19);
         float var23 = (float)(Math.atan2(var19, var15) * 180.0 / Math.PI) - 90.0F;
-        float var24 = RotationUtils.adjustAngle(mc.player.rotationPitch, (float)(-(Math.atan2(var17, var21) * 180.0 / Math.PI)), 360.0F);
+        float var24 = RotationUtils.smoothAngle(mc.player.rotationPitch, (float)(-(Math.atan2(var17, var21) * 180.0 / Math.PI)), 360.0F);
         return new float[]{var23, var24};
     }
 
