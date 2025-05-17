@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
@@ -143,7 +143,7 @@ public class Cubecraft2Fly extends PremiumModule {
     }
 
     @EventTarget
-    public void method16486(EventUpdateWalkingPlayer var1) {
+    public void method16486(EventMotion var1) {
         if (this.field23696 == -3) {
             var1.cancelled = true;
         }

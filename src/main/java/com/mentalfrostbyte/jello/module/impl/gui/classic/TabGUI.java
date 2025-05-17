@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.gui.classic;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPart;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPartBackground;
@@ -168,7 +168,7 @@ public class TabGUI extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             if (this.animationCooldown <= 0) {
                 animationProgress.changeDirection(Animation.Direction.BACKWARDS);

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.misc;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
@@ -22,7 +22,7 @@ public class Unstuck extends Module {
 
     public Unstuck() {
         super(ModuleCategory.MISC, "Unstuck", "Toggle this when an anticheat freeze you mid-air");
-        this.registerSetting(new NumberSetting<>("Flags", "Maximum flag before trying to unstuck", 5.0F, Float.class, 2.0F, 20.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Flags", "Maximum flag before trying to unstuck", 5.0F, 2.0F, 20.0F, 1.0F));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Unstuck extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && event.isPre()) {
             if (!mc.player.isOnGround() && !BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 if ((float) this.packetCancelled >= this.getNumberValueBySettingName("Flags") && this.packetsToCancelCount == 0) {

@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Disabler;
@@ -21,13 +21,13 @@ public class HypixelNewSpeed extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick __) {
+    public void onTick(EventUpdate __) {
         if (mc.player == null) return;
         fallTicks = mc.player.isOnGround() ? 0 : ++fallTicks;
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (mc.player != null && mc.world != null && !mc.player.isInWater() && !mc.player.isSpectator()) {
             if (Client.getInstance().moduleManager.getModuleByClass(Disabler.class).isEnabled() && HypixelPredictionDisabler.watchDogDisabled) {
             } else if (mc.player.isOnGround()) {

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.player;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventHandAnimation;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.managers.ViaManager;
@@ -42,15 +42,15 @@ public class OldHitting extends Module {
     public OldHitting() {
         super(ModuleCategory.PLAYER, "OldHitting", "Reverts to 1.7/1.8 hitting");
         this.registerSetting(new ModeSetting("Animation", "Animation mode", 0, "Vanilla", "Tap", "Tap2", "Slide", "Slide2", "Scale", "Leaked", "Ninja", "Down", "Tomy"));
-        this.registerSetting(new NumberSetting<>("XPos", "Default X position of the main hand", 0, Float.class, -1, 1, 0.01F));
-        this.registerSetting(new NumberSetting<>("YPos", "Default Y position of the main hand", 0, Float.class, -1, 1, 0.01F));
-        this.registerSetting(new NumberSetting<>("ZPos", "Default Z position of the main hand", 0, Float.class, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<>("XPos", "Default X position of the main hand", 0, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<>("YPos", "Default Y position of the main hand", 0, -1, 1, 0.01F));
+        this.registerSetting(new NumberSetting<>("ZPos", "Default Z position of the main hand", 0, -1, 1, 0.01F));
         this.setAvailableOnClassic(true);
     }
 
     @EventTarget
     @HigherPriority
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() || mc.gameSettings.keyBindUseItem.isKeyDown() || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
             if (event.isPre()) {
                 boolean var4 = mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof SwordItem;

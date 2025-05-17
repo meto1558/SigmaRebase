@@ -16,7 +16,7 @@ import java.util.List;
 public class AutoGapple extends ModuleWithModuleSettings {
     public AutoGapple() {
         super(ModuleCategory.ITEM, "AutoGapple", "Automatically eat golden apples", new BasicAutoGapple(), new HypixelAutoGapple());
-        this.registerSetting(new NumberSetting<Float>("Health", "Maximum health before eating gapple.", 7.0F, Float.class, 0.5F, 10.0F, 0.5F));
+        this.registerSetting(new NumberSetting<Float>("Health", "Maximum health before eating gapple.", 7.0F, 0.5F, 10.0F, 0.5F));
     }
 
     public int findGappleSlot(boolean checkForFireResistance) {

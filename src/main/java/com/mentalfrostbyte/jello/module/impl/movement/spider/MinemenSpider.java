@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.spider;
 
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.impl.movement.phase.VanillaPhase;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -96,7 +96,7 @@ public class MinemenSpider extends Module {
     }
 
     @EventTarget
-    public void EventUpdate(EventUpdateWalkingPlayer event) {
+    public void EventUpdate(EventMotion event) {
         if (this.isEnabled() && event.isPre()) {
             SimpleEntryPair var4 = PlayerUtil.findCollisionDirection(1.0E-4);
             if (this.getBooleanValueFromSettingName("Ceiling")

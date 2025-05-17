@@ -3,11 +3,11 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveButton;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -84,7 +84,7 @@ public class BlockFly extends Module {
         super(ModuleCategory.MOVEMENT, "BlockFly", "Allows you to automatically bridge");
         this.registerSetting(new ModeSetting("Mode", "Rotation strategy for scaffold rotation.", 1, "Grim", "Hypixel", "SideHit", "Clutch", "AAC"));
         this.registerSetting(new BooleanSetting("Static Pitch", "Special mode for Hypixel Mode.", false));
-        this.registerSetting(new NumberSetting<>("Pitch Value", "Pitch value for Hypixel Mode.", 70F, Float.class, 70F, 90F, 0.2F) {
+        this.registerSetting(new NumberSetting<>("Pitch Value", "Pitch value for Hypixel Mode.", 70F, 70F, 90F, 0.2F) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Static Pitch");
@@ -102,24 +102,24 @@ public class BlockFly extends Module {
         this.registerSetting(new BooleanSetting("Show Block Amount", "Shows the amount of blocks in your inventory.", true));
         this.registerSetting(new BooleanSetting("NoSwing", "Removes the swing animation.", false));
         this.registerSetting(new BooleanSetting("Sprint", "Sprint even with movefix.", true));
-        this.registerSetting(new NumberSetting<Float>("Extend", "Extend value.", 0.0F, Float.class, 0.0F, 6.0F, 0.1F));
-        this.registerSetting(new NumberSetting<Float>("Search", "Max block distance area to place blocks.", 1.0F, Float.class, 1.0F, 5.0F, 1F));
-        this.registerSetting(new NumberSetting<Float>("Rotation Speed", "Max rotation change per tick.", 180.0F, Float.class, 6.0F, 360, 6F));
+        this.registerSetting(new NumberSetting<Float>("Extend", "Extend value.", 0.0F, 0.0F, 6.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Search", "Max block distance area to place blocks.", 1.0F, 1.0F, 5.0F, 1F));
+        this.registerSetting(new NumberSetting<Float>("Rotation Speed", "Max rotation change per tick.", 180.0F, 6.0F, 360, 6F));
         this.registerSetting(new BooleanSetting("Intelligent Block Picker", "Always get the biggest blocks stack.", true));
         this.registerSetting(new BooleanSetting("Eagle", "Doesn't let you fall off edges sneaking.", false));
-        this.registerSetting(new NumberSetting<Integer>("Eagle Rate", "Placed blocks before eagle.", 0.0F, Integer.class, 0, 8, 1) {
+        this.registerSetting(new NumberSetting<Integer>("Eagle Rate", "Placed blocks before eagle.", 0.0F, 0, 8, 1) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
             }
         });
-        this.registerSetting(new NumberSetting<Integer>("Eagle Ticks", "Eagle tick duration.", 1, Integer.class, 1, 8, 1) {
+        this.registerSetting(new NumberSetting<Integer>("Eagle Ticks", "Eagle tick duration.", 1, 1, 8, 1) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
             }
         });
-        this.registerSetting(new NumberSetting<Float>("Eagle Gap", "Distance from the block edges to sneak.", 0.0F, Float.class, 0, 1, 0.05f) {
+        this.registerSetting(new NumberSetting<Float>("Eagle Gap", "Distance from the block edges to sneak.", 0.0F, 0, 1, 0.05f) {
             @Override
             public boolean isHidden() {
                 return !getBooleanValueFromSettingName("Eagle");
@@ -453,7 +453,7 @@ public class BlockFly extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventMotion event) {
         if (event.isPre()) {
             if (mc.player.onGround) {
                 offGroundTicks = 0;
@@ -483,7 +483,7 @@ public class BlockFly extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onPlayerTick(EventPlayerTick event) {
+    public void onPlayerTick(EventUpdate event) {
         if (getBooleanValueFromSettingName("Eagle") && damageTicks == 0) {
             if (placedBlocks >= (int) getNumberValueBySettingName("Eagle Rate")) {
                 boolean block = blockRelativeToPlayer(-0.5, getBooleanValueFromSettingName("Eagle Gap Rand") ? (getNumberValueBySettingName("Eagle Gap") * 2) + RandomUtil.nextFloat(0, 0.3) : (getNumberValueBySettingName("Eagle Gap") * 2)) instanceof AirBlock;
@@ -810,7 +810,7 @@ public class BlockFly extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick var1) {
+    public void onTick(EventUpdate var1) {
         if (this.isEnabled()) {
             if (this.getBooleanValueFromSettingName("Show Block Amount")) {
                 this.blockAmount = this.getBlockAmount();

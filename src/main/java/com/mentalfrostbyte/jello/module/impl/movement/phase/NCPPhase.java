@@ -4,7 +4,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.phase;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -43,7 +43,7 @@ public class NCPPhase extends PremiumModule {
     }
 
     @EventTarget
-    public void method16426(EventUpdateWalkingPlayer event) {
+    public void method16426(EventMotion event) {
         if (this.isEnabled() && event.isPre()) {
             if (mc.gameSettings.keyBindSneak.isKeyDown()) {
                 double var4 = mc.player.getPosX();

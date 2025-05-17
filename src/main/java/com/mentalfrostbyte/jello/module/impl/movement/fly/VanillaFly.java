@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -28,7 +28,7 @@ public class VanillaFly extends Module {
 
     public VanillaFly() {
         super(ModuleCategory.MOVEMENT, "Vanilla", "Regular vanilla fly");
-        this.registerSetting(new NumberSetting<>("Speed", "Fly speed", 4.0F, Float.class, 0.28F, 10.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Speed", "Fly speed", 4.0F, 0.28F, 10.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Kick bypass", "Bypass vanilla kick for flying", true));
     }
 
@@ -75,7 +75,7 @@ public class VanillaFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled()) {
             if (!mc.player.isOnGround() && this.getBooleanValueFromSettingName("Kick bypass")) {
                 if (this.ticksInAir > 0 && this.ticksInAir % 30 == 0

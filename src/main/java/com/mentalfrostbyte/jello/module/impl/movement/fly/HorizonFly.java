@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
@@ -65,7 +65,7 @@ public class HorizonFly extends Module {
     }
 
     @EventTarget
-    public void method16159(EventUpdateWalkingPlayer var1) {
+    public void method16159(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23497++;
             if (this.field23497 != 11) {

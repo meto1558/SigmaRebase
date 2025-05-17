@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Timer;
@@ -32,10 +32,10 @@ public class HypixelFly extends Module {
     public HypixelFly() {
         super(ModuleCategory.MOVEMENT, "Hypixel", "Fly for Hypixel");
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Fast", "NoDmg", "Funcraft"));
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fast and Funcraft speed", 1.0F, Float.class, 0.0F, 1.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fast and Funcraft speed", 1.0F, 0.0F, 1.0F, 0.1F));
         this.registerSetting(new BooleanSetting("No Collision", "Prevents block collison.", true));
-        this.registerSetting(new NumberSetting<Float>("Timer Boost", "Boost strength", 2.5F, Float.class, 1.0F, 3.0F, 0.1F));
-        this.registerSetting(new NumberSetting<Float>("Timer Duration", "Boost duration", 0.3F, Float.class, 0.1F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Timer Boost", "Boost strength", 2.5F, 1.0F, 3.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Timer Duration", "Boost duration", 0.3F, 0.1F, 1.0F, 0.01F));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class HypixelFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (event.isPre()) {
             for (double var7 : MovementUtil.getVerticalOffsets()) {
                 if ((double) ((int) event.getY()) - event.getY() + var7 == 0.0) {

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -31,7 +31,7 @@ public class NoClipPhase extends Module {
     }
 
     @EventTarget
-    public void TickEvent(EventPlayerTick event) {
+    public void TickEvent(EventUpdate event) {
         if (this.isEnabled()) {
             mc.player.jumpTicks = 3;
             if (mc.player.ticksExisted % 2 == 0) {

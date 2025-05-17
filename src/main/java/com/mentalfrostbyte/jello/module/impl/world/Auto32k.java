@@ -4,7 +4,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -222,7 +222,7 @@ public class Auto32k extends Module {
     }
 
     @EventTarget
-    public void method16720(EventUpdateWalkingPlayer event) {
+    public void method16720(EventMotion event) {
         if (this.isEnabled()) {
             if (this.field23871 != -1) {
                 if (this.field23872 != -1) {

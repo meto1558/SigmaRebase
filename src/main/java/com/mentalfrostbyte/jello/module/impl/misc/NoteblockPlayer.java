@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.misc;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -93,7 +93,7 @@ public class NoteblockPlayer extends Module {
     }
 
     @EventTarget
-    public void method16405(EventUpdateWalkingPlayer var1) {
+    public void method16405(EventMotion var1) {
         if (this.isEnabled()) {
             if (this.nbsFile != null) {
                 if (mc.playerController.isInCreativeMode()) {
@@ -162,7 +162,7 @@ public class NoteblockPlayer extends Module {
         return true;
     }
 
-    public boolean method16407(List<Class6463> var1, EventUpdateWalkingPlayer event) {
+    public boolean method16407(List<Class6463> var1, EventMotion event) {
         for (Class6463 var5 : var1) {
             if (var5.field28402 == -1.0F && Math.sqrt(mc.player.getPosition()
                     .distanceSq(var5.field28401)) < (double) mc.playerController.getBlockReachDistance()) {
@@ -221,7 +221,7 @@ public class NoteblockPlayer extends Module {
 
     }
 
-    public void method16408(List<Class6463> var1, EventUpdateWalkingPlayer event) {
+    public void method16408(List<Class6463> var1, EventMotion event) {
         for (Class6463 var5 : var1) {
             if (this.method16411(var5.field28402, var5.instrument)
                     && Math.sqrt(mc.player.getPosition().distanceSq(var5.field28401)) < (double) mc.playerController

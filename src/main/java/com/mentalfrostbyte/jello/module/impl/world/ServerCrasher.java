@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
@@ -32,7 +32,7 @@ public class ServerCrasher extends PremiumModule {
     }
 
     @EventTarget
-    public void method16482(EventPlayerTick var1) {
+    public void method16482(EventUpdate var1) {
         if (this.isEnabled()) {
             if (mc.isSingleplayer()) {
                 this.toggle();

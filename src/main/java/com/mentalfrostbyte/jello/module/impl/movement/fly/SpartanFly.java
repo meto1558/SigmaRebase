@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -64,7 +64,7 @@ public class SpartanFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer e) {
+    public void onUpdate(EventMotion e) {
         if (this.isEnabled() && e.isPre() && this.getBooleanValueFromSettingName("Ground Spoof")) {
             if (this.spoofGround) {
                 this.spoofGround = !this.spoofGround;

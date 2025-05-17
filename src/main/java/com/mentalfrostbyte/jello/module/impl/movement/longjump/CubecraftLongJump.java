@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.longjump;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -15,7 +15,7 @@ public class CubecraftLongJump extends Module {
 
     public CubecraftLongJump() {
         super(ModuleCategory.MOVEMENT, "Cubecraft", "Longjump for Cubecraft.");
-        this.registerSetting(new NumberSetting<>("Boost", "Longjump boost", 3.0F, Float.class, 1.0F, 5.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Boost", "Longjump boost", 3.0F, 1.0F, 5.0F, 0.01F));
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CubecraftLongJump extends Module {
     }
 
     @EventTarget
-    public void onPlayerTick(EventPlayerTick event) {
+    public void onPlayerTick(EventUpdate event) {
         if (this.isEnabled() && mc.player != null) {
             if (!BlockUtil.isAboveBounds(mc.player, 0.001F)) {
                 this.airTicks++;

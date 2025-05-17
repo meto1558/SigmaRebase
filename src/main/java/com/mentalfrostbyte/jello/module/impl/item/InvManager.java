@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
@@ -37,8 +37,8 @@ public class InvManager extends PremiumModule {
     public InvManager() {
         super(ModuleCategory.ITEM, "InvManager", "Drops all useless items from your inventory");
         this.registerSetting(new ModeSetting("Mode", "The way it will move items in your inventory", 0, "Basic", "OpenInv", "FakeInv"));
-        this.registerSetting(new NumberSetting<Float>("Delay", "Inventory clicks delay", 0.3F, Float.class, 0.01F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<Float>("Block Cap", "Maximum blocks.", 150.0F, Float.class, 0.0F, 256.0F, 10.0F));
+        this.registerSetting(new NumberSetting<Float>("Delay", "Inventory clicks delay", 0.3F, 0.01F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Block Cap", "Maximum blocks.", 150.0F, 0.0F, 256.0F, 10.0F));
         this.registerSetting(new ModeSetting("Clean Type", "Clean type", 0, "Skywars", "All"));
         this.registerSetting(new BooleanSetting("Fake Items", "Bypass for fake items (AAC).", false));
         this.registerSetting(new BooleanSetting("Cleaner", "Cleans your inventory.", true));
@@ -197,7 +197,7 @@ public class InvManager extends PremiumModule {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (!this.timer.isEnabled()) {
             this.timer.start();
         }

@@ -8,10 +8,10 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.module.impl.player.Blink;
@@ -119,7 +119,7 @@ public class ViaManager extends Manager implements MinecraftUtil {
 
     @EventTarget
     @HighestPriority
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (isOlderThan_v1_12_2()) {
             int entitiesSize = entities.size();
 
@@ -333,22 +333,22 @@ public class ViaManager extends Manager implements MinecraftUtil {
     public void onRenderEntity(EventRenderEntity event) {
         if (event.getEntity() == mc.player || event.getEntity() == Freecam.player || event.getEntity() == Blink.clientPlayerEntity) {
             if (event.getPartialTicks() != 1.0F) {
-                if (EventUpdateWalkingPlayer._prevYaw - mc.player.rotationYawHead == 0.0F) {
+                if (EventMotion._prevYaw - mc.player.rotationYawHead == 0.0F) {
                     if (shouldUpdateRenderRotation) {
-                        event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer._yaw, event.getEntity().renderYawOffset));
-                        event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer._yaw, event.getEntity().rotationYawHead));
-                        event.setPitch(MathHelper.lerp(event.getPartialTicks(), EventUpdateWalkingPlayer._pitch, event.getEntity().rotationPitch));
+                        event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), EventMotion._yaw, event.getEntity().renderYawOffset));
+                        event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), EventMotion._yaw, event.getEntity().rotationYawHead));
+                        event.setPitch(MathHelper.lerp(event.getPartialTicks(), EventMotion._pitch, event.getEntity().rotationPitch));
                         event.setYaw(event.getHeadYaw() - event.getYawOffset());
-                        event.getEntity().prevRotationPitch = EventUpdateWalkingPlayer._pitch;
-                        event.getEntity().prevRotationYaw = EventUpdateWalkingPlayer._yaw;
-                        event.getEntity().prevRotationYawHead = EventUpdateWalkingPlayer._yaw;
-                        event.getEntity().prevRenderYawOffset = EventUpdateWalkingPlayer._yaw;
+                        event.getEntity().prevRotationPitch = EventMotion._pitch;
+                        event.getEntity().prevRotationYaw = EventMotion._yaw;
+                        event.getEntity().prevRotationYawHead = EventMotion._yaw;
+                        event.getEntity().prevRenderYawOffset = EventMotion._yaw;
                         shouldUpdateRenderRotation = !shouldUpdateRenderRotation;
                     }
                 } else {
-                    event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer._yaw, EventUpdateWalkingPlayer._prevYaw));
-                    event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), EventUpdateWalkingPlayer._yaw, EventUpdateWalkingPlayer._prevYaw));
-                    event.setPitch(MathHelper.lerp(event.getPartialTicks(), EventUpdateWalkingPlayer._pitch, EventUpdateWalkingPlayer._prevPitch));
+                    event.setYawOffset(MathHelper.interpolateAngle(event.getPartialTicks(), EventMotion._yaw, EventMotion._prevYaw));
+                    event.setHeadYaw(MathHelper.interpolateAngle(event.getPartialTicks(), EventMotion._yaw, EventMotion._prevYaw));
+                    event.setPitch(MathHelper.lerp(event.getPartialTicks(), EventMotion._pitch, EventMotion._prevPitch));
                     event.setYaw(event.getHeadYaw() - event.getYawOffset());
                     shouldUpdateRenderRotation = true;
                 }

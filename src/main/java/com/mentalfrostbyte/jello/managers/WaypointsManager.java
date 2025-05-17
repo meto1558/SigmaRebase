@@ -21,7 +21,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.maps.Chunk;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
@@ -146,7 +146,7 @@ public class WaypointsManager extends Manager {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.field36365.world != null) {
             if (this.field36371 != null) {
                 boolean var4 = false;

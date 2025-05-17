@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
@@ -54,7 +54,7 @@ public class CakeEater extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16320(EventUpdateWalkingPlayer event) {
+    public void method16320(EventMotion event) {
         if (this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Fly.class);
             if (var4.getModWithTypeSetToName() instanceof MineplexFly var5) {

@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
@@ -175,7 +175,7 @@ public class CubecraftFly extends Module {
     }
 
     @EventTarget
-    public void method16689(EventUpdateWalkingPlayer event) {
+    public void method16689(EventMotion event) {
         if (event.isPre() && ServerUtil.isCubecraft()) {
             event.setMoving(true);
             if (JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8) && this.field23845 == 0 && BlockUtil.isAboveBounds(mc.player, 0.001F)) {

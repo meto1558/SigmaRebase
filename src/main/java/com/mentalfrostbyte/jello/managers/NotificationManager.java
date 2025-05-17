@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.managers;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
@@ -102,7 +102,7 @@ public class NotificationManager extends Manager {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick var1) {
+    public void onTick(EventUpdate var1) {
         Iterator var4 = this.notifications.iterator();
 
         while (var4.hasNext()) {

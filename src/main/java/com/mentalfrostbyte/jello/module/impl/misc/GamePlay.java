@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.spam.AutoLData;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -47,7 +47,7 @@ public class GamePlay extends ModuleWithModuleSettings {
         registerSetting(new InputSetting("First character", "The characters your sentences will start with.", ""));
         registerSetting(new BooleanSetting("AutoGG", "Automatically say gg at the end of the game", true));
         registerSetting(new BooleanSetting("Auto Join", "Automatically joins another game", true));
-        registerSetting(new NumberSetting<>("Auto Join delay", "Seconds before joining a new game", 4.0F, Float.class, 1.0F, 10.0F, 1.0F));
+        registerSetting(new NumberSetting<>("Auto Join delay", "Seconds before joining a new game", 4.0F, 1.0F, 10.0F, 1.0F));
         timer = new TimerUtil();
     }
 
@@ -70,7 +70,7 @@ public class GamePlay extends ModuleWithModuleSettings {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (isEnabled()) {
             if (timedMessage != null) {
                 if (mc.currentScreen instanceof ChatScreen) {

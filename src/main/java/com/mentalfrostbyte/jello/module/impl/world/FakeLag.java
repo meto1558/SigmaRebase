@@ -22,8 +22,8 @@ public class FakeLag extends Module {
 
     public FakeLag() {
         super(ModuleCategory.WORLD, "FakeLag", "Other players will see you lagging !");
-        this.registerSetting(new NumberSetting<Float>("Lag duration", "The lags duration", 0.3F, Float.class, 0.1F, 2.0F, 0.01F));
-        this.registerSetting(new NumberSetting<Float>("Delay", "The lags cooldown", 0.4F, Float.class, 0.1F, 2.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Lag duration", "The lags duration", 0.3F, 0.1F, 2.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Delay", "The lags cooldown", 0.4F, 0.1F, 2.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Combat", "Delay combat packets", true));
         this.registerSetting(new BooleanSetting("Blocks", "Delay blocks packets", true));
         this.registerSetting(new BooleanSetting("Ping", "Delay ping packets", true));

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -11,7 +11,7 @@ public class PortalGui extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick var1) {
+    public void onTick(EventUpdate var1) {
         if (this.isEnabled()) {
             mc.player.inPortal = false;
         }

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
@@ -21,7 +21,7 @@ public class VanillaPhase extends Module {
     }
 
     @EventTarget
-    public void EventUpdate(EventUpdateWalkingPlayer event) {
+    public void EventUpdate(EventMotion event) {
         if (this.isEnabled()) {
             if (mc.player.collidedHorizontally) {
                 var var4 = PlayerUtil.findCollisionDirection(1.0E-4);
@@ -31,7 +31,7 @@ public class VanillaPhase extends Module {
         }
     }
 
-    public static void setXZ(EventUpdateWalkingPlayer e, SimpleEntryPair<Direction, Vector3d> pair, double v) {
+    public static void setXZ(EventMotion e, SimpleEntryPair<Direction, Vector3d> pair, double v) {
         if (pair.getKey().getAxis() != Direction.Axis.X) {
             e.setZ(
                     (double) Math.round((pair.getValue().z + 1.1921022E-8) * 10000.0) / 10000.0

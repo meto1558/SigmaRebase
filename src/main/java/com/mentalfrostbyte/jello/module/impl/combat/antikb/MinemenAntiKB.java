@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antikb;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
@@ -26,7 +26,7 @@ public class MinemenAntiKB extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventMotion var1) {
         if (var1.isPre()) {
             if (BlockUtil.isAboveBounds(mc.player, 1.0E-5F)) {
                 this.aboveBounds = true;

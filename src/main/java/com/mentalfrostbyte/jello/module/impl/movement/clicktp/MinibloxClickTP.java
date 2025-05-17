@@ -50,7 +50,6 @@ public class MinibloxClickTP extends Module {
                 "Funny movements",
                 "Number of funny movements to make",
                 6,
-                Integer.class,
                 1, 200, 1
         ));
     }

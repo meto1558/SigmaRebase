@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
@@ -15,11 +15,11 @@ public class Spammer extends Module {
     public Spammer() {
         super(ModuleCategory.MISC, "Spammer", "Spam a message");
         this.registerSetting(new InputSetting("Message", "The message sent.", "Use Sigma Client, it's free ! %r"));
-        this.registerSetting(new NumberSetting<>("Messages delay", "Delay between messages", 3.0F, Float.class, 0.1F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting<>("Messages delay", "Delay between messages", 3.0F, 0.1F, 10.0F, 0.1F));
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             this.ticks++;
             if ((float) this.ticks > this.getNumberValueBySettingName("Messages delay") * 20.0F) {

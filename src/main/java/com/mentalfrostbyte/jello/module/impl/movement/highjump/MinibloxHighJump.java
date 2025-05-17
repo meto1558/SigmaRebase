@@ -20,7 +20,6 @@ public class MinibloxHighJump extends Module {
                                 "Motion",
                                 "Motion",
                                 0.75F,
-                                Float.class,
                                 0.42F,
                                 5.0F, 0.05F
                         )

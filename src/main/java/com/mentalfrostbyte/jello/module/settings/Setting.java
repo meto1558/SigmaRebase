@@ -41,12 +41,6 @@ public abstract class Setting<T> {
         return jsonObject;
     }
 
-    @SuppressWarnings("unchecked")
-    public <I extends Setting<?>> I hide(BooleanSupplier hidden) {
-        this.hidden = hidden;
-        return (I) this;
-    }
-
     public boolean isHidden() {
         return hidden.getAsBoolean();
     }

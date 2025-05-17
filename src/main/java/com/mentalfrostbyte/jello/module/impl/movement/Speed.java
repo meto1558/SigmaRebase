@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.movement.speed.*;
@@ -46,7 +46,7 @@ public class Speed extends ModuleWithModuleSettings {
     }
 
     @EventTarget    
-    public void TickEvent(EventPlayerTick event) {
+    public void TickEvent(EventUpdate event) {
         tickCounter++;
     }
 

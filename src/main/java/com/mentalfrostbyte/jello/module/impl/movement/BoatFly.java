@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -15,11 +15,11 @@ public class BoatFly extends PremiumModule {
 
     public BoatFly() {
         super(ModuleCategory.MOVEMENT, "BoatFly", "Fly with a boat");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.28F, 10.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.28F, 10.0F, 0.01F));
     }
 
     @EventTarget
-    public void method16416(EventPlayerTick var1) {
+    public void method16416(EventUpdate var1) {
         if (this.isEnabled()) {
             if (mc.player.getRidingEntity() != null) {
                 float var4 = MovementUtil.getYaw();

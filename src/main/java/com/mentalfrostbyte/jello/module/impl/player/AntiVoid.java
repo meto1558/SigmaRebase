@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
@@ -31,7 +31,7 @@ public class AntiVoid extends Module {
     public AntiVoid() {
         super(ModuleCategory.PLAYER, "AntiVoid", "Avoids you from falling into the void");
         this.registerSetting(new BooleanSetting("Void", "Catch only above void", true));
-        this.registerSetting(new NumberSetting<>("Fall Distance", "Fall distance before catching you", 8.0F, Float.class, 2.0F, 15.0F, 0.5F));
+        this.registerSetting(new NumberSetting<>("Fall Distance", "Fall distance before catching you", 8.0F, 2.0F, 15.0F, 0.5F));
         this.registerSetting(new ModeSetting("Mode", "AntiVoid method", 0, "Hypixel", "Motion", "TP", "Cubecraft", "Legit"));
     }
 
@@ -91,7 +91,7 @@ public class AntiVoid extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && event.isPre() && this.disableTimer != 0) {
             event.cancelled = true;
         }

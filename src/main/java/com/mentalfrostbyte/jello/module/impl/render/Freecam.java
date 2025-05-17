@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -49,7 +49,7 @@ public class Freecam extends Module {
 
     public Freecam() {
         super(ModuleCategory.RENDER, "Freecam", "Move client side but not server side");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Speed value", 4.0F, Float.class, 1.0F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Speed value", 4.0F, 1.0F, 10.0F, 0.1F));
     }
 
     @EventTarget
@@ -243,7 +243,7 @@ public class Freecam extends Module {
     }
 
     @EventTarget
-    public void method16646(EventUpdateWalkingPlayer var1) {
+    public void method16646(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             var1.setYaw(this.field23821 % 360.0F);
             var1.setPitch(this.field23822);

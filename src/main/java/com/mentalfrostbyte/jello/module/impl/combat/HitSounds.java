@@ -16,7 +16,7 @@ public class HitSounds extends Module {
         super(ModuleCategory.COMBAT, "HitSounds", "Changes the player hurting sounds client side.");
         this.registerSetting(new BooleanSetting("Hypixel", "Replicate hypixel hit onDamage.", false));
         this.registerSetting(new BooleanSetting("Criticals", "Play critical sound onDamage.", false));
-        this.registerSetting(new NumberSetting<Float>("Sound Pitch", "Reproduced sound pitch.", 1, Float.class, 1, 4, 0.1f));
+        this.registerSetting(new NumberSetting<Float>("Sound Pitch", "Reproduced sound pitch.", 1, 1, 4, 0.1f));
     }
 
     @EventTarget

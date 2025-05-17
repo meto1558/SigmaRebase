@@ -24,7 +24,7 @@ public class CubecraftSpeed extends Module {
     public CubecraftSpeed() {
         super(ModuleCategory.MOVEMENT, "Cubecraft", "Speed for Cubecraft");
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Hop", "YPort"));
-        this.registerSetting(new NumberSetting<Float>("Speed", "Speed value", 0.75F, Float.class, 0.1F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Speed value", 0.75F, 0.1F, 1.0F, 0.01F));
         this.registerSetting(new BooleanSetting("AutoJump", "Automatically jumps for you.", false));
     }
 

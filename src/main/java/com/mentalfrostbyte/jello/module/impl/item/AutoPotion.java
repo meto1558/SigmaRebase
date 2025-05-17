@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.item;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.Criticals;
@@ -33,7 +33,7 @@ public class AutoPotion extends Module {
 
     public AutoPotion() {
         super(ModuleCategory.ITEM, "AutoPotion", "Automatically throws potion to regen or speed up");
-        this.registerSetting(new NumberSetting<Float>("Health", "Maximum health before healing.", 6.0F, Float.class, 0.5F, 10.0F, 0.5F));
+        this.registerSetting(new NumberSetting<Float>("Health", "Maximum health before healing.", 6.0F, 0.5F, 10.0F, 0.5F));
         this.registerSetting(new BooleanSetting("Predict", "Predicts where to pot when moving.", true));
         this.registerSetting(new BooleanSetting("Instant", "Instant potting (more packets).", false));
         this.registerSetting(new BooleanSetting("Speed", "Uses Speed pots.", true));
@@ -49,7 +49,7 @@ public class AutoPotion extends Module {
 
     @EventTarget
     @LowestPriority
-    public void method16629(EventUpdateWalkingPlayer var1) {
+    public void method16629(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             if (this.getBooleanValueFromSettingName("In fight") || KillAura.targetData == null && KillAura.targetEntity == null) {
                 int var4 = this.method16631();
@@ -175,7 +175,7 @@ public class AutoPotion extends Module {
         return var5;
     }
 
-    public void method16634(EventUpdateWalkingPlayer var1, int var2, int var3) {
+    public void method16634(EventMotion var1, int var2, int var3) {
         int var6 = this.method16632(var3);
         if (var6 != -1) {
             if (var6 < 36) {

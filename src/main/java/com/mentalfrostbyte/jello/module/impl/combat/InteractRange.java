@@ -16,7 +16,7 @@ public class InteractRange extends Module {
 
     public InteractRange() {
         super(ModuleCategory.COMBAT, "InteractRange", "Allows you to interact farer away");
-        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 3.0F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, 3.0F, 8.0F, 0.01F));
     }
 
     @EventTarget

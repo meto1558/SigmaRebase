@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -14,7 +14,7 @@ public class TPDisabler extends Module {
 
     public TPDisabler() {
         super(ModuleCategory.EXPLOIT, "TP", "Disabler working on some anticheats.");
-        this.registerSetting(new NumberSetting<Float>("Delay", "Tp delay.", 20.0F, Float.class, 5.0F, 40.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Float>("Delay", "Tp delay.", 20.0F, 5.0F, 40.0F, 1.0F));
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic1", "Basic2", "MinInfinity", "MaxInfinity", "MinValue", "MaxValue"));
         this.registerSetting(new BooleanSetting("OnGround", "Send on ground packets.", false));
         this.registerSetting(new BooleanSetting("More Packets", "Send more packets.", false));
@@ -27,7 +27,7 @@ public class TPDisabler extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && mc.player != null && event.isPre() && mc.getCurrentServerData() != null) {
             this.tickCounter++;
             double PosY = -4.503599627370497E15;

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
@@ -109,7 +109,7 @@ public class YPortSpeed extends Module {
     }
 
     @EventTarget
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventMotion event) {
         if (this.isEnabled() && mc.player != null && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
             if (mc.player.onGround && event.isPre() && ServerUtil.isHypixel()) {
                 event.setY(event.getY() + 1.0E-14);

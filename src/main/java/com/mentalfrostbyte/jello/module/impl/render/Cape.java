@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderCapeLayer;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -13,11 +13,11 @@ public class Cape extends Module {
     public Cape() {
         super(ModuleCategory.RENDER, "Cape", "Enable and customize a custom cape.");
         registerSetting(new ModeSetting("Cape", "Select a cape design.", 0, "Minecraft", "Monkey", "Spade"));
-        registerSetting(new NumberSetting<>("Movement Factor", "Adjusts cape motion sensitivity.", 1, Float.class, 1, 3.0F, 0.1f));
+        registerSetting(new NumberSetting<>("Movement Factor", "Adjusts cape motion sensitivity.", 1, 1, 3.0F, 0.1f));
     }
 
     @EventTarget
-    public void onUpdate(EventPlayerTick event) {
+    public void onUpdate(EventUpdate event) {
         mc.player.setLocationOfCape(new ResourceLocation("textures/entity/capes/" + getStringSettingValueByName("Cape") + ".png"));
     }
 

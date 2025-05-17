@@ -6,11 +6,11 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
@@ -24,13 +24,9 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
 import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
-import com.mentalfrostbyte.jello.util.game.player.rotation.RotationManager;
-import com.mentalfrostbyte.jello.util.game.player.rotation.util.RandomUtil;
-import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationHelper;
 import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.network.play.server.SEntityStatusPacket;
@@ -41,7 +37,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
-
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -89,7 +84,7 @@ public class KillAura extends Module {
         super(ModuleCategory.COMBAT, "KillAura", "Automatically attacks entities");
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Single", "Switch", "Multi", "Multi2"));
         this.registerSetting(new ModeSetting("Autoblock Mode", "Autoblock Mode", 0, "None", "NCP", "Basic1", "Basic2", "Basic3", "Vanilla"));
-        this.registerSetting(new NumberSetting<>("Unblock Rate", "Unlock Ticks for Vanilla AutoBlock mode.", 0, Integer.class, 0, 2, 1) {
+        this.registerSetting(new NumberSetting<>("Unblock Rate", "Unlock Ticks for Vanilla AutoBlock mode.", 0, 0, 2, 1) {
             @Override
             public boolean isHidden() {
                 return !getStringSettingValueByName("Autoblock Mode").equals("Vanilla");
@@ -105,13 +100,13 @@ public class KillAura extends Module {
                 "Test2", "JelloAI", "None")
         );
         this.registerSetting(this.useRotationSpeed = new BooleanSetting("Use Rotation Speed", "Max rotation change per tick.", true));
-        this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, Float.class, 6.0F, 360, 6F));
-        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
+        this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, 6.0F, 360, 6F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, 2.8F, 8.0F, 0.01F));
         this.registerSetting(
-                new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())
+                new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())
         );
         this.registerSetting(
-                new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())
+                new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())
         );
         this.registerSetting(new BooleanSetting("Interact autoblock", "Send interact packet when blocking", true));
         this.registerSetting(this.hitEvent = new BooleanSetting("HitEvent", "Change the hit event (vanilla autoblock?legit)", true));
@@ -204,7 +199,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    public void onTick2(EventPlayerTick var1) {
+    public void onTick2(EventUpdate var1) {
         if (this.isEnabled()) {
             if (this.targetPitch != -1.0F) {
                 this.targetPitch++;
@@ -238,7 +233,7 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onTick(EventPlayerTick var1) {
+    public void onTick(EventUpdate var1) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
@@ -350,7 +345,7 @@ public class KillAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void method16821(EventUpdateWalkingPlayer event) {
+    public void method16821(EventMotion event) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 

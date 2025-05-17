@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -17,7 +17,7 @@ public class Weather extends Module {
     public Weather() {
         super(ModuleCategory.WORLD, "Weather", "Removes rain and changes the world's time");
         this.registerSetting(new BooleanSetting("Custom time", "Set the world time", true));
-        this.registerSetting(new NumberSetting<>("Time", "Time to set the world to", 12000.0F, Float.class, 0.0F, 24000.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Time", "Time to set the world to", 12000.0F, 0.0F, 24000.0F, 1.0F));
         this.registerSetting(new BooleanSetting("Disable rain", "Disable rain", true));
     }
 
@@ -34,7 +34,7 @@ public class Weather extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             applyCustomTime();
             if (this.getBooleanValueFromSettingName("Disable rain")) {

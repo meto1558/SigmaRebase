@@ -4,19 +4,13 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.player.AutoSprint;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.MouseSmoother;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
 
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Predicate;
 
 public class RotationUtils {
     private static final Minecraft mc = Minecraft.getInstance();
@@ -64,8 +58,6 @@ public class RotationUtils {
             deltaPitch = (float) filterVolkanY.smooth(deltaPitch, 3800F * gcd);
             deltaYaw *= f5;
             deltaPitch *= f5;
-
-
         }
 
 
@@ -238,111 +230,11 @@ public class RotationUtils {
         }
     }
 
-    public static EntityRayTraceResult hoveringTarget(Entity var0, float var1, float var2, Predicate<Entity> var3, double var4) {
-        double var8 = var4 * var4;
-        Entity var10 = null;
-        Vector3d var11 = null;
-        Vector3d var12 = new Vector3d(
-                mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ()
-        );
-        Vector3d var13 = method17721(var2, var1);
-        Vector3d var14 = var12.add(var13.x * var8, var13.y * var8, var13.z * var8);
-
-        for (Entity var16 : mc.world
-                .getEntitiesInAABBexcluding(mc.player, mc.player.getBoundingBox().expand(var13.scale(var8)).grow(1.0, 1.0, 1.0), var3)) {
-            AxisAlignedBB var17 = var16.getBoundingBox();
-            Optional var18 = var17.rayTrace(var12, var14);
-            if (var18.isPresent()) {
-                double var19 = var12.squareDistanceTo((Vector3d) var18.get());
-                if (var19 < var8 && (var16 == var0 || var0 == null)) {
-                    var11 = ((Vector3d) var18.get()).subtract(var16.getPosX(), var16.getPosY(), var16.getPosZ());
-                    var10 = var16;
-                    var8 = var19;
-                }
-            }
-        }
-
-        return var10 != null && var11 != null ? new EntityRayTraceResult(var10, var11) : null;
-    }
-
-    public static Entity hoveringTarget(float var0, float var1, float var2, double var3) {
-        EntityRayTraceResult var7 = getrayTraceResult(var0, var1, var2, var3);
-        return var7 == null ? null : var7.getEntity();
-    }
-
-    public static EntityRayTraceResult getrayTraceResult(float var0, float var1, float var2, double var3) {
-        Vector3d var7 = new Vector3d(
-                mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ()
-        );
-        Entity var8 = mc.getRenderViewEntity();
-        if (var8 != null && mc.world != null) {
-            double var9 = mc.playerController.getBlockReachDistance();
-            if (var2 != 0.0F) {
-                var9 = var2;
-            }
-
-            Vector3d var11 = method17721(var1, var0);
-            Vector3d var12 = var7.add(var11.x * var9, var11.y * var9, var11.z * var9);
-            float var13 = 1.0F;
-            AxisAlignedBB var14 = var8.getBoundingBox().expand(var11.scale(var9)).grow(1.0, 1.0, 1.0);
-            return method17713(
-                    mc.world, var8, var7, var12, var14, var0x -> var0x instanceof LivingEntity || var0x instanceof FallingBlockEntity, var2 * var2, var3
-            );
-        } else {
-            return null;
-        }
-    }
-
     public static boolean isHovering(Vector3d end) {
         Vector3d start = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ());
         RayTraceContext ctx = new RayTraceContext(start, end, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, mc.player);
         BlockRayTraceResult ray = mc.world.rayTraceBlocks(ctx);
         return ray.getType() == RayTraceResult.Type.MISS || ray.getType() == RayTraceResult.Type.ENTITY;
-    }
-
-    public static EntityRayTraceResult method17713(
-            World var0, Entity var1, Vector3d var2, Vector3d var3, AxisAlignedBB var4, Predicate<Entity> var5, double var6, double var8
-    ) {
-        double var12 = var6;
-        Entity var14 = null;
-
-        for (Entity var16 : var0.getEntitiesInAABBexcluding(var1, var4, var5)) {
-            AxisAlignedBB var17 = var16.getBoundingBox().grow(var8);
-            Optional var18 = var17.rayTrace(var2, var3);
-            if (!var18.isPresent()) {
-                if (method17715(var1.getPositionVec(), var17)) {
-                    var14 = var16;
-                    break;
-                }
-            } else {
-                double var19 = var2.squareDistanceTo((Vector3d) var18.get());
-                if (var19 < var12) {
-                    var14 = var16;
-                    var12 = var19;
-                }
-            }
-        }
-
-        return var14 != null ? new EntityRayTraceResult(var14) : null;
-    }
-
-    public static boolean method17715(Vector3d var0, AxisAlignedBB var1) {
-        return var0.x >= var1.minX
-                && var0.x <= var1.maxX
-                && var0.y >= var1.minY
-                && var0.y <= var1.maxY
-                && var0.z >= var1.minZ
-                && var0.z <= var1.maxZ;
-    }
-
-    public static Vector3d method17721(float var0, float var1) {
-        float var4 = var0 * (float) (Math.PI / 180.0);
-        float var5 = -var1 * (float) (Math.PI / 180.0);
-        float var6 = MathHelper.cos(var5);
-        float var7 = MathHelper.sin(var5);
-        float var8 = MathHelper.cos(var4);
-        float var9 = MathHelper.sin(var4);
-        return new Vector3d(var7 * var8, -var9, var6 * var8);
     }
 }
 
