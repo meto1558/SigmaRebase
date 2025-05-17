@@ -16,6 +16,7 @@ import com.mentalfrostbyte.jello.util.game.player.rotation.util.RotationUtils;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
+
 import com.mentalfrostbyte.jello.util.system.math.counter.Counter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +25,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
@@ -199,8 +201,49 @@ public class NewAura extends Module {
 
             Rotation calculatedRot = RotationUtils.getAdvancedRotation(target, !raycast.currentValue);
             if (calculatedRot != null) {
-                rots.yaw = calculatedRot.yaw;
-                rots.pitch = calculatedRot.pitch;
+                // Add non-linear rotation changes to avoid Aim K detection
+                float yawDifference = MathHelper.wrapAngleTo180_float(calculatedRot.yaw - rots.yaw);
+                float pitchDifference = calculatedRot.pitch - rots.pitch;
+                
+                // Dynamic rotation speed with non-linear factors
+                float distanceFactor = (float) Math.pow(Math.min(1.0f, 3.0f / target.getDistance(mc.player)), 1.3);
+                float baseSpeed = 8.0f + (distanceFactor * 7.0f);
+                
+                // Non-linear randomization to break patterns
+                float randomFactor = 0.85f + (float)(Math.random() * 0.3f);
+                if (Math.random() > 0.7) {
+                    randomFactor *= 0.92f + (float)(Math.random() * 0.16f);
+                }
+                
+                // Apply non-linear smoothing
+                float yawSpeed = Math.min(baseSpeed * randomFactor, Math.abs(yawDifference) * (0.4f + (float)(Math.random() * 0.2f)));
+                float pitchSpeed = Math.min(baseSpeed * 0.8f * randomFactor, Math.abs(pitchDifference) * (0.4f + (float)(Math.random() * 0.2f)));
+                
+                // Ensure we never exceed the Vulcan threshold
+                yawSpeed = Math.min(yawSpeed, 19.0f);
+                pitchSpeed = Math.min(pitchSpeed, 19.0f);
+                
+                // Apply the rotation changes with non-linear adjustments
+                if (Math.abs(yawDifference) > 0.1f) {
+                    // Non-linear application to break GCD patterns
+                    float appliedYaw = Math.signum(yawDifference) * yawSpeed;
+                    if (Math.random() > 0.8) {
+                        appliedYaw *= 0.94f + (float)(Math.random() * 0.12f);
+                    }
+                    rots.yaw += appliedYaw;
+                }
+                
+                if (Math.abs(pitchDifference) > 0.1f) {
+                    // Non-linear application to break GCD patterns
+                    float appliedPitch = Math.signum(pitchDifference) * pitchSpeed;
+                    if (Math.random() > 0.8) {
+                        appliedPitch *= 0.94f + (float)(Math.random() * 0.12f);
+                    }
+                    rots.pitch += appliedPitch;
+                }
+                
+                // Ensure pitch stays within bounds
+                rots.pitch = MathHelper.clamp(rots.pitch, -90.0F, 90.0F);
             }
         } else {
             target = null;
