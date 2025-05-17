@@ -106,7 +106,6 @@ public class KillAura extends Module {
         );
         this.registerSetting(this.useRotationSpeed = new BooleanSetting("Use Rotation Speed", "Max rotation change per tick.", true));
         this.registerSetting(this.rotationSpeed = new NumberSetting<>("Rotation Speed", "Max rotation change per tick.", 6.0F, Float.class, 6.0F, 360, 6F));
-        this.registerSetting(new BooleanSetting("Movement Fix", "Fix the XZ motion depending on your yaw.", false));
         this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
         this.registerSetting(
                 new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F).addObserver(var1 -> autoBlock.initializeCpsTimings())

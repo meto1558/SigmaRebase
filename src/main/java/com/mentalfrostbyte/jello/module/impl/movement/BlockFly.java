@@ -96,7 +96,6 @@ public class BlockFly extends Module {
         this.registerSetting(new ModeSetting("Tower Mode", "Tower mode", 1, "None", "NCP", "AAC", "Vanilla"));
         this.registerSetting(new ModeSetting("Picking mode", "The way it will move blocks in your inventory.", 0, "Basic", "FakeInv", "OpenInv"));
         this.registerSetting(new BooleanSetting("Tower while moving", "Allows you to tower while moving.", false));
-        this.registerSetting(new BooleanSetting("Movement Fix", "Fix the XZ motion depending on your yaw.", false));
         this.registerSetting(new BooleanSetting("AutoJump", "Keep jumping while bridging.", false));
         this.registerSetting(new BooleanSetting("Raytrace", "Helps the BlockFly become more legit.", false));
         this.registerSetting(new BooleanSetting("SameY", "Keep same height while jumping.", false));
