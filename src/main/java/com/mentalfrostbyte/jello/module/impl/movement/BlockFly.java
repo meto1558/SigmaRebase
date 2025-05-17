@@ -101,13 +101,13 @@ public class BlockFly extends Module {
         this.registerSetting(new BooleanSetting("Raytrace", "Helps the BlockFly become more legit.", false));
         this.registerSetting(new BooleanSetting("SameY", "Keep same height while jumping.", false));
         this.registerSetting(new BooleanSetting("Show Block Amount", "Shows the amount of blocks in your inventory.", true));
-        this.registerSetting(new BooleanSetting("NoSwing", "Removes the swing animation.", true));
+        this.registerSetting(new BooleanSetting("NoSwing", "Removes the swing animation.", false));
         this.registerSetting(new BooleanSetting("Sprint", "Sprint even with movefix.", true));
         this.registerSetting(new NumberSetting<Float>("Extend", "Extend value.", 0.0F, Float.class, 0.0F, 6.0F, 0.1F));
-        this.registerSetting(new NumberSetting<Float>("Search", "Max block distance area to place blocks.", 0.0F, Float.class, 0.0F, 5.0F, 1F));
-        this.registerSetting(new NumberSetting<Float>("Rotation Speed", "Max rotation change per tick.", 0.0F, Float.class, 6.0F, 360, 6F));
+        this.registerSetting(new NumberSetting<Float>("Search", "Max block distance area to place blocks.", 1.0F, Float.class, 1.0F, 5.0F, 1F));
+        this.registerSetting(new NumberSetting<Float>("Rotation Speed", "Max rotation change per tick.", 180.0F, Float.class, 6.0F, 360, 6F));
         this.registerSetting(new BooleanSetting("Intelligent Block Picker", "Always get the biggest blocks stack.", true));
-        this.registerSetting(new BooleanSetting("Eagle", "Doesn't let you fall off edges sneaking.", true));
+        this.registerSetting(new BooleanSetting("Eagle", "Doesn't let you fall off edges sneaking.", false));
         this.registerSetting(new NumberSetting<Integer>("Eagle Rate", "Placed blocks before eagle.", 0.0F, Integer.class, 0, 8, 1) {
             @Override
             public boolean isHidden() {
