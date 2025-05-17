@@ -4,7 +4,6 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventKeepSprint;
 import com.mentalfrostbyte.jello.event.impl.player.EventRunLoop;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
-import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -61,21 +60,21 @@ public class NewAura extends Module {
     private final NumberSetting<Double> delayPattern1 = new NumberSetting<>("Delay pattern 1", "", 90, 0, 700, 1) {
         @Override
         public boolean isHidden() {
-            return clickMode.getCurrentValue().equals("1.9");
+            return clickMode.getCurrentValue().equals("1.9") && delayPatterns.getCurrentValue();
         }
     };
 
     private final NumberSetting<Double> delayPattern2 = new NumberSetting<>("Delay pattern 2", "", 110, 0, 700, 1) {
         @Override
         public boolean isHidden() {
-            return clickMode.getCurrentValue().equals("1.9");
+            return clickMode.getCurrentValue().equals("1.9") && delayPatterns.getCurrentValue();
         }
     };
 
     private final NumberSetting<Double> delayPattern3 = new NumberSetting<>("Delay pattern 3", "", 130, 0, 700, 1) {
         @Override
         public boolean isHidden() {
-            return clickMode.getCurrentValue().equals("1.9");
+            return clickMode.getCurrentValue().equals("1.9") && delayPatterns.getCurrentValue();
         }
     };
 
@@ -111,9 +110,18 @@ public class NewAura extends Module {
         });
 
         delayPatterns.addObserver(a -> delayCalculator.patternEnabled = (boolean) a.currentValue);
-        delayPattern1.addObserver(a -> delayCalculator.delayPattern1 = (double) a.currentValue);
-        delayPattern2.addObserver(a -> delayCalculator.delayPattern2 = (double) a.currentValue);
-        delayPattern3.addObserver(a -> delayCalculator.delayPattern3 = (double) a.currentValue);
+        delayPattern1.addObserver(a -> {
+            NumberSetting<Double> setting = (NumberSetting<Double>) a;
+            delayCalculator.delayPattern1 = setting.getCurrentValue();
+        });
+        delayPattern2.addObserver(a -> {
+            NumberSetting<Double> setting = (NumberSetting<Double>) a;
+            delayCalculator.delayPattern2 = setting.getCurrentValue();
+        });
+        delayPattern3.addObserver(a -> {
+            NumberSetting<Double> setting = (NumberSetting<Double>) a;
+            delayCalculator.delayPattern3 = setting.getCurrentValue();
+        });
 
         registerSetting(
                 sortMode, clickMode,
