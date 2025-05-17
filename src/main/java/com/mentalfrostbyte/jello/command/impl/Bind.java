@@ -23,89 +23,82 @@ public class Bind extends Command {
 
     @Override
     public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
-        Module module;
         if (args.length == 0) {
             CommandManager.runRunnable(() -> mc.displayGuiScreen(new KeyboardHolder(new StringTextComponent("GuiKeybinds"))));
+            return;
         }
 
-        if (args.length < 1) {
-            throw new CommandException();
-        } else {
-            if (args.length != 1) {
-                if (args.length != 2) {
-                    throw new CommandException("Too many arguments");
-                } else {
-                    module = this.method18330(args[0].getArguments());
-                    if (module == null || args[0].getCommandType() != CommandType.TEXT) {
-                        throw new CommandException("Module " + args[0].getArguments() + " not found");
-                    }
+        if (args.length == 1) {
+            Module module = getModuleByName(args[0].getArguments());
+            if (module == null || args[0].getCommandType() != CommandType.TEXT)
+                throw new CommandException("Module " + args[0].getArguments() + " not found");
 
-                    int var14 = this.method18329(args[1].getArguments().toLowerCase());
-                    if (var14 == -2) {
-                        throw new CommandException("Key " + args[1].getArguments() + " not found");
-                    }
+            int key = Client.getInstance().moduleManager.getKeyManager().method13729(module);
 
-                    if (var14 != -1) {
-                        Client.getInstance().moduleManager.getKeyManager().method13725(var14, module);
-                        executor.send("Key " + args[1].getArguments() + " was set for module " + module.getFormattedName());
-                    } else {
-                        Client.getInstance().moduleManager.getKeyManager().method13727(module);
-                        executor.send("Keybind was reset for module " + module.getFormattedName());
-                    }
+            String keyPrefix = "key.keyboard.";
+            String foundKey = null;
+
+            for (Entry<String, InputMappings.Input> entry : InputMappings.Input.REGISTRY.entrySet()) {
+                if (entry.getKey().startsWith(keyPrefix) && entry.getValue().getKeyCode() == key) {
+                    foundKey = entry.getKey().substring(keyPrefix.length());
+                    break;
                 }
+            }
+
+            if (foundKey != null) {
+                executor.send(module.getFormattedName() + " is bound to: " + foundKey);
             } else {
-                module = this.method18330(args[0].getArguments());
-                if (module == null || args[0].getCommandType() != CommandType.TEXT) {
-                    throw new CommandException("Module " + args[0].getArguments() + " not found");
-                }
-
-                String var7 = "key.keyboard.";
-                int var8 = Client.getInstance().moduleManager.getKeyManager().method13729(module);
-                String var9 = null;
-
-                for (Entry var11 : InputMappings.Input.REGISTRY.entrySet()) {
-                    if (((String) var11.getKey()).startsWith(var7) && ((InputMappings.Input) var11.getValue()).getKeyCode() == var8) {
-                        var9 = ((String) var11.getKey()).substring(var7.length());
-                    }
-                }
-
-                if (var9 != null) {
-                    executor.send(module.getFormattedName() + " is bound to : " + var9);
-                } else {
-                    executor.send("§c[Error] " + module.getFormattedName() + " is bound to an unknown key");
-                }
+                executor.send("§c[Error] " + module.getFormattedName() + " is bound to an unknown key");
             }
+            return;
         }
+
+        if (args.length == 2) {
+            Module module = getModuleByName(args[0].getArguments());
+            if (module == null || args[0].getCommandType() != CommandType.TEXT)
+                throw new CommandException("Module " + args[0].getArguments() + " not found");
+
+            int keyCode = getKeyCodeFromString(args[1].getArguments().toLowerCase());
+            if (keyCode == -2)
+                throw new CommandException("Key " + args[1].getArguments() + " not found");
+
+            if (keyCode == -1) {
+                Client.getInstance().moduleManager.getKeyManager().method13727(module);
+                executor.send("Keybind was reset for module " + module.getFormattedName());
+            } else {
+                Client.getInstance().moduleManager.getKeyManager().method13725(keyCode, module);
+                executor.send("Key " + args[1].getArguments() + " was set for module " + module.getFormattedName());
+            }
+            return;
+        }
+
+        throw new CommandException("Too many arguments");
     }
 
-    public int method18329(String var1) {
-        if (!var1.equals("none") && !var1.equals("none")) {
-            String var4 = "key.keyboard.";
+    public int getKeyCodeFromString(String name) {
+        if (name.equals("none")) return -1;
 
-            for (Entry var6 : InputMappings.Input.REGISTRY.entrySet()) {
-                if (((String) var6.getKey()).startsWith(var4)) {
-                    String var7 = ((String) var6.getKey()).substring(var4.length());
-                    var7 = var7.replace("keypad.", "");
-                    var7 = var7.replace(".", "_");
-                    if (var1.equals(var7)) {
-                        return ((InputMappings.Input) var6.getValue()).getKeyCode();
-                    }
-                }
+        String keyPrefix = "key.keyboard.";
+        for (Entry<String, InputMappings.Input> entry : InputMappings.Input.REGISTRY.entrySet()) {
+            if (entry.getKey().startsWith(keyPrefix)) {
+                String formatted = entry.getKey().substring(keyPrefix.length())
+                        .replace("keypad.", "")
+                        .replace(".", "_");
+
+                if (name.equalsIgnoreCase(formatted))
+                    return entry.getValue().getKeyCode();
             }
-
-            return -2;
-        } else {
-            return -1;
         }
+
+        return -2; // not found
     }
 
-    public Module method18330(String var1) {
-        for (Module var5 : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (var5.getName().replace(" ", "").equalsIgnoreCase(var1)) {
-                return var5;
+    public Module getModuleByName(String name) {
+        for (Module mod : Client.getInstance().moduleManager.getModuleMap().values()) {
+            if (mod.getName().replace(" ", "").equalsIgnoreCase(name)) {
+                return mod;
             }
         }
-
         return null;
     }
 }
