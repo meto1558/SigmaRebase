@@ -24,7 +24,6 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
@@ -200,21 +199,8 @@ public class NewAura extends Module {
 
             Rotation calculatedRot = RotationUtils.getAdvancedRotation(target, !raycast.currentValue);
             if (calculatedRot != null) {
-                // Smooth rotation changes to prevent Aim Y detection
-                float yawDifference = MathHelper.wrapAngleTo180_float(calculatedRot.yaw - rots.yaw);
-                float pitchDifference = calculatedRot.pitch - rots.pitch;
-
-                // Limit rotation change to prevent Aim Y detection (max 19 degrees per tick)
-                float maxChange = 19.0f;
-                if (Math.abs(yawDifference) > maxChange) {
-                    yawDifference = Math.signum(yawDifference) * maxChange;
-                }
-                if (Math.abs(pitchDifference) > maxChange) {
-                    pitchDifference = Math.signum(pitchDifference) * maxChange;
-                }
-
-                rots.yaw = rots.yaw + yawDifference;
-                rots.pitch = MathHelper.clamp(rots.pitch + pitchDifference, -90.0F, 90.0F);
+                rots.yaw = calculatedRot.yaw;
+                rots.pitch = calculatedRot.pitch;
             }
         } else {
             target = null;
@@ -228,7 +214,6 @@ public class NewAura extends Module {
             return;
 
         if (target != null) {
-            // Apply GCD fix to rotations before setting them in the motion event
             float[] fixedRotations = RotationUtils.gcdFix(
                     new float[]{rots.yaw, rots.pitch},
                     new float[]{mc.player.rotationYaw, mc.player.rotationPitch}
