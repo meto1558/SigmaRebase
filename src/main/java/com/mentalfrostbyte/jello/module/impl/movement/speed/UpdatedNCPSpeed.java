@@ -58,8 +58,9 @@ public class UpdatedNCPSpeed extends Module {
                 if (mc.player.onGround) {
                     if (MovementUtil.isMoving())
                         mc.player.setMotion(mc.player.getPosX(), 0.05F, mc.player.getPosZ());
+                    mc.player.onGround = false;
                     mc.timer.timerSpeed = 1.09F;
-                    MovementUtil.strafe(0.35);
+                    MovementUtil.strafe(0.34);
                 }
             }
         }
