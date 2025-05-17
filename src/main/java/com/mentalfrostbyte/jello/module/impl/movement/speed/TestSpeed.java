@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.speed;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -30,7 +30,7 @@ public class TestSpeed extends Module {
     }
 
     @EventTarget
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventMotion event) {
         if (this.isEnabled() && mc.player != null && !Client.getInstance().moduleManager.getModuleByClass(Fly.class).isEnabled()) {
             if (mc.player.onGround && event.isPre()) {
                 event.setY(event.getY() + 1.0E-14);

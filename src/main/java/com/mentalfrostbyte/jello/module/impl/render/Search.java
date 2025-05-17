@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.render;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.search.ChunkRegion;
@@ -48,9 +48,9 @@ public class Search extends Module {
     public Search() {
         super(ModuleCategory.RENDER, "Search", "Searches blocks through the world");
 
-        this.registerSetting(this.chunkRangeSetting = new NumberSetting<>("Chunk Range", "Range at which search scans blocks", 5.0F, Float.class, 1.0F, 12.0F, 1.0F));
+        this.registerSetting(this.chunkRangeSetting = new NumberSetting<>("Chunk Range", "Range at which search scans blocks", 5.0F, 1.0F, 12.0F, 1.0F));
 
-        this.registerSetting(this.tickDelay = new NumberSetting<>("Tick Delay", "Delay between each refresh (greatly increases performance)", 50, Integer.class, 0, 500, 50));
+        this.registerSetting(this.tickDelay = new NumberSetting<>("Tick Delay", "Delay between each refresh (greatly increases performance)", 50, 0, 500, 50));
 
         this.registerSetting(this.showHolesSetting = new BooleanSetting("Holes", "Shows 1x1 explosion protection holes", false));
 
@@ -157,7 +157,7 @@ public class Search extends Module {
     }
 
     @EventTarget
-    public void onPlayerTick(EventPlayerTick event) {
+    public void onPlayerTick(EventUpdate event) {
         if (!this.isEnabled()) return;
 
         if (mc.player.ticksExisted < 20) {

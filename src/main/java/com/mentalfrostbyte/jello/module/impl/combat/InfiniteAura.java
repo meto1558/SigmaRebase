@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.PathFinder;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
@@ -44,20 +44,19 @@ public class InfiniteAura extends Module {
 
     public InfiniteAura() {
         super(ModuleCategory.COMBAT, "InfiniteAura", "Basically infinite aura");
-        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 8.0F, 120.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, 8.0F, 120.0F, 1.0F));
         this.registerSetting(
                 attackRange = new NumberSetting<>(
                         "Attack Range",
                         "Range where the player can attack entities in",
                         4.0F,
-                        Float.class,
                         8.0F,
                         120.0F,
                         1.0F
                 )
         );
-        this.registerSetting(new NumberSetting<>("CPS", "CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F));
-        this.registerSetting(new NumberSetting<>("Targets", "Number of targets", 4.0F, Float.class, 1.0F, 10.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("CPS", "CPS value", 8.0F, 1.0F, 20.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Targets", "Number of targets", 4.0F, 1.0F, 10.0F, 1.0F));
         this.registerSetting(
                 pathfind = new BooleanSetting(
                         "Pathfind",
@@ -94,7 +93,7 @@ public class InfiniteAura extends Module {
 
     @EventTarget
     @LowerPriority
-    public void method16772(EventPlayerTick var1) {
+    public void method16772(EventUpdate var1) {
         if (this.isEnabled()) {
             List<TimedEntity> var4 = this.getTimedEntities((float) ((int) this.getNumberValueBySettingName("Range")));
             if (var4 != null && !var4.isEmpty()) {

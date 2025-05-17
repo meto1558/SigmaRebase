@@ -23,8 +23,8 @@ public class NCPStep extends Module {
     public NCPStep() {
         super(ModuleCategory.MOVEMENT, "NCP", "Step for NCP");
         this.registerSetting(
-                new NumberSetting<Float>("Maximum heigh", "Maximum heigh", 2.0F, Float.class, 1.0F, 2.5F, 0.5F));
-        this.registerSetting(new NumberSetting<Float>("Timer", "Timer speed", 0.1F, Float.class, 0.0F, 1.0F, 0.01F));
+                new NumberSetting<Float>("Maximum heigh", "Maximum heigh", 2.0F, 1.0F, 2.5F, 0.5F));
+        this.registerSetting(new NumberSetting<Float>("Timer", "Timer speed", 0.1F, 0.0F, 1.0F, 0.01F));
     }
 
     @Override

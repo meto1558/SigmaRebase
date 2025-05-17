@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
@@ -20,7 +20,7 @@ public class LibreCraftFly extends Module {
 
     public LibreCraftFly() {
         super(ModuleCategory.MOVEMENT, "LibreCraft", "A fly for LibreCraft");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.3F, 10.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.3F, 10.0F, 0.1F));
     }
 
     @Override
@@ -88,7 +88,7 @@ public class LibreCraftFly extends Module {
     }
 
     @EventTarget
-    public void method16794(EventUpdateWalkingPlayer var1) {
+    public void method16794(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23910++;
             if (this.field23910 != 2) {

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
@@ -12,7 +12,6 @@ import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
-import net.minecraft.block.BarrierBlock;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.gui.screen.inventory.ChestScreen;
 import net.minecraft.inventory.container.ClickType;
@@ -46,8 +45,8 @@ public class ChestStealer extends Module {
         this.registerSetting(new BooleanSetting("Ignore Junk", "Ignores useless items.", true));
         this.registerSetting(new BooleanSetting("Fix ViaVersion", "Fixes ViaVersion delay.", true));
         this.registerSetting(new BooleanSetting("Close", "Automatically closes the chest when done", true));
-        this.registerSetting(new NumberSetting<>("Delay", "Click delay", 0.2F, Float.class, 0.0F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<>("First Item", "Tick delay before grabbing first item", 0.2F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Delay", "Click delay", 0.2F, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("First Item", "Tick delay before grabbing first item", 0.2F, 0.0F, 1.0F, 0.01F));
         this.chests = new ConcurrentHashMap<>();
     }
 
@@ -61,7 +60,7 @@ public class ChestStealer extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             if (this.getBooleanValueFromSettingName("Aura")) {
                 if (this.field23624.getElapsedTime() > 2000L && this.field23621) {

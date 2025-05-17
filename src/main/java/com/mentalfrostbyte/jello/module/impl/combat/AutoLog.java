@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.combat;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 
@@ -17,14 +17,14 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class AutoLog extends Module {
     public AutoLog() {
         super(ModuleCategory.COMBAT, "AutoLog", "Automatically logs out");
-        this.registerSetting(new NumberSetting<>("Min Health", "Minimum health before it logs you out", 2.5F, Float.class, 0.0F, 10.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Min Health", "Minimum health before it logs you out", 2.5F, 0.0F, 10.0F, 0.01F));
         this.registerSetting(new BooleanSetting("No Totems", "Logs out when you have no totems in inventory", false));
         this.registerSetting(new BooleanSetting("One Time Use", "Disables the mod every time it saves you.", true));
         this.registerSetting(new BooleanSetting("Smart Enable", "Re enables the mod when you get enough health.", false));
     }
 
     @EventTarget
-    public void playerTick(EventPlayerTick var1) {
+    public void playerTick(EventUpdate var1) {
         if (mc.player == null || mc.world == null || mc.getIntegratedServer() != null || mc.getCurrentServerData() == null) {
             return;
         }

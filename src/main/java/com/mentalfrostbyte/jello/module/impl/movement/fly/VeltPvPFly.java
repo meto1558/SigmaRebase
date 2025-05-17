@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
@@ -27,7 +27,7 @@ public class VeltPvPFly extends Module {
 
     public VeltPvPFly() {
         super(ModuleCategory.MOVEMENT, "VeltPvP", "A fly for VeltPvP");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.2F, 5.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.2F, 5.0F, 0.1F));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class VeltPvPFly extends Module {
     }
 
     @EventTarget
-    public void method16048(EventUpdateWalkingPlayer var1) {
+    public void method16048(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23419++;
             if (this.field23419 != 2) {

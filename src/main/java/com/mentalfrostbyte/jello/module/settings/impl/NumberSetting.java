@@ -10,7 +10,7 @@ public class NumberSetting<T extends Number> extends Setting<Float> {
     private float maxValue;
     private float step;
 
-    public NumberSetting(String name, String description, float defaultValue, Class<? extends T> type, float minimum, float maximum, float increment) {
+    public NumberSetting(String name, String description, float defaultValue, float minimum, float maximum, float increment) {
         super(name, description, SettingType.NUMBER, defaultValue);
         this.minValue = minimum;
         this.maxValue = maximum;

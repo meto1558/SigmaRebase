@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.CancellableEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventUpdateWalkingPlayer extends CancellableEvent {
+public class EventMotion extends CancellableEvent {
     public static float _prevYaw;
     public static float _prevPitch;
     public static float _yaw;
@@ -20,7 +20,7 @@ public class EventUpdateWalkingPlayer extends CancellableEvent {
     private boolean moving;
     private final List<Runnable> runnables = new ArrayList<>();
 
-    public EventUpdateWalkingPlayer(double x, double y, double z, float yaw, float pitch, boolean onGround) {
+    public EventMotion(double x, double y, double z, float yaw, float pitch, boolean onGround) {
         this.x = x;
         this.y = y;
         this.z = z;

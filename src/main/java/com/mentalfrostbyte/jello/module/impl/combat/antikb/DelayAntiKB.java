@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antikb;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -19,9 +19,9 @@ public class DelayAntiKB extends Module {
 
     public DelayAntiKB() {
         super(ModuleCategory.COMBAT, "Delay", "For anticheats with \"good\" velocity checks");
-        this.registerSetting(new NumberSetting<>("Delay", "Ticks delay", 7.0F, Float.class, 1.0F, 20.0F, 1.0F));
-        this.registerSetting(new NumberSetting<>("H-Multiplier", "Horizontal velocity multiplier", 0.0F, Float.class, 0.0F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<>("V-Multiplier", "Vertical velocity multiplier", 0.0F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Delay", "Ticks delay", 7.0F, 1.0F, 20.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("H-Multiplier", "Horizontal velocity multiplier", 0.0F, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("V-Multiplier", "Vertical velocity multiplier", 0.0F, 0.0F, 1.0F, 0.01F));
     }
 
     /** handles receiving packets **/
@@ -61,7 +61,7 @@ public class DelayAntiKB extends Module {
 
     /** handles tick events **/
     @EventTarget
-    public void onTick(EventPlayerTick _event) {
+    public void onTick(EventUpdate _event) {
         if (this.delay != 0) {
             if (this.delay > 0) {
                 this.delay--;

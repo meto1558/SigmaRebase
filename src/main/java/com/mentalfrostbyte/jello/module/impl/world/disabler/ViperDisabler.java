@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -32,7 +32,7 @@ public class ViperDisabler extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && mc.player != null) {
             this.tickCounter++;
             boolean isPlayerInAir = event.getY() > mc.player.getPosY() - 1.0E-6 && event.getY() < mc.player.getPosY() + 1.0E-6;

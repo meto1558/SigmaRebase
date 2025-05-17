@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
@@ -16,7 +16,7 @@ public class VulcanSpeed extends Module {
     private int jumpCount = 0;
 
     @EventTarget
-    public void onEvent(EventUpdateWalkingPlayer event) {
+    public void onEvent(EventMotion event) {
         if (mc.player.onGround) {
             offGroundTicks = 0;
         } else {

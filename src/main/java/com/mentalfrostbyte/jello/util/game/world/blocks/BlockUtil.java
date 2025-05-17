@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.game.world.blocks;
 
 import com.google.common.collect.ImmutableList;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.BlockCache;
 import net.minecraft.block.Block;
@@ -246,7 +246,7 @@ public class BlockUtil {
         return mc.world.rayTraceBlocks(new RayTraceContext(var5, var9, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, var10));
     }
 
-    public static BlockRayTraceResult rayTrace(float yaw, float pitch, float var2, EventUpdateWalkingPlayer var3) {
+    public static BlockRayTraceResult rayTrace(float yaw, float pitch, float var2, EventMotion var3) {
         Vector3d var6 = new Vector3d(var3.getX(), (double) mc.player.getEyeHeight() + var3.getY(), var3.getZ());
         yaw = (float) Math.toRadians(yaw);
         pitch = (float) Math.toRadians(pitch);

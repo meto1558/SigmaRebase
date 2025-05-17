@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -32,9 +32,9 @@ public class BoostSpeed extends Module {
                     this.ignoreInWater = new BooleanSetting("Ignore In Water", "Ignore being in water", true)
                 )
         );
-        this.registerSetting(this.boostAfterTicks = new NumberSetting<>("Boost After Ticks", "Boost after ticks since last boost", 15f, Integer.class, 1f, 40f, 1f));
-        this.registerSetting(this.boostSpeed = new NumberSetting<>("Boost Speed", "Boost speed", 1.5f, Double.class, 1f, 10f, 0.01f));
-        this.registerSetting(this.normalSpeed = new NumberSetting<>("Normal Speed", "Normal speed", 1.2f, Double.class, 1f, 10f, 0.01f));
+        this.registerSetting(this.boostAfterTicks = new NumberSetting<>("Boost After Ticks", "Boost after ticks since last boost", 15f, 1f, 40f, 1f));
+        this.registerSetting(this.boostSpeed = new NumberSetting<>("Boost Speed", "Boost speed", 1.5f, 1f, 10f, 0.01f));
+        this.registerSetting(this.normalSpeed = new NumberSetting<>("Normal Speed", "Normal speed", 1.2f, 1f, 10f, 0.01f));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class BoostSpeed extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (autoJump.currentValue && mc.player.isOnGround()) {
             mc.player.jump();
         }

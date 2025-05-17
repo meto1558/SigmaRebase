@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.item.autogapple;
 
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventStopUseItem;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -60,7 +60,7 @@ public class BasicAutoGapple extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             if (this.tickCounter < 20) {
                 this.tickCounter++;

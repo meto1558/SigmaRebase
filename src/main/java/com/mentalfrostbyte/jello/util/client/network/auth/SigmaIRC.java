@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.util.client.network.auth;
 
 import com.google.gson.JsonArray;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
@@ -36,7 +36,7 @@ public class SigmaIRC {
 
 
     @EventTarget
-    public void method29513(EventPlayerTick tickEvent) {
+    public void method29513(EventUpdate tickEvent) {
         if (this.mc.player.ticksExisted % 100 == 0) {
             this.method29514();
             List<AbstractClientPlayerEntity> var4 = this.mc.world.getPlayers();

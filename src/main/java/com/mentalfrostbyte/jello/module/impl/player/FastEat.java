@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.world.Timer;
@@ -19,11 +19,11 @@ public class FastEat extends Module {
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Hypixel", "Timer")
 
         );
-        this.registerSetting(new NumberSetting<Float>("Speed", "Eating speed.", 0.55F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Eating speed.", 0.55F, 0.0F, 1.0F, 0.01F));
     }
 
     @EventTarget
-    public void TickEvent(EventPlayerTick event) {
+    public void TickEvent(EventUpdate event) {
         if (this.isEnabled() && mc.player != null) {
             if (mc.player.isHandActive()) {
                 ItemStack itemStack = mc.player.getActiveItemStack();

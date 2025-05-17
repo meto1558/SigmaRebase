@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.impl.movement.Fly;
 import com.mentalfrostbyte.jello.module.impl.render.projectiles.Class2285;
@@ -261,7 +261,7 @@ public class MinerTracker {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (event.isPre()) {
             if (this.method31743()) {
                 ArrayList var4 = new ArrayList();

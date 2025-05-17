@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.combat.bowaimbot.BowAngleSorter;
@@ -31,7 +31,7 @@ public class BowAimbot extends Module {
     public BowAimbot() {
         super(ModuleCategory.COMBAT, "BowAimbot", "Automatically aims at players while using a bow");
         this.registerSetting(new ModeSetting("Sort mode", "Sort mode", 0, "Angle", "Range"));
-        this.registerSetting(new NumberSetting<Float>("Range", "Range value", 70.0F, Float.class, 10.0F, 100.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Float>("Range", "Range value", 70.0F, 10.0F, 100.0F, 1.0F));
         this.registerSetting(new BooleanSetting("Silent", "Server-sided rotations.", false));
         this.registerSetting(new BooleanSetting("Teams", "Target team", true));
         this.registerSetting(new BooleanSetting("Players", "Target players", true));
@@ -46,7 +46,7 @@ public class BowAimbot extends Module {
     }
 
     @EventTarget
-    public void method16569(EventUpdateWalkingPlayer event) {
+    public void method16569(EventMotion event) {
         if (this.isEnabled() && event.isPre()) {
             if (!(mc.player.getActiveItemStack().getItem() instanceof BowItem)) {
                 this.field23754.clear();

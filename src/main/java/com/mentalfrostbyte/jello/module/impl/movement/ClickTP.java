@@ -23,7 +23,7 @@ public class ClickTP extends ModuleWithModuleSettings {
         super(ModuleCategory.MOVEMENT, "ClickTP", "TP's you when you click", new BasicClickTP(), new MinibloxClickTP(), new SpartanClickTP());
         this.registerSetting(new BooleanSetting("Sneak", "Allows teleport only when sneaking", true));
         this.registerSetting(new BooleanSetting("Auto Disable", "Disable ClickTP after teleporting", true));
-        this.registerSetting(this.maxRange = new NumberSetting<>("Maximum range", "Maximum range of the teleport", 100.0F, Float.class, 10.0F, 300.0F, 1.0F));
+        this.registerSetting(this.maxRange = new NumberSetting<>("Maximum range", "Maximum range of the teleport", 100.0F, 10.0F, 300.0F, 1.0F));
     }
 
     public BlockPos getRotationHit() {

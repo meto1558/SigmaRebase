@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -28,7 +28,7 @@ public class ViperMCFly extends Module {
 
     public ViperMCFly() {
         super(ModuleCategory.MOVEMENT, "ViperMC", "A fly for ViperMC");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.2F, 6.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.2F, 6.0F, 0.1F));
     }
 
     @Override
@@ -113,7 +113,7 @@ public class ViperMCFly extends Module {
     }
 
     @EventTarget
-    public void method16332(EventUpdateWalkingPlayer var1) {
+    public void method16332(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23594++;
             if (this.field23594 != 2) {

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.fly;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
@@ -56,7 +56,7 @@ public class OmegaCraftTestFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && event.isPre()) {
             this.field23854++;
             if (this.field23854 != 3) {

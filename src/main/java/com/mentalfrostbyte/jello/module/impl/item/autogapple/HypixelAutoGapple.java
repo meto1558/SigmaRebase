@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.item.autogapple;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.item.AutoGapple;
@@ -33,7 +33,7 @@ public class HypixelAutoGapple extends PremiumModule {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && event.isPre() && !(mc.currentScreen instanceof ChestScreen)) {
             if (this.gappleCooldown < 20) {
                 this.gappleCooldown++;

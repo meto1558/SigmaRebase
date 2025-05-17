@@ -4,7 +4,7 @@ package com.mentalfrostbyte.jello.module.impl.gui.jello;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -38,12 +38,12 @@ public class RearView extends Module {
         this.animation = new Animation(230, 200, Animation.Direction.BACKWARDS);
         this.registerSetting(new BooleanSetting("Show in GUI", "Makes the Rear View visible in guis", false));
         this.registerSetting(new BooleanSetting("Smart Visibility", "Only pops up when a player is behind you", false));
-        this.registerSetting(new NumberSetting<Integer>("Size", "The rear view width", 400.0F, Integer.class, 120.0F, 1000.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Integer>("Size", "The rear view width", 400.0F, 120.0F, 1000.0F, 1.0F));
         this.setAvailableOnClassic(false);
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             if (framebuffer != null && (framebuffer.framebufferWidth != mc.getMainWindow().getFramebufferWidth() || framebuffer.framebufferHeight != mc.getMainWindow().getFramebufferHeight())) {
                 this.onEnable();

@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.world.disabler;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -27,7 +27,7 @@ public class PingSpoofDisabler extends Module {
     public PingSpoofDisabler() {
         super(ModuleCategory.EXPLOIT, "PingSpoof", "Makes you lagggy.");
         this.registerSetting(
-                new NumberSetting<Float>("Lag", "Your ping (ms)", 1000.0F, Float.class, 50.0F, 2000.0F, 10.0F));
+                new NumberSetting<Float>("Lag", "Your ping (ms)", 1000.0F, 50.0F, 2000.0F, 10.0F));
         this.registerSetting(new BooleanSetting("Inv Bypass", "Avoid inventory glitchs on some servers", false));
     }
 
@@ -46,7 +46,7 @@ public class PingSpoofDisabler extends Module {
     }
 
     @EventTarget
-    public void method16101(EventPlayerTick var1) {
+    public void method16101(EventUpdate var1) {
         if (!this.isEnabled()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(Disabler.class);
             if (!var4.isEnabled() || !var4.getStringSettingValueByName("Type").equalsIgnoreCase("TP") || !var4.getModWithTypeSetToName().getBooleanValueFromSettingName("Ping spoof")) {

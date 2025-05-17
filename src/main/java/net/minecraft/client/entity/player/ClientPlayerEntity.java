@@ -2,12 +2,12 @@ package net.minecraft.client.entity.player;
 
 import com.google.common.collect.Lists;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.EventSprint;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUpdatePlayerActionState;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.BlockState;
@@ -204,10 +204,10 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
      * Called to update the entity's position/logic.
      */
     public void tick() {
-        EventPlayerTick tickEvent = new EventPlayerTick();
-        EventBus.call(tickEvent);
+        EventUpdate updateEvent = new EventUpdate();
+        EventBus.call(updateEvent);
 
-        if (tickEvent.cancelled) {
+        if (updateEvent.cancelled) {
             return;
         }
 
@@ -247,7 +247,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
      */
     protected void onUpdateWalkingPlayer() {
         AxisAlignedBB bounds = this.getBoundingBox();
-        EventUpdateWalkingPlayer event = new EventUpdateWalkingPlayer(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationYaw, this.rotationPitch, this.onGround);
+        EventMotion event = new EventMotion(this.getPosX(), bounds.minY, this.getPosZ(), this.rotationYaw, this.rotationPitch, this.onGround);
         EventBus.call(event);
         if (event.cancelled) return;
         boolean flag = this.isSprinting();

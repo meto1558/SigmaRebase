@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
 import com.mentalfrostbyte.jello.event.impl.game.world.EventPushBlock;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
@@ -16,7 +16,7 @@ public class FullBlockPhase extends Module {
     }
 
     @EventTarget
-    public void EventUpdate(EventUpdateWalkingPlayer event) {
+    public void EventUpdate(EventMotion event) {
         if (this.isEnabled() && PlayerUtil.isCollidingWithSurroundingBlocks()) {
             event.setMoving(true);
         }

@@ -16,7 +16,7 @@ public class SmoothAimbot extends Module {
 
     public SmoothAimbot() {
         super(ModuleCategory.COMBAT, "Smooth", "Automatically aims at players");
-        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, 2.8F, 8.0F, 0.01F));
     }
 
     @EventTarget

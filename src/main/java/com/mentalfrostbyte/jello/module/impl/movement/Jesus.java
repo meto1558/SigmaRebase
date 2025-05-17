@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.world.EventBlockCollision;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.AutoMLG;
@@ -76,7 +76,7 @@ public class Jesus extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventMotion var1) {
         if (this.isEnabled() && mc.world != null && var1.isPre() && mc.getCurrentServerData() != null) {
             if (isWalkingOnLiquid() && !this.isOnLiquid(mc.player.getBoundingBox())) {
                 this.field24017++;

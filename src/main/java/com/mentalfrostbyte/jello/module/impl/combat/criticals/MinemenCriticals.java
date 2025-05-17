@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.criticals;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
@@ -23,7 +23,7 @@ public class MinemenCriticals extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16861(EventUpdateWalkingPlayer var1) {
+    public void method16861(EventMotion var1) {
         if (var1.isPre()) {
             ModuleWithModuleSettings var4 = (ModuleWithModuleSettings) Client.getInstance().moduleManager.getModuleByClass(AntiKnockback.class);
             if (!var4.isEnabled() || !var4.getStringSettingValueByName("Type").equalsIgnoreCase("Minemen")) {

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.player.nofall;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -20,7 +20,7 @@ public class NCPSpigotNoFall extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (!this.isEnabled()) return;
 		assert mc.player != null;
 		if (mc.player.getPosY() < 2.0) return;

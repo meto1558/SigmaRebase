@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventStep;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventJump;
@@ -35,7 +35,7 @@ public class NCPSpeed extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventMotion var1) {
         if (this.isEnabled()
                 && mc.player != null
                 && !Jesus.isWalkingOnLiquid()

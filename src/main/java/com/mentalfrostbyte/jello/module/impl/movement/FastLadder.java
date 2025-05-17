@@ -12,7 +12,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class FastLadder extends Module {
     public FastLadder() {
         super(ModuleCategory.MOVEMENT, "FastLadder", "Allows you to climp ladders faster");
-        this.registerSetting(new NumberSetting<Float>("Motion", "Climbing motion", 0.35F, Float.class, 0.2F, 1.0F, 0.05F));
+        this.registerSetting(new NumberSetting<Float>("Motion", "Climbing motion", 0.35F, 0.2F, 1.0F, 0.05F));
         this.registerSetting(new ModeSetting("Down mode", "The way you will go down on ladders", 0, "None", "OnSneak", "Always"));
     }
 

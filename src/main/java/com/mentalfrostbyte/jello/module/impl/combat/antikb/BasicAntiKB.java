@@ -13,8 +13,8 @@ public class BasicAntiKB extends Module {
     public BasicAntiKB() {
         super(ModuleCategory.COMBAT, "Basic", "Places block underneath");
         this.registerSetting(new BooleanSetting("Explosions", "Cancels Explosions knockback", true));
-        this.registerSetting(new NumberSetting<Float>("H-Multiplier", "Horizontal velocity multiplier", 0.0F, Float.class, 0.0F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<Float>("V-Multiplier", "Vertical velocity multiplier", 0.0F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("H-Multiplier", "Horizontal velocity multiplier", 0.0F, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("V-Multiplier", "Vertical velocity multiplier", 0.0F, 0.0F, 1.0F, 0.01F));
     }
 
     @EventTarget

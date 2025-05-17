@@ -21,7 +21,7 @@ public class PacketCriticals extends Module {
 
     public PacketCriticals() {
         super(ModuleCategory.COMBAT, "Packet", "Packet criticals");
-        this.registerSetting(new NumberSetting<Integer>("HurtTime", "The hurtTime to crit at", 15.0F, Integer.class, 0.0F, 20.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Integer>("HurtTime", "The hurtTime to crit at", 15.0F, 0.0F, 20.0F, 1.0F));
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "Basic", "Hypixel"));
     }
 

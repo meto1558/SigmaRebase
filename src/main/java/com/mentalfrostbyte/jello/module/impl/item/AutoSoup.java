@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
@@ -36,9 +36,9 @@ public class AutoSoup extends Module {
 
     public AutoSoup() {
         super(ModuleCategory.ITEM, "AutoSoup", "Automatically eats soup when low life");
-        this.registerSetting(new NumberSetting<Float>("Health", "Minimum health before eating soup", 13.0F, Float.class, 1.0F, 19.0F, 1.0F));
-        this.registerSetting(new NumberSetting<Float>("Refill delay", "Refill delay", 4.0F, Float.class, 0.0F, 8.0F, 1.0F));
-        this.registerSetting(new NumberSetting<Float>("Refill accuracy", "Refill accuracy", 100.0F, Float.class, 30.0F, 100.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Float>("Health", "Minimum health before eating soup", 13.0F, 1.0F, 19.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Float>("Refill delay", "Refill delay", 4.0F, 0.0F, 8.0F, 1.0F));
+        this.registerSetting(new NumberSetting<Float>("Refill accuracy", "Refill accuracy", 100.0F, 30.0F, 100.0F, 1.0F));
         this.registerSetting(new ModeSetting("Refill mode", "Refill mode", 0, "Basic", "FakeInv", "OpenInv"));
         this.registerSetting(new ModeSetting("Soup mode", "Soup Mode", 0, "Instant", "Legit"));
         this.registerSetting(new ModeSetting("Bowls", "Bowls managing", 0, "Drop", "Stack"));
@@ -54,7 +54,7 @@ public class AutoSoup extends Module {
     }
 
     @EventTarget
-    public void method16057(EventUpdateWalkingPlayer var1) {
+    public void method16057(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.field23428++;
             this.field23431++;

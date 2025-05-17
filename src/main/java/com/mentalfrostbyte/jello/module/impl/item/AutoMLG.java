@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -66,7 +66,7 @@ public class AutoMLG extends PremiumModule {
 
     @EventTarget
     @LowerPriority
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventMotion var1) {
         if (this.isEnabled() && mc.playerController.gameIsSurvivalOrAdventure()) {
             if (var1.isPre() && preTicks >= 0) {
                 preTicks++;

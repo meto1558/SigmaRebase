@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
@@ -25,7 +25,7 @@ public class ACRFly extends Module {
 
     public ACRFly() {
         super(ModuleCategory.MOVEMENT, "Reloaded", "A fly for AnticheatReloaded");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, Float.class, 0.3F, 8.0F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Fly speed", 4.0F, 0.3F, 8.0F, 0.1F));
         this.registerSetting(new BooleanSetting("Offset", "Offset while flying", false));
         this.registerSetting(new BooleanSetting("NoFall", "Avoid getting fall damage when flying down", true));
     }
@@ -101,7 +101,7 @@ public class ACRFly extends Module {
     }
 
     @EventTarget
-    public void method16905(EventUpdateWalkingPlayer var1) {
+    public void method16905(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             this.preUpdates++;
             if (this.preUpdates != 2) {

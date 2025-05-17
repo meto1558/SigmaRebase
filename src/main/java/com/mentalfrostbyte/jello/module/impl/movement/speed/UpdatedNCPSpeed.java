@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -35,7 +35,7 @@ public class UpdatedNCPSpeed extends Module {
         mc.timer.timerSpeed = 1.0F;
     }
     @EventTarget
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventMotion event) {
         assert mc.player != null;
         switch (mode.currentValue) {
             case "Basic" -> {

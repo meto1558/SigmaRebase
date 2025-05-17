@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -73,7 +73,7 @@ public class VerusFly extends Module {
 
     @SuppressWarnings("unused")
     @EventTarget
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventMotion event) {
         ClientPlayerEntity player = mc.player;
         ClientPlayNetHandler network = mc.getConnection();
         assert player != null;

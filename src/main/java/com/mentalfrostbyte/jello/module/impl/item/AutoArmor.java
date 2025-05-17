@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.item;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -28,7 +28,7 @@ public class AutoArmor extends Module {
     public AutoArmor() {
         super(ModuleCategory.ITEM, "AutoArmor", "Automaticly equips your armor");
         this.registerSetting(new BooleanSetting("Fake Items", "Bypass for fake items (AAC).", false));
-        this.registerSetting(new NumberSetting<Float>("Delay", "Inventory clicks delay", 0.3F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("Delay", "Inventory clicks delay", 0.3F, 0.0F, 1.0F, 0.01F));
         this.registerSetting(new ModeSetting("Mode", "The way it will move armor in your inventory", 0, "Basic", "OpenInv", "FakeInv"));
         this.registerSetting(new ModeSetting("Elytra", "Elytra Equip Mode", 0, "Ignore", "Equip", "On Use"));
     }
@@ -50,7 +50,7 @@ public class AutoArmor extends Module {
 
     @EventTarget
     @HigherPriority
-    public void method16615(EventPlayerTick var1) {
+    public void method16615(EventUpdate var1) {
         if (this.isEnabled()) {
             if (!this.timer.isEnabled()) {
                 this.timer.start();

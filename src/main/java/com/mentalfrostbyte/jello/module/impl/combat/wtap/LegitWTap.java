@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.combat.wtap;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
@@ -13,7 +13,7 @@ public class LegitWTap extends Module {
         super(ModuleCategory.COMBAT, "Legit", "Increase the knockback you give to players");
     }
     @EventTarget
-    public void TickEvent(EventPlayerTick event) {
+    public void TickEvent(EventUpdate event) {
         if (this.isEnabled()
                 && !Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled2()
                 && mc.objectMouseOver instanceof EntityRayTraceResult entityRayTrace) {

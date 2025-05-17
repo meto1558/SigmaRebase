@@ -9,7 +9,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class VanillaSpider extends Module {
     public VanillaSpider() {
         super(ModuleCategory.MOVEMENT, "Vanilla", "Spider for Vanilla");
-        this.registerSetting(new NumberSetting<Float>("Motion", "Spider motion", 0.35F, Float.class, 0.2F, 1.0F, 0.05F));
+        this.registerSetting(new NumberSetting<Float>("Motion", "Spider motion", 0.35F, 0.2F, 1.0F, 0.05F));
     }
 
     @EventTarget

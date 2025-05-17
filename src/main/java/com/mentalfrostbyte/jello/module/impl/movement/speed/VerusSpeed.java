@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.speed;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -41,7 +41,6 @@ public class VerusSpeed extends Module {
                         "Damage boost time",
                         "How long in seconds to boost after damage?",
                         3,
-                        Float.class,
                         0.05F,
                         11F,
                         0.5F
@@ -59,7 +58,6 @@ public class VerusSpeed extends Module {
                         "Timer Speed",
                         "Timer speed",
                         1.0f,
-                        Double.class,
                         0.1f,
                         10f,
                         0.1f
@@ -96,7 +94,7 @@ public class VerusSpeed extends Module {
 
     @SuppressWarnings("unused")
     @EventTarget
-    public void onMotion(EventUpdateWalkingPlayer __) {
+    public void onMotion(EventMotion __) {
         boolean dmgBoost = getBooleanValueFromSettingName("Damage boost");
         if (doTimer.currentValue)
             mc.timer.timerSpeed = timer.currentValue;

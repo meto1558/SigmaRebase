@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.render.classic.esp;
 
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
@@ -15,7 +15,7 @@ public class VanillaESP extends Module {
     }
 
     @EventTarget
-    public void method16625(EventPlayerTick var1) {
+    public void method16625(EventUpdate var1) {
         if (this.isEnabled()) {
             for (Entity var5 : mc.world.getAllEntities()) {
                 if (!Client.getInstance().botManager.isBot(var5)) {

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.item.InvManager;
@@ -63,7 +63,7 @@ public class HypixelPredictionDisabler extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer __) {
+    public void onUpdate(EventMotion __) {
         if (HypixelPredictionDisabler.mc.player == null)
             return;
 

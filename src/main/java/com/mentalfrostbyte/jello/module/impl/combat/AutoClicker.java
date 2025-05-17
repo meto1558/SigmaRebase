@@ -21,12 +21,12 @@ public class AutoClicker extends Module {
 
     public AutoClicker() {
         super(ModuleCategory.COMBAT, "AutoClicker", "Longpress your attack keybind to hit entities automaticly");
-        this.registerSetting(new NumberSetting<Integer>("Base CPS", "Base click per seconds.", 1, Integer.class, 1, 20, 1));
-        this.registerSetting(new NumberSetting<Integer>("Min CPS", "Minimum click per seconds randomization.", 1, Integer.class, 1, 20, 1));
-        this.registerSetting(new NumberSetting<Integer>("Max CPS", "Maximum click per seconds randomization.", 1, Integer.class, 1, 20, 1));
+        this.registerSetting(new NumberSetting<Integer>("Base CPS", "Base click per seconds.", 1, 1, 20, 1));
+        this.registerSetting(new NumberSetting<Integer>("Min CPS", "Minimum click per seconds randomization.", 1, 1, 20, 1));
+        this.registerSetting(new NumberSetting<Integer>("Max CPS", "Maximum click per seconds randomization.", 1, 1, 20, 1));
         this.registerSetting(new BooleanSetting("AutoBlock", "Automatically blocks for you.", false));
         this.registerSetting(new BooleanSetting("Hover Check", "Blocks only if you are hovering the target.", false));
-        this.registerSetting(new NumberSetting<Integer>("Auto Block Ticks", "Autoblock frecuency.", 1, Integer.class, 1, 5, 1));
+        this.registerSetting(new NumberSetting<Integer>("Auto Block Ticks", "Autoblock frecuency.", 1, 1, 5, 1));
         this.registerSetting(new BooleanSetting("1.9+ Cooldown", "Use attack cooldown (1.9+).", false));
 
     }

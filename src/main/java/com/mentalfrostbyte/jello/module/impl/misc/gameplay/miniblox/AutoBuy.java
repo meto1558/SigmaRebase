@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.misc.gameplay.miniblox;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.LivingDeathEvent;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import net.minecraft.block.Blocks;
@@ -119,7 +119,7 @@ public class AutoBuy {
         }
     }
 
-    public static void onUpdateEvent(EventUpdateWalkingPlayer __) {
+    public static void onUpdateEvent(EventMotion __) {
         if (mc.player == null || mc.world == null) return;
 
         if (sword.currentValue) {

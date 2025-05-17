@@ -12,7 +12,7 @@ public class InvadedSpeed extends Module {
 
     public InvadedSpeed() {
         super(ModuleCategory.MOVEMENT, "Invaded", "Speed for Invadedlands");
-        this.registerSetting(new NumberSetting<Float>("Speed", "Speed value", 3.0F, Float.class, 0.5F, 9.5F, 0.1F));
+        this.registerSetting(new NumberSetting<Float>("Speed", "Speed value", 3.0F, 0.5F, 9.5F, 0.1F));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.fly;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import team.sdhq.eventBus.annotations.EventTarget;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
@@ -67,7 +67,7 @@ public class OmegaCraftFly extends Module {
     }
 
     @EventTarget
-    public void method16495(EventUpdateWalkingPlayer var1) {
+    public void method16495(EventMotion var1) {
         if (var1.isPre()) {
             var1.setMoving(true);
             if (this.field23700 != 0) {

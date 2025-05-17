@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.misc;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.potion.Effects;
@@ -12,7 +12,7 @@ public class AntiLevitation extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             mc.player.removeActivePotionEffect(Effects.LEVITATION);
         }

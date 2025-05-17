@@ -27,8 +27,8 @@ public class NCPLongJump extends Module {
 
     public NCPLongJump() {
         super(ModuleCategory.MOVEMENT, "NCP", "Longjump for NoCheatPlus.");
-        this.registerSetting(new NumberSetting<>("Boost", "Longjump boost", 3.0F, Float.class, 1.0F, 5.0F, 0.01F));
-        this.registerSetting(new NumberSetting<>("Duration", "Speed duration", 10.0F, Float.class, 7.0F, 200.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Boost", "Longjump boost", 3.0F, 1.0F, 5.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Duration", "Speed duration", 10.0F, 7.0F, 200.0F, 1.0F));
         this.registerSetting(new ModeSetting("Glide Mode", "The way you will glide", 1, "None", "Basic", "High"));
         this.registerSetting(new ModeSetting("Speed Mode", "The way you will speed", 0, "Basic", "Funcraft", "Hypixel"));
     }

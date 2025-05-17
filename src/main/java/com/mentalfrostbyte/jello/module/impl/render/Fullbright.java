@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -31,7 +31,7 @@ public class Fullbright extends Module {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (this.isEnabled()) {
             mc.gameSettings.gamma = 999.0;
             if (mc.world != null) {

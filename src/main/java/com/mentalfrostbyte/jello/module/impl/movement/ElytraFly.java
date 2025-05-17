@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.module.impl.movement;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
@@ -34,7 +34,7 @@ public class ElytraFly extends Module {
     }
 
     @EventTarget
-    public void method16220(EventPlayerTick var1) {
+    public void method16220(EventUpdate var1) {
         if (this.isEnabled()) {
             mc.gameSettings.keyBindSneak.pressed = false;
             if (!(mc.player.getMotion().y < 0.08) || mc.player.onGround) {
@@ -111,7 +111,7 @@ public class ElytraFly extends Module {
     }
 
     @EventTarget
-    public void method16223(EventUpdateWalkingPlayer event) {
+    public void method16223(EventMotion event) {
         if (this.isEnabled()) {
             int var4 = 65;
             if (this.field23533 != var4 - 1) {

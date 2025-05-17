@@ -46,7 +46,7 @@ public class MinibloxDisabler extends Module {
                 this.bypassDelay = new NumberSetting<>(
                         "Floating Kick Bypass Delay",
                         "Ticks off ground before we spoof our ground value",
-                        20, Integer.class,
+                        20,
                         5, 20,
                         1
                 )

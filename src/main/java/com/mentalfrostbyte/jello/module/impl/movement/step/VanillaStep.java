@@ -10,7 +10,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 public class VanillaStep extends Module {
     public VanillaStep() {
         super(ModuleCategory.MOVEMENT, "Vanilla", "Step for Vanilla");
-        this.registerSetting(new NumberSetting<>("Maximum heigh", "Maximum heigh", 2.0F, Float.class, 1.0F, 10.0F, 0.5F));
+        this.registerSetting(new NumberSetting<>("Maximum heigh", "Maximum heigh", 2.0F, 1.0F, 10.0F, 0.5F));
     }
 
     @EventTarget

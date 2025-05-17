@@ -35,7 +35,7 @@ public class MineplexSpeed extends Module {
         super(ModuleCategory.MOVEMENT, "Mineplex", "Speed for Mineplex");
         this.registerSetting(new BooleanSetting("AutoJump", "Automatically jumps for you.", true));
         this.registerSetting(new BooleanSetting("OnGround", "OnGround Speed.", true));
-        this.registerSetting(new NumberSetting<Float>("OnGround Speed", "OnGround value.", 0.8F, Float.class, 0.3F, 1.5F, 0.01F));
+        this.registerSetting(new NumberSetting<Float>("OnGround Speed", "OnGround value.", 0.8F, 0.3F, 1.5F, 0.01F));
     }
 
     @Override

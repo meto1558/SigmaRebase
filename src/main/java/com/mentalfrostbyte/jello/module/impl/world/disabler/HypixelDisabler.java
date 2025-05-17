@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.world.disabler;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventSendPacket;
@@ -67,7 +67,7 @@ public class HypixelDisabler extends Module {
     }
 
     @EventTarget
-    public void method16898(EventUpdateWalkingPlayer var1) {
+    public void method16898(EventMotion var1) {
         if (mc.player != null) {
             if (!this.field23984 && mc.player.isOnGround()) {
                 if (!this.getBooleanValueFromSettingName("Instant")) {

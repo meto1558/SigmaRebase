@@ -6,7 +6,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DCustom;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderChat;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
@@ -30,7 +30,6 @@ import com.sapher.youtubedl.YoutubeDLException;
 import com.sapher.youtubedl.YoutubeDLRequest;
 import com.sapher.youtubedl.YoutubeDLResponse;
 import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinReg;
 import net.sourceforge.jaad.aac.Decoder;
 import net.sourceforge.jaad.aac.SampleBuffer;
@@ -270,7 +269,7 @@ public class MusicManager extends Manager implements MinecraftUtil {
     }
 
     @EventTarget
-    public void onTick(EventPlayerTick event) {
+    public void onTick(EventUpdate event) {
         if (!this.playing) {
             this.visualizerData.clear();
             this.amplitudes.clear();

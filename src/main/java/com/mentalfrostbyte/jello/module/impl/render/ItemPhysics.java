@@ -11,7 +11,7 @@ public class ItemPhysics extends Module {
         super(ModuleCategory.RENDER, "ItemPhysics", "Better physics for items");
         this.registerSetting(new BooleanSetting("Disable Floating", "Disable the item floating on drop.", false));
         this.registerSetting(new BooleanSetting("Enable Gravity", "The item rotates on the air.", false));
-        this.registerSetting(new NumberSetting<Float>("Gravity Value", "How fast the items rotates on fall.", 1, Float.class, 1, 3, 0.05f));
+        this.registerSetting(new NumberSetting<Float>("Gravity Value", "How fast the items rotates on fall.", 1, 1, 3, 0.05f));
         this.registerSetting(new BooleanSetting("Loaf Always", "Always render the items sided.", false));
     }
 }

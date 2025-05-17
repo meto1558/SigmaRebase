@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.game.world.EventLoadWorld;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventSafeWalk;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.util.game.player.InvManagerUtil;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
@@ -40,7 +40,7 @@ public class MineplexFly extends Module {
 
     public MineplexFly() {
         super(ModuleCategory.MOVEMENT, "Mineplex", "Mineplex fly/longjump");
-        this.registerSetting(new NumberSetting<>("Boost", "Boost value", 4.0F, Float.class, 1.0F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Boost", "Boost value", 4.0F, 1.0F, 8.0F, 0.01F));
         this.registerSetting(new BooleanSetting("Fake", "Simulate a real fly", false));
     }
 
@@ -68,7 +68,7 @@ public class MineplexFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer var1) {
+    public void onUpdate(EventMotion var1) {
         if (this.isEnabled() && var1.isPre()) {
             var1.setMoving(true);
         }

@@ -2,7 +2,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.*;
@@ -33,7 +33,7 @@ public class Nuker extends Module {
 
     public Nuker() {
         super(ModuleCategory.WORLD, "Nuker", "Destroys blocks around you");
-        this.registerSetting(new NumberSetting<>("Range", "Range value for nuker", 6.0F, Float.class, 2.0F, 10.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value for nuker", 6.0F, 2.0F, 10.0F, 1.0F));
         this.registerSetting(new ModeSetting("Mode", "Mode", 0, "All", "One hit", "Bed", "Egg"));
         this.registerSetting(new BooleanSetting("NoSwing", "Removes the swing animation.", false));
         this.registerSetting(new BooleanListSetting("Blocks", "Blocks to destroy", true));
@@ -47,7 +47,7 @@ public class Nuker extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (this.isEnabled() && event.isPre()) {
             this.blocksToDestroy = this.getBlocksToDestroy(this.getNumberValueBySettingName("Range") / 2.0F);
             if (this.blocksToDestroy.isEmpty()) {

@@ -1,6 +1,6 @@
 package com.mentalfrostbyte.jello.module.impl.movement.phase;
 
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -21,7 +21,6 @@ public class VClipPhase extends Module {
                 "Blocks to clip",
                 "yes",
                 -4,
-                Double.class,
                 -1e2f,
                 1e2f,
                 0.02f
@@ -29,7 +28,7 @@ public class VClipPhase extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer __) {
+    public void onUpdate(EventMotion __) {
         long currentTime = System.currentTimeMillis();
         if (this.isEnabled() && mc.gameSettings.keyBindSneak.isKeyDown() && currentTime - lastClipTime >= 500) {
             lastClipTime = currentTime;

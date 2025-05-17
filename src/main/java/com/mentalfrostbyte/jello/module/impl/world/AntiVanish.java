@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -25,7 +25,7 @@ public class AntiVanish extends Module {
     }
 
     @EventTarget
-    public void method16862(EventUpdateWalkingPlayer var1) {
+    public void method16862(EventMotion var1) {
         if (this.isEnabled()) {
             if (var1.isPre() && mc.getCurrentServerData() != null) {
                 if (!this.field23967.isEmpty()) {

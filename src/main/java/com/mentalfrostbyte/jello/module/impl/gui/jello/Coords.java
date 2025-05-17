@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -25,7 +25,7 @@ public class Coords extends Module {
     }
 
     @EventTarget
-    public void onPlayerTick(EventPlayerTick event) {
+    public void onPlayerTick(EventUpdate event) {
         if (this.isEnabled()) {
             boolean hasMoved = playerX != mc.player.getPosX() || playerY != mc.player.getPosY() || playerZ != mc.player.getPosZ();
 

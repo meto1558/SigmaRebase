@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.combat.antibot;
 
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import net.minecraft.entity.Entity;
@@ -34,7 +34,7 @@ public class MovementAntiBot extends AntiBotBase {
    }
 
    @EventTarget
-   public void onTick(EventPlayerTick var1) {
+   public void onTick(EventUpdate var1) {
        assert mc.player != null;
        if (mc.player.ticksExisted < 10) {
          this.field31116.clear();

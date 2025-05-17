@@ -18,7 +18,7 @@ public class AACAntiKB extends Module {
 
     public AACAntiKB() {
         super(ModuleCategory.COMBAT, "AAC", "Places block underneath");
-        this.registerSetting(new NumberSetting<>("Strength", "Boost strength", 0.7F, Float.class, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Strength", "Boost strength", 0.7F, 0.0F, 1.0F, 0.01F));
         ticks = 20;
     }
 

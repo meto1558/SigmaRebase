@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -42,7 +42,6 @@ public class VClipFly extends Module {
                         "Speed",
                         "Fly speed",
                         4.0F,
-                        Float.class,
                         0.28F,
                         10.0F,
                         0.01F
@@ -62,7 +61,6 @@ public class VClipFly extends Module {
                         "Delay",
                         "Delay",
                         3.0F,
-                        Float.class,
                         0.1F,
                         10.0F,
                         0.1F
@@ -73,7 +71,6 @@ public class VClipFly extends Module {
                         "Fall distance",
                         "Minimum fall distance before we VClip back up",
                         1.0F,
-                        Float.class,
                         0.3F,
                         25.5F,
                         0.1F
@@ -93,7 +90,6 @@ public class VClipFly extends Module {
                         "Clip distance (if constant)",
                         "Blocks to clip up after falling the minimum distance",
                         1.0F,
-                        Float.class,
                         0.1F,
                         25.5F,
                         0.001F
@@ -161,7 +157,7 @@ public class VClipFly extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdateWalkingPlayer event) {
+    public void onUpdate(EventMotion event) {
         if (!this.isEnabled()) return;
         if (mc.player.isOnGround()) return;
         if (!this.getBooleanValueFromSettingName("Kick bypass")) return;

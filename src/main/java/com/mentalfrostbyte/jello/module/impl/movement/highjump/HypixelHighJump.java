@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.movement.highjump;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -16,7 +16,7 @@ public class HypixelHighJump extends Module {
 
     public HypixelHighJump() {
         super(ModuleCategory.MOVEMENT, "Hypixel", "Highjump for Hypixel");
-        this.registerSetting(new NumberSetting<Float>("Motion", "Highjump motion", 0.75F, Float.class, 0.42F, 5.0F, 0.05F));
+        this.registerSetting(new NumberSetting<Float>("Motion", "Highjump motion", 0.75F, 0.42F, 5.0F, 0.05F));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class HypixelHighJump extends Module {
     }
 
     @EventTarget
-    public void method16019(EventUpdateWalkingPlayer var1) {
+    public void method16019(EventMotion var1) {
         if (this.isEnabled()) {
             if (this.field23405 >= 0) {
                 var1.setMoving(true);
