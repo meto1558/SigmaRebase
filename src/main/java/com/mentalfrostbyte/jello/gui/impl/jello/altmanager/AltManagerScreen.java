@@ -116,7 +116,7 @@ public class AltManagerScreen extends Screen {
                                 Minecraft.getInstance().getMainWindow().getHeight() / 12,
                                 (int) ((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21015),
                                 350,
-                                "steve"
+                                "8667ba71-b85a-4004-af54-457a9734eed7"
                         )
                 );
         this.altView

@@ -206,7 +206,7 @@ public class Account {
     }
 
     public void updateSkin() {
-        if (!this.getUUID().contains("steve") && this.skinUpdateThread == null) {
+        if (!this.getUUID().contains("8667ba71-b85a-4004-af54-457a9734eed7") && this.skinUpdateThread == null) {
             this.skinUpdateThread = new Thread(() -> {
                 try {
                     this.skin = ImageIO.read(new URL(ImageUtil.getSkinUrlByID(getFormattedUUID())));
