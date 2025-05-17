@@ -40,53 +40,52 @@ public class RotationUtils {
         boolean bypass = Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()
                 && (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Grim")
                 || Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Clutch"));
-        float f = (float) ((bypass ? 0 : mc.gameSettings.mouseSensitivity) * 0.6F + 0.2F);
-        float f5 = f * f * f;
 
+        // Get the mouse sensitivity
+        float sensitivity = bypass ? 0.5f : (float) mc.gameSettings.mouseSensitivity;
+
+        // Calculate GCD
+        float f = sensitivity * 0.6F + 0.2F;
         float gcd = f * f * f * (bypass ? 1.2F : 8.0F);
 
+        // Calculate rotation differences
         float deltaYaw = currentYaw - lastYaw;
         float deltaPitch = currentPitch - lastPitch;
 
-        // Add small random offsets to prevent exact zero differences after GCD adjustment
-        float yawOffset = ThreadLocalRandom.current().nextFloat() * 0.0001f + 0.0001f;
-        float pitchOffset = ThreadLocalRandom.current().nextFloat() * 0.0001f + 0.0001f;
+        // Apply a human-like rotation pattern
+        // This simulates how mouse movements would actually work
+        float fixedYaw = lastYaw;
+        float fixedPitch = lastPitch;
 
-        // Apply GCD with small offsets to avoid exact zero differences
-        float yawMod = deltaYaw % gcd;
-        float pitchMod = deltaPitch % gcd;
+        // Calculate how many "mouse steps" this would take
+        int yawSteps = Math.round(deltaYaw / gcd);
+        int pitchSteps = Math.round(deltaPitch / gcd);
 
-        // Only subtract the modulo if it's not going to result in a zero difference
-        if (Math.abs(yawMod) > 0.0001f) {
-            deltaYaw -= yawMod;
-        } else {
-            // Add a tiny random offset to avoid exact zero
-            deltaYaw = (float)(Math.floor(deltaYaw / gcd) * gcd + yawOffset);
+        // Apply the steps with slight variations
+        if (yawSteps != 0) {
+            // Add a tiny bit of randomness to each step
+            float yawPerStep = gcd * (0.99f + ThreadLocalRandom.current().nextFloat() * 0.02f);
+            fixedYaw = lastYaw + yawSteps * yawPerStep;
         }
 
-        if (Math.abs(pitchMod) > 0.0001f) {
-            deltaPitch -= pitchMod;
-        } else {
-            // Add a tiny random offset to avoid exact zero
-            deltaPitch = (float)(Math.floor(deltaPitch / gcd) * gcd + pitchOffset);
+        if (pitchSteps != 0) {
+            // Add a tiny bit of randomness to each step
+            float pitchPerStep = gcd * (0.99f + ThreadLocalRandom.current().nextFloat() * 0.02f);
+            fixedPitch = lastPitch + pitchSteps * pitchPerStep;
         }
 
+        // Apply smoothing if needed
         if (bypass) {
-            MouseSmoother filterVolkanX = new MouseSmoother();
-            MouseSmoother filterVolkanY = new MouseSmoother();
-            deltaYaw = (float) filterVolkanX.smooth(deltaYaw, 3800F * gcd);
-            deltaPitch = (float) filterVolkanY.smooth(deltaPitch, 3800F * gcd);
-            deltaYaw *= f5;
-            deltaPitch *= f5;
+            MouseSmoother filterX = new MouseSmoother();
+            MouseSmoother filterY = new MouseSmoother();
+            fixedYaw = (float) filterX.smooth(fixedYaw - lastYaw, 3800F * gcd) + lastYaw;
+            fixedPitch = (float) filterY.smooth(fixedPitch - lastPitch, 3800F * gcd) + lastPitch;
         }
 
+        // Ensure pitch is within bounds
+        fixedPitch = MathHelper.clamp(fixedPitch, -90.0F, 90.0F);
 
-        float finalYaw = lastYaw + deltaYaw;
-        float finalPitch = lastPitch + deltaPitch;
-        finalPitch = MathHelper.clamp(finalPitch, -90.0F, 90.0F);
-
-
-        return new float[]{finalYaw, finalPitch};
+        return new float[]{fixedYaw, fixedPitch};
     }
 
     public static float getAngleDifference(float a, float b) {

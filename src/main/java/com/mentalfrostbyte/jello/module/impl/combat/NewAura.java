@@ -214,8 +214,14 @@ public class NewAura extends Module {
             return;
 
         if (target != null) {
-            event.setYaw(rots.yaw);
-            event.setPitch(rots.pitch);
+            // Apply GCD fix to rotations before setting them in the motion event
+            float[] fixedRotations = RotationUtils.gcdFix(
+                    new float[]{rots.yaw, rots.pitch},
+                    new float[]{mc.player.rotationYaw, mc.player.rotationPitch}
+            );
+
+            event.setYaw(fixedRotations[0]);
+            event.setPitch(fixedRotations[1]);
         }
     }
 
