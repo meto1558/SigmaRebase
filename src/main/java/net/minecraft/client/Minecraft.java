@@ -5,6 +5,7 @@ import com.google.common.collect.Queues;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mentalfrostbyte.Client;
+import com.mentalfrostbyte.jello.event.impl.player.EventRunLoop;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventUseItem;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
@@ -612,6 +613,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
                     boolean flag1 = this.isDebugMode();
                     this.tick(flag1, longtickdetector);
                     this.profiler.startTick();
+                    EventBus.call(new EventRunLoop());
                     this.runGameLoop(!flag);
                     Client.getInstance().guiManager.endTick();
                     this.profiler.endTick();
