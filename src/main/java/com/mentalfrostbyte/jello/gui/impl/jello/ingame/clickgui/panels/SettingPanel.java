@@ -251,8 +251,7 @@ public class SettingPanel extends ScrollableContentPanel implements Class4342 {
     private void method13511() {
         int var4 = 20;
 
-        for (Setting setting : this.module.getSettingMap().values()) {
-            //HIDEN SHIT
+        for (Setting<?> setting : this.module.getSettingMap().values()) {
             if(setting.isHidden()) continue;
 
             var4 = this.method13531(this, setting, 20, var4, 20);
