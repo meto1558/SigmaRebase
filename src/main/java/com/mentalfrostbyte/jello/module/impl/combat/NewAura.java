@@ -2,11 +2,13 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventKeepSprint;
-import com.mentalfrostbyte.jello.event.impl.player.EventPlayerTick;
+import com.mentalfrostbyte.jello.event.impl.player.EventRunLoop;
+import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.event.impl.player.action.EventPlace;
-import com.mentalfrostbyte.jello.event.impl.player.movement.EventUpdateWalkingPlayer;
+import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
+import com.mentalfrostbyte.jello.module.impl.combat.killaura.ClickDelayCalculator;
 import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
@@ -16,6 +18,7 @@ import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.player.constructor.Rotation;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.Counter;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -29,15 +32,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewAura extends Module {
-
     private final ModeSetting sortMode = new ModeSetting("Sort mode", "In what order should entities be sorted in?", 0, "Range", "Health", "Armor", "Ticks");
 
+    private final ClickDelayCalculator delayCalculator = new ClickDelayCalculator(9, 11);
     private final ModeSetting clickMode = new ModeSetting("Click mode", "What should be the clicking mode?", 0, "CPS", "1.9");
-    private final NumberSetting<Long> minCPS = new NumberSetting<>("Min CPS", "What should be the minimal CPS?", 10, Long.class, 1, 20, 1.0f);
-    private final NumberSetting<Long> maxCPS = new NumberSetting<>("Max CPS", "What should be the maximal CPS?", 11, Long.class, 2, 21, 1.0f);
 
-    private final NumberSetting<Float> searchRange = new NumberSetting<>("Search range", "What should be the search range for entities?", 4, Float.class, 1, 7, 0.1f);
-    private final NumberSetting<Float> attackRange = new NumberSetting<>("Attack range", "What should be the attack range for entities?", 3.4f, Float.class, 1, 6, 0.1f);
+    private final NumberSetting<Long> minCPS = new NumberSetting<>("Min CPS", "Minimal CPS?", 10L, 1L, 20L, 1.0f) {
+        @Override
+        public boolean isHidden() {
+            return clickMode.getCurrentValue().equals("1.9");
+        }
+    };
+
+    private final NumberSetting<Long> maxCPS = new NumberSetting<>("Max CPS", "Maximal CPS?", 11L, 2L, 21L, 1.0f) {
+        @Override
+        public boolean isHidden() {
+            return clickMode.getCurrentValue().equals("1.9");
+        }
+    };
+
+    private final BooleanSetting delayPatterns = new BooleanSetting("Delay patterns", "", false) {
+        @Override
+        public boolean isHidden() {
+            return clickMode.getCurrentValue().equals("1.9");
+        }
+    };
+
+    private final NumberSetting<Double> delayPattern1 = new NumberSetting<>("Delay pattern 1", "", 90, 0, 700, 1) {
+        @Override
+        public boolean isHidden() {
+            return clickMode.getCurrentValue().equals("1.9");
+        }
+    };
+
+    private final NumberSetting<Double> delayPattern2 = new NumberSetting<>("Delay pattern 2", "", 110, 0, 700, 1) {
+        @Override
+        public boolean isHidden() {
+            return clickMode.getCurrentValue().equals("1.9");
+        }
+    };
+
+    private final NumberSetting<Double> delayPattern3 = new NumberSetting<>("Delay pattern 3", "", 130, 0, 700, 1) {
+        @Override
+        public boolean isHidden() {
+            return clickMode.getCurrentValue().equals("1.9");
+        }
+    };
+
+    private final NumberSetting<Float> searchRange = new NumberSetting<>("Search range", "What should be the search range for entities?", 4, 1, 7, 0.1f);
+    private final NumberSetting<Float> attackRange = new NumberSetting<>("Attack range", "What should be the attack range for entities?", 3.4f, 1, 6, 0.1f);
 
     private final BooleanSetting players = new BooleanSetting("Players", "Should aura attack players?", true);
     private final BooleanSetting monsters = new BooleanSetting("Monsters", "Should aura target monsters?", false);
@@ -50,22 +93,32 @@ public class NewAura extends Module {
 
     public NewAura() {
         super(ModuleCategory.COMBAT, "NewAura", "Attacks entities.");
+
+        minCPS.addObserver(a -> {
+            NumberSetting<Long> setting = (NumberSetting<Long>) a;
+            if (minCPS.getCurrentValue() >= maxCPS.getCurrentValue()) {
+                minCPS.setCurrentValue(maxCPS.getCurrentValue());
+            }
+            delayCalculator.minCPS = setting.getCurrentValue();
+        });
+
+        maxCPS.addObserver(a -> {
+            NumberSetting<Long> setting = (NumberSetting<Long>) a;
+            if (maxCPS.getCurrentValue() <= minCPS.getCurrentValue()) {
+                maxCPS.setCurrentValue(minCPS.getCurrentValue());
+            }
+            delayCalculator.maxCPS = setting.getCurrentValue();
+        });
+
+        delayPatterns.addObserver(a -> delayCalculator.patternEnabled = (boolean) a.currentValue);
+        delayPattern1.addObserver(a -> delayCalculator.delayPattern1 = (double) a.currentValue);
+        delayPattern2.addObserver(a -> delayCalculator.delayPattern2 = (double) a.currentValue);
+        delayPattern3.addObserver(a -> delayCalculator.delayPattern3 = (double) a.currentValue);
+
         registerSetting(
                 sortMode, clickMode,
-                minCPS
-                        .hide(() -> clickMode.currentValue.equals("1.9"))
-                        .addObserver((a) -> {
-                            if (minCPS.currentValue >= maxCPS.currentValue) {
-                                minCPS.setCurrentValue(maxCPS.getCurrentValue());
-                            }
-                        }),
-                maxCPS
-                        .hide(() -> clickMode.currentValue.equals("1.9"))
-                        .addObserver((a) -> {
-                            if (maxCPS.currentValue <= minCPS.currentValue) {
-                                maxCPS.setCurrentValue(minCPS.getCurrentValue());
-                            }
-                        }),
+                minCPS, maxCPS,
+                delayPatterns, delayPattern1, delayPattern2, delayPattern3,
                 searchRange, attackRange,
                 players, monsters, animals, invisibles,
                 throughWalls, raycast, keepSprint, sprintFix
@@ -88,8 +141,6 @@ public class NewAura extends Module {
 
     @Override
     public void onDisable() {
-        super.onDisable();
-
         rots = null;
         target = null;
         attackCounter.reset();
@@ -97,7 +148,7 @@ public class NewAura extends Module {
 
     @EventTarget
     @HighestPriority
-    public void onTick(EventPlayerTick event) {
+    public void onUpdate(EventUpdate event) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
@@ -109,48 +160,48 @@ public class NewAura extends Module {
             mc.player.setSprinting(false);
         }
 
-        targets = PlayerUtil.getAllEntitiesInWorld().stream()
-                .filter(entity -> {
-                    if (!(entity instanceof LivingEntity livingEntity)) return false;
+        targets.clear();
+        for (Entity entity : PlayerUtil.getAllEntitiesInWorld()) {
+            if (!(entity instanceof LivingEntity living)) continue;
 
-                    boolean isPlayer = entity instanceof PlayerEntity && this.players.currentValue;
-                    boolean isAnimal = (entity instanceof AnimalEntity || entity instanceof VillagerEntity) && this.animals.currentValue;
-                    boolean isMonster = entity instanceof MonsterEntity && this.monsters.currentValue;
-                    boolean isValid = isPlayer || isAnimal || isMonster;
+            boolean valid = false;
+            if (players.currentValue && entity instanceof PlayerEntity) valid = true;
+            if (animals.currentValue && (entity instanceof AnimalEntity || entity instanceof VillagerEntity))
+                valid = true;
+            if (monsters.currentValue && entity instanceof MonsterEntity) valid = true;
+            if (!valid) continue;
 
-                    boolean withinRange = mc.player.getDistance(entity) <= searchRange.currentValue;
+            double distance = mc.player.getDistance(entity);
+            if (distance > searchRange.currentValue) continue;
 
-                    return livingEntity.getHealth() > 0
-                            && entity != mc.player
-                            && entity.isLiving()
-                            && (invisibles.currentValue || !entity.isInvisible())
-                            && entity.getName() != null
-                            && entity.getDisplayName() != null
-                            && !Client.getInstance().friendManager.isFriend(entity)
-                            && !Client.getInstance().botManager.isBot(entity)
-                            && isValid
-                            && withinRange;
-                })
-                .map(entity -> (LivingEntity) entity)
-                .sorted(EntityUtil.sortEntities(sortMode.currentValue))
-                .toList();
+            if (!living.isAlive()
+                    || entity == mc.player
+                    || (!invisibles.currentValue && entity.isInvisible())
+                    || entity.getName() == null
+                    || entity.getDisplayName() == null
+                    || Client.getInstance().friendManager.isFriend(entity)
+                    || Client.getInstance().botManager.isBot(entity)) continue;
 
-        if (!targets.isEmpty()) {
-            target = targets.get(0);
+            targets.add(living);
         }
 
-        if (target != null) {
-            Rotation rots = RotationUtils.getAdvancedRotation(target, !raycast.currentValue);
-            if (rots != null) {
-                this.rots.yaw = rots.yaw;
-                this.rots.pitch = rots.pitch;
+        if (!targets.isEmpty()) {
+            targets.sort(EntityUtil.sortEntities(sortMode.currentValue));
+            target = targets.get(0);
+
+            Rotation calculatedRot = RotationUtils.getAdvancedRotation(target, !raycast.currentValue);
+            if (calculatedRot != null) {
+                rots.yaw = calculatedRot.yaw;
+                rots.pitch = calculatedRot.pitch;
             }
+        } else {
+            target = null;
         }
     }
 
     @EventTarget
     @HighestPriority
-    public void onMotion(EventUpdateWalkingPlayer event) {
+    public void onMotion(EventMotion event) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
 
@@ -167,36 +218,38 @@ public class NewAura extends Module {
         }
     }
 
-    //mainly taken from vanta, no randomisation, smoothing at all
     @EventTarget
     @HighestPriority
-    public void onPlace(EventPlace event) {
+    public void onRun(EventRunLoop event) {
         if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).enabled)
             return;
+
+        if (mc.player == null) {
+            return;
+        }
 
         if (target != null && target.getDistance(mc.player) <= attackRange.currentValue) {
             if (throughWalls.currentValue && !mc.player.canEntityBeSeen(target)) {
                 return;
             }
+
             switch (clickMode.currentValue) {
                 case "CPS" -> {
-                    if (attackCounter.hasElapsed(calculateAttackDelay(), true)) {
-                        mc.player.swingArm(Hand.MAIN_HAND);
-                        mc.playerController.attackEntity(mc.player, target);
+                    if (attackCounter.hasElapsed(delayCalculator.getClickDelay(), true)) {
+                        attackEntity(target);
                     }
                 }
                 case "1.9" -> {
                     if (mc.player.getCooledAttackStrength(0) >= 1) {
-                        mc.player.swingArm(Hand.MAIN_HAND);
-                        mc.playerController.attackEntity(mc.player, target);
+                        attackEntity(target);
                     }
                 }
             }
         }
     }
 
-    private long calculateAttackDelay() {
-        long cps = (minCPS.currentValue.longValue() + maxCPS.currentValue.longValue()) / 2;
-        return 1000 / cps;
+    private void attackEntity(LivingEntity entity) {
+        mc.player.swingArm(Hand.MAIN_HAND);
+        mc.playerController.attackEntity(mc.player, entity);
     }
 }
