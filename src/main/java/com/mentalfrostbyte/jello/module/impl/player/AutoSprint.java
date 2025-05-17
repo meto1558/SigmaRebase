@@ -13,7 +13,6 @@ public class AutoSprint extends Module {
     public AutoSprint() {
         super(ModuleCategory.PLAYER, "AutoSprint", "Sprints for you");
         this.registerSetting(new BooleanSetting("NoJumpDelay", "Removes delay onJump.", false));
-        this.registerSetting(new BooleanSetting("VulcanGCD", "Set vulcan GCD values.", false));
     }
 
     @EventTarget
