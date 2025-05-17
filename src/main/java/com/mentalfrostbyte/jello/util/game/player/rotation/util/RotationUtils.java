@@ -37,21 +37,41 @@ public class RotationUtils {
         float currentPitch = currentRotation[1];
         float lastYaw = lastRotation[0];
         float lastPitch = lastRotation[1];
-        boolean nigger = Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()
+        boolean bypass = Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()
                 && (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Grim")
                 || Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).getStringSettingValueByName("Mode").equals("Clutch"));
-        float f = (float) ((nigger ? 0 : mc.gameSettings.mouseSensitivity) * 0.6F + 0.2F);
+        float f = (float) ((bypass ? 0 : mc.gameSettings.mouseSensitivity) * 0.6F + 0.2F);
         float f5 = f * f * f;
 
-        float gcd = f * f * f * (nigger ? 8.0F : Client.getInstance().moduleManager.getModuleByClass(AutoSprint.class).getBooleanValueFromSettingName("VulcanGCD") ? 1.2F : 8.0F);
+        float gcd = f * f * f * (bypass ? 1.2F : 8.0F);
 
         float deltaYaw = currentYaw - lastYaw;
         float deltaPitch = currentPitch - lastPitch;
 
-        deltaYaw -= (deltaYaw % gcd);
-        deltaPitch -= (deltaPitch % gcd);
+        // Add small random offsets to prevent exact zero differences after GCD adjustment
+        float yawOffset = ThreadLocalRandom.current().nextFloat() * 0.0001f + 0.0001f;
+        float pitchOffset = ThreadLocalRandom.current().nextFloat() * 0.0001f + 0.0001f;
 
-        if (nigger) {
+        // Apply GCD with small offsets to avoid exact zero differences
+        float yawMod = deltaYaw % gcd;
+        float pitchMod = deltaPitch % gcd;
+
+        // Only subtract the modulo if it's not going to result in a zero difference
+        if (Math.abs(yawMod) > 0.0001f) {
+            deltaYaw -= yawMod;
+        } else {
+            // Add a tiny random offset to avoid exact zero
+            deltaYaw = (float)(Math.floor(deltaYaw / gcd) * gcd + yawOffset);
+        }
+
+        if (Math.abs(pitchMod) > 0.0001f) {
+            deltaPitch -= pitchMod;
+        } else {
+            // Add a tiny random offset to avoid exact zero
+            deltaPitch = (float)(Math.floor(deltaPitch / gcd) * gcd + pitchOffset);
+        }
+
+        if (bypass) {
             MouseSmoother filterVolkanX = new MouseSmoother();
             MouseSmoother filterVolkanY = new MouseSmoother();
             deltaYaw = (float) filterVolkanX.smooth(deltaYaw, 3800F * gcd);
