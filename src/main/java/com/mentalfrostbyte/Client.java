@@ -76,6 +76,7 @@ public class Client implements MinecraftUtil {
         } catch (IOException exception) {
             logger.error(exception);
         }
+
         JelloAI.init();
         licenseManager = new LicenseManager();
         licenseManager.init();
@@ -138,10 +139,9 @@ public class Client implements MinecraftUtil {
 
     private void initRPC() {
         DiscordRPC updatePresence = DiscordRPC.INSTANCE;
-        String id = "693493612754763907";
         DiscordEventHandlers eventHandlers = new DiscordEventHandlers();
         eventHandlers.ready = e -> logger.info("Discord RPC Ready!");
-        updatePresence.Discord_Initialize(id, eventHandlers, true, "var5");
+        updatePresence.Discord_Initialize("693493612754763907", eventHandlers, true, "var5");
         discordRichPresence = new DiscordRichPresence();
         discordRichPresence.startTimestamp = System.currentTimeMillis() / 1000L;
         discordRichPresence.state = "Playing Minecraft";
