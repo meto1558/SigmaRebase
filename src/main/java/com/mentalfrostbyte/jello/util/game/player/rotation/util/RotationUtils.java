@@ -48,17 +48,23 @@ public class RotationUtils {
         float f = sensitivity * 0.6F + 0.2F;
         float gcd = f * f * f * (bypass ? 1.2F : 8.0F);
 
-        // Calculate rotation differences
-        float deltaYaw = currentYaw - lastYaw;
+        // Calculate rotation differences with proper wrapping
+        float deltaYaw = MathHelper.wrapAngleTo180_float(currentYaw - lastYaw);
         float deltaPitch = currentPitch - lastPitch;
 
-        // Apply a human-like rotation pattern
-        // This simulates how mouse movements would actually work
-        float fixedYaw = lastYaw;
-        float fixedPitch = lastPitch;
+        // Handle Aim Y check - limit large rotation changes
+        float maxRotationChange = 19.0f; // Just under the 20.0f threshold
+        if (Math.abs(deltaYaw) > maxRotationChange) {
+            deltaYaw = Math.signum(deltaYaw) * maxRotationChange;
+            currentYaw = lastYaw + deltaYaw;
+        }
+
+        // Apply a human-like rotation pattern for GCD
+        float fixedYaw = currentYaw;
+        float fixedPitch = currentPitch;
 
         // Calculate how many "mouse steps" this would take
-        int yawSteps = Math.round(deltaYaw / gcd);
+        int yawSteps = Math.round((fixedYaw - lastYaw) / gcd);
         int pitchSteps = Math.round(deltaPitch / gcd);
 
         // Apply the steps with slight variations
