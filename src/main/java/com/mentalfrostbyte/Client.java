@@ -153,6 +153,7 @@ public class Client implements MinecraftUtil {
         System.gc();
     }
 
+    //test
     public void saveClientData() {
         try {
             FileUtil.save(config, new File(file + "/config.json"));
