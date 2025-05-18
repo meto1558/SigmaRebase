@@ -6,6 +6,8 @@ import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import net.minecraft.network.play.client.CInputPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 
+import java.util.Objects;
+
 public class GhostlyDisabler extends Module {
     public GhostlyDisabler() {
         super(ModuleCategory.EXPLOIT, "Ghostly", "Disable ghostly's anticheat.");
@@ -14,7 +16,9 @@ public class GhostlyDisabler extends Module {
     @EventTarget
     public void TickEvent(EventUpdate event) {
         if (this.isEnabled() && mc.getCurrentServerData() != null) {
-            mc.getConnection().sendPacket(new CInputPacket(1.0F, 1.0F, false, false));
+            Objects.requireNonNull(mc.getConnection()).sendPacket(
+                    new CInputPacket(1.0F, 1.0F, false, false)
+            );
         }
     }
 }
