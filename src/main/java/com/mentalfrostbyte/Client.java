@@ -16,6 +16,7 @@ import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.glfw.GLFW;
 
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class Client implements MinecraftUtil {
     public static int currentVersionIndex = 28;
-    public static final org.apache.logging.log4j.Logger logger = LogManager.getLogger("Jello");
+    public static final Logger logger = LogManager.getLogger("Jello");
 
     public static final String RELEASE_TARGET = "5.1.0";
     public static final int BETA_ITERATION = 16;
