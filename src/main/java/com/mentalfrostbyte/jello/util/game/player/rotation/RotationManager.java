@@ -109,8 +109,8 @@ public class RotationManager {
         float pitchMove = Math.signum(pitchDiff) * totalPitchSpeed * timeDelta;
 
         // Additional safety check to prevent server kicks - limit per-tick rotation
-        yawMove = MathHelper.clamp(yawMove, -40.0f, 40.0f);
-        pitchMove = MathHelper.clamp(pitchMove, -40.0f, 40.0f);
+        yawMove = MathHelper.clamp(yawMove, -40.0f, 180.0f);
+        pitchMove = MathHelper.clamp(pitchMove, -40.0f, 180.0f);
 
         // Apply movement (capped to prevent overshooting)
         if (Math.abs(yawMove) > Math.abs(yawDiff)) {
