@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HypixelDisabler extends Module {
-    private final List<IPacket<?>> field23983 = new ArrayList<IPacket<?>>();
-    private boolean field23984;
-    private final TimerUtil field23985 = new TimerUtil();
+    private final List<IPacket<?>> heldPackets = new ArrayList<>();
+    private boolean doStuff;
+    private final TimerUtil timer = new TimerUtil();
 
     public HypixelDisabler() {
         super(ModuleCategory.EXPLOIT, "Hypixel", "Disable watchdog.");
@@ -29,17 +29,17 @@ public class HypixelDisabler extends Module {
     @Override
     public void onEnable() {
         if (!mc.player.isOnGround()) {
-            this.field23984 = false;
+            this.doStuff = false;
         } else {
-            double var3 = mc.player.getPosX();
-            double var5 = mc.player.getPosY();
-            double var7 = mc.player.getPosZ();
-            this.field23984 = false;
-            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3, var5 + 0.2, var7, false));
-            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3, var5 + 0.1, var7, false));
-            this.field23984 = true;
-            this.field23985.reset();
-            this.field23985.start();
+            double x = mc.player.getPosX();
+            double y = mc.player.getPosY();
+            double z = mc.player.getPosZ();
+            this.doStuff = false;
+            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(x, y + 0.2, z, false));
+            mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(x, y + 0.1, z, false));
+            this.doStuff = true;
+            this.timer.reset();
+            this.timer.start();
             if (!this.getBooleanValueFromSettingName("Instant")) {
                 Client.getInstance().notificationManager.send(new Notification("Hypixel disabler", "Wait 5s..."));
             } else {
@@ -51,25 +51,23 @@ public class HypixelDisabler extends Module {
 
     @Override
     public void onDisable() {
-        this.field23985.reset();
-        this.field23985.start();
-        if (this.field23984) {
-            int var3 = this.field23983.size();
-
-            for (int var4 = 0; var4 < var3; var4++) {
-                mc.getConnection().sendPacket(this.field23983.get(var4));
-            }
+        this.timer.reset();
+        this.timer.start();
+        if (this.doStuff) {
+			for (IPacket<?> heldPacket : this.heldPackets) {
+				mc.getConnection().sendPacket(heldPacket);
+			}
 
             Client.getInstance().notificationManager.send(new Notification("Hypixel disabler", "Disabler canceled"));
         }
 
-        this.field23983.clear();
+        this.heldPackets.clear();
     }
 
     @EventTarget
-    public void method16898(EventMotion var1) {
+    public void onMotion(EventMotion ignored) {
         if (mc.player != null) {
-            if (!this.field23984 && mc.player.isOnGround()) {
+            if (!this.doStuff && mc.player.isOnGround()) {
                 if (!this.getBooleanValueFromSettingName("Instant")) {
                     Client.getInstance().notificationManager.send(new Notification("Hypixel disabler", "Wait 5s..."));
                 } else {
@@ -77,33 +75,32 @@ public class HypixelDisabler extends Module {
                             .send(new Notification("Hypixel disabler", "Move where you want"));
                 }
 
-                this.field23985.reset();
-                this.field23985.start();
-                this.field23984 = true;
+                this.timer.reset();
+                this.timer.start();
+                this.doStuff = true;
             }
         }
     }
 
     @EventTarget
-    public void method16899(EventMove var1) {
+    public void onMove(EventMove e) {
         if (mc.player != null) {
-            if (!this.getBooleanValueFromSettingName("Instant") && this.field23984) {
-                var1.setX(0.0);
-                var1.setY(0.0);
-                var1.setZ(0.0);
+            if (!this.getBooleanValueFromSettingName("Instant") && this.doStuff) {
+                e.setX(0.0);
+                e.setY(0.0);
+                e.setZ(0.0);
             }
 
-            if (this.field23985.getElapsedTime() > 10000L && this.field23984) {
-                this.field23984 = false;
-                int var4 = this.field23983.size();
+            if (this.timer.getElapsedTime() > 10000L && this.doStuff) {
+                this.doStuff = false;
 
-                for (int var5 = 0; var5 < var4; var5++) {
-                    mc.getConnection().sendPacket(this.field23983.get(var5));
-                }
+				for (IPacket<?> heldPacket : this.heldPackets) {
+					mc.getConnection().sendPacket(heldPacket);
+				}
 
-                this.field23983.clear();
-                this.field23985.reset();
-                this.field23985.stop();
+                this.heldPackets.clear();
+                this.timer.reset();
+                this.timer.stop();
                 this.access().toggle();
                 Client.getInstance().notificationManager.send(new Notification("Hypixel disabler", "Disabler failed"));
             }
@@ -111,51 +108,49 @@ public class HypixelDisabler extends Module {
     }
 
     @EventTarget
-    public void onSendPacket(EventSendPacket var1) {
+    public void onSendPacket(EventSendPacket e) {
         if (mc.getConnection() != null) {
-            if (this.field23984) {
-                if (var1.packet instanceof CEntityActionPacket
-                        || var1.packet instanceof CPlayerPacket
-                        || var1.packet instanceof CUseEntityPacket
-                        || var1.packet instanceof CAnimateHandPacket
-                        || var1.packet instanceof CPlayerTryUseItemPacket) {
+            if (this.doStuff) {
+                if (e.packet instanceof CEntityActionPacket
+                        || e.packet instanceof CPlayerPacket
+                        || e.packet instanceof CUseEntityPacket
+                        || e.packet instanceof CAnimateHandPacket
+                        || e.packet instanceof CPlayerTryUseItemPacket) {
                     if (this.getBooleanValueFromSettingName("Instant")) {
-                        this.field23983.add(var1.packet);
+                        this.heldPackets.add(e.packet);
                     }
 
-                    var1.cancelled = true;
+                    e.cancelled = true;
                 }
             }
         }
     }
 
     @EventTarget
-    public void method16901(EventReceivePacket var1) {
-        if (mc.player != null && this.field23984) {
+    public void onReceivePacket(EventReceivePacket e) {
+        if (mc.player != null && this.doStuff) {
             if (this.isEnabled() || this.getBooleanValueFromSettingName("Instant")) {
-                if (var1.packet instanceof SPlayerPositionLookPacket) {
+                if (e.packet instanceof SPlayerPositionLookPacket pkt) {
                     this.access().toggle();
                     if (!this.getBooleanValueFromSettingName("Instant")) {
                         Client.getInstance().notificationManager
                                 .send(new Notification("Hypixel disabler", "You can do what you want for 5s"));
                     } else {
-                        SPlayerPositionLookPacket var4 = (SPlayerPositionLookPacket) var1.packet;
-                        var1.cancelled = true;
+                        e.cancelled = true;
                         mc.getConnection()
-                                .sendPacket(new CPlayerPacket.PositionRotationPacket(var4.getX(), var4.getY(), var4.getZ(), var4.yaw,
-                                        var4.pitch, false));
-                        int var5 = this.field23983.size();
+                                .sendPacket(new CPlayerPacket.PositionRotationPacket(pkt.getX(), pkt.getY(), pkt.getZ(), pkt.yaw,
+                                        pkt.pitch, false));
 
-                        for (int var6 = 0; var6 < var5; var6++) {
-                            mc.getConnection().sendPacket(this.field23983.get(var6));
-                        }
+						for (IPacket<?> heldPacket : this.heldPackets) {
+							mc.getConnection().sendPacket(heldPacket);
+						}
 
-                        this.field23983.clear();
+                        this.heldPackets.clear();
                         Client.getInstance().notificationManager
                                 .send(new Notification("Hypixel disabler", "Successfully sent packets"));
                     }
 
-                    this.field23984 = false;
+                    this.doStuff = false;
                 }
             }
         }
