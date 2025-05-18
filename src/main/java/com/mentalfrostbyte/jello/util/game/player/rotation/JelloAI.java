@@ -97,9 +97,7 @@ public class JelloAI {
         mc.player.rotationYaw = serverYaw;
         mc.player.rotationPitch = serverPitch;
 
-        // Restore client-side rotations (for camera)
-        mc.player.rotationYaw = originalYaw;
-        mc.player.rotationPitch = originalPitch;
+
     }
 
     // Remove duplicate methods and keep only one version of each method
