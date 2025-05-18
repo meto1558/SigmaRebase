@@ -100,7 +100,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete pojav-nightly -y || true
+          if gh release view pojav-nightly >/dev/null 2>&1; then
+            gh release delete pojav-nightly -y || true
+          fi
           gh release create pojav-nightly --prerelease --title "Nightly Pojav Build" --notes "Automated nightly pojav build"
       - name: Install GitHub CLI
         run: sudo apt-get install gh -y
