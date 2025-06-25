@@ -104,18 +104,14 @@ public class KillAuraOG extends Module {
         this.registerSetting(
                 new ModeSetting("Attack Mode", "Attacks after or before sending the movement", 0, "Pre", "Post"));
         this.registerSetting(new ModeSetting("Rotation Mode", "The way you will look at entities", 0, "NCP", "New", "Smooth", "LockView", "None"));
-        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.01F));
-        this.registerSetting(
-                new NumberSetting<>("Block Range", "Block Range value", 4.0F, Float.class, 2.8F, 8.0F, 0.2F));
-        this.registerSetting(
-                new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(setting -> interactAB.handleCPSSettingChange()));
-        this.registerSetting(
-                new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, Float.class, 1.0F, 20.0F, 1.0F)
-                        .addObserver(setting -> interactAB.handleCPSSettingChange()));
-        this.registerSetting(
-                new NumberSetting<>("Hit box expand", "Hit Box expand", 0.05F, Float.class, 0.0F, 1.0F, 0.01F));
-        this.registerSetting(new NumberSetting<>("Hit Chance", "Hit Chance", 100.0F, Float.class, 25.0F, 100.0F, 1.0F));
+        this.registerSetting(new NumberSetting<>("Range", "Range value", 4.0F,  2.8F, 8.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Block Range", "Block Range value", 4.0F,  2.8F, 8.0F, 0.2F));
+        this.registerSetting(new NumberSetting<>("Min CPS", "Min CPS value", 8.0F, 1.0F,  20.0F, 1.0F)
+                        .addObserver(setting -> interactAB.initializeCpsTimings()));
+        this.registerSetting(new NumberSetting<>("Max CPS", "Max CPS value", 8.0F, 1.0F, 20.0F, 1.0F)
+                        .addObserver(setting -> interactAB.initializeCpsTimings()));
+        this.registerSetting(new NumberSetting<>("Hit box expand", "Hit Box expand", 0.05F, 0.0F, 1.0F, 0.01F));
+        this.registerSetting(new NumberSetting<>("Hit Chance", "Hit Chance", 100.0F, 25.0F, 100.0F, 1.0F));
         this.registerSetting(new BooleanSetting("Interact auto block", "Send interact packet when blocking", true));
         this.registerSetting(new BooleanSetting("Players", "Hit players", true));
         this.registerSetting(new BooleanSetting("Animals", "Hit animals", false));
@@ -279,14 +275,14 @@ public class KillAuraOG extends Module {
     public void onUpdate(EventMotion event) {
         if (!event.isPre()) {
             currentItemIndex = mc.player.inventory.currentItem;
-            if (currentTarget != null && interactAB.canBlock() && currentRotations != null) {
+            if (currentTarget != null && interactAB.canAutoBlock() && currentRotations != null) {
                 if (this.getStringSettingValueByName("Autoblock Mode").equals("Fake")) {
                     mc.player.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(
                             mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ(),
                             mc.player.rotationYaw, mc.player.rotationPitch, mc.player.onGround
                     ));
                 } else {
-                    interactAB.block(currentTarget, currentRotations.yaw, currentRotations.pitch);
+                    interactAB.performAutoBlock(currentTarget, currentRotations.yaw, currentRotations.pitch);
                     isBlocking = true;
                 }
             }
@@ -307,8 +303,8 @@ public class KillAuraOG extends Module {
         if (!event.isPre()) {
             currentItemIndex = mc.player.inventory.currentItem;
 
-            if (currentTarget != null && interactAB.canBlock() && currentRotations != null) {
-                interactAB.block(currentTarget, currentRotations.yaw, currentRotations.pitch);
+            if (currentTarget != null && interactAB.canAutoBlock() && currentRotations != null) {
+                interactAB.performAutoBlock(currentTarget, currentRotations.yaw, currentRotations.pitch);
             }
             return;
         }
@@ -890,5 +886,4 @@ public class KillAuraOG extends Module {
         return angle;
     }
 }
-
  */
