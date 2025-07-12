@@ -229,8 +229,8 @@ public class Auto32k extends Module {
                     if (this.field23870 != null) {
                         if (this.field23873 != 0) {
                             if (this.field23873 == 1) {
-                                float yaw = BlockUtil.method34543(this.field23870.up(), Direction.UP)[0];
-                                float pitch = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
+                                float yaw = BlockUtil.rotationsToBlock(this.field23870.up(), Direction.UP)[0];
+                                float pitch = BlockUtil.rotationsToBlock(this.field23870.up(), Direction.UP)[1];
                                 event.setPitch(pitch);
                                 event.setYaw(yaw);
 
@@ -254,8 +254,8 @@ public class Auto32k extends Module {
                                 }
                             }
                         } else {
-                            float yaw = BlockUtil.method34543(this.field23870, Direction.UP)[0];
-                            float pitch = BlockUtil.method34543(this.field23870, Direction.UP)[1];
+                            float yaw = BlockUtil.rotationsToBlock(this.field23870, Direction.UP)[0];
+                            float pitch = BlockUtil.rotationsToBlock(this.field23870, Direction.UP)[1];
                             event.setPitch(pitch);
                             event.setYaw(yaw);
 
@@ -322,8 +322,8 @@ public class Auto32k extends Module {
             }
 
             if (var1.packet instanceof CUseEntityPacket) {
-                float var4 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[0];
-                float var5 = BlockUtil.method34543(this.field23870.up(), Direction.UP)[1];
+                float var4 = BlockUtil.rotationsToBlock(this.field23870.up(), Direction.UP)[0];
+                float var5 = BlockUtil.rotationsToBlock(this.field23870.up(), Direction.UP)[1];
             }
 
             if (var1.packet instanceof CPlayerPacket var6) {

@@ -266,11 +266,11 @@ public class BlockUtil {
         return mc.world.rayTraceBlocks(new RayTraceContext(var6, var10, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, var11));
     }
 
-    public static float[] method34543(BlockPos var0, Direction var1) {
+    public static float[] rotationsToBlock(BlockPos bp, Direction dir) {
         float var4 = 0.0F;
         float var5 = 0.0F;
         float var6 = (float) (0.4F + Math.random() * 0.1F);
-        switch (var1) {
+        switch (dir) {
             case EAST:
                 var4 += 0.49F;
                 break;
@@ -305,18 +305,18 @@ public class BlockUtil {
             var6 = (float) (0.6F - Math.sin((double) (System.currentTimeMillis() - 500L) / 1600.0) * 0.2);
         }
 
-        double var7 = (double) var0.getX() + 0.5 - Minecraft.getInstance().player.getPosX() + (double) var4;
-        double var9 = (double) var0.getY()
+        double var7 = (double) bp.getX() + 0.5 - Minecraft.getInstance().player.getPosX() + (double) var4;
+        double var9 = (double) bp.getY()
                 - 0.02
                 - (Minecraft.getInstance().player.getPosY() + (double) Minecraft.getInstance().player.getEyeHeight())
                 + (double) var6;
-        double var11 = (double) var0.getZ() + 0.5 - Minecraft.getInstance().player.getPosZ() + (double) var5;
+        double var11 = (double) bp.getZ() + 0.5 - Minecraft.getInstance().player.getPosZ() + (double) var5;
         double var13 = MathHelper.sqrt(var7 * var7 + var11 * var11);
-        float var15 = (float) (Math.atan2(var11, var7) * 180.0 / Math.PI) - 90.0F;
-        float var16 = (float) (-(Math.atan2(var9, var13) * 180.0 / Math.PI));
+        float yaw = (float) (Math.atan2(var11, var7) * 180.0 / Math.PI) - 90.0F;
+        float pitch = (float) (-(Math.atan2(var9, var13) * 180.0 / Math.PI));
         return new float[]{
-                Minecraft.getInstance().player.rotationYaw + MathHelper.wrapDegrees(var15 - Minecraft.getInstance().player.rotationYaw),
-                Minecraft.getInstance().player.rotationPitch + MathHelper.wrapDegrees(var16 - Minecraft.getInstance().player.rotationPitch)
+                Minecraft.getInstance().player.rotationYaw + MathHelper.wrapDegrees(yaw - Minecraft.getInstance().player.rotationYaw),
+                Minecraft.getInstance().player.rotationPitch + MathHelper.wrapDegrees(pitch - Minecraft.getInstance().player.rotationPitch)
         };
     }
 

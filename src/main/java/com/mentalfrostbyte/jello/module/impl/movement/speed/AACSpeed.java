@@ -282,42 +282,45 @@ public class AACSpeed extends Module {
         return this.field23401;
     }
 
-    public static double method16016(int var0, int var1, Runnable var2) {
-        double var5 = 0.29;
-        double var7 = 0.3019;
-        double var9 = 0.0286 - (double)var0 / 1000.0;
-        double[] var11 = new double[]{0.497, 0.3031, 0.302, var7, var7, var7, var7, var7, var7, var7, var7, 0.3, 0.301, 0.298, 0.297};
-        double[] var12 = new double[]{0.1069, 0.0642, 0.0629, 0.0607, 0.0584, 0.0561, 0.0539, 0.0517, 0.0496, 0.0475, 0.0455, 0.045, 0.042, 0.042, 0.042};
-        double[] var13 = new double[]{0.046, var9, var9, var9, var9, var9, var9, var9, var9, var9, var9, 0.018, var9 + 0.001, var9 + 0.001, var9 + 0.001};
+    /**
+     * @param var0 value 1
+     * @param var1 value 2
+     * @param runnable ran `if (var0 == 12 && var1 <= 2)` or if you're horizontally collided
+     * @return speed value
+     */
+    public static double method16016(int var0, int var1, Runnable runnable) {
+        double speed = 0.29;
+        double a = 0.3019;
+        double b = 0.0286 - (double)var0 / 1000.0;
+        double[] val1 = new double[]{0.497, 0.3031, 0.302, a, a, a, a, a, a, a, a, 0.3, 0.301, 0.298, 0.297};
+        double[] val2 = new double[]{0.1069, 0.0642, 0.0629, 0.0607, 0.0584, 0.0561, 0.0539, 0.0517, 0.0496, 0.0475, 0.0455, 0.045, 0.042, 0.042, 0.042};
+        double[] val3 = new double[]{0.046, b, b, b, b, b, b, b, b, b, b, 0.018, b + 0.001, b + 0.001, b + 0.001};
         if (var0 >= 0) {
-            if (var0 < var11.length) {
-                var5 = var11[var0];
+            if (var0 < val1.length) {
+                speed = val1[var0];
             }
 
-            if (var1 >= 2 && var0 < var12.length) {
-                var5 += var12[var0];
+            if (var1 >= 2 && var0 < val2.length) {
+                speed += val2[var0];
             }
 
-            if (var1 >= 3 && var0 < var13.length) {
-                var5 += var13[var0];
+            if (var1 >= 3 && var0 < val3.length) {
+                speed += val3[var0];
             }
 
             if (var0 == 12 && var1 <= 2) {
-                var2.run();
+                runnable.run();
             }
 
             if (mc.player.moveForward <= 0.0F) {
-                var5 -= 0.06;
+                speed -= 0.06;
             }
 
             if (mc.player.collidedHorizontally) {
-                var5 -= 0.1;
-                var2.run();
+                speed -= 0.1;
+                runnable.run();
             }
-
-            return var5;
-        } else {
-            return var5;
         }
+        return speed;
     }
 }
