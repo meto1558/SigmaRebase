@@ -126,12 +126,16 @@ public class VerusSpeed extends Module {
                 if (!mc.player.onGround) {
                     speed *= 0.9999999999999999D;
                     airTicks++;
+                    if (airTicks == 2) {
+                        mc.player.setMotion(mc.player.getMotion().x, -0.0784000015258789, mc.player.getMotion().z);
+                    }
                 } else {
                     airTicks = 0;
-                    if (mc.player.isPotionActive(Effects.SPEED)) {
-                        speed = 0.498D;
-                    } else {
-                        speed = 0.377D;
+                    speed = 0.3772D;
+
+                    EffectInstance speedEffect = mc.player.getActivePotionEffect(Effects.SPEED);
+                    if (speedEffect != null) {
+                        speed += (speedEffect.getAmplifier() + 1) * 0.018;
                     }
 
                     if (!mc.player.isSprinting())
@@ -143,10 +147,6 @@ public class VerusSpeed extends Module {
                         speed += (slipperiness * 0.3652);
 
                     mc.player.jump();
-                }
-
-                if (airTicks == 2) {
-                    mc.player.setMotion(mc.player.getMotion().x, -0.0784000015258789, mc.player.getMotion().z);
                 }
             }
 
