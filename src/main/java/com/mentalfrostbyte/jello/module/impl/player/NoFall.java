@@ -13,7 +13,7 @@ public class NoFall extends ModuleWithModuleSettings {
                 new HypixelNoFall(), new Hypixel2NoFall(),
                 new AACNoFall(), new NCPSpigotNoFall(),
                 new OldHypixelNoFall(), new VanillaLegitNoFall(),
-                new VerusNoFall()
+                new VerusNoFall(), new VulcanPhaseNoFall()
         );
     }
 }
