@@ -7,7 +7,6 @@ import com.mentalfrostbyte.jello.managers.CommandManager;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandArguments;
 import com.mentalfrostbyte.jello.managers.util.command.ChatCommandExecutor;
 import com.mentalfrostbyte.jello.managers.util.command.CommandException;
-import com.mentalfrostbyte.jello.managers.util.command.CommandType;
 import com.mentalfrostbyte.jello.module.Module;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.text.StringTextComponent;
@@ -24,17 +23,17 @@ public class Bind extends Command {
     @Override
     public void run(String var1, ChatCommandArguments[] args, ChatCommandExecutor executor) throws CommandException {
         if (args.length == 0) {
-            CommandManager.runRunnable(() -> mc.displayGuiScreen(new KeyboardHolder(new StringTextComponent("GuiKeybinds"))));
+            CommandManager.runRunnable(() ->
+                    mc.displayGuiScreen(new KeyboardHolder(new StringTextComponent("GuiKeybinds"))));
             return;
         }
 
         if (args.length == 1) {
             Module module = getModuleByName(args[0].getArguments());
-            if (module == null || args[0].getCommandType() != CommandType.TEXT)
+            if (module == null)
                 throw new CommandException("Module " + args[0].getArguments() + " not found");
 
             int key = Client.getInstance().moduleManager.getKeyManager().method13729(module);
-
             String keyPrefix = "key.keyboard.";
             String foundKey = null;
 
@@ -55,7 +54,7 @@ public class Bind extends Command {
 
         if (args.length == 2) {
             Module module = getModuleByName(args[0].getArguments());
-            if (module == null || args[0].getCommandType() != CommandType.TEXT)
+            if (module == null)
                 throw new CommandException("Module " + args[0].getArguments() + " not found");
 
             int keyCode = getKeyCodeFromString(args[1].getArguments().toLowerCase());
@@ -94,11 +93,19 @@ public class Bind extends Command {
     }
 
     public Module getModuleByName(String name) {
+        String input = name.replaceAll("\\s+", "").toLowerCase();
+
         for (Module mod : Client.getInstance().moduleManager.getModuleMap().values()) {
-            if (mod.getName().replace(" ", "").equalsIgnoreCase(name)) {
+            String modName = mod.getName()
+                    .replaceAll("§.", "")
+                    .replaceAll("\\s+", "")     
+                    .toLowerCase();
+
+            if (modName.equals(input)) {
                 return mod;
             }
         }
+
         return null;
     }
 }
