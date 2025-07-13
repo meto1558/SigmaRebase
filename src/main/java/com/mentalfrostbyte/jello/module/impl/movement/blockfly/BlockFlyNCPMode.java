@@ -121,10 +121,7 @@ public class BlockFlyNCPMode extends Module {
         }
 
         this.field23924 = -1;
-        if (((BlockFly) this.access()).lastSpoofedSlot >= 0) {
-            mc.getConnection().sendPacket(new CHeldItemChangePacket(mc.player.inventory.currentItem));
-            ((BlockFly) this.access()).lastSpoofedSlot = -1;
-        }
+
 
         MovementUtil.moveInDirection(MovementUtil.getSmartSpeed() * 0.9);
         mc.timer.timerSpeed = 1.0F;
@@ -240,9 +237,6 @@ public class BlockFlyNCPMode extends Module {
                     event.setPitch(this.pitch);
                 }
 
-                if (mc.player.rotationYaw != event.getYaw() && mc.player.rotationPitch != event.getPitch()) {
-                }
-
                 if (this.yaw != 999.0F) {
                     this.parent.method16736();
 
@@ -255,13 +249,14 @@ public class BlockFlyNCPMode extends Module {
                         );
 
                         int currentItem = mc.player.inventory.currentItem;
+                        int spoofSlot = -1;
 
                         if (!this.access().getStringSettingValueByName("ItemSpoof").equals("None")) {
-                            int slot = this.parent.getValidHotbarItemSlot();
-                            if (slot != -1 && slot != currentItem) {
-                                mc.getConnection().sendPacket(new CHeldItemChangePacket(slot));
-                                mc.player.inventory.currentItem = slot;
-                                ((BlockFly) this.access()).lastSpoofedSlot = slot;
+                            spoofSlot = this.parent.getValidHotbarItemSlot();
+                            if (spoofSlot != -1 && spoofSlot != currentItem) {
+                                mc.getConnection().sendPacket(new CHeldItemChangePacket(spoofSlot));
+                                mc.player.inventory.currentItem = spoofSlot;
+                                ((BlockFly) this.access()).lastSpoofedSlot = spoofSlot;
                             }
                         }
 
@@ -276,9 +271,11 @@ public class BlockFlyNCPMode extends Module {
 
                         if (this.access().getStringSettingValueByName("ItemSpoof").equals("Spoof")
                                 || this.access().getStringSettingValueByName("ItemSpoof").equals("LiteSpoof")) {
-                            mc.getConnection().sendPacket(new CHeldItemChangePacket(currentItem));
-                            mc.player.inventory.currentItem = currentItem;
-                            ((BlockFly) this.access()).lastSpoofedSlot = -1;
+                            if (spoofSlot != -1 && spoofSlot != currentItem) {
+                                mc.getConnection().sendPacket(new CHeldItemChangePacket(currentItem));
+                                mc.player.inventory.currentItem = currentItem;
+                                ((BlockFly) this.access()).lastSpoofedSlot = -1;
+                            }
                         }
                     }
                 }
