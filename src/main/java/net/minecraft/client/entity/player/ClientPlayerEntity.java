@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
@@ -286,7 +285,7 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
 
             ++this.positionUpdateTicks;
 
-            final var targetVersion = ViaLoadingBase.getInstance().getTargetVersion();
+            final var targetVersion = JelloPortal.getVersion();
             final var updateTicks = targetVersion.newerThanOrEqualTo(ProtocolVersion.v1_9) ? 19 : 20;
             final var point3 = targetVersion.newerThanOrEqualTo(ProtocolVersion.v1_18_2) ? 4.0E-8D : 9.0E-4D;
 
