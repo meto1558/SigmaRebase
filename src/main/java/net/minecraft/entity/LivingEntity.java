@@ -24,6 +24,8 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
 
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
@@ -2642,15 +2644,21 @@ public abstract class LivingEntity extends Entity {
         double d3 = vector3d.y;
         double d5 = vector3d.z;
 
-        if (Math.abs(vector3d.x) < 0.003D) {
+        final var targetVersion = ViaLoadingBase.getInstance().getTargetVersion();
+
+        var _003 = targetVersion.newerThanOrEqualTo(ProtocolVersion.v1_9)
+                ? 0.003D
+                : 0.005D;
+
+        if (Math.abs(vector3d.x) < _003) {
             d1 = 0.0D;
         }
 
-        if (Math.abs(vector3d.y) < 0.003D) {
+        if (Math.abs(vector3d.y) < _003) {
             d3 = 0.0D;
         }
 
-        if (Math.abs(vector3d.z) < 0.003D) {
+        if (Math.abs(vector3d.z) < _003) {
             d5 = 0.0D;
         }
 

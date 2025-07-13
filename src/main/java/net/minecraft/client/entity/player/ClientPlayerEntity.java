@@ -10,6 +10,7 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventSlowDown;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
 import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
@@ -285,31 +286,36 @@ public class ClientPlayerEntity extends AbstractClientPlayerEntity {
 
             ++this.positionUpdateTicks;
 
-            boolean flag1 = newX * newX + newY * newY + newZ * newZ > 9.0E-4D || this.positionUpdateTicks >= 20;
-            boolean flag2 = newYaw != 0.0D || newPitch != 0.0D;
+            final var targetVersion = ViaLoadingBase.getInstance().getTargetVersion();
+            final var updateTicks = targetVersion.newerThanOrEqualTo(ProtocolVersion.v1_9) ? 19 : 20;
+            final var point3 = targetVersion.newerThanOrEqualTo(ProtocolVersion.v1_18_2) ? 4.0E-8D : 9.0E-4D;
+
+            boolean posMoved = newX * newX + newY * newY + newZ * newZ > point3
+                    || this.positionUpdateTicks >= updateTicks;
+            boolean rotMoved = newYaw != 0.0D || newPitch != 0.0D;
 
             if (this.isPassenger()) {
                 Vector3d vector3d = this.getMotion();
                 this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(vector3d.x, -999.0, vector3d.z, yaw, pitch, onGround));
-                flag1 = false;
-            } else if (flag1 && flag2) {
+                posMoved = false;
+            } else if (posMoved && rotMoved) {
                 this.connection.sendPacket(new CPlayerPacket.PositionRotationPacket(x, y, z, yaw, pitch, onGround));
-            } else if (flag1) {
+            } else if (posMoved) {
                 this.connection.sendPacket(new CPlayerPacket.PositionPacket(x, y, z, onGround));
-            } else if (flag2) {
+            } else if (rotMoved) {
                 this.connection.sendPacket(new CPlayerPacket.RotationPacket(yaw, pitch, onGround));
             } else if (this.prevOnGround != this.onGround || JelloPortal.getVersion().equalTo(ProtocolVersion.v1_8)) {
                 this.connection.sendPacket(new CPlayerPacket(onGround));
             }
 
-            if (flag1) {
+            if (posMoved) {
                 this.lastReportedPosX = event.getX();
                 this.lastReportedPosY = event.getY();
                 this.lastReportedPosZ = event.getZ();
                 this.positionUpdateTicks = 0;
             }
 
-            if (flag2) {
+            if (rotMoved) {
                 this.lastReportedYaw = event.getYaw();
                 this.lastReportedPitch = event.getPitch();
             }
