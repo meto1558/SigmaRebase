@@ -54,34 +54,34 @@ public class TargetStrafe extends Module {
             if (this.getBooleanValueFromSettingName("Anti Scaffold") && Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
                 return;
             }
-            Entity var4 = null;
+            Entity target = null;
             if (Client.getInstance().moduleManager.getModuleByClass(Speed.class).isEnabled2() || !this.getBooleanValueFromSettingName("Only speed")) {
-                if (KillAura.targetData != null) {
-                    var4 = KillAura.targetData.getEntity();
-                } else if (KillAura.targetEntity != null) {
-                    var4 = KillAura.targetEntity;
+                if (KillAura.currentTimedEntity != null) {
+                    target = KillAura.currentTimedEntity.getEntity();
+                } else if (KillAura.currentTarget != null) {
+                    target = KillAura.currentTarget;
                 }
             }
 
-            if (var4 != null) {
+            if (target != null) {
                 double var5 = Math.sqrt(var1.getX() * var1.getX() + var1.getZ() * var1.getZ());
                 float var7 = this.getNumberValueBySettingName("Radius");
                 String var8 = this.getStringSettingValueByName("Mode");
                 switch (var8) {
                     case "Basic":
-                        this.method16152(var4, var5, var7, var1);
+                        this.method16152(target, var5, var7, var1);
                         break;
                     case "Ninja":
-                        float var15 = (float) Math.toRadians(var4.getRotationYawHead() - 180.0F);
-                        double var16 = var4.getPositionVec().x - (double) (MathHelper.sin(var15) * var7);
-                        double var17 = var4.getPositionVec().z + (double) (MathHelper.cos(var15) * var7);
+                        float var15 = (float) Math.toRadians(target.getRotationYawHead() - 180.0F);
+                        double var16 = target.getPositionVec().x - (double) (MathHelper.sin(var15) * var7);
+                        double var17 = target.getPositionVec().z + (double) (MathHelper.cos(var15) * var7);
                         var1.setX(var16 - mc.player.getPositionVec().x);
                         var1.setZ(var17 - mc.player.getPositionVec().z);
                         break;
                     case "Random":
                         float var10 = (float) (Math.random() * 2.0 * Math.PI);
-                        double var11 = var4.getPositionVec().x - (double) (MathHelper.sin(var10) * var7);
-                        double var13 = var4.getPositionVec().z + (double) (MathHelper.cos(var10) * var7);
+                        double var11 = target.getPositionVec().x - (double) (MathHelper.sin(var10) * var7);
+                        double var13 = target.getPositionVec().z + (double) (MathHelper.cos(var10) * var7);
                         var1.setX(var11 - mc.player.getPositionVec().x);
                         var1.setZ(var13 - mc.player.getPositionVec().z);
                 }

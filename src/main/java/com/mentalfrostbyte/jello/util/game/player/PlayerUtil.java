@@ -34,6 +34,10 @@ public class PlayerUtil {
     public static final float[] field24951 = new float[4];
     public static final float[] field24952 = new float[4];
 
+    public static Vector3d getBoundingBoxCenter(Entity entity) {
+        return getBoundingBoxCenter(entity.getBoundingBox());
+    }
+
     public static Vector3d getBoundingBoxCenter(AxisAlignedBB var0) {
         double var3 = var0.getCenter().x;
         double var5 = var0.minY;

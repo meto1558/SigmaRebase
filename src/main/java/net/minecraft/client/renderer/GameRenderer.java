@@ -267,7 +267,7 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
      * Gets the block or object that is being moused over.
      */
     public void getMouseOver(float partialTicks) {
-        boolean ka = mc.currentScreen == null && Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled() && Client.getInstance().moduleManager.getModuleByClass(KillAura.class).getBooleanValueFromSettingName("Raytrace") && KillAura.targetEntity != null;
+        boolean ka = mc.currentScreen == null && Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled() && Client.getInstance().moduleManager.getModuleByClass(KillAura.class).getBooleanValueFromSettingName("Raytrace") && KillAura.currentTarget != null;
 
         Entity entity = this.mc.getRenderViewEntity();
 
