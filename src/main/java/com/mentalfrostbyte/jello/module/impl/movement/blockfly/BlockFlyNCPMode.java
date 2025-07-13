@@ -183,12 +183,12 @@ public class BlockFlyNCPMode extends Module {
                 this.field23925++;
                 event.setMoving(true);
                 this.hand = Hand.MAIN_HAND;
-                if (InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(Hand.OFF_HAND).getItem())
+                if (InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(Hand.MAIN_HAND).getItem())
                         && (
                         mc.player.getHeldItem(this.hand).isEmpty()
                                 || !InvManagerUtil.shouldPlaceItem(mc.player.getHeldItem(this.hand).getItem())
                 )) {
-                    this.hand = Hand.OFF_HAND;
+                    this.hand = Hand.MAIN_HAND;
                 }
 
                 double var4 = event.getX();
