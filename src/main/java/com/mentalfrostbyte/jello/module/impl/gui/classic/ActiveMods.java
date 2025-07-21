@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.gui.classic;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
+import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -56,7 +56,7 @@ public class ActiveMods extends Module {
 	}
 
 	@EventTarget
-	private void onRender(EventRender2D event) {
+	public void onRender(EventRender2DOffset event) {
 		if (this.isEnabled() && mc.player != null) {
 			String var4 = this.getStringSettingValueByName("Animation");
 			String var5 = this.getStringSettingValueByName("Outline");
