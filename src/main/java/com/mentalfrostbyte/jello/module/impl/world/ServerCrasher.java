@@ -4,7 +4,7 @@ package com.mentalfrostbyte.jello.module.impl.world;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
-import com.mentalfrostbyte.jello.module.PremiumModule;
+import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,7 @@ import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.util.Hand;
 import team.sdhq.eventBus.annotations.EventTarget;
 
-public class ServerCrasher extends PremiumModule {
+public class ServerCrasher extends Module {
 	public int i;
 
 	public ServerCrasher() {

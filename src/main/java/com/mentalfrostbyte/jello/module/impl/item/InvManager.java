@@ -4,7 +4,6 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
@@ -24,7 +23,7 @@ import team.sdhq.eventBus.annotations.EventTarget;
 
 import java.util.ArrayList;
 
-public class InvManager extends PremiumModule {
+public class InvManager extends Module {
     public static int field23654 = 36;
     public static int field23655 = 37;
     public static int field23656 = 38;

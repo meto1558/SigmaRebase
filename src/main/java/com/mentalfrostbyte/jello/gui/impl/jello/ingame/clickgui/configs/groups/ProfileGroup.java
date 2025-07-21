@@ -9,7 +9,6 @@ import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.EditButton;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.TextField;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
-import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
@@ -100,7 +99,7 @@ public class ProfileGroup extends AnimatedIconPanel {
          var0.setXA(Math.round((float)var1x.getWidthA() / 2.0F));
          var0.setWidthA(Math.round((float)var1x.getWidthA() / 2.0F));
       });
-      deleteButton.doThis((var1x, var2x) -> {
+      deleteButton.onClick((var1x, var2x) -> {
          this.animation.changeDirection(Animation.Direction.FORWARDS);
           try {
              boolean profileDeleted = Files.deleteIfExists(new File(Client.getInstance().file + "/profiles/" + this.profileName.getText() + ".profile").toPath());
@@ -119,7 +118,7 @@ public class ProfileGroup extends AnimatedIconPanel {
           }
 
       });
-      var13.doThis((var1x, var2x) -> {
+      var13.onClick((var1x, var2x) -> {
          this.field21265.changeDirection(Animation.Direction.BACKWARDS);
          this.profileName.setSelfVisible(true);
          this.profileName.method13148();
@@ -129,7 +128,7 @@ public class ProfileGroup extends AnimatedIconPanel {
       this.field21264 = new Animation(100, 100, Animation.Direction.BACKWARDS);
       this.field21265 = new Animation(290, 290, Animation.Direction.BACKWARDS);
       this.animation = new Animation(200, 100, Animation.Direction.BACKWARDS);
-      this.doThis((var1x, var2x) -> {
+      this.onClick((var1x, var2x) -> {
          if (var2x != 1) {
             this.field21265.changeDirection(Animation.Direction.BACKWARDS);
             if (this.field21265.calcPercent() == 0.0F) {
@@ -137,12 +136,6 @@ public class ProfileGroup extends AnimatedIconPanel {
                Client.getInstance().soundManager.play("switch");
                ConfigScreen var5x = (ConfigScreen)this.getParent().getParent().getParent();
                var5x.runThisOnDimensionUpdate(() -> var5x.method13615());
-
-               for (Module module : Client.getInstance().moduleManager.getModuleMap().values()) {
-                  if (!Client.getInstance().licenseManager.isPremium()) {
-                     module.setEnabledBasic(false);
-                  }
-               }
             }
          } else {
             this.field21265.changeDirection(Animation.Direction.FORWARDS);

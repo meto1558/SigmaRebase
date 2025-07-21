@@ -1,8 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.item.autogapple;
 
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
+import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.impl.item.AutoGapple;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import net.minecraft.client.gui.screen.inventory.ChestScreen;
@@ -12,7 +12,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.util.Hand;
 import team.sdhq.eventBus.annotations.EventTarget;
 
-public class HypixelAutoGapple extends PremiumModule {
+public class HypixelAutoGapple extends Module {
     private int currentTickCounter;
     private int currentGappleSlot;
     private int gappleCooldown;

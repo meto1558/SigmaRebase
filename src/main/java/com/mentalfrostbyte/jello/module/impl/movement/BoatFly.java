@@ -3,14 +3,14 @@ package com.mentalfrostbyte.jello.module.impl.movement;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventMouse;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
+import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.PremiumModule;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
 
-public class BoatFly extends PremiumModule {
+public class BoatFly extends Module {
     public boolean field23643 = false;
 
     public BoatFly() {

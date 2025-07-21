@@ -7,22 +7,24 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventMouseHover;
 import com.mentalfrostbyte.jello.event.impl.game.network.EventReceivePacket;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMotion;
+import com.mentalfrostbyte.jello.gui.base.JelloPortal;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
+import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.PremiumModule;
 
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
 import com.mentalfrostbyte.jello.util.game.player.ServerUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
 import net.minecraft.network.play.server.SPlayerPositionLookPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.LowerPriority;
 
-public class Cubecraft2Fly extends PremiumModule {
-    public int field23696;
+public class Cubecraft2Fly extends Module {
+    public int counter;
     public final TimerUtil field23697 = new TimerUtil();
     public final TimerUtil field23698 = new TimerUtil();
     public boolean field23699;
@@ -33,7 +35,7 @@ public class Cubecraft2Fly extends PremiumModule {
 
     @Override
     public void onEnable() {
-        this.field23696 = 0;
+        this.counter = 0;
         if (!mc.gameSettings.keyBindSneak.isKeyDown()) {
             this.field23699 = false;
         } else {
@@ -41,12 +43,8 @@ public class Cubecraft2Fly extends PremiumModule {
             this.field23699 = true;
         }
 
-        if (ServerUtil.isCubecraft()/*
-                                         * && JelloPortal.getCurrentVersionApplied() ==
-                                         * ViaVerList._1_8_x.getVersionNumber()
-                                         */) {
-            Client.getInstance().notificationManager
-                    .send(new Notification("Cubecraft2 fly", "This fly was made for 1.9+ only"));
+        if (ServerUtil.isCubecraft() && JelloPortal.getVersion() == ProtocolVersion.v1_8) {
+            Client.getInstance().notificationManager.send(new Notification("Cubecraft2 fly", "This fly was made for 1.9+ only"));
         }
 
         this.field23698.stop();
@@ -67,7 +65,7 @@ public class Cubecraft2Fly extends PremiumModule {
             mc.getConnection().sendPacket(new CPlayerPacket.PositionPacket(var3, -150.0, var7, false));
             MovementUtil.moveInDirection(0.0);
             mc.player.setMotion(mc.player.getMotion().x, 0.0, mc.player.getMotion().z);
-            this.field23696 = -3;
+            this.counter = -3;
             this.field23697.reset();
             this.field23697.start();
         }
@@ -97,9 +95,9 @@ public class Cubecraft2Fly extends PremiumModule {
     @LowerPriority
     public void method16485(EventMove var1) {
         if (this.isEnabled()) {
-            this.field23696++;
-            if (this.field23696 != 1) {
-                if (this.field23696 != 2) {
+            this.counter++;
+            if (this.counter != 1) {
+                if (this.counter != 2) {
                     var1.setY(0.0);
                     MovementUtil.setMotion(var1, 0.0);
                 } else {
@@ -115,22 +113,22 @@ public class Cubecraft2Fly extends PremiumModule {
 
             mc.player.setMotion(mc.player.getMotion().x, var1.getY(), mc.player.getMotion().z);
         } else {
-            if (this.field23696 < 0) {
-                if (this.field23696 != -3) {
-                    if (this.field23696 != -2) {
-                        if (this.field23696 == -1) {
-                            this.field23696++;
+            if (this.counter < 0) {
+                if (this.counter != -3) {
+                    if (this.counter != -2) {
+                        if (this.counter == -1) {
+                            this.counter++;
                             var1.setY(-0.4);
                             MovementUtil.setMotion(var1, 0.0);
                         }
                     } else {
                         var1.setY(0.4);
-                        this.field23696++;
+                        this.counter++;
                         MovementUtil.setMotion(var1, 0.0);
                     }
                 } else {
                     if (this.field23697.getElapsedTime() > 1000L) {
-                        this.field23696++;
+                        this.counter++;
                         this.field23697.reset();
                         this.field23697.stop();
                     }
@@ -144,15 +142,15 @@ public class Cubecraft2Fly extends PremiumModule {
 
     @EventTarget
     public void method16486(EventMotion var1) {
-        if (this.field23696 == -3) {
+        if (this.counter == -3) {
             var1.cancelled = true;
         }
 
         if (this.isEnabled() && var1.isPre()) {
             var1.setMoving(true);
             var1.setOnGround(true);
-            if (this.field23696 != 3) {
-                if (this.field23696 > 3) {
+            if (this.counter != 3) {
+                if (this.counter > 3) {
                     if (this.field23698.isEnabled() && this.field23698.getElapsedTime() > 2000L) {
                         var1.setY(-150.0);
                         this.field23698.reset();
@@ -169,17 +167,17 @@ public class Cubecraft2Fly extends PremiumModule {
 
     @EventTarget
     public void method16487(EventReceivePacket var1) {
-        if (this.isEnabled() || this.field23696 < 0) {
+        if (this.isEnabled() || this.counter < 0) {
             IPacket var4 = var1.packet;
             if (var4 instanceof SPlayerPositionLookPacket var5) {
 				var5.yaw = mc.player.rotationYaw;
                 var5.pitch = mc.player.rotationPitch;
                 this.field23698.reset();
                 this.field23698.stop();
-                if (this.field23696 != -3) {
-                    this.field23696 = 0;
+                if (this.counter != -3) {
+                    this.counter = 0;
                 } else {
-                    this.field23696++;
+                    this.counter++;
                 }
             }
         }

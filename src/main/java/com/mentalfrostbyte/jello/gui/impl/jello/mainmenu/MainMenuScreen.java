@@ -1,8 +1,6 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.mainmenu;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.gui.base.alerts.AlertComponent;
-import com.mentalfrostbyte.jello.gui.base.alerts.ComponentType;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.FloatingBubble;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
@@ -34,7 +32,6 @@ public class MainMenuScreen extends Screen {
     private boolean field20968 = true;
     public JelloMainMenu mainMenuScreen;
     public ChangelogScreen changelogScreen;
-    public RedeemKeyScreen redeemKeyScreen;
     public Animation field20972 = new Animation(200, 200, Animation.Direction.BACKWARDS);
     public Animation animation = new Animation(200, 200, Animation.Direction.BACKWARDS);
     private final Animation field20974 = new Animation(325, 325);
@@ -103,19 +100,13 @@ public class MainMenuScreen extends Screen {
 
         this.addToList(this.mainMenuScreen = new JelloMainMenu(this, "main", 0, 0, this.widthA, this.heightA));
         this.addToList(this.changelogScreen = new ChangelogScreen(this, "changelog", 0, 0, this.widthA, this.heightA));
-        this.addToList(this.redeemKeyScreen = new RedeemKeyScreen(this, "redeem", 0, 0, this.widthA, this.heightA));
         this.changelogScreen.setHovered(false);
         this.changelogScreen.method13294(true);
-        this.redeemKeyScreen.setHovered(false);
-        this.redeemKeyScreen.method13294(true);
     }
 
     public void goOut() {
         this.field20972.changeDirection(Animation.Direction.BACKWARDS);
         this.changelogScreen.setHovered(false);
-        this.redeemKeyScreen.setHovered(false);
-        this.redeemKeyScreen.setReAddChildren(false);
-        this.redeemKeyScreen.method13294(true);
     }
 
     public void method13341() {
@@ -126,13 +117,6 @@ public class MainMenuScreen extends Screen {
     public void animateIn() {
         this.field20972.changeDirection(Animation.Direction.FORWARDS);
         this.changelogScreen.setHovered(true);
-    }
-
-    public void animateNext() {
-        this.field20972.changeDirection(Animation.Direction.FORWARDS);
-        this.redeemKeyScreen.setHovered(true);
-        this.redeemKeyScreen.setReAddChildren(true);
-        this.redeemKeyScreen.method13294(false);
     }
 
     @Override
@@ -293,31 +277,6 @@ public class MainMenuScreen extends Screen {
         super.keyPressed(keyCode);
         if (keyCode == 256) { //escape key
             this.goOut();
-        }
-    }
-
-    public void logout() {
-        if (this.alert == null) {
-            this.runThisOnDimensionUpdate(() -> {
-                ArrayList<AlertComponent> alert = new ArrayList<>();
-                alert.add(new AlertComponent(ComponentType.HEADER, "Logout", 45));
-                alert.add(new AlertComponent(ComponentType.FIRST_LINE, "Are you sure?", 35));
-                alert.add(new AlertComponent(ComponentType.BUTTON, "Yes", 55));
-                this.showAlert(this.alert = new Alert(this, "music", true, "Dependencies.", alert.toArray(new AlertComponent[0])));
-                this.alert.method13604(var1 -> new Thread(() -> {
-                    try {
-                        Thread.sleep(114L);
-                        this.runThisOnDimensionUpdate(() -> {
-                            this.removeChildren(this.alert);
-                            this.alert = null;
-                        });
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }).start());
-                this.alert.onPress(var -> Client.getInstance().licenseManager.resetLicense());
-                this.alert.method13603(true);
-            });
         }
     }
 
