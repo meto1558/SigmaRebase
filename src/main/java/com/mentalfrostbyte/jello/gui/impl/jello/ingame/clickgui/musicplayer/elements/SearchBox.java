@@ -66,7 +66,7 @@ public class SearchBox extends AnimatedIconPanel {
                                                                     var4
                                                             )
                                                     );
-                                            var7x.doThis((var2, var3xx) -> this.field20843.playSong(null, var4));
+                                            var7x.onClick((var2, var3xx) -> this.field20843.playSong(null, var4));
                                         }
                                     }
                                 }

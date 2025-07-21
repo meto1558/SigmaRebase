@@ -33,14 +33,15 @@ public class ModuleManager {
     private final Map<Class<? extends Module>, Module> moduleMap = new LinkedHashMap<>();
     private ProfileManager profile;
     private KeyManager keyManager;
-    private List<Module> modules;
-
-    private void createModules() {
-        this.modules = new ArrayList<>();
-    }
+    private List<Module> modules = new ArrayList<>();
 
     private void register(Module module) {
         this.modules.add(module);
+    }
+
+    public void reset() {
+        modules.forEach(EventBus::unregister);
+        this.modules.clear();
     }
 
     private void sortBySuffixAndRegisterEvents() {
@@ -53,8 +54,6 @@ public class ModuleManager {
     }
 
     public void register(ClientMode clientMode) {
-        this.createModules();
-
         // GUI
         if (clientMode == ClientMode.JELLO) {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods());
@@ -78,6 +77,7 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.classic.ActiveMods());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.classic.ESP());
         }
+
         // COMBAT
         this.register(new AutoClicker());
         this.register(new AntiKnockback());

@@ -99,6 +99,6 @@ public class Config extends Command {
     }
 
     public String getConfigOrProfileName() {
-        return Client.getInstance().clientMode != ClientMode.CLASSIC ? "Profile" : "Config";
+        return Client.getInstance().clientMode == ClientMode.JELLO ? "Profile" : "Config";
     }
 }

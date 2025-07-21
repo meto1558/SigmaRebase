@@ -74,7 +74,7 @@ public class ModsPanel extends Element {
             .addToList(
                var16 = new Button(this.field21308, var14.method21596(), 0, var11++ * 55, this.field21308.getWidthA(), 55, var15, var14.method21596())
             );
-         var16.doThis((var2x, var3x) -> {
+         var16.onClick((var2x, var3x) -> {
             for (Entry var7 : GuiManager.screenToScreenName.entrySet()) {
                Class6984 var8 = new Class6984((Class<? extends Screen>)var7.getKey());
                if (var8.method21596().equals(var16.getName()) && !this.field21311) {
@@ -98,7 +98,7 @@ public class ModsPanel extends Element {
                )
             );
          var21.method13034(10);
-         var21.doThis((var2x, var3x) -> {
+         var21.onClick((var2x, var3x) -> {
             for (Module var7 : Client.getInstance().moduleManager.getModuleMap().values()) {
                if (var7.getName().equals(var21.getText()) && !this.field21311) {
                   this.field21309 = new Class6984(var7);

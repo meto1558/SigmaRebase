@@ -26,7 +26,7 @@ public class Keyboard extends Element {
                key.row
             )
          );
-         var11.doThis((var2x, var3x) -> {
+         var11.onClick((var2x, var3x) -> {
             this.field20696 = var11.field20690;
             this.callUIHandlers();
          });

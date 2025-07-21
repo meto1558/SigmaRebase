@@ -92,7 +92,7 @@ public class MusicPlayer extends AnimatedIconPanel {
         SpectrumButton var5;
         this.addToList(var5 = new SpectrumButton(this, "spectrumButton", 15, this.heightA - 140, 40, 40, this.musicManager.isSpectrum()));
         var5.setReAddChildren(true);
-        var5.doThis((var1x, var2x) -> {
+        var5.onClick((var1x, var2x) -> {
             this.musicManager.setSpectrum(!this.musicManager.isSpectrum());
             ((SpectrumButton) var1x).method13099(this.musicManager.isSpectrum());
         });
@@ -158,10 +158,10 @@ public class MusicPlayer extends AnimatedIconPanel {
         });
         this.pause.setSelfVisible(false);
         this.play.setSelfVisible(false);
-        this.play.doThis((var1x, var2x) -> this.musicManager.setPlaying(true));
-        this.pause.doThis((var1x, var2x) -> this.musicManager.setPlaying(false));
-        this.forwards.doThis((var1x, var2x) -> this.musicManager.playNextSong());
-        this.backwards.doThis((var1x, var2x) -> this.musicManager.playPreviousSong());
+        this.play.onClick((var1x, var2x) -> this.musicManager.setPlaying(true));
+        this.pause.onClick((var1x, var2x) -> this.musicManager.setPlaying(false));
+        this.forwards.onClick((var1x, var2x) -> this.musicManager.playNextSong());
+        this.backwards.onClick((var1x, var2x) -> this.musicManager.playPreviousSong());
         this.volumeSlider.method13709(var1x -> this.musicManager.setVolume((int) ((1.0F - this.volumeSlider.getVolume()) * 100.0F)));
         this.volumeSlider.setVolume(1.0F - (float) this.musicManager.getVolume() / 100.0F);
         this.addToList(

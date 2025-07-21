@@ -133,10 +133,29 @@ public class GuiManager {
         }
     }
 
-    public void useClassicReplacementScreens() {
+    public void useClassic() {
         replacementScreens.clear();
         replacementScreens.put(MainMenuHolder.class, ClassicMainScreen.class);
         replacementScreens.put(ClickGuiHolder.class, ClassicClickGui.class);
+    }
+
+    public void useJello() {
+        replacementScreens.clear();
+        replacementScreens.put(MainMenuHolder.class, MainMenuScreen.class);
+        replacementScreens.put(ClickGuiHolder.class, ClickGuiScreen.class);
+        replacementScreens.put(KeyboardHolder.class, KeyboardScreen.class);
+        replacementScreens.put(MapsHolder.class, MapsScreen.class);
+        replacementScreens.put(SnakeHolder.class, SnakeGameScreen.class);
+        replacementScreens.put(BirdHolder.class, BirdGameScreen.class);
+        replacementScreens.put(SpotlightHolder.class, SpotlightScreen.class);
+        replacementScreens.put(JelloOptionsHolder.class, JelloOptions.class);
+        replacementScreens.put(CreditsHolder.class, CreditsScreen.class);
+        screenToScreenName.put(ClickGuiHolder.class, "Click GUI");
+        screenToScreenName.put(KeyboardHolder.class, "Keybind Manager");
+        screenToScreenName.put(MapsHolder.class, "Jello Maps");
+        screenToScreenName.put(SnakeHolder.class, "Snake");
+        screenToScreenName.put(BirdHolder.class, "Bird");
+        screenToScreenName.put(SpotlightHolder.class, "Spotlight");
     }
 
     /**

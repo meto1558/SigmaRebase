@@ -28,7 +28,7 @@ public class ColorPicker extends Element {
         this.addToList(this.field20622 = new ColorPickerBubble(this, "bubble", var5 - 40, var6 - 32, 25, 25, var11.getRGB()));
         this.field20620.onPress(var1x -> this.method13050());
         this.field20621.onPress(var1x -> this.method13050());
-        this.field20622.doThis((var1x, var2x) -> this.method13045(!this.method13047()));
+        this.field20622.onClick((var1x, var2x) -> this.method13045(!this.method13047()));
         this.field20619 = var8;
     }
 

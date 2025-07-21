@@ -56,7 +56,7 @@ public class PopOver extends Element {
                         ResourceRegistry.JelloLightFont25
                 )
         );
-        var9.doThis((var1x, var2x) -> this.method13714());
+        var9.onClick((var1x, var2x) -> this.method13714());
     }
 
     public void method13712() {

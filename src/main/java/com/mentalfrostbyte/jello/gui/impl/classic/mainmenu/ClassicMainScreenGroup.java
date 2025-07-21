@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.classic.mainmenu;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
+import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.altmanager.ClassicAltScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
 import com.mentalfrostbyte.jello.gui.impl.classic.mainmenu.buttons.BoxedButton;
@@ -34,23 +35,24 @@ public class ClassicMainScreenGroup extends CustomGuiScreen {
       this.addToList(
          this.accountsButton = new BoxedButton(this, "Accounts", this.method13497(clicks++), this.method13496() + 140 + 10, 114, 140, Resources.accounts)
       );
-      this.addToList(this.agoraButton = new BoxedButton(this, "Agora", this.method13497(clicks++), this.method13496() + 140 + 10, 114, 140, Resources.agora));
+      this.addToList(this.agoraButton = new BoxedButton(this, "Switch", this.method13497(clicks++), this.method13496() + 140 + 10, 114, 140, Resources.switchMode));
       this.addToList(this.exitButton = new BoxedButton(this, "Exit", this.method13497(clicks++), this.method13496() + 140 + 10, 114, 140, Resources.exit));
-      this.singlePlayerButton.doThis((var1x, var2x) -> this.displayMcScreen(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
-      this.multiplayerButton.doThis((var1x, var2x) -> this.displayMcScreen(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
-      this.optionsButton.doThis((var1x, var2x) -> this.displayMcScreen(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
-      this.accountsButton.doThis((var1x, var2x) -> this.handleScreenAndPlayClick(new ClassicAltScreen()));
-      this.languageButton
-         .doThis(
-            (var1x, var2x) -> this.displayMcScreen(
-                  new LanguageScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings, Minecraft.getInstance().getLanguageManager())
-               )
-         );
-      this.exitButton.doThis((var0, var1x) -> Minecraft.getInstance().shutdown());
+      this.singlePlayerButton.onClick((var1x, var2x) -> this.displayMcScreen(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
+      this.multiplayerButton.onClick((var1x, var2x) -> this.displayMcScreen(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
+      this.optionsButton.onClick((var1x, var2x) -> this.displayMcScreen(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
+      this.accountsButton.onClick((var1x, var2x) -> this.handleScreenAndPlayClick(new ClassicAltScreen()));
+      this.languageButton.onClick((var1x, var2x) -> this.displayMcScreen(new LanguageScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings, Minecraft.getInstance().getLanguageManager())));
+      this.agoraButton.onClick((a, b) -> displayScreen(new SwitchScreen()));
+      this.exitButton.onClick((var0, var1x) -> Minecraft.getInstance().shutdown());
    }
 
    public void displayMcScreen(net.minecraft.client.gui.screen.Screen screen) {
       Minecraft.getInstance().displayGuiScreen(screen);
+      this.playClick();
+   }
+
+   public void displayScreen(Screen var1) {
+      Client.getInstance().guiManager.handleScreen(var1);
       this.playClick();
    }
 

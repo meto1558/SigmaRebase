@@ -101,7 +101,7 @@ public class Alert extends Element {
                         this.screen.addToList(button = new Button(this.screen, "Item" + var17, 0, var18, this.field21284, component.field44773, ColorHelper.field27961, component.text));
                         this.buttons.add(button);
                         button.field20586 = 4;
-                        button.doThis((var1x, var2x) -> {
+                        button.onClick((var1x, var2x) -> {
                             switch (button.text) {
                                 case "Cookie login" -> {
                                     File file = FileUtil.getFileFromDialog();

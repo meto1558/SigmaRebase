@@ -179,7 +179,7 @@ public class AltManagerScreen extends Screen {
         TextButton addButton;
         this.addToList(addButton = new TextButton(this, "btnt", this.getWidthA() - 90, 43, 70, 30, ColorHelper.field27961, "Add +", ResourceRegistry.JelloLightFont25));
         this.alts.method13242();
-        addButton.doThis((var1, var2) -> {
+        addButton.onClick((var1, var2) -> {
             if (this.method13369()) {
                 this.loginDialog.method13603(!this.loginDialog.isHovered());
             }

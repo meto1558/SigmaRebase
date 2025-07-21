@@ -44,7 +44,7 @@ public class DirectLoginScreen extends Screen {
       this.addToList(this.importButton = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
       this.password.setCensorText(true);
       this.password.method13147("*");
-      this.loginButton.doThis((var1, var2) -> {
+      this.loginButton.onClick((var1, var2) -> {
          this.status = "§bLogging in...";
          new Thread(() -> {
             Account account = new Account(this.emailOrUsername.getText(), this.password.getText());
@@ -55,8 +55,8 @@ public class DirectLoginScreen extends Screen {
             }
          }).start();
       });
-      this.backButton.doThis((var0, var1) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
-      this.importButton.doThis((var1, var2) -> {
+      this.backButton.onClick((var0, var1) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
+      this.importButton.onClick((var1, var2) -> {
          String var5x = "";
 
          var5x = GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle()) == null ? "" : GLFW.glfwGetClipboardString(Minecraft.getInstance().getMainWindow().getHandle());

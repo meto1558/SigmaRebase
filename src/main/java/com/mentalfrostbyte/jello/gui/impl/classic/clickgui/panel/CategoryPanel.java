@@ -24,7 +24,7 @@ public class CategoryPanel extends Element {
       if (var7.getSettingMap().size() > 0) {
          Setting var11;
          this.addToList(var11 = new Setting(this, "gear", 132, 32));
-         var11.doThis((var2x, var3x) -> ((ModuleSettingGroup)this.getParent()).method13486(var7));
+         var11.onClick((var2x, var3x) -> ((ModuleSettingGroup)this.getParent()).method13486(var7));
       }
    }
 

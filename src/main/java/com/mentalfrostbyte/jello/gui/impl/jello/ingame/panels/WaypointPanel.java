@@ -61,7 +61,7 @@ public class WaypointPanel extends Element {
                         ResourceRegistry.JelloLightFont25
                 )
         );
-        var8.doThis((var1x, var2x) -> this.method13132(this.field20729.getText(), this.method13130(), this.field20730.field21296));
+        var8.onClick((var1x, var2x) -> this.method13132(this.field20729.getText(), this.method13130(), this.field20730.field21296));
         this.addToList(this.field20729 = new TextField(this, "Name", 20, 7, this.widthA - 40, 60, TextField.field20741, "My waypoint", "My waypoint"));
         this.field20729.method13148();
         this.field20729.setRoundedThingy(false);

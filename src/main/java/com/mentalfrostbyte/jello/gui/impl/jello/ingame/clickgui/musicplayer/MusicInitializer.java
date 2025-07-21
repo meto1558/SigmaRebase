@@ -73,7 +73,7 @@ public class MusicInitializer implements Runnable {
                                         song
                                 )
                         );
-                        thumbnail.doThis((parent, idk) -> {
+                        thumbnail.onClick((parent, idk) -> {
                             if (this.musicPlayer.parent.hasJelloMusicRequirements())
                                 MusicPlayer.playSong(this.musicPlayer2, this.thumbnail, song);
                         });
@@ -81,7 +81,7 @@ public class MusicInitializer implements Runnable {
                 }
             }
 
-            var3.doThis((var2, var3x) -> MusicPlayer.method13210(this.musicPlayer2, queue));
+            var3.onClick((var2, var3x) -> MusicPlayer.method13210(this.musicPlayer2, queue));
         }
     }
 }

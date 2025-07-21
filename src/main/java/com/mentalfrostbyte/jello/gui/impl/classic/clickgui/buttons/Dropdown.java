@@ -39,7 +39,7 @@ public class Dropdown extends Element {
          var1.setWidthA(this.getWidthA());
          var1.setHeightA(this.getHeightA());
       });
-      var3.doThis((var1, var2) -> this.method13674(!this.method13673()));
+      var3.onClick((var1, var2) -> this.method13674(!this.method13673()));
 
       for (String var5 : this.field21343) {
          Button var6;
@@ -64,7 +64,7 @@ public class Dropdown extends Element {
             )
          );
          var6.method13034(8);
-         var6.doThis((var2, var3x) -> {
+         var6.onClick((var2, var3x) -> {
             int var6x = this.method13671();
             this.method13672(this.field21343.indexOf(var5));
             this.method13674(false);

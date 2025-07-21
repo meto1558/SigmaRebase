@@ -53,7 +53,7 @@ public class Sub extends Element {
             )
          );
          button.method13034(10);
-         button.doThis((var2, var3) -> {
+         button.onClick((var2, var3) -> {
             this.method13641(this.values.indexOf(value));
             this.callUIHandlers();
          });

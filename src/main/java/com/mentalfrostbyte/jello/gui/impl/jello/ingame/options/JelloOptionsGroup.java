@@ -26,9 +26,9 @@ public class JelloOptionsGroup extends CustomGuiScreen {
       this.addToList(var11 = new TextButton(this, "openGui", var5 / 2, var6 - 80, 300, 38, var9, "Open Jello's Click GUI", ResourceRegistry.JelloLightFont24));
       TextButton var12;
       this.addToList(var12 = new TextButton(this, "credits", var5 / 2 - 100, var6 - 280, 200, 38, var9, "Credits", ResourceRegistry.JelloLightFont18));
-      var10.doThis((var0, var1x) -> JelloOptions.showGUI(new KeyboardHolder(new StringTextComponent("Keybind Manager"))));
-      var11.doThis((var0, var1x) -> JelloOptions.showGUI(new ClickGuiHolder(new StringTextComponent("Click GUI"))));
-      var12.doThis((var0, var1x) -> JelloOptions.showGUI(new CreditsHolder(new StringTextComponent("GuiCredits"))));
+      var10.onClick((var0, var1x) -> JelloOptions.showGUI(new KeyboardHolder(new StringTextComponent("Keybind Manager"))));
+      var11.onClick((var0, var1x) -> JelloOptions.showGUI(new ClickGuiHolder(new StringTextComponent("Click GUI"))));
+      var12.onClick((var0, var1x) -> JelloOptions.showGUI(new CreditsHolder(new StringTextComponent("GuiCredits"))));
       Checkbox var13;
       this.addToList(var13 = new Checkbox(this, "guiBlurCheckBox", var5 / 2 - 70, var6 - 220, 25, 25));
       var13.method13705(Client.getInstance().guiManager.getGuiBlur(), false);

@@ -83,7 +83,7 @@ public class ClassicAltScreen extends Screen {
                 .addToList(
                         var5 = new Account(this.altList, var1.getEmail(), 4, var4 * this.method13400() + 4, this.altList.getWidthA() - 8, var4, var1)
                 );
-        var5.doThis((var2, var3) -> {
+        var5.onClick((var2, var3) -> {
             if (var3 == 0) {
                 Account var6 = this.method13406();
                 if (var6 != null) {

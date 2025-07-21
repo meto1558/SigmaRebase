@@ -42,7 +42,7 @@ public class ConfigScreen extends Element {
                         this, "addButton", this.widthA - 55, 0, ResourceRegistry.JelloLightFont25.getWidth("Add"), 69, ColorHelper.field27961, "+", ResourceRegistry.JelloLightFont25
                 )
         );
-        addButton.doThis((var1x, var2x) -> this.field21300.method13119(true));
+        addButton.onClick((var1x, var2x) -> this.field21300.method13119(true));
         this.addToList(this.field21300 = new ConfigGroup(this, "profile", 0, 69, this.widthA, 200));
         this.field21300.setReAddChildren(true);
         this.method13615();

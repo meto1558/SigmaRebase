@@ -25,7 +25,7 @@ public class BadgeSelect extends Element {
             this.field21296 = var11.color;
          }
 
-         var12.doThis((var1x, var2x) -> {
+         var12.onClick((var1x, var2x) -> {
             for (CustomGuiScreen var6 : var1x.getParent().getChildren()) {
                if (var6 instanceof Waypoint) {
                   ((Waypoint)var6).field20598 = false;

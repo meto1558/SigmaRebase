@@ -34,7 +34,7 @@ public class ConfigGroup extends Element {
       this.addToList(
          blankButton = new TextButton(this, "blankButton", 25, 0, ResourceRegistry.JelloLightFont20.getWidth("Blank"), 30, ColorHelper.field27961, "Blank", ResourceRegistry.JelloLightFont20)
       );
-      blankButton.doThis((var1x, var2x) -> {
+      blankButton.onClick((var1x, var2x) -> {
          ConfigScreen var5x = (ConfigScreen)this.getParent();
          var5x.method13612();
       });
@@ -52,7 +52,7 @@ public class ConfigGroup extends Element {
             ResourceRegistry.JelloLightFont20
          )
       );
-      var10.doThis((var1x, var2x) -> {
+      var10.onClick((var1x, var2x) -> {
          ConfigScreen var5x = (ConfigScreen)this.getParent();
          var5x.method13610();
       });
@@ -71,7 +71,7 @@ public class ConfigGroup extends Element {
                         this.field20705, "p_" + var7, 0, 0, var5, 30, new ColorHelper(-723724, -2039584, 0, -14671840), var7, ResourceRegistry.JelloLightFont18
                      )
                   );
-               var8.doThis((var3x, var4x) -> {
+               var8.onClick((var3x, var4x) -> {
                   this.method13118(true);
                   new Thread(() -> {
                      Client.getInstance();

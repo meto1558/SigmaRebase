@@ -44,7 +44,7 @@ public class AddAltScreen extends Screen {
       this.addToList(this.field21120 = new AltManagerButton(this, "import", var5, var4, var3, 40, "Import user:pass", ClientColors.MID_GREY.getColor()));
       this.field21117.setCensorText(true);
       this.field21117.method13147("*");
-      this.field21118.doThis((var1, var2) -> {
+      this.field21118.onClick((var1, var2) -> {
          this.field21122 = "§bLogging in...";
          new Thread(() -> {
             Account var3x = new Account(this.field21116.getText(), this.field21117.getText());
@@ -56,8 +56,8 @@ public class AddAltScreen extends Screen {
             }
          }).start();
       });
-      this.field21119.doThis((var0, var1) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
-      this.field21120.doThis((var1, var2) -> {
+      this.field21119.onClick((var0, var1) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
+      this.field21120.onClick((var1, var2) -> {
          String var5x = "";
 
          try {

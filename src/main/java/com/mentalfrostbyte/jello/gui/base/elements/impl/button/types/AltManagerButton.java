@@ -17,7 +17,7 @@ public class AltManagerButton extends AnimatedIconPanel {
     public AltManagerButton(CustomGuiScreen screen, String id, int x, int y, int width, int height, String text, int color) {
         super(screen, id, x, y, width, height, false);
         this.setText(text);
-        this.doThis((sc, i) -> Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F)));
+        this.onClick((sc, i) -> Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F)));
         this.color = color;
     }
 

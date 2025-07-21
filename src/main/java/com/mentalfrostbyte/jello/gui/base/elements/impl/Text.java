@@ -20,7 +20,7 @@ public class Text extends AnimatedIconPanel {
             FontSizeAdjust.field14488,
             FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
     );
-    public boolean field20779 = false;
+    public boolean shadow = false;
 
     public Text(CustomGuiScreen screen, String id, int var3, int var4, int var5, int var6, ColorHelper colorHelper, String var8) {
         super(screen, id, var3, var4, var5, var6, colorHelper, var8, false);
@@ -32,7 +32,7 @@ public class Text extends AnimatedIconPanel {
 
     @Override
     public void draw(float partialTicks) {
-        if (this.field20779) {
+        if (this.shadow) {
             GL11.glAlphaFunc(518, 0.01F);
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont18_1,

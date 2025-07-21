@@ -82,7 +82,7 @@ public class ClickGuiScreen extends Screen {
         moreButton.setListening(false);
 
         this.musicPlayer.setSelfVisible(true);
-        moreButton.doThis((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
+        moreButton.onClick((var1, var2) -> this.runThisOnDimensionUpdate(() -> {
             if (this.configButton != null && this.hasChild(this.configButton)) {
                 this.method13234(this.configButton);
             } else {

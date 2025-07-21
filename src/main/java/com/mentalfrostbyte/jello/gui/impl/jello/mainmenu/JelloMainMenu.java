@@ -7,8 +7,6 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.impl.SwitchScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.altmanager.AltManagerScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.viamcp.JelloPortalScreen;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.LoginButton;
-import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.PremiumButton;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.Text;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.managers.GuiManager;
@@ -35,22 +33,18 @@ public class JelloMainMenu extends CustomGuiScreen {
     private final Button realmsButton;
     private final Button optionsButton;
     private final Button altManagerButton;
-    private final PremiumButton premiumButton;
-    private final Text field21129;
-    private final Text field21130;
-    private final LoginButton loginButton;
+    private final Text version;
+    private final Text copyright;
     private final TextButton switchButton;
     private final TextButton changelogButton;
-    private final TextButton field21133;
+    private final TextButton quitButton;
     public int field21134 = 0;
 
     public JelloMainMenu(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6) {
         super(var1, var2, var3, var4, var5, var6);
         this.setListening(false);
-        TrueTypeFont var15 = ResourceRegistry.JelloLightFont20;
+        TrueTypeFont font = ResourceRegistry.JelloLightFont20;
         int var17 = 0;
-        int var18 = 80;
-        int var19 = 10;
         String prod = "© Sigma Prod";
         StringBuilder clientInfo = new StringBuilder().append("Jello for Sigma ");
         List<ProtocolVersion> sorted = ProtocolInfo.
@@ -74,8 +68,7 @@ public class JelloMainMenu extends CustomGuiScreen {
                         new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
                 )
         );
-        String version = clientInfo
-                .append(Client.FULL_VERSION).append("  -  ").append(oldestVersion).append(" to ").append(newestVersion).toString();
+        String version = clientInfo.append(Client.FULL_VERSION).append("  -  ").append(oldestVersion).append(" to ").append(newestVersion).toString();
         this.addToList(
                 this.multiplayerButton = new MainMenuButton(
                         this,
@@ -112,54 +105,15 @@ public class JelloMainMenu extends CustomGuiScreen {
                         new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
                 )
         );
-        this.addToList(
-                this.altManagerButton = new MainMenuButton(
-                        this,
-                        "Alt Manager",
-                        this.method13447(var17++),
-                        this.method13448(),
-                        128,
-                        128,
-                        Resources.altPNG,
-                        new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())
-                )
-        );
-        this.addToList(
-                this.field21130 = new Text(
-                        this, "Copyright", 10, this.getHeightA() - 31, var15.getWidth(prod), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), prod, var15
-                )
-        );
-        this.addToList(
-                this.field21129 = new Text(
-                        this,
-                        "Version",
-                        this.getWidthA() - var15.getWidth(version) - 9,
-                        this.getHeightA() - 31,
-                        128,
-                        128,
-                        new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()),
-                        version,
-                        var15
-                )
-        );
-        this.field21130.field20779 = true;
-        this.field21129.field20779 = true;
-        this.addToList(
-                this.switchButton = new TextButton(
-                        this, "switch", 220, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Switch", ResourceRegistry.JelloLightFont20
-                )
-        );
-        this.addToList(
-                this.changelogButton = new TextButton(
-                        this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20
-                )
-        );
-        this.addToList(
-                this.field21133 = new TextButton(
-                        this, "quit", 30, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20
-                )
-        );
-        this.field21133.doThis((var1x, var2x) -> {
+        this.addToList(this.altManagerButton = new MainMenuButton(this, "Alt Manager", this.method13447(var17++), this.method13448(), 128, 128, Resources.altPNG, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor())));
+        this.addToList(this.copyright = new Text(this, "Copyright", 10, this.getHeightA() - 31, font.getWidth(prod), 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), prod, font));
+        this.addToList(this.version = new Text(this, "Version", this.getWidthA() - font.getWidth(version) - 9, this.getHeightA() - 31, 128, 128, new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor()), version, font));
+        this.copyright.shadow = true;
+        this.version.shadow = true;
+        this.addToList(this.switchButton = new TextButton(this, "switch", 220, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Switch", ResourceRegistry.JelloLightFont20));
+        this.addToList(this.changelogButton = new TextButton(this, "changelog", 432, 24, 110, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)), "Changelog", ResourceRegistry.JelloLightFont20));
+        this.addToList(this.quitButton = new TextButton(this, "quit", 30, 24, 50, 50, new ColorHelper(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F)), "Exit", ResourceRegistry.JelloLightFont20));
+        this.quitButton.onClick((var1x, var2x) -> {
             ((MainMenuScreen) this.getParent()).method13341();
             new Thread(() -> {
                 try {
@@ -170,36 +124,13 @@ public class JelloMainMenu extends CustomGuiScreen {
                 }
             }).start();
         });
-        this.addToList(this.loginButton = new LoginButton(this, "Account", 0, var19, 0, var18, "Log in"));
-        this.addToList(this.premiumButton = new PremiumButton(this, "pre", 0, 0, 240, 100));
-        this.premiumButton.method13247((var1x, var2x) -> {
-            if (Client.getInstance().licenseManager.sigmaAccount != null) {
-                ((MainMenuScreen) this.getParent()).animateNext();
-            } else {
-                this.displayScreen(new RegisterScreen());
-            }
-        });
-        this.changelogButton.doThis((var1x, var2x) -> ((MainMenuScreen) this.getParent()).animateIn());
-        this.switchButton.doThis((var1x, var2x) -> {
-            this.displayScreen(new SwitchScreen());
-        });
-        this.singleplayerButton.doThis((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
-        this.multiplayerButton.doThis((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
-        this.optionsButton.doThis((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
-        this.altManagerButton.doThis((var1x, var2x) -> this.displayScreen(new AltManagerScreen()));
-        this.realmsButton.doThis((var1x, var2x) -> this.method13443());
-        this.loginButton.doThis((var1x, var2x) -> {
-            if (Client.getInstance().licenseManager.sigmaAccount != null) {
-                ((MainMenuScreen) this.getParent()).logout();
-            } else {
-                this.displayScreen(new RegisterScreen());
-            }
-        });
-        this.field21130.doThis((var1x, var2x) -> {
-            if (this.field21134++ > 8) {
-                Client.getInstance().guiManager.handleScreen(new RegisterScreen());
-            }
-        });
+        this.changelogButton.onClick((var1x, var2x) -> ((MainMenuScreen) this.getParent()).animateIn());
+        this.switchButton.onClick((var1x, var2x) -> this.displayScreen(new SwitchScreen()));
+        this.singleplayerButton.onClick((var1x, var2x) -> this.displayGUI(new WorldSelectionScreen(Minecraft.getInstance().currentScreen)));
+        this.multiplayerButton.onClick((var1x, var2x) -> this.displayGUI(new JelloPortalScreen(Minecraft.getInstance().currentScreen)));
+        this.optionsButton.onClick((var1x, var2x) -> this.displayGUI(new OptionsScreen(Minecraft.getInstance().currentScreen, Minecraft.getInstance().gameSettings)));
+        this.altManagerButton.onClick((var1x, var2x) -> this.displayScreen(new AltManagerScreen()));
+        this.realmsButton.onClick((var1x, var2x) -> this.method13443());
     }
 
     public void method13443() {
@@ -229,11 +160,10 @@ public class JelloMainMenu extends CustomGuiScreen {
 
     @Override
     public void updatePanelDimensions(int newHeight, int newWidth) {
-        this.premiumButton.setSelfVisible(!Client.getInstance().licenseManager.isPremium());
         int var5 = 30;
         int var6 = 90;
-        this.changelogButton.setXA(var6 + (!Client.getInstance().licenseManager.isPremium() ? 202 : 0));
-        this.field21133.setXA(var5 + (!Client.getInstance().licenseManager.isPremium() ? 202 : 0));
+        this.changelogButton.setXA(var6 + 0);
+        this.quitButton.setXA(var5 + 0);
         super.updatePanelDimensions(newHeight, newWidth);
     }
 

@@ -45,7 +45,7 @@ public class WaypointList extends ScrollableContentPanel {
             var7.field21288 = var7.getYA();
             this.field21209.add(var7);
             this.addToList(var7);
-            var7.doThis((var2x, var3x) -> {
+            var7.onClick((var2x, var3x) -> {
                 MapPanel var6x = (MapPanel) this.getParent();
                 var6x.field20614.method13077(var7.field21292.getX(), var7.field21292.getZ());
             });

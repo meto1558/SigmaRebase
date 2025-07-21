@@ -40,7 +40,7 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
       this.addToList(this.field21148 = new AltManagerButton(this, "alpha", var9 + var8 * 3 + 48, 48, var8, 40, "Alphalts", ClientColors.DEEP_TEAL.getColor()));
       ClassicAltScreen var10 = (ClassicAltScreen)this.getParent();
       this.field21143
-         .doThis(
+         .onClick(
             (var1x, var2x) -> {
                com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var5 = Client.getInstance()
                   .accountManager
@@ -49,17 +49,17 @@ public class ClassicAltScreenGroup extends CustomGuiScreen {
                var10.method13399(var5);
             }
          );
-      this.field21141.doThis((var0, var1x) -> Minecraft.getInstance().displayGuiScreen(new MainMenuHolder()));
-      this.field21142.doThis((var1x, var2x) -> var10.method13396());
-      this.field21144.doThis((var1x, var2x) -> var10.method13397());
-      this.field21146.doThis((var1x, var2x) -> {
+      this.field21141.onClick((var0, var1x) -> Minecraft.getInstance().displayGuiScreen(new MainMenuHolder()));
+      this.field21142.onClick((var1x, var2x) -> var10.method13396());
+      this.field21144.onClick((var1x, var2x) -> var10.method13397());
+      this.field21146.onClick((var1x, var2x) -> {
          Account var5 = var10.method13406();
          if (var5 != null) {
             Client.getInstance().guiManager.handleScreen(new EditAltScreen(var5.field21249));
          }
       });
-      this.field21147.doThis((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new AddAltScreen()));
-      this.field21145.doThis((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new DirectLoginScreen()));
+      this.field21147.onClick((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new AddAltScreen()));
+      this.field21145.onClick((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new DirectLoginScreen()));
    }
 
    @Override

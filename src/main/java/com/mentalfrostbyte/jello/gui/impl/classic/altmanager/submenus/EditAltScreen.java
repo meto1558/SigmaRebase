@@ -38,7 +38,7 @@ public class EditAltScreen extends Screen {
       this.addToList(this.field21030 = new AltManagerButton(this, "back", var6, var5, var4, 40, "Cancel", ClientColors.MID_GREY.getColor()));
       this.field21028.setCensorText(true);
       this.field21028.method13147("*");
-      this.field21029.doThis((var2, var3) -> {
+      this.field21029.onClick((var2, var3) -> {
          if (this.field21027.getText().length() > 0) {
             if (!this.field21027.getText().equals(var1.getEmail())) {
                var1.setName(this.field21027.getText());
@@ -50,7 +50,7 @@ public class EditAltScreen extends Screen {
          var1.setPassword(this.field21028.getText());
          this.field21032 = "Edited!";
       });
-      this.field21030.doThis((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
+      this.field21030.onClick((var0, var1x) -> Client.getInstance().guiManager.handleScreen(new ClassicAltScreen()));
    }
 
    @Override

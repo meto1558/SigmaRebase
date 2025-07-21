@@ -56,7 +56,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
             }
 
             this.field21215.add(var13);
-            var13.doThis(
+            var13.onClick(
                     (var3x, var4) -> {
                         Button var7 = (Button) var3x;
                         if (var4 != 0) {

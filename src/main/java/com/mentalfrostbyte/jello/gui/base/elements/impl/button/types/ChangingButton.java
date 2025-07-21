@@ -14,7 +14,7 @@ public class ChangingButton extends Element {
    public ChangingButton(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, AudioRepeatMode var7) {
       super(var1, var2, var3, var4, var5, var6, false);
       this.repeatMode = var7;
-      this.doThis((var1x, var2x) -> {
+      this.onClick((var1x, var2x) -> {
          this.repeatMode = this.repeatMode.getNext();
          this.callUIHandlers();
       });

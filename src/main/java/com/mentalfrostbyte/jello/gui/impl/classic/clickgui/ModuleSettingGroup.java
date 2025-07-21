@@ -30,7 +30,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
 
       Exit var14;
       this.addToList(var14 = new Exit(this, "exit", this.getWidthA() - 47, 18));
-      var14.doThis((var1x, var2x) -> {
+      var14.onClick((var1x, var2x) -> {
          if (this.field21181 == null) {
             ((ClassicClickGui)this.getParent()).method13417();
          } else {

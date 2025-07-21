@@ -77,7 +77,6 @@ public class Resources {
     public static Texture searchPNG = loadTexture("com/mentalfrostbyte/gui/resources/jello/search.png");
     public static Texture optionsPNG1 = loadTexture("com/mentalfrostbyte/gui/resources/jello/options.png");
     public static Texture dvdPNG = loadTexture("com/mentalfrostbyte/gui/resources/jello/dvd.png");
-    public static Texture getPremium = loadTexture("com/mentalfrostbyte/gui/resources/sigma/gem.png");
     public static Texture foregroundPNG = loadTexture("com/mentalfrostbyte/gui/resources/background/foreground.png");
     public static Texture backgroundPNG = loadTexture("com/mentalfrostbyte/gui/resources/background/background.png");
     public static Texture middlePNG = loadTexture("com/mentalfrostbyte/gui/resources/background/middle.png");
@@ -94,7 +93,7 @@ public class Resources {
     public static Texture exit = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/exit.png");
     public static Texture mainmenubackground = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/mainmenubackground.png");
     public static Texture big = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/big.png");
-    public static Texture agora = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/agora.png");
+    public static Texture switchMode = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/switch.png");
     public static Texture checkbox = loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/checkbox.png");
 
     public static Texture colors = Resources.loadTexture("com/mentalfrostbyte/gui/resources/sigma/uglygui/colors.png");

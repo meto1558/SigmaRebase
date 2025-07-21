@@ -27,6 +27,7 @@ public class SwitchScreen extends Screen {
     public SwitchScreen() {
         super("Switch");
         this.setListening(false);
+        Client.getInstance().clientMode = ClientMode.INDETERMINATE;
 
         int bigWidth = 537;
         int smallWidth = 264;
@@ -35,25 +36,25 @@ public class SwitchScreen extends Screen {
         int x = (this.getWidthA() - bigWidth) / 2;
         int y = (this.getHeightA() - bigHeight) / 2 + 14;
 
-        FadedImage noAddonsBtn;
-        FadedImage classicBtn;
-        FadedImage jelloBtn;
+        FadedImage none;
+        FadedImage jello;
+        FadedImage classic;
 
-        this.addToList(noAddonsBtn = new FadedImage(this, "pb", x, y, bigWidth, bigHeight, Resources.noaddonsPNG));
-        this.addToList(jelloBtn = new FadedImage(this, "pb2", x, bigHeight + y + 9, smallWidth, smallHeight, Resources.sigmaLigmaPNG));
-        this.addToList(classicBtn = new FadedImage(this, "pb3", x + smallWidth + 9, bigHeight + y + 9, smallWidth, smallHeight, Resources.jelloPNG));
+        this.addToList(none = new FadedImage(this, "pb", x, y, bigWidth, bigHeight, Resources.noaddonsPNG));
+        this.addToList(classic = new FadedImage(this, "pb2", x, bigHeight + y + 9, smallWidth, smallHeight, Resources.sigmaLigmaPNG));
+        this.addToList(jello = new FadedImage(this, "pb3", x + smallWidth + 9, bigHeight + y + 9, smallWidth, smallHeight, Resources.jelloPNG));
 
-        noAddonsBtn.doThis((var0, var1) -> {
+        none.onClick((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.NOADDONS);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
 
-        classicBtn.doThis((var0, var1) -> {
+        jello.onClick((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.JELLO);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
 
-        jelloBtn.doThis((var0, var1) -> {
+        classic.onClick((var0, var1) -> {
             Client.getInstance().setupClient(ClientMode.CLASSIC);
             Minecraft.getInstance().displayGuiScreen(new MainMenuHolder());
         });
@@ -69,21 +70,21 @@ public class SwitchScreen extends Screen {
 
         socialButtonPanel.addToList(discordBtn = new Image(socialButtonPanel, "guilded", 142, 0, 32, 34, Resources.guildedPNG));
 
-        youtubeBtn.doThis((var0, var1) -> {
+        youtubeBtn.onClick((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://jelloconnect.sigmaclient.cloud/urls/youtube.php"));
             } catch (MalformedURLException ignored) {
             }
         });
 
-        redditBtn.doThis((var0, var1) -> {
+        redditBtn.onClick((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://jelloconnect.sigmaclient.cloud/urls/reddit.php"));
             } catch (MalformedURLException ignored) {
             }
         });
 
-        discordBtn.doThis((var0, var1) -> {
+        discordBtn.onClick((var0, var1) -> {
             try {
                 Util.getOSType().openURL(new URL("https://jelloconnect.sigmaclient.cloud/urls/guilded.php"));
             } catch (MalformedURLException ignored) {

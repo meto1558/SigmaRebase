@@ -27,7 +27,7 @@ public class CustomGuiScreen implements IGuiEventListener {
     private final List<CustomGuiScreen> field20918 = new ArrayList<>();
     private final List<Class7914> field20920 = new ArrayList<>();
     private final List<MouseListener> mouseButtonListeners = new ArrayList<>();
-    private final List<DoThis> doThese = new ArrayList<>();
+    private final List<IRunnable> runnables = new ArrayList<>();
     private final List<KeyPressedListener> keyPressedListeners = new ArrayList<>();
     private final List<CharTypedListener> charTypedListeners = new ArrayList<>();
     public String name;
@@ -331,7 +331,7 @@ public class CustomGuiScreen implements IGuiEventListener {
 
     @Override
     public void onClick3(int mouseX, int mouseY, int mouseButton) {
-        this.method13252(mouseButton);
+        this.onClick(mouseButton);
     }
 
     @Override
@@ -615,14 +615,14 @@ public class CustomGuiScreen implements IGuiEventListener {
         }
     }
 
-    public CustomGuiScreen doThis(DoThis that) {
-        this.doThese.add(that);
+    public CustomGuiScreen onClick(IRunnable runnable) {
+        this.runnables.add(runnable);
         return this;
     }
 
-    public void method13252(int i) {
-        for (DoThis doThis : this.doThese) {
-            doThis.doIt(this, i);
+    public void onClick(int mouseButton) {
+        for (IRunnable IRunnable : this.runnables) {
+            IRunnable.run(this, mouseButton);
         }
     }
 
@@ -852,8 +852,8 @@ public class CustomGuiScreen implements IGuiEventListener {
         return this.widthO;
     }
 
-    public interface DoThis {
-        void doIt(CustomGuiScreen parent, int var2);
+    public interface IRunnable {
+        void run(CustomGuiScreen parent, int mouseButton);
     }
 
     public interface CharTypedListener {
