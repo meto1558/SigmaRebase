@@ -219,7 +219,6 @@ public class ViaManager extends Manager implements MinecraftUtil {
         }
 
         if (isOlderThan_v1_12_2()) {
-            //Class8920.method32597(event, field31495);
             if (!(event.packet instanceof SHeldItemChangePacket)) {
                 if (event.packet instanceof SUnloadChunkPacket && ServerUtil.isMinemen()) {
                     event.cancelled = true;

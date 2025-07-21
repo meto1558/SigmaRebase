@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.*;
 
 public class ActiveMods extends Module {
-    private int offsetY = 0;
     private int totalHeight;
     public HashMap<Module, Animation> animations = new HashMap<>();
     public TrueTypeFont font = ResourceRegistry.JelloLightFont20;
@@ -40,7 +39,7 @@ public class ActiveMods extends Module {
         this.registerSetting(new ModeSetting("Size", "The font size", 0, "Normal", "Small", "Tiny"));
         this.registerSetting(new BooleanSetting("Animations", "Scale in animation", true));
         this.registerSetting(new BooleanSetting("Sound", "Toggle sound", true));
-        this.getSettingMap().get("Size").addObserver(var1 -> this.setFontSize());
+        this.getSettingMap().get("Size").addObserver(set -> this.setFontSize());
         this.setAvailableOnClassic(false);
     }
 
@@ -49,7 +48,7 @@ public class ActiveMods extends Module {
         this.setFontSize();
     }
 
-    public void setFontSize() {
+    private void setFontSize() {
         switch (getStringSettingValueByName("Size")) {
             case "Normal":
                 this.font = ResourceRegistry.JelloLightFont20;
@@ -113,7 +112,7 @@ public class ActiveMods extends Module {
         }
     }
 
-    private static @NotNull Collection<Score> getScores() {
+    private @NotNull Collection<Score> getScores() {
         Scoreboard scoreboard = mc.world.getScoreboard();
         ScoreObjective scoreobjective = null;
         ScorePlayerTeam playerTeam = scoreboard.getPlayersTeam(mc.player.getScoreboardName());
@@ -198,13 +197,11 @@ public class ActiveMods extends Module {
                     GL11.glPopMatrix();
                     screenHeight = (int) ((float) screenHeight + (this.font.getHeight() + scale) * QuadraticEasing.easeInOutQuad(transparency, 0.0F, 1.0F, 1.0F));
                 }
-
-                this.offsetY = screenHeight;
             }
         }
     }
 
-    public static class ModuleNameLengthComparator implements Comparator<Module> {
+    private static class ModuleNameLengthComparator implements Comparator<Module> {
         public int compare(Module module1, Module module2) {
             int length1 = ResourceRegistry.JelloLightFont20.getWidth(module1.getName());
             int length2 = ResourceRegistry.JelloLightFont20.getWidth(module2.getName());

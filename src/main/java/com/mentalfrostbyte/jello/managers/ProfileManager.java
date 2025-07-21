@@ -14,7 +14,7 @@ import com.google.gson.*;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.module.data.ModuleSettingInitializr;
 import org.apache.commons.io.IOUtils;
 
 public class ProfileManager {

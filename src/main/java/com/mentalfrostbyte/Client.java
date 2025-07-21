@@ -6,7 +6,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.util.client.ModuleSettingInitializr;
+import com.mentalfrostbyte.jello.module.data.ModuleSettingInitializr;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
 import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.glfw.GLFW;
+import team.sdhq.eventBus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +48,6 @@ public class Client implements MinecraftUtil {
 
     public GuiManager guiManager;
     public ModuleManager moduleManager;
-    public LicenseManager licenseManager;
     public BotManager botManager;
     public ViaManager viaManager;
     public CommandManager commandManager;
@@ -79,8 +79,6 @@ public class Client implements MinecraftUtil {
         }
 
         JelloAI.init();
-        licenseManager = new LicenseManager();
-        licenseManager.init();
         guiManager = new GuiManager();
         botManager = new BotManager();
         botManager.init();
@@ -153,17 +151,21 @@ public class Client implements MinecraftUtil {
 
     public void setupClient(ClientMode mode) {
         clientMode = mode;
+        moduleManager = null;
 
         if (mode == ClientMode.CLASSIC) {
-            getInstance().guiManager.useClassicReplacementScreens();
+            guiManager.useClassic();
+            DiscordRPC.INSTANCE.Discord_ClearPresence();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Classic Sigma " + RELEASE_TARGET);
         } else if (mode == ClientMode.JELLO) {
+            guiManager.useJello();
             initRPC();
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
         }
 
         if (moduleManager == null && ModuleSettingInitializr.thisThread != null) {
             moduleManager = new ModuleManager();
+            moduleManager.reset();
             moduleManager.register(clientMode);
             moduleManager.loadProfileFromJSON(config);
             moduleManager.loadCurrentConfig(config);
