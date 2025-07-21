@@ -151,7 +151,8 @@ public class Client implements MinecraftUtil {
 
     public void setupClient(ClientMode mode) {
         clientMode = mode;
-        moduleManager = null;
+        moduleManager = new ModuleManager();
+        moduleManager.reset();
 
         if (mode == ClientMode.CLASSIC) {
             guiManager.useClassic();
@@ -163,13 +164,9 @@ public class Client implements MinecraftUtil {
             GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Jello for Sigma " + RELEASE_TARGET);
         }
 
-        if (moduleManager == null && ModuleSettingInitializr.thisThread != null) {
-            moduleManager = new ModuleManager();
-            moduleManager.reset();
-            moduleManager.register(clientMode);
-            moduleManager.loadProfileFromJSON(config);
-            moduleManager.loadCurrentConfig(config);
-        }
+        moduleManager.register(clientMode);
+        moduleManager.loadProfileFromJSON(config);
+        moduleManager.loadCurrentConfig(config);
 
         System.gc();
     }

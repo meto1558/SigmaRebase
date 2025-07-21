@@ -5,6 +5,8 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPart;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPartBackground;
 import com.mentalfrostbyte.jello.module.Module;
@@ -57,6 +59,8 @@ public class TabGUI extends Module {
 
     @EventTarget
     public void onKeyPress(EventKeyPress event) {
+        if (Client.getInstance().clientMode == ClientMode.JELLO) return;
+
         if (this.isEnabled()) {
             KeyAction action = mapKeyToAction(event.getKey());
             if (action != null) {
@@ -169,6 +173,7 @@ public class TabGUI extends Module {
 
     @EventTarget
     public void onTick(EventUpdate event) {
+        if (Client.getInstance().clientMode == ClientMode.JELLO) return;
         if (this.isEnabled()) {
             if (this.animationCooldown <= 0) {
                 animationProgress.changeDirection(Animation.Direction.BACKWARDS);
@@ -182,6 +187,7 @@ public class TabGUI extends Module {
     @EventTarget
     @HighestPriority
     public void onRender(EventRender2DOffset event) {
+        if (Client.getInstance().clientMode == ClientMode.JELLO) return;
         if (this.isEnabled() && mc.player != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {

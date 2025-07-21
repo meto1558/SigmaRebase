@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.Setting;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
@@ -57,6 +58,7 @@ public class ActiveMods extends Module {
 
 	@EventTarget
 	public void onRender(EventRender2DOffset event) {
+		if (Client.getInstance().clientMode == ClientMode.JELLO) return;
 		if (this.isEnabled() && mc.player != null) {
 			String var4 = this.getStringSettingValueByName("Animation");
 			String var5 = this.getStringSettingValueByName("Outline");

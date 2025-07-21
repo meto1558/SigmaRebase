@@ -4,6 +4,7 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -82,6 +83,7 @@ public class ActiveMods extends Module {
 
     @EventTarget
     public void onGUI(EventRenderGUI event) {
+        if (Client.getInstance().clientMode == ClientMode.CLASSIC) return;
         if (!this.isEnabled()) return;
         if (mc.player != null) {
             if (!event.pre) {
@@ -130,6 +132,7 @@ public class ActiveMods extends Module {
 
     @EventTarget
     public void onRender(EventRender2DOffset event) {
+        if (Client.getInstance().clientMode == ClientMode.CLASSIC) return;
         if (mc.player != null) {
             for (Module module : this.animations.keySet()) {
                 if (this.getBooleanValueFromSettingName("Animations")) {

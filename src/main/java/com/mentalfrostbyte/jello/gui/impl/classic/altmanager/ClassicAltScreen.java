@@ -171,7 +171,7 @@ public class ClassicAltScreen extends Screen {
     }
 
     private void method13401() {
-        RenderUtil.drawImage(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), Resources.mainmenubackground);
+        //RenderUtil.drawImage(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), Resources.mainmenubackground);
         RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.23F));
     }
 
