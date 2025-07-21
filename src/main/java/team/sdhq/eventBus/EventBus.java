@@ -76,6 +76,7 @@ public final class EventBus {
             for (Method m : map.keySet()) {
                 Object instance = map.get(m);
                 try {
+                    m.setAccessible(true);
                     m.invoke(instance, e);
                 } catch (IllegalAccessException ex) {
                     Client.logger.error("!!! PRIVATE EVENT LISTENER: {}#{}", instance.getClass().getName(), m.getName());
