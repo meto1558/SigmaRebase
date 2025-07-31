@@ -91,11 +91,10 @@ jobs:
           '.downloads.client = { "sha1": $sha1, "size": $size, "url": $url }' \
 
           "$JSON_FILE" > temp.json && mv temp.json "$JSON_FILE"
-      - name: Create and push tag
+      - name: push tag
         run: |
-          git push origin :refs/tags/nightly || true
-          git tag -f nightly
-          git push origin nightly
+          git tag --force nightly ${{ github.sha }}
+          git push --tags --force
       - name: Create GitHub Release for nightly
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
