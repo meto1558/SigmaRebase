@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.mainmenu.MainMenuScreen;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 
 public class FloatingBubble extends CustomGuiScreen {
@@ -81,7 +81,7 @@ public class FloatingBubble extends CustomGuiScreen {
                 (float) this.xA,
                 (float) this.yA,
                 (float) this.getWidthA(),
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.07F + (!(this.field20934 > 0.0F) ? 0.0F : this.field20934 * 0.3F))
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.07F + (!(this.field20934 > 0.0F) ? 0.0F : this.field20934 * 0.3F))
         );
         super.draw(partialTicks);
     }

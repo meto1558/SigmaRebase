@@ -7,6 +7,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.TextButton;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.impl.jello.buttons.ScrollableContentPanel;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.ClickGuiScreen;
@@ -18,7 +19,6 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.util.ArrayList;
@@ -160,7 +160,7 @@ public class ConfigScreen extends Element {
         super.method13224();
         super.method13225();
         int var5 = 10;
-        int var6 = RenderUtil2.applyAlpha(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
+        int var6 = MathHelper.applyAlpha2(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
         RenderUtil.drawRoundedRect(
                 (float) (this.xA + var5 / 2),
                 (float) (this.yA + var5 / 2),
@@ -174,7 +174,7 @@ public class ConfigScreen extends Element {
                 (float) (this.yA + var5 / 2),
                 (float) (this.xA - var5 / 2 + this.widthA),
                 (float) (this.yA - var5 / 2 + this.heightA),
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
         );
         RenderUtil.drawRoundedRect((float) this.xA, (float) this.yA, (float) this.widthA, (float) this.heightA, (float) var5, var6);
         float var7 = 0.9F + (1.0F - SmoothInterpolator.interpolate(this.field21300.field20703.calcPercent(), 0.0, 0.96, 0.69, 0.99)) * 0.1F;
@@ -188,14 +188,14 @@ public class ConfigScreen extends Element {
                 (float) (this.xA + 25),
                 (float) (this.yA + 20),
                 "Profiles",
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
         );
         RenderUtil.drawColoredRect(
                 (float) (this.xA + 25),
                 (float) (this.yA + 69),
                 (float) (this.xA + this.widthA - 25),
                 (float) (this.yA + 70),
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
         );
         super.draw(partialTicks);
     }

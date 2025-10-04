@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.Alert;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
@@ -207,12 +206,12 @@ public class MainMenuScreen extends Screen {
                     (float) (this.getWidthA() * 2),
                     (float) (this.getHeightA() + 200),
                     background,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), transitionProgress),
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), transitionProgress),
                     false
             );
 
             RenderUtil.drawRoundedRect2(
-                    0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), transitionProgress * 0.3F)
+                    0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), transitionProgress * 0.3F)
             );
 
 
@@ -255,7 +254,7 @@ public class MainMenuScreen extends Screen {
                         (float) (this.widthA / 2),
                         (float) (this.heightA / 2 - 30),
                         currentTitle,
-                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent()),
+                        MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent()),
                         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                 );
@@ -264,7 +263,7 @@ public class MainMenuScreen extends Screen {
                         (float) (this.widthA / 2),
                         (float) (this.heightA / 2 + 30),
                         "\"" + currentMessage + "\"",
-                        RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent() * 0.5F),
+                        MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.animation.calcPercent() * 0.5F),
                         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                         FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
                 );

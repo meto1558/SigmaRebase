@@ -25,7 +25,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
@@ -328,7 +328,7 @@ public class AltManagerScreen extends Screen {
     private void drawTitle() {
         int xPos = this.xA + this.titleOffset;
         int yPos = this.yA + this.titleOffset;
-        int color = RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F);
+        int color = MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.8F);
         RenderUtil.drawString(ResourceRegistry.JelloLightFont40, (float) xPos, (float) yPos, "Jello", color);
         RenderUtil.drawString(ResourceRegistry.JelloLightFont25, (float) (xPos + 87), (float) (yPos + 15), "Alt Manager", color);
     }
@@ -418,7 +418,7 @@ public class AltManagerScreen extends Screen {
             this.field21005 = (int) ((float) this.field21005 + var6 * var7);
         }
 
-        RenderUtil.drawColoredRect(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
+        RenderUtil.drawColoredRect(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
     }
 
     @Override

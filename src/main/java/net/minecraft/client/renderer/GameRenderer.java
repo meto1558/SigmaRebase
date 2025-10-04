@@ -7,9 +7,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderFire;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderShulker;
 import com.mentalfrostbyte.jello.managers.GuiManager;
-import com.mentalfrostbyte.jello.module.impl.combat.KillAura;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.util.game.player.rotation.RotationCore;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -266,26 +264,30 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
     /**
      * Gets the block or object that is being moused over.
      */
-    public void getMouseOver(float partialTicks) {
-        boolean ka = mc.currentScreen == null && Client.getInstance().moduleManager.getModuleByClass(KillAura.class).isEnabled() && Client.getInstance().moduleManager.getModuleByClass(KillAura.class).getBooleanValueFromSettingName("Raytrace") && KillAura.targetEntity != null;
-
+    public void getMouseOver(float partialTicks)
+    {
         Entity entity = this.mc.getRenderViewEntity();
 
-        if (entity != null && this.mc.world != null && this.mc.playerController != null) {
+        if (entity != null && this.mc.world != null)
+        {
             this.mc.getProfiler().startSection("pick");
             this.mc.pointedEntity = null;
-            double d0 = (double) this.mc.playerController.getBlockReachDistance();
-            this.mc.objectMouseOver = ka ? entity.customPick(d0,1.0F,RotationCore.currentYaw, RotationCore.currentPitch) : entity.pick(d0, partialTicks, false);
-            Vector3d vector3d = entity.getEyePosition(partialTicks);
+            double d0 = (double)this.mc.playerController.getBlockReachDistance();
+            this.mc.objectMouseOver = entity.pick(d0, partialTicks, false);
+            Vector3d vec3d = entity.getEyePosition(partialTicks);
             boolean flag = false;
             int i = 3;
             double d1 = d0;
 
-            if (this.mc.playerController.extendedReach()) {
+            if (this.mc.playerController.extendedReach())
+            {
                 d1 = 6.0D;
                 d0 = d1;
-            } else {
-                if (d0 > 3.0D) {
+            }
+            else
+            {
+                if (d0 > 3.0D)
+                {
                     flag = true;
                 }
 
@@ -294,31 +296,36 @@ public class GameRenderer implements IResourceManagerReloadListener, AutoCloseab
 
             d1 = d1 * d1;
 
-            if (this.mc.objectMouseOver != null) {
-                d1 = this.mc.objectMouseOver.getHitVec().squareDistanceTo(vector3d);
+            if (this.mc.objectMouseOver != null)
+            {
+                d1 = this.mc.objectMouseOver.getHitVec().squareDistanceTo(vec3d);
             }
 
-            Vector3d vector3d1 = ka ? entity.getLookCustom(1.0F,RotationCore.currentYaw,RotationCore.currentPitch) : entity.getLook(1.0F);
-
-            Vector3d vector3d2 = vector3d.add(vector3d1.x * d0, vector3d1.y * d0, vector3d1.z * d0);
+            Vector3d vec3d1 = entity.getLook(1.0F);
+            Vector3d vec3d2 = vec3d.add(vec3d1.x * d0, vec3d1.y * d0, vec3d1.z * d0);
             float f = 1.0F;
-            AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(vector3d1.scale(d0)).grow(1.0D, 1.0D, 1.0D);
-            EntityRayTraceResult entityraytraceresult = ProjectileHelper.rayTraceEntities(entity, vector3d, vector3d2, axisalignedbb, (p_lambda$getMouseOver$0_0_) ->
+            AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(vec3d1.scale(d0)).grow(1.0D, 1.0D, 1.0D);
+            EntityRayTraceResult entityraytraceresult = ProjectileHelper.rayTraceEntities(entity, vec3d, vec3d2, axisalignedbb, (p_lambda$getMouseOver$0_0_) ->
             {
                 return !p_lambda$getMouseOver$0_0_.isSpectator() && p_lambda$getMouseOver$0_0_.canBeCollidedWith();
             }, d1);
 
-            if (entityraytraceresult != null) {
+            if (entityraytraceresult != null)
+            {
                 Entity entity1 = entityraytraceresult.getEntity();
-                Vector3d vector3d3 = entityraytraceresult.getHitVec();
-                double d2 = vector3d.squareDistanceTo(vector3d3);
+                Vector3d vec3d3 = entityraytraceresult.getHitVec();
+                double d2 = vec3d.squareDistanceTo(vec3d3);
 
-                if (flag && d2 > 9.0D) {
-                    this.mc.objectMouseOver = BlockRayTraceResult.createMiss(vector3d3, Direction.getFacingFromVector(vector3d1.x, vector3d1.y, vector3d1.z), new BlockPos(vector3d3));
-                } else if (d2 < d1 || this.mc.objectMouseOver == null) {
+                if (flag && d2 > 9.0D)
+                {
+                    this.mc.objectMouseOver = BlockRayTraceResult.createMiss(vec3d3, Direction.getFacingFromVector(vec3d1.x, vec3d1.y, vec3d1.z), new BlockPos(vec3d3));
+                }
+                else if (d2 < d1 || this.mc.objectMouseOver == null)
+                {
                     this.mc.objectMouseOver = entityraytraceresult;
 
-                    if (entity1 instanceof LivingEntity || entity1 instanceof ItemFrameEntity) {
+                    if (entity1 instanceof LivingEntity || entity1 instanceof ItemFrameEntity)
+                    {
                         this.mc.pointedEntity = entity1;
                     }
                 }

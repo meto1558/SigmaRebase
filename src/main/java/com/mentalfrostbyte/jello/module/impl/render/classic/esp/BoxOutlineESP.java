@@ -11,9 +11,9 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
@@ -22,7 +22,7 @@ import org.newdawn.slick.opengl.TextureImpl;
 import team.sdhq.eventBus.annotations.EventTarget;
 
 public class BoxOutlineESP extends Module {
-    public int color = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F);
+    public int color = MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F);
 
     public BoxOutlineESP() {
         super(ModuleCategory.RENDER, "Box Outline", "Draws a line arround players");
@@ -117,7 +117,7 @@ public class BoxOutlineESP extends Module {
                             - (var5.getPosZ() - var5.lastTickPosZ);
                     BoundingBox var17 = new BoundingBox(var5.getBoundingBox().offset(var11, var13, var15)).expand(0.1F);
                     if (var1) {
-                        RenderUtil.renderWireframeBox(var17, 3.0F, RenderUtil2.applyAlpha(var10,
+                        RenderUtil.renderWireframeBox(var17, 3.0F, MathHelper.applyAlpha2(var10,
                                 Client.getInstance().clientMode != ClientMode.JELLO ? 0.8F : 0.35F));
                     } else {
                         RenderUtil.render3DColoredBox(var17, ClientColors.LIGHT_GREYISH_BLUE.getColor());

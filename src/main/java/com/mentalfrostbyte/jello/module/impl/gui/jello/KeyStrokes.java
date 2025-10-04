@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -86,7 +86,7 @@ public class KeyStrokes extends Module {
                                     (float) (this.yBase + topLeftKey.y),
                                     (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
                                     (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
-                                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * topLeftOpacityMul)
+                                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * topLeftOpacityMul)
                             );
                         } else {
                             RenderUtil.drawColoredRect(
@@ -94,7 +94,7 @@ public class KeyStrokes extends Module {
                                     (float) (this.yBase + topLeftKey.y),
                                     (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
                                     (float) (this.yBase + topLeftKey.y + bottomRightKey.y),
-                                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * topLeftOpacityMul)
+                                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.5F * topLeftOpacityMul)
                             );
                         }
 
@@ -143,9 +143,9 @@ public class KeyStrokes extends Module {
 
                         float animPercent = animationData.animation.calcPercent();
                         float alpha = (1.0F - animPercent * (0.5F + animPercent * 0.5F)) * 0.8F;
-                        int color = RenderUtil2.applyAlpha(-5658199, alpha);
+                        int color = MathHelper.applyAlpha2(-5658199, alpha);
                         if (Client.getInstance().guiManager.getGuiBlur()) {
-                            color = RenderUtil2.applyAlpha(-1, alpha);
+                            color = MathHelper.applyAlpha2(-1, alpha);
                         }
 
                         RenderUtil.drawFilledArc(

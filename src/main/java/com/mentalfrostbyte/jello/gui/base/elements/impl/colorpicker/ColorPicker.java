@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.colorpicker.impl.ColorPi
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 import java.awt.*;
 
@@ -74,13 +74,13 @@ public class ColorPicker extends Element {
     }
 
     public static void method13052(int var0, int var1, int var2, float var3) {
-        RenderUtil.drawCircle((float) var0, (float) var1, (float) 14, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var3));
-        RenderUtil.drawCircle((float) var0, (float) var1, (float) (14 - 1), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F * var3));
-        RenderUtil.drawCircle((float) var0, (float) var1, (float) (14 - 2), RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
+        RenderUtil.drawCircle((float) var0, (float) var1, (float) 14, MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.1F * var3));
+        RenderUtil.drawCircle((float) var0, (float) var1, (float) (14 - 1), MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.14F * var3));
+        RenderUtil.drawCircle((float) var0, (float) var1, (float) (14 - 2), MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
         RenderUtil.drawCircle(
-                (float) var0, (float) var1, (float) (14 - 6), RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(var2, ClientColors.DEEP_TEAL.getColor(), 0.7F), var3)
+                (float) var0, (float) var1, (float) (14 - 6), MathHelper.applyAlpha2(MathHelper.shiftTowardsOther(var2, ClientColors.DEEP_TEAL.getColor(), 0.7F), var3)
         );
-        RenderUtil.drawCircle((float) var0, (float) var1, (float) (14 - 7), RenderUtil2.applyAlpha(var2, var3));
+        RenderUtil.drawCircle((float) var0, (float) var1, (float) (14 - 7), MathHelper.applyAlpha2(var2, var3));
     }
 
     @Override

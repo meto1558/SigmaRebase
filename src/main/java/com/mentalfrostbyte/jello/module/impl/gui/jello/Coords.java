@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import org.lwjgl.opengl.GL11;
@@ -73,7 +73,7 @@ public class Coords extends Module {
                     textX,
                     (float) textY,
                     coordinatesText,
-                    RenderUtil2.applyAlpha(-16777216, 0.5F * animationScale),
+                    MathHelper.applyAlpha2(-16777216, 0.5F * animationScale),
                     FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                     FontSizeAdjust.field14488
             );
@@ -83,7 +83,7 @@ public class Coords extends Module {
                     textX,
                     (float) textY,
                     coordinatesText,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F * animationScale),
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F * animationScale),
                     FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                     FontSizeAdjust.field14488
             );

@@ -3,11 +3,11 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind;
 
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
 import java.util.Date;
@@ -67,14 +67,14 @@ public class Class4253 extends Element {
          (float)(this.xA + 25),
          (float)this.yA + (float)this.heightA / 2.0F - 17.5F,
          this.field20624.method21596(),
-         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
+         MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont12,
          (float)(this.xA + 25),
          (float)this.yA + (float)this.heightA / 2.0F + 7.5F,
          this.field20624.method21597(),
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.6F * partialTicks)
       );
       this.field20628.setYA((int)((float)this.heightA / 2.0F - 7.5F));
       super.draw(partialTicks);

@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.TrueTypeFont;
 
 public class TextButton extends Element {
@@ -48,7 +48,7 @@ public class TextButton extends Element {
                     (float) var5,
                     (float) var6,
                     this.getText(),
-                    RenderUtil2.applyAlpha(var4, partialTicks * RenderUtil2.getAlpha(var4)),
+                    MathHelper.applyAlpha2(var4, partialTicks * MathHelper.getAlpha(var4)),
                     this.textColor.method19411(),
                     this.textColor.method19413()
             );
@@ -57,7 +57,7 @@ public class TextButton extends Element {
                     var6 + var8,
                     (float) var5 + (float) (var7 / 2) * var9,
                     var6 + var8 + 2,
-                    RenderUtil2.applyAlpha(var4, partialTicks * RenderUtil2.getAlpha(var4))
+                    MathHelper.applyAlpha2(var4, partialTicks * MathHelper.getAlpha(var4))
             );
             super.draw(partialTicks);
         }

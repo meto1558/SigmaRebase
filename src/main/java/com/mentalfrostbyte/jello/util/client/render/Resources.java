@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.client.render;
 
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -206,7 +206,7 @@ public class Resources {
             var7.scale(var1, var1);
             var7.drawImage(var5, 0, 0, null);
             var7.dispose();
-            var5 = ImageUtil.applyBlur(ImageUtil.addPadding(var6, var2), var2);
+            var5 = ImageUtil.applyBlur(ImageUtil.addImagePadding(var6, var2), var2);
             var5 = ImageUtil.adjustImageHSB(var5, 0.0F, 1.1F, 0.0F);
             return BufferedImageUtil.getTexture(var0, var5);
         } catch (IOException var8) {

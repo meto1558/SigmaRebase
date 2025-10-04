@@ -1,10 +1,8 @@
 package com.mentalfrostbyte.jello.module.impl.player;
 
-import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.movement.BlockFly;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -18,12 +16,6 @@ public class AutoSprint extends Module {
     @EventTarget
     public void TickEvent(EventUpdate event) {
         mc.gameSettings.keyBindSprint.setPressed(true);
-        Client.getInstance().moduleManager.getModuleByClass(BlockFly.class);
-        if (Client.getInstance().moduleManager.getModuleByClass(BlockFly.class).isEnabled()) {
-			mc.gameSettings.keyBindSprint.setPressed(this.getBooleanValueFromSettingName("Sprint"));
-
-        }
-
     }
 
     @Override

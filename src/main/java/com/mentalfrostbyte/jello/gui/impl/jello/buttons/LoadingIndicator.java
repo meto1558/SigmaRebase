@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.gui.impl.jello.buttons;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.lwjgl.opengl.GL11;
@@ -35,7 +35,7 @@ public class LoadingIndicator extends AnimatedIconPanel {
             (float)this.widthA,
             (float)this.heightA,
             Resources.loadingIndicatorPNG,
-            RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), this.field20770 * partialTicks)
+            MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), this.field20770 * partialTicks)
          );
          GL11.glPopMatrix();
       }

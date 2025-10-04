@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.data.ModuleWithModuleSettings;
 import com.mentalfrostbyte.jello.module.impl.combat.aimbot.*;
 import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
-import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.player.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.EntityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +19,6 @@ public class Aimbot extends ModuleWithModuleSettings {
         super(ModuleCategory.COMBAT,
                 "Aimbot",
                 "Automatically aim at players",
-                new BasicAimbot(),
                 new SmoothAimbot());
         this.registerSetting(new BooleanSetting("Players", "Aim at players", true));
         this.registerSetting(new BooleanSetting("Animals/Monsters", "Aim at animals and monsters", false));

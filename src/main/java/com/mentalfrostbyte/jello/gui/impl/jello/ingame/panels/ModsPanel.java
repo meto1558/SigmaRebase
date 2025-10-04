@@ -15,8 +15,8 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
@@ -66,8 +66,8 @@ public class ModsPanel extends Element {
 
       for (Entry var13 : GuiManager.screenToScreenName.entrySet()) {
          Class6984 var14 = new Class6984((Class<? extends Screen>)var13.getKey());
-         ColorHelper var15 = new ColorHelper(RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.02F), -986896)
-            .setTextColor(RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F))
+         ColorHelper var15 = new ColorHelper(MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.02F), -986896)
+            .setTextColor(MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.5F))
             .method19412(FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2);
          Button var16;
          this.field21308
@@ -204,7 +204,7 @@ public class ModsPanel extends Element {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F * partialTicks)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F * partialTicks)
       );
       super.method13224();
       RenderUtil.drawRoundedRect(
@@ -213,14 +213,14 @@ public class ModsPanel extends Element {
          (float)this.field21305,
          (float)this.field21306,
          10.0F,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont36,
          (float)(30 + this.field21304),
          (float)(30 + this.field21303),
          "Select mod to bind",
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
       );
       super.draw(partialTicks);
    }

@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.player.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;

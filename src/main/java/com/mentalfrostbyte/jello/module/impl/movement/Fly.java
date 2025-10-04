@@ -15,7 +15,6 @@ public class Fly extends ModuleWithModuleSettings {
                 new HypixelFly(),
                 new MineplexFly(),
                 new JetpackFly(),
-                new BowFly(),
                 new OmegaCraftFly(),
                 new ViperMCFly(),
                 new VeltPvPFly(),

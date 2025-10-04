@@ -7,13 +7,13 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
 public class SmallImage extends Button {
-    public static final ColorHelper color = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), RenderUtil2.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
+    public static final ColorHelper color = new ColorHelper(ClientColors.LIGHT_GREYISH_BLUE.getColor(), MathHelper.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.1F));
     public Texture texture;
 
     public SmallImage(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Texture var7, ColorHelper var8, String var9, TrueTypeFont var10) {
@@ -57,8 +57,8 @@ public class SmallImage extends Button {
                 (float) this.getWidthA(),
                 (float) this.getHeightA(),
                 this.getTexture(),
-                RenderUtil2.applyAlpha(
-                        RenderUtil2.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4),
+                MathHelper.applyAlpha2(
+                        MathHelper.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4),
                         (float) (this.textColor.getPrimaryColor() >> 24 & 0xFF) / 255.0F * partialTicks
                 )
         );
@@ -68,7 +68,7 @@ public class SmallImage extends Button {
                     (float) (this.getXA() + this.getWidthA() / 2),
                     (float) (this.getYA() + this.getHeightA() / 2),
                     this.getText(),
-                    RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
+                    MathHelper.applyAlpha2(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()
             );

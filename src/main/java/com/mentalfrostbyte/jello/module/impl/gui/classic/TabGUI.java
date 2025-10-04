@@ -17,7 +17,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -253,17 +252,17 @@ public class TabGUI extends Module {
                         (float) activeCategoryPart.getStartX() + (float) activeCategoryPart.getWidth() + 14.0F * animationProgressValue,
                         (float) activeCategoryPart.getStartY() + 16.0F + (float) (25 * activeCategoryPart.currentOffset),
                         24.0F * animationProgressValue,
-                        RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F),
-                        RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F)
+                        MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F),
+                        MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F)
                 );
                 int descriptionX = activeCategoryPart.getStartX() + activeCategoryPart.getWidth() + 4 + Math.round(animationProgressValue * 28.0F);
                 int descriptionY = activeCategoryPart.getStartY() + 25 * activeCategoryPart.currentOffset + 4;
                 int descriptionWidth = activeCategoryPart.font.getWidth(description) + 8;
                 float secondAnimationValue = MathHelper.calculateTransition(this.secondAnimationProgress.calcPercent(), 0.0F, 1.0F, 1.0F);
-                RenderUtil.drawRoundedRect2((float) descriptionX, (float) descriptionY, (float) descriptionWidth * secondAnimationValue, 25.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F));
+                RenderUtil.drawRoundedRect2((float) descriptionX, (float) descriptionY, (float) descriptionWidth * secondAnimationValue, 25.0F, MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.6F));
                 RenderUtil.startScissor((float) descriptionX, (float) descriptionY, (float) descriptionWidth * secondAnimationValue, 25.0F);
                 RenderUtil.drawString(
-                        activeCategoryPart.font, (float) (descriptionX + 4), (float) (descriptionY + 2), description, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 1.7F))
+                        activeCategoryPart.font, (float) (descriptionX + 4), (float) (descriptionY + 2), description, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 1.7F))
                 );
                 RenderUtil.endScissor();
             }

@@ -6,8 +6,8 @@ import com.mentalfrostbyte.jello.gui.impl.others.ChatUtil;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import org.newdawn.slick.TrueTypeFont;
@@ -352,7 +352,7 @@ public class TextField extends AnimatedIconPanel {
             (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2 + 2),
             var9 + (float)(var6.isEmpty() ? 1 : 0),
             (float)(this.yA + this.heightA / 2 + this.font.getHeight(var6) / 2 - 1),
-            RenderUtil2.applyAlpha(this.textColor.getTextColor(), !var5 ? 0.1F * partialTicks : 0.8F)
+            MathHelper.applyAlpha2(this.textColor.getTextColor(), !var5 ? 0.1F * partialTicks : 0.8F)
          );
          float var10 = (float)(var7 + this.font.getWidth(var6.substring(0, this.maxLen))) + this.field20747;
          if (var10 < (float)var7) {
@@ -375,7 +375,7 @@ public class TextField extends AnimatedIconPanel {
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
          var11,
          (float)(this.yA + this.heightA / 2 + this.font.getHeight(var6) / 2),
-         RenderUtil2.applyAlpha(-5516546, partialTicks)
+         MathHelper.applyAlpha2(-5516546, partialTicks)
       );
       FontSizeAdjust var12 = this.textColor.method19411();
       FontSizeAdjust var13 = this.textColor.method19413();
@@ -384,7 +384,7 @@ public class TextField extends AnimatedIconPanel {
          (float)var7 + this.field20746,
          (float)(this.yA + this.heightA / 2),
          var6.length() == 0 && (!this.focused || var6.length() <= 0) ? this.placeholder : var6,
-         RenderUtil2.applyAlpha(this.textColor.getTextColor(), (this.field20744 / 2.0F + 0.4F) * partialTicks * (this.focused && var6.length() > 0 ? 1.0F : 0.5F)),
+         MathHelper.applyAlpha2(this.textColor.getTextColor(), (this.field20744 / 2.0F + 0.4F) * partialTicks * (this.focused && var6.length() > 0 ? 1.0F : 0.5F)),
          var12,
          var13
       );
@@ -395,7 +395,7 @@ public class TextField extends AnimatedIconPanel {
             (float)(this.yA + this.heightA - 2),
             (float)(this.xA + this.widthA),
             (float)(this.yA + this.heightA),
-                 RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), (this.field20744 / 2.0F + 0.5F) * partialTicks)
+                 MathHelper.applyAlpha2(this.textColor.getPrimaryColor(), (this.field20744 / 2.0F + 0.5F) * partialTicks)
          );
       }
 

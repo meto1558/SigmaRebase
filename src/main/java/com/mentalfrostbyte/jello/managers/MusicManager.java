@@ -19,9 +19,8 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
 import com.mentalfrostbyte.jello.util.system.sound.AudioRepeatMode;
 import com.mentalfrostbyte.jello.util.system.sound.BasicAudioProcessor;
 import com.mentalfrostbyte.jello.util.system.sound.MusicStream;
@@ -185,7 +184,7 @@ public class MusicManager extends Manager implements MinecraftUtil {
                                 (float) mc.getMainWindow().getHeight() - height,
                                 width,
                                 height,
-                                RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.2F * alphaValue)
+                                MathHelper.applyAlpha2(ClientColors.MID_GREY.getColor(), 0.2F * alphaValue)
                         );
                     }
 
@@ -225,14 +224,14 @@ public class MusicManager extends Manager implements MinecraftUtil {
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 70),
                                 titleSplit[0],
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.5F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 70),
                                 titleSplit[0],
-                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
+                                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
                         );
                     } else {
                         RenderUtil.drawString(
@@ -240,28 +239,28 @@ public class MusicManager extends Manager implements MinecraftUtil {
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 81),
                                 titleSplit[0],
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.4F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18_1,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 56),
                                 titleSplit[1],
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.5F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloLightFont18,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 56),
                                 titleSplit[1],
-                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
+                                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F)
                         );
                         RenderUtil.drawString(
                                 ResourceRegistry.JelloMediumFont20,
                                 130.0F,
                                 (float) (mc.getMainWindow().getHeight() - 81),
                                 titleSplit[0],
-                                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F)
+                                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F)
                         );
                     }
                 }

@@ -6,9 +6,9 @@ import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.StencilFunctionType;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -48,9 +48,9 @@ public class OutlineChestESP extends Module {
     }
 
     private void method16964(boolean var1) {
-        int var4 = RenderUtil2.applyAlpha(this.access().parseSettingValueToIntBySettingName("Regular Color"), 0.7F);
-        int var5 = RenderUtil2.applyAlpha(this.access().parseSettingValueToIntBySettingName("Ender Color"), 0.7F);
-        int var6 = RenderUtil2.applyAlpha(this.access().parseSettingValueToIntBySettingName("Trapped Color"), 0.7F);
+        int var4 = MathHelper.applyAlpha2(this.access().parseSettingValueToIntBySettingName("Regular Color"), 0.7F);
+        int var5 = MathHelper.applyAlpha2(this.access().parseSettingValueToIntBySettingName("Ender Color"), 0.7F);
+        int var6 = MathHelper.applyAlpha2(this.access().parseSettingValueToIntBySettingName("Trapped Color"), 0.7F);
 
         for (TileEntity var8 : mc.world.loadedTileEntityList) {
             boolean var9 = var8 instanceof ChestTileEntity && !(var8 instanceof TrappedChestTileEntity)

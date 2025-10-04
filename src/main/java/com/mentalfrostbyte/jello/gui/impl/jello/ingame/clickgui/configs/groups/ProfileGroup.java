@@ -12,7 +12,6 @@ import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
@@ -192,7 +191,7 @@ public class ProfileGroup extends AnimatedIconPanel {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.04F * this.field21264.calcPercent() + var6)
+         MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.04F * this.field21264.calcPercent() + var6)
       );
       if (!this.profileName.isFocused()) {
          RenderUtil.drawString(
@@ -200,7 +199,7 @@ public class ProfileGroup extends AnimatedIconPanel {
             (float)(this.xA + 20) - var5 * (float)this.widthA,
             (float)(this.yA + 18),
             this.currentConfig.profileName,
-                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.9F * partialTicks)
+                 MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.9F * partialTicks)
          );
       }
 
@@ -212,7 +211,7 @@ public class ProfileGroup extends AnimatedIconPanel {
             17.0F,
             13.0F,
             Resources.activePNG,
-                 RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - this.field21265.calcPercent()) * partialTicks)
+                 MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - this.field21265.calcPercent()) * partialTicks)
          );
       }
 

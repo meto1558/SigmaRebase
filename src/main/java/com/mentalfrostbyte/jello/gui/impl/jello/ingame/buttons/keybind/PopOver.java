@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import net.minecraft.client.Minecraft;
@@ -116,7 +116,7 @@ public class PopOver extends Element {
         this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
         this.method13284((int) ((float) this.widthA * 0.2F * (1.0F - var4)) * (!this.field21378 ? 1 : -1));
         super.method13224();
-        int var6 = RenderUtil2.applyAlpha(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
+        int var6 = MathHelper.applyAlpha2(-723724, QuadraticEasing.easeOutQuad(partialTicks, 0.0F, 1.0F, 1.0F));
         RenderUtil.drawRoundedRect(
                 (float) (this.xA + 10 / 2),
                 (float) (this.yA + 10 / 2),
@@ -130,7 +130,7 @@ public class PopOver extends Element {
                 (float) (this.yA + 10 / 2),
                 (float) (this.xA - 10 / 2 + this.widthA),
                 (float) (this.yA - 10 / 2 + this.heightA),
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.25F)
         );
         RenderUtil.drawRoundedRect((float) this.xA, (float) this.yA, (float) this.widthA, (float) this.heightA, (float) 10, var6);
         GL11.glPushMatrix();
@@ -151,14 +151,14 @@ public class PopOver extends Element {
                 (float) (this.xA + 25),
                 (float) (this.yA + 20),
                 this.text + " Key",
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
         );
         RenderUtil.drawColoredRect(
                 (float) (this.xA + 25),
                 (float) (this.yA + 68),
                 (float) (this.xA + this.widthA - 25),
                 (float) (this.yA + 69),
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
         );
         super.draw(partialTicks);
     }

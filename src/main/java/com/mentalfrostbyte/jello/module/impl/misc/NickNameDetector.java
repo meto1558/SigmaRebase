@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.player.CombatUtil;
 import net.minecraft.entity.Entity;
 import team.sdhq.eventBus.annotations.EventTarget;
 

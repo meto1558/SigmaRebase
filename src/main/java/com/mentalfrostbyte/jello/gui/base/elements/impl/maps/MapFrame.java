@@ -9,7 +9,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.math.ChunkPos;
@@ -179,7 +179,7 @@ public class MapFrame extends Element {
                 (float) (this.xA - ResourceRegistry.JelloLightFont14.getWidth(var24) - 23),
                 (float) (this.yA + 35),
                 var24,
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.4F)
         );
         this.field20656 = this.field20650;
         this.field20657 = this.field20651;

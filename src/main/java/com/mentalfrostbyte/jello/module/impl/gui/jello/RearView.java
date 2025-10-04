@@ -14,7 +14,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -24,7 +23,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.Util;
-import net.minecraft.entity.LivingEntity;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -69,16 +67,6 @@ public class RearView extends Module {
 //                }
 //            }
        }
-    }
-
-    public boolean isEntityWithinViewAngle(LivingEntity targetEntity) {
-        float rotations = RotationUtil.calculateEntityRotations(targetEntity, mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ())[0];
-        return this.calculateAngleDifference(mc.player.rotationYaw, rotations) <= 90.0F;
-    }
-
-    public float calculateAngleDifference(float angle1, float angle2) {
-        float angleDifference = Math.abs(angle2 - angle1) % 360.0F;
-        return angleDifference <= 180.0F ? angleDifference : 360.0F - angleDifference;
     }
 
     @EventTarget

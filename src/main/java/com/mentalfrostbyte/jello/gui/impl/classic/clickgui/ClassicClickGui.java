@@ -8,6 +8,7 @@ import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 
 public class ClassicClickGui extends Screen {
@@ -82,7 +83,7 @@ public class ClassicClickGui extends Screen {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var4 * 0.35F)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), var4 * 0.35F)
         );
         super.draw(partialTicks);
     }

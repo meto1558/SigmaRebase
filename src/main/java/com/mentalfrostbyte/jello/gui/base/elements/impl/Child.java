@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Child extends Element {
@@ -49,7 +49,7 @@ public class Child extends Element {
                 (float) this.widthA,
                 (float) this.heightA,
                 8.0F,
-                RenderUtil2.shiftTowardsOther(-3092272, -2171170, this.field20691)
+                MathHelper.shiftTowardsOther(-3092272, -2171170, this.field20691)
         );
         RenderUtil.drawRoundedButton(
                 (float) this.xA, (float) this.yA + 3.0F * this.field20691, (float) this.widthA, (float) this.heightA, 8.0F, -986896
@@ -60,7 +60,7 @@ public class Child extends Element {
                     (float) (this.xA + 14),
                     (float) (this.yA + 11) + 3.0F * this.field20691,
                     10.0F,
-                    RenderUtil2.applyAlpha(ClientColors.DARK_SLATE_GREY.getColor(), this.field20691)
+                    MathHelper.applyAlpha2(ClientColors.DARK_SLATE_GREY.getColor(), this.field20691)
             );
         }
 
@@ -78,7 +78,7 @@ public class Child extends Element {
                                     (float) (this.xA + (this.widthA - var4.getWidth(this.text)) / 2),
                                     (float) (this.yA + 19) + 3.0F * this.field20691,
                                     this.text,
-                                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F + (!this.field20693 ? 0.0F : 0.2F))
+                                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.4F + (!this.field20693 ? 0.0F : 0.2F))
                             );
                         }
                     } else {
@@ -89,35 +89,35 @@ public class Child extends Element {
                                 (float) var6,
                                 (float) (var5 + 14),
                                 (float) (var6 + 3),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
                         RenderUtil.drawColoredRect(
                                 (float) var5,
                                 (float) (var6 + 4),
                                 (float) (var5 + 14),
                                 (float) (var6 + 7),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
                         RenderUtil.drawBorder(
                                 (float) var5,
                                 (float) (var6 + 8),
                                 (float) (var5 + 14),
                                 (float) (var6 + 11),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
                         RenderUtil.drawBorder(
                                 (float) var5,
                                 (float) (var6 + 12),
                                 (float) (var5 + 14),
                                 (float) (var6 + 15),
-                                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
                     }
                 } else {
                     int var7 = this.xA + 32;
                     int var10 = this.yA + 32 + (int) (3.0F * this.field20691);
                     RenderUtil.drawCircle(
-                            (float) var7, (float) var10, 14.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                            (float) var7, (float) var10, 14.0F, MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                     );
                 }
             } else {
@@ -130,14 +130,14 @@ public class Child extends Element {
                         (float) (var11 - 3),
                         (float) (var8 + 6),
                         (float) (var11 + 3),
-                        RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                        MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                 );
                 RenderUtil.drawColoredRect(
                         (float) (var8 + 6),
                         (float) (var11 - 1),
                         (float) (var8 + 27),
                         (float) (var11 + 1),
-                        RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                        MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                 );
             }
         } else {
@@ -150,21 +150,21 @@ public class Child extends Element {
                     (float) (var12 - 3),
                     (float) (var9 + 6),
                     (float) (var12 + 3),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
             RenderUtil.drawColoredRect(
                     (float) (var9 + 6),
                     (float) (var12 - 1),
                     (float) (var9 + 27),
                     (float) (var12 + 1),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
             RenderUtil.drawColoredRect(
                     (float) (var9 + 25),
                     (float) (var12 - 8),
                     (float) (var9 + 27),
                     (float) (var12 - 1),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
         }
 

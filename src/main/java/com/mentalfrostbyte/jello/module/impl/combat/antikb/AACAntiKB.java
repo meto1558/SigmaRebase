@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.game.player.MovementUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
 import team.sdhq.eventBus.annotations.EventTarget;
@@ -50,7 +50,7 @@ public class AACAntiKB extends Module {
                         double var13 = ((double) var4 * var7 + (double) var5 * var9) * var11;
                         double var15 = ((double) var4 * var9 - (double) var5 * var7) * var11;
                         float var17 = (float) (Math.atan2(var13, var15) * 180.0 / Math.PI) - 90.0F;
-                        float var18 = RotationUtil.angleDiff(this.field23908, var17);
+                        float var18 = MathHelper.angleDiff(this.field23908, var17);
                         if (var18 > 100.0F && MovementUtil.isMoving()) {
                             var1.setX(var1.getX() + var13);
                             var1.setZ(var1.getZ() + var15);

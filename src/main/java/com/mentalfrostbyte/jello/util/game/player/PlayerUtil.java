@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.util.game.player;
 
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mentalfrostbyte.jello.util.system.other.SimpleEntryPair;
@@ -30,9 +29,6 @@ import java.util.stream.Stream;
 import static com.mentalfrostbyte.jello.module.Module.mc;
 
 public class PlayerUtil {
-
-    public static final float[] field24951 = new float[4];
-    public static final float[] field24952 = new float[4];
 
     public static Vector3d getBoundingBoxCenter(AxisAlignedBB var0) {
         double var3 = var0.getCenter().x;

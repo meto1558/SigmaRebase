@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +37,14 @@ public class VolumeSlider extends Element {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) this.yA + (float) this.heightA * this.volume,
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.2F)
         );
         RenderUtil.drawColoredRect(
                 (float) this.xA,
                 (float) (this.yA + this.heightA),
                 (float) (this.xA + this.widthA),
                 (float) this.yA + (float) this.heightA * this.volume,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
         );
         super.draw(partialTicks);
     }

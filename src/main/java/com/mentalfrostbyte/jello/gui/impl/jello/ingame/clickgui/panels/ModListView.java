@@ -13,7 +13,7 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class ModListView extends ScrollableContentPanel implements Class4342 {
         int var3 = 0;
 
         for (Module var5 : Client.getInstance().moduleManager.getModulesByCategory(this.field21214)) {
-            int var9 = RenderUtil2.applyAlpha(-3487030, 0.0F);
+            int var9 = MathHelper.applyAlpha2(-3487030, 0.0F);
             ColorHelper var12 = new ColorHelper(!var5.isEnabled() ? 1895167477 : -14047489, !var5.isEnabled() ? var9 : -14042881)
                     .setTextColor(!var5.isEnabled() ? ClientColors.DEEP_TEAL.getColor() : ClientColors.LIGHT_GREYISH_BLUE.getColor());
             var12.method19412(FontSizeAdjust.field14488);

@@ -17,10 +17,10 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.FileUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
 import net.minecraft.client.Minecraft;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -283,14 +283,14 @@ public class Alert extends Element {
                     (float) (this.getWidthA() + 10),
                     (float) (this.getHeightA() + 10),
                     this.field21281,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
             );
             RenderUtil.drawColoredRect(
-                    0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var7)
+                    0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.1F * var7)
             );
             if (var4 > 0) {
                 RenderUtil.drawFloatingFrame(
-                        (this.widthA - var4) / 2, (this.heightA - var5) / 2, var4, var5, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
+                        (this.widthA - var4) / 2, (this.heightA - var5) / 2, var4, var5, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
                 );
             }
 
@@ -333,7 +333,7 @@ public class Alert extends Element {
                 }
 
                 this.field21281 = BufferedImageUtil.getTexture(
-                        "blur", ImageUtil.method35036(0, 0, this.getWidthA(), this.getHeightA(), 5, 10, ClientColors.LIGHT_GREYISH_BLUE.getColor(), true)
+                        "blur", ImageUtil.captureScaledScreenshot(0, 0, this.getWidthA(), this.getHeightA(), 5, 10, ClientColors.LIGHT_GREYISH_BLUE.getColor(), true)
                 );
             } catch (IOException var5) {
                 Client.getInstance().logger.error(var5.getMessage());

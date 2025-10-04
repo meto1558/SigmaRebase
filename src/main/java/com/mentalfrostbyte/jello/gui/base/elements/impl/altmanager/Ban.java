@@ -8,10 +8,10 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.ResourceLocation;
@@ -110,7 +110,7 @@ public class Ban extends AnimatedIconPanel {
                         (float) this.widthA,
                         (float) this.widthA,
                         this.field21246,
-                        RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 0.7F), 0.8F)
+                        MathHelper.applyAlpha2(MathHelper.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 0.7F), 0.8F)
                 );
             }
 
@@ -121,7 +121,7 @@ public class Ban extends AnimatedIconPanel {
                     (float) this.yA,
                     (float) (this.xA + this.widthA),
                     (float) (this.yA + this.heightA),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + 0.3F * this.field21248.calcPercent())
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F + 0.3F * this.field21248.calcPercent())
             );
         }
 
@@ -190,7 +190,7 @@ public class Ban extends AnimatedIconPanel {
                 !this.field21244.serverName.equals("Minecraft Server")
                         ? this.field21244.serverName
                         : this.field21244.serverIP.substring(0, 1).toUpperCase() + this.field21244.serverIP.substring(1),
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F)
         );
         int var12 = 94;
         int var13 = 46;
@@ -201,7 +201,7 @@ public class Ban extends AnimatedIconPanel {
                         (float) (this.xA + var12),
                         (float) (this.yA + var13),
                         "Unban: " + var8 + " days, " + var7 + "h " + var6 + "m " + var5 + "s",
-                        RenderUtil2.shiftTowardsOther(ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
+                        MathHelper.shiftTowardsOther(ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.2F)
                 );
             } else if (this.field21243.getDate().getTime() != Long.MAX_VALUE) {
                 RenderUtil.drawString(
@@ -209,7 +209,7 @@ public class Ban extends AnimatedIconPanel {
                         (float) (this.xA + var12),
                         (float) (this.yA + var13),
                         "Unbanned!",
-                        RenderUtil2.shiftTowardsOther(ClientColors.DARK_SLATE_GREY.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
+                        MathHelper.shiftTowardsOther(ClientColors.DARK_SLATE_GREY.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
                 );
             } else {
                 RenderUtil.drawString(
@@ -217,7 +217,7 @@ public class Ban extends AnimatedIconPanel {
                         (float) (this.xA + var12),
                         (float) (this.yA + var13),
                         "Permanently banned!",
-                        RenderUtil2.shiftTowardsOther(ClientColors.PALE_YELLOW.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
+                        MathHelper.shiftTowardsOther(ClientColors.PALE_YELLOW.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
                 );
             }
         } else {
@@ -226,7 +226,7 @@ public class Ban extends AnimatedIconPanel {
                     (float) (this.xA + var12),
                     (float) (this.yA + var13),
                     "Compromised ban (unbannable)!",
-                    RenderUtil2.shiftTowardsOther(ClientColors.DARK_OLIVE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
+                    MathHelper.shiftTowardsOther(ClientColors.DARK_OLIVE.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F)
             );
         }
 

@@ -6,10 +6,10 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.dropdown.Class7262;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +120,7 @@ public class Dropdown extends Element {
             (float)(this.getYA() + 1),
             (float)(this.getXA() + this.getWidthA() - 1),
             (float)(this.getYA() + this.getHeightA() - 1),
-            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.25F)
+            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.25F)
          );
       }
 
@@ -147,7 +147,7 @@ public class Dropdown extends Element {
             (float)(this.getXA() + 7),
             (float)(this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2),
             this.getText(),
-            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
+            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
          );
          RenderUtil.endScissor();
       }

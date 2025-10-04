@@ -21,31 +21,24 @@ public class Speed extends ModuleWithModuleSettings {
                 "Vroom vroom",
                 new VanillaSpeed(),
                 new UpdatedNCPSpeed(),
-                new HypixelSpeed(),
-                new HypixelNewSpeed(),
                 new AACSpeed(),
                 new OldAACSpeed(),
                 new ViperMCSpeed(),
                 new SlowHopSpeed(),
-                new NCPSpeed(),
                 new LegitSpeed(),
-                new CubecraftSpeed(),
                 new YPortSpeed(),
                 new MinemenSpeed(),
                 new BoostSpeed(),
                 new VerusSpeed(), //AUTHOR - alarmingly_good (on discord)
                 new VulcanSpeed(),
-                new LowHopSpeed(),
                 new InvadedSpeed(),
-                new MineplexSpeed(),
-                new GommeSpeed(),
-                new TestSpeed()
+                new GommeSpeed()
         );
         this.registerSetting(new BooleanSetting("Lag back checker", "Disable speed when you get lag back", true));
         tickCounter = 0;
     }
 
-    @EventTarget    
+    @EventTarget
     public void TickEvent(EventUpdate event) {
         tickCounter++;
     }
@@ -60,12 +53,4 @@ public class Speed extends ModuleWithModuleSettings {
             }
         }
     }
-
-    public void callHypixelSpeedMethod() {
-        if (this.parentModule instanceof HypixelSpeed hypixelSpeed) {
-			hypixelSpeed.method16044();
-        }
-
-        }
-    }
-
+}

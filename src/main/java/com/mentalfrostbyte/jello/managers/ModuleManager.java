@@ -68,7 +68,6 @@ public class ModuleManager {
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.InfoHUD());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.ShulkerInfo());
             this.register(new com.mentalfrostbyte.jello.module.impl.gui.jello.TabGUI());
-            this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.NameTags());
             this.register(new com.mentalfrostbyte.jello.module.impl.render.jello.Waypoints());
         }
 
@@ -88,12 +87,9 @@ public class ModuleManager {
         this.register(new AutoLog());
         this.register(new FastBow());
         this.register(new HitSounds());
-        this.register(new KillAura());
         this.register(new Regen());
         this.register(new WTap());
-        this.register(new BowAimbot());
         this.register(new InfiniteAura());
-        this.register(new NewAura());
         // RENDER
         this.register(new AntiBlind());
         this.register(new DVDSimulator());
@@ -119,12 +115,9 @@ public class ModuleManager {
         this.register(new FakeLag());
         this.register(new AntiVanish());
         this.register(new Timer());
-        this.register(new InteractRange());
         this.register(new Disabler());
         this.register(new FastBreak());
         this.register(new FastPlace());
-        this.register(new Nuker());
-        this.register(new CakeEater());
         this.register(new ServerCrasher());
         this.register(new NewChunks());
         this.register(new AntiCactus());
@@ -152,7 +145,6 @@ public class ModuleManager {
         // PLAYER
         this.register(new AutoSprint());
         this.register(new NoFall());
-        this.register(new Blink());
         this.register(new AntiVoid());
         this.register(new AutoRespawn());
         this.register(new AutoWalk());
@@ -161,22 +153,16 @@ public class ModuleManager {
         this.register(new NoViewReset());
         this.register(new Parkour());
         this.register(new Sneak());
-        this.register(new OldHitting());
         this.register(new InvMove());
         this.register(new FastEat());
         this.register(new XCarry());
         // ITEM
         this.register(new AutoArmor());
-        this.register(new AutoMLG());
         this.register(new AutoTools());
         this.register(new AutoTotem());
-        this.register(new ChestStealer());
-        this.register(new InvManager());
-        this.register(new AutoPotion());
         this.register(new AutoSoup());
         this.register(new AutoGapple());
         // MOVEMENT
-        this.register(new CorrectMovement());
         this.register(new ClickTP());
         this.register(new Speed());
         this.register(new FastLadder());
@@ -184,14 +170,10 @@ public class ModuleManager {
         this.register(new ElytraFly());
         this.register(new BoatFly());
         this.register(new Step());
-        this.register(new Jesus());
         this.register(new SafeWalk());
         this.register(new Spider());
         this.register(new HighJump());
         this.register(new LongJump());
-        this.register(new BlockFly());
-        this.register(new NoSlow());
-        this.register(new TargetStrafe());
         this.register(new Phase());
         this.register(new VClip());
         this.register(new Strafe());

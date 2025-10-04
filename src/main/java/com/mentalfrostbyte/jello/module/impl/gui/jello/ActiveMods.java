@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderGUI;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -12,7 +13,6 @@ import com.mentalfrostbyte.jello.module.settings.impl.BooleanSetting;
 import com.mentalfrostbyte.jello.module.settings.impl.ModeSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.jetbrains.annotations.NotNull;
@@ -154,7 +154,7 @@ public class ActiveMods extends Module {
                     screenHeight = (int) ((double) (mc.ingameGUI.overlayDebug.debugInfoRight.size() * 9) * mc.getMainWindow().getGuiScaleFactor() + 7.0);
                 }
 
-                int color = RenderUtil2.applyAlpha(-1, 0.95F);
+                int color = MathHelper.applyAlpha2(-1, 0.95F);
 
                 for (Module module : this.activeModules) {
                     float animationScale = 1.0F;
@@ -192,10 +192,10 @@ public class ActiveMods extends Module {
                             (float) this.font.getWidth(moduleName) * 3.0F,
                             this.font.getHeight() + scale + 40,
                             Resources.shadowPNG,
-                            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.36F * transparency * scaleFactor)
+                            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.36F * transparency * scaleFactor)
                     );
                     RenderUtil.drawString(
-                            this.font, (float) (screenWidth - margin - this.font.getWidth(moduleName)), (float) screenHeight, moduleName, transparency != 1.0F ? RenderUtil2.applyAlpha(-1, transparency * 0.95F) : color
+                            this.font, (float) (screenWidth - margin - this.font.getWidth(moduleName)), (float) screenHeight, moduleName, transparency != 1.0F ? MathHelper.applyAlpha2(-1, transparency * 0.95F) : color
                     );
                     GL11.glPopMatrix();
                     screenHeight = (int) ((float) screenHeight + (this.font.getHeight() + scale) * QuadraticEasing.easeInOutQuad(transparency, 0.0F, 1.0F, 1.0F));

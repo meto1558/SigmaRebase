@@ -78,7 +78,7 @@ public class ClickGuiScreen extends Screen {
         SmallImage moreButton;
         this.addToList(moreButton = new SmallImage(this, "more", this.getWidthA() - 69, this.getHeightA() - 55, 55, 41, Resources.optionsPNG1));
 
-        moreButton.getTextColor().setPrimaryColor(RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
+        moreButton.getTextColor().setPrimaryColor(MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F));
         moreButton.setListening(false);
 
         this.musicPlayer.setSelfVisible(true);
@@ -261,7 +261,7 @@ public class ClickGuiScreen extends Screen {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha)
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), alpha)
         );
         float fadeAmount = 1.0F;
         if (this.settingGroup != null) {
@@ -281,7 +281,7 @@ public class ClickGuiScreen extends Screen {
                     (float) (this.widthA - ResourceRegistry.JelloLightFont20.getWidth(configName) - 80),
                     (float) (this.heightA - 47),
                     configName,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * Math.max(0.0F, Math.min(1.0F, alphaFactor)))
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * Math.max(0.0F, Math.min(1.0F, alphaFactor)))
             );
         }
 

@@ -233,10 +233,6 @@ public class InvManagerUtil {
         return true;
     }
 
-    public static boolean isItemStackValid(ItemStack var0) {
-        return var0 != null && !var0.getItem().equals(Items.AIR);
-    }
-
     public static List<EffectInstance> getPotionEffects(ItemStack itemStack) {
         if (itemStack == null)
             return null;

@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.opengl.Texture;
 
 import java.awt.image.BufferedImage;
@@ -23,7 +23,7 @@ public class Account extends AnimatedIconPanel {
     private final float field21255 = 0.0F;
     private int field21256 = 0;
     private int field21257 = 0;
-    private int field21258 = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
+    private int field21258 = MathHelper.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
 
     public Account(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, com.mentalfrostbyte.jello.managers.util.account.microsoft.Account var7) {
         super(var1, var2, var3, var4, var5, var6, false);
@@ -52,14 +52,14 @@ public class Account extends AnimatedIconPanel {
         this.method13225();
         this.field21252 = (float) ((double) this.field21252 + (this.field21254 ? 0.2 : -0.2));
         this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
-        this.field21258 = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
+        this.field21258 = MathHelper.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
         if (this.field21254 || this.method13212() || this.method13298()) {
             RenderUtil.drawColoredRect(
                     (float) this.xA,
                     (float) this.yA,
                     (float) (this.xA + this.widthA),
                     (float) (this.yA + this.heightA),
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.05F)
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.05F)
             );
         }
 
@@ -71,7 +71,7 @@ public class Account extends AnimatedIconPanel {
                         (float) (this.xA + this.widthA),
                         (float) (this.yA + this.heightA),
                         2,
-                        RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.5F)
+                        MathHelper.applyAlpha2(ClientColors.MID_GREY.getColor(), 0.5F)
                 );
             } else if (!this.method13298()) {
                 if (this.field21254) {
@@ -81,7 +81,7 @@ public class Account extends AnimatedIconPanel {
                             (float) (this.xA + this.widthA),
                             (float) (this.yA + this.heightA),
                             2,
-                            RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.3F)
+                            MathHelper.applyAlpha2(ClientColors.MID_GREY.getColor(), 0.3F)
                     );
                 }
             } else {
@@ -91,7 +91,7 @@ public class Account extends AnimatedIconPanel {
                         (float) (this.xA + this.widthA),
                         (float) (this.yA + this.heightA),
                         2,
-                        RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F)
+                        MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.3F)
                 );
             }
         } else {
@@ -101,7 +101,7 @@ public class Account extends AnimatedIconPanel {
                     (float) (this.xA + this.widthA),
                     (float) (this.yA + this.heightA),
                     2,
-                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.65F)
+                    MathHelper.applyAlpha2(ClientColors.MID_GREY.getColor(), 0.65F)
             );
         }
 
@@ -135,7 +135,7 @@ public class Account extends AnimatedIconPanel {
                 (float) (this.xA + this.widthA / 2),
                 (float) (this.yA + 20),
                 var3,
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.4F),
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.4F),
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
         );

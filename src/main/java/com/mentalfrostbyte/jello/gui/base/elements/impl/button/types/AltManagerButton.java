@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
@@ -29,7 +29,7 @@ public class AltManagerButton extends AnimatedIconPanel {
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
-                RenderUtil2.applyAlpha(this.color, !this.isHovered() ? 0.25F : (!this.method13298() ? 0.4F : (!this.method13212() ? 0.5F : 0.6F)))
+                MathHelper.applyAlpha2(this.color, !this.isHovered() ? 0.25F : (!this.method13298() ? 0.4F : (!this.method13212() ? 0.5F : 0.6F)))
         );
         RenderUtil.drawBorder(
                 (float) this.xA,
@@ -37,14 +37,14 @@ public class AltManagerButton extends AnimatedIconPanel {
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
                 2,
-                RenderUtil2.applyAlpha(this.color, 0.2F)
+                MathHelper.applyAlpha2(this.color, 0.2F)
         );
         RenderUtil.drawString(
                 ResourceRegistry.DefaultClientFont,
                 (float) (this.getXA() + this.getWidthA() / 2),
                 (float) (this.getYA() + this.getHeightA() / 2),
                 this.text,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.isHovered() ? 0.5F : 1.0F),
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.isHovered() ? 0.5F : 1.0F),
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2,
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
         );

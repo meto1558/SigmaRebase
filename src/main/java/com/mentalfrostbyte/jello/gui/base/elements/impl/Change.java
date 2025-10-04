@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import org.lwjgl.opengl.GL11;
 
@@ -38,7 +38,7 @@ public class Change extends CustomGuiScreen {
                             var6,
                             0,
                             0,
-                            new ColorHelper(0, 0, 0, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)),
+                            new ColorHelper(0, 0, 0, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)),
                             var10,
                             ResourceRegistry.JelloLightFont20
                     )

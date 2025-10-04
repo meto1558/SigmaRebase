@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class VerticalScrollBarButton extends AnimatedIconPanel {
     private final ScrollableContentPanel field20780;
@@ -85,7 +85,7 @@ public class VerticalScrollBarButton extends AnimatedIconPanel {
                     (float) (this.yA + var4),
                     (float) (var5 + var6),
                     (float) (this.yA + this.getHeightA() - var4),
-                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.MID_GREY.getColor(), partialTicks)
             );
         } else {
             RenderUtil.drawImage((float) var5, (float) this.yA, (float) var6, (float) var4, Resources.verticalScrollBarTopPNG, partialTicks);
@@ -95,7 +95,7 @@ public class VerticalScrollBarButton extends AnimatedIconPanel {
                     (float) (this.yA + var4),
                     (float) (var5 + var6),
                     (float) (this.yA + this.getHeightA() - var4),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.45F * partialTicks)
             );
         }
 

@@ -8,10 +8,10 @@ import com.mentalfrostbyte.jello.gui.base.interfaces.Class9514;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.Waypoint2;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.options.WaypointList;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3m;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 import org.lwjgl.opengl.GL11;
@@ -70,7 +70,7 @@ public class MapPanel extends Element {
          (float)this.widthA,
          (float)this.heightA,
          14.0F,
-         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
+         MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
       );
       RenderUtil.drawRoundedButton(
          (float)(this.xA + this.field20616),
@@ -99,9 +99,9 @@ public class MapPanel extends Element {
          (float)(this.yA),
          1.0F,
          (float)this.heightA,
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.14F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.14F)
       );
-      int var6 = RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.6F);
+      int var6 = MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.6F);
       RenderUtil.drawString(ResourceRegistry.JelloLightFont25, (float)(this.xA + 30), (float)(this.yA + 25), "Waypoints", var6);
       RenderUtil.drawString(
          ResourceRegistry.JelloMediumFont40,
@@ -116,7 +116,7 @@ public class MapPanel extends Element {
          (float)(this.xA + this.widthA - ResourceRegistry.JelloLightFont24.getWidth(var7) - 10),
          (float)((this.parent.getHeightA() - this.heightA) / 2 - 62),
          var7,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F)
       );
    }
 

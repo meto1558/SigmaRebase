@@ -3,10 +3,10 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.options;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import net.minecraft.util.math.vector.Vector3i;
 
@@ -58,38 +58,38 @@ public class Waypoint extends Element {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
+              MathHelper.applyAlpha2(MathHelper.shiftTowardsBlack(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.03F), this.field21289.calcPercent())
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont20,
          (float)(this.xA + 68),
          (float)(this.yA + 14),
          this.field21291,
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.8F)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloLightFont14,
          (float)(this.xA + 68),
          (float)(this.yA + 38),
          "x:" + this.field21292.getX() + " z:" + this.field21292.getZ(),
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.5F)
       );
       int var5 = this.widthA - 43;
       float var6 = !this.method13216() ? 0.2F : 0.4F;
       RenderUtil.drawRoundedRect2(
-         (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
+         (float)(this.xA + var5), (float)(this.yA + 27), 20.0F, 2.0F, MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.drawRoundedRect2(
-         (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
+         (float)(this.xA + var5), (float)(this.yA + 27 + 5), 20.0F, 2.0F, MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.drawRoundedRect2(
-         (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var6)
+         (float)(this.xA + var5), (float)(this.yA + 27 + 10), 20.0F, 2.0F, MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), var6)
       );
       RenderUtil.drawCircle(
          (float)(this.xA + 35),
          (float)(this.yA + this.heightA / 2),
          20.0F,
-              RenderUtil2.shiftTowardsOther(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
+              MathHelper.shiftTowardsOther(this.field21293, ClientColors.DEEP_TEAL.getColor(), 0.9F)
       );
       RenderUtil.drawCircle((float)(this.xA + 35), (float)(this.yA + this.heightA / 2), 17.0F, this.field21293);
       RenderUtil.drawRoundedRect(

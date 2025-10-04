@@ -3,6 +3,7 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.Keyboard;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.*;
@@ -150,7 +151,7 @@ public class KeyboardScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
       RenderUtil.drawString(

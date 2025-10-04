@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -109,14 +109,14 @@ public class PanelGroup extends AnimatedIconPanel {
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
                 (float) (this.getYA() + 60),
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 0.9F * this.field21195))
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 0.9F * this.field21195))
         );
         RenderUtil.drawRoundedRect2(
                 (float) this.getXA(),
                 (float) this.getYA() + 60.0F * this.field21195,
                 (float) this.getWidthA(),
                 (float) this.getHeightA() - 60.0F * this.field21195,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
         if (!(this.field21195 > 0.8F)) {
             if (this.field21195 < 0.2F) {
@@ -132,7 +132,7 @@ public class PanelGroup extends AnimatedIconPanel {
                 (float) (this.getXA() + 20),
                 (float) (this.getYA() + 30),
                 categoryName,
-                RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.5F * this.field21195),
+                MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.5F * this.field21195),
                 FontSizeAdjust.field14488,
                 FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2
         );
@@ -146,7 +146,7 @@ public class PanelGroup extends AnimatedIconPanel {
                     (float) this.getWidthA(),
                     18.0F,
                     Resources.shadowBottomPNG,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.field21195 * 0.5F)
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.field21195 * 0.5F)
             );
         }
     }

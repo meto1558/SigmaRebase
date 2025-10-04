@@ -10,7 +10,6 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 import org.lwjgl.opengl.GL11;
@@ -165,7 +164,7 @@ public class Dropdown extends Element {
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
                 (float) (this.getYA() + this.getHeightA()),
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.animation.calcPercent())
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * this.animation.calcPercent())
         );
         RenderUtil.drawRoundedRect(
                 (float) this.getXA(),
@@ -198,7 +197,7 @@ public class Dropdown extends Element {
                     (float) (this.getXA() + 10),
                     (float) (this.getYA() + (this.getHeightA() - this.getFont().getHeight()) / 2 + 1),
                     this.getText() + var4,
-                    RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F)
+                    MathHelper.applyAlpha2(this.textColor.getPrimaryColor(), partialTicks * 0.7F)
             );
             RenderUtil.endScissor();
         }
@@ -231,7 +230,7 @@ public class Dropdown extends Element {
                 (float) (this.getXA() + var9 - 6),
                 (float) (this.getYA() + var10 - 14),
                 ">",
-                RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
+                MathHelper.applyAlpha2(this.textColor.getPrimaryColor(), partialTicks * 0.7F * (!this.method13114(this.getHeightO(), this.getWidthO()) ? 0.5F : 1.0F))
         );
     }
 

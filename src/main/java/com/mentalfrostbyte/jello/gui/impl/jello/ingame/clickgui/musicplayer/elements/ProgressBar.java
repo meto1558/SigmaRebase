@@ -5,9 +5,9 @@ import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.managers.MusicManager;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class ProgressBar extends Element {
     private final MusicManager musicManager = Client.getInstance().musicManager;
@@ -47,7 +47,7 @@ public class ProgressBar extends Element {
                     (float) this.getYA(),
                     (float) this.getWidthA(),
                     (float) this.getHeightA(),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
             );
         } else {
             RenderUtil.drawRoundedRect2(
@@ -55,21 +55,21 @@ public class ProgressBar extends Element {
                     (float) this.getYA(),
                     (float) this.getWidthA(),
                     (float) this.getHeightA(),
-                    RenderUtil2.applyAlpha(ClientColors.MID_GREY.getColor(), 0.075F)
+                    MathHelper.applyAlpha2(ClientColors.MID_GREY.getColor(), 0.075F)
             );
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA() + (float) this.getWidthA() * var9,
                     (float) this.getYA(),
                     (float) this.getWidthA() * (1.0F - var9),
                     (float) this.getHeightA(),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.43F * partialTicks)
             );
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),
                     (float) this.getYA(),
                     (float) this.getWidthA() * var8,
                     (float) this.getHeightA(),
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * partialTicks)
             );
             if (var8 != 0.0F) {
                 RenderUtil.drawImage((float) this.getXA() + (float) this.getWidthA() * var8, (float) this.getYA(), 5.0F, 5.0F, Resources.shadowRightPNG);

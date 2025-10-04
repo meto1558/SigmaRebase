@@ -15,9 +15,9 @@ import com.mentalfrostbyte.jello.managers.ProfileManager;
 import com.mentalfrostbyte.jello.managers.util.profile.Profile;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
@@ -123,11 +123,11 @@ public class ConfigGroup extends Element {
             (float)this.widthA,
             50.0F,
             Resources.shadowBottomPNG,
-            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * partialTicks * 0.3F)
+            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * partialTicks * 0.3F)
          );
          RenderUtil.startScissor(this);
          RenderUtil.drawRoundedRect2(
-            (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, RenderUtil2.applyAlpha(-723724, partialTicks)
+            (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, MathHelper.applyAlpha2(-723724, partialTicks)
          );
          if (onlineProfilesManager != null && OnlineProfilesManager.cachedOnlineProfiles != null && OnlineProfilesManager.cachedOnlineProfiles.isEmpty()) {
             RenderUtil.drawString(

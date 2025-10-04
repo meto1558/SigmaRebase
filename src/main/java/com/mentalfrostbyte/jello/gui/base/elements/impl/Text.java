@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -39,7 +39,7 @@ public class Text extends AnimatedIconPanel {
                     (float) this.getXA(),
                     (float) this.getYA(),
                     this.getText(),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks)
             );
             GL11.glAlphaFunc(519, 0.0F);
         }
@@ -50,7 +50,7 @@ public class Text extends AnimatedIconPanel {
                     (float) this.getXA(),
                     (float) this.getYA(),
                     this.getText(),
-                    RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks * RenderUtil2.getAlpha(this.textColor.getTextColor()))
+                    MathHelper.applyAlpha2(this.textColor.getTextColor(), partialTicks * MathHelper.getAlpha(this.textColor.getTextColor()))
             );
         }
     }

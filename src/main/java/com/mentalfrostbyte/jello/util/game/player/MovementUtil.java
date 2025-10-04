@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.event.impl.player.movement.EventMove;
 import com.mentalfrostbyte.jello.event.impl.player.movement.EventMoveInput;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.network.play.client.CPlayerPacket;
@@ -223,7 +222,7 @@ public class MovementUtil implements MinecraftUtil {
     }
 
     public static float setMotion(double speed, float currentYaw, float targetYaw, float maxYawChange) {
-        float yawDifference = RotationUtil.angleDiff(targetYaw, currentYaw);
+        float yawDifference = com.mentalfrostbyte.jello.util.system.math.MathHelper.angleDiff(targetYaw, currentYaw);
         if (!(yawDifference > maxYawChange)) {
             targetYaw = currentYaw;
         } else {
@@ -236,7 +235,7 @@ public class MovementUtil implements MinecraftUtil {
     }
 
     public static float setMotion(EventMove event, double speed, float currentYaw, float targetYaw, float maxYawChange) {
-        float yawDifference = RotationUtil.angleDiff(targetYaw, currentYaw);
+        float yawDifference = com.mentalfrostbyte.jello.util.system.math.MathHelper.angleDiff(targetYaw, currentYaw);
         if (!(yawDifference > maxYawChange)) {
             targetYaw = currentYaw;
         } else {
@@ -313,9 +312,6 @@ public class MovementUtil implements MinecraftUtil {
 
     public static float[] getDirectionArray(float forward, float strafe) {
         float yaw = mc.player.rotationYaw + 90.0F;
-        if (Client.getInstance().minerTracker.getAdjustedYaw() != -999.0f) {
-            yaw = Client.getInstance().minerTracker.getAdjustedYaw() + 90.0f;
-        }
 
         if (forward != 0.0F) {
             if (!(strafe >= 1.0F)) {

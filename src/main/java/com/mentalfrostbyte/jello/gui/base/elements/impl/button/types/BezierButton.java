@@ -3,8 +3,8 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl.button.types;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.Bezier;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class BezierButton extends AnimatedIconPanel {
    public Bezier field20737;
@@ -46,7 +46,7 @@ public class BezierButton extends AnimatedIconPanel {
          (float)(this.xA + 5),
          (float)(this.yA + 5),
          10.0F,
-         RenderUtil2.applyAlpha(!this.method13216() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
+         MathHelper.applyAlpha2(!this.method13216() ? ClientColors.DARK_GREEN.getColor() : ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
       );
       super.draw(partialTicks);
    }

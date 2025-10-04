@@ -2,8 +2,8 @@ package com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.RandomIntGenerator;
 import com.mentalfrostbyte.jello.managers.AnimationManager;
 import net.minecraft.client.Minecraft;
@@ -113,7 +113,7 @@ public class BrainFreezeOverlay extends AnimatedIconPanel {
 
         public void render(float partialTicks) {
             RenderUtil.drawCircle(
-                    this.initialXPosition * 2.0F, this.yPosition * 2.0F, this.size * 2.0F, RenderUtil2.applyAlpha(this.color.getRGB(), partialTicks * 0.7F)
+                    this.initialXPosition * 2.0F, this.yPosition * 2.0F, this.size * 2.0F, MathHelper.applyAlpha2(this.color.getRGB(), partialTicks * 0.7F)
             );
         }
 

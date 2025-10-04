@@ -1,6 +1,6 @@
 package org.newdawn.slick;
 
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.opengl.renderer.SGL;

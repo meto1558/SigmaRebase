@@ -2,9 +2,9 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl.button.types;
 
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.sound.AudioRepeatMode;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 
@@ -33,7 +33,7 @@ public class ChangingButton extends Element {
          (float)(this.widthA * 3),
          (float)this.heightA,
          Resources.repeatPNG,
-         RenderUtil2.applyAlpha(  ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.35F)
+         MathHelper.applyAlpha2(  ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.35F)
       );
       RenderUtil.endScissor();
       super.draw(partialTicks);

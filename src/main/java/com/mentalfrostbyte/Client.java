@@ -7,8 +7,6 @@ import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
-import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
 import com.mentalfrostbyte.jello.util.game.player.tracker.SlotChangeTracker;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.game.player.tracker.PlayerStateTracker;
@@ -46,7 +44,6 @@ public class Client implements MinecraftUtil {
     public GuiManager guiManager;
     public ModuleManager moduleManager;
     public BotManager botManager;
-    public ViaManager viaManager;
     public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
@@ -56,7 +53,6 @@ public class Client implements MinecraftUtil {
     public NotificationManager notificationManager;
     public MusicManager musicManager;
     public PlayerStateTracker playerTracker;
-    public MinerTracker minerTracker;
 
     public static boolean dontRenderHand = false;
     public boolean loading = true;
@@ -76,12 +72,9 @@ public class Client implements MinecraftUtil {
             logger.error(exception);
         }
 
-        JelloAI.init();
         guiManager = new GuiManager();
         botManager = new BotManager();
         botManager.init();
-        viaManager = new ViaManager();
-        viaManager.init();
         commandManager = new CommandManager();
         commandManager.init();
         friendManager = new FriendManager();
@@ -100,8 +93,6 @@ public class Client implements MinecraftUtil {
         waypointsManager.init();
         blurEngine = new BlurEngine();
         blurEngine.init();
-        minerTracker = new MinerTracker();
-        minerTracker.init();
         GLFW.glfwSetWindowTitle(mc.getMainWindow().getHandle(), "Sigma " + RELEASE_TARGET);
         logger.info("Initialized.");
     }

@@ -4,7 +4,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.opengl.Texture;
 
 public class Image extends AnimatedIconPanel {
@@ -23,7 +23,7 @@ public class Image extends AnimatedIconPanel {
                 (float) this.widthA,
                 (float) this.heightA,
                 this.image,
-                RenderUtil2.shiftTowardsOther(
+                MathHelper.shiftTowardsOther(
                         ClientColors.DEEP_TEAL.getColor(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), !this.method13298() ? 0.0F : (!this.method13212() ? 0.15F : 0.3F)
                 )
         );

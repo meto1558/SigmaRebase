@@ -7,8 +7,8 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.panels.SettingPa
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
 
@@ -76,7 +76,7 @@ public class SettingGroup extends Element {
          (float)this.yA,
          (float)this.widthA,
          (float)this.heightA,
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.45F * partialTicks)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.45F * partialTicks)
       );
       super.method13224();
       RenderUtil.drawRoundedRect(
@@ -85,14 +85,14 @@ public class SettingGroup extends Element {
          (float)this.width,
          (float)this.height,
          10.0F,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.drawString(
          ResourceRegistry.JelloMediumFont40,
          (float)this.x,
          (float)(this.y - 60),
          this.module.getName(),
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
       );
       RenderUtil.startScissor((float)this.x, (float)this.y, (float)(this.width - 30), (float)this.height);
       RenderUtil.drawString(
@@ -100,7 +100,7 @@ public class SettingGroup extends Element {
          (float)(30 + this.x),
          (float)(30 + this.y),
          this.module.getDescription(),
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
       );
       RenderUtil.endScissor();
       super.draw(partialTicks);

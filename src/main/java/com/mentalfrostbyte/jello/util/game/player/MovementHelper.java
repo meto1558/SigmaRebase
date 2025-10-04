@@ -61,9 +61,6 @@ public class MovementHelper implements MinecraftUtil {
         return false;
     }
 
-    public static void method34126(double var0, double var2, double var4) {
-    }
-
     public static void jump() {
         y += 0.04F;
     }

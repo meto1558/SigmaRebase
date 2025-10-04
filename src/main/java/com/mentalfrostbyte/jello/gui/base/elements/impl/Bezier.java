@@ -5,8 +5,8 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.button.types.BezierButton;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector2d;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -72,7 +72,7 @@ public class Bezier extends Element {
          (float)(this.widthA - var5 * 2),
          (float)(this.heightA - var5 * 2),
          3.0F,
-         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
+         MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.05F * partialTicks)
       );
       ArrayList var11 = new ArrayList();
       var11.add(new Vector2d(0.0, 0.0));
@@ -85,7 +85,7 @@ public class Bezier extends Element {
          (float)((double)this.xA + (double)var6 * var13 + (double)var5),
          (float)(this.yA - var5 / 2 + this.heightA),
          14.0F,
-              RenderUtil2.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
+              MathHelper.applyAlpha2(ClientColors.DARK_BLUE_GREY.getColor(), partialTicks)
       );
       List<Vector2d> var15 = var12.generateInterpolatedPoints(var11);
       GL11.glPushMatrix();

@@ -1,9 +1,9 @@
 package com.mentalfrostbyte.jello.gui.combined.impl;
 
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.opengl.Texture;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
@@ -86,7 +86,7 @@ public class LoadingScreen extends LoadingGui {
         GL11.glEnable(3008);
         GL11.glEnable(3042);
         RenderUtil.drawImage(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), background, bgOpacity);
-        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), RenderUtil2.applyAlpha(0, 0.75F));
+        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) Minecraft.getInstance().getMainWindow().getWidth(), (float) Minecraft.getInstance().getMainWindow().getHeight(), MathHelper.applyAlpha2(0, 0.75F));
         int var4 = 455;
         int var5 = 78;
         int var6 = (Minecraft.getInstance().getMainWindow().getWidth() - var4) / 2;
@@ -96,12 +96,12 @@ public class LoadingScreen extends LoadingGui {
         GL11.glTranslatef((float)(Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
         GL11.glScalef(var8, var8, 0.0F);
         GL11.glTranslatef((float)(-Minecraft.getInstance().getMainWindow().getWidth() / 2), (float)(-Minecraft.getInstance().getMainWindow().getHeight() / 2), 0.0F);
-        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), bgOpacity));
+        RenderUtil.drawImage((float)var6, (float)var7, (float)var4, (float)var5, sigmaLogo, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), bgOpacity));
         float var9 = Math.min(1.0F, var1 * 1.02F);
         float var11 = 80;
         if (bgOpacity == 1.0F) {
             RenderUtil.drawRoundedRect(
-                    (float)var6, var7 + var5 + var11, (float)var4, 20.0F, 10.0F, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * bgOpacity)
+                    (float)var6, var7 + var5 + var11, (float)var4, 20.0F, 10.0F, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F * bgOpacity)
             );
             RenderUtil.drawRoundedRect(
                     (float)(var6 + 1),
@@ -109,7 +109,7 @@ public class LoadingScreen extends LoadingGui {
                     (float)(var4 - 2),
                     18.0F,
                     9.0F,
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), bgOpacity)
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), bgOpacity)
             );
         }
 
@@ -119,7 +119,7 @@ public class LoadingScreen extends LoadingGui {
                 (float)((int)((float)(var4 - 4) * var9)),
                 16.0F,
                 8.0F,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * bgOpacity)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.9F * bgOpacity)
         );
         GL11.glPopMatrix();
     }

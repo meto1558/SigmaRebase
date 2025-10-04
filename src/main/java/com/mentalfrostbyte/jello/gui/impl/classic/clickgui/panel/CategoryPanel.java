@@ -7,9 +7,9 @@ import com.mentalfrostbyte.jello.gui.impl.classic.clickgui.buttons.Checkbox;
 import com.mentalfrostbyte.jello.gui.base.elements.Element;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class CategoryPanel extends Element {
    public Module module;
@@ -35,21 +35,21 @@ public class CategoryPanel extends Element {
          (float)(this.xA + 10),
          (float)(this.yA + 8),
          this.module.getFormattedName(),
-         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), !this.module.isEnabled() ? 0.5F : 0.9F)
+         MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), !this.module.isEnabled() ? 0.5F : 0.9F)
       );
       RenderUtil.drawString(
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 33),
          "Bind",
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 1.0F)
       );
       RenderUtil.drawString(
               Resources.regular15,
          (float)(this.xA + 15),
          (float)(this.yA + 52),
               RenderUtil.getKeyName(this.module.parseSettingValueToIntBySettingName("Keybind")),
-              RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.7F)
+              MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.7F)
       );
       if (this.module.getSettingMap().size() > 1) {
          RenderUtil.drawString(
@@ -57,7 +57,7 @@ public class CategoryPanel extends Element {
             (float)(this.xA + 84),
             (float)(this.yA + 34),
             "Settings",
-                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 1.0F)
+                 MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 1.0F)
          );
       }
 

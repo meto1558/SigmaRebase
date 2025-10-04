@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.module.impl.combat;
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
-import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
+import com.mentalfrostbyte.jello.util.game.player.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.world.pathing.PathFinder;
 import com.mentalfrostbyte.jello.util.system.math.vector.Vector3d;
 import com.mentalfrostbyte.jello.module.Module;

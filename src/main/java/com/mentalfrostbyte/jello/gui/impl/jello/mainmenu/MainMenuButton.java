@@ -7,7 +7,7 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.SmoothInterpolator;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
@@ -72,7 +72,7 @@ public class MainMenuButton extends SmallImage {
         int var7 = (int) ((double) this.getHeightA() * (1.0 + (double) var5 * 0.2));
         int var8 = this.getXA() - (var6 - this.getWidthA()) / 2;
         int var9 = (int) ((double) (this.getYA() - (var7 - this.getHeightA()) / 2) - (double) ((float) (this.getHeightA() / 2) * var5) * 0.2);
-        float[] var10 = RenderUtil2.calculateAspectRatioFit(this.getTexture().getWidth(), this.getTexture().getHeight(), (float) var6, (float) var7);
+        float[] var10 = MathHelper.calculateAspectRatioFit(this.getTexture().getWidth(), this.getTexture().getHeight(), (float) var6, (float) var7);
         float var11 = 85;
         RenderUtil.drawImage(
                 (float) var8 + var10[0] - var11,
@@ -80,7 +80,7 @@ public class MainMenuButton extends SmallImage {
                 var10[2] + (var11 * 2),
                 var10[3] + (var11 * 2),
                 Resources.shadowPNG,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * partialTicks)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20578.calcPercent() * 0.7F * partialTicks)
         );
         RenderUtil.drawImage(
                 (float) var8 + var10[0],
@@ -88,7 +88,7 @@ public class MainMenuButton extends SmallImage {
                 var10[2],
                 var10[3],
                 this.getTexture(),
-                RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4), partialTicks)
+                MathHelper.applyAlpha2(MathHelper.shiftTowardsOther(this.textColor.getPrimaryColor(), this.textColor.getSecondaryColor(), 1.0F - var4), partialTicks)
         );
         if (this.getText() != null) {
             RenderUtil.drawString(
@@ -96,7 +96,7 @@ public class MainMenuButton extends SmallImage {
                     (float) (var8 + var6 / 2),
                     (float) (var9 + var7 / 2),
                     this.getText(),
-                    RenderUtil2.applyAlpha(this.textColor.getTextColor(), partialTicks),
+                    MathHelper.applyAlpha2(this.textColor.getTextColor(), partialTicks),
                     this.textColor.method19411(),
                     this.textColor.method19413()
             );
@@ -125,7 +125,7 @@ public class MainMenuButton extends SmallImage {
                     (1.0F - var13) * (float) font.getWidth(var14) / 2.0F + 1.0F,
                     40.0F,
                     var14,
-                    RenderUtil2.applyAlpha(this.getTextColor().getPrimaryColor(), var5 * 0.6F * partialTicks)
+                    MathHelper.applyAlpha2(this.getTextColor().getPrimaryColor(), var5 * 0.6F * partialTicks)
             );
             GL11.glPopMatrix();
         }

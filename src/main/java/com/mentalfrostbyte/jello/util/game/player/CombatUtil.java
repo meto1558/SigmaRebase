@@ -1,7 +1,6 @@
-package com.mentalfrostbyte.jello.util.game.player.combat;
+package com.mentalfrostbyte.jello.util.game.player;
 
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
 import net.minecraft.network.play.client.CPlayerTryUseItemPacket;

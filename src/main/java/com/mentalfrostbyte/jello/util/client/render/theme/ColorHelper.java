@@ -1,7 +1,7 @@
 package com.mentalfrostbyte.jello.util.client.render.theme;
 
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 /**
  * A utility class for managing colors, likely used for UI rendering.
@@ -39,12 +39,12 @@ public class ColorHelper {
 
    /**
     * Constructs a ColorHelper with the given color and a darker shade of it.
-    * The darker shade is calculated using {@link RenderUtil2#shiftTowardsBlack(int, float)}.
+    * The darker shade is calculated using {@link MathHelper#shiftTowardsBlack(int, float)}.
     *
     * @param color The base color for this ColorHelper.
     */
    public ColorHelper(int color) {
-      this(color, RenderUtil2.shiftTowardsBlack(color, 0.05F));
+      this(color, MathHelper.shiftTowardsBlack(color, 0.05F));
    }
 
    /**

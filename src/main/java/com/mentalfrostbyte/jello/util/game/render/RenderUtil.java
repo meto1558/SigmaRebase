@@ -11,7 +11,6 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
-import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -156,36 +155,6 @@ public class RenderUtil implements MinecraftUtil {
     public static void resetColors() {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-    }
-
-    public static void drawItem(ItemStack itemStack, int posX, int posY, int width, int height) {
-        if (itemStack != null) {
-            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
-            GL11.glPushMatrix();
-            GL11.glTranslatef((float) posX, (float) posY, 0.0F);
-            GL11.glScalef((float) width / 16.0F, (float) height / 16.0F, 0.0F);
-            ItemRenderer itemRenderer = mc.getItemRenderer();
-            if (itemStack.count == 0) {
-                itemStack = new ItemStack(itemStack.getItem());
-            }
-
-            RenderHelper.setupGuiFlatDiffuseLighting();
-            GL11.glLightModelfv(2899, new float[]{0.4F, 0.4F, 0.4F, 1.0F});
-            RenderSystem.enableColorMaterial();
-            RenderSystem.disableLighting();
-            RenderSystem.enableBlend();
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glDepthFunc(519);
-            itemRenderer.renderItemIntoGUI(itemStack, 0, 0);
-            GL11.glDepthFunc(515);
-            RenderSystem.popMatrix();
-            GL11.glAlphaFunc(519, 0.0F);
-            RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
-            RenderSystem.disableDepthTest();
-            TextureImpl.unbind();
-            mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
-            RenderHelper.setupGui3DDiffuseLighting();
-        }
     }
 
     public static void render3DColoredBox(BoundingBox boxIn, int color) {
@@ -402,7 +371,7 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void drawImage(float x, float y, float width, float height, Texture tex, float alphaValue) {
-        drawImage(x, y, width, height, tex, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
+        drawImage(x, y, width, height, tex, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
     }
 
     public static void drawImage(float x, float y, float width, float height, Texture texture) {
@@ -724,7 +693,7 @@ public class RenderUtil implements MinecraftUtil {
     ) {
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
 
-        int shadowColorWithAlpha = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha);
+        int shadowColorWithAlpha = MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha);
 
         // Draw corners
         drawImage(x - cornerSize, y - cornerSize, cornerSize, cornerSize, Resources.shadowCorner1PNG, shadowColorWithAlpha);
@@ -911,7 +880,7 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void drawShadowedBorder(float x, float y, float width, float height, float borderThickness, float alpha) {
-        int shadowColor = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha);
+        int shadowColor = MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha);
 
         drawImage(x, y, borderThickness, height, Resources.shadowRightPNG, shadowColor, false);
         drawImage(x + width - borderThickness, y, borderThickness, height, Resources.shadowLeftPNG, shadowColor, false);
@@ -1254,7 +1223,7 @@ public class RenderUtil implements MinecraftUtil {
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        GL11.glColor4fv(RenderUtil2.intColorToFloatArrayColor(color));
+        GL11.glColor4fv(MathHelper.intColorToFloatArrayColor(color));
         GL11.glEnable(2881);
         GL11.glBegin(4);
         GL11.glVertex2f(x + size / 2.0F, y + size / 2.0F);
@@ -1262,7 +1231,7 @@ public class RenderUtil implements MinecraftUtil {
         GL11.glVertex2f(x - size / 2.0F, y);
         GL11.glEnd();
         GL11.glLineWidth(2.0F);
-        GL11.glColor4fv(RenderUtil2.intColorToFloatArrayColor(outlineColor));
+        GL11.glColor4fv(MathHelper.intColorToFloatArrayColor(outlineColor));
         GL11.glBegin(3);
         GL11.glVertex2f(x + size / 2.0F, y + size / 2.0F);
         GL11.glVertex2f(x + size / 2.0F, y - size / 2.0F);
@@ -1515,9 +1484,12 @@ public class RenderUtil implements MinecraftUtil {
         );
     }
 
+    private static final float[] tempVec1 = new float[4];
+    private static final float[] tempVec2 = new float[4];
+
     public static boolean projectToScreen(float x, float y, float z, FloatBuffer modelMatrix, FloatBuffer projectionMatrix, IntBuffer viewport, FloatBuffer screenCoords) {
-        float[] inVector = PlayerUtil.field24951;
-        float[] outVector = PlayerUtil.field24952;
+        float[] inVector = tempVec1;
+        float[] outVector = tempVec2;
 
         // Load input coordinates into the vector
         inVector[0] = x;

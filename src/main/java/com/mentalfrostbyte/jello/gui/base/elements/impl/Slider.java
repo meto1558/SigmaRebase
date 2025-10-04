@@ -8,7 +8,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.TrueTypeFont;
 
 public class Slider extends Element {
@@ -72,7 +72,7 @@ public class Slider extends Element {
         int var9 = this.getYA() + this.getHeightA() / 2 - var6 / 2;
         int var10 = this.field20734.getXA() + this.field20734.getWidthA() / 2 - 6;
         RenderUtil.drawRoundedRect(
-                (float) var8, (float) var9, (float) var10, (float) var6, (float) (var6 / 2), RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * partialTicks * partialTicks)
+                (float) var8, (float) var9, (float) var10, (float) var6, (float) (var6 / 2), MathHelper.applyAlpha2(this.textColor.getPrimaryColor(), partialTicks * partialTicks * partialTicks)
         );
         RenderUtil.drawRoundedRect(
                 (float) (var8 + var10),
@@ -80,7 +80,7 @@ public class Slider extends Element {
                 (float) (var7 - var10),
                 (float) var6,
                 (float) (var6 / 2),
-                RenderUtil2.applyAlpha(RenderUtil2.adjustColorTowardsWhite(this.textColor.getPrimaryColor(), 0.8F), partialTicks * partialTicks * partialTicks)
+                MathHelper.applyAlpha2(MathHelper.adjustColorTowardsWhite(this.textColor.getPrimaryColor(), 0.8F), partialTicks * partialTicks * partialTicks)
         );
         if (this.getText() != null) {
             int var11 = Math.max(0, 9 - this.field20734.getXA());
@@ -89,7 +89,7 @@ public class Slider extends Element {
                     (float) (var8 - ResourceRegistry.JelloLightFont14.getWidth(this.getText()) - 10 - var11),
                     (float) (var9 - 5),
                     this.getText(),
-                    RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.5F * this.field20735.calcPercent() * partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.5F * this.field20735.calcPercent() * partialTicks)
             );
         }
 

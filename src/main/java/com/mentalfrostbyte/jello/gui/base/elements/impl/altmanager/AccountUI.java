@@ -10,7 +10,7 @@ import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class AccountUI extends AnimatedIconPanel {
     public Account selectedAccount;
@@ -22,7 +22,7 @@ public class AccountUI extends AnimatedIconPanel {
     public Animation field20805 = new Animation(800, 300, Animation.Direction.BACKWARDS);
     private int errorState = 0;
     private int lastErrorState = 0;
-    private int color = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
+    private int color = MathHelper.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 20.0F);
 
     public AccountUI(CustomGuiScreen var1, String var2, int var3, int var4, int var5, int var6, Account var7) {
         super(var1, var2, var3, var4, var5, var6, false);
@@ -49,7 +49,7 @@ public class AccountUI extends AnimatedIconPanel {
     @Override
     public void draw(float partialTicks) {
         this.method13225();
-        this.color = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
+        this.color = MathHelper.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
         int var4 = ((ScrollableContentPanel) this.parent.getParent()).method13513();
         int var5 = Math.max(0, this.yA - var4);
         int var6 = Math.max(0, this.heightA + Math.min(100, this.yA - var4 - var5));
@@ -64,7 +64,7 @@ public class AccountUI extends AnimatedIconPanel {
                         var5,
                         this.widthA,
                         Math.max(20, var6),
-                        RenderUtil2.applyAlpha(!this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.color, var7)
+                        MathHelper.applyAlpha2(!this.method13212() ? ClientColors.LIGHT_GREYISH_BLUE.getColor() : this.color, var7)
                 );
                 RenderUtil.startScissor(this.xA, var5, this.xA + this.widthA + 20, var5 + var6, true);
                 if (this.selectedAccount != null) {
@@ -166,7 +166,7 @@ public class AccountUI extends AnimatedIconPanel {
                 17.0F,
                 17.0F,
                 Resources.errorsPNG,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5 * var1)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5 * var1)
         );
         RenderUtil.drawImage(
                 (float) (this.xA + this.widthA - 45),
@@ -174,7 +174,7 @@ public class AccountUI extends AnimatedIconPanel {
                 17.0F,
                 13.0F,
                 Resources.activePNG,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.loadingProgress * var1)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.loadingProgress * var1)
         );
     }
 

@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.button.Button;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class SliderButton extends Button {
     private final Slider field20600;
@@ -62,7 +62,7 @@ public class SliderButton extends Button {
                 (float) (this.getXA() + this.getWidthA() / 2),
                 (float) (this.getYA() + this.getWidthA() / 2),
                 var6,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
         );
 
         super.drawChildren(partialTicks);

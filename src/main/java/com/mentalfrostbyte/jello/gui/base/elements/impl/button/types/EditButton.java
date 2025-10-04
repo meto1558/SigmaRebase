@@ -4,9 +4,9 @@ package com.mentalfrostbyte.jello.gui.base.elements.impl.button.types;
 import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.gui.combined.AnimatedIconPanel;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 
 public class EditButton extends AnimatedIconPanel {
    private static String[] field20767;
@@ -23,11 +23,11 @@ public class EditButton extends AnimatedIconPanel {
          this.method13225();
          float var4 = 1.0F - Math.min(1.0F, Math.max((float)this.getWidthA() / (float)this.field20768, 0.0F));
          RenderUtil.drawRoundedRect2(
-            (float)this.xA, (float)this.yA, (float)this.field20768, (float)this.heightA, RenderUtil2.applyAlpha(-3254955, partialTicks)
+            (float)this.xA, (float)this.yA, (float)this.field20768, (float)this.heightA, MathHelper.applyAlpha2(-3254955, partialTicks)
          );
          super.draw(partialTicks * (1.0F - var4));
          RenderUtil.drawImage(
-            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
+            0.0F, 0.0F, 20.0F, (float)this.heightA, Resources.shadowRightPNG, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
          );
       }
    }

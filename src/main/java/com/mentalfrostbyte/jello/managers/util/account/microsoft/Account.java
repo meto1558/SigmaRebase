@@ -3,7 +3,7 @@ package com.mentalfrostbyte.jello.managers.util.account.microsoft;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.Client;
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import org.newdawn.slick.opengl.Texture;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
@@ -205,11 +205,15 @@ public class Account {
         }
     }
 
+    private String getSkinUrlByID(String uuid) {
+        return "https://crafatar.com/skins/" + uuid;
+    }
+
     public void updateSkin() {
         if (!this.getUUID().contains("8667ba71-b85a-4004-af54-457a9734eed7") && this.skinUpdateThread == null) {
             this.skinUpdateThread = new Thread(() -> {
                 try {
-                    this.skin = ImageIO.read(new URL(ImageUtil.getSkinUrlByID(getFormattedUUID())));
+                    this.skin = ImageIO.read(new URL(getSkinUrlByID(getFormattedUUID())));
                 } catch (Exception ignored) {
                 }
             });

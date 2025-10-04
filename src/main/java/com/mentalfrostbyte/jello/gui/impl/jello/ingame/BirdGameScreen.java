@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.gui.impl.jello.ingame;
 
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.smoothing.EasingFunctions;
 import com.mentalfrostbyte.jello.gui.base.elements.impl.critical.Screen;
 import com.mentalfrostbyte.jello.gui.impl.jello.ingame.clickgui.groups.BirdGroup;
@@ -44,7 +45,7 @@ public class BirdGameScreen extends Screen {
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
-         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), var5)
+         MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), var5)
       );
       super.method13224();
       RenderUtil.drawRoundedRect(
@@ -74,7 +75,7 @@ public class BirdGameScreen extends Screen {
          (float)(var6 + this.field21046.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var8)),
          (float)(var7 - 50),
          var8,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F)
       );
    }
 

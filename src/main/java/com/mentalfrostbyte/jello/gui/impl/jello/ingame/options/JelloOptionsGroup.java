@@ -10,8 +10,8 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.holders.KeyboardHolder;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.util.text.StringTextComponent;
 
 public class JelloOptionsGroup extends CustomGuiScreen {
@@ -50,7 +50,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          (float)(this.xA + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var4)) / 2),
          (float)(this.yA + 70),
          var4,
-         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
+         MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
       );
       String var5 = "Click GUI is currently bound to: "
          + RenderUtil.getKeyName(Client.getInstance().moduleManager.getKeyManager().getKeybindFor(ClickGuiHolder.class))
@@ -60,7 +60,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var5)) / 2),
          (float)(this.getYA() + this.getHeightA() - 180),
          var5,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * partialTicks)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * partialTicks)
       );
       String var6 = "Configure all your keybinds in the keybind manager!";
       RenderUtil.drawString(
@@ -68,7 +68,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont14.getWidth(var6)) / 2),
          (float)(this.getYA() + this.getHeightA() - 150),
          var6,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.4F * partialTicks)
       );
       String var7 = "GUI Blur: ";
       RenderUtil.drawString(
@@ -76,7 +76,7 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var7)) / 2 - 114),
          (float)(this.getYA() + this.getHeightA() - 221),
          var7,
-         RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * partialTicks)
+         MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * partialTicks)
       );
       String var8 = "GPU Accelerated: ";
       RenderUtil.drawString(
@@ -84,15 +84,15 @@ public class JelloOptionsGroup extends CustomGuiScreen {
          (float)(this.getXA() + (this.getWidthA() - ResourceRegistry.JelloLightFont20.getWidth(var8)) / 2 + 52),
          (float)(this.getYA() + this.getHeightA() - 221),
          var8,
-              RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * partialTicks)
+              MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * partialTicks)
       );
       super.draw(partialTicks);
    }
 
    private void method13463(int var1, int var2, float var3) {
-      RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, (float)var1, (float)(var2 + 1), "Jello", RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
+      RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, (float)var1, (float)(var2 + 1), "Jello", MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
       RenderUtil.drawString(
-         ResourceRegistry.JelloLightFont25, (float)(var1 + 95), (float)(var2 + 14), "for Sigma", RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.86F * var3)
+         ResourceRegistry.JelloLightFont25, (float)(var1 + 95), (float)(var2 + 14), "for Sigma", MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.86F * var3)
       );
    }
 }

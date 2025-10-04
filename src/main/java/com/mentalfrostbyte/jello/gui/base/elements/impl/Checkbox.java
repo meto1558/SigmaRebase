@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.gui.combined.CustomGuiScreen;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class Checkbox extends Element {
@@ -44,7 +44,7 @@ public class Checkbox extends Element {
                 (float) this.widthA,
                 (float) this.heightA,
                 10.0F,
-                RenderUtil2.applyAlpha(-4144960, var4 * this.field21370.calcPercent() * partialTicks)
+                MathHelper.applyAlpha2(-4144960, var4 * this.field21370.calcPercent() * partialTicks)
         );
         float var5 = (1.0F - this.field21370.calcPercent()) * partialTicks;
         RenderUtil.drawRoundedRect(
@@ -53,7 +53,7 @@ public class Checkbox extends Element {
                 (float) this.widthA,
                 (float) this.heightA,
                 10.0F,
-                RenderUtil2.applyAlpha(RenderUtil2.shiftTowardsOther(-14047489, ClientColors.DEEP_TEAL.getColor(), !this.method13212() ? 1.0F : 0.9F), var5)
+                MathHelper.applyAlpha2(MathHelper.shiftTowardsOther(-14047489, ClientColors.DEEP_TEAL.getColor(), !this.method13212() ? 1.0F : 0.9F), var5)
         );
         GL11.glPushMatrix();
         GL11.glTranslatef((float) (this.getXA() + this.getWidthA() / 2), (float) (this.getYA() + this.getHeightA() / 2), 0.0F);
@@ -65,7 +65,7 @@ public class Checkbox extends Element {
                 (float) this.widthA,
                 (float) this.heightA,
                 Resources.checkPNG,
-                RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
+                MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5)
         );
         GL11.glPopMatrix();
         var5 *= var5;

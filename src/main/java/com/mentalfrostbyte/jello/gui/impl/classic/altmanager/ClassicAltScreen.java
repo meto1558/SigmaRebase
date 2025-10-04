@@ -15,10 +15,9 @@ import com.mentalfrostbyte.jello.managers.AccountManager;
 import com.mentalfrostbyte.jello.managers.util.account.microsoft.sorting.AccountCompareType;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuHolder;
 import net.minecraft.client.multiplayer.ServerData;
@@ -172,7 +171,7 @@ public class ClassicAltScreen extends Screen {
 
     private void method13401() {
         //RenderUtil.drawImage(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), Resources.mainmenubackground);
-        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.23F));
+        RenderUtil.drawRoundedRect2(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), 0.23F));
     }
 
     @Override

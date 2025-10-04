@@ -4,9 +4,9 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -34,9 +34,9 @@ public class BoxChestESP extends Module {
     }
 
     private void renderChestBoxes() {
-        int regularColor = RenderUtil2.applyAlpha(this.access().parseSettingValueToIntBySettingName("Regular Color"), 0.14F);
-        int enderColor = RenderUtil2.applyAlpha(this.access().parseSettingValueToIntBySettingName("Ender Color"), 0.14F);
-        int trappedColor = RenderUtil2.applyAlpha(this.access().parseSettingValueToIntBySettingName("Trapped Color"), 0.14F);
+        int regularColor = MathHelper.applyAlpha2(this.access().parseSettingValueToIntBySettingName("Regular Color"), 0.14F);
+        int enderColor = MathHelper.applyAlpha2(this.access().parseSettingValueToIntBySettingName("Ender Color"), 0.14F);
+        int trappedColor = MathHelper.applyAlpha2(this.access().parseSettingValueToIntBySettingName("Trapped Color"), 0.14F);
 
         for (TileEntity tileEntity : mc.world.loadedTileEntityList) {
             boolean showRegularChests = tileEntity instanceof ChestTileEntity && !(tileEntity instanceof TrappedChestTileEntity)

@@ -4,9 +4,9 @@ import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
 
@@ -111,7 +111,7 @@ public class MusicParticles extends Module {
             GL11.glTranslatef((float)(-mc.getMainWindow().getWidth() / 2), (float)(-mc.getMainWindow().getHeight() / 2), 0.0F);
             int color = Color.getHSBColor((float)(System.currentTimeMillis() % 4000L) / 4000.0F, 0.3F, 1.0F).getRGB();
             float size = 60.0F * this.sizeFactor;
-            RenderUtil.drawImage((float)this.startX - size / 2.0F, (float)this.startY - size / 2.0F, size, size, Resources.particlePNG, RenderUtil2.applyAlpha(color, alpha * 0.9F));
+            RenderUtil.drawImage((float)this.startX - size / 2.0F, (float)this.startY - size / 2.0F, size, size, Resources.particlePNG, MathHelper.applyAlpha2(color, alpha * 0.9F));
             GL11.glPopMatrix();
         }
 

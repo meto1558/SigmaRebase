@@ -8,8 +8,8 @@ import com.mentalfrostbyte.jello.gui.base.elements.impl.Text;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
 import java.util.Base64;
 
@@ -51,7 +51,7 @@ public class CreditsScreen extends Screen {
          0.0F,
          (float)this.widthA,
          (float)this.heightA,
-         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), this.animation.calcPercent() * 0.95F)
+         MathHelper.applyAlpha2(ClientColors.DEEP_TEAL.getColor(), this.animation.calcPercent() * 0.95F)
       );
       RenderUtil.drawString(ResourceRegistry.JelloMediumFont40, 40.0F, 40.0F, "Credits and third party licensing information", ClientColors.LIGHT_GREYISH_BLUE.getColor());
       super.draw(this.animation.calcPercent());

@@ -10,12 +10,9 @@ public class Criticals extends ModuleWithModuleSettings {
                 ModuleCategory.COMBAT,
                 "Criticals",
                 "Automatically does criticals without jumping",
-                new MinisCriticals(),
                 new PacketCriticals(),
-                new NoGroundCriticals(),
                 new HoverCriticals(),
-                new MinemenCriticals(),
-                new AAC4Criticals()
+                new MinemenCriticals()
         );
     }
 }

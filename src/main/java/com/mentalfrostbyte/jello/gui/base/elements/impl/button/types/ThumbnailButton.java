@@ -12,8 +12,8 @@ import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.theme.ColorHelper;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.game.render.RenderUtil2;
-import com.mentalfrostbyte.jello.util.system.network.ImageUtil;
+import com.mentalfrostbyte.jello.util.game.render.ImageUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
@@ -137,9 +137,9 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     partialTicks
             );
             if (this.field20775 == null && this.field20773 == null) {
-                RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
+                RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
                 if (this.field20776 != null) {
-                    RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
+                    RenderUtil.drawImage(var5, var6, var7, var8, Resources.artworkPNG, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
                 }
             } else {
                 if (this.field20775 == null) {
@@ -168,9 +168,9 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     this.field20776 = null;
                 }
 
-                RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
+                RenderUtil.drawImage(var5, var6, var7, var8, this.field20775, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * (1.0F - var4)));
                 if (this.field20776 != null) {
-                    RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
+                    RenderUtil.drawImage(var5, var6, var7, var8, this.field20776, MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks));
                 }
             }
 
@@ -186,7 +186,7 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     var9 * var10,
                     var9 * var10,
                     Resources.playIconPNG,
-                    RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
+                    MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var4 * partialTicks)
             );
             TrueTypeFont var11 = ResourceRegistry.JelloLightFont12;
             if (this.text != null) {
@@ -198,14 +198,14 @@ public class ThumbnailButton extends AnimatedIconPanel {
                             (float) (this.getXA() + (this.getWidthA() - var11.getWidth(var12[1])) / 2),
                             (float) (this.getYA() + this.getWidthA() - 2),
                             var12[1],
-                            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                     );
                     RenderUtil.drawString(
                             var11,
                             (float) (this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
                             (float) (this.getYA() + this.getWidthA() - 2 + 13),
                             var12[0],
-                            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                     );
                 } else {
                     RenderUtil.drawString(
@@ -213,7 +213,7 @@ public class ThumbnailButton extends AnimatedIconPanel {
                             (float) (this.getXA() + (this.getWidthA() - var11.getWidth(var12[0])) / 2),
                             (float) (this.getYA() + this.getWidthA() - 2 + 6),
                             var12[0],
-                            RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
+                            MathHelper.applyAlpha2(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks)
                     );
                 }
 
