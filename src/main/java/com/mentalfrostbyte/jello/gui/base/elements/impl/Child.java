@@ -84,28 +84,28 @@ public class Child extends Element {
                     } else {
                         int var5 = this.xA + 25;
                         int var6 = this.yA + 25 + (int) (3.0F * this.field20691);
-                        RenderUtil.method11428(
+                        RenderUtil.drawBorder(
                                 (float) var5,
                                 (float) var6,
                                 (float) (var5 + 14),
                                 (float) (var6 + 3),
                                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
-                        RenderUtil.drawRoundedRect(
+                        RenderUtil.drawColoredRect(
                                 (float) var5,
                                 (float) (var6 + 4),
                                 (float) (var5 + 14),
                                 (float) (var6 + 7),
                                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
-                        RenderUtil.method11428(
+                        RenderUtil.drawBorder(
                                 (float) var5,
                                 (float) (var6 + 8),
                                 (float) (var5 + 14),
                                 (float) (var6 + 11),
                                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                         );
-                        RenderUtil.method11428(
+                        RenderUtil.drawBorder(
                                 (float) var5,
                                 (float) (var6 + 12),
                                 (float) (var5 + 14),
@@ -123,7 +123,7 @@ public class Child extends Element {
             } else {
                 int var8 = this.xA + 43;
                 int var11 = this.yA + 33 + (int) (3.0F * this.field20691);
-                RenderUtil.method11434(
+                RenderUtil.drawFilledTriangle(
                         (float) var8,
                         (float) var11,
                         (float) (var8 + 6),
@@ -132,7 +132,7 @@ public class Child extends Element {
                         (float) (var11 + 3),
                         RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
                 );
-                RenderUtil.drawRoundedRect(
+                RenderUtil.drawColoredRect(
                         (float) (var8 + 6),
                         (float) (var11 - 1),
                         (float) (var8 + 27),
@@ -143,7 +143,7 @@ public class Child extends Element {
         } else {
             int var9 = this.xA + 50;
             int var12 = this.yA + 33 + (int) (3.0F * this.field20691);
-            RenderUtil.method11434(
+            RenderUtil.drawFilledTriangle(
                     (float) var9,
                     (float) var12,
                     (float) (var9 + 6),
@@ -152,14 +152,14 @@ public class Child extends Element {
                     (float) (var12 + 3),
                     RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) (var9 + 6),
                     (float) (var12 - 1),
                     (float) (var9 + 27),
                     (float) (var12 + 1),
                     RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F + (!this.field20693 ? 0.0F : 0.2F))
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) (var9 + 25),
                     (float) (var12 - 8),
                     (float) (var9 + 27),

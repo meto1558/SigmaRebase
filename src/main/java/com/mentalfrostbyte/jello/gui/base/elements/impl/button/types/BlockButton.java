@@ -18,7 +18,7 @@ public class BlockButton extends Element {
    public void draw(float partialTicks) {
       byte var4 = 5;
       if (this.method13700() || this.method13298()) {
-         RenderUtil.method11464(
+         RenderUtil.drawShadowedBorder(
             (float)this.xA,
             (float)this.yA,
             (float)this.widthA,
@@ -28,7 +28,7 @@ public class BlockButton extends Element {
          );
       }
 
-      RenderUtil.renderItem(this.field21366, this.xA + var4, this.yA + var4, this.widthA - var4 * 2, this.heightA - var4 * 2);
+      RenderUtil.renderGuiItem(this.field21366, this.xA + var4, this.yA + var4, this.widthA - var4 * 2, this.heightA - var4 * 2);
       super.draw(partialTicks);
    }
 

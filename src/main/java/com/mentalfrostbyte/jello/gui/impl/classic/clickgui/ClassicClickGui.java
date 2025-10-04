@@ -77,7 +77,7 @@ public class ClassicClickGui extends Screen {
     @Override
     public void draw(float partialTicks) {
         float var4 = field21079.calcPercent();
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.xA,
                 (float) this.yA,
                 (float) (this.xA + this.widthA),

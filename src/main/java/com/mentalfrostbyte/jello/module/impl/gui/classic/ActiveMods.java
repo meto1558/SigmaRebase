@@ -117,7 +117,7 @@ public class ActiveMods extends Module {
 						GL11.glTranslated((float) var19 * QuadraticEasing.easeOutQuad(anim.calcPercent(), 0.0F, 1.0F, 1.0F), 0.0, 0.0);
 					}
 
-					RenderUtil.drawBlurredBackground(
+					RenderUtil.startScissorScaled(
 							(float) (var7 - var19 - 3),
 							(float) (var6 + 1),
 							(float) var7,
@@ -131,7 +131,7 @@ public class ActiveMods extends Module {
 									this.getModSuffix(mod),
 									new Color(160, 160, 160)
 							);
-					RenderUtil.restoreScissor();
+					RenderUtil.endScissor();
 					RenderSystem.disableBlend();
 					var6 += textHeight;
 					RenderSystem.popMatrix();

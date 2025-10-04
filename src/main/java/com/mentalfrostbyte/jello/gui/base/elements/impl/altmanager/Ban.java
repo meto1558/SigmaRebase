@@ -84,8 +84,8 @@ public class Ban extends AnimatedIconPanel {
                 }
             }
 
-            RenderUtil.method11415(this);
-            RenderUtil.drawRoundedRect(
+            RenderUtil.startScissor(this);
+            RenderUtil.drawColoredRect(
                     (float) this.xA,
                     (float) this.yA,
                     (float) (this.xA + this.widthA),
@@ -115,8 +115,8 @@ public class Ban extends AnimatedIconPanel {
             }
 
             GL11.glPopMatrix();
-            RenderUtil.restoreScissor();
-            RenderUtil.drawRoundedRect(
+            RenderUtil.endScissor();
+            RenderUtil.drawColoredRect(
                     (float) this.xA,
                     (float) this.yA,
                     (float) (this.xA + this.widthA),
@@ -148,7 +148,7 @@ public class Ban extends AnimatedIconPanel {
         GL11.glTranslatef((float) (-this.getXA() - 44), (float) (-this.getYA() - 44), 0.0F);
         if (this.field21245 == null) {
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("textures/misc/unknown_server.png"));
-            RenderUtil.method11457(
+            RenderUtil.drawTexturedRect(
                     (float) (this.xA + 12), (float) (this.yA + 12), 64.0F, 64.0F, ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.0F, 0.0F, 64.0F, 64.0F
             );
         } else {
@@ -168,7 +168,7 @@ public class Ban extends AnimatedIconPanel {
         int var6 = (int) (var3 / 60000L % 60L);
         int var7 = (int) (var3 / 3600000L % 24L);
         int var8 = (int) (var3 / 86400000L);
-        RenderUtil.drawBlurredBackground(
+        RenderUtil.startScissorUnscaled(
                 this.method13271() + this.method13280(),
                 this.method13272() + this.method13282(),
                 this.method13271() + this.method13280() + this.widthA,
@@ -231,7 +231,7 @@ public class Ban extends AnimatedIconPanel {
         }
 
         GL11.glPopMatrix();
-        RenderUtil.restoreScissor();
+        RenderUtil.endScissor();
     }
 
     public static BufferedImage method13578(String var0) {

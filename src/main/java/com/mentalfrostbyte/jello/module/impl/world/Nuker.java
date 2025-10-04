@@ -12,6 +12,7 @@ import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.game.player.combat.RotationUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.block.*;
 import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
@@ -106,7 +107,7 @@ public class Nuker extends Module {
     @EventTarget
     public void onRender(EventRender3D var1) {
         if (this.targetPos != null && !mc.world.getBlockState(this.targetPos).isAir()) {
-            int var4 = RenderUtil.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.4F);
+            int var4 = MathHelper.applyAlpha(this.parseSettingValueToIntBySettingName("Color"), 0.4F);
             GL11.glPushMatrix();
             GL11.glDisable(2929);
             double var5 = (double) this.targetPos.getX() - mc.gameRenderer.getActiveRenderInfo().getPos().getX();

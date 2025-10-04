@@ -85,12 +85,12 @@ public class ScrollableContentPanel extends AnimatedIconPanel {
       this.method13224();
       if (!this.field21203 || this.isSelfVisible()) {
          if (this.field21206) {
-            RenderUtil.method11415(this);
+            RenderUtil.startScissor(this);
          }
 
          super.draw(partialTicks);
          if (this.field21206) {
-            RenderUtil.restoreScissor();
+            RenderUtil.endScissor();
          }
       }
    }

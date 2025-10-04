@@ -44,7 +44,7 @@ public class Button extends Element {
                 (float) (this.textColor.getPrimaryColor() >> 24 & 0xFF) / 255.0F * partialTicks
         );
         if (this.field20586 <= 0) {
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) this.getXA(),
                     (float) this.getYA(),
                     (float) (this.getXA() + this.getWidthA()),

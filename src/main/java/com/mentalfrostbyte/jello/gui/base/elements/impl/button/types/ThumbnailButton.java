@@ -190,7 +190,7 @@ public class ThumbnailButton extends AnimatedIconPanel {
             );
             TrueTypeFont var11 = ResourceRegistry.JelloLightFont12;
             if (this.text != null) {
-                RenderUtil.method11415(this);
+                RenderUtil.startScissor(this);
                 String[] var12 = this.getText().replaceAll("\\(.*\\)", "").replaceAll("\\[.*\\]", "").split(" - ");
                 if (var12.length > 1) {
                     RenderUtil.drawString(
@@ -217,7 +217,7 @@ public class ThumbnailButton extends AnimatedIconPanel {
                     );
                 }
 
-                RenderUtil.restoreScissor();
+                RenderUtil.endScissor();
             }
         }
     }

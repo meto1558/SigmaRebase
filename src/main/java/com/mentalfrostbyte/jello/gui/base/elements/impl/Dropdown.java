@@ -160,7 +160,7 @@ public class Dropdown extends Element {
 
     @Override
     public void draw(float partialTicks) {
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.getXA(),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
@@ -184,7 +184,7 @@ public class Dropdown extends Element {
                 partialTicks * 0.2F * this.animation.calcPercent()
         );
         if (this.getText() != null) {
-            RenderUtil.method11415(this);
+            RenderUtil.startScissor(this);
             String var4 = "";
 
             for (Entry var6 : this.field21331.entrySet()) {
@@ -200,12 +200,12 @@ public class Dropdown extends Element {
                     this.getText() + var4,
                     RenderUtil2.applyAlpha(this.textColor.getPrimaryColor(), partialTicks * 0.7F)
             );
-            RenderUtil.restoreScissor();
+            RenderUtil.endScissor();
         }
 
         boolean var8 = this.animation.calcPercent() < 1.0F;
         if (var8) {
-            RenderUtil.drawBlurredBackground(
+            RenderUtil.startScissorUnscaled(
                     this.method13271(), this.method13272(), this.method13271() + this.getWidthA() + 140, this.method13272() + this.getHeightA() + this.method13647()
             );
         }
@@ -217,7 +217,7 @@ public class Dropdown extends Element {
 
         GL11.glPopMatrix();
         if (var8) {
-            RenderUtil.restoreScissor();
+            RenderUtil.endScissor();
         }
 
         int var9 = this.getWidthA() - (int) ((float) this.getHeightA() / 2.0F + 0.5F);

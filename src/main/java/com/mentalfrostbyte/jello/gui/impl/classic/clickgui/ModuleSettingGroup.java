@@ -67,7 +67,7 @@ public class ModuleSettingGroup extends ClickGuiPanel {
 				RenderUtil.drawString(Resources.regular17, 20.0F, (float)(this.getHeightA() - 26), var6.module.getDescription(), -14540254);
                RenderUtil.startScissor(5.0F, (float)(this.getHeightA() - 27), 12.0F, 24.0F);
                RenderUtil.drawImage(5.0F, (float)(this.getHeightA() - 27), 24.0F, 24.0F, Resources.xmark);
-               RenderUtil.restoreScissor();
+               RenderUtil.endScissor();
                break;
             }
          }

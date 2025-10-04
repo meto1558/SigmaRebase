@@ -91,7 +91,7 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
             var4 = 0;
             var7 -= 8;
             var6 += 8;
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) var6,
                     (float) (this.yA + var4),
                     (float) (var6 + var7),
@@ -101,7 +101,7 @@ public class VerticalScrollBar extends AnimatedIconPanel implements Class4293 {
         } else {
             RenderUtil.drawImage((float) var6, (float) this.yA, (float) var7, 5.0F, Resources.verticalScrollBarTopPNG, 0.45F * partialTicks);
             RenderUtil.drawImage((float) var6, (float) (this.yA + this.heightA - var4), (float) var7, 5.0F, Resources.verticalScrollBarBottomPNG, 0.45F * partialTicks);
-            RenderUtil.drawRoundedRect((float) var6, (float) (this.yA + var4), (float) (var6 + var7), (float) (this.yA + this.heightA - var4), var5);
+            RenderUtil.drawColoredRect((float) var6, (float) (this.yA + var4), (float) (var6 + var7), (float) (this.yA + this.heightA - var4), var5);
         }
 
         super.draw(partialTicks);

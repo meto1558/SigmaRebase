@@ -16,7 +16,7 @@ public class Text extends Element {
 
    @Override
    public void draw(float partialTicks) {
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),

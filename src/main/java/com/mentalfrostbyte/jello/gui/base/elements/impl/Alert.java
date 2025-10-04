@@ -285,11 +285,11 @@ public class Alert extends Element {
                     this.field21281,
                     RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F * var7)
             );
             if (var4 > 0) {
-                RenderUtil.method11465(
+                RenderUtil.drawFloatingFrame(
                         (this.widthA - var4) / 2, (this.heightA - var5) / 2, var4, var5, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var7)
                 );
             }

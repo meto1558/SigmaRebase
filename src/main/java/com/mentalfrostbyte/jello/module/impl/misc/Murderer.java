@@ -83,7 +83,7 @@ public class Murderer extends Module {
                 }
 
                 if (this.murdererSkinHead != null) {
-                    RenderUtil.drawRoundedRect(
+                    RenderUtil.drawColoredRect(
                             (float) (width - var4.getWidth(this.murdererSkinName) - 90), (float) (height - 130), (float) (width - 10), (float) (height - 10), 1342177280
                     );
                     RenderUtil.drawImage((float) (width - var4.getWidth(this.murdererSkinName) - 80), (float) (height - 120), 50.0F, 100.0F, this.murdererSkinHead);

@@ -32,14 +32,14 @@ public class VolumeSlider extends Element {
 
     @Override
     public void draw(float partialTicks) {
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.xA,
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) this.yA + (float) this.heightA * this.volume,
                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.2F)
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.xA,
                 (float) (this.yA + this.heightA),
                 (float) (this.xA + this.widthA),

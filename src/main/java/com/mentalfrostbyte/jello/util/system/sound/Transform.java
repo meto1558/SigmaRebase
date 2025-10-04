@@ -1,4 +1,4 @@
-package com.mentalfrostbyte.jello.util.client.music;
+package com.mentalfrostbyte.jello.util.system.sound;
 
 public interface Transform {
 

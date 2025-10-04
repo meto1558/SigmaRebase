@@ -6,7 +6,6 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import com.google.gson.JsonObject;
 import com.mentalfrostbyte.jello.managers.*;
 import com.mentalfrostbyte.jello.managers.ModuleManager;
-import com.mentalfrostbyte.jello.module.data.ModuleSettingInitializr;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.rotation.JelloAI;
 import com.mentalfrostbyte.jello.util.game.player.tracker.MinerTracker;
@@ -19,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.glfw.GLFW;
-import team.sdhq.eventBus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +28,8 @@ public class Client implements MinecraftUtil {
     public static int currentVersionIndex = 28;
     public static final Logger logger = LogManager.getLogger("Jello");
 
-    public static final String RELEASE_TARGET = "5.1.0";
-    public static final int BETA_ITERATION = 16;
+    public static final String RELEASE_TARGET = "5.0.0";
+    public static final int BETA_ITERATION = 17;
     public static final String FULL_VERSION = RELEASE_TARGET + (BETA_ITERATION > 0 ? "b" + BETA_ITERATION : "");
 
     public File file = new File("sigma5");
@@ -41,7 +39,6 @@ public class Client implements MinecraftUtil {
     private static Client instance;
     public ClientMode clientMode = ClientMode.INDETERMINATE;
     public DiscordRichPresence discordRichPresence;
-    public FriendManager friendManager;
     public SlotChangeTracker slotChangeTracker;
 
     public JsonObject config;
@@ -53,6 +50,7 @@ public class Client implements MinecraftUtil {
     public CommandManager commandManager;
     public SoundManager soundManager;
     public AccountManager accountManager;
+    public FriendManager friendManager;
 
     public WaypointsManager waypointsManager;
     public NotificationManager notificationManager;

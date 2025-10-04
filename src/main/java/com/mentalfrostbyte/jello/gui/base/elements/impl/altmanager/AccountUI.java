@@ -59,7 +59,7 @@ public class AccountUI extends AnimatedIconPanel {
         var5 += var4;
         if (var5 - var4 <= var8) {
             if (var7 != 0.0F) {
-                RenderUtil.method11467(
+                RenderUtil.drawFloatingFrame2(
                         this.xA,
                         var5,
                         this.widthA,
@@ -83,7 +83,7 @@ public class AccountUI extends AnimatedIconPanel {
                     }
 
                     super.draw(partialTicks * var7);
-                    RenderUtil.restoreScissor();
+                    RenderUtil.endScissor();
                 }
             }
         } else {
@@ -95,7 +95,7 @@ public class AccountUI extends AnimatedIconPanel {
         RenderUtil.drawImage(
                 (float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, this.selectedAccount.setHeadTexture(), ClientColors.LIGHT_GREYISH_BLUE.getColor(), true
         );
-        RenderUtil.method11464((float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, 20.0F, 1.0F);
+        RenderUtil.drawShadowedBorder((float) (this.xA + 13), (float) (this.yA + 13), 75.0F, 75.0F, 20.0F, 1.0F);
         RenderUtil.drawImage(
                 (float) (this.xA + 1),
                 (float) this.yA,

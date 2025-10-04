@@ -24,14 +24,14 @@ public class AltManagerButton extends AnimatedIconPanel {
     @Override
     public void draw(float partialTicks) {
         this.setFont(ResourceRegistry.DefaultClientFont);
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.xA,
                 (float) this.yA,
                 (float) (this.xA + this.widthA),
                 (float) (this.yA + this.heightA),
                 RenderUtil2.applyAlpha(this.color, !this.isHovered() ? 0.25F : (!this.method13298() ? 0.4F : (!this.method13212() ? 0.5F : 0.6F)))
         );
-        RenderUtil.method11429(
+        RenderUtil.drawBorder(
                 (float) this.xA,
                 (float) this.yA,
                 (float) (this.xA + this.widthA),

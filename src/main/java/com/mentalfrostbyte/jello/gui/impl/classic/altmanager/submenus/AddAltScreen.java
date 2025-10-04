@@ -78,8 +78,8 @@ public class AddAltScreen extends Screen {
    @Override
    public void draw(float partialTicks) {
       RenderUtil.drawImage(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), Resources.mainmenubackground);
-      RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.PALE_RED.getColor(), 0.1F));
-      RenderUtil.drawRoundedRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.95F));
+      RenderUtil.drawColoredRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.PALE_RED.getColor(), 0.1F));
+      RenderUtil.drawColoredRect(0.0F, 0.0F, (float)this.getWidthA(), (float)this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.95F));
       RenderUtil.drawString(
          ResourceRegistry.DefaultClientFont, (float)(this.getWidthA() / 2), 38.0F, "Add Alt", ClientColors.LIGHT_GREYISH_BLUE.getColor(), FontSizeAdjust.NEGATE_AND_DIVIDE_BY_2, FontSizeAdjust.field14488
       );

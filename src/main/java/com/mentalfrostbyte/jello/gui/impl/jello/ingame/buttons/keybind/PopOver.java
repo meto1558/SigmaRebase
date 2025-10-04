@@ -125,7 +125,7 @@ public class PopOver extends Element {
                 35.0F,
                 partialTicks
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) (this.xA + 10 / 2),
                 (float) (this.yA + 10 / 2),
                 (float) (this.xA - 10 / 2 + this.widthA),
@@ -153,7 +153,7 @@ public class PopOver extends Element {
                 this.text + " Key",
                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) (this.xA + 25),
                 (float) (this.yA + 68),
                 (float) (this.xA + this.widthA - 25),

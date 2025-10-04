@@ -48,7 +48,7 @@ public class FadedImage extends Button {
                 (float) (Minecraft.getInstance().getMainWindow().getHeight() + var5),
                 LoadingScreen.background
         );
-        RenderUtil.restoreScissor();
+        RenderUtil.endScissor();
         if (this.hover) {
             RenderUtil.drawRoundedRect2(
                     (float) this.getXA(),

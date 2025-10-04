@@ -80,7 +80,7 @@ public class VerticalScrollBarButton extends AnimatedIconPanel {
             var4 = 0;
             var6 -= 7;
             var5 += 7;
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) var5,
                     (float) (this.yA + var4),
                     (float) (var5 + var6),
@@ -90,7 +90,7 @@ public class VerticalScrollBarButton extends AnimatedIconPanel {
         } else {
             RenderUtil.drawImage((float) var5, (float) this.yA, (float) var6, (float) var4, Resources.verticalScrollBarTopPNG, partialTicks);
             RenderUtil.drawImage((float) var5, (float) (this.yA + this.heightA - var4), (float) var6, (float) var4, Resources.verticalScrollBarBottomPNG, partialTicks);
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) var5,
                     (float) (this.yA + var4),
                     (float) (var5 + var6),

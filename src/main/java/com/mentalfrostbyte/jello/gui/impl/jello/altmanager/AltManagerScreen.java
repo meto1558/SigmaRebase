@@ -313,7 +313,7 @@ public class AltManagerScreen extends Screen {
     @Override
     public void draw(float partialTicks) {
         this.drawBackground();
-        RenderUtil.method11465(
+        RenderUtil.drawFloatingFrame(
                 (int) ((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21014),
                 114,
                 (int) ((float) Minecraft.getInstance().getMainWindow().getWidth() * this.field21015) - this.titleOffset,
@@ -418,7 +418,7 @@ public class AltManagerScreen extends Screen {
             this.field21005 = (int) ((float) this.field21005 + var6 * var7);
         }
 
-        RenderUtil.drawRoundedRect(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
+        RenderUtil.drawColoredRect(0.0F, 0.0F, (float) this.getWidthA(), (float) this.getHeightA(), RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.95F));
     }
 
     @Override

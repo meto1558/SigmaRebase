@@ -20,14 +20,14 @@ public class Input extends TextField {
    @Override
    public void draw(float partialTicks) {
       this.setFont(ResourceRegistry.DefaultClientFont);
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),
          (float)(this.yA + this.heightA),
          ClientColors.DEEP_TEAL.getColor()
       );
-      RenderUtil.method11429(
+      RenderUtil.drawBorder(
          (float)(this.xA - 2),
          (float)this.yA,
          (float)(this.xA + this.widthA + 2),

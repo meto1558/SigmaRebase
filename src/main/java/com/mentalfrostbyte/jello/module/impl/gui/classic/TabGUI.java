@@ -5,7 +5,6 @@ import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.player.EventUpdate;
 import com.mentalfrostbyte.jello.gui.base.animations.Animation;
-import com.mentalfrostbyte.jello.module.impl.gui.jello.ActiveMods;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPart;
 import com.mentalfrostbyte.jello.util.client.render.classicgui.CategoryDrawPartBackground;
@@ -266,7 +265,7 @@ public class TabGUI extends Module {
                 RenderUtil.drawString(
                         activeCategoryPart.font, (float) (descriptionX + 4), (float) (descriptionY + 2), description, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), Math.min(1.0F, partialTicks * 1.7F))
                 );
-                RenderUtil.restoreScissor();
+                RenderUtil.endScissor();
             }
         } catch (IndexOutOfBoundsException e) {
             Client.logger.warn("bruh your modules aren't enough for this sexy ass tabgui", e);

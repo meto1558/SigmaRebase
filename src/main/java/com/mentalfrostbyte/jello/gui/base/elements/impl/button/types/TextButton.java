@@ -52,7 +52,7 @@ public class TextButton extends Element {
                     this.textColor.method19411(),
                     this.textColor.method19413()
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) var5 - (float) (var7 / 2) * var9,
                     var6 + var8,
                     (float) var5 + (float) (var7 / 2) * var9,

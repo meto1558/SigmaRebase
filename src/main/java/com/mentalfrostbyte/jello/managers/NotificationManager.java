@@ -71,14 +71,14 @@ public class NotificationManager extends Manager {
                 int var11 = new Color(0.0F, 0.0F, 0.0F, Math.min(var6 * 0.075F, 1.0F)).getRGB();
                 int var12 = new Color(1.0F, 1.0F, 1.0F, var9).getRGB();
                 RenderUtil.drawRoundedRect((float) var7, (float) var8, (float) this.field39923, (float) this.field39924, 10.0F, var9);
-                RenderUtil.drawRoundedRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + this.field39924), var10);
-                RenderUtil.drawRoundedRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + 1), var11);
-                RenderUtil.drawRoundedRect((float) var7, (float) (var8 + this.field39924 - 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924), var11);
-                RenderUtil.drawRoundedRect((float) var7, (float) (var8 + 1), (float) (var7 + 1), (float) (var8 + this.field39924 - 1), var11);
-                RenderUtil.drawRoundedRect(
+                RenderUtil.drawColoredRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + this.field39924), var10);
+                RenderUtil.drawColoredRect((float) var7, (float) var8, (float) (var7 + this.field39923), (float) (var8 + 1), var11);
+                RenderUtil.drawColoredRect((float) var7, (float) (var8 + this.field39924 - 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924), var11);
+                RenderUtil.drawColoredRect((float) var7, (float) (var8 + 1), (float) (var7 + 1), (float) (var8 + this.field39924 - 1), var11);
+                RenderUtil.drawColoredRect(
                         (float) (var7 + this.field39923 - 1), (float) (var8 + 1), (float) (var7 + this.field39923), (float) (var8 + this.field39924 - 1), var11
                 );
-                RenderUtil.drawBlurredBackground(var7, var8, var7 + this.field39923 - this.field39927, var8 + this.field39924);
+                RenderUtil.startScissorUnscaled(var7, var8, var7 + this.field39923 - this.field39927, var8 + this.field39924);
                 RenderUtil.drawString(
                         ResourceRegistry.JelloLightFont20, (float) (var7 + this.field39924 + this.field39927 - 2), (float) (var8 + this.field39927), notif.title, var12
                 );
@@ -89,7 +89,7 @@ public class NotificationManager extends Manager {
                         notif.desc,
                         var12
                 );
-                RenderUtil.restoreScissor();
+                RenderUtil.endScissor();
                 RenderUtil.drawImage(
                         (float) (var7 + this.field39927 / 2),
                         (float) (var8 + this.field39927 / 2),
@@ -124,8 +124,8 @@ public class NotificationManager extends Manager {
                     - var3 * (int) ((float) this.field39924 * this.method31994(var3) + (float) this.field39927 * this.method31994(var3));
 
             for (int var8 = 0; var8 < 3; var8++) {
-                var4.field43608[var8] = RenderUtil.getColorFromScreen(var6 + this.field39923 / 3 * var8, var7, var4.field43608[var8]);
-                var4.field43609[var8] = RenderUtil.getColorFromScreen(var6 + this.field39923 / 3 * var8, var7 + this.field39924, var4.field43609[var8]);
+                var4.field43608[var8] = RenderUtil.getScreenPixelColor(var6 + this.field39923 / 3 * var8, var7);
+                var4.field43609[var8] = RenderUtil.getScreenPixelColor(var6 + this.field39923 / 3 * var8, var7 + this.field39924);
             }
         }
     }

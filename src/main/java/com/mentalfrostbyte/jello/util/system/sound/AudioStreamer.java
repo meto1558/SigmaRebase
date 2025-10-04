@@ -2,14 +2,7 @@ package com.mentalfrostbyte.jello.util.system.sound;
 
 import java.io.InputStream;
 
-public final class AudioStreamer implements Runnable {
-    private final InputStream inputStream;
-    public final MusicStream musicStream;
-
-    public AudioStreamer(MusicStream musicStream, InputStream inputStream) {
-        this.musicStream = musicStream;
-        this.inputStream = inputStream;
-    }
+public record AudioStreamer(MusicStream musicStream, InputStream inputStream) implements Runnable {
 
     @Override
     public void run() {

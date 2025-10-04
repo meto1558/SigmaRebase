@@ -49,15 +49,15 @@ public class KeyStrokes extends Module {
                         for (Keystroke keystroke : Keystroke.values()) {
                             KeyPosition topLeftKey = keystroke.getTopLeftPosition();
                             KeyPosition bottomRightKey = keystroke.getBottomRightPosition();
-                            RenderUtil.drawBlurredBackground(
+                            RenderUtil.startScissorUnscaled(
                                     this.xBase + topLeftKey.x,
                                     this.yBase + topLeftKey.y,
                                     this.xBase + topLeftKey.x + bottomRightKey.x,
                                     this.yBase + topLeftKey.y + bottomRightKey.y
                             );
-                            BlurEngine.drawBlur(this.xBase + topLeftKey.x, this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
-                            BlurEngine.endBlur();
-                            RenderUtil.restoreScissor();
+                            BlurEngine.updateRenderBounds(this.xBase + topLeftKey.x, this.yBase + topLeftKey.y, bottomRightKey.x, bottomRightKey.y);
+                            BlurEngine.renderFramebufferToScreen();
+                            RenderUtil.endScissor();
                         }
                     }
 
@@ -81,7 +81,7 @@ public class KeyStrokes extends Module {
                         }
 
                         if (keystroke.getKeyBinding().isKeyDown()) {
-                            RenderUtil.drawRoundedRect(
+                            RenderUtil.drawColoredRect(
                                     (float) (this.xBase + topLeftKey.x),
                                     (float) (this.yBase + topLeftKey.y),
                                     (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
@@ -89,7 +89,7 @@ public class KeyStrokes extends Module {
                                     RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.5F * topLeftOpacityMul)
                             );
                         } else {
-                            RenderUtil.drawRoundedRect(
+                            RenderUtil.drawColoredRect(
                                     (float) (this.xBase + topLeftKey.x),
                                     (float) (this.yBase + topLeftKey.y),
                                     (float) (this.xBase + topLeftKey.x + bottomRightKey.x),
@@ -122,7 +122,7 @@ public class KeyStrokes extends Module {
                         Keystroke keyStroke = animationData.keyStroke;
                         KeyPosition topLeftPosition = keyStroke.getTopLeftPosition();
                         KeyPosition bottomRightPosition = keyStroke.getBottomRightPosition();
-                        RenderUtil.drawBlurredBackground(
+                        RenderUtil.startScissorUnscaled(
                                 this.xBase + topLeftPosition.x,
                                 this.yBase + topLeftPosition.y,
                                 this.xBase + topLeftPosition.x + bottomRightPosition.x,
@@ -154,7 +154,7 @@ public class KeyStrokes extends Module {
                                 (float) (bottomRightPosition.x - 4) * animPercent + 4.0F,
                                 color
                         );
-                        RenderUtil.restoreScissor();
+                        RenderUtil.endScissor();
                         if (animationData.animation.calcPercent() == 1.0F) {
                             iter.remove();
                         }

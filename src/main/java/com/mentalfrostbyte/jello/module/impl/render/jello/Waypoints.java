@@ -13,6 +13,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -172,7 +173,7 @@ public class Waypoints extends Module {
             GL11.glRotatef(var4, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             this.method16279(
-                    RenderUtil.method17690(ClientColors.DEEP_TEAL.getColor(), var1, 0.04F * (float) var4 / 90.0F));
+                    MathHelper.blendARGB(ClientColors.DEEP_TEAL.getColor(), var1, 0.04F * (float) var4 / 90.0F));
             GL11.glPopMatrix();
         }
 
@@ -180,13 +181,13 @@ public class Waypoints extends Module {
             GL11.glPushMatrix();
             GL11.glRotatef(var5, 0.0F, 1.0F, 0.0F);
             this.method16279(
-                    RenderUtil.method17690(ClientColors.DEEP_TEAL.getColor(), var1, 0.04F * (float) var5 / 90.0F));
+                    MathHelper.blendARGB(ClientColors.DEEP_TEAL.getColor(), var1, 0.04F * (float) var5 / 90.0F));
             GL11.glPopMatrix();
         }
     }
 
     private void method16279(int var1) {
-        GL11.glColor4fv(RenderUtil.method17709(var1));
+        GL11.glColor4fv(MathHelper.argbToNormalizedRGBA(var1));
 		ClickTP.rotationThingy();
 	}
 
@@ -241,7 +242,7 @@ public class Waypoints extends Module {
         this.method16282(0.5F);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
-        GL11.glColor4fv(RenderUtil.method17709(var5));
+        GL11.glColor4fv(MathHelper.argbToNormalizedRGBA(var5));
         GL11.glTranslated((double) var1 + 0.5, var2 + 0.7F, (double) var3 + 0.5);
         GL11.glRotatef((float) (mc.player.ticksExisted % 90 * 4), 0.0F, -1.0F, 0.0F);
         GL11.glLineWidth(1.4F + 1.0F / var6 * 1.4F);
@@ -261,7 +262,7 @@ public class Waypoints extends Module {
         GL11.glPushMatrix();
         GL11.glScalef(-0.009F * var6, -0.009F * var6, -0.009F * var6);
         GL11.glTranslated(0.0, -20.0 * Math.sqrt(Math.sqrt(var6)), 0.0);
-        int var11 = RenderUtil.applyAlpha(RenderUtil.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
+        int var11 = MathHelper.applyAlpha(MathHelper.blendARGB(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                 ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.5F);
         RenderUtil.drawRect(
                 (float) (-var9.getWidth(var4) / 2 - 14), -5.0F, (float) var9.getWidth(var4) / 2.0F + 14.0F,
@@ -271,7 +272,7 @@ public class Waypoints extends Module {
                 (float) (var9.getHeight() + 12), 20.0F, 0.5F);
         GL11.glTranslated(-var9.getWidth(var4) / 2, 0.0, 0.0);
         RenderUtil.drawString(var9, 0.0F, 0.0F, var4,
-                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
+                MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
         GL11.glPopMatrix();
         GL11.glPopMatrix();
         GL11.glEnable(3553);

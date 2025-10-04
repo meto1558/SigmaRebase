@@ -5,7 +5,7 @@ import com.mentalfrostbyte.jello.gui.impl.jello.ingame.buttons.keybind.Keys;
 import com.mentalfrostbyte.jello.managers.GuiManager;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
+import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.StencilFunctionType;
 import com.mentalfrostbyte.jello.util.client.render.FontSizeAdjust;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
@@ -13,6 +13,7 @@ import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.MinecraftUtil;
 import com.mentalfrostbyte.jello.util.game.player.PlayerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -33,7 +34,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 
-import java.awt.*;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -45,45 +45,35 @@ public class RenderUtil implements MinecraftUtil {
     public static boolean stencilOpInProgress = false;
 
     private static final Stack<IntBuffer> buffer = new Stack<>();
-    public static boolean field18461 = false;
 
-    public static void restoreScissor() {
+    public static void endScissor() {
         if (buffer.isEmpty()) {
             GL11.glDisable(GL_SCISSOR_TEST);
         } else {
-            IntBuffer var2 = buffer.pop();
-            GL11.glScissor(var2.get(0), var2.get(1), var2.get(2), var2.get(3));
+            IntBuffer buffer = RenderUtil.buffer.pop();
+            GL11.glScissor(buffer.get(0), buffer.get(1), buffer.get(2), buffer.get(3));
         }
     }
 
-    public static void drawBlurredBackground(int var0, int var1, int var2, int var3) {
-        startScissor(var0, var1, var2, var3, false);
-    }
-
-    public static void method11436(float var0, float var1, float var2, int var3) {
-        method11445(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
-    }
-
-    public static void method11445(float var0, float var1, float var2, float var3, float var4, int var5) {
-        method11446(var0, var1, var2, var3, var4, var4, var5);
+    public static void startScissorUnscaled(int x, int y, int width, int height) {
+        startScissor(x, y, width, height, false);
     }
 
     public static float getGuiScaleFactor() {
         return (float) mc.mainWindow.getGuiScaleFactor();
     }
 
-    public static void drawRect(double var0, double var2, double var4, double var6, int var8) {
-        drawRect((float) var0, (float) var2, (float) var4, (float) var6, var8);
+    public static void drawRect(double left, double top, double right, double bottom, int color) {
+        drawRect((float) left, (float) top, (float) right, (float) bottom, color);
     }
 
-    public static void drawRect2(float var0, float var1, float var2, float var3, int var4) {
-        drawRect(var0, var1, var0 + var2, var1 + var3, var4);
+    public static void drawRectNormalised(float x, float y, float width, float height, int color) {
+        drawRect(x, y, x + width, y + height, color);
     }
 
-    public static void drawImage2(float var0, float var1, float var2, float var3, Texture var4, int var5,
-                                  boolean var6) {
-        drawImage(var0, var1, var2, var3, var4, var5, 0.0F, 0.0F, (float) var4.getImageWidth(),
-                (float) var4.getImageHeight(), var6);
+    public static void drawImage2(float x, float y, float width, float height, Texture texture, int color, boolean filtering) {
+        drawImage(x, y, width, height, texture, color, 0.0F, 0.0F, (float) texture.getImageWidth(),
+                (float) texture.getImageHeight(), filtering);
     }
 
     public static void renderWireframeBox(BoundingBox boxIn, int color) {
@@ -133,42 +123,39 @@ public class RenderUtil implements MinecraftUtil {
         }
     }
 
-    public static void method11476() {
+    public static boolean isStencilEnabled = false;
+
+    public static void enableStencilBuffer() {
         GL11.glPushMatrix();
         resetDepthBuffer();
-        GL11.glEnable(2960);
+        GL11.glEnable(2960); // GL_STENCIL_TEST
         GL11.glColorMask(false, false, false, false);
         GL11.glDepthMask(false);
-        GL11.glStencilFunc(512, 1, 1);
-        GL11.glStencilOp(7681, 7680, 7680);
+        GL11.glStencilFunc(512, 1, 1); // GL_EQUAL, ref=1, mask=1
+        GL11.glStencilOp(7681, 7680, 7680); // GL_KEEP, GL_KEEP, GL_KEEP
         GL11.glStencilMask(1);
-        GL11.glClear(1024);
-        field18461 = true;
+        GL11.glClear(1024); // GL_STENCIL_BUFFER_BIT
+        isStencilEnabled = true;
     }
 
-    public static void method11477(Class2329 var0) {
+    public static void disableStencilBuffer() {
+        GL11.glStencilMask(-1);
+        GL11.glDisable(2960); // GL_STENCIL_TEST
+        GL11.glPopMatrix();
+        isStencilEnabled = false;
+    }
+
+    public static void setStencilFunction(StencilFunctionType type) {
         GL11.glColorMask(true, true, true, true);
         GL11.glDepthMask(true);
         GL11.glStencilMask(0);
-        GL11.glStencilFunc(var0 != Class2329.field15940 ? 517 : 514, 1, 1);
+        GL11.glStencilFunc(type != StencilFunctionType.EQUAL ? 517 : 514, 1, 1);
+        // 517 = GL_NOTEQUAL, 514 = GL_EQUAL
     }
 
-    public static void method11478() {
-        GL11.glStencilMask(-1);
-        GL11.glDisable(2960);
-        GL11.glPopMatrix();
-        field18461 = false;
-    }
-
-    public static void method11446(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
+    public static void resetColors() {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var9 = 0.0F;
-        if (var2 > var3) {
-            var9 = var3;
-            var3 = var2;
-            var2 = var9;
-        }
     }
 
     public static void drawItem(ItemStack itemStack, int posX, int posY, int width, int height) {
@@ -203,11 +190,11 @@ public class RenderUtil implements MinecraftUtil {
 
     public static void render3DColoredBox(BoundingBox boxIn, int color) {
         if (boxIn != null) {
-            float var4 = (float) (color >> 24 & 0xFF) / 255.0F;
-            float var5 = (float) (color >> 16 & 0xFF) / 255.0F;
-            float var6 = (float) (color >> 8 & 0xFF) / 255.0F;
-            float var7 = (float) (color & 0xFF) / 255.0F;
-            GL11.glColor4f(var5, var6, var7, var4);
+            float alpha = (float) (color >> 24 & 0xFF) / 255.0F;
+            float red = (float) (color >> 16 & 0xFF) / 255.0F;
+            float green = (float) (color >> 8 & 0xFF) / 255.0F;
+            float blue = (float) (color & 0xFF) / 255.0F;
+            GL11.glColor4f(red, green, blue, alpha);
             GL11.glEnable(3042);
             GL11.glDisable(3553);
             GL11.glDisable(2896);
@@ -304,105 +291,95 @@ public class RenderUtil implements MinecraftUtil {
      * [1] The transformed and scaled y-coordinate.
      */
     public static float[] screenCoordinatesToOpenGLCoordinates(int x, int y) {
-        FloatBuffer var4 = BufferUtils.createFloatBuffer(16);
-        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, var4);
-        float var5 = var4.get(0) * (float) x + var4.get(4) * (float) y + var4.get(8) * 0.0F + var4.get(12);
-        float var6 = var4.get(1) * (float) x + var4.get(5) * (float) y + var4.get(9) * 0.0F + var4.get(13);
-        float var7 = var4.get(3) * (float) x + var4.get(7) * (float) y + var4.get(11) * 0.0F + var4.get(15);
-        var5 /= var7;
-        var6 /= var7;
-        return new float[]{(float) Math.round(var5 * getGuiScaleFactor()), (float) Math.round(var6 * getGuiScaleFactor())};
+        FloatBuffer modelViewMatrix = BufferUtils.createFloatBuffer(16);
+        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, modelViewMatrix);
+
+        float glX = modelViewMatrix.get(0) * x + modelViewMatrix.get(4) * y + modelViewMatrix.get(8) * 0.0F + modelViewMatrix.get(12);
+        float glY = modelViewMatrix.get(1) * x + modelViewMatrix.get(5) * y + modelViewMatrix.get(9) * 0.0F + modelViewMatrix.get(13);
+        float glW = modelViewMatrix.get(3) * x + modelViewMatrix.get(7) * y + modelViewMatrix.get(11) * 0.0F + modelViewMatrix.get(15);
+
+        glX /= glW;
+        glY /= glW;
+
+        float guiScale = getGuiScaleFactor();
+        return new float[]{Math.round(glX * guiScale), Math.round(glY * guiScale)};
     }
 
-    public static void method11430(double var0, double var2, double var4, double var6, double var8, int var10, int var11) {
-        drawRect(var0 + var8, var2 + var8, var4 - var8, var6 - var8, var10);
-        drawRect(var0 + var8, var2, var4 - var8, var2 + var8, var11);
-        drawRect(var0, var2, var0 + var8, var6, var11);
-        drawRect(var4 - var8, var2, var4, var6, var11);
-        drawRect(var0 + var8, var6 - var8, var4 - var8, var6, var11);
+    public static void drawHollowRect(double left, double top, double right, double bottom, double borderWidth, int fillColor, int borderColor) {
+        drawRect(left + borderWidth, top + borderWidth, right - borderWidth, bottom - borderWidth, fillColor);  // Fill inner rect
+        drawRect(left + borderWidth, top, right - borderWidth, top + borderWidth, borderColor);                  // Top border
+        drawRect(left, top, left + borderWidth, bottom, borderColor);                                            // Left border
+        drawRect(right - borderWidth, top, right, bottom, borderColor);                                          // Right border
+        drawRect(left + borderWidth, bottom - borderWidth, right - borderWidth, bottom, borderColor);            // Bottom border
     }
 
-    public static void startScissor(int x, int y, int width, int height, boolean scale) {
-        if (!scale) {
-            x = (int) ((float) x * GuiManager.scaleFactor);
-            y = (int) ((float) y * GuiManager.scaleFactor);
-            width = (int) ((float) width * GuiManager.scaleFactor);
-            height = (int) ((float) height * GuiManager.scaleFactor);
+    public static void startScissor(int x, int y, int width, int height, boolean alreadyScaled) {
+        if (!alreadyScaled) {
+            x = (int) (x * GuiManager.scaleFactor);
+            y = (int) (y * GuiManager.scaleFactor);
+            width = (int) (width * GuiManager.scaleFactor);
+            height = (int) (height * GuiManager.scaleFactor);
         } else {
-            float[] var7 = screenCoordinatesToOpenGLCoordinates(x, y);
-            x = (int) var7[0];
-            y = (int) var7[1];
-            float[] var8 = screenCoordinatesToOpenGLCoordinates(width, height);
-            width = (int) var8[0];
-            height = (int) var8[1];
+            float[] glCoordsXY = screenCoordinatesToOpenGLCoordinates(x, y);
+            x = (int) glCoordsXY[0];
+            y = (int) glCoordsXY[1];
+            float[] glCoordsWH = screenCoordinatesToOpenGLCoordinates(width, height);
+            width = (int) glCoordsWH[0];
+            height = (int) glCoordsWH[1];
         }
 
         if (GL11.glIsEnabled(GL_SCISSOR_TEST)) {
-            IntBuffer var17 = BufferUtils.createIntBuffer(16);
-            GL11.glGetIntegerv(GL11.GL_SCISSOR_BOX, var17);
-            buffer.push(var17);
-            int var18 = var17.get(0);
-            int var9 = mc.getMainWindow().getFramebufferHeight() - var17.get(1) - var17.get(3);
-            int var10 = var18 + var17.get(2);
-            int var11 = var9 + var17.get(3);
-            if (x < var18) {
-                x = var18;
-            }
+            IntBuffer currentScissor = BufferUtils.createIntBuffer(16);
+            GL11.glGetIntegerv(GL11.GL_SCISSOR_BOX, currentScissor);
+            buffer.push(currentScissor);
 
-            if (y < var9) {
-                y = var9;
-            }
+            int scissorX = currentScissor.get(0);
+            int scissorY = mc.getMainWindow().getFramebufferHeight() - currentScissor.get(1) - currentScissor.get(3);
+            int scissorRight = scissorX + currentScissor.get(2);
+            int scissorBottom = scissorY + currentScissor.get(3);
 
-            if (width > var10) {
-                width = var10;
-            }
-
-            if (height > var11) {
-                height = var11;
-            }
-
-            if (y > height) {
-                height = y;
-            }
-
-            if (x > width) {
-                width = x;
-            }
+            if (x < scissorX) x = scissorX;
+            if (y < scissorY) y = scissorY;
+            if (width > scissorRight) width = scissorRight;
+            if (height > scissorBottom) height = scissorBottom;
+            if (y > height) height = y;
+            if (x > width) width = x;
         }
 
         int adjustedY = mc.getMainWindow().getFramebufferHeight() - height;
-        int width2 = width - x;
-        int height2 = height - y;
+        int scissorWidth = width - x;
+        int scissorHeight = height - y;
+
         GL11.glEnable(GL_SCISSOR_TEST);
-        if (width2 >= 0 && height2 >= 0) {
-            GL11.glScissor(x, adjustedY, width2, height2);
+        if (scissorWidth >= 0 && scissorHeight >= 0) {
+            GL11.glScissor(x, adjustedY, scissorWidth, scissorHeight);
         }
     }
 
-    public static void drawRect(float var0, float var1, float var2, float var3, int var4) {
-        if (var0 < var2) {
-            int var7 = (int) var0;
-            var0 = var2;
-            var2 = (float) var7;
+    public static void drawRect(float left, float top, float right, float bottom, int color) {
+        if (left > right) {
+            float temp = left;
+            left = right;
+            right = temp;
         }
 
-        if (var1 < var3) {
-            int var13 = (int) var1;
-            var1 = var3;
-            var3 = (float) var13;
+        if (top > bottom) {
+            float temp = top;
+            top = bottom;
+            bottom = temp;
         }
 
-        float var14 = (float) (var4 >> 24 & 0xFF) / 255.0F;
-        float var8 = (float) (var4 >> 16 & 0xFF) / 255.0F;
-        float var9 = (float) (var4 >> 8 & 0xFF) / 255.0F;
-        float var10 = (float) (var4 & 0xFF) / 255.0F;
-        Tessellator var11 = Tessellator.getInstance();
-        BufferBuilder var12 = var11.getBuffer();
+        float alpha = (float) (color >> 24 & 0xFF) / 255.0F;
+        float red = (float) (color >> 16 & 0xFF) / 255.0F;
+        float green = (float) (color >> 8 & 0xFF) / 255.0F;
+        float blue = (float) (color & 0xFF) / 255.0F;
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
 
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
 
-        // Corrected blend function with proper factors
         RenderSystem.blendFuncSeparate(
                 GlStateManager.SourceFactor.SRC_ALPHA,
                 GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
@@ -410,20 +387,19 @@ public class RenderUtil implements MinecraftUtil {
                 GlStateManager.DestFactor.ZERO
         );
 
-        RenderSystem.color4f(var8, var9, var10, var14);
+        RenderSystem.color4f(red, green, blue, alpha);
 
-        var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos(var0, var3, 0.0).endVertex();
-        var12.pos(var2, var3, 0.0).endVertex();
-        var12.pos(var2, var1, 0.0).endVertex();
-        var12.pos(var0, var1, 0.0).endVertex();
+        buffer.begin(7, DefaultVertexFormats.POSITION);
+        buffer.pos(left, bottom, 0.0).endVertex();
+        buffer.pos(right, bottom, 0.0).endVertex();
+        buffer.pos(right, top, 0.0).endVertex();
+        buffer.pos(left, top, 0.0).endVertex();
 
-        var11.draw();
+        tessellator.draw();
 
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
-
 
     public static void drawImage(float x, float y, float width, float height, Texture tex, float alphaValue) {
         drawImage(x, y, width, height, tex, RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alphaValue));
@@ -516,7 +492,7 @@ public class RenderUtil implements MinecraftUtil {
 
         int angleStep = (int) (360.0F / (40.0F * radius));
 
-        com.mentalfrostbyte.jello.module.Module moduleInstance = new Module(ModuleCategory.PLAYER, "ESP COLOR", "");
+        Module moduleInstance = new Module(ModuleCategory.PLAYER, "ESP COLOR", "");
         java.awt.Color espColor = new java.awt.Color(moduleInstance.parseSettingValueToIntBySettingName("ESP Color"));
         float red = (float) espColor.getRed() / 255.0F;
         float green = (float) espColor.getGreen() / 255.0F;
@@ -556,28 +532,28 @@ public class RenderUtil implements MinecraftUtil {
     }
 
     public static void drawRoundedRect2(float x, float y, float width, float height, int color) {
-        drawRoundedRect(x, y, x + width, y + height, color);
+        drawColoredRect(x, y, x + width, y + height, color);
     }
 
     public static void drawRoundedRect(float x, float y, float width, float height, float size, int color) {
-        drawRoundedRect(x, y + size, x + width, y + height - size, color);
-        drawRoundedRect(x + size, y, x + width - size, y + size, color);
-        drawRoundedRect(x + size, y + height - size, x + width - size, y + height, color);
-        drawBlurredBackground(x, y, x + size, y + size);
+        drawColoredRect(x, y + size, x + width, y + height - size, color);
+        drawColoredRect(x + size, y, x + width - size, y + size, color);
+        drawColoredRect(x + size, y + height - size, x + width - size, y + height, color);
+        startScissorScaled(x, y, x + size, y + size);
         drawCircle(x + size, y + size, size * 2.0F, color);
-        restoreScissor();
-        drawBlurredBackground(x + width - size, y, x + width, y + size);
+        endScissor();
+        startScissorScaled(x + width - size, y, x + width, y + size);
         drawCircle(x - size + width, y + size, size * 2.0F, color);
-        restoreScissor();
-        drawBlurredBackground(x, y + height - size, x + size, y + height);
+        endScissor();
+        startScissorScaled(x, y + height - size, x + size, y + height);
         drawCircle(x + size, y - size + height, size * 2.0F, color);
-        restoreScissor();
-        drawBlurredBackground(x + width - size, y + height - size, x + width, y + height);
+        endScissor();
+        startScissorScaled(x + width - size, y + height - size, x + width, y + height);
         drawCircle(x - size + width, y - size + height, size * 2.0F, color);
-        restoreScissor();
+        endScissor();
     }
 
-    public static void drawBlurredBackground(float x, float y, float width, float height) {
+    public static void startScissorScaled(float x, float y, float width, float height) {
         startScissor((int) x, (int) y, (int) width, (int) height, true);
     }
 
@@ -588,8 +564,6 @@ public class RenderUtil implements MinecraftUtil {
         float r = (float) (color >> 16 & 0xFF) / 255.0F;
         float g = (float) (color >> 8 & 0xFF) / 255.0F;
         float b = (float) (color & 0xFF) / 255.0F;
-        Tessellator var10 = Tessellator.getInstance();
-        BufferBuilder var11 = var10.getBuffer();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
         RenderSystem.color4f(r, g, b, a);
@@ -605,48 +579,59 @@ public class RenderUtil implements MinecraftUtil {
         RenderSystem.disableBlend();
     }
 
-    public static void drawRoundedRect(float x, float y, float sizedX, float sizedY, int color) {
-        if (x < sizedX) {
-            int var7 = (int) x;
-            x = sizedX;
-            sizedX = (float) var7;
+    public static void drawColoredRect(float x1, float y1, float x2, float y2, int color) {
+        if (x1 < x2) {
+            int tempX = (int) x1;
+            x1 = x2;
+            x2 = (float) tempX;
         }
 
-        if (y < sizedY) {
-            int var13 = (int) y;
-            y = sizedY;
-            sizedY = (float) var13;
+        if (y1 < y2) {
+            int tempY = (int) y1;
+            y1 = y2;
+            y2 = (float) tempY;
         }
 
-        float a = (float) (color >> 24 & 0xFF) / 255.0F;
-        float r = (float) (color >> 16 & 0xFF) / 255.0F;
-        float g = (float) (color >> 8 & 0xFF) / 255.0F;
-        float b = (float) (color & 0xFF) / 255.0F;
-        Tessellator var11 = Tessellator.getInstance();
-        BufferBuilder var12 = var11.getBuffer();
+        float alpha = (float) (color >> 24 & 0xFF) / 255.0F;
+        float red = (float) (color >> 16 & 0xFF) / 255.0F;
+        float green = (float) (color >> 8 & 0xFF) / 255.0F;
+        float blue = (float) (color & 0xFF) / 255.0F;
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        RenderSystem.color4f(r, g, b, a);
-        var12.begin(7, DefaultVertexFormats.POSITION);
-        var12.pos(x, sizedY, 0.0).endVertex();
-        var12.pos(sizedX, sizedY, 0.0).endVertex();
-        var12.pos(sizedX, y, 0.0).endVertex();
-        var12.pos(x, y, 0.0).endVertex();
-        var11.draw();
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO
+        );
+        RenderSystem.color4f(red, green, blue, alpha);
+
+        buffer.begin(7, DefaultVertexFormats.POSITION); // 7 = GL_QUADS
+        buffer.pos(x1, y2, 0.0).endVertex();
+        buffer.pos(x2, y2, 0.0).endVertex();
+        buffer.pos(x2, y1, 0.0).endVertex();
+        buffer.pos(x1, y1, 0.0).endVertex();
+
+        tessellator.draw();
+
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
-    public static void drawString(TrueTypeFont res, float var1, float var2, String string, int var4, FontSizeAdjust var5, FontSizeAdjust var6) {
-        drawString(res, var1, var2, string, var4, var5, var6, false);
+    public static void drawString(TrueTypeFont font, float x, float y, String text, int color, FontSizeAdjust widthAdjust, FontSizeAdjust heightAdjust) {
+        drawString(font, x, y, text, color, widthAdjust, heightAdjust, false);
     }
 
-    public static void drawString(TrueTypeFont font, float x, float y, String text, int color, FontSizeAdjust widthAdjust, FontSizeAdjust heightAdjust, boolean var7) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
+    public static void drawString(TrueTypeFont font, float x, float y, String text, int color, FontSizeAdjust widthAdjust, FontSizeAdjust heightAdjust, boolean shadow) {
+        resetColors();
+
         int adjustedWidth = 0;
         int adjustedHeight = 0;
+
         adjustedWidth = switch (widthAdjust) {
             case NEGATE_AND_DIVIDE_BY_2 -> -font.getWidth(text) / 2;
             case WIDTH_NEGATE -> -font.getWidth(text);
@@ -659,11 +644,12 @@ public class RenderUtil implements MinecraftUtil {
             default -> adjustedHeight;
         };
 
-        float var12 = (float) (color >> 24 & 0xFF) / 255.0F;
-        float var13 = (float) (color >> 16 & 0xFF) / 255.0F;
-        float var14 = (float) (color >> 8 & 0xFF) / 255.0F;
-        float var15 = (float) (color & 0xFF) / 255.0F;
+        float alpha = (float) (color >> 24 & 0xFF) / 255.0F;
+        float red = (float) (color >> 16 & 0xFF) / 255.0F;
+        float green = (float) (color >> 8 & 0xFF) / 255.0F;
+        float blue = (float) (color & 0xFF) / 255.0F;
         GL11.glPushMatrix();
+
         boolean var16 = false;
         if ((double) GuiManager.scaleFactor == 2.0) {
             if (font == ResourceRegistry.JelloLightFont20) {
@@ -697,171 +683,199 @@ public class RenderUtil implements MinecraftUtil {
 
         RenderSystem.enableBlend();
         GL11.glBlendFunc(770, 771);
-        if (var7) {
+
+        if (shadow) {
             font.drawString((float) Math.round(x + (float) adjustedWidth), (float) (Math.round(y + (float) adjustedHeight) + 2), text, new Color(0.0F, 0.0F, 0.0F, 0.35F));
         }
 
         if (text != null) {
-            font.drawString((float) Math.round(x + (float) adjustedWidth), (float) Math.round(y + (float) adjustedHeight), text, new Color(var13, var14, var15, var12));
+            font.drawString((float) Math.round(x + (float) adjustedWidth), (float) Math.round(y + (float) adjustedHeight), text, new Color(red, green, blue, alpha));
         }
 
         RenderSystem.disableBlend();
         GL11.glPopMatrix();
     }
 
-    public static void method11415(CustomGuiScreen var0) {
-        startScissor(var0.getXA(), var0.getYA(), var0.getWidthA() + var0.getXA(), var0.getHeightA() + var0.getYA(), true);
+    public static void startScissor(CustomGuiScreen screen) {
+        startScissor(screen.getXA(), screen.getYA(), screen.getWidthA() + screen.getXA(), screen.getHeightA() + screen.getYA(), true);
     }
 
-    public static void drawRoundedButton(float var0, float var1, float var2, float var3, float var4, int color) {
-        drawRoundedRect(var0, var1 + var4, var0 + var2, var1 + var3 - var4, color);
-        drawRoundedRect(var0 + var4, var1, var0 + var2 - var4, var1 + var3, color);
-        FloatBuffer var8 = BufferUtils.createFloatBuffer(16);
-        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, var8);
-        float var9 = 1.0F;
-        drawCircle(var0 + var4, var1 + var4, var4 * 2.0F * var9, color);
-        drawCircle(var0 - var4 + var2, var1 + var4, var4 * 2.0F * var9, color);
-        drawCircle(var0 + var4, var1 - var4 + var3, var4 * 2.0F * var9, color);
-        drawCircle(var0 - var4 + var2, var1 - var4 + var3, var4 * 2.0F * var9, color);
+    public static void drawRoundedButton(float x, float y, float width, float height, float radius, int color) {
+        drawColoredRect(x, y + radius, x + width, y + height - radius, color);
+        drawColoredRect(x + radius, y, x + width - radius, y + height, color);
+
+        FloatBuffer modelViewMatrixBuffer = BufferUtils.createFloatBuffer(16);
+        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, modelViewMatrixBuffer);
+
+        float scale = 1.0F;
+
+        drawCircle(x + radius, y + radius, radius * 2.0F * scale, color);
+        drawCircle(x + width - radius, y + radius, radius * 2.0F * scale, color);
+        drawCircle(x + radius, y + height - radius, radius * 2.0F * scale, color);
+        drawCircle(x + width - radius, y + height - radius, radius * 2.0F * scale, color);
     }
 
     public static void drawString(TrueTypeFont font, float x, float y, String text, int color) {
         drawString(font, x, y, text, color, FontSizeAdjust.field14488, FontSizeAdjust.field14489, false);
     }
 
-    public static void drawRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5) {
-        GL11.glAlphaFunc(519, 0.0F);
-        int var8 = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
-        drawImage(var0 - var4, var1 - var4, var4, var4, Resources.shadowCorner1PNG, var8);
-        drawImage(var0 + var2, var1 - var4, var4, var4, Resources.shadowCorner2PNG, var8);
-        drawImage(var0 - var4, var1 + var3, var4, var4, Resources.shadowCorner3PNG, var8);
-        drawImage(var0 + var2, var1 + var3, var4, var4, Resources.shadowCorner4PNG, var8);
-        drawImage(var0 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
-        drawImage(var0 + var2, var1, var4, var3, Resources.shadowRightPNG, var8, false);
-        drawImage(var0, var1 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
-        drawImage(var0, var1 + var3, var2, var4, Resources.shadowBottomPNG, var8, false);
+    public static void drawRoundedRect(
+            float x, float y, float width, float height, float cornerSize, float alpha
+    ) {
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
+
+        int shadowColorWithAlpha = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha);
+
+        // Draw corners
+        drawImage(x - cornerSize, y - cornerSize, cornerSize, cornerSize, Resources.shadowCorner1PNG, shadowColorWithAlpha);
+        drawImage(x + width, y - cornerSize, cornerSize, cornerSize, Resources.shadowCorner2PNG, shadowColorWithAlpha);
+        drawImage(x - cornerSize, y + height, cornerSize, cornerSize, Resources.shadowCorner3PNG, shadowColorWithAlpha);
+        drawImage(x + width, y + height, cornerSize, cornerSize, Resources.shadowCorner4PNG, shadowColorWithAlpha);
+
+        // Draw edges (no repeat)
+        drawImage(x - cornerSize, y, cornerSize, height, Resources.shadowLeftPNG, shadowColorWithAlpha, false);
+        drawImage(x + width, y, cornerSize, height, Resources.shadowRightPNG, shadowColorWithAlpha, false);
+        drawImage(x, y - cornerSize, width, cornerSize, Resources.shadowTopPNG, shadowColorWithAlpha, false);
+        drawImage(x, y + height, width, cornerSize, Resources.shadowBottomPNG, shadowColorWithAlpha, false);
     }
 
-    public static void startScissor(float var0, float var1, float var2, float var3) {
-        startScissor((int) var0, (int) var1, (int) var0 + (int) var2, (int) var1 + (int) var3, true);
+    public static void startScissor(float x, float y, float width, float height) {
+        startScissor((int) x, (int) y, (int) x + (int) width, (int) y + (int) height, true);
     }
 
-    public static void method11465(int var0, int var1, int var2, int var3, int var4) {
-        method11466(var0, var1, var2, var3, var4, var0, var1);
+    public static void drawFloatingFrame(int x, int y, int width, int height, int color) {
+        drawFloatingFrame(x, y, width, height, color, x, y);
     }
 
-    public static void method11466(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-        int var9 = 36;
-        int var10 = 10;
-        int var11 = var9 - var10;
-        drawRoundedRect((float) (var0 + var10), (float) (var1 + var10), (float) (var0 + var2 - var10), (float) (var1 + var3 - var10), var4);
-        drawImage((float) (var0 - var11), (float) (var1 - var11), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
+    public static void drawFloatingFrame(int x, int y, int width, int height, int color, int blurX, int blurY) {
+        int cornerSize = 36;
+        int offset = 10;
+        int innerOffset = cornerSize - offset;
+
+        // Draw rounded rectangle base
+        drawColoredRect(
+                (float) (x + offset),
+                (float) (y + offset),
+                (float) (x + width - offset),
+                (float) (y + height - offset),
+                color
+        );
+
+        // Draw top-left corner image
+        drawImage((float) (x - innerOffset), (float) (y - innerOffset), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
+
+        // Draw top-right corner with rotation
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) (var0 + var2 - var9 / 2), (float) (var1 + var9 / 2), 0.0F);
+        GL11.glTranslatef((float) (x + width - cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
         GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float) (-var0 - var2 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
-        drawImage((float) (var0 + var2 - var11), (float) (var1 - var11), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-x - width - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+        drawImage((float) (x + width - innerOffset), (float) (y - innerOffset), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
         GL11.glPopMatrix();
+
+        // Draw bottom-right corner with rotation
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) (var0 + var2 - var9 / 2), (float) (var1 + var3 + var9 / 2), 0.0F);
+        GL11.glTranslatef((float) (x + width - cornerSize / 2), (float) (y + height + cornerSize / 2), 0.0F);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float) (-var0 - var2 - var9 / 2), (float) (-var1 - var3 - var9 / 2), 0.0F);
-        drawImage((float) (var0 + var2 - var11), (float) (var1 + var10 + var3), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-x - width - cornerSize / 2), (float) (-y - height - cornerSize / 2), 0.0F);
+        drawImage((float) (x + width - innerOffset), (float) (y + offset + height), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
         GL11.glPopMatrix();
+
+        // Draw bottom-left corner with rotation
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) (var0 - var9 / 2), (float) (var1 + var3 + var9 / 2), 0.0F);
+        GL11.glTranslatef((float) (x - cornerSize / 2), (float) (y + height + cornerSize / 2), 0.0F);
         GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var3 - var9 / 2), 0.0F);
-        drawImage((float) (var0 + var10), (float) (var1 + var10 + var3), (float) var9, (float) var9, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - height - cornerSize / 2), 0.0F);
+        drawImage((float) (x + offset), (float) (y + offset + height), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
         GL11.glPopMatrix();
-        drawBlurredBackground(var5 - var9, var6 + var10, var5 - var11 + var9, var6 - var10 + var3);
 
-        for (int var12 = 0; var12 < var3; var12 += var9) {
-            drawImage((float) (var0 - var11), (float) (var1 + var10 + var12), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
+        // Draw blurred background behind left border
+        startScissorUnscaled(blurX - cornerSize, blurY + offset, blurX - innerOffset + cornerSize, blurY - offset + height);
+
+        // Draw left border repeated vertically
+        for (int i = 0; i < height; i += cornerSize) {
+            drawImage((float) (x - innerOffset), (float) (y + offset + i), (float) cornerSize, (float) cornerSize, Resources.floatingBorderPNG, color);
         }
+        endScissor();
 
-        restoreScissor();
-        drawBlurredBackground(var5, var6 - var11, var5 + var2 - var10, var6 + var10);
+        // Draw blurred background behind top border
+        startScissorUnscaled(blurX, blurY - innerOffset, blurX + width - offset, blurY + offset);
 
-        for (int var13 = 0; var13 < var2; var13 += var9) {
+        // Draw top border repeated horizontally with rotation
+        for (int i = 0; i < width; i += cornerSize) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) (var0 + var9 / 2), (float) (var1 + var9 / 2), 0.0F);
+            GL11.glTranslatef((float) (x + cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
-            drawImage((float) (var0 - var11), (float) (var1 - var10 - var13), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+            drawImage((float) (x - innerOffset), (float) (y - offset - i), (float) cornerSize, (float) cornerSize, Resources.floatingBorderPNG, color);
             GL11.glPopMatrix();
         }
+        endScissor();
 
-        restoreScissor();
-        drawBlurredBackground(var5 + var2 - var10, var6 - var11, var0 + var2 + var11, var6 + var3 - var10);
+        // Draw blurred background behind right border
+        startScissorUnscaled(blurX + width - offset, blurY - innerOffset, x + width + innerOffset, blurY + height - offset);
 
-        for (int var14 = 0; var14 < var3; var14 += var9) {
+        // Draw right border repeated vertically with 180 rotation
+        for (int i = 0; i < height; i += cornerSize) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) (var0 + var9 / 2), (float) (var1 + var9 / 2), 0.0F);
+            GL11.glTranslatef((float) (x + cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
-            drawImage((float) (var0 - var2 + var10), (float) (var1 - var10 - var14), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+            drawImage((float) (x - width + offset), (float) (y - offset - i), (float) cornerSize, (float) cornerSize, Resources.floatingBorderPNG, color);
             GL11.glPopMatrix();
         }
+        endScissor();
 
-        restoreScissor();
-        drawBlurredBackground(var5 - var10, var6 - var11 + var3 - var9, var5 + var2 - var10, var6 + var3 + var10 * 2);
+        // Draw blurred background behind bottom border
+        startScissorUnscaled(blurX - offset, blurY - innerOffset + height - cornerSize, blurX + width - offset, blurY + height + offset * 2);
 
-        for (int var15 = 0; var15 < var2; var15 += var9) {
+        // Draw bottom border repeated horizontally with 270 rotation
+        for (int i = 0; i < width; i += cornerSize) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) (var0 + var9 / 2), (float) (var1 + var9 / 2), 0.0F);
+            GL11.glTranslatef((float) (x + cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float) (-var0 - var9 / 2), (float) (-var1 - var9 / 2), 0.0F);
-            drawImage((float) (var0 - var3 + var10), (float) (var1 + var10 + var15), (float) var9, (float) var9, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+            drawImage((float) (x - height + offset), (float) (y + offset + i), (float) cornerSize, (float) cornerSize, Resources.floatingBorderPNG, color);
             GL11.glPopMatrix();
         }
-
-        restoreScissor();
+        endScissor();
     }
 
     public static void drawTexture(float x, float y, float width, float height, Texture texture, int color) {
         if (texture == null) {
             return;
         }
+
         drawImage(x, y, width, height, texture, color, 0.0F, 0.0F, (float) texture.getImageWidth(), (float) texture.getImageHeight(), true);
         drawImage(x, y, width, height, texture, color, 0.0F, 0.0F, (float) texture.getImageWidth(), (float) texture.getImageHeight(), false);
     }
 
-    public static Rectangle method11413(Rectangle var0, float var1, float var2) {
-        float var5 = (float) var0.x;
-        float var6 = (float) var0.y;
-        float var7 = (float) var0.width;
-        float var8 = (float) var0.height;
-        int var9 = Math.round(var7 * var1);
-        int var10 = Math.round(var8 * var2);
-        float var11 = var7 - (float) var9;
-        float var12 = var8 - (float) var10;
-        int var13 = Math.round(var5 + var11 / 4.0F);
-        int var14 = Math.round(var6 + var12 / 6.0F);
-        return new Rectangle(var13, var14, var9, var10);
-    }
-
-    public static Rectangle method11414(CustomGuiScreen var0) {
-        return new Rectangle(var0.getXA(), var0.getYA(), var0.getWidthA(), var0.getHeightA());
-    }
-
-    public static void method11457(float var0, float var1, float var2, float var3, int var4, float var5, float var6, float var7, float var8) {
+    public static void drawTexturedRect(
+            float x, float y, float width, float height,
+            int color,
+            float textureX, float textureY, float textureWidth, float textureHeight
+    ) {
         RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        var0 = (float) Math.round(var0);
-        var2 = (float) Math.round(var2);
-        var1 = (float) Math.round(var1);
-        var3 = (float) Math.round(var3);
-        float var11 = (float) (var4 >> 24 & 0xFF) / 255.0F;
-        float var12 = (float) (var4 >> 16 & 0xFF) / 255.0F;
-        float var13 = (float) (var4 >> 8 & 0xFF) / 255.0F;
-        float var14 = (float) (var4 & 0xFF) / 255.0F;
+
+        x = (float) Math.round(x);
+        width = (float) Math.round(width);
+        y = (float) Math.round(y);
+        height = (float) Math.round(height);
+
+        float alpha = (float) (color >> 24 & 0xFF) / 255.0F;
+        float red = (float) (color >> 16 & 0xFF) / 255.0F;
+        float green = (float) (color >> 8 & 0xFF) / 255.0F;
+        float blue = (float) (color & 0xFF) / 255.0F;
+
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var12, var13, var14, var11);
-        GL11.glEnable(3042);
-        GL11.glEnable(3553);
+        RenderSystem.blendFuncSeparate(770, 771, 1, 0); // GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO
+        RenderSystem.color4f(red, green, blue, alpha);
+
+        GL11.glEnable(3042);  // GL_BLEND
+        GL11.glEnable(3553);  // GL_TEXTURE_2D
+
+        // Reset pixel store parameters
         GL11.glPixelStorei(3312, 0);
         GL11.glPixelStorei(3313, 0);
         GL11.glPixelStorei(3314, 0);
@@ -869,189 +883,215 @@ public class RenderUtil implements MinecraftUtil {
         GL11.glPixelStorei(3316, 0);
         GL11.glPixelStorei(3317, 4);
 
-        float var16 = 1.0f;
-        float var17 = 1.0f;
-        float var18 = var5 / var7;
-        float var19 = var6 / var8;
+        float texCoordWidth = 1.0f;
+        float texCoordHeight = 1.0f;
 
-        GL11.glBegin(7);
-        GL11.glTexCoord2f(var18, var19);
-        GL11.glVertex2f(var0, var1);
-        GL11.glTexCoord2f(var18, var19 + var17);
-        GL11.glVertex2f(var0, var1 + var3);
-        GL11.glTexCoord2f(var18 + var16, var19 + var17);
-        GL11.glVertex2f(var0 + var2, var1 + var3);
-        GL11.glTexCoord2f(var18 + var16, var19);
-        GL11.glVertex2f(var0 + var2, var1);
+        float uStart = textureX / textureWidth;
+        float vStart = textureY / textureHeight;
+
+        GL11.glBegin(GL11.GL_QUADS);
+        GL11.glTexCoord2f(uStart, vStart);
+        GL11.glVertex2f(x, y);
+
+        GL11.glTexCoord2f(uStart, vStart + texCoordHeight);
+        GL11.glVertex2f(x, y + height);
+
+        GL11.glTexCoord2f(uStart + texCoordWidth, vStart + texCoordHeight);
+        GL11.glVertex2f(x + width, y + height);
+
+        GL11.glTexCoord2f(uStart + texCoordWidth, vStart);
+        GL11.glVertex2f(x + width, y);
         GL11.glEnd();
+
         GL11.glDisable(3553);
         GL11.glDisable(3042);
+
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
-    public static void method11464(float var0, float var1, float var2, float var3, float var4, float var5) {
-        int var8 = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var5);
-        drawImage(var0, var1, var4, var3, Resources.shadowRightPNG, var8, false);
-        drawImage(var0 + var2 - var4, var1, var4, var3, Resources.shadowLeftPNG, var8, false);
-        drawImage(var0, var1, var2, var4, Resources.shadowBottomPNG, var8, false);
-        drawImage(var0, var1 + var3 - var4, var2, var4, Resources.shadowTopPNG, var8, false);
+    public static void drawShadowedBorder(float x, float y, float width, float height, float borderThickness, float alpha) {
+        int shadowColor = RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha);
+
+        drawImage(x, y, borderThickness, height, Resources.shadowRightPNG, shadowColor, false);
+        drawImage(x + width - borderThickness, y, borderThickness, height, Resources.shadowLeftPNG, shadowColor, false);
+        drawImage(x, y, width, borderThickness, Resources.shadowBottomPNG, shadowColor, false);
+        drawImage(x, y + height - borderThickness, width, borderThickness, Resources.shadowTopPNG, shadowColor, false);
     }
 
-    public static void method11467(int var0, int var1, int var2, int var3, int var4) {
-        int var7 = 36;
-        int var8 = 10;
-        int var9 = var7 - var8;
-        drawRoundedRect((float) (var0 + var8), (float) (var1 + var8), (float) (var0 + var2 - var8), (float) (var1 + var3 - var8), var4);
-        drawImage((float) (var0 - var9), (float) (var1 - var9), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
+    public static void drawFloatingFrame2(int x, int y, int width, int height, int color) {
+        int cornerSize = 36;
+        int padding = 10;
+        int offset = cornerSize - padding;
+
+        // Draw inner colored rectangle (frame background)
+        drawColoredRect(
+                (float) (x + padding),
+                (float) (y + padding),
+                (float) (x + width - padding),
+                (float) (y + height - padding),
+                color
+        );
+
+        // Draw top-left corner image
+        drawImage((float) (x - offset), (float) (y - offset), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
+
+        // Draw top-right corner with rotation
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) (var0 + var2 - var7 / 2), (float) (var1 + var7 / 2), 0.0F);
+        GL11.glTranslatef((float) (x + width - cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
         GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float) (-var0 - var2 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
-        drawImage((float) (var0 + var2 - var9), (float) (var1 - var9), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-x - width - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+        drawImage((float) (x + width - offset), (float) (y - offset), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
         GL11.glPopMatrix();
+
+        // Draw bottom-right corner with rotation
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) (var0 + var2 - var7 / 2), (float) (var1 + var3 + var7 / 2), 0.0F);
+        GL11.glTranslatef((float) (x + width - cornerSize / 2), (float) (y + height + cornerSize / 2), 0.0F);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float) (-var0 - var2 - var7 / 2), (float) (-var1 - var3 - var7 / 2), 0.0F);
-        drawImage((float) (var0 + var2 - var9), (float) (var1 + var8 + var3), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-x - width - cornerSize / 2), (float) (-y - height - cornerSize / 2), 0.0F);
+        drawImage((float) (x + width - offset), (float) (y + padding + height), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
         GL11.glPopMatrix();
+
+        // Draw bottom-left corner with rotation
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) (var0 - var7 / 2), (float) (var1 + var3 + var7 / 2), 0.0F);
+        GL11.glTranslatef((float) (x - cornerSize / 2), (float) (y + height + cornerSize / 2), 0.0F);
         GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var3 - var7 / 2), 0.0F);
-        drawImage((float) (var0 + var8), (float) (var1 + var8 + var3), (float) var7, (float) var7, Resources.floatingCornerPNG, var4);
+        GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - height - cornerSize / 2), 0.0F);
+        drawImage((float) (x + padding), (float) (y + padding + height), (float) cornerSize, (float) cornerSize, Resources.floatingCornerPNG, color);
         GL11.glPopMatrix();
-        startScissor(var0 - var7, var1 + var8, var0 - var9 + var7, var1 - var8 + var3, true);
 
-        for (int var10 = 0; var10 < var3; var10 += var7) {
-            drawImage((float) (var0 - var9), (float) (var1 + var8 + var10) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
+        // Left vertical border with scissor and repeated images
+        startScissor(x - cornerSize, y + padding, x - offset + cornerSize, y - padding + height, true);
+        for (int i = 0; i < height; i += cornerSize) {
+            drawImage((float) (x - offset), (float) (y + padding + i) - 0.4F, (float) cornerSize, (float) cornerSize + 0.4F, Resources.floatingBorderPNG, color);
         }
+        endScissor();
 
-        restoreScissor();
-        startScissor(var0, var1 - var9, var0 + var2 - var8, var1 + var8, true);
-
-        for (int var11 = 0; var11 < var2; var11 += var7) {
+        // Top horizontal border with scissor and repeated rotated images
+        startScissor(x, y - offset, x + width - padding, y + padding, true);
+        for (int i = 0; i < width; i += cornerSize) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) (var0 + var7 / 2), (float) (var1 + var7 / 2), 0.0F);
+            GL11.glTranslatef((float) (x + cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
-            drawImage((float) (var0 - var9), (float) (var1 - var8 - var11) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+            drawImage((float) (x - offset), (float) (y - padding - i) - 0.4F, (float) cornerSize, (float) cornerSize + 0.4F, Resources.floatingBorderPNG, color);
             GL11.glPopMatrix();
         }
+        endScissor();
 
-        restoreScissor();
-        startScissor(var0 + var2 - var8, var1 - var9, var0 + var2 + var9, var1 + var3 - var8, true);
-
-        for (int var12 = 0; var12 < var3; var12 += var7) {
+        // Right vertical border with scissor and repeated rotated images
+        startScissor(x + width - padding, y - offset, x + width + offset, y + height - padding, true);
+        for (int i = 0; i < height; i += cornerSize) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) (var0 + var7 / 2), (float) (var1 + var7 / 2), 0.0F);
+            GL11.glTranslatef((float) (x + cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
-            drawImage((float) (var0 - var2 + var8), (float) (var1 - var8 - var12) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+            drawImage((float) (x - width + padding), (float) (y - padding - i) - 0.4F, (float) cornerSize, (float) cornerSize + 0.4F, Resources.floatingBorderPNG, color);
             GL11.glPopMatrix();
         }
+        endScissor();
 
-        restoreScissor();
-        startScissor(var0 - var8, var1 - var9 + var3 - var7, var0 + var2 - var8, var1 + var3 + var8 * 2, true);
-
-        for (int var13 = 0; var13 < var2; var13 += var7) {
+        // Bottom horizontal border with scissor and repeated rotated images
+        startScissor(x - padding, y - offset + height - cornerSize, x + width - padding, y + height + padding * 2, true);
+        for (int i = 0; i < width; i += cornerSize) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) (var0 + var7 / 2), (float) (var1 + var7 / 2), 0.0F);
+            GL11.glTranslatef((float) (x + cornerSize / 2), (float) (y + cornerSize / 2), 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef((float) (-var0 - var7 / 2), (float) (-var1 - var7 / 2), 0.0F);
-            drawImage((float) (var0 - var3 + var8), (float) (var1 + var8 + var13) - 0.4F, (float) var7, (float) var7 + 0.4F, Resources.floatingBorderPNG, var4);
+            GL11.glTranslatef((float) (-x - cornerSize / 2), (float) (-y - cornerSize / 2), 0.0F);
+            drawImage((float) (x - height + padding), (float) (y + padding + i) - 0.4F, (float) cornerSize, (float) cornerSize + 0.4F, Resources.floatingBorderPNG, color);
             GL11.glPopMatrix();
         }
-
-        restoreScissor();
+        endScissor();
     }
 
-    public static void drawFilledArc(float var0, float var1, float var2, int var3) {
-        drawFilledArc(var0, var1, 0.0F, 360.0F, var2 - 1.0F, var3);
+    public static void drawFilledArc(float centerX, float centerY, float radius, int color) {
+        // Draws a full filled circle with radius slightly less by 1
+        drawFilledArc(centerX, centerY, 0.0F, 360.0F, radius - 1.0F, color);
     }
 
-    public static void drawFilledArc(float var0, float var1, float var2, float var3, float var4, int var5) {
-        drawFilledArc(var0, var1, var2, var3, var4, var4, var5);
+    public static void drawFilledArc(float centerX, float centerY, float startAngle, float endAngle, float radius, int color) {
+        // Draws an arc with equal horizontal and vertical radii (circle segment)
+        drawFilledArc(centerX, centerY, startAngle, endAngle, radius, radius, color);
     }
 
-    /**
-     * Draws a filled arc with the specified center, radii, start and end angles, and color.
-     *
-     * @param x          The x-coordinate of the center of the arc.
-     * @param y          The y-coordinate of the center of the arc.
-     * @param startAngle The start angle of the arc in degrees.
-     * @param endAngle   The end angle of the arc in degrees.
-     * @param hRadius    The horizontal radius of the arc.
-     * @param vRadius    The vertical radius of the arc.
-     * @param color      The color of the arc in ARGB format.
-     */
-    public static void drawFilledArc(float x, float y, float startAngle, float endAngle, float hRadius, float vRadius, int color) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var9 = 0.0F;
+    public static void drawFilledArc(float centerX, float centerY, float startAngle, float endAngle, float hRadius, float vRadius, int color) {
+        resetColors();
+
         if (startAngle > endAngle) {
-            var9 = endAngle;
+            float temp = endAngle;
             endAngle = startAngle;
-            startAngle = var9;
+            startAngle = temp;
         }
 
-        float var10 = (float) (color >> 24 & 0xFF) / 255.0F;
-        float var11 = (float) (color >> 16 & 0xFF) / 255.0F;
-        float var12 = (float) (color >> 8 & 0xFF) / 255.0F;
-        float var13 = (float) (color & 0xFF) / 255.0F;
-        Tessellator var14 = Tessellator.getInstance();
-        BufferBuilder var15 = var14.getBuffer();
+        float alpha = ((color >> 24) & 0xFF) / 255f;
+        float red = ((color >> 16) & 0xFF) / 255f;
+        float green = ((color >> 8) & 0xFF) / 255f;
+        float blue = (color & 0xFF) / 255f;
+
+
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var11, var12, var13, var10);
-        if (var10 > 0.5F) {
-            GL11.glEnable(2848);
-            GL11.glLineWidth(2.0F);
-            GL11.glBegin(3);
+        RenderSystem.color4f(red, green, blue, alpha);
 
-            for (float var16 = endAngle; var16 >= startAngle; var16 -= 4.0F) {
-                float var17 = (float) Math.cos((double) var16 * Math.PI / 180.0) * hRadius * 1.001F;
-                float var18 = (float) Math.sin((double) var16 * Math.PI / 180.0) * vRadius * 1.001F;
-                GL11.glVertex2f(x + var17, y + var18);
+        // Draw arc outline if sufficiently opaque
+        if (alpha > 0.5f) {
+            GL11.glEnable(GL11.GL_LINE_SMOOTH); // 2848
+            GL11.glLineWidth(2.0f);
+            GL11.glBegin(GL11.GL_LINE_STRIP); // 3
+
+            for (float angle = endAngle; angle >= startAngle; angle -= 4.0f) {
+                float rad = (float) Math.toRadians(angle);
+                float x = (float) Math.cos(rad) * hRadius * 1.001f;
+                float y = (float) Math.sin(rad) * vRadius * 1.001f;
+                GL11.glVertex2f(centerX + x, centerY + y);
             }
 
             GL11.glEnd();
-            GL11.glDisable(2848);
+            GL11.glDisable(GL11.GL_LINE_SMOOTH);
         }
 
-        GL11.glBegin(6);
+        // Draw filled arc as triangle fan (GL_TRIANGLE_FAN = 6)
+        GL11.glBegin(GL11.GL_TRIANGLE_FAN);
 
-        for (float var20 = endAngle; var20 >= startAngle; var20 -= 4.0F) {
-            float var21 = (float) Math.cos((double) var20 * Math.PI / 180.0) * hRadius;
-            float var22 = (float) Math.sin((double) var20 * Math.PI / 180.0) * vRadius;
-            GL11.glVertex2f(x + var21, y + var22);
+        // Center vertex for triangle fan
+        GL11.glVertex2f(centerX, centerY);
+
+        for (float angle = endAngle; angle >= startAngle; angle -= 4.0f) {
+            float rad = (float) Math.toRadians(angle);
+            float x = (float) Math.cos(rad) * hRadius;
+            float y = (float) Math.sin(rad) * vRadius;
+            GL11.glVertex2f(centerX + x, centerY + y);
         }
 
         GL11.glEnd();
+
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
-    public static String getKeyName(int var0) {
-        for (Keys var6 : Keys.values()) {
-            if (var6.row == var0) {
-                return var6.name;
+    public static String getKeyName(int keyCode) {
+        // Check if keyCode matches any custom Keys enum entry
+        for (Keys key : Keys.values()) {
+            if (key.row == keyCode) {
+                return key.name;
             }
         }
 
-        InputMappings.Input var7 = InputMappings.getInputByCode(var0, 0);
-        String[] var8 = var7.getTranslationKey().split("\\.");
-        if (var8.length != 0) {
-            String var9 = var8[var8.length - 1];
-            if (!var9.isEmpty()) {
-                String var10 = "";
-                if (var0 <= 4) {
-                    var10 = "Mouse ";
-                }
+        // Get input mapping for the keyCode (assuming 0 is the default device)
+        InputMappings.Input input = InputMappings.getInputByCode(keyCode, 0);
+        String[] parts = input.getTranslationKey().split("\\.");
 
-                return var10 + var9.substring(0, 1).toUpperCase() + var9.substring(1);
+        if (parts.length != 0) {
+            String lastPart = parts[parts.length - 1];
+            if (!lastPart.isEmpty()) {
+                String prefix = "";
+                // If keyCode <= 4, consider it a mouse button
+                if (keyCode <= 4) {
+                    prefix = "Mouse ";
+                }
+                // Capitalize first letter and concatenate with prefix
+                return prefix + lastPart.substring(0, 1).toUpperCase() + lastPart.substring(1);
             } else {
                 return "Unknown";
             }
@@ -1060,60 +1100,93 @@ public class RenderUtil implements MinecraftUtil {
         }
     }
 
-    public static void method11429(float var0, float var1, float var2, float var3, int var4, int var5) {
-        drawRoundedRect(var0, var3 - (float) var4, var2 - (float) var4, var3, var5);
-        drawRoundedRect(var0, var1, var2 - (float) var4, var1 + (float) var4, var5);
-        drawRoundedRect(var0, var1 + (float) var4, var0 + (float) var4, var3 - (float) var4, var5);
-        drawRoundedRect(var2 - (float) var4, var1, var2, var3, var5);
+    public static void drawBorder(float x1, float y1, float x2, float y2, int thickness, int color) {
+        // Bottom border
+        drawColoredRect(x1, y2 - thickness, x2 - thickness, y2, color);
+
+        // Top border
+        drawColoredRect(x1, y1, x2 - thickness, y1 + thickness, color);
+
+        // Left border
+        drawColoredRect(x1, y1 + thickness, x1 + thickness, y2 - thickness, color);
+
+        // Right border
+        drawColoredRect(x2 - thickness, y1, x2, y2, color);
     }
 
-    public static void method11434(float var0, float var1, float var2, float var3, float var4, float var5, int var6) {
-        RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-        float var9 = (float) (var6 >> 24 & 0xFF) / 255.0F;
-        float var10 = (float) (var6 >> 16 & 0xFF) / 255.0F;
-        float var11 = (float) (var6 >> 8 & 0xFF) / 255.0F;
-        float var12 = (float) (var6 & 0xFF) / 255.0F;
+    public static void drawFilledTriangle(float x1, float y1, float x2, float y2, float x3, float y3, int color) {
+        // Set OpenGL and RenderSystem state for transparent colored drawing
+        RenderSystem.color4f(0f, 0f, 0f, 1f);
+        GL11.glColor4f(0f, 0f, 0f, 0f);
+
+        // Extract color components (ARGB)
+        float alpha = (float) (color >> 24 & 0xFF) / 255f;
+        float red   = (float) (color >> 16 & 0xFF) / 255f;
+        float green = (float) (color >> 8 & 0xFF) / 255f;
+        float blue  = (float) (color & 0xFF) / 255f;
+
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-        RenderSystem.color4f(var10, var11, var12, var9);
-        GL11.glBegin(6);
-        GL11.glVertex2f(var0, var1);
-        GL11.glVertex2f(var4, var5);
-        GL11.glVertex2f(var2, var3);
-        GL11.glVertex2f(var0, var1);
+        RenderSystem.color4f(red, green, blue, alpha);
+
+        // Begin drawing a triangle (GL_TRIANGLE_FAN = 6)
+        GL11.glBegin(GL11.GL_TRIANGLE_FAN);
+        GL11.glVertex2f(x1, y1);
+        GL11.glVertex2f(x2, y2);
+        GL11.glVertex2f(x3, y3);
+        GL11.glVertex2f(x1, y1); // Closing the fan, optional for triangles but harmless
         GL11.glEnd();
+
+        // Restore OpenGL state
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
-    public static void method11428(float var0, float var1, float var2, float var3, int var4) {
-        method11429(var0, var1, var2, var3, 1, var4);
+    public static void drawBorder(float x, float y, float width, float height, int color) {
+        drawBorder(x, y, width, height, 1, color);
     }
 
-    public static void method11431(int var0, int var1, int var2, int var3, int var4, int var5) {
-        float var8 = (float) (var4 >> 24 & 0xFF) / 255.0F;
-        float var9 = (float) (var4 >> 16 & 0xFF) / 255.0F;
-        float var10 = (float) (var4 >> 8 & 0xFF) / 255.0F;
-        float var11 = (float) (var4 & 0xFF) / 255.0F;
-        float var12 = (float) (var5 >> 24 & 0xFF) / 255.0F;
-        float var13 = (float) (var5 >> 16 & 0xFF) / 255.0F;
-        float var14 = (float) (var5 >> 8 & 0xFF) / 255.0F;
-        float var15 = (float) (var5 & 0xFF) / 255.0F;
+    public static void drawVerticalGradientRect(int left, int top, int right, int bottom, int startColorARGB, int endColorARGB) {
+        float startAlpha = ((startColorARGB >> 24) & 0xFF) / 255.0F;
+        float startRed = ((startColorARGB >> 16) & 0xFF) / 255.0F;
+        float startGreen = ((startColorARGB >> 8) & 0xFF) / 255.0F;
+        float startBlue = (startColorARGB & 0xFF) / 255.0F;
+
+        float endAlpha = ((endColorARGB >> 24) & 0xFF) / 255.0F;
+        float endRed = ((endColorARGB >> 16) & 0xFF) / 255.0F;
+        float endGreen = ((endColorARGB >> 8) & 0xFF) / 255.0F;
+        float endBlue = (endColorARGB & 0xFF) / 255.0F;
+
         RenderSystem.disableTexture();
         RenderSystem.enableBlend();
         RenderSystem.disableAlphaTest();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO
+        );
+
         RenderSystem.shadeModel(GL11.GL_SMOOTH);
-        Tessellator var16 = Tessellator.getInstance();
-        BufferBuilder var17 = var16.getBuffer();
-        var17.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        var17.pos(var2, var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos(var0, var1, 0.0).color(var9, var10, var11, var8).endVertex();
-        var17.pos(var0, var3, 0.0).color(var13, var14, var15, var12).endVertex();
-        var17.pos(var2, var3, 0.0).color(var13, var14, var15, var12).endVertex();
-        var16.draw();
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+
+        // Top-right vertex (start color)
+        buffer.pos(right, top, 0.0).color(startRed, startGreen, startBlue, startAlpha).endVertex();
+        // Top-left vertex (start color)
+        buffer.pos(left, top, 0.0).color(startRed, startGreen, startBlue, startAlpha).endVertex();
+        // Bottom-left vertex (end color)
+        buffer.pos(left, bottom, 0.0).color(endRed, endGreen, endBlue, endAlpha).endVertex();
+        // Bottom-right vertex (end color)
+        buffer.pos(right, bottom, 0.0).color(endRed, endGreen, endBlue, endAlpha).endVertex();
+
+        tessellator.draw();
+
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.disableBlend();
         RenderSystem.enableAlphaTest();
@@ -1286,79 +1359,110 @@ public class RenderUtil implements MinecraftUtil {
         GL11.glStencilFunc(GL11.GL_EQUAL, 1, 1);
     }
 
-    public static void method11453(float var0, float var1, float var2, float var3, ByteBuffer var4, int color, float var6, float var7, float var8, float var9, boolean var10, boolean var11) {
-        if (var4 != null) {
+    public static void drawTexturedQuad(
+            float x, float y, float width, float height, ByteBuffer pixelData,
+            int rgbaColor, float textureU, float textureV, float textureWidth, float textureHeight,
+            boolean flipU, boolean flipV) {
+
+        if (pixelData != null) {
             RenderSystem.color4f(0.0F, 0.0F, 0.0F, 1.0F);
             GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.0F);
-            var0 = (float) Math.round(var0);
-            var2 = (float) Math.round(var2);
-            var1 = (float) Math.round(var1);
-            var3 = (float) Math.round(var3);
-            float b = (float) (color >> 24 & 0xFF) / 255.0F;
-            float a = (float) (color >> 16 & 0xFF) / 255.0F;
-            float r = (float) (color >> 8 & 0xFF) / 255.0F;
-            float g = (float) (color & 0xFF) / 255.0F;
+
+            x = (float) Math.round(x);
+            width = (float) Math.round(width);
+            y = (float) Math.round(y);
+            height = (float) Math.round(height);
+
+            float alpha = (float) ((rgbaColor >> 24) & 0xFF) / 255.0F;
+            float red = (float) ((rgbaColor >> 16) & 0xFF) / 255.0F;
+            float green = (float) ((rgbaColor >> 8) & 0xFF) / 255.0F;
+            float blue = (float) (rgbaColor & 0xFF) / 255.0F;
+
             RenderSystem.enableBlend();
             RenderSystem.disableTexture();
             RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-            RenderSystem.color4f(a, r, g, b);
+            RenderSystem.color4f(red, green, blue, alpha);
+
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_TEXTURE_2D);
+
             GL11.glPixelStorei(GL11.GL_UNPACK_SWAP_BYTES, 0);
             GL11.glPixelStorei(GL11.GL_UNPACK_LSB_FIRST, 0);
             GL11.glPixelStorei(GL11.GL_UNPACK_ROW_LENGTH, 0);
             GL11.glPixelStorei(GL11.GL_UNPACK_SKIP_ROWS, 0);
             GL11.glPixelStorei(GL11.GL_UNPACK_SKIP_PIXELS, 0);
             GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 4);
+
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, (int) var8, (int) var9, 0, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, var4);
-            float var19 = 1.0f;
-            float var20 = 1.0f;
-            float var21 = var6 / var8;
-            float var22 = var7 / var9;
-            GL11.glBegin(7);
-            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? 0.0F : var20));
-            GL11.glVertex2f(var0, var1);
-            GL11.glTexCoord2f(var21 + (!var10 ? 0.0F : var19), var22 + (!var11 ? var20 : 0.0F));
-            GL11.glVertex2f(var0, var1 + var3);
-            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? var20 : 0.0F));
-            GL11.glVertex2f(var0 + var2, var1 + var3);
-            GL11.glTexCoord2f(var21 + (!var10 ? var19 : 0.0F), var22 + (!var11 ? 0.0F : var20));
-            GL11.glVertex2f(var0 + var2, var1);
+            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, (int) textureWidth, (int) textureHeight, 0,
+                    GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, pixelData);
+
+            float one = 1.0f;
+            float texU = textureU / textureWidth;
+            float texV = textureV / textureHeight;
+
+            GL11.glBegin(GL11.GL_QUADS);
+            GL11.glTexCoord2f(texU + (!flipU ? 0.0F : one), texV + (!flipV ? 0.0F : one));
+            GL11.glVertex2f(x, y);
+
+            GL11.glTexCoord2f(texU + (!flipU ? 0.0F : one), texV + (!flipV ? one : 0.0F));
+            GL11.glVertex2f(x, y + height);
+
+            GL11.glTexCoord2f(texU + (!flipU ? one : 0.0F), texV + (!flipV ? one : 0.0F));
+            GL11.glVertex2f(x + width, y + height);
+
+            GL11.glTexCoord2f(texU + (!flipU ? one : 0.0F), texV + (!flipV ? 0.0F : one));
+            GL11.glVertex2f(x + width, y);
             GL11.glEnd();
+
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_BLEND);
+
             RenderSystem.enableTexture();
             RenderSystem.disableBlend();
         }
     }
 
-    public static void renderItem(ItemStack var0, int var1, int var2, int var3, int var4) {
-        if (var0 != null) {
+    public static void renderGuiItem(ItemStack itemStack, int x, int y, int width, int height) {
+        if (itemStack != null) {
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) var1, (float) var2, 0.0F);
-            GL11.glScalef((float) var3 / 16.0F, (float) var4 / 16.0F, 0.0F);
-            ItemRenderer var7 = mc.getItemRenderer();
-            if (var0.getCount() == 0) {
-                var0 = new ItemStack(var0.getItem());
+            GL11.glTranslatef((float) x, (float) y, 0.0F);
+            GL11.glScalef((float) width / 16.0F, (float) height / 16.0F, 0.0F);
+
+            ItemRenderer itemRenderer = mc.getItemRenderer();
+
+            if (itemStack.getCount() == 0) {
+                itemStack = new ItemStack(itemStack.getItem());
             }
 
             RenderHelper.setupGuiFlatDiffuseLighting();
-            GL11.glLightModelfv(2899, new float[]{0.4F, 0.4F, 0.4F, 1.0F});
+            GL11.glLightModelfv(GL11.GL_LIGHT_MODEL_TWO_SIDE, new float[]{0.4F, 0.4F, 0.4F, 1.0F});
+
             RenderSystem.enableColorMaterial();
             RenderSystem.disableLighting();
             RenderSystem.enableBlend();
+
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glDepthFunc(519);
-            var7.renderItemIntoGUI(var0, 0, 0);
-            GL11.glDepthFunc(515);
+            GL11.glDepthFunc(GL11.GL_LEQUAL);
+
+            itemRenderer.renderItemIntoGUI(itemStack, 0, 0);
+
+            GL11.glDepthFunc(GL11.GL_LESS);
+
             RenderSystem.popMatrix();
-            GL11.glAlphaFunc(519, 0.0F);
+
+            GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
+
             RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
+
             RenderSystem.disableDepthTest();
+
             TextureImpl.unbind();
+
             mc.getTextureManager().bindTexture(TextureManager.RESOURCE_LOCATION_EMPTY);
+
             RenderHelper.setupGui3DDiffuseLighting();
         }
     }
@@ -1387,17 +1491,28 @@ public class RenderUtil implements MinecraftUtil {
         };
     }
 
-    public static java.awt.Color getColorFromScreen(int mouseX, int mouseY, java.awt.Color var2) {
-        mouseX = (int) ((float) mouseX * GuiManager.scaleFactor);
-        mouseY = (int) ((float) mouseY * GuiManager.scaleFactor);
-        ByteBuffer var5 = ByteBuffer.allocateDirect(3);
-        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-        GL11.glReadPixels(mouseX, Minecraft.getInstance().getMainWindow().getFramebufferHeight() - mouseY, 1, 1, GL11.GL_RGB, GL11.GL_BYTE, var5);
-        return new java.awt.Color(var5.get(0) * 2, var5.get(1) * 2, var5.get(2) * 2, 1);
-    }
+    public static java.awt.Color getScreenPixelColor(int screenX, int screenY) {
+        screenX = (int) (screenX * GuiManager.scaleFactor);
+        screenY = (int) (screenY * GuiManager.scaleFactor);
 
-    public static int applyAlpha(int color, float alpha) {
-        return (int) (alpha * 255.0F) << 24 | color & 16777215;
+        ByteBuffer pixelBuffer = ByteBuffer.allocateDirect(3);
+
+        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+        GL11.glReadPixels(
+                screenX,
+                Minecraft.getInstance().getMainWindow().getFramebufferHeight() - screenY,
+                1, 1,
+                GL11.GL_RGB,
+                GL11.GL_BYTE,
+                pixelBuffer
+        );
+
+        return new java.awt.Color(
+                pixelBuffer.get(0) * 2,
+                pixelBuffer.get(1) * 2,
+                pixelBuffer.get(2) * 2,
+                1
+        );
     }
 
     public static boolean projectToScreen(float x, float y, float z, FloatBuffer modelMatrix, FloatBuffer projectionMatrix, IntBuffer viewport, FloatBuffer screenCoords) {
@@ -1411,8 +1526,8 @@ public class RenderUtil implements MinecraftUtil {
         inVector[3] = 1.0F;
 
         // Apply the model and projection transformations
-        transformVector(modelMatrix, inVector, outVector);
-        transformVector(projectionMatrix, outVector, inVector);
+        MathHelper.transformVector(modelMatrix, inVector, outVector);
+        MathHelper.transformVector(projectionMatrix, outVector, inVector);
 
         // Perform perspective division if the w-component is non-zero
         if ((double) inVector[3] != 0.0) {
@@ -1431,89 +1546,4 @@ public class RenderUtil implements MinecraftUtil {
             return false;
         }
     }
-
-    public static float[] method17709(int var0) {
-        float var3 = (float) (var0 >> 24 & 0xFF) / 255.0F;
-        float var4 = (float) (var0 >> 16 & 0xFF) / 255.0F;
-        float var5 = (float) (var0 >> 8 & 0xFF) / 255.0F;
-        float var6 = (float) (var0 & 0xFF) / 255.0F;
-        return new float[]{var4, var5, var6, var3};
-    }
-
-    public static int method17691(int var0, float var1) {
-        int var4 = var0 >> 24 & 0xFF;
-        int var5 = var0 >> 16 & 0xFF;
-        int var6 = var0 >> 8 & 0xFF;
-        int var7 = var0 & 0xFF;
-        int var8 = (int) ((float) var5 * (1.0F - var1));
-        int var9 = (int) ((float) var6 * (1.0F - var1));
-        int var10 = (int) ((float) var7 * (1.0F - var1));
-        return var4 << 24 | (var8 & 0xFF) << 16 | (var9 & 0xFF) << 8 | var10 & 0xFF;
-    }
-
-    public static int method17690(int var0, int var1, float var2) {
-        int var5 = var0 >> 24 & 0xFF;
-        int var6 = var0 >> 16 & 0xFF;
-        int var7 = var0 >> 8 & 0xFF;
-        int var8 = var0 & 0xFF;
-        int var9 = var1 >> 24 & 0xFF;
-        int var10 = var1 >> 16 & 0xFF;
-        int var11 = var1 >> 8 & 0xFF;
-        int var12 = var1 & 0xFF;
-        float var13 = 1.0F - var2;
-        float var14 = (float) var5 * var2 + (float) var9 * var13;
-        float var15 = (float) var6 * var2 + (float) var10 * var13;
-        float var16 = (float) var7 * var2 + (float) var11 * var13;
-        float var17 = (float) var8 * var2 + (float) var12 * var13;
-        return (int) var14 << 24 | ((int) var15 & 0xFF) << 16 | ((int) var16 & 0xFF) << 8 | (int) var17 & 0xFF;
-    }
-
-    public static java.awt.Color method17682(java.awt.Color... var0) {
-        if (var0 != null) {
-            if (var0.length > 0) {
-                float var3 = 1.0F / (float) var0.length;
-                float var4 = 0.0F;
-                float var5 = 0.0F;
-                float var6 = 0.0F;
-                float var7 = 0.0F;
-
-                for (java.awt.Color var11 : var0) {
-                    if (var11 == null) {
-                        var11 = java.awt.Color.BLACK;
-                    }
-
-                    var4 += (float) var11.getRed() * var3;
-                    var5 += (float) var11.getGreen() * var3;
-                    var6 += (float) var11.getBlue() * var3;
-                    var7 += (float) var11.getAlpha() * var3;
-                }
-
-                return new java.awt.Color(var4 / 255.0F, var5 / 255.0F, var6 / 255.0F, var7 / 255.0F);
-            } else {
-                return java.awt.Color.WHITE;
-            }
-        } else {
-            return java.awt.Color.WHITE;
-        }
-    }
-
-    public static java.awt.Color method17681(java.awt.Color var0, java.awt.Color var1, float var2) {
-        float var5 = 1.0F - var2;
-        float var6 = (float) var0.getRed() * var2 + (float) var1.getRed() * var5;
-        float var7 = (float) var0.getGreen() * var2 + (float) var1.getGreen() * var5;
-        float var8 = (float) var0.getBlue() * var2 + (float) var1.getBlue() * var5;
-        return new java.awt.Color(var6 / 255.0F, var7 / 255.0F, var8 / 255.0F);
-    }
-
-    public static void transformVector(FloatBuffer matrixBuffer, float[] inputVector, float[] outputVector) {
-        for (int i = 0; i < 4; i++) {
-            outputVector[i] = inputVector[0] * matrixBuffer.get(matrixBuffer.position() + i)
-                    + inputVector[1] * matrixBuffer.get(matrixBuffer.position() + 4 + i)
-                    + inputVector[2] * matrixBuffer.get(matrixBuffer.position() + 8 + i)
-                    + inputVector[3] * matrixBuffer.get(matrixBuffer.position() + 12 + i);
-        }
-    }
 }
-
-
-

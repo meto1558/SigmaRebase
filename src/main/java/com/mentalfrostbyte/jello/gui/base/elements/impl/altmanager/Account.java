@@ -54,7 +54,7 @@ public class Account extends AnimatedIconPanel {
         this.field21252 = Math.min(1.0F, Math.max(0.0F, this.field21252));
         this.field21258 = RenderUtil2.shiftTowardsOther(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 2.0F);
         if (this.field21254 || this.method13212() || this.method13298()) {
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) this.xA,
                     (float) this.yA,
                     (float) (this.xA + this.widthA),
@@ -65,7 +65,7 @@ public class Account extends AnimatedIconPanel {
 
         if (!this.method13212()) {
             if (this.method13298() && this.field21254) {
-                RenderUtil.method11429(
+                RenderUtil.drawBorder(
                         (float) this.xA,
                         (float) this.yA,
                         (float) (this.xA + this.widthA),
@@ -75,7 +75,7 @@ public class Account extends AnimatedIconPanel {
                 );
             } else if (!this.method13298()) {
                 if (this.field21254) {
-                    RenderUtil.method11429(
+                    RenderUtil.drawBorder(
                             (float) this.xA,
                             (float) this.yA,
                             (float) (this.xA + this.widthA),
@@ -85,7 +85,7 @@ public class Account extends AnimatedIconPanel {
                     );
                 }
             } else {
-                RenderUtil.method11429(
+                RenderUtil.drawBorder(
                         (float) this.xA,
                         (float) this.yA,
                         (float) (this.xA + this.widthA),
@@ -95,7 +95,7 @@ public class Account extends AnimatedIconPanel {
                 );
             }
         } else {
-            RenderUtil.method11429(
+            RenderUtil.drawBorder(
                     (float) this.xA,
                     (float) this.yA,
                     (float) (this.xA + this.widthA),
@@ -108,7 +108,7 @@ public class Account extends AnimatedIconPanel {
         RenderUtil.startScissor(this.xA, this.yA, this.xA + this.widthA, this.yA + this.heightA, true);
         if (this.field21249 != null) {
             this.method13584();
-            RenderUtil.restoreScissor();
+            RenderUtil.endScissor();
             if (this.field21252 > 0.0F && this.heightA > 55) {
                 RenderUtil.drawImage(
                         (float) (this.xA + this.getWidthA()),

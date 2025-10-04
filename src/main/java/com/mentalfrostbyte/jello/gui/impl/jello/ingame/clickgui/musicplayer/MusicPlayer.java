@@ -284,14 +284,14 @@ public class MusicPlayer extends AnimatedIconPanel {
             this.pause.setSelfVisible(false);
         }
 
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) (this.getXA() + this.width),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),
                 (float) (this.getYA() + this.getHeightA() - this.field20848),
                 RenderUtil2.applyAlpha(-14277082, partialTicks * 0.8F)
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.getXA(),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.width),
@@ -354,14 +354,14 @@ public class MusicPlayer extends AnimatedIconPanel {
                     var5,
                     RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - this.field20848),
                     (float) (this.getXA() + this.getWidthA()),
                     (float) (this.getYA() + this.getHeightA() - 5),
                     RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - 5),
                     (float) (this.getXA() + this.width),
@@ -388,14 +388,14 @@ public class MusicPlayer extends AnimatedIconPanel {
                     Resources.bgPNG,
                     RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var1 * var1)
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - this.field20848),
                     (float) (this.getXA() + this.getWidthA()),
                     (float) (this.getYA() + this.getHeightA() - 5),
                     RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.43F * var1)
             );
-            RenderUtil.drawRoundedRect(
+            RenderUtil.drawColoredRect(
                     (float) this.getXA(),
                     (float) (this.getYA() + this.getHeightA() - 5),
                     (float) (this.getXA() + this.width),
@@ -468,7 +468,7 @@ public class MusicPlayer extends AnimatedIconPanel {
             );
         }
 
-        RenderUtil.restoreScissor();
+        RenderUtil.endScissor();
     }
 
     private void method13196(float var1) {
@@ -500,7 +500,7 @@ public class MusicPlayer extends AnimatedIconPanel {
             );
         }
 
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.width,
                 0.0F,
                 (float) this.getWidthA(),

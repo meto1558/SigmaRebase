@@ -104,7 +104,7 @@ public class PanelGroup extends AnimatedIconPanel {
                 (float) this.field21199 + (1.0F - this.field21195) * (float) var4,
                 partialTicks
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.getXA(),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),

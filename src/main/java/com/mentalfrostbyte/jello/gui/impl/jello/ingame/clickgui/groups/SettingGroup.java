@@ -71,7 +71,7 @@ public class SettingGroup extends Element {
       }
 
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,
@@ -102,7 +102,7 @@ public class SettingGroup extends Element {
          this.module.getDescription(),
               RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), partialTicks * 0.7F)
       );
-      RenderUtil.restoreScissor();
+      RenderUtil.endScissor();
       super.draw(partialTicks);
    }
 }

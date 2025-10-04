@@ -55,7 +55,7 @@ public class   CategoryDrawPartBackground {
 
       RenderUtil.startScissor((float)this.getStartX(), (float)this.getStartY(), (float)this.getWidth() * transitionFactor, (float)this.getHeight());
       drawContent(partialTicks);
-      RenderUtil.restoreScissor();
+      RenderUtil.endScissor();
    }
 
    public void drawContent(float partialTicks) {

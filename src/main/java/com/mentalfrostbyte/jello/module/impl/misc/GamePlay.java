@@ -77,7 +77,7 @@ public class GamePlay extends ModuleWithModuleSettings {
                     updateTimedMessage(null);
                     Client.getInstance().notificationManager.send(new Notification("Auto Join", "Auto join was canceled.", 2500));
                 } else if (timedMessage.hasExpired()) {
-                    MinecraftUtil.sendChatMessage(timedMessage.getMessage());
+                    MinecraftUtil.sendChatMessage(timedMessage.message());
                     updateTimedMessage(null);
                 } else if ((int) (timedMessage.getRemainingTime() / 1000L) + 1 < seconds) {
                     seconds = (int) (timedMessage.getRemainingTime() / 1000L) + 1;

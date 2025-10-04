@@ -129,7 +129,7 @@ public class Zoom extends Element {
                             (float) (var9 * 2 - 4) * var11.field30490 + 4.0F,
                             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), (1.0F - var11.field30490 * (0.5F + var11.field30490 * 0.5F)) * 0.4F)
                     );
-                    RenderUtil.restoreScissor();
+                    RenderUtil.endScissor();
                     var11.field30490 = Math.min(var11.field30490 + 3.0F / (float) Minecraft.getFps(), 1.0F);
                     if (var11.field30490 == 1.0F) {
                         var4.remove();

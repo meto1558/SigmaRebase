@@ -97,13 +97,13 @@ public class ShulkerInfo extends Module {
                                 new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
-                                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
+                                com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(
                                 new BoundingBox(
                                         var7 - (double) var13, var9 + 0.01F, var11 - (double) var13,
                                         var7 + (double) var13, var9 + (double) (var13 * 2.0F), var11 + (double) var13),
                                 3.0F,
-                                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F));
+                                com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.3F));
                         GL11.glDisable(3042);
                         if (mc.gameSettings.keyBindUseItem.isKeyDown()) {
                             mc.gameSettings.keyBindUseItem.pressed = false;
@@ -225,22 +225,22 @@ public class ShulkerInfo extends Module {
         RenderSystem.disableLighting();
         GL11.glAlphaFunc(519, 0.0F);
         if (!var5) {
-            RenderUtil.drawRect2(
+            RenderUtil.drawRectNormalised(
                     (float) var1,
                     (float) var2,
                     (float) var13,
                     (float) var12,
-                    RenderUtil.applyAlpha(RenderUtil.method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
+                    com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(com.mentalfrostbyte.jello.util.system.math.MathHelper.blendARGB(ClientColors.LIGHT_GREYISH_BLUE.getColor(),
                             ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.7F));
             RenderUtil.drawRoundedRect((float) var1, (float) var2, (float) var13, (float) var12, 10.0F, 0.5F);
         } else {
-            RenderUtil.method11467(var1, var2, var13, var12,
-                    RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.94F));
+            RenderUtil.drawFloatingFrame2(var1, var2, var13, var12,
+                    com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.94F));
         }
 
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont25, (float) (var1 + var8), (float) (var2 + var8 - 3), var4,
-                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
+                com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F));
         RenderSystem.enableLighting();
 
         for (int var14 = 0; var14 < var3.size(); var14++) {
@@ -249,11 +249,11 @@ public class ShulkerInfo extends Module {
             int var17 = var1 + var8 + var14 % 9 * (var10 + var11);
             RenderSystem.disableLighting();
             if (var14 == this.field23841 && var5) {
-                RenderUtil.drawRect2((float) var17, (float) var16, (float) var10, (float) var10,
-                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
+                RenderUtil.drawRectNormalised((float) var17, (float) var16, (float) var10, (float) var10,
+                        com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.15F));
             }
 
-            RenderUtil.renderItem(var15, var17, var16, var10, var10);
+            RenderUtil.renderGuiItem(var15, var17, var16, var10, var10);
             if (var15.getCount() > 1) {
                 int var18 = var10 - ResourceRegistry.JelloLightFont20.getWidth("" + var15.getCount());
                 int var19 = ResourceRegistry.JelloLightFont20.getWidth("" + var15.getCount());
@@ -265,7 +265,7 @@ public class ShulkerInfo extends Module {
                         (float) (40 + var19),
                         40.0F,
                         Resources.shadowPNG,
-                        RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F),
+                        com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.7F),
                         false);
                 RenderUtil.drawString(ResourceRegistry.JelloLightFont20, (float) (var17 + var18), (float) (var16 + 13),
                         "" + var15.getCount(), ClientColors.LIGHT_GREYISH_BLUE.getColor());
@@ -290,12 +290,12 @@ public class ShulkerInfo extends Module {
 
                 var29 = (int) ((float) var29 * RenderUtil.getGuiScaleFactor());
                 int var33 = var32.size();
-                RenderUtil.drawRect2(
+                RenderUtil.drawRectNormalised(
                         (float) var27,
                         (float) (var25 + var10),
                         (float) var29 + 9.0F * RenderUtil.getGuiScaleFactor(),
                         10.0F * RenderUtil.getGuiScaleFactor() * (float) var33 + 7.0F * RenderUtil.getGuiScaleFactor(),
-                        RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F));
+                        com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F));
                 GL11.glPushMatrix();
                 GL11.glScalef(RenderUtil.getGuiScaleFactor(), RenderUtil.getGuiScaleFactor(), 0.0F);
                 var25 = (int) ((float) var25 * (1.0F / RenderUtil.getGuiScaleFactor()));

@@ -1,12 +1,9 @@
 package com.mentalfrostbyte.jello.util.client.logger;
 
-public class TimedMessage {
-    private final long expirationTime;
-    private final String message;
-
-    public TimedMessage(String message, long durationMillis) {
+public record TimedMessage(String message, long expirationTime) {
+    public TimedMessage(String message, long expirationTime) {
         this.message = message;
-        this.expirationTime = System.currentTimeMillis() + durationMillis;
+        this.expirationTime = System.currentTimeMillis() + expirationTime;
     }
 
     public boolean hasExpired() {
@@ -15,9 +12,5 @@ public class TimedMessage {
 
     public long getRemainingTime() {
         return this.expirationTime - System.currentTimeMillis();
-    }
-
-    public String getMessage() {
-        return this.message;
     }
 }

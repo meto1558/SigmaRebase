@@ -201,6 +201,6 @@ public class Class4345 extends ScrollableContentPanel {
         RenderUtil.startScissor((float) this.xA, (float) (70 + this.getHeightA() - var4), (float) this.getWidthA(), (float) var4);
         RenderUtil.drawRoundedRect2((float) this.xA, (float) (70 + this.getHeightA() - var4), (float) this.getWidthA(), (float) var4, -2631721);
         super.draw(partialTicks);
-        RenderUtil.restoreScissor();
+        RenderUtil.endScissor();
     }
 }

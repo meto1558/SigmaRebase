@@ -125,7 +125,7 @@ public class ConfigGroup extends Element {
             Resources.shadowBottomPNG,
             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), this.field20703.calcPercent() * partialTicks * 0.3F)
          );
-         RenderUtil.method11415(this);
+         RenderUtil.startScissor(this);
          RenderUtil.drawRoundedRect2(
             (float)this.xA, (float)this.yA, (float)this.widthA, (float)this.heightA, RenderUtil2.applyAlpha(-723724, partialTicks)
          );
@@ -140,7 +140,7 @@ public class ConfigGroup extends Element {
          }
 
          super.draw(partialTicks);
-         RenderUtil.restoreScissor();
+         RenderUtil.endScissor();
       }
    }
 }

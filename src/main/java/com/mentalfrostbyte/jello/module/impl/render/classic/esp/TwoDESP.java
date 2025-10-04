@@ -156,8 +156,8 @@ public class TwoDESP extends Module {
                                 var15 = -256;
                             }
 
-                            RenderUtil.method11430(var13, var10, var14, var11, 2.25, Class7211.method22645(0, 0, 0, 0), var15);
-                            RenderUtil.method11430(
+                            RenderUtil.drawHollowRect(var13, var10, var14, var11, 2.25, Class7211.method22645(0, 0, 0, 0), var15);
+                            RenderUtil.drawHollowRect(
                                     (double) var13 - 0.5,
                                     (double) var10 - 0.5,
                                     (double) var14 + 0.5,
@@ -166,7 +166,7 @@ public class TwoDESP extends Module {
                                     Class7211.method22643(0, 0),
                                     Class7211.method22642(0)
                             );
-                            RenderUtil.method11430(
+                            RenderUtil.drawHollowRect(
                                     (double) var13 + 2.5,
                                     (double) var10 + 2.5,
                                     (double) var14 - 2.5,
@@ -175,7 +175,7 @@ public class TwoDESP extends Module {
                                     Class7211.method22643(0, 0),
                                     Class7211.method22642(0)
                             );
-                            RenderUtil.method11430(
+                            RenderUtil.drawHollowRect(
                                     var13 - 5.0F,
                                     var10 - 1.0F,
                                     var13 - 1.0F,

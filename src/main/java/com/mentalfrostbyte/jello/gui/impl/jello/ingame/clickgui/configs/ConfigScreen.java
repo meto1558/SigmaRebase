@@ -169,7 +169,7 @@ public class ConfigScreen extends Element {
                 35.0F,
                 partialTicks
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) (this.xA + var5 / 2),
                 (float) (this.yA + var5 / 2),
                 (float) (this.xA - var5 / 2 + this.widthA),
@@ -190,7 +190,7 @@ public class ConfigScreen extends Element {
                 "Profiles",
                 RenderUtil2.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.8F * partialTicks)
         );
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) (this.xA + 25),
                 (float) (this.yA + 69),
                 (float) (this.xA + this.widthA - 25),

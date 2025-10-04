@@ -1,6 +1,7 @@
 package com.mentalfrostbyte.jello.module.impl.render;
 
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.render.ScreenDimension;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
@@ -69,7 +70,7 @@ public class DVDSimulator extends Module {
                     (float) this.dvdDimensions.width,
                     (float) this.dvdDimensions.height,
                     Resources.dvdPNG,
-                    RenderUtil.applyAlpha(this.dvdColor, 0.8F)
+                    MathHelper.applyAlpha(this.dvdColor, 0.8F)
             );
         }
     }

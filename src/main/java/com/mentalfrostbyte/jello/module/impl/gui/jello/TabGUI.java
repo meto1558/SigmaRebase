@@ -1,6 +1,5 @@
 package com.mentalfrostbyte.jello.module.impl.gui.jello;
 
-
 import com.mentalfrostbyte.Client;
 import com.mentalfrostbyte.jello.event.impl.game.action.EventKeyPress;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2D;
@@ -8,15 +7,16 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender2DOffset;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.gui.jello.tabgui.Class8224;
+import com.mentalfrostbyte.jello.module.impl.gui.jello.tabgui.AnimationEntry;
 import com.mentalfrostbyte.jello.util.client.render.ResourceRegistry;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 
 import com.mentalfrostbyte.jello.util.game.render.BlurEngine;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
-import com.mentalfrostbyte.jello.util.system.math.smoothing.QuadraticEasing;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.glfw.GLFW;
 import team.sdhq.eventBus.annotations.EventTarget;
 import team.sdhq.eventBus.annotations.priority.HighestPriority;
 
@@ -27,43 +27,47 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TabGUI extends Module {
-    public static final int field23762 = 3;
-    public static TabGUI tabGUIModule;
-    public List<ModuleCategory> field23772 = new ArrayList<ModuleCategory>();
-    public HashMap<ModuleCategory, Float> field23773 = new HashMap<ModuleCategory, Float>();
-    public HashMap<Module, Float> field23774 = new HashMap<Module, Float>();
-    public boolean field23781 = false;
-    public ArrayList<Class8224> field23789 = new ArrayList<Class8224>();
-    public int field23790 = RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0625F);
-    public int field23791 = RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F);
-    public List<ModuleCategory> field23792 = this.method16597();
-    public int field23793 = RenderUtil.applyAlpha(ClientColors.MID_GREY.getColor(), 0.05F);
-    public final Color[] field23763 = new Color[3];
-    public final Color[] field23764 = new Color[3];
-    public final Color[] field23765 = new Color[3];
-    public final Color[] field23766 = new Color[3];
-    public final Color[] field23767 = new Color[3];
-    public final int field23768 = 10;
-    public int yOffset = 90;
-    public final int field23770 = 150;
-    public int field23771 = 150;
-    public int field23775 = 0;
-    public int field23776 = 0;
-    public int field23777 = 0;
-    public final int field23778 = 30;
-    public final int field23779 = 4;
-    public float field23780 = 1.0F;
-    public ModuleCategory field23782;
-    public int field23783 = 0;
-    public int field23784;
-    public Module field23785;
-    public final int field23786 = 170;
-    public float field23787 = 0.0F;
+    public ArrayList<AnimationEntry> animations = new ArrayList<>();
+    public float animationSpeed = 1.0F;
+
+    public HashMap<ModuleCategory, Float> categoryOffsetMap = new HashMap<>();
+    public HashMap<Module, Float> moduleOffsetMap = new HashMap<>();
+    public boolean isModuleListVisible = false;
+
+    public List<ModuleCategory> categories = List.of(ModuleCategory.values());
+
+    public int backgroundColor = MathHelper.applyAlpha(ClientColors.MID_GREY.getColor(), 0.05F);
+    public int deepTealAlphaColor = MathHelper.applyAlpha(ClientColors.DEEP_TEAL.getColor(), 0.0625F);
+    public int lightGreyishBlueAlphaColor = MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.3F);
+
+    public final Color[] topGradientColors = new Color[3];
+    public final Color[] middleGradientColors = new Color[3];
+    public final Color[] bottomGradientColors = new Color[3];
+    public final Color[] altBottomGradientColors = new Color[3];
+    public final Color[] altMiddleGradientColors = new Color[3];
+
+    public final int x = 10;
+    public int y = 90;
+    public final int width = 150;
+    public int height = 150;
+
+    public final int moduleListWidth = 170;
+    public int moduleListHeight = 0;
+    public final int itemHeight = 30;
+    public final int padding = 4;
+
+    public ModuleCategory selectedCategory;
+    public Module selectedModule;
+    public int selectedCategoryIndex = 0;
+    public int selectedModuleIndex = 0;
+    public int selectedModuleListIndex;
+    public int hoveredCategoryIndex = 0;
+
+    public float scrollOffset = 0.0F;
 
     public TabGUI() {
         super(ModuleCategory.GUI, "TabGUI", "Manage mods without opening the ClickGUI");
         this.setAvailableOnClassic(false);
-        tabGUIModule = this;
     }
 
     @EventTarget
@@ -73,9 +77,9 @@ public class TabGUI extends Module {
             if (Client.getInstance().guiManager.getHqIngameBlur()) {
                 if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                     if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                        BlurEngine.drawBlur(this.field23768, this.yOffset, this.field23770, this.field23771);
-                        if (this.field23781) {
-                            BlurEngine.drawBlur(170, this.yOffset, this.field23786, this.field23783);
+                        BlurEngine.updateRenderBounds(this.x, this.y, this.width, this.height);
+                        if (this.isModuleListVisible) {
+                            BlurEngine.updateRenderBounds(170, this.y, this.moduleListWidth, this.moduleListHeight);
                         }
                     }
                 }
@@ -89,361 +93,360 @@ public class TabGUI extends Module {
         if (this.isEnabled() && mc.player != null && mc.world != null) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    this.field23771 = 5 * this.field23778 + this.field23779;
-                    float var4 = Math.abs((float) this.method16592() - this.field23787);
-                    boolean var5 = (float) this.method16592() - this.field23787 < 0.0F;
-                    this.field23787 = this.field23787
-                            + Math.min(var4, var4 * 0.14F * this.field23780) * (float) (!var5 ? 1 : -1);
-                    this.yOffset = event.getYOffset();
-                    this.method16600(this.field23768, this.yOffset, this.field23770, this.field23771,
-                            this.field23763, null, this.field23764, 1.0F);
-                    RenderUtil.startScissor((float) this.field23768, (float) this.yOffset, (float) this.field23770,
-                            (float) this.field23771);
-                    this.method16596(
-                            this.field23768,
-                            this.yOffset - Math.round(this.field23787),
-                            this.field23792.size() * this.field23778 + this.field23779,
-                            this.field23770,
-                            this.field23775,
-                            false,
-                            1.0F);
-                    this.method16595(this.field23768, this.yOffset - Math.round(this.field23787), this.field23792);
-                    RenderUtil.restoreScissor();
-                    if (this.field23781) {
-                        this.field23783 = this.method16593(this.field23782).size() * this.field23778 + this.field23779;
-                        this.method16600(170, this.yOffset, this.field23786, this.field23783, this.field23765,
-                                this.field23767, this.field23766, 1.0F);
-                        this.method16596(170, this.yOffset, this.field23783, this.field23786, this.field23784, true,
-                                1.0F);
-                        this.method16594(170, this.yOffset, this.method16593(this.field23782), 1.0F);
+                    this.height = 5 * this.itemHeight + this.padding;
+                    float scrollDiff = Math.abs((float) this.getMaxScrollHeight() - this.scrollOffset);
+                    boolean scrollDirectionUp = (float) this.getMaxScrollHeight() - this.scrollOffset < 0.0F;
+                    this.scrollOffset = this.scrollOffset
+                            + Math.min(scrollDiff, scrollDiff * 0.14F * this.animationSpeed) * (float) (!scrollDirectionUp ? 1 : -1);
+                    this.y = event.getYOffset();
+
+                    this.drawGradientBlurredRect(this.x, this.y, this.width, this.height,
+                            this.topGradientColors, null, this.middleGradientColors, 1.0F);
+
+                    RenderUtil.startScissor((float) this.x, (float) this.y, (float) this.width, (float) this.height);
+
+                    this.renderSelectionHighlight(
+                            this.x,
+                            this.y - Math.round(this.scrollOffset),
+                            this.categories.size() * this.itemHeight + this.padding,
+                            this.width,
+                            this.selectedCategoryIndex,
+                            false
+                    );
+
+                    this.renderCategoryLabels(this.x, this.y - Math.round(this.scrollOffset), this.categories);
+
+                    RenderUtil.endScissor();
+
+                    if (this.isModuleListVisible) {
+                        this.moduleListHeight = this.getModulesByCategory(this.selectedCategory).size() * this.itemHeight + this.padding;
+
+                        this.drawGradientBlurredRect(170, this.y, this.moduleListWidth, this.moduleListHeight,
+                                this.bottomGradientColors, this.altMiddleGradientColors, this.altBottomGradientColors, 1.0F);
+
+                        this.renderSelectionHighlight(170, this.y, this.moduleListHeight, this.moduleListWidth, this.selectedModuleListIndex, true);
+
+                        this.renderModuleLabels(170, this.y, this.getModulesByCategory(this.selectedCategory));
                     }
 
-                    event.setYOffset(this.field23771 + 10 + 99);
+                    event.setYOffset(this.height + 10 + 99);
                 }
             }
         }
     }
 
-    public int method16592() {
-        return Math.max(this.field23775 * this.field23778 - 4 * this.field23778, 0);
+    public int getMaxScrollHeight() {
+        return Math.max(this.selectedCategoryIndex * this.itemHeight - 4 * this.itemHeight, 0);
     }
 
-    public List<Module> method16593(ModuleCategory var1) {
-        ArrayList var4 = new ArrayList();
-
-        for (Module var6 : Client.getInstance().moduleManager.getModulesByCategory(var1)) {
-            var4.add(var6);
-        }
-
-        return var4;
+    public List<Module> getModulesByCategory(ModuleCategory category) {
+        return Client.getInstance().moduleManager.getModulesByCategory(category);
     }
 
-    public void method16594(int var1, int var2, List<Module> var3, float var4) {
-        int var7 = 0;
+    public void renderModuleLabels(int x, int y, List<Module> modules) {
+        int index = 0;
 
-        for (Module var9 : var3) {
-            if (this.field23784 == var7) {
-                this.field23785 = var9;
+        for (Module module : modules) {
+            if (this.selectedModuleListIndex == index) {
+                this.selectedModule = module;
             }
 
-            if (!this.field23774.containsKey(var9)) {
-                this.field23774.put(var9, 0.0F);
+            if (!this.moduleOffsetMap.containsKey(module)) {
+                this.moduleOffsetMap.put(module, 0.0F);
             }
 
-            if (this.field23784 == var7 && this.field23774.get(var9) < 14.0F) {
-                this.field23774.put(var9, this.field23774.get(var9) + this.field23780);
-            } else if (this.field23784 != var7 && this.field23774.get(var9) > 0.0F) {
-                this.field23774.put(var9, this.field23774.get(var9) - this.field23780);
+            if (this.selectedModuleListIndex == index && this.moduleOffsetMap.get(module) < 14.0F) {
+                this.moduleOffsetMap.put(module, this.moduleOffsetMap.get(module) + this.animationSpeed);
+            } else if (this.selectedModuleListIndex != index && this.moduleOffsetMap.get(module) > 0.0F) {
+                this.moduleOffsetMap.put(module, this.moduleOffsetMap.get(module) - this.animationSpeed);
             }
 
-            if (var9.isEnabled()) {
+            if (module.isEnabled()) {
                 RenderUtil.drawString(
                         ResourceRegistry.JelloMediumFont20,
-                        (float) (var1 + 11) + this.field23774.get(var9),
-                        (float) (var2 + this.field23778 / 2 - ResourceRegistry.JelloMediumFont20.getHeight() / 2 + 3
-                                + var7 * this.field23778),
-                        var9.getName(),
+                        (float) (x + 11) + this.moduleOffsetMap.get(module),
+                        (float) (y + this.itemHeight / 2 - ResourceRegistry.JelloMediumFont20.getHeight() / 2 + 3
+                                + index * this.itemHeight),
+                        module.getName(),
                         ClientColors.LIGHT_GREYISH_BLUE.getColor());
             } else {
                 RenderUtil.drawString(
                         ResourceRegistry.JelloLightFont20,
-                        (float) (var1 + 11) + this.field23774.get(var9),
-                        (float) (var2 + this.field23778 / 2 - ResourceRegistry.JelloLightFont20.getHeight() / 2 + 2
-                                + var7 * this.field23778),
-                        var9.getName(),
+                        (float) (x + 11) + this.moduleOffsetMap.get(module),
+                        (float) (y + this.itemHeight / 2 - ResourceRegistry.JelloLightFont20.getHeight() / 2 + 2
+                                + index * this.itemHeight),
+                        module.getName(),
                         ClientColors.LIGHT_GREYISH_BLUE.getColor());
             }
 
-            var7++;
+            index++;
         }
     }
 
-    public void method16595(int var1, int var2, List<ModuleCategory> var3) {
-        int var6 = 0;
+    public void renderCategoryLabels(int x, int y, List<ModuleCategory> categories) {
+        int index = 0;
 
-        for (ModuleCategory var8 : var3) {
-            if (this.field23775 == var6) {
-                this.field23782 = var8;
+        for (ModuleCategory category : categories) {
+            if (this.selectedCategoryIndex == index) {
+                this.selectedCategory = category;
             }
 
-            if (!this.field23773.containsKey(var8)) {
-                this.field23773.put(var8, 0.0F);
+            if (!this.categoryOffsetMap.containsKey(category)) {
+                this.categoryOffsetMap.put(category, 0.0F);
             }
 
-            if (this.field23775 == var6 && this.field23773.get(var8) < 14.0F) {
-                this.field23773.put(var8, this.field23773.get(var8) + this.field23780);
-            } else if (this.field23775 != var6 && this.field23773.get(var8) > 0.0F) {
-                this.field23773.put(var8, this.field23773.get(var8) - this.field23780);
+            if (this.selectedCategoryIndex == index && this.categoryOffsetMap.get(category) < 14.0F) {
+                this.categoryOffsetMap.put(category, this.categoryOffsetMap.get(category) + this.animationSpeed);
+            } else if (this.selectedCategoryIndex != index && this.categoryOffsetMap.get(category) > 0.0F) {
+                this.categoryOffsetMap.put(category, this.categoryOffsetMap.get(category) - this.animationSpeed);
             }
 
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont20,
-                    (float) (var1 + 11) + this.field23773.get(var8),
-                    (float) (var2 + this.field23778 / 2 - ResourceRegistry.JelloLightFont20.getHeight() / 2 + 2
-                            + var6 * this.field23778),
-                    var8.toString(),
+                    (float) (x + 11) + this.categoryOffsetMap.get(category),
+                    (float) (y + this.itemHeight / 2 - ResourceRegistry.JelloLightFont20.getHeight() / 2 + 2
+                            + index * this.itemHeight),
+                    category.toString(),
                     -1);
-            var6++;
+            index++;
         }
     }
 
-    public void method16596(int var1, int var2, int var3, int var4, int var5, boolean var6, float var7) {
-        int var10 = 0;
-        if (var6) {
-            if (var6) {
-                float var11 = (float) (var5 * this.field23778 - this.field23777);
-                if (this.field23777 > var5 * this.field23778) {
-                    this.field23777 = (int) ((float) this.field23777
-                            + (!(var11 * 0.14F * this.field23780 >= 1.0F) ? var11 * 0.14F * this.field23780
-                                    : -this.field23780));
-                }
+    public void renderSelectionHighlight(
+            int x, int y, int maxHeight, int width, int itemCount, boolean isModuleList
+    ) {
+        int highlightOffset;
 
-                if (this.field23777 < var5 * this.field23778) {
-                    this.field23777 = (int) ((float) this.field23777
-                            + (!(var11 * 0.14F * this.field23780 <= 1.0F) ? var11 * 0.14F * this.field23780
-                                    : this.field23780));
-                }
+        if (isModuleList) {
+            float offsetDifference = (float) (itemCount * this.itemHeight - this.hoveredCategoryIndex);
 
-                if (var11 > 0.0F && this.field23777 > var5 * this.field23778) {
-                    this.field23777 = var5 * this.field23778;
-                }
-
-                if (var11 < 0.0F && this.field23777 < var5 * this.field23778) {
-                    this.field23777 = var5 * this.field23778;
-                }
-
-                var10 = this.field23777;
+            if (this.hoveredCategoryIndex > itemCount * this.itemHeight) {
+                this.hoveredCategoryIndex = (int) (this.hoveredCategoryIndex
+                        + (!(offsetDifference * 0.14F * this.animationSpeed >= 1.0F)
+                        ? offsetDifference * 0.14F * this.animationSpeed
+                        : -this.animationSpeed));
             }
+
+            if (this.hoveredCategoryIndex < itemCount * this.itemHeight) {
+                this.hoveredCategoryIndex = (int) (this.hoveredCategoryIndex
+                        + (!(offsetDifference * 0.14F * this.animationSpeed <= 1.0F)
+                        ? offsetDifference * 0.14F * this.animationSpeed
+                        : this.animationSpeed));
+            }
+
+            if (offsetDifference > 0.0F && this.hoveredCategoryIndex > itemCount * this.itemHeight) {
+                this.hoveredCategoryIndex = itemCount * this.itemHeight;
+            }
+
+            if (offsetDifference < 0.0F && this.hoveredCategoryIndex < itemCount * this.itemHeight) {
+                this.hoveredCategoryIndex = itemCount * this.itemHeight;
+            }
+
+            highlightOffset = this.hoveredCategoryIndex;
         } else {
-            float var15 = (float) (var5 * this.field23778 - this.field23776);
-            if (this.field23776 > var5 * this.field23778) {
-                this.field23776 = (int) ((float) this.field23776
-                        + (!(var15 * 0.14F * this.field23780 >= 1.0F) ? var15 * 0.14F * this.field23780
-                                : -this.field23780));
+            float offsetDifference = (float) (itemCount * this.itemHeight - this.selectedModuleIndex);
+
+            if (this.selectedModuleIndex > itemCount * this.itemHeight) {
+                this.selectedModuleIndex = (int) (this.selectedModuleIndex
+                        + (!(offsetDifference * 0.14F * this.animationSpeed >= 1.0F)
+                        ? offsetDifference * 0.14F * this.animationSpeed
+                        : -this.animationSpeed));
             }
 
-            if (this.field23776 < var5 * this.field23778) {
-                this.field23776 = (int) ((float) this.field23776
-                        + (!(var15 * 0.14F * this.field23780 <= 1.0F) ? var15 * 0.14F * this.field23780
-                                : this.field23780));
+            if (this.selectedModuleIndex < itemCount * this.itemHeight) {
+                this.selectedModuleIndex = (int) (this.selectedModuleIndex
+                        + (!(offsetDifference * 0.14F * this.animationSpeed <= 1.0F)
+                        ? offsetDifference * 0.14F * this.animationSpeed
+                        : this.animationSpeed));
             }
 
-            if (var15 > 0.0F && this.field23776 > var5 * this.field23778) {
-                this.field23776 = var5 * this.field23778;
+            if (offsetDifference > 0.0F && this.selectedModuleIndex > itemCount * this.itemHeight) {
+                this.selectedModuleIndex = itemCount * this.itemHeight;
             }
 
-            if (var15 < 0.0F && this.field23776 < var5 * this.field23778) {
-                this.field23776 = var5 * this.field23778;
+            if (offsetDifference < 0.0F && this.selectedModuleIndex < itemCount * this.itemHeight) {
+                this.selectedModuleIndex = itemCount * this.itemHeight;
             }
 
-            var10 = this.field23776;
+            highlightOffset = this.selectedModuleIndex;
         }
 
-        if (Math.round(this.field23787) > 0 && this.field23776 > 120) {
-            this.field23776 = Math.max(this.field23776, 120 + Math.round(this.field23787));
+        if (Math.round(this.scrollOffset) > 0 && this.selectedModuleIndex > 120) {
+            this.selectedModuleIndex = Math.max(this.selectedModuleIndex, 120 + Math.round(this.scrollOffset));
         }
 
         RenderUtil.drawRect(
-                (float) var1,
-                var10 >= 0 ? (float) (var10 + var2) : (float) var2,
-                (float) (var1 + var4),
-                var10 + this.field23779 + this.field23778 <= var3
-                        ? (float) (var10 + var2 + this.field23778 + this.field23779)
-                        : (float) (var2 + var3 + this.field23779),
-                this.field23790);
+                (float) x,
+                highlightOffset >= 0 ? (float) (highlightOffset + y) : (float) y,
+                (float) (x + width),
+                highlightOffset + this.padding + this.itemHeight <= maxHeight
+                        ? (float) (highlightOffset + y + this.itemHeight + this.padding)
+                        : (float) (y + maxHeight + this.padding),
+                this.deepTealAlphaColor
+        );
+
         RenderUtil.drawImage(
-                (float) var1,
-                var10 + this.field23779 + this.field23778 <= var3 ? (float) (var10 + var2 + this.field23778 - 10)
-                        : (float) (var2 + var3 - 10),
-                (float) var4,
+                (float) x,
+                highlightOffset + this.padding + this.itemHeight <= maxHeight
+                        ? (float) (highlightOffset + y + this.itemHeight - 10)
+                        : (float) (y + maxHeight - 10),
+                (float) width,
                 14.0F,
                 Resources.shadowTopPNG,
-                this.field23791);
-        RenderUtil.drawImage((float) var1, var10 >= 0 ? (float) (var10 + var2) : (float) var2, (float) var4, 14.0F,
-                Resources.shadowBottomPNG, this.field23791);
-        RenderUtil.drawBlurredBackground(
-                var1,
-                var10 >= 0 ? var10 + var2 : var2,
-                var1 + var4,
-                var10 + this.field23779 + this.field23778 <= var3 ? var10 + var2 + this.field23778 + this.field23779
-                        : var2 + var3 + this.field23779);
-        Iterator var16 = this.field23789.iterator();
+                this.lightGreyishBlueAlphaColor
+        );
 
-        while (var16.hasNext()) {
-            Class8224 var12 = (Class8224) var16.next();
-            if (var12.field35322 == var6) {
-                float var13 = var12.field35323.calcPercent();
-                int var14 = RenderUtil.applyAlpha(-5658199, (1.0F - var13 * (0.5F + var13 * 0.5F)) * 0.8F);
-                if (Client.getInstance().guiManager.getHqIngameBlur()) {
-                    var14 = RenderUtil.applyAlpha(-1, (1.0F - var13) * 0.14F);
-                }
+        RenderUtil.drawImage(
+                (float) x,
+                highlightOffset >= 0 ? (float) (highlightOffset + y) : (float) y,
+                (float) width,
+                14.0F,
+                Resources.shadowBottomPNG,
+                this.lightGreyishBlueAlphaColor
+        );
 
-                RenderUtil.method11436(
-                        (float) var1, var10 >= 0 ? (float) (var10 + var2 + 14) : (float) var2,
-                        (float) var4 * QuadraticEasing.easeOutQuad(var13, 0.0F, 1.0F, 1.0F) + 4.0F, var14);
-                if (var12.field35323.calcPercent() == 1.0F) {
-                    var16.remove();
+        RenderUtil.startScissorUnscaled(
+                x,
+                highlightOffset >= 0 ? highlightOffset + y : y,
+                x + width,
+                highlightOffset + this.padding + this.itemHeight <= maxHeight
+                        ? highlightOffset + y + this.itemHeight + this.padding
+                        : y + maxHeight + this.padding
+        );
+
+        Iterator<AnimationEntry> iterator = this.animations.iterator();
+
+        while (iterator.hasNext()) {
+            AnimationEntry animElement = iterator.next();
+            if (animElement.isModuleList == isModuleList) {
+                RenderUtil.resetColors();
+
+                if (animElement.animation.calcPercent() == 1.0F) {
+                    iterator.remove();
                 }
             }
         }
 
-        RenderUtil.restoreScissor();
-    }
-
-    public List<ModuleCategory> method16597() {
-        ArrayList var3 = new ArrayList();
-        var3.add(ModuleCategory.MOVEMENT);
-        var3.add(ModuleCategory.PLAYER);
-        var3.add(ModuleCategory.COMBAT);
-        var3.add(ModuleCategory.ITEM);
-        var3.add(ModuleCategory.RENDER);
-        var3.add(ModuleCategory.WORLD);
-        var3.add(ModuleCategory.MISC);
-        return var3;
+        RenderUtil.endScissor();
     }
 
     @EventTarget
-    public void method16598(EventRender3D var1) {
+    public void onRender3D(EventRender3D event) {
         if (this.isEnabled() && mc.player != null) {
-            this.method16601();
-            this.field23780 = (float) Math.max(Math.round(6.0F - (float) Minecraft.getFps() / 10.0F), 1);
+            this.updateGradientColors();
+            this.animationSpeed = (float) Math.max(Math.round(6.0F - (float) Minecraft.getFps() / 10.0F), 1);
         }
     }
 
     @EventTarget
-    public void method16599(EventKeyPress var1) {
+    public void onKeyPress(EventKeyPress event) {
         if (this.isEnabled()) {
-            switch (var1.getKey()) {
-                case 257:
-                    if (this.field23781) {
-                        this.field23785.toggle();
-                        this.field23789.add(new Class8224(this, this.field23781));
+            switch (event.getKey()) {
+                case GLFW.GLFW_KEY_ENTER:
+                    if (this.isModuleListVisible) {
+                        this.selectedModule.toggle();
+                        this.animations.add(new AnimationEntry(this.isModuleListVisible));
                     }
                     break;
-                case 258:
-                case 259:
-                case 260:
-                case 261:
+                case GLFW.GLFW_KEY_RIGHT:
+                    this.animations.add(new AnimationEntry(this.isModuleListVisible));
+                    if (this.isModuleListVisible) {
+                        this.selectedModule.toggle();
+                    }
+
+                    this.isModuleListVisible = true;
+                    break;
+                case GLFW.GLFW_KEY_LEFT:
+                    this.isModuleListVisible = false;
+                    break;
+                case GLFW.GLFW_KEY_DOWN:
+                    if (!this.isModuleListVisible) {
+                        this.selectedCategoryIndex++;
+                        this.selectedModuleListIndex = 0;
+                    } else {
+                        this.selectedModuleListIndex++;
+                    }
+                    break;
+                case GLFW.GLFW_KEY_UP:
+                    if (!this.isModuleListVisible) {
+                        this.selectedCategoryIndex--;
+                        this.selectedModuleListIndex = 0;
+                    } else {
+                        this.selectedModuleListIndex--;
+                    }
+                    break;
+                case GLFW.GLFW_KEY_TAB:
+                case GLFW.GLFW_KEY_BACKSPACE:
+                case GLFW.GLFW_KEY_INSERT:
+                case GLFW.GLFW_KEY_DELETE:
                 default:
                     return;
-                case 262:
-                    this.field23789.add(new Class8224(this, this.field23781));
-                    if (this.field23781) {
-                        this.field23785.toggle();
-                    }
-
-                    this.field23781 = true;
-                    break;
-                case 263:
-                    this.field23781 = false;
-                    break;
-                case 264:
-                    if (!this.field23781) {
-                        this.field23775++;
-                        this.field23784 = 0;
-                    } else {
-                        this.field23784++;
-                    }
-                    break;
-                case 265:
-                    if (!this.field23781) {
-                        this.field23775--;
-                        this.field23784 = 0;
-                    } else {
-                        this.field23784--;
-                    }
             }
 
-            if (this.field23775 >= this.field23792.size()) {
-                this.field23775 = 0;
-                this.field23776 = this.field23775 * this.field23778 - this.field23778;
-            } else if (this.field23775 < 0) {
-                this.field23775 = this.field23792.size() - 1;
-                this.field23776 = this.field23775 * this.field23778 + this.field23778;
+            if (this.selectedCategoryIndex >= this.categories.size()) {
+                this.selectedCategoryIndex = 0;
+                this.selectedModuleIndex = this.selectedCategoryIndex * this.itemHeight - this.itemHeight;
+            } else if (this.selectedCategoryIndex < 0) {
+                this.selectedCategoryIndex = this.categories.size() - 1;
+                this.selectedModuleIndex = this.selectedCategoryIndex * this.itemHeight + this.itemHeight;
             }
 
-            if (this.field23784 >= this.method16593(this.field23782).size()) {
-                this.field23784 = this.method16593(this.field23782).size() - 1;
-            } else if (this.field23784 < 0) {
-                this.field23784 = 0;
+            if (this.selectedModuleListIndex >= this.getModulesByCategory(this.selectedCategory).size()) {
+                this.selectedModuleListIndex = this.getModulesByCategory(this.selectedCategory).size() - 1;
+            } else if (this.selectedModuleListIndex < 0) {
+                this.selectedModuleListIndex = 0;
             }
         }
     }
 
-    public void method16600(int var1, int var2, int var3, int var4, Color[] var5, Color[] var6, Color[] var7,
-            float var8) {
-        boolean var11 = Client.getInstance().guiManager.getHqIngameBlur();
-        int var14 = RenderUtil.method17682(var5).getRGB();
-        int var15 = RenderUtil.method17682(var7).getRGB();
-        if (var6 != null) {
-            int var16 = RenderUtil.method17682(var6).getRGB();
-            var14 = RenderUtil.method17690(var14, var16, 0.75F);
-            var15 = RenderUtil.method17690(var15, var16, 0.75F);
+    public void drawGradientBlurredRect(
+            int x, int y, int width, int height,
+            Color[] topColors, Color[] middleColors, Color[] bottomColors,
+            float alphaMultiplier
+    ) {
+        boolean hqBlurEnabled = Client.getInstance().guiManager.getHqIngameBlur();
+        int topColorRGB = MathHelper.averageColors(topColors).getRGB();
+        int bottomColorRGB = MathHelper.averageColors(bottomColors).getRGB();
+
+        if (middleColors != null) {
+            int middleColorRGB = MathHelper.averageColors(middleColors).getRGB();
+            topColorRGB = MathHelper.blendARGB(topColorRGB, middleColorRGB, 0.75F);
+            bottomColorRGB = MathHelper.blendARGB(bottomColorRGB, middleColorRGB, 0.75F);
         }
 
-        if (!var11) {
-            RenderUtil.method11431(var1, var2, var1 + var3, var2 + var4, var14, var15);
+        if (!hqBlurEnabled) {
+            RenderUtil.drawVerticalGradientRect(x, y, x + width, y + height, topColorRGB, bottomColorRGB);
         } else {
-            RenderUtil.startScissor((float) var1, (float) var2, (float) var3, (float) var4);
-            BlurEngine.endBlur();
-            RenderUtil.restoreScissor();
-            RenderUtil.drawRect((float) var1, (float) var2, (float) (var1 + var3), (float) (var2 + var4),
-                    this.field23793);
+            RenderUtil.startScissor((float) x, (float) y, (float) width, (float) height);
+            BlurEngine.renderFramebufferToScreen();
+            RenderUtil.endScissor();
+            RenderUtil.drawRect((float) x, (float) y, (float) (x + width), (float) (y + height), this.backgroundColor);
         }
 
-        RenderUtil.drawRoundedRect((float) var1, (float) var2, (float) var3, (float) var4, 8.0F, 0.7F * var8);
+        RenderUtil.drawRoundedRect((float) x, (float) y, (float) width, (float) height, 8.0F, 0.7F * alphaMultiplier);
     }
 
-    public void method16601() {
+    public void updateGradientColors() {
         if (!Client.getInstance().guiManager.getHqIngameBlur()) {
             if (!Minecraft.getInstance().gameSettings.showDebugInfo) {
                 if (!Minecraft.getInstance().gameSettings.hideGUI) {
-                    for (int var4 = 0; var4 < 3; var4++) {
-                        this.field23763[var4] = this.method16602(this.field23768 + this.field23770 / 3 * var4,
-                                this.yOffset, this.field23763[var4]);
-                        this.field23764[var4] = this.method16602(
-                                this.field23768 + this.field23770 / 3 * var4, this.yOffset + this.field23771,
-                                this.field23764[var4]);
-                        this.field23765[var4] = this.method16602(this.field23768 + this.field23770 + 56 * var4,
-                                this.yOffset, this.field23765[var4]);
-                        this.field23766[var4] = this.method16602(
-                                this.field23768 + this.field23770 + 56 * var4, this.yOffset + this.field23783,
-                                this.field23766[var4]);
-                        this.field23767[var4] = this.method16602(
-                                this.field23768 + this.field23770 + 56 * var4, this.yOffset + this.field23783 / 2,
-                                this.field23767[var4]);
+                    for (int i = 0; i < 3; i++) {
+                        this.topGradientColors[i] = this.sampleAndBlendColor(this.x + this.width / 3 * i, this.y, this.topGradientColors[i]);
+                        this.middleGradientColors[i] = this.sampleAndBlendColor(this.x + this.width / 3 * i, this.y + this.height, this.middleGradientColors[i]);
+                        this.bottomGradientColors[i] = this.sampleAndBlendColor(this.x + this.width + 56 * i, this.y, this.bottomGradientColors[i]);
+                        this.altBottomGradientColors[i] = this.sampleAndBlendColor(this.x + this.width + 56 * i, this.y + this.moduleListHeight, this.altBottomGradientColors[i]);
+                        this.altMiddleGradientColors[i] = this.sampleAndBlendColor(this.x + this.width + 56 * i, this.y + this.moduleListHeight / 2, this.altMiddleGradientColors[i]);
                     }
                 }
             }
         }
     }
 
-    public Color method16602(int var1, int var2, Color var3) {
-        Color var6 = RenderUtil.getColorFromScreen(var1, var2, var3);
-        if (var3 != null) {
-            var6 = RenderUtil.method17681(var6, var3, 0.08F * this.field23780);
+    public Color sampleAndBlendColor(int x, int y, Color currentColor) {
+        Color screenColor = RenderUtil.getScreenPixelColor(x, y);
+        if (currentColor != null) {
+            screenColor = MathHelper.blendColors(screenColor, currentColor, 0.08F * this.animationSpeed);
         }
-
-        return var6;
+        return screenColor;
     }
 }

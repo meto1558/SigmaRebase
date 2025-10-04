@@ -100,14 +100,14 @@ public class Dropdown extends Element {
 
    @Override
    public void draw(float partialTicks) {
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
          (float)(this.getYA() + this.getHeightA()),
          -14540254
       );
-      RenderUtil.method11428(
+      RenderUtil.drawBorder(
          (float)this.getXA(),
          (float)this.getYA(),
          (float)(this.getXA() + this.getWidthA()),
@@ -115,7 +115,7 @@ public class Dropdown extends Element {
          ClientColors.DEEP_TEAL.getColor()
       );
       if (this.method13114(this.getHeightO(), this.getWidthO()) && this.getWidthO() - this.method13272() < this.getHeightA()) {
-         RenderUtil.method11428(
+         RenderUtil.drawBorder(
             (float)(this.getXA() + 1),
             (float)(this.getYA() + 1),
             (float)(this.getXA() + this.getWidthA() - 1),
@@ -127,9 +127,9 @@ public class Dropdown extends Element {
       int var4 = this.getXA() + this.getWidthA() - 11;
       int var5 = this.getYA() + this.getHeightA() - 12;
       if (!this.method13673()) {
-         RenderUtil.method11434((float)var4, (float)var5, (float)(var4 + 6), (float)var5, (float)(var4 + 3), (float)(var5 + 3), ClientColors.MID_GREY.getColor());
+         RenderUtil.drawFilledTriangle((float)var4, (float)var5, (float)(var4 + 6), (float)var5, (float)(var4 + 3), (float)(var5 + 3), ClientColors.MID_GREY.getColor());
       } else {
-         RenderUtil.method11434(
+         RenderUtil.drawFilledTriangle(
             (float)var4, (float)(var5 + 3), (float)(var4 + 6), (float)(var5 + 3), (float)(var4 + 3), (float)var5, ClientColors.MID_GREY.getColor()
          );
       }
@@ -141,7 +141,7 @@ public class Dropdown extends Element {
       }
 
       if (this.getText() != null) {
-         RenderUtil.method11415(this);
+         RenderUtil.startScissor(this);
          RenderUtil.drawString(
             this.getFont(),
             (float)(this.getXA() + 7),
@@ -149,16 +149,16 @@ public class Dropdown extends Element {
             this.getText(),
             RenderUtil2.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), partialTicks * 0.5F)
          );
-         RenderUtil.restoreScissor();
+         RenderUtil.endScissor();
       }
 
       if (!this.method13673()) {
-         RenderUtil.method11415(this);
+         RenderUtil.startScissor(this);
       }
 
       super.draw(partialTicks);
       if (!this.method13673()) {
-         RenderUtil.restoreScissor();
+         RenderUtil.endScissor();
       }
    }
 

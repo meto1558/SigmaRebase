@@ -39,7 +39,7 @@ public class SnakeGameScreen extends Screen {
       float var4 = EasingFunctions.easeOutBack(partialTicks, 0.0F, 1.0F, 1.0F);
       this.method13279(0.8F + var4 * 0.2F, 0.8F + var4 * 0.2F);
       float var5 = 0.25F * partialTicks;
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          (float)this.xA,
          (float)this.yA,
          (float)(this.xA + this.widthA),

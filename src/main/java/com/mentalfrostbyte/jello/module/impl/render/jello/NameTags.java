@@ -22,6 +22,7 @@ import com.mentalfrostbyte.jello.util.game.player.combat.CombatUtil;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.PositionUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.client.gui.screen.inventory.FurnaceScreen;
@@ -60,8 +61,8 @@ public class NameTags extends Module {
         field24003.put("cxbot", Resources.cxPNG);
     }
 
-    public int backgroundColor = RenderUtil.applyAlpha(RenderUtil
-            .method17690(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.5F);
+    public int backgroundColor = MathHelper.applyAlpha(MathHelper
+            .blendARGB(ClientColors.LIGHT_GREYISH_BLUE.getColor(), ClientColors.DEEP_TEAL.getColor(), 75.0F), 0.5F);
     public final HashMap<BlockPos, FurnaceTracker> furnaceTrackers = new HashMap<>();
     public BlockPos currentBlockPos;
     public final List<Entity> entities = new ArrayList<>();
@@ -326,7 +327,7 @@ public class NameTags extends Module {
         if (outputItem == null) {
             RenderUtil.drawString(
                     ResourceRegistry.JelloLightFont20, (float) (padding + 15), (float) (padding + 40), "Empty",
-                    RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+                    MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
         }
 
         ItemStack itemStack = furnace.refreshOutput();
@@ -339,10 +340,10 @@ public class NameTags extends Module {
         }
 
         RenderUtil.drawRect(0.0F, (float) boxHeight - 12.0F, Math.min((float) boxWidth * cooldownProgress, (float) boxWidth),
-                (float) boxHeight - 6.0F, RenderUtil.applyAlpha(-106750, 0.3F));
+                (float) boxHeight - 6.0F, MathHelper.applyAlpha(-106750, 0.3F));
         RenderUtil.drawRect(
                 0.0F, (float) boxHeight - 6.0F, Math.min((float) boxWidth * smeltingProgress, (float) boxWidth), (float) boxHeight,
-                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F));
+                MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.75F));
         GL11.glPopMatrix();
         GL11.glPopMatrix();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -390,13 +391,13 @@ public class NameTags extends Module {
         int var19 = this.backgroundColor;
         if (!Client.getInstance().friendManager.isFriendPure(var7)) {
             if (Client.getInstance().friendManager.isFriend(var7)) {
-                var19 = RenderUtil.applyAlpha(-6750208, 0.5F);
+                var19 = MathHelper.applyAlpha(-6750208, 0.5F);
             }
         } else {
-            var19 = RenderUtil.applyAlpha(-16171506, 0.5F);
+            var19 = MathHelper.applyAlpha(-16171506, 0.5F);
         }
 
-        int var20 = RenderUtil
+        int var20 = MathHelper
                 .applyAlpha(!(var7 instanceof PlayerEntity) ? ClientColors.LIGHT_GREYISH_BLUE.getColor()
                         : new Color(Class8781.method31663((PlayerEntity) var7)).getRGB(), 0.5F);
         int var21 = var12.getWidth(var13) / 2;
@@ -412,12 +413,12 @@ public class NameTags extends Module {
                     -25.0F, (float) (var12.getHeight() + 27),
                     (float) (var12.getHeight() + 27),
                     field24003.get(var13),
-                    RenderUtil.applyAlpha(var22, 0.7f)
+                    MathHelper.applyAlpha(var22, 0.7f)
             );
 
             RenderUtil.drawImage((float) (-var21 - 10 - 31 + var12.getHeight() + 27), -25.0F, 14.0F,
                     (float) (var12.getHeight() + 27), Resources.shadowRightPNG,
-                    RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
+                    MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F));
 
             RenderUtil.drawRoundedRect((float) (-var21 - 10 - 31), -25.0F, (float) (var21 * 2 + 20 + 31 + 27),
                     (float) (var12.getHeight() + 27), 20.0F, 0.5F);

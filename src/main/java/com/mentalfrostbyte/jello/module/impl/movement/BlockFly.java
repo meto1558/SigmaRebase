@@ -21,7 +21,6 @@ import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
 import com.mentalfrostbyte.jello.util.game.world.blocks.BlockUtil;
 import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.item.Item;
@@ -32,8 +31,6 @@ import net.minecraft.network.play.client.CHeldItemChangePacket;
 import net.minecraft.util.Hand;
 import org.lwjgl.opengl.GL11;
 import team.sdhq.eventBus.annotations.EventTarget;
-
-import java.util.Arrays;
 
 public class BlockFly extends ModuleWithModuleSettings {
     public int lastSpoofedSlot;
@@ -376,13 +373,13 @@ public class BlockFly extends ModuleWithModuleSettings {
                 (float) (x + 10),
                 (float) (y + 5),
                 this.blockCount + " Blocks",
-                RenderUtil.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha * 0.3F));
+                MathHelper.applyAlpha(ClientColors.DEEP_TEAL.getColor(), alpha * 0.3F));
         RenderUtil.drawString(
                 Resources.medium17,
                 (float) (x + 10),
                 (float) (y + 4),
                 this.blockCount + " Blocks",
-                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha * 0.8F));
+                MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), alpha * 0.8F));
         GL11.glAlphaFunc(519, 0.0F);
     }
 
@@ -395,13 +392,13 @@ public class BlockFly extends ModuleWithModuleSettings {
         int var9 = 32;
         var1 -= var8 / 2;
         GL11.glPushMatrix();
-        RenderUtil.method11465(var1, var2, var8, var9, RenderUtil.applyAlpha(-15461356, 0.8F * var3));
+        RenderUtil.drawFloatingFrame(var1, var2, var8, var9, MathHelper.applyAlpha(-15461356, 0.8F * var3));
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont18, (float) (var1 + 10), (float) (var2 + 4), this.blockCount + "",
-                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
+                MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), var3));
         RenderUtil.drawString(
                 ResourceRegistry.JelloLightFont14, (float) (var1 + 10 + var7), (float) (var2 + 8), "Blocks",
-                RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * var3));
+                MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.6F * var3));
         var1 += 11 + var8 / 2;
         var2 += var9;
         GL11.glPushMatrix();
@@ -409,7 +406,7 @@ public class BlockFly extends ModuleWithModuleSettings {
         GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
         GL11.glTranslatef((float) (-var1), (float) (-var2), 0.0F);
         RenderUtil.drawImage((float) var1, (float) var2, 9.0F, 23.0F, Resources.selectPNG,
-                RenderUtil.applyAlpha(-15461356, 0.8F * var3));
+                MathHelper.applyAlpha(-15461356, 0.8F * var3));
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }

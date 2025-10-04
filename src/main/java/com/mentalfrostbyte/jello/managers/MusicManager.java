@@ -11,7 +11,7 @@ import com.mentalfrostbyte.jello.managers.data.Manager;
 import com.mentalfrostbyte.jello.managers.util.Thumbnails;
 import com.mentalfrostbyte.jello.managers.util.notifs.Notification;
 import com.mentalfrostbyte.jello.util.client.ClientMode;
-import com.mentalfrostbyte.jello.util.client.music.JavaFFT;
+import com.mentalfrostbyte.jello.util.system.sound.JavaFFT;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeContentType;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeUtil;
 import com.mentalfrostbyte.jello.util.client.network.youtube.YoutubeVideoData;
@@ -40,6 +40,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.jetbrains.annotations.NotNull;
 import org.newdawn.slick.opengl.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
@@ -333,7 +334,6 @@ public class MusicManager extends Manager implements MinecraftUtil {
                                 } catch (final InterruptedException ignored) {
                                 }
 
-                                double[] var6 = new double[0];
                                 this.visualizerData.clear();
                                 if (Thread.interrupted()) {
                                     if (this.sourceDataLine != null) {
@@ -347,19 +347,10 @@ public class MusicManager extends Manager implements MinecraftUtil {
                             try {
                                 URL url = this.resolveAudioStream(songUrl);
                                 if (url != null) {
-                                    URLConnection connection = url.openConnection();
-                                    connection.setConnectTimeout(14000);
-                                    connection.setReadTimeout(14000);
-                                    connection.setUseCaches(true);
-                                    connection.setDoOutput(true);
-                                    connection.setRequestProperty("Connection", "Keep-Alive");
-
-                                    InputStream iS = connection.getInputStream();
-                                    MusicStream mS = new MusicStream(iS, new BasicAudioProcessor());
+                                    MusicStream mS = getMusicStream(url);
 
                                     MP4Container container = new MP4Container(mS);
                                     Movie movie = container.getMovie();
-                                    List<Track> tracks = movie.getTracks();
 
                                     AudioTrack var13 = (AudioTrack) movie.getTracks().get(1);
                                     AudioFormat var14 = new AudioFormat((float) var13.getSampleRate(),
@@ -460,6 +451,18 @@ public class MusicManager extends Manager implements MinecraftUtil {
                     });
             this.audioThread.start();
         }
+    }
+
+    private static @NotNull MusicStream getMusicStream(URL url) throws IOException {
+        URLConnection connection = url.openConnection();
+        connection.setConnectTimeout(14000);
+        connection.setReadTimeout(14000);
+        connection.setUseCaches(true);
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Connection", "Keep-Alive");
+
+        InputStream iS = connection.getInputStream();
+        return new MusicStream(iS, new BasicAudioProcessor());
     }
 
     public void setRepeat(AudioRepeatMode repeatMode) {
@@ -798,7 +801,7 @@ public class MusicManager extends Manager implements MinecraftUtil {
                     }
                 }
             } catch (Exception exc) {
-                Client.logger.warn("Failed to check key: " + key, exc);
+                Client.logger.warn("Failed to check key: {}", key, exc);
             }
         }
 

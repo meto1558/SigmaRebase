@@ -42,7 +42,7 @@ public class ColorPickerSlider extends Element {
             );
         }
 
-        RenderUtil.method11428(
+        RenderUtil.drawBorder(
                 (float) this.getXA(),
                 (float) this.getYA(),
                 (float) (this.getXA() + this.getWidthA()),

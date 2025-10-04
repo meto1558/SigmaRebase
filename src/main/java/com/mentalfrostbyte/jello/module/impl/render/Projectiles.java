@@ -104,9 +104,9 @@ public class Projectiles extends Module {
                         if (var4.hit != null) {
                             BoundingBox renderBoundingBox = getRenderBoundingBox(var4);
                             RenderUtil.render3DColoredBox(renderBoundingBox,
-                                    RenderUtil.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                                    com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                             RenderUtil.renderWireframeBox(renderBoundingBox,
-                                    RenderUtil.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
+                                    com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.DARK_BLUE_GREY.getColor(), 0.1F));
                         }
 
                     } else {
@@ -130,9 +130,9 @@ public class Projectiles extends Module {
                         GL11.glTranslatef(-0.5F, 0.0F, -0.5F);
                         BoundingBox box = new BoundingBox(0.0, 0.0, 0.0, 1.0, 0.0, 1.0);
                         RenderUtil.render3DColoredBox(box,
-                                RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         RenderUtil.renderWireframeBox(box,
-                                RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
+                                com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.1F));
                         GL11.glPopMatrix();
                     }
 

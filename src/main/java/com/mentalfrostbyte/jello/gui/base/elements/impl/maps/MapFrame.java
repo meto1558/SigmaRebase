@@ -138,7 +138,7 @@ public class MapFrame extends Element {
         GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
         GL11.glTranslatef((float) (-this.xA - this.widthA / 2), (float) (-this.yA - this.heightA / 2), 0.0F);
         GL11.glTranslated(-var11, var13, 0.0);
-        RenderUtil.method11453(
+        RenderUtil.drawTexturedQuad(
                 (float) (this.xA + var7),
                 (float) (this.yA + var8),
                 (float) var6,
@@ -170,7 +170,7 @@ public class MapFrame extends Element {
             );
         }
 
-        RenderUtil.restoreScissor();
+        RenderUtil.endScissor();
         int var22 = Math.round((float) (this.chunkPos.x * 16) - this.field20651 * 16.0F);
         int var23 = Math.round((float) (this.chunkPos.z * 16) - this.field20650 * 16.0F);
         String var24 = var22 + "  " + var23;

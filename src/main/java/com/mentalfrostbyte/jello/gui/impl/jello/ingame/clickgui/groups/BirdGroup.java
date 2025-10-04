@@ -67,7 +67,7 @@ public class BirdGroup extends AnimatedIconPanel {
     @Override
     public void draw(float partialTicks) {
         this.method13184();
-        RenderUtil.method11415(this);
+        RenderUtil.startScissor(this);
 
         for (int var4 = 0; var4 < 3; var4++) {
             RenderUtil.drawImage((float) (this.xA + 288 * var4), (float) this.yA, 288.0F, 512.0F, this.backgrnd);
@@ -122,7 +122,7 @@ public class BirdGroup extends AnimatedIconPanel {
                 this.bird,
                 ClientColors.LIGHT_GREYISH_BLUE.getColor()
         );
-        RenderUtil.restoreScissor();
+        RenderUtil.endScissor();
         this.field20837 = System.currentTimeMillis();
         super.draw(partialTicks);
     }

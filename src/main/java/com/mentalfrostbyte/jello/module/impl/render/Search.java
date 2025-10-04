@@ -14,6 +14,7 @@ import com.mentalfrostbyte.jello.module.settings.impl.NumberSetting;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -222,7 +223,7 @@ public class Search extends Module {
     }
 
     public void renderChunkRegions() {
-        int color = RenderUtil.applyAlpha(this.renderColorSetting.currentValue, 0.14F);
+        int color = MathHelper.applyAlpha(this.renderColorSetting.currentValue, 0.14F);
         GL11.glPushMatrix();
         GL11.glDisable(2929);
 

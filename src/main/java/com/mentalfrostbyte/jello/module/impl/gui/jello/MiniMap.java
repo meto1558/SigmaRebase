@@ -144,7 +144,7 @@ public class MiniMap extends Module {
                             float var7 = 1.5F;
                             int field23710 = 150;
                             int field23711 = 10;
-                            RenderUtil.drawRect2((float) field23711, (float) yOffset,
+                            RenderUtil.drawRectNormalised((float) field23711, (float) yOffset,
                                     (float) field23710, (float) field23709, -7687425);
                             GL11.glPushMatrix();
                             float var8 = (float) (field23710 / this.field23715);
@@ -156,13 +156,13 @@ public class MiniMap extends Module {
                             GL11.glTranslatef((float) (-field23710 / 2), (float) (-field23709 / 2), 0.0F);
                             float var11 = (float) field23710 * var7;
                             float var12 = (float) field23709 * var7;
-                            RenderUtil.drawBlurredBackground(field23711, yOffset,
+                            RenderUtil.startScissorUnscaled(field23711, yOffset,
                                     field23711 + field23710, yOffset + field23709);
                             RenderUtil.drawImage(0.0F, 0.0F, 0.0F, 0.0F, Resources.shoutIconPNG);
                             float var13 = -var11 / 2.0F + (float) (field23710 / 2) + var9;
                             float var14 = -var12 / 2.0F + (float) (field23709 / 2) + var10;
                             RenderUtil.drawImage(0.0F, 0.0F, 0.0F, 0.0F, Resources.gingerbreadIconPNG);
-                            RenderUtil.method11453(
+                            RenderUtil.drawTexturedQuad(
                                     var13,
                                     var14,
                                     var11,
@@ -175,7 +175,7 @@ public class MiniMap extends Module {
                                     (float) (this.field23715 * 16),
                                     true,
                                     false);
-                            RenderUtil.restoreScissor();
+                            RenderUtil.endScissor();
                             GL11.glPopMatrix();
                             GL11.glPushMatrix();
                             int direction = (int) MovementUtil.getDirection();
@@ -201,7 +201,7 @@ public class MiniMap extends Module {
                                     arrow,
                                     ClientColors.LIGHT_GREYISH_BLUE.getColor());
                             GL11.glPopMatrix();
-                            RenderUtil.method11464((float) field23711, (float) yOffset,
+                            RenderUtil.drawShadowedBorder((float) field23711, (float) yOffset,
                                     (float) field23710, (float) field23709, 23.0F, 0.75F);
                             RenderUtil.drawRoundedRect((float) field23711, (float) yOffset,
                                     (float) field23710, (float) field23709, 8.0F, 0.7F);

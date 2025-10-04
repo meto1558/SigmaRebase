@@ -199,7 +199,7 @@ public class ModsPanel extends Element {
          this.method13624(this.field21309);
       }
 
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          (float)this.xA,
          (float)this.yA,
          (float)this.widthA,

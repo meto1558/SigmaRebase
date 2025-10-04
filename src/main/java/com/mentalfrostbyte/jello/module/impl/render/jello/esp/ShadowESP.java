@@ -6,7 +6,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderEntity;
 import com.mentalfrostbyte.jello.event.impl.game.render.EventRenderNameTag;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
-import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.Class2329;
+import com.mentalfrostbyte.jello.module.impl.render.jello.esp.util.StencilFunctionType;
 import com.mentalfrostbyte.jello.module.settings.impl.ColorSetting;
 import com.mentalfrostbyte.jello.util.client.render.Resources;
 import com.mentalfrostbyte.jello.util.client.render.theme.ClientColors;
@@ -44,10 +44,10 @@ public class ShadowESP extends Module {
     public void onRender(EventRender3D event) {
         if (mc.player != null && mc.world != null) {
             this.method16612();
-            RenderUtil.method11476();
+            RenderUtil.enableStencilBuffer();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.applyRenderMode(RenderState.PRE_RENDER);
-            RenderUtil.method11477(Class2329.field15941);
+            RenderUtil.setStencilFunction(StencilFunctionType.NOTEQUAL);
             GL11.glLineWidth(1.0F);
             this.method16606();
             this.applyRenderMode(RenderState.OUTLINE);
@@ -57,14 +57,14 @@ public class ShadowESP extends Module {
             GL11.glEnable(3042);
             GL11.glDisable(2896);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderUtil.method11478();
+            RenderUtil.disableStencilBuffer();
             this.method16613();
             this.renderBuffer.finish();
         }
     }
 
     public void method16606() {
-        int color = RenderUtil.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F);
+        int color = com.mentalfrostbyte.jello.util.system.math.MathHelper.applyAlpha(ClientColors.LIGHT_GREYISH_BLUE.getColor(), 0.8F);
         mc.world.entitiesById
                 .forEach(
                         (i, entity) -> {

@@ -256,7 +256,7 @@ public class ClickGuiScreen extends Screen {
                 ? this.method13317(animationProgress.calcPercent(), 0.8F) * 0.5F + 0.5F
                 : (!animationCompleted ? 1.0F : this.method13317(animationProgress.calcPercent(), 1.0F));
         float alpha = 0.2F * partialTicks * alphaFactor;
-        RenderUtil.drawRoundedRect(
+        RenderUtil.drawColoredRect(
                 (float) this.xA,
                 (float) this.yA,
                 (float) (this.xA + this.widthA),

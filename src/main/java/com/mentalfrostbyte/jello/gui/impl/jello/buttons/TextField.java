@@ -347,7 +347,7 @@ public class TextField extends AnimatedIconPanel {
       int var8 = this.widthA - 4;
       float var9 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.maxLen));
       if (this.isFocused()) {
-         RenderUtil.drawRoundedRect(
+         RenderUtil.drawColoredRect(
             var9 + (float)(var6.isEmpty() ? 0 : -1),
             (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2 + 2),
             var9 + (float)(var6.isEmpty() ? 1 : 0),
@@ -370,7 +370,7 @@ public class TextField extends AnimatedIconPanel {
       this.endSelect = Math.min(Math.max(0, this.endSelect), var6.length());
       float var14 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.startSelect));
       float var11 = (float)var7 + this.field20746 + (float)this.font.getWidth(var6.substring(0, this.endSelect));
-      RenderUtil.drawRoundedRect(
+      RenderUtil.drawColoredRect(
          var14,
          (float)(this.yA + this.heightA / 2 - this.font.getHeight(var6) / 2),
          var11,
@@ -388,9 +388,9 @@ public class TextField extends AnimatedIconPanel {
          var12,
          var13
       );
-      RenderUtil.restoreScissor();
+      RenderUtil.endScissor();
       if (this.roundedThingy) {
-         RenderUtil.drawRoundedRect(
+         RenderUtil.drawColoredRect(
             (float)this.xA,
             (float)(this.yA + this.heightA - 2),
             (float)(this.xA + this.widthA),

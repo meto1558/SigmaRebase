@@ -5,6 +5,7 @@ import com.mentalfrostbyte.jello.event.impl.game.render.EventRender3D;
 import com.mentalfrostbyte.jello.module.Module;
 import com.mentalfrostbyte.jello.module.data.ModuleCategory;
 import com.mentalfrostbyte.jello.module.impl.movement.ClickTP;
+import com.mentalfrostbyte.jello.util.system.math.MathHelper;
 import com.mentalfrostbyte.jello.util.system.math.counter.TimerUtil;
 import com.mentalfrostbyte.jello.util.game.world.BoundingBox;
 import com.mentalfrostbyte.jello.util.game.render.RenderUtil;
@@ -125,7 +126,7 @@ public class BasicClickTP extends Module {
                         var12.getY() - mc.gameRenderer.getActiveRenderInfo().getPos().getY() + 1.6F,
                         var8 + 0.3F);
                 RenderUtil.render3DColoredBox(var10,
-                        RenderUtil.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
+                        MathHelper.applyAlpha(ClientColors.PALE_ORANGE.getColor(), 0.2F));
             }
 
             GL11.glPushMatrix();
