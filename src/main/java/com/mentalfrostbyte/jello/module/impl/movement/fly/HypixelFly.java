@@ -27,7 +27,7 @@ public class HypixelFly extends Module {
     private double flySpeed;
     private float duration;
     private boolean grounded;
-    private int field23563;
+    public static int field23563;
 
     public HypixelFly() {
         super(ModuleCategory.MOVEMENT, "Hypixel", "Fly for Hypixel");

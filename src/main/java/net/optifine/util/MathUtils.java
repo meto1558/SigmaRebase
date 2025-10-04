@@ -1,8 +1,12 @@
 package net.optifine.util;
 
+import com.mentalfrostbyte.jello.module.impl.combat.killaura.Class7202;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MathUtils
 {
